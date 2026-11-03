@@ -50,7 +50,18 @@
         }
       ],
       "made_against": "23b636834a32",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Resonance and Damping — rich — three rulers.html",
+            "verdict": "keep",
+            "why": "A real test: three independent rulers each give back a Q and could disagree; walks up one face a step. Fix the wording 'within 60 dB of its height' (line 119, canvas line 526) to 'within a thousandth of its full height', which is what line 253 measures."
+          }
+        ]
+      }
     },
     {
       "heading": "Pushing it",
@@ -73,7 +84,18 @@
         }
       ],
       "made_against": "ea710651c4b3",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Resonance and Damping — rich — who keeps time.html",
+            "verdict": "keep",
+            "why": "Steps 3–4 test all three bullets on runs (Q×, 90.000°, 0.0000% back, balance 1.0000, peak at √(1−1/2Q²), gone below 0.707; energy back 50%/92% confirmed in closed form); the ringer steps show why the page's 'both are true' holds. Minor: the idle rAF loop redraws every frame."
+          }
+        ]
+      }
     },
     {
       "heading": "Where the builds point",
@@ -104,7 +126,23 @@
         }
       ],
       "made_against": "cb694da95737",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Resonance and Damping — rich — loss per trip.html",
+            "verdict": "keep",
+            "why": "Step 4 tests the one-curve reading on a real KS loop read by Goertzel (gain adds 0.0438 dB at every partial; filter bends the top); page's 0.044 dB / 1,380 trips / 6.3 s hold. Step 1's 'read off the sound' reads a sine built from the formula, so it checks the reader, not the claim."
+          },
+          {
+            "file": "/Projects/Waveguide Synthesizer/offline-v1.8/body-links-sheet.png",
+            "verdict": "keep",
+            "why": "An honest record whose caption matches the image (rigid: nothing; soft 90%: 19.0%), but it pictures the bridge's energy split, not a bank of modes: re-anchor near 'the energy the string loses at the bridge is exactly the energy the board gets'."
+          }
+        ]
+      }
     },
     {
       "heading": "Damping is where the sound goes",
@@ -125,7 +163,18 @@
         }
       ],
       "made_against": "21ab3ad0dc60",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/Waveguide Synthesizer/offline-v1.8/bridge-feeds-body.wav",
+            "verdict": "keep",
+            "why": "A second engine on the section's trade (softer bridge, louder and shorter); every caption number matches body-levels.json and the −40 dB ring matches body_render.mjs:22; the pickup gap is named. Tracked, resolves, plays."
+          }
+        ]
+      }
     },
     {
       "heading": "Building one",
@@ -156,7 +205,23 @@
         }
       ],
       "made_against": "35974b9264f6",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Resonance and Damping — sketch — q-step-by-step.html",
+            "verdict": "keep",
+            "why": "The page's own staged walk, linked by its text; six steps with the proof last, as captioned; conform clean."
+          },
+          {
+            "file": "Resonance and Damping — sketch — q-you-can-hear.html",
+            "verdict": "keep",
+            "why": "The page's own proof; its check re-run ALL PASS (ring 0.02498 s, width 87.5/88 Hz, lag 87.1°–89.7°), so 'within 1 to 5%' is honest. The empty contract {} is reported by conform as owed."
+          }
+        ]
+      }
     }
   ],
   "offers": [
