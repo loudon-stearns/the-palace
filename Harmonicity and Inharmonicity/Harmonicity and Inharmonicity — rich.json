@@ -27,25 +27,19 @@
     {
       "section": "What the Sweeps Showed",
       "kind": "claim-change",
-      "what": "'Stretch bites the nth partial roughly as B·n³' is right for the bite (partial n sits B·n³⁄2 above whole for small B), but the edge itself falls more slowly than the cube. On the proofs' model at K = 6 Hz, with the map's rule (hold 4 s, torn past 0.5 Hz wobble), the first tear for 6, 10, 16, 25 and 40 partials falls as N^−2.49 with the sweeps' voices and N^−2.29 with voices exactly on the harmonics; a pure cube would make forty tear 296× sooner than six. Proposed for the bullet and for Open Questions' 'roughly as B·n³': keep the bite at B·n³ and add that the edge falls about as N^2.3 to 2.5 in this model. The scroll already says the model gave 130 to 180× where n³ predicted about 300×.",
-      "status": "open"
-    },
-    {
-      "section": "What the Sweeps Showed",
-      "kind": "claim-change",
-      "what": "'40 partials tore over a hundred times sooner than six' holds for the voices the sweeps used, each a hair off its harmonic: 118× at the map's rate (22050 Hz) and 129× at 11025 Hz on this engine, 130 to 180× in the 2026-10-17 runs. With the voices exactly on the harmonic series the same test gives 75×. Proposed: 'over a hundred times sooner than six, with the voices a hair off their harmonics (about 75 times with them exactly on)', or fold it into the page's existing 'the numbers depend on the model'.",
+      "what": "The page sentence is loose, not wrong. 'Stretch bites the nth partial roughly as B·n³' is exact for the bite (partial n sits B·n³⁄2 above whole for small B), but the 'so' leans on the cube, and Open Questions says 'the top partials set the edge, roughly as B·n³'. The edge itself falls more slowly. On the proofs' model at K = 6 Hz, by the map's rule (hold 4 s, torn past 0.5 Hz), the first tear for 6, 10, 16, 25 and 40 partials falls as N^−2.49 with the sweeps' slightly-off voices and N^−2.29 with voices on the harmonics (maker, JS bisection at 11025 Hz). The challenger's independent Python run of edgemap.py's model gives 2.52 and 2.26. A pure cube would make forty tear 296× sooner than six. Proposed: keep the bite at B·n³, and say the edge falls more slowly than the cube, about as N^2.3 to 2.5 in this model. The scroll already says the model gave 130–180× where n³ predicted about 300×.",
       "status": "open"
     },
     {
       "section": "What the Sweeps Showed",
       "kind": "no-claim-edit",
-      "what": "'outside voices tuned to the plain harmonic series': in every proof the voices sit up to 0.4% off their harmonics (numpy default_rng(7).uniform(−0.004, 0.004), frustration.py through ride_warm.py), and the scroll's five-scenes entry says 'tuned near'. Proposed: 'tuned near the plain harmonic series, each a hair off'. The shapes stand.",
+      "what": "'outside voices tuned to the plain harmonic series' is wrong on the letter. Every proof draws DET = 1 + default_rng(7).uniform(−0.004, 0.004, N) (edgemap.py:13, frustration.py:21, sweep.py:11, sweep40.py:13, sweep120.py:13, sweep4x.py:13, sweeppin.py:13, ride.py:15, ride_warm.py:23; the gestures load ride), so each voice sits up to 0.4% off its harmonic. The scroll's own frame has the same slip (scroll line 42), while its five-scenes entry says 'near'. Proposed, in both places: 'tuned near the plain harmonic series, each a hair off'. Land this together with a parenthesis on the next sentence, because the detune moves a number the page states: '40 partials tore over a hundred times sooner than six' holds for those voices (126× by the challenger's run, 118–129× by the maker's, 130× from the sweeps' own reports), and the same test with the voices exactly on the harmonics gives 71–75×. With 'a hair off' in place, the sentence is accurate as it stands. The 75× can go in as a parenthesis or into the scroll.",
       "status": "open"
     },
     {
       "section": "What the Sweeps Showed",
       "kind": "claim-change",
-      "what": "Two findings from the six-against-forty walk's peel, checked headless. With the voices exactly on the harmonics, the voices let go strictly from the top down as stretch rises (2, 8, 14 of 40 gone at B = 5.6e-6, 1e-5, 1.8e-5), and the tone tears by the time about half have gone: a mechanism for 'the top partials set the edge'. With the sweeps' voices, 14 of 40 never hold even at B = 1e-7, since 0.4% of partial 40 is up to 17 Hz, past a 6 Hz pull; so 'frozen' for the tall tone means its pitch holds while a third of its voices never grip. Offered as an addition to the bullet, or to the scroll if the entry should stay short.",
+      "what": "The peel, checked twice (maker in JS, challenger in Python). With the voices on the harmonics they let go strictly from the top down as the stretch rises: 3, 8 and 14 of 40 at B = 5.6e-6, 1e-5 and 1.8e-5 (partials 38–40, 33–40, 27–40). At the edge (wobble crossing 0.5 Hz, B ≈ 2.3e-5) 16 of 40 are gone, nearer two in five than half; past it the count is chaotic. With the sweeps' slightly-off voices, 15 of 40 never hold even at B = 1e-7, all of them partial 17 and up. The reason is reach. Measured from the tone's sagged pitch, every voice that slips sits 4.5–14.5 Hz from its partial and every one that holds sits within 4.8 Hz, so in the tall tone a voice's reach shrinks to about 5 Hz, against 12 Hz for a lone voice. This gives a mechanism for 'the top partials set the edge' and for 'frozen' meaning that the pitch holds, not that every voice does. Offered as an addition. The scroll is the better home, since the entry should stay short.",
       "status": "open"
     }
   ],
@@ -154,7 +148,7 @@
           "origin": "made",
           "by": "maker · claude-opus-5-5 · Web Audio Worklet",
           "title": "Six against forty · a walk up to how much sooner",
-          "caption": "**The bullet above, walked up to and measured.** Five steps: the stretch alone on six partials, where partial n moves about 55·B·n³ Hz; the same on forty; the voices letting go from the top down while the tone holds, then tearing by the time about half are gone; six snapping against forty fraying in two 24 s sweeps; then a guess and a live measurement, by the edge map's own rule, of where 6, 10, 16, 25 and 40 partials first tear. With the sweeps' voices forty tear about 120 to 130 times sooner than six, as the page says; with the voices exactly on the harmonics, about 75. Either way the edge falls about as N^2.3 to 2.5, not the cube. Checked headless by `Harmonicity and Inharmonicity — rich — check.mjs`.",
+          "caption": "**The bullet above, walked up to and measured.** Five steps: the stretch alone on six partials, where partial n moves about 55·B·n³ Hz; the same on forty; the voices letting go from the top down while the tone holds, then tearing by the time about two in five are gone; six snapping against forty fraying in two 24 s sweeps; then a guess and a live measurement, by the edge map's own rule, of where 6, 10, 16, 25 and 40 partials first tear. With the sweeps' voices forty tear about 120 to 130 times sooner than six, as the page says; with the voices exactly on the harmonics, about 75. Either way the edge falls about as N^2.3 to 2.5, not the cube. Checked headless by `Harmonicity and Inharmonicity — rich — check.mjs`.",
           "near": "The top partials set the edge",
           "place": "band",
           "height": 1500

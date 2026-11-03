@@ -147,9 +147,13 @@ const r2 = (a) => a.map((x) => x.toFixed(2)).join(' ');
   }
   check('4 · step 3: on the harmonics the voices let go strictly from the top down', suffix, `voices gone ${counts.join(' · ')}`);
   const w56 = F.hold(40, 5.6e-6, 6, { det: 0 }).wobble, w32 = F.hold(40, 3.2e-5, 6, { det: 0 }).wobble, g32 = peel(3.2e-5, 0).filter(Boolean).length;
-  check('4 · step 3: the tone holds while the top goes, and tears by the time about half have gone', w56 < 0.5 && w32 > 0.5 && g32 >= 15 && g32 <= 28, `wobble ${w56.toFixed(2)} at 5.6e-6, ${w32.toFixed(2)} at 3.2e-5 with ${g32} of 40 gone`);
+  check('4 · step 3: the tone holds while the top goes, and tears by the time about two in five have gone', w56 < 0.5 && w32 > 0.5 && g32 >= 13 && g32 <= 22, `wobble ${w56.toFixed(2)} at 5.6e-6, ${w32.toFixed(2)} at 3.2e-5 with ${g32} of 40 gone`);
   const never = peel(1e-7, 1).filter(Boolean).length;
-  check('4 · step 3: with the sweeps’ voices about a third never hold, even at no stretch', never >= 11 && never <= 16, `${never} of 40 slip at B = 1e-7`);
+  const neverIdx = peel(1e-7, 1).map((x, j) => x ? j + 1 : 0).filter(Boolean);
+  check('4 · step 3: with the sweeps’ voices about a third never hold, even at no stretch, all partial 17 and up', never >= 11 && never <= 16 && neverIdx.every((n) => n >= 17), `${never} of 40 slip at B = 1e-7: partials ${neverIdx.join(' ')}`);
+  // step 2's line is for scale only: at B = 1e-5 more partials bite past 6 Hz than voices let go
+  const biteOver = Array.from({ length: 40 }, (_, j) => 110 * ((j + 1) * Math.sqrt(1 + 1e-5 * (j + 1) ** 2) - (j + 1))).filter((x) => x > 6).length, gone5 = peel(1e-5, 0).filter(Boolean).length;
+  check('4 · step 2: the 6 Hz line is not a reach — voices hold partials past it', biteOver > gone5, `at B = 1e-5, ${biteOver} partials bite past 6 Hz, ${gone5} voices let go`);
   // snap and fray: rolling 0.5 s wobble of 10 ms averages, as sweep.py read it; time from 0.15 to 1 Hz
   const sweep = (N, b0, det) => {
     const t = F.tone(N, 7); F.tune(t, det, 0); const rate = 11025, dt = 1 / rate, hop = 110; let acc = 0, k = 0; const m = [];

@@ -320,13 +320,13 @@ onmessage = function (e) {
       hint: 'the forty-partial tone alone',
       eq1: ['(40 ⁄ 6)³ ≈ 296', 'partial 40 moves about 296 times as far as partial 6, at the same stretch'],
       eq2: ['110 · (rₙ − n) ≈ 55 · B · n³  Hz', '(how far partial n sits above n × 110 Hz) ≈ 55 × (stretch) × n cubed'],
-      tryText: 'At B = 1e-5 partial 40 is about 35 Hz sharp while partial 6 is about 0.1 Hz. The thin line marks 6 Hz, the coupling the voices will pull with in the next step: every partial above it would need more than one voice’s reach.' },
+      tryText: 'At B = 1e-5 partial 40 is about 35 Hz sharp while partial 6 is about 0.1 Hz. The thin line marks 6 Hz, the coupling the voices will pull with in the next step, drawn for scale only: the next step shows voices holding partials well past it, because the tone sags to meet them.' },
     { title: 'The voices let go from the top', short: 'The peel', N: 40, voices: true, ctl: true, det: true, range: [1e-6, 3e-4], B: 3e-6,
-      say: 'Now forty voices, one on each harmonic, pulling with K = 6 Hz. Each dot is one voice: amber while it holds its partial, hollow once it slips. Raise the stretch slowly. The voices let go from the top down, the partials furthest up the cube first. The tone itself holds its pitch, sagging a little, while the top voices go; by the time about half have let go, it tears. That is the page’s claim made visible: the top partials set the edge.',
+      say: 'Now forty voices, one on each harmonic, pulling with K = 6 Hz. Each dot is one voice: amber while it holds its partial, hollow once it slips. Raise the stretch slowly. The voices let go from the top down, the partials furthest up the cube first. The tone itself holds its pitch, sagging a little, while the top voices go; by the time about two in five have let go, it tears. That is the page’s claim made visible: the top partials set the edge.',
       hint: 'forty partials and forty voices',
       eq1: ['dθ/dt = f₀ + c · K · Σₙ rₙ · sin 2π(φₙ − rₙθ)      c = 21 ⁄ Σn', '(how fast the tone’s phase turns) = (its own pitch) + (a scale that keeps the total pull as the six-partial run’s) × (coupling) × Σ over voices of (partial n’s ratio) × sin(the gap between voice n and partial n)'],
       eq2: ['dφₙ/dt = ωₙ − K · sin 2π(φₙ − rₙθ)', '(how fast voice n turns) = (its own pitch) − (coupling) × sin(that same gap)'],
-      tryText: 'Start at the bottom and creep up. Around 6e-6 the top few go; by 3e-5 about half are gone and the pitch jitters. Then switch to the sweeps’ voices, each a hair off its harmonic (up to 0.4%, which is up to 17 Hz at partial 40): about a third of the voices, most of them near the top, never hold at all, even at the bottom. The page’s 40-partial numbers came from those voices.' },
+      tryText: 'Start at the bottom and creep up. Around 6e-6 the top few go; by the time about two in five are gone the pitch jitters. Then switch to the sweeps’ voices, each a hair off its harmonic (up to 0.4%, up to about 17 Hz near the top): about a third of the voices, all of them partial 17 and up, never hold at all, even at the bottom. In the tall tone a voice holds only within about 5 Hz of its partial, not the 12 a lone voice reaches. The page’s 40-partial numbers came from those voices.' },
     { title: 'Few snap, many fray', short: 'Snap and fray', N: 6, voices: true, sweep: true, det: true,
       say: 'Two sweeps, the stretch rising on a log scale through each tone’s edge, as the sweeps did. Listen to the pitch. Six partials hold, sag, and then snap: the pitch breaks within a second. Forty partials fray: the jitter creeps in over many seconds as the voices let go one after another.',
       hint: 'one sweep at a time',
@@ -544,7 +544,7 @@ onmessage = function (e) {
     [6, -6].forEach(function(k){ if (!s.voices && k < 0) return; var y = zero - k * sc; if (y > top - 4 && y < bot + 4){ g.beginPath(); g.moveTo(20, y); g.lineTo(w - 20, y); g.stroke(); } });
     g.setLineDash([]);
     g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'left'; g.fillStyle = '#8a8aa0';
-    g.fillText('6 Hz, the coupling', 24, zero - 6 * sc - 4);
+    g.fillText('6 Hz, the coupling, for scale', 24, zero - 6 * sc - 4);
     for (j = 0; j < n; j++){
       var v2 = vals[j], x = 20 + cw * j, bh = v2 * sc;
       var held = !s.voices || !playing ? true : Math.abs(live.slipRate[j]) < 0.5;
