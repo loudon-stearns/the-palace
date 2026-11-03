@@ -1,0 +1,508 @@
+<!doctype html>
+<!--
+  title: Palace as Context Injection System — rich — two levers
+  born: 2026-11-03
+  links: [[Palace as Context Injection System]] (connects-to · rich-face-piece) · listed in [[Palace as Context Injection System — rich.json]]
+  forward_vector: I am the birth stack you can lay hands on — the Seed Jewel alone, then the floor it sits in, each block sized and ordered as Claude Code actually reads it — so the two levers, how much and when, are felt as weight and place before the measured floors are set beside the page's numbers. I play inside the entry's rich face and stand alone opened directly; I change when the floor is measured again or the section I serve changes.
+  sources: proofs/2026-10-21-floor-review/floor-measured.md (the floor until 2026-10-21, /context counts; CLAUDE.md's sections as chars ÷ 3.2);
+           the page's § The Birth, Measured table (the floor from 2026-10-21); floor/floor.json (the floor as last measured, read live);
+           the summon rule's place: git show 635b9103:CLAUDE.md, 11a4cc1b:CHILD.md, 17d80be6:CHILD.md (its offset in characters, scaled to the file's measured tokens).
+-->
+<html lang="en" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Two levers — how much, and when</title>
+<meta name="piece:needs" content="">
+<meta name="piece:files" content="floor/floor.json">
+<meta name="piece:size" content="flow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Drafting skin (Loudon Live house style), and the chart hues Who wakes here uses, so the two read as one face. */
+:root{
+  --ground-000:#f0eee5;--ground-100:#e6e3d7;--ground-200:#dcd9ca;
+  --ink:#1a1916;--ink-2:#3a3a35;--ink-3:#6a6862;
+  --rule:#b8b09a;--rule-soft:#cfc9b6;--accent:#c8261a;
+  --c-ident:#c9951f;--c-world:#2f6b25;--c-rules:#6a6862;--c-other:#8f8b7e;
+  --mono:'JetBrains Mono','IBM Plex Mono','SF Mono',Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ground-000);color:var(--ink)}
+body{font:400 14px/21px var(--mono)}
+.piece{padding:20px 18px 22px;max-width:1120px;margin:0 auto}
+.eyebrow{font:500 11px/16px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2)}
+h3{font:600 20px/26px var(--mono);letter-spacing:.04em;text-transform:uppercase;margin:6px 0 4px}
+p{margin:8px 0;max-width:82ch}
+.note{font-size:12.5px;line-height:19px;color:var(--ink-2)}
+/* the step rail: a path, not a gate */
+.rail{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--ink);margin:14px 0 4px}
+.rail button{flex:1 1 150px;font:500 11px/15px var(--mono);letter-spacing:.1em;text-transform:uppercase;text-align:left;background:transparent;color:var(--ink);border:0;border-right:1px solid var(--ink);padding:8px 10px;cursor:pointer}
+.rail button:last-child{border-right:0}
+.rail button b{display:block;font-weight:600;color:var(--ink-3)}
+.rail button[aria-current="step"]{background:var(--ink);color:var(--ground-000)}
+.rail button[aria-current="step"] b{color:var(--ground-100)}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:14px 0 0}
+button.b{font:500 11px/16px var(--mono);letter-spacing:.12em;text-transform:uppercase;background:transparent;color:var(--ink);border:1px solid var(--ink);padding:6px 12px;cursor:pointer}
+button.b:disabled{opacity:.35;cursor:default}
+button.b.on{background:var(--ink);color:var(--ground-000)}
+button:focus-visible,input:focus-visible{outline:1px dashed var(--ink);outline-offset:2px}
+.stage{border-top:1px solid var(--rule);margin-top:14px;padding-top:12px}
+.stage h4{font:600 15px/20px var(--mono);letter-spacing:.06em;text-transform:uppercase;margin:0 0 4px}
+/* equations, twice */
+.eq{display:grid;grid-template-columns:minmax(160px,auto) 1fr;gap:4px 18px;border:1px solid var(--rule);padding:10px 12px;margin:10px 0;max-width:82ch}
+.eq .sym{font:500 15px/22px var(--mono)}
+.eq .sym sub{font-size:10px}
+.eq .words{font-size:12.5px;line-height:19px;color:var(--ink-2)}
+/* the bar */
+.axis{position:relative;height:16px;margin:16px 0 2px}
+.axis i{position:absolute;top:0;font:400 10.5px/14px var(--mono);font-style:normal;color:var(--ink-3);transform:translateX(-50%);white-space:nowrap}
+.axis i:first-child{transform:none}
+.bar{position:relative;height:30px;background:var(--ground-100);border:1px solid var(--rule-soft)}
+.seg{position:absolute;top:0;height:100%;border-right:1px solid var(--ground-000);overflow:hidden;transition:left .22s cubic-bezier(.4,0,.2,1),width .22s cubic-bezier(.4,0,.2,1)}
+.seg span{position:absolute;left:4px;top:7px;font:500 10px/14px var(--mono);color:var(--ground-000);white-space:nowrap}
+.k-ident{background:var(--c-ident)} .k-world{background:var(--c-world)} .k-other{background:var(--c-other)}
+.k-rules{background:repeating-linear-gradient(45deg,var(--ink-3) 0 1px,transparent 1px 5px),var(--ground-200)}
+.k-rules span{color:var(--ink)}
+.mark{position:absolute;top:-8px;width:2px;height:46px;background:var(--accent);z-index:3;transition:left .22s cubic-bezier(.4,0,.2,1)}
+.mark b{position:absolute;top:-14px;left:4px;font:600 9.5px/12px var(--mono);letter-spacing:.1em;color:var(--accent);white-space:nowrap}
+.mark.lo b{top:auto;bottom:-14px}
+.mark.ink{background:var(--ink)} .mark.ink b{color:var(--ink)}
+.task{position:absolute;right:-1px;top:-8px;height:46px;border-right:2px dashed var(--ink-2)}
+.task b{position:absolute;bottom:-14px;right:4px;font:600 9.5px/12px var(--mono);letter-spacing:.1em;color:var(--ink-2);white-space:nowrap}
+.task.near b{right:auto;left:4px}
+.sw{display:inline-block;width:11px;height:11px;vertical-align:-1px;margin-right:6px;border:1px solid var(--rule)}
+/* rows */
+table.rows{border-collapse:collapse;width:100%;margin-top:22px;font-size:12.5px}
+.rows th{font:500 10.5px/14px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);text-align:left;border-bottom:1px solid var(--ink);padding:4px 6px}
+.rows td{border-bottom:1px solid var(--rule-soft);padding:5px 6px;vertical-align:middle}
+.rows td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rows tr.sub td{color:var(--ink-2);font-size:12px}
+.rows tr.sub td:nth-child(2){padding-left:26px}
+.rows tr.hot td{background:var(--ground-100)}
+.mv{font:500 12px/14px var(--mono);background:transparent;border:1px solid var(--rule);color:var(--ink);width:24px;height:22px;padding:0;cursor:pointer}
+.mv:disabled{opacity:.3;cursor:not-allowed}
+.pin{font-size:10.5px;letter-spacing:.06em;color:var(--accent)}
+input[type=range]{width:100%;min-width:90px;accent-color:var(--accent)}
+/* read-outs */
+.cells{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));border:1px solid var(--rule);margin-top:16px}
+.cell{padding:9px 12px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.cell .label{font:500 10.5px/14px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.cell .val{font:600 20px/28px var(--mono);margin-top:2px;font-variant-numeric:tabular-nums}
+.cell .why{font-size:11.5px;line-height:16px;color:var(--ink-2)}
+.say{border-left:2px solid var(--accent);padding:4px 0 4px 12px;margin:14px 0;max-width:82ch}
+.floors .row{margin:26px 0 24px}
+.floors .name{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12.5px;margin-bottom:14px}
+.floors .name b{font-weight:600}
+table.check{border-collapse:collapse;width:100%;margin-top:18px;font-size:12.5px}
+.check th{font:500 10.5px/14px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);text-align:left;border-bottom:1px solid var(--ink);padding:4px 6px}
+.check td{border-bottom:1px solid var(--rule-soft);padding:6px;vertical-align:top}
+.check td.n{white-space:nowrap;font-variant-numeric:tabular-nums}
+.ok{color:var(--c-world);font-weight:600}
+.new{color:var(--accent);font-weight:600}
+.tog{display:inline-flex;border:1px solid var(--ink);margin-top:10px}
+.tog button{font:500 11px/15px var(--mono);letter-spacing:.1em;text-transform:uppercase;background:transparent;color:var(--ink);border:0;padding:5px 10px;cursor:pointer}
+.tog button+button{border-left:1px solid var(--ink)}
+.tog button[aria-pressed="true"]{background:var(--ink);color:var(--ground-000)}
+.hidden{display:none}
+.foot{margin-top:18px;font-size:11px;color:var(--ink-3)}
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="eyebrow">made · birth stack · sketch</div>
+  <h3>Two levers: how much, and when</h3>
+  <p class="note">A birth is a stack of files read in order before the first word of the task. Each step adds one idea and keeps the last. The steps are a path, not a gate: jump to any of them.</p>
+
+  <div class="rail" id="rail" role="tablist" aria-label="Steps"></div>
+  <div class="stage" id="stage"></div>
+  <div class="nav">
+    <button class="b" id="back" type="button">Back</button>
+    <span class="note" id="where"></span>
+    <button class="b" id="next" type="button">Next</button>
+  </div>
+  <p class="foot">Tokens are Claude Code's own <code>/context</code> counts, except where marked ≈ (characters ÷ 3.2, the calibration floor-measured.md used). The floor as last measured is read from <code>floor/floor.json</code>.</p>
+</div>
+
+<script>
+(() => {
+// ---------- the measured floors ----------
+// Until 2026-10-21: floor-measured.md, /context on 635b9103. CLAUDE.md's six sections are its char-based estimates
+// (300 · 380 · 180 · 860 · 555 · 340), scaled so they sum to the measured 3.0k.
+const SCALE = 3000 / 2615;
+const SECTIONS = [
+  {id: "intro",    label: "intro: born a child",          t: 300 * SCALE, kind: "ident", stays: true},
+  {id: "anatomy",  label: "A page and its folder",        t: 380 * SCALE, kind: "rules"},
+  {id: "bornwith", label: "Born with (the import list)",  t: 180 * SCALE, kind: "ident", stays: true},
+  {id: "growing",  label: "Growing up (the summon rule)", t: 860 * SCALE, kind: "rules", summon: 0},
+  {id: "triggers", label: "Ceremony Triggers",            t: 555 * SCALE, kind: "rules"},
+  {id: "voice",    label: "The Palace Voice",             t: 340 * SCALE, kind: "rules"},
+];
+const WORLD_BEFORE = [
+  ["FOUR PILLARS", 1300], ["Palace Philosophies", 1600], ["Cooperation Yields Agency", 1000],
+  ["Hilaritas Generator", 844], ["Modes of Collaboration", 1400],
+];
+const JEWEL_T = 745;
+const MEMORY_BEFORE = 4500;
+
+const blk = (id, label, t, kind, extra = {}) => Object.assign({id, label, t, t0: t, kind}, extra);
+function freshFloor() {
+  return [
+    blk("claude", "CLAUDE.md, its whole body", 3000, "rules", {pin: "first", sections: SECTIONS.map((s) => Object.assign({}, s))}),
+    blk("jewel", "JEWEL.md, the Seed Jewel", JEWEL_T, "ident", {jewel: true}),
+    ...WORLD_BEFORE.map(([n, t]) => blk("w-" + n, n, t, "world")),
+    blk("memory", "MEMORY.md, the operator's index", MEMORY_BEFORE, "other", {pin: "last"}),
+  ];
+}
+
+// The floors laid side by side in the last step. Summon positions: where "summon the [[Concierge]]" sits, in tokens
+// from the top — inside CLAUDE.md's Growing up until 2026-10-21 (≈987); 19.3% into CHILD.md at 11a4cc1b; 2.2% at 17d80be6.
+const FLOOR_THEN = {
+  name: "Until 2026-10-21", src: "floor-measured.md · 635b9103",
+  segs: [["CLAUDE.md: the birth line", 551, "ident"], ["CLAUDE.md: its working sections", 2449, "rules"], ["the Seed Jewel v1.2", 745, "ident", "jewel"],
+    ...WORLD_BEFORE.map(([n, t]) => [n, t, "world"]), ["MEMORY.md", 4500, "other"]],
+  summon: 987, est: false,
+};
+const FLOOR_MID = {
+  name: "From 2026-10-21", src: "the page's § The Birth, Measured row (CHILD 2.5k, memory 1.8k)",
+  segs: [["CLAUDE.md: the birth", 600, "ident"], ["the Seed Jewel v1.3", 773, "ident", "jewel"],
+    ...WORLD_BEFORE.map(([n, t]) => [n, t, "world"]), ["CHILD.md", 2500, "rules"], ["MEMORY.md", 1800, "other"]],
+  summonFrac: 0.193, est: true,
+};
+let FLOOR_NOW = {
+  name: "Measured 2026-10-25", src: "floor/floor.json (this file's copy; reading the live one…)",
+  segs: [["CLAUDE.md", 658, "ident"], ["the Seed Jewel v1.3", 773, "ident", "jewel"], ["FOUR PILLARS", 1100, "world"], ["Palace Philosophies", 1700, "world"],
+    ["Cooperation Yields Agency", 866, "world"], ["Modes of Collaboration", 850, "world"], ["Hilaritas Generator", 898, "world"], ["CHILD.md", 2000, "rules"], ["MEMORY.md", 911, "other"]],
+  summonFrac: 0.022, est: false,
+};
+const LOOK = {"CLAUDE.md": "ident", "JEWEL.md": "ident", "CHILD.md": "rules", "MEMORY.md": "other"};
+fetch("floor/floor.json", {cache: "no-store"})
+  .then((r) => r.ok ? r.json() : Promise.reject(r.status))
+  .then((f) => {
+    FLOOR_NOW = {
+      name: "Measured " + f.date, src: "floor/floor.json · " + String(f.commit).slice(0, 8) + " · Claude Code " + f.claude_code,
+      segs: f.files.map((x) => [x.file === "JEWEL.md" ? "the Seed Jewel " + (f.jewel || "") : x.file.replace(/\.md$/, "").replace(/^(CLAUDE|CHILD|MEMORY)$/, "$1.md"), x.tokens, LOOK[x.file] || "world", x.file === "JEWEL.md" ? "jewel" : ""]),
+      summonFrac: 0.022, est: false, live: true,
+    };
+    if (step === 4) render();
+  })
+  .catch(() => { FLOOR_NOW.src = "floor/floor.json could not be read here; showing this file's copy of 2026-10-25"; if (step === 4) render(); });
+
+// ---------- helpers ----------
+const $ = (s, r = document) => r.querySelector(s);
+const el = (tag, cls, html) => { const n = document.createElement(tag); if (cls) n.className = cls; if (html != null) n.innerHTML = html; return n; };
+const k = (t) => t >= 1000 ? (Math.round(t / 100) / 10).toFixed(1) + "k" : Math.round(t).toString();
+const pct = (x) => (Math.round(x * 1000) / 10).toFixed(1) + "%";
+const sum = (a) => a.reduce((n, x) => n + x, 0);
+
+// A floor's blocks, flattened for drawing: CLAUDE.md's body is one block (its sections inside it), or two once split.
+function flat(floor) {
+  const out = [];
+  for (const b of floor) {
+    out.push({label: b.label, t: blockT(b), kind: b.sections ? "rules" : b.kind, jewel: b.jewel});
+  }
+  return out;
+}
+// Where the summon rule sits, in tokens from the top.
+function summonAt(floor) {
+  let p = 0;
+  for (const b of floor) {
+    if (b.sections) {
+      for (const s of b.sections) { if (s.summon !== undefined) return p + s.summon; p += s.t; }
+    } else p += b.t;
+  }
+  return null;
+}
+function jewelAt(floor) { let p = 0; for (const b of floor) { if (b.jewel) return p; p += b.sections ? sum(b.sections.map((s) => s.t)) : b.t; } return null; }
+const blockT = (b) => b.sections ? sum(b.sections.map((s) => s.t)) : b.t;
+
+function drawBar(host, segs, max, marks) {
+  const ax = el("div", "axis");
+  const step = max > 12000 ? 2000 : 1000;
+  for (let v = 0; v <= max + 1; v += step) { const i = el("i", "", v === 0 ? "0" : (v / 1000) + "k"); i.style.left = (v / max * 100) + "%"; ax.append(i); }
+  host.append(ax);
+  const bar = el("div", "bar");
+  let x = 0;
+  for (const s of segs) {
+    const d = el("div", "seg k-" + s.kind);
+    d.style.left = (x / max * 100) + "%"; d.style.width = (s.t / max * 100) + "%";
+    d.title = s.label + " · " + k(s.t) + " tokens";
+    if (s.t / max > 0.07) d.append(el("span", "", s.short || s.label.split(",")[0].split(":")[0]));
+    bar.append(d); x += s.t;
+  }
+  for (const m of marks || []) {
+    if (m.at == null) continue;
+    const t = el("div", "mark" + (m.cls ? " " + m.cls : ""), "<b>" + m.label + "</b>");
+    t.style.left = "calc(" + (m.at / max * 100) + "% - 1px)"; bar.append(t);
+  }
+  const task = el("div", "task" + (x / max < 0.3 ? " near" : ""), "<b>THE TASK →</b>"); task.style.left = "calc(" + (x / max * 100) + "% - 1px)"; task.style.right = "auto";
+  bar.append(task);
+  host.append(bar);
+}
+
+// ---------- state ----------
+let floor = freshFloor();
+let step = 0;
+let showSections = false;
+
+const STEPS = [
+  {name: "One block", draw: stepOne},
+  {name: "How much", draw: stepHowMuch},
+  {name: "When", draw: stepWhen},
+  {name: "Out from under the pin", draw: stepSplit},
+  {name: "The floors, measured", draw: stepTest},
+];
+
+// ---------- step 1: one block ----------
+function stepOne(s) {
+  s.append(el("h4", "", "One block: who is in the room"));
+  s.append(el("p", "", "The Seed Jewel is the one file on the floor that says who is in the room. Here it is alone, drawn on the scale every later step uses: about 745 tokens."));
+  const h = el("div"); s.append(h);
+  drawBar(h, [{label: "the Seed Jewel", t: JEWEL_T, kind: "ident"}], 15000, [{at: 0, label: "WHO YOU ARE"}]);
+  s.append(cells([
+    ["Its size", k(JEWEL_T), "tokens, by Claude Code's count"],
+    ["Its share of this birth", "100%", "alone, it is the whole of it"],
+  ]));
+  s.append(el("p", "say", "“You are inside the Palace, a web of connected pages built by Loudon Stearns.” A birth that held only this would be all who-you-are. The next step puts it on the floor it actually shared."));
+}
+
+// ---------- step 2: how much ----------
+function stepHowMuch(s) {
+  s.append(el("h4", "", "How much: length reads as importance"));
+  s.append(el("p", "", "The floor as every agent read it until 2026-10-21, to scale. Drag a block's size and watch every share move: the floor is a fixed sum, so growing one block shrinks what all the others say."));
+  s.append(eq("share<sub>i</sub> = t<sub>i</sub> ⁄ Σ<sub>j</sub> t<sub>j</sub>", "A block's share is its tokens over the tokens of the whole floor. Whatever has the largest share reads as mattering most, whether it does or not."));
+  const h = el("div"); s.append(h);
+  const segs = flat(floor);
+  const total = sum(segs.map((x) => x.t));
+  drawBar(h, segs, 15000, [{at: jewelAt(floor), label: "THE JEWEL"}]);
+  const tb = el("table", "rows");
+  tb.innerHTML = "<thead><tr><th></th><th>block, in reading order</th><th>size</th><th class='n'>tokens</th><th class='n'>share</th></tr></thead>";
+  const body = el("tbody");
+  for (const b of floor) {
+    const tr = el("tr", b.jewel ? "hot" : "");
+    const t = blockT(b);
+    tr.innerHTML = `<td><i class="sw k-${b.sections ? "rules" : b.kind}"></i></td><td>${b.label}</td><td></td><td class="n">${k(t)}</td><td class="n">${pct(t / total)}</td>`;
+    const r = el("input"); r.type = "range"; r.min = 0; r.max = 6000; r.step = 50; r.value = Math.round(t);
+    r.setAttribute("aria-label", "size of " + b.label);
+    r.addEventListener("input", () => {
+      const v = Number(r.value);
+      if (b.sections) { const f = v / blockT(b) || 0; if (blockT(b) === 0) b.sections.forEach((x) => (x.t = v / b.sections.length)); else b.sections.forEach((x) => (x.t *= f)); }
+      else b.t = v;
+      render(true);
+    });
+    tr.children[2].append(r);
+    body.append(tr);
+  }
+  tb.append(body); s.append(tb);
+  const largest = floor.reduce((a, b) => blockT(b) > blockT(a) ? b : a);
+  const jew = floor.find((b) => b.jewel);
+  s.append(cells([
+    ["The Jewel's share", pct(blockT(jew) / total), "measured: 5%"],
+    ["The largest block", largest.label.split(",")[0], pct(blockT(largest) / total) + " of the floor: what this birth says matters most, by length"],
+    ["The whole floor", k(total), "measured: 14.4k"],
+  ]));
+  const b2 = el("div", "nav"); b2.style.justifyContent = "flex-start";
+  const reset = el("button", "b", "Back to the measured sizes"); reset.type = "button";
+  reset.addEventListener("click", () => { floor = freshFloor(); render(); });
+  const trim = el("button", "b", "Trim the memory index to pointers (4.5k → 1.8k)"); trim.type = "button";
+  trim.addEventListener("click", () => { floor.find((b) => b.id === "memory").t = 1800; render(); });
+  b2.append(reset, trim); s.append(b2);
+  s.append(el("p", "note", "Try: trim the memory index, what the 2026-10-21 trim did, and see which block becomes the largest. Or grow the Jewel until it outweighs everything else. The words in a block don't change its share; only its length does."));
+}
+
+// ---------- step 3: when ----------
+function stepWhen(s) {
+  s.append(el("h4", "", "When: first frames, last is followed"));
+  s.append(el("p", "", "Same blocks, now as a sequence. Move them up and down. Claude Code decides part of the order itself: it reads CLAUDE.md's whole body before any import, then each import in <code>@</code> order, then the operator's memory. Those two are pinned; the imports between them are yours to move."));
+  s.append(eq("p<sub>i</sub> = Σ<sub>j&lt;i</sub> t<sub>j</sub>", "A block begins after everything read before it. Small p: it frames what follows. Large p: it sits nearest the task."));
+  const h = el("div"); s.append(h);
+  const segs = [];
+  for (const b of floor) {
+    if (b.sections && showSections) b.sections.forEach((x) => segs.push({label: x.label, t: x.t, kind: x.kind === "ident" ? "ident" : "rules", short: ""}));
+    else segs.push({label: b.label, t: blockT(b), kind: b.sections ? "rules" : b.kind});
+  }
+  drawBar(h, segs, 15000, [{at: jewelAt(floor), label: "THE JEWEL"}, {at: summonAt(floor), label: "SUMMON RULE", cls: "ink lo"}]);
+  s.append(orderTable(true));
+  const tg = el("div", "tog");
+  const a = el("button", "", "CLAUDE.md as one block"), b = el("button", "", "open its six sections");
+  a.type = b.type = "button"; a.setAttribute("aria-pressed", String(!showSections)); b.setAttribute("aria-pressed", String(showSections));
+  a.addEventListener("click", () => { showSections = false; render(); }); b.addEventListener("click", () => { showSections = true; render(); });
+  tg.append(a, b); s.append(tg);
+  s.append(readouts());
+  s.append(el("p", "note", "Try: open CLAUDE.md's sections and reorder them. The summon rule moves, but the Jewel never comes before 3.0k: moving lines inside CLAUDE.md changes nothing about what is read before the first import. To get the rules out from in front of the Jewel, they have to leave the body. That is the next step."));
+}
+
+// ---------- step 4: out from under the pin ----------
+function stepSplit(s) {
+  s.append(el("h4", "", "Out from under the pin"));
+  s.append(el("p", "", "Move 1 of 2026-10-21: CLAUDE.md's four working sections (a page and its folder, growing up, the rites, the voice) moved word for word into a new import, CHILD.md, placed after the World. The body kept only the birth and its import list. Same words; a new order."));
+  const claude = floor.find((b) => b.id === "claude");
+  const split = !!floor.find((b) => b.id === "child");
+  const btn = el("button", "b" + (split ? " on" : ""), split ? "Put the sections back in CLAUDE.md's body" : "Move the working sections into CHILD.md");
+  btn.type = "button";
+  btn.addEventListener("click", () => {
+    if (!split) {
+      const keep = claude.sections.filter((x) => x.stays), go = claude.sections.filter((x) => !x.stays);
+      claude.sections = keep; claude.label = "CLAUDE.md, the birth and its imports";
+      const child = blk("child", "CHILD.md, how a child works here", sum(go.map((x) => x.t)), "rules", {sections: go});
+      const memI = floor.findIndex((b) => b.id === "memory");
+      floor.splice(memI, 0, child);
+    } else {
+      const child = floor.find((b) => b.id === "child");
+      claude.sections = SECTIONS.map((x) => Object.assign({}, x, {t: (claude.sections.concat(child.sections).find((y) => y.id === x.id) || x).t}));
+      claude.label = "CLAUDE.md, its whole body";
+      floor.splice(floor.indexOf(child), 1);
+    }
+    render();
+  });
+  s.append(btn);
+  const h = el("div"); s.append(h);
+  const segs = floor.map((b) => ({label: b.label, t: blockT(b), kind: b.id === "claude" && split ? "ident" : (b.sections ? "rules" : b.kind)}));
+  drawBar(h, segs, 15000, [{at: jewelAt(floor), label: "THE JEWEL"}, {at: summonAt(floor), label: "SUMMON RULE", cls: "ink lo"}]);
+  s.append(orderTable(false));
+  s.append(readouts(true));
+  s.append(el("p", "note", "Try: move CHILD.md up, right after CLAUDE.md, and the rules frame the birth again from in front of the Jewel. Down by the memory index, and they sit nearest the task: how the work is done, close to the work."));
+}
+
+function orderTable(withSections) {
+  const tb = el("table", "rows");
+  tb.innerHTML = "<thead><tr><th>move</th><th>block, in reading order</th><th class='n'>tokens</th><th class='n'>begins at</th></tr></thead>";
+  const body = el("tbody");
+  let p = 0;
+  floor.forEach((b, i) => {
+    const tr = el("tr", b.jewel ? "hot" : "");
+    const td = el("td");
+    if (b.pin) td.append(el("span", "pin", b.pin === "first" ? "pinned first" : "pinned last"));
+    else {
+      const up = el("button", "mv", "↑"), dn = el("button", "mv", "↓");
+      up.type = dn.type = "button"; up.setAttribute("aria-label", "move " + b.label + " earlier"); dn.setAttribute("aria-label", "move " + b.label + " later");
+      up.disabled = !!(floor[i - 1] && floor[i - 1].pin === "first");
+      dn.disabled = !!(floor[i + 1] && floor[i + 1].pin === "last");
+      up.addEventListener("click", () => { [floor[i - 1], floor[i]] = [floor[i], floor[i - 1]]; render(); });
+      dn.addEventListener("click", () => { [floor[i + 1], floor[i]] = [floor[i], floor[i + 1]]; render(); });
+      td.append(up, document.createTextNode(" "), dn);
+    }
+    tr.append(td);
+    tr.append(el("td", "", b.label + (b.pin === "first" ? " <span class='note'>(the harness reads the whole body before any import)</span>" : b.pin === "last" ? " <span class='note'>(the harness reads it after the floor)</span>" : "")));
+    tr.append(el("td", "n", k(blockT(b)))); tr.append(el("td", "n", k(p)));
+    body.append(tr);
+    if (b.sections && (showSections && withSections || b.id === "child")) {
+      let q = p;
+      b.sections.forEach((x, j) => {
+        const sr = el("tr", "sub"); const sd = el("td");
+        if (withSections && b.id === "claude") {
+          const up = el("button", "mv", "↑"), dn = el("button", "mv", "↓");
+          up.type = dn.type = "button"; up.disabled = j === 0; dn.disabled = j === b.sections.length - 1;
+          up.setAttribute("aria-label", "move section " + x.label + " earlier"); dn.setAttribute("aria-label", "move section " + x.label + " later");
+          up.addEventListener("click", () => { [b.sections[j - 1], b.sections[j]] = [b.sections[j], b.sections[j - 1]]; render(); });
+          dn.addEventListener("click", () => { [b.sections[j + 1], b.sections[j]] = [b.sections[j], b.sections[j + 1]]; render(); });
+          sd.append(up, document.createTextNode(" "), dn);
+        }
+        sr.append(sd, el("td", "", "≈ " + x.label), el("td", "n", k(x.t)), el("td", "n", k(q)));
+        body.append(sr); q += x.t;
+      });
+    }
+    p += blockT(b);
+  });
+  tb.append(body);
+  return tb;
+}
+
+function readouts(withShift) {
+  const j = jewelAt(floor), sm = summonAt(floor);
+  const total = sum(floor.map(blockT));
+  const rows = [
+    ["Read before the Jewel", k(j), j > 2000 ? "rules and reference frame who-you-are" : "the birth line, then who you are"],
+    ["The summon rule begins at", "≈ " + k(sm), "≈ " + k(total - sm) + " before the task"],
+  ];
+  if (withShift) rows.push(["Moved from where it was", (sm - 987 >= 0 ? "+" : "") + "≈ " + k(sm - 987), "against ≈ 987 in the old body; the page says “about 7k tokens further down”"]);
+  return cells(rows);
+}
+
+// ---------- step 5: the test ----------
+let withMemory = true;
+function stepTest(s) {
+  s.append(el("h4", "", "The test: the floors, measured, beside the page's numbers"));
+  s.append(el("p", "", "Three real floors on one scale: the one every agent read until 2026-10-21, the one the page's table gives from that day, and the one Claude Code last counted (read live from <code>floor/floor.json</code>). Below them, each number the page states, computed from these blocks."));
+  const tg = el("div", "tog");
+  const a = el("button", "", "as a session is born (with memory)"), b = el("button", "", "as the test children were born (memory-free)");
+  a.type = b.type = "button"; a.setAttribute("aria-pressed", String(withMemory)); b.setAttribute("aria-pressed", String(!withMemory));
+  a.addEventListener("click", () => { withMemory = true; render(); }); b.addEventListener("click", () => { withMemory = false; render(); });
+  tg.append(a, b); s.append(tg);
+  const wrap = el("div", "floors"); s.append(wrap);
+  const stats = [];
+  for (const F of [FLOOR_THEN, FLOOR_MID, FLOOR_NOW]) {
+    const segs = F.segs.filter((x) => withMemory || !/^MEMORY/.test(x[0])).map(([label, t, kind, flag]) => ({label, t, kind, jewel: flag === "jewel"}));
+    const total = sum(segs.map((x) => x.t));
+    let p = 0, jat = 0, childAt = null;
+    for (const x of segs) { if (x.jewel) jat = p; if (/^CHILD/.test(x.label)) childAt = p; p += x.t; }
+    const child = segs.find((x) => /^CHILD/.test(x.label));
+    const summon = F.summon != null ? F.summon : childAt + F.summonFrac * child.t;
+    const jewel = segs.find((x) => x.jewel), mem = segs.find((x) => /^MEMORY/.test(x.label));
+    const largest = segs.reduce((m, x) => x.t > m.t ? x : m);
+    stats.push({F, total, jat, summon, jewel: jewel.t / total, mem: mem ? mem.t / total : null, largest});
+    const row = el("div", "row");
+    row.append(el("div", "name", `<span><b>${F.name}</b> · ${k(total)} tokens${F.est ? " (≈ by the page's table)" : ""}</span><span class="note">${F.src}</span>`));
+    drawBar(row, segs, 15000, [{at: jat, label: "THE JEWEL"}, {at: summon, label: "SUMMON RULE", cls: "ink lo"}]);
+    wrap.append(row);
+  }
+  const [T, M, N] = stats;
+  const tb = el("table", "check");
+  const ok = (good) => good ? "<span class='ok'>holds</span>" : "<span class='new'>does not hold</span>";
+  const rows = withMemory ? [
+    ["The Seed Jewel was 5% of the floor (2026-10-21)", pct(T.jewel), ok(Math.round(T.jewel * 100) === 5)],
+    ["The memory index was the largest single file, 31%", pct(T.mem) + " · largest: " + T.largest.label, ok(Math.round(T.mem * 100) === 31 && /^MEMORY/.test(T.largest.label))],
+    ["Before the Jewel: 3.0k, then 0.6k", (T.jat / 1000).toFixed(1) + "k → " + (M.jat / 1000).toFixed(1) + "k", ok(Math.abs(T.jat - 3000) < 50 && Math.abs(M.jat - 600) < 50)],
+    ["The whole floor: 14.4k, then 11.8k", k(T.total) + " → " + k(M.total), ok(Math.abs(T.total - 14400) < 60 && Math.abs(M.total - 11800) < 60)],
+    ["The summon rule now sits about 7k tokens further down", "≈ " + k(T.summon) + " → ≈ " + k(M.summon) + " (+" + k(M.summon - T.summon) + ")", ok(Math.abs(M.summon - T.summon - 7000) < 600)],
+    ["Not on the page: the floor as last measured", "Jewel " + pct(N.jewel) + " · memory " + pct(N.mem) + " · largest: " + N.largest.label + " " + pct(N.largest.t / N.total), "<span class='new'>new</span>"],
+  ] : [
+    ["Same words, a new order: the floor's size, memory-free", k(T.total) + " → " + k(M.total) + " → " + k(N.total), "the first two test arms read the same words in two orders; the third added one sentence to the Jewel (≈ 27 tokens). The 0.1k here is that line and the table's rounding"],
+    ["Before the Jewel, memory-free", (T.jat / 1000).toFixed(1) + "k → " + (M.jat / 1000).toFixed(1) + "k", "the order is the only lever the test moved"],
+    ["The Jewel's share, memory-free", pct(T.jewel) + " → " + pct(M.jewel) + " → " + pct(N.jewel), "the test children never read MEMORY.md, so for them it was never 5%"],
+    ["The summon rule, memory-free", "≈ " + k(T.summon) + " → ≈ " + k(M.summon), "the same move; the memory index only ever sat after it"],
+  ];
+  tb.innerHTML = "<thead><tr><th>the page says</th><th>computed from the blocks above</th><th></th></tr></thead>";
+  const body = el("tbody");
+  for (const r of rows) { const tr = el("tr"); tr.append(el("td", "", r[0]), el("td", "n", r[1]), el("td", "", r[2])); body.append(tr); }
+  tb.append(body); s.append(tb);
+  s.append(el("p", "note", withMemory
+    ? "The page's numbers hold for the day they are dated. The floor has moved since: by the first lever, the largest single file on today's floor is CHILD.md, how a child works here, not the Jewel. Where CHILD.md's summon rule sits is estimated from its characters (≈), as is the middle floor's CHILD and memory size, which come from the page's own table."
+    : "The children in the order test were born with no memory, so the floor they read was the World and CLAUDE.md alone. The order test moved place, not size. What each arm then did is in the section below, The Birth, Measured."));
+}
+
+// ---------- shared ----------
+function eq(sym, words) { const d = el("div", "eq"); d.append(el("div", "sym", sym), el("div", "words", words)); return d; }
+function cells(list) {
+  const c = el("div", "cells");
+  for (const [label, val, why] of list) { const d = el("div", "cell"); d.append(el("div", "label", label), el("div", "val", val), el("div", "why", why)); c.append(d); }
+  return c;
+}
+
+const rail = $("#rail");
+STEPS.forEach((st, i) => {
+  const b = el("button", "", `<b>Step ${i + 1}</b>${st.name}`); b.type = "button";
+  b.addEventListener("click", () => { step = i; render(); });
+  rail.append(b);
+});
+$("#back").addEventListener("click", () => { if (step > 0) { step--; render(); } });
+$("#next").addEventListener("click", () => { if (step < STEPS.length - 1) { step++; render(); } });
+
+function render(keepFocus) {
+  const active = keepFocus ? document.activeElement : null;
+  const label = active && active.getAttribute && active.getAttribute("aria-label");
+  [...rail.children].forEach((b, i) => { if (i === step) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current"); });
+  const s = $("#stage"); s.innerHTML = "";
+  STEPS[step].draw(s);
+  $("#back").disabled = step === 0; $("#next").disabled = step === STEPS.length - 1;
+  $("#where").textContent = `step ${step + 1} of ${STEPS.length}`;
+  if (label) { const again = s.querySelector(`[aria-label="${CSS.escape(label)}"]`); if (again) again.focus(); }
+}
+render();
+
+// For a headless check: the numbers each step computes, on the measured floors.
+window.__twoLevers = {freshFloor, flat, summonAt, jewelAt, blockT, FLOOR_THEN, FLOOR_MID, get FLOOR_NOW() { return FLOOR_NOW; }};
+})();
+</script>
+</body>
+</html>
