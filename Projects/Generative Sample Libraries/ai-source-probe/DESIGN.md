@@ -612,3 +612,35 @@ but now the instrument's worst; the shipped build's worst was 2.4 c).
 What it taught: asking for C4 gets C5 more often than C4, as the range
 sweep predicted, and the loop is better for letting any fresh take fill any
 flagged key. The C5 sample came from the C4 request.
+
+## The flute, finished and re-asked (cycle 39)
+
+Loudon heard the redone violin and called it good enough, one violin, the first finished AI
+instrument (`gsl-steward-077` GOOD-ENOUGH), and asked for the same pass on the flute. Both steps
+ran unchanged; nothing in the tools was violin-only.
+
+    $PY finish_instrument.py instruments/in_range/flute_looped --name "MusicGen Flute" --out instruments/finished/flute
+    $PY to_decentsampler.py instruments/finished/flute
+    $PY redo_keys.py flute G4 C#4 C#5 --takes 6 --tag r1 --name "MusicGen Flute"   # 18 renders, 6.5 min
+
+| | flute_looped | finished | finished + redo r1 |
+|---|---|---|---|
+| loop level spread across keys | 8.4 dB | 0.0 dB | 0.0 dB |
+| worst swell into the loop | 11.6 dB | 5.3 dB (G4) | 3.5 dB (G4) |
+| seams clean / held 12 s on pitch | 21 / 21 | **20** / 21 | 21 / 21 |
+| worst level step at a wrap | 0.6 dB | 3.4 dB (G4) | 0.9 dB |
+| DecentSampler keys on pitch | 38/38 | 38/38, worst 4.3 c | 38/38, worst 4.3 c |
+
+The finishing pass broke one seam: it lifted G4's sagging opening by its full 8 dB, and that lift
+reached the stretch the loop wraps through, so the held note pumped 3.4 dB. The finishing pass
+measures seams after it works, but only reports them; a failed seam does not stop the build.
+
+| key | fresh takes on the key (of 6) | new sample | swell after finishing | wrap step |
+|---|---|---|---|---|
+| G4 | 2 on target (2 an octave up, 2 wandering between octaves) | fresh, G4 s5 | 5.3 → 3.5 dB | 3.4 → −0.8 dB |
+| C#4 | 2 on target (3 an octave up, 1 wandering) | fresh, C#4 s8 | 2.2 → 2.9 dB | −9.1 → −2.9 dB |
+| C#5 | 3 on target (1 an octave up, 1 down, 1 wandering) | fresh, C#5 s9 | −2.6 → 2.1 dB | −0.7 → −0.9 dB |
+
+Exactly those three keys changed. Seven of eighteen takes held the asked key, six landed an octave
+up and one an octave down, and four wandered between octaves; the same upward lean as the
+violin's C4.

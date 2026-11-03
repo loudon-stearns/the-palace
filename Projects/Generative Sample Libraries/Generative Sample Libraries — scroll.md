@@ -15,24 +15,41 @@ forward_vector: "I am Generative Sample Libraries's scroll — the one page that
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-15T12:12:31.726Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-03T13:38:22.697Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 38 · last ran 2026-10-15 (today)
-- **Plan:** agreed 2026-09-25 (19 days ago) · 7 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 39 · last ran 2026-11-03 (today)
+- **Plan:** agreed 2026-09-25 (39 days ago) · 9 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-15 (today) — Name a key and the violin gets new takes for it. First round on A#3, C4 and C5: only those three keys changed, all on pitch. (`gsl-steward-079`)
-- **Last commit touching this project:** 2026-10-14 `5df11efb` — steward(heartbeat): machinery + project scrolls
+- **Last shipped:** 2026-11-03 (today) — The flute got the violin's pass. Does it sound like one flute, or which keys give it away? (`gsl-steward-082`)
+- **Last commit touching this project:** 2026-10-24 `a75350ec` — Weave — 2026-10-24 — 79 links added, 647 links pruned, 268 labels added, 13 entries promoted, 25 stages moved, 35 flags closed, 13 decisions carried, 6 Contexts opened, 2 pages composted, 8 faces added
 - **Signal:** steady
-- **Drift:** 21 cycles since the entry was last consolidated (cycle 17) — the entry body may lag; this scroll does not.
+- **Left uncommitted:** ⚠ 18 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/decentsampler.check.json`, `Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute/MusicGen Flute.dslibrary`, `Projects/Generative Sample Libraries/ai-source-probe/instruments/redo/r1/build.json`, `Projects/Generative Sample Libraries/ai-source-probe/instruments/redo/r1/flute/keycheck.json`, `Projects/Generative Sample Libraries/ai-source-probe/instruments/redo/r1/flute/picks.json`, and 13 more. Look, then commit or clear them.
+- **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 39 · taught item 11, proposed item 12 for canon
+- **Owed in the ledger:** nothing
+- **Proposed for canon:** 1 — item 12; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 12, from cycle 39 — 2026-11-03 — [[Generative Sample Libraries — tuning]]
 
 ### Where this stands
 
-Generative Sample Libraries turns a conversation into a playable sampled instrument. Crystal and Shepard-tone shipped in the summer. The current step of the plan is your June idea: an audio AI (MusicGen, guided by a hummed tone) plays each note, pitch detection checks it, and the takes that pass become an instrument. The step is done when one AI instrument sounds right to you and the interview can run the loop of listening, flagging and re-rendering. The violin was finished earlier today and is waiting for your ears. This cycle built the other half: name the keys that sound wrong, and the model renders them again rather than the old takes being patched. I ran it once on the three weakest ke…
+Generative Sample Libraries turns a conversation into a playable sampled instrument. Crystal and Shepard-tone came first, from the palace's own synthesis. The current step of the plan is your June idea: an audio AI (MusicGen, guided by a hummed tone) plays each note, pitch detection checks it, and the takes that pass become an instrument. On 2026-10-18 you heard the redone violin and called it good enough, one violin, the first finished AI instrument, and asked for the same pass on the flute. This cycle did that. The finishing pass put every key at one level and shaped how each key swells into its loop. Then the re-render step went back to MusicGen for the three keys the measurements liked…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 21:** the numbers come from a Python model of SFZ playback, and the velocity filter is my model of sforzando's, not sforzando itself. _(in 2 notes, the latest cycle 37)_
+- **rough since cycle 21:** The new C4 is an older take, not a fresh one, and it sits 10 cents sharp (inside the 20-cent limit, but now the worst key; _(in 2 notes, the latest cycle 38)_
+- **rough since cycle 22:** Nobody has heard the flute yet. _(in 17 notes, the latest cycle 39)_
+- **rough since cycle 36:** both were only read back as files. _(in 3 notes, the latest 2026-10-20)_
+- **rough since 2026-10-20:** A note still starts at full level: the tear is the whole attack. _(in 2 notes, the latest 2026-10-20)_
+- **rough since 2026-10-20:** The WAVs, the demos and the four `.dslibrary` zips (11 to 15 MB each) live only on the Mac, in the worktree where they were rendered. _(in 2 notes, the latest 2026-10-20)_
 
 ### Open asks
 
-- `gsl-steward-077` — directional_decision · posted 2026-10-15 · options: GOOD-ENOUGH · REDO-KEYS · TIMBRE-OFF
+- `gsl-steward-082` — directional_decision · posted 2026-11-03 · options: GOOD-ENOUGH · REDO-KEYS · TIMBRE-OFF
 
 ### Answered, not yet consumed
 
@@ -40,12 +57,27 @@ _None._
 
 ### Decided
 
+- `gsl-steward-077` — directional_decision → GRANTED — option_id=GOOD-ENOUGH (2026-10-18)
 - `gsl-steward-070` — directional_decision → GRANTED — option_id=VIOLIN (2026-10-14)
 - `gsl-steward-057` — directional_decision → GRANTED — option_id=RING (2026-09-24)
 - `gsl-steward-047` — directional_decision → GRANTED — (no option_id); notes: "Musicgen is ok, the violin has an odd attack, but the sustain portion is violin like, the marimba sounds like a marimba with a bunch of audio delays, like there are lots of differen attacks instead of a single attack. Stable audio is horrible." (2026-09-24)
 - `gsl-steward-040` — directional_decision → GRANTED — option_id=BOTH-PARALLEL (2026-08-26)
 - `gsl-steward-037` — directional_decision → GRANTED — (no option_id); notes: "try to use an audio generating LLM to create a wide range of sounds from a range of instruments, specify the pitch they should play and  test the result against librosa pitch detect. " (2026-06-25)
 - `gsl-steward-034` — directional_decision → GRANTED — option_id=SOURCE-THREE (2026-06-25)
+
+### Runs
+
+- 2026-11-03 — cycle 39 · taught item 11, proposed item 12 for canon
+
+### Owed
+
+_Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **12.** 2026-11-03 · [[Interview skill]] · after Rule 2 (audition before the full batch), a new section — the plan's current step finishes when the critique-and-regenerate loop runs inside the interview; the violin and now the flute show the loop works on any bowed or blown source
 
 <!-- scroll:now:end -->
 
@@ -75,6 +107,85 @@ Never start a render you can't finish and post inside one cycle. Chunk long swee
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="gsl-steward-082" -->
+### 2026-11-03 — cycle 39 — The flute got the violin's pass. Does it sound like one flute, or which keys give it away?
+> still working · flute finished, 3 keys re-rendered · steward leans GOOD-ENOUGH
+
+Generative Sample Libraries makes playable instruments from an audio AI: MusicGen plays each note, pitch detection checks it. You called the violin the first finished one and asked for the same pass on the flute. It's done. Every key now sits at one loudness, and the three weakest (G4, C#4, C#5) were re-rendered. ab.wav plays those three, old take then new. All 38 keys play on pitch, and every loop holds without a click or a throb. If it sounds like one flute, it's the second finished AI instrument, and I move on to making the interview run this listen-and-re-render loop itself. If some keys give it away, name them and I re-render only those. If the flute itself sounds wrong, that's a different problem from bad keys. This doesn't hold anything up; I keep working either way.
+
+**Artifacts:**
+- [the three re-rendered keys, old take then new](Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute_r1/ab.wav)
+- [the scale and tune through the whole flute](Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute_r1/phrase.wav)
+- [velocity.wav](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/voices/velocity.wav)
+- [walk.wav](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/voices/walk.wav)
+- [velocity.wav](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/bar/velocity.wav)
+- [walk.wav](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/bar/walk.wav)
+- [velocity.wav](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/snap/velocity.wav)
+- [walk.wav](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/snap/walk.wav)
+- [velocity.wav](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/heal/velocity.wav)
+- [walk.wav](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/heal/walk.wav)
+- [snap_A6_hard.wav](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/snap/samples/snap_A6_hard.wav)
+- [snap_C7_mid.wav](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/snap/samples/snap_C7_mid.wav)
+- [snap_C7_soft.wav](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/snap/samples/snap_C7_soft.wav)
+- [snap_C7_hard.wav](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/snap/samples/snap_C7_hard.wav)
+<sub>`gsl-steward-082` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="gsl-steward-081" -->
+### 2026-11-03 — cycle 39 — The flute got the violin's whole pass: every key at one level, then its three weakest keys re-rendered. 38/38 keys on pitch, every loop seam clean.
+> shipped · flute finished + redo round 1 · unheard · steward leans call it the second finished AI instrument
+
+**Finishing.** The same tool as the violin, unchanged. Loop bodies sat 8.4 dB apart across the keyboard and now sit at one level. The worst swell into a loop went from 11.6 dB to 5.3. DecentSampler plays all 38 keys on pitch, the worst 4.3 cents off. It broke one thing. G4's take sagged so far before its loop that the pass lifted it by its full 8 dB, and that lift reached the stretch the loop wraps through, so a held G4 throbbed 3.4 dB at every wrap. The limit is 1.5. The pass measures the seams after it works, but a failure didn't stop it.
+
+**Re-rendering.** I named G4 (that seam), C#4 (moved the most of any key, and clicking nearest the limit) and C#5 (it faded *down* into its loop, and its first breath had to be cut 6.8 dB). MusicGen made six fresh takes of each, 18 renders in 6.5 minutes. Seven held the asked key. Six landed an octave up and one an octave down, and four wandered between octaves. The flute guesses high, just as the violin's C4 did. Each key got a fresh take of its own, and the other 35 keys didn't change. Afterwards: 21 of 21 seams clean on a 12-second hold, the worst wrap step 0.9 dB, the worst swell 3.5 dB.
+
+**To hear it:** [ab.wav](open:Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute_r1/ab.wav) holds each of the three keys for 4 s, old take then new. To play the flute, drag `MusicGen Flute.dslibrary` from `instruments/finished/flute_r1/` onto DecentSampler.
+
+**Artifacts:**
+- [G4, C#4, C#5, each held 4 s: finished take first, then the new take. Start here.](Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute_r1/ab.wav)
+- [the scale and eight-bar tune through the redone flute](Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute_r1/phrase.wav)
+- [the same tune through the finished flute before the redo, for comparison](Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute/phrase.wav)
+- [low, middle and high keys held](Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute_r1/held.wav)
+- [the instrument: drag onto DecentSampler](Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute_r1/MusicGen Flute.dslibrary)
+- [the same instrument for sforzando](Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute_r1/MusicGen Flute.sfz)
+- [the DecentSampler preset](Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute_r1/MusicGen Flute.dspreset)
+- [where each re-rendered key's sample came from, and every take's grade](Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute_r1/redo.json)
+- [per-key levels, swells and seam checks after the redo](Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute_r1/finishing.json)
+- [what's in the folder and why these three keys](Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute_r1/README.md)
+- [the finished flute's per-key numbers, with G4's failed seam](Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute/finishing.json)
+- [the finished flute before the redo](Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute/MusicGen Flute.sfz)
+- [its DecentSampler preset](Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute/MusicGen Flute.dspreset)
+- [the flute's redo record, carried into any later round](Projects/Generative Sample Libraries/ai-source-probe/instruments/redo/flute.json)
+- [the finishing run](Projects/Generative Sample Libraries/ai-source-probe/finish.flute.log)
+- [the re-render run: every take and its grade](Projects/Generative Sample Libraries/ai-source-probe/redo.flute_r1.log)
+- [new section: the flute, finished and re-asked](Projects/Generative Sample Libraries/ai-source-probe/DESIGN.md)
+
+_The flute, three builds_
+|  | looped (before) | finished | finished + 3 keys re-rendered |
+| --- | --- | --- | --- |
+| loop level spread across keys | 8.4 dB | 0.0 dB | 0.0 dB |
+| worst swell into the loop | 11.6 dB | 5.3 dB (G4) | 3.5 dB (G4) |
+| seams clean on a 12 s hold | 21 / 21 | 20 / 21 | 21 / 21 |
+| worst level step at a wrap | 0.6 dB | 3.4 dB (G4) | 0.9 dB |
+| DecentSampler keys on pitch | 38 / 38 | 38 / 38, worst 4.3 c | 38 / 38, worst 4.3 c |
+
+_Changed in the workshop:_ DESIGN — added the cycle-39 section: the flute finished and re-rendered, with the seam the finishing pass broke
+_Changed in the workshop:_ README — new: what the redone flute folder holds and why these three keys
+_Proposed for canon:_ Interview skill (after Rule 2 (audition before the full batch), a new section), a new page — the plan's current step finishes when the critique-and-regenerate loop runs inside the interview; the violin and now the flute show the loop works on any bowed or blown source; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard the flute yet. C#4's new take still needed the full 8 dB lift before its loop, and its swell is slightly worse than before (2.2 → 2.9 dB). The finishing pass still ships a build with a failed seam without stopping.
+
+_Next moves named:_ Make finish_instrument.py stop on a failed seam and name the key to re-render, so a broken G4 can't ship quietly. · When you've heard the flute: re-render whichever keys you name, the same way the violin was done. · Then the plan's next step after this one: move the interview skill out of the project so it loads on every sample-library task.
+<sub>`gsl-steward-081` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-5f6efeb0ae" -->
+### 2026-11-03 — cycle 39
+
+taught item 11, proposed item 12 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="tear-heal-2026-10-20-collection" -->
 ### 2026-10-20 — Off plan — The tear-and-heal collection: four instruments, 240 samples, every key struck past its own edge and healed
 > shipped · 240 of 240 on pitch, every loop seam clean with room to spare · the audition was answered, the collection is unheard

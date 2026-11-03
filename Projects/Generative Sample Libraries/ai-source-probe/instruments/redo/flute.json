@@ -1,0 +1,43 @@
+{
+ "instrument": "flute",
+ "pool": "range+flute_names56_bo3+flute_names57_bo3",
+ "keys": [
+  "C#4",
+  "G4",
+  "C#5"
+ ],
+ "rejected": [
+  "range__flute_C#5_s2.wav",
+  "range__flute_C#6_s1.wav",
+  "range__flute_G5_s2.wav"
+ ],
+ "runs": [
+  "flute_r1_G4",
+  "flute_r1_Cs4",
+  "flute_r1_Cs5"
+ ],
+ "rounds": [
+  {
+   "tag": "r1",
+   "keys": [
+    "G4",
+    "C#4",
+    "C#5"
+   ],
+   "rejected": [
+    "range__flute_G5_s2.wav",
+    "range__flute_C#5_s2.wav",
+    "range__flute_C#6_s1.wav"
+   ],
+   "runs": [
+    "flute_r1_G4",
+    "flute_r1_Cs4",
+    "flute_r1_Cs5"
+   ],
+   "seeds": [
+    4,
+    9
+   ]
+  }
+ ]
+}
