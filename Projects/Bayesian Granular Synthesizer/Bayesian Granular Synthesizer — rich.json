@@ -102,7 +102,7 @@
           "by": "Web Audio Worklet · the engine, unchanged",
           "height": 1050,
           "title": "from the prior to belief · a walk in five steps",
-          "caption": "**The mechanism, walked up and then tested.** The prior alone; one note of evidence and the doubt it leaves; the weight and width moving in time; grain length following belief; and the test: the same ten seconds rendered three ways, the same grains at the same pitches, only their lengths different. With every grain short the belief puts 92% of the grains within 25 cents of C E G and only 14% of the sound there, since a 4-cycle grain spreads about ±151 cents. With every grain long 86% of the sound is on the chord, but the doubt's grains ring as wrong notes and the empty cloud hums. Coupled, 86% of the sound is on the chord and the doubt stays clicks. Every number is re-run by the checks file beside it.",
+          "caption": "**The mechanism, walked up and then tested.** The prior alone; one note of evidence and the doubt it leaves; the weight and width moving in time; grain length following belief; and the test: the same ten seconds rendered three ways, the same grains at the same pitches, only their lengths different. With every grain short the belief puts 92% of the grains within 25 cents of C E G and only 14% of the sound there, since a 4-cycle grain spreads about ±151 cents. With every grain long 86% of the sound is on the chord, but the doubt's grains ring as wrong notes and the empty cloud hums. Coupled, 86% of the sound is on the chord and the doubt stays clicks. Every number is re-run by the checks file beside it. The all-long take differs from the coupled one only by construction: its doubt's grains ring 128 cycles because the switch made them so. The measured contrast is the all-short take.",
           "near": "The creative refinement"
         },
         {
@@ -110,7 +110,7 @@
           "origin": "gathered",
           "height": 1125,
           "title": "the believing cloud, playable · October rebuild",
-          "caption": "The steward's playable page from 2026-10-14, unchanged: hold notes from the keys (A to K), watch the posterior and the grains, paint a prior and let it hum on its own. Web MIDI only where the browser lets a framed page have it.",
+          "caption": "The steward's playable page from 2026-10-14, unchanged: hold notes from the keys (A to K), watch the posterior and the grains, paint a prior and let it hum on its own. Web MIDI needs a grant only Loudon can give; without it the page falls back to the computer keys.",
           "contract": {
             "needs": "midi",
             "size": "flow"
@@ -154,7 +154,7 @@
           "by": "the engine, offline renders",
           "height": 1080,
           "title": "every grain carries the same energy · a walk in three steps",
-          "caption": "**The normalization, tested on the whole cloud.** One grain and its energy, plotted so the rule is a diagonal; a long low grain against a short high one (about 250 times the energy with one amplitude for both, the same with the rule); then A2, E4 and C5 held over the prior, rendered with the rule and with one amplitude for all. With the rule each note's share of the energy follows its share of the grains (30, 28, 33% against 33, 31, 29%) and the cloud rises 0.7 dB as the chord comes in. Without it A2 takes 62% of the energy from 33% of the grains, and the cloud jumps 13.7 dB. It measures energy, not loudness, and says so.",
+          "caption": "**The normalization, tested on the whole cloud.** One grain and its energy, plotted so the rule is a diagonal; a long low grain against a short high one (about 250 times the energy with one amplitude for both, the same with the rule); then A2, E4 and C5 held over the prior, rendered with the rule and with one amplitude for all. With the rule each note's share of the energy follows its share of the grains (30, 28, 33% against 33, 31, 29%) and the cloud rises 0.7 dB as the chord comes in. Without it A2 takes 62% of the energy from 33% of the grains, and the cloud jumps 13.7 dB. It measures energy, not loudness, and says so. The rule has two halves, and each fixes one thing (same seed, checked): amplitude ∝ √f alone brings A2 back to 31.2% of the energy but leaves the +14.1 dB jump; ∝ √(1 ⁄ (N + 1)) alone removes the jump (+0.5 dB) but leaves A2 at 58.0%. So the rumble is the √f half's work and the jump the length half's. On other seeds the one-amplitude A2 share runs 63.7–67.8%, and the rule's 'within 6 points' sits near its edge.",
           "near": "Equal-energy normalization"
         }
       ],
@@ -246,7 +246,7 @@
           "origin": "gathered",
           "height": 820,
           "title": "Belief Cloud's face · the VST Template editor, 2026-10-22",
-          "caption": "The steward's whole plugin face, built with the template's own editor code: the helix in the screen, every knob, and a prior you paint by dragging the spokes of the floor dial. Sound on, then the demo, or keys A to K. Not yet a built plugin: it waits on the template building inside this bundle.",
+          "caption": "The steward's whole plugin face, built with the template's own editor code: the helix in the screen, every knob, and a prior you paint by dragging the spokes of the floor dial. Sound on, then the demo, or keys A to K. Not yet a built plugin: it waits on the template building inside this bundle. Web MIDI needs a grant only Loudon can give; without it the face falls back to the computer keys.",
           "contract": {
             "needs": "midi",
             "size": "flow"
@@ -297,25 +297,25 @@
       "section": "The statistics underneath, tied to e",
       "kind": "claim-change",
       "status": "open",
-      "what": "The page gives the Law of Large Numbers as 'why the cloud's average pitch converges on the held chord'. On the engine (one e, many grains, step 3), what converges on the belief is the share of grains in each semitone: its distance from the posterior falls 0.390, 0.149, 0.052, 0.012, 0.004 at 10 to 100,000 grains. The average pitch converges on a single pitch, the posterior mean, which for a chord lies between the notes and is pulled toward the range's middle by doubt: C3 E4 G4 held gives 60.04 predicted and 60.05 after 100,000 grains, C4, a note nobody holds. Suggested: 'the Law of Large Numbers (why the grains, counted, trace the posterior more closely as their number grows)'."
+      "what": "The page gives the Law of Large Numbers as 'why the cloud's average pitch converges on the held chord'. On the engine (one e, many grains, step 3), what converges on the belief is the share of grains in each semitone: its distance from the posterior falls 0.390, 0.149, 0.052, 0.012, 0.004 at 10 to 100,000 grains. The average pitch converges on a single pitch, the posterior mean, which for a chord lies between the notes and is pulled toward the range's middle by doubt: C3 E4 G4 held gives 60.04 predicted and 60.05 after 100,000 grains, C4, a note nobody holds. Suggested: 'the Law of Large Numbers (why the grains, counted, trace the posterior more closely as their number grows)'. Challenger confirmed with its own harness (60.038 predicted, 60.051 drawn) and found the sentence wrong for any chord and any doubt above zero: C4 alone averages 60.90, pulled sharp toward the prior's middle."
     },
     {
       "section": "The statistics underneath, tied to e",
       "kind": "no-claim-edit",
       "status": "open",
-      "what": "'the exponential distribution (the time constants governing how fast evidence accumulates and decays)' files the evidence envelopes under the distribution. In the engine the exponential distribution is the gap between Poisson onsets (Kolmogorov-Smirnov D 0.0225 against a 5% line of 0.0237, 20 s at 160/s); the time constants are exponential decays, not distributions (the engine's attack and release match e^(−x) to 4e-16 and 2e-14). The next sentence already has it right, the same e wearing two hats. Suggested: 'the exponential distribution (the gaps between grain onsets) and exponential decay (the time constants governing how fast evidence accumulates and decays)'."
+      "what": "'the exponential distribution (the time constants governing how fast evidence accumulates and decays)' files the evidence envelopes under the distribution. In the engine the exponential distribution is the gap between Poisson onsets (Kolmogorov-Smirnov D 0.0225 against a 5% line of 0.0237, 20 s at 160/s); the time constants are exponential decays, not distributions (the engine's attack and release match e^(−x) to 4e-16 and 2e-14). The next sentence already has it right, the same e wearing two hats. Suggested: 'the exponential distribution (the gaps between grain onsets) and exponential decay (the time constants governing how fast evidence accumulates and decays)'. A mislabel, which the page's next sentence already splits right (challenger confirmed, five further seeds D 0.0089–0.0204)."
     },
     {
       "section": "The statistics underneath, tied to e",
       "kind": "claim-change",
       "status": "open",
-      "what": "Summed grain contributions tend Gaussian only where many grains overlap. On the output's sample values (one e, many grains, step 4): C E G believed, about 56 grains at once, kurtosis 2.95 against a bell curve's 3; nothing held, about 4 at once, 4.49; C E G with every grain forced short, about 3.5 at once, 3.65. Suggested: add the condition, 'once enough grains overlap: the believing cloud's long grains do, the clicky cloud's short ones do not'."
+      "what": "Summed grain contributions tend Gaussian only where many grains overlap. On the output's sample values (one e, many grains, step 4): C E G believed, about 56 grains at once, kurtosis 2.95 against a bell curve's 3; nothing held, about 4 at once, 4.49; C E G with every grain forced short, about 3.5 at once, 3.65. Suggested: add the condition, 'once enough grains overlap: the believing cloud's long grains do, the clicky cloud's short ones do not'. The page's sentence is unconditioned, not wrong: the CLT holds in the limit and the clicky cloud is far from it (challenger, other seeds: 2.89–3.00 with many overlapping, 4.32–4.54 with few)."
     },
     {
       "section": "The mechanism",
       "kind": "claim-change",
       "status": "open",
-      "what": "An addition the test supports, not a correction: the length coupling is what lets the sharpened belief be heard at all. Same seed, same grains, C E G held, 6 to 10 s: with every grain 4 cycles, 92.4% of the grains land within 25 cents of the chord but only 13.6% of the sound does, because a 4-cycle grain spreads about ±151 cents (half power) at C4; coupled, 85.7%. At full conviction the two widths meet: the 5-cent floor of the belief and a 128-cycle grain's own ±5.8 cents. Suggested sentence after 'resolves in character': 'Without the coupling the sharpening is mostly inaudible: a short grain is too brief to carry a precise pitch.'"
+      "what": "An addition the test supports, not a correction: the length coupling is what lets the sharpened belief be heard at all. Same seed, same grains, C E G held, 6 to 10 s: with every grain 4 cycles, 92.4% of the grains land within 25 cents of the chord but only 13.6% of the sound does, because a 4-cycle grain spreads about ±151 cents (half power) at C4; coupled, 85.7%. At full conviction the two widths meet: the 5-cent floor of the belief and a 128-cycle grain's own ±5.8 cents. Suggested sentence after 'resolves in character': 'Without the coupling the sharpening is mostly inaudible: a short grain is too brief to carry a precise pitch.' Challenger confirmed on another estimator (one 4 s periodogram): 86.6 / 14.4 / 85.9%."
     }
   ]
 }
