@@ -77,6 +77,9 @@ links:
   - target: "[[CHILD]]"
     type: connects-to
     label: dress-rule-at-birth
+  - target: "[[Hero and Avatar Maker]]"
+    type: connects-to
+    label: tab-icon-source
 ---
 
 # Loudon Live Design System

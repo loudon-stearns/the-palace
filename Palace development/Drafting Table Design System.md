@@ -47,6 +47,9 @@ links:
   - target: "[[SUBSTRATE]]"
     type: deepens
     label: workshop-substrate
+  - target: "[[Hero and Avatar Maker]]"
+    type: connects-to
+    label: tab-icon-source
 ---
 
 # Drafting Table Design System
