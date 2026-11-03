@@ -1,0 +1,412 @@
+<!doctype html>
+<!--
+  title: Piano String Inharmonicity — rich — click through the string
+  born: 2026-11-03
+  links: [[Piano String Inharmonicity]] (connects-to · rich-face-piece) · listed in [[Piano String Inharmonicity — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am "Why This Is Linear Time-Invariant" played: one decaying sine, then the section's sum of them with the click smearing as it travels, then any sound convolved with it, and last the test: the string run as a bank of resonators, checked against the convolution and against the four properties of an LTI system, with a second dial that makes the string go sharp when struck hard, so dispersion and nonlinearity can be told apart. I change only when that section does.
+  engine: the section's h(t) = Σ A_n·e^(−α_n·t)·sin(2π·f_n·t + φ_n) and a resonator bank that computes the same string another way; the block is byte-identical in this face's three pieces.
+  checks: Piano String Inharmonicity/workshop/rich-face-checks.mjs runs this file's own engine against the claim.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow"><!-- needs nothing of its host: no device, no storage, no files, no network but the fonts -->
+<title>Piano String Inharmonicity — a click through the string</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,.10); --accent-line:rgba(232,184,74,.5);
+    --coral:#ff6b5a; --blue:#4a8fff; --green:#6bd45a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .kicker svg { flex: none; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 4px 0 18px; border: 1px solid var(--border); border-radius: 2px; width: fit-content; max-width: 100%; }
+  .rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; background: transparent; padding: 7px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button[aria-current="step"] { background: var(--accent-soft); color: var(--accent); }
+  .step { display: none; }
+  .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .teach { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 0 0 12px; }
+  .back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin: 0 0 14px; }
+  .eqs { margin: 4px 0 16px; padding: 10px 14px; border-left: 1px solid var(--accent-line); background: var(--e1); max-width: 76ch; }
+  .eq { font-family: var(--serif); font-size: 20px; color: var(--fg1); font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+  .eq i { font-style: italic; }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .words:last-child { margin-bottom: 0; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; margin-bottom: 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: end; margin: 6px 0 12px; }
+  .controls label.sl { flex: 1 1 220px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: var(--accent-line); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.go { color: var(--accent); border-color: var(--accent-line); }
+  button[aria-pressed="true"] { color: var(--accent); border-color: var(--accent-line); background: var(--accent-soft); }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 8px 0 4px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .amber { color: var(--accent); } .coral { color: var(--coral); } .ok { color: var(--green); } .bad { color: var(--coral); }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; color: var(--fg2); width: 100%; max-width: 900px; margin: 6px 0 10px; }
+  table.meas th { text-align: left; font-weight: 400; color: var(--fg3); letter-spacing: .08em; text-transform: uppercase; font-size: 10px; border-bottom: 1px solid var(--border); padding: 6px 8px; }
+  table.meas td { border-bottom: 1px solid var(--soft); padding: 6px 8px; }
+  table.meas td b { color: var(--fg1); font-weight: 500; }
+  .verdict { font-size: 13.5px; line-height: 1.6; max-width: 76ch; padding: 10px 14px; border: 1px solid var(--accent-line); border-radius: 2px; background: var(--accent-soft); color: var(--fg1); margin: 8px 0 12px; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 76ch; margin: 6px 0 0; }
+  nav.walk { display: flex; gap: 10px; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  nav.walk .where { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; margin-left: auto; }
+  .busy { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><span id="sigil"></span>made · sketch · a walk in four steps</div>
+  <h2 class="title">A click through the string</h2>
+  <p class="sub">A string at A2, 110 Hz. The section says its whole behaviour fits in one impulse response, so convolution can make it. We build that response one ring at a time, then test whether the string really is linear and time-invariant. Silent until you press a button.</p>
+  <div class="rail" id="rail"></div>
+
+  <section class="step">
+    <h3>One ring</h3>
+    <p class="teach">Strike a single mode of the string and it rings at one frequency and dies away. That ring is one term of the section's impulse response: a sine, fading exponentially.</p>
+    <div class="eqs">
+      <div class="eq"><i>h</i>₁(<i>t</i>) = <i>A</i> · e<sup>−α<i>t</i></sup> · sin(2π<i>f</i><i>t</i> + φ)</div>
+      <div class="words">(the response) = (a strength) × (a decay, fading at rate α) × (a sine at frequency f, starting at phase φ).</div>
+    </div>
+    <div class="controls"><div class="btns"><button class="go" id="s1pl">▸ strike one mode</button></div></div>
+    <div class="panel"><div class="plabel"><span>the first 60 ms · and the whole ring, below</span><span>110 Hz</span></div><canvas id="s1cv"></canvas></div>
+  </section>
+
+  <section class="step">
+    <h3>A ring for every partial</h3>
+    <p class="teach">Add forty of them, one per partial, tuned by the formula. Every partial starts at the top of its cycle, so with B = 0 they all line up again once a period, and the click comes back whole every 9.09 ms. Raise B slowly. The high partials now run faster than the period, so each return of the click arrives with its high partials early and smears into a falling chirp, a little more on every trip, until by the top of the slider the click is spread across the whole period. That smear is dispersion, seen in time instead of as stretched partials.</p>
+    <div class="eqs">
+      <div class="eq"><i>h</i>(<i>t</i>) = Σ <i>A<sub>n</sub></i> · e<sup>−α<sub><i>n</i></sub><i>t</i></sup> · sin(2π<i>f<sub>n</sub></i><i>t</i> + φ<i><sub>n</sub></i>)</div>
+      <div class="words">(the string's whole response to a click) = the sum, over every partial, of (its strength) × (its decay) × (a sine at its stretched frequency). Here φ<sub>n</sub> = 90° for every n, and higher partials decay faster: α<sub>n</sub> = 2.5 + 0.02·n² per second.</div>
+    </div>
+    <p class="back">One partial alone is step 1. B = 0 brings every return back to the same click.</p>
+    <div class="controls">
+      <div class="btns"><button class="go" id="s2pl">▸ the click's answer</button><button class="go" id="s2pl0">▸ the same at B = 0</button></div>
+      <label class="sl">inharmonicity <i>B</i> = <b id="s2Bv"></b><input id="s2B" type="range" min="0" max="0.002" step="0.00001" value="0.0002"></label>
+    </div>
+    <div class="panel"><div class="plabel"><span>each return of the click, one period per row</span><span>grey · the same row at B = 0 &nbsp; each row scaled to itself</span></div><canvas id="s2cv"></canvas></div>
+  </section>
+
+  <section class="step">
+    <h3>Convolve anything with it</h3>
+    <p class="teach">Now send any sound in. Convolution places a copy of the string's response at every instant of the input, scaled by the input there, and adds them up. A click gives back the response itself; three clicks give three overlapping rings; a burst of noise excites every partial at once.</p>
+    <div class="eqs">
+      <div class="eq"><i>y</i>(<i>t</i>) = (<i>x</i> ∗ <i>h</i>)(<i>t</i>) = ∫ <i>x</i>(τ) · <i>h</i>(<i>t</i> − τ) dτ</div>
+      <div class="words">(what comes out) = the input convolved with the response: for every moment τ, (the input then) × (the response, started then), all added.</div>
+    </div>
+    <p class="back">A single click as the input is step 2.</p>
+    <div class="controls">
+      <div class="btns" id="s3in"></div>
+      <label class="sl">inharmonicity <i>B</i> = <b id="s3Bv"></b><input id="s3B" type="range" min="0" max="0.002" step="0.00002" value="0.0008"></label>
+    </div>
+    <div class="controls"><div class="btns"><button class="go" id="s3x">▸ the input alone</button><button class="go" id="s3y">▸ the input, through the string</button></div><span class="busy" id="s3busy"></span></div>
+    <div class="panel"><div class="plabel"><span>input above · output below · 2.6 s</span><span id="s3r"></span></div><canvas id="s3cv"></canvas></div>
+  </section>
+
+  <section class="step">
+    <h3>Is the string linear and time-invariant?</h3>
+    <p class="teach">The test. The string here is no longer a convolution: it is forty resonators, one per partial, each a filter run sample by sample on the input, a different computation from the formula for h(t). If the section is right, that string and the convolution with h(t) give the same output, and the string passes the four checks below. There are two dials. B is dispersion. Drive makes each partial go sharp when it swings wide, as a real string's tension rises when it is struck hard. Move each, and watch which one breaks the checks.</p>
+    <div class="controls">
+      <label class="sl">dispersion · <i>B</i> = <b id="s4Bv"></b><input id="s4B" type="range" min="0" max="0.002" step="0.00002" value="0.0008"></label>
+      <label class="sl">nonlinearity · drive = <b id="s4Dv"></b><input id="s4D" type="range" min="0" max="0.01" step="0.0005" value="0"></label>
+    </div>
+    <div class="controls"><div class="btns"><button class="go" id="s4soft">▸ soft, then loud, at matched level</button><button class="go" id="s4bank">▸ the resonators</button><button class="go" id="s4conv">▸ the convolution</button></div><span class="busy" id="s4busy"></span></div>
+    <table class="meas"><thead><tr><th>check</th><th>what is compared</th><th>worst difference</th><th></th></tr></thead><tbody id="s4t"></tbody></table>
+    <div class="verdict" id="s4v"></div>
+    <p class="note">Each difference is the largest gap between the two signals over 2.6 s, against the peak of the reference signal. Three clicks and a burst of noise are the inputs; the arithmetic is 64-bit, and "none" means the two came out bit for bit the same. The drive is a sketch of tension modulation, not a model of a piano.</p>
+  </section>
+
+  <nav class="walk"><button id="back">← back</button><button id="next">next step →</button><span class="where" id="where"></span></nav>
+  <div class="foot">Loud’n Live</div>
+</div>
+<script id="engine">
+// Piano String Inharmonicity engine — one block, byte-identical in all three pieces of this face.
+const TAU = 2 * Math.PI;
+// The formula: f_n = n · f0 · √(1 + B·n²). f0 is the string's frequency with no stiffness at all.
+function partialHz(n, f0, B) { return n * f0 * Math.sqrt(1 + B * n * n); }
+function cents(f, ref) { return 1200 * Math.log2(f / ref); }
+// How far partial n sits above its ghost n·f0: exactly, and by the section's small-B estimate B·n³·f0/2
+function stretchHz(n, f0, B) { return partialHz(n, f0, B) - n * f0; }
+function stretchApprox(n, f0, B) { return B * n * n * n * f0 / 2; }
+// The growth exponent of the stretch at n, d ln(stretch) / d ln n: 3 while B·n² is small, falling toward 2 past n ≈ 1/√B
+function stretchExponent(n, B) { const x = B * n * n, s = Math.sqrt(1 + x); return x > 0 ? 1 + x / (s * (s - 1)) : 3; }
+// The same exponent measured between two partials on the formula itself
+function slopeBetween(n1, n2, f0, B) { return Math.log(stretchHz(n2, f0, B) / stretchHz(n1, f0, B)) / Math.log(n2 / n1); }
+
+// The coefficient: B = π³·E·d⁴ / (64·T·L²), for a plain steel string
+const STEEL = { E: 2.0e11, rho: 7850 };
+function stringB(E, d, T, L) { return Math.pow(Math.PI, 3) * E * Math.pow(d, 4) / (64 * T * L * L); }
+function stringMu(d, rho) { return rho * Math.PI * d * d / 4; }
+function stringF0(d, T, L, rho) { return Math.sqrt(T / stringMu(d, rho)) / (2 * L); }
+// Tune a string so its first partial (what you hear as its pitch) sounds f1: returns {T, f0, B}
+function tuneString(d, L, f1, E, rho) {
+  let f0 = f1, T = 0, B = 0;
+  for (let i = 0; i < 30; i++) { T = stringMu(d, rho) * Math.pow(2 * L * f0, 2); B = stringB(E, d, T, L); f0 = f1 / Math.sqrt(1 + B); }
+  return { T, f0, B };
+}
+// Three ways to raise a string's first partial by c cents. All exact on the formula.
+//   bend and peg: tension × k, so f0 → √k·f0 and B → B/k; k solves f0²(k + B) = target²
+//   fret: length ÷ ρ, so f0 → ρ·f0 and B → B·ρ²; ρ² solves B·ρ⁴ + ρ² = (target/f0)²
+function raiseBy(s, c) {
+  const f1 = s.f0 * Math.sqrt(1 + s.B), target = f1 * Math.pow(2, c / 1200), R = target / s.f0;
+  const k = R * R - s.B;
+  const rho2 = s.B > 0 ? (-1 + Math.sqrt(1 + 4 * s.B * R * R)) / (2 * s.B) : R * R;
+  return {
+    target,
+    bend: { k, f0: s.f0 * Math.sqrt(k), B: s.B / k },
+    fret: { rho: Math.sqrt(rho2), f0: s.f0 * Math.sqrt(rho2), B: s.B * rho2 }
+  };
+}
+// A pluck: each partial rings and fades, A_n = sin(nπβ)/n, decay α_n = a0 + a2·n² per second
+function pluck({ f0, B, N = 24, sr = 48000, seconds = 2.5, beta = 0.13, a0 = 0.9, a2 = 0.012, gain = 0.22 }) {
+  const len = Math.floor(sr * seconds), out = new Float32Array(len);
+  for (let n = 1; n <= N; n++) {
+    const f = partialHz(n, f0, B); if (f > 0.45 * sr) break;
+    const A = gain * Math.sin(n * Math.PI * beta) / n, r = Math.exp(-(a0 + a2 * n * n) / sr), w = TAU * f / sr;
+    let amp = A; for (let i = 0; i < len; i++) { out[i] += amp * Math.sin(w * i); amp *= r; }
+  }
+  const fade = Math.floor(sr * 0.08); for (let i = 0; i < fade; i++) out[len - 1 - i] *= i / fade;
+  return out;
+}
+// Two steady sines together, equal level: what a partial and its ghost do to each other (beats at their difference)
+function pair(fa, fb, { sr = 48000, seconds = 4, gain = 0.18 } = {}) {
+  const len = Math.floor(sr * seconds), out = new Float32Array(len), ramp = Math.floor(sr * 0.03);
+  for (let i = 0; i < len; i++) { const e = Math.min(1, i / ramp, (len - 1 - i) / ramp); out[i] = gain * e * (Math.sin(TAU * fa * i / sr) + Math.sin(TAU * fb * i / sr)); }
+  return out;
+}
+
+// The section's impulse response: h(t) = Σ A_n · e^(−α_n·t) · sin(2π·f_n·t + φ_n)
+// A_n tapers smoothly to the last partial; α_n = a0 + a2·n²; φ_n = 90° for every n, so at B = 0 all partials peak together once a period.
+function modes({ f0 = 110, B = 0, N = 40, sr = 48000, a0 = 2.5, a2 = 0.02, phi = Math.PI / 2 }) {
+  const M = [];
+  for (let n = 1; n <= N; n++) {
+    const f = partialHz(n, f0, B); if (f > 0.45 * sr) break;
+    M.push({ n, f, A: Math.pow(Math.cos(Math.PI * n / (2 * (N + 1))), 2), alpha: a0 + a2 * n * n, phi });
+  }
+  const s = 1 / M.reduce((z, m) => z + m.A, 0); M.forEach(m => m.A *= s); // the first click peaks near 1
+  return M;
+}
+function irRender(M, sr, len) {
+  const h = new Float64Array(len);
+  for (const m of M) { const w = TAU * m.f / sr, r = Math.exp(-m.alpha / sr); let amp = m.A; for (let k = 0; k < len; k++) { h[k] += amp * Math.sin(w * k + m.phi); amp *= r; } }
+  return h;
+}
+// The string as a bank of resonators, one per partial: a two-pole filter whose click response is exactly
+// A·r^k·sin(θk + φ) — a different computation from the formula, run sample by sample on any input.
+// drive > 0 makes each partial go sharp as the string swings wide (tension rising with amplitude): a nonlinearity, not dispersion.
+function bankRun(M, x, sr, drive = 0) {
+  const len = x.length, y = new Float64Array(len);
+  for (const m of M) {
+    const r = Math.exp(-m.alpha / sr), th0 = TAU * m.f / sr, b0 = m.A * Math.sin(m.phi);
+    let y1 = 0, y2 = 0, x1 = 0;
+    if (!drive) {
+      const c1 = 2 * r * Math.cos(th0), c2 = -r * r, b1 = m.A * r * Math.sin(th0 - m.phi);
+      for (let k = 0; k < len; k++) { const v = b0 * x[k] + b1 * x1 + c1 * y1 + c2 * y2; y2 = y1; y1 = v; x1 = x[k]; y[k] += v; }
+    } else {
+      let env = 0; const att = 1 - Math.exp(-1 / (0.002 * sr)), rel = 1 - Math.exp(-1 / (0.08 * sr));
+      for (let k = 0; k < len; k++) {
+        const th = th0 * (1 + drive * env), b1 = m.A * r * Math.sin(th - m.phi);
+        const v = b0 * x[k] + b1 * x1 + 2 * r * Math.cos(th) * y1 - r * r * y2; y2 = y1; y1 = v; x1 = x[k]; y[k] += v;
+        const a = Math.abs(v) / m.A; env += (a - env) * (a > env ? att : rel); // each partial hears its own swing
+      }
+    }
+  }
+  return y;
+}
+// Convolution by FFT (radix-2, in place)
+function fft(re, im, inv) {
+  const n = re.length;
+  for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+  for (let size = 2; size <= n; size <<= 1) {
+    const half = size >> 1, ang = (inv ? 2 : -2) * Math.PI / size, wr = Math.cos(ang), wi = Math.sin(ang);
+    for (let s = 0; s < n; s += size) { let cr = 1, ci = 0; for (let k = 0; k < half; k++) {
+      const a = s + k, b = a + half, tr = re[b] * cr - im[b] * ci, ti = re[b] * ci + im[b] * cr;
+      re[b] = re[a] - tr; im[b] = im[a] - ti; re[a] += tr; im[a] += ti; const nr = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = nr; } }
+  }
+  if (inv) for (let i = 0; i < n; i++) { re[i] /= n; im[i] /= n; }
+}
+function convolve(x, h, len) { // the first len samples of x * h
+  let n = 1; while (n < x.length + h.length) n <<= 1;
+  const ar = new Float64Array(n), ai = new Float64Array(n), br = new Float64Array(n), bi = new Float64Array(n);
+  ar.set(x); br.set(h); fft(ar, ai, false); fft(br, bi, false);
+  for (let i = 0; i < n; i++) { const r = ar[i] * br[i] - ai[i] * bi[i], m = ar[i] * bi[i] + ai[i] * br[i]; ar[i] = r; ai[i] = m; }
+  fft(ar, ai, true); return ar.slice(0, len);
+}
+// Inputs to send through the string
+function inputSignal(kind, sr, len, at = 0.05) {
+  const x = new Float64Array(len), i0 = Math.floor(at * sr);
+  if (kind === 'click') x[i0] = 1;
+  else if (kind === 'three') { x[i0] = 1; x[i0 + Math.floor(0.28 * sr)] = 0.35; x[i0 + Math.floor(0.5 * sr)] = 0.7; }
+  else if (kind === 'noise') { let s = 12345; const n = Math.floor(0.04 * sr); for (let i = 0; i < n; i++) { s ^= s << 13; s >>>= 0; s ^= s >> 17; s ^= s << 5; s >>>= 0; x[i0 + i] = 0.12 * (s / 4294967296 * 2 - 1) * (1 - i / n); } }
+  return x;
+}
+// Worst difference between two signals, relative to the peak of the first, in dB (−Infinity when identical)
+function errDb(a, b) { let pk = 0, e = 0; for (let i = 0; i < a.length; i++) { pk = Math.max(pk, Math.abs(a[i])); e = Math.max(e, Math.abs(a[i] - b[i])); } return e === 0 ? -Infinity : 20 * Math.log10(e / pk); }
+// The four checks of linearity and time-invariance on the resonator bank, for given B and drive
+function lti({ f0 = 110, B = 0, drive = 0, sr = 48000, seconds = 2.6 } = {}) {
+  const len = Math.floor(sr * seconds), M = modes({ f0, B, sr }), h = irRender(M, sr, len);
+  const x1 = inputSignal('three', sr, len), x2 = inputSignal('noise', sr, len, 0.31);
+  const y1 = bankRun(M, x1, sr, drive), y2 = bankRun(M, x2, sr, drive);
+  const conv = convolve(x1, h, len);
+  const x1x2 = x1.map((v, i) => v + x2[i]), y12 = bankRun(M, x1x2, sr, drive), ysum = y1.map((v, i) => v + y2[i]);
+  const xs = x1.map(v => 2 * v), ys = bankRun(M, xs, sr, drive), y1x2 = y1.map(v => 2 * v);
+  const d = Math.floor(0.1 * sr), xd = new Float64Array(len); for (let i = d; i < len; i++) xd[i] = x1[i - d];
+  const yd = bankRun(M, xd, sr, drive), y1d = new Float64Array(len); for (let i = d; i < len; i++) y1d[i] = y1[i - d];
+  return { conv: errDb(conv, y1), scale: errDb(y1x2, ys), add: errDb(ysum, y12), shift: errDb(y1d, yd), M, h, y1, ys, conv1: conv, x1 };
+}
+</script>
+<script id="shared">
+// The sigil, the walk, the sound and the canvases: byte-identical in this face's three pieces.
+function sigil(el) { // the Lissajous trace, 3:2, small
+  const p = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * TAU; p.push((11 + 9 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ',' + (11 + 9 * Math.sin(2 * t)).toFixed(2)); }
+  el.innerHTML = '<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.4" fill="none" stroke="#4a4a5e" stroke-width="1"/><polyline points="' + p.join(' ') + '" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>';
+}
+const $ = id => document.getElementById(id);
+const fmt = (x, d = 3) => Number.isFinite(x) ? x.toFixed(d) : '—';
+const SR = 48000;
+// Sound: nothing exists before a click. One sound at a time, through a compressor; a step change stops it.
+const SND = { ctx: null, out: null, src: null, live: null };
+function soundOn() {
+  if (!SND.ctx) {
+    SND.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = SND.ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+    SND.out = SND.ctx.createGain(); SND.out.gain.value = 0.9; SND.out.connect(comp); comp.connect(SND.ctx.destination);
+  }
+  if (SND.ctx.state === 'suspended') SND.ctx.resume();
+}
+function stopSound() {
+  if (SND.src) { try { SND.src.stop(); } catch (e) {} SND.src = null; }
+  if (SND.live) { const L = SND.live, t = SND.ctx.currentTime; L.g.gain.setTargetAtTime(0, t, 0.02); L.o.forEach(o => { try { o.stop(t + 0.2); } catch (e) {} }); SND.live = null; }
+  document.querySelectorAll('button.go[aria-pressed="true"]').forEach(b => b.setAttribute('aria-pressed', 'false'));
+}
+function playBuffer(buf, btn) { // a mono Float32Array at SR
+  soundOn(); stopSound();
+  const c = SND.ctx, b = c.createBuffer(1, buf.length, SR); b.copyToChannel(buf, 0);
+  const s = c.createBufferSource(); s.buffer = b; s.connect(SND.out); s.start(); SND.src = s;
+  if (btn) btn.setAttribute('aria-pressed', 'true');
+  s.onended = () => { if (SND.src === s) { SND.src = null; if (btn) btn.setAttribute('aria-pressed', 'false'); } };
+}
+function joinBuffers(list, gap = 0.3) { // one buffer, the parts in order with a little silence between
+  const g = Math.floor(gap * SR), len = list.reduce((z, b) => z + b.length + g, 0), out = new Float32Array(len); let at = 0;
+  for (const b of list) { out.set(b, at); at += b.length + g; } return out;
+}
+function liveStart(freqs, amps, btn, level = 0.5) { // steady sines that follow a slider
+  soundOn(); stopSound();
+  const c = SND.ctx, g = c.createGain(); g.gain.value = 0; g.connect(SND.out); g.gain.setTargetAtTime(level, c.currentTime, 0.03);
+  const o = freqs.map((f, i) => { const os = c.createOscillator(); os.frequency.value = f; const og = c.createGain(); og.gain.value = amps[i]; os.connect(og); og.connect(g); os.start(); return os; });
+  SND.live = { g, o }; if (btn) btn.setAttribute('aria-pressed', 'true');
+}
+function liveSet(freqs) { if (!SND.live) return; const t = SND.ctx.currentTime; SND.live.o.forEach((o, i) => o.frequency.setTargetAtTime(freqs[i], t, 0.02)); }
+function toggleLive(btn, freqsFn, ampsFn, level) { if (btn.getAttribute('aria-pressed') === 'true') stopSound(); else liveStart(freqsFn(), ampsFn(), btn, level); }
+// The walk: one step showing, Next and Back, the rail stays open, a step change stops the sound
+function walk(steps) {
+  const rail = $('rail'); let cur = 0;
+  steps.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.name; b.onclick = () => go(i); rail.appendChild(b); });
+  function go(i) {
+    stopSound(); cur = Math.max(0, Math.min(steps.length - 1, i));
+    document.querySelectorAll('.step').forEach((el, k) => el.classList.toggle('on', k === cur));
+    rail.querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === cur ? 'step' : 'false'));
+    $('back').disabled = cur === 0; $('next').disabled = cur === steps.length - 1;
+    $('where').textContent = 'step ' + (cur + 1) + ' of ' + steps.length;
+    if (steps[cur].enter) steps[cur].enter();
+  }
+  $('back').onclick = () => go(cur - 1); $('next').onclick = () => go(cur + 1);
+  go(0); return go;
+}
+function fitCanvas(cv, h) {
+  const dpr = window.devicePixelRatio || 1, w = cv.clientWidth || cv.parentNode.clientWidth || 600;
+  cv.style.height = h + 'px'; cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace'; return [g, w, h];
+}
+function onSlide(id, fn) { const el = $(id); el.addEventListener('input', fn); return el; }
+function redrawOnResize(fn) { let t = 0; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(fn, 80); }); }
+</script>
+<script>
+const F0 = 110, LEN = Math.floor(2.6 * SR);
+const toF32 = (a, gain = 0.6) => { let pk = 1e-9; for (const v of a) pk = Math.max(pk, Math.abs(v)); const o = new Float32Array(a.length), k = gain / pk, fade = Math.floor(0.08 * SR); for (let i = 0; i < a.length; i++) o[i] = a[i] * k * Math.min(1, (a.length - 1 - i) / fade); return o; };
+function wave(g, a, x0, y0, w, h, i0, i1, col, pk) { if (!pk) { pk = 1e-9; for (let i = i0; i < i1; i++) pk = Math.max(pk, Math.abs(a[i])); }
+  g.strokeStyle = col; g.lineWidth = 1.1; g.beginPath(); const n = i1 - i0, step = Math.max(1, Math.floor(n / (w * 2)));
+  if (step > 2) { for (let px = 0; px < w; px++) { const s = i0 + Math.floor(px / w * n), e = Math.min(i1, i0 + Math.floor((px + 1) / w * n)); let lo = 0, hi = 0; for (let i = s; i < e; i++) { lo = Math.min(lo, a[i]); hi = Math.max(hi, a[i]); } g.moveTo(x0 + px, y0 + h / 2 - hi / pk * h / 2); g.lineTo(x0 + px, y0 + h / 2 - lo / pk * h / 2 + 0.5); } }
+  else for (let i = i0; i < i1; i++) { const x = x0 + (i - i0) / n * w, y = y0 + h / 2 - a[i] / pk * h / 2; i > i0 ? g.lineTo(x, y) : g.moveTo(x, y); }
+  g.stroke(); g.lineWidth = 1; }
+// ── step 1 ──
+const ONE = [{ n: 1, f: F0, A: 1, alpha: 2.5 + 0.02, phi: Math.PI / 2 }];
+function s1() { const h = irRender(ONE, SR, LEN), [g, W, H] = fitCanvas($('s1cv'), 190);
+  wave(g, h, 8, 6, W - 16, 100, 0, Math.floor(0.06 * SR), '#e8b84a', 1); wave(g, h, 8, 116, W - 16, 56, 0, LEN, 'rgba(232,184,74,.7)', 1);
+  g.fillStyle = '#8a8aa0'; g.fillText('0 to 60 ms', 10, 104); g.fillText('0 to 2.6 s', 10, H - 4); }
+// ── step 2 ──
+function s2() { const B = +$('s2B').value; $('s2Bv').textContent = B.toFixed(5);
+  const T = SR / F0, rows = 6, len = Math.ceil((rows + 0.6) * T), h = irRender(modes({ f0: F0, B, sr: SR }), SR, len), h0 = irRender(modes({ f0: F0, B: 0, sr: SR }), SR, len);
+  const [g, W, H] = fitCanvas($('s2cv'), 320), rh = (H - 20) / rows;
+  for (let k = 0; k < rows; k++) { const c = Math.round(k * T), i0 = Math.max(0, Math.round(c - 0.5 * T)), i1 = Math.round(c + 0.5 * T), x0 = 76, w = W - 86, off = k === 0 ? (0.5 * T - c) / T * w : 0, ww = (i1 - i0) / T * w;
+    let pk = 1e-12; for (let i = i0; i < i1; i++) pk = Math.max(pk, Math.abs(h[i]), Math.abs(h0[i])); // each row on its own scale, so a fading return stays readable
+    g.setLineDash([3, 4]); g.strokeStyle = 'rgba(200,200,216,.25)'; g.beginPath(); g.moveTo(x0 + w / 2, 4 + k * rh); g.lineTo(x0 + w / 2, 4 + (k + 1) * rh - 4); g.stroke(); g.setLineDash([]);
+    if (B > 0) wave(g, h0, x0 + off, 4 + k * rh, ww, rh - 6, i0, i1, 'rgba(200,200,216,.28)', pk * 1.02);
+    wave(g, h, x0 + off, 4 + k * rh, ww, rh - 6, i0, i1, '#e8b84a', pk * 1.02);
+    g.fillStyle = '#8a8aa0'; g.fillText(k === 0 ? 'the strike' : 'return ' + k, 4, 4 + k * rh + rh / 2 + 3); }
+  g.fillStyle = '#8a8aa0'; g.fillText('−½ period', 76, H - 4); g.fillText('+½ period', W - 64, H - 4); }
+// ── step 3 ──
+let s3kind = 'three';
+const INPUTS = [['click', 'a click'], ['three', 'three clicks'], ['noise', 'a burst of noise']];
+function s3calc() { const B = +$('s3B').value, M = modes({ f0: F0, B, sr: SR }), x = inputSignal(s3kind, SR, LEN), y = convolve(x, irRender(M, SR, LEN), LEN); return { x, y }; }
+function s3() { const B = +$('s3B').value; $('s3Bv').textContent = B.toFixed(5);
+  document.querySelectorAll('#s3in button').forEach(b => b.setAttribute('aria-pressed', b.dataset.k === s3kind ? 'true' : 'false'));
+  const { x, y } = s3calc(), [g, W, H] = fitCanvas($('s3cv'), 220);
+  wave(g, x, 8, 4, W - 16, 70, 0, LEN, '#c8c8d8'); wave(g, y, 8, 84, W - 16, 120, 0, LEN, '#e8b84a');
+  g.fillStyle = '#8a8aa0'; g.fillText('0 s', 8, H - 4); g.fillText('2.6 s', W - 40, H - 4); $('s3r').textContent = 'x ∗ h, by FFT'; }
+// ── step 4 ──
+let s4res = null, s4timer = 0;
+const dbTxt = e => e === -Infinity ? 'none' : e.toFixed(1) + ' dB';
+function s4() { const B = +$('s4B').value, dr = +$('s4D').value; $('s4Bv').textContent = B.toFixed(5); $('s4Dv').textContent = dr.toFixed(4);
+  $('s4busy').textContent = 'measuring…'; clearTimeout(s4timer);
+  s4timer = setTimeout(() => { const r = lti({ f0: F0, B, drive: dr, sr: SR }); s4res = r; $('s4busy').textContent = '';
+    const holds = e => e < -120, rows = [
+      ['the string = x ∗ h(t)', 'the resonators, against the input convolved with the section\'s h(t)', r.conv],
+      ['twice as loud', 'the string\'s answer to 2x, against twice its answer to x', r.scale],
+      ['two at once', 'its answer to the clicks plus the noise, against the two answers added', r.add],
+      ['0.1 s later', 'its answer to x delayed, against its answer to x, delayed', r.shift]];
+    $('s4t').innerHTML = rows.map(([a, b, e]) => `<tr><td><b>${a}</b></td><td>${b}</td><td><b>${dbTxt(e)}</b></td><td class="${holds(e) ? 'ok' : 'bad'}">${holds(e) ? 'holds' : 'breaks'}</td></tr>`).join('');
+    const broke = rows.filter(r => !holds(r[2])).map(r => r[0]);
+    $('s4v').innerHTML = !broke.length
+      ? `At B = ${B.toFixed(5)} with no drive, all four hold. The resonators and the convolution with h(t) agree to ${dbTxt(r.conv)}, rounding error, so the section's h(t) is the whole of this string, and convolving with it makes it. Move B anywhere and the checks keep holding: dispersion tunes the partials, but it does not make the string depend on how hard you hit it.`
+      : `With drive at ${dr.toFixed(4)}, ${broke.length === 3 ? 'three checks break' : broke.length + ' checks break'}: ${broke.join(', ')}. The loud strike now rings sharper than the soft one, so no single h(t) can stand for the string, and convolution can no longer make it. The delay check still holds: the string is nonlinear but still time-invariant. B is ${B.toFixed(5)} either way. Set drive to 0 and every check holds again, whatever B is.`;
+  }, 30); }
+function s4play(which, btn) { if (!s4res) return; const r = s4res;
+  if (which === 'bank') playBuffer(toF32(r.y1), btn); else if (which === 'conv') playBuffer(toF32(r.conv1), btn);
+  else { let pk = 1e-9; for (const v of r.ys) pk = Math.max(pk, Math.abs(v)); const k = 0.6 / pk, a = new Float32Array(LEN), b = new Float32Array(LEN), fade = Math.floor(0.08 * SR);
+    for (let i = 0; i < LEN; i++) { const f = Math.min(1, (LEN - 1 - i) / fade); a[i] = 2 * r.y1[i] * k * f; b[i] = r.ys[i] * k * f; } // both at the loud one's scale: identical if linear
+    playBuffer(joinBuffers([a, b], 0.4), btn); } }
+// ── wiring ──
+sigil($('sigil'));
+onSlide('s2B', s2); onSlide('s3B', () => { stopSound(); s3(); }); onSlide('s4B', s4); onSlide('s4D', s4);
+$('s1pl').onclick = e => playBuffer(toF32(irRender(ONE, SR, LEN), 0.5), e.currentTarget);
+$('s2pl').onclick = e => playBuffer(toF32(irRender(modes({ f0: F0, B: +$('s2B').value, sr: SR }), SR, LEN)), e.currentTarget);
+$('s2pl0').onclick = e => playBuffer(toF32(irRender(modes({ f0: F0, B: 0, sr: SR }), SR, LEN)), e.currentTarget);
+INPUTS.forEach(([k, lab]) => { const b = document.createElement('button'); b.textContent = lab; b.dataset.k = k; b.onclick = () => { s3kind = k; stopSound(); s3(); }; $('s3in').appendChild(b); });
+$('s3x').onclick = e => playBuffer(toF32(inputSignal(s3kind, SR, LEN), 0.5), e.currentTarget);
+$('s3y').onclick = e => playBuffer(toF32(s3calc().y), e.currentTarget);
+$('s4soft').onclick = e => s4play('pair', e.currentTarget); $('s4bank').onclick = e => s4play('bank', e.currentTarget); $('s4conv').onclick = e => s4play('conv', e.currentTarget);
+walk([{ name: 'one ring', enter: s1 }, { name: 'every partial', enter: s2 }, { name: 'convolve', enter: s3 }, { name: 'is it LTI?', enter: s4 }]);
+redrawOnResize(() => [s1, s2, s3].forEach(f => { try { f(); } catch (e) {} }));
+</script>
+</body>
+</html>
