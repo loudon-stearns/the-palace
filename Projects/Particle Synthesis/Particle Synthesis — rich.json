@@ -29,6 +29,17 @@
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
    },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/2026-10-22-gpu-fountain.html",
+      "verdict": "keep",
+      "why": "The section's architecture built and running, and its numbers check against the report (96 throws, 349 strikes, 0.99998); the caption is honest that the 25× is unmeasured, the nearest being 4.2× at 64 particles. Its contract block is empty and still owed."
+     }
+    ]
+   },
    "pieces": [
     {
      "file": "proofs/2026-10-22-gpu-fountain.html",
@@ -53,6 +64,37 @@
     "date": "2026-11-03",
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/2026-10-22-gpu-fountain-AB.png",
+      "verdict": "keep",
+      "why": "The same 22,666 strikes made once by the law and once by a mapping rule: the page's own physics-against-modulation test, captioned no further than the picture goes."
+     },
+     {
+      "file": "rich-face/2026-10-22-gpu-fountain-A-ice.wav",
+      "verdict": "keep",
+      "why": "Half of the A/B the forward vector asks for, loudness matched, honestly flagged as not yet judged by ear; tracked under rich-face/."
+     },
+     {
+      "file": "rich-face/2026-10-22-gpu-fountain-B-mapped.wav",
+      "verdict": "keep",
+      "why": "The other half; the 2 kHz to 200 Hz mapping matches the build's grainCPU, and the caption says nobody has listened."
+     },
+     {
+      "file": "proofs/2026-09-23-fountain-00-one-particle.wav",
+      "verdict": "keep",
+      "why": "The real build's ice heard beside \"High frequencies travel faster\", in the margin, where that sentence's medium should be heard; the 12 m matches the scroll."
+     },
+     {
+      "file": "Particle Synthesis — rich — one click, one law.html",
+      "verdict": "remake",
+      "why": "Steps 1–4 walk up well and the bar step shows the inharmonicity, but step 5 is called a test and cannot fail: the engine sets each frequency's phase by the law, so band arrivals return the law, and the 1 % is the band filter's bias. Retitle step 5 and reword its verdict and the caption as a check; or, better, test the 2026-10-22 build's closed-form chirp (gpu-fountain.html:252–259) against the exact propagation (challenger ran it: correlation 1.0000 at 8 m, 0.9998 at 1 m)."
+     }
+    ]
    },
    "pieces": [
     {
@@ -113,6 +155,17 @@
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
    },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Particle Synthesis — rich — which way the colours run.html",
+      "verdict": "keep",
+      "why": "A real test on outside data (Schott N-BK7): if the optical mirror were exact, red would trail, and it leads by 76.0 ns; it walks up and holds both of the page's claims. Notes: violet is 665 Hz, not 680; say the road uses the group index; \"runs the deep-water way\" rather than \"is the deep-water case\"."
+     }
+    ]
+   },
    "pieces": [
     {
      "file": "Particle Synthesis — rich — which way the colours run.html",
@@ -136,6 +189,22 @@
     "date": "2026-11-03",
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/2026-09-23-fountain-cloud64.png",
+      "verdict": "keep",
+      "why": "The section's own equation drawn as parabolas, with a caption careful that this build hears strikes through the ice and does not map height to pitch."
+     },
+     {
+      "file": "Particle Synthesis — rich — thrown, or on a spring.html",
+      "verdict": "keep",
+      "why": "It steps the page's own m·ÿ = −m·g and tests the flagged sentence, which could have held and does not: 1/n² harmonics (−12.04 … −27.96 dB) and 220 → 110 Hz against the spring's one sine. Notes: the octave-per-2 m scale is the piece's, not the page's; the e = 1 floor is the piece's construction, which step 5 already says."
+     }
+    ]
    },
    "pieces": [
     {
@@ -168,6 +237,32 @@
     "date": "2026-11-03",
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/2026-09-23-grains-05-crossing-collide.wav",
+      "verdict": "keep",
+      "why": "The record of the collision vector's progress, already linked from the text; 13 meetings, 119 of 360 and 0.15 → 0.60 m match the scroll."
+     },
+     {
+      "file": "proofs/2026-09-23-grains-04-crossing-pass-through.wav",
+      "verdict": "keep",
+      "why": "The control for the collide take at the same gain, so the difference is the meetings."
+     },
+     {
+      "file": "proofs/2026-10-22-gpu-grains-meet-AB.png",
+      "verdict": "keep",
+      "why": "Collision as an aimable primitive, every caption number checked against the report: 1,544 throws, 1,315 meetings, 3.5e-15, 0.987–0.999."
+     },
+     {
+      "file": "proofs/2026-10-22-gpu-grains-meet.html",
+      "verdict": "keep",
+      "why": "The vector live; it loaded clean. Its contract block is empty and still owed."
+     }
+    ]
    },
    "pieces": [
     {
