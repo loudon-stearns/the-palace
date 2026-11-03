@@ -1,0 +1,394 @@
+<!doctype html>
+<!--
+  title: Signal-Rate CV Architecture — rich — the zero guard
+  born: 2026-11-03
+  links: [[Signal-Rate CV Architecture]] (connects-to · rich-face-piece) · [[Action Potential Oscillator]] (connects-to · the engine is its dev plan's stage 2, as written for Gen~) · [[Progressive Staging]] (exemplifies · a walk in four steps) · listed in [[Signal-Rate CV Architecture — rich.json]]
+  forward_vector: I am the section's guard rule as a walk you can play. One exp() in a denominator, then
+    the cable pulled so the inlet reads zero, then the max() the section asks for, and last the test:
+    does the floor the guard puts in still sing? I show what an unguarded zero does to a feedback loop,
+    and where a guard that only keeps tau off zero still leaves the voice silent or sharp. I play inside
+    the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  engine: the dev plan's Gen~ stage 2, line for line (Projects/Action Potential Oscillator/
+    neural_oscillator_dev_plan.md, Stage 2, Steps 1 to 4): freq = max(in1, 0.001); leak_tau_ms = max(in2, 0.1)
+    when guarded; leak_coeff = 1 - 1/leak_tau; drive = 1/(leak_tau * (1 - exp(-period/leak_tau)));
+    V = V * leak_coeff + drive; at V >= 1, V = 0. Doubles throughout, as Gen~ runs. The worklet zeroes a
+    non-finite output sample before it leaves the piece, so a NaN reaches your ears as silence and never
+    reaches the rest of the page's audio; the state itself is left as the plan's code leaves it.
+    Checked headless by "Signal-Rate CV Architecture — rich — checks.mjs", beside this file.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Signal-Rate CV Architecture — the zero guard</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .srcg-piece { padding: 22px 22px 20px; }
+  .srcg-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .srcg-kicker svg { width: 18px; height: 18px; }
+  .srcg-title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .srcg-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .srcg-rail { display: flex; flex-wrap: wrap; gap: 0; margin: 0 0 14px; }
+  .srcg-rail button { border-radius: 0; margin-right: -1px; }
+  .srcg-rail button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.srcg-go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 104px; }
+  button.srcg-on { color: var(--amber); border-color: var(--amberline); }
+  .srcg-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .srcg-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .srcg-says { font-size: 14.5px; line-height: 1.62; color: var(--fg2); max-width: 78ch; margin: 0 0 12px; }
+  .srcg-says b { color: var(--fg1); font-weight: 500; }
+  .srcg-panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--bg); padding: 8px 10px; }
+  .srcg-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .srcg-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px 22px; align-items: end; margin-top: 14px; }
+  .srcg-btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  label.srcg-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.srcg-sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .srcg-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .srcg-read b { color: var(--fg1); font-weight: 500; }
+  .srcg-read .srcg-flag { color: #ff6b6b; }
+  .srcg-eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .srcg-eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .srcg-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 78ch; }
+  .srcg-back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin-top: 10px; }
+  .srcg-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .srcg-key { display: flex; gap: 14px; flex-wrap: wrap; font-family: var(--mono); font-size: 10.5px; color: var(--fg3); margin-top: 6px; }
+  .srcg-key i { display: inline-block; width: 12px; height: 8px; vertical-align: middle; margin-right: 5px; }
+  .srcg-verdict { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 78ch; border-left: 2px solid var(--amberline); padding-left: 12px; }
+</style>
+</head>
+<body>
+<div class="srcg-piece">
+  <div class="srcg-kicker"><svg id="sigil" viewBox="0 0 18 18" aria-hidden="true"></svg><span>made · Web Audio Worklet · study · a walk in four steps</span></div>
+  <h3 class="srcg-title">The zero guard</h3>
+  <p class="srcg-sub">An inlet with nothing patched into it reads zero, and the leak time constant sits in two denominators and an <i>exp()</i>. This walk pulls the cable, then puts in the guard the section asks for, then asks whether the guard's floor still sings. Nothing sounds until you press play. The code is the Action Potential Oscillator's Gen~ plan for its stage 2, line for line.</p>
+
+  <div class="srcg-rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="srcg-step">
+    <div class="srcg-stephead"><span id="stepname"></span><span id="stepof"></span></div>
+    <p class="srcg-says" id="says"></p>
+    <div class="srcg-panel">
+      <div class="srcg-plabel"><span id="picname"></span><span id="picnote"></span></div>
+      <canvas id="pic" height="300"></canvas>
+      <div class="srcg-key" id="key"></div>
+    </div>
+    <div class="srcg-controls" id="controls"></div>
+    <div class="srcg-read" id="read"></div>
+    <div class="srcg-verdict" id="verdict" style="display:none"></div>
+    <div class="srcg-eqs" id="eqs"></div>
+    <div class="srcg-back" id="backline"></div>
+    <div class="srcg-nav"><button id="prev">← back</button><button id="next">next step →</button></div>
+  </div>
+</div>
+
+<script id="engine">
+/* ENGINE:START — the dev plan's Gen~ stage 2, line for line (Steps 1 to 4), in doubles.
+   Shared by the AudioWorklet and the headless check; it touches nothing of the page. */
+function PlanStage2(SR) {
+  const P = { freq: 110, tauMs: 5, guard: false, floorMs: 0.1 };
+  let V = 0;                                                      // History membrane_v(0);
+  const st = { V: 0, c: 1, drive: 0, tauSamples: 0, tauMs: 0, fired: false };
+  function reset() { V = 0; }
+  function set(o) { for (const k in o) if (k in P) P[k] = o[k]; }
+  function tick() {
+    const freq = Math.max(P.freq, 0.001);                         // freq = max(in1, 0.001);
+    const leak_tau_ms = P.guard ? Math.max(P.tauMs, P.floorMs) : P.tauMs;   // leak_tau_ms = max(in2, 0.1);
+    const leak_tau = leak_tau_ms * 0.001 * SR;                     // ms to samples
+    const leak_coeff = 1.0 - (1.0 / leak_tau);                     // one-pole coefficient
+    const period_samples = SR / freq;
+    const drive = 1.0 / (leak_tau * (1.0 - Math.exp(-period_samples / leak_tau)));
+    V = V * leak_coeff + drive;                                    // membrane_v = membrane_v * leak_coeff + drive;
+    let fired = false;
+    if (V >= 1.0) { V = 0; fired = true; }                        // threshold and hard reset
+    st.V = V; st.c = leak_coeff; st.drive = drive; st.tauSamples = leak_tau; st.tauMs = leak_tau_ms; st.fired = fired;
+    return V * 2.0 - 1.0;                                          // out1 = membrane_v * 2.0 - 1.0;
+  }
+  return { P, st, set, reset, tick };
+}
+/* ENGINE:END */
+</script>
+<script id="measure">
+/* MEASURE:START — what the pictures and readouts say, from the same engine. Also run by the headless check. */
+// What one setting does, held steady: in tune (within a sample of the period the dial asks for, as
+// close as a hard reset can come), sharp or flat, silent, stuck firing every sample, or NaN.
+function classify(freq, tauMs, guard, SR) {
+  const e = PlanStage2(SR); e.set({ freq, tauMs, guard });
+  const P = SR / freq, want = Math.ceil(P - 1e-9);
+  const warm = want * 3 + 64, win = Math.max(want * 8 + 64, 4096);
+  for (let i = 0; i < warm; i++) e.tick();
+  let first = -1, last = -1, count = 0;
+  for (let i = 0; i < win; i++) { e.tick(); if (Number.isNaN(e.st.V)) return { kind: 'nan' }; if (e.st.fired) { if (first < 0) first = i; last = i; count++; } }
+  if (count >= win - 1) return { kind: 'stuck' };
+  if (count < 2) return { kind: 'silent' };
+  const period = (last - first) / (count - 1), c = 1200 * Math.log2(P / period);
+  return { kind: Math.abs(period - P) <= 1 ? 'tune' : c > 0 ? 'sharp' : 'flat', cents: c, hz: SR / period };
+}
+// The cable pulled: tau steady, then exactly zero for a while, then steady again. Returns V over time.
+function pulled(freq, tauMs, guard, SR, msBefore, msOut, msAfter) {
+  const e = PlanStage2(SR); e.set({ freq, tauMs, guard });
+  const a = Math.round(msBefore * SR / 1000), b = a + Math.round(msOut * SR / 1000), n = b + Math.round(msAfter * SR / 1000);
+  const V = new Float64Array(n), T = new Float64Array(n); let nanAt = -1, firesAfter = 0;
+  for (let i = 0; i < n; i++) { e.P.tauMs = (i >= a && i < b) ? 0 : tauMs; e.tick(); V[i] = e.st.V; T[i] = e.P.tauMs; if (nanAt < 0 && Number.isNaN(e.st.V)) nanAt = i; if (i >= b && e.st.fired) firesAfter++; }
+  return { V, T, a, b, n, nanAt, firesAfter, nanAtEnd: Number.isNaN(e.st.V) };
+}
+// The map: notes against tau, for one guard. Column 0 is tau exactly 0, the cable pulled.
+const MAP_TAUS = [0].concat(Array.from({ length: 47 }, (_, i) => 0.005 * Math.pow(20 / 0.005, i / 46)));
+const MAP_FREQS = Array.from({ length: 25 }, (_, i) => 55 * Math.pow(16, i / 24));
+function guardMap(guard, SR) { return MAP_FREQS.map(f => MAP_TAUS.map(t => classify(f, t, guard, SR))); }
+// For one note: the shortest tau from which every longer tau on the map plays in tune.
+function inTuneFrom(row) { let k = row.length - 1; while (k > 0 && row[k - 1].kind === 'tune') k--; return row[k].kind === 'tune' ? MAP_TAUS[k] : Infinity; }
+/* MEASURE:END */
+</script>
+<script>
+'use strict';
+let SR = 48000;
+(function sigil() { const s = document.getElementById('sigil'); let d = ''; for (let i = 0; i <= 160; i++) { const t = 2 * Math.PI * i / 160; d += (i ? 'L' : 'M') + (9 + 7.5 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 + 7.5 * Math.sin(2 * t)).toFixed(2); } s.innerHTML = '<path d="' + d + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
+
+const St = { step: 1, freq: 110, tau: 5, guard: false, playing: false, live: null, sweeping: false };
+const $ = id => document.getElementById(id);
+const el = (tag, attrs = {}, ...kids) => { const n = document.createElement(tag); for (const k in attrs) { if (k === 'on') for (const ev in attrs.on) n.addEventListener(ev, attrs.on[ev]); else if (k === 'html') n.innerHTML = attrs[k]; else n.setAttribute(k, attrs[k]); } kids.forEach(c => n.append(c)); return n; };
+const guardOn = () => St.step >= 3 && St.guard;
+const KIND_COL = { tune: '#e8b84a', silent: '#1c1c26', stuck: '#a64aff', nan: '#ff4a5e' };
+const kindCol = c => c.kind === 'sharp' ? 'rgba(255,107,74,' + (0.35 + 0.65 * Math.min(1, c.cents / 200)).toFixed(2) + ')' : c.kind === 'flat' ? 'rgba(74,173,255,' + (0.35 + 0.65 * Math.min(1, -c.cents / 200)).toFixed(2) + ')' : KIND_COL[c.kind];
+
+// ───────── sound: one worklet runs the plan's code; silent until a click ─────────
+let ctx = null, node = null, master = null;
+const WORKLET = () => document.getElementById('engine').textContent + `
+class SrcgGuard extends AudioWorkletProcessor {
+  constructor() { super(); this.e = PlanStage2(sampleRate); this.x1 = 0; this.y1 = 0; this.n = 0; this.fires = 0; this.first = -1; this.last = -1; this.sweep = null; this.base = 5;
+    this.port.onmessage = (ev) => { const d = ev.data; if (d.set) { this.e.set(d.set); if (d.set.tauMs != null) this.base = d.set.tauMs; } if (d.reset) this.e.reset(); if (d.sweep) this.sweep = { i: 0 }; if (d.stopSweep) this.sweep = null; }; }
+  process(_, outs) { const L = outs[0][0], R = outs[0][1] || L;
+    for (let i = 0; i < L.length; i++) {
+      if (this.sweep) {                       // 20 ms down to 0.005 ms in 4 s, exactly 0 for 0.6 s, back up in 4 s
+        const t = this.sweep.i++ / sampleRate, lo = 0.005, hi = 20;
+        this.e.P.tauMs = t < 4 ? hi * Math.pow(lo / hi, t / 4) : t < 4.6 ? 0 : t < 8.6 ? lo * Math.pow(hi / lo, (t - 4.6) / 4) : hi;
+        if (t >= 8.6) { this.sweep = null; this.port.postMessage({ sweepDone: true }); }
+      }
+      let x = this.e.tick(); if (this.e.st.fired) { this.fires++; if (this.first < 0) this.first = this.n + i; this.last = this.n + i; }
+      if (!isFinite(x)) x = 0;                // a NaN or an infinity leaves the piece as silence
+      const y = x - this.x1 + 0.9987 * this.y1; this.x1 = x; this.y1 = y;
+      L[i] = y * 0.36; if (R !== L) R[i] = L[i];
+    }
+    this.n += L.length;
+    if (this.n >= 4096) { const s = this.e.st; this.port.postMessage({ live: { V: s.V, c: s.c, drive: s.drive, tauMs: this.e.P.tauMs, seen: s.tauMs, hz: this.fires >= 2 ? (this.fires - 1) * sampleRate / (this.last - this.first) : 0 } }); this.n = 0; this.fires = 0; this.first = -1; this.last = -1; }
+    return true; }
+}
+registerProcessor('srcg-guard', SrcgGuard);`;
+
+async function play() {
+  if (!ctx) {
+    ctx = new AudioContext();
+    const url = URL.createObjectURL(new Blob([WORKLET()], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    node = new AudioWorkletNode(ctx, 'srcg-guard', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    node.port.onmessage = (ev) => { const d = ev.data; if (d.live) { St.live = d.live; liveRead(); } if (d.sweepDone) { St.sweeping = false; send(); paint(); } };
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -16; comp.ratio.value = 4;
+    master = ctx.createGain(); master.gain.value = 0;
+    node.connect(comp).connect(master).connect(ctx.destination);
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && St.playing) { St.playing = false; St.sweeping = false; paint(); } };
+    if (ctx.sampleRate !== SR) { SR = ctx.sampleRate; maps = {}; build(); }
+  }
+  send();
+  await ctx.resume();
+  master.gain.cancelScheduledValues(ctx.currentTime);
+  master.gain.setTargetAtTime(0.8, ctx.currentTime, 0.05);
+  St.playing = true; paint();
+}
+function stopSound() {
+  St.sweeping = false; if (node) node.port.postMessage({ stopSweep: true });
+  if (!ctx || !St.playing) { St.playing = false; return; }
+  master.gain.setTargetAtTime(0, ctx.currentTime, 0.03);
+  const c = ctx; setTimeout(() => { if (!St.playing) c.suspend(); }, 160);
+  St.playing = false; paint();
+}
+function send(reset) { if (node) node.port.postMessage({ set: { freq: St.freq, tauMs: St.tau, guard: guardOn() }, reset: !!reset }); }
+function resetHistory() { if (node) node.port.postMessage({ reset: true }); St.live = null; update(); }
+function sweep() { St.sweeping = true; paint(); const go = async () => { if (!St.playing) await play(); node.port.postMessage({ reset: true, sweep: true }); }; go(); }
+
+// ───────── pictures ─────────
+function fit(cv) { const r = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.height / (cv._r || 1); cv._r = r; cv.style.height = h + 'px'; cv.width = Math.round(w * r); cv.height = Math.round(h * r); const g = cv.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); return { g, w, h }; }
+const mono = '10px "JetBrains Mono", monospace';
+function drawDrive() {
+  const { g, w, h } = fit($('pic')); g.clearRect(0, 0, w, h); g.font = mono;
+  const L = 44, R = w - 12, T = 10, B = h * 0.55, P = SR / St.freq;
+  const tmin = 0.01, tmax = 50, dmin = 1e-4, dmax = 10;
+  const X = t => L + Math.log(t / tmin) / Math.log(tmax / tmin) * (R - L), Y = d => B - Math.log(d / dmin) / Math.log(dmax / dmin) * (B - T);
+  for (const d of [1e-4, 1e-3, 1e-2, 1e-1, 1, 10]) { g.fillStyle = 'rgba(255,255,255,.05)'; g.fillRect(L, Y(d), R - L, 1); g.fillStyle = '#4a4a5a'; g.fillText(d >= 1 ? String(d) : d.toExponential(0), 2, Y(d) + 3); }
+  for (const t of [0.01, 0.1, 1, 10]) { g.fillStyle = '#4a4a5a'; g.fillRect(X(t), B, 1, 4); g.fillText(t + ' ms', X(t) - 12, B + 14); }
+  g.fillStyle = '#4a4a5a'; g.fillText('drive per sample', L + 4, T + 10);
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 1.6; g.beginPath();
+  for (let i = 0; i <= 200; i++) { const t = tmin * Math.pow(tmax / tmin, i / 200), ts = t * 0.001 * SR, d = 1 / (ts * (1 - Math.exp(-P / ts))); const x = X(t), y = Y(Math.min(dmax, Math.max(dmin, d))); i ? g.lineTo(x, y) : g.moveTo(x, y); }
+  g.stroke();
+  const ts = St.tau * 0.001 * SR, d = 1 / (ts * (1 - Math.exp(-P / ts)));
+  g.fillStyle = '#e8e8f0'; g.beginPath(); g.arc(X(St.tau), Y(Math.min(dmax, Math.max(dmin, d))), 4, 0, 7); g.fill();
+  // the ramp at this tau
+  const T2 = B + 26, B2 = h - 8, e = PlanStage2(SR); e.set({ freq: St.freq, tauMs: St.tau });
+  const per = Math.ceil(P), warm = per * 3, win = Math.min(Math.round(SR * 0.03), per * 3); for (let i = 0; i < warm; i++) e.tick();
+  g.fillStyle = '#4a4a5a'; g.fillText('the membrane, ' + (win / SR * 1000).toFixed(1) + ' ms', L + 4, T2 + 10);
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 1.4; g.beginPath();
+  for (let i = 0; i < win; i++) { e.tick(); const x = L + i / (win - 1) * (R - L), y = B2 - e.st.V * (B2 - T2 - 14); i ? g.lineTo(x, y) : g.moveTo(x, y); }
+  g.stroke();
+}
+function drawPulled() {
+  const { g, w, h } = fit($('pic')); g.clearRect(0, 0, w, h); g.font = mono;
+  const r = pulled(St.freq, St.tau, guardOn(), SR, 15, 5, 40);
+  const L = 10, R = w - 10, T = 14, B = h * 0.7, T2 = B + 22, B2 = h - 10;
+  const X = i => L + i / (r.n - 1) * (R - L);
+  g.fillStyle = 'rgba(255,74,94,.08)'; g.fillRect(X(r.a), T, X(r.b) - X(r.a), B2 - T);
+  g.fillStyle = '#8a8aa0'; g.fillText('cable out, the inlet reads 0', X(r.a) + 4, T - 3);
+  for (const v of [0, 1]) { g.fillStyle = 'rgba(255,255,255,.06)'; g.fillRect(L, B - v * (B - T), R - L, 1); }
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 1.4; g.beginPath(); let pen = false;
+  for (let i = 0; i < r.n; i++) { const v = r.V[i]; if (!isFinite(v)) { pen = false; continue; } const x = X(i), y = B - Math.max(0, Math.min(1, v)) * (B - T); if (!pen) { g.moveTo(x, y); pen = true; } else g.lineTo(x, y); }
+  g.stroke();
+  if (r.nanAt >= 0) { g.fillStyle = 'rgba(255,74,94,.55)'; g.fillRect(X(r.nanAt), (T + B) / 2 - 3, R - X(r.nanAt), 6); g.fillStyle = '#ff6b6b'; g.fillText('V = NaN from here on', Math.min(X(r.nanAt) + 6, R - 140), (T + B) / 2 - 8); }
+  g.strokeStyle = '#8a8aa0'; g.lineWidth = 1.2; g.beginPath();
+  for (let i = 0; i < r.n; i++) { const x = X(i), y = r.T[i] > 0 ? T2 : B2; i ? g.lineTo(x, y) : g.moveTo(x, y); }
+  g.stroke(); g.fillStyle = '#4a4a5a'; g.fillText('τ at the inlet: ' + St.tau.toFixed(2) + ' ms, then 0', L, T2 - 4);
+  return r;
+}
+let maps = {};
+const getMap = guard => maps[guard] || (maps[guard] = guardMap(guard, SR));
+function drawMaps() {
+  const { g, w, h } = fit($('pic')); g.clearRect(0, 0, w, h); g.font = mono;
+  const gap = 18, L = 40, mw = (w - L - gap - 6) / 2, T = 18, B = h - 30;
+  [false, true].forEach((guard, m) => {
+    const map = getMap(guard), x0 = L + m * (mw + gap), cw = mw / MAP_TAUS.length, ch = (B - T) / MAP_FREQS.length;
+    g.fillStyle = '#8a8aa0'; g.fillText(guard ? 'max(τ, 0.1 ms) — the plan’s guard' : 'no guard', x0, T - 6);
+    map.forEach((row, j) => row.forEach((c, i) => { g.fillStyle = kindCol(c); g.fillRect(x0 + i * cw, B - (j + 1) * ch, Math.ceil(cw), Math.ceil(ch)); }));
+    const xt = t => x0 + cw + Math.log(t / 0.005) / Math.log(20 / 0.005) * (mw - cw - cw) + cw / 2;
+    g.fillStyle = '#4a4a5a';
+    g.fillText('0', x0 + 1, B + 12);
+    for (const t of [0.01, 0.1, 1, 10]) { g.fillRect(xt(t), B, 1, 4); g.fillText(String(t), xt(t) - 8, B + 14); }
+    if (guard) { g.strokeStyle = '#e8e8f0'; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(xt(0.1), T); g.lineTo(xt(0.1), B); g.stroke(); g.setLineDash([]); }
+    if (m === 0) for (const f of [55, 110, 220, 440, 880]) { const j = Math.log(f / 55) / Math.log(16) * 24; g.fillText(String(f), 2, B - (j + 0.5) * ch + 3); }
+    // where you are
+    const tx = St.tau <= 0 ? x0 + cw / 2 : xt(Math.min(20, Math.max(0.005, St.tau))), fy = B - (Math.log(St.freq / 55) / Math.log(16) * 24 + 0.5) * ch;
+    g.strokeStyle = '#e8e8f0'; g.lineWidth = 1.2; g.strokeRect(tx - 4, fy - 4, 8, 8);
+  });
+  g.fillStyle = '#4a4a5a'; g.fillText('τ in ms →', w - 70, h - 4); g.fillText('Hz', 2, T - 6);
+}
+
+// ───────── the steps ─────────
+let syncs = [];
+const fmtHz = f => f < 100 ? f.toFixed(1) : Math.round(f) + '';
+const fmtNum = v => Number.isNaN(v) ? 'NaN' : !isFinite(v) ? (v > 0 ? '∞' : '−∞') : Math.abs(v) >= 1e5 || (Math.abs(v) < 1e-3 && v !== 0) ? v.toExponential(2) : v.toFixed(4);
+function tauSlider(min, unplug) {
+  const span = el('b'); const input = el('input', { type: 'range', min: 0, max: 1000, step: 1, 'aria-label': 'leak time constant' });
+  const lo = unplug ? 0.005 : min, hi = 50, z = unplug ? 25 : 0;
+  const toPos = v => v <= 0 ? 0 : z + Math.round(Math.log(v / lo) / Math.log(hi / lo) * (1000 - z));
+  const fromPos = p => (unplug && p < z) ? 0 : lo * Math.pow(hi / lo, (p - z) / (1000 - z));
+  input.value = toPos(St.tau);
+  const show = () => { span.textContent = St.tau <= 0 ? '0 · unplugged' : St.tau.toFixed(St.tau < 0.1 ? 3 : 2) + ' ms'; };
+  input.addEventListener('input', () => { St.tau = fromPos(+input.value); show(); send(); update(); });
+  show(); syncs.push(() => { if (document.activeElement !== input) input.value = toPos(St.tau); show(); });
+  return el('label', { class: 'srcg-sl' }, 'in 2 · leak τ · ', span, input);
+}
+function pitchSlider() {
+  const span = el('b'); const input = el('input', { type: 'range', min: 0, max: 1000, step: 1, 'aria-label': 'pitch' });
+  const toPos = v => Math.round(Math.log(v / 55) / Math.log(16) * 1000), fromPos = p => 55 * Math.pow(16, p / 1000);
+  input.value = toPos(St.freq);
+  const show = () => { span.textContent = fmtHz(St.freq) + ' Hz'; };
+  input.addEventListener('input', () => { St.freq = fromPos(+input.value); show(); send(); update(); });
+  show(); syncs.push(() => { if (document.activeElement !== input) input.value = toPos(St.freq); show(); });
+  return el('label', { class: 'srcg-sl' }, 'in 1 · pitch · ', span, input);
+}
+const btn = (label, fn, id) => el('button', Object.assign({ on: { click: fn } }, id ? { id } : {}), label);
+const pull = () => { St.tau = 0; send(); update(); };
+const plug = () => { St.tau = 5; send(); update(); };
+
+const STEPS = [
+  { n: 1, name: 'one exp() in a denominator', pic: ['the drive against τ, and the membrane at your τ', ''],
+    says: '<b>One concept: where τ goes.</b> The plan’s stage 2 turns the leak time constant into samples, then uses it twice: in the leak coefficient, 1 − 1⁄τ, and in the drive, a fraction with τ and an <i>exp()</i> in its denominator. The drive is the current that brings the membrane to threshold in exactly one period. Shrink τ and watch it climb: a leakier membrane needs a harder push.',
+    eqs: [['I = 1 ⁄ ( τ · (1 − e<sup>−P⁄τ</sup>) )', 'The drive per sample is one over τ times one minus e to the minus P over τ, where P is the period in samples. For τ much shorter than the period the exponential is nearly zero and the drive is close to 1⁄τ; for τ much longer it approaches 1⁄P, the leak-free ramp.']],
+    controls: () => [tauSlider(0.3, false), pitchSlider()], back: 'This is the voice of the Action Potential Oscillator’s stage 2, with τ kept well away from zero.' },
+  { n: 2, name: 'pull the cable', pic: ['the membrane when the inlet reads 0 for 5 ms', ''],
+    says: '<b>The inlet reads zero.</b> A Gen~ <i>in</i> with nothing connected gives 0.0, and so does an envelope at rest or a cable pulled mid-performance. With τ = 0 the coefficient is 1 − 1⁄0 = −∞ and the drive 1⁄0 = ∞, so the first sample computes 0 · (−∞) + ∞, which is NaN. Pull the cable while it plays, then plug it back in. The NaN does not leave: the membrane feeds itself, and NaN times anything is NaN. Only resetting the History brings the voice back.',
+    eqs: [['V = 0 · (−∞) + ∞ = NaN      then  V = NaN · c + I = NaN', 'Zero times infinity has no value, so floating point calls it NaN, not a number. A NaN compared with the threshold is never at or above it, so the reset that would clear it never comes.']],
+    controls: () => [el('div', { class: 'srcg-btns' }, btn('pull the cable', pull), btn('plug it back in', plug), btn('reset the History', resetHistory)), tauSlider(0, true), pitchSlider()],
+    back: 'Keep τ off zero and nothing here differs from step 1.' },
+  { n: 3, name: 'the guard', pic: ['the same pull, with the guard on or off', ''],
+    says: '<b>The guard the section asks for.</b> The plan reads the inlet through <i>max(in2, 0.1)</i>, so τ can never go below 0.1 ms, about 5 samples. Switch it on and pull the cable again: no NaN, and the voice comes back the moment the cable does. Listen to what happens while the cable is out, though. That gap is the next step.',
+    eqs: [['leak_tau_ms = max(in2, 0.1)', 'The guard keeps the larger of what the inlet reads and 0.1 ms. An unplugged inlet now means a membrane with a 0.1 ms leak, not a division by zero.']],
+    controls: () => [el('div', { class: 'srcg-btns' }, el('button', { class: St.guard ? 'srcg-on' : '', 'aria-pressed': String(St.guard), on: { click: () => { St.guard = !St.guard; send(); build(); } } }, St.guard ? 'guard on · max(τ, 0.1 ms)' : 'guard off'), btn('pull the cable', pull), btn('plug it back in', plug), btn('reset the History', resetHistory)), tauSlider(0, true), pitchSlider()],
+    back: 'Guard off is step 2 again.' },
+  { n: 4, name: 'the test', pic: ['what each note does at each τ, held steady', ''],
+    says: '<b>The claim.</b> The section says every input in a denominator or an <i>exp()</i> must be guarded against zero with <i>max()</i>. The guard stops the NaN; the test is whether the floor it leaves still sings. Each square is one note held at one τ, run through the plan’s code: amber is in tune, orange is sharp, dark is silent, violet fires every sample, red is NaN. The left column of each map is τ exactly 0. Sweep τ from 20 ms down to zero and back, with the guard on or off, and listen along.',
+    eqs: [['the floor sings while  P ⁄ τ ≲ 35   and   1 ⁄ (2τ) is small', 'Two limits, both in samples. When the period is more than about 35 time constants long, the charge meets the threshold only within the last bits of a double, so whether and when it fires is decided by rounding. And the drive uses the continuous decay e<sup>−1⁄τ</sup> where the leak is the discrete 1 − 1⁄τ; they part by about 1⁄(2τ), which makes a short τ sharp.']],
+    controls: () => [el('div', { class: 'srcg-btns' }, el('button', { class: St.guard ? 'srcg-on' : '', 'aria-pressed': String(St.guard), on: { click: () => { St.guard = !St.guard; send(); build(); } } }, St.guard ? 'guard on · max(τ, 0.1 ms)' : 'guard off'), btn('▸ sweep τ to zero and back', sweep, 'sweepBtn'), btn('reset the History', resetHistory)), tauSlider(0, true), pitchSlider()],
+    back: 'Every square is step 1, 2 or 3 held still at one setting.' },
+];
+
+function build() {
+  const s = STEPS[St.step - 1];
+  const rail = $('rail'); rail.innerHTML = '';
+  STEPS.forEach(t => rail.append(el('button', { 'aria-pressed': String(t.n === St.step), on: { click: () => goTo(t.n) } }, t.n + ' · ' + t.name)));
+  $('stepname').textContent = s.n + ' · ' + s.name; $('stepof').textContent = 'step ' + s.n + ' of ' + STEPS.length;
+  $('says').innerHTML = s.says; $('picname').textContent = s.pic[0];
+  const c = $('controls'); c.innerHTML = ''; syncs = [];
+  c.append(el('div', { class: 'srcg-btns' }, el('button', { class: 'srcg-go', id: 'go', on: { click: () => St.playing ? stopSound() : play() } }, St.playing ? '❚❚ stop' : '▸ play')));
+  s.controls().forEach(x => c.append(x));
+  $('eqs').innerHTML = ''; s.eqs.forEach(([sym, words]) => { $('eqs').append(el('div', { class: 'srcg-eq', html: sym.replace(/ {2,}/g, '&emsp;&emsp;') }), el('div', { class: 'srcg-words', html: words })); });
+  $('key').innerHTML = St.step === 4 ? [['tune', 'in tune, within a sample of the period'], ['sharp', 'sharp'], ['silent', 'silent'], ['stuck', 'fires every sample'], ['nan', 'NaN']].map(([k, n]) => '<span><i style="background:' + (k === 'sharp' ? '#ff6b4a' : KIND_COL[k]) + ';outline:1px solid rgba(255,255,255,.12)"></i>' + n + '</span>').join('') : '';
+  $('backline').textContent = s.back;
+  $('verdict').style.display = St.step === 4 ? '' : 'none';
+  $('prev').disabled = St.step === 1; $('next').disabled = St.step === STEPS.length;
+  update();
+}
+function goTo(n) { if (n !== St.step) { stopSound(); St.step = n; if (St.tau < 0.3 && n === 1) St.tau = 5; if (n === 2) St.guard = false; if (n === 3) St.guard = true; send(true); build(); } }
+function paint() { const g = $('go'); if (g) g.textContent = St.playing ? '❚❚ stop' : '▸ play'; const b = $('sweepBtn'); if (b) b.textContent = St.sweeping ? 'sweeping…' : '▸ sweep τ to zero and back'; }
+
+function liveRead() {
+  const l = St.live, box = $('live'); if (!box || !l) return;
+  box.innerHTML = 'now · τ at the inlet <b>' + (l.tauMs <= 0 ? '0' : l.tauMs.toFixed(3) + ' ms') + '</b> · the code sees <b>' + (l.seen <= 0 ? '0' : l.seen.toFixed(3) + ' ms') + '</b> · V <b>' + fmtNum(l.V) + '</b> · ' + (Number.isNaN(l.V) ? '<span class="srcg-flag">NaN: silent until the History is reset</span>' : l.hz < 1 ? 'silent' : 'firing <b>' + fmtHz(l.hz) + ' Hz</b>');
+}
+function update() {
+  const parts = [], ts = St.tau * 0.001 * SR, P = SR / St.freq;
+  if (St.step === 1) {
+    drawDrive();
+    const c = 1 - 1 / ts, ex = Math.exp(-P / ts), d = 1 / (ts * (1 - ex)), k = classify(St.freq, St.tau, false, SR);
+    parts.push('τ <b>' + ts.toFixed(1) + ' samples</b>', 'e<sup>−P⁄τ</sup> <b>' + fmtNum(ex) + '</b>', 'drive <b>' + fmtNum(d) + '</b>', 'coefficient <b>' + fmtNum(c) + '</b>', k.kind === 'silent' ? 'plays <b>nothing</b>' : 'plays <b>' + fmtHz(k.hz || 0) + ' Hz</b>' + (k.cents ? ' · ' + (k.cents > 0 ? '+' : '') + k.cents.toFixed(0) + ' cents' : ''));
+    $('picnote').textContent = 'P = ' + P.toFixed(1) + ' samples';
+  } else if (St.step <= 3) {
+    const r = drawPulled();
+    parts.push(r.nanAtEnd ? '<span class="srcg-flag">NaN on sample ' + (r.nanAt - r.a + 1) + ' of the pull, and still NaN 40 ms after the cable is back</span>' : 'no NaN · fires <b>' + r.firesAfter + '</b> times in the 40 ms after the cable is back');
+    $('picnote').textContent = guardOn() ? 'guard on' : 'no guard';
+  } else {
+    drawMaps();
+    $('picnote').textContent = 'notes 55–880 Hz, τ 0 and 0.005–20 ms, at ' + SR + ' Hz';
+    const bare = getMap(false), held = getMap(true);
+    const allNan = bare.every(row => row[0].kind === 'nan');
+    const atFloor = held.map((row, j) => ({ f: MAP_FREQS[j], c: row[0] }));
+    const silentBelow = atFloor.filter(x => x.c.kind === 'silent').map(x => x.f), sharp = atFloor.filter(x => x.c.kind === 'sharp');
+    const worst = sharp.reduce((a, x) => Math.max(a, x.c.cents), 0);
+    const row = f => held[MAP_FREQS.reduce((bi, x, i) => Math.abs(Math.log(x / f)) < Math.abs(Math.log(MAP_FREQS[bi] / f)) ? i : bi, 0)];
+    const from110 = inTuneFrom(row(110)), from440 = inTuneFrom(row(440));
+    const sticky = pulled(110, 5, false, SR, 15, 5, 40);
+    $('verdict').innerHTML = 'Measured on the plan’s code at ' + SR + ' Hz. <b>Without the guard</b>, τ = 0 turns ' + (allNan ? 'every note' : 'notes') + ' into NaN' + (sticky.nanAtEnd ? ', on the first sample, and it is still NaN 40 ms after τ comes back: the guard is needed.' : '.') +
+      ' <b>With max(τ, 0.1 ms)</b> nothing becomes NaN, and every note comes back when the cable does. But the floor itself ' + (silentBelow.length ? 'is silent for every note up to about <b>' + Math.round(Math.max(...silentBelow)) + ' Hz</b>' : 'sounds for every note') + (sharp.length ? ', and the notes above play up to <b>' + Math.round(worst) + ' cents</b> sharp' : '') + '. A held note stays within a sample of its period only from τ ≈ <b>' + (isFinite(from110) ? from110.toFixed(2) : '—') + ' ms</b> up at 110 Hz and <b>' + (isFinite(from440) ? from440.toFixed(2) : '—') + ' ms</b> up at 440 Hz. So the rule holds, and it is half the job: a guard that keeps τ off zero stops the NaN, and the floor it leaves has to sit where the math still works, which for this neuron depends on the note.';
+  }
+  $('read').innerHTML = parts.map(x => '<span>' + x + '</span>').join('') + (St.step >= 2 ? '<span id="live" style="flex-basis:100%"></span>' : '');
+  liveRead();
+  syncs.forEach(f => f());
+  paint();
+}
+
+$('prev').addEventListener('click', () => goTo(Math.max(1, St.step - 1)));
+$('next').addEventListener('click', () => goTo(Math.min(STEPS.length, St.step + 1)));
+window.addEventListener('resize', () => update());
+build();
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+{
+  "title": "Signal-Rate CV Architecture — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Signal-Rate CV Architecture]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Action Potential Oscillator]]",
+      "type": "connects-to",
+      "label": "engines-from"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "walks-built-by-the-method"
+    }
+  ],
+  "forward_vector": "I am the manifest of Signal-Rate CV Architecture's rich face: two walks the Shop made, the leak on a jack ending on signal rate against block rate and the zero guard ending on whether the guard's floor still sings, beside the steward's RNBO phrase where every control is a signal inlet, with the fingerprint of the words each was made against. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Signal-Rate CV Architecture",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "Three Converging Arguments",
+      "kind": "claim-change",
+      "what": "The pedagogical paragraph's own example, a slow LFO on the leak time constant, sounds the same at block rate. Measured on the face's engine (stage 2, 110 Hz, τ swung 1–15 ms, 48 kHz, τ held for 128-sample blocks against read every sample): the block version sits 63 dB under the voice at a 0.25 Hz LFO and 55 dB under at 0.5 Hz. The gap closes as the LFO speeds up (−41 dB at 2 Hz, −29 at 8, −18 at 30); past half the block rate the held value folds (a 300 Hz LFO is read as 75 Hz), and at the block rate itself (375 Hz) the held τ is a constant 3.87 ms, so the cable carries nothing. Per-sample math earns its keep at fast and audio-rate modulation, the modular argument's ground, not at the slow sweep the example describes. Proposed, one sentence after the example: 'Read once a block, a slow LFO would sound nearly the same; speed it up and the block version zippers, and at audio rate it can't follow at all, which is where hearing the equation needs the equation run every sample.'",
+      "status": "open"
+    },
+    {
+      "section": "Three Converging Arguments",
+      "kind": "claim-change",
+      "what": "'you hear the membrane becoming leakier in real time, the ramp curving and straightening, the timbre sweeping from warm to bright': with the drive the palace's engines use (the Gen~ plan's stage 2, neuropulse.dsp v0.4, the crowd codebox), worked out each sample as if τ would hold for the whole cycle, a τ that moves inside a cycle bends the pitch as well. Measured at 110 Hz, τ swung 1–15 ms: a 12-cent swing at a 0.25 Hz LFO (period 436–439 samples), 32 cents at 0.5 Hz, 139 at 2 Hz, 560 at 8 Hz. A drive recomputed every sample from where the charge is, for what is left of the period, I = (1 − V·cʳ)(1 − c)/(1 − cʳ), holds the period at 437 samples at every rate tested. The direction of the sweep holds as written: with the pitch held, the leakier membrane is the brighter (τ 0.5 ms: 31 harmonics within 20 dB of the loudest; 50 ms: 10). Proposed: '…the timbre sweeping from warm to bright, and, unless the drive is recomputed from the charge in flight, the pitch bending with it.' Changing the engines' drive is Action Potential Oscillator's call, not this page's.",
+      "status": "open"
+    },
+    {
+      "section": "Practical Consequences in Gen~ / RNBO",
+      "kind": "claim-change",
+      "what": "'Every input that appears in a denominator or as an argument to exp() must be guarded against zero using max() or clamp()': the rule holds, and it is half the job. Run on the dev plan's Gen~ stage 2 line for line (doubles, 48 kHz): unguarded, τ = 0 gives NaN on the first sample (0 · −∞ + ∞), and the History keeps it NaN after τ comes back, so the voice is silent until reset (a negative τ does not NaN; anything between 0 and one sample fires every sample). With the plan's max(in2, 0.1), nothing becomes NaN, but the 0.1 ms floor doesn't sing: it is silent for every note up to about 277 Hz (15 of 25 notes from 55 to 880 Hz; once the period runs past about 35 time constants the charge meets the threshold only by rounding), and about 190 cents sharp above (the drive's continuous exp(−P/τ) and the discrete leak 1 − 1/τ part by about 1/(2τ)). A held note stays within a sample of its period only from τ ≈ 3.9 ms at 110 Hz, 2.3 ms at 220, 1.1 ms at 440. At 44.1 kHz the numbers move a little and the finding doesn't. Proposed: '…must be guarded against zero using max() or clamp(), with the floor set where the math still holds, not just above zero; for a leaky charge that floor depends on the note.' The same 0.1 ms floor sits in neuropulse.dsp and the crowd codebox; their drive uses pow(), not exp(), so only the silent half should apply there, and that was not checked here.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Three Converging Arguments",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Signal-Rate CV Architecture — rich — the leak on a jack.html",
+          "origin": "made",
+          "by": "Web Audio Worklet",
+          "height": 1260,
+          "title": "the leak on a jack · a walk in five steps",
+          "caption": "**Does the equation need to run every sample to be heard?** One leaky ramp, then its time constant turned by hand, then an LFO patched into it, then the LFO raised past 20 Hz until motion turns into colour. The last step feeds the same LFO to two membranes, one reading τ every sample and one once per 128-sample block, and lets you hear only what they don't share. The engine is the Action Potential Oscillator's stage 2; step 3 also shows the pitch bending under the drive the palace's engines use, and a drive that holds it.",
+          "near": "Patch an LFO into the leak time constant"
+        }
+      ],
+      "made_against": "02250de168c3",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Practical Consequences in Gen~ / RNBO",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "/Projects/Action Potential Oscillator/neuropulse-codebox-phrase.wav",
+          "origin": "gathered",
+          "title": "every control an inlet · the steward's RNBO crowd, 14 October",
+          "caption": "24 s from the hand-written RNBO codebox of the Action Potential Oscillator's crowd, where every control is an in~ with a sig~ default and nothing is a param. A four-note phrase, A2 C3 E3 D3, with the coupling breathing on a 0.2 Hz sine patched into its inlet while the spread between neurons widens: early breaths lock into a clear tone, the last ones only reach about a third of the way. Rendered by the steward's Node harness running the codebox text; it hasn't been heard in Max.",
+          "near": "Default values provided by"
+        },
+        {
+          "file": "Signal-Rate CV Architecture — rich — the zero guard.html",
+          "origin": "made",
+          "by": "Web Audio Worklet",
+          "height": 1160,
+          "title": "the zero guard · a walk in four steps",
+          "caption": "**Is a guard against zero enough?** The dev plan's Gen~ stage 2, line for line: one exp() in a denominator, then the cable pulled so the inlet reads 0 and the membrane turns to NaN and stays there, then the plan's max(in2, 0.1). The last step maps every note against every τ, guarded and not, and sweeps τ to zero and back so you can listen along. A NaN leaves the piece as silence; the state is left as the plan's code leaves it.",
+          "near": "must be guarded against zero"
+        }
+      ],
+      "made_against": "e94d869ef6bc",
+      "stamped": "2026-11-03"
+    }
+  ]
+}
