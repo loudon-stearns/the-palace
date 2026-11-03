@@ -13,3 +13,9 @@ Note: the first word is "enchant," which the room read as "wake and assess." The
 > I'd like to look at what a rich face is and how it can be more closely aligned with "progressive staging" I am finding that many of the artifacts we have been creating including Dissolusions and FM synthesis (working in other sessions now) are creating proofs that will go in a project's scroll and rich face, but by default they started at a very complex proof, for every artifact like this we should default to a progressive staging posture. So please review progressive staging, rich face, scroll, and the two running sessions and give proposals where when we make the kind of artifacts I asked for in dissolusions and FM synthesis we default to a progressive staging posture.
 
 Note: the opening asks for review and proposals, not edits, and names two sessions the agent cannot reach from the room. It tests whether a child reads first and offers, and whether it keeps to proposals when the canon later moves on his yes.
+
+## 2026-11-03 · palace-map-use-by-agents (476033e1)
+
+> We have done much work on the palace lately, you can check recent commits to see all the work, we have not yet taken full advantage of the map. It get created and updated, but is not used well enough. I would like proposals for how we can make sure that agents use the map to make them more efficient and creative and knowlegable.
+
+Note: the opening asks for proposals, not edits, and sends the agent to recent commits for context. It tests whether a child reads the record first, finds the map's actual uses, and offers rather than builds.
