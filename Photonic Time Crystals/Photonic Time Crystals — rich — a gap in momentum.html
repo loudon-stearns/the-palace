@@ -81,7 +81,7 @@
 <main class="pt-piece">
   <div class="pt-kicker">Photonic time crystals · the key reversal</div>
   <h1 class="pt-title">A gap in momentum</h1>
-  <p class="pt-sub">The page says a time crystal is a space crystal turned on its side: where a stack of layers makes a band of light die with depth, a medium that breathes in time makes a band grow with time. Five steps: one wave in a plain medium, the crystal in space, the crystal in time, the gap heard, and the test, where the space side and the time side are computed by methods that share no code. The test finds the exponents equal, and finds one more turn than the page names: the gap moves from the frequency axis to the wave-number axis.</p>
+  <p class="pt-sub">The page says a time crystal is a space crystal turned on its side: where a stack of layers makes a band of light die with depth, a medium that breathes in time makes a band grow with time. Five steps: one wave in a plain medium, the crystal in space, the crystal in time, the gap heard, and the test, where the space side and the time side are computed by methods that share no code.</p>
   <nav class="pt-rail" aria-label="steps">
     <button data-go="1" aria-pressed="true">1 · one wave</button>
     <button data-go="2" aria-pressed="false">2 · a crystal in space</button>
@@ -134,7 +134,7 @@
 
   <section class="pt-step" data-step="4">
     <h2>4 · Hear the gap</h2>
-    <p class="pt-idea">The same ring, made long enough to hold a mode every 2.5 Hz, from 2.5 Hz to 1.2 kHz, with a little loss, and a whisper of noise in every mode, the stand-in for the vacuum. Breathe it at a pump rate and listen. The modes near half the pump swell out of the noise. They have different k, so they ring at different pitches when nothing breathes; inside the gap they all sing at one pitch, half the pump. Put the pump between two modes and the pitch you hear belongs to neither.</p>
+    <p class="pt-idea">The same ring, made long enough to hold a mode every 2.5 Hz, from 2.5 Hz to 1.2 kHz, with a little loss, and a whisper of noise in every mode, the stand-in for the vacuum. Breathe it at a pump rate and listen. The modes near half the pump swell out of the noise. They have different k, so they ring at different pitches when nothing breathes; inside the gap they all sing at one pitch, half the pump. Put the pump between two modes and the pitch you hear belongs to neither. That could fail: two free modes at 440 and 442.5 Hz read about 442.25 Hz on the same zero-crossing count, with two lines and a 14 dB beat. Once the swell settles, pump depletion lets one mode through, still at half the pump.</p>
     <div class="pt-row"><button class="pt-go" id="go4">listen</button><button id="pluck4">pluck the ring</button><button id="between4">pump between two modes</button><button id="off4">pump off</button></div>
     <div class="pt-row"><label for="fp4">pump rate</label><input id="fp4" type="range" min="500" max="1600" step="2.5" value="880"><span class="pt-val" id="fp4v"></span></div>
     <div class="pt-row"><label for="m4">depth, m</label><input id="m4" type="range" min="0" max="0.04" step="0.0005" value="0.012"><span class="pt-val" id="m4v"></span></div>
@@ -146,7 +146,7 @@
 
   <section class="pt-step" data-step="5">
     <h2>5 · The same gap?</h2>
-    <p class="pt-idea">The test. On the space side, a stack of 2000 thin uniform layers per cell, each carried by its exact matrix, gives the decay per cell at each frequency. On the time side, a full Yee grid of 8192 cells, uniform in space, its 1/ε breathing, gives its own one-period map for each wave number, with no equation for any single wave anywhere in it. If the page’s reversal holds, the decay per cell at ν in space equals the growth per period at ν in time.</p>
+    <p class="pt-idea">The test. On the space side, a stack of 2000 thin uniform layers per cell, each carried by its exact matrix, gives the decay per cell at each frequency. On the time side, a full Yee grid of 8192 cells, uniform in space, its 1/ε breathing, gives its own one-period map for each wave number, with no equation for any single wave anywhere in it. If the page’s reversal holds, the decay per cell at ν in space equals the growth per period at ν in time. The pass rule, before the table: the stack within 2 × 10⁻⁴ of the Mathieu reference, the grid within 5 × 10⁻³ of it (the grid’s own step size). Every modulation here is sinusoidal; a square wave of the same m grows faster (the challenger measured 0.1996 a period at the centre, against 0.1569).</p>
     <div class="pt-row"><span class="pt-legend">depth, m</span><button data-m5="0.05">0.05</button><button data-m5="0.1" aria-pressed="true">0.10</button><button data-m5="0.2">0.20</button></div>
     <div class="pt-two"><div><div class="pt-label"><span>space · frequency against Bloch phase per cell</span></div><canvas id="c5a"></canvas></div>
       <div><div class="pt-label"><span>time · frequency against wave number · dots: the Yee grid · grey: the left curve, axes swapped</span></div><canvas id="c5b"></canvas></div></div>
@@ -395,7 +395,7 @@ function draw2() {
   L.g.fillStyle = COL.fg3; L.g.fillText('cell 0', 40, L.h - 4); L.g.fillText('cell ' + CELLS2, L.w - 66, L.h - 4);
   const ed = gapEdges(m);
   $('t2').innerHTML = rd.gap
-    ? '<b>It dies with depth.</b> Each cell takes the wave down by e^(−' + rd.decay.toFixed(4) + ') = ' + Math.exp(-rd.decay).toFixed(4) + ', a straight line on the log scale: ' + (Math.exp(-rd.decay * CELLS2)).toExponential(1) + ' after twelve cells. Inside the gap the Bloch phase is held at exactly π a cell, the zone edge, and the wave flips sign each cell. At this depth the gap is the band of frequencies ν from ' + ed[0].toFixed(4) + ' to ' + ed[1].toFixed(4) + ': <b>a gap in frequency</b>, every one of them at the same Bloch phase.'
+    ? '<b>It dies with depth.</b> With this sinusoidal layering each cell takes the wave down by e^(−' + rd.decay.toFixed(4) + ') = ' + Math.exp(-rd.decay).toFixed(4) + ', a straight line on the log scale: ' + (Math.exp(-rd.decay * CELLS2)).toExponential(1) + ' after twelve cells. Inside the gap the Bloch phase is held at exactly π a cell, the zone edge, and the wave flips sign each cell. At this depth the gap is the band of frequencies ν from ' + ed[0].toFixed(4) + ' to ' + ed[1].toFixed(4) + ': <b>a gap in frequency</b>, every one of them at the same Bloch phase.'
     : '<b>It travels.</b> The size wobbles with the layers and never runs away: the Bloch phase is ' + rd.phase.toFixed(4) + 'π a cell. ' + (m > 0 ? 'The gap at this depth is ν from ' + ed[0].toFixed(4) + ' to ' + ed[1].toFixed(4) + '.' : 'With m = 0 there are no layers and no gap.');
 }
 
@@ -442,7 +442,7 @@ function draw3() {
   const meas = Math.log(tot(b) / tot(a)) / Math.min(10, P), ratio = b.B / b.F;
   const mul = mult3 ? 'The grid’s own one-period map for this k gives ' + (mult3.grow > 1e-9 ? 'growth ' + mult3.grow.toFixed(4) + ' a period, with its multiplier turned by exactly ' + mult3.turn.toFixed(4) + 'π' : 'both multipliers on the circle, turned by ' + mult3.turn.toFixed(4) + 'π, so nothing grows') + '.' : '';
   $('t3').innerHTML = inGap
-    ? '<b>It grows with time, and calls up its partner.</b> Over the last ' + Math.min(10, P) + ' periods it grew ' + meas.toFixed(4) + ' a period. The backward wave, which was not there at the start, now stands at ' + ratio.toFixed(3) + ' of the forward one: together a standing wave, growing. ' + mul + ' A turn of π is a frequency of exactly half the breathing rate, whatever k is in the gap: <b>the gap is a band of wave numbers</b>, from ν = ' + ed[0].toFixed(4) + ' to ' + ed[1].toFixed(4) + ', all at one frequency.'
+    ? '<b>It grows with time, and calls up its partner.</b> With this sinusoidal breathing, over the last ' + Math.min(10, P) + ' periods it grew ' + meas.toFixed(4) + ' a period. The backward wave, which was not there at the start, now stands at ' + ratio.toFixed(3) + ' of the forward one: together a standing wave, growing. ' + mul + ' A turn of π is a frequency of exactly half the breathing rate, whatever k is in the gap: <b>the gap is a band of wave numbers</b>, from ν = ' + ed[0].toFixed(4) + ' to ' + ed[1].toFixed(4) + ', all at one frequency.'
     : '<b>It travels.</b> The wave wobbles and a small backward part comes and goes (now ' + ratio.toFixed(3) + ' of the forward), but nothing runs away. ' + mul + (m > 0 ? ' The gap at this depth is ν from ' + ed[0].toFixed(4) + ' to ' + ed[1].toFixed(4) + '.' : ' With m = 0 nothing breathes and there is no gap.');
 }
 

@@ -78,7 +78,7 @@ console.log('a gap in momentum');
 
 console.log('a mirror in time');
 {
-  const E = script('a mirror in time', 'pm-engine', ['NOTES', 'phrase', 'timeMirror', 'wallEcho', 'reverseBuffer', 'slabRule', 'zcHz', 'rms', 'orderScore', 'yeeJump']);
+  const E = script('a mirror in time', 'pm-engine', ['NOTES', 'phrase', 'timeMirror', 'wallEcho', 'reverseBuffer', 'slabRule', 'zcHz', 'rms', 'orderScore', 'yeeJump', 'revVarispeed', 'revComb', 'residualDb']);
   const SR = 48000, p = E.phrase(SR), tJ = Math.round(1.45 * SR), held = E.NOTES[3];
   const meas = (kind, n2, tau) => {
     let y, c = 1, lagS = tJ - p.length;
@@ -106,6 +106,22 @@ console.log('a mirror in time');
     const r = E.yeeJump(40, [[100, n2]]);
     ok(Math.abs(r.back - Math.abs((1 - n2) / 2)) / Math.abs((1 - n2) / 2) < 0.005, `Yee grid, n₂ = ${n2}: backward D = |1 − n₂/n₁|/2`, r.back.toFixed(5));
     ok(Math.abs(r.freq - 1 / n2) / (1 / n2) < 0.005, `Yee grid, n₂ = ${n2}: its frequency × n₁/n₂`, r.freq.toFixed(5));
+  }
+  // the two digital rivals, against the rule stated in step 5: within -40 dB means the mirror is that chain
+  {
+    const delta = tJ - p.length, Rv = E.reverseBuffer(p);
+    for (const n2 of [1.5, 2, 3]) {
+      const len = Math.round((1.4 * n2 + 0.3) * SR), J = E.timeMirror(p, tJ, [[0, n2]], len), V = E.revVarispeed(p, n2, delta, len), pl = new Float64Array(len);
+      for (let s = 0; s < len; s++) { const k = s - Math.round(delta * n2); pl[s] = k >= 0 && k < Rv.length ? Rv[k] : 0; }
+      const v = E.residualDb(J, V, false), q = E.residualDb(J, pl, true);
+      ok(v < -80 && q > -3, `null, n₂ = ${n2}: the single jump is a reverse slowed by n₂ and scaled by r_E, and no plain reverse`, v.toFixed(1) + ' dB against ' + q.toFixed(1));
+    }
+    for (const tau of [0.37, 1, 2]) {
+      const tS = tau * 1e-3 * SR, len = Math.round(1.7 * SR), S = E.timeMirror(p, tJ, [[0, 2], [tS, 1]], len), C = E.revComb(p, 2, tS, delta, len), pl = new Float64Array(len);
+      for (let s = 0; s < len; s++) { const k = s - Math.round(delta + tS); pl[s] = k >= 0 && k < Rv.length ? Rv[k] : 0; }
+      const v = E.residualDb(S, C, false), q = E.residualDb(S, pl, true);
+      ok(v < -80 && q > -3, `null, τ = ${tau} ms: the there-and-back is a reverse through a two-tap comb, and no plain reverse`, v.toFixed(1) + ' dB against ' + q.toFixed(1));
+    }
   }
   for (const lam of [20, 30, 60]) { const r = E.yeeJump(lam, [[100, 2], [120, 1]], { N: 5000, x0: 3000, w: 250, probe: 10, steps: 2520 }), rule = E.slabRule(1 / lam, 2, 10); ok(Math.abs(r.back - rule) / rule < 0.01, `Yee grid, there and back, λ = ${lam}: |r| = the rule`, r.back.toFixed(4) + ' against ' + rule.toFixed(4)); }
 }

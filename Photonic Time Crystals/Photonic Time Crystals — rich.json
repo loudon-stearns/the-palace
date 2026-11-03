@@ -1,204 +1,204 @@
 {
-  "title": "Photonic Time Crystals — rich",
-  "born": "2026-11-03",
-  "links": [
+ "title": "Photonic Time Crystals — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[Photonic Time Crystals]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  },
+  {
+   "target": "[[Floquet Theory]]",
+   "type": "connects-to",
+   "label": "gathers-from"
+  },
+  {
+   "target": "[[Parametric Resonance]]",
+   "type": "connects-to",
+   "label": "gathers-from"
+  },
+  {
+   "target": "[[Progressive Staging]]",
+   "type": "connects-to",
+   "label": "each-piece-walks-up"
+  }
+ ],
+ "forward_vector": "I am the manifest of Photonic Time Crystals' rich face, its first round, a Sketch and still a proposal: the key reversal walked up to a test (a stack of layers and a Yee grid, sharing no code, giving one exponent, with the gap on the frequency axis in space and the wave-number axis in time), the first open question put to its strongest rivals (a time mirror is a reverse plus varispeed or a comb, in the ideal), and two pieces gathered from the Floquet and parametric faces beside the sentences they test. I grow when the page is enriched again; I never hold the entry's words.",
+ "entry": "Photonic Time Crystals",
+ "tier": "sketch",
+ "made": "2026-11-03",
+ "round": 1,
+ "sections": [
+  {
+   "heading": "Photonic Time Crystals",
+   "made_against": "6a81fc85b373",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "/Floquet Theory/Floquet Theory — rich — same equation twice.html",
+      "verdict": "keep",
+      "why": "A real test of \"Bloch in space, Floquet in time\" by two methods sharing no code; the caption matches its home manifest, and the file is byte-identical to the landed version on main (72f72181, merged d7c627d8, kept by its own challenger)."
+     }
+    ]
+   },
+   "pieces": [
     {
-      "target": "[[Photonic Time Crystals]]",
-      "type": "connects-to",
-      "label": "rich-face-of"
-    },
-    {
-      "target": "[[Enrichment]]",
-      "type": "connects-to",
-      "label": "made-by"
-    },
-    {
-      "target": "[[Floquet Theory]]",
-      "type": "connects-to",
-      "label": "gathers-from"
-    },
-    {
-      "target": "[[Parametric Resonance]]",
-      "type": "connects-to",
-      "label": "gathers-from"
-    },
-    {
-      "target": "[[Progressive Staging]]",
-      "type": "connects-to",
-      "label": "each-piece-walks-up"
+     "file": "/Floquet Theory/Floquet Theory — rich — same equation twice.html",
+     "origin": "gathered",
+     "height": 1250,
+     "title": "same equation, read twice · from Floquet Theory's face",
+     "caption": "**Bloch in space, Floquet in time, checked.** Made for [[Floquet Theory]] and gathered here because it tests this sentence for the simplest case: a wave in a cosine lattice and a spring pumped in time are one equation, and the lattice's gap edges, found from plane waves, are the spring's tongue edges, found by integration, within 2 × 10⁻⁷, with half the trace of one period's map equal to cos kπ inside every band. It also pins the dictionary: Bloch's k is the imaginary part of the Floquet exponent, not the exponent. Still a proposal on its own page.",
+     "near": "crystals are Bloch in space"
     }
-  ],
-  "forward_vector": "I am the manifest of Photonic Time Crystals' rich face, its first round, a Sketch and still a proposal: the key reversal walked up to a test (a stack of layers and a Yee grid, sharing no code, giving one exponent, with the gap on the frequency axis in space and the wave-number axis in time), the first open question answered by ear (a time mirror against a reverse buffer), and two pieces gathered from the Floquet and parametric faces beside the sentences they test. I grow when the page is enriched again; I never hold the entry's words.",
-  "entry": "Photonic Time Crystals",
-  "tier": "sketch",
-  "made": "2026-11-03",
-  "round": 1,
-  "sections": [
+   ],
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "The basic structure",
+   "made_against": "cbd7379bcf38",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Photonic Time Crystals — rich — a gap in momentum.html",
+      "verdict": "keep",
+      "why": "Tests the key reversal and finds what the text lacks (a momentum gap), filed as an offer; recomputed 0.156896 (DOP853 and Hill matrix, sinusoidal, as the piece uses); the heard 441.25 Hz can fail (an unlocked 440 + 442.5 pair reads 442.25 Hz on the same check) and sound reaches on step 4. Notes: state step 5's pass rule on the page; play-silent is conform's click not reaching step 4."
+     }
+    ]
+   },
+   "pieces": [
     {
-      "heading": "Photonic Time Crystals",
-      "made_against": "6a81fc85b373",
-      "made": "2026-11-03",
-      "status": "proposal",
-      "proposed": {
-        "date": "2026-11-03",
-        "by": "maker · claude-opus-5-5 · proposal round",
-        "round": "proposal-round-2026-11"
-      },
-      "challenge": {
-        "date": "2026-11-03",
-        "by": "challenger · claude-opus-5-5",
-        "verdicts": [
-          {
-            "file": "/Floquet Theory/Floquet Theory — rich — same equation twice.html",
-            "verdict": "keep",
-            "why": "A real test of \"Bloch in space, Floquet in time\" by two methods sharing no code; the caption matches its home manifest, and the file is byte-identical to the landed version on main (72f72181, merged d7c627d8, kept by its own challenger)."
-          }
-        ]
-      },
-      "pieces": [
-        {
-          "file": "/Floquet Theory/Floquet Theory — rich — same equation twice.html",
-          "origin": "gathered",
-          "height": 1250,
-          "title": "same equation, read twice · from Floquet Theory's face",
-          "caption": "**Bloch in space, Floquet in time, checked.** Made for [[Floquet Theory]] and gathered here because it tests this sentence for the simplest case: a wave in a cosine lattice and a spring pumped in time are one equation, and the lattice's gap edges, found from plane waves, are the spring's tongue edges, found by integration, within 2 × 10⁻⁷, with half the trace of one period's map equal to cos kπ inside every band. It also pins the dictionary: Bloch's k is the imaginary part of the Floquet exponent, not the exponent. Still a proposal on its own page.",
-          "near": "crystals are Bloch in space"
-        }
-      ],
-      "stamped": "2026-11-03"
-    },
-    {
-      "heading": "The basic structure",
-      "made_against": "cbd7379bcf38",
-      "made": "2026-11-03",
-      "status": "proposal",
-      "proposed": {
-        "date": "2026-11-03",
-        "by": "maker · claude-opus-5-5 · proposal round",
-        "round": "proposal-round-2026-11"
-      },
-      "challenge": {
-        "date": "2026-11-03",
-        "by": "challenger · claude-opus-5-5",
-        "verdicts": [
-          {
-            "file": "Photonic Time Crystals — rich — a gap in momentum.html",
-            "verdict": "keep",
-            "why": "Tests the key reversal and finds what the text lacks (a momentum gap), filed as an offer; recomputed 0.156896 (DOP853 and Hill matrix, sinusoidal, as the piece uses); the heard 441.25 Hz can fail (an unlocked 440 + 442.5 pair reads 442.25 Hz on the same check) and sound reaches on step 4. Notes: state step 5's pass rule on the page; play-silent is conform's click not reaching step 4."
-          }
-        ]
-      },
-      "pieces": [
-        {
-          "file": "Photonic Time Crystals — rich — a gap in momentum.html",
-          "origin": "made",
-          "by": "thin-layer stack · Yee grid · Web Audio Worklet",
-          "height": 1400,
-          "title": "a gap in momentum",
-          "caption": "**The key reversal, walked up and measured.** One wave in a plain medium; a stack of layers, where a band of frequencies dies with depth (×e^(−0.157) a cell at the centre, m = 0.1); a ring whose 1/ε breathes, where a forward wave in the gap grows and calls up a backward partner that reaches its size (B/F 0.9998 after 30 periods); the gap heard, a whisper of noise swelling to one pitch, half the pump, even with the pump between two of the ring's modes (441.25 Hz, between 440 and 442.5); and the test. A stack of 2000 thin layers a cell and a Yee grid of 8192 cells share no code and give the same exponent: 0.15690 against 0.15689 at the centre, worst 2.9 × 10⁻³ at an edge, where the rate climbs steeply. And the axis turns: in space the gap is a band of frequencies, all at the zone edge; in time it is a band of wave numbers, every one at exactly half the breathing rate. The page says frequencies; measured, it is a momentum gap.",
-          "near": "The same exponential structure, but pointing in dual directions"
-        }
-      ],
-      "stamped": "2026-11-03"
-    },
-    {
-      "heading": "Why this matters for audio",
-      "made_against": "3eb87b83f509",
-      "made": "2026-11-03",
-      "status": "proposal",
-      "proposed": {
-        "date": "2026-11-03",
-        "by": "maker · claude-opus-5-5 · proposal round",
-        "round": "proposal-round-2026-11"
-      },
-      "challenge": {
-        "date": "2026-11-03",
-        "by": "challenger · claude-opus-5-5",
-        "verdicts": [
-          {
-            "file": "/Parametric Resonance/Parametric Resonance — rich — the threshold heard.html",
-            "verdict": "keep",
-            "why": "Makes the crack felt before the hook names it, and measures its threshold; byte-identical to the landed version on main (2155231d, merged 04b5fe25). Note: its 4ζ is in that page's ε, which is 2m in the gap piece above (m = 2ζ); a clause in the caption would say so."
-          }
-        ]
-      },
-      "pieces": [
-        {
-          "file": "/Parametric Resonance/Parametric Resonance — rich — the threshold heard.html",
-          "origin": "gathered",
-          "height": 1000,
-          "title": "the threshold, heard · from Parametric Resonance's face",
-          "caption": "**The crack the hook names.** Made for [[Parametric Resonance]] and gathered beside this sentence so the threshold can be felt before the connection is read: one 220 Hz ring pumped at 440 Hz, decaying below threshold, then a noise floor 80 dB down swelling into a steady tone once the pump passes 4ζ. It is the single-mode case of the gap piece above: one wave number, sitting in the gap. Still a proposal on its own page.",
-          "near": "of parametric threshold and reads this connection"
-        }
-      ],
-      "stamped": "2026-11-03"
-    },
-    {
-      "heading": "Open Questions",
-      "made_against": "7ab7ea762602",
-      "made": "2026-11-03",
-      "status": "proposal",
-      "proposed": {
-        "date": "2026-11-03",
-        "by": "maker · claude-opus-5-5 · proposal round",
-        "round": "proposal-round-2026-11"
-      },
-      "challenge": {
-        "date": "2026-11-03",
-        "by": "challenger · claude-opus-5-5",
-        "verdicts": [
-          {
-            "file": "Photonic Time Crystals — rich — a mirror in time.html",
-            "verdict": "remake",
-            "why": "Its test is against a plain reverse buffer only; a reverse buffer varispeeded by n₁/n₂ at gain r_E matches the single jump to −86 dB, and one through a two-tap comb matches the there-and-back to −318 dB. Add those two nulls to step 4, state the verdict rule before the trial and make the bold headlines depend on it, re-word the answer (distinct from a plain reverse, reproducible by varispeed or comb in the ideal line), and update the Open Questions offer to match."
-          }
-        ]
-      },
-      "pieces": [
-        {
-          "file": "Photonic Time Crystals — rich — a mirror in time.html",
-          "origin": "made",
-          "by": "uniform line, forward and backward parts · Yee grid",
-          "height": 1250,
-          "title": "a mirror in time",
-          "caption": "**The first question, answered by ear in an ideal line.** A phrase of four notes sent back by a wall (same order); by a jump of the whole line's index (reversed, transposed by n₁/n₂ and stretched by n₂/n₁: at n₂ = 2 the held A4 returns at 220.00 Hz, 2.80 s long, −18.1 dB); by a jump and a jump back 1 ms later (reversed at pitch, 439.99 Hz, but combed, nothing at 1 kHz and its multiples, little at the bottom); and the test beside a plain reverse buffer, which does none of that. The mixing rule is checked against a Yee grid that knows nothing of it, within 0.5 %. Lossless, dispersionless, instant jumps: a simulation of the mechanism, not the audio build the question asks for.",
-          "near": "A time-modulated audio system can, in principle, time-reverse incident audio"
-        }
-      ],
-      "stamped": "2026-11-03"
+     "file": "Photonic Time Crystals — rich — a gap in momentum.html",
+     "origin": "made",
+     "by": "thin-layer stack · Yee grid · Web Audio Worklet",
+     "height": 1400,
+     "title": "a gap in momentum",
+     "caption": "**The key reversal, walked up and measured.** One wave in a plain medium; a stack of sinusoidal layers, where a band of frequencies dies with depth (×e^(−0.157) a cell at the centre, m = 0.1); a ring whose 1/ε breathes, where a forward wave in the gap grows and calls up a backward partner that reaches its size (B/F 0.9998 after 30 periods); the gap heard, a whisper of noise swelling to one pitch, half the pump, even with the pump between two of the ring's modes (441.25 Hz, between 440 and 442.5). That could fail: two free modes at 440 and 442.5 read about 442.25 Hz on the same count, with two lines and a 14 dB beat. Then the test, its pass rule stated first. A stack of 2000 thin layers a cell and a Yee grid of 8192 cells share no code and give the same exponent: 0.15690 against 0.15689 at the centre, worst 2.9 × 10⁻³ at an edge, where the rate climbs steeply. And the axis turns: in space the gap is a band of frequencies, all at the zone edge; in time it is a band of wave numbers, every one at exactly half the breathing rate. The page says frequencies; measured, it is a momentum gap.",
+     "near": "The same exponential structure, but pointing in dual directions"
     }
-  ],
-  "offers": [
+   ],
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "Why this matters for audio",
+   "made_against": "3eb87b83f509",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "/Parametric Resonance/Parametric Resonance — rich — the threshold heard.html",
+      "verdict": "keep",
+      "why": "Makes the crack felt before the hook names it, and measures its threshold; byte-identical to the landed version on main (2155231d, merged 04b5fe25). Note: its 4ζ is in that page's ε, which is 2m in the gap piece above (m = 2ζ); a clause in the caption would say so."
+     }
+    ]
+   },
+   "pieces": [
     {
-      "section": "The basic structure",
-      "kind": "claim-change",
-      "status": "open",
-      "what": "“Ranges of frequencies that propagate without amplification (allowed bands) interspersed with ranges that grow exponentially in time (bandgaps)”: in a medium uniform in space every wave keeps its wave number, so the gap is a range of wave numbers, a momentum gap, and every mode inside it oscillates at exactly half the modulation rate. Measured at m = 0.1 on a Yee grid of 8192 cells: the 7 wave numbers from ν = 0.9531 to 1.0469 grow, each turned by π a period to 3 × 10⁻¹⁶; the spatial stack's gap at the same m is the frequency range ν = 0.9530 to 1.0533, each at a Bloch phase of π a cell; the exponents match (0.15690 against 0.15689 at the centre). So the reversal is double: decay in space becomes growth in time, and the gap moves from the frequency axis to the wave-number axis. Suggest: “ranges of wave numbers that propagate (allowed bands) interspersed with ranges — momentum gaps — where every mode oscillates at half the modulation frequency and grows exponentially in time”, the two bullets naming the axis, and the intro's “frequency bandgaps” as “momentum bandgaps”."
-    },
-    {
-      "section": "What they do",
-      "kind": "claim-change",
-      "status": "open",
-      "what": "“Time-reflection … incident light at bandgap frequencies has its phase conjugated, time-reversed, and re-emitted.” A single sudden change of the whole medium's index reflects every frequency, not only the gap's: D and B stay continuous, the wave number stays, the frequency scales by n₁/n₂, and the backward electric field is n₁(n₁ − n₂)/(2n₂²) of the incoming. A Yee grid that knows nothing of that rule gives, at n₂ = 2, backward D 0.4994 against 0.5 and frequency 0.4995 against 0.5. That broadband reflection is what Moussa et al. observed in 2023. A time crystal's periodic modulation is what makes the reflection resonant, and amplifying, at the momentum gap. Suggest: “a sudden change of the medium's index sends part of every wave back, phase-conjugated and shifted in frequency by n₁/n₂; a time crystal's periodic modulation makes this resonant and amplifying in its momentum gap.”"
-    },
-    {
-      "section": "Open Questions",
-      "kind": "claim-change",
-      "status": "open",
-      "what": "The first question now has a measured partial answer, in an ideal line (lossless, no dispersion, instant jumps). One jump of the index: the phrase returns reversed, transposed by n₁/n₂ and stretched by n₂/n₁ (A4 → 220.00 Hz and 2.80 s at n₂ = 2), at 20 log|n₁(n₁ − n₂)/(2n₂²)|, −18.06 dB at n₂ = 2, the loudest a rising index gets. A jump and a jump back τ later: reversed at its own pitch (439.99 Hz) but combed, |r(f)| = ½|n₂/n₁ − n₁/n₂| |sin(2πfτ n₁/n₂)|, nothing at multiples of n₂/(2τ) (1 kHz at τ = 1 ms) and falling 6 dB an octave below the first peak. A reverse buffer does neither, so the two are distinct by ear. Suggest a clause on the bullet pointing at the piece; “nobody has built the audio version” still stands."
-    },
-    {
-      "section": "How they're made",
-      "kind": "claim-change",
-      "status": "open",
-      "what": "Two lines. “Modulation in the hundreds of THz range” for ~500 THz light: the momentum gap opens where the wave's frequency is half the modulation rate, so it needs about 1000 THz (1 PHz). And “modulating at GHz to THz … produces small-signal time-crystal physics”: pumping at 2ω/n puts the wave in tongue n of the same equation, and on the face's Mathieu reference the peak growth per pump period falls about tenfold per tongue at m = 0.05 (0.079, 0.0079, 0.00075, 0.00006 for n = 1 to 4; at m = 0.01, 0.016, 0.00031, 0.0000052), so a modulation thousands of times slower than the light opens no measurable gap. What slow or single-cycle modulation gives is time refraction, a frequency shift, which is what the ITO experiments measured. The last sentence is from the literature, not from the piece. Suggest naming the 2:1 condition and calling the slow regime time refraction."
-    },
-    {
-      "section": "A timeline",
-      "kind": "claim-change",
-      "status": "open",
-      "what": "From the literature, not from a piece. 2022 time-reflection: the observation was by Moussa, Xu, Yin, Galiffi, Ra'di and Alù (CUNY), arXiv 2208.07236 (2022), Nature Physics 19, 863–868 (2023), in a microwave transmission-line metamaterial switched uniformly in time. It also paired two time interfaces into a temporal Fabry–Pérot, the there-and-back of the mirror piece. The text credits the “Caloz group and others”. 2009: the early time-periodic-ε paper I can find is Zurita-Sánchez, Halevi and Cervantes-González (2009; Phys. Rev. A 79, 053821, a citation given from memory and worth checking). I could not confirm a 2009 proposal by J. Lukens. Momentum-gap amplification was shown at microwave frequencies in a metasurface by Wang et al., Science Advances 9, eadg7541 (2023), which the timeline could name."
+     "file": "/Parametric Resonance/Parametric Resonance — rich — the threshold heard.html",
+     "origin": "gathered",
+     "height": 1000,
+     "title": "the threshold, heard · from Parametric Resonance's face",
+     "caption": "**The crack the hook names.** Made for [[Parametric Resonance]] and gathered beside this sentence so the threshold can be felt before the connection is read: one 220 Hz ring pumped at 440 Hz, decaying below threshold, then a noise floor 80 dB down swelling into a steady tone once the pump passes 4ζ. That 4ζ is in its page's ε; in the gap piece above, which writes the breathing as 1 + 2m cos, the same threshold reads m = 2ζ. It is the single-mode case of the gap piece above: one wave number, sitting in the gap. Still a proposal on its own page.",
+     "near": "of parametric threshold and reads this connection"
     }
-  ]
+   ],
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "Open Questions",
+   "made_against": "7ab7ea762602",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Photonic Time Crystals — rich — a mirror in time.html",
+      "verdict": "remake",
+      "why": "Its test is against a plain reverse buffer only; a reverse buffer varispeeded by n₁/n₂ at gain r_E matches the single jump to −86 dB, and one through a two-tap comb matches the there-and-back to −318 dB. Add those two nulls to step 4, state the verdict rule before the trial and make the bold headlines depend on it, re-word the answer (distinct from a plain reverse, reproducible by varispeed or comb in the ideal line), and update the Open Questions offer to match."
+     }
+    ]
+   },
+   "pieces": [
+    {
+     "file": "Photonic Time Crystals — rich — a mirror in time.html",
+     "origin": "made",
+     "by": "uniform line, forward and backward parts · Yee grid",
+     "height": 1250,
+     "title": "a mirror in time",
+     "caption": "**The first question, put to the strongest rivals.** A phrase of four notes sent back by a wall (same order); by a jump of the whole line's index (reversed, transposed by n₁/n₂ and stretched by n₂/n₁: at n₂ = 2 the held A4 returns at 220.00 Hz, 2.80 s long, −18.1 dB); by a jump and a jump back 1 ms later (reversed at pitch but combed). Then two digital rivals built from the rule's numbers, and a rule stated before the trial: a mirror is a sound of its own only if no chain of reverse, varispeed and comb comes within −40 dB of it. A plain reverse misses both by about 0 dB, but a reverse slowed and scaled matches the single jump to −105 dB, and a reverse through a two-tap comb matches the there-and-back to −318 dB. So in this ideal line a time mirror is a reverse plus one operation, varispeed or comb. What could give a real one its own sound lies outside the ideal: finite rise, dispersion, gain in a crystal. The mixing rule is checked against a Yee grid that knows nothing of it, within 0.5 %.",
+     "near": "A time-modulated audio system can, in principle, time-reverse incident audio"
+    }
+   ],
+   "stamped": "2026-11-03"
+  }
+ ],
+ "offers": [
+  {
+   "section": "The basic structure",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "“Ranges of frequencies that propagate without amplification (allowed bands) interspersed with ranges that grow exponentially in time (bandgaps)”: in a medium uniform in space every wave keeps its wave number, so the gap is a range of wave numbers, a momentum gap, and every mode inside it oscillates at exactly half the modulation rate. Measured at m = 0.1 on a Yee grid of 8192 cells: the 7 wave numbers from ν = 0.9531 to 1.0469 grow, each turned by π a period to 3 × 10⁻¹⁶; the spatial stack's gap at the same m is the frequency range ν = 0.9530 to 1.0533, each at a Bloch phase of π a cell; the exponents match (0.15690 against 0.15689 at the centre). So the reversal is double: decay in space becomes growth in time, and the gap moves from the frequency axis to the wave-number axis. Suggest: “ranges of wave numbers that propagate (allowed bands) interspersed with ranges — momentum gaps — where every mode oscillates at half the modulation frequency and grows exponentially in time”, the two bullets naming the axis, and the intro's “frequency bandgaps” as “momentum bandgaps”."
+  },
+  {
+   "section": "What they do",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "“Time-reflection … incident light at bandgap frequencies has its phase conjugated, time-reversed, and re-emitted.” A single sudden change of the whole medium's index reflects every frequency, not only the gap's: D and B stay continuous, the wave number stays, the frequency scales by n₁/n₂, and the backward electric field is n₁(n₁ − n₂)/(2n₂²) of the incoming. A Yee grid that knows nothing of that rule gives, at n₂ = 2, backward D 0.4994 against 0.5 and frequency 0.4995 against 0.5. That broadband reflection is what Moussa et al. observed in 2023. A time crystal's periodic modulation is what makes the reflection resonant, and amplifying, at the momentum gap. Suggest: “a sudden change of the medium's index sends part of every wave back, phase-conjugated and shifted in frequency by n₁/n₂; a time crystal's periodic modulation makes this resonant and amplifying in its momentum gap.”"
+  },
+  {
+   "section": "Open Questions",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "The first question now has a measured partial answer, in an ideal line (lossless, no dispersion, instant jumps). One jump of the index: the phrase returns reversed, transposed by n₁/n₂ and stretched by n₂/n₁ (A4 → 220.00 Hz and 2.80 s at n₂ = 2), at 20 log|n₁(n₁ − n₂)/(2n₂²)|, −18.06 dB at n₂ = 2. A jump and a jump back τ later: reversed at its own pitch but combed, |r(f)| = ½|n₂/n₁ − n₁/n₂| |sin(2πfτ n₁/n₂)|. Neither is a plain reverse buffer (residual about 0 dB), but each is a reverse buffer plus one known operation: read n₂/n₁ times slower and scaled by r_E (residual −96 to −105 dB), or through a two-tap comb ±¼(n₂/n₁ − n₁/n₂), 2τn₁/n₂ apart (−318 dB at τ = 1 ms; −90 dB at a fractional τ). So the honest answer is which operation, not 'distinct by ear': in the ideal a time mirror is varispeed-reverse or comb-reverse, and a sound of its own would have to come from what the ideal leaves out (finite rise time, dispersion, gain in a crystal's momentum gap). Suggest a clause on the bullet saying so and pointing at the piece; 'nobody has built the audio version' still stands."
+  },
+  {
+   "section": "How they're made",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "Two lines. “Modulation in the hundreds of THz range” for ~500 THz light: the momentum gap opens where the wave's frequency is half the modulation rate, so it needs about 1000 THz (1 PHz). And “modulating at GHz to THz … produces small-signal time-crystal physics”: a slow modulation puts the light in a high tongue of the same equation, and for a sinusoidal modulation the higher tongues fade fast. Peak growth per pump period at m = 0.05: 0.0786, 0.00786, 0.000747, 0.0000700 for tongues 1 to 4 (the challenger's mpmath values; mine agreed to about 15 %); at m = 0.01, 0.0157, 0.000314, 0.0000060, about fiftyfold a tongue. A square wave does not fade this way (its odd tongues stay first order), so the clean reason is spectral: a sinusoid slower than the light has no Fourier content at twice the light's frequency. What slow or single-cycle modulation gives instead is time refraction, a frequency shift, which is what the ITO experiments measured (from the literature, not the piece). Suggest naming the 2:1 condition and calling the slow regime time refraction."
+  },
+  {
+   "section": "A timeline",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "From the literature, not from a piece; sources are web, not canon. (1) 2022 time-reflection: Moussa, Xu, Yin, Galiffi, Ra'di and Alù (CUNY), arXiv 2208.07236 (Aug 2022), Nature Physics 19, 863–868 (2023), in a transmission-line metamaterial switched uniformly in time, with signals at 30–70 MHz (RF, not microwave) and a switch rise of about 3 ns; it also paired two interfaces into a temporal Fabry–Pérot. No source was found for a 'Caloz group' observation: drop the name. (2) 2009: no source was found for 'J. Lukens et al.': drop it. The 2009 paper is Zurita-Sánchez, Halevi and Cervantes-González, Phys. Rev. A 79, 053821 (2009), with forbidden wave-vector gaps. (3) '2018–2020: first experimental demonstrations' is too late: a k gap was measured in 2015 in a dynamic microwave transmission line (Reyes-Ayona and Halevi, Appl. Phys. Lett. 107, 2015, doi 10.1063/1.4928659), and time reflection of water waves was observed in 2016 (Bacot, Labousse, Eddi, Fink and Fort, Nature Physics). (4) Momentum-gap amplification in a microwave metasurface: Wang, Mirmoosa, Asadchy, Rockstuhl, Fan and Tretyakov, Science Advances 9, eadg7541 (2023). Sources: https://arxiv.org/abs/2208.07236 · https://par.nsf.gov/servlets/purl/10432278 · https://www.osti.gov/scitech/biblio/21313097 · https://research.aalto.fi/en/publications/metasurface-based-realization-of-photonic-time-crystals/ · https://bvbvf1.bib-bvb.de/vufind/PrimoRecord/cdi_osti_scitechconnect_22489133"
+  }
+ ]
 }
