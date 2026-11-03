@@ -1,0 +1,152 @@
+{
+  "title": "Metric Modulation — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Metric Modulation]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "exemplifies",
+      "label": "each-piece-walks-up"
+    }
+  ],
+  "forward_vector": "I am the manifest of Metric Modulation's rich face: three walks that each end in a test the reader takes in their own body (tapping through a pivot and a glide, saying how a return landed, picking the smoother change blind), and the May bell proof laid beside the recipe step it already carries. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Metric Modulation",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "What Metric Modulation Is",
+      "made_against": "2deece93ca1d",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Metric Modulation — rich — the same hits, a new beat.html",
+          "origin": "made",
+          "by": "Web Audio · scheduled synthesis",
+          "height": 800,
+          "place": "band",
+          "title": "the same hits, a new beat",
+          "caption": "**Does the grid keep going?** Five steps: a pulse at 120; a bell on the dotted quarter against it (they meet every 1.5 s); the pivot, where the kick moves onto the bell and the bell's twenty hits stay 0.750 s apart across it; the page's four relationships heard as the two changes they are; and last a test of the opening claim on your own hand. Tap through the pivot and through a glide to the same 80, ramped evenly over four bars, and the piece measures how soon your taps are back on the kick. It also plays the page's *equivalently* line both ways: the triplet becoming the pulse is 180, not 80.",
+          "near": "The elegance: the forward transition"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The 3/4 Symmetry — Mirror-Image Transitions",
+      "made_against": "39d58922e724",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Metric Modulation — rich — there and back.html",
+          "origin": "made",
+          "by": "Web Audio · scheduled synthesis",
+          "height": 800,
+          "place": "band",
+          "title": "there and back",
+          "caption": "**Is the return a mirror, and does it arrive?** The drop from 120 to 90 alone, on a bell every four triplet eighths; the return alone, on a bell every old 120 beat; then the two laid over each other: flip the drop end to end and its twenty beat lengths land on the return's, 20 of 20. One thing doesn't mirror. Every 4/4 bar line at 120 is a place the two grids meet, but at 90 only every third one is, so the drop can leave from any bar and the return can't. Last, the round trip with your choice of stay at 90 (2, 8 or 16 s), and you say whether the return arrived.",
+          "near": "This creates a complete journey"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Implementing Metric Modulation in Ableton Live",
+      "made_against": "f01d325943a5",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "proofs/2026-05-04-pivot-via-bell-v2.wav",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "pivot via bell · v2 · 2026-05-04",
+          "caption": "The May proof, remade after Loudon's note on the first take: *\"This audio example doesn't follow the rules of metric modulation that is in the document, try again!\"* Measured here: a bell every 0.750 s from 0.75 s to 14.25 s, nineteen hits that never change; a kick on every 120 beat to 5.5 s, then from 6.0 s on every second bell, half notes at 80. Step 3's anchored change, as one take.",
+          "near": "Place a kick drum or bass hit on the dotted quarter"
+        },
+        {
+          "file": "Metric Modulation — rich — the anchor, blind.html",
+          "origin": "made",
+          "by": "Web Audio · scheduled synthesis",
+          "height": 600,
+          "place": "band",
+          "title": "the anchor, blind",
+          "caption": "**Is the anchor what makes it smooth?** Step 3's claim, walked up: the dotted-quarter kick alone in a kickless 120 groove; the change with it, the kick never moving; the same change without it, the 120 kick on the beat, with a slider for where the 80 groove comes in. Then six blind pairs. From the change on, the two versions are identical note for note, so the only difference is what the 120 section prepared. You pick the smoother, and the piece says at the end how often that was the anchored one, and how often guessing would do as well.",
+          "near": "Place a kick drum or bass hit on the dotted quarter"
+        }
+      ],
+      "stamped": "2026-11-03"
+    }
+  ],
+  "offers": [
+    {
+      "section": "What Metric Modulation Is",
+      "kind": "claim-change",
+      "what": "The 'Equivalently' line's arithmetic holds and its gloss doesn't. 'Quarter = triplet quarter' gives 80 when the old quarter (0.5 s) becomes the new triplet quarter, so the new beat is 0.75 s. But if 'the triplet (2/3 of a beat) becomes the new pulse', the tempo is 120 ÷ 2/3 = 180, not 80. Checked in the engine and played in the piece's step 4. Offer: 'the old quarter becomes the new triplet quarter, so the new beat is one and a half old beats: 120 × 2/3 = 80'.",
+      "status": "open"
+    },
+    {
+      "section": "What Metric Modulation Is",
+      "kind": "no-claim-edit",
+      "what": "The four 'key relationships' are two tempo changes, each named from both ends: 120 → 180 is quarter → dotted quarter and triplet quarter → quarter; 120 → 80 is the other two. All four of the page's numbers are right if the arrow reads 'the old value becomes the new one' (checked: 120 × len(new) ÷ len(old)). The text never says how to read the arrow. Offer: say so in one line, and group the four as two pairs.",
+      "status": "open"
+    },
+    {
+      "section": "The 3/4 Symmetry — Mirror-Image Transitions",
+      "kind": "no-claim-edit",
+      "what": "'(quarter = 4/3 triplet)' is hard to play from. Plainly: four old triplet eighths make the new quarter, or the old quarter is the new dotted eighth (0.5 s = ¾ × ⅔ s). The return is that pair swapped: the old dotted eighth becomes the new quarter. The two grids meet every 2 s, 4 beats of 120 = 3 of 90. Offer: name the pivot that way in the 120 → 90 line, and add the return's in the 90 → 120 line.",
+      "status": "open"
+    },
+    {
+      "section": "The 3/4 Symmetry — Mirror-Image Transitions",
+      "kind": "claim-change",
+      "what": "'The rise and fall are mirror images' holds in ratio (¾ × 4⁄3 = 1) and in beat lengths: the drop's twenty beat lengths reversed are the return's, 20 of 20. It does not hold for where you can leave from. In 4/4, every bar line at 120 is a meeting of the two grids (12 of 12 in 24 s), but only every third bar line at 90 is (3 of 9). A drop can leave from any bar; a return on a bar line has to wait three bars, or leave mid-bar. Offer: one sentence saying so, perhaps in the choreography's step 3 ('let the audience acclimate': in whole multiples of three bars).",
+      "status": "open"
+    },
+    {
+      "section": "Why Metric Modulation is Exotic in Techno and Electronic Music",
+      "kind": "no-claim-edit",
+      "what": "'Elliot Carter' is spelled Elliott Carter. Found reading, not by a piece.",
+      "status": "open"
+    },
+    {
+      "section": "Implementing Metric Modulation in Ableton Live",
+      "kind": "no-claim-edit",
+      "what": "Step 2's 'Ctrl/Cmd+U on the Master track' names Live's Quantize shortcut (Ableton's Live 11 manual, Keyboard Shortcuts: Quantize Ctrl/Cmd+U). Tempo automation is the Song Tempo envelope on the Master track. 'Place a tempo marker' may be another DAW's word: not checked in Live itself. Found reading, not by a piece.",
+      "status": "open"
+    },
+    {
+      "section": "Implementing Metric Modulation in Ableton Live",
+      "kind": "claim-change",
+      "what": "A tension to hold or name. The opening says metric modulation is 'not a continuous glide'; Step 2's 'smooth feel' automates the tempo linearly over 4 or 8 measures, which is a glide; and Step 3's anchor only holds for the snap. Measured in the engine: over a 4-bar ramp from 120 to 80 (16 beats, linear in beats, 9.73 s), the beats stretch from 0.505 to 0.739 s, and a 0.75 s anchor drifts as far as 267 ms off the ramping beat. Offer: call the ramp a glide that lands on a related tempo, and say the anchor belongs to the snap. The first piece's step 5 lets a reader tap both.",
+      "status": "open"
+    }
+  ]
+}
