@@ -21,7 +21,7 @@ const jack = read('the leak on a jack'), guard = read('the zero guard');
 const J = new Function(between(jack, '/* ENGINE:START', '/* ENGINE:END */') + '\n' + between(jack, '/* MEASURE:START', '/* MEASURE:END */') +
   '\nreturn { LeakJack, render, steadyTone, pitchSwing, residueDb };')();
 const G = new Function(between(guard, '/* ENGINE:START', '/* ENGINE:END */') + '\n' + between(guard, '/* MEASURE:START', '/* MEASURE:END */') +
-  '\nreturn { PlanStage2, classify, pulled, guardMap, inTuneFrom, MAP_TAUS, MAP_FREQS };')();
+  '\nreturn { PlanStage2, classify, pulled, guardMap, inTuneFrom, silentUpTo, tuneEdge, MAP_TAUS, MAP_FREQS };')();
 
 const srArg = process.argv.indexOf('--sr'), SR = srArg > 0 ? +process.argv[srArg + 1] : 48000;
 let fails = 0;
@@ -93,6 +93,13 @@ console.log(`\nthe zero guard — the dev plan's Gen~ stage 2, at ${SR} Hz`);
   let worstGap = 0;
   for (const f of [110, 220, 440]) for (const t of [0.5, 1, 2, 5]) { const c = G.classify(f, t, true, SR), P = SR / f, ts = t * 0.001 * SR; worstGap = Math.max(worstGap, Math.abs(SR / c.hz - P * (1 - 1 / (2 * ts)))); }
   ok(worstGap <= 1.5, `the exp()-against-(1 − 1/τ) sharpness is about 1/(2τ): measured periods within ${worstGap.toFixed(2)} samples of P·(1 − 1/(2τ)) (110–440 Hz, τ 0.5–5 ms)`);
+}
+{ // the remake: fine scans, and the sharpness put where it belongs
+  const silent = G.silentUpTo(0.1, SR), edges = [110, 220, 440].map(f => G.tuneEdge(f, SR)), at1 = [110, 220, 440, 880].map(f => G.classify(f, 1, true, SR).cents);
+  console.log(`         fine scan: the 0.1 ms floor is silent for every note up to ${silent.toFixed(1)} Hz; with the plan's drive in tune from ${edges.map(x => x.toFixed(2)).join(' / ')} ms at 110 / 220 / 440 Hz; at 1 ms ${at1.map(x => x.toFixed(1)).join(' / ')} cents at 110 / 220 / 440 / 880 Hz`);
+  ok(silent > 250 && silent < 320, 'the floor is silent up to a note set by P/τ ≈ 35, between 250 and 320 Hz');
+  ok(at1[0] > 10, 'the sharpness is the plan’s drive, well above the floor: at τ = 1 ms, 110 Hz is over 10 cents sharp (higher notes have coarser whole-sample periods and can round in)');
+  ok(edges[0] > edges[1] && edges[1] > edges[2], 'with the plan’s drive the in-tune edge falls as the note rises');
 }
 console.log(fails ? `\n${fails} FAILED` : '\nall checks pass');
 process.exit(fails ? 1 : 0);

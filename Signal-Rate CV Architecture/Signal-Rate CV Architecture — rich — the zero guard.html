@@ -150,6 +150,11 @@ const MAP_FREQS = Array.from({ length: 25 }, (_, i) => 55 * Math.pow(16, i / 24)
 function guardMap(guard, SR) { return MAP_FREQS.map(f => MAP_TAUS.map(t => classify(f, t, guard, SR))); }
 // For one note: the shortest tau from which every longer tau on the map plays in tune.
 function inTuneFrom(row) { let k = row.length - 1; while (k > 0 && row[k - 1].kind === 'tune') k--; return row[k].kind === 'tune' ? MAP_TAUS[k] : Infinity; }
+// Fine scans, not the map's grid. The guard's floor: every note from 55 Hz up to the returned one is silent there.
+function silentUpTo(floorMs, SR) { let top = 0; for (let i = 0; i <= 384; i++) { const f = 55 * Math.pow(2, i / 96); if (classify(f, floorMs, true, SR).kind !== 'silent') break; top = f; } return top; }
+// The plan's drive: walking tau down from 20 ms in steps of 1/192 octave, the last tau at which the note
+// still plays within a sample of its period (so every longer tau does too).
+function tuneEdge(freq, SR) { let last = Infinity; for (let i = 0; i < 2000; i++) { const t = 20 * Math.pow(2, -i / 192); if (t < 0.005 || classify(freq, t, true, SR).kind !== 'tune') break; last = t; } return last; }
 /* MEASURE:END */
 </script>
 <script>
@@ -259,7 +264,8 @@ function drawPulled() {
   g.stroke(); g.fillStyle = '#4a4a5a'; g.fillText('τ at the inlet: ' + St.tau.toFixed(2) + ' ms, then 0', L, T2 - 4);
   return r;
 }
-let maps = {};
+let maps = {}, fineMemo = {};
+const fineScan = () => fineMemo[SR] || (fineMemo[SR] = { silent: silentUpTo(0.1, SR), edges: [110, 220, 440].map(f => tuneEdge(f, SR)), at1: [110, 220, 440].map(f => classify(f, 1, true, SR).cents) });
 const getMap = guard => maps[guard] || (maps[guard] = guardMap(guard, SR));
 function drawMaps() {
   const { g, w, h } = fit($('pic')); g.clearRect(0, 0, w, h); g.font = mono;
@@ -325,7 +331,7 @@ const STEPS = [
     controls: () => [el('div', { class: 'srcg-btns' }, el('button', { class: St.guard ? 'srcg-on' : '', 'aria-pressed': String(St.guard), on: { click: () => { St.guard = !St.guard; send(); build(); } } }, St.guard ? 'guard on · max(τ, 0.1 ms)' : 'guard off'), btn('pull the cable', pull), btn('plug it back in', plug), btn('reset the History', resetHistory)), tauSlider(0, true), pitchSlider()],
     back: 'Guard off is step 2 again.' },
   { n: 4, name: 'the test', pic: ['what each note does at each τ, held steady', ''],
-    says: '<b>The claim.</b> The section says every input in a denominator or an <i>exp()</i> must be guarded against zero with <i>max()</i>. The guard stops the NaN; the test is whether the floor it leaves still sings. Each square is one note held at one τ, run through the plan’s code: amber is in tune, orange is sharp, dark is silent, violet fires every sample, red is NaN. The left column of each map is τ exactly 0. Sweep τ from 20 ms down to zero and back, with the guard on or off, and listen along.',
+    says: '<b>The claim.</b> The section says every input in a denominator or an <i>exp()</i> must be guarded against zero with <i>max()</i>. The guard stops the NaN; the test is whether the floor it leaves still sings. Each square is one note held at one τ, run through the plan’s code: amber is in tune, orange is sharp, dark is silent, violet fires every sample, red is NaN. Two things fail here, and only one is the guard’s: the dark band is where the floor can’t sing, and the orange band is the plan’s drive, sharp at every short τ, guard or none. The left column of each map is τ exactly 0. Sweep τ from 20 ms down to zero and back, with the guard on or off, and listen along.',
     eqs: [['the floor sings while  P ⁄ τ ≲ 35   and   1 ⁄ (2τ) is small', 'Two limits, both in samples. When the period is more than about 35 time constants long, the charge meets the threshold only within the last bits of a double, so whether and when it fires is decided by rounding. And the drive uses the continuous decay e<sup>−1⁄τ</sup> where the leak is the discrete 1 − 1⁄τ; they part by about 1⁄(2τ), which makes a short τ sharp.']],
     controls: () => [el('div', { class: 'srcg-btns' }, el('button', { class: St.guard ? 'srcg-on' : '', 'aria-pressed': String(St.guard), on: { click: () => { St.guard = !St.guard; send(); build(); } } }, St.guard ? 'guard on · max(τ, 0.1 ms)' : 'guard off'), btn('▸ sweep τ to zero and back', sweep, 'sweepBtn'), btn('reset the History', resetHistory)), tauSlider(0, true), pitchSlider()],
     back: 'Every square is step 1, 2 or 3 held still at one setting.' },
@@ -374,10 +380,10 @@ function update() {
     const silentBelow = atFloor.filter(x => x.c.kind === 'silent').map(x => x.f), sharp = atFloor.filter(x => x.c.kind === 'sharp');
     const worst = sharp.reduce((a, x) => Math.max(a, x.c.cents), 0);
     const row = f => held[MAP_FREQS.reduce((bi, x, i) => Math.abs(Math.log(x / f)) < Math.abs(Math.log(MAP_FREQS[bi] / f)) ? i : bi, 0)];
-    const from110 = inTuneFrom(row(110)), from440 = inTuneFrom(row(440));
-    const sticky = pulled(110, 5, false, SR, 15, 5, 40);
+    const fine = fineScan(), sticky = pulled(110, 5, false, SR, 15, 5, 40);
     $('verdict').innerHTML = 'Measured on the plan’s code at ' + SR + ' Hz. <b>Without the guard</b>, τ = 0 turns ' + (allNan ? 'every note' : 'notes') + ' into NaN' + (sticky.nanAtEnd ? ', on the first sample, and it is still NaN 40 ms after τ comes back: the guard is needed.' : '.') +
-      ' <b>With max(τ, 0.1 ms)</b> nothing becomes NaN, and every note comes back when the cable does. But the floor itself ' + (silentBelow.length ? 'is silent for every note up to about <b>' + Math.round(Math.max(...silentBelow)) + ' Hz</b>' : 'sounds for every note') + (sharp.length ? ', and the notes above play up to <b>' + Math.round(worst) + ' cents</b> sharp' : '') + '. A held note stays within a sample of its period only from τ ≈ <b>' + (isFinite(from110) ? from110.toFixed(2) : '—') + ' ms</b> up at 110 Hz and <b>' + (isFinite(from440) ? from440.toFixed(2) : '—') + ' ms</b> up at 440 Hz. So the rule holds, and it is half the job: a guard that keeps τ off zero stops the NaN, and the floor it leaves has to sit where the math still works, which for this neuron depends on the note.';
+      ' <b>With max(τ, 0.1 ms)</b> nothing becomes NaN, and every note comes back when the cable does. But the floor itself ' + (fine.silent ? 'is silent for every note up to <b>' + fine.silent.toFixed(1) + ' Hz</b>: there the period runs past about 35 time constants, and rounding decides whether the charge ever fires. That is the guard’s finding' : 'sounds for every note') + '. So the rule holds, and it is half the job: a guard that keeps τ off zero stops the NaN, and the floor it leaves has to sit where the math still works, which for a leaky charge depends on the note.' +
+      ' <b>The sharpness is a second thing, and not the guard’s.</b> The plan’s drive plays sharp at every short τ, guarded or not: at τ = 1 ms, <b>' + fine.at1.map(x => '+' + x.toFixed(0)).join(' / ') + ' cents</b> at 110 / 220 / 440 Hz, and at the floor the notes that sound are up to <b>' + Math.round(worst) + ' cents</b> sharp. With the plan’s drive a held note stays within a sample of its period only from τ ≈ <b>' + fine.edges.map(x => isFinite(x) ? x.toFixed(2) : '—').join(' / ') + ' ms</b> up at 110 / 220 / 440 Hz. That belongs to the Action Potential Oscillator’s plan, whose drive mixes the continuous e<sup>−P⁄τ</sup> with the discrete leak 1 − 1⁄τ.';
   }
   $('read').innerHTML = parts.map(x => '<span>' + x + '</span>').join('') + (St.step >= 2 ? '<span id="live" style="flex-basis:100%"></span>' : '');
   liveRead();
