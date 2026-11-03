@@ -1,4 +1,7 @@
 <!-- Loudon Live Design System · Drafting skin (schematic / build-instructions register) -->
+<!-- 2026-10-30 fixes, found by driving the page by hand (drive-v5-by-hand.mjs): the saved reading kept its paragraphs
+     apart instead of running them together; step 1 waits for all ten before pre-writing your lowest decision, so it no
+     longer grabs whichever rung-12 sentence happened to be filed first. -->
 <!-- Meadows and an Artist's Career — Self-diagnostic v5, the journaling edition. Loudon, 2026-10-15, on the plan:
      "the questions each need more context, and more importantly they need to have prompts for freeform text, the goal can be
      like journaling, encourage though not just clicking buttons. Simply encouraging reflection is a positive step."
@@ -580,7 +583,7 @@
     ls.innerHTML=placed.sort(function(a,b){return b-a;}).map(function(l){return '<option value="'+l+'"'+(l===lr?' selected':'')+'>'+l+' · '+rungName(l)+'</option>';}).join('');
     var said=DEC.filter(function(d){return d.r===lp && d.t.trim();}).map(function(d){return '"'+short(d.t,90)+'"';});
     document.getElementById('lowAsk').textContent='You filed '+counts[lp]+' decision'+(counts[lp]>1?'s':'')+' on rung '+lp+' ('+rungName(lp)+'), your lowest'+(said.length?': '+said.join(' · '):'')+'. Pick the one that cost you most, and say what it cost.';
-    var lowEl=document.getElementById('exLow'); if(!EX.low && said.length===1 && document.activeElement!==lowEl){ EX.low=DEC.filter(function(d){return d.r===lp && d.t.trim();})[0].t; lowEl.value=EX.low; }
+    var lowEl=document.getElementById('exLow'); if(!EX.low && t===10 && said.length===1 && document.activeElement!==lowEl){ EX.low=DEC.filter(function(d){return d.r===lp && d.t.trim();})[0].t; lowEl.value=EX.low; }
     var u='';
     ART.forEach(function(a){
       var r=nearestUpFor(a,lr);
@@ -657,7 +660,7 @@
     lines.push("typical artist, for comparison:        8 / 2 / 0");
     ART.forEach(function(a){ lines.push(("for comparison, "+a.who+":                    ").slice(0,39)+a.shape.lo+" / "+a.shape.mi+" / "+a.shape.hi+"   (biography, not calendar)"); });
     lines.push("");
-    lines.push(document.getElementById('readout').textContent.trim());
+    lines.push([].map.call(document.querySelectorAll('#readout p'),function(p){return p.textContent.trim();}).join("\n\n")||document.getElementById('readout').textContent.trim());
     lines.push("");
     lines.push("MY TEN, IN MY OWN WORDS");
     DEC.forEach(function(d,i){ lines.push(("  "+(i+1)).slice(-3)+". [rung "+(d.r||"-")+"] "+(d.t.trim()||"(not written)")); });
