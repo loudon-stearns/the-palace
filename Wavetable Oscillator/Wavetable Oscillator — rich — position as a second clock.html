@@ -1,0 +1,357 @@
+<!doctype html>
+<!--
+  title: Wavetable Oscillator — rich — position as a second clock
+  born: 2026-11-03
+  links: [[Wavetable Oscillator]] (connects-to · rich-face-piece) · listed in [[Wavetable Oscillator — rich.json]] · serves § Directions from here, the bullet "Staying inside one loop" · leans on [[2D Torus Wavetable Synthesizer]] and [[FM Synthesis]]
+  forward_vector: I am the edge of one loop, played. Two frames and a Position between them, held still; Position swept slowly, which moves the harmonics' strengths; Position driven fast, which throws new lines between them; and last the test, the same drive at rates tied to the pitch and untied from it, measured, so a reader can see that the ratio is what decides. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until Play is clicked; the AudioContext is made on that click. Changing step stops the sound.
+  check: Wavetable Oscillator — rich — check.mjs runs this page's engine in Node against every number the page shows.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Position as a second clock</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --violet:#8b7cf6;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .ctl{display:grid;grid-template-columns:170px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:11ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:5px 16px 5px 0;text-align:right;font-weight:400}
+  table.t th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td:first-child,table.t th:first-child{text-align:left}
+  table.t b{color:var(--accent);font-weight:400}
+  .found{margin-top:12px;font-family:var(--sans);font-size:14px;color:var(--fg-2);max-width:72ch;line-height:1.6}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:23px}.ctl{grid-template-columns:110px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Wavetable Oscillator · staying inside one loop · four steps</div>
+  <h1>Position as a second clock</h1>
+  <p class="lead">Two stored frames and a Position knob that blends them. Hold it, sweep it slowly, then drive it fast, and test where driving it stops being a change of colour and starts being a second clock.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel">
+    <div class="plabel"><span id="pic-l"></span><span id="pic-r"></span></div>
+    <canvas id="pic" height="270"></canvas>
+    <div class="rowb">
+      <button class="play" id="play" aria-label="play">▸ play</button>
+      <span class="hint" id="hear-l">hear</span>
+      <span id="hears"></span>
+    </div>
+    <div class="ctl" id="ctl-pos">
+      <label for="pos">Position</label><input id="pos" type="range" min="0" max="1" step="0.01" value="0.5"><span class="v" id="pos-v"></span>
+    </div>
+    <div class="ctl" id="ctl-depth">
+      <label for="depth">how far it moves</label><input id="depth" type="range" min="0" max="0.5" step="0.01" value="0.4"><span class="v" id="depth-v"></span>
+    </div>
+    <div class="ctl" id="ctl-rate">
+      <label for="rate">how fast</label><input id="rate" type="range" min="0" max="1" step="0.001" value="0.62"><span class="v" id="rate-v"></span>
+    </div>
+    <div class="meter" id="meter"></div>
+    <table class="t" id="tab"></table>
+    <p class="found" id="found"></p>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><b>LOUD’N LIVE</b> · made for the rich face of Wavetable Oscillator · the engine runs here, in this page, and in its check</footer>
+</main>
+
+<script id="engine">
+// ---- engine: two frames, a Position between them, and Position as a clock ----
+// frame A: a saw, every harmonic at 1 ⁄ k. Frame B: a voice-like frame, harmonics gathered round the sixth.
+function frameCoefs(which, K) {
+  const a = new Float64Array(K + 1);
+  for (let k = 1; k <= K; k++) a[k] = which === 'A' ? (k % 2 ? 1 : -1) / k : Math.exp(-0.5 * Math.pow((k - 6) / 1.6, 2)) * 0.9 + (k === 1 ? 0.25 : 0);
+  return a;
+}
+function storeFrame(a, P) { const t = new Float64Array(P); for (let i = 0; i < P; i++) { let s = 0; for (let k = 1; k < a.length; k++) s += a[k] * Math.sin(2 * Math.PI * k * i / P); t[i] = s; } return t; }
+function norm2(A, B) { let pk = 0; for (let i = 0; i < A.length; i++) pk = Math.max(pk, Math.abs(A[i]), Math.abs(B[i])); for (let i = 0; i < A.length; i++) { A[i] *= 0.8 / pk; B[i] *= 0.8 / pk; } }
+// the read: one counter through both frames; Position p blends them, p(n) = p0 + depth · sin(2π · rate · n ⁄ fs)
+function positionAt(n, p0, depth, rate, fs) { return Math.max(0, Math.min(1, p0 + depth * Math.sin(2 * Math.PI * rate * n / fs))); }
+function readPosition(A, B, n, p0, depth, rate, fs) {
+  const P = A.length, y = new Float64Array(n);
+  for (let i = 0; i < n; i++) { const j = i % P, p = positionAt(i, p0, depth, rate, fs); y[i] = A[j] + p * (B[j] - A[j]); }
+  return y;
+}
+// harmonic k's level with Position held at p: the two frames' coefficients, blended
+function harmonicAt(a, b, k, p) { return Math.abs(a[k] + p * (b[k] - a[k])); }
+// fold y onto a trip of Q samples, averaging M trips; the leftover's energy under the whole, in dB
+function offGridDb(y, Q, s, M) {
+  const avg = new Float64Array(Q);
+  for (let m = 0; m < M; m++) for (let j = 0; j < Q; j++) avg[j] += y[s + m * Q + j] / M;
+  let off = 0, all = 0;
+  for (let m = 0; m < M; m++) for (let j = 0; j < Q; j++) { const v = y[s + m * Q + j], r = v - avg[j]; off += r * r; all += v * v; }
+  return off === 0 ? -Infinity : 10 * Math.log10(off / all);
+}
+// what the page predicts for a rate unrelated to the pitch: the moving part, depth·sin(…)·(B − A), lands
+// wholly between the harmonics, so its share is (depth²⁄2)·mean((B−A)²) over the whole sound's mean square
+function predictOffDb(A, B, p0, depth) {
+  let d2 = 0, c2 = 0; const P = A.length;
+  for (let j = 0; j < P; j++) { const d = B[j] - A[j], c = A[j] + p0 * d; d2 += d * d; c2 += c * c; }
+  d2 /= P; c2 /= P; const mv = depth * depth / 2 * d2;
+  return 10 * Math.log10(mv / (c2 + mv));
+}
+// the shortest whole number of trips, up to qMax, after which the sound repeats (fold by q·P leaves nothing
+// above 1e-20 of the whole); 0 if none does
+function repeatsAfter(y, P, qMax, M) { for (let q = 1; q <= qMax; q++) if (offGridDb(y, q * P, 0, M) < -200) return q; return 0; }
+// radix-2 FFT, in place, and a Hann-windowed magnitude spectrum in dB
+function fft(re, im) {
+  const n = re.length;
+  for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+  for (let len = 2; len <= n; len <<= 1) {
+    const ang = -2 * Math.PI / len;
+    for (let i = 0; i < n; i += len) for (let k = 0; k < len / 2; k++) {
+      const wr = Math.cos(ang * k), wi = Math.sin(ang * k), a = i + k, b = a + len / 2;
+      const xr = re[b] * wr - im[b] * wi, xi = re[b] * wi + im[b] * wr;
+      re[b] = re[a] - xr; im[b] = im[a] - xi; re[a] += xr; im[a] += xi;
+    }
+  }
+}
+function spectrumDb(y, s, N) {
+  const re = new Float64Array(N), im = new Float64Array(N);
+  for (let i = 0; i < N; i++) re[i] = (y[s + i] || 0) * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / N));
+  fft(re, im);
+  const out = new Float64Array(N / 2); for (let i = 0; i < N / 2; i++) out[i] = 10 * Math.log10((re[i] * re[i] + im[i] * im[i]) / (N * N / 16) + 1e-20);
+  return out;
+}
+// ---- end engine ----
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const P = 160, K = 20, NFFT = 16384, PHI = (1 + Math.sqrt(5)) / 2;
+const S = { step: 0, pos: 0.5, depth: 0.4, rateU: 0.62, row: 'phi' };
+const rateOf = (u) => Math.pow(10, -0.6 + u * 3.4);   // 0.25 Hz to 630 Hz, evenly in its log
+const STEPS = [
+  { name: 'Position, held', title: 'Two frames and a Position',
+    say: 'Two cycles are stored: a bright saw, and a frame whose harmonics gather round the sixth, like a vowel. One counter reads both, and Position blends what it reads, from all saw to all vowel. Held still, this is one cycle read by one counter, so the page’s claim holds exactly: harmonics and nothing else.',
+    do: 'Play, and move Position.', watch: 'The bars: each harmonic’s level, worked out from the two frames. The line behind them is measured from the sound.', hear: 'One pitch, its colour changing from bright to vowel-like as you move.',
+    hears: [], ctl: ['pos'] },
+  { name: 'sweep it slowly', title: 'Sweep it slowly',
+    say: 'Now Position moves by itself, once every four seconds, between the two ends you set with how far it moves. The harmonics change strength as it goes. Each one stays where it was.',
+    do: 'Play. Change how far it moves.', watch: 'The bars rising and falling as Position travels; none of them moves sideways.', hear: 'A slow change of colour on one steady pitch: a wavetable doing what wavetables do.',
+    hears: [], ctl: ['pos', 'depth'] },
+  { name: 'drive it fast', title: 'Drive it fast',
+    say: 'Speed Position up. Each harmonic now grows a line either side of it, as far away as Position’s own rate: harmonic k at k · fs ⁄ P, its new lines at k · fs ⁄ P ± the rate. At a few hertz they blur into the harmonic. At tens and hundreds they stand apart, and the lines between the harmonics are no longer on the loop’s grid.',
+    do: 'Play, and raise how fast from a crawl to a few hundred hertz.', watch: 'The measured spectrum: ticks below mark the harmonics, small marks the new lines the rate predicts. Watch the new lines walk away from the ticks.', hear: 'Slow: a shimmer. Fast: a rough, ringing sound, with frequencies in it the saw never had.',
+    hears: [], ctl: ['pos', 'depth', 'rate'] },
+  { name: 'the test', title: 'The test: when is Position a clock?',
+    say: 'The page says a Position driven fast, at a rate unrelated to the pitch, has become a second clock. So drive it at rates tied to the pitch and rates untied from it, and fold each sound onto one trip: what doesn’t fold lies between the harmonics. Then try longer trips, two, three, up to eight, to see if the sound repeats at all.',
+    do: 'Play each rate. Watch the last three columns.', watch: 'A whole-number rate folds to nothing. Half-way between harmonics folds on two trips: a new fundamental, an octave down. An unrelated rate never folds, and the share between the harmonics comes out where the page’s reading predicts.', hear: 'Tied to the pitch, a new timbre; at three halves, a lower note appears; untied, the roughness of two clocks.',
+    hears: ['still', 'slow', 'whole', 'half', 'r37', 'phi'], ctl: ['pos', 'depth'] },
+];
+const ROWS = {
+  still: { label: 'held still', rate: () => 0 },
+  slow: { label: '0.25 Hz, slowly', rate: () => 0.25 },
+  whole: { label: 'the pitch itself', rate: (f0) => f0 },
+  half: { label: '3 ⁄ 2 of the pitch', rate: (f0) => 1.5 * f0 },
+  r37: { label: '37.7 Hz', rate: () => 37.7 },
+  phi: { label: 'golden ratio × the pitch', rate: (f0) => PHI * f0 },
+};
+
+let ctx = null, master = null, src = null, sr = 48000, playing = false, t0 = 0, pend = 0;
+let a = frameCoefs('A', K), b = frameCoefs('B', K), FA = null, FB2 = null, R = null;
+function ensureAudio() {
+  if (ctx) return;
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  sr = ctx.sampleRate;
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 6;
+  master = ctx.createGain(); master.gain.value = 0.45; master.connect(comp).connect(ctx.destination);
+}
+function frames() { if (!FA) { FA = storeFrame(a, P); FB2 = storeFrame(b, P); norm2(FA, FB2); } }
+function depthNow() { return Math.min(S.depth, S.pos, 1 - S.pos); }
+function rateNow() {
+  const st = STEPS[S.step].name;
+  if (st === 'Position, held') return 0;
+  if (st === 'sweep it slowly') return 0.25;
+  if (st === 'drive it fast') return rateOf(S.rateU);
+  return ROWS[S.row].rate(sr / P);
+}
+function rebuild() {
+  frames();
+  const st = STEPS[S.step].name, r = rateNow(), dep = r ? depthNow() : 0;
+  if (st === 'drive it fast' || st === 'the test') { const y = readPosition(FA, FB2, NFFT, S.pos, dep, r, sr); R = { spec: spectrumDb(y, 0, NFFT), rate: r }; } else R = { rate: r };
+  if (st === 'the test') {
+    const f0 = sr / P, M = Math.floor(sr / P), rows = {};
+    for (const k of Object.keys(ROWS)) {
+      const rr = ROWS[k].rate(f0), y = readPosition(FA, FB2, 8 * P * 6 > M * P ? 8 * P * 6 : M * P, S.pos, rr ? depthNow() : 0, rr, sr);
+      const near = rr ? Math.min(rr % f0, f0 - (rr % f0)) : 0;
+      rows[k] = { rate: rr, near, off: offGridDb(y, P, 0, M), rep: repeatsAfter(y, P, 8, 6) };
+    }
+    R.rows = rows; R.pred = predictOffDb(FA, FB2, S.pos, depthNow());
+  }
+}
+// a loop with a short crossfade at its seam, so a moving Position doesn't click once a turn
+function loopify(x, F) { const N = x.length - F, out = new Float32Array(N); for (let i = 0; i < N; i++) out[i] = i < F ? x[i] * Math.sin(i / F * Math.PI / 2) + x[N + i] * Math.cos(i / F * Math.PI / 2) : x[i]; return out; }
+function start() {
+  ensureAudio(); stopSound(true);
+  if (ctx.state !== 'running') ctx.resume();
+  rebuild();
+  const r = rateNow(), dep = r ? depthNow() : 0, secs = r && r < 1 ? 8 : 4, n = P * Math.round(secs * sr / P), F = Math.round(0.08 * sr);
+  const x = readPosition(FA, FB2, n + F, S.pos, dep, r, sr), data = r ? loopify(x, F) : Float32Array.from(x.subarray(0, n));
+  const buf = ctx.createBuffer(1, data.length, sr); buf.copyToChannel(data, 0);
+  src = ctx.createBufferSource(); src.buffer = buf; src.loop = true; src.connect(master);
+  t0 = ctx.currentTime + 0.02; src.start(t0); playing = true; syncPlay();
+  // tell the face a sound started (a buffer source's start is not one the kit hears on its own)
+  if (window.parent !== window) { try { window.parent.postMessage({ type: 'rich:play' }, '*'); } catch (e) {} }
+  show();
+}
+function stopSound(keep) { if (src) { try { src.stop(); } catch (e) {} src.disconnect(); src = null; } if (!keep) { playing = false; syncPlay(); } }
+function syncPlay() { $('play').textContent = playing ? '■ stop' : '▸ play'; }
+function changed() { const was = playing; stopSound(); clearTimeout(pend); pend = setTimeout(() => { rebuild(); show(); if (was) start(); }, 80); }
+
+// ---- the picture ----
+function fit(c) {
+  const d = devicePixelRatio || 1, w = c.clientWidth, h = +c.getAttribute('height');
+  if (c.width !== Math.round(w * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h };
+}
+function box(g, x, y, w, h, label) { g.strokeStyle = '#22222e'; g.lineWidth = 1; g.strokeRect(x, y, w, h); g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'left'; g.fillText(label, x + 6, y + 13); }
+function pNow() {
+  const r = rateNow(); if (!r) return S.pos;
+  if (r > 4) return S.pos;   // too fast to draw; the picture holds the centre
+  const t = playing && ctx ? (ctx.currentTime - t0) : performance.now() / 1000;
+  return positionAt(Math.max(0, t) * sr, S.pos, depthNow(), r, sr);
+}
+function draw() {
+  frames();
+  const { g, w, h } = fit($('pic')); g.clearRect(0, 0, w, h);
+  const gap = 12, lw = Math.max(190, Math.floor((w - gap) * 0.32)), rx = lw + gap, rw = w - rx, top = 22, ih = h - top - 22;
+  const st = STEPS[S.step].name, p = pNow(), ACC = '#e8b84a', BLU = '#4a8fff', VIO = '#8b7cf6';
+  box(g, 0, 0, lw, h, 'the frames · Position ' + p.toFixed(2));
+  const tr = (arr, col, lwid, y0, hh) => { g.strokeStyle = col; g.lineWidth = lwid; g.beginPath(); for (let i = 0; i < P; i++) { const x = 8 + (lw - 16) * i / (P - 1), v = y0 + hh / 2 - arr(i) * hh * 0.55; i ? g.lineTo(x, v) : g.moveTo(x, v); } g.stroke(); };
+  const hh = ih / 3;
+  tr((i) => FA[i], 'rgba(232,184,74,0.6)', 1, top, hh);
+  tr((i) => FB2[i], 'rgba(139,124,246,0.7)', 1, top + 2 * hh, hh);
+  tr((i) => FA[i] + p * (FB2[i] - FA[i]), BLU, 2, top + hh, hh);
+  g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.fillText('saw', 10, top + 10); g.fillText('what is read', 10, top + hh + 10); g.fillText('vowel', 10, top + 2 * hh + 10);
+  const f0 = sr / P, fMax = (st === 'drive it fast' || st === 'the test') ? 12.5 * f0 : 20.5 * f0;
+  box(g, rx, 0, rw, h, (st === 'drive it fast' || st === 'the test') ? 'measured spectrum · ticks: harmonics · marks: harmonic ± the rate' : 'each harmonic’s level, from the two frames');
+  const L = rx + 30, Rr = rx + rw - 8, Tp = top, B = h - 20, lo = -60;
+  const X = (f) => L + (Rr - L) * f / fMax, Y = (db) => Tp + (B - Tp) * Math.min(1, Math.max(0, -db / -lo));
+  g.font = '10px JetBrains Mono, monospace';
+  for (let db = 0; db >= lo; db -= 20) { g.strokeStyle = '#1e1e2a'; g.beginPath(); g.moveTo(L, Y(db)); g.lineTo(Rr, Y(db)); g.stroke(); g.fillStyle = '#8a8aa0'; g.textAlign = 'right'; g.fillText(db + '', L - 4, Y(db) + 3); }
+  if (st === 'Position, held' || st === 'sweep it slowly') {
+    let pk = 0; for (let k = 1; k <= K; k++) pk = Math.max(pk, harmonicAt(a, b, k, 0), harmonicAt(a, b, k, 1));
+    for (let k = 1; k <= K; k++) { const v = 20 * Math.log10(harmonicAt(a, b, k, p) / pk + 1e-9), x = X(k * f0); g.fillStyle = BLU; g.fillRect(x - 4, Y(v), 8, B - Y(v)); if (k % 5 === 0 || k === 1) { g.fillStyle = '#8a8aa0'; g.textAlign = 'center'; g.fillText('k' + k, x, h - 6); } }
+    return;
+  }
+  for (let k = 1; k * f0 < fMax; k++) { g.strokeStyle = 'rgba(200,200,216,0.45)'; g.beginPath(); g.moveTo(X(k * f0), B); g.lineTo(X(k * f0), B - 10); g.stroke(); if (k % 4 === 0 || k === 1) { g.fillStyle = '#8a8aa0'; g.textAlign = 'center'; g.fillText((k * f0 / 1000).toFixed(1) + 'k', X(k * f0), h - 6); } }
+  if (!R || !R.spec) return;
+  const r = R.rate; g.fillStyle = ACC;
+  if (r > 0) for (let k = 1; k * f0 < fMax; k++) for (const s of [-1, 1]) { const f = k * f0 + s * r; if (f > 0 && f < fMax) { g.beginPath(); g.moveTo(X(f), B - 2); g.lineTo(X(f) - 3, B - 9); g.lineTo(X(f) + 3, B - 9); g.fill(); } }
+  const spec = R.spec, bin = sr / NFFT; let pk = -Infinity; for (let i = 1; i < spec.length; i++) pk = Math.max(pk, spec[i]);
+  g.strokeStyle = BLU; g.lineWidth = 1.2; g.beginPath();
+  for (let i = 1; i * bin <= fMax; i++) { const x = X(i * bin), v = Y(spec[i] - pk); i > 1 ? g.lineTo(x, v) : g.moveTo(x, v); }
+  g.stroke();
+}
+function loop() { requestAnimationFrame(loop); draw(); }
+
+// ---- the readout ----
+function show() {
+  const st = STEPS[S.step].name, f0 = sr / P;
+  $('pic-r').textContent = `fs ${sr} Hz${ctx ? '' : ' (assumed until you play)'} · one trip ${P} samples · pitch ${f0.toFixed(1)} Hz`;
+  $('pos-v').textContent = S.pos.toFixed(2); $('depth-v').textContent = `± ${depthNow().toFixed(2)}`; $('rate-v').textContent = `${rateOf(S.rateU).toFixed(rateOf(S.rateU) < 10 ? 2 : 1)} Hz`;
+  let m = '', t = '', f = '';
+  if (st === 'Position, held') m = `Position ${S.pos.toFixed(2)} · harmonics at k × <b>${f0.toFixed(2)} Hz</b>, nothing between`;
+  if (st === 'sweep it slowly') m = `Position ${S.pos.toFixed(2)} ± ${depthNow().toFixed(2)}, once every 4 s · the new lines sit <b>0.25 Hz</b> from each harmonic, ${(0.25 / f0 * 100).toFixed(2)}% of the way to the next: inside the harmonic’s own line`;
+  if (st === 'drive it fast') { const r = rateOf(S.rateU), near = Math.min(r % f0, f0 - (r % f0)); m = `rate <b>${r.toFixed(1)} Hz</b> · its new lines sit <b>${near.toFixed(1)} Hz</b> from the nearest harmonic, ${(near / f0 * 100).toFixed(0)}% of the way to the next`; }
+  if (st === 'the test') {
+    t = '<tr><th>Position driven at</th><th>rate</th><th>new lines from a harmonic</th><th>repeats after</th><th>between the harmonics, 1 s</th></tr>';
+    for (const k of Object.keys(ROWS)) {
+      const r = R.rows[k], off = r.off < -200 ? 'none' : `${r.off.toFixed(1)} dB`;
+      t += `<tr><td>${k === S.row ? '<b>' + ROWS[k].label + '</b>' : ROWS[k].label}</td><td>${r.rate ? r.rate.toFixed(2) + ' Hz' : '—'}</td><td>${r.rate ? r.near.toFixed(2) + ' Hz' : '—'}</td><td>${r.rep ? r.rep + (r.rep === 1 ? ' trip' : ' trips') : 'not within 8'}</td><td><b>${off}</b></td></tr>`;
+    }
+    m = `predicted for a rate unrelated to the pitch, with every new line between harmonics: <b>${R.pred.toFixed(2)} dB</b> under the whole`;
+    f = `Tied to the pitch, Position stays inside one loop: at the pitch itself the new lines land on harmonics, and the sound repeats every trip, a new timbre on the old grid. At three halves it repeats every two trips, a series on half the pitch, a new fundamental an octave down. Untied, at 37.7 Hz or the golden ratio, it never repeats, and the share between the harmonics lands on the prediction: Position has become the second clock. The slow sweep is the honest middle. It doesn’t repeat either, and over a second some of it folds as between, because the strengths have moved; but its new lines sit a quarter of a hertz from their harmonics, inside them, so the ear hears the same harmonics changing strength.`;
+  }
+  $('meter').innerHTML = m; $('tab').innerHTML = t; $('found').textContent = f;
+  const E = {
+    'Position, held': ['y[n] = (1 − p) · A[n mod P] + p · B[n mod P]', '(the output) = (the saw frame and the vowel frame, read by the same counter, blended by Position)'],
+    'sweep it slowly': ['p(n) = p₀ + d · sin(2π · 0.25 · n ⁄ fs)', '(Position now) = (where you set it) + (how far it moves) × (a slow swing, once every four seconds)'],
+    'drive it fast': ['harmonic k → k · fs ⁄ P   and   k · fs ⁄ P ± r', '(each harmonic stays where it is) and (gains a line on each side, as far away as Position’s rate r)'],
+    'the test': ['between = (d² ⁄ 2) · mean((B − A)²) ⁄ (mean((A + p₀(B − A))²) + (d² ⁄ 2) · mean((B − A)²))', '(the share between the harmonics, when the rate is unrelated) = (the moving part’s energy) ÷ (the whole sound’s energy)'],
+  }[st];
+  $('eq1').textContent = E[0]; $('eq1w').textContent = E[1];
+}
+
+// ---- the walk ----
+function hearButtons() {
+  const st = STEPS[S.step], el = $('hears'); el.innerHTML = '';
+  for (const k of st.hears) { const bt = document.createElement('button'); bt.className = 'ghost small'; bt.textContent = ROWS[k].label; bt.setAttribute('aria-pressed', String(k === S.row)); bt.onclick = () => { S.row = k; hearButtons(); rebuild(); show(); if (playing) start(); }; el.appendChild(bt); }
+  $('hear-l').classList.toggle('hide', !st.hears.length);
+}
+function setStep(i) {
+  stopSound();
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const st = STEPS[S.step];
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').textContent = st.say;
+  $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  [...$('rail').children].forEach((bt, j) => bt.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  for (const c of ['pos', 'depth', 'rate']) $('ctl-' + c).classList.toggle('hide', !st.ctl.includes(c));
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  hearButtons(); rebuild(); show();
+}
+STEPS.forEach((st, i) => { const bt = document.createElement('button'); bt.textContent = `${i + 1} · ${st.name}`; bt.onclick = () => setStep(i); $('rail').appendChild(bt); });
+$('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+$('play').onclick = () => { if (playing) stopSound(); else start(); };
+$('pos').oninput = () => { S.pos = +$('pos').value; show(); changed(); };
+$('depth').oninput = () => { S.depth = +$('depth').value; show(); changed(); };
+$('rate').oninput = () => { S.rateU = +$('rate').value; show(); changed(); };
+setStep(0); requestAnimationFrame(loop);
+</script>
+</body>
+</html>
