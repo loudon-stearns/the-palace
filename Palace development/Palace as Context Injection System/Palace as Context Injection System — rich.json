@@ -30,6 +30,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/2026-10-20-birth-stack/birth-stack-reader.html",
+            "verdict": "keep",
+            "why": "A real test of the section's claim (same task, two births, different attention; a blind judge sorted 8 of 8), and the caption matches results.json and keeps the record's own caveat that content and order moved at once. Placed rightly under The Mechanism: it is the 2026-10-20 A/B, not the order test."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "proofs/2026-10-20-birth-stack/birth-stack-reader.html",
@@ -54,6 +65,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Palace as Context Injection System — rich — two levers.html",
+            "verdict": "remake",
+            "why": "Steps 1–4 walk up well, but step 5's middle floor is the page's own row hard-coded (CLAUDE 600, CHILD 2500, memory 1800), so 0.6k and 11.8k \"hold\" by construction while the caption says \"All hold\". Build that floor from the files at 49e9f505 at 635b9103's calibration (2.82 chars/token: CLAUDE ≈ 0.59k, CHILD ≈ 2.43k, World 6,144, Jewel 773, memory 1.8k labelled the page's; ≈ 11.7k), mark those rows \"within the estimate\", and say in the caption which checks are measured and which estimated."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Palace as Context Injection System — rich — two levers.html",
@@ -77,6 +99,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/2026-10-21-floor-review/who-wakes-here.html",
+            "verdict": "keep",
+            "why": "Gathered drawing the page already links, reading floor.json live; the added piece:needs storage line is the right route since the proof already declares for itself. Its reading note (line 223) repeats the record's one-Jewel-born-child error; fix it with the record at landing (offer 4), not the page."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "proofs/2026-10-21-floor-review/who-wakes-here.html",
@@ -99,6 +132,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Palace as Context Injection System — rich — the order test.html",
+            "verdict": "keep",
+            "why": "A real test that walks up from one child to Fisher's exact (p = 420/4845 = 0.087, confirmed); its BIRTHS table matches all 36 births' files with 0 mismatches. Notes: the caption's \"36 grade files\" are 30 grade files and 6 A1 checks files; align the summon figure with Two Levers (473 = 0.193 × 2,449 into CHILD.md, not 436)."
+          }
+        ]
       },
       "pieces": [
         {
