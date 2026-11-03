@@ -25,6 +25,9 @@ links:
   - target: "[[Semantic Delay]]"
     type: mirrors
     label: deferred-meaning
+  - target: "[[Palace Graffiti — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # Palace Graffiti

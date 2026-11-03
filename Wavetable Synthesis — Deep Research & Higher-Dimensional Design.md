@@ -46,6 +46,9 @@ links:
   - target: "[[Wavetable Oscillator]]"
     type: deepens
     label: long-form
+  - target: "[[Wavetable Synthesis — Deep Research & Higher-Dimensional Design — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # Wavetable Synthesis — Deep Research & Higher-Dimensional Design

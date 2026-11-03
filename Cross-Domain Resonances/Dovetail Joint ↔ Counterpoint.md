@@ -35,6 +35,9 @@ links:
   - target: "[[Hilaritas Generator]]"
     type: exemplifies
     label: all-four-pillars-fire
+  - target: "[[Dovetail Joint ↔ Counterpoint — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # Dovetail Joint ↔ Counterpoint

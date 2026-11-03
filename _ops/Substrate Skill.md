@@ -20,6 +20,9 @@ links:
   - target: "[[SCHEMA — Reference]]"
     type: connects-to
     label: bundle-vocabulary
+  - target: "[[Substrate Skill — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 # Substrate Skill (Palace Edition)
 

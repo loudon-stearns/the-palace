@@ -49,6 +49,9 @@ links:
   - target: "[[Threshold Conatus]]"
     type: spawned
     label: stage-4-deposit
+  - target: "[[Palace Enchantment — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # Palace Enchantment

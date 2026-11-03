@@ -26,6 +26,7 @@ links:
     label: sandboxed-fallback
   - { target: "[[Radio Play]]", type: connects-to, label: "vo-as-clock" }
   - { target: "[[Kokoro]]", type: couples-with, label: "narration-it-renders-under" }
+  - { target: "[[Manim CE — Context]]", type: spawned, label: rationale-archive }
 tags: [specialist, shop, motion, math, animation]
 ---
 
