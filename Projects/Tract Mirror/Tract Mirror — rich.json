@@ -43,7 +43,7 @@
           "by": "Web Audio Worklet · Levinson-Durbin",
           "height": 1150,
           "title": "one joint, then the whole mirror",
-          "caption": "**The claim, walked up and then run backward.** One joint between two tubes and the power it splits; a straight tube that rings at its quarter-wave notes; a shaped tube that says a vowel; a morph; and last, linear prediction reading the tube back out of its own sound. With the glottis closed and no loss the ladder comes back joint for joint (largest gap under 10⁻¹¹ on all six vowels). With the plugin's leaky glottis (+0.97) and lossy walls (0.996 per joint) it comes back as a different tube, up to 0.25 off on /a/ and 0.61 on /o/, that makes the same sound, sample for sample, within 2 × 10⁻¹³ of its peak. Every tube is read from vowels.json; the checks beside it re-run each step's numbers against the Python reference.",
+          "caption": "**The claim, walked up and then run backward.** One joint between two tubes and the power it splits; a straight tube that rings at its quarter-wave notes; a shaped tube that says a vowel; a morph; and last, linear prediction reading the tube back out of its own sound. With the glottis closed and no loss the ladder comes back joint for joint (largest gap under 10⁻¹¹ on all six vowels). With the plugin's leaky glottis (+0.97) and lossy walls (0.996 per joint) it comes back as a different tube, up to 0.25 off on /a/ and 0.61 on /o/, whose sound has the same shape, within 2 × 10⁻¹³ of its peak, once one overall level is matched: the read-back tube plays 12 dB louder on /a/ and 16 dB on /o/. Either condition alone, the leak or the wall loss, is enough to break the identity. Every tube is read from vowels.json; the checks beside it re-run each step's numbers against the Python reference.",
           "near": "The tubes on screen are not a visualization of the filter"
         },
         {
@@ -52,19 +52,11 @@
           "height": 1600,
           "title": "The Mirror · the full instrument, 2026-06-09",
           "caption": "The build's own interactive study, unchanged: the six vowels on a pad, the tube and the lattice drawn side by side with the same k printed at each joint, and both directions of the ladder explained. It carries its first-version review panel; notes left there stay in this frame.",
-          "near": "The tubes on screen are not a visualization of the filter",
+          "near": "Tract Mirror renders the tube body",
           "contract": {
             "needs": "storage",
             "size": "flow"
           }
-        },
-        {
-          "file": "renders/clips/clip_tube_morph.mp4",
-          "origin": "gathered",
-          "title": "tube morph · /a/ → /i/ → /u/",
-          "caption": "Ten seconds of the tract silhouette reshaping between three vowels, the synth's own sound under it, F1 and F2 printed as they move.",
-          "near": "Morphing a vowel reshapes the tract",
-          "place": "margin"
         }
       ],
       "made_against": "d610b763fa4a",
@@ -110,7 +102,7 @@
           "file": "reference/renders/tube_profiles.png",
           "origin": "gathered",
           "title": "the six area functions",
-          "caption": "The six fitted tubes as silhouettes, glottis left, lips right, radius √(A/π). These 64-point curves are the whole of what the optimizer chose; everything else is derived from them.",
+          "caption": "The six fitted tubes as silhouettes, glottis left, lips right, radius √(A/π). The optimizer chose a cosine series, 19 coefficients per vowel; these are the 64 points it draws, clipped at 12 cm² (the flat tops on /a/, /i/, /o/ and /u/). Everything else is derived from them.",
           "near": "morphed via XY pad",
           "place": "margin"
         },
@@ -187,13 +179,13 @@
       "section": "Tract Mirror",
       "kind": "claim-change",
       "status": "open",
-      "what": "The identity holds exactly only in the ideal tube. The walk's last step runs LPC (Levinson-Durbin, order 44) on the tube's own click: with the glottis closed (+1) and no loss, the reflection coefficients come back equal to the area-ratio k at every joint (largest gap under 10⁻¹¹, six vowels, lip rung −0.900). With the shipped glottis +0.97 and loss 0.996, they come back as a different tube that makes the identical sound (within 2 × 10⁻¹³ of its peak): the largest gaps are 0.254 /a/, 0.124 /e/, 0.117 /i/, 0.612 /o/, 0.158 /u/, 0 schwa, and the lip rung reads −0.738. Offer: name that condition where the opening says the LPC coefficients are the impedance mismatches. It also bears on the v2 analysis engine: reading a singer's tract from their sound will draw losses as shape unless the losses are modelled."
+      "what": "The identity is exact only in the ideal tube, and the ideal takes two conditions: a closed glottis and lossless walls. The walk's last step runs LPC (Levinson-Durbin, order 44) on the tube's own click. With both conditions the reflection coefficients come back equal to the area-ratio k at every joint (largest gap under 10⁻¹¹ on six vowels, lip rung −0.900). As shipped (glottis +0.97, loss 0.996 per joint) they come back as a different tube whose sound has the same shape once one overall level is matched (within 2 × 10⁻¹³; the read-back tube is 12 dB louder on /a/, 16 dB on /o/). Gaps: 0.254 /a/, 0.124 /e/, 0.117 /i/, 0.612 /o/, 0.158 /u/, 0 schwa. Either condition alone breaks it: for /o/, the leak alone gives 0.401 and the loss alone 0.628. The lip rung reads −0.7377, exactly 0.97 × 0.9 × 0.996⁴², the round trip's losses gathered into the last rung (the challenger's Python recompute confirms every figure). Offer: name both conditions where the opening says the LPC coefficients are the impedance mismatches. It bears on the v2 analysis engine: a singer's tract read back from their sound will draw both glottal leak and wall loss as shape unless they are modelled."
     },
     {
       "section": "Architecture (decided 2026-06-09)",
       "kind": "claim-change",
       "status": "open",
-      "what": "\"Verified in Ableton Live 12, VST3 + AU\" says a little more than the build log does. Phase 4 records that Live listed both formats and that the VST3 was loaded and played (renders/ableton-proof.png); the AU passed auval and was never loaded in Live. Offer: \"Verified in Ableton Live 12 (VST3; the AU passes auval)\", or load the AU once and keep the words."
+      "what": "\"Verified in Ableton Live 12, VST3 + AU\" says more than the build log does. Phase 4 (build plan :68) records that Live listed both formats and that the VST3 was loaded and played (renders/ableton-proof.png); the AU passed auval (:63) and was never loaded in Live. And the Live check came before Phases 5 and 6: the build plan has the in-Live MIDI re-verification pending (:82), and the scroll says the MIDI controls and Word mode have not been played inside Ableton (scroll :47). Offer: \"Verified in Ableton Live 12 on 2026-06-10 (VST3; the AU passes auval)\", or load the AU and the later build once and keep the words."
     },
     {
       "section": "Tract Mirror",

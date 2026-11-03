@@ -205,7 +205,7 @@
       <div class="tm-cell tm-a"><div class="tm-k">largest gap, shape k vs sound k</div><div class="tm-v" id="r5gap"></div></div>
       <div class="tm-cell"><div class="tm-k">last rung (the lips)</div><div class="tm-v" id="r5lip"></div></div>
       <div class="tm-cell"><div class="tm-k">odd rungs</div><div class="tm-v" id="r5odd"></div></div>
-      <div class="tm-cell tm-c"><div class="tm-k">the two tubes' sounds differ by</div><div class="tm-v" id="r5same"></div></div>
+      <div class="tm-cell tm-c"><div class="tm-k">the two sounds, one level matched</div><div class="tm-v" id="r5same"></div></div>
     </div>
     <div class="tm-row">
       <button class="tm-go" id="play5a">play the real tube</button>
@@ -214,7 +214,7 @@
     <div class="tm-eq"><div class="tm-sym">kₘ = (rₘ − Σⱼ aⱼ · rₘ₋ⱼ) ⁄ Eₘ₋₁ &nbsp;and&nbsp; Aᵢ₊₁ ⁄ Aᵢ = (1 − kᵢ) ⁄ (1 + kᵢ)</div>
       <div class="tm-words">(the next rung) = (how much the sound still resembles itself m samples later, beyond what the rungs so far predict) ÷ (the error still left); and each rung gives back one area ratio</div></div>
     <p class="tm-test" id="t5"></p>
-    <p class="tm-p">The analysis runs at order 44 for 22 sections because each section takes one sample each way, so a round trip is two samples: every odd rung comes back zero and the even rungs are the ladder. Both tubes in the sound play through the analysis model, with no radiation filter on the lip reflection, which is the model the formant table is measured on. The whole instrument, with the pad, the lattice drawn beside the tube and the glottal controls, is the next frame on this page, <a href="artifacts/the-mirror/index.html" target="_blank" rel="noopener">The Mirror</a>.</p>
+    <p class="tm-p">The analysis runs at order 44 for 22 sections because each section takes one sample each way, so a round trip is two samples: every odd rung comes back zero and the even rungs are the ladder. Both tubes in the sound play through the analysis model, with no radiation filter on the lip reflection, which is the model the formant table is measured on, and the piece's level follower plays them at one loudness, so the A/B compares the shape of the sound, not its level. The whole instrument, with the pad, the lattice drawn beside the tube and the glottal controls, is the next frame on this page, <a href="artifacts/the-mirror/index.html" target="_blank" rel="noopener">The Mirror</a>.</p>
   </section>
 
   <div class="tm-nav"><button id="back">back</button><button id="next">next</button></div>
@@ -644,10 +644,12 @@ registerProcessor('tract-mirror-walk', TractWalk);
     $('r5gap').textContent = rb.gap.toFixed(4) + ' · joint ' + (rb.gapAt + 1);
     $('r5lip').textContent = fmt(rb.lip, 3);
     $('r5odd').textContent = rb.oddMax < 1e-9 ? 'all zero' : 'max ' + rb.oddMax.toExponential(1);
-    $('r5same').textContent = same.miss < 1e-9 ? sci(same.miss) + ' of peak' : (same.miss * 100).toFixed(3) + ' % of peak';
+    const dB = -20 * Math.log10(same.gain), lvl = Math.abs(dB) < 0.05 ? 'same level' : 'read-back ' + dB.toFixed(1) + ' dB ' + (dB > 0 ? 'louder' : 'quieter');
+    const shape = same.miss < 1e-9 ? sci(same.miss) : (same.miss * 100).toFixed(3) + ' %';
+    $('r5same').textContent = 'shape within ' + shape + ' · ' + lvl;
     let s;
     if (m5 === 'ideal') s = 'With the glottis fully closed and no loss in the walls, the ladder Levinson-Durbin peels off the sound is the tube’s own, joint for joint: the largest gap is <b>' + sci(rb.gap) + '</b>, and the last rung reads the lips, <b>' + fmt(rb.lip, 3) + '</b>. The blue tube sits inside the amber outline. Here the page’s claim holds to the last decimal: the LPC reflection coefficients are the impedance mismatches between the sections.';
-    else s = 'Now give the tube what the plugin ships: a glottis that leaks a little (+0.97) and walls that lose 0.4 % at every joint. The sound still gives back a ladder, and that ladder makes <b>the same sound</b>, sample for sample (they differ by ' + $('r5same').textContent + '). But it draws <b>a different tube</b>: the largest gap is <b>' + rb.gap.toFixed(3) + '</b> at joint ' + (rb.gapAt + 1) + ', and the lips read ' + fmt(rb.lip, 3) + ' instead of −0.900. The analysis assumes a closed, lossless tube, so the losses come back drawn as shape. The mirror is exact in sound; what it shows of the geometry depends on what you assume about the ends.';
+    else s = 'Now give the tube what the plugin ships: a glottis that leaks a little (+0.97) and walls that lose 0.4 % at every joint. The sound still gives back a ladder, and that ladder makes <b>the same sound once one overall level is matched</b>: sample for sample the shape agrees to within ' + shape + ' of the peak, while the read-back tube plays <b>' + dB.toFixed(1) + ' dB louder</b> for the same click. But it draws <b>a different tube</b>: the largest gap is <b>' + rb.gap.toFixed(3) + '</b> at joint ' + (rb.gapAt + 1) + ', and the lips read ' + fmt(rb.lip, 3) + ' instead of −0.900, which is exactly 0.97 × 0.9 × 0.996⁴²: the leak and every wall loss of one round trip, gathered into the last rung. The analysis assumes a closed glottis and lossless walls, and either one alone is enough to break it, so the losses come back drawn as shape. The mirror is exact in the shape of the sound; what it shows of the geometry depends on what you assume about the ends and the walls.';
     $('t5').innerHTML = s;
   }
 

@@ -114,7 +114,8 @@ for (const v of VOW) {
     if (m === 'ideal') {
       check(`step 5: ideal /${v}/ — the sound gives back the tube's own ladder`, rb.gap < 1e-4 && Math.abs(rb.lip + 0.9) < 1e-4,
         `gap ${rb.gap.toExponential(1)}, lip rung ${rb.lip.toFixed(5)}, ${rb.irLen} samples`);
-    } else shippedGaps[v] = rb;
+      check(`step 5: ideal /${v}/ — the read-back tube plays at the same level`, Math.abs(same.gain - 1) < 1e-6, `gain ${same.gain.toFixed(6)}`);
+    } else { shippedGaps[v] = rb; rb.gain = same.gain; }
     check(`step 5: ${m} /${v}/ — odd rungs are zero`, rb.oddMax < 1e-9, `max ${rb.oddMax.toExponential(1)}`);
     check(`step 5: ${m} /${v}/ — the read-back tube makes the same sound`, same.miss < 1e-9, `miss ${same.miss.toExponential(1)} of peak`);
   }
@@ -122,6 +123,11 @@ for (const v of VOW) {
 {
   const g = Object.fromEntries(Object.entries(shippedGaps).map(([v, rb]) => [v, rb.gap]));
   console.log('      shipped gaps (shape k vs sound k):', Object.entries(shippedGaps).map(([v, rb]) => `/${v}/ ${rb.gap.toFixed(3)} @ joint ${rb.gapAt + 1}, lip ${rb.lip.toFixed(3)}`).join(' · '));
+  const lipExpect = 0.97 * 0.9 * 0.996 ** (2 * (N - 1));
+  check('step 5: as shipped, the lip rung is the round trip\'s losses, 0.97 × 0.9 × 0.996^42', Object.values(shippedGaps).every((rb) => Math.abs(-rb.lip - lipExpect) < 1e-9), `expect ${lipExpect.toFixed(6)}, read ${(-shippedGaps.a.lip).toFixed(6)}`);
+  const ga = shippedGaps.a.gain, go = shippedGaps.o.gain;
+  check('step 5: as shipped, the same sound holds up to one gain (read-back 12 dB louder on /a/, 16 on /o/)', Math.abs(ga - 0.250) < 0.001 && Math.abs(go - 0.153) < 0.001,
+    `gain /a/ ${ga.toFixed(4)} (${(-20 * Math.log10(ga)).toFixed(1)} dB), /o/ ${go.toFixed(4)} (${(-20 * Math.log10(go)).toFixed(1)} dB)`);
   check('step 5: as shipped, the read-back ladder parts from the shape (losses read as shape)', g.a > 0.2 && g.o > 0.5 && g.schwa < 1e-6, `/a/ ${g.a.toFixed(3)}, /o/ ${g.o.toFixed(3)}, schwa ${g.schwa.toExponential(1)}`);
 }
 
