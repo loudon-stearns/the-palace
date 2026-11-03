@@ -55,6 +55,14 @@ function SignalCell({ row }) {
 
 const CEREMONY_COLS = 'minmax(180px, 2fr) 56px 90px 90px minmax(140px, 1.6fr) 90px';
 
+// The project table is ONE grid; the header and every row are subgrids of it.
+// Each row used to be its own grid, so the trailing `auto` column (the advance
+// button) sized differently in the header than in a row and shifted every
+// column after the name. The steward column holds "cyc N" and the health tag.
+const PROJECT_COLS = 'minmax(180px, 2fr) 84px 124px minmax(120px, 1.4fr) 110px auto';
+const PROJECT_TABLE = { display: 'grid', gridTemplateColumns: PROJECT_COLS, columnGap: 10, rowGap: 2 };
+const PROJECT_SUBGRID = { gridColumn: '1 / -1', display: 'grid', gridTemplateColumns: 'subgrid' };
+
 export function CeremonyRow({ row, onOpen, onOpenEntry, prefix = 'ceremony' }) {
   const sid = slug(row.home);
   const dim = { color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, whiteSpace: 'nowrap' };
@@ -97,7 +105,7 @@ export function CeremonyRow({ row, onOpen, onOpenEntry, prefix = 'ceremony' }) {
 function GroupHeading({ children, n }) {
   if (!n) return null;
   return (
-    <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 10, letterSpacing: '.12em', textTransform: 'uppercase', padding: '8px 0 2px', borderBottom: '1px dashed var(--phosphor-dim)' }}>
+    <div style={{ gridColumn: '1 / -1', color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 10, letterSpacing: '.12em', textTransform: 'uppercase', padding: '8px 0 2px', borderBottom: '1px dashed var(--phosphor-dim)' }}>
       {children} · {n}
     </div>
   );
@@ -110,7 +118,7 @@ export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, co
     <div
       data-testid={`project-row-${sid}`}
       data-running={row.running ? 'true' : 'false'}
-      style={{ display: 'grid', gridTemplateColumns: 'minmax(180px, 2fr) 70px 90px minmax(120px, 1.4fr) 110px auto', gap: 10, alignItems: 'center', padding: '4px 0', borderBottom: '1px solid var(--fg4, rgba(31,138,60,.25))' }}
+      style={{ ...PROJECT_SUBGRID, alignItems: 'center', padding: '4px 0', borderBottom: '1px solid var(--fg4, rgba(31,138,60,.25))' }}
     >
       <span style={{ display: 'flex', alignItems: 'baseline', gap: 6, minWidth: 0 }}>
         <span
@@ -132,7 +140,7 @@ export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, co
         ) : null}
       </span>
       <span style={dim}>{row.stage || '—'}</span>
-      <span style={dim}>{row.stewarded ? `cyc ${row.iteration ?? 0}` : '—'}{row.stewarded && row.health ? <Tag tone={row.health === 'green' ? 'ok' : row.health === 'red' ? 'err' : 'default'}>{row.health}</Tag> : null}</span>
+      <span style={{ ...dim, display: 'flex', alignItems: 'center', gap: 6 }}>{row.stewarded ? `cyc ${row.iteration ?? 0}` : '—'}{row.stewarded && row.health ?<Tag tone={row.health === 'green' ? 'ok' : row.health === 'red' ? 'err' : 'default'}>{row.health}</Tag> : null}</span>
       <span style={{ ...dim, overflow: 'hidden', textOverflow: 'ellipsis' }} title={row.last_shipped ? row.last_shipped.headline || '' : ''}>
         {row.last_shipped ? `${ageOf(row.last_shipped.ts)} · ${row.last_shipped.headline || row.last_shipped.id}` : (row.last_activity ? `${ageOf(row.last_activity)} · (no shipped thing on the board)` : 'nothing yet')}
       </span>
@@ -274,8 +282,8 @@ export default function ProjectsDeck({ onOpenScroll }) {
             {data?.error ? `failed to load projects: ${data.error}` : (data ? 'no project entries found.' : 'loading…')}
           </div>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(180px, 2fr) 70px 90px minmax(120px, 1.4fr) 110px auto', gap: 10, color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 10, letterSpacing: '.1em', textTransform: 'uppercase', padding: '2px 0' }}>
+          <div style={PROJECT_TABLE}>
+            <div style={{ ...PROJECT_SUBGRID, color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 10, letterSpacing: '.1em', textTransform: 'uppercase', padding: '2px 0' }}>
               <span>project</span><span>stage</span><span>steward</span><span>last shipped</span><span>signal</span><span />
             </div>
             <GroupHeading n={groups.needs_you.length}>needs you</GroupHeading>
@@ -295,7 +303,7 @@ export default function ProjectsDeck({ onOpenScroll }) {
       {services.length ? (
         <div style={{ marginTop: 10 }} data-testid="services-box">
           <Box title="SERVICES  --  stewarded pages that are not projects" tone="single">
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <div style={PROJECT_TABLE}>
               {services.map((row) => (
                 <ProjectRow
                   key={row.home}
