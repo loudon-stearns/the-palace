@@ -64,6 +64,22 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Move the Ink, Don't Redraw It — rich — move it or redraw it.html",
+            "verdict": "remake",
+            "why": "A real test, numbers rerun (seam 0 and 7.97; boil 4.26 flat, motion 0.88/3.20/8.52), but step 5 states 'boil does not grow with the gap' as general when it holds by construction for a twin with fresh nudges, and the twin's 4.3 is set by its slider (almost 3x the AI's whole 1.50). Scope that verdict to the twin, say the twin's scale is arbitrary, and say 'boil, moved' reads 0 because that region is where the field is zero."
+          },
+          {
+            "file": "Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/flicker_compare.png",
+            "verdict": "keep",
+            "why": "The only record of the AI frames, captioned honestly. Note: the board's own NPR label 'draw once, move ink' is where the page's warp/NPR merge came from."
+          }
+        ]
+      },
       "made": "2026-11-03",
       "pieces": [
         {
@@ -95,6 +111,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Move the Ink, Don't Redraw It — rich — one grain.html",
+            "verdict": "keep",
+            "why": "Tests 'a static substrate cannot boil' (fresh 0.630, one grain 0.000, rerun) and walks up from the grain alone. Fix one phrase: step 5 says carried brings 'both meters to zero', but slide reads 0.33; and the slide is measured against the carried case, so carried ≈ 0 by definition."
+          }
+        ]
+      },
       "made": "2026-11-03",
       "pieces": [
         {
@@ -117,6 +144,27 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/previews/water_v1.mp4",
+            "verdict": "keep",
+            "why": "The bench's own ripple, 1.98/255 recomputed. Note: experiments.html:112 records it at amp 1.3, where the water field folds (det J −0.27 on up to 3,605 px)."
+          },
+          {
+            "file": "Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/previews/flame_v1.mp4",
+            "verdict": "remake",
+            "why": "Caption only: 'the one field that crosses the fold' describes flame.png/auto:mid at default push, not this clip (full mask per experiments.html:127; fits flame2.png, folds on 936 px in 60/60 frames), and the water clip beside it crosses too. Drop 'the one' or say both cross at the push they were rendered with."
+          },
+          {
+            "file": "Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/previews/sky_v1.mp4",
+            "verdict": "keep",
+            "why": "The billow named in the text; det J 0.90 holds at default push (0.87 at the fitted render push, about 1.3). Add 'at default push' if touched."
+          }
+        ]
       },
       "made": "2026-11-03",
       "pieces": [
@@ -156,6 +204,22 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Move the Ink, Don't Redraw It — rich — where the warp folds.html",
+            "verdict": "remake",
+            "why": "A real test (sweep 480 frames, 4·1 only; λ/2π derivation right). But det J > 0 at the end is not enough for a separable ripple: both factors can go negative and the red overlay misses it (the table's own dust row folds at det +0.05). And the table is at default push while the bench's loops were pushed harder (water at 1.3 folds on 3,605 px). Say both in the hint and the equation note."
+          },
+          {
+            "file": "Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/phys-motion/phys_motion_compare.png",
+            "verdict": "keep",
+            "why": "Caption matches the board and report-phys-motion.md (anaglyph, block-matching flow; velocity p99 33.8 px vs 98.4 procedural)."
+          }
+        ]
+      },
       "made": "2026-11-03",
       "pieces": [
         {
@@ -186,6 +250,22 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Projects/BLUELINE/proofs/m3-warped-noise/renders-seq/seedlock.gif",
+            "verdict": "keep",
+            "why": "Matches m3-warped-noise/README.md:62-64 (six frames, FLUX + pose ControlNet, 0.858)."
+          },
+          {
+            "file": "Projects/BLUELINE/proofs/m3-warped-noise/renders-seq/warped.gif",
+            "verdict": "keep",
+            "why": "0.809 matches the record; the caption honestly names that 'warp' changes sides, which carries offer 5."
+          }
+        ]
       },
       "made": "2026-11-03",
       "pieces": [
