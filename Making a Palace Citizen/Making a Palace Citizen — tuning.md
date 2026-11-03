@@ -1,16 +1,26 @@
 ---
-title: "Making a Palace Citizen — context"
+title: "Making a Palace Citizen — tuning"
 born: 2026-07-01
 links:
   - target: "[[Making a Palace Citizen]]"
     type: connects-to
     label: the-lab-for
 forward_vector: "I am the lab beside the method — the running log where every made citizen is a test. I hold findings, the experiment queue, and the rollout tracker so the stable method card doesn't churn. My end-state is to accumulate enough evidence that the method's open questions resolve one by one into the card."
+ledger: tuning
+standards:
+  for: "what making and testing citizens taught the method"
+  run: "one citizen made or rebuilt, or one encounter cast to test the method (a Dialectic, an Excellent Adventure, an enchantment)"
+  line: "- run · <date> · <citizen or encounter> · nothing new | taught item N"
+  read: "the last 40 lines with run lines set aside, plus every line not yet paid, before making a citizen or casting one to test the method"
+  writes: "the session that makes the citizen or runs the test, in its commit"
+  merge: union
+  kept: git
+  trim: never
 ---
 
-# Making a Palace Citizen — context
+# Making a Palace Citizen — tuning
 
-The workbench for [[Making a Palace Citizen]]. The card holds the stable method; this holds the *thinking and the experiments*. Append findings dated; keep the card clean.
+The workbench for [[Making a Palace Citizen]]. The card holds the stable method; this holds the *thinking and the experiments*. Append findings dated; keep the card clean. It became the page's tuning ledger on 2026-11-02, on Loudon's word ("reshape the log into a ledger"); everything above the Items section was written before then and is kept as written.
 
 ---
 
@@ -222,3 +232,9 @@ Immediately after batch 4, Loudon's call: **"I'd like to compost those 5 entries
 - **Interim layer (0 remain):** of the ~16 prose-reworked `People/` entries (2026-07-01, `3001c8e`), 11 were upgraded to the embodiable model (Goldsworthy + batch 2's five + batch 3's two + batch 4's three) and the **final 5 were composted, not rebuilt** (2026-07-08, Loudon's call, `75b1e44`): Andrei Tarkovsky · Natalie Goldberg · R. Murray Schafer · Sam Maloof · Terrence Malick, all `stage: composting` and awaiting the next Weave's confirm-or-revive. **No interim layer remains.**
 - **Pending:** nothing — Move 5 is resolved (25 built + 5 composting). If the next Weave *revives* any composted entry, it re-enters as a fresh embodiable-citizen build (not an interim rebuild) and would be re-batoned then. Otherwise the rollout is done.
 - **Done:** the schema housekeeping was ratified in the **v1.14 Schema Ceremony** (2026-07-01), before the rollout — `dossier` in SCHEMA §8, `agency_profile`-on-persons in §3.1, seed-citizen stage semantics in §1. Additive/descriptive; mirror docs unaffected.
+
+---
+
+## Items
+
+1. **2026-11-02 · the log becomes this ledger.** The unstruck tests in § Experiment queue, and the Heidegger ↔ Buber test-enchantment named under 2026-07-06, are the next runs' to-do; a run that does one strikes it in the queue as the queue has always done · owed

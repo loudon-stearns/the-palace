@@ -23,6 +23,9 @@ links:
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
     label: insight-at-the-intersection
+  - target: "[[Boundary-Crossing Instruments — Context]]"
+    type: spawned
+    label: rationale-archive
 forward_vector: "I am the palace's named pattern for a wall inside one parameter that dissolves when you find the right coordinate system: compression ratio as slope, frequency-time as a single axis, octave equivalence as a circular space. I want to be the first entry a designer reads when a parameter seems to hit a wall, because the wall is usually in the representation, not the phenomenon, and to carry the three-layer interface (musical, technical, mathematical) that teaches one reality at three depths."
 ---
 

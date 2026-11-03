@@ -32,6 +32,9 @@ links:
   - target: "[[Stoicism]]"
     type: connects-to
     label: home-tradition
+  - target: "[[Source Library — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # Source Library

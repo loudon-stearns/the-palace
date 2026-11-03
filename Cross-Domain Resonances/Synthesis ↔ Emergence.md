@@ -46,6 +46,9 @@ links:
   - target: "[[Harmonicity and Inharmonicity]]"
     type: connects-to
     label: inharmonics-as-emergence
+  - target: "[[Synthesis ↔ Emergence — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # Synthesis ↔ Emergence

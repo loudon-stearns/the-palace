@@ -49,6 +49,9 @@ links:
   - target: "[[The Palace Hardens Around Values]]"
     type: connects-to
     label: merge-is-the-exhale
+  - target: "[[Swarm Weave — Context]]"
+    type: spawned
+    label: rationale-archive
 forward_vector: "I am the palace's colony architecture — the why and the shape of weaving as a swarm, now cut by many lenses at once. I keep the ideas the templates implement: the scaling constraint, the biological frame, and the two lessons of the first Multi-Lens run — that the cut and the mandate are one choice, and that the anti-lens (chance) finds what no principle can. I grow as the next lenses get built: the Bridge (technical↔philosophical) and the Deep-Structure cut."
 ---
 

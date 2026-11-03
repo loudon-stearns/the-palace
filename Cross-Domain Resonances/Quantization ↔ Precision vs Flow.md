@@ -31,6 +31,9 @@ links:
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: felt-metric
+  - target: "[[Quantization ↔ Precision vs Flow — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # Quantization ↔ Precision vs Flow
