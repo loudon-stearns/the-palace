@@ -71,6 +71,22 @@
         "round": "proposal-round-2026-11"
       },
       "made": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "crowd-gesture.wav",
+            "verdict": "keep",
+            "why": "Gathered record that makes the opening's noisy-whispers-to-stable-timbre arc audible on the population's knobs; caption matches cycle 12 (snap near 8.5 s, 128 neurons, the phrase)."
+          },
+          {
+            "file": "crowd-gesture.png",
+            "verdict": "keep",
+            "why": "The meters under the take, needed to follow what the knobs did; caption accurate."
+          }
+        ]
+      },
       "pieces": [
         {
           "origin": "gathered",
@@ -99,6 +115,22 @@
         "round": "proposal-round-2026-11"
       },
       "made": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Neural Granular Synthesis — rich — crowd-size ladder.html",
+            "verdict": "remake",
+            "why": "A real test that walks up and is faithful, port confirmed against render_crowd_size.py; but verdict() line 381 gives the steward the port's numbers. The steward's crowds read 1.37× at 16, 1.21× at 32, 1.12× at 64 and first came within a tenth at 256, so split the sentence: steward within about a fifth at 32 and a tenth from 128–256, this page's headless run at 16–32 and from 64."
+          },
+          {
+            "file": "crowd-size-stability.png",
+            "verdict": "keep",
+            "why": "The steward's measurement behind the walk; caption matches cycle 7 and the table (brightness floor by about 16, locked 1.35–1.44)."
+          }
+        ]
+      },
       "pieces": [
         {
           "origin": "made",
@@ -131,6 +163,17 @@
         "round": "proposal-round-2026-11"
       },
       "made": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "crowd-instrument.html",
+            "verdict": "keep",
+            "why": "The persistent population the section describes, playable; shows rather than tests, but the section's claim is what to build and this is it. Caption accurate, no lumpiness knob confirmed."
+          }
+        ]
+      },
       "pieces": [
         {
           "origin": "gathered",
@@ -153,6 +196,27 @@
         "round": "proposal-round-2026-11"
       },
       "made": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Neural Granular Synthesis — rich — lock attack.html",
+            "verdict": "keep",
+            "why": "A test that comes out partly against the text; walks up one knob at a time; engine byte for byte crowd_engine.js; the in-page measurement matched the headless one exactly. Note: step 3 asserts lumpy crowds 'arrive at the tone gradually' before the test qualifies it; 'can arrive' would be truer."
+          },
+          {
+            "file": "rich-face/lumpiness-attack.wav",
+            "verdict": "keep",
+            "why": "Byte-identical to the owner's ignored original and tracked; timings check (edge at 4 s, passes at 0, 9.6, 19.2 s); seed 3 at half pacemakers does arrive softly (jump 0.149)."
+          },
+          {
+            "file": "lumpiness.png",
+            "verdict": "keep",
+            "why": "The steward's averaged curves; the caption's 'part of the averaged softness is crowds locking at different places' is confirmed (every single crowd's width below the averaged 0.111)."
+          }
+        ]
+      },
       "pieces": [
         {
           "origin": "made",
@@ -192,6 +256,22 @@
         "round": "proposal-round-2026-11"
       },
       "made": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "timbre-map.png",
+            "verdict": "keep",
+            "why": "Tests that the aggregate is the control surface across 136 crowds. Note: the caption could carry cycle 8's own caveat that the coupling ÷ spread collapse is built into the model, a confirmation, not a discovery."
+          },
+          {
+            "file": "timbre-walk.wav",
+            "verdict": "keep",
+            "why": "Times match cycle 8 (snap about 4.7 s, dissolve about 19 s, release about 32 s)."
+          }
+        ]
+      },
       "pieces": [
         {
           "origin": "gathered",
@@ -221,6 +301,27 @@
         "round": "proposal-round-2026-11"
       },
       "made": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "raster-plot-explorer.html",
+            "verdict": "keep",
+            "why": "A test you run: makes the three named patterns and the unnamed chimera; the wave's global r 0.00 with neighbourhoods locked re-ran (local r 0.91–0.95 at a 0.02 window). No AudioContext, so 'it doesn't sound' is true."
+          },
+          {
+            "file": "raster-four-regimes.png",
+            "verdict": "keep",
+            "why": "Accurate to cycle 6; the chimera is the regime the section doesn't name."
+          },
+          {
+            "file": "four-regimes.wav",
+            "verdict": "keep",
+            "why": "Accurate to cycle 6; ring as stereo field."
+          }
+        ]
+      },
       "pieces": [
         {
           "origin": "gathered",
@@ -258,6 +359,32 @@
         "round": "proposal-round-2026-11"
       },
       "made": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "pacemaker-ladder.wav",
+            "verdict": "keep",
+            "why": "Answers part of the liveliness question by ear. Note: the caption's '10 cents at 5%' names a share the recording doesn't play; use '13 cents at 10%, 21 at 20%' from cycle 9's table."
+          },
+          {
+            "file": "rich-face/surge-before-lock.wav",
+            "verdict": "keep",
+            "why": "Byte-identical to the owner's original; caption matches cycle 16."
+          },
+          {
+            "file": "surge-before-lock.png",
+            "verdict": "keep",
+            "why": "Swing 0.05 / 0.08 / 0.16 matches cycle 16's table."
+          },
+          {
+            "file": "crowd-size-ladder.wav",
+            "verdict": "keep",
+            "why": "The recorded answer to the minimum-population question, pointing to the walk that lets you climb it."
+          }
+        ]
+      },
       "pieces": [
         {
           "origin": "gathered",
