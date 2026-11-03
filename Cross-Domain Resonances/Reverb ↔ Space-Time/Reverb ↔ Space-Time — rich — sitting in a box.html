@@ -324,7 +324,7 @@ const S = { key: 'once', hear: 'once', n: 32, mic: 'here', spk: 'on', ready: fal
 const ST = stats(ROOM, ALPHA), FSCH = ST.schroeder, MODES = modes(ROOM, FSCH);
 const STEPS = [
   { key: 'once', name: 'one pass', say: 'One idea first: <i>a room is something your sound goes through</i>. The voice, dry, then once through the room: played from a loudspeaker by one wall, heard by a microphone across the room. Your audio, convolved with the room, is your audio in that room.' },
-  { key: 'print', name: 'the room\'s peaks', say: 'The room does not pass every frequency alike. Its response is a thicket of peaks, and below about <i>' + Math.round(FSCH) + ' Hz</i> each peak is one natural frequency of the box, a mode: a whole number of half-waves fitting between its walls. The ticks underneath are those modes, computed from the dimensions alone.' },
+  { key: 'print', name: 'the room\'s peaks', say: 'The room does not pass every frequency alike. Its response is a thicket of peaks, and below about <i>140 Hz</i> each peak is one natural frequency of the box, a mode: a whole number of half-waves fitting between its walls. Toward ' + Math.round(FSCH) + ' Hz, the Schroeder frequency, two or three modes share each peak. The ticks underneath are those modes, computed from the dimensions alone.' },
   { key: 'passes', name: 'n passes', say: 'Now the loop. Each pass multiplies the voice\'s spectrum by the room\'s again, so a peak 3 dB above its neighbour stands 6 dB above after two passes and 96 dB above after thirty-two. Drag the passes up and listen to the words go and <i>the room come up through them</i>.' },
   { key: 'test', name: 'whose tones?', say: 'The test of the page\'s claim, <i>the room\'s natural frequencies emerge</i>. Are the tones that survive the room\'s modes? Move the microphone and see which survive the move. Then take the loudspeaker out of the loop.' },
 ];
@@ -399,7 +399,7 @@ function drawSpec() {
   for (let db = 0; db >= -span; db -= span > 50 ? 30 : 10) { g.fillText(db, L - 6, y(db) + 3); g.fillStyle = RING; g.fillRect(L, y(db), w - L - R, 1); g.fillStyle = FG4; }
   g.textAlign = 'center'; for (const f of [20, 50, 100, 200, 500, 1000, 2000, 5000]) { g.fillRect(x(f), h - B, 1, 4); g.fillText(f >= 1000 ? f / 1000 + 'k' : f, x(f), h - B + 15); }
   g.fillStyle = 'rgba(232,184,74,.08)'; g.fillRect(L, T, x(FSCH) - L, h - T - B);
-  g.fillStyle = FG3; g.textAlign = 'left'; g.fillText('one mode per peak', L + 4, T + 10); g.fillText('modes overlap', x(FSCH) + 4, T + 10);
+  g.fillStyle = FG3; g.textAlign = 'left'; g.fillText('modes sparse: one per peak below about 140 Hz', L + 4, T + 10); g.fillText('modes overlap', x(FSCH) + 4, T + 10);
   // the response, as the loudest bin under each pixel column
   const N = LN, mag = lp.mag; g.strokeStyle = n > 1 ? AMBER : '#c8c8d8'; g.lineWidth = 1; g.beginPath();
   for (let c = 0; c <= w - L - R; c++) { const fa = f0 * Math.pow(f1 / f0, c / (w - L - R)), fb = f0 * Math.pow(f1 / f0, (c + 1) / (w - L - R)); let m = 0; for (let k = Math.floor(fa * N / LFS); k <= Math.ceil(fb * N / LFS); k++) m = Math.max(m, mag[k]); const yy = y(20 * n * Math.log10(m + 1e-30)); c ? g.lineTo(L + c, yy) : g.moveTo(L + c, yy); }
@@ -414,24 +414,29 @@ function draw() { drawPlan(); drawWave(); drawSpec(); }
 function test() {
   const A = loop('here', S.spk), B = loop('there', S.spk), n = S.n;
   const below = (lp) => topPeaks(lp, 1, 40, FSCH, 8), above = (lp) => topPeaks(lp, 1, 500, 5000, 8);
-  const dA = modeDistance(below(A).map((p) => p.f), MODES), r = rng(11); const rand = Array.from({ length: 400 }, () => 40 + r() * (FSCH - 40)), dR = modeDistance(rand, MODES);
-  const keep = (from, to, lo, hi, P) => P.reduce((s, p) => s + standOut(to.mag, LN, p.f, lo, hi), 0) / P.length;
-  const own = (lp, lo, hi, P) => P.reduce((s, p) => s + standOut(lp.mag, LN, p.f, lo, hi), 0) / P.length;
-  const bA = below(A), aA = above(A), sbA = own(A, 40, FSCH, bA), sbB = keep(A, B, 40, FSCH, bA), saA = own(A, 500, 5000, aA), saB = keep(A, B, 500, 5000, aA);
+  const bA = below(A), aA = above(A), dA = modeDistance(bA.map((p) => p.f), MODES), r = rng(11);
+  const rand = Array.from({ length: 400 }, () => 40 + r() * (FSCH - 40)), dR = modeDistance(rand, MODES);
+  const local = []; bA.forEach((p) => { for (let i = 0; i < 50; i++) local.push(p.f - 5 + 10 * r()); }); const dL = modeDistance(local, MODES);
+  const avg = (lp, fs, lo, hi) => fs.reduce((sum, f) => sum + standOut(lp.mag, LN, f, lo, hi), 0) / fs.length;
+  const rb = Array.from({ length: 200 }, () => 40 + r() * (FSCH - 40)), ra = Array.from({ length: 200 }, () => 500 + r() * 4500);
+  const sbA = avg(A, bA.map((p) => p.f), 40, FSCH), sbB = avg(B, bA.map((p) => p.f), 40, FSCH), cbB = avg(B, rb, 40, FSCH);
+  const saA = avg(A, aA.map((p) => p.f), 500, 5000), saB = avg(B, aA.map((p) => p.f), 500, 5000), caB = avg(B, ra, 500, 5000);
   const winA = topPeaks(A, n, 20, 5000, 1)[0], winB = topPeaks(B, n, 20, 5000, 1)[0], second = topPeaks(cur(), n, 20, 5000, 2), lead = second[0].db - second[1].db;
   const dens = (f) => 4 * Math.PI * f * f * ST.V / (C * C * C) * (2.2 / ST.sabine);
   const near = (f) => { let b = null; for (const m of MODES) if (!b || Math.abs(m.f - f) < Math.abs(b.f - f)) b = m; return b; };
-  $('cmp').innerHTML = `<tr><th></th><th>below ${Math.round(FSCH)} Hz</th><th>500 Hz – 5 kHz</th></tr>` +
-    `<tr><td>modes inside one peak's width</td><td><b>${dens(100).toFixed(1)}</b> at 100 Hz</td><td><b>${dens(1000).toFixed(0)}</b> at 1 kHz</td></tr>` +
-    `<tr><td>the 8 strongest peaks, distance to the nearest computed mode</td><td><b>${dA.toFixed(2)} Hz</b> (random frequencies: ${dR.toFixed(2)} Hz)</td><td>every frequency is near one</td></tr>` +
+  const worst = Math.max(...bA.map((p) => modeDistance([p.f], MODES)));
+  $('cmp').innerHTML = `<tr><th></th><th>40 – ${Math.round(FSCH)} Hz</th><th>500 Hz – 5 kHz</th></tr>` +
+    `<tr><td>modes inside one peak's width</td><td><b>${dens(141).toFixed(2)}</b> at 141 Hz · <b>${dens(200).toFixed(2)}</b> at 200 · <b>${dens(FSCH).toFixed(2)}</b> at ${Math.round(FSCH)}</td><td><b>${dens(1000).toFixed(0)}</b> at 1 kHz</td></tr>` +
+    `<tr><td>the 8 strongest peaks, distance to the nearest computed mode</td><td><b>${dA.toFixed(2)} Hz</b>, worst ${worst.toFixed(2)} (random: ${dR.toFixed(2)} Hz; random within 5 Hz of each peak: ${dL.toFixed(2)} Hz)</td><td>every frequency is near one</td></tr>` +
     `<tr><td>those peaks above the band's median, microphone here</td><td><b>+${sbA.toFixed(1)} dB</b></td><td><b>+${saA.toFixed(1)} dB</b></td></tr>` +
-    `<tr><td>the same frequencies, microphone moved there</td><td><b>+${sbB.toFixed(1)} dB</b></td><td><b>+${saB.toFixed(1)} dB</b></td></tr>` +
+    `<tr><td>the same frequencies, microphone moved there</td><td><b>+${sbB.toFixed(1)} dB</b> (random frequencies there: +${cbB.toFixed(1)})</td><td><b>+${saB.toFixed(1)} dB</b> (random frequencies there: +${caB.toFixed(1)})</td></tr>` +
     `<tr><td>the tone that wins after ${n} passes${S.spk === 'off' ? ', room alone' : ''}</td><td colspan="2"><b>${winA.f.toFixed(1)} Hz</b> with the microphone here · <b>${winB.f.toFixed(1)} Hz</b> moved there</td></tr>`;
   const lo = topPeaks(loop(S.mic, 'off'), n, 20, 5000, 1)[0], lm = near(lo.f);
   $('verdict').innerHTML =
     `<p><b>The room's frequencies emerge.</b> After ${n} passes the strongest tone stands ${lead.toFixed(0)} dB above the next; the words are gone and a few pitches are left, as the page says.</p>` +
-    `<p><b>Below ${Math.round(FSCH)} Hz they are the room's modes, one each.</b> The eight strongest peaks there sit ${dA.toFixed(2)} Hz from a mode computed from the dimensions alone, where random frequencies sit ${dR.toFixed(2)} Hz away, and they hold when the microphone moves (+${sbA.toFixed(1)} dB here, +${sbB.toFixed(1)} dB there).</p>` +
-    `<p><b>Above it, the tones belong to the room and to where things stand in it.</b> At 1 kHz about ${dens(1000).toFixed(0)} modes overlap inside each peak, so a peak is many of them adding up at this loudspeaker and this microphone. Move the microphone and those peaks sink to the crowd (+${saA.toFixed(1)} dB to +${saB.toFixed(1)} dB), and a different tone wins: ${winA.f.toFixed(1)} Hz here, ${winB.f.toFixed(1)} Hz there. ${lo.f < FSCH ? `And take the loudspeaker out of the loop and, with the microphone ${S.mic === 'here' ? 'here' : 'there'}, the room alone ends on ${lo.f.toFixed(1)} Hz, its mode (${lm.n.join(', ')}), below almost all of the voice: the loudspeaker is part of the room the piece plays.` : `Take the loudspeaker out of the loop and, with the microphone ${S.mic === 'here' ? 'here' : 'there'}, the room alone still ends on ${lo.f.toFixed(1)} Hz; try the other position, where the room's lowest modes can take over.`}</p>`;
+    `<p><b>Below ${Math.round(FSCH)} Hz they sit on the room's modes.</b> Below about 140 Hz each peak is one mode; toward ${Math.round(FSCH)} Hz two or three share a peak (${dens(200).toFixed(1)} at 200 Hz), and the eight strongest still sit ${dA.toFixed(2)} Hz from a mode computed from the dimensions alone, none farther than ${worst.toFixed(2)} Hz, where random frequencies near them sit ${dL.toFixed(2)} Hz away.</p>` +
+    `<p><b>Where things stand matters in every band, more above.</b> Move the microphone and both sets of peaks drop (below: +${sbA.toFixed(1)} to +${sbB.toFixed(1)} dB; above: +${saA.toFixed(1)} to +${saB.toFixed(1)} dB). Below the Schroeder frequency they keep about ${(sbB - cbB).toFixed(0)} dB over random frequencies there; above it, where about ${dens(1000).toFixed(0)} modes overlap inside each peak at 1 kHz, about ${(saB - caB).toFixed(0)} dB. So a different tone wins: ${winA.f.toFixed(1)} Hz here, ${winB.f.toFixed(1)} Hz there. ` +
+    (lo.f < FSCH ? `Take the loudspeaker out of the loop and, with the microphone ${S.mic === 'here' ? 'here' : 'there'}, the room alone ends on ${lo.f.toFixed(1)} Hz, its mode (${lm.n.join(', ')}), below almost all of the voice; that ending sits just under the model's own 30 Hz high-pass, so it leans on that choice. The loudspeaker is part of the room the piece plays.` : `Take the loudspeaker out of the loop and, with the microphone ${S.mic === 'here' ? 'here' : 'there'}, the room alone still ends on ${lo.f.toFixed(1)} Hz; with the microphone in the other place it ends on a low mode instead.`) + `</p>`;
 }
 function readouts() {
   if (!S.ready) return; let html = '';
@@ -458,7 +463,7 @@ async function onStep(key) {
   show('specPanel', key !== 'once'); show('nCtl', key === 'passes' || key === 'test'); show('testCtl', key === 'test'); show('cmp', key === 'test'); show('verdict', key === 'test');
   $('hint').textContent = {
     once: 'Listen to the words smear: each one carries the room\'s tail into the next. That smear is the room\'s fingerprint on the voice.',
-    print: 'Grey: how strongly the room, with its loudspeaker and microphone, answers each frequency. Shaded: below the Schroeder frequency, where peaks stand apart. Blue ticks: the modes, computed, not measured.',
+    print: 'Grey: how strongly the room, with its loudspeaker and microphone, answers each frequency. Shaded: below the Schroeder frequency, where modes are sparse: one per peak below about 140 Hz, two or three per peak by ' + Math.round(FSCH) + ' Hz. Blue ticks: the modes, computed, not measured.',
     passes: 'Watch the response sharpen as the passes climb: each pass deepens every valley by as much as the last, in decibels.',
     test: 'The dots mark the five loudest tones at this many passes. The table reads the room\'s own peaks, one pass, here and with the microphone moved.',
   }[key];
