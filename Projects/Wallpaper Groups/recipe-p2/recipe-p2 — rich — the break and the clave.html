@@ -3,7 +3,7 @@
   title: recipe-p2 — rich — the break and the clave
   born: 2026-11-03
   links: [[recipe-p2]] (connects-to · rich-face-piece, § Where to break it) · listed in [[recipe-p2 — rich.json]] · [[recipe-pm]] (connects-to · where the clave's balance comes from) · [[Wallpaper Groups]] (belongs-to · the bundle's entry) · [[Progressive Staging]] (exemplifies · a walk up to its test)
-  forward_vector: I am the recipe's break put beside the clave. I cook the tresillo by the recipe, break one hit as the page says, play the son clave beside it, and last test whether the clave is one break from anything this recipe can make, scored against a mirror by the same count. I want the reader to see on the clock where the clave's balance really comes from. I change only when the recipe does.
+  forward_vector: I am the recipe's break put beside the clave. I cook the tresillo by the recipe, break one hit as the page says, play the son clave beside it, and last test whether the clave is one break from anything this recipe (or recipe-pm) can make, scored by the same count against a centre between steps and a centre anywhere. I want the reader to see on the clock that the clave turns about one of its own steps, which neither recipe's centre can, and that the section's break is exact once it starts from the clave. I change only when the recipe does.
   engine: everything between ENGINE-START and ENGINE-END is pure and runs in Node too; it is byte for byte the engine of "recipe-p2 — rich — the recipe cooked". Projects/Wallpaper Groups/recipe-p2/workshop/rich-checks.mjs re-runs the claims on it. Sound is one synthesized wooden tone through a compressor, scheduled ahead; no samples.
   dress: Loudon Live house style, Graphite skin.
 -->
@@ -97,7 +97,7 @@
   <div class="verdict" id="verdict"></div>
   <div class="eqs" id="eqs" style="display:none">
     <div class="eq">pairs split by a map = the hits to add or take away before the map lands the loop on itself</div>
-    <div class="words">(for the recipe's map, n → n + 8, count the step pairs eight apart that hold exactly one hit) is (how far the loop is from anything the recipe can make). For a mirror, n → c − n, the same count says how far it is from a mirror. 0 means the map already lands the loop on itself.</div>
+    <div class="words">(for the recipe's map, n → n + 8, count the step pairs eight apart that hold exactly one hit) is (how far the loop is from anything the recipe can make). For a mirror, n → c − n, the same count says how far it is from that mirror; on one voice the mirror is also a half-turn about the same point. 0 means the map already lands the loop on itself.</div>
   </div>
   <div class="nav"><button id="back">← back</button><button id="next">next step →</button></div>
   <div class="hint">100 BPM, sixteenth-note steps, numbered 1 to 16. One wooden tone at one level for every loop; the cooked and broken loops have six hits, the claves five, so the claves are a hit lighter per bar. A quiet tick marks each beat; the tick button turns it off.</div>
@@ -121,11 +121,14 @@ const recipeRule = (n1) => (n1 + 8) % 16;
 //   recipe     n -> n + 8, same voice          (the recipe's rule; its 8 -> 0 is read as 16)
 //   pm         n -> 17 - n, same voice         (recipe-pm's mirror at the centre)
 //   half-turn  n -> 17 - n, and low <-> high   (a 180° turn of the drawn strip about its centre)
+//   glide      n -> n + 8, and low <-> high    (the slide with the voices swapped)
+// half-turn and glide need a second voice, which the recipe does not name: they are a proposed repair.
 function fill(rows, how) {
   const two = rows.length === 2, out = rows.map(() => new Array(N).fill(0));
   rows.forEach((row, v) => { for (let i = 0; i < 8; i++) if (row[i]) {
     out[v][i] = 1;
     if (how === 'recipe') out[v][i + 8] = 1;
+    else if (how === 'glide') out[two ? 1 - v : v][i + 8] = 1;
     else if (how === 'pm') out[v][15 - i] = 1;
     else out[two ? 1 - v : v][15 - i] = 1;
   } });
@@ -146,12 +149,14 @@ function axisName(c) {
 // lands the loop on itself; each split pair is one hit to add or take away to make it so.
 function split(r, f) { const seen = new Set(); let k = 0; for (let i = 0; i < N; i++) { const j = mod(f(i), N); if (i === j) continue; const key = Math.min(i, j) * N + Math.max(i, j); if (seen.has(key)) continue; seen.add(key); if (r[i] !== r[j]) k++; } return k; }
 const splitByHalf = (r) => split(r, (i) => i + 8);                              // to the nearest loop with a slide of 8
-const nearestMirror = (r) => { let best = { c: -1, k: N }; for (let c = 0; c < N; c++) { const k = split(r, (i) => c - i); if (k < best.k) best = { c, k }; } return best; };
+const nearestMirror = (r, between = false) => { let best = { c: -1, k: N }; for (let c = between ? 1 : 0; c < N; c += between ? 2 : 1) { const k = split(r, (i) => c - i); if (k < best.k) best = { c, k }; } return best; };
 // Every half the recipe's step 1 allows: 3 or 4 hits in steps 1-8.
 function recipeHalves() { const out = []; for (let m = 0; m < 256; m++) { const h = []; for (let i = 0; i < 8; i++) if ((m >> i) & 1) h.push(i); if (h.length === 3 || h.length === 4) out.push(h); } return out; }
+// The Ingredients' centre: a half-turn about the point between steps 8 and 9, which on one voice is n -> 17 - n.
+const hasCentre89 = (rows) => rows.every((r) => same(reflect(r, 15), r));
 // The tallies over all of them.
 function tally() {
-  const H = recipeHalves(), t = { halves: H.length, recipeIsTwice: 0, recipePeriod8: 0, pmPeriod16: 0, recipeIsPm: 0, turnIsPm1: 0, recipeHasMirror: 0, two: 0, turnIsPm2: 0, turn2Period16: 0, turn2NoMirror: 0, turn2IsP2: 0 };
+  const H = recipeHalves(), t = { halves: H.length, recipeIsTwice: 0, recipePeriod8: 0, pmPeriod16: 0, recipeIsPm: 0, turnIsPm1: 0, recipeHasMirror: 0, recipeCentre89: 0, two: 0, turnIsPm2: 0, turn2Period16: 0, turn2NoMirror: 0, turn2IsP2: 0 };
   for (const h of H) {
     const row = loopOf(h), twice = [loopOf([...h, ...h.map((i) => i + 8)])];
     const rec = fill([row], 'recipe'), pm = fill([row], 'pm'), turn = fill([row], 'half-turn');
@@ -161,6 +166,7 @@ function tally() {
     if (sameAll(rec, pm)) t.recipeIsPm++;
     if (sameAll(turn, pm)) t.turnIsPm1++;
     if (mirrors(rec).length) t.recipeHasMirror++;
+    if (hasCentre89(rec)) t.recipeCentre89++;
     for (let m = 0; m < (1 << h.length); m++) {   // each hit low or high
       const lo = loopOf(h.filter((_, k) => !((m >> k) & 1))), hi = loopOf(h.filter((_, k) => (m >> k) & 1));
       const T = fill([lo, hi], 'half-turn'), P = fill([lo, hi], 'pm'); t.two++;
@@ -174,12 +180,14 @@ function tally() {
 }
 // The claves, on 1..16: son 1 4 7 11 13; rumba 1 4 8 11 13. The tresillo is 1 4 7.
 const SON = loopOf([0, 3, 6, 10, 12]), RUMBA = loopOf([0, 3, 7, 10, 12]), TRESILLO = [0, 3, 6];
+// The son clave counted 2-3 (3 5 9 12 15), and the section's break on it: 15 -> 16, which is the rumba clave counted 2-3.
+const SON23 = shift(SON, 8), SON23_BROKEN = (() => { const b = SON23.slice(); b[14] = 0; b[15] = 1; return b; })();
 // The page's break: one hit in the second half moved one step, onto an empty step.
 function breaks(r) { const out = []; for (let i = 8; i < N; i++) if (r[i]) for (const d of [-1, 1]) { const j = mod(i + d, N); if (!r[j]) { const b = r.slice(); b[i] = 0; b[j] = 1; out.push({ from: i, to: j, r: b }); } } return out; }
-// Does any loop the recipe can cook, broken once, become this rhythm, from any starting step?
-function oneBreakReaches(target) {
+// Does any loop a recipe can cook ('recipe' here, or recipe-pm's 'pm'), broken once, become this rhythm, from any starting step?
+function oneBreakReaches(target, how = 'recipe') {
   let tries = 0, hits = 0;
-  for (const h of recipeHalves()) { const rec = fill([loopOf(h)], 'recipe')[0]; for (const b of breaks(rec)) for (let s = 0; s < N; s++) { tries++; if (same(shift(target, s), b.r)) hits++; } }
+  for (const h of recipeHalves()) { const rec = fill([loopOf(h)], how)[0]; for (const b of breaks(rec)) for (let s = 0; s < N; s++) { tries++; if (same(shift(target, s), b.r)) hits++; } }
   return { tries, hits };
 }
 /*ENGINE-END*/
@@ -245,12 +253,12 @@ const STEPS = [
   { name: 'cooked', says: 'The Method with three hits, at 1, 4 and 7: the tresillo. The recipe\'s rule makes 9, 12 and 15. On the clock every hit has a partner straight across, eight steps on. That is what the rule guarantees.' },
   { name: 'the break', says: 'The section\'s break: move one hit in the second half one step, onto an empty step. Pick the hit and the way. Two hits lose their partners: the one you moved, and the one it left behind in the first half.' },
   { name: 'the clave beside it', says: 'The son clave, 3-2: 1, 4, 7, 11, 13. Its first half is the tresillo you cooked. Switch between the three and listen. From the cooked loop the clave takes three changes, not one: take away 9, move 12 to 11, move 15 to 13.' },
-  { name: 'the test · one break away?', says: 'The section says the break is exactly where the clave lives. Two arms, scored the same way. The recipe\'s arm: how far is the loop from anything the recipe can make? The mirror\'s arm: how far from a mirror in time, the move pm makes? Pick a loop.' },
+  { name: 'the test · one break away?', says: 'The section says the break is exactly where the clave lives. Three arms, scored the same way. The recipe\'s arm: how far is the loop from anything its rule can make? A centre between two steps, the kind both recipes use (8|9 here, 8|9 in pm): how far from a mirror there? A centre anywhere, through a step included: how far from any mirror? On one voice a mirror and a half-turn about the same point are one move. Pick a loop; try the son clave counted 2-3, then broken.' },
 ];
 const COOKED = fill([loopOf(TRESILLO)], 'recipe')[0];
 const S = { step: 1, which: 11, dir: -1, play3: 'clave', pick4: 'son' };
 function broken() { const b = COOKED.slice(); const j = mod(S.which + S.dir, N); if (!b[j]) { b[S.which] = 0; b[j] = 1; } return b; }
-const LOOPS = { cooked: () => COOKED, broken, clave: () => SON, son: () => SON, rumba: () => RUMBA };
+const LOOPS = { cooked: () => COOKED, broken, clave: () => SON, son: () => SON, rumba: () => RUMBA, son23: () => SON23, son23b: () => SON23_BROKEN };
 function rowNow() {
   if (S.step === 1) return COOKED; if (S.step === 2) return broken();
   if (S.step === 3) return LOOPS[S.play3](); return LOOPS[S.pick4]();
@@ -288,10 +296,10 @@ function drawClock() {
   }
   ctx.textAlign = 'left';
 }
-const nm = (k) => ({ cooked: 'the cooked tresillo', broken: 'the broken loop', clave: 'the son clave', son: 'the son clave', rumba: 'the rumba clave' }[k]);
+const nm = (k) => ({ cooked: 'the cooked tresillo', broken: 'the broken loop', clave: 'the son clave', son: 'the son clave', rumba: 'the rumba clave', son23: 'the son clave, 2-3', son23b: 'son 2-3, 15 → 16' }[k]);
 const listOf = (r) => hitsOf(r).map((i) => i + 1).join(' ');
 const partnered = (r) => hitsOf(r).filter((i) => r[mod(i + 8, N)]).length;
-const SONREACH = oneBreakReaches(SON), RUMBAREACH = oneBreakReaches(RUMBA);
+const SONREACH = oneBreakReaches(SON), RUMBAREACH = oneBreakReaches(RUMBA), PMSON = oneBreakReaches(SON, 'pm'), PMRUMBA = oneBreakReaches(RUMBA, 'pm');
 function readout() {
   const r = rowNow(), M = mirrors([r]); let html = '', verdict = '';
   const base = `<span>hits <b>${listOf(r)}</b></span><span>with a partner 8 steps on <b>${partnered(r)} of ${hitsOf(r).length}</b></span><span>smallest repeat <b>${period([r])} steps</b></span>`;
@@ -299,9 +307,10 @@ function readout() {
   if (S.step === 2) { const j = mod(S.which + S.dir, N); html = `<span>moved <b>${S.which + 1} → ${j + 1}</b></span>` + base; verdict = `Hits per half, ${hitsOf(r).filter((i) => i < 8).length} and ${hitsOf(r).filter((i) => i >= 8).length}: the break moves weight, it doesn't add or take any away. Still six hits.`; }
   if (S.step === 3) html = `<span>playing <b>${nm(S.play3)}</b></span>` + base + `<span>changes to the nearest loop the recipe makes <b>${splitByHalf(r)}</b></span>`;
   if (S.step === 4) {
-    const m = nearestMirror(r);
-    html = `<span>loop <b>${nm(S.pick4)}</b> · ${listOf(r)}</span><span>the recipe's arm · pairs split <b>${splitByHalf(r)}</b></span><span>the mirror's arm · pairs split <b>${m.k}</b>, mirror <b>${axisName(m.c)}</b></span>`;
-    verdict = `One break of a cooked loop reaches the son clave in ${SONREACH.hits} of ${SONREACH.tries} tries and the rumba clave in ${RUMBAREACH.hits} of ${RUMBAREACH.tries}: every half the recipe allows, every break, every starting step. It can't: every hit the rule makes has a partner, so a cooked loop has an even number of hits, a break keeps the count, and a clave has five. By the recipe's count both claves split 5 pairs, all five hits, as far as five hits can be. By the mirror's count the son clave splits none: it lands on itself reversed through steps 4 and 12, the same mirror the cooked tresillo already had. It keeps the cooked loop's mirror and drops its slide. The rumba clave is the son clave with one hit moved one step, 7 to 8. That is the section's break, made on a mirror. The clave lives by pm, not here.`;
+    const m = nearestMirror(r), mb = nearestMirror(r, true);
+    html = `<span>loop <b>${nm(S.pick4)}</b> · ${listOf(r)}</span><span>the rule's arm · pairs split <b>${splitByHalf(r)}</b></span><span>a centre between steps · pairs split <b>${mb.k}</b> (${axisName(mb.c)})</span><span>a centre anywhere · pairs split <b>${m.k}</b> (${axisName(m.c)})</span>`;
+    const rumba23 = same(SON23_BROKEN, shift(RUMBA, 8));
+    verdict = `One break of any loop the recipe cooks reaches the son clave in ${SONREACH.hits} of ${SONREACH.tries} tries and the rumba clave in ${RUMBAREACH.hits} of ${RUMBAREACH.tries}; recipe-pm's loops, ${PMSON.hits} and ${PMRUMBA.hits} of ${PMSON.tries}. Neither recipe can: both centres sit between two steps and pair every hit, so a cooked loop has an even number of hits, a break keeps the count, and a clave has five. The son clave is symmetric about a line through one of its own steps, 4 (and 12): a mirror, which on one voice is also a half-turn about step 4, so on the group's reading it is p2 and the rumba clave breaks it slightly. The nearest centre between steps splits 3 of its pairs. And the section's break is exact once it starts from the clave: count the son clave 2-3, move 15 to 16, and you have the rumba clave${rumba23 ? '' : ' (check failed)'}. The break is right; the loop it starts from is one neither recipe here can cook.`;
   }
   $('read').innerHTML = html; $('verdict').textContent = verdict;
 }
@@ -324,7 +333,7 @@ function controls() {
     c.append(seg('one step', [['← earlier', -1], ['later →', 1]], () => S.dir, (v) => (S.dir = v)));
   }
   if (S.step === 3) c.append(seg('play', [['cooked', 'cooked'], ['broken', 'broken'], ['son clave', 'clave']], () => S.play3, (v) => (S.play3 = v)));
-  if (S.step === 4) c.append(seg('loop', [['son clave', 'son'], ['rumba clave', 'rumba'], ['cooked', 'cooked'], ['broken', 'broken']], () => S.pick4, (v) => (S.pick4 = v)));
+  if (S.step === 4) c.append(seg('loop', [['son clave', 'son'], ['rumba clave', 'rumba'], ['son 2-3', 'son23'], ['son 2-3 · 15 → 16', 'son23b'], ['cooked', 'cooked'], ['broken', 'broken']], () => S.pick4, (v) => (S.pick4 = v)));
 }
 function refresh(restart) {
   grid(); drawClock(); readout();
@@ -334,9 +343,9 @@ function goStep(n) {
   n = Math.max(1, Math.min(STEPS.length, n)); if (n !== S.step) stopLoop(); S.step = n; const s = STEPS[n - 1];
   $('stephead').textContent = `step ${n} of ${STEPS.length} · ${s.name}`; $('says').textContent = s.says;
   $('eqs').style.display = n === 4 ? '' : 'none';
-  $('clocknote').textContent = n === 4 ? 'solid = partners eight steps on · dashed = the nearest mirror (bright when it lands)' : 'solid line = a hit and its partner eight steps on';
+  $('clocknote').textContent = n === 4 ? 'solid = partners eight steps on · dashed = the nearest mirror, anywhere (bright when it lands)' : 'solid line = a hit and its partner eight steps on';
   const rule = $('rule'); rule.style.display = n === 4 ? '' : 'none';
-  rule.innerHTML = '<b>The test, set before it runs.</b> The section\'s claim holds if some loop the recipe can cook (any 3 or 4 hits in steps 1 to 8, by its rule) becomes the clave by one break, counted from any starting step, so 3-2 and 2-3 both count. It fails if none does. The mirror\'s arm is scored the same way and can fail too: four of the six breaks, and the rumba clave, miss it by one pair.';
+  rule.innerHTML = '<b>The test, set before it runs.</b> The section\'s claim holds if some loop the recipe can cook (any 3 or 4 hits in steps 1 to 8, by its rule) becomes the clave by one break, counted from any starting step, so 3-2 and 2-3 both count. It fails if none does. recipe-pm\'s loops are run the same way. The two mirror arms are scored by the same count and can fail too: four of the six breaks, and the rumba clave, miss a mirror by one pair.';
   $('back').disabled = n === 1; $('next').textContent = n === STEPS.length ? 'the last step' : 'next step →'; $('next').disabled = n === STEPS.length;
   const r = $('rail'); r.innerHTML = '';
   for (let k = 1; k <= STEPS.length; k++) { const b = document.createElement('button'); b.textContent = `${k} · ${STEPS[k - 1].name.split(' · ')[0]}`; if (k === n) b.classList.add('here'); else if (k > n) b.classList.add('ahead'); b.onclick = () => goStep(k); r.append(b); }
