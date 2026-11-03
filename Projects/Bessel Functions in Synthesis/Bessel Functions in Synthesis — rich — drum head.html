@@ -110,7 +110,7 @@
     <div class="eq">y<sub>n</sub>(x) = sin( nπx ) &nbsp;·&nbsp; f<sub>n</sub> = n · f<sub>1</sub></div>
     <div class="words">A string's n-th mode is a sine with n half-waves along it, and it sounds at n times the lowest: whole numbers, because a line's boundary is two points.</div>
     <div class="eq">u<sub>m,k</sub>(r, θ) = J<sub>m</sub>( j<sub>m,k</sub> · r ) · cos( mθ ) &nbsp;·&nbsp; f<sub>m,k</sub> = f<sub>0,1</sub> · j<sub>m,k</sub> ⁄ j<sub>0,1</sub></div>
-    <div class="words">A round head's mode has m lines across it and k rings; its shape is the m-th Bessel function, and the rim, where it must be still, can only sit on a zero of it, j<sub>m,k</sub>. So it sounds at the ratio of that zero to the first one: 2.4048, 3.8317, 5.1356, 5.5201 … give 1, 1.594, 2.136, 2.295 …</div>
+    <div class="words">A round head's mode has m lines across it and k rings; its shape is the m-th Bessel function, and the rim, where it must be still, can only sit on a zero of it, j<sub>m,k</sub>. So it sounds at the ratio of that zero to the first one: 2.4048, 3.8317, 5.1356, 5.5201 … give 1, 1.593, 2.136, 2.295 …</div>
   </div>
   <div class="hint">An ideal membrane in a vacuum: no air, no stiffness, no shell. A real kettle drum's air pulls its (1,1), (2,1) and (3,1) modes toward 2 : 3 : 4, which is how a timpani gets a pitch. Each mode's height is its own shape at the strike point, softened by one mallet, the same for both; how it radiates is left out. One decay law serves both instruments, so only where the partials fall differs. A mode with lines across it comes as a pair at one frequency and turns to face the strike, so only the strike's distance from the centre matters; the test searches 99 of them, centre to rim.</div>
   <div class="foot">Loud'n Live</div>
@@ -177,7 +177,7 @@ const STEPS = [
     teach: 'Move the strike point. A mode that has a still point, a node, where you strike gets nothing from the blow: strike at the middle and every even mode drops out. The strike chooses which modes sound and how loud; it never moves where they are. They stay on the whole numbers.',
     back: 'The strike at 0.23 is step 1 again.' },
   { name: 'a drum head', who: 'drum', ctl: [],
-    teach: 'Now a round head, an ideal membrane, tuned so its lowest mode is the same 140 Hz, struck part-way out. Its modes are Bessel functions, Jₘ(j r) cos(mθ), and the rim, which cannot move, has to sit on a zero of Jₘ. So the partials fall at the zeros over the first zero: 1, 1.594, 2.136, 2.295, 2.653, 2.918 … between the whole numbers, not on them. The engine found those zeros itself, by searching Jₘ.' },
+    teach: 'Now a round head, an ideal membrane, tuned so its lowest mode is the same 140 Hz, struck part-way out. Its modes are Bessel functions, Jₘ(j r) cos(mθ), and the rim, which cannot move, has to sit on a zero of Jₘ. So the partials fall at the zeros over the first zero: 1, 1.593, 2.136, 2.295, 2.653, 2.917 … between the whole numbers, not on them. The engine found those zeros itself, by searching Jₘ.' },
   { name: 'string beside drum', who: 'both', ctl: ['who'],
     teach: 'Same pitch, same decay, same strike. Strike one, then the other; or both in turn. The string gives one pitch; the drum gives a pitch with a cloud around it, a thud with a tone. Only the geometry differs.',
     back: 'Choose the string alone and it is step 2.' },

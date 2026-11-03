@@ -55,7 +55,7 @@ function dft(x, f, sr) { let re = 0, im = 0; for (let i = 0; i < x.length; i++) 
   // step 4: the window passes the carrier and holds its neighbours down
   function rmsWin(fc, fm, beta, tone) {
     const sr = 48000, e = new NullPair(sr); e.set({ fc, fm, beta, gate: 1, win: 1, snap: true }); e.g = 1;
-    if (tone) { e.fc = 1100; e.design(); e.fc = tone; e.fm = 1; }      // a pure sine at 'tone' through the 880 Hz window
+    if (tone) { e.fc = 1100; e.design(); e.fc = tone; e.fm = 1; }      // a pure sine at 'tone' through the 1100 Hz window
     const N = sr, L = new Float64Array(N), R = new Float64Array(N); e.render(L, R, N);
     let s = 0; for (let i = sr / 2; i < N; i++) s += L[i] * L[i]; return Math.sqrt(s / (N / 2)) / 0.3;
   }

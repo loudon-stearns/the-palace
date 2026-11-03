@@ -289,7 +289,7 @@ async function runOrders() {
   if (ctx.state !== 'running') await ctx.resume();
   fadeAll(); S.how = 'swell'; update();
   const t0 = ctx.currentTime + 0.08;
-  for (let n = 0; n <= 8; n += 2) voice(wave(n, 'swell', ctx.sampleRate, 1.3), t0 + (n / 2) * 1.4);
+  for (let n = 0; n <= 8; n++) voice(wave(n, 'swell', ctx.sampleRate, 1.3), t0 + n * 1.4);   // all nine orders, 0 to 8
   S.playing = true; paint();
 }
 function stop() { clearTimeout(pending); if (ctx) fadeAll(); S.playing = false; paint(); }
