@@ -30,27 +30,27 @@
   "round": 1,
   "offers": [
     {
-      "section": "Rhythmic Coupling: Two-Stage Pool-Then-Select",
+      "section": "Semantic Delay",
       "kind": "claim-change",
-      "what": "In Phase 1 the coupling is on melody, and the rhythm is copied rather than coupled. The section and the Technical Stack call the F0 knob rhythmic coupling. On the three real takes (stage4-real) the knob moves the melody 0.33, 0.75 and 1.48 st from the source at K = 1, 0.5 and 0 (RMVPE: 0.33, 0.83, 1.50). The loudness line stays put: the echoes agree with each other at r 0.92 to 0.95, and each lines up with the source best at 0 ms. Offer: say that Phase 1's knob couples melody and the model carries the rhythm; the rhythmic constraint (syllables, stress, duration) stays Phase 2's.",
+      "what": "In Phase 1 the coupling is on melody, and the model keeps the timing. The words to change are in the forward vector, which says the pool-then-select rhythmic coupling re-enters at Stage 4 as F0 conditioning; the section itself is about Phase 2's unbuilt Stage B. On the three real takes (stage4-real) the F0 knob moves the melody 0.33, 0.75 and 1.48 st from the source at K = 1, 0.5 and 0 (RMVPE: 0.33, 0.83, 1.50; the sandbox tracker's floor was set to match at K = 1). The timing doesn't move: the echoes' loudness lines agree with each other at r 0.916 to 0.945, and each meets the source best at 0 ms (r 0.55 to 0.56, another voice). Offer: call the Stage 4 knob melodic coupling and leave the rhythmic constraint to Phase 2. The steward's scroll already calls it the melody knob, and its pending Status proposal uses the same words, so this carries the steward's description home rather than adding a finding.",
       "status": "open"
     },
     {
       "section": "Rhythmic Coupling: Two-Stage Pool-Then-Select",
-      "kind": "claim-change",
-      "what": "The built knob is a blend, not a phase-lock. coupling.py settles the echo at K·melody + (1 − K)·spirit, and swept over 21 settings on this phrase its asked distance falls within 0.13 st of a straight line (1.45 st at K = 0 to 0.04 at K = 1), with no threshold. Two Kuramoto oscillators lock suddenly once the coupling reaches their detuning. Offer: call the knob a pull that borrows Kuramoto's picture, or give it a sine term if a lock you can hear snap is what the instrument wants. Loudon's choice.",
+      "kind": "no-claim-edit",
+      "what": "'This is Kuramoto Coupling' here is a metaphor for an unbuilt stage, and the piece doesn't refute it. What it refutes is the built knob's docstring (coupling.py: 'the knob is Kuramoto's… phase-locked'). The knob is a one-pole follower toward K·melody + (1 − K)·spirit; swept over 21 settings it falls within 0.13 st of a straight line, with no threshold. Kuramoto Coupling defines the model by its threshold, and the knob keeps only its destination, the weighted average. A sine term alone won't make it lock: the spirit would have to enter as a drift rate the coupling must overcome, on a variable that wraps (dφ/dt = Δ − K sin φ). Rhythm phase is that variable, which is what this section names, so Stage B is where a real lock would live. Offer: one clause saying Phase 1's knob borrows Kuramoto's destination, not its lock. The docstring is the steward's to fix.",
       "status": "open"
     },
     {
       "section": "Phase 1 Plan — SVC + VST (2026-04-20)",
       "kind": "claim-change",
-      "what": "'≥8 s as the honest minimum delay time' holds for the 4 s phrase the Stage 0 findings compute, not for every phrase. The gate sends the phrase plus 0.3 s, so the work is r·(L + 0.3); at 1.65 an 8 s delay carries phrases up to 4.55 s, and the plugin's longest phrase (8 s) needs 13.7 s. Measured later through the helper: 32 steps ran 1.99 to 2.27 (bench 2.19, so 8 s carries 3.35 s); 16 steps ran 0.89 to 1.20 (8 s carries 6.42 to 8 s). The offline run at 8 s and 32 steps would have been 5.3 s and 9.7 s late live; the plugin's real-time run at 12 s and 16 steps had 4.6 to 5.9 s to spare on every echo. Offer: a dated note under the Stage 0 findings giving the minimum as r·(L + 0.3) and pointing to the later speeds.",
+      "what": "'≥8 s as the honest minimum delay time' holds for the 4 s phrase the Stage 0 findings compute, not for every phrase. The gate sends the phrase plus 0.3 s (a phrase cut at 8 s goes with none), so at a flat 1.65 an 8 s delay carries phrases up to 4.55 s and a full 8 s phrase needs 13.2 s. Through the helper at 32 steps: 2.19 on the bench (8 s carries 3.35 s); fitted as a fixed cost per echo plus a rate, 3.6 s + 1.46 s per second sent, it carries 2.7 s. At 16 steps it is close: 1.01 to 1.20 at the default 10.7 s singer clip (the 0.89 used a 3 s clip); a flat 1.19 carries 6.4 s; the fit (2.5 s + 0.64) carries a full 8 s phrase with 7.6 s of work, but rests on phrases of 4.5 to 6.7 s. The speed per second falls on longer phrases, so the minimum is the work the phrase takes at the speed measured for that length, not one rate. The offline 8 s run would have been 5.3 and 9.7 s late live; the plugin's 12 s real-time run had 4.6 to 5.9 s to spare. Offer: a dated note under the Stage 0 findings. The steward's cycle 9 already found the 18 s figure, so this carries its finding home; the scroll's plan still says 8 s, which is Loudon's to change.",
       "status": "open"
     },
     {
       "section": "Phase 1 Plan — SVC + VST (2026-04-20)",
       "kind": "no-claim-edit",
-      "what": "'Dial in a delay time in seconds': both the Python instrument (delay_engine.py) and the plugin (Algorithm.h, due = end + delay) count the delay from the phrase's end, after the gate's 0.3 s, so an echo is heard L + 0.3 + D after the first word (a 4 s phrase at 8 s: 12.3 s). One clause would say so. It matters for the plan's tempo-lock move, where a dotted eighth or a bar has to count from a phrase's start, not its end.",
+      "what": "'Dial in a delay time in seconds': both the Python instrument (delay_engine.py) and the plugin (Algorithm.h, due = end + delay) count the delay from the phrase's end, after the gate's 0.3 s, so an echo is heard L + 0.3 + D after the first word (a 4 s phrase at 8 s: 12.3 s); a phrase cut at 8 s has no gate, so L + D. One clause would say so. It matters for the plan's tempo-lock move, where a dotted eighth or a bar has to count from a phrase's start, not its end.",
       "status": "open"
     }
   ],
@@ -95,7 +95,7 @@
           "origin": "made",
           "by": "the Maker · Web Audio + canvas · measured by measure.py",
           "height": 900,
-          "caption": "**What does the knob hold, and does it lock?** One phrase, then one echo held, then the knob let go, on the three real takes; last, the claim put to them. The knob moves the melody and leaves the rhythm where it was, and its rule is a blend with no point where it snaps, unlike two Kuramoto oscillators.",
+          "caption": "**What does the knob hold, and does it lock?** One phrase, then one echo held, then the knob loosened, on the three real takes; last, the claim put to them. The built pitch knob moves the melody and leaves your timing where it was, and its rule is a blend with no point where it snaps, unlike two Kuramoto oscillators. The section's own Stage B, rhythm against meter, isn't built and isn't what this tests.",
           "near": "The coupling strength is the constraint",
           "place": "band"
         }
@@ -134,7 +134,7 @@
           "origin": "made",
           "by": "the Maker · Web Audio + canvas · measured by measure.py",
           "height": 860,
-          "caption": "**How long does the delay have to be?** A phrase has to end, the model works for seconds, the delay counts from the end; two real runs hold the arithmetic up, and last the page's 8 seconds against every speed measured since April. Eight seconds is enough for a 4-second phrase, not for the 8-second phrases the plugin will send.",
+          "caption": "**How long does the delay have to be?** A phrase has to end, the model works for seconds, the delay counts from the end; two real runs hold the arithmetic up, and last the page's 8 seconds against every speed measured since April, with a fixed-cost fit beside the flat rates. Eight seconds is enough for a 4-second phrase, not for the 8-second phrases the plugin will send at 32 steps; at 16 steps it's close, and only a longer phrase will say.",
           "near": "A consequence worth naming and not fighting",
           "place": "band"
         },

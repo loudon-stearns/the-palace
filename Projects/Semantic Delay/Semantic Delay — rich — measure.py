@@ -17,7 +17,8 @@ What it reads, all tracked in the bundle:
   standalone/f0.py, standalone/coupling.py  the bundle's own pitch tracker and the knob's own rule
 
 The pitch tracker here is the bundle's sandbox tracker (f0.py), not RMVPE, which needs torch.
-On the K = 1 echo it lands 0.33 st from the source, the figure RMVPE gave in the stage 4 report.
+Its voicing floor was set so the K = 1 echo lands 0.33 st from the source, RMVPE's figure in the stage 4
+report; K = 0.5 and K = 0 then agree with RMVPE on their own (0.75 vs 0.83, 1.48 vs 1.50).
 """
 
 from __future__ import annotations
@@ -36,7 +37,8 @@ from f0 import extract_f0, f0_to_midi, midi_to_f0  # noqa: E402
 from coupling import Spirit, amplitude_envelope, couple, repair_octave_jumps  # noqa: E402
 
 HOP_SEC = 0.010
-CLARITY = 0.60          # the tracker's voicing floor; 0.60 matches RMVPE's K = 1 figure (0.33 st)
+CLARITY = 0.60          # the tracker's voicing floor, SET so the K = 1 figure matches RMVPE's 0.33 st (a fit, not a check;
+                        # f0.py's default 0.55 reads 0.47 there). K = 0.5 and K = 0 are the independent agreement.
 AUTO_SHIFT_ST = 2       # the model's own transpose into the singer's range, from stage4-real-report.json
 PENTA = (0, 3, 5, 7, 10)
 ROOT_MIDI = 61          # pentatonic_root_midi in stage4-real-report.json
@@ -86,7 +88,7 @@ def knob():
     rep = json.loads((d / "stage4-real-report.json").read_text())
     m_dry = track(dry, sr)
     e_dry = amplitude_envelope(dry, hop)
-    out = {"sr": sr, "hop_sec": HOP_SEC, "dry_seconds": 6.4, "auto_shift_st": AUTO_SHIFT_ST,
+    out = {"sr": sr, "hop_sec": HOP_SEC, "clarity_floor": CLARITY, "dry_seconds": 6.4, "auto_shift_st": AUTO_SHIFT_ST,
            "dry": {"midi": [None if not np.isfinite(v) else round(float(v), 2) for v in m_dry],
                    "env": [r3(v) for v in e_dry]},
            "echoes": {}}
@@ -100,12 +102,18 @@ def knob():
         lags = list(range(-40, 41))
         rs = [corr_at(e, e_dry, L) for L in lags]
         rmvpe = next(r for r in rep["rows"] if abs(r["K"] - float(K)) < 1e-9)
+        f_def, _ = extract_f0(y, sr)                      # f0.py's own default floor, for the record
+        fd, _ = extract_f0(dry, sr)
+        md_, me_ = octave_fold(repair_octave_jumps(f0_to_midi(fd))), octave_fold(repair_octave_jumps(f0_to_midi(f_def)))
+        nd = min(len(md_), len(me_)); bd = np.isfinite(md_[:nd]) & np.isfinite(me_[:nd])
+        dist_default = float(np.mean(np.abs(fold(me_[:nd][bd] - md_[:nd][bd]) - AUTO_SHIFT_ST)))
         out["echoes"][K] = {
             "file": f"standalone/demo/stage4-real/echo-K{K}.wav",
             "midi": [None if not np.isfinite(v) else round(float(v), 2) for v in m],
             "env": [r3(v) for v in e],
             "melody_st": round(dist, 2),
             "melody_st_rmvpe": rmvpe["sung_vs_source_st"],
+            "melody_st_default_floor": round(dist_default, 2),
             "asked_st_rmvpe": rmvpe["asked_vs_source_st"],
             "rhythm_r": round(rs[lags.index(0)], 3),
             "rhythm_best_lag_ms": lags[int(np.argmax(rs))] * 10,
@@ -195,11 +203,26 @@ def delays():
     speeds = [{"label": "April, the model alone", "rtf": 1.65, "where": "Stage 0, the page"}]
     speeds += [{"label": f"through the helper, {r['n_steps']} steps, {r['prompt_sec']:g} s singer clip",
                 "rtf": r["rtf"], "where": "stage15-latency-bench.json"} for r in bench["rows"]]
+    sent = lambda L: min(L + HANG, 8.0)        # a phrase cut at 8 s closes with no quiet (Algorithm.h close())
     for s in speeds:
         s["longest_phrase_for_8s"] = r3(min(8.0, 8.0 / s["rtf"] - HANG))
-        s["delay_for_4s_phrase"] = r3(s["rtf"] * (4.0 + HANG))
-        s["delay_for_8s_phrase"] = r3(s["rtf"] * (8.0 + HANG))
-    return {"hang": HANG, "max_phrase": 8.0, "offline": offline, "realtime": realtime, "speeds": speeds,
+        s["delay_for_4s_phrase"] = r3(s["rtf"] * sent(4.0))
+        s["delay_for_8s_phrase"] = r3(s["rtf"] * sent(8.0))
+    # A flat rate is one phrase length extended. The bundle's own conversions run faster per second on
+    # longer phrases, so fit work = fixed + rate * sent to every timed conversion with the 10.7 s singer clip.
+    pts = {32: [(bench["phrase_seconds"], next(r["seconds"] for r in bench["rows"] if r["n_steps"] == 32 and r["prompt_sec"] == 10.7))]
+               + [(o["sent"], o["compute"]) for o in off],
+           16: [(bench["phrase_seconds"], next(r["seconds"] for r in bench["rows"] if r["n_steps"] == 16 and r["prompt_sec"] == 10.7))]
+               + [(r["sent"], r["rtf"] * r["sent"]) for r in rows]}
+    fits = {}
+    for steps, pp in pts.items():
+        x = np.array([a for a, _ in pp]); yv = np.array([b for _, b in pp])
+        rate, fixed = np.polyfit(x, yv, 1)
+        fits[str(steps)] = {"steps": steps, "fixed": r3(fixed), "rate": r3(rate), "points": [[r3(a), r3(b)] for a, b in pp],
+                            "longest_phrase_for_8s": r3(min(8.0, (8.0 - fixed) / rate - HANG)),
+                            "work_for_8s_phrase": r3(fixed + rate * sent(8.0)),
+                            "work_for_4s_phrase": r3(fixed + rate * sent(4.0))}
+    return {"hang": HANG, "max_phrase": 8.0, "offline": offline, "realtime": realtime, "speeds": speeds, "fits": fits,
             "page_claim": {"phrase": 4.0, "rtf": 1.65, "compute_page": 6.5, "delay": 8.0,
                            "compute_with_gate": r3(1.65 * (4.0 + HANG))}}
 
@@ -228,3 +251,6 @@ if __name__ == "__main__":
         print("realtime", r)
     for s in dl["speeds"]:
         print("speed", s)
+    for f in dl["fits"].values():
+        print("fit", f)
+    print("K=1 at the default floor", k["echoes"]["1.0"]["melody_st_default_floor"])

@@ -30,7 +30,8 @@ for (const [name, part] of [['what the knob holds', 'knob'], ['how long a delay'
 console.log('what the knob holds — the takes and the knob against what each step says');
 {
   const A = engine('what the knob holds'), k = M.knob, e = k.echoes;
-  ok(Math.abs(e['1.0'].melody_st - e['1.0'].melody_st_rmvpe) <= 0.1, 'step 2 · the sandbox tracker agrees with RMVPE on the K = 1 echo', `${e['1.0'].melody_st} vs ${e['1.0'].melody_st_rmvpe} st`);
+  ok(Math.abs(e['1.0'].melody_st - e['1.0'].melody_st_rmvpe) <= 0.1, 'calibration · the voicing floor was set so K = 1 reads RMVPE\'s figure (a fit, not a check)', `${e['1.0'].melody_st} vs ${e['1.0'].melody_st_rmvpe} st`);
+  ok(e['1.0'].melody_st_default_floor > e['1.0'].melody_st && /default floor it reads/.test(readFileSync(join(here, 'Semantic Delay — rich — what the knob holds.html'), 'utf8')), 'step 4 · the page names the default floor\'s figure', `${e['1.0'].melody_st_default_floor} st at the default floor`);
   ok(e['1.0'].melody_st < e['0.5'].melody_st && e['0.5'].melody_st < e['0.0'].melody_st, 'step 3 · the melody moves further as K falls', `${e['1.0'].melody_st}, ${e['0.5'].melody_st}, ${e['0.0'].melody_st} st`);
   for (const K of ['1.0', '0.5', '0.0']) ok(Math.abs(e[K].melody_st - e[K].melody_st_rmvpe) <= 0.15, `step 3 · K = ${K}: tracker within 0.15 st of RMVPE`, `${e[K].melody_st} vs ${e[K].melody_st_rmvpe}`);
   ok(['1.0', '0.5', '0.0'].every(K => e[K].rhythm_best_lag_ms === 0), 'step 4 · every echo lines up with your phrase best at 0 ms');
@@ -70,6 +71,13 @@ console.log('how long a delay — the plugin\'s timing against what each step sa
   const pc = d.page_claim;
   ok(B.onTime(pc.phrase, pc.rtf, pc.delay), 'step 5 · the page: a 4 s phrase at 1.65 fits an 8 s delay', `${f2(B.work(pc.phrase, pc.rtf))} s of work`);
   ok(!B.onTime(8, pc.rtf, pc.delay) && B.longest(pc.rtf, pc.delay) < 5, 'step 5 · but an 8 s delay at 1.65 does not carry the plugin\'s longest phrase', `carries ${f2(B.longest(pc.rtf, pc.delay))} s of 8`);
+  for (const f of Object.values(d.fits)) {
+    const worst = Math.max(...f.points.map(([x, w]) => Math.abs(B.fitWork(x - 0.3, f) - w)));
+    ok(worst < 0.5 && Math.abs(B.longestFit(f, 8) - f.longest_phrase_for_8s) < 1e-3 && Math.abs(B.fitWork(8, f) - f.work_for_8s_phrase) < 1e-3,
+      `step 5 · fit at ${f.steps} steps: the engine agrees with the measure and the runs sit near it`, `${f.fixed} s + ${f.rate} s/s, worst miss ${f2(worst)} s, 8 s carries ${f2(B.longestFit(f, 8))} s`);
+  }
+  ok(d.fits['16'].fixed > 0 && d.fits['32'].fixed > 0, 'step 5 · both fits find a fixed cost per echo, so the flat rate falls on longer phrases');
+  ok(B.work(8, 1.65) === 1.65 * 8, 'step 1 · a phrase cut at 8 s is sent with no gate quiet');
   ok(Math.abs(B.heardAfter(4, 8) - 12.3) < 1e-9, 'step 3 · a 4 s phrase at an 8 s delay is heard 12.3 s after its first word');
 }
 
