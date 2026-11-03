@@ -63,15 +63,15 @@ const one = (n) => { const c = new Array(8).fill(0); c[n - 1] = 1; return c; };
     wLaw = Math.max(wLaw, Math.abs(h[n - 1] - Math.pow(a, n)));
     h.forEach((v, i) => { if (i + 1 > n) wUp = Math.max(wUp, Math.abs(v)); if ((i + 1 - n) % 2) wPar = Math.max(wPar, Math.abs(v)); });
   }
-  t('step 5: below full drive, harmonic n of Tₙ comes out at aⁿ', wLaw < 1e-4, 'largest miss ' + ex(wLaw));
-  t('step 5: below full drive, Tₙ leaks only downward and only within its parity', wUp < 1e-4 && wPar < 1e-4, `up ${ex(wUp)}, across parity ${ex(wPar)}`);
+  t('offer 1 (not on the face): below full drive, harmonic n of Tₙ comes out at aⁿ', wLaw < 1e-4, 'largest miss ' + ex(wLaw));
+  t('offer 1 (not on the face): below full drive, Tₙ leaks only downward and only within its parity', wUp < 1e-4 && wPar < 1e-4, `up ${ex(wUp)}, across parity ${ex(wPar)}`);
 }
 {
   const h = D.harmonicsOf(D.readCycle(D.makeCurve(one(3)), 0.5, 4096), 16, 1);
-  t('step 5: Third alone at drive 0.50 gives h1 = 3(a³ − a) = −1.125 and h3 = a³ = 0.125', Math.abs(h[0] + 1.125) < 1e-4 && Math.abs(h[2] - 0.125) < 1e-4, `h1 ${h[0].toFixed(4)}, h3 ${h[2].toFixed(4)}`);
+  t('offer 1 (not on the face): T₃ at drive 0.50 gives h1 = 3(a³ − a) = −1.125 and h3 = a³ = 0.125', Math.abs(h[0] + 1.125) < 1e-4 && Math.abs(h[2] - 0.125) < 1e-4, `h1 ${h[0].toFixed(4)}, h3 ${h[2].toFixed(4)}`);
   const h2 = D.harmonicsOf(D.readCycle(D.makeCurve(one(2)), 0.5, 4096), 16, 1);
   let o = 0; h2.forEach((v, i) => { if (i !== 1) o = Math.max(o, Math.abs(v)); });
-  t('step 2’s octave never leaks: T₂ at drive 0.50 is harmonic 2 at 0.25 and nothing else but an offset', Math.abs(h2[1] - 0.25) < 1e-4 && o < 1e-4, `h2 ${h2[1].toFixed(4)}, largest other ${ex(o)}`);
+  t('offer 1 (not on the face): T₂ at drive 0.50 is harmonic 2 at 0.25 and nothing else but an offset', Math.abs(h2[1] - 0.25) < 1e-4 && o < 1e-4, `h2 ${h2[1].toFixed(4)}, largest other ${ex(o)}`);
 }
 const SAW = [1, 1/2, 1/3, 1/4, 1/5, 1/6, 1/7, 1/8];
 const sawAt = (a) => { const h = D.harmonicsOf(D.readCycle(D.makeCurve(SAW), a, 4096), 16, 1); return { h, r: D.compare(SAW, h) }; };
@@ -79,12 +79,14 @@ const sawAt = (a) => { const h = D.harmonicsOf(D.readCycle(D.makeCurve(SAW), a, 
   const rows = [1, 0.99, 0.97, 0.95, 0.9, 0.7, 0.5].map(a => ({ a, ...sawAt(a) }));
   for (const x of rows) console.log(`      saw, drive ${x.a.toFixed(2)}: h1..h8 ${x.h.slice(0, 8).map(v => v.toFixed(3)).join(' ')} · largest miss ${x.r.miss.toFixed(3)} at h${x.r.missAt}`);
   const r99 = rows[1].r, r90 = rows[4];
-  t('step 5: Saw one percent under full drive already misses its drawbars by more than 5%', r99.miss > 0.05, `drive 0.99: ${r99.miss.toFixed(3)} at h${r99.missAt} (${dB(r99.miss)})`);
-  t('step 5: Saw at drive 0.90 has lost harmonics 4–6 almost wholly', Math.max(...r90.h.slice(3, 6).map(Math.abs)) < 0.02, `h4 ${r90.h[3].toFixed(3)}, h5 ${r90.h[4].toFixed(3)}, h6 ${r90.h[5].toFixed(3)} against 0.250, 0.200, 0.167`);
+  t('offer 1 (not on the face): Saw one percent under full drive already misses its drawbars by more than 5%', r99.miss > 0.05, `drive 0.99: ${r99.miss.toFixed(3)} at h${r99.missAt} (${dB(r99.miss)})`);
+  t('offer 1 (not on the face): Saw at drive 0.90 has lost harmonics 4–6 almost wholly', Math.max(...r90.h.slice(3, 6).map(Math.abs)) < 0.02, `h4 ${r90.h[3].toFixed(3)}, h5 ${r90.h[4].toFixed(3)}, h6 ${r90.h[5].toFixed(3)} against 0.250, 0.200, 0.167`);
 }
 {
   const at1 = sawAt(1).r.aboveDb, at11 = sawAt(1.1).r.aboveDb, at125 = sawAt(1.25).r.aboveDb;
-  t('step 5: above full drive the table holds its ends, and power appears above harmonic 8', at1 < -100 && at11 > -30 && at125 > -30, `above h8: drive 1.00 ${at1.toFixed(1)} dB, 1.10 ${at11.toFixed(1)} dB, 1.25 ${at125.toFixed(1)} dB`);
+  t('step 5: past drive 1 the table holds its ends, and power appears above harmonic 8', at1 < -100 && at11 > -30 && at125 > -30, `above h8: drive 1.00 ${at1.toFixed(1)} dB, 1.10 ${at11.toFixed(1)} dB, 1.25 ${at125.toFixed(1)} dB`);
+  let polyUp = -Infinity; for (const a of [1.05, 1.1, 1.25, 1.3]) polyUp = Math.max(polyUp, D.compare(SAW, D.harmonicsOf(D.readPolyCycle(SAW, a, 4096), 24, 1)).aboveDb);
+  t('step 5: the polynomial itself, read past 1 with no table, puts nothing above harmonic 8', polyUp < -200, `largest, drives 1.05 to 1.30: ${polyUp === -Infinity ? 'none' : polyUp.toFixed(1) + ' dB'}`);
   let w = 0; for (const x of [-3, -1.5, -1.0001]) w = Math.max(w, Math.abs(D.lookup(D.makeCurve(SAW), x) - D.makeCurve(SAW)[0]));
   t('the table’s reader is the spec’s: held at the first value below −1', w === 0, 'difference ' + w);
 }

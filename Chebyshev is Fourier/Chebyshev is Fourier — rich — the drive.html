@@ -2,8 +2,8 @@
 <!--
   title: Chebyshev is Fourier — rich — the drive
   born: 2026-11-03
-  links: [[Chebyshev is Fourier]] (connects-to · rich-face-piece) · listed in [[Chebyshev is Fourier — rich.json]] · leads on to Dissolutions/proofs/2026-10-20-the-circles-shadow/the-circles-shadow.html
-  forward_vector: I am the walk up to the waveshaper the section promises. A cosine through a straight table, then through T2 for one octave, then any Tn, then a table that is a sum of them, its harmonics read off the browser's own waveshaper. Last, the drive: the one input the sentence fixes at 1 and a player never does. I change only when the section I serve does.
+  links: [[Chebyshev is Fourier]] (connects-to · rich-face-piece) · listed in [[Chebyshev is Fourier — rich.json]]
+  forward_vector: I am the walk up to the waveshaper the section promises. A cosine through a straight table, then through T2 for one octave, then any Tn, then a table that is a sum of them, its harmonics read off the browser's own waveshaper. Last, the drive pushed past 1, where the browser's table holds its ends and the polynomial and the lookup table part company. I change only when the section I serve does.
   sound: nothing plays until a Play button is clicked; the AudioContext is made on that click. Changing step stops the sound. No audio context of any kind, offline included, exists before the first click on the piece.
   check: Chebyshev is Fourier/Chebyshev is Fourier — rich — check.mjs runs this page's core in Node, and the browser's WaveShaperNode against it in headless Chromium.
 -->
@@ -62,8 +62,6 @@
   button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
   button.ghost:disabled{opacity:.35;cursor:default}
   .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
-  .found{margin-top:14px;padding:12px 16px;border:1px solid var(--border-soft);border-radius:4px;font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
-  .found .eyebrow{display:block;margin-bottom:4px}
   footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
   footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
   [hidden]{display:none !important}
@@ -74,7 +72,7 @@
 <main>
   <div class="eyebrow">Chebyshev is Fourier · harmonic design by lookup table · five steps</div>
   <h1>The drive</h1>
-  <p class="lead">A waveshaper is a table: a sound goes in as a place on the table, and comes out as the height it finds there. Here the sound going in is one cosine, and the tables are Chebyshev's. Five steps, one thing to hear in each. The last turns the one knob the section holds still. Nothing plays until you press Play.</p>
+  <p class="lead">A waveshaper is a table: a sound goes in as a place on the table, and comes out as the height it finds there. Here the sound going in is one cosine, and the tables are Chebyshev's. Five steps, one thing to hear in each. The last pushes the cosine past the ends of the table. Nothing plays until you press Play.</p>
 
   <nav class="rail" aria-label="Steps" id="rail"></nav>
 
@@ -103,12 +101,11 @@
     <canvas id="bars"></canvas>
     <div class="eyebrow" id="barsHint" style="margin-top:4px"></div>
 
-    <div id="driveRow" class="ctl" hidden><label for="drive">drive, a</label><input id="drive" type="range" min="0.10" max="1.25" step="0.01" value="1"><span class="v" id="drivev"></span></div>
+    <div id="driveRow" class="ctl" hidden><label for="drive">drive, a</label><input id="drive" type="range" min="1" max="1.30" step="0.01" value="1"><span class="v" id="drivev"></span></div>
 
     <div class="meter" id="meter"></div>
     <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
     <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
-    <div class="found" id="found" hidden><span class="eyebrow">Where this leads</span>The proof gathered just below this piece, <em>The circle’s shadow</em>, from Dissolutions, sets the same kind of table against a stack of ten cosines and plays their difference: silence at full reach. Its reach slider is this step’s drive, turned down only.</div>
   </div>
   <div class="try" id="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
 
@@ -145,6 +142,8 @@ function lookup(cu, x){
 }
 // one cycle of a cosine of amplitude a, read through the table, M samples
 function readCycle(cu, a, M){ var y = new Float64Array(M); for (var k = 0; k < M; k++) y[k] = lookup(cu, a * Math.cos(2 * Math.PI * k / M)); return y; }
+// the same cycle read off the polynomial itself, no table and no ends: what the drawbars' curve does past 1
+function readPolyCycle(c, a, M){ var y = new Float64Array(M); for (var k = 0; k < M; k++) y[k] = shapeAt(c, a * Math.cos(2 * Math.PI * k / M)); return y; }
 // the cosines the drawbars ask for, added up by hand
 function stackAt(c, th){ var s = 0; for (var n = 1; n <= c.length; n++) s += c[n - 1] * Math.cos(n * th); return s; }
 // signed cosine amplitude of harmonics 1..H in a whole number of cycles (the input is a cosine and the table has no memory,
@@ -196,7 +195,7 @@ function compare(c, spec){
     { short: 'Any n', title: 'T_n gives back the nth harmonic',
       say: 'Every Chebyshev table does the same trick at its own number. T₃ = 4x³ − 3x wiggles so that the reader’s height goes round three times per cycle, T₄ four, up to T₈. Each one is a polynomial, built here by the recurrence T₍ₙ₊₁₎ = 2x·Tₙ − T₍ₙ₋₁₎, never by a cosine, and each one, read by a full-width cosine, gives back exactly one harmonic.',
       hint: 'the same cosine, through Tₙ',
-      tryText: 'Play and step n from 1 to 8. You hear the harmonic series, 110, 220, 330 Hz and up, every note made by the same 110 Hz cosine read through a different table. The gold trace lies on the blue at every n.',
+      tryText: 'Play, then walk n up one notch at a time. Each notch climbs one rung of the harmonic series, 110 Hz higher than the last, while the cosine going in never changes; only the table under it does. One gold bar moves right a place each time and never has company.',
       eq1: ['Tₙ(cos θ) = cos(nθ)', '(the nth Chebyshev table, read by a cosine) = (the nth harmonic)'],
       eq2: ['T₍ₙ₊₁₎(x) = 2x · Tₙ(x) − T₍ₙ₋₁₎(x)', '(the next table) = 2 × (place) × (this table) − (the one before)'] },
     { short: 'A sum of tables', title: 'Add the tables, and the drawbars are the spectrum',
@@ -205,12 +204,12 @@ function compare(c, spec){
       tryText: 'Drag the drawbars up and down, or press a preset. Each gold bar fills its outline, and the gold trace lies on the blue. That is the section’s sentence: harmonic design by lookup table.',
       eq1: ['y = Σ cₙ · Tₙ(cos θ) = Σ cₙ · cos(nθ)', '(what comes out) = Σ (drawbar n) × (table n, read by the cosine) = Σ (drawbar n) × (harmonic n)'],
       eq2: ['table[i] = Σ cₙ · Tₙ(−1 + 2i / 4096),   i = 0 … 4096', '(the browser’s table, point i) = the drawbars’ curve, sampled at 4097 even places from −1 to 1'] },
-    { short: 'The test · drive', test: true, title: 'Now turn the drive',
-      say: 'Every step so far fed the table a cosine of amplitude exactly 1, as the section says to. A player never holds it there: an envelope, a velocity, a fader all change how hard the table is driven. Here the drive is the amplitude of the cosine going in. Below 1 the reader stops reaching the ends of the table, which is where the high tables do all their bending. Above 1 it runs off the ends, and a waveshaper holds the last value there. Watch what the drawbars become.',
+    { short: 'The test · past the ends', test: true, title: 'Push the drive past the ends of the table',
+      say: 'Every step so far fed the table a cosine of amplitude exactly 1, so the reader touched both ends and never went further. The section’s promise is about a lookup table, and a table has ends. Here the drive is the amplitude of the cosine going in, from 1 upward. Past 1 the reader runs off the table, and the browser’s waveshaper holds the last value there. The drawbars’ polynomial has degree 8, so on its own it can make no harmonic above the 8th at any drive. The table can. Watch the right of the dashed line.',
       hint: 'one cosine, driven by a, through the drawbars’ table',
-      tryText: 'Start on Third alone, drive at 1.00: harmonic 3 alone. Pull the drive to 0.50 and the third comes out mostly as the first. Then press Saw and move the drive just off 1, to 0.99 and 0.97, and watch how far the bars fall from their outlines. Push past 1 and look right of the line at 8.',
-      eq1: ['Tₙ(a · cos θ) = aⁿ · cos(nθ) + (lower harmonics of the same parity)', '(table n, read by a cosine at drive a) = (drive to the nth power) × (harmonic n) + (harmonics below n, odd if n is odd, even if n is even)'],
-      eq2: ['T₃(a · cos θ) = a³ · cos 3θ + 3(a³ − a) · cos θ', '(the third table at drive a) = (drive cubed) × (harmonic 3) + 3 × (drive cubed − drive) × (harmonic 1)'] }
+      tryText: 'Start on Saw at 1.00: every bar fills its outline and nothing lights right of the dashed line. Push to 1.05, 1.10, 1.25 and bars rise past harmonic 8, where no drawbar exists; the meter puts them beside what the polynomial itself would give there. Try Square and Organ too.',
+      eq1: ['table(x) = table(1) for x > 1,   table(x) = table(−1) for x < −1', '(the browser’s table, read past its ends) = (the value at the nearest end): it holds, it does not go on'],
+      eq2: ['Σ cₙ · Tₙ(x), n ≤ 8, has degree 8: no harmonic above the 8th, at any drive', '(the drawbars’ polynomial, run past the ends) = (a curve of degree 8), and a curve of degree 8 read by a cosine stops at harmonic 8'] }
   ];
 
   var step = 0, playing = false, drive = 1, pairN = 2, nSel = 3;
@@ -271,13 +270,9 @@ function compare(c, spec){
     } else {
       lines.push('largest miss against the drawbars: <b>' + (r.miss < 1e-6 ? r.miss.toExponential(1) : r.miss.toFixed(3)) + '</b> of the loudest drawbar, at harmonic ' + r.missAt + ' · ' + (r.miss > 0 ? dB(r.miss) : '') );
       if (step === 4){
-        if (nz.length === 1){
-          var m = nz[0];
-          lines.push('harmonic ' + m + ' came out at <b>' + fmt(spec[m - 1]) + '</b>; aⁿ = ' + a.toFixed(2) + '<sup>' + m + '</sup> = ' + fmt(Math.pow(a, m)) + (a > 1 ? ', what Tₙ would give if the table went on past its ends; the table holds its last value there instead' : ''));
-          if (m > 1 && a < 0.995){ var low = []; for (i = 0; i < m - 1; i++) if (Math.abs(spec[i]) > 1e-4) low.push('h' + (i + 1) + ' ' + fmt(spec[i])); lines.push('spilled below it: ' + (low.length ? low.join(' · ') : 'nothing'));
-          }
-        }
-        lines.push('power above harmonic ' + DRIVE.TOP + ', where no drawbar is: <b>' + (r.aboveDb === -Infinity ? 'none' : r.aboveDb < -120 ? 'below −120 dB' : r.aboveDb.toFixed(1) + ' dB') + '</b> of the whole');
+        var poly = compare(c, harmonicsOf(readPolyCycle(c, a, 1024), H, 1));
+        var dbt = function(v){ return v === -Infinity ? 'none' : v < -120 ? 'below −120 dB' : v.toFixed(1) + ' dB'; };
+        lines.push('power above harmonic ' + DRIVE.TOP + ', where no drawbar is · the table: <b>' + dbt(r.aboveDb) + '</b> of the whole · the polynomial itself: ' + dbt(poly.aboveDb));
       }
     }
     $('meter').innerHTML = lines.join('<br>') + '<br><span class="src">' + src + '</span>';
@@ -384,10 +379,9 @@ function compare(c, spec){
     $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
     $('tryText').textContent = s.tryText;
     $('pairRow').hidden = i !== 1; $('nRow').hidden = i !== 2;
-    $('presets').hidden = i < 3; $('driveRow').hidden = i !== 4; $('found').hidden = i !== 4;
+    $('presets').hidden = i < 3; $('driveRow').hidden = i !== 4;
     $('barsHint').textContent = i >= 3 ? 'drag harmonics 1–8 up and down to set the drawbars · right of the dashed line no drawbar exists' : '';
     $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
-    if (i === 4 && bars.join() === PRESETS.saw.join()) bars = PRESETS.third.slice();
     measure();
   }
   $('back').addEventListener('click', function(){ if (step > 0) go(step - 1); });
