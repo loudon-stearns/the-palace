@@ -1,0 +1,459 @@
+<!doctype html>
+<!--
+  title: Chebyshev is Fourier — rich — selection rules
+  born: 2026-11-03
+  links: [[Chebyshev is Fourier]] (connects-to · rich-face-piece) · listed in [[Chebyshev is Fourier — rich.json]] · touches [[Wallpaper Groups]] and [[2D Torus Wavetable Synthesizer]]
+  forward_vector: I am the walk up to the section's claim that a wallpaper group decides which cosine modes a torus surface may carry. One mode heard as two tones, many modes on a grid, one symmetry move and what it does to each mode, then the test: ask for a group and count what it zeroes, what it only ties, and what this basis cannot hold at all, each heard as a scan across the torus. I change only when the section I serve does.
+  sound: nothing plays until a Play button is clicked; the AudioContext is made on that click. Changing step stops the sound.
+  check: Chebyshev is Fourier/Chebyshev is Fourier — rich — check.mjs runs this page's core in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Selection rules · which modes a symmetry lets a torus surface keep</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10);
+    --info:#4a8fff;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas#stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px;touch-action:manipulation}
+  canvas#spec{width:100%;height:96px;display:block;background:var(--bg-elev-2);border-radius:4px;margin-top:8px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .rowb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  [hidden]{display:none !important}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Chebyshev is Fourier · wallpaper groups on the torus · four steps</div>
+  <h1>Selection rules</h1>
+  <p class="lead">The section says a wallpaper group decides which cosine modes cos(mφ₁)·cos(nφ₂) a torus surface may carry, and zeroes out the rest. Four steps: one mode, many modes, one symmetry move, and then the test, where you ask for a group and count what it actually does. Every surface is heard as a scan across the torus. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Scan</span>
+      <button class="ghost small" data-ratio="110" aria-pressed="false">φ₂ : φ₁ = 1</button>
+      <button class="ghost small" data-ratio="165" aria-pressed="false">3 ⁄ 2</button>
+      <button class="ghost small" data-ratio="220" aria-pressed="true">2</button>
+      <button class="ghost small" data-ratio="178" aria-pressed="false">178 ⁄ 110 ≈ golden</button>
+      <button class="play" id="play">Play</button></div>
+    <canvas id="stage"></canvas>
+    <div class="legend">
+      <div><b>Left · the surface</b>The torus cut open and laid flat: φ₁ across, φ₂ up, each from 0 to 2π. Amber is high, blue is low. The thin line is the scan, φ₁ at 110 Hz and φ₂ at the ratio above.</div>
+      <div><b>Right · the modes</b>Row m, column n: the weight on cos(mφ₁)·cos(nφ₂), amber for plus, blue for minus. Click a cell to set it +1, then −1, then 0. In the test, × is a mode the group forbids, and =3,1 or −3,1 a mode tied to cell 3,1, equal or opposite.</div>
+    </div>
+    <div class="rowb" id="editRow" hidden><button class="ghost small" id="rand">Random weights</button><button class="ghost small" id="clear">Clear</button></div>
+    <div class="rowb" id="moveRow" hidden><span class="eyebrow">move</span>
+      <button class="ghost small" data-move="flip1" aria-pressed="false">Flip φ₁</button>
+      <button class="ghost small" data-move="shift" aria-pressed="true">Shift by (π, π)</button>
+      <button class="ghost small" data-move="swap" aria-pressed="false">Swap φ₁ and φ₂</button>
+      <button class="ghost small" data-move="quarterC" aria-pressed="false">Quarter turn about (π⁄2, π⁄2)</button>
+    </div>
+    <div class="rowb" id="groupRow" hidden><span class="eyebrow">ask for</span>
+      <button class="ghost small" data-group="pmm" aria-pressed="false">pmm</button>
+      <button class="ghost small" data-group="cmm" aria-pressed="true">cmm</button>
+      <button class="ghost small" data-group="p4m" aria-pressed="false">p4m</button>
+      <button class="ghost small" data-group="p4g" aria-pressed="false">p4g</button>
+      <button class="ghost small" data-group="p4" aria-pressed="false">p4 · turns, no mirrors</button>
+    </div>
+    <div class="eyebrow" style="margin-top:12px" id="specLabel">What the scan puts out · 0 to 2000 Hz · measured</div>
+    <canvas id="spec"></canvas>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+  <div class="try" id="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><b>LOUD’N LIVE</b> · Chebyshev is Fourier · selection rules · Sketch, 2026-11-03</footer>
+</main>
+
+<!-- The core: plain functions shared by the picture, the sound, the meter and the headless check. -->
+<script id="torus-core">
+var TORUS = { K: 7, F1: 110, SPEC_SR: 8192 };
+// the surface: weight a[m*K + n] on cos(m phi1) cos(n phi2), m and n from 0 to 6
+function surfaceAt(a, p1, p2){
+  var K = TORUS.K, s = 0;
+  for (var m = 0; m < K; m++){ var c1 = Math.cos(m * p1); if (!c1) continue; for (var n = 0; n < K; n++){ var w = a[m * K + n]; if (w) s += w * c1 * Math.cos(n * p2); } }
+  return s;
+}
+// the moves, as maps of the torus onto itself
+var MOVES = {
+  flip1: function(p, q){ return [-p, q]; },
+  flip2: function(p, q){ return [p, -q]; },
+  shift: function(p, q){ return [p + Math.PI, q + Math.PI]; },
+  swap: function(p, q){ return [q, p]; },
+  quarter0: function(p, q){ return [-q, p]; },
+  quarterC: function(p, q){ return [Math.PI - q, p]; }
+};
+// what each move does to mode (m, n): the mode it lands on, and the sign it picks up
+function moveOnMode(move, m, n){
+  if (move === 'flip1' || move === 'flip2') return [m, n, 1];
+  if (move === 'shift') return [m, n, (m + n) % 2 ? -1 : 1];
+  if (move === 'swap' || move === 'quarter0') return [n, m, 1];
+  if (move === 'quarterC') return [n, m, m % 2 ? -1 : 1];
+  return [m, n, 1];
+}
+// each group: the moves it asks for, and the rule that follows for every mode
+var GROUPS = {
+  pmm: { moves: ['flip1', 'flip2'], not: ['shift', 'swap'] },
+  cmm: { moves: ['flip1', 'flip2', 'shift'], not: ['swap', 'quarterC'] },
+  p4m: { moves: ['flip1', 'flip2', 'swap', 'quarter0'], not: ['shift', 'quarterC'] },
+  p4g: { moves: ['flip1', 'flip2', 'shift', 'quarterC'], not: ['swap', 'quarter0'] }
+};
+// the rule a set of moves imposes on mode (m, n): 'free', 'zero', or a tie to its partner with a sign.
+// Found by following each mode through the moves: a mode sent to itself with a minus sign must vanish.
+function ruleFor(group, m, n){
+  var mv = GROUPS[group].moves, zero = false, tie = null;
+  for (var i = 0; i < mv.length; i++){
+    var r = moveOnMode(mv[i], m, n);
+    if (r[0] === m && r[1] === n){ if (r[2] < 0) zero = true; }
+    else {
+      var back = moveOnMode(mv[i], r[0], r[1]);          // two of the same move: the sign round the loop
+      if (back[2] * r[2] < 0) zero = true; else tie = { m: r[0], n: r[1], sign: r[2] };
+    }
+  }
+  // a tie whose partner must vanish takes this mode with it
+  if (!zero && tie){ for (i = 0; i < mv.length; i++){ var rr = moveOnMode(mv[i], tie.m, tie.n); if (rr[0] === tie.m && rr[1] === tie.n && rr[2] < 0) zero = true; } }
+  return zero ? { kind: 'zero' } : tie ? { kind: 'tie', m: tie.m, n: tie.n, sign: tie.sign } : { kind: 'free' };
+}
+// a surface made to obey the group: zeroed modes cleared, tied pairs averaged with their sign
+function project(a, group){
+  var K = TORUS.K, b = a.slice();
+  for (var m = 0; m < K; m++) for (var n = 0; n < K; n++){
+    var r = ruleFor(group, m, n), i = m * K + n;
+    if (r.kind === 'zero') b[i] = 0;
+    else if (r.kind === 'tie' && m < n){ var j = r.m * K + r.n, v = (a[i] + r.sign * a[j]) / 2; b[i] = v; b[j] = r.sign * v; }
+  }
+  return b;
+}
+function counts(group){
+  var K = TORUS.K, c = { free: 0, zero: 0, tied: 0, tiedNeg: 0 };
+  for (var m = 0; m < K; m++) for (var n = 0; n < K; n++){
+    var r = ruleFor(group, m, n);
+    if (r.kind === 'zero') c.zero++; else if (r.kind === 'free') c.free++;
+    else if (m < n){ c.free++; c.tied++; if (r.sign < 0) c.tiedNeg++; }
+  }
+  return c;
+}
+// how far a surface is from its moved copy, as a share of its own peak, on a 64 x 64 grid
+function moveError(a, move){
+  var f = MOVES[move], w = 0, mx = 0;
+  for (var i = 0; i < 64; i++) for (var j = 0; j < 64; j++){
+    var p = 2 * Math.PI * i / 64, q = 2 * Math.PI * j / 64, v = surfaceAt(a, p, q), g = f(p, q);
+    w = Math.max(w, Math.abs(surfaceAt(a, g[0], g[1]) - v)); mx = Math.max(mx, Math.abs(v));
+  }
+  return mx > 0 ? w / mx : 0;
+}
+// the scan: phi1 at F1 Hz, phi2 at f2 Hz, read for one second at sr samples a second
+function scan(a, f2, sr, N){
+  var y = new Float32Array(N), w1 = 2 * Math.PI * TORUS.F1 / sr, w2 = 2 * Math.PI * f2 / sr;
+  for (var i = 0; i < N; i++) y[i] = surfaceAt(a, w1 * i, w2 * i);
+  return y;
+}
+// amplitude at every whole hertz, from one second of the scan at SPEC_SR (radix-2 FFT; the loop is exactly one second)
+function spectrum(a, f2){
+  var N = TORUS.SPEC_SR, re = Float64Array.from(scan(a, f2, N, N)), im = new Float64Array(N), i, j = 0;
+  var mean = 0; for (i = 0; i < N; i++) mean += re[i]; mean /= N; for (i = 0; i < N; i++) re[i] -= mean;
+  for (i = 1; i < N; i++){ var bit = N >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j){ var t = re[i]; re[i] = re[j]; re[j] = t; } }
+  for (var len = 2; len <= N; len <<= 1){
+    var ang = -2 * Math.PI / len, wr = Math.cos(ang), wi = Math.sin(ang);
+    for (i = 0; i < N; i += len){ var cr = 1, ci = 0;
+      for (var k = 0; k < len / 2; k++){
+        var ur = re[i + k], ui = im[i + k], vr = re[i + k + len / 2] * cr - im[i + k + len / 2] * ci, vi = re[i + k + len / 2] * ci + im[i + k + len / 2] * cr;
+        re[i + k] = ur + vr; im[i + k] = ui + vi; re[i + k + len / 2] = ur - vr; im[i + k + len / 2] = ui - vi;
+        var nr = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = nr;
+      } }
+  }
+  var out = new Float64Array(N / 2); for (i = 0; i < N / 2; i++) out[i] = 2 * Math.sqrt(re[i] * re[i] + im[i] * im[i]) / N;
+  return out;
+}
+// share of the scan's power at odd multiples of 110 Hz
+function oddShare(spec){ var tot = 0, odd = 0; for (var h = 1; h * TORUS.F1 < spec.length; h++){ var p = spec[h * TORUS.F1] * spec[h * TORUS.F1]; tot += p; if (h % 2) odd += p; } return tot > 0 ? odd / tot : 0; }
+</script>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var K = TORUS.K;
+  function blank(){ return new Array(K * K).fill(0); }
+  function only11(){ var a = blank(); a[1 * K + 1] = 1; return a; }
+  function starter(){ var a = blank(); a[1 * K + 0] = 1; a[1 * K + 1] = 0.6; a[2 * K + 1] = -0.5; a[2 * K + 0] = 0.5; a[1 * K + 3] = 0.4; a[3 * K + 0] = 0.3; a[3 * K + 3] = -0.4; return a; }
+
+  var STEPS = [
+    { short: 'One mode', title: 'One mode, heard as two tones',
+      say: 'Start with one mode: cos φ₁ · cos φ₂, an egg-crate of four bumps on the torus laid flat. Two phases scan it, φ₁ turning at 110 Hz and φ₂ at the ratio above. One mode turns into two tones, at the difference and the sum of the two rates, the way a ring modulator does.',
+      tryText: 'Play at ratio 2: two lines, 110 and 330 Hz. Try 3 ⁄ 2: 55 and 275. Each mode always gives the sum and the difference.',
+      eq1: ['cos φ₁ · cos φ₂ = ½ cos(φ₁ − φ₂) + ½ cos(φ₁ + φ₂)', '(the one mode) = half (a tone at the difference) + half (a tone at the sum)'],
+      eq2: ['φ₁ = 2π · 110 · t,   φ₂ = 2π · f₂ · t', '(the first phase turns at 110 Hz), (the second at f₂)'] },
+    { short: 'Many modes', title: 'Many modes on a grid',
+      say: 'The section designs surfaces by choosing a weight for every cos(mφ₁)·cos(nφ₂), here for m and n from 0 to 6: forty-nine numbers, one cell each. Under the two-axis substitution xᵢ = cos φᵢ, this grid is a two-dimensional Chebyshev design. Each lit cell adds its own sum and difference tones, at m·110 ± n·f₂.',
+      tryText: 'Click cells on and off, or press Random weights, and watch the surface and the lines below change together. A cell in row 0 or column 0 gives a single tone, not a pair.',
+      eq1: ['W(φ₁, φ₂) = Σ aₘₙ · cos(mφ₁) · cos(nφ₂)', '(the surface) = Σ (the weight in cell m, n) × cos(m × first angle) × cos(n × second angle)'],
+      eq2: ['fₘₙ = | m · 110 ± n · f₂ |', '(where cell m, n is heard) = (m times the first rate) plus or minus (n times the second)'] },
+    { short: 'One move', title: 'One symmetry move, and what it does to each mode',
+      say: 'A symmetry is a move of the torus that leaves the surface as it was. Pick a move and the middle pane shows the surface after it. Each mode is either kept (+), turned upside down (−), or sent to another cell (↔). Notice the first move: flipping φ₁ changes nothing, whatever you draw. Every cosine is already even, so this basis has the two mirrors along its axes built in.',
+      tryText: 'Try Flip φ₁: zero difference, every time. Then Shift by (π, π): the modes with m + n odd turn upside down. Swap φ₁ and φ₂: cells trade places across the diagonal.',
+      eq1: ['cos(m(φ₁ + π)) · cos(n(φ₂ + π)) = (−1)^(m+n) · cos(mφ₁) · cos(nφ₂)', '(a mode, shifted by half a turn both ways) = (plus or minus one, by whether m + n is even) × (the mode)'],
+      eq2: ['cos(−mφ₁) = cos(mφ₁)', '(a cosine flipped) = (the same cosine): the mirrors come with the basis'] },
+    { short: 'The test', test: true, title: 'Ask for a group, and count what it does',
+      say: 'Now require a whole wallpaper group: the surface must survive every move in it. The grid greys out the modes the group forbids and marks the ones it ties together; you can only set what is left. The section says the group zeroes out the rest. Count what each group actually does, measure that the surface really holds the symmetry, and listen at ratio 1, where the scan runs straight along the diagonal.',
+      tryText: 'Press cmm at ratio 1 and Play: every surviving mode sits an even number of harmonics up, and the note jumps an octave. Then p4m: nothing greys out at all; the cells pair across the diagonal instead. Then p4g, and last p4, which asks for turns without mirrors.',
+      eq1: ['W(g · φ) = W(φ) for every move g in the group', '(the surface after any of the group’s moves) = (the surface)'],
+      eq2: ['cmm: aₘₙ = 0 if m + n is odd    p4m: aₘₙ = aₙₘ    p4g: aₘₙ = (−1)ᵐ aₙₘ, and zero if m + n is odd', '(cmm zeroes half the grid) · (p4m zeroes nothing and ties each cell to its mirror) · (p4g does both, some ties with a sign flip)'] }
+  ];
+
+  var step = 0, playing = false, f2 = 220, move = 'shift', group = 'cmm';
+  var drawn = only11();   // the weights as set; a group's rule is applied to a copy, never baked in, so changing group loses nothing
+  function coef(){ return step === 3 && GROUPS[group] ? project(drawn, group) : step === 3 && group === 'p4' ? project(drawn, 'p4m') : drawn; }
+
+  // ---------- sound: one second of the scan, looped (both rates are whole hertz, so the loop has no seam) ----------
+  var ctx = null, master = null, cur = null;
+  function ensure(){
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 8;
+    master = ctx.createGain(); master.gain.value = 0.5; master.connect(comp); comp.connect(ctx.destination);
+  }
+  function render(){
+    var sr = ctx.sampleRate, N = Math.round(sr), y = scan(coef(), f2, sr, N), pk = 0;
+    for (var i = 0; i < N; i++) pk = Math.max(pk, Math.abs(y[i]));
+    var g = pk > 1e-9 ? 0.8 / pk : 0; for (i = 0; i < N; i++) y[i] *= g;
+    return y;
+  }
+  function playBuffer(data){
+    var b = ctx.createBuffer(1, data.length, ctx.sampleRate); b.copyToChannel(data, 0);
+    var s = ctx.createBufferSource(); s.buffer = b; s.loop = true;
+    var g = ctx.createGain(); g.gain.value = 0; s.connect(g); g.connect(master);
+    var t = ctx.currentTime; s.start(); g.gain.setTargetAtTime(1, t, 0.03);
+    if (cur){ var o = cur; o.g.gain.setTargetAtTime(0, t, 0.03); setTimeout(function(){ try { o.s.stop(); } catch (e) {} o.g.disconnect(); }, 400); }
+    cur = { s: s, g: g };
+  }
+  function stop(){
+    if (cur){ var o = cur; o.g.gain.setTargetAtTime(0, ctx.currentTime, 0.02); setTimeout(function(){ try { o.s.stop(); } catch (e) {} o.g.disconnect(); }, 200); cur = null; }
+    playing = false; $('play').textContent = 'Play';
+  }
+  var pend = 0;
+  function refreshAudio(){ if (!playing) return; clearTimeout(pend); pend = setTimeout(function(){ playBuffer(render()); }, 50); }
+  $('play').addEventListener('click', function(){
+    if (playing){ stop(); return; }
+    ensure(); if (ctx.state === 'suspended') ctx.resume();
+    playing = true; $('play').textContent = 'Stop'; playBuffer(render());
+  });
+
+  // ---------- measurement ----------
+  var spec = null;
+  function e(v){ return v < 1e-12 ? '0' : v < 1e-3 ? v.toExponential(1) : v.toFixed(3); }
+  function measure(){
+    var a = coef(); spec = spectrum(a, f2);
+    var lines = [];
+    if (step === 2){
+      lines.push(MOVE_NAME[move] + ': the surface and its moved copy differ by <b>' + e(moveError(a, move)) + '</b> of its peak');
+      var kept = 0, flipped = 0, sent = 0;
+      for (var m = 0; m < K; m++) for (var n = 0; n < K; n++){ if (!a[m * K + n]) continue; var r = moveOnMode(move, m, n); if (r[0] !== m || r[1] !== n) sent++; else if (r[2] < 0) flipped++; else kept++; }
+      lines.push('your lit cells under it: <b>' + kept + '</b> kept · <b>' + flipped + '</b> turned upside down · <b>' + sent + '</b> sent to another cell');
+    }
+    if (step === 3){
+      if (group === 'p4'){
+        var same = true; for (m = 0; m < K; m++) for (n = 0; n < K; n++){ var q0 = moveOnMode('quarter0', m, n), sw = moveOnMode('swap', m, n); if (q0[0] !== sw[0] || q0[1] !== sw[1] || q0[2] !== sw[2]) same = false; }
+        lines.push('a quarter turn about (0, 0) does to every mode exactly what the swap does: <b>' + (same ? 'all 49 alike' : 'they differ') + '</b>');
+        lines.push('this surface after a quarter turn about (0, 0): <b>' + e(moveError(a, 'quarter0')) + '</b> · after the swap: <b>' + e(moveError(a, 'swap')) + '</b> · after flip φ₁: <b>' + e(moveError(a, 'flip1')) + '</b>');
+        lines.push('so asking for p4 hands you p4m, mirrors included. Turn about (π⁄2, π⁄2) instead and you get p4g, mirrors again: turns without mirrors cannot be drawn in this basis');
+      } else {
+        var c = counts(group);
+        lines.push(group + ' on the 7 × 7 grid: <b>' + c.free + '</b> free weights of 49 · <b>' + c.zero + '</b> zeroed · <b>' + c.tied + '</b> pairs tied' + (c.tiedNeg ? ' (' + c.tiedNeg + ' with a sign flip)' : ''));
+        lines.push('holds its moves: ' + GROUPS[group].moves.map(function(mv){ return MOVE_NAME[mv] + ' <b>' + e(moveError(a, mv)) + '</b>'; }).join(' · '));
+        lines.push('moves it does not ask for: ' + GROUPS[group].not.map(function(mv){ return MOVE_NAME[mv] + ' ' + e(moveError(a, mv)); }).join(' · '));
+      }
+    }
+    if (step >= 1 && f2 === TORUS.F1){
+      var os = oddShare(spec);
+      lines.push('at ratio 1, power at odd multiples of 110 Hz: <b>' + (os < 1e-12 ? 'none' : (100 * os).toFixed(1) + '%') + '</b>' + (os < 1e-12 ? ' · every line is an even multiple: the note sits an octave up' : ''));
+    }
+    $('meter').innerHTML = lines.join('<br>');
+    drawSpec();
+  }
+  var MOVE_NAME = { flip1: 'flip φ₁', flip2: 'flip φ₂', shift: 'shift (π, π)', swap: 'swap', quarter0: 'quarter turn about (0, 0)', quarterC: 'quarter turn about (π⁄2, π⁄2)' };
+
+  function changed(){ measure(); refreshAudio(); draw(); }
+
+  // ---------- controls ----------
+  function press(sel, attr, val){ Array.prototype.forEach.call(document.querySelectorAll(sel), function(b){ b.setAttribute('aria-pressed', String(b.getAttribute(attr) === String(val))); }); }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-ratio]'), function(b){ b.addEventListener('click', function(){ f2 = parseInt(b.getAttribute('data-ratio'), 10); press('[data-ratio]', 'data-ratio', f2); changed(); }); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-move]'), function(b){ b.addEventListener('click', function(){ move = b.getAttribute('data-move'); press('[data-move]', 'data-move', move); changed(); }); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-group]'), function(b){ b.addEventListener('click', function(){ group = b.getAttribute('data-group'); press('[data-group]', 'data-group', group); changed(); }); });
+  var seed = 11;
+  function rnd(){ seed = (seed * 16807) % 2147483647; return seed / 2147483647 * 2 - 1; }
+  $('rand').addEventListener('click', function(){ var a = blank(); for (var m = 0; m < K; m++) for (var n = 0; n < K; n++) a[m * K + n] = Math.round(100 * rnd() / (1 + 0.6 * (m + n))) / 100; drawn = a; changed(); });
+  $('clear').addEventListener('click', function(){ drawn = blank(); changed(); });
+
+  // ---------- the picture: surface, moved copy in step 3, and the grid ----------
+  var cv = $('stage'), css = getComputedStyle(document.documentElement);
+  var ACC = css.getPropertyValue('--accent').trim() || '#e8b84a', FG2 = css.getPropertyValue('--fg-2').trim() || '#c8c8d8', FG3 = css.getPropertyValue('--fg-3').trim() || '#8a8aa0', FG4 = css.getPropertyValue('--fg-4').trim() || '#4a4a5a', INFO = css.getPropertyValue('--info').trim() || '#4a8fff';
+  var layout = null, RES = 96, img = null, imgKey = '';
+  function heat(a, mv){
+    var c = document.createElement('canvas'); c.width = RES; c.height = RES;
+    var g = c.getContext('2d'), id = g.createImageData(RES, RES), vals = new Float64Array(RES * RES), pk = 1e-9, f = mv ? MOVES[mv] : null;
+    for (var j = 0; j < RES; j++) for (var i = 0; i < RES; i++){
+      var p = 2 * Math.PI * (i + 0.5) / RES, q = 2 * Math.PI * (RES - j - 0.5) / RES;
+      if (f){ var mm = f(p, q); p = mm[0]; q = mm[1]; }
+      var v = surfaceAt(a, p, q); vals[j * RES + i] = v; pk = Math.max(pk, Math.abs(v));
+    }
+    for (var k = 0; k < RES * RES; k++){
+      var t = vals[k] / pk, o = k * 4;
+      if (t >= 0){ id.data[o] = 26 + t * (232 - 26); id.data[o + 1] = 26 + t * (184 - 26); id.data[o + 2] = 40 + t * (74 - 40); }
+      else { t = -t; id.data[o] = 26 + t * (74 - 26); id.data[o + 1] = 26 + t * (143 - 26); id.data[o + 2] = 40 + t * (255 - 40); }
+      id.data[o + 3] = 255;
+    }
+    g.putImageData(id, 0, 0); return c;
+  }
+  function draw(){
+    var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    var panes = step === 2 ? 3 : 2, gap = 14, pad = 12;
+    var S = Math.min(360, (r.width - 2 * pad - (panes - 1) * gap) / panes), cssH = Math.round(S + 2 * pad + 18);
+    if (cv.style.height !== cssH + 'px') cv.style.height = cssH + 'px';
+    var W = Math.round(r.width * d), Hh = Math.round(cssH * d);
+    if (!W || !Hh) return;
+    if (cv.width !== W || cv.height !== Hh){ cv.width = W; cv.height = Hh; }
+    var g = cv.getContext('2d'); g.clearRect(0, 0, W, Hh); g.imageSmoothingEnabled = true;
+    var a = coef(), x = pad * d, y = (pad + 16) * d, s = S * d;
+    g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.fillStyle = FG4; g.textAlign = 'left';
+    g.fillText('THE SURFACE', x, y - 6 * d);
+    g.drawImage(heat(a, null), x, y, s, s);
+    // the scan path: phi2 = (f2 / 110) phi1, drawn for a few turns of phi1
+    var turns = f2 === 178 ? 6 : 2, ratio = f2 / TORUS.F1;
+    g.strokeStyle = 'rgba(232,232,240,0.55)'; g.lineWidth = d; g.beginPath();
+    var prev = null;
+    for (var i = 0; i <= 900; i++){
+      var p1 = 2 * Math.PI * turns * i / 900, p2 = ratio * p1;
+      var px = x + ((p1 % (2 * Math.PI)) / (2 * Math.PI)) * s, py = y + s - ((p2 % (2 * Math.PI)) / (2 * Math.PI)) * s;
+      if (prev && Math.abs(px - prev[0]) < s / 2 && Math.abs(py - prev[1]) < s / 2) g.lineTo(px, py); else g.moveTo(px, py);
+      prev = [px, py];
+    }
+    g.stroke();
+    if (step === 2){
+      x += s + gap * d; g.fillStyle = FG4; g.fillText('AFTER THE MOVE', x, y - 6 * d);
+      g.drawImage(heat(a, move), x, y, s, s);
+    }
+    // the grid
+    x += s + gap * d; g.fillStyle = FG4; g.fillText('THE MODES · ROW m, COLUMN n', x, y - 6 * d);
+    var cs = s / K; layout = { x: x / d, y: y / d, s: S, cs: S / K };
+    var rule = step === 3 && GROUPS[group] ? group : step === 3 && group === 'p4' ? 'p4m' : null;
+    g.textAlign = 'center'; g.textBaseline = 'middle';
+    for (var m = 0; m < K; m++) for (var n = 0; n < K; n++){
+      var cx = x + n * cs, cy = y + m * cs, v = a[m * K + n], R = rule ? ruleFor(rule, m, n) : { kind: 'free' };
+      g.fillStyle = 'rgba(255,255,255,0.03)'; g.fillRect(cx + 1, cy + 1, cs - 2, cs - 2);
+      if (R.kind === 'zero'){ g.strokeStyle = FG4; g.lineWidth = d; g.beginPath(); g.moveTo(cx + cs * 0.3, cy + cs * 0.3); g.lineTo(cx + cs * 0.7, cy + cs * 0.7); g.moveTo(cx + cs * 0.7, cy + cs * 0.3); g.lineTo(cx + cs * 0.3, cy + cs * 0.7); g.stroke(); continue; }
+      if (v){ g.fillStyle = v > 0 ? ACC : INFO; g.globalAlpha = 0.25 + 0.65 * Math.min(1, Math.abs(v)); g.fillRect(cx + 3 * d, cy + 3 * d, cs - 6 * d, cs - 6 * d); g.globalAlpha = 1; }
+      if (step === 2){ var mr = moveOnMode(move, m, n); g.fillStyle = FG2; g.font = (Math.max(9, cs / d * 0.34) * d) + 'px JetBrains Mono, monospace'; g.fillText(mr[0] !== m || mr[1] !== n ? '↔' : mr[2] < 0 ? '−' : '+', cx + cs / 2, cy + cs / 2); }
+      else if (R.kind === 'tie'){ g.fillStyle = FG2; g.font = (Math.max(9, cs / d * 0.3) * d) + 'px JetBrains Mono, monospace'; g.fillText((R.sign < 0 ? '−' : '=') + R.m + ',' + R.n, cx + cs / 2, cy + cs / 2); }
+      else if (v){ g.fillStyle = '#0a0a0f'; g.font = (Math.max(9, cs / d * 0.26) * d) + 'px JetBrains Mono, monospace'; g.fillText((v > 0 ? '' : '−') + Math.abs(v).toFixed(1).replace(/^0/, ''), cx + cs / 2, cy + cs / 2); }
+    }
+    g.textBaseline = 'alphabetic'; g.fillStyle = FG4; g.font = (9 * d) + 'px JetBrains Mono, monospace';
+    for (m = 0; m < K; m++){ g.textAlign = 'right'; g.fillText(String(m), x - 3 * d, y + m * cs + cs / 2 + 3 * d); g.textAlign = 'center'; g.fillText(String(m), x + m * cs + cs / 2, y + s + 12 * d); }
+    g.textAlign = 'left';
+  }
+  cv.addEventListener('click', function(ev){
+    if (!layout || step === 0) return;
+    var r = cv.getBoundingClientRect(), px = ev.clientX - r.left - layout.x, py = ev.clientY - r.top - layout.y;
+    if (px < 0 || py < 0 || px >= layout.s || py >= layout.s) return;
+    var n = Math.floor(px / layout.cs), m = Math.floor(py / layout.cs), i = m * K + n, v = coef()[i];
+    var next = v > 0 ? -1 : v < 0 ? 0 : 1;
+    var rule = step === 3 && GROUPS[group] ? group : step === 3 && group === 'p4' ? 'p4m' : null;
+    if (rule){ var R = ruleFor(rule, m, n); if (R.kind === 'zero') return; drawn[i] = next; if (R.kind === 'tie') drawn[R.m * K + R.n] = R.sign * next; }
+    else drawn[i] = next;
+    changed();
+  });
+
+  // ---------- the scan's lines ----------
+  var sc = $('spec');
+  function drawSpec(){
+    var r = sc.getBoundingClientRect(), d = window.devicePixelRatio || 1, W = Math.round(r.width * d), Hh = Math.round(r.height * d);
+    if (!W || !Hh || !spec) return;
+    if (sc.width !== W || sc.height !== Hh){ sc.width = W; sc.height = Hh; }
+    var g = sc.getContext('2d'); g.clearRect(0, 0, W, Hh);
+    var top = 8 * d, base = Hh - 16 * d, x0 = 8 * d, x1 = W - 8 * d, fmax = 2000, pk = 1e-9;
+    for (var f = 1; f <= fmax; f++) pk = Math.max(pk, spec[f]);
+    g.strokeStyle = 'rgba(255,255,255,0.05)'; g.lineWidth = d;
+    for (var h = 1; h * 110 <= fmax; h++){ var hx = x0 + h * 110 / fmax * (x1 - x0); g.beginPath(); g.moveTo(hx, top); g.lineTo(hx, base); g.stroke(); }
+    g.strokeStyle = ACC; g.lineWidth = 2 * d;
+    for (f = 1; f <= fmax; f++){ if (spec[f] < pk * 1e-6) continue; var fx = x0 + f / fmax * (x1 - x0), hh = spec[f] / pk * (base - top); g.beginPath(); g.moveTo(fx, base); g.lineTo(fx, base - hh); g.stroke(); }
+    g.fillStyle = FG4; g.font = (9 * d) + 'px JetBrains Mono, monospace'; g.textAlign = 'center';
+    [0, 500, 1000, 1500, 2000].forEach(function(t){ g.fillText(t + ' Hz', x0 + t / fmax * (x1 - x0) + (t === 0 ? 14 * d : t === 2000 ? -18 * d : 0), Hh - 3 * d); });
+    g.textAlign = 'left';
+  }
+
+  // ---------- step walking ----------
+  var rail = $('rail');
+  STEPS.forEach(function(s, i){ var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short; b.addEventListener('click', function(){ go(i); }); rail.appendChild(b); });
+  function go(i){
+    if (playing) stop();
+    var was = step; step = i; var s = STEPS[i];
+    Array.prototype.forEach.call(rail.children, function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    $('stepEyebrow').textContent = 'Step ' + (i + 1) + ' of ' + STEPS.length + (s.test ? ' · the test' : '');
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say; $('tryText').textContent = s.tryText;
+    $('eq1').textContent = s.eq1[0]; $('eq1w').textContent = s.eq1[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('editRow').hidden = i === 0; $('moveRow').hidden = i !== 2; $('groupRow').hidden = i !== 3;
+    if (i === 0) drawn = only11();
+    else if (was === 0 || drawn.join() === only11().join()) drawn = starter();
+    $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
+    measure(); draw();
+  }
+  $('back').addEventListener('click', function(){ if (step > 0) go(step - 1); });
+  $('next').addEventListener('click', function(){ if (step < STEPS.length - 1) go(step + 1); });
+  window.addEventListener('resize', function(){ draw(); drawSpec(); });
+
+  go(0);
+})();
+</script>
+</body>
+</html>

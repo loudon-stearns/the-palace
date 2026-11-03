@@ -1,0 +1,132 @@
+{
+  "title": "Chebyshev is Fourier — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Chebyshev is Fourier]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    }
+  ],
+  "forward_vector": "I am the manifest of Chebyshev is Fourier's rich face, its first round at Sketch tier, a proposal: three walks, each up to a test of its section's claim (the waveshaper's drive, Chebyshev's points against Runge, a wallpaper group's rules on the torus grid), and the Dissolutions proof of the identity gathered after the first, with the fingerprint of the words each was laid against. What the tests found waits below as offers. I never hold the entry's words.",
+  "entry": "Chebyshev is Fourier",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "Three approximation topics, one identity",
+      "kind": "claim-change",
+      "what": "The identity sentence holds as written: a full-width cosine through Tₙ gives harmonic n alone (through a 4097-point table every other harmonic sits below −100 dB, and the browser's own WaveShaperNode agrees with that table to 1.6e-7). The next sentence, 'a weighted sum of Chebyshev polynomials is a waveshaper whose output harmonics are its coefficients', needs the same condition and doesn't state it. Measured: at drive a, Tₙ's own harmonic comes out at aⁿ and the rest spills into lower harmonics of its parity (T₃ at a = 0.50: h1 = −1.125, h3 = 0.125). A saw built this way misses its drawbars by 6.6% of the loudest at a = 0.99 (−23.6 dB) and by 42% at a = 0.90, where harmonics 4 to 6 are nearly gone; above 1 the table holds its end values and puts about −17 dB of the power above its top drawbar. Proposed: '…whose output harmonics are its coefficients when it is driven at full scale; drive it softer and the spectrum moves with the drive.'",
+      "status": "open"
+    },
+    {
+      "section": "Three approximation topics, one identity",
+      "kind": "claim-change",
+      "what": "'Often terrible far away (Runge's phenomenon)' gives Taylor's failure the wrong name. Runge's phenomenon is what a polynomial through evenly spaced points does at the ends; Taylor's series of the same curve, 1/(1 + 25x²), fails because it adds up only within 1/5 of its centre, the distance to the curve's poles at ±i/5. Measured in the nodes piece: Taylor at 0 converges inside |x| ≤ 0.15 (worst gap 3.6e-2 at degree 8, 6.4e-5 at degree 30) and diverges at x = 0.25 (3.6 at degree 8, 490 at degree 30), while interpolation at evenly spaced points passes a worst gap of 1 at n = 9 and reaches 60 at n = 21, and at the shadow points falls to 1.5e-2. Proposed: '…often terrible far away (past its radius of convergence; Runge's phenomenon is the related failure of fitting through evenly spaced points).'",
+      "status": "open"
+    },
+    {
+      "section": "Spending it back into the torus",
+      "kind": "claim-change",
+      "what": "'The group zeroes out the rest' holds for some groups only. On the 7 × 7 grid of cos(mφ₁)·cos(nφ₂), measured: cmm zeroes 24 modes (m + n odd) and ties none; p4m zeroes none and ties 21 pairs across the diagonal (aₘₙ = aₙₘ), leaving 28 of 49 free; p4g zeroes 27 and ties 9 pairs, 3 of them with a sign flip. Every projected surface holds its group's moves to 4e-15 and breaks the next move up. The cosine-times-cosine basis also has both axis mirrors built in (flip error exactly 0 for any weights), so a quarter turn asked for without mirrors comes out as p4m or p4g. Reasoned from that, not measured group by group: this basis reaches only the four groups with mirrors in two perpendicular directions on a square cell (pmm, cmm, p4m, p4g); the other thirteen need sine terms, and the 3- and 6-fold ones a lattice a square torus doesn't have. The subspace sentence stands. Proposed: 'the group zeroes some modes and ties others in pairs', and a clause that this cosine basis reaches pmm, cmm, p4m and p4g only.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Three approximation topics, one identity",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Chebyshev is Fourier — rich — the drive.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio",
+          "title": "The drive · a waveshaper built from Chebyshev tables",
+          "caption": "**Harmonic design by lookup table, and the one knob the sentence holds still.** Five steps: a 110 Hz cosine through a straight table, then through T₂ for one octave, then any Tₙ for the nth harmonic, then one table summed from eight drawbars, its harmonics measured off the browser's own WaveShaperNode. Last, the drive: the amplitude of the cosine going in. At 1 the drawbars are the spectrum. Below 1 each table's harmonic falls as aⁿ and spills downward; a saw misses its drawbars by 7% at a drive of 0.99. Above 1 the table holds its ends and sprays harmonics past the top drawbar.\n\nTₙ(a · cos θ) = aⁿ · cos(nθ) + (lower harmonics of the same parity)\n\n(table n, read by a cosine at drive a) = (the drive to the nth power) × (harmonic n) + (harmonics below n, of the same parity)",
+          "near": "harmonic design by lookup table",
+          "place": "band",
+          "height": 1300
+        },
+        {
+          "file": "Dissolutions/proofs/2026-10-20-the-circles-shadow/the-circles-shadow.html",
+          "origin": "gathered",
+          "contract": {
+            "needs": "storage"
+          },
+          "title": "The circle's shadow · a Dissolutions proof, 2026-10-20",
+          "caption": "**The proof the walk above leads to: one table, one stack of cosines, one null.** Made for [[Dissolutions]] and gathered as it was. Set ten drawbars once; the page builds the tone as one curve read by a cosine and as ten cosines added up, in code that shares nothing, and plays their difference: silence at full reach, to the last bit of a double. Its reach slider is the drive above, turned down only. Loudon played it on 2026-10-25 and sent it back with its five siblings: 'these are the end of a proof, we need to work our way there with each of them.' On this page the drive above is a way up to it; its own learning sequence waits, paused, on a Dissolutions branch.",
+          "near": "harmonic design by lookup table",
+          "place": "band",
+          "height": 1750
+        }
+      ],
+      "made_against": "334a1df5d2ce",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The identity itself",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Chebyshev is Fourier — rich — nodes on the circle.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · canvas",
+          "title": "Nodes on the circle · the points that beat Runge",
+          "caption": "**Equal steps round a circle, dropped to the line, and what they do for a polynomial.** Four steps: a point going round and its shadow, n equal steps whose shadows bunch at the ends (the roots of Tₙ), a polynomial through n evenly spaced points that flies off at the ends, and then the test: the same curve through the shadows' points. At n = 21 the worst gap is 60 through evenly spaced points and 0.015 through the shadows'. Taylor's series at the middle rides along as a third reading, to show its failure is a different one. Silent.\n\nxₖ = cos((2k + 1)π ⁄ 2n)\n\n(shadow point k) = the cosine of (equal step k round the half circle)",
+          "near": "the clustered roots that beat",
+          "place": "band",
+          "height": 1150
+        }
+      ],
+      "made_against": "802f8e14387b",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Spending it back into the torus",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Chebyshev is Fourier — rich — selection rules.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio",
+          "title": "Selection rules · which modes a symmetry lets a torus surface keep",
+          "caption": "**Ask the torus for a wallpaper group, and count what it does to the cosine grid.** Four steps: one mode cos φ₁ · cos φ₂, heard as two tones when two phases scan it; a 7 × 7 grid of modes; one symmetry move and what it does to each mode; then the test. cmm zeroes every mode with m + n odd, and at a scan ratio of 1 the note jumps an octave. p4m zeroes nothing and ties each cell to its mirror across the diagonal. p4g does both, some ties with a sign. A quarter turn without mirrors can't be had: the basis brought its mirrors with it.\n\nW(g · φ) = W(φ) for every move g in the group\n\n(the surface after any of the group's moves) = (the surface)",
+          "near": "impose selection rules on which harmonic pairs",
+          "place": "band",
+          "height": 1350
+        }
+      ],
+      "made_against": "a933875f2f37",
+      "stamped": "2026-11-03"
+    }
+  ]
+}
