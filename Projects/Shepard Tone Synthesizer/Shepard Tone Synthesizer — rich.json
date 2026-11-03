@@ -51,7 +51,23 @@
      "near": "Keep ascending forever; arrive nowhere"
     }
    ],
-   "stamped": "2026-11-03"
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/2026-05-04-shepard-explanation.png",
+      "verdict": "keep",
+      "why": "Illustrates rather than tests, but the caption says honestly where it disagrees with the text (window near 300 Hz on A, not C4), which sets up offer 2. Note: 'near silent' at entry is about −16 dB on the chart's own curve."
+     },
+     {
+      "file": "proofs/2026-05-04-endless-ascent-v2.wav",
+      "verdict": "keep",
+      "why": "The mechanism as sound; the caption's history (clicks from every octave snapping back, fixed by a per-voice wrap near zero) matches the 2026-05-04 Proof Showcase v2."
+     }
+    ]
+   }
   },
   {
    "heading": "The Synthesizer Architecture",
@@ -74,7 +90,18 @@
      "near": "In Ableton, this is easy"
     }
    ],
-   "stamped": "2026-11-03"
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "session-1-interactive.html",
+      "verdict": "keep",
+      "why": "A real thing to make rather than a test; the caption flags its one aged step (line 530 offers a saw) against Stage 4's measurement."
+     }
+    ]
+   }
   },
   {
    "heading": "Portamento in a Polyphonic Shepard",
@@ -102,7 +129,23 @@
      "near": "Practical effect"
     }
    ],
-   "stamped": "2026-11-03"
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/2026-09-15-stage3-broken-async-450ms.wav",
+      "verdict": "keep",
+      "why": "Half of an A/B pair that could go against the text by ear, placed at 'The challenge'."
+     },
+     {
+      "file": "proofs/2026-09-15-stage3-glide-450ms.wav",
+      "verdict": "keep",
+      "why": "The other half of the A/B pair, placed at 'Practical effect'."
+     }
+    ]
+   }
   },
   {
    "heading": "Theory — Octave Equivalence",
@@ -224,7 +267,83 @@
      "near": "The third answer corrects the architecture"
     }
    ],
-   "stamped": "2026-11-03"
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Shepard Tone Synthesizer — rich — the still drone.html",
+      "verdict": "remake",
+      "why": "Step 3 stands a Gaussian drawn on a linear Hz axis in for the page's 'literal bandpass', so it confirms the sentence by construction; a real 2-pole bandpass at C4 is symmetric in octaves (C3 = C5 = −3.0 dB, 28.7 % below and above). Add that bandpass as a fourth window with the low/high energy readout, rename the Hz bell for what it is, and let step 3 ask rather than answer; engine, walk and step 4 stand."
+     },
+     {
+      "file": "proofs/2026-05-04-endless-ascent.wav",
+      "verdict": "keep",
+      "why": "The counter-case beside 'the seam is free': a wrap that clicked because every voice snapped at once; the quote is sourced in the May showcase."
+     },
+     {
+      "file": "Shepard Tone Synthesizer — rich — the free seam.html",
+      "verdict": "remake",
+      "why": "A real blind test with right chance figures and one wrap per trial, but it calls session-2's window (600 Hz, σ 1.6) 'the page's', and in that window the semitone-off wrap lands 33.2 dB down and peaks at −19.8 dB, so page/wrong will likely score near chance and read as 'octave equivalence does nothing'. Relabel the window, name the two comparisons (page/octave vs wide/octave; wide/octave vs wide/wrong), say page/wrong is expected near chance, and ask for headphones (27 Hz and 14 kHz ends); tally and engine stand."
+     },
+     {
+      "file": "session-2-interactive.html",
+      "verdict": "keep",
+      "why": "The proof the free-seam walk ends at, gathered as built."
+     },
+     {
+      "file": "rich-face/2026-10-18-stage3-A-lockstep.wav",
+      "verdict": "keep",
+      "why": "Caption matches the Stage 3 render manifest: 0.0 ¢."
+     },
+     {
+      "file": "rich-face/2026-10-18-stage3-C-drift-040.wav",
+      "verdict": "keep",
+      "why": "Caption matches the Stage 3 render manifest: 92.8 ¢ worst."
+     },
+     {
+      "file": "rich-face/2026-10-18-stage3-E-hz-slew.wav",
+      "verdict": "keep",
+      "why": "Caption matches the Stage 3 render manifest: 1005.9 ¢ at 150 Hz/s."
+     },
+     {
+      "file": "proofs/2026-10-18-stage3-glide-fusion.png",
+      "verdict": "keep",
+      "why": "The measurement behind the three clips beside it."
+     },
+     {
+      "file": "session-3-interactive.html",
+      "verdict": "keep",
+      "why": "The section's test, playable; the controls the caption names exist, and its review-layer storage warning is the gathered record's own."
+     },
+     {
+      "file": "rich-face/2026-10-18-stage4-A-ratio4.wav",
+      "verdict": "keep",
+      "why": "Caption matches the Stage 4 render manifest: purity 0.924, fifth 0.065."
+     },
+     {
+      "file": "rich-face/2026-10-18-stage4-D-tracks-note.wav",
+      "verdict": "keep",
+      "why": "Caption matches the Stage 4 render manifest: a 0.195-octave brightness jump."
+     },
+     {
+      "file": "rich-face/2026-10-18-stage4-E-sum-window-11.wav",
+      "verdict": "keep",
+      "why": "Caption matches the Stage 4 render manifest (seam −29.5 dB) and says honestly nobody has listened for the thump."
+     },
+     {
+      "file": "proofs/2026-10-18-stage4-timbre.png",
+      "verdict": "keep",
+      "why": "The measurement behind the Stage 4 clips."
+     },
+     {
+      "file": "session-4-interactive.html",
+      "verdict": "keep",
+      "why": "The section's test, playable; the controls the caption names exist."
+     }
+    ]
+   }
   }
  ],
  "offers": [
