@@ -23,25 +23,31 @@
    "section": "The Core Architecture",
    "kind": "claim-change",
    "status": "open",
-   "what": "The gain knob \"multiplies the write amplitude\", as the April spec had it, but every build since the séance puts it on the read side (stage-2-the-seance.md: \"the knob sits on the way out of the buffer, not the way in\"; the plugin's Summon does the same). The tape piece ran three gestures twelve ways on an engine that reproduces the steward's renders sample for sample. Knob still: all four versions return 1.00. Knob raised mid-phrase: the read-side knob brings back 0.97 of what was played while it was down, the write-side knob 0.00. Knob raised a measure after you stop: only the read-side knob with silence keeping brings the phrase back (0.94); every other version 0.00. So \"Gain 0 = silence (the past is gone)\" is true on the write side; on the read side gain 0 hides the past and keeps it. A possible line: the knob scales what the read head plays; at 0 the past is hidden, not erased."
+   "what": "The gain knob \"multiplies the write amplitude\", as the April spec had it, but every build puts it on the read side: the witness (witness_model.py, \"the conduit, on the read side\"; build_witness_patch.py), the séance (stage-2-the-seance.md: \"the knob sits on the way out of the buffer, not the way in\"), the gen~ and RNBO codeboxes, and the plugin's Summon. The write side lives only in the April spec and on the page. The tape piece ran three gestures twelve ways on an engine that reproduces the steward's renders sample for sample. Knob still: all four versions return 1.00. Knob raised mid-phrase: the read-side knob brings back 0.97 of what was played while it was down, the write-side knob 0.00. Knob raised a measure after you stop: only the read-side knob with silence keeping brings the phrase back (0.94); every other version 0.00. So \"Gain 0 = silence (the past is gone)\" is true on the write side; on the read side gain 0 hides the past and keeps it. A possible line: the knob scales what the read head plays; at 0 the past is hidden, not erased."
   },
   {
    "section": "The Core Architecture",
    "kind": "claim-change",
    "status": "open",
-   "what": "\"Always recording ... the buffer always contains exactly the last measure\" describes the witness, which writes your silence over the phrase a measure after you stop. The page's opening line (\"When you play silence, the last phrase repeats\") needs the séance's rule: the tape writes while you play and keeps what it holds while you're silent (tape[w] ← tape[w] + listen·(x − tape[w]), with a 5 ms crossfade). The tape piece's fourth step plays both. A possible line: always listening; it writes while you play and holds the last measure while you're silent."
+   "what": "\"Always recording ... the buffer always contains exactly the last measure\" describes the witness, which writes your silence over the phrase a measure after you stop. The page's opening line (\"When you play silence, the last phrase repeats\") needs the séance's rule: the tape writes while you play and keeps what it holds while you're silent (tape[w] ← tape[w] + listen·(x − tape[w]), with a 5 ms crossfade). The tracked renders show it: ghost RMS in the second silent measure is 0.000 for witness A (always recording) and 0.077 for witness B (silence keeps), which holds 0.077 a measure later. The tape piece's fourth step plays both. A possible line: always listening; it writes while you play and holds the last measure while you're silent."
   },
   {
    "section": "How It Differs From Standard Delay",
    "kind": "claim-change",
    "status": "open",
-   "what": "As the core architecture describes it (always recording, read half a measure back), the device is exactly a single-tap half-note echo with no feedback: the phrase-or-taps piece measures max |difference| = 0 over 384,000 samples, as the witness model found first (stage-1-the-witness.md). The clarity claim holds for the séance: with phrase one, two silent measures, then phrase two, the séance keeps 0.94 of phrase one and leaves 0.00 under phrase two. An echo with a one-measure tap keeps f and leaves 0.42 at f = 0.8 and 0.82 at f = 0.95; across 51 feedback settings none does both. There is also no feedback path to call \"natural\": the held loop is the tape keeping what it holds. A possible change: name silence-keeps as what makes it more than an echo, and say the clarity comes from new playing writing over the held measure."
+   "what": "As the core architecture describes it (always recording, read half a measure back), the device is exactly a single-tap half-note echo with no feedback: the phrase-or-taps piece measures max |difference| = 0 over 384,000 samples, as the witness model found first (stage-1-the-witness.md). The clarity claim holds for the séance: with phrase one, two silent measures, then phrase two, the séance keeps 0.94 of phrase one and leaves 0.00 under phrase two. An echo with a one-measure tap keeps f and leaves 0.42 at f = 0.8 and 0.82 at f = 0.95; across 51 feedback settings none does both. No build feeds the ghost back into the tape (every write takes the input alone; the steward dropped the April draft's promised re-echoes for that reason), so there is no feedback path to call \"natural\". The kindest reading: the held tape is a loop at feedback 1 that new playing writes over. A possible change: name silence-keeps as what makes it more than an echo, and say the clarity comes from new playing writing over the held measure."
   },
   {
    "section": "Open Questions",
    "kind": "claim-change",
    "status": "open",
-   "what": "Item 2 still asks about a discontinuity \"at the boundary\" when the buffer loops. The séance found the seam isn't there: the read head never jumps, so the measure line is seamless; the click comes where you stop playing and where you come back in. Measured in the séance model and reproduced by this face's engine: largest step 0.178 switched hard against 0.011 with the 5 ms crossfade (a held chord's own is 0.013); coming back in, 0.237 against 0.033 (the pluck's own attack). A possible addition to the answer line: the seam turned out to be where you stop and start, not the measure line."
+   "what": "Item 2 still asks about a discontinuity \"at the boundary\" when the buffer loops. The séance found the seam isn't there: the read head never jumps, so the measure line is seamless; the click comes where the tape starts holding, about 0.45 s after you stop (the gate waits out its 100 ms release), and exactly where you come back in; the largest step at the measure line is 0.008. Measured in the séance model and reproduced by this face's engine: largest step 0.178 switched hard against 0.011 with the 5 ms crossfade (a held chord's own is 0.013); coming back in, 0.237 against 0.033 (the pluck's own attack). A possible addition to the answer line: the seam turned out to be where the tape starts holding, just after you stop, and where you come back in, not the measure line."
+  },
+  {
+   "section": "Open Questions",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "Item 1 (how many measures the buffer should hold) only matters once the tape holds. With an always-recording tape the buffer's length never shows: the witness equals a half-note echo to the last sample (max difference 0) whatever its length, because the read head reaches each slot before the write head comes back. Under silence-keeps the length is the loop, and shrinking-measure.wav shows how far that reaches: 2 s is a phrase, 250 ms a stutter, 50 ms a flutter, 500 samples a tone. A possible clause: \"once the tape holds in silence, the buffer's length is the loop's length.\""
   }
  ],
  "sections": [
@@ -111,7 +117,7 @@
      "height": 620,
      "near": "Retrospective Delay thinks in",
      "title": "Echo, echo, echo — or the phrase?",
-     "caption": "**Phrases or taps, tested.** One phrase into silence; a half-note echo repeating it tap by tap; then the always-recording tape the core architecture describes, which cancels against an echo with no feedback to the last sample. The test plays phrase one, two measures of silence, then phrase two, and sweeps an echo's feedback from 0 to 1. No setting both keeps phrase one and clears it under phrase two. The séance does both: it keeps 0.94 and leaves 0.00."
+     "caption": "**Phrases or taps, tested.** One phrase into silence; a half-note echo repeating it tap by tap; then the always-recording tape the core architecture describes, which cancels against an echo with no feedback to the last sample. The test plays phrase one, two measures of silence, then phrase two, and sweeps an echo's feedback from 0 to 1. No setting both keeps phrase one and clears it under phrase two. The séance does both: it keeps 0.94 and leaves 0.00. The séance's held tape is itself a loop at feedback 1, one that new playing writes over instead of piling onto."
     }
    ]
   },
@@ -259,7 +265,7 @@
      "place": "margin",
      "near": "Cross-fade between measures",
      "title": "the seam, switched hard",
-     "caption": "A held chord that stops mid-measure; the tape switches from listening to holding at once. The tick comes once a pass, where you stopped, not at the measure line: the largest step between samples is 0.178, against 0.013 in the chord itself."
+     "caption": "A held chord that stops mid-measure; the tape switches from listening to holding at once. The tick comes once a pass where the tape starts holding, about 0.45 s after the chord stops (the gate waits out its 100 ms release), not at the measure line: the largest step between samples is 0.178 there, against 0.013 in the chord itself and 0.008 at the measure line."
     },
     {
      "file": "stage-2-seance/seam-smoothed.wav",
