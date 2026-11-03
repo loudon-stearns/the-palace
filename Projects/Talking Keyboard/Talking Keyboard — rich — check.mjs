@@ -35,6 +35,11 @@ const sameSamples = (a, b) => a.x.length === b.x.length && a.x.every((v, i) => v
   const ay = wav(E, join(HERE, 'rich-face', R.lesson.ay.files.af_heart));
   for (const k of ['aye', 'ey']) ok(sameSamples(ay, wav(E, join(HERE, 'rich-face', R.audition[k].files.af_heart))), `“${k} four” is “ay four”, sample for sample`);
   ok(!sameSamples(ay, wav(E, join(HERE, 'rich-face', R.audition.ate.files.af_heart))), '“ate four” is not');
+  const strict = (ipa) => ipa.split(' ')[0] === R.probe.A, seven = { ...R.audition, ay: R.lesson.ay, eigh: R.lesson.eigh };
+  const passing = Object.keys(seven).filter((k) => strict(seven[k].ipa));
+  ok(passing.length === 1 && passing[0] === 'eigh' && !strict(R.lesson.A.ipa), `strict check (A word exactly ${R.probe.A}) passes ${passing.join(', ')} of the seven, and not the spec’s A`);
+  const html = readFileSync(join(HERE, 'Talking Keyboard — rich — three spellings of A.html'), 'utf8');
+  ok(!/could not have done is pick/.test(html) && /passes eigh alone/.test(html), 'the found text says the strict check picks eigh, not that it could not choose');
   ok(/^ɐ /.test(R.lesson.A.ipa) && /^ˈaɪ /.test(R.lesson.ay.ipa) && /^ˈeɪ /.test(R.lesson.eigh.ipa), `front end: A → ${R.lesson.A.ipa}, ay → ${R.lesson.ay.ipa}, eigh → ${R.lesson.eigh.ipa}`);
   ok(R.probe.A === 'ˈeɪ', `front end on “A” alone: ${R.probe.A}`);
   ok(['ate', 'ace', 'A-dot'].every((k) => /ˈeɪ/.test(R.audition[k].ipa)) && ['aye', 'ey'].every((k) => R.audition[k].ipa === R.lesson.ay.ipa), 'four audition rows reach eɪ; aye and ey write the same phonemes as ay');
@@ -70,6 +75,7 @@ const sameSamples = (a, b) => a.x.length === b.x.length && a.x.every((v, i) => v
     for (let k = E.LOW; k <= E.HIGH; k++) { let any = false; for (const v of [16, 48, 80, 112]) { const [k2, v2] = E.BUGS[kind].map(k, v, b); if (k2 < E.LOW || k2 > E.HIGH) inRange = false; if (E.regionFor(map, k2, v2) !== E.regionFor(map, k, v)) any = true; } if (any) touched++; }
     ok(inRange && touched === E.BUGS[kind].touches(), `${E.BUGS[kind].name}: touches ${touched} keys (the page says ${E.BUGS[kind].touches()}), stays on the keyboard`);
   }
+  ok('none' in E.BUGS && Object.keys(E.BUGS).length === 5, 'a clean map is one of five plants, so a swap cannot be named by elimination');
   // E[presses] = (N+1)/(k+1), by simulation: distinct keys in a random order
   for (const k of [2, 88]) {
     let sum = 0; const T = 200000;
@@ -81,7 +87,7 @@ const sameSamples = (a, b) => a.x.length === b.x.length && a.x.every((v, i) => v
 // ---- the next variant ----
 {
   console.log('\nthe next variant');
-  const E = engine('Talking Keyboard — rich — the next variant.html', ['parseWav', 'meantOk', 'voicePitch', 'keyHz']);
+  const E = engine('Talking Keyboard — rich — the next variant.html', ['parseWav', 'meantOk', 'voicePitch', 'keyHz', 'retune']);
   const count = (vk, lang) => R.variants[vk].keys.filter((k, i) => E.meantOk(k.ipa, lang, i)).length;
   ok(count('solfege', 'en') === 1 && E.meantOk(R.variants.solfege.keys[3].ipa, 'en', 3), `solfège as written: ${count('solfege', 'en')} of 7 the syllable meant (only fa): ${R.variants.solfege.keys.map((k) => k.ipa.split(' ')[0]).join(' ')}`);
   ok(count('respelt', 'en') === 7, `respelt: ${count('respelt', 'en')} of 7`);
@@ -94,6 +100,8 @@ const sameSamples = (a, b) => a.x.length === b.x.length && a.x.every((v, i) => v
     const lo = Math.min(...ps), hi = Math.max(...ps);
     ok(hi / lo < 1.3 && E.keyHz(96) / E.keyHz(24) === 64, `layer ${l}: the voice speaks at ${lo} to ${hi} Hz across C1 to C7 (×${(hi / lo).toFixed(2)}) while the keys span ×64`);
   }
+  ok(E.retune(24) === 1 / 8 && E.retune(96) === 8 && E.retune(60) === 1, 'the retuned arm plays C1 at 1/8 speed, C4 as rendered, C7 at 8×');
+  { const html = readFileSync(join(HERE, 'Talking Keyboard — rich — the next variant.html'), 'utf8'); ok(!/total, not partial/.test(html) && /demonstration/.test(html) && /letter still checks/.test(html), 'step 4 calls the pitch-class arm a demonstration and says the letter still checks'); }
   ok(Math.abs(E.keyHz(24) - 32.7) < 0.05 && Math.abs(E.keyHz(96) - 2093) < 0.5, `C1 = ${E.keyHz(24).toFixed(2)} Hz, C7 = ${E.keyHz(96).toFixed(1)} Hz`);
 }
 

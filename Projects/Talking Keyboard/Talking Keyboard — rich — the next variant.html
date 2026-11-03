@@ -87,7 +87,7 @@
     <div class="keys" id="keys"></div>
     <div class="rowb">
       <span class="grp" id="g-fix"><span class="l">variant</span><button class="ghost small" data-fix="respelt">respelt · English</button><button class="ghost small" data-fix="italian">“do quattro” · Italian</button><button class="ghost small" data-fix="french">“do quatre” · French</button></span>
-      <span class="grp" id="g-mode"><span class="l">the Cs</span><button class="ghost small" data-mode="shipped">as shipped</button><button class="ghost small" data-mode="pc">pitch class only</button></span>
+      <span class="grp" id="g-mode"><span class="l">the Cs</span><button class="ghost small" data-mode="shipped">as shipped</button><button class="ghost small" data-mode="pc">pitch class only</button><button class="ghost small" data-mode="tuned">pitch class, retuned</button></span>
       <span class="grp" id="g-myst"><button class="play" id="myst">▸ play a C, any octave</button></span>
     </div>
     <div class="rowb hide" id="g-oct"><span class="l" style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)">which C was it</span></div>
@@ -136,6 +136,8 @@ function voicePitch(x, sr) {
   fr.sort((a, b) => a - b); return fr.length ? Math.round(fr[Math.floor(fr.length / 2)]) : null;
 }
 const keyHz = (m) => 440 * 2 ** ((m - 69) / 12);
+// a sample centred on C4 played on key m, as an SFZ region with pitch_keycenter=60 would: its speed and pitch scale together
+const retune = (m) => 2 ** ((m - 60) / 12);
 </script>
 
 <script>
@@ -143,7 +145,7 @@ const $ = (id) => document.getElementById(id);
 const SHIPPED = '../../_ops/sample-libraries/talking-keyboard/samples/'; // the build's own files, each named in piece:files
 const WHITE = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4'];
 const LANG = { solfege: 'en', respelt: 'en', italian: 'it', french: 'fr' };
-const S = { step: 0, fix: 'respelt', mode: 'shipped', myst: null, score: { shipped: [0, 0], pc: [0, 0] }, answered: true };
+const S = { step: 0, fix: 'respelt', mode: 'shipped', myst: null, score: { shipped: [0, 0], pc: [0, 0], tuned: [0, 0] }, answered: true };
 let REC = null; const cache = new Map();
 async function rec() { if (!REC) REC = await fetch('rich-face/renders.json').then((r) => { if (!r.ok) throw new Error('renders.json: ' + r.status); return r.json(); }); return REC; }
 async function load(url) { if (!cache.has(url)) cache.set(url, fetch(url).then((r) => { if (!r.ok) throw new Error(url.split('/').pop() + ': ' + r.status); return r.arrayBuffer(); }).then((b) => ({ url, ...parseWav(b) }))); return cache.get(url); }
@@ -156,7 +158,7 @@ async function audio() {
   if (ctx.state !== 'running') await ctx.resume(); return ctx;
 }
 function stopSound() { for (const s of live) { try { s.stop(); } catch {} } live = []; }
-async function playUrl(url) { const m = await load(url); await audio(); stopSound(); const b = ctx.createBuffer(1, m.x.length, m.sr); b.copyToChannel(m.x, 0); const s = ctx.createBufferSource(); s.buffer = b; s.connect(out); s.start(); live.push(s); return m; }
+async function playUrl(url, rate) { const m = await load(url); await audio(); stopSound(); const b = ctx.createBuffer(1, m.x.length, m.sr); b.copyToChannel(m.x, 0); const s = ctx.createBufferSource(); s.buffer = b; s.playbackRate.value = rate || 1; s.connect(out); s.start(); live.push(s); return m; }
 
 // ---- keys ----
 function keys(list) { // list: [{ top, sub, url, bad }]
@@ -195,8 +197,8 @@ const STEPS = [
       const rest = lens.slice(1), note = S.fix === 'french' ? ` · C runs <b>${lens[0]} ms</b>, the other six ${Math.min(...rest)} to ${Math.max(...rest)} ms` : '';
       $('meter').innerHTML = `the syllable meant: <b>${ok} of 7</b>${note}${lang !== 'en' ? ' · in this language a short unstressed ɪ counts as i' : ''}`; } },
   { name: 'the test', title: 'The test: which C?',
-    say: 'The page’s plainest variant drops the octave: “notes only, no octave (more compact, but loses positional verification)”. Here are seven Cs, C1 to C7, as shipped, and as the pitch-class variant would make them, “C” on every one. Since Kokoro renders the same string the same way every time, those seven are one sound. A C plays; say which octave it was.',
-    do: 'Pick as shipped or pitch class only. Play a C, name its octave, and go again, five times or more in each.', watch: 'The score for each, and the table: what pitch each key is, and what pitch the voice speaks at.', hear: 'Whether anything but the word tells you where you are.',
+    say: 'The page’s plainest variant drops the octave: “notes only, no octave (more compact, but loses positional verification)”. Here are seven Cs, C1 to C7, three ways. As shipped, each says its octave. As the pitch-class variant would make them, “C” on every key: Kokoro renders the same string the same way every time, so those seven are one sound and that arm is a demonstration, chance by construction. The third arm can lose: the same “C” retuned to its key, as a region with <code>pitch_keycenter=60</code> would play it (rate 2^((m − 60)/12)), so pitch, not the word, would have to carry the octave. A C plays; say which octave it was.',
+    do: 'Pick an arm. Play a C, name its octave, and go again, five times or more in each.', watch: 'The score for each, and the table: what pitch each key is, and what pitch the voice speaks at.', hear: 'Whether anything but the word tells you where you are.',
     controls: ['g-mode', 'g-myst'], async draw() { const pcs = [];
       for (let o = 1; o <= 7; o++) { const m = await load(`${SHIPPED}kokoro_C${o}_v2.wav`); pcs.push({ o, key: keyHz(12 * (o + 1)), voice: voicePitch(m.x, m.sr) }); }
       keys([]); $('keys').className = 'keys hide';
@@ -204,13 +206,13 @@ const STEPS = [
       $('pic-l').textContent = 'C1 to C7 · af_heart · mp layer'; score(); } },
 ];
 function score() {
-  const [a, n] = S.score.shipped, [b, m] = S.score.pc;
-  $('meter').innerHTML = `as shipped: <b>${a} of ${n}</b> · pitch class only: <b>${b} of ${m}</b> · chance is 1 in 7, ${(100 / 7).toFixed(0)} %`;
-  if (n >= 5 && m >= 5) $('found').innerHTML = `<b>What the test found.</b> As shipped, the word carries the octave and you can name it every time (${a} of ${n}). Without the octave word, every C is the same sound and naming the octave is a guess (${b} of ${m}; chance is ${(100 / 7).toFixed(0)} %). The page is right, and the loss is total, not partial, for a reason the page doesn’t say: no Talking Keyboard sample is pitched to its key. Each SFZ region sets <code>pitch_keycenter</code> to its own key, so nothing is retuned, and the voice speaks near the same pitch on C1 as on C7 (the table), while the keys are six octaves apart. The name is the only position the instrument gives. That also bears on the page’s open question about a student naming notes by ear: the keyboard teaches the names of positions, not the sound of pitches.`;
+  const [a, n] = S.score.shipped, [b, m] = S.score.pc, [c, t] = S.score.tuned;
+  $('meter').innerHTML = `as shipped: <b>${a} of ${n}</b> · pitch class only: <b>${b} of ${m}</b> · retuned: <b>${c} of ${t}</b> · chance is 1 in 7, ${(100 / 7).toFixed(0)} %`;
+  if (n >= 5 && m >= 5) $('found').innerHTML = `<b>What this shows.</b> As shipped, the word carries the octave and you can name it (${a} of ${n}). Without the octave word, every C is the same sound, so naming the octave is a guess (${b} of ${m}; chance is ${(100 / 7).toFixed(0)} %): that arm cannot come out any other way, it only lets you hear why. What goes is the octave, all of it; the letter still checks, so a semitone slip or a swap between keys with different letters would still be heard. The octave goes entirely for a reason the page doesn’t say: no Talking Keyboard sample is pitched to its key. Each SFZ region sets <code>pitch_keycenter</code> to its own key, so nothing is retuned, and the voice speaks near the same pitch on C1 as on C7 (the table), while the keys are six octaves apart.${t >= 5 ? ` Retuned, pitch has to carry the octave on its own, and you named it ${c} of ${t}: ${c / t > 0.5 ? 'pitch can carry it' : 'pitch alone did not carry it for you'}, at the cost of the word, which at C1 crawls eight times slow and at C7 runs eight times fast. That cost is the tuning across the keyboard the page says this build skipped.` : ' Try the retuned arm five times to hear whether pitch could carry what the word dropped.'}`;
 }
 function octButtons() { const g = $('g-oct'); g.querySelectorAll('button').forEach((b) => b.remove()); for (let o = 1; o <= 7; o++) { const b = document.createElement('button'); b.className = 'ghost small'; b.textContent = 'C' + o; b.disabled = S.answered; b.addEventListener('click', () => { if (S.answered) return; S.answered = true; const sc = S.score[S.myst.mode]; sc[1]++; if (o === S.myst.o) sc[0]++; $('found').innerHTML = ''; score(); $('meter').innerHTML += ` · that was <b>C${S.myst.o}</b>, you said C${o}`; octButtons(); }); g.appendChild(b); } }
 $('myst').addEventListener('click', async () => { const o = 1 + Math.floor(Math.random() * 7); S.myst = { o, mode: S.mode }; S.answered = false; octButtons();
-  try { await playUrl(S.mode === 'shipped' ? `${SHIPPED}kokoro_C${o}_v2.wav` : 'rich-face/' + REC.variants['pitch-class'].file); } catch (e) { $('meter').textContent = 'Could not play: ' + e.message; } });
+  try { await playUrl(S.mode === 'shipped' ? `${SHIPPED}kokoro_C${o}_v2.wav` : 'rich-face/' + REC.variants['pitch-class'].file, S.mode === 'tuned' ? retune(12 * (o + 1)) : 1); } catch (e) { $('meter').textContent = 'Could not play: ' + e.message; } });
 
 // ---- controls ----
 function sync() { document.querySelectorAll('[data-fix]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.fix === S.fix))); document.querySelectorAll('[data-mode]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.mode === S.mode))); }
@@ -222,8 +224,8 @@ function show() {
   for (const id of ['g-fix', 'g-mode', 'g-myst']) $(id).classList.toggle('hide', !st.controls.includes(id));
   $('g-oct').classList.toggle('hide', S.step !== 3); S.answered = true; octButtons();
   $('found').innerHTML = ''; $('tab').innerHTML = ''; $('meter').innerHTML = ''; $('pic-r').textContent = 'renders.json';
-  $('eq1').textContent = S.step === 3 ? 'f(key) = 440 · 2^((m − 69)/12) Hz ·  C1 = 32.7 Hz … C7 = 2093 Hz ·  P(right | pitch class only) = 1/7' : '';
-  $('eq1w').textContent = S.step === 3 ? 'A key’s own pitch doubles every octave, sixty-four times over from C1 to C7. The voice does not follow it. With the octave word gone, seven keys make one sound, and a guess is right one time in seven.' : '';
+  $('eq1').textContent = S.step === 3 ? 'f(key) = 440 · 2^((m − 69)/12) Hz ·  C1 = 32.7 Hz … C7 = 2093 Hz ·  P(right | pitch class only) = 1/7 ·  retuned: rate = 2^((m − 60)/12)' : '';
+  $('eq1w').textContent = S.step === 3 ? 'A key’s own pitch doubles every octave, sixty-four times over from C1 to C7. The voice does not follow it. With the octave word gone, seven keys make one sound, and a guess is right one time in seven. Retuned, the one sound plays at the key’s pitch, an eighth as fast at C1 and eight times as fast at C7.' : '';
   [...$('rail').children].forEach((bt, j) => bt.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
   $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1; sync(); redraw();
 }

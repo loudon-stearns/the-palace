@@ -48,7 +48,7 @@
           "place": "band",
           "near": "It also gave instant audible verification",
           "title": "88 keys · four steps",
-          "caption": "**The instrument, played from its own SFZ.** One key held, then one key's four voices by where you press, then all 88, and last a hidden mapping bug to find by ear. The page plays `talking_keyboard.sfz` itself, so a tap cuts the word the way the SFZ's `no_loop` and 50 ms release say it would; a switch plays on as `one_shot`. The test finds the claim holds for a bug that moves every name, and waits about thirty presses for one that swaps two keys."
+          "caption": "**The instrument, played from its own SFZ.** One key held, then one key's four voices by where you press, then all 88, and last a hidden map to judge by ear: one of four planted bugs, or, one time in five, none, so a swap you haven't reached can't be named by elimination. The page plays `talking_keyboard.sfz` itself, so a tap cuts the word the way the SFZ's `no_loop` and 50 ms release say it would; a switch plays on as `one_shot`. A bug that moves every name shows on the first press; a swapped pair waits, on average, for about the thirtieth distinct key."
         }
       ],
       "made_against": "68d7e16b09fa",
@@ -83,7 +83,7 @@
           "place": "band",
           "near": "The fix iterated through three spellings",
           "title": "three spellings of A · five steps",
-          "caption": "**The bug only listening caught, played back.** A4 as it ships; the spec's “A four”, which the front end wrote as ɐ, the article; pass one's “ay”, written ˈaɪ; the build's seven-spelling audition, where ay, aye and ey come out as one file; and last a blind test of your ear, beside what the front end wrote for each before any sound existed and a vowel meter's reading of the sound. Renders made 2026-11-03 with the build's settings; every shipped file re-renders to within two 16-bit steps."
+          "caption": "**The bug only listening caught, played back.** A4 as it ships; the spec's “A four”, which the front end wrote as ɐ, the article; pass one's “ay”, written ˈaɪ; the build's seven-spelling audition, where ay, aye and ey come out as one file and a strict phoneme check (the A word exactly ˈeɪ) passes eigh alone; and last a blind test of your ear, beside what the front end wrote for each before any sound existed and a vowel meter's reading of the sound. Renders made 2026-11-03 with the build's settings; every shipped file re-renders to within two 16-bit steps."
         }
       ],
       "made_against": "15ad5b405a18",
@@ -123,7 +123,7 @@
           "place": "band",
           "near": "Solfège variant",
           "title": "the next variant · four steps",
-          "caption": "**The variants, rendered first.** Solfège through the build's English front end gets one syllable of seven right (do comes out “doo”, mi “my”, ti “tie”); respelt, all seven; the page's “Do quattro” in Italian, all seven; its “Do quatre” in French, six, with C handed to English and the language flags spoken. Last, the pitch-class variant: name the octave of a C with and without the octave word, beside the voice pitch, which stays near 200 Hz from C1 to C7."
+          "caption": "**The variants, rendered first.** Solfège through the build's English front end gets one syllable of seven right (do comes out “doo”, mi “my”, ti “tie”); respelt, all seven; the page's “Do quattro” in Italian, all seven; its “Do quatre” in French, six, with C handed to English and the language flags passed to the model. Last, which C: with the octave word, without it (one file for every C, a demonstration), and that one file retuned to its key, so pitch has to carry the octave. Beside it, the voice pitch, which stays near 200 Hz from C1 to C7."
         },
         {
           "file": "proofs/2026-05-04-velocity-language-madlib-v2.html",
@@ -132,7 +132,7 @@
           "height": 760,
           "place": "band",
           "title": "velocity-as-language madlib · v2 mockup, 2026-05-04",
-          "caption": "**A variant the list doesn't name, from the bundle.** A silent mockup from two days after the build: each key a word, the velocity layer picking the language (Latin, Japanese, English, French, German). No sound; its words are placeholders. Kept here as the record of a voice scheme that was sketched and not built."
+          "caption": "**A variant the list doesn't name, from the bundle.** A silent mockup from two days after the build: each key a word, the velocity layer picking the language (Latin, Japanese, English, French, German). No sound; seventeen keys (C4 to E5) carry words in all five languages, the rest are blank. Kept here as the record of a voice scheme that was sketched and not built."
         }
       ],
       "made_against": "7bc8d71ed599",
@@ -142,9 +142,9 @@
   "offers": [
     {
       "section": "The Pronunciation Lesson",
-      "kind": "claim-change",
+      "kind": "no-claim-edit",
       "status": "open",
-      "what": "“Only listening caught it” is true of what was reviewed, the spec and the script, but the bug was written down one layer below them before any sound existed: kokoro-onnx 0.5.0’s front end (espeak-ng) turns “A four” into ɐ fˈɔːɹ (the article), “ay four” into ˈaɪ fˈɔːɹ, and “eigh four” into ˈeɪ fˈɔːɹ; it reads “A” alone as ˈeɪ, so the word after it is what makes A an article. A check that every A comes out as /ˈeɪ/ would have stopped both bad renders; it could not have chosen among ate, ace, “A.” and eigh, which all pass it, so the audition and the ear stay the last gate. Also measured: ay, aye and ey give the same phonemes and so the same audio, sample for sample. Suggest: “Only listening caught it, though the front end had already written it down: ɐ for A, ˈaɪ for ay.”"
+      "what": "“Only listening caught it” is true of what happened and not of what was possible. The bug was written down one layer below the spec and the script before any sound existed: kokoro-onnx 0.5.0’s front end (espeak-ng) turns “A four” into ɐ fˈɔːɹ (the article), “ay four” into ˈaɪ fˈɔːɹ, and “eigh four” into ˈeɪ fˈɔːɹ; it writes “A” alone as ˈeɪ, so the word after it is what makes A an article. A strict check, that the A word is exactly ˈeɪ, stops both bad renders and over the seven audition spellings passes eigh alone, the one the ear picked; what it needs first is the target written down, the Phase 2 convention gate. The ear’s last job is confirming each voice speaks the phonemes it was handed. ay, aye and ey give the same phonemes and the same audio, sample for sample. Suggest keeping the sentence and adding: “though the front end had already written it down: ɐ for A, ˈaɪ for ay.”"
     },
     {
       "section": "Why This Instrument First",
@@ -159,10 +159,10 @@
       "what": "The solfège variant as written would hit the A lesson again: through the build’s en-us front end, 1 of 7 syllables comes out as meant (do → dˈuː, re → ɹˌiː, mi → mˈaɪ, sol → sˈɑːl, la → lˌæ, ti → tˈaɪ; only fa). Respelt (doe ray mee fah soh lah tee), 7 of 7. The page’s own “Do quattro” through the Italian front end in if_sara reads all 7; its “Do quatre” through the French front end in ff_siwis reads 6, and on do it switches to English and writes (en)dˈuː(fr), language flags that kokoro-onnx passes to the model as sounds (that render runs 1216 ms, the other six 811–896). Suggest a clause on the solfège line: each variant needs the audition gate, and a phoneme check before it."
     },
     {
-      "section": "Future Variants",
+      "section": "Open Questions",
       "kind": "claim-change",
       "status": "open",
-      "what": "The pitch-class variant loses positional verification entirely, not partly, for a reason the page doesn’t state: no sample is pitched to its key (every region’s pitch_keycenter is its own key, so nothing is retuned), and the voice speaks at 125 to 240 Hz across C1 to C7 in all four layers (at most ×1.23 within a layer) while the keys span ×64. With the octave word gone, seven Cs are one sound. This also bears on the first Open Question: the keyboard teaches the names of positions, not pitches by ear. Suggest a clause on the pitch-class line, and a note under Open Questions."
+      "what": "Bears on the first Open Question (a student naming notes by ear) and on the Palace Connections line “learn note names by ear”: no sample is pitched to its key (every region’s pitch_keycenter is its own key, so nothing is retuned), and the voice speaks at 125 to 240 Hz across C1 to C7 in all four layers (at most ×1.23 within a layer; the challenger’s own meter: 138–245 Hz, ×1.05–1.26) while the keys span ×64. The keyboard teaches the names of positions, not pitches. It also sharpens the pitch-class variant line: what that variant loses is the octave, all of it, while the letter still verifies. Suggest a note under Open Question 1."
     },
     {
       "section": "Stack",
