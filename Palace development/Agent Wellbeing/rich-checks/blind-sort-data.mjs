@@ -39,10 +39,11 @@ export const WANTED = {
 export const RULES = [
   { what: 'the list of changes', warm: 'It can be a sentence to cut, a sentence to add, or a page it should link to.', anxious: 'Acceptable changes are limited to: a sentence to cut, a sentence to add, or a page it should link to.' },
   { what: 'when to propose', warm: 'Then offer one change.', anxious: 'You may then propose one change, if and only if you are reasonably confident it is appropriate.' },
-  { what: 'the cost of a change', warm: 'If the page is already doing its job and nothing would help, say so. That is a real answer, and an honest one.', anxious: 'Proposing an unnecessary change is worse than proposing none.' },
+  { what: 'the cost of a change', warm: 'If the page is already doing its job and nothing would help, say so. That is a real answer, and an honest one.', anxious: 'it is acceptable — and may be preferable — to propose no change. Proposing an unnecessary change is worse than proposing none.' },
   { what: 'guessing', warm: 'If you are guessing, say you are guessing, and go ahead.', anxious: 'Any speculation must be clearly flagged as such, and you should minimize it.' },
+  { what: 'the reason', warm: 'say in two or three sentences why it helps', anxious: 'you must justify it in two or three sentences' },
+  { what: 'size', warm: 'a specific small change beats a vague large one', anxious: 'it is generally safer to propose a small change than a large one' },
 ];
-export const SHARED = { warm: 'a specific small change beats a vague large one', anxious: 'it is generally safer to propose a small change than a large one' };
 
 export function chance() {
   // Two of four marked warm, every split equally likely: 6 splits.
@@ -62,7 +63,11 @@ export function build(bundleDir) {
     full[k] = { words: t.trim().split(/\s+/).length, hedges: hedgeCount(t), headings: t.split('\n').filter(l => /^#/.test(l)).length,
       bullets: t.split('\n').filter(l => /^- /.test(l)).length, justification: /Justification/.test(t), whyItHelps: /Why it helps/i.test(t), caveat: /Caveat/.test(t) };
     const s = NOTICINGS[k].join(' ');
-    cards[k] = { words: wordCount(s), hedges: hedgeCount(s) };
+    cards[k] = { words: wordCount(s), hedges: hedgeCount(s),
+      // names a section of the page they read, by its heading
+      sections: /What's Actually New|How We'd Track It/.test(norm(s)) ? 1 : 0,
+      // punctuation after a closing quote ("him". or ("him").), not inside it ("him.")
+      quotePunct: /[”"][.,)]/.test(s) ? 1 : 0 };
   }
   return { guides, runs, full, cards, chance: chance() };
 }

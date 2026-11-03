@@ -16,7 +16,7 @@ export const FILES = {
 };
 export function blindData() {
   const b = BS.build(BUNDLE);
-  return { guides: b.guides, noticings: BS.NOTICINGS, moves: BS.MOVES, wanted: BS.WANTED, rules: BS.RULES, shared: BS.SHARED,
+  return { guides: b.guides, noticings: BS.NOTICINGS, moves: BS.MOVES, wanted: BS.WANTED, rules: BS.RULES,
     full: b.full, cards: b.cards, chance: b.chance, hedgeList: BS.HEDGES,
     hedgesText: `${b.full['warm-1'].hedges} and ${b.full['warm-2'].hedges} warm, ${b.full['anxious-1'].hedges} and ${b.full['anxious-2'].hedges} anxious` };
 }

@@ -25,16 +25,18 @@ for (const [k, [s1, s2]] of Object.entries(BS.NOTICINGS)) {
 }
 for (const [k, t] of Object.entries(BS.WANTED)) ok(norm(b.runs[k]).includes(norm(t)), `${k}: the "rather have done" quote is verbatim`);
 for (const r of BS.RULES) ok(norm(b.guides.warm).includes(norm(r.warm)) && norm(b.guides.anxious).includes(norm(r.anxious)), `rule "${r.what}": both lines verbatim in their guides`);
-ok(norm(b.guides.warm).includes(BS.SHARED.warm) && norm(b.guides.anxious).includes(BS.SHARED.anxious), 'the shared small-change lines are verbatim');
+ok(BS.RULES.length === 6, 'six rule differences, as the challenge lists');
 ok(JSON.stringify(baked(FILES.blind)) === JSON.stringify(blindData()), 'the piece carries exactly the data the sources give');
-ok(b.chance.splits === 6 && b.chance.tally[4] === 1 && b.chance.tally[0] === 1 && b.chance.tally[2] === 4, 'chance, two and two: 4 right 1 in 6, 0 right 1 in 6, 2 right 4 in 6');
+ok(b.chance.splits === 6 && b.chance.tally[4] === 1 && b.chance.tally[0] === 1 && b.chance.tally[2] === 4, 'chance, two and two: 4 right 1 in 6, 0 right 1 in 6, so a right pairing either way 2 in 6');
+ok(readFileSync(join(BUNDLE, FILES.blind), 'utf8').includes('1 in 3') && readFileSync(join(BUNDLE, FILES.blind), 'utf8').includes('cut where the others added'), 'the walk states 1 in 3 for the voice rule and names the page sentence that unblinds the move arm');
 // Leak check: does a single surface feature put both warm answers on one side of a threshold?
 const sorts = (vals) => { const w = [vals['warm-1'], vals['warm-2']], a = [vals['anxious-1'], vals['anxious-2']]; return Math.min(...w) > Math.max(...a) || Math.max(...w) < Math.min(...a); };
 const F = b.full, Cd = b.cards, pick = (o, f) => Object.fromEntries(Object.entries(o).map(([k, v]) => [k, f(v)]));
 for (const feat of ['words', 'hedges', 'headings', 'bullets']) console.log(`       record, ${feat}: ${JSON.stringify(pick(F, v => v[feat]))} → ${sorts(pick(F, v => v[feat])) ? 'SORTS' : 'does not sort'}`);
 ok(['words', 'hedges', 'headings', 'bullets'].every(f => !sorts(pick(F, v => v[f]))), 'record: no count (words, hedge words, headings, bullets) sorts the four');
-ok(sorts(pick(F, v => v.justification ? 1 : 0)) && sorts(pick(F, v => v.whyItHelps ? 1 : 0)), 'record LEAKS: "Justification" / "Why it helps" sorts all four, as the piece says');
+ok(sorts(pick(F, v => v.justification ? 1 : 0)) && sorts(pick(F, v => v.whyItHelps ? 1 : 0)) && sorts(pick(F, v => v.caveat ? 1 : 0)), 'record LEAKS: "Justification" / "Why it helps" and "Caveat" each sort all four, as the piece says');
 ok(!sorts(pick(Cd, v => v.words)), `walk's noticings: length does not sort (${JSON.stringify(pick(Cd, v => v.words))})`);
+ok(sorts(pick(Cd, v => v.sections)) && sorts(pick(Cd, v => v.quotePunct)), 'walk\'s noticings: section names and punctuation after a closing quote also split the pairs, as the piece says');
 ok(sorts(pick(Cd, v => v.hedges)) && Cd['warm-1'].hedges > 0 && Cd['anxious-1'].hedges === 0, `walk's noticings: hedge words split the pairs, warm higher, as the piece says (${JSON.stringify(pick(Cd, v => v.hedges))})`);
 
 console.log('five dials one lamp');
@@ -84,7 +86,7 @@ const step = async (page, i) => page.locator('#rail button').nth(i).click();
     const txt = await page.locator('#stage').innerText();
     ok(st.voiceScore === want[0] && st.moveScore === want[1] && txt.includes(`${want[0]} of 4.`), `blind sort, ${mode}: voice ${st.voiceScore}, move ${st.moveScore}, verdict shown`);
     await step(page, 5); const t6 = await page.locator('#stage').innerText();
-    ok(t6.includes('closest option within the allowed changes') && (await page.locator('mark').count()) >= 8, 'blind sort, the test: rule lines marked, workers quoted');
+    ok(t6.includes('closest option within the allowed changes') && (await page.locator('mark').count()) >= 12, 'blind sort, the test: rule lines marked, workers quoted');
     ok(errs.length === 0, `blind sort, ${mode}: console clean ${errs.join(' | ')}`); await page.close();
   }
 }
