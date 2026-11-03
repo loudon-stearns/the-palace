@@ -31,9 +31,9 @@
   "offers": [
     {
       "section": "The straight line is the hard case",
-      "kind": "claim-change",
+      "kind": "no-claim-edit",
       "status": "open",
-      "what": "The piece measured where the closed form fails, and the failure is sharper than 'near zero … clicks'. In 64-bit arithmetic, passing through zero is clean (a sweep of ±4 at 0.25 Hz through 8 crossings: 0 bad samples; 100 crossings at random phase: worst error 7e-11); only |c| below about 3 × 10^−14 goes wrong, and below about 10^−16 it is 0 ÷ 0. In 32-bit, as most plugins compute, |c| below about 3 × 10^−5 is off by more than 0.001 and below about 3 × 10^−8 is 0 ÷ 0; a slow sweep (±1 at 0.05 Hz) reached an error of 0.18 at a crossing. In both, a knob smoothed toward 0 gives 0 ÷ 0 on every sample after 0.36 s (32-bit) or 0.76 s (64-bit): a dropout for as long as it rests, then a click when it leaves. With the second-order Taylor branch below |c| = 0.001: no bad sample in any of these. Proposed: 'Evaluating the closed form at zero curvature, or within about 10^−5 of it in the 32-bit arithmetic most plugins use, divides by a vanishing denominator: a knob resting on the straight line gives 0 ÷ 0 for as long as it rests, and a slow pass through zero in 32-bit can click.'"
+      "what": "The page's sentence is unconditioned, not wrong: at zero it is exact, and the Taylor fix holds. The piece measured where 'near zero' is. In 64-bit, passing through zero is clean (a sweep of ±4 at 0.25 Hz through 8 crossings: 0 bad samples); only |c| below about 1e−13 to 3e−14 goes wrong, and below about 2^−54 (5.6e−17) it is 0 ÷ 0. In 32-bit, as most plugins compute, |c| below about 3 × 10^−5 is off by more than 0.001 and below 2^−25 (3e−8) it is 0 ÷ 0. A knob resting on 0 gives 0 ÷ 0 on every sample for as long as it rests, whatever its smoother; how soon depends on the smoother (this piece's one-pole 20 ms smoother: 0.36 s in 32-bit, 0.76 s in 64-bit; a linear ramp lands on 0 at 20 ms; an unsmoothed knob at once). With the second-order Taylor branch below |c| = 0.001: no bad sample. Proposed: 'Evaluating the closed form at zero curvature, or within about 10^−5 of it in the 32-bit arithmetic most plugins use, divides by a vanishing denominator: a knob resting on the straight line gives 0 ÷ 0 for as long as it rests.'"
     },
     {
       "section": "Audio-rate feasibility — and the dissolution",
@@ -43,9 +43,9 @@
     },
     {
       "section": "Audio-rate feasibility — and the dissolution",
-      "kind": "claim-change",
+      "kind": "no-claim-edit",
       "status": "open",
-      "what": "Measured from the piece's engine at 1760 Hz, 48 kHz, as folded power against harmonic power: every member jumps from 0 back to 1 at the reset, so at curvature 0 the wave is a sawtooth and aliases like one (naive −13.3 dB, PolyBLEP −28.9). What grows with |curvature| is a corner in slope at the reset, exactly −c in size: at c = 60 naive is −1.7 dB, PolyBLEP leaves −9.5, PolyBLEP + PolyBLAMP −18.2, and 4× oversampling (with both, a 128-tap filter) −53.4. Proposed, for 'large |curvature| sharpens the waveform and aliases, so PolyBLEP or oversampling applies exactly as it would to any steep oscillator': 'every member jumps at the reset as a sawtooth does, so PolyBLEP applies at any curvature; large |curvature| adds a corner in slope as big as the curvature, which PolyBLEP leaves, and PolyBLAMP or oversampling takes it.'"
+      "what": "The page's sentence is unconditioned, not wrong, and the jump below does not contradict 'click-free given the Taylor branch', which is about modulating curvature. Measured at 1760 Hz, 48 kHz, as folded power against harmonic power: every member jumps by exactly 1 at the reset, so at curvature 0 the wave is a sawtooth and aliases like one (naive −13.3 dB, PolyBLEP −28.9); aliasing is there at every curvature. What large |c| adds is what PolyBLEP leaves: a corner in slope of −c at the reset, and higher bends with it. At c = 60: PolyBLEP −9.5 dB, PolyBLEP + PolyBLAMP −18.2, oversampling 4× alone −14.3, and 4× with both correctors inside (128-tap filter) −53.4. At 3520 Hz with c = 60 PolyBLAMP no longer helps (−1.4 → −1.0 dB). Proposed, for '… so PolyBLEP or oversampling applies exactly as it would to any steep oscillator': '… every member jumps at the reset as a sawtooth does, so PolyBLEP applies at any curvature; large |curvature| adds a bend PolyBLEP leaves, which PolyBLAMP takes in part and oversampling with both correctors inside takes most of.'"
     },
     {
       "section": "Cross-Domain Resonance",
@@ -61,9 +61,9 @@
     },
     {
       "section": "The curve in a synthesizer: the Moog contour",
-      "kind": "claim-change",
+      "kind": "no-claim-edit",
       "status": "open",
-      "what": "The piece names the member. An RC stage cut at its switch point L and rescaled to run 0 to 1 is exactly the entry's curve at c = −ln(1 − L) = T ÷ τ (the engine against the member: worst gap 3.8e−10 over T from 0.05 to 3 s and L from 0.02 to 0.95). Under Synth Templates' 95 % landmark that is curvature 3 (2.996). A lower switch point straightens the stage (L = 0.1 gives c = 0.105), so an RC stage reaches the straight line only as a limit, as the formula does. Proposed, after '… the one member an RC stage never makes': 'Which member is set by where the stage is cut: a switch at fraction L of the way is curvature −ln(1 − L), so the 95 % landmark is curvature 3, and the straight line is the limit of a switch set ever lower.'"
+      "what": "The page's sentence is not wrong ('the one member an RC stage never makes' holds); this names the member, and the identity is exact algebra. An RC stage cut at its switch point L and rescaled to run 0 to 1 is exactly the entry's curve at c = −ln(1 − L) = T ÷ τ (the engine against the member: worst gap 3.8e−10 over T from 0.05 to 3 s and L from 0.02 to 0.95). Under Synth Templates' 95 % landmark that is curvature 3 (2.996). A decay is the c = 3 member over [0, T] only when cut and rescaled at where it stands at T. A lower switch point straightens the stage (L = 0.1 gives c = 0.105), so an RC stage reaches the straight line only as a limit, as the formula does. Proposed, after '… the one member an RC stage never makes': 'Which member is set by where the stage is cut: a switch at fraction L of the way is curvature −ln(1 − L), so the 95 % landmark is curvature 3, and the straight line is the limit of a switch set ever lower.'"
     },
     {
       "section": "Artifact",
@@ -136,7 +136,7 @@
           "origin": "made",
           "by": "maker · claude-opus-5-5 · Web Audio Worklet",
           "title": "Curvature is timbre · a walk up to the alias",
-          "caption": "**Large curvature aliases, so PolyBLEP or oversampling applies: does it, and which?** Four steps: the phasor alone; the phasor through the curve, where curvature becomes the tone's colour and the harmonic levels follow 1 ÷ √(c² + (2πn)²); what the sign of curvature changes, measured from both waves; and the test, the same oscillator four ways (naive, PolyBLEP, PolyBLEP + PolyBLAMP, 4× oversampled) at a pitch and curvature you choose, with the folded power measured from the engine's own output. The slow side, where the envelope becomes a pitch, is Dissolutions' piece, the seam.\n\n|aₙ| = 1 ÷ √(c² + (2πn)²)\n\n(level of harmonic n) = 1 ÷ the square root of ((curvature)² + (2π × n)²)",
+          "caption": "**Large curvature aliases, so PolyBLEP or oversampling applies: does it, and which?** Four steps: the phasor alone; the phasor through the curve, where curvature becomes the tone's colour and the harmonic levels follow 1 ÷ √(c² + (2πn)²); what the sign of curvature changes, measured from both waves; and the test, the same oscillator four ways (naive, PolyBLEP, PolyBLEP + PolyBLAMP, 4× oversampled) at a pitch and curvature you choose, with the folded power measured from the engine's own output. PolyBLAMP's help runs out at high pitch and large curvature (at 3520 Hz with c = 60 it takes nothing off). The slow side, where the envelope becomes a pitch, is Dissolutions' piece, the seam.\n\n|aₙ| = 1 ÷ √(c² + (2πn)²)\n\n(level of harmonic n) = 1 ÷ the square root of ((curvature)² + (2π × n)²)",
           "near": "Implementation notes carried from the session",
           "place": "band",
           "height": 1180
@@ -171,7 +171,7 @@
           "origin": "made",
           "by": "maker · claude-opus-5-5 · Web Audio Worklet",
           "title": "A capacitor, a comparator, and the curve · a walk up to the member",
-          "caption": "**Every Moog stage is this entry's curve: which member?** Four steps: one capacitor charging, with the 63, 86 and 95 % landmarks; the comparator that ends the stage, and the circuit noise that ends it when the switch sits at the maximum (a model, about 50 dB down); the three stages of a held note; and the test, an attack cut at its switch and rescaled beside the entry's rising member, with the gap measured from the engine's samples. The voice is Synth Templates' reference voice for its time tables.\n\nV(xT) ÷ L = 1 − f(x, c),  c = −ln(1 − L) = T ÷ τ\n\n(the stage, rescaled) = 1 − (the entry's curve) at (curvature) = −ln(1 − (switch level)) = (stated time) ÷ (time constant); at 95 %, curvature 3",
+          "caption": "**Every Moog stage is this entry's curve: which member?** Four steps: one capacitor charging, with the 63, 86 and 95 % landmarks; the comparator that ends the stage, and the circuit noise that ends it when the switch sits at the maximum (a model, about 50 dB down); the three stages of a held note; and the test, an attack cut at its switch and rescaled beside the entry's rising member, with the gap measured from the engine's samples. The match is exact algebra, so this test cannot fail; its worth is in naming which member a Moog stage is, and showing that the member depends on where the comparator sits. The voice is Synth Templates' reference voice for its time tables.\n\nV(xT) ÷ L = 1 − f(x, c),  c = −ln(1 − L) = T ÷ τ\n\n(the stage, rescaled) = 1 − (the entry's curve) at (curvature) = −ln(1 − (switch level)) = (stated time) ÷ (time constant); at 95 %, curvature 3",
           "near": "An approach never arrives, so a stage time needs a landmark",
           "place": "band",
           "height": 1180
@@ -211,7 +211,7 @@
           "origin": "made",
           "by": "maker · claude-opus-5-5 · Web Audio",
           "title": "Is the jump the corner? · a walk up to a blind trial",
-          "caption": "**The figure offers the arrival corner as the jump Loudon heard. Is it?** Four steps: one straight rise; the same rise in decibels, with a floor 30 dB down and an optional hiss there; the Moog rise beside it; and the test, a blind trial of three rises at one stated time — the straight rise, the Moog rise, and the straight rise with only its arrival rounded — where you mark the ones that jump and then reveal. If the rounded rise loses the jump, the corner is doing it; if it keeps it, the climb is. The page keeps the score; the ear decides.\n\ng(t) = t ÷ T until 0.85 T, then t ÷ T − (t ÷ T − 0.85)² ÷ 0.6, full from 1.15 T\n\nthe rounded rise: the straight rise until 85 % of the way, then a curve that leaves it at its own slope and lands flat at 115 %",
+          "caption": "**The figure offers the arrival corner as the jump Loudon heard. Is it?** Four steps: one straight rise; the same rise in decibels, with a floor 30 dB down and an optional hiss there; the Moog rise beside it; and the test, a blind trial of three rises at one stated time — the straight rise, the Moog rise, and the straight rise with only its arrival rounded, which reaches full at 1.15 T — where you mark the ones that jump and then reveal. If the rounded rise loses the jump, the corner is doing it; if it keeps it, the climb is. The page keeps the score; the ear decides.\n\ng(t) = t ÷ T until 0.85 T, then t ÷ T − (t ÷ T − 0.85)² ÷ 0.6, full from 1.15 T\n\nthe rounded rise: the straight rise until 85 % of the way, then a curve that leaves it at its own slope and lands flat at 115 %",
           "near": "Put a landmark on each curve and the numbers follow",
           "place": "band",
           "height": 1180

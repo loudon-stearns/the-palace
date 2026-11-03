@@ -262,7 +262,7 @@ registerProcessor('edc-line', LineProcessor);
       hint: 'a 110 Hz wave whose curvature knob you park or sweep',
       eq: [['c ← c + (target − c) × (1 − e^(−1 / (0.02 × sr)))', '(knob) moves toward (where you sent it) by a small share each sample: 20 ms smoothing'],
            ['|c| < 0.001:  f ≈ (1 − t)(1 − c·t/2 + c²·t(2t − 1)/12)', 'near zero, the code uses the expansion instead of the formula, and the expansion has no division']],
-      tryText: 'Closed form, 32-bit, park on 0: a burst of grit, then silence, then a click when you move it to 2. In 64-bit the grit is shorter and the silence the same. Now sweep: passing through zero is quick, and the meter stays at or near zero in either arithmetic, so the trouble is where the knob rests, not where it passes. Then the branch: every move, and the meter stays at zero.' }
+      tryText: 'Closed form, 32-bit, park on 0: a burst of grit, then silence, then a click when you move it to 2. In 64-bit the grit comes later, at about 0.6 s instead of 0.2 s, and lasts about as long; then the same silence. Now sweep: passing through zero is quick, and the meter stays at or near zero in either arithmetic, so the trouble is where the knob rests, not where it passes. Then the branch: every move, and the meter stays at zero.' }
   ];
 
   var step = 0, playing = false, bits = 32, branch = false, curv = 2, tinyExp = -3;

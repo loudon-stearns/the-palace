@@ -281,7 +281,7 @@ registerProcessor('edc-timbre', TimbreProcessor);
       hint: 'the oscillator at your pitch and curvature, in the version you choose',
       eq: [['jump at the reset: +1    corner in slope at the reset: −c', 'every cycle the wave jumps from 0 to 1 (as a sawtooth does) and its slope changes by (minus the curvature)'],
            ['alias = (power not on a harmonic) ÷ (power on harmonics), in dB', 'how loud the folded tones are, against the tone itself']],
-      tryText: 'Start at 1760 Hz with curvature 0: this is a sawtooth, and PolyBLEP alone takes most of the alias. Now push curvature to 60: PolyBLEP leaves much more, PolyBLAMP takes some of that back, oversampling the most. Glide the pitch with the naive version to hear the folded tones fall while the note rises.' }
+      tryText: 'Start at 1760 Hz with curvature 0: this is a sawtooth, and PolyBLEP alone takes most of the alias. Now push curvature to 60: PolyBLEP leaves much more, PolyBLAMP takes some of that back, until the pitch is high enough that the bend is shorter than a sample, and oversampling the most. Glide the pitch with the naive version to hear the folded tones fall while the note rises.' }
   ];
 
   var step = 0, playing = false, f0 = 110, curv = 8, sign = 1, mode = 0;
