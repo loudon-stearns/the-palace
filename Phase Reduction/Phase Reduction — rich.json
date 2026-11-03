@@ -1,0 +1,152 @@
+{
+  "title": "Phase Reduction — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Phase Reduction]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Dissolutions]]",
+      "type": "connects-to",
+      "label": "gathered-from"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "every-made-piece-walks-up"
+    }
+  ],
+  "forward_vector": "I am the manifest of Phase Reduction's rich face, its first round at Study tier and still a proposal: two walks that climb to the page's two claims about the bridge (the phase response curve is Floquet data, exactly; Kuramoto is the shadow of the pair, only as coupling goes to zero, measured as how wide each locks), the Dissolutions proof they climb to gathered beside them, and Huygens's two clocks heard on a beam, with the shadow built from one clock's phase response and the beam's push and set against the clocks themselves. I grow when Loudon has heard them; I never hold the entry's words.",
+  "entry": "Phase Reduction",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "The three steps of the bridge",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Phase Reduction — rich — the kick that stays.html",
+            "verdict": "keep",
+            "why": "Tests the page's PRC-is-the-left-eigenvector claim and could fail; walks one kick → curve by hand → loop shape → test. Recomputed by the adjoint method: gaps 0.0331/0.0439/0.0497% at kick 0.001 on μ 0.3/1/3, the piece's 0.033–0.050%."
+          },
+          {
+            "file": "Phase Reduction — rich — the shadow beside the pair.html",
+            "verdict": "keep",
+            "why": "Measures the full pair's locking edge against the shadow's; recomputed 1.004/1.017/1.058× (μ 1, ε 0.02/0.05/0.1), 1.34× two-sided at 0.4, 1.81× at μ 0.3 ε 0.05: the page's three numbers hold. Note: the caption's 1.34× is the two-sided mean, the selfTest's 1.310× one side; say so in the caption."
+          },
+          {
+            "file": "/Dissolutions/proofs/2026-10-20-the-shadow-that-locks/the-shadow-that-locks.html",
+            "verdict": "keep",
+            "why": "The gathered proof both walks climb to, kept as a record under its contract; its caption is honest that its 0.01 detuning grid (GD 21 over ±0.1) cannot show the μ 0.3 miss at ε 0.05."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Phase Reduction — rich — the kick that stays.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio, offline-rendered",
+          "height": 1320,
+          "title": "The kick that stays · four steps",
+          "caption": "**Is the phase response curve Floquet data?** One van der Pol loop, kicked. It walks up from one kick, whose mark across the loop dies by the second Floquet multiplier each trip and whose mark along the loop stays; through the curve built by hand, a kick at every phase; and the loop's shape setting the curve's; to the test, Floquet's left eigenvector at multiplier 1 laid over the kicks. Measured: the mark across shrinks each trip by 0.149 at μ 0.3 and 0.00086 at μ 1, matching Liouville's e^(∮ trace J) to a part in a thousand at μ 1; the mark along changes by less than a part in ten thousand once the loop has swallowed the rest; the kicked curve's largest gap from the eigenvector is 3.4–5.2% of its height at a kick of 0.1, 0.33–0.50% at 0.01 and 0.033–0.050% at 0.001 on the three loops, ten times smaller with each tenfold smaller kick. The sound puts the kicked copy in the right ear and its twin in the left at 220 Hz, so a lead is heard as the sound leaning; that perceptual reading is not checked here.",
+          "near": "Floquet supplies the spectral ground"
+        },
+        {
+          "file": "Phase Reduction — rich — the shadow beside the pair.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio, offline-rendered",
+          "height": 1420,
+          "title": "The shadow beside the pair · five steps",
+          "caption": "**Is Kuramoto the pair's shadow, and only as coupling goes to zero?** Two van der Pol oscillators and their phase shadow. It walks up from one phase (time round the loop, not its angle), through two phases sliding with nothing between them and the pull built from the phase response, to the pair and its shadow locking side by side, and then the test: the full pair's locking edge found by bisection at six couplings on both sides, set beside the edge the shadow draws. Measured, the pair's range over the shadow's: at μ 1, 1.00× at ε 0.02, 1.01× at 0.05, 1.06× at 0.1 and 1.34× at 0.4 (both sides averaged: 1.31× on the faster side, 1.37× on the slower); at μ 0.3, 1.24× at 0.02 and 1.80× at 0.05, where the part of the pull that draws the pair is 0.037 of the part that only speeds it (0.091 at μ 1). The page's three numbers hold. The engine is the gathered proof's, copied.",
+          "near": "It holds only as the coupling goes to zero"
+        },
+        {
+          "file": "/Dissolutions/proofs/2026-10-20-the-shadow-that-locks/the-shadow-that-locks.html",
+          "origin": "gathered",
+          "by": "Dissolutions · proof, 2026-10-20",
+          "contract": {
+            "needs": "storage"
+          },
+          "height": 1700,
+          "title": "The shadow that locks · the Dissolutions proof",
+          "caption": "**The proof both walks above climb to, gathered as it was.** It runs the full oscillators and their phase shadow side by side, draws the phase response two ways (from Floquet and from kicks), and fills a tongue cell by cell; its own sit split the page's bridge into an exact half and an asymptotic one. Two things to know: its tongue's detunings are 0.01 apart, so the gentle loop's miss at ε 0.05 (both edges inside 0.007) cannot show on it, which is why the walk above measures the edge itself; and its notes keep only in this viewer.",
+          "near": "The Phase Response Curve is a Floquet object"
+        }
+      ],
+      "made_against": "0d712b5f3ceb",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Cross-Domain Resonance",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Phase Reduction — rich — two clocks on one beam.html",
+            "verdict": "keep",
+            "why": "Builds the shadow as Γ = ⟨Z·p⟩ and tests it against the clocks from four starts, walking one clock → stone wall → beam → test; independently re-run, the beam alone moves the gap 180°/0°/±140° with the escapement held, so its disagreement with the page is rightly an offer, not a fault."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Phase Reduction — rich — two clocks on one beam.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio, offline-rendered",
+          "height": 1420,
+          "title": "Two clocks on one beam · four steps",
+          "caption": "**Do Huygens's clocks lock antiphase, and does the escapement's PRC set the gap?** Two small-swing pendulum clocks with a smooth escapement (a van der Pol push, a stand-in for the ratchet), heard as tick and tock, one in each ear. It walks up from one clock settling to its own swing, through two on a stone wall sliding past each other for ever, to two on a damped beam settling nearly opposite (−167° at 0.3% mistuning, with the beam's sway down to a tenth), and then the test: the shadow built from one clock's phase response and the push the beam carries, against the clocks from four starts. Measured, the escapement held at e 8: a beam that damps its sway settles at 180°, a board that rolls freely at 0°, a springy shelf at ±140° (and 0°), every start where the shadow says. With the free board held, softening the escapement to 0.6 moves the shadow's gap to 180°; there the clocks go two ways, one start holding in phase, which the shadow misses. A model, not Huygens's clocks; a bob is a twentieth of the beam so it settles in seconds.",
+          "near": "Two clocks on one wall"
+        }
+      ],
+      "made_against": "861b404d5483",
+      "stamped": "2026-11-03"
+    }
+  ],
+  "offers": [
+    {
+      "section": "Cross-Domain Resonance",
+      "kind": "claim-change",
+      "what": "The first bullet's PRC sentence is incomplete rather than wrong. It says the two clocks phase-reduce to a two-body Kuramoto system 'that locks antiphase' and that 'the PRC of a pendulum clock's escapement is what sets the locked phase difference.' The pull is Γ = ⟨Z·p⟩, and both factors move the gap: in the piece's beam model, with the escapement held (e 8), the beam alone takes it through 180° (a beam that damps its sway), 0° (a board that rolls freely) and ±140° or 0° (a springy shelf), the shadow right on every start; with the free board held, the escapement alone takes the shadow's gap from 0° to 180° (e 8 to 0.6). The challenger re-ran the model independently and got the same. The literature points the same way: Bennett, Schatz, Rockwood and Wiesenfeld (Proc. R. Soc. A 458, 563, 2002) tie the outcome to the beam's mass; Oliveira and Melo (Sci. Rep. 5, 11548, 2015) to sound pulses through the support and where in the cycle each lands; Goldsztein, Nadeau and Strogatz (Chaos 31, 023109, 2021) give regimes where in-phase, antiphase or both are stable; Pantaleone's metronomes on a freely rolling board lock in phase, antiphase appearing only when the platform is damped. The 2002 and 2015 papers were read through secondary accounts, not in full. Suggested: '... phase-reducing to a two-body Kuramoto system; on Huygens's beam, which damped its own sway, it locks antiphase. The escapement's PRC, together with how the beam carries each swing to the other, sets the locked phase difference.' The piece's evidence is a model with a smooth escapement, not Huygens's clocks.",
+      "status": "open"
+    },
+    {
+      "section": "The three steps of the bridge",
+      "kind": "claim-change",
+      "what": "The third paragraph says the shape of the coupling 'is set by the PRC'. The pull is Γ(ψ) = ⟨Z(θ)·p(θ + ψ)⟩, so the form of the push is a second factor. For one fixed way of coupling (the proof's x-difference) the PRC alone decides, which is why the van der Pol walks agree with the sentence; under a beam it does not (the Cross-Domain offer's numbers). Suggested, in the challenger's lighter wording: 'is set by the PRC together with the form of the coupling, and for a given coupling, by the limit cycle's Floquet structure.'",
+      "status": "open"
+    },
+    {
+      "section": "The three steps of the bridge",
+      "kind": "no-claim-edit",
+      "what": "'cell for cell on the proof's detuning grid' is true, but that grid's detunings are 0.01 apart: at μ 0.3 and ε 0.05 both edges (shadow 0.0037, pair 0.0067) fall short of its first point off centre, so the proof's own tongue shows agreement there, and the next sentence's miss shows only on a finer grid. Measured directly, the pair's locking range over the shadow's is 1.00× at ε 0.02, 1.01× at 0.05, 1.06× at 0.1 and 1.34× at 0.4, both sides averaged (μ 1), and 1.80× at 0.05 (μ 0.3). Suggested: replace 'cell for cell on the proof's detuning grid' with 'within 6% of the full pair's measured range'.",
+      "status": "open"
+    }
+  ]
+}
