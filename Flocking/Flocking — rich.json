@@ -82,6 +82,17 @@
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
    },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Flocking — rich — three rules.html",
+      "verdict": "remake",
+      "why": "A real test that walks up, but its cohesion mark ('not in this model') ignores its own control: at the bundle's 50 px, no cohesion leaves 76–80 of 80 alone vs 30–50 with all three (12 starts), and at 25 px it scatters once headings are jostled (η 0.04: 3–15 alone, 11–30 groups vs 0–3, 1–6). Add a no-rules row (17–33 alone; circling index 0.16–0.37 by chance) and an η 0/0.04 switch, re-word the cohesion and alignment marks, fix 'covers the field' (~340–560 × 280–590 px)."
+     }
+    ]
+   },
    "pieces": [
     {
      "file": "Flocking — rich — three rules.html",
@@ -104,6 +115,22 @@
     "date": "2026-11-03",
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Flocking — rich — the threshold.html",
+      "verdict": "remake",
+      "why": "Wording only: every number holds on 12 starts (crossings 0.083/0.145/0.393; 0.77/0.39/0.136; 0.66/0.39/0.125), but 'the flock's spread of natural speeds' is wrong; the twist is fresh noise each frame, the twin of Kuramoto's noisy identical oscillators (K_c = 2D), not a frequency spread. Fix step 4 and the caption."
+     },
+     {
+      "file": "Projects/Murmuration/Murmuration — rich — the knee.html",
+      "verdict": "keep",
+      "why": "Tests the phase-transition sentence with its marks, honestly captioned; and it is the same transition: the bundle's model at alignment 1 crosses R 0.5 at η 0.066 (Murmuration's knee: 0.06–0.07), so the two pieces cut one critical line from two sides."
+     }
+    ]
    },
    "pieces": [
     {
@@ -135,6 +162,27 @@
     "date": "2026-11-03",
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "flocking-d3-interactive-cobalt.html",
+      "verdict": "keep",
+      "why": "The artifact the bullet names, rendering in today's dress with tokens loaded (no 4xx). Note: 'with no edit' → 'no edit to its dress' (036f9a27 pinned its CDN tag)."
+     },
+     {
+      "file": "flocking-observable-plot-graphite.html",
+      "verdict": "keep",
+      "why": "The named artifact; its caption's 'how fast order arrives' is confirmed (12/12 starts at alignment 0.3 pass R 0.8 in 10–26 s)."
+     },
+     {
+      "file": "flocking-p5-expressive-strobe.html",
+      "verdict": "keep",
+      "why": "The named artifact, its hue deviation declared as the text says; p5's accelerometer policy messages are harmless."
+     }
+    ]
    },
    "pieces": [
     {
