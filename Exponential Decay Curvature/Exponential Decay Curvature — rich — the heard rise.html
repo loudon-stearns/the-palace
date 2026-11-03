@@ -1,0 +1,344 @@
+<!doctype html>
+<!--
+  title: Exponential Decay Curvature — rich — the heard rise
+  born: 2026-11-03
+  links: [[Exponential Decay Curvature]] (connects-to · rich-face-piece) · listed in [[Exponential Decay Curvature — rich.json]] · section "How the ear takes the rise" · beside the section's figure heard-rise-linear-vs-moog.svg · the voice is Synth Templates' reference voice for its time tables (a saw at C3 through a 2500 Hz lowpass)
+  forward_vector: I am the walk up to the heard rise. One straight rise; the same rise counted in decibels, where its first few percent sit under a floor and its last 6 dB take half the time; the Moog rise beside it; and last a blind trial of the figure's candidate for the jump Loudon heard: three rises at one stated time, one of them the straight rise with only its arrival corner rounded. If the rounded one loses the jump, the corner is doing it; if it keeps it, the climb is. The listener decides; the page only deals and keeps the score. I change only when the section I serve does.
+  sound: nothing plays until a Play button is clicked; the AudioContext is made on that click. Changing step stops the sound.
+  check: Exponential Decay Curvature/Exponential Decay Curvature — rich — check.mjs runs this page's core in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Is the jump the corner?</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --warn:#ff6a4a;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas.stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:130px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:10ch}
+  .ctl [hidden]{display:none}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter .bad{color:var(--warn)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .rowb[hidden]{display:none}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.mark{font-family:var(--sans);font-weight:500;font-size:15px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:10px 18px;cursor:pointer}
+  button.mark:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:left;font-weight:400}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer svg{flex:none}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:96px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Exponential Decay Curvature · how the ear takes the rise · four steps</div>
+  <h1>Is the jump the corner?</h1>
+  <p class="lead">A straight rise and a Moog rise, at the same stated time, are heard differently, and Loudon heard a jump near the end of the straight one. Four steps: one straight rise, the same rise counted the way the ear counts, the Moog rise beside it, and then a blind trial of one candidate for the jump: the corner where the straight rise arrives. The voice is the one Synth Templates sat its time tables with. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Hear</span><span class="hint" id="hearHint"></span><button class="play" id="play">Play</button></div>
+    <canvas class="stage" id="stage"></canvas>
+    <div class="legend" id="legend"></div>
+    <div class="ctl">
+      <label for="T">stated time</label><input id="T" type="range" min="0" max="1" step="0.001"><span class="v" id="Tv"></span>
+    </div>
+    <div class="rowb" id="roomRow" hidden><span class="eyebrow">the room</span>
+      <button class="ghost" data-room="0" aria-pressed="true">Silent</button>
+      <button class="ghost" data-room="1" aria-pressed="false">A hiss 30 dB down</button>
+    </div>
+    <div class="rowb" id="abRow" hidden><span class="eyebrow">play</span>
+      <button class="ghost" data-play="linear">The straight rise</button>
+      <button class="ghost" data-play="moog">The Moog rise</button>
+    </div>
+    <div id="trial" hidden>
+      <div class="rowb"><button class="ghost" id="deal">Deal three</button><span class="hint" id="dealHint">Three rises at the stated time, in an order the page keeps from you.</span></div>
+      <div class="rowb" id="cards"></div>
+      <div class="rowb"><button class="mark" id="reveal" disabled>Reveal</button><span class="hint">Mark each one first.</span></div>
+      <table class="marks" id="score" hidden><thead><tr><th>trial</th><th>time</th><th>the straight rise</th><th>the same, corner rounded</th><th>the Moog rise</th></tr></thead><tbody></tbody></table>
+      <p class="hint" id="tally" hidden></p>
+    </div>
+    <div class="meter" id="meter"></div>
+    <div id="eqs"></div>
+  </div>
+  <div class="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+  <footer><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.2" fill="none" stroke="#4a4a5e" stroke-width="0.8"/><path d="M20.00 11.00L19.97 11.47L19.89 11.94L19.75 12.41L19.56 12.87L19.31 13.33L19.02 13.78L18.67 14.23L18.28 14.66L17.84 15.09L17.36 15.50L16.85 15.90L16.29 16.29L15.70 16.66L15.09 17.02L14.44 17.36L13.78 17.69L13.10 17.99L12.41 18.28L11.71 18.55L11.00 18.79L10.29 19.02L9.59 19.22L8.90 19.40L8.22 19.56L7.56 19.69L6.91 19.80L6.30 19.89L5.71 19.95L5.15 19.99L4.64 20.00L4.16 19.99L3.72 19.95L3.33 19.89L2.98 19.80L2.69 19.69L2.44 19.56L2.25 19.40L2.11 19.22L2.03 19.02L2.00 18.79L2.03 18.55L2.11 18.28L2.25 17.99L2.44 17.69L2.69 17.36L2.98 17.02L3.33 16.66L3.72 16.29L4.16 15.90L4.64 15.50L5.15 15.09L5.71 14.66L6.30 14.23L6.91 13.78L7.56 13.33L8.22 12.87L8.90 12.41L9.59 11.94L10.29 11.47L11.00 11.00L11.71 10.53L12.41 10.06L13.10 9.59L13.78 9.13L14.44 8.67L15.09 8.22L15.70 7.77L16.29 7.34L16.85 6.91L17.36 6.50L17.84 6.10L18.28 5.71L18.67 5.34L19.02 4.98L19.31 4.64L19.56 4.31L19.75 4.01L19.89 3.72L19.97 3.45L20.00 3.21L19.97 2.98L19.89 2.78L19.75 2.60L19.56 2.44L19.31 2.31L19.02 2.20L18.67 2.11L18.28 2.05L17.84 2.01L17.36 2.00L16.85 2.01L16.29 2.05L15.70 2.11L15.09 2.20L14.44 2.31L13.78 2.44L13.10 2.60L12.41 2.78L11.71 2.98L11.00 3.21L10.29 3.45L9.59 3.72L8.90 4.01L8.22 4.31L7.56 4.64L6.91 4.98L6.30 5.34L5.71 5.71L5.15 6.10L4.64 6.50L4.16 6.91L3.72 7.34L3.33 7.77L2.98 8.22L2.69 8.67L2.44 9.13L2.25 9.59L2.11 10.06L2.03 10.53L2.00 11.00L2.03 11.47L2.11 11.94L2.25 12.41L2.44 12.87L2.69 13.33L2.98 13.78L3.33 14.23L3.72 14.66L4.16 15.09L4.64 15.50L5.15 15.90L5.71 16.29L6.30 16.66L6.91 17.02L7.56 17.36L8.22 17.69L8.90 17.99L9.59 18.28L10.29 18.55L11.00 18.79L11.71 19.02L12.41 19.22L13.10 19.40L13.78 19.56L14.44 19.69L15.09 19.80L15.70 19.89L16.29 19.95L16.85 19.99L17.36 20.00L17.84 19.99L18.28 19.95L18.67 19.89L19.02 19.80L19.31 19.69L19.56 19.56L19.75 19.40L19.89 19.22L19.97 19.02L20.00 18.79L19.97 18.55L19.89 18.28L19.75 17.99L19.56 17.69L19.31 17.36L19.02 17.02L18.67 16.66L18.28 16.29L17.84 15.90L17.36 15.50L16.85 15.09L16.29 14.66L15.70 14.23L15.09 13.78L14.44 13.33L13.78 12.87L13.10 12.41L12.41 11.94L11.71 11.47L11.00 11.00L10.29 10.53L9.59 10.06L8.90 9.59L8.22 9.13L7.56 8.67L6.91 8.22L6.30 7.77L5.71 7.34L5.15 6.91L4.64 6.50L4.16 6.10L3.72 5.71L3.33 5.34L2.98 4.98L2.69 4.64L2.44 4.31L2.25 4.01L2.11 3.72L2.03 3.45L2.00 3.21L2.03 2.98L2.11 2.78L2.25 2.60L2.44 2.44L2.69 2.31L2.98 2.20L3.33 2.11L3.72 2.05L4.16 2.01L4.64 2.00L5.15 2.01L5.71 2.05L6.30 2.11L6.91 2.20L7.56 2.31L8.22 2.44L8.90 2.60L9.59 2.78L10.29 2.98L11.00 3.21L11.71 3.45L12.41 3.72L13.10 4.01L13.78 4.31L14.44 4.64L15.09 4.98L15.70 5.34L16.29 5.71L16.85 6.10L17.36 6.50L17.84 6.91L18.28 7.34L18.67 7.77L19.02 8.22L19.31 8.67L19.56 9.13L19.75 9.59L19.89 10.06L19.97 10.53L20.00 11.00" fill="none" stroke="#e8b84a" stroke-width="0.9"/></svg><span><b>LOUD’N LIVE</b> · Exponential Decay Curvature · the heard rise · Sketch, 2026-11-03 · proposal</span></footer>
+</main>
+<!-- The core: plain functions shared by the picture, the notes and the headless check. -->
+<script id="edc-rise-core">
+var RISE = { F0: 130.81, CUT: 2500, Q: 0.7, PEAK: 0.5, HOLD: 1.0, REL: 0.08, FLOOR_DB: -30, ARRIVE_DB: -6, W: 0.15, HISS_DB: -30, SAW_RMS: 0.567 };
+// three rises, as functions of x = time ÷ stated time
+function riseLinear(x){ return x <= 0 ? 0 : x >= 1 ? 1 : x; }
+// the Moog rise: an RC approach with tau = T ÷ 3, so 95 % at the stated time, still approaching after it
+function riseMoog(x){ return x <= 0 ? 0 : 1 - Math.exp(-3 * x); }
+// the straight rise with only its arrival rounded: identical until 1 − W, then a parabola that meets it in value and slope
+// and arrives at full with zero slope at 1 + W. It is the straight rise averaged over a window 2W wide, near the corner only.
+function riseRounded(x){ var w = RISE.W; if (x <= 1 - w) return Math.max(0, x); if (x >= 1 + w) return 1; var u = x - (1 - w); return x - u * u / (4 * w); }
+var RISES = { linear: riseLinear, rounded: riseRounded, moog: riseMoog };
+function db(v){ return 20 * Math.log10(Math.max(1e-6, v)); }
+// first x where a rise reaches a level, by bisection
+function crossing(fn, level){ var lo = 0, hi = 3; for (var i = 0; i < 80; i++){ var m = (lo + hi) / 2; if (fn(m) >= level) hi = m; else lo = m; } return hi; }
+// the audible climb: from the floor (30 dB down) to "arrived" (6 dB down), in stated times
+function audibleClimb(fn){ return [crossing(fn, Math.pow(10, RISE.FLOOR_DB / 20)), crossing(fn, Math.pow(10, RISE.ARRIVE_DB / 20))]; }
+// the gain curve a note is played with: the rise and the hold after it, sampled finely enough to follow it
+function gainCurve(name, T){ var fn = RISES[name], span = 1.3 + RISE.HOLD / T, n = Math.max(64, Math.min(6000, Math.round(T * span * 1000))), a = new Float32Array(n); for (var i = 0; i < n; i++) a[i] = RISE.PEAK * fn(i / (n - 1) * span); return a; }
+</script>
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  
+  function makeWalk(STEPS, onGo){
+    var rail = document.getElementById('rail'), cur = 0;
+    STEPS.forEach(function(s, i){
+      var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short;
+      b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
+    });
+    function go(i){
+      cur = i; var s = STEPS[i];
+      Array.prototype.forEach.call(rail.children, function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+      document.getElementById('stepEyebrow').textContent = 'Step ' + (i + 1) + ' of ' + STEPS.length + (s.test ? ' · the test' : '');
+      document.getElementById('stepTitle').textContent = s.title;
+      document.getElementById('stepSay').textContent = s.say;
+      document.getElementById('hearHint').textContent = s.hint || '';
+      var eqs = document.getElementById('eqs'); eqs.innerHTML = '';
+      (s.eq || []).forEach(function(e){
+        var a = document.createElement('div'); a.className = 'eq'; a.textContent = e[0];
+        var w = document.createElement('div'); w.className = 'eq words'; w.textContent = e[1];
+        eqs.appendChild(a); eqs.appendChild(w);
+      });
+      document.getElementById('tryText').textContent = s.tryText;
+      document.getElementById('back').disabled = i === 0;
+      document.getElementById('next').disabled = i === STEPS.length - 1;
+      onGo(i, s);
+    }
+    document.getElementById('back').addEventListener('click', function(){ if (cur > 0) go(cur - 1); });
+    document.getElementById('next').addEventListener('click', function(){ if (cur < STEPS.length - 1) go(cur + 1); });
+    return { go: go, step: function(){ return cur; } };
+  }
+  // a canvas sized by its column, in device pixels
+  function fitCanvas(cv, ratio, minH, maxH){
+    var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    var cssH = Math.round(Math.max(minH, Math.min(maxH, r.width * ratio)));
+    if (cv.style.height !== cssH + 'px') cv.style.height = cssH + 'px';
+    var W = Math.round(r.width * d), H = Math.round(cssH * d);
+    if (cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; }
+    return { g: cv.getContext('2d'), W: W, H: H, d: d };
+  }
+  function cssVar(n, fb){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim() || fb; }
+
+  var STEPS = [
+    { title: 'One straight rise', short: 'The straight rise',
+      say: 'A note whose loudness climbs in a straight line from nothing to full over the stated time, then holds. In amplitude, the number a synthesizer’s level knob turns, it is the simplest rise there is: the same amount more every millisecond. Listen to it once on its own, and notice where it seems to get going and where it seems to land.',
+      hint: 'a C3 note, rising over the stated time, then held a second',
+      eq: [['g(t) = t ÷ T   for 0 ≤ t ≤ T,   then 1', '(gain) = (time) ÷ (stated time), climbing to full, then holding'],
+           ['T = the stated time', 'the number on the knob: when the straight rise arrives']],
+      tryText: 'Try it at about a second and at three seconds. The sitting that found the jump heard it at the slow end, a second and longer.' },
+    { title: 'The same rise, counted as the ear counts', short: 'In decibels',
+      say: 'The ear hears loudness in ratios, so redraw the same rise in decibels. Now it starts at minus infinity, and its first few percent sit under any floor the room has: here the floor is 30 dB down, and the rise is under it for the first 3 % of the time. From 30 dB down to 6 dB down, the audible climb, takes the first half of the time. The last 6 dB take the other half. Then the rise stops all at once, at a corner, still moving when it gets there. Turn on the hiss to put a floor in the room.',
+      hint: 'the same straight rise; the hiss, if you choose it, sits 30 dB below the note at full',
+      eq: [['L(t) = 20 · log₁₀(t ÷ T) dB', '(level in decibels) = 20 × the logarithm of ((time) ÷ (stated time))'],
+           ['−30 dB at 0.03 T,   −6 dB at 0.50 T', 'clears a 30 dB floor 3 % of the way in, and is within 6 dB of full halfway']],
+      tryText: 'Play it with the hiss on. Listen for when the note comes out of the hiss, and then for the moment it stops climbing.' },
+    { title: 'The Moog rise beside it', short: 'Both rises',
+      say: 'The Moog rise, at the same stated time: a capacitor’s approach, 95 % of the way at the stated time and still easing in after it. In decibels it clears the floor almost at once, climbs steeply, then ever more gently, and never meets a corner because it never quite arrives. Its audible climb runs from 1 % to 23 % of the stated time, about half the straight rise’s.',
+      hint: 'either rise, at the same stated time',
+      eq: [['g(t) = 1 − e^(−3t/T)', '(gain) = 1 − e to the minus (3 × (time) ÷ (stated time)): a third of the stated time is one time constant'],
+           ['−30 dB at 0.01 T,   −6 dB at 0.23 T', 'clears the floor 1 % of the way in, and is within 6 dB of full before a quarter of the way']],
+      tryText: 'Play them one after the other at the same time. The same number on the knob, two different notes.' },
+    { title: 'A blind trial of the corner', short: 'The test', test: true,
+      say: 'The figure beside this section offers one candidate for the jump: the corner where the straight rise arrives, a rise still moving when it stops. Another reading is that the climb itself changes rate. Here is a way to tell them apart. Deal three rises at one stated time: the straight rise, the Moog rise, and the straight rise with only its arrival rounded, identical to it until 85 % of the way, then easing into full, which it reaches a little after the stated time, at 1.15 T. Play each, as often as you like, and mark the ones where you hear a jump near the end. Then reveal. If the rounded rise loses the jump the straight one has, the corner is doing it. If it keeps the jump, the climb is.',
+      hint: 'three rises, in an order the page keeps from you',
+      eq: [['g(t) = t ÷ T  until 0.85 T,   then  t ÷ T − (t ÷ T − 0.85)² ÷ 0.6,   full from 1.15 T', 'the rounded rise: the straight rise until 85 % of the way, then a curve that leaves it at its own slope and lands flat at 115 %'],
+           ['in decibels, all three below 0.85 T: straight = rounded', 'what the rounded rise changes is the arrival, and nothing before it']],
+      tryText: 'Deal several times, at a second and at two or three seconds. The page keeps every trial in the table, and counts how often you marked each rise.' }
+  ];
+
+  var step = 0, T = 1.2, room = false, ctx = null, master = null, hiss = null, hissGain = null, live = [];
+  var playing = null, playStart = 0;
+  function ensure(){
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    master = ctx.createGain(); master.gain.value = 0.7;
+    var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -2; comp.knee.value = 0; comp.ratio.value = 20; comp.attack.value = 0.002; comp.release.value = 0.1;
+    master.connect(comp); comp.connect(ctx.destination);
+  }
+  // the hiss: four seconds of gently filtered noise at an RMS 30 dB below the voice's at full
+  function startHiss(){
+    if (!room || hiss) return;
+    var n = ctx.sampleRate * 4, b = ctx.createBuffer(1, n, ctx.sampleRate), d = b.getChannelData(0), y = 0, s = 0;
+    for (var i = 0; i < n; i++){ y = 0.97 * y + 0.03 * (Math.random() * 2 - 1) * 4; d[i] = y; s += y * y; }
+    var rms = Math.sqrt(s / n); for (i = 0; i < n; i++) d[i] /= rms;
+    hiss = ctx.createBufferSource(); hiss.buffer = b; hiss.loop = true;
+    hissGain = ctx.createGain(); hissGain.gain.value = voiceRms * Math.pow(10, RISE.HISS_DB / 20);
+    hiss.connect(hissGain); hissGain.connect(master); hiss.start();
+  }
+  function stopHiss(){ if (hiss){ try { hiss.stop(); } catch(e){} hiss.disconnect(); hiss = null; } }
+  var voiceRms = RISE.PEAK * RISE.SAW_RMS;   // the voice's RMS at full: PEAK × the filtered sawtooth's RMS (worked out in the check)
+  function note(name){
+    ensure(); if (ctx.state === 'suspended') ctx.resume();
+    stopNotes(); startHiss();
+    var t0 = ctx.currentTime + 0.03, dur = 1.3 * T + RISE.HOLD, end = t0 + dur;
+    var o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = RISE.F0;
+    var f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = RISE.CUT; f.Q.value = RISE.Q;
+    var g = ctx.createGain(); g.gain.setValueAtTime(0, 0);
+    g.gain.setValueCurveAtTime(gainCurve(name, T), t0, dur);
+    g.gain.setTargetAtTime(0, end, RISE.REL / 3);
+    o.connect(f); f.connect(g); g.connect(master); o.start(t0); o.stop(end + RISE.REL * 3);
+    live.push(o); playing = name; playStart = t0;
+    o.onended = function(){ if (live[live.length - 1] === o){ playing = null; stopHiss(); } };
+  }
+  function stopNotes(){ live.forEach(function(o){ try { o.stop(); } catch(e){} }); live = []; playing = null; }
+  $('play').addEventListener('click', function(){
+    if (step === 3){ if (!dealt) deal(); return; }
+    note(step === 2 ? 'moog' : 'linear');
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-play]'), function(b){ b.addEventListener('click', function(){ note(b.getAttribute('data-play')); }); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-room]'), function(b){ b.addEventListener('click', function(){ room = b.getAttribute('data-room') === '1'; syncRoom(); if (!room) stopHiss(); }); });
+  function syncRoom(){ Array.prototype.forEach.call(document.querySelectorAll('[data-room]'), function(b){ b.setAttribute('aria-pressed', String((b.getAttribute('data-room') === '1') === room)); }); }
+
+  // ---------- the stated time ----------
+  function tFrom(u){ return 0.1 * Math.pow(50, u); } function uFrom(t){ return Math.log(t / 0.1) / Math.log(50); }
+  $('T').addEventListener('input', function(){ T = tFrom(parseFloat($('T').value)); showT(); });
+  function showT(){ $('Tv').textContent = T < 1 ? (T * 1000).toFixed(0) + ' ms' : T.toFixed(2) + ' s'; meter(); }
+
+  // ---------- the trial ----------
+  var NAMES = { linear: 'the straight rise', rounded: 'the same, corner rounded', moog: 'the Moog rise' };
+  var dealt = null, marks = {}, trials = [];
+  function deal(){
+    var order = ['linear', 'rounded', 'moog'];
+    for (var i = order.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)), t = order[i]; order[i] = order[j]; order[j] = t; }
+    dealt = { order: order, T: T, revealed: false }; marks = {};
+    var box = $('cards'); box.innerHTML = '';
+    ['A', 'B', 'C'].forEach(function(L, k){
+      var wrap = document.createElement('span'); wrap.style.display = 'inline-flex'; wrap.style.gap = '6px'; wrap.style.alignItems = 'center'; wrap.style.marginRight = '14px';
+      var p = document.createElement('button'); p.className = 'ghost'; p.textContent = 'Play ' + L; p.addEventListener('click', function(){ note(order[k]); });
+      var j1 = document.createElement('button'); j1.className = 'ghost'; j1.textContent = 'jump'; j1.setAttribute('aria-pressed', 'false');
+      var e1 = document.createElement('button'); e1.className = 'ghost'; e1.textContent = 'even'; e1.setAttribute('aria-pressed', 'false');
+      j1.addEventListener('click', function(){ marks[k] = 'jump'; j1.setAttribute('aria-pressed', 'true'); e1.setAttribute('aria-pressed', 'false'); syncReveal(); });
+      e1.addEventListener('click', function(){ marks[k] = 'even'; e1.setAttribute('aria-pressed', 'true'); j1.setAttribute('aria-pressed', 'false'); syncReveal(); });
+      wrap.appendChild(p); wrap.appendChild(j1); wrap.appendChild(e1); box.appendChild(wrap);
+    });
+    $('dealHint').textContent = 'Dealt at ' + $('Tv').textContent + '. Play each, mark each.';
+    $('T').disabled = true; syncReveal(); meter();
+  }
+  function syncReveal(){ $('reveal').disabled = !dealt || dealt.revealed || Object.keys(marks).length < 3; }
+  $('deal').addEventListener('click', deal);
+  $('reveal').addEventListener('click', function(){
+    if (!dealt) return; dealt.revealed = true; stopNotes();
+    var row = { T: dealt.T }; dealt.order.forEach(function(name, k){ row[name] = { letter: 'ABC'[k], mark: marks[k] }; });
+    trials.push(row);
+    var tb = $('score').querySelector('tbody'); tb.innerHTML = '';
+    trials.forEach(function(r, i){ var tr = document.createElement('tr'); var cell = function(n){ return '<td>' + r[n].letter + ' · <b>' + r[n].mark + '</b></td>'; };
+      tr.innerHTML = '<td>' + (i + 1) + '</td><td>' + (r.T < 1 ? (r.T * 1000).toFixed(0) + ' ms' : r.T.toFixed(2) + ' s') + '</td>' + cell('linear') + cell('rounded') + cell('moog'); tb.appendChild(tr); });
+    $('score').hidden = false;
+    var cnt = function(n){ return trials.filter(function(r){ return r[n].mark === 'jump'; }).length; };
+    $('tally').hidden = false;
+    $('tally').textContent = 'Marked jump, over ' + trials.length + ' trial' + (trials.length > 1 ? 's' : '') + ': the straight rise ' + cnt('linear') + ', the same with its corner rounded ' + cnt('rounded') + ', the Moog rise ' + cnt('moog') + '. If the straight rise jumps and the rounded one does not, the corner is the candidate; if both jump, the climb is.';
+    $('T').disabled = false; $('dealHint').textContent = 'Revealed. Deal again, at the same time or another.'; syncReveal(); meter();
+  });
+
+  function meter(){
+    var h = [], a = audibleClimb(riseLinear), m = audibleClimb(riseMoog);
+    if (step === 0) h.push('the straight rise arrives at <b>' + $('Tv').textContent + '</b> and holds');
+    if (step >= 1 && step < 3) h.push('straight: audible climb from <b>' + a[0].toFixed(3) + ' T</b> to <b>' + a[1].toFixed(3) + ' T</b> = <b>' + ((a[1] - a[0]) * T * 1000).toFixed(0) + ' ms</b>; the last 6 dB take <b>' + ((1 - a[1]) * T * 1000).toFixed(0) + ' ms</b>');
+    if (step === 2) h.push('Moog: audible climb from <b>' + m[0].toFixed(3) + ' T</b> to <b>' + m[1].toFixed(3) + ' T</b> = <b>' + ((m[1] - m[0]) * T * 1000).toFixed(0) + ' ms</b> · the straight climb is <b>' + ((a[1] - a[0]) / (m[1] - m[0])).toFixed(2) + '×</b> as long');
+    if (step === 3) h.push(dealt && !dealt.revealed ? 'dealt; the curves are hidden until you reveal' : dealt ? 'revealed: the three are drawn, in decibels' : 'press Deal three, or Play');
+    $('meter').innerHTML = h.join('<br>');
+  }
+
+  var LEG = [
+    '<div><b>The rise</b>Gold: gain against time, 0 to 1.3 stated times.</div><div><b>Now</b>The line moves with the note while it plays.</div>',
+    '<div><b>The rise in decibels</b>Gold: the straight rise, 0 to −60 dB. Lines: the floor at −30 dB and “arrived” at −6 dB.</div><div><b>Landmarks</b>Where it clears the floor, where it is within 6 dB, and the corner at the stated time.</div>',
+    '<div><b>Both, in decibels</b>Gold: the straight rise. Blue: the Moog rise.</div><div><b>The audible climb</b>The thick part of each line runs from the floor to “arrived”.</div>',
+    '<div><b>Hidden, then shown</b>After you reveal: gold the straight rise, white the rounded one, blue the Moog rise, in decibels.</div><div><b>The score</b>Every trial you reveal is kept below, with your marks.</div>'
+  ];
+  var walk = makeWalk(STEPS, function(i){
+    stopNotes(); step = i; if (i < 1) { room = false; stopHiss(); syncRoom(); }
+    $('roomRow').hidden = i === 0; $('abRow').hidden = i !== 2; $('trial').hidden = i !== 3; $('play').hidden = i === 3;
+    if (i !== 3){ dealt = null; $('T').disabled = false; }
+    $('legend').innerHTML = LEG[i]; showT();
+  });
+
+  // ---------- the picture ----------
+  var cv = $('stage'), ACC = cssVar('--accent', '#e8b84a'), FG1 = cssVar('--fg-1', '#e8e8f0'), FG3 = cssVar('--fg-3', '#8a8aa0'), FG4 = cssVar('--fg-4', '#4a4a5a'), INFO = cssVar('--info', '#4a8fff');
+  function draw(){
+    var c0 = fitCanvas(cv, 0.38, 220, 340), g = c0.g, W = c0.W, H = c0.H, d = c0.d, p = 14 * d;
+    g.clearRect(0, 0, W, H);
+    g.strokeStyle = 'rgba(255,255,255,0.06)'; g.lineWidth = d; g.strokeRect(p, p, W - 2 * p, H - 2 * p);
+    var x0 = p + 40 * d, y0 = p + 24 * d, w = W - 2 * p - 56 * d, h = H - 2 * p - 50 * d, X = function(x){ return x0 + x / 1.3 * w; };
+    var inDb = step > 0, Y = inDb ? function(v){ var q = Math.max(-60, db(v)); return y0 + (-q / 60) * h; } : function(v){ return y0 + (1 - v) * h; };
+    g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.fillStyle = FG4;
+    g.fillText(inDb ? 'LEVEL · dB' : 'GAIN', p + 6 * d, p + 14 * d);
+    (inDb ? [[1, '0'], [Math.pow(10, -0.3), '−6'], [Math.pow(10, -1.5), '−30'], [0.001, '−60']] : [[1, '1'], [0.5, '0.5'], [0, '0']]).forEach(function(q){ g.fillStyle = FG4; g.fillText(q[1], p + 6 * d, Y(q[0]) + 3 * d); g.strokeStyle = 'rgba(255,255,255,0.05)'; g.beginPath(); g.moveTo(x0, Y(q[0])); g.lineTo(x0 + w, Y(q[0])); g.stroke(); });
+    [0, 0.5, 1].forEach(function(x){ g.fillStyle = FG4; g.fillText(x === 0 ? '0' : x + ' T', X(x) - 6 * d, y0 + h + 16 * d); });
+    if (inDb){ g.strokeStyle = FG3; g.setLineDash([3 * d, 4 * d]); [RISE.FLOOR_DB, RISE.ARRIVE_DB].forEach(function(L){ var yy = y0 + (-L / 60) * h; g.beginPath(); g.moveTo(x0, yy); g.lineTo(x0 + w, yy); g.stroke(); }); g.setLineDash([]); }
+    var show = step < 3 ? (step === 2 ? ['linear', 'moog'] : ['linear']) : (dealt && dealt.revealed ? ['linear', 'rounded', 'moog'] : []);
+    var COL = { linear: ACC, rounded: FG1, moog: INFO };
+    show.forEach(function(name){
+      var fn = RISES[name], cl = audibleClimb(fn);
+      g.strokeStyle = COL[name]; g.lineWidth = (name === 'rounded' ? 1.4 : 2) * d; g.beginPath(); var pen = false;
+      for (var i = 0; i <= 600; i++){ var x = i / 600 * 1.3, v = fn(x); if (v <= 0) continue; if (pen) g.lineTo(X(x), Y(v)); else { g.moveTo(X(x), Y(v)); pen = true; } } g.stroke();
+      if (inDb && step < 3){ g.lineWidth = 5 * d; g.globalAlpha = 0.45; g.beginPath(); for (i = 0; i <= 200; i++){ var x2 = cl[0] + (cl[1] - cl[0]) * i / 200; if (i) g.lineTo(X(x2), Y(fn(x2))); else g.moveTo(X(x2), Y(fn(x2))); } g.stroke(); g.globalAlpha = 1; }
+    });
+    if (step === 1){ g.fillStyle = ACC; g.beginPath(); g.arc(X(1), Y(1), 4.5 * d, 0, 7); g.fill(); g.fillStyle = FG3; g.fillText('the corner', X(1) + 8 * d, Y(1) + 14 * d); }
+    if (step === 3 && !(dealt && dealt.revealed)){ g.fillStyle = FG3; g.font = (13 * d) + 'px Manrope, sans-serif'; g.fillText(dealt ? 'Hidden until you reveal.' : 'Deal three to begin.', x0 + 20 * d, y0 + h / 2); }
+    if (playing && ctx && step < 3){ var x3 = (ctx.currentTime - playStart) / T; if (x3 >= 0 && x3 <= 1.3){ g.strokeStyle = FG3; g.lineWidth = d; g.beginPath(); g.moveTo(X(x3), y0); g.lineTo(X(x3), y0 + h); g.stroke(); } }
+    requestAnimationFrame(draw);
+  }
+  $('T').value = String(uFrom(T)); syncRoom(); walk.go(0); requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
