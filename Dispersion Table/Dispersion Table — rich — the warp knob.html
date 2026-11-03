@@ -123,7 +123,7 @@
 
   <section class="step" data-name="the test" hidden>
     <h2>4 · The test: pure, piano, bell?</h2>
-    <p class="say">Sweep the knob from 0 to 0.97 and sort what comes out. Pure: every partial within a cent of a whole multiple. Piano: the partials stretch sharp, more for each one up, and follow the piano string's law fₙ = n f₀ √(1 + B n²) to within a tenth of their spread. Past that, a stretch the law no longer fits. And irregular: some partials flat while others go sharp, no longer a stretched string at all, the page's bell end. Then try the other common recipe, eight identical first-order allpasses, the stiff string's.</p>
+    <p class="say">Sweep the knob from 0 to 0.97 and sort what comes out. Pure: every partial within a cent of a whole multiple. Piano: the partials stretch sharp, more for each one up, and follow the piano string's law fₙ = n f₀ √(1 + B n²) to within a tenth of their spread. Past that, a stretch the law no longer fits. And irregular: some partials flat while others go sharp, no longer a stretched string at all. That is where the page puts its bell, but it is a new shape, not a wider spread: the widest departure at the top of the knob is about what the piano band already reaches at its top. Then try the other common recipe, eight identical first-order allpasses, the stiff string's.</p>
     <div class="dwh"><div><b>do</b>Read the strip, then drag the radius into each band and pluck. Switch recipes.</div><div><b>watch</b>The widest partial's departure (gold) and how far the piano's law misses (blue). The bands come from those two.</div><div><b>hear</b>Whether the irregular end sounds like a bell is for your ear; the numbers say only that it is no longer a string.</div></div>
     <div class="panel">
       <div class="plabel"><span>24 partials, swept across the knob · gold: widest departure from harmonic · blue: worst miss of the piano's law</span><span id="r4"></span></div>
@@ -481,7 +481,7 @@ function refresh() {
     const irr = bs.find((b) => b.band === 'irregular'), pia = bs.find((b) => b.band === 'piano');
     $('v4').textContent = S.recipe === 'page'
       ? `The page's recipe reads ${say}. ${pia && irr && pia.from < irr.from ? `So the one knob does go pure, then piano, then irregular. The piano band takes most of the knob; the irregular end comes only in the last few hundredths, where the low partials fall flat as the high ones go sharp.` : 'So the knob does not walk pure, piano, bell in that order here.'}`
-      : `The stiff string's recipe reads ${say}. ${irr ? 'It too reaches an irregular end.' : 'It never turns irregular: it only stretches, past the piano and toward a stiff bar. The bell end needs sections with a centre, the second-order ones.'}`;
+      : `The stiff string's recipe reads ${say}. ${irr ? 'It too reaches an irregular end.' : 'It never turns irregular: it only stretches, past the piano and toward a stiff bar. The delay through its sections only ever falls with frequency, so the partials can only stretch; the irregular shape needs sections with a centre, the second-order ones.'}`;
   }
   draw();
 }
