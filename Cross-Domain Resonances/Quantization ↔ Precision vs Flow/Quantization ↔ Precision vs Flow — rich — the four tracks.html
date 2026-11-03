@@ -72,7 +72,7 @@
 <div class="piece">
   <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · Web Audio drum synth · sketch</span></div>
   <h3 class="title">The four tracks</h3>
-  <p class="sub">Part 1 of the assignment, done here: one groove played freely, quantized at 0, 25, 75 and 100 %. Then a strength for each part, as a student discovers they need. Then every part at every strength, laid out as a matrix to play from and to copy. Last, four mixes, blind: you say which grooves and which is robotic before you learn which was which.</p>
+  <p class="sub">Part 1 of the assignment, done here: one groove played freely, quantized at 0, 25, 75 and 100 %. Then a strength for each part, as a student discovers they need. Then every part at every strength, laid out as a matrix to play from and to copy. Last, the four tracks again, blind: you say which grooves and which is robotic before you learn which was which.</p>
 
   <div class="rail" id="rail"></div>
   <p class="say" id="say"></p>
@@ -107,7 +107,7 @@
     <div class="eq">t′ = g + (1 − s<sub>part</sub>) · (t − g)</div>
     <div class="words">(where a hit ends up) = (its grid line) + (what that part's strength leaves) × (how far it was played from the line). One strength for the whole groove is the four tracks; one per part is the student's discovery.</div>
   </div>
-  <div class="note">The groove is the one in The Technical Side's piece, with a percussion part added (a short 820 Hz blip), played loosest of all; synthesised here, nothing sampled. The matrix sheet is timing, not audio: the frame a rich-face piece runs in does not allow downloads, so the export is text to copy. Checked offline on this page's own engine (the script marked engine): the sheet's numbers against the strength rule, and that every blind mix is the one it says it is. Not heard by an agent.</div>
+  <div class="note">The groove is a take made for this piece, with no planted mistake in it: every part a little loose, the hi-hats loosest, and a percussion part (a short 820 Hz blip); synthesised here, nothing sampled. The matrix sheet is timing, not audio, and not the audio sample matrix the page's comment asks for: the frame a rich-face piece runs in does not allow downloads. Checked offline on this page's own engine (the script marked engine): the sheet's numbers against the strength rule, and that every blind mix is the track it says it is. Not heard by an agent.</div>
   <div class="footer">Loud’n Live</div>
 </div>
 
@@ -120,14 +120,13 @@ const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 function gridOf(t, grid = SIX) { return Math.round(t / grid) * grid; }
 function quantize(t, s, grid = SIX) { const g = gridOf(t, grid); return g + (1 - s) * (t - g); }
 const PARTS = ['kick', 'snare', 'hat', 'perc'];
-// the same groove as The Technical Side's piece (seed 37), plus a percussion part played loosest
+// a fresh take, with no planted stumble or lean, so no single hit gives a mix away: every part played loosely, the hi-hats loosest
 function groove() {
-  const r = rng(37), hits = [], add = (part, step, v, off, tag = '') => hits.push({ id: hits.length, part, step, v, t: step * SIX + off, tag });
-  for (let s = 0; s < 32; s += 2) add('hat', s, s % 4 === 0 ? 0.5 : 0.3, s === 10 ? 0.001 : clamp(gauss(r) * 0.005, -0.011, 0.011));
-  for (const s of [0, 10, 16, 26]) add('kick', s, 0.95, s === 10 ? 0.037 : clamp(gauss(r) * 0.003, -0.006, 0.006), s === 10 ? 'stumble' : '');
-  for (const s of [4, 12, 20, 28]) add('snare', s, 0.75, clamp(gauss(r) * 0.003, -0.006, 0.006));
-  add('snare', 29, 0.34, -0.016, 'lean'); add('snare', 30, 0.46, -0.026, 'lean'); add('snare', 31, 0.6, -0.037, 'lean');
-  const p = rng(41); for (const s of [3, 6, 11, 14, 19, 22, 25, 27, 30]) add('perc', s, 0.35 + 0.25 * p(), clamp(gauss(p) * 0.012, -0.024, 0.024));
+  const r = rng(53), hits = [], add = (part, step, v, off) => hits.push({ id: hits.length, part, step, v, t: step * SIX + off, tag: '' });
+  for (let s = 0; s < 32; s += 2) add('hat', s, s % 4 === 0 ? 0.5 : 0.3, clamp(gauss(r) * 0.013, -0.026, 0.026));
+  for (const s of [0, 10, 16, 26]) add('kick', s, 0.95, clamp(gauss(r) * 0.008, -0.016, 0.016));
+  for (const s of [4, 12, 20, 28]) add('snare', s, 0.75, clamp(gauss(r) * 0.008, -0.016, 0.016));
+  const p = rng(41); for (const s of [3, 6, 11, 14, 19, 22, 25, 27, 30]) add('perc', s, 0.35 + 0.25 * p(), clamp(gauss(p) * 0.010, -0.02, 0.02));
   return hits;
 }
 // strengths: a number for every part, or {kick, snare, hat, perc}
@@ -142,12 +141,12 @@ function sheet(hits) {
     rows.push([h.part, Math.floor(h.step / 16) + 1, (h.step % 16) + 1, (1000 * gridOf(h.t)).toFixed(1), Math.round(127 * h.v), ...LEVELS.map((s) => (1000 * quantize(h.t, s)).toFixed(1))].join(','));
   return rows.join('\n');
 }
-// the four blind mixes
+// the blind round: step 1's four tracks, shuffled
 const MIXES = [
-  { name: 'all at 0 %, as played', short: 'the take as played', st: 0 },
-  { name: 'all at 100 %, on the grid', short: 'the full grid', st: 1 },
-  { name: 'all at 50 %', short: 'all at 50 %', st: 0.5 },
-  { name: "the student's mix: kick and snare 100, hats 50, percussion 0", short: "the student's mix", st: { kick: 1, snare: 1, hat: 0.5, perc: 0 } },
+  { name: 'track 1 · 0 %', st: 0 },
+  { name: 'track 2 · 25 %', st: 0.25 },
+  { name: 'track 3 · 75 %', st: 0.75 },
+  { name: 'track 4 · 100 %', st: 1 },
 ];
 </script>
 
@@ -156,7 +155,7 @@ const MIXES = [
 const $ = (id) => document.getElementById(id);
 const HITS = groove();
 const S = { step: 'tracks', track: 0, per: { kick: 0, snare: 0, hat: 0, perc: 0 }, order: [0, 1, 2, 3], k: 0, best: null, robot: null };
-let ctx = null, bus = null, noise = null, timer = null, playing = false, t0 = 0, cursor = 0;
+let ctx = null, bus = null, noise = null, timer = null, playing = false, t0 = 0, cursor = 0, quiet = null;
 function ensure() {
   if (ctx) return;
   ctx = new AudioContext();
@@ -182,9 +181,9 @@ function tick() {
   for (let k = Math.floor((cursor - t0) / LOOP); t0 + k * LOOP < until; k++) for (const e of ev) { const a = t0 + k * LOOP + e.t; if (a >= cursor && a < until) voice(e.part, a, e.v); }
   cursor = until;
 }
-async function play() { ensure(); await ctx.resume(); t0 = cursor = ctx.currentTime + 0.06; playing = true; tick(); timer = setInterval(tick, 25); $('go').textContent = '❚❚ stop'; }
+async function play() { ensure(); clearTimeout(quiet); quiet = null; bus.gain.cancelScheduledValues(ctx.currentTime); bus.gain.value = 0.7; await ctx.resume(); t0 = cursor = ctx.currentTime + 0.06; playing = true; tick(); timer = setInterval(tick, 25); $('go').textContent = '❚❚ stop'; }
 function halt() { clearInterval(timer); timer = null; playing = false; $('go').textContent = '▸ play'; }
-function stopSound() { if (!playing) return; halt(); bus.gain.setTargetAtTime(0, ctx.currentTime, 0.02); setTimeout(() => { bus.gain.value = 0.7; ctx.suspend(); }, 250); }
+function stopSound() { if (!playing) return; halt(); bus.gain.setTargetAtTime(0, ctx.currentTime, 0.02); quiet = setTimeout(() => { quiet = null; if (playing) return; bus.gain.value = 0.7; ctx.suspend(); }, 250); }
 $('go').onclick = () => (playing ? stopSound() : play());
 
 // ---- canvas ----
@@ -226,8 +225,8 @@ function readout() {
   if (S.best == null || S.robot == null) { V.classList.add('hidden'); return; }
   V.classList.remove('hidden');
   const key = S.order.map((m, i) => `<b>${'ABCD'[i]}</b> ${MIXES[m].name}`).join(' · '), best = S.order[S.best], robot = S.order[S.robot];
-  let say = robot === 1 ? 'You heard the full grid as the robotic one, as the page predicts for track 4.' : `You heard ${MIXES[robot].short} as the most robotic, not the full grid. The page predicts track 4; your ear said otherwise.`;
-  say += best === 3 ? " And the student's mix grooved most for you: different parts, different needs." : best === 0 ? ' And the unquantized take grooved most: the stumble and all.' : ` And ${MIXES[best].short} grooved most for you.`;
+  let say = robot === 3 ? 'You heard track 4, the full grid, as the robotic one, as the page predicts.' : `You heard ${MIXES[robot].name} as the most robotic, not track 4. The page predicts track 4; your ear said otherwise.`;
+  say += best === robot ? ' And the same one grooved most for you, which is worth a second listen.' : ` And ${MIXES[best].name} grooved most for you; the page makes no prediction there.`;
   V.innerHTML = `${key}.<br>${say} The answer varies by listener; the page says that is the point. If two of them sounded the same, go back to step 1 and start with the extremes, 0 % against 100 %, listening to the hi-hats.`;
 }
 
@@ -236,7 +235,7 @@ const STEPS = [
   { key: 'tracks', name: 'one strength, four tracks', say: 'The assignment\'s four tracks: one groove, played freely, at <i>0, 25, 75 and 100 %</i>. Switch while it plays. Listen for the hi-hats first.' },
   { key: 'parts', name: 'a strength per part', say: 'A student\'s discovery: different parts want different amounts. Give each its own strength, or take theirs: <i>kick and snare 100, hats 50, percussion 0</i>.' },
   { key: 'matrix', name: 'the matrix', say: 'Every part at every strength, as a grid you can play from: click a cell to set that part. Below it, the whole groove as a <i>timing sheet</i>, every hit at every strength, to copy out.' },
-  { key: 'test', name: 'the test, blind', say: 'Four mixes, shuffled, labelled only A to D. Play them, then say which <i>grooves</i> most and which sounds most <i>robotic</i>. The picture stays hidden until you have answered both.' },
+  { key: 'test', name: 'the test, blind', say: 'Step 1\'s four tracks, shuffled, labelled only A to D. Play them, then say which <i>grooves</i> most and which sounds most <i>robotic</i>. The page predicts track 4 for robotic. The picture stays hidden until you have answered both.' },
 ];
 let at = 0;
 function shuffle() { const o = [0, 1, 2, 3]; for (let i = 3; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [o[i], o[j]] = [o[j], o[i]]; } S.order = o; S.k = 0; S.best = S.robot = null; $('abcd').querySelectorAll('button').forEach((b) => b.classList.toggle('on', b.dataset.k === '0')); for (const id of ['pickBest', 'pickRobot']) $(id).querySelectorAll('button').forEach((b) => (b.disabled = false, b.classList.remove('on'))); }
@@ -251,7 +250,7 @@ function go(i) {
   $('parts').classList.toggle('hidden', !(st.key === 'parts' || st.key === 'matrix')); $('mxPanel').classList.toggle('hidden', st.key !== 'matrix'); $('blind').classList.toggle('hidden', st.key !== 'test');
   $('verdict').classList.add('hidden'); if (st.key === 'test') shuffle();
   $('barsLabel').textContent = st.key === 'test' ? 'A to D' : 'bar 1 · bar 2, looping';
-  $('hint').textContent = { tracks: 'The page\'s predictions: track 1 organic, maybe sloppy; track 2 tightened but with character; track 3 clean but losing personality; track 4 robotic. Check them against your ear.', parts: 'The percussion was played loosest; at 0 % it keeps all of it. Try the hats alone at 100 %.', matrix: 'The sheet is comma-separated: part, bar, step, the grid line, velocity (0 to 127), then where the hit lands at each strength, in ms from the start of bar 1.', test: 'One of the four is the student\'s mix from step 2.' }[st.key];
+  $('hint').textContent = { tracks: 'The page\'s predictions: track 1 organic, maybe sloppy; track 2 tightened but with character; track 3 clean but losing personality; track 4 robotic. Check them against your ear.', parts: 'The hi-hats were played loosest, so they change most. Try the hats alone at 100 %, everything else at 0.', matrix: 'The sheet is comma-separated: part, bar, step, the grid line, velocity (0 to 127), then where the hit lands at each strength, in ms from the start of bar 1.', test: 'Only the amount differs between the four; no single hit gives one away. Start with the hi-hats.' }[st.key];
   sync();
 }
 STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `${i + 1}<b>${s.name}</b>`; b.onclick = () => go(i); $('rail').appendChild(b); });

@@ -66,7 +66,7 @@
 <div class="piece">
   <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · Web Audio, rendered buffer · sketch</span></div>
   <h3 class="title">To what resolution?</h3>
-  <p class="sub">The section ends on a question: not whether to quantize, but to what resolution, and it says the answer depends on what you are trying to keep. Four steps on one note, a 330 Hz sine that fades from loud to 60 dB down over 3.5 s. The last step asks you two questions about it and compares your answers.</p>
+  <p class="sub">The section ends on a question: not whether to quantize, but to what resolution, and it says the answer depends on what you are trying to keep. Five steps on one note, a 330 Hz sine that fades from loud to 60 dB down over 3.5 s. The last step asks you two questions about it and compares your answers.</p>
 
   <div class="rail" id="rail"></div>
   <p class="say" id="say"></p>
@@ -104,7 +104,7 @@
     <div class="eq">a fade stops fading when A(t) &lt; Δ</div>
     <div class="words">once the note's own size A is smaller than one step, every sample rounds to plus or minus half a step: the note becomes a buzz of fixed size, however quiet it was meant to be. For this note that happens at t = τ · ln(0.8 ⁄ Δ), with τ = 3.5 s ⁄ ln 1000 = 0.507 s.</div>
   </div>
-  <div class="note">The grid here is symmetric, with no level at zero (mid-rise), so that 1 bit is exactly two levels, up and down; common PCM puts a level at zero, and its tail drops to silence where this one buzzes. Dither is triangular, two steps wide, added before rounding. Checked offline on this page's own engine (the script marked engine): the level counts, the time each bit depth's fade stops, that 12 bits is the fewest that carries this fade to −60 dB undithered, and that at 8 bits with dither the 330 Hz component in the tail still falls with the true fade while without dither it stays fixed. Not heard by an agent.</div>
+  <div class="note">The grid here is symmetric, with no level at zero (mid-rise), so that 1 bit is exactly two levels, up and down; common PCM puts a level at zero, and its tail drops to silence where this one buzzes. Dither is triangular, two steps wide, added before rounding. Checked offline on this page's own engine (the script marked engine): the level counts, the time each bit depth's fade stops, that 12 bits is the fewest that carries this fade to −60 dB undithered, and that at 8 bits with dither the 330 Hz component in the tail still falls with the true fade, while without dither it is lost (held as a buzz on this grid). Not heard by an agent.</div>
   <div class="footer">Loud’n Live</div>
 </div>
 
@@ -142,7 +142,7 @@ function ensure() {
   ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) halt(); };
 }
 const N = () => (S.step === 'sine' ? 24 : S.N);
-const opts = () => ({ error: S.step === 'error' && S.err === 1, dither: S.step === 'test' && S.dither === 1 });
+const opts = () => ({ error: S.step === 'error' && S.err === 1, dither: S.step === 'dither' && S.dither === 1 }); // the test runs undithered
 // the drawn view is rendered at 48 kHz once per setting; the sound at the device's rate
 function current() { const k = `${N()}|${JSON.stringify(opts())}`; if (k !== viewKey) { view = render(N(), { fs: 48000, ...opts() }); viewKey = k; } return view; }
 function startSrc(offset) {
@@ -173,7 +173,7 @@ function envelope() {
   g.strokeStyle = COL.fg; g.lineWidth = 1.5; g.beginPath(); for (let i = 0; i <= 400; i++) { const t = i / 400 * DUR, db = 20 * Math.log10(Math.max(1e-6, amp(t))); i ? g.lineTo(X(t), Y(Math.max(lo, db))) : g.moveTo(X(t), Y(Math.max(lo, db))); } g.stroke();
   const sd = 20 * Math.log10(step(N()));
   if (sd >= lo) { g.strokeStyle = COL.amber; g.setLineDash([5, 4]); g.beginPath(); g.moveTo(L, Y(sd)); g.lineTo(w - 8, Y(sd)); g.stroke(); g.setLineDash([]); }
-  const ts = fadeStops(N()); if (!(S.step === 'test' && S.dither) && isFinite(ts) && N() < 24) { g.fillStyle = COL.warn; g.beginPath(); g.arc(X(ts), Y(Math.max(lo, sd)), 4, 0, 2 * Math.PI); g.fill(); g.textAlign = ts > 3 ? 'right' : 'left'; g.fillText(ts === 0 ? 'never fades' : `the fade stops · ${ts.toFixed(2)} s`, X(ts) + (ts > 3 ? -8 : 8), Y(Math.max(lo, sd)) - 6); }
+  const ts = fadeStops(N()); if (!(S.step === 'dither' && S.dither) && isFinite(ts) && N() < 24) { g.fillStyle = COL.warn; g.beginPath(); g.arc(X(ts), Y(Math.max(lo, sd)), 4, 0, 2 * Math.PI); g.fill(); g.textAlign = ts > 3 ? 'right' : 'left'; g.fillText(ts === 0 ? 'never fades' : `the fade stops · ${ts.toFixed(2)} s`, X(ts) + (ts > 3 ? -8 : 8), Y(Math.max(lo, sd)) - 6); }
   if (playing) { const p = ((ctx.currentTime - startedAt) % DUR + DUR) % DUR; g.strokeStyle = 'rgba(232,184,74,.35)'; g.beginPath(); g.moveTo(X(p), 4); g.lineTo(X(p), h - 20); g.stroke(); }
 }
 function draw() {
@@ -189,7 +189,7 @@ function stopsText(n) { const t = fadeStops(n); return t === 0 ? 'never fades' :
 function readout() {
   $('nVal').textContent = S.N;
   const n = N(), R = $('read'), V = $('verdict');
-  R.innerHTML = `<span>bits <b>${n}</b></span><span>levels <b>${fmt(levels(n))}</b></span><span>one step <b>${(-20 * Math.log10(step(n))).toFixed(1)} dB</b> below full scale</span><span>the fade <b>${S.step === 'test' && S.dither ? 'keeps falling, under hiss' : stopsText(n)}</b></span>`;
+  R.innerHTML = `<span>bits <b>${n}</b></span><span>levels <b>${fmt(levels(n))}</b></span><span>one step <b>${(-20 * Math.log10(step(n))).toFixed(1)} dB</b> below full scale</span><span>the fade <b>${S.step === 'dither' && S.dither ? 'keeps falling, under hiss' : stopsText(n)}</b></span>`;
   if (S.step !== 'test') return;
   if (S.askA == null || S.askT == null) { V.classList.add('hidden'); return; }
   V.classList.remove('hidden');
@@ -197,7 +197,7 @@ function readout() {
   const tail = `Measured: undithered, the fade reaches −60 dB only at 12 bits or more; at your ${t} it ${stopsText(t)}.`;
   if (a < t) V.innerHTML = `<b>The attack was clean to you at ${a} bits. The fade needed ${t}.</b> Same note, two answers, ${t - a} bits apart: the loud part could live on a coarse grid, the quiet part could not. The resolution was set by what you were trying to keep. ${tail}`;
   else if (a === t) V.innerHTML = `<b>You chose ${a} bits for both.</b> For your ear the attack and the fade asked for the same grid. ${tail} Try listening for the very end of the tail at a few bits fewer.`;
-  else V.innerHTML = `<b>The attack needed ${a} bits, the fade only ${t}.</b> That is the other way round from the arithmetic, which says the quiet part needs the finer grid. ${tail} Worth listening again with the dither off.`;
+  else V.innerHTML = `<b>The attack needed ${a} bits, the fade only ${t}.</b> That is the other way round from the arithmetic, which says the quiet part needs the finer grid. ${tail} Worth listening to the very end of the tail again.`;
 }
 
 // ---- the walk ----
@@ -205,15 +205,16 @@ const STEPS = [
   { key: 'sine', name: 'a sine at 24 bits', say: 'One note, a 330 Hz sine, fading from loud to <i>60 dB down</i> in 3.5 s. At 24 bits each sample can take one of 16,777,216 values: the grid is so fine the rounding is under any ear.' },
   { key: 'bits', name: 'fewer levels', say: 'Now take bits away, down to <i>1</i>: two levels, up and down. Watch the steps appear in the close-ups, and listen to where the note goes rough first: the loud start, or the quiet end.' },
   { key: 'error', name: 'what was taken', say: 'Rounding throws away the difference between the true value and the step it lands on. Switch to <i>the error alone</i> and you hear exactly what was taken: the noise floor, the audio cousin of the 37 ms.' },
-  { key: 'test', name: 'the test', say: 'Two questions about one note. Find the fewest bits at which <i>the attack</i> still sounds clean to you, and press the first button. Then the fewest at which <i>the whole fade</i> still fades, and press the second.' },
+  { key: 'dither', name: 'noise to keep it', say: 'One more tool before the test. <i>Dither</i> adds a little noise, about one step wide, before rounding. At 8 bits, switch it on and listen to the tail: it keeps fading, under a hiss. Noise buys back what the grid took, the same paradox as humanize.' },
+  { key: 'test', name: 'the test', say: 'Two questions about one note. Find the fewest bits at which <i>the attack</i> still sounds clean to you, and press the first button. Then the fewest at which <i>the whole fade</i> still fades, and press the second. No dither here: the grid alone.' },
 ];
 let at = 0;
 function go(i) {
   stopSound(); at = Math.max(0, Math.min(STEPS.length - 1, i)); const st = STEPS[at]; S.step = st.key;
   [...$('rail').children].forEach((b, j) => b.classList.toggle('on', j === at)); $('say').innerHTML = st.say; $('back').disabled = at === 0; $('next').disabled = at === STEPS.length - 1;
   $('nCtl').classList.toggle('hidden', st.key === 'sine'); $('errSeg').classList.toggle('hidden', st.key !== 'error');
-  $('ditherSeg').classList.toggle('hidden', st.key !== 'test'); $('askRow').classList.toggle('hidden', st.key !== 'test'); $('verdict').classList.add('hidden');
-  $('hint').textContent = { sine: 'The grey line is the true sine; amber is what is stored. At 24 bits they are one line.', bits: 'Try 8, then 4, then 1. On the right, the tail turns into a square long before the attack does.', error: 'At 16 bits the error is far below the note. At 6 it is a gritty layer of its own. It is not random: on a pure tone it follows the tone.', test: 'Dither adds a little noise before rounding. Turn it on at 8 bits and listen to the tail: it keeps fading, under a hiss. Noise buys back what the grid took, the same paradox as humanize.' }[st.key];
+  $('ditherSeg').classList.toggle('hidden', st.key !== 'dither'); $('askRow').classList.toggle('hidden', st.key !== 'test'); $('verdict').classList.add('hidden');
+  $('hint').textContent = { sine: 'The grey line is the true sine; amber is what is stored. At 24 bits they are one line.', bits: 'Try 8, then 4, then 1. On the right, the tail turns into a square long before the attack does.', error: 'At 16 bits the error is far below the note. At 6 it is a gritty layer of its own. It is not random: on a pure tone it follows the tone.', dither: 'Without dither, on this grid the tail turns into a buzz of fixed size; on common PCM, with a level at zero, it drops to silence instead. Either way the fade is lost, and dither keeps it.', test: 'The dashed line is one step; where the fade crosses it, the fade stops.' }[st.key];
   readout();
 }
 STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `${i + 1}<b>${s.name}</b>`; b.onclick = () => go(i); $('rail').appendChild(b); });

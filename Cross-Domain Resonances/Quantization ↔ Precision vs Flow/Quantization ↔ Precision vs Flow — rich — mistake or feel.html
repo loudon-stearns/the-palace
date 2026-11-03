@@ -68,7 +68,7 @@
 <div class="piece">
   <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · Web Audio drum synth · sketch</span></div>
   <h3 class="title">Mistake or feel?</h3>
-  <p class="sub">The section asks one question of every deviation from the grid: was it a mistake to correct, or expression to keep? And it says quantization assumes mistake. Four steps, one idea each, at 120 BPM, where a 16th note lasts 0.125 s. The last step asks the quantizer to answer the question for you.</p>
+  <p class="sub">The section asks one question of every deviation from the grid: was it a mistake to correct, or expression to keep? And it says quantization assumes mistake. Four steps, one idea each, at 120 BPM, where a 16th note lasts 0.125 s. Step 3 asks your ear to tell the two plants apart; the last step shows that the strength knob cannot.</p>
 
   <div class="rail" id="rail"></div>
   <p class="say" id="say"></p>
@@ -82,7 +82,7 @@
     <canvas id="bars"></canvas>
   </div>
   <div class="insets hidden" id="insets">
-    <div class="panel"><div class="plabel"><span style="color:#ff9b4a">the stumble · bar 1, beat 3</span><span>kick against the hi-hat</span></div><canvas id="inA"></canvas></div>
+    <div class="panel"><div class="plabel"><span style="color:#ff9b4a">the stumble · bar 1, beat 3 “and”</span><span>kick against the hi-hat</span></div><canvas id="inA"></canvas></div>
     <div class="panel"><div class="plabel"><span style="color:#e8b84a">the lean · bar 2, beat 4</span><span>snare fill into the downbeat</span></div><canvas id="inB"></canvas></div>
   </div>
 
@@ -104,7 +104,7 @@
     <div class="eq">t′ = g + (1 − s) · (t − g)</div>
     <div class="words">(where the note ends up) = (its grid line) + (what the strength leaves, 1 − s) × (how far it was played from that line). At s = 0 nothing moves; at s = 1 every note sits on its line. The same (1 − s) is applied to every note: the rule has no input for why a note was off.</div>
   </div>
-  <div class="note">The groove is made here, from a sine kick, a noise snare and a noise hi-hat; nothing is sampled. Its timing is written, not recorded: small seeded wobbles on every hit, plus two plants, a kick 37 ms late in bar 1 and a snare fill leaning up to 37 ms early in bar 2. Checked offline on this page's own engine (the script marked engine): every deviation keeps the same share (1 − s) at every strength; the stumble falls under 5 ms only above s = 87 %, where the lean keeps 13 % of itself. Not heard by an agent.</div>
+  <div class="note">The groove is made here, from a sine kick, a noise snare and a noise hi-hat; nothing is sampled. Its timing is written, not recorded: small seeded wobbles on every hit, plus two plants, a kick 37 ms late in bar 1 and a snare fill leaning up to 37 ms early in bar 2. Quantizers with a range setting (Logic's Q-Range, for one) do pick notes, but by size; these two plants are the same size, so size can't separate them either. Checked offline on this page's own engine (the script marked engine): every deviation keeps the same share (1 − s) at every strength; the stumble falls under 5 ms only above s = 87 %, where the lean keeps 13 % of itself. Not heard by an agent.</div>
   <div class="footer">Loud’n Live</div>
 </div>
 
@@ -143,7 +143,7 @@ const ONE = { played: 0.537 }; // the page's own example: played at 0.537 s, nea
 const $ = (id) => document.getElementById(id);
 const HITS = groove();
 const S = { step: 'one', snap: 0, s: 0, marked: false, held: new Set() };
-let ctx = null, bus = null, noise = null, timer = null, playing = false, t0 = 0, cursor = 0;
+let ctx = null, bus = null, noise = null, timer = null, playing = false, t0 = 0, cursor = 0, quiet = null;
 
 function ensure() {
   if (ctx) return;
@@ -180,9 +180,9 @@ function tick() {
   for (let k = Math.floor((cursor - t0) / len); t0 + k * len < until; k++) for (const e of ev) { const a = t0 + k * len + e.t; if (a >= cursor && a < until) voice(e.part, a, e.v); }
   cursor = until;
 }
-async function play() { ensure(); await ctx.resume(); t0 = cursor = ctx.currentTime + 0.06; playing = true; tick(); timer = setInterval(tick, 25); $('go').textContent = '❚❚ stop'; }
+async function play() { ensure(); clearTimeout(quiet); quiet = null; bus.gain.cancelScheduledValues(ctx.currentTime); bus.gain.value = 0.7; await ctx.resume(); t0 = cursor = ctx.currentTime + 0.06; playing = true; tick(); timer = setInterval(tick, 25); $('go').textContent = '❚❚ stop'; }
 function halt() { clearInterval(timer); timer = null; playing = false; $('go').textContent = '▸ play'; }
-function stopSound() { if (!playing) return; halt(); bus.gain.setTargetAtTime(0, ctx.currentTime, 0.02); setTimeout(() => { bus.gain.value = 0.7; ctx.suspend(); }, 250); }
+function stopSound() { if (!playing) return; halt(); bus.gain.setTargetAtTime(0, ctx.currentTime, 0.02); quiet = setTimeout(() => { quiet = null; if (playing) return; bus.gain.value = 0.7; ctx.suspend(); }, 250); }
 $('go').onclick = () => (playing ? stopSound() : play());
 function loopPos() { if (!playing || !ctx) return null; const { len } = now(); return ((ctx.currentTime - t0) % len + len) % len; }
 
@@ -248,7 +248,7 @@ function readout() {
     return;
   }
   if (S.step === 'strength') { const at = quantize(ONE.played, S.s); R.innerHTML = `<span>s <b>${pct(S.s)}</b></span><span>it sounds at <b>${at.toFixed(4)} s</b></span><span>left of the 37 ms <b>${(1000 * (at - 0.5)).toFixed(1)} ms</b> = (1 − s) × 37</span>`; return; }
-  if (S.step === 'groove') { R.innerHTML = S.marked ? `<span class="mis">the stumble · the kick on bar 1, beat 3 “and” · <b>+37 ms</b> late, a flam against the hi-hat</span><span class="lean">the lean · the snare fill into bar 1 · <b>−16, −26, −37 ms</b>, rushing harder each note</span>` : '<span>everything else wobbles by a few ms, as hands do</span>'; return; }
+  if (S.step === 'groove') { R.innerHTML = S.marked ? `<span class="mis">the stumble · the kick on bar 1, beat 3 “and” · <b>+37 ms</b> late, a flam against the hi-hat</span><span class="lean">the lean · the snare fill into the downbeat, as the loop comes round · <b>−16, −26, −37 ms</b>, rushing harder each note</span>` : '<span>everything else wobbles by a few ms, as hands do</span>'; return; }
   const r = report(HITS, S.s, S.held), ok = Math.abs(r.stumble) < 5 && r.leanShare >= 0.75;
   R.innerHTML = `<span class="mis">the stumble <b>${r.stumble >= 0 ? '+' : ''}${r.stumble.toFixed(1)} ms</b> · keeps ${pct(r.stumbleShare)}</span><span class="lean">the lean <b>${r.lean.toFixed(1)} ms</b> · keeps ${pct(r.leanShare)}</span><span>the rest <b>${r.restRms.toFixed(1)} ms</b> spread</span><span>notes you hold <b>${S.held.size}</b></span>`;
   V.classList.remove('hidden');
@@ -263,7 +263,7 @@ const STEPS = [
   { key: 'one', name: 'one note, 37 ms late', say: 'The section\'s own example. At 120 BPM a note played at <i>0.537 s</i> belongs to the 16th at 0.500 s, beat 2. Play it against the click, then snap it. The 37 ms is gone, and nothing remembers it was there.' },
   { key: 'strength', name: 'how hard to snap', say: 'Most quantizers have a <i>strength</i>. At 0 % the note stays where it was played; at 100 % it sits on the line; in between it moves that share of the way. Drag it and listen to the flam close.' },
   { key: 'groove', name: 'a groove, played freely', say: 'Two bars, every hit a little off, the way hands are. We planted two things in it, the <i>same 37 ms</i> each. One is a mistake, one is a choice. Listen first, then mark them.' },
-  { key: 'test', name: 'the test', say: 'Fix the stumble and keep the lean, with the strength knob alone: get the stumble under 5 ms while the lean keeps three quarters of itself. Then try it with your hand: click notes in the two bars to hold them off the grid.' },
+  { key: 'test', name: 'the knob, asked', say: 'Ask the knob to fix the stumble and keep the lean: the stumble under 5 ms, the lean at three quarters of itself. This can\'t come out otherwise, since a strength gives every note the same share, so it is a <i>demonstration</i>, not a test: the test was your ear in step 3. Then try it with your hand: click notes to hold them off the grid.' },
 ];
 let at = 0;
 function go(i) {

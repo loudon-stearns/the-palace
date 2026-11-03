@@ -64,7 +64,7 @@
 <div class="piece">
   <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · Web Audio drum synth · sketch</span></div>
   <h3 class="title">Same amount, different pattern</h3>
-  <p class="sub">The section says quantization means conforming to any pattern, and that systematic deviation from the grid makes groove while humanize adds random deviation to sound real. Four steps at 120 BPM. The last one sets a groove template against humanize at exactly the same distance from the grid, and asks your ear, blind, which one grooves.</p>
+  <p class="sub">The section says quantization means conforming to any pattern, and that systematic deviation from the grid makes groove while humanize adds random deviation to sound real. Four steps at 120 BPM. The last one sets a groove template against random offsets at exactly the same distance from the grid, and asks your ear, blind, which one grooves: pattern against amount.</p>
 
   <div class="rail" id="rail"></div>
   <p class="say" id="say"></p>
@@ -94,7 +94,7 @@
     <div class="eq">template:  t′ = g + d[step]          humanize:  t′ = g + r,  r random each pass</div>
     <div class="words">(template) = (the grid line) + (the offset the reference player gave that 16th, the same every bar). (humanize) = (the grid line) + (a fresh random offset for every note on every pass). Here r is scaled so that its root-mean-square size matches d's exactly: the same amount off the grid, a different pattern.</div>
   </div>
-  <div class="note">The reference is made for this piece, not taken from a record: a player with every offbeat 16th and the snare late, each by its own amount, the feel people sometimes call drunk or Dilla-like. Its template is captured by averaging four played bars, step by step. Swing here follows the convention where S is the offbeat 16th's place inside its 8th note (50 % straight); some machines count it differently. Checked offline on this page's own engine (the script marked engine): the swing positions, the captured template, and humanize matched to the template's RMS on every pass. Not heard by an agent.</div>
+  <div class="note">The reference is made for this piece, not taken from a record: a player with every offbeat 16th and the snare late, each by its own amount, the feel people sometimes call drunk or Dilla-like. Its template is captured by averaging four played bars, step by step. Swing here follows the Linn and MPC convention, where S is the offbeat 16th's place inside its 8th note (50 % straight, “66 %” the name for triplet). The blind round's random offsets are scaled to the template's 20.9 ms RMS, which sends some notes past 60 ms: a control for amount, not a typical humanize. Checked offline on this page's own engine (the script marked engine): the swing positions, the captured template, and humanize matched to the template's RMS on every pass. Not heard by an agent.</div>
   <div class="footer">Loud’n Live</div>
 </div>
 
@@ -131,7 +131,7 @@ function notes(part, offs, vel = true) {
 const $ = (id) => document.getElementById(id);
 const REFBARS = referenceBars();
 const S = { step: 'straight', sw: 0.5, view: 'ref', xy: 'X', tmplIs: 'X', picked: null };
-let ctx = null, bus = null, noise = null, timer = null, playing = false, t0 = 0, cursor = 0;
+let ctx = null, bus = null, noise = null, timer = null, playing = false, t0 = 0, cursor = 0, quiet = null;
 function ensure() {
   if (ctx) return;
   ctx = new AudioContext();
@@ -164,9 +164,9 @@ function tick() {
   for (let k = Math.floor((cursor - t0) / BAR) - 1; t0 + k * BAR - 0.1 < until; k++) for (const e of pass(k)) { const a = t0 + k * BAR + e.t; if (a >= cursor && a < until) voice(e.part, a, e.v); }
   cursor = until;
 }
-async function play() { ensure(); await ctx.resume(); t0 = cursor = ctx.currentTime + 0.08; playing = true; tick(); timer = setInterval(tick, 25); $('go').textContent = '❚❚ stop'; }
+async function play() { ensure(); clearTimeout(quiet); quiet = null; bus.gain.cancelScheduledValues(ctx.currentTime); bus.gain.value = 0.7; await ctx.resume(); t0 = cursor = ctx.currentTime + 0.08; playing = true; tick(); timer = setInterval(tick, 25); $('go').textContent = '❚❚ stop'; }
 function halt() { clearInterval(timer); timer = null; playing = false; $('go').textContent = '▸ play'; }
-function stopSound() { if (!playing) return; halt(); bus.gain.setTargetAtTime(0, ctx.currentTime, 0.02); setTimeout(() => { bus.gain.value = 0.7; ctx.suspend(); }, 250); }
+function stopSound() { if (!playing) return; halt(); bus.gain.setTargetAtTime(0, ctx.currentTime, 0.02); quiet = setTimeout(() => { quiet = null; if (playing) return; bus.gain.value = 0.7; ctx.suspend(); }, 250); }
 $('go').onclick = () => (playing ? stopSound() : play());
 
 // ---- canvas ----
@@ -199,7 +199,7 @@ function readout() {
   if (S.step === 'straight') { R.innerHTML = '<span>16ths at <b>0, 0.125, 0.250, 0.375 s</b> …</span><span>every one on its line</span>'; return; }
   if (S.step === 'swing') {
     const f = [0, 1, 2, 3].map((s) => swung(s, S.sw).toFixed(3)).join(', ');
-    R.innerHTML = `<span>the first four 16ths <b>${f} s</b></span><span>each offbeat 16th late by <b>${(1000 * (swung(1, S.sw) - SIX)).toFixed(1)} ms</b></span><span>the page's “66 %” row: <b>0, 0.167, 0.25, 0.417</b></span>`; return;
+    R.innerHTML = `<span>the first four 16ths <b>${f} s</b></span><span>each offbeat 16th late by <b>${(1000 * (swung(1, S.sw) - SIX)).toFixed(1)} ms</b></span><span>the page's “66 %” row: <b>0, 0.167, 0.25, 0.417</b> · the drum-machine name for triplet swing</span>`; return;
   }
   if (S.step === 'template') { R.innerHTML = `<span>template, ms per 16th <b>${TEMPLATE.map((x) => x.toFixed(0)).join(' ')}</b></span><span>captured from <b>4</b> played bars</span><span>its size off the grid <b>${ms(rms(TEMPLATE))} ms</b> RMS</span>`; return; }
   const h = humanize(0);
@@ -207,18 +207,18 @@ function readout() {
   if (!S.picked) { V.classList.add('hidden'); return; }
   V.classList.remove('hidden');
   const t = S.tmplIs, hu = t === 'X' ? 'Y' : 'X';
-  const line = `<b>${t} was the template</b>, the same ${ms(rms(TEMPLATE))} ms RMS laid the same way every bar. <b>${hu} was humanize</b>, ${ms(rms(h))} ms RMS too, drawn fresh on every pass.`;
-  if (S.picked === t) V.innerHTML = `${line} You picked the template. Same amount off the grid; what differed was the pattern, and the pattern is what you heard as groove. The section's claim held for your ear.`;
-  else if (S.picked === hu) V.innerHTML = `${line} You picked humanize. For your ear the random one grooved, so <i>systematic</i> was not what made the difference this time. Worth a second listen, or worth telling the page.`;
+  const line = `<b>${t} was the template</b>, the same ${ms(rms(TEMPLATE))} ms RMS laid the same way every bar. <b>${hu} was random</b>, ${ms(rms(h))} ms RMS too, drawn fresh on every pass.`;
+  if (S.picked === t) V.innerHTML = `${line} You picked the template. Same amount off the grid; what differed was the pattern, and for your ear the pattern mattered more than the amount. That is not a verdict on humanize as a DAW uses it, a few milliseconds laid over a groove; this one was turned far up to match.`;
+  else if (S.picked === hu) V.innerHTML = `${line} You picked the random one. For your ear, at this amount, the pattern did not carry the groove, which pushes against the section's claim that systematic deviation makes groove. Worth a second listen, or worth telling the page.`;
   else V.innerHTML = `${line} You couldn't choose. Equal amounts off the grid sounded equal to you, so the pattern didn't carry the groove here. That is an honest answer, and it pushes against the section's claim.`;
 }
 
 // ---- the walk ----
 const STEPS = [
   { key: 'straight', name: 'straight 16ths', say: 'One bar at 120 BPM, a hi-hat on every 16th: <i>0, 0.125, 0.250, 0.375 s</i> and on, the section\'s grid. Every note on its line.' },
-  { key: 'swing', name: 'swing, one number', say: 'Swing moves every second 16th later, all by the same rule. One number, <i>S</i>, says how far through its 8th note it lands. Find the page\'s 66 %, then 2 ⁄ 3.' },
+  { key: 'swing', name: 'swing, one number', say: 'Swing moves every second 16th later, all by the same rule. One number, <i>S</i>, says how far through its 8th note it lands. Try a literal 66 %, then 2 ⁄ 3, the triplet, which is what the page\'s 66 % row plays.' },
   { key: 'template', name: 'a groove template', say: 'A player we made, with a feel that is not one number: each 16th of the bar late or early by its own amount. Average four of their bars and you have a <i>template</i>. Then lay it over a different, straight part.' },
-  { key: 'test', name: 'the test', say: 'Your part twice, X and Y, unlabelled. One is on the template. One is humanize, at <i>exactly the same amount</i> off the grid, drawn at random every pass. Listen to both, then say which grooves.' },
+  { key: 'test', name: 'the test', say: 'Your part twice, X and Y, unlabelled. One is on the template. One is random, at <i>exactly the same amount</i> off the grid, drawn fresh every pass. At this size the random one is far past a usual humanize setting (some notes move 60 ms or more), so this asks <i>pattern against amount</i>, not whether humanize works. Say which grooves.' },
 ];
 let at = 0;
 function shuffle() { S.tmplIs = Math.random() < 0.5 ? 'X' : 'Y'; S.picked = null; S.xy = 'X'; $('xySeg').querySelectorAll('button').forEach((b) => b.classList.toggle('on', b.dataset.v === 'X')); $('pickSeg').querySelectorAll('button').forEach((b) => (b.disabled = false, b.classList.remove('on'))); }
@@ -231,7 +231,7 @@ function go(i) {
   $('verdict').classList.add('hidden');
   if (st.key === 'test') shuffle();
   $('barLabel').textContent = { straight: 'seconds', swing: 'seconds', template: 'amber = moved by the template', test: 'X and Y' }[st.key];
-  $('hint').textContent = { straight: 'Listen to the hi-hat: even, machine-even.', swing: 'At 66 % the offbeat lands at 0.165 s; the page\'s 0.167 is 2 ⁄ 3. At 75 % it is a dotted feel.', template: 'The template moves the kick, snare and hats of your part to wherever the reference put that 16th. Same notes, the player\'s timing.', test: 'Switch X and Y while it plays; the bar keeps going. The picture stays hidden until you choose.' }[st.key];
+  $('hint').textContent = { straight: 'Listen to the hi-hat: even, machine-even.', swing: 'In the Linn and MPC convention, 50 % is straight and “66 %” names triplet swing; on a 96-tick clock 66 % of a 48-tick 8th rounds to 32 ticks, exactly 2 ⁄ 3. Read literally, 66 % lands at 0.165 s. At 75 % it is a dotted feel.', template: 'The template moves the kick, snare and hats of your part to wherever the reference put that 16th. Same notes, the player\'s timing.', test: 'Switch X and Y while it plays; the bar keeps going. The template is mostly a swing (its offbeats about 28 ms late, S near 59 %) with a late snare. The picture stays hidden until you choose.' }[st.key];
   readout();
 }
 STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `${i + 1}<b>${s.name}</b>`; b.onclick = () => go(i); $('rail').appendChild(b); });

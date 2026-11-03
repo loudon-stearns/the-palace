@@ -52,6 +52,10 @@ const near = (a, b, e = 1e-9) => Math.abs(a - b) <= e;
   for (let k = 0; k < 64; k++) { const h = E.humanize(k); if (!near(E.rms(h), tr, 1e-9)) match = false; if (k && Math.abs(h[0] - E.humanize(k - 1)[0]) > 1e-6) differ = true; }
   ok(match, `humanize matches the template's ${tr.toFixed(2)} ms RMS on every one of 64 passes`);
   ok(differ, 'humanize draws new offsets every pass; the template repeats');
+  let big = 0; for (let k = 0; k < 1000; k++) big = Math.max(big, ...E.humanize(k).map(Math.abs));
+  const off = E.TEMPLATE.filter((_, i) => i % 2), on = E.TEMPLATE.filter((_, i) => i % 2 === 0), mean = (a) => a.reduce((x, y) => x + y, 0) / a.length, Seq = 0.5 + (mean(off) - mean(on)) / 250;
+  console.log(`  note  at the matched size the random offsets reach ${big.toFixed(1)} ms over 1000 passes; the template's offbeats sit ${mean(off).toFixed(1)} ms late, its onbeats ${mean(on).toFixed(1)}, about S = ${(100 * Seq).toFixed(0)} %`);
+  ok(Math.round(0.66 * 48) === 32 && near(32 / 48, 2 / 3), 'on a 96-tick clock, 66 % of a 48-tick 8th rounds to 32 ticks: exactly 2/3');
 }
 
 // ── to what resolution: the fade needs more bits than the attack ──
@@ -70,18 +74,20 @@ const near = (a, b, e = 1e-9) => Math.abs(a - b) <= e;
   ok(rows.every((r) => Math.abs(r.dith - r.truth) < 0.25 * r.truth), 'dithered at 8 bits, the tail\'s 330 Hz follows the true fade within 25 % at every window');
 }
 
-// ── the four tracks: the sheet and the blind mixes ──
-{ const E = engine('the four tracks', 'SIX, gridOf, quantize, groove, placed, rmsMs, sheet, MIXES, LEVELS'), A = engine('mistake or feel', 'groove');
+// ── the four tracks: the sheet and the blind round ──
+{ const E = engine('the four tracks', 'SIX, gridOf, quantize, groove, placed, rmsMs, sheet, MIXES, LEVELS, PARTS');
   console.log('the four tracks');
-  const H = E.groove(), HA = A.groove();
-  ok(HA.every((h, i) => H[i].part === h.part && near(H[i].t, h.t)), 'the groove is The Technical Side piece\'s groove, hit for hit, plus percussion');
+  const H = E.groove(), p0 = E.placed(H, 0), part0 = (q) => E.rmsMs(p0.filter((h) => h.part === q)), maxDev = Math.max(...H.map((h) => Math.abs(1000 * (h.t - E.gridOf(h.t)))));
+  ok(H.every((h) => !h.tag) && maxDev < 27, `a fresh take, no planted hits: the largest deviation is ${maxDev.toFixed(1)} ms`);
+  ok(H.every((h) => near(E.gridOf(h.t), h.step * E.SIX)), 'every hit sits nearer its own 16th than any other');
+  console.log(`  note  as played, RMS off the grid: ${E.PARTS.map((q) => `${q} ${part0(q).toFixed(1)} ms`).join(' · ')}`);
+  ok(E.PARTS.every((q) => q === 'hat' || part0('hat') >= part0(q)), 'the hi-hats are the loosest part, so the hint to listen to them first holds');
   const lines = E.sheet(H).split('\n'), rows = lines.slice(1).map((l) => l.split(','));
   ok(rows.length === H.length, `the sheet has a row for every one of ${H.length} hits`);
   let good = true; for (const r of rows) { const g = +r[3], played = H.find((h) => h.part === r[0] && (h.step % 16) + 1 === +r[2] && Math.floor(h.step / 16) + 1 === +r[1]); if (!played || !near(+r[9], g, 0.051) || !near(+r[5], 1000 * played.t, 0.051) || !near(+r[7], (g + 1000 * played.t) / 2, 0.051)) good = false; }
   ok(good, 'every row: 100 % = its grid line, 0 % = as played, 50 % = halfway');
-  const m = E.MIXES[3].st, p = E.placed(H, m), part = (q) => E.rmsMs(p.filter((h) => h.part === q)), p0 = E.placed(H, 0), part0 = (q) => E.rmsMs(p0.filter((h) => h.part === q));
-  ok(part('kick') === 0 && part('snare') === 0 && near(part('hat'), part0('hat') / 2, 1e-9) && near(part('perc'), part0('perc'), 1e-9), `the student's mix: kick 0, snare 0, hats ${part('hat').toFixed(2)} ms (half of ${part0('hat').toFixed(2)}), percussion ${part('perc').toFixed(2)} ms (whole)`);
-  ok(E.MIXES[0].st === 0 && E.MIXES[1].st === 1 && E.MIXES[2].st === 0.5, 'the other three blind mixes are 0, 100 and 50 %');
+  ok(E.MIXES.map((m) => m.st).join() === '0,0.25,0.75,1', 'the blind round plays step 1\'s four tracks: 0, 25, 75, 100 %');
+  console.log(`  note  blind tracks, RMS off the grid: ${E.MIXES.map((m) => `${m.name} ${E.rmsMs(E.placed(H, m.st)).toFixed(1)} ms`).join(' · ')}`);
 }
 console.log(fails ? `${fails} FAIL` : 'all PASS');
 process.exit(fails ? 1 : 0);

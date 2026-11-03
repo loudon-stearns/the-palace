@@ -22,7 +22,7 @@
     {
       "section": "The Technical Side",
       "kind": "no-claim-edit",
-      "what": "\"A velocity played at 73 snaps to 64 or 80, and nine levels of dynamic nuance disappear.\" On a grid of 16, 73 rounds to 80 (7 away; 64 is 9 away), and every velocity from 72 to 87, sixteen of them, lands on that same 80; the grid keeps 9 distinct values of 128. Suggested: \"A velocity played at 73 snaps to 80, and so does every velocity from 72 to 87: sixteen levels of dynamic nuance become one.\" Computed by the check script, not shown by a piece; the Context names the same slip.",
+      "what": "\"A velocity played at 73 snaps to 64 or 80, and nine levels of dynamic nuance disappear.\" On a grid of 16, 73 rounds to 80 (7 away; 64 is 9 away). Every velocity from 73 to 87 lands on that same 80 (72 is an exact tie, so it may go either way), and the grid keeps 9 distinct values of 128 only counting a cap at 127. The loose part is \"nine levels … disappear\": about sixteen become one. Suggested: \"A velocity played at 73 snaps to 80, along with its neighbours up to 87: some fifteen levels of dynamic nuance become one.\" Computed by the check script and confirmed by the challenger; the Context names the same slip.",
       "status": "open"
     },
     {
@@ -34,25 +34,25 @@
     {
       "section": "Advanced Applications",
       "kind": "no-claim-edit",
-      "what": "\"With 66% swing: 0, 0.167, 0.25, 0.417\". Those numbers are 2/3, triplet swing (66.7 %); 66 % gives 0, 0.165, 0.25, 0.415. The units are seconds at 120 BPM and are not stated. Suggested: \"With 2/3 (triplet) swing, in seconds at 120 BPM: 0, 0.167, 0.25, 0.417\". The swing-and-template piece shows all three settings side by side.",
+      "what": "\"With 66% swing: 0, 0.167, 0.25, 0.417\" — keep the 66 %. It is the Linn/MPC convention's name for triplet swing, and on a 96-tick clock 66 % of a 48-tick 8th rounds to 32 ticks, exactly 2/3, which is what 0.167 and 0.417 are. What is missing is the units: seconds at 120 BPM. Suggested: \"With 66% (triplet) swing, in seconds at 120 BPM: 0, 0.167, 0.25, 0.417\". The swing-and-template piece shows a literal 66 % beside 2/3.",
       "status": "open"
     },
     {
       "section": "The Technical Side",
       "kind": "claim-change",
-      "what": "\"Quantization assumes mistake\" can be sharpened by what the strength knob does. At partial strength the quantizer still can't choose: it treats every deviation as the same share mistake (s) and expression (1 − s). In the mistake-or-feel piece a 37 ms stumble and a 37 ms lean keep the same share at all 101 settings; getting the stumble under 5 ms takes 87 %, where the lean keeps 13 %. Only selecting notes, a hand's act, separates them. A possible sentence: \"Even at partial strength it treats every deviation alike; telling them apart is the one thing the knob can't do.\"",
+      "what": "\"Quantization assumes mistake\" can be sharpened by what the strength knob does. At partial strength the quantizer still can't choose: it treats every deviation as the same share mistake (s) and expression (1 − s). In the mistake-or-feel piece a 37 ms stumble and a 37 ms lean keep the same share at all 101 settings; getting the stumble under 5 ms takes 87 %, where the lean keeps 13 %. Only selecting notes, a hand's act, separates them. A possible sentence, kept to the knob: \"Even at partial strength the knob treats every deviation alike; telling them apart is the one thing it can't do.\" (Range settings such as Logic's Q-Range select notes by size, not intent, so the sentence should not say quantizers in general can't select.) True by construction of linear strength: a sharpening, not a correction.",
       "status": "open"
     },
     {
       "section": "The Final Insight: Resolution Determines Expression",
       "kind": "claim-change",
-      "what": "\"Coarse quantization flattens reality; fine quantization preserves detail\" leaves out dither, where noise buys back detail below the grid. Measured on the resolution piece's 330 Hz fade at 8 bits: undithered, the fade stops at 2.35 s and the tone holds at 0.00497 from then on; with triangular dither the tone keeps falling with the true fade (0.00188 against a true 0.00194 at 3.0 s), under a hiss. That is Advanced Applications' humanize paradox in audio: add controlled randomness and the nuance comes back. A line naming dither would link the two sections.",
+      "what": "\"Coarse quantization flattens reality; fine quantization preserves detail\" leaves out dither, where noise buys back detail below the grid. Measured on the resolution piece's 330 Hz fade at 8 bits: undithered, the fade stops at 2.35 s and the tail's tone is lost; with triangular dither it keeps falling with the true fade (0.00188 here, 0.00195 in the challenger's own run, against a true 0.00194 at 3.0 s), under a hiss. How the undithered tail is lost depends on the grid: on this piece's mid-rise grid it is held as a buzz (0.00497, which is 4/π × half a step); on common PCM, with a level at zero, it goes silent. Either way dither recovers it. That is Advanced Applications' humanize paradox in audio: controlled randomness brings the nuance back. A line naming dither would link the two sections.",
       "status": "open"
     },
     {
       "section": "The Technical Side",
       "kind": "no-claim-edit",
-      "what": "The in-file comment \"SHOW & TELL audio examples that can have creative output, exports a sample matrix\" is answered in part by the four-tracks piece: the groove is played at every part × strength, and its matrix is a timing sheet to copy. It is not audio files, because a rich-face piece's frame does not allow downloads. If that piece is approved, the comment could go, or be cut down to the part still owed (an audio export).",
+      "what": "The in-file comment \"SHOW & TELL audio examples that can have creative output, exports a sample matrix\" stays open. It was born under the 3-bit bit-depth example (46d904f), so it most likely asks for audio samples across resolutions to use creatively. The four-tracks piece's timing sheet does not answer it. An audio export would also need the piece contract to let a frame download a file (no `allow-downloads` today); that is a question for the machinery, not the text. Nothing to change in the page now; recorded so the next round knows the comment is still owed.",
       "status": "open"
     }
   ],
@@ -85,7 +85,7 @@
           "by": "Web Audio drum synth",
           "height": 1000,
           "title": "mistake or feel · four steps",
-          "caption": "**Ask the quantizer the section's question.** One note 37 ms late at 120 BPM, then the strength knob on that note, then a two-bar groove played freely with two plants, a kick that stumbles 37 ms late and a snare fill that leans up to 37 ms early. Last, the test: fix the stumble and keep the lean with the knob alone. No setting does; every note keeps the same share, 1 − s. Clicking notes to hold them does it at once.",
+          "caption": "**Ask the quantizer the section's question.** One note 37 ms late at 120 BPM, then the strength knob on that note, then a two-bar groove played freely with two plants of the same size: a kick that stumbles 37 ms late on bar 1, beat 3 \"and\", and a snare fill that leans up to 37 ms early into the downbeat. Step 3 is the test, your ear telling the two apart. The last step is a demonstration that can't come out otherwise: a strength gives every note the same share, 1 − s, so the knob can't fix the one and keep the other. Clicking notes to hold them does it at once.",
           "near": "was the deviation a mistake to correct"
         }
       ],
@@ -119,7 +119,7 @@
           "by": "Web Audio drum synth",
           "height": 1000,
           "title": "the four tracks · four steps",
-          "caption": "**Part 1, done in the page.** The same freely played groove at 0, 25, 75 and 100 %; then a strength for each part (the student's kick and snare 100, hats 50, percussion 0); then the matrix of every part at every strength, with a timing sheet to copy out. Last, four mixes blind, A to D: say which grooves and which is robotic, then see which was which against the page's predictions.",
+          "caption": "**Part 1, done in the page.** A freely played take, with nothing planted in it, at 0, 25, 75 and 100 %; then a strength for each part (the student's kick and snare 100, hats 50, percussion 0); then the matrix of every part at every strength, with a timing sheet to copy out. Last, the same four tracks blind, A to D: say which grooves and which is robotic, then see which was which against the page's prediction that track 4 sounds robotic.",
           "near": "There is no universal right answer"
         }
       ],
@@ -153,7 +153,7 @@
           "by": "Web Audio drum synth",
           "height": 900,
           "title": "swing and template · four steps",
-          "caption": "**Same amount off the grid, different pattern.** Straight 16ths, then swing as one number (the section's 66 % row, and the 2/3 it actually lists), then a groove template captured from four bars of a reference player we made and laid over a straight part. Last, blind: the template against humanize, scaled to exactly the same RMS distance from the grid (20.9 ms) and drawn fresh every pass. You say which grooves. If you pick the random one, the claim that systematic deviation makes groove did not hold for your ear.",
+          "caption": "**Pattern against amount.** Straight 16ths, then swing as one number (a literal 66 % beside 2/3, which is what the section's \"66 %\" row plays: the drum-machine name for triplet swing), then a groove template captured from four bars of a reference player we made and laid over a straight part. Last, blind: the template against random offsets scaled to exactly the same RMS distance from the grid (20.9 ms) and drawn fresh every pass. At that size the random one is far past a usual humanize, so the round asks whether pattern or amount makes the groove, not whether humanize works.",
           "near": "Systematic deviation from grid creates groove"
         }
       ],
@@ -186,8 +186,8 @@
           "origin": "made",
           "by": "Web Audio, rendered buffer",
           "height": 1000,
-          "title": "to what resolution · four steps",
-          "caption": "**Two questions about one note.** A 330 Hz sine fading to 60 dB down: at 24 bits, then with bits taken away down to two levels, then the rounding error heard alone. Last, find the fewest bits at which the attack sounds clean to you, and the fewest at which the whole fade still fades. Undithered, this fade needs 12 bits to reach −60 dB. Dither, on the last step, lets 8 bits carry the fade under a hiss.",
+          "title": "to what resolution · five steps",
+          "caption": "**Two questions about one note.** A 330 Hz sine fading to 60 dB down: at 24 bits, then with bits taken away down to two levels, then the rounding error heard alone, then dither, a little noise that keeps the fade alive at 8 bits under a hiss. Last, undithered, find the fewest bits at which the attack sounds clean to you and the fewest at which the whole fade still fades. Undithered, this fade needs 12 bits to reach −60 dB.",
           "near": "to what resolution"
         }
       ],
