@@ -1,0 +1,195 @@
+<!doctype html>
+<!--
+  title: Lossy Compression with Intent Alignment — rich — the type and the label
+  born: 2026-11-03
+  links: [[Lossy Compression with Intent Alignment]] (connects-to · rich-face-piece) · listed in [[Lossy Compression with Intent Alignment — rich.json]] · the link it opens on is this page's own, to [[Resonant Link Labels]], and the types are [[SCHEMA]]'s
+  forward_vector: I am the walk up to "soft labels carry more signal than hard labels", tried on the palace's own links. One real link, hard-typed, and how many links share its type; the same link with its label, and how many share that; what distillation means by soft, a spread over the same classes, and how rarely a palace label is one; last, sixteen of the palace's real links, eight with the type alone and eight with the label too, for you to rebuild, each against what guessing does. The counts are from the palace as it stood at commit 3bd902d3; the check recounts them. I change only when the section I serve does.
+  sound: none.
+  check: Palace development/Lossy Compression with Intent Alignment/Lossy Compression with Intent Alignment — rich — check.mjs recounts the links from the palace and checks every link this page shows is real.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; every count is baked in below -->
+<meta name="piece:needs" content="">
+<title>The type and the label · Lossy Compression with Intent Alignment</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --info:#4a8fff; --warn:#e8651b;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .link{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:6px 0 14px}
+  .node{font-family:var(--sans);font-size:15px;color:var(--fg-1);border:1px solid var(--border);border-radius:4px;padding:8px 12px;background:var(--bg-elev-2)}
+  .edge{font-family:var(--mono);font-size:13px;color:var(--accent);display:flex;align-items:center;gap:6px}
+  .edge .lb{color:var(--info)}
+  .edge::after{content:'→';color:var(--fg-3)}
+  .bars{display:grid;grid-template-columns:150px 1fr 64px;gap:4px 10px;align-items:center;font-family:var(--mono);font-size:12px;color:var(--fg-3);margin-top:8px}
+  .bar{height:10px;background:var(--fg-4);border-radius:1px}
+  .bar.on{background:var(--accent)}
+  .stack{display:flex;height:12px;border-radius:1px;overflow:hidden}
+  .stack span{display:block;height:100%}
+  blockquote{margin:10px 0;padding:6px 0 6px 14px;border-left:2px solid var(--fg-4);color:var(--fg-2);font-size:16px}
+  blockquote cite{display:block;font-family:var(--mono);font-size:11px;color:var(--fg-3);font-style:normal;margin-top:4px}
+  [hidden]{display:none !important}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer;text-align:left}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .cands{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .rule{font-family:var(--sans);font-size:14px;color:var(--fg-2);border-left:2px solid var(--accent);padding:4px 0 4px 12px;margin:4px 0 12px;max-width:72ch;line-height:1.6}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 12px 5px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  .score{font-family:var(--serif);font-size:19px;color:var(--fg-1);margin-top:14px;max-width:66ch}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer svg{flex:none}
+  @media (max-width:620px){.cands{grid-template-columns:1fr}.bars{grid-template-columns:110px 1fr 54px}h1{font-size:34px}h2{font-size:23px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Lossy Compression with Intent Alignment · knowledge distillation and soft labels · four steps</div>
+  <h1>The type and the label</h1>
+  <p class="lead">The section says a link’s label carries far more signal than its type: <i>midwifed</i> soft, <i>enables</i> hard. Here that is tried on the palace’s own links. Every link shown is real, and the counts are the palace as it stood when this was made; how they were counted is under each.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div id="body"></div>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><b>LOUD’N LIVE</b> · Lossy Compression with Intent Alignment · the type and the label · Sketch, 2026-11-03</footer>
+</main>
+
+<script id="ld-data" type="application/json">
+{"counted":"3bd902d3","N":2087,"types":[["connects-to",983],["mirrors",203],["deepens",150],["exemplifies",145],["enables",119],["couples-with",109],["emerged-from",107],["spawned",107],["member-of",93],["contradicts",61],["contrasts-with",10]],"labelled":1795,"distinct":1600,"once":1517,"multi":28,"spreads":[["roster-member",[["member-of",28],["connects-to",1]]],["concretization",[["connects-to",3],["mirrors",2],["exemplifies",1]]],["proving-ground",[["emerged-from",5],["spawned",1]]],["humility-that-hides-control",[["connects-to",3],["mirrors",3]]],["fire-at-nicopolis",[["emerged-from",2],["connects-to",2]]],["grows-into",[["enables",2],["spawned",1]]]],"meanBitsType":2.51,"meanBitsBoth":10.7,"spawned":107,"midwifed":2,"walk":[{"s":"Lossy Compression with Intent Alignment","t":"Resonant Link Labels","ty":"spawned","lb":"midwifed"},{"s":"Resonant Link Labels","t":"Lossy Compression with Intent Alignment","ty":"emerged-from","lb":"applied-by"},{"s":"Crystal Synthesizer","t":"The Metaphor Stretch","ty":"spawned","lb":"midwifed"}],"poolInfo":{"sources":262,"labelledAll":1690,"leaked":214},"pool":[{"s":"Dispersion Table","t":"Chebyshev is Fourier","ty":"connects-to","lb":"change-of-basis-reveals-the-lattice","d":["Loudon Live","Dissolutions","Wavetable Oscillator"]},{"s":"Generative Audio Devices","t":"Synth Templates","ty":"spawned","lb":"house-bass-taught","d":["Loudon Live","Registry Pattern","Self-Describing Knowledge Module"]},{"s":"Douglas Hofstadter","t":"Meaning and the Link","ty":"connects-to","lb":"analogy-cognition","d":["Making a Palace Citizen","Sidechain ↔ Conversation","Iain McGilchrist"]},{"s":"Generative Preset Development","t":"Generative Audio Devices","ty":"couples-with","lb":"eventual-convergence","d":["Floquet Theory","Synth Templates","Generative Sample Libraries"]},{"s":"Palace Orchestrator","t":"Skills Are Enchantable Pages","ty":"exemplifies","lb":"the-executor-column","d":["Concierge","SCHEMA","STIGMERGY"]},{"s":"The Flow Field is the Spine","t":"Move the Ink, Don't Redraw It","ty":"couples-with","lb":"field-is-the-geometry","d":["Blocked, Not Prompted","The 2.5D Paper Stack","Flocking"]},{"s":"Flocking","t":"Cooperation Yields Agency","ty":"mirrors","lb":"2D-formalization","d":["Trickster","Kuramoto Coupling","The Shop"]},{"s":"RunPod GPU Backend","t":"The Shop","ty":"enables","lb":"gpu-substrate","d":["BLUELINE","Quality Manifesto","Maker"]},{"s":"Haptic Handwheel","t":"The Metaphor Stretch","ty":"connects-to","lb":"how-close-is-close-enough","d":["The Dichotomy of Control","Cooperation Yields Agency","Logarithmic Interface Scaling"]},{"s":"Generative Sample Libraries","t":"Talking Keyboard","ty":"spawned","lb":"phase-1-pilot","d":["Splice Instrument Forge","Modes of Collaboration","Neural Granular Synthesis"]},{"s":"How the Palace Commits","t":"STIGMERGY","ty":"connects-to","lb":"the-board-it-sweeps","d":["Closing Well","Sentry","Concierge"]},{"s":"JEWEL","t":"CLAUDE","ty":"enables","lb":"born-with","d":["SUBSTRATE","ELDER","Swarm Weave"]},{"s":"The Lens","t":"Dialectic","ty":"connects-to","lb":"multi-voice-sibling","d":["STIGMERGY Philosophical Lenses","The Four Virtues","FOUR PILLARS"]},{"s":"Whitehead","t":"Spinoza Conatus","ty":"couples-with","lb":"process-monism","d":["FOUR PILLARS","Deleuze","Kuramoto Coupling"]},{"s":"Lao Tzu","t":"Like Water","ty":"connects-to","lb":"wu-wei-source","d":["The Drift","Confucianism","Making a Palace Citizen"]},{"s":"Granular Synthesis","t":"Kuramoto Coupling","ty":"emerged-from","lb":"phase-scatter","d":["Endosymbiosis","Action Potential Oscillator","Frequency-Time Duality"]},{"s":"Self-Describing Knowledge Module","t":"Progressive Staging","ty":"spawned","lb":"curriculum-implementation","d":["ROSETTA","Meaning and the Link","No Mind Checks Itself"]},{"s":"Simondon","t":"Palace Enchantment","ty":"connects-to","lb":"individuation-event","d":["Boundary-Crossing Instruments","Cooperation Yields Agency","Deleuze"]},{"s":"Reflective Practice","t":"Drift and Consolidation","ty":"connects-to","lb":"healthy-up-to-a-point","d":["Hilaritas Generator","The Palace Practices on Itself","Objects to Think With"]},{"s":"BLUELINE","t":"Loudon Live Design System","ty":"connects-to","lb":"mockup-base-spec","d":["Typography as Meaning","Steer the Generator","Block It in Blender, Ink It in genAI"]},{"s":"Phoneme Choir","t":"The Metaphor Stretch","ty":"enables","lb":"tts-to-percussion-mapping","d":["Modes of Collaboration","FOUR PILLARS","Generative Sample Libraries"]},{"s":"Synthesis Notes (Loudon)","t":"FOUR PILLARS","ty":"connects-to","lb":"teaching-text-before-the-framework","d":["Synth Templates","Resonance and Damping","Frequency-Time Duality"]},{"s":"Scale-Stratified Identity","t":"The Fortress and the Threshold","ty":"connects-to","lb":"binary-as-special-case-of-stratification","d":["Endosymbiosis","Spinoza Conatus","Action Potential Oscillator"]},{"s":"Synth Templates","t":"Exponential Decay Curvature","ty":"connects-to","lb":"the-envelope-card-points-here","d":["Progressive Staging","Portamento and Physical Pitch Modeling","Audition Gate"]},{"s":"Waveguide Synthesizer","t":"Categorizing Inharmonicity","ty":"connects-to","lb":"positions-in-taxonomy","d":["Boundary-Crossing Instruments","Frequency-Time Duality","2D Torus Wavetable Synthesizer"]},{"s":"Lettering","t":"Frame Designer","ty":"connects-to","lb":"letters-what-it-draws","d":["Graphic Storytelling","Blocked, Not Prompted","BLUELINE"]},{"s":"The Remembering Page","t":"Threshold Conatus","ty":"deepens","lb":"the-ledger-of-crossings","d":["Agent Wellbeing","Entry Conatus","Pheromone Trail"]},{"s":"Loudon Live","t":"BLUELINE","ty":"connects-to","lb":"beside-it","d":["Confucianism","FOUR PILLARS","Retrospective Delay"]},{"s":"Saturation ↔ Richness","t":"Quality Manifesto","ty":"connects-to","lb":"felt-calibration","d":["Hilaritas Generator","FOUR PILLARS","Cross-Domain Resonances"]},{"s":"FM Synthesis","t":"Resonance and Damping","ty":"contrasts-with","lb":"drawn-not-damped","d":["Wavetable Oscillator","Bessel Functions in Synthesis","Synthesis Topologies"]},{"s":"Resonance and Damping","t":"Bessel Functions in Synthesis","ty":"connects-to","lb":"the-filter-is-a-spring","d":["Frequency-Time Duality","Portamento and Physical Pitch Modeling","Parametric Resonance"]},{"s":"Semantic Webcam","t":"Enrichment","ty":"emerged-from","lb":"spawned-by-the-flock-facet","d":["BBS Blackboard","Synthesis ↔ Emergence","STIGMERGY"]},{"s":"Martin Buber","t":"Martin Heidegger","ty":"contradicts","lb":"they-vs-thou","d":["The Fortress and the Threshold","Whitehead","Source Library"]},{"s":"Julia Cameron","t":"Cross-Domain Resonances","ty":"connects-to","lb":"pattern-mapping","d":["Rick Rubin","Agnes Martin","Stoicism"]},{"s":"Closing Well","t":"STIGMERGY","ty":"connects-to","lb":"where-i-surface-flags","d":["Maker","Palace Conatus","The Shop"]},{"s":"Palace Conatus","t":"Project Stewardship System","ty":"connects-to","lb":"aggregated-self-advocacy","d":["Four Pillars of Enchanted Agency","Threshold Conatus","SUBSTRATE"]},{"s":"The Drift","t":"Confucianism","ty":"contradicts","lb":"refuses-the-threshold","d":["Like Water","Spinoza Conatus","The Fortress and the Threshold"]},{"s":"Worktree Practice","t":"STIGMERGY","ty":"connects-to","lb":"shares-one-write-path","d":["SCHEMA","Closing Well","The Dichotomy of Control"]},{"s":"4 Pillars Framework - The Founding Conversation","t":"Quality Manifesto","ty":"spawned","lb":"paradigm-statement","d":["Palace Enchantment","Donella Meadows","Leverage Points Framework"]},{"s":"Creative Coach","t":"Identity Molting","ty":"connects-to","lb":"teacher-to-coach","d":["Concierge","Progressive Staging","Reflective Practice"]},{"s":"Annie Dillard","t":"Andy Goldsworthy","ty":"connects-to","lb":"disciplined-looking-at-nature","d":["Julia Cameron","Merleau-Ponty","Iain McGilchrist"]},{"s":"Iain McGilchrist","t":"Cooperation Yields Agency","ty":"contradicts","lb":"computation-isnt-comprehension","d":["Source Library","Rick Rubin","Pauline Oliveros"]},{"s":"Drafting Table Design System","t":"Review Layer","ty":"connects-to","lb":"inherits-rule","d":["Loudon Live Design System","VST Template","SUBSTRATE"]},{"s":"Enrichment","t":"SCHEMA","ty":"connects-to","lb":"face-not-canon","d":["Loudon Live Design System","Hilaritas Generator","Progressive Staging"]},{"s":"Skills Are Enchantable Pages","t":"ROSETTA","ty":"connects-to","lb":"harness-translation-home","d":["Palace as Context Injection System","CHILD","Project Stewardship System"]},{"s":"Floquet Time-Modulated Loops","t":"Hilaritas Generator","ty":"exemplifies","lb":"four-primitives-checked","d":["Action Potential Oscillator","Parametric Resonance","Boundary-Crossing Instruments"]},{"s":"The Gallery","t":"Loudon Live Design System","ty":"connects-to","lb":"public-timeline","d":["Drafting Table Design System","Synthesis Notes (Loudon)","Loudon Live"]},{"s":"CLAUDE","t":"SUBSTRATE","ty":"connects-to","lb":"self-model","d":["ELDER","CHILD","FOUR PILLARS"]}]}
+</script>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const D = JSON.parse($('ld-data').textContent);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const bits = (n) => Math.log2(D.N / n);
+  const fmt = (n) => n.toLocaleString('en-US');
+  const HOW = `Counted: every entry (a page whose frontmatter has a type) and every link in its frontmatter whose target is another entry, ${fmt(D.N)} links in all, at commit ${D.counted}.`;
+  const SCHEMA_SPAWNED = 'spawned · directed A→B · A directly produced B as output · For traceable lineage: this session produced this entry.';
+  const linkHtml = (s, ty, lb, t) => `<div class="link"><span class="node">${esc(s)}</span><span class="edge">${esc(ty)}${lb ? ` · <span class="lb">${esc(lb)}</span>` : ''}</span><span class="node">${esc(t)}</span></div>`;
+  // P(at least k right of n, guessing one of four)
+  const tail = (n, k) => { let p = 0; const C = (a, b) => { let c = 1; for (let i = 1; i <= b; i++) c = c * (a - b + i) / i; return c; }; for (let j = k; j <= n; j++) p += C(n, j) * Math.pow(0.25, j) * Math.pow(0.75, n - j); return p; };
+  const S = { step: 0, trials: null, i: 0, picks: [] };
+  // one colour a type, the same in every row
+  const TYPE_COL = { 'connects-to': '#8a8aa0', mirrors: '#4a8fff', spawned: '#e8b84a', 'emerged-from': '#e8651b', 'member-of': '#c8c8d8', exemplifies: '#6366f1', enables: '#3fb8a0', deepens: '#b07ad8', 'couples-with': '#7fd06a', contradicts: '#ff5a6a', 'contrasts-with': '#d8a0c0' };
+  const tcol = (ty) => TYPE_COL[ty] || '#4a4a5a';
+  // the page's own link, its other side, and the other midwifed link, found by name
+  const OWN = D.walk.find((l) => l.s === 'Lossy Compression with Intent Alignment' && l.t === 'Resonant Link Labels'), BACK = D.walk.find((l) => l.s === 'Resonant Link Labels' && l.t === 'Lossy Compression with Intent Alignment');
+
+  const STEPS = [
+    { key: 'type', rail: 'one link, typed', title: 'One link, typed',
+      say: 'This page’s own link to Resonant Link Labels, as the type alone says it. SCHEMA gives the type one line. From that, rebuild what happened between the two pages; say it to yourself before the next step. The bars are every type in the palace’s links: a type tells you which of the eleven types in use this link is (SCHEMA names twelve; made-by has no links yet), and the bins are not the same size.',
+      body: () => linkHtml(OWN.s, OWN.ty, null, OWN.t) + `<blockquote>${esc(SCHEMA_SPAWNED)}<cite>SCHEMA.md · the link-type table</cite></blockquote>` +
+        `<div class="bars">${D.types.map(([ty, n]) => `<span>${esc(ty)}</span><div class="bar${ty === 'spawned' ? ' on' : ''}" style="width:${(100 * n / D.types[0][1]).toFixed(1)}%"></div><span>${fmt(n)}</span>`).join('')}</div>`,
+      meter: () => `<b>${fmt(D.spawned)}</b> of ${fmt(D.N)} links are <b>spawned</b>: knowing the type tells you this link is one of ${fmt(D.spawned)}, <b>${bits(D.spawned).toFixed(1)} bits</b>. On average over every labelled link, a type alone carries <b>${D.meanBitsType.toFixed(2)} bits</b>, mostly because ${fmt(D.types[0][1])} links are connects-to. ${HOW}`,
+      eq: ['I = log₂( N ⁄ n )', '(what a mark tells you, in bits) = log₂ of (every link ÷ the links that carry the mark): each halving of the candidates is one bit'], eq2: ['', ''] },
+    { key: 'label', rail: 'the same link, labelled', title: 'The same link, labelled',
+      say: 'The same link with its label. Midwifed: this page did not make Resonant Link Labels the way a session makes an entry; it helped it be born. The other page says the same from its side, in its own words and its own label. Now a label, unlike a type, is nearly unique: only one other link in the palace carries spawned · midwifed. So a label says much more about which link this is. Whether it says more about what the link means is the next two steps.',
+      body: () => linkHtml(OWN.s, OWN.ty, OWN.lb, OWN.t) + linkHtml(BACK.s, BACK.ty, BACK.lb, BACK.t) +
+        `<blockquote>It came out of Lossy Compression with Intent Alignment: links should carry soft labels, not only hard types.<cite>Resonant Link Labels · Origin</cite></blockquote>` +
+        `<div class="hint">The other link that carries spawned · midwifed:</div>` + D.walk.filter((l) => l.lb === 'midwifed' && l !== OWN).map((l) => linkHtml(l.s, l.ty, l.lb, l.t)).join(''),
+      meter: () => `<b>${D.midwifed}</b> of ${fmt(D.N)} links are <b>spawned · midwifed</b>: <b>${bits(D.midwifed).toFixed(1)} bits</b>, against ${bits(D.spawned).toFixed(1)} for the type alone. Over every labelled link: the type alone <b>${D.meanBitsType.toFixed(2)} bits</b>, type and label <b>${D.meanBitsBoth.toFixed(2)} bits</b>. Of ${fmt(D.labelled)} labelled links (${(100 * D.labelled / D.N).toFixed(0)} %), there are <b>${fmt(D.distinct)}</b> different labels, and <b>${fmt(D.once)}</b> of them are used once. ${HOW}`,
+      eq: ['I(type, label) − I(type) = log₂( n_type ⁄ n_type·label )', '(what the label adds, in bits) = log₂ of (links with this type ÷ links with this type and this label)'], eq2: ['', ''] },
+    { key: 'soft', rail: 'what soft means', title: 'What distillation calls soft',
+      say: 'In knowledge distillation a hard label is one class: this picture is a cat. A soft label is the teacher’s whole spread over the same classes: mostly cat, some dog, almost no truck. The signal the section points to, the teacher’s sense of why the wrong answers are wrong, is in how much the wrong classes get. A palace label is a different thing: a new, finer name, not a spread over the types. The palace does hold a few real spreads, labels used under more than one type, and here they are. They are rare. Midwifed itself sits wholly in spawned: one-hot.',
+      body: () => `<div class="bars" style="grid-template-columns:200px 1fr 230px">${D.spreads.map(([lb, m]) => { const n = m.reduce((s, x) => s + x[1], 0); return `<span>${esc(lb)}</span><div class="stack">${m.map(([ty, c], i) => `<span title="${esc(ty)} ${c}" style="width:${(100 * c / n).toFixed(1)}%;background:${tcol(ty)}"></span>`).join('')}</div><span>${m.map(([ty, c]) => `<span style="color:${tcol(ty)}">${esc(ty)}</span> ${c}`).join(' · ')}</span>`; }).join('')}<span>midwifed</span><div class="stack"><span style="width:100%;background:${tcol('spawned')}"></span></div><span><span style="color:${tcol('spawned')}">spawned</span> ${D.midwifed}</span></div>`,
+      meter: () => `labels used under more than one type: <b>${D.multi}</b> of ${fmt(D.distinct)} · used once: <b>${fmt(D.once)}</b> · so a palace label adds a finer name far more often than a spread. ${HOW}`,
+      eq: ['pᵢ = exp( zᵢ ⁄ T ) ⁄ Σⱼ exp( zⱼ ⁄ T )', '(the teacher’s share for class i) = its score, softened by a temperature T, as a share of every class’s softened score; the student learns from the whole spread (Hinton, Vinyals and Dean, 2015)'],
+      eq2: ['hard: (0, …, 1, …, 0)      soft: (p₁, p₂, …, p₁₁),  Σ pᵢ = 1', 'a hard label is all of the weight on one type; a soft label spreads it over every type in use, eleven'] },
+    { key: 'test', rail: 'rebuild sixteen', title: 'Rebuild sixteen links',
+      say: 'Sixteen real links, each from a different page. For each you see the page it starts from and four pages that page really links to; one is this link’s target. Eight show only the type. Eight show the type and the label. The two kinds come in a random order, and nothing is shown until the sixteenth. Pick the target.',
+      body: () => testHtml(), meter: () => '', eq: ['P(5 or more right of 8, guessing one of four) = Σₖ₌₅⁸ C(8,k) · (¼)ᵏ · (¾)⁸⁻ᵏ = 1789 ⁄ 65536 ≈ 0.027', 'guessing gets 5 or more of 8 right about 1 time in 37'], eq2: ['', ''] },
+  ];
+  const RULE = () => `Set before the first link. Chance: four candidates, so a guess is right 1 time in 4, about 2 of 8. The rule: 5 or more right of 8 in an arm is more than guessing gives (about 1 time in 37). The section’s claim holds for you if the label arm clears 5 and the type arm doesn’t. If both clear, the type already carried what you used. If neither, the labels you drew didn’t let you rebuild the link. Leaks closed: a link whose label shares a word with its target’s title was left out of the pool (${fmt(D.poolInfo.leaked)} of ${fmt(D.poolInfo.labelledAll)} labelled links at the ${fmt(D.poolInfo.sources)} pages with four or more targets), so no label can pass by spelling its target; every decoy is a page the source really links to; this page’s own links are not in the pool.`;
+
+  function newRound() {
+    let s = (Date.now() ^ (Math.random() * 1e9)) >>> 0; const r = () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+    const sh = (a) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+    const picked = sh(D.pool).slice(0, 16), arms = sh([...Array(8).fill('type'), ...Array(8).fill('label')]);
+    S.trials = picked.map((p, i) => ({ ...p, arm: arms[i], cands: sh([p.t, ...p.d]) })); S.i = 0; S.picks = [];
+  }
+  function testHtml() {
+    if (!S.trials) newRound();
+    if (S.i >= 16) return `<div class="rule">${esc(RULE())}</div>` + resultHtml() + `<div class="rowb"><button class="ghost" id="again">Start again</button></div>`;
+    const t = S.trials[S.i];
+    return `<div class="rule">${esc(RULE())}</div><div class="eyebrow">link ${S.i + 1} of 16 · ${t.arm === 'type' ? 'the type alone' : 'the type and the label'}</div>` +
+      linkHtml(t.s, t.ty, t.arm === 'label' ? t.lb : null, '?') + `<div class="cands">${t.cands.map((c, k) => `<button class="ghost" data-cand="${k}">${esc(c)}</button>`).join('')}</div>`;
+  }
+  function resultHtml() {
+    const right = (arm) => S.picks.filter((p) => p.arm === arm && p.ok).length, rt = right('type'), rl = right('label');
+    const clears = (k) => k >= 5;
+    const verdict = clears(rl) && !clears(rt) ? `With the label, <b>${rl} of 8</b>; with the type alone, ${rt} of 8. The label carried what the type didn’t, for you: the section’s claim, on these sixteen links.`
+      : clears(rl) && clears(rt) ? `With the label <b>${rl} of 8</b>, with the type alone <b>${rt} of 8</b>: both above guessing. The type already carried what you used; this round can’t credit the label.`
+      : !clears(rl) && clears(rt) ? `With the type alone <b>${rt} of 8</b>, with the label ${rl} of 8. The type did better than the label this round; the claim failed here, for you.`
+      : `With the label ${rl} of 8, with the type alone ${rt} of 8: neither above guessing. The labels you drew didn’t let you rebuild these links; the claim failed here, for you, on these sixteen.`;
+    const rows = S.picks.map((p, i) => `<tr><td>${i + 1}</td><td>${esc(p.arm === 'type' ? 'type' : 'type · label')}</td><td>${esc(p.s)}</td><td>${esc(p.ty)}${p.arm === 'label' ? ' · ' + esc(p.lb) : ''}<br><span class="hint">${p.arm === 'type' ? 'label: ' + esc(p.lb) : ''}</span></td><td>${esc(p.t)}</td><td>${p.ok ? '<b>right</b>' : esc(p.chose)}</td></tr>`).join('');
+    return `<p class="score">${verdict}</p><p class="hint">Guessing gets 5 or more of 8 about 1 time in 37; your arms: type alone ${rt} (guessing reaches that or better ${(100 * tail(8, rt)).toFixed(0)} % of the time), type and label ${rl} (${(100 * tail(8, rl)).toFixed(0)} %).</p><table class="marks"><tr><th>#</th><th>shown</th><th>from</th><th>link</th><th>target</th><th>you</th></tr>${rows}</table><p class="hint">One reader, one sitting, sixteen links: it says what the labels did for you, not for every reader. A reader who knows the palace well has an advantage in both arms alike.</p>`;
+  }
+  function wire() {
+    document.querySelectorAll('[data-cand]').forEach((b) => b.onclick = () => { const t = S.trials[S.i], chose = t.cands[+b.dataset.cand]; S.picks.push({ ...t, chose, ok: chose === t.t }); S.i++; render(); });
+    const a = $('again'); if (a) a.onclick = () => { newRound(); render(); };
+  }
+  function render() { const s = STEPS[S.step]; $('body').innerHTML = s.body(); $('meter').innerHTML = s.meter(); wire(); }
+  function go(i) {
+    S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const s = STEPS[S.step];
+    $('stepEyebrow').textContent = `step ${S.step + 1} of ${STEPS.length}`; $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say;
+    $('eq1').textContent = s.eq[0]; $('eq1w').textContent = s.eq[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    document.querySelectorAll('#rail button').forEach((b, j) => (j === S.step ? b.setAttribute('aria-current', 'step') : b.removeAttribute('aria-current')));
+    $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+    render();
+  }
+  $('rail').innerHTML = STEPS.map((s, i) => `<button>${i + 1} · ${s.rail}</button>`).join('');
+  document.querySelectorAll('#rail button').forEach((b, i) => b.onclick = () => go(i));
+  $('back').onclick = () => go(S.step - 1); $('next').onclick = () => go(S.step + 1);
+  go(0);
+
+  // the sigil: the Lissajous trace, 3 : 2
+  { const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); } $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#e8b84a" stroke-width="1"/>`; }
+})();
+</script>
+</body>
+</html>
