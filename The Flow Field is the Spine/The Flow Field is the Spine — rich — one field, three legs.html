@@ -112,7 +112,8 @@ const S3 = { GW: 120, GH: 76, DRIFT: 0.9,
   VORTICES: [[0.55, 0.62, 0.22, 0.13], [1.05, 0.38, -0.18, 0.11], [1.45, 0.66, 0.15, 0.10], [0.30, 0.30, -0.12, 0.09]] };  // field.py: cx, cy, amp, sigma
 S3.ASP = S3.GW / S3.GH;
 // What Session 3 chose for each leg, as one number in one unit: how far one tick of the leg carries a
-// point, in domain widths, per unit of field speed. The ticks are each leg's own clock.
+// point, in frame heights (domain units, y in [0, 1]), per unit of field speed (the drawn leg: per step
+// along the unit direction). The ticks are each leg's own clock.
 const S3_CHOSEN = {
   drawn: 0.006,                                   // drawn_speedlines.py: STEP = 0.006, per RK2 step along the unit direction
   steers: (18.0 / 1.9291342128983953) * (S3.ASP / 380),  // steers_motion.py: DT_PX = 18 / mag_max px per unit t, on a 380 px panel
@@ -218,6 +219,15 @@ function steersRegistration(F, NW, NH, rowsUp) {
   for (let n = 0; n < NW * NH; n++) { const a = Math.atan2(V.vy[n], V.vx[n]) - Math.atan2(T.vy[n], T.vx[n]); const d = Math.abs(Math.atan2(Math.sin(a), Math.cos(a))); const m = Math.hypot(T.vx[n], T.vy[n]); s += d * m; w += m; }
   return s / w * 180 / Math.PI;
 }
+// Spin (curl) of the motion the steers leg carries, at the place its picture shows each vortex, in the
+// picture's own upright coordinates (frame heights). rowsUp: the field's own spin at the vortex. Otherwise
+// the motion steers_motion.py encodes: the arrow sampled from the mirrored row, with the upright sign of vy
+// kept, read where the mirrored picture puts the vortex, at (cx, 1 - cy).
+function steersCurl(F, rowsUp) {
+  const h = 2e-3, u = (x, y) => s3Sample(F, x, rowsUp ? y : 1 - y);
+  return activeOr(S3.VORTICES).map(([cx, c]) => { const cy = rowsUp ? c : 1 - c; return (u(cx + h, cy)[1] - u(cx - h, cy)[1]) / (2 * h) - (u(cx, cy + h)[0] - u(cx, cy - h)[0]) / (2 * h); });
+}
+function activeOr(v) { return typeof St !== 'undefined' && St.step >= 3 ? St.vort : v; }
 /* MEASURE:END */
 </script>
 <script>
@@ -345,7 +355,7 @@ function drawSim(p) {
 }
 
 // ───────── knobs ─────────
-const LOGK = [-3.3, -0.7];                                                // the knobs span 0.0005 … 0.2 domain widths per tick
+const LOGK = [-3.3, -0.7];                                                // the knobs span 0.0005 … 0.2 frame heights per tick
 const toSlider = k => (Math.log10(k) - LOGK[0]) / (LOGK[1] - LOGK[0]) * 1000, fromSlider = v => Math.pow(10, LOGK[0] + v / 1000 * (LOGK[1] - LOGK[0]));
 const LEGNAME = { drawn: 'step length', steers: 'warp per t', sim: 'move per frame' };
 let syncs = [];
@@ -390,8 +400,8 @@ const STEPS = [
     eqs: [['leg(p) = T<sub>leg</sub>( v(p) )', '(what a leg draws at a place) = (its own small transfer) applied to (the one field’s arrow there). T is a step length, a warp per frame, a move per frame: one number each.']],
     back: 'Back a step: one leg.' },
   { n: 6, name: 'the test', panels: ['field', 'drawn', 'steers', 'sim'],
-    says: 'The strong claim says the untouched field is enough: <b>no per-leg number at all</b>. Lock the three numbers together and look for one setting where all three legs read the way Session 3 chose them, within a factor of two. Then the second switch: draw the steers leg the way Session 3’s code drew it, and watch where its whirls land.',
-    eqs: [['k<sub>drawn</sub> = 0.006   k<sub>steers</sub> = 0.0388   k<sub>sim</sub> = 0.0035', 'Session 3’s three numbers, in one unit: how far one tick of the leg carries a point, in widths of the frame, per unit of field speed. Each tick is the leg’s own clock: a step of a line, a frame of video, a frame of animation.']],
+    says: 'The strong claim says the untouched field is enough: <b>no per-leg number at all</b>. Lock the three numbers together and look for one setting where all three legs read the way Session 3 chose them, within a factor of two. Then the second switch: draw the steers leg the way Session 3’s code drew it, and watch what becomes of its whirls.',
+    eqs: [['k<sub>drawn</sub> = 0.006   k<sub>steers</sub> = 0.0388   k<sub>sim</sub> = 0.0035', 'Session 3’s three numbers, in one unit: how far one tick of the leg carries a point, in heights of the frame, per unit of field speed (for the drawn leg, per step along the arrow’s direction, whatever its speed). Each tick is the leg’s own clock: a step of a line, a frame of video, a frame of animation.']],
     back: 'Back a step: each leg with its own number.' },
 ];
 
@@ -438,9 +448,9 @@ function readout() {
     const ok = ['drawn', 'steers', 'sim'].filter(l => fits(l, kOf(l))), key = sum + '|' + St.rowsUp;
     if (!regCache[key]) regCache[key] = steersRegistration(F, 95, Math.round(95 / S3.ASP), St.rowsUp);
     parts.push('legs that fit <b class="' + (ok.length === 3 ? 'ok' : 'no') + '">' + ok.length + ' of 3</b>', 'steers arrow vs field arrow, same place <b class="' + (regCache[key] < 1 ? 'ok' : 'no') + '">' + regCache[key].toFixed(1) + '°</b>');
-    const best = bestShared(), need = sharedBandNeeded(), mir = regCache[sum + '|false'] ?? (regCache[sum + '|false'] = steersRegistration(F, 95, Math.round(95 / S3.ASP), false));
+    const curl = { up: steersCurl(F, true), s3: steersCurl(F, false) }, best = bestShared(), need = sharedBandNeeded(), mir = regCache[sum + '|false'] ?? (regCache[sum + '|false'] = steersRegistration(F, 95, Math.round(95 / S3.ASP), false));
     $('verdict').innerHTML = '<b>One number for all three</b> fits at most <b>' + best.n + ' of 3</b> legs at any setting: Session 3’s choices span <b>×' + (need * need).toFixed(1) + '</b>, from the sim’s ' + S3_CHOSEN.sim.toFixed(4) + ' to the steers’ ' + S3_CHOSEN.steers.toFixed(4) + ', so one shared number serves all three only if “right” is allowed to mean within <b>×' + need.toFixed(1) + '</b> of each. The legs run on different clocks and in different units, and the scalar is what absorbs that. So the strong claim fails here as it failed in Session 3, and the likely-true claim holds: the field’s checksum never moved, and each leg added one number. ' +
-      '<b>The second switch</b> shows a transfer the page doesn’t name. Session 3’s steers code reads the field’s rows from the top of the frame down, while the field (and the other legs) count y from the bottom, so its whirls land mirrored top to bottom: the arrow it draws differs from the field’s arrow at the same place by <b>' + mir.toFixed(0) + '°</b> on average, here. The contact sheet’s steers row was drawn this way. A format choice is part of each leg’s transfer, and it can be wrong while the field stays untouched.';
+      '<b>The second switch</b> shows what the format choice in that transfer can do. Session 3’s steers code reads the field’s rows from the top of the frame down, while the field (and the other legs) count y from the bottom, but it keeps the upright sign of the vertical arrow. So the picture lands mirrored top to bottom, and the motion it carries loses its whirls: each vortex becomes a saddle. Its spin is <b>' + curl.s3.map(v => v.toFixed(2)).join(' / ') + '</b> where its picture shows them, against the field’s own ' + curl.up.map(v => v.toFixed(1)).join(' / ') + ', and its arrow differs from the field’s at the same place by <b>' + mir.toFixed(0) + '°</b> on average. The contact sheet’s steers row was drawn this way. The field stayed untouched all the while.';
   }
   $('read').innerHTML = parts.map(x => '<span>' + x + '</span>').join('');
 }

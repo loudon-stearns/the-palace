@@ -22,7 +22,7 @@ const read = (what) => readFileSync(join(HERE, `${ENTRY} — rich — ${what}.ht
 const between = (src, a, b) => { const i = src.indexOf(a), j = src.indexOf(b, i); if (i < 0 || j < 0) throw new Error('marker missing: ' + a); return src.slice(i, j + b.length); };
 const legs = read('one field, three legs'), body = read('around a body');
 const A = new Function(between(legs, '/* ENGINE:START', '/* ENGINE:END */') + '\n' + between(legs, '/* MEASURE:START', '/* MEASURE:END */') +
-  '\nreturn { S3, S3_CHOSEN, s3Build, s3Sample, s3Checksum, s3Rng, drawnSeeds, drawnStrokes, steersVel, steersNoise, steersWarp, simSeed, simStep, fitOf, fits, sharedBandNeeded, bestShared, steersRegistration };')();
+  '\nreturn { steersCurl, S3, S3_CHOSEN, s3Build, s3Sample, s3Checksum, s3Rng, drawnSeeds, drawnStrokes, steersVel, steersNoise, steersWarp, simSeed, simStep, fitOf, fits, sharedBandNeeded, bestShared, steersRegistration };')();
 const B = new Function(between(body, '/* ENGINE:START', '/* MEASURE:END */') +
   '\nreturn { S4, s4Unrle, s4FillHoles, s4Circle, s4Prepare, s4Iterate, s4Finish, s4Build, s4Sample, s4InBody, s4Drawn, s4DrawnSeeds, s4Wall, s4DivMean, s4DustRun };')();
 const FIGURE = between(body, "const S4_FIGURE = '", "';").slice("const S4_FIGURE = '".length, -2);
@@ -65,7 +65,7 @@ const F3 = A.s3Build(A.S3.VORTICES);
   const ra = A.s3Rng(5), rb = A.s3Rng(5), Pa = new Float32Array(400), Pb = new Float32Array(400); for (let i = 0; i < 200; i++) { A.simSeed(Pa, i, ra); A.simSeed(Pb, i, rb); }
   for (let k = 0; k < 50; k++) { A.simStep(F3, Pa, A.S3_CHOSEN.sim, ra); A.simStep(G, Pb, A.S3_CHOSEN.sim, rb); } let dp = 0; for (let k = 0; k < 400; k++) dp = Math.max(dp, Math.abs(Pa[k] - Pb[k]));
   ok(JSON.stringify(a.slice(0, 50)) !== JSON.stringify(b.slice(0, 50)) && dv > 0.1 && dp > 1e-3, 'move one vortex and all three legs change, with every leg’s number left as it was'); }
-{ const c = A.S3_CHOSEN; console.log(`         Session 3’s numbers, domain widths per tick per unit speed: drawn ${c.drawn.toFixed(5)} · steers ${c.steers.toFixed(5)} · sim ${c.sim.toFixed(5)}`);
+{ const c = A.S3_CHOSEN; console.log(`         Session 3’s numbers, frame heights per tick per unit speed: drawn ${c.drawn.toFixed(5)} · steers ${c.steers.toFixed(5)} · sim ${c.sim.toFixed(5)}`);
   const need = A.sharedBandNeeded(), best = A.bestShared();
   console.log(`         spread ×${(need * need).toFixed(2)}; one shared number fits at most ${best.n} of 3 within ×2 (at k ≈ ${best.k.toFixed(4)}); it would take ×${need.toFixed(2)} either way to fit all three`);
   ok(best.n === 2, 'one number for all three legs: no setting fits all three within ×2 of Session 3’s choices (the strong claim fails on units)');
@@ -82,7 +82,10 @@ const F3 = A.s3Build(A.S3.VORTICES);
       for (let k = 0; k < 3; k++) s += Math.abs(c[k] - R.px[o + k] / 255); } return s / (PW * PH * 3); };
   const dS3 = diff(false), dUp = diff(true);
   console.log(`         02-steers-motion.png’s dense map against the field: read rows from the bottom (Session 3’s code) ${dS3.toFixed(4)} mean difference; rows up ${dUp.toFixed(4)}`);
-  ok(dS3 < 0.01 && dUp > 0.05, 'Session 3’s steers render is the field read with its rows from the top: mirrored top to bottom against the source, drawn and sim rows'); }
+  ok(dS3 < 0.01 && dUp > 0.05, 'Session 3’s steers render is the field read with its rows from the top: its picture mirrored top to bottom against the source, drawn and sim rows');
+  const cu = A.steersCurl(F3, true), cs = A.steersCurl(F3, false);
+  console.log(`         spin at the four vortex centres, per frame height: field ${cu.map(v => v.toFixed(2)).join(' / ')} · steers as Session 3 wrote it, where its picture puts them ${cs.map(v => v.toFixed(4)).join(' / ')}`);
+  ok(cu.every(v => Math.abs(v) > 20) && cs.every(v => Math.abs(v) < 0.02 * Math.min(...cu.map(Math.abs))), 'the motion the steers leg carries loses its whirls: each vortex becomes a saddle (its spin under 2% of the field’s)'); }
 
 // ─────────────────────────────── around a body ───────────────────────────────
 console.log('\naround a body — Session 4');
