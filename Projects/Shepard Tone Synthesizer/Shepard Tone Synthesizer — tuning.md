@@ -31,3 +31,13 @@ What Shepard Tone Synthesizer's steward cycles taught the page. The orchestrator
 
 2. Every equivalence proven with sine voices needs checking again once voices carry overtones: a filter on the sum and a window on each voice were the same for sines and very different for sawtooths. *(offered by the steward, cycle 11)*
 - run · 2026-10-18 · cycle 11 · taught item 2
+
+## From cycle 12 — 2026-11-03
+
+3. Stage 4's 'track the note' failure has to take the cutoff from the played note folded into one octave, one value for every voice. Computing it from each voice's own wrapped octave gives back exactly the voice's pitch and breaks nothing. *(offered by the steward, cycle 12)*
+4. **Proposed for canon** · 2026-11-03 · [[Shepard Tone Synthesizer]] · § The Synthesizer Architecture, a new last paragraph after the Global Shepard Filter measurement note · canon change owed *(proposed by the steward, cycle 12)*
+   Why: The page's forward vector asks to become a staged teaching instrument, and now there is one to play. The architecture section should say where it lives and what it holds.
+   Path: `Projects/Shepard Tone Synthesizer.md`
+   > **The plugin (2026-11-03).** All four stages now play in Live as one instrument, Shepard Tone (VST3 and AU, built with [[VST Template]], in the bundle's `plugin/`). It runs one glide on pitch before the stack, ten voices from C0 to C10, the window on each voice, and each voice's filter following that voice. A Climb knob turns it into the endless glissando. Two switches break it on purpose, the way Stages 3 and 4 found it breaks: Drift gives each octave its own glide time, and Track the note takes the cutoff from the played note. Its screen draws Shepard's helix as a staircase and tilts between the side view, which is finite and shows the wrap, and the view from above, which is Escher's endless circle and the one the ear hears.
+
+- run · 2026-11-03 · cycle 12 · taught item 3, proposed item 4 for canon
