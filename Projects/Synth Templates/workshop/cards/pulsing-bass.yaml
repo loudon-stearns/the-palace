@@ -1,0 +1,71 @@
+# Synth Templates — card 0.1 — Pulsing Bass
+# Rhythmic and Sequenced, tier 1: a held bass note made rhythmic by a synced LFO on the filter, ducked by a second LFO on the amp.
+schema: synth-template-card/0.2
+id: pulsing-bass
+name: Pulsing Bass
+family: Rhythmic and Sequenced
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Tempo sync; triplets"
+  - "Subtractive: rich wave then filter"
+  - "Retrigger vs free; chords with staggered attacks"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    sub:     {kind: oscillator, wave: square, octave: -1, level: half}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: moderate}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+    lfo1:    {kind: lfo, wave: triangle, rate: medium, sync: true, retrigger: true, note: "synced to 1/8; restarts on the note so the first pulse lands on the downbeat"}
+    lfo2:    {kind: lfo, wave: saw, rate: slow, sync: true, retrigger: false, note: "the sidechain: one duck per quarter, free-running against the song"}
+  audio:
+    - [osc1, mix]
+    - [sub, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: lfo2, to: amp.level, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: sub.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: mono,            why: "one bass line, held; the LFOs make the rhythm, not the fingers"}
+  - {block: osc1,    param: wave,      value: saw,             why: "every harmonic there, so the filter sweep has something to open onto"}
+  - {block: filter1, param: type,      value: lowpass 24 dB,   why: "steep, so each pulse is a clear open-and-shut"}
+  - {block: filter1, param: resonance, value: moderate,        why: "the pulse gets a vowel; none and it is only louder and quieter"}
+  - {block: lfo1,    param: sync,      value: "on",            why: "eighths on the grid; the filter is the hi-hat"}
+  - {block: lfo1,    param: division,  value: "1/8 note",      why: "two pulses per beat, the pump's pulse divided"}
+  - {block: lfo1,    param: retrigger, value: "on",            why: "a new note starts the pulse at the top; free, the first pulse lands anywhere"}
+  - {block: lfo2,    param: target,    value: "amp level, ramp at 1/4", why: "the sidechain duck: out of the way on the beat, back by the next"}
+  - {block: aenv,    param: sustain,   value: held,            why: "sustaining: hold the note and let the two LFOs play it"}
+
+taste:
+  - {block: filter1, param: cutoff,    range: "dark – mid",         default: dark}
+  - {block: lfo1,    param: depth,     range: "some – generous",    default: moderate}
+  - {block: lfo1,    param: rate,      range: "1/8 – 1/16",         default: medium}
+  - {block: lfo2,    param: depth,     range: "little – generous",  default: moderate, why: "more is a harder duck"}
+  - {block: sub,     param: level,     range: "off – equal to osc1", default: half}
+  - {block: filter1, param: drive,     range: "none – light",       default: none}
+
+listening:
+  cue: "One long bass note that keeps time by itself: the filter opens and shuts in eighths, and once a beat the whole thing dips as if a kick pushed it down. Nothing is replayed; it is all one held key."
+  ab: "Set the filter LFO depth to none: a held, static bass and the eighths are gone. Put it back. Then turn the amp LFO depth to none: the eighths stay but the beat stops breathing."
+
+render:
+  tempo: 124
+  note: C2
+  velocity: 100
+  pattern: "C2 held for two bars"
+  length_s: 4.0
+
+mappings: {}

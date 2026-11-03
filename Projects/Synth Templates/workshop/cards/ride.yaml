@@ -1,0 +1,66 @@
+# Synth Templates — card 0.2 — Ride
+# A cymbal with two parts: a ping where the stick lands and a wash underneath. The ping is a resonant bandpass rung by the hit; the wash is the hat's metal and noise with a medium decay.
+schema: synth-template-card/0.2
+id: ride
+name: Ride
+family: Drums and Percussion
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Unison / unisono"
+  - "Noise for softness and high end"
+  - "Resonance as width (Q) on band-pass and notch"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope trigger / one-shot mode"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: square, octave: 2, unison: 6, detune: very wide, level: half, note: "the metal"}
+    noise:   {kind: oscillator, wave: noise, level: half, note: "the wash"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: bandpass, slope: 12, resonance: moderate, note: "the ping: a resonant band the stick rings"}
+    amp:     {kind: amplifier, level: full}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: medium, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: false}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: osc1,    param: unison,    value: 6 voices,      why: "the hat's six clashing squares: the same metal, larger"}
+  - {block: osc1,    param: detune,    value: very wide,     why: "the clang"}
+  - {block: noise,   param: level,     value: half,          why: "the wash under the ping; equal to the metal, neither wins"}
+  - {block: filter1, param: type,      value: bandpass 12 dB, why: "the bell of the cymbal: one band picked out of the shimmer"}
+  - {block: filter1, param: resonance, value: moderate,      why: "the ping: the band rings when the hit excites it; the hat has none of this"}
+  - {block: filter1, param: cutoff,    value: bright,        why: "where the stick lands"}
+  - {block: aenv,    param: decay,     value: medium,        why: "between hat and crash: it rings, but the next stroke arrives before it is gone"}
+  - {block: aenv,    param: sustain,   value: zero}
+  - {block: aenv,    param: mode,      value: one-shot}
+
+taste:
+  - {block: aenv,    param: decay,     range: "short – long",       default: medium}
+  - {block: filter1, param: resonance, range: "little – high",      default: moderate, why: "more ping, less wash"}
+  - {block: filter1, param: cutoff,    range: "mid – open",         default: bright, why: "bell to edge"}
+  - {block: noise,   param: level,     range: "little – full",      default: half}
+
+listening:
+  cue: "'Ting' on top of 'sshh'. The ping is a note-ish point at the front of every stroke; the wash builds under a steady pattern and never quite clears."
+  ab: "Set the filter resonance to none: the ping is gone and it is an open hat with a longer tail. Back to moderate and the stick lands again. Then set the noise to off: all bell, no wash."
+
+render:
+  tempo: 130
+  note: C5
+  velocity: [110, 80, 95, 80, 110, 80, 95, 80]
+  pattern: "a swung ride pattern, one bar: eighths, the beat accented; the last stroke left to ring"
+  length_s: 3.0
+
+mappings: {}

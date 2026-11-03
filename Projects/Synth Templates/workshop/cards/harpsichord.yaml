@@ -1,0 +1,70 @@
+# Synth Templates — card 0.2 — Harpsichord
+# A plucked string on a keyboard: bright, short, and with a click when the jack falls back past the string.
+schema: synth-template-card/0.2
+id: harpsichord
+name: Harpsichord
+family: Keys and Mallets
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Combining waveforms: square + saw octave up (zipper)"
+  - "Pulse width, static and modulated"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Piano envelope: release 0 as damper"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    osc2:    {kind: oscillator, wave: pulse, pw: 0.15, octave: 1, level: half, note: "the plectrum: a thin pulse an octave up"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: medium, s: half, r: short},   category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: long,   s: zero, r: instant}, category: piano}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,    value: saw,           why: "a plucked string has every harmonic, and the harpsichord keeps them: there is no felt to soften it"}
+  - {block: osc2,    param: wave,    value: pulse,         why: "a narrow pulse an octave up is the plectrum's edge; saw and pulse together are brighter than either"}
+  - {block: filter1, param: cutoff,  value: bright,        why: "open; this instrument is all top"}
+  - {block: fenv,    param: decay,   value: medium,        why: "the very top goes first, the rest stays"}
+  - {block: aenv,    param: attack,  value: instant,       why: "plucked"}
+  - {block: aenv,    param: decay,   value: long,          why: "a thin string rings a while"}
+  - {block: aenv,    param: sustain, value: zero,          why: "no energy after the pluck"}
+  - {block: aenv,    param: release, value: instant,       why: "the damper lands and the jack clicks past the string on the way down: the release click is the instrument"}
+  - {block: vel,     param: target,  value: nothing,       why: "a harpsichord has no dynamics; every note is the same pluck"}
+  - {block: mode,    param: voices,  value: poly}
+
+taste:
+  - {block: osc2,    param: level,   range: "quarter – equal to osc1", default: half}
+  - {block: osc2,    param: pw,      range: "0.1 – 0.3",               default: 0.15}
+  - {block: filter1, param: cutoff,  range: "mid – open",              default: bright}
+  - {block: fenv,    param: amount,  range: "little – generous",       default: moderate}
+  - {block: aenv,    param: decay,   range: "medium – long",           default: long}
+
+listening:
+  cue: "Bright and wiry, every note the same loudness however you play. The note rings while the key is down and stops with a tick when it comes up."
+  ab: "Set the amp release to medium: the ticks disappear and it softens into a guitar. Back to instant and the harpsichord returns. Then route velocity to the amp: the moment soft notes are quieter, it is a different instrument."
+
+render:
+  tempo: 112
+  note: [D4, F4, A4, D5, A4, F4, D4, A3]
+  velocity: 100
+  pattern: "sixteenths, one bar, an arpeggio up and down, each a 16th long"
+  length_s: 3.0
+
+mappings: {}

@@ -1,0 +1,54 @@
+# Synth Templates — card — Triangle Chip Bass
+# The NES bass: one triangle, no filter, a switch for an envelope. The constraint is the sound.
+schema: synth-template-card/0.2
+id: triangle-chip-bass
+name: Triangle Chip Bass
+family: Bass
+tier: 1
+mode: mono
+classics: NES
+status: drafted
+concepts:
+  - "Triangle as a filtered square"
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Switch envelope (organ); percussive organ"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: triangle, octave: 0, note: "the chip's triangle channel has no volume control, so no envelope shaped it; here the amp is a switch"}
+    amp:  {kind: amplifier, level: full}
+    aenv: {kind: envelope, role: amp, shape: {a: instant, d: instant, s: full, r: instant}, category: gate}
+  audio:
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: triangle, why: "odd harmonics like a square, but falling away fast: a square already filtered, so no filter is needed"}
+  - {block: osc1, param: filter,  value: none,     why: "the chip had none; the triangle's soft top is the only tone shaping"}
+  - {block: aenv, param: attack,  value: instant,  why: "a switch: on at the note"}
+  - {block: aenv, param: sustain, value: full,     why: "a switch has one level"}
+  - {block: aenv, param: release, value: instant,  why: "off at the key, no tail; the gaps are hard"}
+  - {block: mode, param: voices,  value: mono,     why: "the chip had one triangle channel"}
+
+taste:
+  - {block: aenv, param: release, range: "instant – fast",  default: instant, why: "fast hides the click at the cost of the chip's hardness"}
+  - {block: aenv, param: attack,  range: "instant – fast",  default: instant}
+  - {block: osc1, param: glide,   range: "none – short",    default: none, why: "the pitch slides the chip could do by stepping"}
+  - {block: amp,  param: level,   range: "half – full",     default: full}
+
+listening:
+  cue: "Soft, round and a little hollow, like a sine with a slight edge. Notes start and stop with no bloom at all: on, off, on, off, a switch."
+  ab: "Change the wave to square: the same line is suddenly a buzzing lead-register bass, bright and nasal. Back to triangle and the top falls away: that is the filter the chip never had."
+
+render:
+  tempo: 150
+  note: [C2, C2, G2, C2, Eb2, C2, F2, G2]
+  velocity: 100
+  pattern: "eighths, one bar; each an eighth long with a tiny gap"
+  length_s: 2.0
+
+mappings: {}

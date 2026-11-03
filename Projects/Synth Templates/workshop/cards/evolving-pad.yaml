@@ -1,0 +1,72 @@
+# Synth Templates — card 0.2 — Evolving Pad
+# Two LFOs at different, unrelated rates: one on the oscillator's shape, one on the filter. The texture never lands on the same place twice.
+schema: synth-template-card/0.2
+id: evolving-pad
+name: Evolving Pad
+family: Pads
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Retrigger vs free; chords with staggered attacks"
+  - "Serial: dual notch pad with two unsynced LFOs"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 2, detune: slight, note: "a wavetable, position swept by lfo1; the voice has no wavetable, so it plays a saw and sweeps the shape jack"}
+    osc2:    {kind: oscillator, wave: triangle, octave: -1, note: "a still floor under the moving top"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [chorus, reverb]}
+    aenv:    {kind: envelope, role: amp, shape: {a: very slow, d: medium, s: held, r: very long}, category: pad}
+    lfo1:    {kind: lfo, wave: triangle, rate: very slow, sync: false, retrigger: false, note: "wavetable position"}
+    lfo2:    {kind: lfo, wave: sine, rate: slow, sync: false, retrigger: false, note: "filter; a different rate, so the two never line up"}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: osc1.shape, amount: generous, essential: true}
+    - {from: lfo2, to: filter1.cutoff, amount: some, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: lfo1,    param: target,    value: wavetable position, why: "the timbre itself moves, not just how much of it the filter lets through"}
+  - {block: lfo2,    param: target,    value: filter cutoff,      why: "a second motion on a different thing"}
+  - {block: lfo2,    param: rate,      value: slow,               why: "not a multiple of lfo1's rate: two tides out of step, so the pattern does not loop where the ear can catch it"}
+  - {block: lfo1,    param: retrigger, value: free,               why: "free-running: a chord played with staggered notes has each voice somewhere else in the cycle"}
+  - {block: aenv,    param: attack,    value: very slow,          why: "the pad should already be moving by the time it is fully there"}
+  - {block: aenv,    param: release,   value: very long,          why: "it keeps evolving as it leaves"}
+  - {block: mode,    param: voices,    value: poly,               why: "chords; the per-voice LFO phases are half the texture"}
+
+taste:
+  - {block: osc2,    param: level,     range: "off – half",            default: quarter}
+  - {block: filter1, param: cutoff,    range: "dark – bright",         default: mid}
+  - {block: lfo1,    param: rate,      range: "very slow – slow",      default: very slow}
+  - {block: lfo1,    param: depth,     range: "moderate – full",       default: generous}
+  - {block: lfo2,    param: rate,      range: "very slow – medium",    default: slow}
+  - {block: lfo2,    param: depth,     range: "little – moderate",     default: some}
+  - {block: aenv,    param: attack,    range: "slow – very long",      default: very slow}
+  - {block: fx,      param: reverb,    range: "large – huge",          default: large}
+
+listening:
+  cue: "A chord that is never finished: the tone thickens and thins while the brightness rises and falls on its own clock, and the two drift in and out of step. Hold it for a minute and no two bars are the same."
+  ab: "Set lfo2's rate to match lfo1's: now the brightness and the shape move together and the pad becomes a loop, something a hand on a knob could do. Set them apart again and it breathes."
+
+render:
+  tempo: 70
+  note: [E3, B3, D4, F#4]
+  velocity: 85
+  pattern: "the chord's four notes landing one per beat, held four bars, released, tail to silence"
+  length_s: 18.0
+
+mappings: {}

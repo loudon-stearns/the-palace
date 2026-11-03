@@ -1,0 +1,64 @@
+# Synth Templates — card 0.2 — Short Delay = Comb Filter
+# Delay-family card 3: where delay and filter turn out to be one thing. A copy of the signal a millisecond late,
+# mixed equal, and a wheel that sweeps the delay time so the harmonic series of the notches can be heard moving.
+schema: synth-template-card/0.2
+id: short-delay-comb-filter
+name: Short Delay = Comb Filter
+family: Delay-Family Effects
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Comb filter: a short delay is a filter"
+  - "Comb filter: delay time and frequency are reciprocals"
+  - "Delay: time, feedback, mix"
+
+graph:
+  blocks:
+    noise:   {kind: oscillator, wave: noise, level: full, note: "energy at every frequency, so every notch is heard"}
+    osc1:    {kind: oscillator, wave: saw, octave: 0, level: half}
+    mix:     {kind: mixer}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [delay], note: "the delay time is about a millisecond: the first notch sits near a kilohertz and the peaks above it are its harmonic series; the voice plays a delay but does not yet reach times this short"}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [noise, mix]
+    - [osc1, mix]
+    - [mix, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv,  to: amp.level, essential: true}
+    - {from: key,   to: osc1.pitch, essential: true}
+    - {from: key,   to: aenv.gate, essential: true}
+    - {from: wheel, to: fx.time, amount: full, essential: true}
+
+essentials:
+  - {block: noise, param: wave,     value: noise,         why: "broadband: the comb is only heard where there is sound to cut"}
+  - {block: noise, param: level,    value: full,          why: "the noise is the main source; the saw is there so a pitch can be held against the notches"}
+  - {block: fx,    param: chain,    value: delay}
+  - {block: fx,    param: time,     value: about a millisecond, why: "a millisecond is a kilohertz; the delay and the notch frequency are reciprocals, so the shorter the delay the higher the comb"}
+  - {block: fx,    param: mix,      value: equal,         why: "dry and delayed at the same level cancel fully where they are out of phase: the deepest notches"}
+  - {block: fx,    param: feedback, value: none,          why: "with no feedback this is the plain comb; feedback sharpens the teeth, and that is the flanger's card"}
+  - {block: wheel, param: target,   value: delay time,    why: "the sweep is the proof: as the time changes, the whole series of notches slides together"}
+  - {block: mode,  param: voices,   value: mono}
+
+taste:
+  - {block: fx,    param: time,     range: "under a millisecond – a few", default: about a millisecond}
+  - {block: fx,    param: mix,      range: "half – equal",      default: equal}
+  - {block: osc1,  param: level,    range: "off – half",        default: half}
+  - {block: aenv,  param: attack,   range: "fast – short",      default: fast}
+
+listening:
+  cue: "Noise with a pitch in it: the hiss has a hollow tone, a note made of evenly spaced holes. Push the wheel and the tone slides: the delay is getting longer and the whole comb is moving down, every tooth together."
+  ab: "Turn the delay mix to zero: plain noise, no tone, nothing to sweep. Put it back to equal and the comb is there again. Then lengthen the time to a 16th note: the comb becomes an echo, the same device heard the other way."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 100
+  pattern: "one note held four beats; the wheel rides from bottom to top over the hold and back down"
+  length_s: 5.0
+
+mappings: {}

@@ -1,0 +1,66 @@
+# Synth Templates — card 0.2 — Granular Pad
+# Not an oscillator at all: a sample chopped into grains and played back in a cloud. The card draws it; the voice can only stand in for it.
+schema: synth-template-card/0.2
+id: granular-pad
+name: Granular Pad
+family: Pads
+tier: 3
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Per-note random pan for width"
+  - "Retrigger vs free; chords with staggered attacks"
+  - "Comb filter: a short delay is a filter"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 4, detune: narrow, engine: granular, note: "a granular engine on a sample: long grains, random position, random pan per grain. The voice has no granulator; it plays a wide detuned stack as a stand-in"}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb]}
+    aenv:    {kind: envelope, role: amp, shape: {a: very slow, d: medium, s: held, r: very long}, category: pad}
+    lfo1:    {kind: lfo, wave: random, rate: slow, sync: false, retrigger: false, note: "grain position: a random walk through the sample"}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: osc1.position, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: engine,    value: granular,        why: "the sound is many short pieces of a recording overlapped, not a waveform repeating"}
+  - {block: osc1,    param: grain size, value: long,           why: "long grains, a tenth of a second or more, keep the source's pitch and tone; short grains turn anything into a buzz whose pitch is the grain rate, which is a comb filter by another name"}
+  - {block: osc1,    param: grain position, value: random,     why: "each grain read from somewhere else in the sample, so the texture never loops"}
+  - {block: osc1,    param: grain pan, value: random,          why: "each grain its own place in the stereo field: width without any swirl"}
+  - {block: lfo1,    param: target,    value: grain position,  why: "a slow random walk through the sample under the per-grain scatter: the cloud drifts"}
+  - {block: filter1, param: cutoff,    value: bright,          why: "mostly open; a granular cloud is already soft at the top, there is little to tame"}
+  - {block: aenv,    param: attack,    value: very slow,       why: "the cloud gathers"}
+  - {block: aenv,    param: release,   value: very long,       why: "and disperses"}
+  - {block: mode,    param: voices,    value: poly,            why: "each key its own cloud"}
+
+taste:
+  - {block: osc1,    param: grain size, range: "medium – very long",   default: long, why: "shorter is grittier, more pitched by the engine than the sample"}
+  - {block: osc1,    param: grain density, range: "sparse – dense",   default: dense, why: "how many grains overlap; sparse and you hear the individual pieces"}
+  - {block: osc1,    param: position spread, range: "none – full",    default: half}
+  - {block: filter1, param: cutoff,    range: "mid – open",            default: bright}
+  - {block: lfo1,    param: rate,      range: "very slow – medium",    default: slow}
+  - {block: aenv,    param: attack,    range: "slow – very long",      default: very slow}
+  - {block: fx,      param: reverb,    range: "large – huge",          default: huge}
+
+listening:
+  cue: "A cloud rather than a tone: you can hear what the sample was, but smeared, as if a hundred copies were playing from slightly different places at slightly different times, scattered across the stereo field. It drifts and never settles."
+  ab: "Shorten the grains to very short: the sample disappears into a buzz with a pitch of its own, the grain rate heard as a tone. Back to long and the source returns. Then set position spread to none: every grain reads the same spot and the cloud collapses to a loop."
+
+render:
+  tempo: 60
+  note: [F3, C4, A4]
+  velocity: 80
+  pattern: "one chord held four bars, released, tail to silence"
+  length_s: 18.0
+
+mappings: {}

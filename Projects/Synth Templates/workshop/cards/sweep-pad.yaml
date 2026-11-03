@@ -1,0 +1,66 @@
+# Synth Templates — card 0.2 — Sweep Pad
+# One filter envelope so slow it is the whole arc of the note: closed when the key lands, open seconds later, closing again on release.
+schema: synth-template-card/0.2
+id: sweep-pad
+name: Sweep Pad
+family: Pads
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+  - "Resonance: boost at cutoff; self-oscillation"
+  - "ADSR: three times and a level"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 2, detune: slight}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: moderate}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb]}
+    fenv:    {kind: envelope, role: filter, shape: {a: very slow, d: long, s: half, r: very long}, category: swell}
+    aenv:    {kind: envelope, role: amp,    shape: {a: medium, d: medium, s: held, r: very long}, category: pad}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: poly,            why: "chords, each on its own sweep"}
+  - {block: osc1,    param: wave,      value: saw,             why: "every harmonic there for the filter to reveal one band at a time"}
+  - {block: filter1, param: cutoff,    value: dark,            why: "closed at rest: the sweep has somewhere to go"}
+  - {block: filter1, param: resonance, value: moderate,        why: "a ridge on the cutoff, so you hear where the filter is as it moves"}
+  - {block: fenv,    param: attack,    value: very slow,       why: "seconds, not milliseconds: the auto-wah stretched until it is the shape of the note"}
+  - {block: fenv,    param: amount,    value: generous,        why: "the sweep must travel octaves to be an arc"}
+  - {block: fenv,    param: release,   value: very long,       why: "the filter closes slowly after the key as it opened before it"}
+  - {block: aenv,    param: attack,    value: medium,          why: "faster than the filter: the note is there before the brightness is, so you hear the filter move"}
+  - {block: aenv,    param: sustain,   value: held,            why: "the level holds; only the filter tells the story"}
+
+taste:
+  - {block: filter1, param: resonance, range: "little – high",          default: moderate}
+  - {block: fenv,    param: attack,    range: "slow – very long",       default: very slow}
+  - {block: fenv,    param: amount,    range: "moderate – full",        default: generous}
+  - {block: fenv,    param: sustain,   range: "low – held",             default: half}
+  - {block: aenv,    param: release,   range: "long – very long",       default: very long}
+  - {block: fx,      param: reverb,    range: "large – huge",           default: large}
+
+listening:
+  cue: "The chord is there at once but dull, then brightens over several seconds, a ridge of resonance climbing through the harmonics; it settles half-open, and on release it closes the same way in reverse."
+  ab: "Set the filter envelope attack to instant: the chord arrives bright and simply sits. Put it back and the arc returns. Then drop resonance to none: the sweep is still there but you can no longer follow where the filter is."
+
+render:
+  tempo: 80
+  note: [A2, E3, A3, C4]
+  velocity: 90
+  pattern: "one chord held four bars, released, tail to silence"
+  length_s: 16.0
+
+mappings: {}

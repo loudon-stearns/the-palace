@@ -1,0 +1,73 @@
+# Synth Templates — card 0.2 — Choir Pad
+# A rich wave through a formant: a band-pass held still at the 'ah' vowel's resonance, so every note has the same throat.
+schema: synth-template-card/0.2
+id: choir-pad
+name: Choir Pad
+family: Pads
+tier: 3
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Narrow pulse → nasal / vocal, with formant filter"
+  - "Serial: source and resonator (keytracked vs fixed)"
+  - "Parallel: twin peaks, keytracking amount, vocal formants"
+  - "Chorus: multiple delays, own LFOs, no feedback"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: pulse, pw: 0.3, octave: 0, unison: 2, detune: slight, note: "a narrowed pulse: the nasal starting point for a voice"}
+    osc2:    {kind: oscillator, wave: saw, octave: 0, detune: slight, note: "a saw beside it fills in the even harmonics the pulse thins"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: bandpass, slope: 12, resonance: moderate, keytrack: none, note: "the formant: one band-pass fixed near 'ah'. A real formant filter is two or three peaks in parallel; the voice plays one"}
+    filter2: {kind: filter, type: lowpass, slope: 12, resonance: none, note: "takes the fizz off above the vowel"}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [chorus, reverb]}
+    aenv:    {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: long}, category: pad}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: pulse,           why: "a narrow pulse is already nasal; it is where vocal sounds start"}
+  - {block: osc1,    param: pw,        value: "0.3",           why: "narrower than square, not yet thin"}
+  - {block: filter1, param: type,      value: bandpass,        why: "a vowel is a peak in the spectrum, not a ceiling on it"}
+  - {block: filter1, param: cutoff,    value: mid,             why: "the 'ah' formant sits around a kilohertz; move it and the vowel changes"}
+  - {block: filter1, param: keytrack,  value: none,            why: "the resonator does not move with the key: the throat stays the same size whatever note is sung, which is why it reads as a voice and not a filter"}
+  - {block: filter1, param: resonance, value: moderate,        why: "a clear peak but a wide one; narrow and it whistles, flat and there is no vowel"}
+  - {block: aenv,    param: attack,    value: slow,            why: "voices come in on a breath"}
+  - {block: aenv,    param: sustain,   value: held,            why: "sung as long as the key is held"}
+  - {block: fx,      param: chain,     value: chorus then reverb, why: "chorus is the choir: many singers who do not quite agree on the pitch"}
+  - {block: mode,    param: voices,    value: poly,            why: "a choir"}
+
+taste:
+  - {block: osc1,    param: pw,        range: "0.2 – 0.5",             default: 0.3}
+  - {block: osc2,    param: level,     range: "off – half",            default: quarter}
+  - {block: filter1, param: cutoff,    range: "dark – bright",         default: mid, why: "'oh' low, 'ah' middle, 'ee' high"}
+  - {block: filter1, param: resonance, range: "little – high",         default: moderate}
+  - {block: filter2, param: cutoff,    range: "mid – bright",          default: bright}
+  - {block: aenv,    param: attack,    range: "medium – very slow",    default: slow}
+  - {block: fx,      param: chorus,    range: "light – lush",          default: lush}
+
+listening:
+  cue: "A chord that sounds sung: an 'ah' with no words in it, the same vowel on every note, high or low. The chorus turns one voice into a room of them."
+  ab: "Set the formant filter to keytrack fully: now the vowel slides with the pitch and the choir turns back into a filtered synth. Put it back to none. Then move the cutoff to dark: the same choir now sings 'oh'."
+
+render:
+  tempo: 66
+  note: [C3, G3, E4, G4]
+  velocity: 85
+  pattern: "one chord held three bars, released, tail to silence"
+  length_s: 12.0
+
+mappings: {}

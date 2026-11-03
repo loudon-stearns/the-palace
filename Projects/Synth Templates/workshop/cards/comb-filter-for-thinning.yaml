@@ -1,0 +1,66 @@
+# Synth Templates — card 0.2 — Comb Filter for Thinning
+# Delay-family card 10: the comb used on purpose. A big distorted sound that will not sit in a mix, thinned by evenly
+# spaced cuts that take out mass without taking out the top.
+schema: synth-template-card/0.2
+id: comb-filter-for-thinning
+name: Comb Filter for Thinning
+family: Delay-Family Effects
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Comb filter: a short delay is a filter"
+  - "Comb filtering for thinning a rich source"
+  - "Distortion: nonlinear, harmonic, compresses dynamics, tames resonance"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 3, detune: narrow}
+    sub:     {kind: oscillator, wave: square, octave: -1, level: half}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [distortion, delay], note: "the delay is the comb: a fixed short time, no feedback, no LFO, dry and delayed mixed; the voice plays a delay but does not yet reach times this short"}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, mix]
+    - [sub, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: sub.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: unison,   value: 3 voices,      why: "big to begin with; the card needs a sound that is too much"}
+  - {block: filter1, param: cutoff,   value: open,          why: "the point is to keep the top; a lowpass would dull it, which is the wrong fix"}
+  - {block: fx,      param: chain,    value: distortion then delay, why: "the distortion fills every gap in the spectrum with harmonics; the comb after it is what takes some of them out again"}
+  - {block: fx,      param: drive,    value: heavy,         why: "a wall of mids and highs that competes with everything"}
+  - {block: fx,      param: time,     value: a millisecond or two, why: "a short fixed delay: the cuts fall in a series from about a kilohertz up, evenly spaced, so the mass goes and the brightness stays"}
+  - {block: fx,      param: feedback, value: none,          why: "static: no feedback, no sweep; a moving comb would be a flanger and would draw attention to itself"}
+  - {block: fx,      param: mix,      value: under equal,   why: "not fully equal, so the notches are cuts and not holes"}
+  - {block: mode,    param: voices,   value: mono}
+
+taste:
+  - {block: fx,      param: time,     range: "under a millisecond – a few", default: a millisecond or two, why: "tune it until the cuts miss the note's own harmonics"}
+  - {block: fx,      param: mix,      range: "a whisper – equal",     default: under equal}
+  - {block: fx,      param: drive,    range: "light – heavy",         default: heavy}
+  - {block: sub,     param: level,    range: "off – half",            default: half}
+
+listening:
+  cue: "The same big sound, but with less of it: it is as bright as before and takes up less room, as though someone had taken every other brick out of a wall. Nothing has been dulled; something has been thinned."
+  ab: "Set the delay mix to zero: the full wall is back, loud in the mids, hard to put anything beside. Put the comb back. Then try the other fix, closing the lowpass to mid: it gets out of the way, but it is dull now, and that was the wrong trade."
+
+render:
+  tempo: 120
+  note: C2
+  velocity: 110
+  pattern: "one note held two bars, a beat of rest, then the same note again with the delay mix at zero for comparison"
+  length_s: 8.0
+
+mappings: {}

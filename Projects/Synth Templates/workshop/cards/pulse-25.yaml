@@ -1,0 +1,61 @@
+# Synth Templates — card 0.2 — Pulse 25%
+# Chiptune: the quarter duty, the NES lead. The chip's own decay envelope gives each note a pluck.
+schema: synth-template-card/0.2
+id: pulse-25
+name: Pulse 25%
+family: Chiptune
+tier: 1
+mode: mono
+classics: NES
+status: drafted
+concepts:
+  - "Pulse width, static and modulated"
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Sustaining vs non-sustaining sounds"
+  - "Delay: time, feedback, mix"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: pulse, pw: 0.25, octave: 0, note: "the NES pulse channel's quarter duty"}
+    amp:  {kind: amplifier, level: full}
+    fx:   {kind: fx, chain: [delay], note: "the tracker trick: the second pulse channel plays the line a 16th late and quieter"}
+    aenv: {kind: envelope, role: amp, shape: {a: instant, d: medium, s: zero, r: same as decay}, category: percussive, note: "the chip's hardware envelope: full, then a steady decay to nothing"}
+  audio:
+    - [osc1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: pulse,     why: "a switch, up a quarter of each cycle"}
+  - {block: osc1, param: pw,      value: "0.25",    why: "every fourth harmonic missing: brighter than square, rounder than the eighth; the NES melody voice"}
+  - {block: amp,  param: input,   value: osc1 direct, why: "no filter: the chip had none"}
+  - {block: aenv, param: attack,  value: instant,   why: "on at once"}
+  - {block: aenv, param: decay,   value: medium,    why: "the chip's volume envelope counts down; a plucked lead, not a held one"}
+  - {block: aenv, param: sustain, value: zero,      why: "non-sustaining: struck and left to fade, even while the key is held"}
+  - {block: aenv, param: release, value: same as decay, why: "a short note still fades on its own"}
+  - {block: mode, param: voices,  value: mono,      why: "one channel, one note at a time"}
+
+taste:
+  - {block: osc1, param: pw,     range: "0.125 – 0.5",  default: "0.25"}
+  - {block: aenv, param: decay,  range: "short – long",  default: medium, why: "shorter is a plink, longer is a held lead"}
+  - {block: osc1, param: octave, range: "0 – 1",         default: 0}
+  - {block: fx,   param: delay,  range: "off – half",    default: little, why: "the echo channel; one repeat, a 16th late"}
+  - {block: amp,  param: level,  range: "half – full",   default: full}
+
+listening:
+  cue: "A bright, slightly hollow lead that plucks: each note starts at full and fades on its own, so fast lines sparkle and a held note dies away. A quieter copy of each note follows a 16th behind."
+  ab: "Raise the sustain to full: every note holds flat and the line turns into an organ. Put it back to zero and each note plucks again. Then set the pulse width to an eighth: same envelope, but thin and nasal."
+
+render:
+  tempo: 150
+  note: [C5, D5, E5, G5, E5, D5, C5, G4]
+  velocity: 100
+  pattern: "eighths, one bar; the last note held a beat"
+  length_s: 2.5
+
+mappings: {}

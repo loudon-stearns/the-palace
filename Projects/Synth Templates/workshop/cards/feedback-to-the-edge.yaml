@@ -1,0 +1,61 @@
+# Synth Templates — card 0.2 — Feedback to the Edge
+# Delay-family card 2: one control, pushed. Feedback from none to full to past full, and what each region sounds like.
+schema: synth-template-card/0.2
+id: feedback-to-the-edge
+name: Feedback to the Edge
+family: Delay-Family Effects
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Delay: time, feedback, mix"
+  - "Filter thunk (resonance = delay feedback)"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [delay], note: "feedback is the control under test; past full the output grows with every repeat, so keep a limiter or a hand on the volume"}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short, s: zero, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: short, s: zero, r: short}, category: plucked}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: aenv,    param: decay,    value: short,         why: "the shortest event that still has a pitch: an impulse, so the repeats are all delay and no source"}
+  - {block: aenv,    param: sustain,  value: zero,          why: "one hit; the delay does the rest"}
+  - {block: fx,      param: chain,    value: delay}
+  - {block: fx,      param: time,     value: an eighth,     why: "long enough to count the repeats as they go by"}
+  - {block: fx,      param: mix,      value: equal,         why: "the repeats as loud as the hit, so the count is honest"}
+  - {block: fx,      param: feedback, value: the knob under test, why: "zero is one echo; full is the same echo forever; past full each repeat is louder than the last and the delay runs away"}
+  - {block: mode,    param: voices,   value: mono,          why: "one hit at a time, so the repeats are of one note"}
+
+taste:
+  - {block: fx,      param: feedback, range: "none – past full",  default: most of the way, why: "move it slowly; the top of the range is the edge"}
+  - {block: fx,      param: time,     range: "a 16th – a quarter", default: an eighth}
+  - {block: fx,      param: mix,      range: "half – equal",      default: equal}
+  - {block: filter1, param: cutoff,   range: "mid – bright",      default: mid}
+
+listening:
+  cue: "Count the repeats. At zero feedback there is one. Raise it and the row grows longer and fades more slowly, until at full it never fades at all: one hit, circling. Past full every pass is louder and the sound climbs toward a wall."
+  ab: "Set feedback to zero: one hit, one echo, silence. Bring it back to most of the way: the hit decays over many repeats. Nudge it past full for a second and pull it back: the climb, then the fall."
+
+render:
+  tempo: 120
+  note: C3
+  velocity: 110
+  pattern: "one hit on beat 1, a 16th long, then rest; the repeats fill the rest of the render"
+  length_s: 6.0
+
+mappings: {}

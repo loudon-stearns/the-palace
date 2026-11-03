@@ -1,0 +1,55 @@
+# Synth Templates — card — Key → Pan
+# The amplifier's pan as a modulation destination: low notes left, high notes right, the way a piano sits in front of you.
+schema: synth-template-card/0.2
+id: key-pan
+name: Key → Pan
+family: Performance Controls
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Key → pan (piano panning)"
+  - "Key → pan"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: triangle, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity, note: "the voice does not yet pan by key; the route is drawn, not heard"}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: long, s: zero, r: medium}, category: piano}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: amp.pan, amount: moderate, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: key,  param: target,  value: amp pan,   why: "the pan is a mixing control put to creative use: low notes to the left, high notes to the right, as on a piano"}
+  - {block: osc1, param: wave,    value: triangle,  why: "a soft, plain tone so the ear follows the position, not the timbre"}
+  - {block: aenv, param: sustain, value: zero,      why: "struck like a piano; each note is a separate event you can place"}
+  - {block: aenv, param: release, value: medium,    why: "a soft damper"}
+  - {block: mode, param: voices,  value: poly,      why: "a chord must spread across the image; one voice cannot"}
+
+taste:
+  - {block: amp,     param: key to pan, range: "little – full", default: moderate, why: "how wide the keyboard spreads: full puts the extremes hard left and right"}
+  - {block: aenv,    param: decay,  range: "medium – long",   default: long}
+  - {block: filter1, param: cutoff, range: "mid – bright",    default: bright}
+  - {block: amp,     param: level,  range: "half – unity",    default: under unity}
+
+listening:
+  cue: "A run from the bottom of the keyboard to the top walks across the stereo field, left to right. A wide chord is wide; a chord in one register stays put."
+  ab: "Set the key-to-pan amount to none: the same run sits dead centre and the instrument flattens into mono. Put it back and the keyboard spreads out in front of you again."
+
+render:
+  tempo: 100
+  note: [C2, G2, C3, G3, C4, G4, C5, G5]
+  velocity: 90
+  pattern: "an arpeggio climbing in fifths, eighths, bottom to top, then the last note left to ring"
+  length_s: 4.0
+
+mappings: {}

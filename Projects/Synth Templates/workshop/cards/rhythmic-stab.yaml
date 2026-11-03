@@ -1,0 +1,72 @@
+# Synth Templates — card 0.1 — Rhythmic Stab
+# Rhythmic and Sequenced, tier 1: a short chord, and a synced delay that turns one hit into a pattern.
+schema: synth-template-card/0.2
+id: rhythmic-stab
+name: Rhythmic Stab
+family: Rhythmic and Sequenced
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Delay: time, feedback, mix"
+  - "Tempo sync; triplets"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 2, detune: slight}
+    osc2:    {kind: oscillator, wave: square, octave: -1, level: half, note: "weight under the chord"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [delay], note: "synced to a dotted eighth, feedback moderate: three or four repeats that fall off the beat"}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short, s: zero, r: same as decay}, category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: short, s: zero, r: same as decay}, category: percussive}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: fenv.amount, amount: some, essential: false}
+
+essentials:
+  - {block: mode,    param: voices,    value: poly,           why: "a chord, hit once"}
+  - {block: aenv,    param: sustain,   value: zero,           why: "a stab is over before the key is up; the hold length does not matter"}
+  - {block: aenv,    param: decay,     value: short,          why: "short enough that the repeats are separate events, not a smear"}
+  - {block: fenv,    param: decay,     value: short,          why: "the bite: bright at the hit, dark by the end of it"}
+  - {block: fx,      param: chain,     value: "delay, dotted eighth", why: "the repeats fall off the grid against the beat: the syncopation is the delay's, not the player's"}
+  - {block: fx,      param: feedback,  value: moderate,       why: "three or four repeats, each one quieter; one repeat is an echo, not a rhythm"}
+  - {block: osc1,    param: wave,      value: saw,            why: "bright enough that the filter bite reads"}
+
+taste:
+  - {block: fx,      param: feedback,  range: "little – held",       default: half, why: "more repeats is more pattern, until it floods"}
+  - {block: fx,      param: mix,       range: "quarter – half",      default: quarter}
+  - {block: fx,      param: time,      range: "1/8 – dotted 1/8",    default: dotted 1/8}
+  - {block: filter1, param: cutoff,    range: "dark – mid",          default: mid}
+  - {block: fenv,    param: amount,    range: "moderate – full",     default: generous}
+  - {block: aenv,    param: decay,     range: "short – medium",      default: short}
+  - {block: osc2,    param: level,     range: "off – equal to osc1", default: half}
+
+listening:
+  cue: "One chord, then its echoes walking off the beat: hit, and-a, and-a. The hit is bright, each repeat darker and quieter, so the pattern fades as it goes."
+  ab: "Set the delay to a straight eighth: the repeats line up with the beat and the pattern turns into a plain stutter. Back to the dotted eighth and the syncopation returns. Then set feedback to none: one echo, no groove."
+
+render:
+  tempo: 124
+  note: [C3, Eb3, G3, Bb3]
+  velocity: 110
+  pattern: "one chord on beat 1 of a two-bar phrase, a sixteenth long; the delay carries the rest"
+  length_s: 4.0
+
+mappings: {}

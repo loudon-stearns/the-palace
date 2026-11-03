@@ -1,0 +1,66 @@
+# Synth Templates — card 0.2 — Noise Bed
+# Textures and Ambient, tier 1: no note at all. One noise source, one band-pass, and a random LFO walking the band.
+schema: synth-template-card/0.2
+id: noise-bed
+name: Noise Bed
+family: Textures and Ambient
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Noise colors: white vs pink"
+  - "Low-pass, high-pass, band-pass, notch"
+  - "Resonance as width (Q) on band-pass and notch"
+  - "LFO → pitch / amplitude / pan / filter"
+
+graph:
+  blocks:
+    noise:   {kind: oscillator, wave: noise, note: "pink: white noise tilted down toward the ear's own curve"}
+    filter1: {kind: filter, type: bandpass, slope: 12, resonance: moderate}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb]}
+    aenv:    {kind: envelope, role: amp, shape: {a: very slow, d: medium, s: held, r: very long}, category: swell}
+    lfo1:    {kind: lfo, wave: random, rate: very slow, sync: false, note: "a random walk: smoothed random, free-running, never the same path twice; the voice plays a smoothed random LFO"}
+  audio:
+    - [noise, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: filter1.cutoff, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: wheel, to: lfo1.rate, amount: some, essential: false}
+
+essentials:
+  - {block: noise,   param: wave,      value: noise,       why: "energy at every frequency, so the filter has something to find wherever it walks"}
+  - {block: noise,   param: color,     value: pink,        why: "white is harsh; pink sits where the ear is even, and a bed must be easy to live in"}
+  - {block: filter1, param: type,      value: bandpass 12 dB, why: "a band, not a ceiling: what you hear is where the band is"}
+  - {block: filter1, param: resonance, value: moderate,    why: "on a band-pass, resonance is width: narrow enough to hear the band move, wide enough to stay noise, not a whistle"}
+  - {block: lfo1,    param: wave,      value: random,      why: "a random walk: the band wanders with no cycle to learn, so the bed never loops"}
+  - {block: lfo1,    param: rate,      value: very slow,   why: "movement over minutes; faster and it becomes weather"}
+  - {block: aenv,    param: attack,    value: very slow,   why: "it is already there when you notice it"}
+  - {block: aenv,    param: sustain,   value: held,        why: "a bed: it stays as long as you hold it"}
+  - {block: mode,    param: voices,    value: mono,        why: "one bed; a second key only adds hiss"}
+
+taste:
+  - {block: filter1, param: cutoff,    range: "dark – bright",        default: mid, why: "the centre of the walk"}
+  - {block: filter1, param: resonance, range: "little – high",        default: moderate}
+  - {block: lfo1,    param: depth,     range: "moderate – full",      default: generous, why: "how far the band may wander"}
+  - {block: lfo1,    param: rate,      range: "very slow – slow",     default: very slow}
+  - {block: aenv,    param: release,   range: "long – very long",     default: very long}
+  - {block: fx,      param: reverb,    range: "large – huge",         default: huge}
+
+listening:
+  cue: "Wind in a room that keeps changing size. Nothing repeats: the hiss leans brighter, then dull, then settles somewhere it has not been. There is no note to follow, only the band moving."
+  ab: "Set the LFO to a sine: the same walk becomes a slow tide, in and out, and you can count it. Back to random and the counting stops. Then drop resonance to none: the band is so wide the walk is barely heard."
+
+render:
+  tempo: 60
+  note: C3
+  velocity: 80
+  pattern: "one key held the whole length; the band walks on its own"
+  length_s: 12.0
+
+mappings: {}

@@ -1,0 +1,54 @@
+# Synth Templates — card — Amplitude Modulation
+# Technique demonstration: tremolo run up into the audio range. Like ring mod, but the carrier is still there.
+schema: synth-template-card/0.2
+id: amplitude-modulation
+name: Amplitude Modulation
+family: Technique Demonstrations
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "LFO rate range vs oscillator; LFO into audio rate"
+  - "Sine: no response to filtering; FM/additive building block"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, note: "carrier: stays in the output, unlike ring mod. The voice cannot yet do audio-rate AM; drawn, not heard"}
+    osc2: {kind: oscillator, wave: sine, ratio: "1.5:1", level: half, note: "modulator: at a few hertz this is tremolo; at audio rate it is a timbre"}
+    amp:  {kind: amplifier, level: under unity}
+    aenv: {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc2, osc1, am]
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: sine, why: "one partial in, three out: the carrier, the sum, the difference"}
+  - {block: osc2, param: wave,    value: sine}
+  - {block: osc2, param: routing, value: into osc1 amplitude, why: "the modulator turns the carrier's volume up and down, thousands of times a second"}
+  - {block: osc2, param: ratio,   value: "1.5:1", why: "audio rate: too fast to hear as a tremolo, so it is heard as new partials either side of the carrier"}
+  - {block: osc2, param: level,   value: half, why: "the depth: at little it is barely coloured, at full it is ring mod plus the carrier"}
+
+taste:
+  - {block: osc2, param: level, range: "little – full", default: half, why: "AM has a depth; ring mod does not. Full depth is ring mod with the carrier left in"}
+  - {block: osc2, param: ratio, range: "1:1 – 2.37:1", default: "1.5:1"}
+  - {block: aenv, param: release, range: "short – long", default: short}
+
+listening:
+  cue: "The note you played is still there, with two new partials either side of it. Compared with ring modulation on the same two sines it is the same chord plus its root."
+  ab: "Slow the modulator down to a few hertz: the same connection becomes an ordinary tremolo, and you hear what AM is: a tremolo too fast to follow. Push it back into the audio range and the pulse becomes a tone."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 90
+  pattern: "the same note three times, two seconds each: depth little, half, full"
+  length_s: 7.0
+
+mappings: {}

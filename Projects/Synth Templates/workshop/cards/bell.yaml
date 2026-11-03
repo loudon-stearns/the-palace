@@ -1,0 +1,72 @@
+# Synth Templates — card 0.2 — Bell
+# The inharmonic lesson: an FM pair whose ratio is not a whole number, so the sidebands do not line up as a pitch.
+schema: synth-template-card/0.2
+id: bell
+name: Bell
+family: Keys and Mallets
+tier: 2
+mode: poly
+classics: DX7 TUB BELLS
+status: drafted
+concepts:
+  - "FM: audio-rate modulation, algorithms"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Velocity → amplitude; velocity → filter cutoff"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, note: "carrier"}
+    osc2: {kind: oscillator, wave: sine, ratio: "3.5:1", level: half, note: "modulator: three and a half times the carrier, so the sidebands fall between the harmonics"}
+    amp:  {kind: amplifier, level: under unity}
+    fx:   {kind: fx, chain: [reverb]}
+    menv: {kind: envelope, role: index, shape: {a: instant, d: long, s: zero, r: same as decay}, category: struck}
+    aenv: {kind: envelope, role: amp,   shape: {a: instant, d: very long, s: zero, r: same as decay}, category: struck}
+  audio:
+    - [osc2, osc1, fm]
+    - [osc1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: osc2.level, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: menv.amount, amount: moderate, essential: false}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: sine,          why: "the carrier is one partial; the modulator supplies the rest"}
+  - {block: osc2, param: wave,    value: sine}
+  - {block: osc2, param: ratio,   value: "3.5:1",       why: "not a whole number: the sidebands land between the harmonics, and the ear hears metal rather than a pitch with overtones (the catalog writes it 1:3.5)"}
+  - {block: osc2, param: routing, value: into osc1 fm,  why: "the modulator moves the carrier's frequency; mixing them would be two sines"}
+  - {block: menv, param: target,  value: modulator level, why: "the index envelope: the clang is brightest at the strike"}
+  - {block: menv, param: decay,   value: long,          why: "the clang fades slowly, but faster than the hum"}
+  - {block: aenv, param: attack,  value: instant,       why: "struck"}
+  - {block: aenv, param: decay,   value: very long,     why: "a bell is the gong end of the decay scale"}
+  - {block: aenv, param: sustain, value: zero,          why: "no energy after the strike"}
+  - {block: aenv, param: release, value: same as decay, why: "the note rings out whatever the key does"}
+  - {block: mode, param: voices,  value: poly,          why: "bells overlap for seconds"}
+
+taste:
+  - {block: osc2, param: ratio,  range: "3.5:1 – 7.1:1",        default: "3.5:1", why: "any non-integer is a bell; higher is a smaller bell"}
+  - {block: osc2, param: level,  range: "little – full",        default: half, why: "the resting index: how clangy the quiet tail is"}
+  - {block: menv, param: amount, range: "moderate – full",      default: generous}
+  - {block: menv, param: decay,  range: "medium – very long",   default: long}
+  - {block: aenv, param: decay,  range: "long – very long",     default: very long}
+  - {block: fx,   param: reverb, range: "small – huge",         default: large}
+
+listening:
+  cue: "A metal clang that settles into a hum. The pitch is there but the overtones are not its harmonics: they sit beside it, which is what makes it a bell and not an organ pipe."
+  ab: "Set the ratio to 3:1 (a whole number): the same strike becomes a hollow, pitched tone, closer to a clarinet than a bell. Back to 3.5:1 and the metal returns. Then set the index envelope decay to instant: a plain sine with a tick on the front."
+
+render:
+  tempo: 70
+  note: [C4, G4, C5]
+  velocity: 100
+  pattern: "three notes a beat apart, each left to ring over the next"
+  length_s: 8.0
+
+mappings: {}

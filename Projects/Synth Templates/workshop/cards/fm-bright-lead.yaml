@@ -1,0 +1,68 @@
+# Synth Templates — card — FM Bright Lead
+# Two sines: the modulator a harmonic ratio above the carrier, driven hard, with an index that takes its time to fall.
+schema: synth-template-card/0.2
+id: fm-bright-lead
+name: FM Bright Lead
+family: Leads
+tier: 2
+mode: mono
+classics: DX7
+status: drafted
+lineage:
+  - "cards/fm-electric-piano.yaml: the same two-operator stack at ratio 1:1 with a fast index decay"
+concepts:
+  - "FM: audio-rate modulation, algorithms"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Velocity → filter envelope amount; → pitch envelope amount"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, note: "carrier: the tone you hear"}
+    osc2: {kind: oscillator, wave: sine, ratio: "2:1", level: full, note: "modulator: its level is the FM index"}
+    amp:  {kind: amplifier, level: under unity}
+    menv: {kind: envelope, role: index, shape: {a: instant, d: long, s: low, r: medium}, category: percussive}
+    aenv: {kind: envelope, role: amp,   shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc2, osc1, fm]
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc2.level, amount: full, essential: true}
+    - {from: vel,  to: menv.amount, amount: moderate, essential: false}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: sine,            why: "the carrier starts as one partial; FM makes all the rest"}
+  - {block: osc2, param: wave,    value: sine,            why: "a sine modulator gives clean sidebands"}
+  - {block: osc2, param: ratio,   value: "2:1",           why: "a whole-number ratio keeps the sidebands harmonic: bright, but still a note. 2:1 is square-like, 3:1 thinner and reedier"}
+  - {block: osc2, param: routing, value: into osc1 fm,    why: "modulator → carrier frequency; this is FM, not a mix"}
+  - {block: osc2, param: level,   value: full,            why: "a high index: many sidebands, so the sine becomes a buzz"}
+  - {block: menv, param: target,  value: modulator level, why: "the index envelope: how the brightness moves over the note"}
+  - {block: menv, param: decay,   value: long,            why: "slow: the buzz fades toward a tone over the whole note instead of in a strike"}
+  - {block: menv, param: sustain, value: low,             why: "it never goes all the way back to a sine"}
+  - {block: mode, param: voices,  value: mono,            why: "a line"}
+
+taste:
+  - {block: osc2, param: ratio,   range: "2:1 – 3:1",          default: "2:1"}
+  - {block: osc2, param: level,   range: "half – full",        default: full, why: "the index: half is a bright tone, full is a buzz"}
+  - {block: menv, param: decay,   range: "medium – long",      default: long}
+  - {block: menv, param: sustain, range: "zero – half",        default: low}
+  - {block: menv, param: amount,  range: "moderate – full",    default: full}
+  - {block: osc1, param: glide,   range: "none – short",       default: none}
+
+listening:
+  cue: "A hard, glassy buzz at the front of every note that slowly settles toward something rounder but never arrives. Play harder and the buzz is thicker."
+  ab: "Set the modulator level to zero: a bare sine, no brightness at all. Bring it back and set the index envelope's decay to short: the same buzz is now a click at the start and the body is dull. Then try ratio 1:1: the piano card."
+
+render:
+  tempo: 120
+  note: [C4, D4, F4, G4]
+  velocity: [100, 100, 100, 120]
+  pattern: "quarter notes, one bar; the last note held two bars to hear the index fall"
+  length_s: 6.0
+
+mappings: {}

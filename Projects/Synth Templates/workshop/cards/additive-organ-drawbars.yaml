@@ -1,0 +1,65 @@
+# Synth Templates — card — Additive Organ Drawbars
+# Voices, Tuning and Retrigger family. Sines at harmonics with drawbar-style levels and a switch envelope. Three sines here stand for the nine drawbars.
+schema: synth-template-card/0.2
+id: additive-organ-drawbars
+name: Additive Organ Drawbars
+family: Voices, Tuning and Retrigger
+tier: 2
+mode: poly
+classics:
+status: drafted
+concepts:
+  - "Additive: sines in a harmonic series"
+  - "Harmonic-series tuning table"
+  - "Switch envelope (organ); percussive organ"
+  - "Sine: no response to filtering; FM/additive building block"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, note: "harmonic 1: the 8' drawbar"}
+    osc2:    {kind: oscillator, wave: sine, octave: 1, level: held, note: "harmonic 2: the 4' drawbar"}
+    sub:     {kind: oscillator, wave: sine, octave: 1, semi: 7, level: half, note: "harmonic 3: the 2 2/3' drawbar, +1 oct +7 semi. The nine drawbars are harmonics 1 to 9 on the harmonic table; three slots carry the first three, add the rest on a synth with more oscillators"}
+    mix:     {kind: mixer}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: short, s: full, r: instant}, category: organ}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [sub, mix]
+    - [mix, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: sub.pitch,  essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: sine,    why: "one partial per oscillator; the timbre is the sum, and nothing else"}
+  - {block: osc2, param: tuning,  value: +1 oct,  why: "harmonic 2"}
+  - {block: sub,  param: tuning,  value: +1 oct +7 semi, why: "harmonic 3: a fifth above the octave; the quint drawbar"}
+  - {block: mix,  param: levels,  value: drawbar-style, why: "each level is a drawbar; pulling one in adds that harmonic to the tone"}
+  - {block: aenv, param: attack,  value: instant, why: "a switch: on"}
+  - {block: aenv, param: sustain, value: full,    why: "the decay has nowhere to go; the note holds at full while the key is down"}
+  - {block: aenv, param: release, value: instant, why: "a switch: off"}
+  - {block: mode, param: voices,  value: poly}
+
+taste:
+  - {block: osc2, param: level,   range: "off – equal",  default: held, why: "the 4' bar"}
+  - {block: sub,  param: level,   range: "off – equal",  default: half, why: "the quint; up high it goes reedy"}
+  - {block: aenv, param: sustain, range: "under unity – full", default: full, why: "under unity with a short decay is the percussive organ: a bite at the front"}
+  - {block: aenv, param: decay,   range: "instant – short", default: short}
+
+listening:
+  cue: "An organ tone that switches on and off with the key, no attack and no tail. Pull the second and third sines in and the plain hum gets a body and a reedy edge, one harmonic at a time."
+  ab: "Set every level but the root to off: a bare sine, no character at all. Pull the octave and the quint back in and it is an organ. Then set sustain to under unity with a short decay: a bite at the front of each note, the percussive organ."
+
+render:
+  tempo: 110
+  note: [C3, E3, G3, C4]
+  velocity: 100
+  pattern: "the chord in four staccato quarter notes, then held a bar; the staccato shows the switch"
+  length_s: 5.0
+
+mappings: {}

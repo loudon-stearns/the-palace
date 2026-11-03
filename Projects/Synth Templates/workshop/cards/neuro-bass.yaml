@@ -1,0 +1,79 @@
+# Synth Templates — card — Neuro Bass
+# FM into heavy saturation into a second filter, with two slow LFOs on different targets. The card draws one pass;
+# the technique is to print it and filter the recording again.
+schema: synth-template-card/0.2
+id: neuro-bass
+name: Neuro Bass
+family: Bass
+tier: 3
+mode: mono
+classics: neurofunk DnB
+status: drafted
+concepts:
+  - "FM: audio-rate modulation, algorithms"
+  - "Distortion: nonlinear, harmonic, compresses dynamics, tames resonance"
+  - "Serial routing"
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Retrigger vs free; chords with staggered attacks"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, note: "carrier"}
+    osc2:    {kind: oscillator, wave: sine, ratio: "2:1", level: half, note: "modulator: FM on a saw carrier, not a sine, so the spectrum is already dense before the drive"}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: moderate, drive: heavy, note: "pass one: heavy saturation in the filter"}
+    filter2: {kind: filter, type: bandpass, slope: 12, resonance: moderate, note: "pass two: the re-filter. In practice this runs on the resampled audio of everything before it"}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [distortion]}
+    lfo1:    {kind: lfo, wave: triangle, rate: slow, sync: false}
+    lfo2:    {kind: lfo, wave: sine, rate: very slow, sync: false, note: "a different rate from lfo1 and free-running, so the movement never repeats"}
+    menv:    {kind: envelope, role: index, shape: {a: instant, d: medium, s: low, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,   shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc2, osc1, fm]
+    - [osc1, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: osc2.level, amount: moderate, essential: true}
+    - {from: lfo1, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: lfo2, to: filter2.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc2,    param: routing, value: into osc1 fm,      why: "FM makes a dense, inharmonic-leaning spectrum from two waves; that is the raw material"}
+  - {block: osc2,    param: ratio,   value: "2:1",             why: "harmonic enough to stay a bass note, rough enough to snarl"}
+  - {block: filter1, param: drive,   value: heavy,             why: "saturation after FM: the sidebands intermodulate into a wall of new harmonics"}
+  - {block: filter2, param: type,    value: bandpass 12 dB,    why: "the second pass picks a region of the wall to move; this is the re-filter after resampling"}
+  - {block: lfo1,    param: target,  value: filter 1 cutoff,   why: "one slow motion on the first pass"}
+  - {block: lfo2,    param: target,  value: filter 2 cutoff,   why: "a different slow motion on the second pass: two targets, two rates, and the sound never sits still"}
+  - {block: lfo2,    param: rate,    value: very slow,         why: "unrelated to lfo1's rate, so the two never line up and the movement does not loop"}
+  - {block: fx,      param: chain,   value: distortion,        why: "a last stage of grit, and it compresses the resonant peaks the LFOs push through"}
+  - {block: mode,    param: voices,  value: mono}
+
+taste:
+  - {block: osc2,    param: level,      range: "little – full",       default: half, why: "the FM index: how far from a saw it starts"}
+  - {block: filter1, param: cutoff,     range: "dark – bright",       default: mid}
+  - {block: filter2, param: cutoff,     range: "mid – bright",        default: mid}
+  - {block: filter2, param: resonance,  range: "little – high",       default: moderate, why: "narrower is more vowel-like"}
+  - {block: lfo1,    param: rate,       range: "very slow – medium",  default: slow}
+  - {block: lfo2,    param: depth,      range: "little – generous",   default: moderate}
+  - {block: fx,      param: drive,      range: "light – heavy",       default: heavy}
+
+listening:
+  cue: "A snarling, metallic bass that is never the same twice: the growl shifts its vowel and its edge over the held note, slowly, in two overlapping motions. Dense, dirty, alive."
+  ab: "Set both LFO depths to none: a static snarl, impressive for one bar and dead by the second. Put one back: it moves, but loops. Put both back, at different rates, and it stops repeating."
+
+render:
+  tempo: 174
+  note: [E1, E1]
+  velocity: 110
+  pattern: "two bars: a whole note, a whole note"
+  length_s: 4.0
+
+mappings: {}

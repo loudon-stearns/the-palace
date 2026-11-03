@@ -1,0 +1,64 @@
+# Synth Templates — card 0.2 — Wind
+# Sound Effects, tier 1. Pink noise through a moving band-pass; two random LFOs do the moving, so it never repeats.
+schema: synth-template-card/0.2
+id: wind
+name: Wind
+family: Sound Effects
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Noise colors: white vs pink"
+  - "Resonance as width (Q) on band-pass and notch"
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Serial: dual notch pad with two unsynced LFOs"
+
+graph:
+  blocks:
+    noise:   {kind: oscillator, wave: noise, color: pink}
+    filter1: {kind: filter, type: bandpass, slope: 24, resonance: moderate}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: long}, category: pad}
+    lfo1:    {kind: lfo, wave: random, rate: slow, sync: false, note: "a smooth random: it drifts, it does not step"}
+    lfo2:    {kind: lfo, wave: random, rate: very slow, sync: false, note: "a second random at another rate, so gust and pitch never line up"}
+  audio:
+    - [noise, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: lfo2, to: amp.level, amount: some, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: noise,   param: color,     value: pink,       why: "white is a hiss; pink has the weight of air"}
+  - {block: filter1, param: type,      value: bandpass 24 dB, why: "wind is a band of noise, not all of it; where the band sits is its pitch"}
+  - {block: filter1, param: resonance, value: moderate,   why: "the width of the band: narrow enough to have a whistle, wide enough to still be air"}
+  - {block: lfo1,    param: wave,      value: random,     why: "a triangle would make it breathe in time; random makes it weather"}
+  - {block: lfo1,    param: target,    value: filter center, why: "the whistle wanders"}
+  - {block: lfo2,    param: target,    value: amp level,  why: "the gusts"}
+  - {block: lfo2,    param: rate,      value: very slow,  why: "a different rate from the first LFO, so the two motions never loop together"}
+  - {block: aenv,    param: attack,    value: slow,       why: "wind rises; it does not start"}
+
+taste:
+  - {block: lfo1,    param: rate,      range: "very slow – medium",   default: slow}
+  - {block: lfo1,    param: depth,     range: "some – full",          default: moderate, why: "how far the whistle wanders"}
+  - {block: lfo2,    param: depth,     range: "little – moderate",    default: some, why: "how hard the gusts"}
+  - {block: filter1, param: cutoff,    range: "dark – bright",        default: mid}
+  - {block: filter1, param: resonance, range: "little – high",        default: moderate}
+  - {block: aenv,    param: release,   range: "slow – very long",     default: long}
+
+listening:
+  cue: "Air moving: it swells and eases on its own, and a faint whistle inside it drifts up and down without ever repeating. Listen for a minute and no two gusts match."
+  ab: "Set both LFO waves to triangle: the same motions now breathe in a loop and the wind becomes a machine. Back to random and the weather returns."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 90
+  pattern: "one note held six bars, then released to a long tail"
+  length_s: 16.0
+
+mappings: {}

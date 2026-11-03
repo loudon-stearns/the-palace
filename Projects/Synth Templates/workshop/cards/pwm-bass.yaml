@@ -1,0 +1,66 @@
+# Synth Templates — card — PWM Bass
+# A pulse whose width an LFO moves slowly. The width is a timbre control; moving it is the motion.
+schema: synth-template-card/0.2
+id: pwm-bass
+name: PWM Bass
+family: Bass
+tier: 2
+mode: mono
+classics: SH-101
+status: drafted
+concepts:
+  - "Pulse width, static and modulated"
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Subtractive: rich wave then filter"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: pulse, pw: 0.3, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    lfo1:    {kind: lfo, wave: triangle, rate: slow, sync: false, note: "to pulse width; the reference voice does not play PW modulation yet, so it is drawn and not heard"}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: medium, s: low, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: osc1.pw, amount: moderate, essential: true}
+    - {from: fenv, to: filter1.cutoff, amount: some, essential: false}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,    value: pulse,         why: "a square whose up and down times can differ; the width is the timbre"}
+  - {block: osc1,    param: pw,      value: 0.3,           why: "off-centre at rest, so the LFO has room to swing toward square and toward narrow without hitting either wall"}
+  - {block: lfo1,    param: target,  value: pulse width,   why: "the width moving is the sound: a chorus-like swirl from one oscillator"}
+  - {block: lfo1,    param: rate,    value: slow,          why: "slow enough to be a drift, not a vibrato"}
+  - {block: lfo1,    param: depth,   value: moderate,      why: "the width must travel, but never reach zero, where the sound drops out"}
+  - {block: filter1, param: type,    value: lowpass 24 dB}
+  - {block: filter1, param: cutoff,  value: mid,           why: "half open, so the width change is audible in the upper harmonics"}
+  - {block: aenv,    param: sustain, value: held,          why: "held notes: the width needs time to move"}
+  - {block: mode,    param: voices,  value: mono,          why: "the SH-101 is a mono synth"}
+
+taste:
+  - {block: lfo1,    param: rate,   range: "very slow – medium",  default: slow}
+  - {block: lfo1,    param: depth,  range: "little – generous",   default: moderate}
+  - {block: osc1,    param: pw,     range: "0.5 – 0.15",          default: 0.3, why: "narrower is more nasal; 0.5 is a plain square"}
+  - {block: filter1, param: cutoff, range: "dark – bright",       default: mid}
+  - {block: fenv,    param: amount, range: "none – moderate",     default: some}
+  - {block: aenv,    param: release, range: "short – medium",     default: short}
+
+listening:
+  cue: "A hollow square-ish bass whose tone slowly thickens and thins, as if two oscillators were drifting against each other. There is only one; its shape is changing."
+  ab: "Set the LFO depth to none: the drift stops and it is a static pulse, nasal and fixed. Then turn the width to 0.5: a plain square. Back to 0.3 with the LFO moving, and it breathes again."
+
+render:
+  tempo: 120
+  note: [C2, C2]
+  velocity: 100
+  pattern: "two bars: a whole note, a whole note"
+  length_s: 4.0
+
+mappings: {}

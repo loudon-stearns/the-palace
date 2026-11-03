@@ -1,0 +1,65 @@
+# Synth Templates — card — Harmonic-Series Oscillator Stack
+# Voices, Tuning and Retrigger family. The octave, semitone and fine knobs used as a harmonic table. Four oscillators here stand for the eight-row table in the notes.
+schema: synth-template-card/0.2
+id: harmonic-series-oscillator-stack
+name: Harmonic-Series Oscillator Stack
+family: Voices, Tuning and Retrigger
+tier: 2
+mode: poly
+classics:
+status: drafted
+concepts:
+  - "Octave / semitone / fine tuning"
+  - "Harmonic-series tuning table"
+  - "Additive: sines in a harmonic series"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, note: "harmonic 1, the root"}
+    osc2:    {kind: oscillator, wave: sine, octave: 1, semi: 7, level: half, note: "harmonic 3: +1 oct +7 semi, a fifth"}
+    sub:     {kind: oscillator, wave: sine, octave: 2, semi: 4, fine: -13, level: low, note: "harmonic 5: +2 oct +4 semi, 13 cents flat: the equal-tempered third is sharp of the real one"}
+    noise:   {kind: oscillator, wave: sine, octave: 2, semi: 10, fine: -30, level: little, note: "harmonic 7: +2 oct +10 semi, 30 cents flat; a sine in the noise slot. The full table is root, +1 oct, +1 oct 7 semi, +2 oct, +2 oct 4 semi -13 c, +2 oct 7 semi, +2 oct 10 semi -30 c, +3 oct; the four slots carry the rows with cents to tune"}
+    mix:     {kind: mixer}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: short, d: medium, s: held, r: medium}, category: sustaining}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [sub, mix]
+    - [noise, mix]
+    - [mix, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: sub.pitch,  essential: true}
+    - {from: key,  to: noise.pitch, essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: osc1,  param: wave,   value: sine,     why: "one partial each, so the stack is the spectrum and nothing else"}
+  - {block: osc2,  param: tuning, value: +1 oct +7 semi, why: "the third harmonic: an octave and a fifth, and it lands exactly in equal temperament"}
+  - {block: sub,   param: tuning, value: +2 oct +4 semi -13 cents, why: "the fifth harmonic: the equal-tempered third is 13 cents sharp of the real one; without the cents it beats"}
+  - {block: noise, param: tuning, value: +2 oct +10 semi -30 cents, why: "the seventh harmonic: a flat seventh, 30 cents flat; this one the piano cannot play at all"}
+  - {block: osc2,  param: level,  value: half,     why: "upper harmonics quieter than the root, the way a real tone sits"}
+  - {block: mode,  param: voices, value: poly}
+
+taste:
+  - {block: sub,   param: fine,   range: "-20 – 0 cents",  default: -13 cents, why: "tune by ear: it stops beating at the right place"}
+  - {block: noise, param: fine,   range: "-40 – 0 cents",  default: -30 cents, why: "the same, further flat"}
+  - {block: noise, param: level,  range: "off – low",      default: little}
+  - {block: aenv,  param: attack, range: "fast – slow",    default: short}
+
+listening:
+  cue: "Four sines that fuse into one tone with a colour, not a chord: the ear hears a single note with a bright, slightly brassy body. With the cents right the tone is still; with them at zero the upper partials beat slowly against the root."
+  ab: "Set the fine tune on harmonics 5 and 7 to zero: the tone starts to shimmer and wobble, and the fifth harmonic sounds like a wrong note. Put the cents back and the four lock into one still tone. Then drop the root to off: what is left sounds like a chord, because the root was what fused it."
+
+render:
+  tempo: 80
+  note: C2
+  velocity: 100
+  pattern: "one low note held three bars, so the beating or its absence has time to show"
+  length_s: 8.0
+
+mappings: {}

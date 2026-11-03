@@ -1,0 +1,65 @@
+# Synth Templates — card — 808 Bass
+# The kick played as a bass line: sine, a pitch drop at the front, a long decay, saturation to make it read.
+schema: synth-template-card/0.2
+id: 808-bass
+name: 808 Bass
+family: Bass
+tier: 1
+mode: mono
+classics: TR-808 kick-as-bass
+status: drafted
+concepts:
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Envelope → pitch (attack blip)"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Distortion: nonlinear, harmonic, compresses dynamics, tames resonance"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: -1, retrigger: true}
+    amp:  {kind: amplifier, level: full}
+    fx:   {kind: fx, chain: [saturation]}
+    menv: {kind: envelope, role: pitch, shape: {a: instant, d: short, s: zero, r: short}, category: percussive}
+    aenv: {kind: envelope, role: amp,   shape: {a: instant, d: long,  s: zero, r: same as decay}, category: percussive}
+  audio:
+    - [osc1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: osc1.pitch, amount: about an octave, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: osc1, param: wave,      value: sine,          why: "one partial; the punch is pitch movement, the edge is saturation"}
+  - {block: osc1, param: retrigger, value: "on",          why: "the wave restarts each note so every hit lands the same"}
+  - {block: menv, param: decay,     value: short,         why: "the pitch falls about an octave into the note in tens of milliseconds: that fall is the punch"}
+  - {block: menv, param: sustain,   value: zero,          why: "the pitch must come to rest on the written note"}
+  - {block: aenv, param: attack,    value: instant}
+  - {block: aenv, param: sustain,   value: zero,          why: "struck, then left to ring: the decay is the note length, not the key"}
+  - {block: aenv, param: release,   value: same as decay, why: "a short key still rings out; a long key does not hold forever"}
+  - {block: fx,   param: chain,     value: saturation,    why: "a sine has no harmonics; saturation makes some, so the line shows on small speakers"}
+  - {block: mode, param: voices,    value: mono,          why: "each note cuts the last; the tails never stack"}
+
+taste:
+  - {block: aenv, param: decay,  range: "medium – very long",    default: long, why: "the length of every note"}
+  - {block: menv, param: amount, range: "a fifth – two octaves",  default: about an octave}
+  - {block: menv, param: decay,  range: "instant – short",       default: short}
+  - {block: fx,   param: drive,  range: "light – heavy",         default: light}
+  - {block: osc1, param: glide,  range: "none – medium",         default: none, why: "the trap slide: glide between notes of the line"}
+
+listening:
+  cue: "Each note starts with a thump above the pitch, then settles and hums out for a second or more. The hum is pure; the edge on top of it is the saturation."
+  ab: "Set the pitch envelope amount to zero: the thump is gone and every note is a soft sine swell. Then set saturation to none: the line disappears on a laptop speaker."
+
+render:
+  tempo: 140
+  note: [C1, C1, Eb1, G1]
+  velocity: [110, 90, 100, 100]
+  pattern: "one bar: a dotted quarter, an eighth, then two quarters; the last left to ring"
+  length_s: 3.5
+
+mappings: {}

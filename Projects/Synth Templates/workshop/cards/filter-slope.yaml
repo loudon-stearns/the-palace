@@ -1,0 +1,52 @@
+# Synth Templates — card — Filter Slope
+# Technique demonstration: two poles against four, same cutoff.
+schema: synth-template-card/0.2
+id: filter-slope
+name: Filter Slope
+family: Technique Demonstrations
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Filter slope: 12 vs 24 dB/oct, poles"
+  - "Cutoff frequency"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: saw,     why: "harmonics all the way up, so there is something above the cutoff to be cut more or less steeply"}
+  - {block: filter1, param: type,      value: lowpass, why: "slope is described for low-pass: how much is lost per octave above the cutoff"}
+  - {block: filter1, param: cutoff,    value: mid,     why: "the same for both slopes; only the steepness changes"}
+  - {block: filter1, param: resonance, value: none,    why: "no peak to confuse the comparison"}
+
+taste:
+  - {block: filter1, param: slope,  range: "12 – 24 dB/oct", default: 24, why: "6 dB per pole: two poles is 12, four is 24; three poles, 18, is the 303"}
+  - {block: filter1, param: cutoff, range: "dark – bright",  default: mid}
+  - {block: filter1, param: resonance, range: "none – moderate", default: none}
+
+listening:
+  cue: "Two versions of one dull note. At 12 dB the highs are turned down but still faintly there; at 24 dB they are gone and the cut is deeper right above the cutoff."
+  ab: "Open the cutoff fully at either slope: no difference at all, because nothing is being cut. Bring it back to mid and switch 12 to 24: the same cutoff, but the upper harmonics drop away much faster."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 90
+  pattern: "the same note twice: 12 dB, then 24 dB"
+  length_s: 4.0
+
+mappings: {}

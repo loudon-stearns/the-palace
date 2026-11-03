@@ -1,0 +1,55 @@
+# Synth Templates — card — Pulse Width Sweep
+# Technique demonstration: a square becomes a pulse, by hand and then by LFO.
+schema: synth-template-card/0.2
+id: pulse-width-sweep
+name: Pulse Width Sweep
+family: Technique Demonstrations
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Pulse width, static and modulated"
+  - "Narrow pulse → nasal / vocal, with formant filter"
+  - "LFO → pitch / amplitude / pan / filter"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: pulse, pw: 0.5, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    lfo1:    {kind: lfo, wave: triangle, rate: slow, sync: false}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: osc1.pw, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,   value: pulse, why: "a switch going up and down; the width is how long it stays up"}
+  - {block: osc1, param: pw,     value: 0.5,   why: "equal time up and down is a square: odd harmonics only, the hollow sound; the sweep starts here"}
+  - {block: lfo1, param: target, value: pulse width, why: "the width in motion: the timbre undulates with no filter involved"}
+  - {block: lfo1, param: rate,   value: slow,  why: "slow enough to hear the body thin and fill"}
+
+taste:
+  - {block: osc1, param: pw,    range: "0.5 – 0.05",  default: 0.5, why: "the hand sweep: at 0.05 it is a thin, nasal buzz, the start of a vocal sound"}
+  - {block: lfo1, param: depth, range: "none – full", default: generous}
+  - {block: lfo1, param: rate,  range: "very slow – medium", default: slow}
+
+listening:
+  cue: "First by hand: the full hollow square thins to a nasal reed as the width narrows. Then the LFO does the same by itself, and the note breathes between hollow and thin without the pitch moving."
+  ab: "Set the LFO depth to none and the width to 0.5: a plain static square, no motion. Put the depth back: the same note swells and thins again."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 90
+  pattern: "one note held eight seconds: the first four swept by hand from 0.5 to 0.05, the next four by the LFO"
+  length_s: 9.0
+
+mappings: {}

@@ -1,0 +1,63 @@
+# Synth Templates — card — Additive Drawbars
+# Technique demonstration: sines on the harmonic series, each with its own level. The slots hold three; the organ has eight or nine.
+schema: synth-template-card/0.2
+id: additive-drawbars
+name: Additive Drawbars
+family: Technique Demonstrations
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Additive: sines in a harmonic series"
+  - "Harmonic-series tuning table"
+  - "Switch envelope (organ); percussive organ"
+  - "Sine: no response to filtering; FM/additive building block"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, level: full, note: "harmonic 1, the 8' drawbar"}
+    osc2: {kind: oscillator, wave: sine, octave: 1, level: half, note: "harmonic 2, the 4' drawbar. Harmonics 3 to 8 (octave + fifth, two octaves, ...) are more sines the slots do not hold"}
+    sub:  {kind: oscillator, wave: sine, octave: -1, level: half, note: "the 16' drawbar, under the fundamental"}
+    mix:  {kind: mixer}
+    amp:  {kind: amplifier, level: under unity}
+    aenv: {kind: envelope, role: amp, shape: {a: instant, d: instant, s: full, r: instant}, category: organ}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [sub, mix]
+    - [mix, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: sub.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,   value: sine,  why: "additive starts from the simplest wave and builds the spectrum one partial at a time"}
+  - {block: osc2, param: wave,   value: sine}
+  - {block: sub,  param: wave,   value: sine}
+  - {block: osc2, param: harmonic, value: 2, why: "an octave up: on the series, so it fuses into one tone rather than sounding as a second note"}
+  - {block: aenv, param: shape,  value: switch, why: "an organ: on at full the instant the key goes down, off the instant it comes up"}
+  - {block: mode, param: voices, value: poly, why: "an organ is played in chords"}
+
+taste:
+  - {block: osc2, param: level, range: "off – full", default: half, why: "a drawbar: pull it out and the octave comes into the tone"}
+  - {block: sub,  param: level, range: "off – full", default: half, why: "the 16' bar: weight under the note"}
+  - {block: osc1, param: level, range: "half – full", default: full}
+  - {block: aenv, param: decay, range: "instant – short", default: instant, why: "with sustain eased back a little, a short decay is the percussive organ's click"}
+
+listening:
+  cue: "One pitch that gets richer as bars are pulled: the fundamental alone is a pure tone, the octave adds brightness without a new note, the sub adds floor. Every bar is a partial, and the sum is still one note."
+  ab: "Push every bar in but the fundamental: a bare sine. Pull the octave bar to full: brighter, still one note. Now detune that octave by a semitone: it stops fusing and you hear two notes, because it has left the series."
+
+render:
+  tempo: 100
+  note: [C3, E3, G3]
+  velocity: 90
+  pattern: "one chord held six seconds while the octave bar, then the sub bar, are pulled out"
+  length_s: 7.0
+
+mappings: {}

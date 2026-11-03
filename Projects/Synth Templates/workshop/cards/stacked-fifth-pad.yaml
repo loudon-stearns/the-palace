@@ -1,0 +1,67 @@
+# Synth Templates — card 0.2 — Stacked Fifth Pad
+# One oscillator a fifth above the other, so every key is already a power chord. Tuning the oscillators to the harmonic series.
+schema: synth-template-card/0.2
+id: stacked-fifth-pad
+name: Stacked Fifth Pad
+family: Pads
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Octave / semitone / fine tuning"
+  - "Harmonic-series tuning table"
+  - "Small detune (≤7 cents) = chorus"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 2, detune: slight}
+    osc2:    {kind: oscillator, wave: saw, octave: 0, semitones: 7, unison: 2, detune: slight, note: "+7 semitones: the fifth, the third harmonic brought down an octave"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [chorus, reverb]}
+    aenv:    {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: long}, category: pad}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc2,    param: semitones, value: 7,             why: "a fifth up: the interval sits inside the harmonic series (the third harmonic), so it fuses with the root instead of sounding like a second note"}
+  - {block: osc1,    param: wave,      value: saw,           why: "both saws, so the two harmonic series interleave"}
+  - {block: osc1,    param: detune,    value: slight,        why: "a few cents on each pair: the swirl that keeps a static interval alive"}
+  - {block: osc2,    param: level,     value: half,          why: "under the root; equal and the fifth starts to read as the key"}
+  - {block: filter1, param: cutoff,    value: mid,           why: "half open: enough top for the interval to be heard, not so much that it buzzes"}
+  - {block: aenv,    param: attack,    value: slow,          why: "a pad: it arrives"}
+  - {block: mode,    param: voices,    value: poly,          why: "stacked fifths under every finger; play fourths and fifths, not triads, or the thirds clash"}
+
+taste:
+  - {block: osc2,    param: semitones, range: "5 – 12",                default: 7, why: "a fourth, a fifth, an octave: all in the series"}
+  - {block: osc2,    param: level,     range: "quarter – equal",       default: half}
+  - {block: osc1,    param: detune,    range: "none – narrow",         default: slight}
+  - {block: filter1, param: cutoff,    range: "dark – bright",         default: mid}
+  - {block: aenv,    param: attack,    range: "medium – very slow",    default: slow}
+  - {block: aenv,    param: release,   range: "medium – very long",    default: long}
+  - {block: fx,      param: reverb,    range: "small – huge",          default: large}
+
+listening:
+  cue: "One key sounds bigger than one note: hollow and wide, a fifth folded into the tone, like an organ's mixture stop. Play a single line and it carries its own harmony."
+  ab: "Set osc2 to zero semitones: a plain detuned saw pad, thinner than you expect. Then set it to 6: the fifth becomes a tritone and the fusion breaks; two notes, both wrong. Back to 7 and they lock."
+
+render:
+  tempo: 90
+  note: [D3, A3]
+  velocity: 90
+  pattern: "D3 held a bar, A3 added for a bar, both released, tail to silence"
+  length_s: 7.0
+
+mappings: {}

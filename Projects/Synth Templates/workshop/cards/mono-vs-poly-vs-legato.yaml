@@ -1,0 +1,57 @@
+# Synth Templates — card — Mono vs Poly vs Legato
+# Technique demonstration: one patch, three ways of handing out voices. The patch does not change; what a held key means does.
+schema: synth-template-card/0.2
+id: mono-vs-poly-vs-legato
+name: Mono vs Poly vs Legato
+family: Technique Demonstrations
+tier: 1
+mode: both
+classics: ""
+status: drafted
+concepts:
+  - "Poly vs mono; max voices"
+  - "Glide / portamento time; legato mode as default"
+  - "Voice priority: last / top / bottom; voice stealing"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: medium, s: low, r: short}, category: percussive, note: "a clear bite on each note, so you can hear whether a note retriggers"}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: medium}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,    value: saw,    why: "a plain patch; the lesson is in the voices, not the tone"}
+  - {block: fenv,    param: decay,   value: medium, why: "the bite: every retrigger is heard as a fresh opening of the filter"}
+  - {block: filter1, param: cutoff,  value: dark,   why: "closed at rest, so a note that does not retrigger stays dull"}
+  - {block: aenv,    param: release, value: medium, why: "a tail long enough to hear notes overlap in poly and cut off in mono"}
+
+taste:
+  - {block: mode, param: voices,    range: "mono – poly",  default: poly, why: "poly: a chord is a voice per key; mono: one voice, the newest key takes it"}
+  - {block: mode, param: retrigger, range: "on – off",     default: "on", why: "mono only. On: every key restarts the envelopes. Off (legato): an overlapping key only changes the pitch, and the bite does not come back"}
+  - {block: mode, param: priority,  range: "last – top – bottom", default: last, why: "which note mono keeps when two are held"}
+  - {block: osc1, param: glide,     range: "none – short", default: none}
+
+listening:
+  cue: "The same phrase three times. Poly: the notes pile up and ring together. Mono with retrigger: one note at a time, each with its own bite, the old note cut off. Legato: one note at a time, but the overlapping ones slide in with no new bite, one long gesture."
+  ab: "In poly, play the phrase with every note held: a chord builds. Switch to mono and hold the same keys: only one sounds, and letting go of it brings back the one under it. That is one voice doing the work of a chord's worth of keys."
+
+render:
+  tempo: 110
+  note: [C3, E3, G3, C4]
+  velocity: 90
+  pattern: "the four notes as overlapping quarters, each held into the next; played three times: poly, mono retrigger, mono legato"
+  length_s: 8.0
+
+mappings: {}

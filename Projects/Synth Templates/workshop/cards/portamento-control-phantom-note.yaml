@@ -1,0 +1,55 @@
+# Synth Templates — card — Portamento Control (Phantom Note)
+# Voices, Tuning and Retrigger family. CC84 names a pitch nobody played; the next note glides in from it. Works only on synths that honour CC84.
+schema: synth-template-card/0.2
+id: portamento-control-phantom-note
+name: Portamento Control (Phantom Note)
+family: Voices, Tuning and Retrigger
+tier: 3
+mode: mono
+classics:
+status: drafted
+concepts:
+  - "CC5 / CC65 / CC68 / CC84 portamento control (phantom note)"
+  - "Glide / portamento time; legato mode as default"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, glide: medium, note: "glide on, always, not legato: the phantom is never an overlapping note. CC84 before a note sets its start pitch; the slots have no CC input and the voice does not yet honour CC84"}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: mode, param: voices,  value: mono,       why: "glide is a mono idea: one pitch travelling to the next"}
+  - {block: osc1, param: glide,   value: always on,  why: "legato mode would need a held note to glide from; the phantom note is not held, so glide must be on for every note"}
+  - {block: osc1, param: glide time, value: medium,  why: "long enough that the slide in from the phantom is heard as a slide"}
+  - {block: osc1, param: CC84,    value: phantom pitch, why: "send a CC84 value before the note: the synth takes it as the pitch of a note that was never played, and the next note glides from there"}
+  - {block: osc1, param: wave,    value: saw}
+  - {block: aenv, param: attack,  value: fast,       why: "the slide must be audible from the start of the note; a slow attack hides where it came from"}
+
+taste:
+  - {block: osc1,    param: glide,   range: "short – long",   default: medium, why: "CC5 moves this live"}
+  - {block: osc1,    param: CC84,    range: "an octave below – an octave above", default: a fifth below, why: "where the phantom sits; below for a scoop, above for a fall"}
+  - {block: filter1, param: cutoff,  range: "mid – bright",   default: mid}
+  - {block: aenv,    param: release, range: "short – medium", default: short}
+
+listening:
+  cue: "A note that arrives from somewhere: it scoops up into pitch though it is the first note played and nothing is before it. The second note, with no CC84 sent, lands square."
+  ab: "Remove the CC84 message: the first note starts on pitch, flat and ordinary. Send it again and the scoop returns. Then switch glide to legato mode: the CC84 does nothing, because no note overlaps the phantom."
+
+render:
+  tempo: 100
+  note: [C4, G3, C4]
+  velocity: 100
+  pattern: "three notes a bar each with silence between; CC84 set a fifth below before the first and third, nothing before the second"
+  length_s: 7.0
+
+mappings: {}

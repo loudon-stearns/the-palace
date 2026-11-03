@@ -1,0 +1,69 @@
+# Synth Templates — Genre Classics — Daft Punk Vocoder
+# A bright carrier, a little noise for the consonants, and a vocoder that lays a voice's vowels over the chord. The carrier is a synth; the words come from outside.
+schema: synth-template-card/0.2
+id: daft-punk-vocoder
+name: Daft Punk Vocoder
+family: Genre Classics
+tier: 3
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Parallel: twin peaks, keytracking amount, vocal formants"
+  - "Resonance as width (Q) on band-pass and notch"
+  - "Noise for softness and high end"
+  - "Unison / unisono"
+  - "Low-pass, high-pass, band-pass, notch"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 2, detune: narrow, note: "the carrier: it must be bright everywhere, or the vocoder's bands have nothing to shape"}
+    osc2:    {kind: oscillator, wave: saw, octave: -1, level: half}
+    noise:   {kind: oscillator, wave: noise, level: little, note: "the consonants: s, t, k have no pitch, and a saw cannot say them"}
+    mix:     {kind: mixer}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [vocoder], note: "the vocoder: a bank of bandpass filters on the carrier, each opened by the level of the same band in a voice (the modulator, a sidechain input). The voice has no modulator input; the vocoder is drawn, not heard."}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [noise, mix]
+    - [mix, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: poly,          why: "the voice sings chords: the words are the modulator's, the harmony is the keyboard's"}
+  - {block: osc1,    param: wave,      value: saw,           why: "every harmonic present, so every band of the vocoder has something to let through"}
+  - {block: osc1,    param: unison,    value: 2 voices,      why: "a little width in the carrier reads as a little width in the voice"}
+  - {block: noise,   param: level,     value: little,        why: "unvoiced consonants: without noise in the carrier the words lose their s's and t's and go mushy"}
+  - {block: fx,      param: chain,     value: vocoder,       why: "many parallel bandpasses, each a formant tracked from the voice; a compressor after it evens the words out"}
+  - {block: fx,      param: bands,     value: 16 or more,    why: "fewer bands and it is a robot; more and it is a voice"}
+  - {block: aenv,    param: attack,    value: fast,          why: "the carrier must be there when the word starts"}
+  - {block: aenv,    param: sustain,   value: held,          why: "it holds while the line is sung"}
+
+taste:
+  - {block: osc1,    param: detune,    range: "slight – wide",      default: narrow}
+  - {block: osc2,    param: level,     range: "off – equal",        default: half}
+  - {block: noise,   param: level,     range: "off – quarter",      default: little, why: "more noise, clearer consonants, breathier"}
+  - {block: fx,      param: bands,     range: "8 – 32",             default: 16, why: "robot to voice"}
+  - {block: fx,      param: formant,   range: "down – up",          default: centre, why: "shift the bands and the voice changes sex"}
+  - {block: aenv,    param: release,   range: "short – medium",     default: short}
+
+listening:
+  cue: "A chord that talks: the harmony is whatever you play, the words are whoever is singing into it. Listen for the consonants; if they are there, the noise is doing its job."
+  ab: "Turn the noise off: the vowels are all still there and the words lose their edges, 'sister' becomes 'ih-er'. Put it back. Then play a single note instead of a chord: the same words, and suddenly it is a robot, not a choir."
+
+render:
+  tempo: 123
+  note: [D3, F3, A3, C4]
+  velocity: 100
+  pattern: "the chord held two bars; the modulator, not rendered, is a spoken phrase over it"
+  length_s: 5.0
+
+mappings: {}

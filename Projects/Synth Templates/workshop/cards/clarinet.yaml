@@ -1,0 +1,60 @@
+# Synth Templates — card — Clarinet
+# The odd-harmonic lesson: a square wave filtered is already a clarinet. Nothing else to add.
+schema: synth-template-card/0.2
+id: clarinet
+name: Clarinet
+family: Brass and Winds
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Subtractive: rich wave then filter"
+  - "Standard sustaining envelope; strings and horns variants"
+  - "Velocity → amplitude; velocity → filter cutoff"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: square, pw: 0.5, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: short, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: filter1.cutoff, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: square,        why: "odd harmonics only: the hollow timbre is the clarinet's, because a closed pipe makes the same series"}
+  - {block: osc1,    param: pw,        value: 0.5,           why: "exactly half: narrow it and the even harmonics come back, and it stops being a clarinet"}
+  - {block: filter1, param: type,      value: lowpass 24 dB, why: "the square's upper harmonics are harsh; the filter leaves the woody low ones"}
+  - {block: filter1, param: cutoff,    value: mid,           why: "dark enough to be wood, open enough to keep the reed"}
+  - {block: filter1, param: resonance, value: none,          why: "no peak: a clarinet does not whistle"}
+  - {block: aenv,    param: attack,    value: short,         why: "soft: the reed starts, it is not struck"}
+  - {block: aenv,    param: sustain,   value: held,          why: "sustaining: breath keeps it going"}
+  - {block: mode,    param: voices,    value: mono,          why: "one reed, one line"}
+
+taste:
+  - {block: filter1, param: cutoff,  range: "dark – bright",   default: mid,   why: "darker is the low register, brighter the top"}
+  - {block: aenv,    param: attack,  range: "fast – medium",   default: short}
+  - {block: aenv,    param: release, range: "short – medium",  default: short}
+  - {block: amp,     param: level,   range: "half – full",     default: under unity}
+
+listening:
+  cue: "Hollow and woody: a tone with a hole in the middle of it, where the even harmonics would be. Low notes especially sound like a pipe, not a string."
+  ab: "Switch the wave to saw: every harmonic fills in and it becomes a dull brass or string. Back to square and the hollow returns. Then narrow the pulse width to a quarter: nasal, an oboe trying to get out."
+
+render:
+  tempo: 90
+  note: [D3, F3, A3, D4]
+  velocity: 85
+  pattern: "an arpeggio up, one note per beat, the last held a bar"
+  length_s: 5.0
+
+mappings: {}

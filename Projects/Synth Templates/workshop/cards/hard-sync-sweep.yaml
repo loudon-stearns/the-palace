@@ -1,0 +1,58 @@
+# Synth Templates — card — Hard Sync Sweep
+# Technique demonstration: one oscillator resets another every cycle. The reset oscillator's pitch is swept; what you hear
+# stays on the master's note and changes timbre instead.
+schema: synth-template-card/0.2
+id: hard-sync-sweep
+name: Hard Sync Sweep
+family: Technique Demonstrations
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Envelope → pitch (attack blip)"
+  - "Phase, free-running vs retrigger, the click"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: saw, octave: 0, note: "the synced oscillator: the one you hear. Its cycle restarts every time the master completes one, so its pitch is the master's and its waveform is whatever shape it reached"}
+    osc2: {kind: oscillator, wave: saw, octave: 0, note: "the master: it sets the pitch and is not heard itself. The voice approximates sync as FM"}
+    amp:  {kind: amplifier, level: under unity}
+    menv: {kind: envelope, role: pitch, shape: {a: slow, d: slow, s: zero, r: short}, category: swell, note: "the sweep: the synced oscillator's own tuning rises two octaves and falls back"}
+    aenv: {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc2, osc1, sync]
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc1.pitch, amount: two octaves, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc2, param: routing, value: into osc1 sync, why: "the master resets the slave's phase each cycle: this is sync, not a mix"}
+  - {block: osc1, param: wave,    value: saw,   why: "a ramp cut off mid-rise makes the strongest tearing harmonics"}
+  - {block: menv, param: target,  value: synced oscillator pitch, why: "sweeping the slave does not change the note; it changes how much of its waveform fits in one master cycle"}
+  - {block: menv, param: amount,  value: two octaves, why: "a wide sweep: the timbre passes through many shapes on the way up"}
+  - {block: menv, param: sustain, value: zero,  why: "it sweeps and returns; a sustained offset is a fixed sync timbre, also useful"}
+
+taste:
+  - {block: menv, param: attack, range: "medium – very slow", default: slow, why: "the speed of the sweep up"}
+  - {block: osc1, param: wave,   range: "saw – square",        default: saw}
+  - {block: osc2, param: octave, range: "-1 – 0",             default: 0, why: "the master an octave down doubles the room the sweep has"}
+
+listening:
+  cue: "The note never moves, but the tone rips upward through a series of bright, brassy vowels and back down, as if a resonance were being dragged through it. The sweep is in the timbre, not the pitch."
+  ab: "Break the sync and sweep the same oscillator: now the pitch itself rises two octaves, an ordinary siren. Restore the sync and the siren turns back into the vowel sweep on a fixed note."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 90
+  pattern: "one note held four seconds: the sweep up over the attack, down over the decay"
+  length_s: 5.0
+
+mappings: {}

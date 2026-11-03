@@ -1,0 +1,53 @@
+# Synth Templates — card — Free-Running vs Retriggered Oscillator
+# Voices, Tuning and Retrigger family. An instant amp envelope exposes where the waveform starts: free, at zero, or away from zero (the click).
+schema: synth-template-card/0.2
+id: free-running-vs-retriggered-oscillator
+name: Free-Running vs Retriggered Oscillator
+family: Voices, Tuning and Retrigger
+tier: 1
+mode: mono
+classics:
+status: drafted
+concepts:
+  - "Phase, free-running vs retrigger, the click"
+  - "ADSR: three times and a level"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: saw, octave: 0, retrigger: true, phase: 90, note: "retrigger on, start phase 90 degrees: the voice plays a fixed start phase; the three states are chosen in taste"}
+    amp:  {kind: amplifier, level: full}
+    aenv: {kind: envelope, role: amp, shape: {a: instant, d: short, s: held, r: instant}, category: gate}
+  audio:
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: aenv, param: attack,    value: instant,     why: "the amp opens before the wave has moved, so whatever level the wave is at is heard as a step"}
+  - {block: aenv, param: release,   value: instant,     why: "the note off is a step too; the lesson is at both ends"}
+  - {block: osc1, param: wave,      value: saw,         why: "a saw's level at 90 degrees is far from zero, so the step is as big as it gets"}
+  - {block: osc1, param: retrigger, value: "on",        why: "every note starts at the same point in the cycle, so every note is the same note"}
+  - {block: osc1, param: phase,     value: 90 degrees,  why: "away from zero: the wave jumps to a level the instant the amp opens, and that jump is the click"}
+  - {block: mode, param: voices,    value: mono}
+
+taste:
+  - {block: osc1, param: retrigger, range: "free – retrigger",   default: retrigger, why: "free: a different click on every note, sometimes none; this is the analog case"}
+  - {block: osc1, param: phase,     range: "0 – 90 degrees",     default: 90 degrees, why: "0 is the clean start; 90 is the punch"}
+  - {block: aenv, param: attack,    range: "instant – fast",     default: instant, why: "even fast hides the click; this is what the VCA's slowness did in analog synths"}
+  - {block: amp,  param: level,     range: "half – full",        default: full}
+
+listening:
+  cue: "A short tick at the front of every note, the same every time, like a plectrum on the string. On free-running the tick varies from note to note and sometimes is not there at all; at 0 degrees it is gone."
+  ab: "Set the start phase to 0 degrees: the notes begin clean, no tick. Back to 90 and the tick is back on every note. Then set the amp attack to fast: the tick is swallowed, which is why percussive sounds need both the phase and the instant attack."
+
+render:
+  tempo: 120
+  note: C3
+  velocity: 100
+  pattern: "eight repeated eighth notes with a gap between each, so eight identical starts are heard"
+  length_s: 4.0
+
+mappings: {}

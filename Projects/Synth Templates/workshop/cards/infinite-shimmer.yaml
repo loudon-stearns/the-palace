@@ -1,0 +1,61 @@
+# Synth Templates — card 0.2 — Infinite Shimmer
+# Textures and Ambient, tier 2: the tone hardly matters; the sound is the reverb's feedback loop with an octave shift inside it.
+schema: synth-template-card/0.2
+id: infinite-shimmer
+name: Infinite Shimmer
+family: Textures and Ambient
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Delay: time, feedback, mix"
+  - "Octave / semitone / fine tuning"
+  - "Waveforms: saw, square, triangle, sine, noise"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: triangle, octave: 0, note: "any soft tone will do; the effect is the instrument"}
+    amp:  {kind: amplifier, level: half}
+    fx:   {kind: fx, chain: [reverb], feedback: near unity, shift: +12, note: "shimmer: a pitch shifter an octave up sits inside the reverb's feedback path, so every pass climbs an octave and fades; the voice plays a long reverb without the shift"}
+    aenv: {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: long}, category: pad}
+  audio:
+    - [osc1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv,  to: amp.level, essential: true}
+    - {from: key,   to: osc1.pitch, essential: true}
+    - {from: key,   to: aenv.gate, essential: true}
+    - {from: wheel, to: fx.feedback, amount: some, essential: false}
+
+essentials:
+  - {block: fx,   param: chain,    value: reverb with +12 in the loop, why: "the feedback path is the sound: each pass through the reverb is shifted up an octave and fed back in"}
+  - {block: fx,   param: feedback, value: near unity,    why: "just under one: the tail goes on and on, but does not grow; over one and it runs away"}
+  - {block: fx,   param: shift,    value: one octave up, why: "an octave stacks on the harmonic series, so the climb reads as the same chord, higher; a fifth would be a new chord every pass"}
+  - {block: fx,   param: mix,      value: mostly wet,    why: "the dry tone is a seed; the bloom is what you keep"}
+  - {block: osc1, param: wave,     value: triangle,      why: "few harmonics: the octaves the loop adds have room above the tone"}
+  - {block: amp,  param: level,    value: half,          why: "the loop sums many passes; feed it quietly or it clips"}
+  - {block: aenv, param: release,  value: long,          why: "hands come off and the loop keeps feeding itself"}
+  - {block: mode, param: voices,   value: poly,          why: "a chord goes in, and a chord climbs out"}
+
+taste:
+  - {block: fx,   param: feedback, range: "half – near unity",   default: near unity, why: "how many octaves the climb reaches before it fades"}
+  - {block: fx,   param: reverb,   range: "large – huge",        default: huge}
+  - {block: fx,   param: mix,      range: "half – wet",          default: mostly wet}
+  - {block: osc1, param: wave,     range: "sine – saw",          default: triangle}
+  - {block: aenv, param: attack,   range: "fast – very slow",    default: slow, why: "a plucked seed or a swelled one; the loop does not care"}
+  - {block: aenv, param: release,  range: "medium – very long",  default: long}
+
+listening:
+  cue: "Play one chord and let go. It does not fade; it rises, each octave a little softer and a little further away, a choir climbing stairs that never end."
+  ab: "Set the reverb's feedback to zero: a plain soft tone in a large room, over in seconds. Put it back near unity and the climb returns. Then set the shift to zero with feedback still near unity: the tail is infinite but flat, a held note, not a shimmer."
+
+render:
+  tempo: 70
+  note: [D3, F3, A3, C4]
+  velocity: 80
+  pattern: "one chord held one bar, released; the loop runs to the end"
+  length_s: 12.0
+
+mappings: {}

@@ -1,0 +1,59 @@
+# Synth Templates — card — Phase-Distortion Lead
+# A sine read at an uneven speed: bend the phase and the sine becomes a saw, a square, a resonant sweep. The envelope that bends it does the filter's job.
+schema: synth-template-card/0.2
+id: phase-distortion-lead
+name: Phase-Distortion Lead
+family: Leads
+tier: 3
+mode: mono
+classics: Casio CZ
+status: drafted
+concepts:
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: saw, octave: 0, note: "a phase-distortion oscillator: a sine whose phase is read through a bent curve; 'shape' is how bent. No distortion, a sine; full distortion, a saw-like wave. The voice plays a saw and does not bend it"}
+    amp:  {kind: amplifier, level: under unity}
+    menv: {kind: envelope, role: distortion, shape: {a: instant, d: medium, s: low, r: short}, category: percussive}
+    aenv: {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc1.shape, amount: generous, essential: true}
+    - {from: vel,  to: menv.amount, amount: some, essential: false}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: method,   value: phase distortion,  why: "the wave is made by bending how a sine is read, not by filtering a rich wave; there is no filter on this card"}
+  - {block: osc1, param: filter,   value: none,              why: "the lesson: the distortion amount sounds like a cutoff, and does the cutoff's job"}
+  - {block: menv, param: target,   value: distortion amount, why: "this envelope is the CZ's DCW envelope: it stands where a filter envelope would"}
+  - {block: menv, param: amount,   value: generous,          why: "bent far at the strike: a saw-like, bright front"}
+  - {block: menv, param: decay,    value: medium,            why: "it straightens toward a sine over the note, which reads as a filter closing"}
+  - {block: menv, param: sustain,  value: low,               why: "rests a little bent: not quite a sine while held"}
+  - {block: mode, param: voices,   value: mono,              why: "a line"}
+
+taste:
+  - {block: menv, param: amount,   range: "moderate – full",    default: generous, why: "how far the sine bends: the brightness"}
+  - {block: menv, param: decay,    range: "short – long",       default: medium}
+  - {block: menv, param: sustain,  range: "zero – half",        default: low}
+  - {block: osc1, param: glide,    range: "none – short",       default: none}
+  - {block: aenv, param: release,  range: "short – medium",     default: short}
+
+listening:
+  cue: "Every note starts bright and edged and settles toward a pure tone, as if a filter were closing, but there is no filter and no resonance: the wave itself is straightening out."
+  ab: "Set the distortion envelope amount to none: a bare sine, the undistorted read. Put it back. Then try to get the same thing with a saw and a lowpass sweep: close, but the PD version has no peak and a slightly different edge at the front."
+
+render:
+  tempo: 110
+  note: [A3, C4, E4, A4]
+  velocity: [90, 90, 90, 120]
+  pattern: "quarter notes, one bar; the last harder and held a bar"
+  length_s: 4.0
+
+mappings: {}

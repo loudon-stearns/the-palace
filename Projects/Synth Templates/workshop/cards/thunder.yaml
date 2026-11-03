@@ -1,0 +1,68 @@
+# Synth Templates — card 0.2 — Thunder
+# Sound Effects, tier 1. The lowest noise there is, let decay for seconds, with a random LFO rolling it.
+schema: synth-template-card/0.2
+id: thunder
+name: Thunder
+family: Sound Effects
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Noise colors: white vs pink"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope trigger / one-shot mode"
+  - "LFO → pitch / amplitude / pan / filter"
+
+graph:
+  blocks:
+    noise:   {kind: oscillator, wave: noise, color: brown, note: "brown: pink with still more low end; the voice plays pink through the dark filter"}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: none}
+    amp:     {kind: amplifier, level: full}
+    fx:      {kind: fx, chain: [reverb]}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: medium, s: zero, r: same as decay}, category: percussive, one_shot: true}
+    aenv:    {kind: envelope, role: amp,    shape: {a: fast, d: very long, s: zero, r: same as decay}, category: percussive, one_shot: true}
+    lfo1:    {kind: lfo, wave: random, rate: slow, sync: false}
+  audio:
+    - [noise, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: false}
+    - {from: lfo1, to: amp.level, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: noise,   param: color,   value: brown,         why: "the lowest-weighted noise; thunder is felt before it is heard"}
+  - {block: filter1, param: type,    value: lowpass 24 dB, why: "steep: nothing above the rumble survives"}
+  - {block: filter1, param: cutoff,  value: dark,          why: "a rumble, not a roar"}
+  - {block: aenv,    param: decay,   value: very long,     why: "it goes on for seconds: the gong end of struck sounds"}
+  - {block: aenv,    param: sustain, value: zero,          why: "one clap, left to die away"}
+  - {block: aenv,    param: release, value: same as decay, why: "one-shot: a tap on the key plays the whole roll"}
+  - {block: lfo1,    param: wave,    value: random,        why: "the roll: the level rises and falls in no pattern as it fades"}
+  - {block: lfo1,    param: target,  value: amp level,     why: "it rolls in loudness, not in pitch"}
+  - {block: fx,      param: chain,   value: reverb,        why: "the sky is a large room"}
+
+taste:
+  - {block: aenv,    param: decay,   range: "long – very long",   default: very long}
+  - {block: lfo1,    param: depth,   range: "some – generous",    default: moderate, why: "how uneven the roll"}
+  - {block: lfo1,    param: rate,    range: "very slow – medium", default: slow}
+  - {block: fenv,    param: amount,  range: "none – generous",    default: moderate, why: "the crack at the start: more opens a brighter first instant"}
+  - {block: filter1, param: cutoff,  range: "dark – mid",         default: dark}
+  - {block: fx,      param: reverb,  range: "large – huge",       default: huge}
+
+listening:
+  cue: "A low rumble that rolls: louder, softer, louder again, in no rhythm, while the whole thing slowly fades over several seconds. The first instant is a little brighter than the rest."
+  ab: "Set the LFO depth to none: the rumble becomes one smooth fade, a long sigh. Back to moderate and it rolls."
+
+render:
+  tempo: 100
+  note: C2
+  velocity: 110
+  pattern: "one hit, left to roll out"
+  length_s: 8.0
+
+mappings: {}

@@ -1,0 +1,61 @@
+# Synth Templates — card 0.2 — Pulse 12.5%
+# Chiptune, first card: the narrowest NES duty cycle. No filter; the whole timbre is the pulse width.
+schema: synth-template-card/0.2
+id: pulse-12-5
+name: Pulse 12.5%
+family: Chiptune
+tier: 1
+mode: mono
+classics: NES
+status: drafted
+concepts:
+  - "Pulse width, static and modulated"
+  - "Narrow pulse → nasal / vocal, with formant filter"
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Switch envelope (organ); percussive organ"
+  - "Vibrato: ~5 Hz, under a semitone; dedicated vibrato LFO"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: pulse, pw: 0.125, octave: 0, note: "the NES pulse channel's narrowest duty; the pulse width is fixed, never modulated"}
+    amp:  {kind: amplifier, level: full}
+    aenv: {kind: envelope, role: amp, shape: {a: instant, d: instant, s: full, r: instant}, category: gate, note: "a switch: the chip has no attack or release"}
+    lfo1: {kind: lfo, wave: triangle, rate: medium, sync: false, note: "tracker vibrato, stepped on the hardware"}
+  audio:
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: lfo1, to: osc1.pitch, amount: little, essential: false}
+    - {from: wheel, to: lfo1.depth, amount: little, essential: false}
+
+essentials:
+  - {block: osc1, param: wave,    value: pulse,      why: "a switch that is up for part of the cycle and down for the rest"}
+  - {block: osc1, param: pw,      value: "0.125",    why: "up one eighth of the cycle: thin, nasal, every eighth harmonic missing; the NES's reediest voice"}
+  - {block: amp,  param: input,   value: osc1 direct, why: "no filter: the chip had none, so the duty cycle is the only timbre control"}
+  - {block: aenv, param: attack,  value: instant,    why: "on at once, like a switch"}
+  - {block: aenv, param: sustain, value: full,       why: "held at full while the key is down; decay does nothing"}
+  - {block: aenv, param: release, value: instant,    why: "off at once; the chip holds no tail"}
+  - {block: mode, param: voices,  value: mono,       why: "one pulse channel is one voice"}
+
+taste:
+  - {block: osc1, param: pw,      range: "0.125 – 0.25",    default: "0.125", why: "wider is the next card; past that it is a different template"}
+  - {block: osc1, param: octave,  range: "0 – 1",           default: 0}
+  - {block: lfo1, param: depth,   range: "none – little",   default: none, why: "vibrato on a held note is how a chip lead sings"}
+  - {block: lfo1, param: rate,    range: "medium – fast",   default: medium}
+  - {block: amp,  param: level,   range: "half – full",     default: full, why: "the chip's 16 volume steps; chip music balances by stepping this"}
+
+listening:
+  cue: "Thin and reedy, like an oboe made of a switch. Each note starts and stops with no softness at all, and it sounds the same for as long as it is held."
+  ab: "Set the pulse width to half: the same line turns hollow and round, a clarinet instead of an oboe. Back to an eighth and the nasal edge returns."
+
+render:
+  tempo: 150
+  note: [C5, E5, G5, C6, G5, E5, C5, C5]
+  velocity: 100
+  pattern: "eighths, one bar; the last note tied, held a beat"
+  length_s: 2.0
+
+mappings: {}

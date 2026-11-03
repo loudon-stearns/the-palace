@@ -1,0 +1,67 @@
+# Synth Templates — card 0.2 — Stereo Width by Detune and Filter
+# Delay-family card 7: width with no delay at all. Left and right are different oscillators through different filters.
+# The slots draw the two filters in series; in truth they are side by side, one per channel, and the notes say so.
+schema: synth-template-card/0.2
+id: stereo-width-by-detune-and-filter
+name: Stereo Width by Detune and Filter
+family: Delay-Family Effects
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Stereo width by L/R delay difference; detune and filter per side"
+  - "Small detune (≤7 cents) = chorus"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, level: full, note: "the left channel"}
+    osc2:    {kind: oscillator, wave: saw, octave: 0, level: full, detune: slight, note: "the right channel, a few cents sharp"}
+    mix:     {kind: mixer, note: "not a sum: osc1 goes left, osc2 goes right"}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: little, note: "the left filter, darker; the voice cannot yet run two filters side by side"}
+    filter2: {kind: filter, type: lowpass, slope: 12, resonance: little, note: "the right filter, brighter; drawn after filter1 but beside it in truth"}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: short, d: medium, s: held, r: medium}, category: sustaining}
+    lfo1:    {kind: lfo, wave: triangle, rate: very slow, sync: false, note: "modulates the two filters differently; a second LFO out of step would do it better"}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: lfo1, to: filter1.cutoff, amount: little, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,   value: poly}
+  - {block: osc2,    param: detune,   value: slight,        why: "a few cents between the sides: the ears hear two players, one each side, not one in the middle"}
+  - {block: mix,     param: routing,  value: "osc1 left, osc2 right", why: "a mono signal has no width; width is the two channels being different"}
+  - {block: filter1, param: cutoff,   value: mid,           why: "the left side darker"}
+  - {block: filter2, param: cutoff,   value: bright,        why: "the right side brighter; a different tone per side is the second kind of difference"}
+  - {block: filter2, param: routing,  value: "on the right side only, beside filter1", why: "two filters side by side, one per channel, not one after the other"}
+  - {block: lfo1,    param: target,   value: one side's cutoff, why: "modulating the sides differently is the third kind of difference, and it moves"}
+
+taste:
+  - {block: osc2,    param: detune,   range: "none – narrow",       default: slight, why: "past narrow the sides beat and it is a chorus, not a width"}
+  - {block: filter1, param: cutoff,   range: "dark – bright",       default: mid}
+  - {block: filter2, param: cutoff,   range: "mid – open",          default: bright}
+  - {block: lfo1,    param: depth,    range: "none – moderate",     default: little}
+  - {block: aenv,    param: release,  range: "short – long",        default: medium}
+
+listening:
+  cue: "The chord is wide, out past the speakers, and the two sides are not the same chord: the left is rounder, the right has more edge, and they drift against each other slowly. There is no echo in it and no sweep."
+  ab: "Set the detune to none and both cutoffs to mid: the sides are identical and the chord drops into the centre, a mono sound. Put the detune back alone: it widens. Put the filter difference back: it widens again, differently."
+
+render:
+  tempo: 100
+  note: [C3, E3, G3]
+  velocity: 90
+  pattern: "one triad held two bars, released, tail to silence"
+  length_s: 6.0
+
+mappings: {}

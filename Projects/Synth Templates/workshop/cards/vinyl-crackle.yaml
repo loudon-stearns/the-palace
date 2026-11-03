@@ -1,0 +1,63 @@
+# Synth Templates — card 0.2 — Vinyl Crackle
+# Sound Effects, tier 2. Thin noise, mostly silent: a sample-and-hold on the amp that only occasionally lets a tick through.
+schema: synth-template-card/0.2
+id: vinyl-crackle
+name: Vinyl Crackle
+family: Sound Effects
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Low-pass, high-pass, band-pass, notch"
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Noise colors: white vs pink"
+  - "LFO rate range vs oscillator; LFO into audio rate"
+
+graph:
+  blocks:
+    noise:   {kind: oscillator, wave: noise, color: white}
+    filter1: {kind: filter, type: highpass, slope: 12, resonance: none}
+    filter2: {kind: filter, type: lowpass, slope: 12, resonance: none, note: "takes the top off so the ticks are dusty, not sharp"}
+    amp:     {kind: amplifier, level: low}
+    aenv:    {kind: envelope, role: amp, shape: {a: short, d: short, s: full, r: medium}, category: pad}
+    lfo1:    {kind: lfo, wave: s&h, rate: very fast, sync: false, note: "sparse: most steps should sit at silence and a few jump up; the voice has no threshold yet and plays every step"}
+  audio:
+    - [noise, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: amp.level, amount: full, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: noise,   param: color,    value: white,          why: "the ticks are high and dry"}
+  - {block: filter1, param: type,     value: highpass 12 dB, why: "nothing below the surface noise of a record"}
+  - {block: filter1, param: cutoff,   value: mid,            why: "high enough to lose any body"}
+  - {block: lfo1,    param: wave,     value: s&h,            why: "steps, not slopes: a tick is a step up and a step back down"}
+  - {block: lfo1,    param: rate,     value: very fast,      why: "ticks are short; the step must be over in a few hundredths of a second"}
+  - {block: lfo1,    param: amount,   value: full,           why: "down to silence between ticks: the silence is most of the sound"}
+  - {block: lfo1,    param: target,   value: amp level,      why: "the randomness is in whether there is sound at all"}
+  - {block: amp,     param: level,    value: low,            why: "it sits under the record, never on top of it"}
+
+taste:
+  - {block: lfo1,    param: rate,     range: "fast – very fast",   default: very fast, why: "slower is a scratched record, faster is rain"}
+  - {block: lfo1,    param: depth,    range: "generous – full",    default: full}
+  - {block: filter1, param: cutoff,   range: "mid – bright",       default: mid}
+  - {block: filter2, param: cutoff,   range: "mid – open",         default: bright, why: "duller for an older record"}
+  - {block: amp,     param: level,    range: "little – half",      default: low}
+
+listening:
+  cue: "Mostly nothing, with ticks in it: a few dry clicks a second at no fixed interval, and quiet between them. The quiet is the texture."
+  ab: "Set the sample-and-hold amount to none: the ticks vanish into a steady thin hiss, tape instead of vinyl. Back to full and the ticks come back."
+
+render:
+  tempo: 90
+  note: C3
+  velocity: 70
+  pattern: "one note held four bars"
+  length_s: 10.0
+
+mappings: {}

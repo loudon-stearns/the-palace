@@ -1,0 +1,77 @@
+# Synth Templates — card 0.2 — Serial: Dual Notch Pad
+# Filter Routings, tier 2. Two notches wander at different speeds and never line up; a little noise shows the movement; the stack is as wide as the synth allows.
+schema: synth-template-card/0.2
+id: serial-dual-notch-pad
+name: "Serial: Dual Notch Pad"
+family: Filter Routings
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Noise for softness and high end"
+  - "Serial: dual notch pad with two unsynced LFOs"
+  - "Serial routing"
+  - "Unison / unisono"
+  - "LFO → pitch / amplitude / pan / filter"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 7, detune: wide, note: "as many unison voices as the synth can manage"}
+    noise:   {kind: oscillator, wave: noise, level: little, note: "a little, because it adds up with every held note"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: notch, slope: 24, resonance: little}
+    filter2: {kind: filter, type: notch, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [chorus, reverb]}
+    aenv:    {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: long}, category: pad}
+    lfo1:    {kind: lfo, wave: triangle, rate: very slow, sync: false, note: "free-running; one speed"}
+    lfo2:    {kind: lfo, wave: triangle, rate: slow, sync: false, note: "free-running; a different speed, so the two never repeat together"}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: filter1.cutoff, amount: generous, essential: true}
+    - {from: lfo2, to: filter2.cutoff, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: saw}
+  - {block: osc1,    param: unison,    value: 7 voices,      why: "max unison: the notches have a wide wall to move across"}
+  - {block: noise,   param: level,     value: little,        why: "warmth, and it makes the filter movement audible without single harmonics jumping; little, because it stacks with every voice"}
+  - {block: filter1, param: type,      value: notch}
+  - {block: filter2, param: type,      value: notch,         why: "two notches moving are two holes drifting through the sound"}
+  - {block: lfo1,    param: rate,      value: very slow}
+  - {block: lfo2,    param: rate,      value: slow,          why: "a different rate from LFO 1, so the texture never loops where you can hear the seam"}
+  - {block: lfo1,    param: sync,      value: "off",         why: "unsynced: the motion is weather, not a beat"}
+  - {block: aenv,    param: attack,    value: slow,          why: "a soft pad"}
+  - {block: mode,    param: voices,    value: poly}
+
+taste:
+  - {block: lfo1,    param: depth,     range: "moderate – full",       default: generous, why: "slow and wide"}
+  - {block: lfo2,    param: depth,     range: "moderate – full",       default: generous}
+  - {block: filter1, param: resonance, range: "none – moderate",       default: little}
+  - {block: noise,   param: level,     range: "off – quarter",         default: little,   why: "hear it on a six-note chord before you decide"}
+  - {block: osc1,    param: detune,    range: "narrow – very wide",    default: wide}
+  - {block: aenv,    param: release,   range: "long – very long",      default: long}
+  - {block: fx,      param: reverb,    range: "large – huge",          default: large}
+
+listening:
+  cue: "A wide soft chord with two hollows slowly drifting through it in different directions, so the colour never settles. A faint breath of air rides the movement."
+  ab: "Set both LFOs to the same rate: the two hollows march together and the pad starts to breathe in a loop you can count. Set them different again and the loop dissolves. Then raise the noise to quarter and play a six-note chord: the breath becomes a hiss."
+
+render:
+  tempo: 60
+  note: [D3, A3, D4, F4, C5]
+  velocity: 80
+  pattern: "one chord held ten seconds, released, tail to silence"
+  length_s: 14.0
+
+mappings: {}

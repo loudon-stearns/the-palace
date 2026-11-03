@@ -1,0 +1,60 @@
+# Synth Templates — card — Interval Stack (Fifth)
+# Voices, Tuning and Retrigger family. Osc2 on the semitone knob: a fifth makes a power chord out of one key.
+schema: synth-template-card/0.2
+id: interval-stack-fifth
+name: Interval Stack (Fifth)
+family: Voices, Tuning and Retrigger
+tier: 1
+mode: poly
+classics:
+status: drafted
+concepts:
+  - "Octave / semitone / fine tuning"
+  - "Harmonic-series tuning table"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    osc2:    {kind: oscillator, wave: saw, octave: 0, semi: 7, note: "the semitone knob at +7: a fifth above osc1; +4 is a third, +10 a seventh"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: osc1, param: wave,   value: saw}
+  - {block: osc2, param: wave,   value: saw}
+  - {block: osc2, param: semi,   value: "+7",  why: "a fifth: the interval the harmonic series gives first after the octave, so it fuses with the root"}
+  - {block: osc2, param: octave, value: 0,     why: "a fifth in the same octave is a power chord; an octave higher it is the third harmonic, and it fuses"}
+  - {block: osc2, param: level,  value: equal to osc1, why: "a chord, not a colour: both notes count"}
+  - {block: mode, param: voices, value: poly,  why: "every key is already two notes; play two keys and it is four"}
+
+taste:
+  - {block: osc2,    param: semi,   range: "+4 – +10",            default: "+7", why: "+4 a major third, +10 a minor seventh; each is a special effect in its own way"}
+  - {block: osc2,    param: level,  range: "half – equal to osc1", default: equal to osc1}
+  - {block: filter1, param: cutoff, range: "mid – bright",         default: mid}
+  - {block: aenv,    param: release, range: "short – medium",      default: short}
+
+listening:
+  cue: "One key, two notes: a bare fifth that sounds like a guitar power chord. The two saws keep their identities; it is a chord, not a thicker note."
+  ab: "Set osc2's semitone to 0 and its fine tune to 7 cents: the chord collapses into a single swirling note. Back to +7 semitones and the chord is there again. Then try +4: the fifth becomes a third, and the mood changes with it."
+
+render:
+  tempo: 100
+  note: [C3, F3, G3]
+  velocity: 100
+  pattern: "three single keys, a bar each, so each key is heard as a two-note chord"
+  length_s: 7.0
+
+mappings: {}

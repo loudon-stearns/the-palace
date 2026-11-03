@@ -1,0 +1,77 @@
+# Synth Templates — Genre Classics — Orchestra Hit
+# The Fairlight's stab was a sample; here it is built: strings, low brass and a burst of noise, struck together and cut short.
+schema: synth-template-card/0.2
+id: orchestra-hit
+name: Orchestra Hit
+family: Genre Classics
+tier: 2
+mode: poly
+classics: Fairlight
+status: drafted
+concepts:
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Unison / unisono"
+  - "Octave / semitone / fine tuning"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 3, detune: narrow, note: "the strings: a detuned stack"}
+    osc2:    {kind: oscillator, wave: saw, octave: -1, level: half, note: "the brass and basses: a plain saw an octave under"}
+    noise:   {kind: oscillator, wave: noise, level: quarter, note: "the hit: the sound of a whole section starting at once; the voice gives it the amp envelope, not its own"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb]}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short, s: low, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: medium, s: zero, r: same as decay}, category: struck}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: poly,           why: "a hit is a chord, usually a big one"}
+  - {block: osc1,    param: unison,    value: 3 voices,       why: "the string section: many players, slightly apart"}
+  - {block: osc2,    param: octave,    value: -1,             why: "the brass and basses an octave under: the weight of the orchestra"}
+  - {block: noise,   param: level,     value: quarter,        why: "the first instant of an orchestra is noise: bows, breath, the hall; without it the stab is a synth chord"}
+  - {block: fenv,    param: decay,     value: short,          why: "the brightness is in the hit and gone"}
+  - {block: aenv,    param: attack,    value: instant,        why: "struck, all at once"}
+  - {block: aenv,    param: sustain,   value: zero,           why: "it stops whether you hold it or not"}
+  - {block: aenv,    param: decay,     value: medium,         why: "a stab, not a chord: short enough to be a rhythm"}
+  - {block: fx,      param: chain,     value: reverb,         why: "the hall is half the sample"}
+
+taste:
+  - {block: osc1,    param: detune,    range: "slight – wide",      default: narrow}
+  - {block: osc2,    param: level,     range: "quarter – equal",    default: half}
+  - {block: noise,   param: level,     range: "little – half",      default: quarter}
+  - {block: filter1, param: cutoff,    range: "mid – bright",       default: mid}
+  - {block: fenv,    param: amount,    range: "some – generous",    default: moderate}
+  - {block: aenv,    param: decay,     range: "short – long",       default: medium, why: "the length of the stab"}
+  - {block: fx,      param: reverb,    range: "large – huge",       default: large}
+
+listening:
+  cue: "One loud chord that is over almost at once, with a rush of noise on its front edge and a hall behind it. It reads as many instruments because the layers start together and die together."
+  ab: "Turn the noise off: it is a synth chord with a fast envelope, and the orchestra is gone. Put it back. Then lengthen the amp decay to very long: a pad with a loud start, and the stab is no longer a rhythm."
+
+render:
+  tempo: 120
+  note: [C3, G3, C4, Eb4, G4]
+  velocity: 120
+  pattern: "the chord on beats 1 and the 'and' of 2, then once on beat 4, each a sixteenth long; the hall rings after"
+  length_s: 4.0
+
+mappings: {}

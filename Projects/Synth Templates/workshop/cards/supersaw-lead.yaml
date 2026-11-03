@@ -1,0 +1,68 @@
+# Synth Templates — card — Supersaw Lead
+# The supersaw pad's stack played as a line: seven detuned saws, a fast envelope, and a big room behind it.
+schema: synth-template-card/0.2
+id: supersaw-lead
+name: Supersaw Lead
+family: Leads
+tier: 1
+mode: poly
+classics: JP-8000 trance
+status: drafted
+lineage:
+  - "cards/supersaw-pad.yaml: the same stack with a slow attack and a chord under it"
+concepts:
+  - "Unison / unisono"
+  - "Small detune (≤7 cents) = chorus"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 7, detune: wide, spread: wide}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb]}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: medium, s: low, r: short}, category: sustaining}
+    aenv:    {kind: envelope, role: amp,    shape: {a: fast, d: short, s: held, r: medium}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: some, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,     value: saw,           why: "every harmonic present, so the unison beating lives in every partial"}
+  - {block: osc1,    param: unison,   value: 7 voices,      why: "the supersaw is the stack, not the wave"}
+  - {block: osc1,    param: detune,   value: wide,          why: "past the chorus range: the voices beat against each other instead of thickening"}
+  - {block: filter1, param: cutoff,   value: bright,        why: "a lead: open enough to cut, the stack supplies the rest"}
+  - {block: fenv,    param: amount,   value: some,          why: "a mild bite on each note; the sweep is not the point"}
+  - {block: aenv,    param: attack,   value: fast,          why: "the lead strikes; the pad with this stack swells"}
+  - {block: aenv,    param: sustain,  value: held,          why: "sustaining: the line holds while the key is down"}
+  - {block: fx,      param: chain,    value: big reverb,    why: "the stack is wide but dry; the room makes it a trance lead"}
+  - {block: mode,    param: voices,   value: poly,          why: "octaves and fifths stack; one voice at a time is a thinner lead"}
+
+taste:
+  - {block: osc1,    param: detune,   range: "narrow – very wide",   default: wide}
+  - {block: osc1,    param: spread,   range: "narrow – wide",        default: wide}
+  - {block: filter1, param: cutoff,   range: "mid – open",           default: bright}
+  - {block: fenv,    param: amount,   range: "little – moderate",    default: some}
+  - {block: aenv,    param: release,  range: "short – long",         default: medium}
+  - {block: fx,      param: reverb,   range: "large – huge",         default: huge}
+
+listening:
+  cue: "A line that shimmers rather than sits: seven voices beating inside each note, a short bite at the start, and a room that keeps ringing after the note is gone."
+  ab: "Set unison to 1 voice: the same line is a thin, plain saw. Back to 7 and the shimmer returns. Then set detune to none with 7 voices: louder, but it stops moving."
+
+render:
+  tempo: 138
+  note: [A4, A4, E5, A4, G4, A4, C5, A4]
+  velocity: 100
+  pattern: "eighths, one bar; the last note held a beat into the reverb tail"
+  length_s: 4.0
+
+mappings: {}

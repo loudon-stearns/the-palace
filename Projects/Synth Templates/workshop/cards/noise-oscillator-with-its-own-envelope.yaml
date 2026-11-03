@@ -1,0 +1,66 @@
+# Synth Templates — card — Noise Oscillator with Its Own Envelope
+# Voices, Tuning and Retrigger family. The main oscillator sustains; the noise oscillator gets its own very short envelope so it lives at the attack only.
+schema: synth-template-card/0.2
+id: noise-oscillator-with-its-own-envelope
+name: Noise Oscillator with Its Own Envelope
+family: Voices, Tuning and Retrigger
+tier: 1
+mode: poly
+classics:
+status: drafted
+concepts:
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Noise colors: white vs pink"
+  - "Sustaining vs non-sustaining sounds"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, note: "the steady-state note"}
+    noise:   {kind: oscillator, wave: noise, color: white, level: half, note: "the inharmonic burst before the note settles; its level follows the noise envelope. The voice cannot yet envelope one source's level on its own"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    menv:    {kind: envelope, role: noise, shape: {a: instant, d: fast, s: zero, r: fast}, category: percussive, note: "the noise oscillator's own envelope"}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: medium}, category: sustaining}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: noise.level, amount: full, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: menv.gate,  essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+    - {from: vel,  to: menv.amount, amount: some, essential: false}
+
+essentials:
+  - {block: osc1,  param: wave,    value: saw}
+  - {block: noise, param: wave,    value: white noise, why: "all frequencies at once: the broadband burst real instruments make before the pitch settles"}
+  - {block: menv,  param: target,  value: noise level, why: "the noise has its own envelope; the amp envelope is for the note, not the burst"}
+  - {block: menv,  param: attack,  value: instant}
+  - {block: menv,  param: decay,   value: fast,        why: "the burst is over before the note is heard as a pitch"}
+  - {block: menv,  param: sustain, value: zero,        why: "noise at the attack only: any sustain and it is hiss under the whole note"}
+  - {block: aenv,  param: sustain, value: held,        why: "the note itself is sustaining; only the noise is percussive"}
+  - {block: mode,  param: voices,  value: poly}
+
+taste:
+  - {block: noise,   param: level,  range: "little – full",     default: half, why: "how hard the strike"}
+  - {block: menv,    param: decay,  range: "instant – short",   default: fast, why: "short is a breathy chiff; instant is a tick"}
+  - {block: filter1, param: cutoff, range: "mid – open",        default: bright, why: "the noise lives up high; close the filter and the chiff goes with it"}
+  - {block: aenv,    param: attack, range: "fast – short",      default: fast}
+
+listening:
+  cue: "A breath or a chiff at the front of each note, then a plain saw with no hiss at all. The attack sounds like something was struck or blown; the body says nothing was."
+  ab: "Raise the noise envelope's sustain to half: hiss sits under the whole note and the chiff stops being an event. Back to zero and the burst is at the front only. Then turn the noise off: the same saw, but every note starts flat and electronic."
+
+render:
+  tempo: 100
+  note: [C3, E3, G3]
+  velocity: 100
+  pattern: "three separate notes a bar each, then the three together held a bar"
+  length_s: 8.0
+
+mappings: {}

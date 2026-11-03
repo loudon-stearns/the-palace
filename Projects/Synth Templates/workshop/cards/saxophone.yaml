@@ -1,0 +1,80 @@
+# Synth Templates — card — Saxophone
+# Brass with breath, and a growl: a fast, tiny LFO on pitch and amp at once, brought in by aftertouch.
+schema: synth-template-card/0.2
+id: saxophone
+name: Saxophone
+family: Brass and Winds
+tier: 3
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "LFO → pitch / amplitude / pan / filter"
+  - "LFO rate range vs oscillator; LFO into audio rate"
+  - "Noise for softness and high end"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+  - "Aftertouch → filter cutoff"
+  - "Vibrato: ~5 Hz, under a semitone; dedicated vibrato LFO"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    noise:   {kind: oscillator, wave: noise, level: little, note: "the breath under the reed"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: short, d: medium, s: low, r: short}, category: sustaining}
+    aenv:    {kind: envelope, role: amp,    shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+    lfo1:    {kind: lfo, wave: sine, rate: very fast, sync: false, note: "the growl: too fast to hear as a wobble, too slow to be a tone"}
+    lfo2:    {kind: lfo, wave: sine, rate: medium, sync: false, note: "the vibrato"}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv,  to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv,  to: amp.level, essential: true}
+    - {from: lfo1,  to: osc1.pitch, amount: little, essential: true}
+    - {from: lfo1,  to: amp.level, amount: little, essential: true}
+    - {from: at,    to: lfo1.depth, amount: full, essential: true}
+    - {from: lfo2,  to: osc1.pitch, amount: little, essential: false}
+    - {from: wheel, to: lfo2.depth, amount: full, essential: false}
+    - {from: key,   to: osc1.pitch, essential: true}
+    - {from: key,   to: fenv.gate, essential: true}
+    - {from: key,   to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,     value: saw,             why: "a reed on a brass body: every harmonic"}
+  - {block: noise,   param: level,    value: little,          why: "breath: it softens the saw and adds the air a reed always carries"}
+  - {block: filter1, param: type,     value: lowpass 24 dB}
+  - {block: fenv,    param: attack,   value: short,           why: "the blat, as on the brass: the filter opens over the first tenth of a second"}
+  - {block: fenv,    param: sustain,  value: low,             why: "the burst is louder than the hold"}
+  - {block: lfo1,    param: rate,     value: very fast,       why: "the growl: at twelve cycles a second the ear stops hearing a wobble and hears a rasp"}
+  - {block: lfo1,    param: target,   value: pitch and amp,   why: "both at once, tiny: pitch alone is a trill, amp alone a flutter; together it is a throat"}
+  - {block: at,      param: target,   value: growl depth,     why: "pressed in on the held note, the way a player growls into a long one"}
+  - {block: aenv,    param: sustain,  value: held}
+  - {block: mode,    param: voices,   value: mono,            why: "one horn"}
+
+taste:
+  - {block: lfo1,    param: rate,     range: "fast – very fast",  default: very fast, why: "slower is a wide vibrato, faster edges toward a tone"}
+  - {block: lfo1,    param: depth,    range: "little – some",     default: little,    why: "tiny; more is a siren"}
+  - {block: noise,   param: level,    range: "off – low",         default: little}
+  - {block: filter1, param: cutoff,   range: "dark – mid",        default: dark}
+  - {block: fenv,    param: amount,   range: "some – generous",   default: moderate}
+  - {block: lfo2,    param: depth,    range: "none – some",       default: little}
+  - {block: aenv,    param: release,  range: "short – medium",    default: short}
+
+listening:
+  cue: "A reedy brass blat with breath in it. Press into a held note and it growls: a fast rasp in the throat of the tone, not a wobble. The wheel gives the slower, singing vibrato."
+  ab: "Slow the growl LFO to medium: the rasp turns into an ordinary vibrato and the growl is gone. Back to very fast and the throat returns. Then take the LFO off the amp and leave it on pitch only: a trill, not a growl."
+
+render:
+  tempo: 92
+  note: [Bb3, D4, F4, Bb4]
+  velocity: 105
+  pattern: "an arpeggio up, one note per beat, the last held two bars with aftertouch pressed in through the hold"
+  length_s: 6.0
+
+mappings: {}

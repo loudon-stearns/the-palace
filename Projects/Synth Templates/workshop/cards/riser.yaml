@@ -1,0 +1,74 @@
+# Synth Templates — card 0.2 — Riser
+# Sound Effects, tier 1. Noise and a saw rising together: three long attacks (filter, pitch, amp) are the whole sound.
+schema: synth-template-card/0.2
+id: riser
+name: Riser
+family: Sound Effects
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Noise colors: white vs pink"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+  - "Envelope → pitch (attack blip)"
+  - "Reverse envelope: swell and stop"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 3, detune: wide, note: "the pitch that climbs; the noise does not"}
+    noise:   {kind: oscillator, wave: noise, color: white, note: "the air under the saw"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb]}
+    fenv:    {kind: envelope, role: filter, shape: {a: very long, d: short, s: full, r: short}, category: swell}
+    menv:    {kind: envelope, role: pitch,  shape: {a: very long, d: short, s: full, r: short}, category: swell}
+    aenv:    {kind: envelope, role: amp,    shape: {a: long, d: short, s: full, r: short}, category: swell}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: full, essential: true}
+    - {from: menv, to: osc1.pitch, amount: about an octave, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: noise,   param: wave,    value: noise,        why: "noise has every frequency, so an opening filter is heard the whole way up"}
+  - {block: osc1,    param: wave,    value: saw,          why: "a pitch to climb; the saw's harmonics give the filter something to uncover above the noise"}
+  - {block: filter1, param: cutoff,  value: dark,         why: "closed at rest; the envelope has somewhere to go"}
+  - {block: fenv,    param: attack,  value: very long,    why: "the sweep is the attack stage: as slow as the table goes"}
+  - {block: fenv,    param: sustain, value: full,         why: "it must arrive open and stay there until the drop"}
+  - {block: menv,    param: attack,  value: very long,    why: "pitch climbs at the same pace as the filter; two things rising read as one"}
+  - {block: aenv,    param: attack,  value: long,         why: "it fades in; a riser that starts loud has nowhere to build"}
+  - {block: aenv,    param: release, value: short,        why: "it cuts at the downbeat; the reverb carries what is left"}
+  - {block: fx,      param: chain,   value: reverb,       why: "size; the cut-off at the top lands in a room, not a wall"}
+
+taste:
+  - {block: fenv,    param: attack,  range: "long – very long",     default: very long, why: "two bars or eight"}
+  - {block: menv,    param: amount,  range: "a fifth – two octaves", default: about an octave}
+  - {block: osc1,    param: detune,  range: "narrow – very wide",   default: wide}
+  - {block: noise,   param: level,   range: "quarter – equal",      default: half}
+  - {block: filter1, param: resonance, range: "none – moderate",    default: little, why: "a little whistle rides the sweep up"}
+  - {block: fx,      param: reverb,  range: "large – huge",         default: large}
+
+listening:
+  cue: "Nothing happens, then everything is happening: the sound opens, climbs and loudens together, and the tension is in how long it takes. The cut at the end is the point."
+  ab: "Set the filter envelope attack to instant: the sound is open from the start and there is nothing to wait for. Put it back to very long and the build returns."
+
+render:
+  tempo: 128
+  note: C3
+  velocity: 100
+  pattern: "one note held four bars then released on the downbeat of bar five"
+  length_s: 9.0
+
+mappings: {}

@@ -1,0 +1,61 @@
+# Synth Templates — card 0.2 — UI Blip
+# Sound Effects, tier 1. A micro sound: a sine for a few hundredths of a second with the pitch rising inside it.
+schema: synth-template-card/0.2
+id: ui-blip
+name: UI Blip
+family: Sound Effects
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Envelope → pitch (attack blip)"
+  - "Phase, free-running vs retrigger, the click"
+  - "Pluck / strike: release = decay; gong vs marimba"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 1, retrigger: true}
+    amp:     {kind: amplifier, level: under unity}
+    menv:    {kind: envelope, role: pitch, shape: {a: short, d: short, s: full, r: short}, category: swell, note: "runs upward: a rising attack and no decay, so the pitch climbs through the blip"}
+    aenv:    {kind: envelope, role: amp,   shape: {a: instant, d: short, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc1.pitch, amount: a fifth, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: sine,          why: "one partial, no filter: at this length anything richer is a click with a buzz in it"}
+  - {block: osc1,    param: retrigger, value: "on",          why: "a sound this short is all attack; the phase must start the same every time"}
+  - {block: aenv,    param: attack,    value: instant}
+  - {block: aenv,    param: decay,     value: short,         why: "the whole sound is under a tenth of a second; it is a dot, not a note"}
+  - {block: aenv,    param: sustain,   value: zero,          why: "it ends on its own; the key is a tap"}
+  - {block: menv,    param: attack,    value: short,         why: "the pitch rises across the length of the blip: the question-mark lift that says 'done'"}
+  - {block: menv,    param: sustain,   value: full,          why: "upward, not a blip down: it climbs and the amp ends it before it can fall"}
+  - {block: menv,    param: amount,    value: a fifth,       why: "small; an octave is a laser"}
+
+taste:
+  - {block: aenv,    param: decay,     range: "fast – short",         default: short, why: "fast is a tick"}
+  - {block: menv,    param: amount,    range: "a fifth – about an octave", default: a fifth}
+  - {block: menv,    param: attack,    range: "fast – short",         default: short}
+  - {block: osc1,    param: wave,      range: "sine – square",        default: sine, why: "square for an older machine"}
+  - {block: amp,     param: level,     range: "half – full",          default: under unity}
+
+listening:
+  cue: "A dot of sound, high and clean, that lifts as it goes: 'bip', not 'bop'. It is over before you have finished hearing it."
+  ab: "Set the pitch envelope amount to none: the same dot, flat, and it sounds like an error instead of a confirmation. Put the fifth back and it lifts again."
+
+render:
+  tempo: 120
+  note: C5
+  velocity: 100
+  pattern: "two blips a beat apart"
+  length_s: 1.5
+
+mappings: {}

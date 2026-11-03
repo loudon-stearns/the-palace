@@ -1,0 +1,70 @@
+# Synth Templates — Genre Classics — Juno Pad
+# The Juno has one oscillator, a sub, a 24 dB filter and a chorus. The chorus is the instrument; everything before it is plain.
+schema: synth-template-card/0.2
+id: juno-pad
+name: Juno Pad
+family: Genre Classics
+tier: 1
+mode: poly
+classics: Juno-60/106
+status: drafted
+concepts:
+  - "Subtractive: rich wave then filter"
+  - "Chorus: multiple delays, own LFOs, no feedback"
+  - "Standard sustaining envelope; strings and horns variants"
+  - "Stereo width by L/R delay difference; detune and filter per side"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 1, note: "one plain saw; the Juno has no second oscillator"}
+    sub:     {kind: oscillator, wave: square, octave: -1, note: "the Juno sub is a square an octave down"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [chorus], note: "chorus II: two delay lines, two LFOs, left and right out of step; no feedback"}
+    aenv:    {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: long}, category: pad}
+  audio:
+    - [osc1, mix]
+    - [sub, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: sub.pitch,  essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+    - {from: vel,  to: filter1.cutoff, amount: little, essential: false}
+
+essentials:
+  - {block: mode,    param: voices,   value: poly,           why: "a chord instrument; the chorus needs voices to smear together"}
+  - {block: osc1,    param: wave,     value: saw,            why: "all harmonics, so the chorus has something to spread at every partial"}
+  - {block: osc1,    param: unison,   value: 1 voice,        why: "no stack and no detune: the width comes from the chorus, not the oscillator"}
+  - {block: sub,     param: wave,     value: square,         why: "the Juno sub: hollow weight an octave under"}
+  - {block: filter1, param: type,     value: lowpass 24 dB,  why: "closes the saw's buzz without resonance taking over"}
+  - {block: filter1, param: cutoff,   value: mid,            why: "half open; the pad is warm, not bright"}
+  - {block: aenv,    param: attack,   value: slow,           why: "the chord arrives; a fast attack makes it a brass stab"}
+  - {block: aenv,    param: sustain,  value: held,           why: "sustaining: the note keeps coming while the key is down"}
+  - {block: fx,      param: chain,    value: chorus,         why: "two delays swinging against each other, one per side: this is the whole Juno sound"}
+
+taste:
+  - {block: sub,     param: level,    range: "off – equal to osc1",  default: half}
+  - {block: filter1, param: cutoff,   range: "dark – bright",        default: mid}
+  - {block: filter1, param: resonance, range: "none – moderate",     default: little}
+  - {block: aenv,    param: attack,   range: "medium – very slow",   default: slow}
+  - {block: aenv,    param: release,  range: "medium – very long",   default: long}
+  - {block: fx,      param: chorus,   range: "I – I+II",             default: II, why: "I is gentle, II is wider and slower, both together wobble"}
+
+listening:
+  cue: "A dry saw chord that turns into a wide, slowly swimming wash the moment the chorus is on. The movement is in the stereo field, not in the pitch of any one voice."
+  ab: "Switch the chorus off: the same chord is a narrow, static, slightly dull saw. Switch it back on and it is a Juno. Then raise unison to 7 with detune: louder and thicker, but the swim is gone and the shimmer sits inside the mono image."
+
+render:
+  tempo: 100
+  note: [F3, A3, C4, E4]
+  velocity: 90
+  pattern: "one major-seventh chord held two bars, released, tail to silence"
+  length_s: 7.0
+
+mappings: {}

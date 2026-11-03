@@ -1,0 +1,67 @@
+# Synth Templates — card 0.2 — Stereo Width by L/R Delay
+# Delay-family card 9: the most common way to make width. The same sound in both channels, one of them a little late.
+# Then the lateness moves, and the sound moves with it.
+schema: synth-template-card/0.2
+id: stereo-width-by-l-r-delay
+name: Stereo Width by L/R Delay
+family: Delay-Family Effects
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Stereo width by L/R delay difference; detune and filter per side"
+  - "Delay: time, feedback, mix"
+  - "Delay time LFO modulation"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: square, pw: 0.5, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [delay], note: "a delay on the right channel only, under thirty milliseconds, delayed signal in place of the dry on that side; the voice's delay is not yet per side"}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short, s: zero, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: medium, s: zero, r: short}, category: plucked}
+    lfo1:    {kind: lfo, wave: sine, rate: very slow, sync: false}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: lfo1, to: fx.time, amount: little, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,     value: square,        why: "a plain mono source; whatever width appears is the delay's"}
+  - {block: fenv,    param: sustain,  value: zero,          why: "a pluck has a clear start, and the start is what the ears use to place a sound"}
+  - {block: fx,      param: chain,    value: delay}
+  - {block: fx,      param: side,     value: right channel only, why: "the left is dry, the right is late; the difference between the channels is the width"}
+  - {block: fx,      param: time,     value: a few milliseconds, why: "under about thirty milliseconds the late side is not an echo: the ears fuse the two and lean toward the earlier one"}
+  - {block: fx,      param: mix,      value: "delayed only, on that side", why: "the right channel is replaced, not doubled; doubling would add a comb"}
+  - {block: fx,      param: feedback, value: none,          why: "one copy; repeats would be an echo"}
+  - {block: mode,    param: voices,   value: mono}
+
+taste:
+  - {block: fx,      param: time,     range: "none – thirty ms", default: a few milliseconds, why: "near zero it is mono; near thirty it is nearly a slap"}
+  - {block: lfo1,    param: depth,    range: "none – moderate",       default: little, why: "modulating the lateness moves the sound in the field"}
+  - {block: lfo1,    param: rate,     range: "very slow – slow",      default: very slow}
+  - {block: filter1, param: cutoff,   range: "mid – bright",          default: bright}
+  - {block: aenv,    param: decay,    range: "short – medium",        default: medium}
+
+listening:
+  cue: "One pluck, but it sits to the left and is wider than a single speaker: the earlier side wins, and the late side spreads it. Bring the LFO in and the pluck drifts across the field, not panned, but leaning."
+  ab: "Set the delay time to none: both sides identical and the pluck snaps to the centre, narrow. Put a few milliseconds back: it leans and widens. Push the time out to a 16th: the width turns into a second pluck, an echo on the right."
+
+render:
+  tempo: 110
+  note: [C3, C3, Eb3, G3]
+  velocity: 100
+  pattern: "four plucks on the beats of one bar, each a 16th long, then a bar of rest"
+  length_s: 4.5
+
+mappings: {}

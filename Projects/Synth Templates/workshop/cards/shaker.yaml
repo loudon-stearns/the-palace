@@ -1,0 +1,57 @@
+# Synth Templates — card 0.2 — Shaker
+# Noise with an attack: the beads do not all hit the wall at once. A bandpass sat high picks the rattle; the slight attack is the whole lesson.
+schema: synth-template-card/0.2
+id: shaker
+name: Shaker
+family: Drums and Percussion
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Noise colors: white vs pink"
+  - "Low-pass, high-pass, band-pass, notch"
+  - "ADSR: three times and a level"
+
+graph:
+  blocks:
+    noise:   {kind: oscillator, wave: noise, level: full}
+    filter1: {kind: filter, type: bandpass, slope: 12, resonance: little}
+    amp:     {kind: amplifier, level: full}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: short, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [noise, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: noise,   param: wave,      value: noise,         why: "hundreds of beads: no pitch, only a spread of energy"}
+  - {block: filter1, param: type,      value: bandpass 12 dB, why: "a shaker is noise through a small wooden or tin body: one band of it"}
+  - {block: filter1, param: cutoff,    value: bright,        why: "high: the rattle sits above the hats' hiss"}
+  - {block: aenv,    param: attack,    value: fast,          why: "the beads arrive over a few milliseconds, not at once: that smear is what says shaker and not hat"}
+  - {block: aenv,    param: decay,     value: short}
+  - {block: aenv,    param: sustain,   value: zero,          why: "struck, then left to decay"}
+
+taste:
+  - {block: aenv,    param: attack,    range: "instant – short",  default: fast, why: "longer is a reversed hat, a swell"}
+  - {block: aenv,    param: decay,     range: "fast – medium",    default: short}
+  - {block: filter1, param: cutoff,    range: "mid – open",       default: bright, why: "the size of the shaker"}
+  - {block: filter1, param: resonance, range: "none – moderate",  default: little}
+
+listening:
+  cue: "A 'ch' rather than a 'tk': the noise rises into the hit instead of starting on it. Alternate loud and soft and it starts to breathe."
+  ab: "Set the attack to instant: a closed hat made of noise, every hit a tick. Back to fast and the beads return."
+
+render:
+  tempo: 100
+  note: C5
+  velocity: [100, 60, 80, 60, 100, 60, 80, 60]
+  pattern: "straight eighths, one bar, loud on the beat and soft between"
+  length_s: 2.5
+
+mappings: {}

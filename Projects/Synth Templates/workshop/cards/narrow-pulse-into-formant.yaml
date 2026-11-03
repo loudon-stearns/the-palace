@@ -1,0 +1,58 @@
+# Synth Templates — card — Narrow Pulse into Formant
+# Voices, Tuning and Retrigger family. A thin pulse is the nasal starting point; a formant filter makes it a vowel, and the wheel moves the vowel.
+schema: synth-template-card/0.2
+id: narrow-pulse-into-formant
+name: Narrow Pulse into Formant
+family: Voices, Tuning and Retrigger
+tier: 2
+mode: mono
+classics:
+status: drafted
+concepts:
+  - "Narrow pulse → nasal / vocal, with formant filter"
+  - "Pulse width, static and modulated"
+  - "Parallel: twin peaks, keytracking amount, vocal formants"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: pulse, pw: 0.1, octave: 0, note: "a 10% pulse: thin and nasal before any filter"}
+    filter1: {kind: filter, type: bandpass, slope: 12, resonance: high, note: "stands in for a formant filter; the voice has no formant model, so one resonant band-pass is the vowel"}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: short, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv,  to: amp.level, essential: true}
+    - {from: wheel, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: key,   to: osc1.pitch, essential: true}
+    - {from: key,   to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: pulse,     why: "a square whose up and down are not equal"}
+  - {block: osc1,    param: pw,        value: "10%",     why: "narrow: the spectrum goes thin and nasal, and a formant filter has something up high to pick out"}
+  - {block: filter1, param: type,      value: formant (band-pass), why: "a vowel is a fixed resonance that does not follow the key; the band-pass is one formant"}
+  - {block: filter1, param: resonance, value: high,      why: "a narrow peak: the vowel is where the peak is"}
+  - {block: filter1, param: keytrack,  value: "off",     why: "a formant stays put while the pitch moves, which is why it reads as a voice"}
+  - {block: wheel,   param: target,    value: formant frequency, why: "the wheel moves the vowel: ooh at the bottom, aah at the top"}
+  - {block: mode,    param: voices,    value: mono}
+
+taste:
+  - {block: osc1,    param: pw,        range: "5% – 25%",            default: "10%", why: "wider loses the nose"}
+  - {block: filter1, param: cutoff,    range: "dark – mid",          default: dark, why: "the vowel at rest"}
+  - {block: filter1, param: resonance, range: "moderate – high",     default: high}
+  - {block: aenv,    param: attack,    range: "fast – medium",       default: short}
+
+listening:
+  cue: "A reedy, nasal tone that says a vowel. Push the wheel up and the vowel opens from ooh toward aah while the note stays the same pitch; play up the keyboard and the vowel stays where it was."
+  ab: "Set the pulse width to 50%: the square is hollow and round, and the filter finds much less to shape; the vowel goes dull. Back to 10% and the nose returns. Then turn keytracking on: the vowel slides with every note and the voice turns back into a synth."
+
+render:
+  tempo: 100
+  note: [C3, G3, C3]
+  velocity: 100
+  pattern: "three notes a bar each, the wheel rising from bottom to top across the first and falling across the third"
+  length_s: 7.0
+
+mappings: {}

@@ -1,0 +1,54 @@
+# Synth Templates — card 0.2 — White Noise Burst
+# Sound Effects, tier 1. The simplest effect there is: noise and an amplitude envelope, nothing between them.
+schema: synth-template-card/0.2
+id: white-noise-burst
+name: White Noise Burst
+family: Sound Effects
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Noise colors: white vs pink"
+  - "Envelope → amplitude"
+  - "Pluck / strike: release = decay; gong vs marimba"
+
+graph:
+  blocks:
+    noise:   {kind: oscillator, wave: noise, color: white}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: short, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [noise, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: noise, param: wave,    value: noise,         why: "every frequency at once, so there is no pitch to hear and only the shape is left"}
+  - {block: noise, param: color,   value: white,         why: "flat across the band: harsh on its own, which is the point of a burst"}
+  - {block: aenv,  param: attack,  value: instant,       why: "a burst starts at full; any attack time turns it into a swell"}
+  - {block: aenv,  param: decay,   value: short,         why: "the whole sound is the decay: it is a shape, not a texture"}
+  - {block: aenv,  param: sustain, value: zero,          why: "non-sustaining: no energy is added after the hit"}
+  - {block: aenv,  param: release, value: same as decay, why: "a short key still plays the whole decay out"}
+
+taste:
+  - {block: aenv,  param: decay,   range: "fast – medium",     default: short, why: "fast is a tick, medium a snare without a drum"}
+  - {block: aenv,  param: attack,  range: "instant – fast",    default: instant}
+  - {block: amp,   param: level,   range: "half – full",       default: under unity}
+
+listening:
+  cue: "A single 'tss'. There is no pitch and no tone, only how fast it goes away. Everything you hear is the amp envelope."
+  ab: "Raise the sustain to full: the burst becomes a hiss that lasts as long as the key, and the shape is gone. Back to zero and it is a burst again."
+
+render:
+  tempo: 120
+  note: C3
+  velocity: 100
+  pattern: "four bursts on the beats, one bar"
+  length_s: 2.0
+
+mappings: {}

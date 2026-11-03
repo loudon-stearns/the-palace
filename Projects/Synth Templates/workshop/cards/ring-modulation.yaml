@@ -1,0 +1,54 @@
+# Synth Templates — card — Ring Modulation
+# Technique demonstration: two sines multiplied. What comes out is their sum and their difference, and neither of the two.
+schema: synth-template-card/0.2
+id: ring-modulation
+name: Ring Modulation
+family: Technique Demonstrations
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Harmonic-series tuning table"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, note: "carrier. The output is the product of the two: the voice cannot yet multiply; ring mod is drawn, not heard"}
+    osc2: {kind: oscillator, wave: sine, ratio: "1.5:1", level: full, note: "modulator; its ratio to the carrier sets whether the result is a chord or a clang"}
+    amp:  {kind: amplifier, level: under unity}
+    aenv: {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc2, osc1, ring]
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: sine, why: "one partial each, so the output is exactly two partials: the sum and the difference"}
+  - {block: osc2, param: wave,    value: sine}
+  - {block: osc2, param: routing, value: into osc1 ring, why: "multiplied, not added: the originals cancel and only the sidebands remain"}
+  - {block: osc2, param: ratio,   value: "1.5:1", why: "a fifth above: sum and difference land on the harmonic series and it sounds like a chord"}
+  - {block: osc2, param: level,   value: full, why: "ring mod has no index: the modulator is either in or out"}
+
+taste:
+  - {block: osc2, param: ratio, range: "1:1 – 2.37:1", default: "1.5:1", why: "simple ratios give intervals; an odd ratio gives a bell or a clang, because sum and difference are no longer harmonics of anything"}
+  - {block: osc2, param: octave, range: "-1 – +1",  default: 0}
+  - {block: aenv, param: release, range: "short – long", default: short}
+
+listening:
+  cue: "Two notes go in and two different notes come out: one above both, one below. At a simple ratio it is a hollow chord; nudge the ratio off and it turns metallic, a bell with no key centre."
+  ab: "Take the modulator out: a plain sine at the key's pitch. Put the ring back: that pitch is gone and only the sum and difference are left."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 90
+  pattern: "the same note three times, two seconds each: ratio 1:1, 1.5:1, 2.37:1"
+  length_s: 7.0
+
+mappings: {}

@@ -1,0 +1,67 @@
+# Synth Templates — card — Bagpipe
+# Drone and melody in one patch: one oscillator ignores the keyboard and holds its note; the other plays the tune.
+# No envelopes to speak of: the bag never stops. The amp envelope is a gate.
+schema: synth-template-card/0.2
+id: bagpipe
+name: Bagpipe
+family: Brass and Winds
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Key → pitch (keytracking)"
+  - "Switch envelope (organ); percussive organ"
+  - "Small detune (≤7 cents) = chorus"
+  - "Narrow pulse → nasal / vocal, with formant filter"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: -1, unison: 2, detune: slight, level: half, note: "the drones: fixed pitch, no keytracking; two pipes a few cents apart. Set the drone note to the tune's key"}
+    osc2:    {kind: oscillator, wave: pulse, pw: 0.25, octave: 0, note: "the chanter: the melody, keytracked"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: instant, s: full, r: instant}, category: organ, note: "a gate: the bag is always full; notes switch, they do not swell. In poly each key sounds its own drone; use a held key as the drone, or mono with the drone free-running"}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: keytracking, value: "off",          why: "the drone: one note under everything, whatever the chanter plays"}
+  - {block: osc1,    param: wave,      value: saw,              why: "the drones are reedy and full; every harmonic"}
+  - {block: osc1,    param: detune,    value: slight,           why: "two drone pipes never agree by a few cents: a slow beat, not a chorus"}
+  - {block: osc1,    param: octave,    value: -1,               why: "the drones sit an octave under the chanter"}
+  - {block: osc2,    param: wave,      value: pulse,            why: "the chanter is a nasal, narrow reed above the drone"}
+  - {block: osc2,    param: pw,        value: 0.25,             why: "narrow enough to be nasal, wide enough to carry the tune"}
+  - {block: aenv,    param: attack,    value: instant,          why: "no envelope: the bag is already blowing; a note is a switch"}
+  - {block: aenv,    param: sustain,   value: full,             why: "nothing fades; the pressure is constant"}
+  - {block: aenv,    param: release,   value: instant,          why: "the note stops when the finger moves, not after"}
+  - {block: mode,    param: voices,    value: poly,             why: "the drone note is held on one key while the chanter plays on others"}
+
+taste:
+  - {block: osc1,    param: level,     range: "quarter – equal",  default: half,  why: "how loud the drones sit under the tune"}
+  - {block: osc1,    param: detune,    range: "none – narrow",    default: slight, why: "none is one pipe; narrow is a worse player"}
+  - {block: osc2,    param: pw,        range: "0.15 – 0.4",       default: 0.25}
+  - {block: filter1, param: cutoff,    range: "mid – open",       default: bright}
+  - {block: amp,     param: level,     range: "half – full",      default: under unity}
+
+listening:
+  cue: "One low note that never moves, beating slowly against itself, and a nasal tune on top that switches from note to note with no fade in or out. Nothing breathes; it is all one held pressure."
+  ab: "Route the keyboard to the drone oscillator: the drone now follows the melody and it is a plain two-oscillator lead. Take the keytracking back off and the pipes return."
+
+render:
+  tempo: 100
+  note: [A3, A4, B4, C5, A4, G4, A4]
+  velocity: 100
+  pattern: "the first note held throughout as the drone key; over it the tune, one note per beat, no gaps between notes"
+  length_s: 6.0
+
+mappings: {}

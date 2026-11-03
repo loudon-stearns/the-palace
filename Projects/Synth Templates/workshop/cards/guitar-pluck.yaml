@@ -1,0 +1,75 @@
+# Synth Templates — card — Guitar Pluck
+# Plucked Strings, tier 1. A pluck with body: the filter envelope is the pick, the long amp decay is the string.
+schema: synth-template-card/0.2
+id: guitar-pluck
+name: Guitar Pluck
+family: Plucked Strings
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+  - "Subtractive: rich wave then filter"
+  - "Keytracking → decay and release time"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    osc2:    {kind: oscillator, wave: pulse, pw: 0.3, octave: 0, level: half, note: "a pulse beside the saw: the hollow part of a wound string"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short, s: zero, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: slow,  s: zero, r: same as decay}, category: plucked}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: fenv.gate,  essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+    - {from: vel,  to: fenv.amount, amount: some, essential: false}
+    - {from: key,  to: aenv.decay, amount: little, essential: false, note: "negative: high strings ring shorter"}
+
+essentials:
+  - {block: osc1,    param: wave,      value: saw,            why: "every harmonic, so the filter has something to close down on"}
+  - {block: osc2,    param: wave,      value: pulse,          why: "the hollow odd-harmonic part of the tone; saw alone is a brass pluck"}
+  - {block: filter1, param: type,      value: lowpass 24 dB,  why: "the attack is bright and the body is dull; a steep slope makes that a clear step"}
+  - {block: filter1, param: cutoff,    value: mid,            why: "the resting tone after the pick has passed: warm, not muffled"}
+  - {block: fenv,    param: attack,    value: instant}
+  - {block: fenv,    param: decay,     value: short,          why: "the pick: a bright instant that is gone before the note is"}
+  - {block: fenv,    param: sustain,   value: zero,           why: "the brightness is only in the attack"}
+  - {block: aenv,    param: attack,    value: instant,        why: "plucked: full volume at once"}
+  - {block: aenv,    param: decay,     value: slow,           why: "the string rings on its own for a second or two"}
+  - {block: aenv,    param: sustain,   value: zero,           why: "non-sustaining: nothing keeps the string going"}
+  - {block: aenv,    param: release,   value: same as decay,  why: "letting go of the key does not stop a string"}
+  - {block: mode,    param: voices,    value: poly,           why: "strummed chords; strings ring over each other"}
+
+taste:
+  - {block: filter1, param: cutoff,    range: "dark – bright",       default: mid}
+  - {block: fenv,    param: amount,    range: "some – generous",     default: moderate, why: "how hard the pick hits"}
+  - {block: fenv,    param: decay,     range: "fast – medium",       default: short}
+  - {block: osc2,    param: level,     range: "off – equal to osc1", default: half}
+  - {block: aenv,    param: decay,     range: "medium – long",       default: slow, why: "nylon shorter, steel longer"}
+  - {block: filter1, param: resonance, range: "none – moderate",     default: little}
+
+listening:
+  cue: "A bright snap at the front, then a warm note that fades by itself while the key is still down. Let go of the key and nothing changes."
+  ab: "Set the amp sustain to held: the pluck becomes an organ that waits for the key. Put it back to zero and the string rings out again. Then set the filter envelope amount to none: the body is there but the pick is gone."
+
+render:
+  tempo: 100
+  note: [E2, B2, E3, G#3, B3, E4]
+  velocity: 95
+  pattern: "an E major chord strummed low to high, one note per 16th, held a bar, then released and left to ring"
+  length_s: 5.0
+
+mappings: {}

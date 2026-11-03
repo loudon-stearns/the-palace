@@ -1,0 +1,61 @@
+# Synth Templates — card 0.2 — Keytracked LFO Rate
+# Retrigger alone is not enough: a chord struck together still wobbles in step. Key → rate gives every note its own vibrato speed.
+schema: synth-template-card/0.2
+id: keytracked-lfo-rate
+name: Keytracked LFO Rate
+family: LFO Behaviours
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Keytracking or velocity → LFO rate"
+  - "Vibrato: ~5 Hz, under a semitone; dedicated vibrato LFO"
+  - "Retrigger vs free; chords with staggered attacks"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: medium, d: medium, s: held, r: medium}, category: sustaining}
+    lfo1:    {kind: lfo, wave: sine, rate: medium, sync: false, retrigger: true, note: "one LFO per voice; the rate is nudged by which key. The voice does not yet play key → rate"}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: osc1.pitch, amount: little, essential: true}
+    - {from: key,  to: lfo1.rate, amount: some, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode, param: voices,    value: poly,   why: "the point is a chord of voices that refuse to line up"}
+  - {block: key,  param: target,    value: LFO rate, why: "every key gets a slightly different vibrato speed, so the voices can never phase-lock, however they were struck"}
+  - {block: key,  param: amount,    value: some,   why: "a nudge: the high note a touch faster than the low, all still vibrato"}
+  - {block: lfo1, param: retrigger, value: "on",   why: "an LFO per voice; without it there is one LFO and nothing to detune in rate"}
+  - {block: lfo1, param: rate,      value: medium, why: "the human rate at the middle of the keyboard"}
+  - {block: lfo1, param: depth,     value: little, why: "under a semitone; an ensemble, not a theremin section"}
+  - {block: aenv, param: attack,    value: medium, why: "a pad or choir: the sound this trick is for"}
+
+taste:
+  - {block: lfo1,    param: key → rate, range: "little – some", default: some, why: "more and the top of the keyboard flutters"}
+  - {block: lfo1,    param: rate,    range: "slow – fast",        default: medium}
+  - {block: lfo1,    param: depth,   range: "none – some",        default: little}
+  - {block: filter1, param: cutoff,  range: "mid – bright",       default: mid}
+  - {block: aenv,    param: release, range: "medium – long",      default: medium}
+
+listening:
+  cue: "A chord struck all at once, and still the vibratos drift in and out of each other, like a section of players rather than one player with four fingers."
+  ab: "Remove key → rate and strike the same chord: every voice wobbles in lockstep and the chord sounds like one wide note. Put it back and the section returns."
+
+render:
+  tempo: 80
+  note: [C3, G3, E4, C5]
+  velocity: 90
+  pattern: "the chord struck together, held two bars, released"
+  length_s: 7.0
+
+mappings: {}

@@ -1,0 +1,73 @@
+# Synth Templates — Genre Classics — Trance Supersaw
+# Seven detuned saws, a highpass to clear the mud, a lowpass to shape, reverb and delay. The lead version; Supersaw Pad is the slow one.
+schema: synth-template-card/0.2
+id: trance-supersaw
+name: Trance Supersaw
+family: Genre Classics
+tier: 1
+mode: poly
+classics: JP-8000
+status: drafted
+lineage:
+  - "cards/supersaw-pad.yaml: the pad; this card is the lead, with the highpass and the faster envelope"
+concepts:
+  - "Unison / unisono"
+  - "Small detune (≤7 cents) = chorus"
+  - "Low-pass, high-pass, band-pass, notch"
+  - "Serial: flexible band-pass (HP + LP) with horns"
+  - "Delay: time, feedback, mix"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 7, detune: very wide, spread: wide}
+    filter1: {kind: filter, type: highpass, slope: 12, resonance: none, note: "clears the low end so the stack sits over the kick and bass"}
+    filter2: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [delay, reverb], note: "the delay synced to a dotted eighth"}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: medium}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+    - {from: vel,  to: amp.level, amount: little, essential: false}
+
+essentials:
+  - {block: mode,    param: voices,    value: poly,           why: "chords and octaves; the supersaw is rarely a single note"}
+  - {block: osc1,    param: wave,      value: saw,            why: "every harmonic beats against its neighbour in the stack"}
+  - {block: osc1,    param: unison,    value: 7 voices,       why: "the JP-8000's seven; fewer and the wall has gaps"}
+  - {block: osc1,    param: detune,    value: very wide,      why: "well past the chorus range: the voices beat fast enough to shimmer, not swim"}
+  - {block: filter1, param: type,      value: highpass 12 dB, why: "seven saws make mud; the highpass takes the low octave out so the lead floats"}
+  - {block: filter2, param: type,      value: lowpass 12 dB,  why: "gentle; the stack is bright and only wants taming"}
+  - {block: filter2, param: cutoff,    value: bright,         why: "a lead, not a pad: mostly open"}
+  - {block: aenv,    param: attack,    value: fast,           why: "it enters on the beat"}
+  - {block: aenv,    param: sustain,   value: held}
+  - {block: fx,      param: chain,     value: delay then reverb, why: "the repeats fill the gaps between stabs; the reverb glues them into one wash"}
+
+taste:
+  - {block: osc1,    param: spread,    range: "narrow – wide",       default: wide}
+  - {block: osc1,    param: detune,    range: "wide – very wide",    default: very wide}
+  - {block: filter1, param: cutoff,    range: "dark – mid",          default: dark, why: "how much low end the highpass takes"}
+  - {block: filter2, param: cutoff,    range: "mid – open",          default: bright}
+  - {block: aenv,    param: attack,    range: "fast – medium",       default: fast}
+  - {block: aenv,    param: release,   range: "short – long",        default: medium}
+  - {block: fx,      param: delay,     range: "dry – half",          default: quarter}
+  - {block: fx,      param: reverb,    range: "large – huge",        default: huge}
+
+listening:
+  cue: "A bright wall that shimmers from the inside, with no low end of its own. Each stab leaves a dotted-eighth echo that falls into a long reverb, so the gaps between chords are never empty."
+  ab: "Take the highpass out: the same chord is boomy and the bass line vanishes under it. Put it back. Then set detune to slight: the shimmer turns into a slow chorus and the wall becomes a pad."
+
+render:
+  tempo: 138
+  note: [A3, C4, E4, A4]
+  velocity: 100
+  pattern: "the chord as four stabs on the off-beats of one bar, each an eighth long, then the delay tail"
+  length_s: 5.0
+
+mappings: {}

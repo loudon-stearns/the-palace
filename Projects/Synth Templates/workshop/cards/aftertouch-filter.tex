@@ -1,0 +1,110 @@
+\documentclass[border=8pt]{standalone}
+\usepackage[T1]{fontenc}\usepackage{helvet}\renewcommand{\familydefault}{\sfdefault}
+\usepackage{tikz}\usetikzlibrary{arrows.meta, positioning, calc, backgrounds}
+\definecolor{ink}{HTML}{1a1916}
+\definecolor{inktwo}{HTML}{3a3a35}
+\definecolor{inkthree}{HTML}{6a6862}
+\definecolor{rule}{HTML}{b8b09a}
+\definecolor{amber}{HTML}{a8730a}
+\definecolor{red}{HTML}{c8261a}
+\definecolor{paper}{HTML}{f0eee5}
+\definecolor{slab}{HTML}{d8d4c6}
+\tikzset{
+  >={Stealth[length=2.2mm]},
+  wire/.style={line width=0.8pt, ink},
+  modwire/.style={line width=0.6pt, dashed, ink},
+  tastewire/.style={line width=0.6pt, dashed, amber},
+  gatewire/.style={line width=0.6pt, dotted, ink},
+  block/.style={rectangle, draw=ink, line width=0.9pt, fill=slab, minimum width=3.0cm, minimum height=1.9cm, inner sep=0pt},
+  perf/.style={rectangle, draw=ink, line width=0.7pt, minimum width=3.0cm, minimum height=0.7cm, inner sep=2pt, font=\footnotesize, text=ink},
+  title/.style={font=\scriptsize\bfseries, text=ink, anchor=north, inner sep=2pt},
+  jack/.style={circle, draw=ink, fill=paper, line width=0.5pt, minimum size=3.2pt, inner sep=0pt},
+  plabel/.style={font=\tiny, text=inktwo, anchor=west, inner sep=1pt},
+  olabel/.style={font=\tiny, text=inktwo, anchor=east, inner sep=1pt},
+  settings/.style={font=\scriptsize, text=ink, align=left, anchor=north west, inner sep=1pt, text width=2.9cm},
+}
+\begin{document}\begin{tikzpicture}
+\begin{scope}[on background layer]\fill[paper] (-2.5,-10.479999999999999) rectangle (20.0,2.15);\end{scope}
+\node[block, minimum height=1.9cm] (osc1) at (4.4,0.0) {};
+\node[title] at (osc1.north) {OSCILLATOR 1};
+\node[jack] (osc1-pitch) at (2.9000000000000004,0.44999999999999996) {};
+\node[plabel] at (2.9800000000000004,0.44999999999999996) {pitch};
+\node[jack] (osc1-shape) at (2.9000000000000004,-0.125) {};
+\node[plabel] at (2.9800000000000004,-0.125) {shape};
+\node[jack] (osc1-sync) at (2.9000000000000004,-0.7) {};
+\node[plabel] at (2.9800000000000004,-0.7) {sync};
+\node[jack] (osc1-out) at (5.9,0.44999999999999996) {};
+\node[olabel] at (5.82,0.44999999999999996) {out};
+\begin{scope}
+\draw[ink, line width=0.7pt] (4.450,-0.546) -- (5.115,0.046) -- (5.115,-0.546);
+\draw[ink, line width=0.7pt] (5.115,-0.546) -- (5.780,0.046) -- (5.780,-0.546);
+\end{scope}
+\node[settings] at (2.95,-1.0699999999999998) {\textcolor{amber}{glide none -- short}};
+\node[block, minimum height=1.9cm] (filter1) at (8.8,0.0) {};
+\node[title] at (filter1.north) {FILTER 1};
+\node[jack] (filter1-in) at (7.300000000000001,0.44999999999999996) {};
+\node[plabel] at (7.380000000000001,0.44999999999999996) {in};
+\node[jack] (filter1-cutoff) at (7.300000000000001,0.06666666666666665) {};
+\node[plabel] at (7.380000000000001,0.06666666666666665) {cutoff};
+\node[jack] (filter1-res) at (7.300000000000001,-0.31666666666666665) {};
+\node[plabel] at (7.380000000000001,-0.31666666666666665) {res};
+\node[jack] (filter1-drive) at (7.300000000000001,-0.7) {};
+\node[plabel] at (7.380000000000001,-0.7) {drive};
+\node[jack] (filter1-out) at (10.3,0.44999999999999996) {};
+\node[olabel] at (10.22,0.44999999999999996) {out};
+\begin{scope}
+\draw[inkthree, line width=0.3pt] (8.850,-0.605) -- (10.180,-0.605);
+\draw[ink, line width=0.7pt] (8.850,-0.139) -- (9.449,-0.139) -- (9.542,0.083) -- (9.595,-0.139) -- (9.665,-0.561) -- (10.180,-0.561);
+\node[font=\tiny, text=inktwo, anchor=north west, inner sep=0pt] at (8.850,-0.650) {lowpass 24 dB};
+\end{scope}
+\node[settings] at (7.3500000000000005,-1.0699999999999998) {\textbf{cutoff dark} \\ \textbf{resonance moderate} \\ \textcolor{amber}{at → cutoff some -- full} \\ \textcolor{amber}{cutoff dark -- mid} \\ \textcolor{amber}{resonance little -- high}};
+\node[block, minimum height=1.9cm] (amp) at (13.200000000000001,0.0) {};
+\node[title] at (amp.north) {AMPLIFIER};
+\node[jack] (amp-in) at (11.700000000000001,0.44999999999999996) {};
+\node[plabel] at (11.780000000000001,0.44999999999999996) {in};
+\node[jack] (amp-level) at (11.700000000000001,-0.125) {};
+\node[plabel] at (11.780000000000001,-0.125) {level};
+\node[jack] (amp-pan) at (11.700000000000001,-0.7) {};
+\node[plabel] at (11.780000000000001,-0.7) {pan};
+\node[jack] (amp-out) at (14.700000000000001,0.44999999999999996) {};
+\node[olabel] at (14.620000000000001,0.44999999999999996) {out};
+\begin{scope}
+\draw[ink, line width=1.2pt] (13.915,-0.570) -- (13.915,0.070);
+\draw[inkthree, line width=0.3pt] (13.695,-0.570) -- (13.815,-0.570) (14.015,-0.570) -- (14.135,-0.570);
+\draw[inkthree, line width=0.3pt] (13.695,-0.410) -- (13.815,-0.410) (14.015,-0.410) -- (14.135,-0.410);
+\draw[inkthree, line width=0.3pt] (13.695,-0.250) -- (13.815,-0.250) (14.015,-0.250) -- (14.135,-0.250);
+\draw[inkthree, line width=0.3pt] (13.695,-0.090) -- (13.815,-0.090) (14.015,-0.090) -- (14.135,-0.090);
+\draw[inkthree, line width=0.3pt] (13.695,0.070) -- (13.815,0.070) (14.015,0.070) -- (14.135,0.070);
+\fill[slab, draw=ink, line width=0.6pt] (13.745,-0.178) rectangle (14.085,0.062);
+\draw[ink, line width=0.5pt] (13.745,-0.058) -- (14.085,-0.058);
+\node[font=\tiny, text=inktwo, anchor=north west, inner sep=0pt] at (13.250,-0.650) {level under unity};
+\end{scope}
+\node[block, minimum height=1.9cm] (aenv) at (8.8,-5.04) {};
+\node[title] at (aenv.north) {AMPLITUDE ENVELOPE};
+\node[jack] (aenv-gate) at (7.300000000000001,-4.59) {};
+\node[plabel] at (7.380000000000001,-4.59) {gate};
+\node[jack] (aenv-amount) at (7.300000000000001,-5.74) {};
+\node[plabel] at (7.380000000000001,-5.74) {amount};
+\node[jack] (aenv-out) at (10.3,-4.59) {};
+\node[olabel] at (10.22,-4.59) {env};
+\begin{scope}
+\draw[inkthree, line width=0.3pt] (8.850,-5.601) -- (10.180,-5.601);
+\draw[ink, line width=0.7pt] (8.863,-5.601) -- (8.975,-4.979) -- (9.536,-5.153) -- (9.886,-5.153) -- (10.167,-5.601);
+\draw[inkthree, line width=0.3pt, dotted] (9.886,-5.601) -- (9.886,-5.153);
+\node[font=\tiny, text=inktwo, anchor=north west, inner sep=0pt] at (8.850,-5.690) {sustaining};
+\end{scope}
+\node[settings] at (7.3500000000000005,-6.11) {\textbf{sustain held} \\ \textcolor{amber}{release short -- medium}};
+\node[perf] (key) at (0.0,-9.479999999999999) {KEYBOARD};
+\node[perf] (at) at (4.4,-9.479999999999999) {AFTERTOUCH};
+\node[perf, fill=paper] (out) at (17.6,0.44999999999999996) {OUT}; \node[jack] (out-in) at (16.1,0.44999999999999996) {};
+\draw[wire,->] (osc1-out) -- (filter1-in);
+\draw[wire,->] (filter1-out) -- (amp-in);
+\draw[wire,->] (amp-out) -- (out-in);
+\draw[modwire,->] (at.east) -- (6.750000000000001,-9.479999999999999) -- (6.750000000000001,0.06666666666666665) -- (filter1-cutoff);
+\node[font=\tiny, text=ink, anchor=south, inner sep=1pt, rotate=90] at (6.630000000000001,-4.706666666666666) {generous};
+\draw[modwire,->] (aenv-out) -- (11.040000000000001,-4.59) -- (11.040000000000001,-0.125) -- (amp-level);
+\draw[modwire,->] (key.east) -- (2.1300000000000003,-9.479999999999999) -- (2.1300000000000003,0.44999999999999996) -- (osc1-pitch);
+\draw[gatewire,->] (key.east) -- (2.28,-9.479999999999999) -- (2.28,-8.42) -- (6.420000000000001,-8.42) -- (6.420000000000001,-4.59) -- (aenv-gate);
+\node[anchor=north west, font=\scriptsize, text=inktwo] at (-2.3,1.95) {\textbf{AFTERTOUCH → FILTER} · tier 2 · mono · LFO Behaviours};
+\node[anchor=north east, font=\tiny, text=inkthree] at (19.8,1.95) {inputs left, outputs right · audio solid · CV dashed · gate dotted · essentials in ink · taste in amber};
+\end{tikzpicture}\end{document}

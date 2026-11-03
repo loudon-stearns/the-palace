@@ -1,0 +1,62 @@
+# Synth Templates — card 0.2 — Shimmer Pad
+# The pad is plain on purpose. The sound is made in the effect: a reverb whose tail is pitched up an octave and fed back into itself.
+schema: synth-template-card/0.2
+id: shimmer-pad
+name: Shimmer Pad
+family: Pads
+tier: 2
+mode: poly
+classics: Eno / Lanois
+status: drafted
+concepts:
+  - "Delay: time, feedback, mix"
+  - "Octave / semitone / fine tuning"
+  - "Standard sustaining envelope; strings and horns variants"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 2, detune: slight, note: "kept simple so the effect has a clean thing to stack"}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [pitch shift, reverb], note: "the shimmer loop: reverb tail, then up an octave, then back into the reverb; feedback sets how many octaves climb. The voice plays a plain reverb; the +12 feedback loop is drawn, not heard"}
+    aenv:    {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: long}, category: pad}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: fx,      param: chain,     value: pitch shift +12 inside a feedback reverb, why: "effects as synthesis: each pass through the loop adds a copy of the tail an octave up, so a single note grows its own harmonics above itself over seconds"}
+  - {block: fx,      param: feedback,  value: half,            why: "enough that a second and third octave arrive, not so much that it runs away"}
+  - {block: fx,      param: reverb,    value: huge,            why: "the loop needs a long tail to climb inside; a short room gives one quick octave and stops"}
+  - {block: osc1,    param: wave,      value: saw,             why: "a full spectrum, but mild: the shimmer is bright enough on its own"}
+  - {block: filter1, param: cutoff,    value: mid,             why: "the dry pad is kept dull so the octaves above it stand out"}
+  - {block: aenv,    param: attack,    value: slow,            why: "a soft entry; a sharp attack through the loop sounds like a struck harp, which is another patch"}
+  - {block: aenv,    param: release,   value: long,            why: "the pad leaves slowly; the shimmer leaves slower"}
+  - {block: mode,    param: voices,    value: poly,            why: "chords: each note's octaves pile into the same reverb and fuse"}
+
+taste:
+  - {block: osc1,    param: detune,    range: "none – narrow",          default: slight}
+  - {block: filter1, param: cutoff,    range: "dark – bright",          default: mid}
+  - {block: aenv,    param: attack,    range: "medium – very slow",     default: slow}
+  - {block: fx,      param: mix,       range: "half – full",            default: half, why: "how much pad is left under the shimmer"}
+  - {block: fx,      param: feedback,  range: "little – held",          default: half}
+  - {block: fx,      param: reverb,    range: "large – huge",           default: huge}
+
+listening:
+  cue: "A chord that keeps rising after you play it: a halo an octave above arrives a second later, then one above that, until the top is a glassy cloud with no attack of its own. The pad underneath is almost beside the point."
+  ab: "Set the pitch shift to zero semitones: an ordinary pad in a big reverb; the cloud is gone, the halo was never in the oscillator. Put it back. Then set the feedback to none: one octave arrives, and no more."
+
+render:
+  tempo: 70
+  note: [A2, E3, C#4]
+  velocity: 85
+  pattern: "one chord held two bars, released, tail to silence"
+  length_s: 16.0
+
+mappings: {}

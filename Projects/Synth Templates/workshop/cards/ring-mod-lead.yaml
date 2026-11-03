@@ -1,0 +1,66 @@
+# Synth Templates — card — Ring-Mod Lead
+# Two sines multiplied: what comes out is their sum and their difference, and neither is the note you played.
+schema: synth-template-card/0.2
+id: ring-mod-lead
+name: Ring-Mod Lead
+family: Leads
+tier: 3
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Envelope → pitch (attack blip)"
+  - "Octave / semitone / fine tuning"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, note: "one input of the ring modulator"}
+    osc2:    {kind: oscillator, wave: sine, ratio: "1.41:1", note: "the other input, an inharmonic ratio above osc1; the voice has no ring modulator and will approximate this as FM"}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    menv:    {kind: envelope, role: pitch, shape: {a: instant, d: medium, s: zero, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: medium}, category: sustaining}
+  audio:
+    - [osc2, osc1, ring]
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc2.pitch, amount: about an octave, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: sine,            why: "with two sines in, exactly two frequencies come out: the sum and the difference. Richer waves multiply every pair of partials and the result is mud"}
+  - {block: osc2, param: wave,    value: sine,            why: "the same reason, on the other side"}
+  - {block: osc2, param: routing, value: ring mod with osc1, why: "multiplied, not mixed: neither input is heard on its own, only what their product makes"}
+  - {block: osc2, param: ratio,   value: "1.41:1",        why: "an inharmonic ratio, so the sum and difference are not harmonics of the key: a bell, not a note. Make it 2:1 and it turns back into a tone"}
+  - {block: menv, param: target,  value: osc2 pitch,      why: "moving one input moves both output partials in opposite directions: a chirp that splits"}
+  - {block: menv, param: decay,   value: medium,          why: "long enough to hear the two partials slide apart and settle"}
+  - {block: menv, param: sustain, value: zero,            why: "it settles on the bell"}
+  - {block: mode, param: voices,  value: mono,            why: "one voice; two ring-modulated notes at once is four partials that mean nothing to each other"}
+
+taste:
+  - {block: osc2,    param: ratio,   range: "1.41:1 – 2.76:1",       default: "1.41:1", why: "whole numbers make a tone, anything between makes a bell"}
+  - {block: menv,    param: amount,  range: "a fifth – two octaves",  default: about an octave}
+  - {block: menv,    param: decay,   range: "short – long",           default: medium}
+  - {block: filter1, param: cutoff,  range: "mid – open",             default: open}
+  - {block: aenv,    param: release, range: "short – long",           default: medium}
+  - {block: osc1,    param: glide,   range: "none – short",           default: none}
+
+listening:
+  cue: "A metallic, bell-like tone that does not sit on the key you pressed: two partials that are neither the note nor its octave. Each note starts with a chirp as the two slide apart and settle."
+  ab: "Set the ratio to 2:1: the sum and difference become harmonics of the key and the bell turns into a plain tone. Back to 1.41:1 and the metal returns. Then switch osc1 to a saw: the clean two partials become a cloud."
+
+render:
+  tempo: 100
+  note: [C4, G4, D4]
+  velocity: 100
+  pattern: "quarter notes, detached, three beats; the last held a bar"
+  length_s: 4.0
+
+mappings: {}

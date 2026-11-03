@@ -1,0 +1,73 @@
+# Synth Templates — card 0.1 — Euclidean Pluck
+# Rhythmic and Sequenced, tier 3: a pluck whose rhythm is generated, not written: k hits spread as evenly as they can be over n steps.
+schema: synth-template-card/0.2
+id: euclidean-pluck
+name: Euclidean Pluck
+family: Rhythmic and Sequenced
+tier: 3
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+  - "Tempo sync; triplets"
+  - "Delay: time, feedback, mix"
+  - "Per-note random pan for width"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: triangle, octave: 0, note: "triggered by a Euclidean pattern, E(5,8) by default: five hits spread as evenly as possible over eight sixteenths. The voice cannot generate the rhythm; the render pattern writes it out"}
+    osc2:    {kind: oscillator, wave: saw, octave: 0, level: low, note: "a little edge for the filter to bite"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [delay, reverb], note: "delay synced to an eighth, one or two repeats, so the generated rhythm answers itself"}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short, s: zero, r: same as decay}, category: plucked}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: medium, s: zero, r: same as decay}, category: plucked}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: mode,    param: rhythm,    value: "Euclidean E(5,8) at 1/16", why: "the rhythm is a rule, not a recording: change k or n and a new groove appears, always as even as it can be"}
+  - {block: aenv,    param: sustain,   value: zero,          why: "plucked: each hit is a complete event, however long the step"}
+  - {block: aenv,    param: release,   value: same as decay, why: "a gate a sixteenth long must still ring to its end"}
+  - {block: fenv,    param: decay,     value: short,         why: "the bite: the hit is brighter than the ring"}
+  - {block: osc1,    param: wave,      value: triangle,      why: "a soft, round pluck; the rhythm is the content, not the timbre"}
+  - {block: mode,    param: voices,    value: poly,          why: "hold two or three notes and the pattern plays them as a chord; or give each its own pattern"}
+  - {block: fx,      param: chain,     value: delay then reverb, why: "the echoes fill the steps the rule left empty"}
+
+taste:
+  - {block: mode,    param: hits (k),   range: "3 – 7 of 8",           default: 5, why: "E(3,8) is the tresillo; E(5,8) is the cinquillo; E(7,8) is nearly straight"}
+  - {block: mode,    param: steps (n),  range: "8 – 16",               default: 8, why: "sixteen steps and the same k turns sparse"}
+  - {block: mode,    param: rotation,   range: "0 – n-1 steps",        default: 0, why: "turn the pattern so a different hit lands on the downbeat"}
+  - {block: aenv,    param: decay,      range: "short – medium",       default: medium}
+  - {block: filter1, param: cutoff,     range: "mid – bright",         default: mid}
+  - {block: fenv,    param: amount,     range: "some – generous",      default: moderate}
+  - {block: fx,      param: mix,        range: "off – half",           default: quarter}
+
+listening:
+  cue: "Five soft plucks in eight, spread as evenly as five can be in eight: it leans, but it never stumbles. Hold the chord and the rule plays it; change the count and a different dance appears."
+  ab: "Set k to 8 of 8: straight sixteenths, and the lean is gone. Back to 5. Then set k to 3: the same rule, and it is a tresillo. Nothing but the count changed."
+
+render:
+  tempo: 110
+  note: [D3, F3, A3]
+  velocity: 95
+  pattern: "E(5,8) at sixteenths, two bars: x . x x . x x . ; the chord re-struck on every x"
+  length_s: 4.5
+
+mappings: {}

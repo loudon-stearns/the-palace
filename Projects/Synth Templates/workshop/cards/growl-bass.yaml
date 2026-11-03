@@ -1,0 +1,75 @@
+# Synth Templates — card — Growl Bass
+# A saw into a narrow band-pass whose centre moves: a vowel on the move. Drive after. The filter is a mouth.
+schema: synth-template-card/0.2
+id: growl-bass
+name: Growl Bass
+family: Bass
+tier: 3
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Resonance as width (Q) on band-pass and notch"
+  - "Low-pass, high-pass, band-pass, notch"
+  - "Parallel: twin peaks, keytracking amount, vocal formants"
+  - "Narrow pulse → nasal / vocal, with formant filter"
+  - "LFO → pitch / amplitude / pan / filter"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: bandpass, slope: 12, resonance: high, note: "the vowel: a formant filter if the synth has one (two or three peaks); a narrow band-pass is one formant"}
+    filter2: {kind: filter, type: lowpass, slope: 12, resonance: none, note: "after the drive: takes the hiss off"}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [distortion]}
+    lfo1:    {kind: lfo, wave: triangle, rate: slow, sync: false}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: medium, s: low, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,   shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: fenv, to: filter1.cutoff, amount: some, essential: false}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: wheel, to: lfo1.depth, amount: full, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: saw,            why: "a vowel needs every harmonic there for the peak to pick from"}
+  - {block: filter1, param: type,      value: bandpass 12 dB, why: "a band-pass is one formant: it boosts a region and cuts both sides, which is what a mouth does to a voice"}
+  - {block: filter1, param: resonance, value: high,           why: "on a band-pass, resonance is width: narrow enough that the peak reads as a vowel, not a tone colour"}
+  - {block: filter1, param: cutoff,    value: mid,            why: "the resting vowel: around the first formant of 'ah'"}
+  - {block: lfo1,    param: target,    value: filter cutoff,  why: "moving the peak through the harmonics is moving the vowel: ah-oh-oo-ah"}
+  - {block: lfo1,    param: rate,      value: slow,           why: "a mouth opening and closing, not a wobble"}
+  - {block: fx,      param: chain,     value: distortion,     why: "the growl: drive after the formant adds harmonics of the peak and squashes it so the vowel stays loud as it moves"}
+  - {block: filter2, param: type,      value: lowpass 12 dB,  why: "in series after the drive, to keep the fizz down"}
+  - {block: aenv,    param: sustain,   value: held,           why: "the vowel needs a held note to move across"}
+  - {block: mode,    param: voices,    value: mono}
+
+taste:
+  - {block: lfo1,    param: depth,     range: "little – generous",    default: moderate, why: "how far the vowel travels; the wheel can ride it"}
+  - {block: lfo1,    param: rate,      range: "very slow – medium",   default: slow}
+  - {block: filter1, param: resonance, range: "moderate – self-oscillating", default: high, why: "narrower is more vocal, wider is more bass"}
+  - {block: filter1, param: cutoff,    range: "dark – bright",        default: mid}
+  - {block: osc1,    param: wave,      range: "saw – pulse",          default: saw, why: "a narrow pulse is the most vocal starting wave"}
+  - {block: fx,      param: drive,     range: "light – heavy",        default: heavy}
+  - {block: fenv,    param: amount,    range: "none – moderate",      default: some, why: "a consonant at the front of each note"}
+
+listening:
+  cue: "A bass that talks: a vowel sliding through 'ah', 'oh' and 'oo' over the note, with a gritty snarl on top. The pitch holds; the mouth moves."
+  ab: "Change the band-pass to a low-pass: the same LFO now opens and shuts a wobble and the vowel is gone. Back to band-pass with high resonance and it speaks again."
+
+render:
+  tempo: 140
+  note: [F1, F1]
+  velocity: 110
+  pattern: "two bars: a whole note, a whole note; the LFO slow enough to cross one vowel per bar"
+  length_s: 4.0
+
+mappings: {}

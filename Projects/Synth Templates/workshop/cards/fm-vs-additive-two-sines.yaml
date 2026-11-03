@@ -1,0 +1,57 @@
+# Synth Templates — card — FM vs Additive: Two Sines
+# Voices, Tuning and Retrigger family. The same two sines, summed (two partials) and then one modulating the other (many partials).
+schema: synth-template-card/0.2
+id: fm-vs-additive-two-sines
+name: "FM vs Additive: Two Sines"
+family: Voices, Tuning and Retrigger
+tier: 2
+mode: mono
+classics:
+status: drafted
+concepts:
+  - "FM: audio-rate modulation, algorithms"
+  - "Additive: sines in a harmonic series"
+  - "Sine: no response to filtering; FM/additive building block"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, note: "the carrier: the tone you hear"}
+    osc2: {kind: oscillator, wave: sine, ratio: "1:1", level: half, note: "the modulator, wired into osc1's frequency. Rewire it into the mixer beside osc1 and the two just add: that is the additive half of the comparison"}
+    amp:  {kind: amplifier, level: under unity}
+    aenv: {kind: envelope, role: amp, shape: {a: short, d: medium, s: held, r: medium}, category: sustaining}
+  audio:
+    - [osc2, osc1, fm]
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: sine,   why: "one partial, so anything more you hear was made by the modulation"}
+  - {block: osc2, param: wave,    value: sine,   why: "one partial in, so the sidebands are the clean Bessel set and nothing else"}
+  - {block: osc2, param: ratio,   value: "1:1",  why: "modulator at the carrier's pitch: the sidebands land on the harmonic series, so the result stays a note"}
+  - {block: osc2, param: routing, value: into osc1 fm, why: "summed, two sines are two partials; modulating, two sines are a whole spectrum. The wiring is the lesson"}
+  - {block: osc2, param: level,   value: half,   why: "the index: how far the carrier's frequency is pushed, and so how many sidebands appear"}
+  - {block: mode, param: voices,  value: mono}
+
+taste:
+  - {block: osc2, param: level,  range: "little – full", default: half, why: "the index: more level, more partials, until it is a buzz"}
+  - {block: osc2, param: ratio,  range: "1:1 – 2:1",     default: "1:1", why: "2:1 keeps only the odd-and-even pattern of a different series; non-integer ratios go to bells"}
+  - {block: aenv, param: attack, range: "fast – medium", default: short}
+  - {block: aenv, param: release, range: "short – medium", default: medium}
+
+listening:
+  cue: "Summed, the two sines are a thin pair: you can hear both pitches and nothing between them. Wired as FM, the same two make a full, brassy tone with many harmonics, though only two oscillators are running."
+  ab: "Rewire osc2 from osc1's fm jack into the mixer: back to two bare sines, additive, two partials. Wire it into fm again and the spectrum fills in. Then turn osc2's level to little: the FM tone thins toward the sine, because the index was what made the partials."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 100
+  pattern: "one note held three bars; the modulator level swept from little to full over the hold"
+  length_s: 7.0
+
+mappings: {}

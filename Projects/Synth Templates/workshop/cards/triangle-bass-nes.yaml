@@ -1,0 +1,54 @@
+# Synth Templates — card 0.2 — Triangle Bass (NES)
+# Chiptune: the NES triangle channel. No volume control at all; the constraint is the card.
+schema: synth-template-card/0.2
+id: triangle-bass-nes
+name: Triangle Bass (NES)
+family: Chiptune
+tier: 1
+mode: mono
+classics: NES
+status: drafted
+concepts:
+  - "Triangle as a filtered square"
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Switch envelope (organ); percussive organ"
+  - "Glide / portamento time; legato mode as default"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: triangle, octave: -1, glide: none, note: "the NES triangle: 16 steps, 4-bit, which adds a faint grit a smooth triangle lacks; the voice plays it smooth"}
+    amp:  {kind: amplifier, level: full, note: "the channel has no volume register: on or off, always full"}
+    aenv: {kind: envelope, role: amp, shape: {a: instant, d: instant, s: full, r: instant}, category: gate, note: "not an envelope, a gate: the only shaping is note length"}
+  audio:
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: triangle,  why: "odd harmonics like a square but much quieter up top: a square already filtered, so it reads as a bass with no filter; an octave under the pulses"}
+  - {block: amp,  param: level,   value: full,      why: "fixed by the hardware; there is no quieter"}
+  - {block: aenv, param: attack,  value: instant,   why: "on"}
+  - {block: aenv, param: sustain, value: full,      why: "there is no envelope to shape; the note is full until it is not"}
+  - {block: aenv, param: release, value: instant,   why: "off; every accent and rest is written into the note lengths"}
+  - {block: mode, param: voices,  value: mono,      why: "one channel"}
+
+taste:
+  - {block: osc1, param: octave,  range: "-2 – -1",       default: -1}
+  - {block: osc1, param: glide,   range: "none – short",  default: none, why: "a tracker slide into the note is the one expression left"}
+  - {block: aenv, param: release, range: "instant – fast", default: instant, why: "fast hides the click on a real speaker; the chip did not care"}
+
+listening:
+  cue: "A soft, round bass with a faint edge, like a flute an octave too low. Every note is the same loudness; the groove comes entirely from where the notes stop."
+  ab: "Swap the wave for a square: it is suddenly twice as bright and fights the pulse lead. Back to triangle and it sits under. Then give it a short release: the rests smear and the groove loosens."
+
+render:
+  tempo: 150
+  note: [C2, C2, G2, C2, Bb2, G2, C2, C2]
+  velocity: 100
+  pattern: "eighths, one bar; notes 1, 4 and 7 a 16th long, the rest full eighths"
+  length_s: 2.0
+
+mappings: {}

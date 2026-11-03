@@ -1,0 +1,53 @@
+# Synth Templates — card — Keytracking
+# Technique demonstration: the keyboard sent to the filter cutoff as well as to pitch.
+schema: synth-template-card/0.2
+id: keytracking
+name: Keytracking
+family: Technique Demonstrations
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Key → pitch (keytracking)"
+  - "Key → filter cutoff"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: filter1.cutoff, amount: full, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,     value: saw,  why: "the same harmonic series at every pitch; what changes up the keyboard is only how much of it the filter lets through"}
+  - {block: key,     param: target,   value: oscillator pitch, why: "the first keytracking, on by default: the key chooses the note"}
+  - {block: key,     param: target,   value: filter cutoff, why: "the second: the cutoff rises with the note, so high notes keep the brightness the low ones had"}
+  - {block: filter1, param: cutoff,   value: dark, why: "low enough that, untracked, a high note falls above it and goes thin and quiet"}
+
+taste:
+  - {block: filter1, param: keytrack, range: "none – full",   default: full, why: "none: one fixed cutoff, the timbre changes across the keyboard; full: the cutoff follows the note exactly, the timbre is the same everywhere; in between is how real instruments behave"}
+  - {block: filter1, param: cutoff,    range: "dark – mid",    default: dark}
+  - {block: filter1, param: resonance, range: "none – moderate", default: little}
+
+listening:
+  cue: "A run from low to high. With keytracking off, the low notes are full and the high notes go dull and faint, because they have climbed above the cutoff. With it on, every note is the same colour."
+  ab: "Set the key-to-cutoff amount to none and play the run again: the top notes vanish into the filter. Back to full and the run is even from bottom to top."
+
+render:
+  tempo: 110
+  note: [C2, G2, C3, G3, C4, G4]
+  velocity: 90
+  pattern: "the run up twice, quarter notes: keytracking none, then full"
+  length_s: 7.0
+
+mappings: {}

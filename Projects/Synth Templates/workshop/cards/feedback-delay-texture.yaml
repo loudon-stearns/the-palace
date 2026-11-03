@@ -1,0 +1,65 @@
+# Synth Templates — card 0.2 — Feedback Delay Texture
+# Textures and Ambient, tier 2: the note is a pluck that is over at once; the texture is the delay loop, with a filter inside it so each repeat is darker.
+schema: synth-template-card/0.2
+id: feedback-delay-texture
+name: Feedback Delay Texture
+family: Textures and Ambient
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Delay: time, feedback, mix"
+  - "Delay time LFO modulation"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Filter thunk (resonance = delay feedback)"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: pulse, pw: 0.25, octave: 0}
+    amp:  {kind: amplifier, level: under unity}
+    fx:   {kind: fx, chain: [delay, filter], feedback: near unity, time: long, note: "the low-pass sits inside the delay's feedback path, so every repeat passes through it again: the loop darkens as it decays; the voice plays delay then filter in series, which darkens once"}
+    aenv: {kind: envelope, role: amp, shape: {a: instant, d: short, s: zero, r: same as decay}, category: plucked}
+    lfo1: {kind: lfo, wave: sine, rate: very slow, sync: false}
+  audio:
+    - [osc1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: lfo1, to: fx.time, amount: little, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: wheel, to: fx.feedback, amount: some, essential: false}
+
+essentials:
+  - {block: aenv, param: decay,    value: short,          why: "the note is a seed: short enough that the repeats do not overlap it"}
+  - {block: aenv, param: sustain,  value: zero,           why: "plucked: holding the key adds nothing; the delay does the holding"}
+  - {block: osc1, param: wave,     value: pulse,          why: "bright and thin: the loop's filter has top end to take away, repeat by repeat"}
+  - {block: fx,   param: chain,    value: delay with a low-pass in its loop, why: "the filter inside the feedback path is the texture: each pass is darker than the last, and the loop dies by dulling, not just by fading"}
+  - {block: fx,   param: feedback, value: near unity,     why: "many repeats, each a little quieter; at unity it never stops, over it runs away"}
+  - {block: fx,   param: time,     value: long,           why: "long enough that each repeat is a separate event, not a comb or a slapback"}
+  - {block: fx,   param: mix,      value: mostly wet,     why: "the pluck is the start of the pattern, not the point of it"}
+  - {block: mode, param: voices,   value: mono,           why: "one pluck per repeat; two at once and the loop is a mess of their sum"}
+
+taste:
+  - {block: fx,   param: feedback, range: "half – near unity",    default: near unity, why: "half is a handful of echoes; near unity is a minute of them"}
+  - {block: fx,   param: time,     range: "medium – long",        default: long}
+  - {block: fx,   param: cutoff,   range: "mid – bright",         default: mid, why: "where the loop's filter sits: lower and the repeats go dark in a few passes"}
+  - {block: lfo1, param: depth,    range: "none – little",        default: little, why: "a slow wobble on the delay time: the repeats drift in pitch like a tape"}
+  - {block: lfo1, param: rate,     range: "very slow – slow",     default: very slow}
+  - {block: osc1, param: pw,       range: "0.1 – 0.5",            default: 0.25}
+  - {block: aenv, param: decay,    range: "fast – medium",        default: short}
+
+listening:
+  cue: "One short bright pluck, then the same pluck over and over, each one quieter and duller than the one before, until it is a soft thud and then nothing. If the time wobbles, the pitch of the repeats drifts with it."
+  ab: "Set the delay feedback to zero: one pluck and one echo, done. Put it back near unity and the long tail of repeats returns. Then take the filter out of the loop: the repeats fade but stay as bright as the first, and it is an echo, not a texture."
+
+render:
+  tempo: 90
+  note: [E3, G3]
+  velocity: [100, 90]
+  pattern: "two plucks a bar apart, each a sixteenth long; the loop runs to the end"
+  length_s: 12.0
+
+mappings: {}

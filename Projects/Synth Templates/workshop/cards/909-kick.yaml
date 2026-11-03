@@ -1,0 +1,79 @@
+# Synth Templates — card 0.2 — 909 Kick
+# The 808's sibling: the same sine and pitch fall, but faster, shorter, with a noise click on top and drive after.
+# The lowpass does the click's envelope: closed, it passes the sine and holds the noise back; the filter envelope opens it for the first instant only.
+schema: synth-template-card/0.2
+id: 909-kick
+name: 909 Kick
+family: Drums and Percussion
+tier: 1
+mode: mono
+classics: TR-909
+status: drafted
+concepts:
+  - "Envelope → pitch (attack blip)"
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Phase, free-running vs retrigger, the click"
+  - "Envelope trigger / one-shot mode"
+  - "Distortion: nonlinear, harmonic, compresses dynamics, tames resonance"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, retrigger: true, note: "the body"}
+    noise:   {kind: oscillator, wave: noise, level: half, note: "the click: heard only while the filter is open"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: none, note: "closed at rest the sine passes under it; the envelope opens it for the click"}
+    amp:     {kind: amplifier, level: full}
+    fx:      {kind: fx, chain: [drive]}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: fast, s: zero, r: fast}, category: percussive, one_shot: true}
+    menv:    {kind: envelope, role: pitch, shape: {a: instant, d: fast, s: zero, r: fast}, category: percussive, one_shot: true}
+    aenv:    {kind: envelope, role: amp,   shape: {a: instant, d: medium, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: osc1.pitch, amount: about an octave, essential: true}
+    - {from: fenv, to: filter1.cutoff, amount: full, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: false}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: osc1,    param: wave,      value: sine,          why: "the body is one partial; the drive adds the rest"}
+  - {block: osc1,    param: retrigger, value: "on",          why: "restart the wave away from zero: the hit has an edge the 808 lacks"}
+  - {block: menv,    param: decay,     value: fast,          why: "the pitch drops in a few milliseconds; faster than the 808, so it knocks rather than booms"}
+  - {block: menv,    param: sustain,   value: zero,          why: "the pitch must land on the note"}
+  - {block: noise,   param: level,     value: half,          why: "the click is noise, five milliseconds of it"}
+  - {block: filter1, param: cutoff,    value: dark,          why: "closed, the sine passes under it and the noise does not; the filter is the noise's envelope"}
+  - {block: fenv,    param: decay,     value: fast,          why: "the window the click comes through; longer and it is a snare"}
+  - {block: aenv,    param: decay,     value: medium,        why: "shorter than the 808: a thud, not a hum"}
+  - {block: aenv,    param: sustain,   value: zero,          why: "struck, then left to decay"}
+  - {block: aenv,    param: mode,      value: one-shot,      why: "plays out whatever the note length"}
+  - {block: fx,      param: chain,     value: drive,         why: "the 909's hardness is clipping; it compresses the hit and adds odd harmonics"}
+
+taste:
+  - {block: aenv,    param: decay,   range: "short – long",          default: medium}
+  - {block: menv,    param: amount,  range: "a fifth – two octaves", default: about an octave}
+  - {block: noise,   param: level,   range: "off – full",            default: half, why: "how much click"}
+  - {block: fenv,    param: decay,   range: "instant – short",       default: fast, why: "click length"}
+  - {block: fx,      param: drive,   range: "light – heavy",         default: heavy}
+  - {block: osc1,    param: pitch,   range: "F1 – C2",               default: A1}
+
+listening:
+  cue: "A knock, then a short low thud. The first instant is a tick of noise riding on a pitch that falls at once; the body is hard and does not hang."
+  ab: "Set the noise level to off: the tick goes and the kick turns soft, an 808 with a short decay. Put it back. Then set the amp decay to long: the 909 becomes an 808 with a click."
+
+render:
+  tempo: 128
+  note: A1
+  velocity: 115
+  pattern: "four on the floor, one bar; the last hit left to ring"
+  length_s: 2.5
+
+mappings: {}

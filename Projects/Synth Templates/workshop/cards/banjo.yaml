@@ -1,0 +1,71 @@
+# Synth Templates — card — Banjo
+# Plucked Strings, tier 2. The brightest short pluck: a narrow pulse through a highpass, a click of noise on the front,
+# and a decay that is over before the next note. The drum head rings, the string does not.
+schema: synth-template-card/0.2
+id: banjo
+name: Banjo
+family: Plucked Strings
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Narrow pulse → nasal / vocal, with formant filter"
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Phase, free-running vs retrigger, the click"
+  - "Pluck / strike: release = decay; gong vs marimba"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: pulse, pw: 0.12, octave: 0, retrigger: true}
+    noise:   {kind: oscillator, wave: noise, level: low, note: "the click: the fingerpick hitting the string; its own envelope on menv"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: highpass, slope: 12, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    menv:    {kind: envelope, role: click, shape: {a: instant, d: instant, s: zero, r: instant}, category: percussive, note: "gates the noise: a few milliseconds and gone"}
+    aenv:    {kind: envelope, role: amp,   shape: {a: instant, d: medium, s: zero, r: same as decay}, category: plucked}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: noise.level, amount: full, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: osc1,    param: wave,      value: pulse,            why: "the tone is all upper harmonics; a narrow pulse has little else"}
+  - {block: osc1,    param: pw,        value: "0.12",           why: "narrow: nasal and bright, the plastic head and steel string. Widen it toward square and it is a clarinet"}
+  - {block: osc1,    param: retrigger, value: "on",             why: "the wave starts from the same place every note, so every pluck has the same click"}
+  - {block: noise,   param: wave,      value: noise,            why: "the pick on the string: the inharmonic instant before the pitch"}
+  - {block: menv,    param: decay,     value: instant,          why: "the click must be gone before you hear it as noise"}
+  - {block: filter1, param: type,      value: highpass 12 dB,   why: "take the lows out; a banjo has no body of its own. Lowpass makes it a guitar"}
+  - {block: aenv,    param: attack,    value: instant,          why: "plucked"}
+  - {block: aenv,    param: decay,     value: medium,           why: "fast: the head damps the string, so each note is out of the way before the next in a roll"}
+  - {block: aenv,    param: sustain,   value: zero,             why: "non-sustaining"}
+  - {block: aenv,    param: release,   value: same as decay,    why: "rolls are played faster than the key is held"}
+
+taste:
+  - {block: osc1,    param: pw,        range: "0.08 – 0.25",       default: "0.12", why: "narrower is thinner and brighter"}
+  - {block: noise,   param: level,     range: "little – half",     default: low, why: "how much pick you hear"}
+  - {block: aenv,    param: decay,     range: "short – slow",      default: medium}
+  - {block: filter1, param: cutoff,    range: "dark – mid",        default: dark}
+  - {block: filter1, param: resonance, range: "none – moderate",   default: little, why: "a little puts a ring of head in it"}
+
+listening:
+  cue: "A click and a twang with nothing underneath: bright, nasal, and gone fast. In a roll each note is already fading when the next lands, so the line stays clean."
+  ab: "Set the noise level to off: the pluck loses its pick and goes soft at the front, a plastic toy. Put it back. Then open the pulse width to 0.5: the same patch is a square and the twang goes hollow."
+
+render:
+  tempo: 140
+  note: [G3, B3, D4, G4, B3, D4, G4, B3]
+  velocity: [100, 85, 90, 100, 85, 90, 100, 85]
+  pattern: "a forward roll, one note per 16th, each key held a 16th; two beats, then the tail"
+  length_s: 2.5
+
+mappings: {}

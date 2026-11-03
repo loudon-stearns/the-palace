@@ -1,0 +1,67 @@
+# Synth Templates — card 0.2 — Pluck
+# The canonical pluck: a saw, a lowpass, and a filter envelope that shuts faster than the amp envelope.
+schema: synth-template-card/0.2
+id: pluck
+name: Pluck
+family: Keys and Mallets
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Subtractive: rich wave then filter"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Sustaining vs non-sustaining sounds"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short,  s: zero, r: same as decay}, category: plucked}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: medium, s: zero, r: same as decay}, category: plucked}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: fenv.amount, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,    value: saw,           why: "every harmonic present, so the filter has something to take away"}
+  - {block: filter1, param: type,    value: lowpass 24 dB, why: "the marble; the envelope is the chisel"}
+  - {block: filter1, param: cutoff,  value: dark,          why: "closed at rest: all the brightness comes from the envelope"}
+  - {block: fenv,    param: attack,  value: instant}
+  - {block: fenv,    param: decay,   value: short,         why: "the bite: bright for an instant, then the filter shuts"}
+  - {block: fenv,    param: sustain, value: zero,          why: "the filter must come all the way back down"}
+  - {block: aenv,    param: decay,   value: medium,        why: "longer than the filter decay: the body outlives the bite"}
+  - {block: aenv,    param: sustain, value: zero,          why: "plucked: a burst of energy, then left to ring; holding the key adds nothing"}
+  - {block: aenv,    param: release, value: same as decay, why: "a short note still plays out naturally"}
+  - {block: mode,    param: voices,  value: poly,          why: "plucks stack into arpeggios and chords"}
+
+taste:
+  - {block: filter1, param: cutoff,    range: "dark – mid",           default: dark}
+  - {block: filter1, param: resonance, range: "none – moderate",      default: little, why: "more makes the bite a 'wow'"}
+  - {block: fenv,    param: amount,    range: "moderate – full",      default: generous}
+  - {block: fenv,    param: decay,     range: "fast – medium",        default: short}
+  - {block: aenv,    param: decay,     range: "short – long",         default: medium, why: "marimba at one end, gong at the other"}
+  - {block: osc1,    param: wave,      range: "saw – square",         default: saw}
+
+listening:
+  cue: "Each note is a bright flick that darkens before the note is gone. Two envelopes, two speeds: the colour dies first, the tone second."
+  ab: "Set the filter envelope decay equal to the amp decay: the note is one even shape and the pluck turns into a short organ note. Shorten it again and the flick returns."
+
+render:
+  tempo: 120
+  note: [C3, E3, G3, C4, G3, E3, C3, G2]
+  velocity: 100
+  pattern: "eighths, one bar, an arpeggio up and down, each a 16th long"
+  length_s: 3.0
+
+mappings: {}

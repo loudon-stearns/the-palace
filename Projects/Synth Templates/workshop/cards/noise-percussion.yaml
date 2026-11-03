@@ -1,0 +1,59 @@
+# Synth Templates — card 0.2 — Noise Percussion
+# Chiptune: the NES noise channel. A shift register, not a random source; it has a pitch and a short mode that buzzes.
+schema: synth-template-card/0.2
+id: noise-percussion
+name: Noise Percussion
+family: Chiptune
+tier: 1
+mode: mono
+classics: NES
+status: drafted
+concepts:
+  - "Noise colors: white vs pink"
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope trigger / one-shot mode"
+  - "Waveforms: saw, square, triangle, sine, noise"
+
+graph:
+  blocks:
+    noise: {kind: oscillator, wave: noise, note: "an LFSR, clocked at one of 16 rates, so the noise has a pitch: slow clocks are a low rumble, fast ones a hiss. Short mode (a 93-step loop) is a buzzy, pitched tone; the voice plays white noise only"}
+    amp:   {kind: amplifier, level: full}
+    aenv:  {kind: envelope, role: amp, shape: {a: instant, d: short, s: zero, r: same as decay}, category: percussive, one_shot: true, note: "the chip's decay envelope: a hat or a snare is the decay length"}
+  audio:
+    - [noise, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: noise.pitch, essential: false, note: "the clock rate: the keyboard picks a colour, not a note"}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: noise, param: wave,    value: noise,        why: "percussion lives on noise: no pitch to speak of, energy everywhere"}
+  - {block: noise, param: pitch,   value: high,         why: "a fast clock reads as a hat; a slow one as a kick-ish rumble"}
+  - {block: aenv,  param: attack,  value: instant,      why: "struck"}
+  - {block: aenv,  param: decay,   value: short,        why: "the whole instrument: short is a closed hat, medium a snare, long an open hat"}
+  - {block: aenv,  param: sustain, value: zero,         why: "non-sustaining: a burst, then nothing"}
+  - {block: aenv,  param: release, value: same as decay, why: "plays out whatever the note length"}
+  - {block: aenv,  param: mode,    value: one-shot,     why: "a drum does not wait for note off"}
+  - {block: mode,  param: voices,  value: mono,         why: "one noise channel plays hat, snare and crash in turn"}
+
+taste:
+  - {block: aenv,  param: decay,  range: "fast – long",   default: short, why: "fast is a tick, long is a crash"}
+  - {block: noise, param: pitch,  range: "low – high",    default: high, why: "the LFSR clock; low for a snare body, high for a hat"}
+  - {block: noise, param: mode,   range: "long – short",  default: long, why: "short mode loops 93 steps: a buzz with a pitch, the chip's metallic tone"}
+  - {block: amp,   param: level,  range: "half – full",   default: full, why: "the hat sits under the snare by this step"}
+
+listening:
+  cue: "A burst of hiss that is gone at once. Hear that it has a colour: a bright, fizzy tick at the top, a dark rush lower down. On the chip the same channel is the whole kit, told apart by decay and clock."
+  ab: "Raise the sustain to full: the hit becomes a held wind and stops being a drum. Back to zero and it strikes again. Then lengthen the decay to long: the hat is now a crash."
+
+render:
+  tempo: 150
+  note: [C5, C5, G3, C5, C5, C5, G3, C5]
+  velocity: [100, 60, 110, 60, 100, 60, 110, 60]
+  pattern: "eighths, one bar: hats on the high notes, a snare on the low ones, accents on 1, 3, 5, 7; the last hit left to decay"
+  length_s: 2.0
+
+mappings: {}

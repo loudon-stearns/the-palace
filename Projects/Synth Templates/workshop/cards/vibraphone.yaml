@@ -1,0 +1,68 @@
+# Synth Templates — card 0.2 — Vibraphone
+# The long mallet: a metal bar rings for seconds, and the motor's tremolo rides on it.
+schema: synth-template-card/0.2
+id: vibraphone
+name: Vibraphone
+family: Keys and Mallets
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Sine: no response to filtering; FM/additive building block"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0}
+    osc2: {kind: oscillator, wave: sine, octave: 2, level: little, note: "the fourth partial, soft; the metal's shimmer"}
+    mix:  {kind: mixer}
+    amp:  {kind: amplifier, level: under unity}
+    fx:   {kind: fx, chain: [reverb]}
+    aenv: {kind: envelope, role: amp, shape: {a: instant, d: long, s: zero, r: short}, category: struck}
+    lfo1: {kind: lfo, wave: sine, rate: medium, sync: false, note: "the motor: tremolo, not vibrato"}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: lfo1, to: amp.level, amount: moderate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: sine,        why: "a metal bar is nearly a pure tone"}
+  - {block: osc2, param: level,   value: little,      why: "a soft partial two octaves up; the marimba's partial, but on metal it rings longer"}
+  - {block: aenv, param: attack,  value: instant,     why: "struck"}
+  - {block: aenv, param: decay,   value: long,        why: "metal rings where wood stops; the long decay is what makes it a vibraphone and not a marimba"}
+  - {block: aenv, param: sustain, value: zero,        why: "nothing feeds the bar after the strike"}
+  - {block: aenv, param: release, value: short,       why: "the damper bar: let go and it stops, but softly"}
+  - {block: lfo1, param: target,  value: amp level,   why: "the motor opens and closes the resonators: it is the loudness that wavers, not the pitch"}
+  - {block: lfo1, param: rate,    value: medium,      why: "a motor speed, a few times a second"}
+  - {block: mode, param: voices,  value: poly,        why: "four mallets; chords ring together"}
+
+taste:
+  - {block: lfo1, param: rate,    range: "slow – fast",         default: medium, why: "the motor's speed knob"}
+  - {block: lfo1, param: depth,   range: "none – generous",     default: moderate, why: "none is the motor off"}
+  - {block: aenv, param: decay,   range: "medium – very long",  default: long}
+  - {block: aenv, param: release, range: "short – same as decay", default: short, why: "same as decay is the pedal held down"}
+  - {block: fx,   param: reverb,  range: "small – large",       default: small}
+
+listening:
+  cue: "A glassy note that keeps ringing, with a slow wobble in its loudness, like a hand opening and closing over it. The pitch does not move; only the level."
+  ab: "Set the LFO depth to none: a plain long sine bell, still a mallet but with no motor. Back to moderate and the shimmer returns. Then move the LFO to pitch instead: it becomes a wobbly vibrato and stops sounding like metal."
+
+render:
+  tempo: 80
+  note: [F3, A3, C4, E4]
+  velocity: 95
+  pattern: "the four notes rolled up as quick sixteenths, then held two bars"
+  length_s: 7.0
+
+mappings: {}

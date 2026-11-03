@@ -1,0 +1,62 @@
+# Synth Templates — card 0.2 — Open Hi-Hat
+# The closed hat with the pedal up: the same metal, a longer decay, and one rule: the next closed hit cuts it off.
+schema: synth-template-card/0.2
+id: open-hi-hat
+name: Open Hi-Hat
+family: Drums and Percussion
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Unison / unisono"
+  - "Poly vs mono; max voices"
+  - "Low-pass, high-pass, band-pass, notch"
+  - "Envelope trigger / one-shot mode"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: square, octave: 2, unison: 6, detune: very wide}
+    noise:   {kind: oscillator, wave: noise, level: half}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: highpass, slope: 24, resonance: none}
+    amp:     {kind: amplifier, level: full, note: "choke: the open and closed hats share one voice, so a closed hit silences the open tail; the voice plays one card at a time and cannot yet choke across cards"}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: medium, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: false}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: osc1,    param: unison,    value: 6 voices,      why: "the same six clashing squares as the closed hat: it is the same instrument"}
+  - {block: osc1,    param: detune,    value: very wide,     why: "the metal"}
+  - {block: filter1, param: type,      value: highpass 24 dB, why: "above the kit"}
+  - {block: aenv,    param: decay,     value: medium,        why: "the pedal is up: the cymbals ring"}
+  - {block: aenv,    param: sustain,   value: zero,          why: "struck, then left to decay"}
+  - {block: mode,    param: voices,    value: mono,          why: "the choke group: open and closed hat share one voice, so the closed hit ends the open ring, as one pair of cymbals would"}
+
+taste:
+  - {block: aenv,    param: decay,   range: "short – slow",      default: medium, why: "half-open to wide open"}
+  - {block: noise,   param: level,   range: "off – full",        default: half}
+  - {block: filter1, param: cutoff,  range: "mid – open",        default: bright}
+  - {block: osc1,    param: detune,  range: "wide – very wide",  default: very wide}
+
+listening:
+  cue: "The closed hat's metal, but it washes out instead of stopping. In a pattern, listen for the open ring being cut dead by the next closed hit."
+  ab: "Set the voices to poly: the open tail rings through the closed hits and the pattern turns into a wash. Back to mono and the choke returns."
+
+render:
+  tempo: 120
+  note: C5
+  velocity: 100
+  pattern: "offbeat eighths, one bar: rest hit rest hit rest hit rest hit; the last left to ring"
+  length_s: 2.5
+
+mappings: {}

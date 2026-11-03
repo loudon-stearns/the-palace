@@ -1,0 +1,66 @@
+# Synth Templates — card — Sync Lead
+# Hard sync: osc1 resets osc2 every cycle, so osc2's pitch stops being pitch and becomes timbre. An envelope sweeps it.
+schema: synth-template-card/0.2
+id: sync-lead
+name: Sync Lead
+family: Leads
+tier: 2
+mode: mono
+classics: Cars 'Let's Go', Prophet-5
+status: drafted
+concepts:
+  - "Envelope → pitch (attack blip)"
+  - "Octave / semitone / fine tuning"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, note: "the master: sets the pitch you hear, is not itself heard"}
+    osc2:    {kind: oscillator, wave: saw, octave: 0, note: "the slave: reset by osc1 each cycle; its pitch is the timbre. The voice approximates sync as FM"}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    menv:    {kind: envelope, role: pitch, shape: {a: instant, d: medium, s: low, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, osc2, sync]
+    - [osc2, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv,  to: osc2.pitch, amount: about an octave, essential: true}
+    - {from: wheel, to: osc2.pitch, amount: a fifth, essential: false}
+    - {from: aenv,  to: amp.level, essential: true}
+    - {from: key,   to: osc1.pitch, essential: true}
+    - {from: key,   to: osc2.pitch, essential: true}
+    - {from: key,   to: menv.gate, essential: true}
+    - {from: key,   to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: routing,  value: sync into osc2,   why: "the master restarts the slave's cycle at its own pitch; whatever osc2 does, the note stays osc1's"}
+  - {block: osc2,    param: wave,     value: saw,              why: "the heard wave; the reset tears it, and the tear is the harmonics"}
+  - {block: menv,    param: target,   value: osc2 pitch,       why: "sweeping the slave's pitch does not change the note, it changes the timbre: a formant sliding down"}
+  - {block: menv,    param: amount,   value: about an octave,  why: "the slave starts an octave above and falls; the fall is the sync sweep"}
+  - {block: menv,    param: decay,    value: medium,           why: "long enough to hear the sweep as a vowel closing"}
+  - {block: menv,    param: sustain,  value: low,              why: "the slave settles a little above the master, so the tone stays bright at rest"}
+  - {block: filter1, param: cutoff,   value: bright,           why: "the filter is not the timbre here; it only trims"}
+  - {block: mode,    param: voices,   value: mono,             why: "one aggressive line"}
+
+taste:
+  - {block: menv,    param: amount,   range: "a fifth – two octaves",  default: about an octave}
+  - {block: menv,    param: decay,    range: "short – long",           default: medium}
+  - {block: menv,    param: sustain,  range: "zero – half",            default: low, why: "where the timbre rests after the sweep"}
+  - {block: filter1, param: cutoff,   range: "mid – open",             default: bright}
+  - {block: amp,     param: drive,    range: "none – light",           default: none}
+  - {block: osc1,    param: glide,    range: "none – short",           default: none}
+
+listening:
+  cue: "A hard, buzzing lead where each note opens with a sweep that sounds like a vowel sliding from 'ee' to 'ah', and the pitch never moves while it does. The wheel pushes the vowel back up."
+  ab: "Turn sync off: osc2's pitch envelope becomes an audible pitch dive, an ordinary blip, and the buzz goes plain. Sync back on and the dive becomes timbre again. Then set the envelope amount to none: a static, stuck vowel."
+
+render:
+  tempo: 120
+  note: [E4, E4, G4, A4]
+  velocity: 110
+  pattern: "quarter notes, detached, one bar; the last held a bar"
+  length_s: 4.0
+
+mappings: {}

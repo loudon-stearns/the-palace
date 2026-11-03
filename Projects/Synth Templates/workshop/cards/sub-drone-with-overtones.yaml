@@ -1,0 +1,79 @@
+# Synth Templates — card 0.2 — Sub Drone with Overtones
+# Textures and Ambient, tier 2: additive, in three sines. The sub holds; the partials above it come and go on their own clock.
+schema: synth-template-card/0.2
+id: sub-drone-with-overtones
+name: Sub Drone with Overtones
+family: Textures and Ambient
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Additive: sines in a harmonic series"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Harmonic-series tuning table"
+  - "Octave / semitone / fine tuning"
+
+graph:
+  blocks:
+    sub:  {kind: oscillator, wave: sine, octave: -1, level: full, note: "the fundamental: the drone itself"}
+    osc1: {kind: oscillator, wave: sine, octave: 0, level: half, note: "partial 2: one octave above the sub"}
+    osc2: {kind: oscillator, wave: sine, octave: -1, ratio: "3:1", level: quarter, note: "partial 3: three times the sub, an octave and a fifth up; the ratio is against the sub"}
+    mix:  {kind: mixer}
+    amp:  {kind: amplifier, level: under unity}
+    fx:   {kind: fx, chain: [reverb]}
+    menv: {kind: envelope, role: partials, shape: {a: very slow, d: very long, s: low, r: very long}, category: swell, note: "opens the upper partials slowly, then lets them sink back; the voice plays it as a level envelope on osc1 and osc2"}
+    aenv: {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: very long}, category: pad}
+    lfo1: {kind: lfo, wave: sine, rate: very slow, sync: false, note: "the drift: partial 3 breathes against partial 2"}
+  audio:
+    - [sub, mix]
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: osc1.level, amount: full, essential: true}
+    - {from: menv, to: osc2.level, amount: full, essential: true}
+    - {from: lfo1, to: osc2.level, amount: little, essential: false}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: sub.pitch, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: sub,  param: wave,    value: sine,            why: "one partial, nothing to filter: the whole timbre is built by adding, not carving"}
+  - {block: sub,  param: level,   value: full,            why: "the drone is the fundamental; everything else is colour on it"}
+  - {block: osc1, param: tuning,  value: one octave up,   why: "partial 2 of the series: it thickens the sub without changing what note it is"}
+  - {block: osc2, param: ratio,   value: "3:1",           why: "partial 3: the first partial that is not an octave, so it is the first you hear as colour"}
+  - {block: osc2, param: wave,    value: sine,            why: "a partial is a sine; a saw here would bring its own series and the sum stops being additive"}
+  - {block: menv, param: target,  value: upper partial levels, why: "the overtones swell in and fade out over the note: an organ whose drawbars move by themselves"}
+  - {block: menv, param: attack,  value: very slow,       why: "the sub is there first; the colour arrives"}
+  - {block: menv, param: decay,   value: very long,       why: "the colour leaves as slowly as it came"}
+  - {block: aenv, param: sustain, value: held,            why: "a drone: it goes on while the key is down"}
+  - {block: mode, param: voices,  value: mono,            why: "one fundamental; two drones are a chord, and this is not a chord"}
+
+taste:
+  - {block: osc1, param: level,   range: "quarter – equal",      default: half,    why: "how much the octave thickens the sub"}
+  - {block: osc2, param: level,   range: "little – half",        default: quarter, why: "how much fifth you hear; past half it is a chord"}
+  - {block: menv, param: sustain, range: "zero – half",          default: low,     why: "zero and the partials vanish entirely; the drone goes back to a bare sub"}
+  - {block: menv, param: decay,   range: "long – very long",     default: very long}
+  - {block: lfo1, param: depth,   range: "none – some",          default: little}
+  - {block: lfo1, param: rate,    range: "very slow – slow",     default: very slow}
+  - {block: aenv, param: release, range: "long – very long",     default: very long}
+  - {block: fx,   param: reverb,  range: "large – huge",         default: large}
+
+listening:
+  cue: "A low hum you feel more than hear. Over the first seconds an octave appears above it, then a fifth above that, and the hum turns into a chord without any new note being played. Then the colour sinks back and it is a hum again, with a slow breathing in the fifth."
+  ab: "Set the partial envelope's amount to none: a bare sub sine, as long as you like, going nowhere. Put it back and the overtones return. Then replace the sub's sine with a saw: the same two partials are still there but now buried in a hundred others, and it is a bass, not a drone."
+
+render:
+  tempo: 60
+  note: C1
+  velocity: 90
+  pattern: "one low note held the whole length, released at the end"
+  length_s: 15.0
+
+mappings: {}

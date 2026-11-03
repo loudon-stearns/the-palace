@@ -1,0 +1,52 @@
+# Synth Templates — card — Tremolo (LFO → Amp)
+# Technique demonstration: the vibrato LFO moved from pitch to amplitude. Same rate, different parameter, different effect.
+schema: synth-template-card/0.2
+id: tremolo-lfo-amp
+name: Tremolo (LFO → Amp)
+family: Technique Demonstrations
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "LFO → pitch / amplitude / pan / filter"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0}
+    amp:  {kind: amplifier, level: under unity}
+    lfo1: {kind: lfo, wave: sine, rate: medium, sync: false}
+    aenv: {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: amp.level, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,   value: sine,      why: "a steady tone with nothing else moving, so the volume pulse is all you hear"}
+  - {block: lfo1, param: target, value: amp level, why: "tremolo is the LFO on loudness; the pitch stays put"}
+  - {block: lfo1, param: rate,   value: medium,    why: "the same few-times-a-second rate as vibrato; only the destination changed"}
+  - {block: lfo1, param: wave,   value: sine,      why: "a smooth swell and dip; a square here would be a chop"}
+  - {block: aenv, param: sustain, value: held,     why: "the LFO rides on the sustain level; it has no effect on a note that is gone"}
+
+taste:
+  - {block: lfo1, param: rate,  range: "slow – fast",     default: medium}
+  - {block: lfo1, param: depth, range: "little – full",   default: moderate, why: "full is a stutter, little is a shimmer"}
+  - {block: lfo1, param: wave,  range: "sine – square",   default: sine}
+
+listening:
+  cue: "The pitch never moves; the loudness breathes in and out at a steady rate. Close your eyes and it is a tone behind a slowly spinning fan."
+  ab: "Route the same LFO to pitch instead of amp: the pulse becomes a wobble in pitch and it is vibrato. Back to amp and the pitch is steady again."
+
+render:
+  tempo: 100
+  note: A3
+  velocity: 90
+  pattern: "one note held three seconds"
+  length_s: 4.0
+
+mappings: {}

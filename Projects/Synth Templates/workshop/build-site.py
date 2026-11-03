@@ -12,16 +12,15 @@ import json, pathlib, re, yaml
 HERE = pathlib.Path(__file__).parent
 catalog = json.load(open(HERE / "catalog.json"))
 vocab = yaml.safe_load(open(HERE / "vocabulary.yaml"))
-cards, svgs = {}, {}
+cards, svgs = {}, []
+sheets = HERE / "site" / "sheets"
+if sheets.is_dir() and not sheets.is_symlink():
+    import shutil; shutil.rmtree(sheets)
+if not sheets.is_symlink():
+    sheets.symlink_to("../cards")        # the sheets are served beside the page from cards/ itself, one file each, loaded when a card opens
 for p in sorted((HERE / "cards").glob("*.yaml")):
     c = yaml.safe_load(open(p)); cards[c["id"]] = c
-    svg = HERE / "cards" / f"{c['id']}.svg"
-    if svg.exists():
-        s = svg.read_text()
-        s = re.sub(r"<\?xml[^>]*\?>", "", s)
-        s = re.sub(r"<svg ", '<svg class="sheet-svg" ', s, count=1)
-        s = re.sub(r'\s(width|height)="[^"]*"', "", s, count=2)
-        svgs[c["id"]] = s
+    if (HERE / "cards" / f"{c['id']}.svg").exists(): svgs.append(c["id"])
 
 HTML = r'''<!doctype html>
 <html lang="en" data-theme="paper">
@@ -179,7 +178,7 @@ function renderCard(id){
     <div class="play"><button class="btn primary" id="demo">▶ Play the default</button><button class="btn" id="stop">Stop</button><span class="hint">Plays the card's render pattern (${esc(notes)} at ${c.render?.tempo||120} bpm) on the reference voice, from the card's own settings and the vocabulary draft. <span class="assumed">Vocabulary numbers are ASSUMED until sat by ear.</span></span></div>
     <div class="keys" id="keys"></div>
     <div class="play" style="background:none"><span class="hint" id="midi">MIDI: …</span></div>
-    <div class="diagram">${SVGS[id] || '<div class="sub">no sheet rendered for this card</div>'}</div>
+    <div class="diagram">${SVGS.includes(id) ? `<img class="sheet-svg" src="sheets/${id}.svg" alt="signal-flow sheet">` : '<div class="sub">no sheet rendered for this card</div>'}</div>
     <div class="two"><div><h3>Essentials · what makes it this sound</h3>${kv(c.essentials||[], 'ess')}</div><div><h3>Taste · what you move</h3>${kv(c.taste||[], 'taste')}</div></div>
     <div class="listen"><h3>Listening</h3><p>${esc(c.listening?.cue)}</p><h3>A / B</h3><p>${esc(c.listening?.ab)}</p></div>
     <div class="listen"><h3>Review · notes for fine-tuning this card</h3><textarea id="review" placeholder="What is wrong, what is missing, what to change. Saved in this browser; export all reviews from the catalog page.">${esc(reviews[c.id]||'')}</textarea></div>

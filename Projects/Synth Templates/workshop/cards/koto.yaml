@@ -1,0 +1,70 @@
+# Synth Templates — card — Koto
+# Plucked Strings, tier 2. The pitch-bend transient: the string is pressed as it is plucked, so the note starts sharp and settles.
+# A pulse through a highpass gives the thin, twangy body; a short pitch envelope gives the bend.
+schema: synth-template-card/0.2
+id: koto
+name: Koto
+family: Plucked Strings
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Envelope → pitch (attack blip)"
+  - "Low-pass, high-pass, band-pass, notch"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Pulse width, static and modulated"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: pulse, pw: 0.25, octave: 0}
+    filter1: {kind: filter, type: highpass, slope: 12, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short, s: zero, r: short}, category: percussive}
+    menv:    {kind: envelope, role: pitch,  shape: {a: instant, d: short, s: zero, r: short}, category: percussive, note: "the bend: starts above the note and falls onto it"}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: medium, s: zero, r: same as decay}, category: plucked}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc1.pitch, amount: a fifth, essential: true, note: "smaller than a fifth in truth: a whole tone or so. The vocabulary's smallest word is a fifth"}
+    - {from: fenv, to: filter1.cutoff, amount: some, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: menv.amount, amount: some, essential: false, note: "a harder pluck bends further"}
+
+essentials:
+  - {block: osc1,    param: wave,      value: pulse,            why: "a narrow pulse is thin and nasal: a silk string over a long hollow body"}
+  - {block: filter1, param: type,      value: highpass 12 dB,   why: "cut the lows, keep the twang; a lowpass here would make it a guitar"}
+  - {block: fenv,    param: decay,     value: short,            why: "the highpass is pushed up at the pluck and settles: the attack is thinner than the body"}
+  - {block: menv,    param: attack,    value: instant}
+  - {block: menv,    param: decay,     value: short,            why: "the note starts sharp and drops onto pitch within the pluck: the press of the left hand"}
+  - {block: menv,    param: sustain,   value: zero,             why: "the bend must land exactly on the note"}
+  - {block: aenv,    param: attack,    value: instant,          why: "plucked"}
+  - {block: aenv,    param: sustain,   value: zero,             why: "non-sustaining"}
+  - {block: aenv,    param: release,   value: same as decay,    why: "the string rings after the key"}
+
+taste:
+  - {block: menv,    param: amount,    range: "a fifth – about an octave", default: a fifth, why: "the vocabulary has no word smaller than a fifth; a real koto bend is a tone"}
+  - {block: menv,    param: decay,     range: "fast – medium",            default: short, why: "fast is a blip, medium is a slide"}
+  - {block: filter1, param: cutoff,    range: "dark – mid",               default: dark}
+  - {block: fenv,    param: amount,    range: "little – moderate",        default: some}
+  - {block: aenv,    param: decay,     range: "short – slow",             default: medium}
+  - {block: filter1, param: resonance, range: "none – moderate",          default: little}
+
+listening:
+  cue: "Every note arrives from slightly above and settles: a twang that dips onto pitch. The body is thin and bright, with little low end even on low notes."
+  ab: "Set the pitch envelope amount to none: the same patch is a plain thin pluck, in tune from the first instant and flat as a result. Put it back and the koto is there. Then swap the highpass for a lowpass: the twang goes and a nylon guitar comes back."
+
+render:
+  tempo: 84
+  note: [D4, Eb4, G4, A4, Bb4, D5, A4, G4]
+  velocity: 100
+  pattern: "an eight-note in-scale phrase, one note per eighth, each key held its own eighth; the last rings"
+  length_s: 4.0
+
+mappings: {}

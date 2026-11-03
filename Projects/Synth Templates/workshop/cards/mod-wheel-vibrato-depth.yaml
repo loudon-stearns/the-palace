@@ -1,0 +1,58 @@
+# Synth Templates — card 0.2 — Mod Wheel → Vibrato Depth
+# Secondary modulation as a performance control: the LFO's depth is set far too high, and the wheel is what lets it in.
+schema: synth-template-card/0.2
+id: mod-wheel-vibrato-depth
+name: Mod Wheel → Vibrato Depth
+family: LFO Behaviours
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "CC1 → pitch LFO depth"
+  - "Vibrato: ~5 Hz, under a semitone; dedicated vibrato LFO"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: medium}, category: sustaining}
+    lfo1:    {kind: lfo, wave: sine, rate: medium, sync: false, note: "depth set high on purpose; CC1 scales it from zero"}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1,  to: osc1.pitch, amount: generous, essential: true}
+    - {from: wheel, to: lfo1.depth, amount: full, essential: true}
+    - {from: aenv,  to: amp.level, essential: true}
+    - {from: key,   to: osc1.pitch, essential: true}
+    - {from: key,   to: aenv.gate, essential: true}
+
+essentials:
+  - {block: lfo1,  param: depth,  value: generous, why: "far more than natural vibrato: the wheel at the top should be a burst of extreme wobble, so the ceiling is set high"}
+  - {block: wheel, param: target, value: LFO depth, why: "the wheel scales the depth from zero, so with the wheel down there is no vibrato at all"}
+  - {block: wheel, param: amount, value: full,     why: "the whole depth is under the hand; the wheel is the vibrato"}
+  - {block: lfo1,  param: rate,   value: medium,   why: "the human rate stays fixed; only the amount is played"}
+  - {block: aenv,  param: sustain, value: held,    why: "the wheel is used on held notes"}
+  - {block: mode,  param: voices, value: mono}
+
+taste:
+  - {block: lfo1,    param: depth,   range: "moderate – full",  default: generous, why: "how extreme the wheel's top is"}
+  - {block: lfo1,    param: rate,    range: "slow – fast",      default: medium}
+  - {block: filter1, param: cutoff,  range: "mid – bright",     default: bright}
+  - {block: aenv,    param: release, range: "short – medium",   default: medium}
+
+listening:
+  cue: "Wheel down, the note is bone straight. As the wheel comes up the vibrato grows from nothing to a wobble far wider than any singer, and backs off again when the wheel drops."
+  ab: "Route the LFO straight to pitch with no wheel in between: the extreme vibrato is on every note all the time and the patch is unplayable. Put the wheel back and the same depth becomes an expression."
+
+render:
+  tempo: 100
+  note: A3
+  velocity: 100
+  pattern: "one note held two bars; the wheel rises from zero to full over the first bar and falls back over the second"
+  length_s: 5.0
+
+mappings: {}
