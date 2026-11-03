@@ -1,0 +1,386 @@
+<!doctype html>
+<!--
+  title: Saturation ↔ Richness — rich — four versions, blind
+  born: 2026-11-03
+  links: [[Saturation ↔ Richness]] (connects-to · rich-face-piece) · listed in [[Saturation ↔ Richness — rich.json]] · the curve is the one walked in "the bend and the lean", beside me on this face
+  forward_vector: I am the walk up to Teaching the Resonance's saturation experiment. A clean bass line, alone and in a small mix; the page's four versions, clean, light, medium and heavy, named and matched in loudness; what the drive costs, in peaks and in the loudness that fools an A/B; and last the four again with their names hidden, for you to put in order and to choose the one you would keep, scored against what guessing does. I change only when the section I serve does.
+  sound: nothing plays until Play is clicked; the AudioContext is made on that click. Changing step stops the sound. Every sound is made in this page by the core below: sines, a swept kick, noise hats, a sine pad. No sample, no file.
+  check: Cross-Domain Resonances/Saturation ↔ Richness/Saturation ↔ Richness — rich — check.mjs runs this page's core in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Four versions, blind · Saturation ↔ Richness</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --info:#4a8fff; --warn:#e8651b;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .legend{display:flex;gap:6px 18px;flex-wrap:wrap;margin-top:10px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend i{display:inline-block;width:14px;height:2px;margin-right:6px;vertical-align:3px}
+  [hidden]{display:none !important}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.ab{font-family:var(--display);font-size:22px;letter-spacing:.06em;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 22px;cursor:pointer}
+  button.ab[aria-pressed="true"]{color:#0a0a0f;background:var(--accent);border-color:var(--accent)}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:left;font-weight:400;vertical-align:middle}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  select{font-family:var(--sans);font-size:14px;color:var(--fg-1);background:var(--bg-elev-2);border:1px solid var(--border);border-radius:4px;padding:6px 8px}
+  .score{font-family:var(--serif);font-size:19px;color:var(--fg-1);margin-top:14px;max-width:66ch}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer svg{flex:none}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Saturation ↔ Richness · the saturation experiment · four steps</div>
+  <h1>Four versions, blind</h1>
+  <p class="lead">The page’s assignment: one clean part, four versions from clean to heavy, compared in the mix. Here the part is a sine bass line, the thinnest thing a mix carries, made in this page with a small beat around it. You hear the four versions named, then what the drive costs, and last the four with their names hidden, for you to put in order. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Hear</span><span class="hint" id="hearHint"></span><button class="play" id="play">Play</button></div>
+    <canvas id="view" aria-label="the bass's spectrum, or its waveform"></canvas>
+    <div class="legend" id="legend"></div>
+    <div class="rowb"><span class="eyebrow">listen to</span>
+      <button class="ghost" data-solo="0">the mix</button><button class="ghost" data-solo="1">the bass alone</button>
+    </div>
+    <div class="rowb" id="verRow" hidden><span class="eyebrow">version</span>
+      <button class="ghost" data-v="0">Clean</button><button class="ghost" data-v="1">Light</button><button class="ghost" data-v="2">Medium</button><button class="ghost" data-v="3">Heavy</button>
+    </div>
+    <div class="rowb" id="matchRow" hidden><span class="eyebrow">loudness</span>
+      <button class="ghost" data-m="1">matched</button><button class="ghost" data-m="0">as the drive leaves it</button>
+    </div>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+
+    <div id="test" hidden>
+      <div class="rowb"><span class="eyebrow">hidden versions</span>
+        <button class="ab" data-x="0">A</button><button class="ab" data-x="1">B</button><button class="ab" data-x="2">C</button><button class="ab" data-x="3">D</button>
+        <span class="hint">press a letter to hear it; switching keeps your place in the loop</span>
+      </div>
+      <table class="marks" id="ranks"></table>
+      <div class="rowb"><button class="ghost" id="submit" disabled>Show me</button><button class="ghost" id="again">Shuffle again</button><span class="hint" id="tally"></span></div>
+      <div id="result" hidden></div>
+    </div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><b>LOUD’N LIVE</b> · Saturation ↔ Richness · four versions, blind · Sketch, 2026-11-03</footer>
+</main>
+
+<script id="mx-core">
+const MX = (() => {
+  const RATE = 48000, BPM = 100, BEAT = 60 / BPM, BARS = 2, LEN = Math.round(BARS * 4 * BEAT * RATE);
+  // The four versions the section asks for. The curve is the page's soft clip with a slight lean;
+  // only the drive changes. Drives chosen so a held note at the bass's peak level adds about −36, −20 and −10 dB of harmonics.
+  const LEAN = 0.12;
+  const VERSIONS = [
+    { id: 'clean', name: 'Clean', d: 0 },
+    { id: 'light', name: 'Light', d: 0.6 },
+    { id: 'medium', name: 'Medium', d: 1.8 },
+    { id: 'heavy', name: 'Heavy', d: 4.5 },
+  ];
+  function curve(x, d, b) {
+    if (d < 1e-4) return x;
+    const t0 = Math.tanh(d * b), top = Math.tanh(d * (1 + b)) - t0;
+    return (Math.tanh(d * (x + b)) - t0) / top;
+  }
+  // a small seeded generator, so every render is the same render
+  function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  const hz = (midi) => 440 * Math.pow(2, (midi - 69) / 12);
+  // the bass line: [beat, length in beats, midi]. A1 A1 C2 · D2 E2 G1 · A1 …
+  const LINE = [[0, 1.5, 33], [1.5, 0.5, 33], [2, 1, 36], [3, 1, 38], [4, 1.5, 40], [5.5, 0.5, 31], [6, 1, 33], [7, 0.75, 36]];
+  function bassClean() {
+    const y = new Float64Array(LEN);
+    for (const [b, len, m] of LINE) {
+      const f = hz(m), n0 = Math.round(b * BEAT * RATE), dur = Math.round(len * BEAT * RATE), rel = Math.round(0.03 * RATE), att = Math.round(0.006 * RATE);
+      let ph = 0;
+      for (let i = 0; i < dur + rel && n0 + i < LEN; i++) {
+        const t = i / RATE;
+        let env = i < att ? i / att : 0.55 + 0.45 * Math.exp(-(t - att / RATE) / 0.18);
+        if (i >= dur) env *= 1 - (i - dur) / rel;
+        y[n0 + i] += 0.9 * env * Math.sin(ph); ph += 2 * Math.PI * f / RATE;
+      }
+    }
+    return y;
+  }
+  function kick() {
+    const y = new Float64Array(LEN);
+    for (const b of [0, 2.5, 4, 6.5]) {
+      const n0 = Math.round(b * BEAT * RATE); let ph = 0;
+      for (let i = 0; i < 0.4 * RATE && n0 + i < LEN; i++) { const t = i / RATE, f = 45 + 75 * Math.exp(-t / 0.035); y[n0 + i] += 0.8 * Math.exp(-t / 0.12) * Math.sin(ph) * Math.min(1, i / 48); ph += 2 * Math.PI * f / RATE; }
+    }
+    return y;
+  }
+  function hats() {
+    const y = new Float64Array(LEN), r = rng(7);
+    for (let e = 0; e < BARS * 8; e++) {
+      const n0 = Math.round(e * BEAT / 2 * RATE), amp = e % 2 ? 0.10 : 0.16; let prev = 0;
+      for (let i = 0; i < 0.06 * RATE && n0 + i < LEN; i++) { const w = r() * 2 - 1; y[n0 + i] += amp * Math.exp(-i / RATE / 0.018) * (w - prev); prev = w; }
+    }
+    return y;
+  }
+  function pad() {
+    const y = new Float64Array(LEN), notes = [57, 60, 64, 67];
+    for (let i = 0; i < LEN; i++) { const t = i / RATE, fade = Math.min(1, t / 0.25, (LEN - i) / RATE / 0.25); let s = 0; for (const m of notes) s += Math.sin(2 * Math.PI * hz(m) * t + m); y[i] = 0.045 * fade * s; }
+    return y;
+  }
+  // a DC blocker: the lean shifts the middle, and the shift is not sound
+  function dcBlock(x) { const y = new Float64Array(x.length); let x1 = 0, y1 = 0; const R = 1 - 2 * Math.PI * 8 / RATE; for (let i = 0; i < x.length; i++) { y1 = x[i] - x1 + R * y1; x1 = x[i]; y[i] = y1; } return y; }
+  function saturate(x, d) { const y = new Float64Array(x.length); for (let i = 0; i < x.length; i++) y[i] = curve(x[i], d, LEAN); return d < 1e-4 ? y : dcBlock(y); }
+  // loudness: ITU-R BS.1770 K-weighting at 48 kHz, ungated
+  const KW = [[1.53512485958697, -2.69169618940638, 1.19839281085285, -1.69065929318241, 0.73248077421585], [1, -2, 1, -1.99004745483398, 0.99007225036621]];
+  function kLoud(x) {
+    const st = KW.map(() => [0, 0, 0, 0]); let s = 0;
+    for (let pass = 0; pass < 2; pass++) for (let i = 0; i < x.length; i++) { // the loop played twice; the second pass is read
+      let v = x[i];
+      for (let j = 0; j < 2; j++) { const [b0, b1, b2, a1, a2] = KW[j], z = st[j]; const o = b0 * v + b1 * z[0] + b2 * z[1] - a1 * z[2] - a2 * z[3]; z[1] = z[0]; z[0] = v; z[3] = z[2]; z[2] = o; v = o; }
+      if (pass) s += v * v;
+    }
+    return -0.691 + 10 * Math.log10(s / x.length);
+  }
+  function scale(x, g) { const y = new Float64Array(x.length); for (let i = 0; i < x.length; i++) y[i] = x[i] * g; return y; }
+  function peak(x) { let p = 0; for (const v of x) p = Math.max(p, Math.abs(v)); return p; }
+  function rms(x) { let s = 0; for (const v of x) s += v * v; return Math.sqrt(s / x.length); }
+  // a radix-2 FFT, for the spectrum and for where the power sits
+  function fft(re, im) {
+    const N = re.length;
+    for (let i = 1, j = 0; i < N; i++) { let bit = N >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+    for (let len = 2; len <= N; len <<= 1) { const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a); for (let i = 0; i < N; i += len) { let cr = 1, ci = 0; for (let k = 0; k < len / 2; k++) { const ur = re[i + k], ui = im[i + k], vr = re[i + k + len / 2] * cr - im[i + k + len / 2] * ci, vi = re[i + k + len / 2] * ci + im[i + k + len / 2] * cr; re[i + k] = ur + vr; im[i + k] = ui + vi; re[i + k + len / 2] = ur - vr; im[i + k + len / 2] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } }
+  }
+  function power(x) { let N = 1; while (N < x.length) N <<= 1; const re = new Float64Array(N), im = new Float64Array(N); re.set(x); fft(re, im); const p = new Float64Array(N / 2); for (let k = 0; k < N / 2; k++) p[k] = re[k] * re[k] + im[k] * im[k]; return { p, df: RATE / N }; }
+  // every note's fundamental is below 90 Hz; everything above 90 Hz in the bass is something the curve made
+  const SPLIT = 90;
+  function bands(x) { const { p, df } = power(x); let lo = 0, hi = 0; for (let k = 1; k < p.length; k++) (k * df < SPLIT ? (lo += p[k]) : (hi += p[k])); return { lo, hi, share: hi / (lo + hi) }; }
+  // the spectrum drawn: power summed into 1/6-octave bands from 30 Hz to 12 kHz
+  function sixths(x) { const { p, df } = power(x), out = []; for (let f = 30; f < 12000; f *= Math.pow(2, 1 / 6)) { const f2 = f * Math.pow(2, 1 / 6); let s = 0; for (let k = Math.ceil(f / df); k * df < f2 && k < p.length; k++) s += p[k]; out.push({ f: Math.sqrt(f * f2), db: 10 * Math.log10(s + 1e-20) }); } return out; }
+  // a held note at the bass's peak level: what the drive adds, in dB below the fundamental
+  function heldNote(d) { const P = 960, x = new Float64Array(P); for (let n = 0; n < P; n++) x[n] = 0.9 * Math.sin(2 * Math.PI * n / P); let f = 0, h = 0; const y = new Float64Array(P); for (let n = 0; n < P; n++) y[n] = curve(x[n], d, LEAN); for (let k = 1; k <= 60; k++) { let re = 0, im = 0; for (let n = 0; n < P; n++) { re += y[n] * Math.cos(2 * Math.PI * k * n / P); im += y[n] * Math.sin(2 * Math.PI * k * n / P); } const a = re * re + im * im; if (k === 1) f = a; else h += a; } return 10 * Math.log10(Math.max(h / f, 1e-24)); }
+  // render everything: four bass stems matched in K-weighted loudness to the clean one, and each in the mix
+  function render() {
+    const clean = bassClean(), k = kick(), hh = hats(), pd = pad();
+    const ref = kLoud(clean), refBands = bands(clean);
+    const drums = new Float64Array(LEN); for (let i = 0; i < LEN; i++) drums[i] = k[i] + hh[i] + pd[i];
+    const out = VERSIONS.map((v) => {
+      const raw = saturate(clean, v.d), unmatchedLu = kLoud(raw) - ref, g = Math.pow(10, -unmatchedLu / 20), stem = scale(raw, g);
+      const b = bands(stem), mix = new Float64Array(LEN); for (let i = 0; i < LEN; i++) mix[i] = 0.8 * stem[i] + drums[i];
+      return { ...v, stem, mix, unmatchedLu, matchGainDb: 20 * Math.log10(g), share: b.share, fundDb: 10 * Math.log10(b.lo / refBands.lo), crestDb: 20 * Math.log10(peak(stem) / rms(stem)), heldDb: heldNote(v.d), loud: kLoud(stem), spectrum: sixths(stem) };
+    });
+    return { versions: out, ref, LEN };
+  }
+  // ── the blind round ─────────────────────────────────────────────────────────
+  function shuffle(a, r) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  // how far a guessed order is from the true one: the number of pairs in the wrong order (Kendall)
+  function inversions(order) { let c = 0; for (let i = 0; i < order.length; i++) for (let j = i + 1; j < order.length; j++) if (order[i] > order[j]) c++; return c; }
+  // of the 24 orders of four, how many sit within k swapped pairs of the truth
+  function within(k) { const perms = []; const go = (a, rest) => { if (!rest.length) perms.push(a); rest.forEach((v, i) => go([...a, v], rest.filter((_, j) => j !== i))); }; go([], [0, 1, 2, 3]); return perms.filter((p) => inversions(p) <= k).length; }
+  return { RATE, LEN, VERSIONS, LEAN, SPLIT, curve, rng, render, kLoud, bands, heldNote, inversions, within, shuffle, peak, rms };
+})();
+</script>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const MASTER = 0.34;   // the loudest mix, heavy as the drive leaves it, peaks near 2.8 before this; after it, under full scale
+  let R = null;          // the render, made on first need
+  const need = () => (R || (R = MX.render()));
+  const S = { step: 0, solo: 0, v: 0, match: 1, map: null, ranks: [null, null, null, null], keep: null, x: 0, shown: false, rounds: 0, exact: 0 };
+  const NAMES = MX.VERSIONS.map((v) => v.name);
+  const fmt = (v, n) => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(n == null ? 1 : n);
+
+  const STEPS = [
+    { key: 'clean', rail: 'the clean line', title: 'The clean line',
+      say: 'A bass line of plain sines, two bars long, with a swept kick, noise hats and a soft pad around it. Every note’s fundamental sits below 90 Hz, so on laptop speakers you may hear little of it: most of its power is lower than small speakers go. The spectrum is the bass alone. This is version A of the page’s assignment, clean, “precise but thin”.',
+      hear: 'the clean bass, in the mix or alone',
+      eq: ['y = x', '(the bass that plays) = (the bass as written): no curve yet'], eq2: ['', ''] },
+    { key: 'versions', rail: 'four versions', title: 'Light, medium, heavy',
+      say: 'The same line through the soft clip from this face’s other piece, leaning slightly, at three drives. On a held note at the bass’s peak, light adds harmonics about 31 dB below the note, medium about 16, heavy about 10. Each is turned down to the clean one’s loudness, so what changes is the colour, not the level. Watch the spectrum fill above 90 Hz, where none of the notes are: everything there the curve made. Switch while it plays; the loop keeps its place.',
+      hear: 'one version at a time, matched in loudness',
+      eq: ['y = [tanh(d·(x + b)) − tanh(d·b)] ÷ [tanh(d·(1 + b)) − tanh(d·b)],  b = 0.12', '(out) = the soft clip of (drive × (in + a slight lean)), middle at zero, full scale kept; only the drive d changes: 0, 0.6, 1.8, 4.5'],
+      eq2: ['', ''] },
+    { key: 'cost', rail: 'what it costs', title: 'What it costs',
+      say: 'Two costs, and one trap. The curve takes the peaks: each note’s attack is flattened, and the gap between the bass’s peak and its average shrinks by about 4 dB from clean to heavy, though the heavy curve, leaning, swings further on one side than the other. The waveform shows the first note’s attack. The trap is loudness. Switch to “as the drive leaves it”: each step up is also louder, by about 1, 5 and 12 dB. In an A/B the louder one tends to sound better, so an unmatched test can be a test of level.',
+      hear: 'the attack, matched or as the drive leaves it',
+      eq: ['crest = 20·log₁₀(peak ÷ rms)', '(crest factor, dB) = how far the highest peak stands above the average level'], eq2: ['', ''] },
+    { key: 'test', rail: 'four, blind', title: 'Four, blind',
+      say: 'The four again, matched in loudness, with their names hidden behind A to D in an order chosen at random. Play them in the mix, or alone, as often as you like. Put them in order from clean to heavy, and choose the one you would keep in this mix. The page’s students found light “fuller, sits better in mix”. Your order is scored against what guessing does: of the 24 ways to order four, guessing lands on the right one 1 time in 24.',
+      hear: 'press A, B, C or D',
+      eq: ['P(exact order by guessing) = 1 ÷ 4! = 1/24', 'four things can be ordered 24 ways; a guess finds the right one about 4 times in 100'],
+      eq2: ['P(within one swapped pair) = 4/24 · within two = 9/24', 'counting the orders one neighbour-swap from the truth, then two'] },
+  ];
+
+  // ── sound: eight loops start together (four versions × mix or alone), one is heard ──
+  let ctx = null, master = null, voices = [], playing = false;
+  async function ensure() {
+    if (!ctx) { ctx = new AudioContext({ sampleRate: MX.RATE }); master = ctx.createGain(); master.gain.value = MASTER; master.connect(ctx.destination); ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) stopSound(); }; }
+    if (ctx.state !== 'running') await ctx.resume();
+  }
+  const bufs = new Map();
+  function buf(key, y) { if (!bufs.has(key)) { const b = ctx.createBuffer(1, y.length, MX.RATE); b.copyToChannel(Float32Array.from(y), 0); bufs.set(key, b); } return bufs.get(key); }
+  // which loop is heard now: version index, mix or alone, matched or not
+  function heardIndex() {
+    const vi = STEPS[S.step].key === 'test' ? S.map[S.x] : STEPS[S.step].key === 'clean' ? 0 : S.v;
+    return { vi, solo: S.solo, gain: S.match || STEPS[S.step].key === 'test' ? 1 : Math.pow(10, R.versions[vi].unmatchedLu / 20) };
+  }
+  function setGains(t) {
+    if (!ctx || !voices.length) return; const h = heardIndex(), now = ctx.currentTime;
+    voices.forEach((v) => v.g.gain.setTargetAtTime(v.vi === h.vi && v.solo === h.solo ? h.gain : 0, now, t || 0.012));
+  }
+  function stopSound() { playing = false; if (ctx) { const now = ctx.currentTime; for (const v of voices) { try { v.g.gain.setTargetAtTime(0, now, 0.01); v.s.stop(now + 0.08); } catch (e) { /* stopped */ } } } voices = []; $('play').textContent = 'Play'; markX(); }
+  async function play() {
+    need(); await ensure(); playing = true; $('play').textContent = 'Stop';
+    const now = ctx.currentTime + 0.05;
+    voices = [];
+    R.versions.forEach((ver, vi) => [0, 1].forEach((solo) => {
+      const s = ctx.createBufferSource(); s.buffer = buf(vi + ':' + solo, solo ? scaleStem(ver.stem) : ver.mix); s.loop = true;
+      const g = ctx.createGain(); g.gain.value = 0; s.connect(g).connect(master); s.start(now); voices.push({ s, g, vi, solo });
+    }));
+    setGains(0.02); markX();
+  }
+  const scaleStem = (y) => { const o = new Float64Array(y.length); for (let i = 0; i < y.length; i++) o[i] = y[i] * 0.8; return o; };   // the bass alone sits at its level in the mix
+  $('play').onclick = () => (playing ? stopSound() : play());
+
+  // ── the blind round ──
+  function newRound() {
+    const r = MX.rng((Date.now() ^ (Math.random() * 1e9)) >>> 0);
+    S.map = MX.shuffle([0, 1, 2, 3], r); S.ranks = [null, null, null, null]; S.keep = null; S.x = 0; S.shown = false;
+    $('result').hidden = true; buildRanks(); setGains(); markX(); draw();
+  }
+  function buildRanks() {
+    const opt = (i) => `<select data-r="${i}" aria-label="order for ${'ABCD'[i]}"><option value="">order…</option>${NAMES.map((n, k) => `<option value="${k}">${k + 1} · ${n.toLowerCase()}</option>`).join('')}</select>`;
+    $('ranks').innerHTML = `<tr><th>hidden</th><th>where it falls, clean to heavy</th><th>the one I’d keep</th></tr>` +
+      [0, 1, 2, 3].map((i) => `<tr><td><b>${'ABCD'[i]}</b></td><td>${opt(i)}</td><td><button class="ghost" data-keep="${i}" aria-pressed="false">keep ${'ABCD'[i]}</button></td></tr>`).join('');
+    document.querySelectorAll('[data-r]').forEach((el) => el.onchange = () => { S.ranks[+el.dataset.r] = el.value === '' ? null : +el.value; ready(); });
+    document.querySelectorAll('[data-keep]').forEach((b) => b.onclick = () => { S.keep = +b.dataset.keep; document.querySelectorAll('[data-keep]').forEach((c) => c.setAttribute('aria-pressed', String(+c.dataset.keep === S.keep))); ready(); });
+    ready();
+  }
+  function ready() { const full = S.ranks.every((v) => v !== null) && new Set(S.ranks).size === 4; $('submit').disabled = !full || S.shown; $('submit').textContent = full || S.shown ? 'Show me' : 'give each letter its own place'; }
+  function markX() { document.querySelectorAll('[data-x]').forEach((b) => b.setAttribute('aria-pressed', String(playing && +b.dataset.x === S.x))); }
+  document.querySelectorAll('[data-x]').forEach((b) => b.onclick = async () => { S.x = +b.dataset.x; if (!playing) await play(); else setGains(); markX(); });
+  $('submit').onclick = () => {
+    S.shown = true; ready(); S.rounds++;
+    // the guessed order of the true versions: list the letters by the place given, read off what each was
+    const byPlace = [0, 1, 2, 3].sort((a, b) => S.ranks[a] - S.ranks[b]).map((letter) => S.map[letter]);
+    const inv = MX.inversions(byPlace); if (inv === 0) S.exact++;
+    const kept = S.keep == null ? null : S.map[S.keep];
+    const within = MX.within(inv);
+    const read = inv === 0 ? 'The exact order. Guessing finds it 1 time in 24.'
+      : `${inv} pair${inv > 1 ? 's' : ''} swapped. Guessing lands this close or closer ${within} times in 24${within >= 12 ? ', so this round can’t tell your ear from a guess' : ''}.`;
+    const keepLine = kept == null ? 'You didn’t choose one to keep.' : `You’d keep <b>${NAMES[kept].toLowerCase()}</b>${kept === 1 ? ', the one the page’s students chose.' : '. The page’s students chose light; this is your ear, in this mix, on these speakers.'}`;
+    const rows = [0, 1, 2, 3].map((i) => { const v = R.versions[S.map[i]]; return `<tr><td><b>${'ABCD'[i]}</b></td><td>${NAMES[S.ranks[i]].toLowerCase()}</td><td>${v.name.toLowerCase()}</td><td>${v.d ? fmt(v.heldDb) + ' dB' : 'none'}</td><td>${v.crestDb.toFixed(1)} dB</td></tr>`; }).join('');
+    $('result').innerHTML = `<p class="score">${read} ${keepLine}</p><table class="marks"><tr><th>hidden</th><th>you placed it</th><th>it was</th><th>added, held note</th><th>crest</th></tr>${rows}</table>
+      <p class="hint">Exact orders so far: ${S.exact} of ${S.rounds}. Guessing makes an exact order 1 round in 24, so two in a handful of rounds is already unlikely by chance. One ear, one sitting, one pair of speakers: it says what you heard, not what every ear hears. The spectra are drawn above.</p>`;
+    $('result').hidden = false; $('tally').textContent = `rounds: ${S.rounds}`; draw();
+  };
+  $('again').onclick = () => newRound();
+
+  // ── drawing ──
+  const CV = $('view');
+  function fit(h) { const r = window.devicePixelRatio || 1, w = CV.clientWidth || 600; CV.width = Math.round(w * r); CV.height = Math.round(h * r); CV.style.height = h + 'px'; const g = CV.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); return { g, w, h }; }
+  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim() || '#888';
+  const COL = () => [css('--fg-3'), css('--info'), css('--accent'), css('--warn')];
+  function spectrum(list) {
+    const { g, w, h } = fit(280), l = 40, r = 10, t = 16, b = 26, pw = w - l - r, ph = h - t - b;
+    const all = list.flatMap((i) => R.versions[i].spectrum.map((p) => p.db)), mx = Math.max(...all), top = Math.ceil(mx / 10) * 10, bot = top - 90;
+    const X = (f) => l + Math.log(f / 30) / Math.log(12000 / 30) * pw, Y = (d) => t + (top - Math.max(bot, Math.min(top, d))) / (top - bot) * ph;
+    g.font = '10px ' + css('--mono'); g.fillStyle = css('--fg-3'); g.strokeStyle = css('--border-soft'); g.lineWidth = 1;
+    for (let d = top; d >= bot; d -= 15) { g.beginPath(); g.moveTo(l, Y(d)); g.lineTo(l + pw, Y(d)); g.stroke(); g.fillText(String(d - top), 6, Y(d) + 3); }
+    for (const f of [50, 100, 200, 500, 1000, 2000, 5000, 10000]) { g.beginPath(); g.moveTo(X(f), t); g.lineTo(X(f), t + ph); g.stroke(); g.fillText(f >= 1000 ? f / 1000 + 'k' : String(f), X(f) - 8, h - 8); }
+    g.strokeStyle = css('--warn'); g.setLineDash([3, 4]); g.beginPath(); g.moveTo(X(MX.SPLIT), t); g.lineTo(X(MX.SPLIT), t + ph); g.stroke(); g.setLineDash([]);
+    g.fillStyle = css('--fg-3'); g.fillText('the notes ← 90 Hz → made by the curve', X(MX.SPLIT) - 92, t - 4);
+    list.forEach((i) => { const c = COL()[i]; g.strokeStyle = c; g.lineWidth = i === list[list.length - 1] ? 2 : 1.2; g.beginPath(); R.versions[i].spectrum.forEach((p, j) => (j ? g.lineTo(X(p.f), Y(p.db)) : g.moveTo(X(p.f), Y(p.db)))); g.stroke(); });
+    g.fillStyle = css('--fg-3'); g.fillText('dB, the bass alone, in sixth-octave bands · Hz →', X(1400), t + 12);
+  }
+  function waveform(list) {
+    const { g, w, h } = fit(280), l = 10, pw = w - 20, mid = h / 2, amp = h * 0.42, n0 = 0, n1 = Math.round(0.12 * MX.RATE);
+    g.strokeStyle = css('--border-soft'); g.beginPath(); g.moveTo(l, mid); g.lineTo(l + pw, mid); g.stroke();
+    const gain = (v) => (S.match ? 1 : Math.pow(10, v.unmatchedLu / 20));
+    let top = 0; list.forEach((i) => { const v = R.versions[i]; for (let n = n0; n < n1; n++) top = Math.max(top, Math.abs(v.stem[n] * gain(v))); });   // one scale for all drawn, so sizes compare
+    list.forEach((i) => { const v = R.versions[i], k = gain(v); g.strokeStyle = COL()[i]; g.lineWidth = i === list[list.length - 1] ? 1.6 : 1; g.beginPath(); for (let n = n0; n < n1; n += 2) { const x = l + (n - n0) / (n1 - n0) * pw, y = mid - v.stem[n] * k / top * amp; n === n0 ? g.moveTo(x, y) : g.lineTo(x, y); } g.stroke(); });
+    g.fillStyle = css('--fg-3'); g.font = '10px ' + css('--mono'); g.fillText(`the first 120 ms of the bass: its first note’s attack · ${S.match ? 'matched in loudness' : 'as the drive leaves it'}, one scale for both`, l + 4, 14);
+  }
+  function legend(list) { $('legend').innerHTML = list.map((i) => `<span><i style="background:${COL()[i]}"></i>${NAMES[i].toLowerCase()}</span>`).join(''); }
+  function draw() {
+    need(); const k = STEPS[S.step].key; let meter = '';
+    if (k === 'clean') { spectrum([0]); legend([0]); const v = R.versions[0]; meter = `crest factor <b>${v.crestDb.toFixed(1)} dB</b> · power above 90 Hz: <b>${(100 * v.share).toFixed(2)} %</b> (the notes’ onsets; no curve yet)`; }
+    if (k === 'versions') { const list = S.v ? [0, S.v] : [0]; spectrum(list); legend(list); const v = R.versions[S.v]; meter = `${v.name}: added on a held note <b>${v.d ? fmt(v.heldDb) + ' dB' : 'none'}</b> · power above 90 Hz <b>${(100 * v.share).toFixed(2)} %</b> · turned down <b>${fmt(v.matchGainDb)} dB</b> to match the clean one`; }
+    if (k === 'cost') { const list = S.v ? [0, S.v] : [0]; waveform(list); legend(list); const v = R.versions[S.v]; meter = `${v.name}: crest factor <b>${v.crestDb.toFixed(1)} dB</b> (clean ${R.versions[0].crestDb.toFixed(1)}) · as the drive leaves it, <b>${fmt(v.unmatchedLu)} dB</b> louder than clean (K-weighted)` + (S.match ? ' · now: matched' : ' · now: as the drive leaves it'); }
+    if (k === 'test') { if (S.shown) { spectrum([0, 1, 2, 3]); legend([0, 1, 2, 3]); } else { const { g, h } = fit(280); g.fillStyle = css('--fg-3'); g.font = '12px ' + css('--mono'); g.fillText('hidden until you press Show me', 16, h / 2); $('legend').innerHTML = ''; } }
+    $('meter').innerHTML = meter;
+  }
+
+  // ── the walk ──
+  function go(i) {
+    stopSound(); S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const s = STEPS[S.step];
+    $('stepEyebrow').textContent = `step ${S.step + 1} of ${STEPS.length}`; $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say; $('hearHint').textContent = s.hear;
+    $('eq1').textContent = s.eq[0]; $('eq1w').textContent = s.eq[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('verRow').hidden = !(s.key === 'versions' || s.key === 'cost'); $('matchRow').hidden = s.key !== 'cost'; $('test').hidden = s.key !== 'test';
+    if (s.key !== 'cost') { S.match = 1; mark('[data-m]', 'm', 1); }
+    if (s.key === 'test' && !S.map) newRound();
+    document.querySelectorAll('#rail button').forEach((b, j) => (j === S.step ? b.setAttribute('aria-current', 'step') : b.removeAttribute('aria-current')));
+    $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+    draw();
+  }
+  const mark = (sel, attr, val) => document.querySelectorAll(sel).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset[attr] === String(val))));
+  $('rail').innerHTML = STEPS.map((s, i) => `<button>${i + 1} · ${s.rail}</button>`).join('');
+  document.querySelectorAll('#rail button').forEach((b, i) => b.onclick = () => go(i));
+  $('back').onclick = () => go(S.step - 1); $('next').onclick = () => go(S.step + 1);
+  document.querySelectorAll('[data-solo]').forEach((b) => b.onclick = () => { S.solo = +b.dataset.solo; mark('[data-solo]', 'solo', S.solo); setGains(); });
+  document.querySelectorAll('[data-v]').forEach((b) => b.onclick = () => { S.v = +b.dataset.v; mark('[data-v]', 'v', S.v); setGains(); draw(); });
+  document.querySelectorAll('[data-m]').forEach((b) => b.onclick = () => { S.match = +b.dataset.m; mark('[data-m]', 'm', S.match); setGains(); draw(); });
+  mark('[data-solo]', 'solo', S.solo); mark('[data-v]', 'v', S.v); mark('[data-m]', 'm', S.match);
+  window.addEventListener('resize', () => draw());
+  go(0);
+
+  // the sigil: the Lissajous trace, 3 : 2
+  { const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); } $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#e8b84a" stroke-width="1"/>`; }
+})();
+</script>
+</body>
+</html>
