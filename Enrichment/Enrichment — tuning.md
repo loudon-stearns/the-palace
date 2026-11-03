@@ -61,3 +61,4 @@ What each enrichment taught the ceremony, appended after a run that taught it so
 - run · 2026-11-03 · v2.7 with the proposal-round settings · Typography as Meaning · nothing new
 - run · 2026-11-03 · v2.7 with the proposal-round settings · Ohm's Law · nothing new
 - run · 2026-11-03 · v2.7 with the proposal-round settings · Latent Error · nothing new
+- run · 2026-11-03 · v2.7 with the proposal-round settings · Progressive Staging · nothing new
