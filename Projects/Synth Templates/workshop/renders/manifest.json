@@ -1,0 +1,39 @@
+{
+ "set": "Synth Templates — reference renders",
+ "generator": "render-refs.mjs → site/voice.js (the site's own Web Audio voice) via node-web-audio-api OfflineAudioContext",
+ "vocabulary": "vocabulary.yaml as on disk (the browser's tuned copy is not used)",
+ "master_compressor": "BYPASSED: node-web-audio-api 2.2.0 DynamicsCompressor is unstable on fast onsets (gain runs to 4e5 then NaN on a 1.6 ms step); the browser plays through a -12 dB threshold compressor, so peaks here are up to ~6 dB hotter than the page",
+ "sample_rate_hz": 48000,
+ "channels": 2,
+ "bit_depth": 16,
+ "rendered": "2026-11-03T13:58:38.970Z",
+ "renders": [
+  {
+   "id": "house-bass",
+   "name": "House Bass",
+   "family": "Bass",
+   "tier": 1,
+   "mode": "mono",
+   "wav": "house-bass.wav",
+   "spectrogram": "house-bass.png",
+   "render": {
+    "tempo": 124,
+    "note": "C2",
+    "velocity": 100,
+    "pattern": "offbeat eighths, one bar: rest C2 rest C2 rest C2 rest C2, each a 16th long",
+    "length_s": 2
+   },
+   "schedule": {
+    "t0": 0.05,
+    "last_note_off_s": 1.7435483870967743,
+    "release_s": 0.0986,
+    "reverb_s": 0,
+    "delay_tail_s": 0,
+    "rendered_s": 3,
+    "written_s": 2.1867708333333336,
+    "raw_peak_dbfs": -3.62
+   },
+   "warnings": []
+  }
+ ]
+}
