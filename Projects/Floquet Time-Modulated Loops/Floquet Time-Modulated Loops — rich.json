@@ -168,7 +168,7 @@
           "by": "Web Audio Worklet · monodromy",
           "height": 1200,
           "title": "from one ring to the map of tongues",
-          "caption": "**The Strutt diagram, heard.** A plain ring whose pitch is √a × 220 Hz; the 440 Hz pump on along one line, where a tongue's width is a capture range and the ring locks to half the pump (220.00 Hz anywhere across tongue 1 at q = 0.3, 440.00 Hz across tongue 2); the whole damped map with the undamped edges traced over it; and the test, two points 0.03 either side of a computed edge, run for three seconds through the same resonator from the same noise. On all three edges offered, outside stays hiss (−35 to −44 dB) and inside rings 20 to 25 dB louder.",
+          "caption": "**The Strutt diagram, heard.** A plain ring whose pitch is √a × 220 Hz; the 440 Hz pump on along one line, where a tongue's width is a capture range and the ring locks to half the pump (220.00 Hz anywhere across tongue 1 at q = 0.3, 440.00 Hz across tongue 2); the whole damped map with the undamped edges traced over it, and where each tongue opens worked out for the damping chosen (at κ = 0.05: q = 0.05, 0.64, 2.17); and the test, two points 0.03 either side of a computed edge, run for three seconds through the same resonator from the same noise. On all three edges offered, outside stays hiss (−35 to −44 dB) and inside rings 20 to 25 dB louder.",
           "near": "the Strutt diagram explorer"
         },
         {
@@ -223,7 +223,7 @@
           "by": "DFT · RK4",
           "height": 1150,
           "title": "where the ladder comes from, and where the derivation stops",
-          "caption": "**The derivation, checked, then put inside a loop.** Ring modulation; four modulators each laid against its own c_n, where every rung from 20 to 700 Hz stands at |c_n| to within 2 × 10⁻⁴; then the test, the same modulators pumping a 220 Hz resonator driven at 220 Hz. There each rung is c_n weighed by the resonator's answer at that frequency (within 1.1 dB at h = 0.05), and deeper pumping adds rungs the modulator does not have: a pure cosine at h = 0.3 puts −27 dB at 60 Hz, where c₋₂ = 0.",
+          "caption": "**The derivation, checked, then put inside a loop.** Ring modulation; four modulators each laid against its own c_n, where every rung from 20 to 700 Hz stands at |c_n| to within 2 × 10⁻⁴; then the test, the same modulators pumping a 220 Hz resonator driven at 220 Hz. There each rung is c_n weighed by the resonator's answer at that frequency (within 1.1 dB at h = 0.05), and deeper pumping adds rungs the modulator does not have: a pure cosine at h = 0.3 puts −27 dB at 60 Hz, where c₋₂ = 0. Its loop is driven from outside and pumped at 80 Hz, off every tongue — not Stage 1's own 2:1 pumping, where the lower sideband folds onto the carrier.",
           "near": "four short WAV examples, one per modulation shape"
         },
         {
@@ -245,13 +245,13 @@
     {
       "section": "The Theory",
       "kind": "no-claim-edit",
-      "what": "media-07 (static/07_tongue_anatomy.png) is wrong and was left off the face: its “outside, bounded” point at a = 0.85, q = 0.3 lies inside tongue 1, whose edges at q = 0.3 are a = 0.689 and 1.288 (|ρ| = 1.537 there; its own inset trace grows to 3 × 10⁵ in 30 periods), and its “boundary” point at a₊ − 0.001 is inside too (|ρ| = 1.036, trace grows 1.0 → 1.5). Re-render with the outside point at a ≈ 0.55 or 1.5 and the boundary trace from the exact edge; its title and region labels also overlap.",
+      "what": "media-07 (static/07_tongue_anatomy.png) is wrong and was left off the face: its “outside, bounded” point at a = 0.85, q = 0.3 lies inside tongue 1, whose edges at q = 0.3 are a = 0.689 and 1.288 (|ρ| = 1.537 there; its own inset trace grows to 3 × 10⁵ in 30 periods), and its “boundary” point at a₊ − 0.001 is inside too (|ρ| = 1.036, trace grows 1.0 → 1.5). Re-render with the outside point at a ≈ 0.55 or 1.5 and the boundary trace from the exact edge; its title and region labels also overlap. The Mathieu Equation face found the same independently and agrees on every number (b₁ = 0.689166, a₁ = 1.288324, ρ = −1.537, boundary trace 1.0 → 1.5) except the outside inset's peak: it says about 2 × 10⁵; this face and the challenger measure 2.96 × 10⁵.",
       "status": "open"
     },
     {
       "section": "The Theory",
       "kind": "no-claim-edit",
-      "what": "media-04's description (well below / just at, slow build / well above) does not match the files. With the build's damping ζ = 0.025 the threshold is q = 2ζ = 0.0500 (measured from the monodromy), so 04a (q = 0.05) sits on it, 04b (q = 0.10) is twice it and is full within 0.2 s, and 04c within 0.1 s. NOTES.md and audio/04_generate.py say q_c ≈ 4ζ ≈ 0.10, a factor of two high, and BUILD_SUMMARY's media-20 crack “near q ≈ 0.10” is heard at q ≈ 0.05. Re-render media-04 at q = 0.03 / 0.05 / 0.10, or relabel it.",
+      "what": "media-04's description (well below / just at, slow build / well above) does not match the files. With the build's damping ζ = 0.025 the threshold is q = 2ζ = 0.0500 (measured from the monodromy), so 04a (q = 0.05) sits on it, 04b (q = 0.10) is twice it and is full within 0.2 s, and 04c within 0.1 s. NOTES.md and audio/04_generate.py say q_c ≈ 4ζ ≈ 0.10, a factor of two high, and BUILD_SUMMARY's media-20 crack “near q ≈ 0.10” is heard at q ≈ 0.05. Re-render media-04 at q = 0.03 / 0.05 / 0.10, or relabel it. The same 4ζ error also sits in RNBO/mathieu_resonator.codebox's comments (lines 52–55, 151), RNBO/README — Mathieu Resonator.md Tests 2–3 (lines 63, 69), and the audio_mathieu docstring in python/mathieu_core.py (at its default ζ = 0.015 the threshold is 0.03, not 0.10); fix them together.",
       "status": "open"
     },
     {
@@ -269,13 +269,13 @@
     {
       "section": "The Theory",
       "kind": "claim-change",
-      "what": "Sidebands: the derivation multiplies the carrier once and holds exactly there (every rung = |c_n| within 2 × 10⁻⁴). Inside a pumped resonator, Stage 1's case, the c_n are only first order: each rung is c_n weighed by the resonator's response at that frequency (within 1.1 dB at h = 0.05), and deeper pumping adds rungs where c_n = 0 (a pure cosine at h = 0.3 gives −27 dB re carrier at 60 Hz; a square −22.5 dB). So “the modulation's Fourier series is the spectral envelope” and the closing “exactly the two-tone sideband signature of ring modulation” hold to first order in q; suggest saying so.",
+      "what": "Sidebands: the derivation multiplies the carrier once and holds exactly there (every rung = |c_n| within 2 × 10⁻⁴). In a pumped resonator the c_n are only first order: driven from outside and pumped at 80 Hz, off every tongue, each rung is c_n weighed by the resonator's response (within 1.1 dB at h = 0.05), and deeper pumping adds rungs where c_n = 0 (a cosine pump at h = 0.3 gives −27.2 dB re carrier at 60 Hz, a square −22.5 dB). At Stage 1's own 2:1 pumping it fails sooner: the first lower sideband, f − 2f, lands on −f, the carrier itself, and that fold is the parametric feedback, so the closing “exactly the two-tone sideband signature of ring modulation” fails already at first order. Suggest saying the ring-mod picture holds for a multiplier, not for the pumped loop.",
       "status": "open"
     },
     {
       "section": "The Theory",
       "kind": "no-claim-edit",
-      "what": "Media left off the face because they do not do what the text says or have rendering faults: media-06 scales each click's sound to its own peak (stable and growing points play equally loud, and a = 1 plays near 33 Hz); media-13 pumps at 80 Hz, between tongues for a 220 Hz ring, with noise and no carrier, so its files are pumped hiss whose first sidebands stand about 8 dB above the noise; media-03 has emoji on its buttons; media-01's subtitle lines overprint; media-11 draws bands as straight lines; media-18 shades noise spikes below 4 GHz as tongues. The made pieces stand in for 06, 09 and 13.",
+      "what": "Media left off the face because they do not do what the text says or have rendering faults: media-06 scales each click's sound to its own peak (stable and growing points play equally loud, and a = 1 plays near 33 Hz); media-13 pumps at 80 Hz, between tongues for a 220 Hz ring, with noise and no carrier, so its files are pumped hiss whose first sidebands stand about 8 dB above the noise; media-03 has emoji on its buttons; media-01's subtitle lines overprint; media-11 draws bands as straight lines; media-18 shades noise spikes below 4 GHz as tongues. The challenger confirmed 06 (each click normalized) and 13 (80 Hz pump, noise, no carrier); it did not check 01, 03, 11 or 18. The made pieces stand in for 06, 09 and 13.",
       "status": "open"
     }
   ]

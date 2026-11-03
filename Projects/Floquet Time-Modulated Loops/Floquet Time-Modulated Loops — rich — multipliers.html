@@ -355,7 +355,7 @@ function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 20
   function scan(k, q) {
     const N = 600, rows = [];
     for (let i = 0; i <= N; i++) { const a = 6 * i / N, m = multipliers(monodromy(a, q, k, 128)); rows.push({ a, m1: mag(m.r1), m2: mag(m.r2), real: m.real, un: unstable(m) }); }
-    // edges and splits of tongue 1 (left side): first a where it turns unstable, first a where the pair turns real
+    // edges and splits of tongue 1 (right side): first a where it turns unstable, first a where the pair turns real
     const edge = (pred, from, to) => { let a0 = from, a1 = to; const p0 = pred(a0); for (let i = 0; i < 40; i++) { const mm = (a0 + a1) / 2; if (pred(mm) === p0) a0 = mm; else a1 = mm; } return (a0 + a1) / 2; };
     const isUn = (a) => unstable(multipliers(monodromy(a, q, k, 256)));
     const isReal = (a) => multipliers(monodromy(a, q, k, 256)).real;

@@ -384,6 +384,17 @@ function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 20
       return [L, R];
     });
   }
+  /* Where tongue n opens at damping k: the smallest q at which some a near n² is unstable. Near n², |trace M|
+     has one peak in a; the tongue is open at q when that peak passes 1 + det. Bisect q on that. */
+  const onsetCache = {};
+  function onsets(k) {
+    if (onsetCache[k]) return onsetCache[k];
+    const peak = (n, q) => { let lo = (n - 0.5) ** 2, hi = (n + 0.5) ** 2; const T = (a) => Math.abs(multipliers(monodromy(a, q, k, 128)).tr);
+      for (let i = 0; i < 40; i++) { const m1 = lo + (hi - lo) * 0.382, m2 = lo + (hi - lo) * 0.618; if (T(m1) > T(m2)) hi = m2; else lo = m1; }
+      return unstable(multipliers(monodromy((lo + hi) / 2, q, k, 128))); };
+    onsetCache[k] = [1, 2, 3].map((n) => { if (!peak(n, 2.5)) return null; let lo = 0, hi = 2.5; for (let i = 0; i < 24; i++) { const m = (lo + hi) / 2; if (peak(n, m)) hi = m; else lo = m; } return hi; });
+    return onsetCache[k];
+  }
   function draw3() {
     if (!map3 || mapK !== st.k3) { map3 = computeMap(st.k3); mapK = st.k3; }
     const { g, w, h } = cv('c3', 0.42, 220), x0 = 36, x1 = w - 10, y0 = 8, y1 = h - 24, { W, H, gr } = map3;
@@ -407,8 +418,9 @@ function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 20
     g.strokeStyle = COL.fg1; g.lineWidth = 1.5; g.beginPath(); g.arc(cx, cy, 8, 0, 7); g.stroke(); g.lineWidth = 1;
     const s = stab(st.a3, st.q3, st.k3);
     $('r3p').textContent = st.a3.toFixed(2) + ', ' + st.q3.toFixed(2); $('r3s').textContent = s.un ? 'grows ×' + Math.exp(s.g).toFixed(2) : 'settles';
+    const on = onsets(st.k3), fq = (v) => v === null ? 'not below q = 2.5' : 'at q = ' + v.toFixed(2);
     $('n3').textContent = st.k3 === 0 ? 'κ = 0: amber and the blue line agree, and every tongue starts on the q = 0 axis. With no damping there is no depth too shallow at a = 1 exactly.'
-      : 'κ = ' + st.k3 + ': damping lifts every tongue off the axis. Tongue 1 now starts at q = κ = ' + st.k3 + ', tongue 2 near q = 0.74, and tongue 3 only shows at the top right. The sound engine uses this same κ.';
+      : 'κ = ' + st.k3 + ': damping lifts every tongue off the axis. Worked out from the equation at this κ: tongue 1 opens ' + fq(on[0]) + ', tongue 2 ' + fq(on[1]) + ', tongue 3 ' + fq(on[2]) + '. The sound engine uses this same κ.';
     return { x0, x1, y0, y1 };
   }
   let box3 = null;

@@ -30,6 +30,11 @@ console.log('strutt map');
   ok(un(1, 0.02, 0) && un(4 + 0.09 / 6, 0.3, 0) && un(9 + 0.36 / 16, 0.6, 0), 'undamped tongues root at a = 1, 4, 9 (inside each at small q)');
   let lo = 0, hi = 0.3; for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (un(1, m, 0.05)) hi = m; else lo = m; }
   ok(Math.abs(lo - 0.05) < 1e-3, 'damped (κ = 0.05) tongue 1 opens at q = κ', lo.toFixed(4));
+  { const html = readFileSync(join(HERE, `${ENTRY} — rich — strutt map.html`), 'utf8'), m = html.match(/  const onsetCache[\s\S]*?\n  }\n/);
+    const onsets = vm.runInNewContext(m[0] + '\nonsets', { Math, monodromy: E.monodromy, multipliers: E.multipliers, unstable: E.unstable });
+    const o5 = onsets(0.05), o15 = onsets(0.15);
+    ok(Math.abs(o5[0] - 0.05) < 0.003 && Math.abs(o5[1] - 0.639) < 0.01 && Math.abs(o5[2] - 2.17) < 0.02, 'step 3 note, κ = 0.05: tongues open at q ≈ 0.05, 0.64, 2.17', o5.map((v) => v && v.toFixed(3)).join(', '));
+    ok(Math.abs(o15[0] - 0.15) < 0.005 && Math.abs(o15[1] - 1.14) < 0.02 && o15[2] === null, 'step 3 note, κ = 0.15: tongues open at q ≈ 0.15, 1.13, and tongue 3 not below 2.5', o15.map((v) => v === null ? 'none' : v.toFixed(3)).join(', ')); }
   const sr = 48000;
   for (const [a, q, f] of [[0.75, 0.3, 220], [1, 0.3, 220], [1.25, 0.3, 220], [3.95, 1.2, 440], [4.4, 1.2, 440]]) {
     const v = new E.FloquetVoice(sr, 11); v.set({ a, q, kappa: 0.05, sigma: 1.5e-3, snap: true }); const { x } = v.render(sr * 3, 2400);
