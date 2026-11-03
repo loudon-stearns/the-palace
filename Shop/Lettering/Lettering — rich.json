@@ -71,6 +71,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Lettering — rich — blind test of the seven voices.html",
+            "verdict": "remake",
+            "why": "A real test with correct binomials (P(≥4)=0.0102, P(≥3)=0.065), but the letter itself leaks the word: E and R are unique and O/a narrow to 2 and 3, so a reader who knows the seven words passes 4 of 7 about 58–67% of the time, and the font round shows the same letters right after the reveal pairs them with their words. Run the font round first or hold both reveals, set one shared uppercase letter in all seven fonts, hide letter identity in the ink cuts or say it in the rule, and open on a render whose cream striped field does not prime the stay trial."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Lettering — rich — blind test of the seven voices.html",
@@ -95,6 +106,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Lettering — rich — one word through the pipeline.html",
+            "verdict": "remake",
+            "why": "A clean walk and a real test of \"cannot spell them away\" with settings that match the renders’ metadata, but the step-1 note says no per-voice font has been through diffusion, and Nosifer was, in the living-balloon sweep (c48868bd, balloons-genai/sweep/). Change that one note to \"none of the seven-voice proofs; Nosifer once, in a balloon\"."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Lettering — rich — one word through the pipeline.html",
@@ -118,6 +140,27 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Lettering — rich — mechanical font or hand.html",
+            "verdict": "keep",
+            "why": "Tests \"mechanical fonts dominate\" from the bench’s own two eras (93–100% vs 30–45%, reproduced) and names its confounds correctly, NO and too late at denoise 0.78 included. Note: the photoreal lock also changed (0.85 to 100% vs 0.8 to 85%), which the confound line could add."
+          },
+          {
+            "file": "Lettering — rich — the void on a light field.html",
+            "verdict": "remake",
+            "why": "The test plots all seven words at their measured field brightness on entering the step, before any mark (checked headless), which undoes its own mine-after-yours. Draw the plot only after all seven are marked; and step 1 says \"widened by 2 px\" over the unwidened skeleton plate, so show the dilated mask or drop the phrase."
+          },
+          {
+            "file": "/Projects/BLUELINE/proofs/text-layer/out/sfx-thoom_s1111.png",
+            "verdict": "keep",
+            "why": "Free-hand THOOM keeps the outline at chance under three measures (17% vs 16% maker’s; 16% vs 16% on kornia’s outline; 37% vs 41% position-only). Note: same positive prompt and seed, but an earlier, shorter negative prompt."
+          }
+        ]
       },
       "pieces": [
         {
