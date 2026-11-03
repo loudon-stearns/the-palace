@@ -1,0 +1,129 @@
+{
+  "title": "1D Wavetable Scanning — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[1D Wavetable Scanning]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of 1D Wavetable Scanning's rich face: one knob played as a switcher and as a scanner, with what the blend does to the sound measured; the same six frames in three orders, with the axis put to the ear before the eye; and the first scanner build, where the drone default was learned. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "1D Wavetable Scanning",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "The morph is a 2D linear interpolation",
+      "made_against": "75a21efe1b5a",
+      "made": "2026-11-03",
+      "stamped": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "1D Wavetable Scanning — rich — switch or scan.html",
+          "origin": "made",
+          "by": "Web Audio Worklet",
+          "height": 1320,
+          "place": "band",
+          "near": "That second blend is what makes a wavetable a wavetable",
+          "title": "switch or scan · five steps",
+          "caption": "**One knob, two ways, walked up to a test.** One frame looped; Position picking the nearest of six frames; Position picking the blend, with the same sweeps rendered by the engine you hear and the energy between the harmonics measured (a 5 s sweep: −26.5 dB picking, −69.1 dB blending, and switching at the cycle's start changes nothing); a saw and the same saw moved, which sound alike but whose middle loses every odd harmonic; and last, what the blend costs at the middle of each real pair, split into crossfade arithmetic and phase."
+        }
+      ]
+    },
+    {
+      "heading": "Frame ordering carries the axis's meaning",
+      "made_against": "6ad1dd17c05d",
+      "made": "2026-11-03",
+      "stamped": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "1D Wavetable Scanning — rich — which order is brightness.html",
+          "origin": "made",
+          "by": "Web Audio Worklet",
+          "height": 1240,
+          "place": "band",
+          "near": "should expose the sort state in its HUD",
+          "title": "which order is brightness · four steps",
+          "caption": "**Find the brightness knob by ear, then test it.** Brightness measured along one blend; the six frames in file order, centroid-sorted and as the shortest walk through the waveforms, names hidden; the orders named with brightness drawn along the whole knob; and the test. Sorted, brightness rises all the way but for two falls under a tenth of an octave, and 44% of the climb sits in one fifth of the knob. The proof's walk through centroid and flatness is the centroid order; the walk through the waveforms is not, and crosses 38% less."
+        }
+      ]
+    },
+    {
+      "heading": "Default gate is *drone*, not *gated*",
+      "made_against": "c37b3d2fa244",
+      "made": "2026-11-03",
+      "stamped": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Projects/Wavetable Scanner/wavetable_scanner.html",
+          "origin": "gathered",
+          "height": 1500,
+          "place": "band",
+          "near": "The first [[Wavetable Scanner]] build shipped key-gated-by-default",
+          "title": "the first Wavetable Scanner build · Web Audio Worklet + Three.js · 2026-05-31",
+          "caption": "**The build this section came from, drone by default since its fix.** Press Engage and sweep Position: you hear the sweep. Flip Mode to Key-gated and do it again to replay the first Sketch's failure: silence until a key is held. Its cursor is drawn with the same blend the worklet plays (§ Single source of truth).",
+          "contract": {
+            "needs": ""
+          }
+        }
+      ]
+    }
+  ],
+  "offers": [
+    {
+      "section": "The morph is a 2D linear interpolation",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The page says 'The smoothing isn't free; it dulls sharp transients between very different frames', and just before it that the blend 'smooths over small phase mismatches at frame boundaries'. The switch-or-scan piece measures the middle of each neighbour pair of the six AKWF frames against the average of its two ends. The top (harmonic 8 up) dips 1.7 to 3.5 dB in every pair; 0.35 to 3.2 dB of that is phase (harmonics starting at different points in the cycle, cancelling), the rest a linear crossfade's own arithmetic. It is not kept for very different frames: the closest pair, aguitar → birds (rms difference 0.400), loses 1.9 dB up top to phase. Nor for the top: where the fundamentals start 162° apart (cheeze → aguitar) the bottom (harmonics 1–4) loses 2.7 dB to phase, a thinner middle rather than a duller one; 1° apart (vgsqu → saw), 0.03 dB. A saw blended with itself moved a tenth of a cycle loses 1.36 dB at the middle, and moved half a cycle loses every odd harmonic (−6.02 dB): same strengths, different phases. What the blend smooths is the step between frames, not the mismatch. Suggested: 'The smoothing isn't free: the blend adds waveforms, so wherever two frames' harmonics start at different points in the cycle the middle loses some of them: the top in nearly every pair of unrelated frames, the bottom too where the fundamentals disagree.'"
+    },
+    {
+      "section": "The morph is a 2D linear interpolation",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The page names the switcher/scanner difference by ear, 'zipping between sounds and morphing through them', with no measure. The piece renders the same 5 s sweep across the six frames both ways with the engine it plays, and measures the share of energy farther than f0/4 from every harmonic: −26.5 dB picking the nearest frame, −69.1 dB blending (48 kHz; −26.2 and −67.5 at 44.1 kHz; the blend is 20 dB or more under picking at 2 s and 0.5 s too). A switcher that waits for the cycle's start does no better (−26.5 dB): the cost is the step in every harmonic at once, not a click at a bad sample. Suggested: one sentence after 'morphing through them' with the 5 s numbers, and that switching at the cycle's start doesn't rescue a switcher."
+    },
+    {
+      "section": "Frame ordering carries the axis's meaning",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The page says centroid sorting makes Position 'a brightness knob'. Measured along the whole knob, not only at the frames, on the six AKWF frames with the packer's magnitude-weighted centroid: brightness rises everywhere but two short falls, the larger 0.07 of an octave, so the claim holds. But 44% of the climb in octaves lies in one fifth of the knob (birds → vgsqu) and 6% in the last fifth (saw → bitreduced). Sorting gives the order, not the spacing. Suggested, under Centroid-sorted's cost: 'and the spacing stays the library's: sorted, brightness rises, but not evenly.'"
+    },
+    {
+      "section": "Frame ordering carries the axis's meaning",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The page describes TSP order as 'adjacent frames are perceptually close, minimising morph jumps'. The proof behind the page's six-frame result (Generative Wavetable Libraries, akwf-import-build) walked through two features per frame, centroid and flatness, and on these six that walk is exactly the centroid order; the piece reproduces this, and the proof's centroid table to 0.1 Hz. A walk through the waveforms themselves, the step the blend actually crosses, gives aguitar → birds → bitreduced → saw → cheeze → vgsqu: 38% less distance between neighbours (1.86 against 3.00, rms summed), middles dipping 1.2 dB on average against 2.3 sorted, and brightness that climbs 3.2 octaves, falls 4.9 and climbs again, which is the page's own prediction for a walk. Suggested: name what the walk goes through ('over the waveforms, not over features, which on simple tables collapse to the sort'), and add that the order also decides which in-between sounds exist, since the blend makes them from neighbours."
+    },
+    {
+      "section": "Lost branches",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Found by reading, measured by the face's check, not shown in a piece. The page says higher-order interpolation 'has aliasing-control upsides for very small frame counts'. Across frames the blend adds nothing to aliasing: held still it is a weighted sum of two cycles, and a blend held at 0.5 between vgsqu and saw puts −122.4 dB between the harmonics, the measurement's floor. What a curve across frames buys is a smoother sweep: a 5 s sweep across the six frames puts −69.1 dB between the harmonics with the straight-line blend and −110.9 dB with a Catmull-Rom curve. The aliasing upside belongs to the read within a frame, which Wavetable Oscillator's 'reading between samples' piece measures. Suggested: 'A higher-order curve across frames smooths a sweep's corners at each frame; the aliasing upside belongs to the read within a frame, not the blend between frames.'"
+    }
+  ]
+}

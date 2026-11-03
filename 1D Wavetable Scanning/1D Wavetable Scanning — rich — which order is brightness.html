@@ -1,0 +1,418 @@
+<!doctype html>
+<!--
+  title: 1D Wavetable Scanning — rich — which order is brightness
+  born: 2026-11-03
+  links: [[1D Wavetable Scanning]] (connects-to · rich-face-piece) · listed in [[1D Wavetable Scanning — rich.json]] · serves § Frame ordering carries the axis's meaning · reproduces the ordering table in [[Generative Wavetable Libraries]]'s akwf-import-build proof · frames from [[Wavetable Scanner]]'s first build
+  forward_vector: I am the axis's meaning, put to the ear before the eye. Brightness measured along one blend; then the same six frames in three orders with their names hidden, for you to say which one is a brightness knob; then the orders named, with brightness drawn along the whole knob for each; and last, the test, whether the sorted knob really is a brightness knob all the way along, and what each order makes the blend cross between frames. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until Play or a sweep is clicked; the AudioContext is made on that click. Changing step stops the sound. Hush and the time cap are the kit's.
+  frames: the six AKWF single cycles (Adventure Kid Waveforms, CC0) exactly as baked into Projects/Wavetable Scanner/wavetable_scanner.html's "AKWF — centroid-sorted" table: 1024 samples each, jointly normalized.
+  check: 1D Wavetable Scanning — rich — check.mjs runs this page's engine in Node against every number the page shows.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Which order is brightness</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --violet:#8b7cf6;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .grp{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .grp .l{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);margin-right:2px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .ctl{display:grid;grid-template-columns:170px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:11ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:5px 16px 5px 0;text-align:right;font-weight:400}
+  table.t th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td:first-child,table.t th:first-child{text-align:left}
+  table.t b{color:var(--accent);font-weight:400}
+  .found{margin-top:12px;font-family:var(--sans);font-size:14px;color:var(--fg-2);max-width:72ch;line-height:1.6}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:23px}.ctl{grid-template-columns:110px 1fr auto}}
+  .guess{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">1D Wavetable Scanning · the axis’s meaning · four steps</div>
+  <h1>Which order is brightness?</h1>
+  <p class="lead">The same six frames behind one Position knob, in three orders. Find the brightness knob by ear before you see which is which, then test whether the sorted one is a brightness knob all the way along.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel">
+    <div class="plabel"><span id="pic-l"></span><span id="pic-r"></span></div>
+    <canvas id="pic" height="300"></canvas>
+    <div class="rowb">
+      <button class="play" id="play">▸ play</button>
+      <span class="grp" id="g-order"><span class="l">order</span></span>
+      <span class="grp" id="g-sweep"><span class="l">sweep</span><button class="ghost small" data-sweep="6">6 s</button><button class="ghost small" data-sweep="2">2 s</button></span>
+    </div>
+    <div class="rowb" id="g-guess"><span class="grp"><span class="l">the brightness knob is</span></span></div>
+    <div class="ctl" id="ctl-pos">
+      <label for="pos">Position</label><input id="pos" type="range" min="0" max="1" step="0.001" value="0"><span class="v" id="pos-v"></span>
+    </div>
+    <div class="meter" id="meter"></div>
+    <table class="t" id="tab"></table>
+    <p class="found" id="found"></p>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><b>LOUD’N LIVE</b> · made for the rich face of 1D Wavetable Scanning · the frames are the six AKWF cycles (Adventure Kid, CC0) from the first Wavetable Scanner build · the engine runs here, in the sound, and in its check</footer>
+</main>
+
+<script id="frames">
+const AKWF_B64 = "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";
+const AKWF_NAMES = ["cheeze", "aguitar", "birds", "vgsqu", "saw", "bitreduced"];
+</script>
+
+<script id="engine">
+// ---- engine: one counter, a stack of single-cycle frames, and a Position that either picks or blends ----
+const FRAME = 1024;
+function decodeFrames(b64, count) {
+  const bin = atob(b64), u8 = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+  const all = new Float32Array(u8.buffer), out = [];
+  for (let f = 0; f < count; f++) out.push(all.slice(f * FRAME, (f + 1) * FRAME));
+  return out;
+}
+// read one frame at a fractional phase 0..1, a straight line between its two nearest samples (as the first build does)
+function readFrame(t, ph) { const x = ph * FRAME, i = x | 0, fr = x - i; const a = t[i], b = t[(i + 1) & (FRAME - 1)]; return a + fr * (b - a); }
+// the same cycle moved later by d of a cycle
+function moved(t, d) { const o = new Float32Array(FRAME), s = Math.round(d * FRAME); for (let i = 0; i < FRAME; i++) o[i] = t[(i - s + FRAME * 4) % FRAME]; return o; }
+// a voice: frames in the order Position meets them; mode 'scan' blends the two around Position, 'switch' plays the nearest
+function makeVoice(frames, sr, pos) { return { frames, ph: 0, pos: pos || 0, target: pos || 0, mode: 'scan', at: 'any', cur: Math.round((pos || 0) * (frames.length - 1)), k: 1 - Math.exp(-1 / (0.015 * sr)), sweep: null }; }
+function voiceSample(v, inc) {
+  if (v.sweep) { v.sweep.n++; v.target = Math.min(1, v.sweep.n / v.sweep.len); if (v.sweep.n >= v.sweep.len) v.sweep = null; }
+  v.pos += (v.target - v.pos) * v.k;
+  const n = v.frames.length, x = v.pos * (n - 1);
+  let out;
+  if (v.mode === 'scan') {
+    const i = Math.min(n - 2, Math.floor(x)), fr = x - i;
+    const a = readFrame(v.frames[i], v.ph), b = readFrame(v.frames[i + 1], v.ph);
+    out = a + fr * (b - a);                     // the second blend: Position picks the blend, not the frame
+  } else {
+    if (v.at === 'any') v.cur = Math.round(x);  // the switcher: Position picks the nearest frame, now
+    out = readFrame(v.frames[v.cur], v.ph);
+  }
+  v.ph += inc;
+  if (v.ph >= 1) { v.ph -= 1; if (v.mode === 'switch' && v.at === 'start') v.cur = Math.round(v.pos * (n - 1)); }
+  return out;
+}
+// Position swept from the first frame to the last in secs, rendered by the same voice
+function renderSweep(frames, mode, at, sr, f0, secs) {
+  const v = makeVoice(frames, sr, 0); v.mode = mode; v.at = at; const len = Math.round(secs * sr);
+  v.sweep = { n: 0, len }; const y = new Float32Array(len), inc = f0 / sr;
+  for (let i = 0; i < len; i++) y[i] = voiceSample(v, inc);
+  return y;
+}
+function fft(re, im) {
+  const n = re.length;
+  for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+  for (let len = 2; len <= n; len <<= 1) {
+    const ang = -2 * Math.PI / len, wr0 = Math.cos(ang), wi0 = Math.sin(ang);
+    for (let i = 0; i < n; i += len) { let wr = 1, wi = 0; for (let k = 0; k < len / 2; k++) {
+      const a = i + k, b = a + len / 2, xr = re[b] * wr - im[b] * wi, xi = re[b] * wi + im[b] * wr;
+      re[b] = re[a] - xr; im[b] = im[a] - xi; re[a] += xr; im[a] += xi; const t = wr * wr0 - wi * wi0; wi = wr * wi0 + wi * wr0; wr = t; } }
+  }
+}
+// the share of a sound's energy that lies between its harmonics: farther than f0 ⁄ 4 from every multiple of f0, in dB
+function betweenDb(y, sr, f0) {
+  let N = 1; while (N < y.length) N <<= 1;
+  const re = new Float64Array(N), im = new Float64Array(N);
+  for (let i = 0; i < y.length; i++) re[i] = y[i] * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / (y.length - 1)));
+  fft(re, im);
+  let off = 0, all = 0;
+  for (let i = 1; i < N / 2; i++) { const f = i * sr / N, e = re[i] * re[i] + im[i] * im[i], d = Math.abs(f - Math.round(f / f0) * f0); all += e; if (d > f0 / 4) off += e; }
+  return 10 * Math.log10(off / all + 1e-30);
+}
+// a frame's harmonics, k = 1..K: the complex amplitude (re, im) of each, by a direct DFT over one cycle
+function harmonics(t, K) {
+  const re = new Float64Array(K + 1), im = new Float64Array(K + 1);
+  for (let k = 1; k <= K; k++) { let r = 0, m = 0; for (let i = 0; i < FRAME; i++) { const a = 2 * Math.PI * k * i / FRAME; r += t[i] * Math.cos(a); m -= t[i] * Math.sin(a); } re[k] = 2 * r / FRAME; im[k] = 2 * m / FRAME; }
+  return { re, im };
+}
+// energy in harmonics lo..hi of a cycle blended (1 − p)·A + p·B, worked from the two frames' harmonics
+function bandEnergy(HA, HB, p, lo, hi) { let e = 0; for (let k = lo; k <= hi; k++) { const r = HA.re[k] + p * (HB.re[k] - HA.re[k]), m = HA.im[k] + p * (HB.im[k] - HA.im[k]); e += r * r + m * m; } return e; }
+// the blend's middle against the two ends, by band: 10·log10( E(middle) ⁄ ((E(A) + E(B)) ⁄ 2) )
+function middleDb(HA, HB, lo, hi) { return 10 * Math.log10(bandEnergy(HA, HB, 0.5, lo, hi) / ((bandEnergy(HA, HB, 0, lo, hi) + bandEnergy(HA, HB, 1, lo, hi)) / 2)); }
+// ---- end engine ----
+
+// ---- the ordering engine: brightness along the whole knob, and the walk through the waveforms ----
+// brightness: the spectral centroid, magnitude-weighted over harmonics 1..K, as pack_wavetable.py computes it
+// (in harmonic numbers; × 44100 ⁄ 1024 gives the packer's hertz)
+function centroidOf(re, im, K) { let num = 0, den = 0; for (let k = 1; k <= K; k++) { const m = Math.hypot(re[k], im[k]); num += k * m; den += m; } return num / den; }
+function flatnessOf(H, K) { let lg = 0, ar = 0; for (let k = 1; k <= K; k++) { const m = Math.hypot(H.re[k], H.im[k]); lg += Math.log(m + 1e-12); ar += m; } return Math.exp(lg / K) / (ar / K); }
+// the centroid of the cycle Position reads, at Position p, with the frames in this order: the blend done on each harmonic
+function centroidAt(H, order, p, K) {
+  const n = order.length, x = p * (n - 1), i = Math.min(n - 2, Math.floor(x)), f = x - i, A = H[order[i]], B = H[order[i + 1]];
+  let num = 0, den = 0;
+  for (let k = 1; k <= K; k++) { const m = Math.hypot(A.re[k] + f * (B.re[k] - A.re[k]), A.im[k] + f * (B.im[k] - A.im[k])); num += k * m; den += m; }
+  return num / den;
+}
+function axisCurve(H, order, pts, K) { const c = new Float64Array(pts + 1); for (let j = 0; j <= pts; j++) c[j] = centroidAt(H, order, j / pts, K); return c; }
+// how far apart two cycles are, sample by sample: the size of the step the blend crosses between them
+function waveDist(A, B) { let d = 0; for (let i = 0; i < A.length; i++) d += (B[i] - A[i]) ** 2; return Math.sqrt(d / A.length); }
+function permutations(a) { if (a.length < 2) return [a]; const out = []; a.forEach((x, i) => { for (const r of permutations(a.slice(0, i).concat(a.slice(i + 1)))) out.push([x].concat(r)); }); return out; }
+// the shortest walk through all the frames by a distance, every order tried; it starts at its duller end
+function shortestWalk(n, dist, bright) {
+  let best = null, bc = Infinity;
+  for (const o of permutations([...Array(n).keys()])) { let c = 0; for (let i = 0; i + 1 < n; i++) c += dist(o[i], o[i + 1]); if (c < bc - 1e-12) { bc = c; best = o; } }
+  return bright(best[0]) <= bright(best[n - 1]) ? best : best.slice().reverse();
+}
+// what an order does to the knob: does brightness only rise, how evenly, and what the blend crosses between frames
+function orderReport(F, H, order, K) {
+  const curve = axisCurve(H, order, 1000, K), lo = Math.min(...curve), hi = Math.max(...curve);
+  // each run where brightness falls as Position rises: how many, and the largest, in octaves of centroid
+  let falls = 0, bigFall = 0, from = -1;
+  for (let j = 1; j <= curve.length; j++) {
+    const d = j < curve.length ? curve[j] - curve[j - 1] : 0;
+    if (d < 0 && from < 0) { from = j - 1; falls++; }
+    if (d >= 0 && from >= 0) { bigFall = Math.max(bigFall, Math.log2(curve[from] / curve[j - 1])); from = -1; }
+  }
+  const oct = (a, b) => Math.log2(b / a), n = order.length, seg = [];
+  for (let i = 0; i + 1 < n; i++) seg.push(oct(curve[Math.round(1000 * i / (n - 1))], curve[Math.round(1000 * (i + 1) / (n - 1))]));
+  const total = oct(curve[0], curve[1000]);
+  let walked = 0, dips = []; for (let i = 0; i + 1 < n; i++) { walked += waveDist(F[order[i]], F[order[i + 1]]); dips.push(middleDb(H[order[i]], H[order[i + 1]], 1, K)); }
+  return { curve, lo, hi, falls, bigFall, seg, total, steepShare: Math.max(...seg.map(Math.abs)) / seg.reduce((s, v) => s + Math.abs(v), 0), walked, dips, ends: [curve[0], curve[1000]] };
+}
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const F = decodeFrames(AKWF_B64, 6), K = 511;
+const H = F.map((t) => harmonics(t, K));
+const C = H.map((h) => centroidOf(h.re, h.im, K));
+const ORD = {
+  file: { name: 'file order', from: 'the folder’s own listing, alphabetical by file name, which is the order a packer meets them in before it sorts', o: [...Array(6).keys()].sort((a, b) => (AKWF_NAMES[a] < AKWF_NAMES[b] ? -1 : 1)) },
+  centroid: { name: 'centroid-sorted', from: 'dull to bright by spectral centroid, the order pack_wavetable.py writes', o: [...Array(6).keys()].sort((a, b) => C[a] - C[b]) },
+  walk: { name: 'shortest walk', from: 'the order whose steps between neighbouring waveforms, sample by sample, add up least: every one of the 720 orders tried', o: shortestWalk(6, (a, b) => waveDist(F[a], F[b]), (i) => C[i]) },
+};
+for (const k of Object.keys(ORD)) ORD[k].r = orderReport(F, H, ORD[k].o, K);
+// the three orders behind hidden letters, shuffled on every visit
+const KEYS = ['file', 'centroid', 'walk'].map((k) => [Math.random(), k]).sort((a, b) => a[0] - b[0]).map((x) => x[1]);
+const LET = ['A', 'B', 'C'];
+const S = { step: 0, pos: 0, sel: 0, guess: -1 };
+const STEPS = [
+  { name: 'one blend', title: 'Brightness along one blend',
+    say: 'Two frames, cheeze and saw, and Position blending them. Brightness can be put in one number, the spectral centroid: the harmonics’ average place, each weighted by its strength. Move from the dull frame to the bright one and the number climbs. That is what a brightness knob would do, between two frames.',
+    do: 'Play, and move Position from cheeze to saw.', watch: 'Right: the centroid of what is read, drawn along the whole knob, and where you are on it.', hear: 'A dull, round tone opening into a buzz. Most of the opening comes early: a little saw brightens a lot.',
+    ctl: ['pos'], groups: [] },
+  { name: 'three orders, hidden', title: 'Six frames, three orders, names hidden',
+    say: 'Now all six frames, stacked three ways behind the same knob. One order is sorted dull to bright. The other two are not. The names and the brightness are hidden. Sweep each and decide, by ear, which one is a brightness knob.',
+    do: 'Pick A, B or C, sweep it, and say which you think sweeps brightness.', watch: 'Only the wave being read. The rest waits for the next step.', hear: 'In one, the tone only ever opens. In the others it opens and closes again.',
+    ctl: ['pos'], groups: ['g-order', 'g-sweep', 'g-guess'] },
+  { name: 'the orders, named', title: 'The orders, named',
+    say: 'Here are the three, with the brightness drawn along the whole knob for each, not only at the frames. The page names three orders: authored, centroid-sorted, and a walk that keeps neighbours close. These six have no author, so file order stands in for an order nobody chose. The proof that sorted them walked through two numbers per frame, centroid and flatness, and on these six that walk lands exactly on the centroid order. The walk here goes through the waveforms themselves, the very step the blend crosses, and it lands somewhere else.',
+    do: 'Pick each order, sweep it, and follow its line.', watch: 'Three lines on an octave scale. Only one climbs all the way.', hear: 'File order and the walk both pass the brightest frame and come back down to the dullest.',
+    ctl: ['pos'], groups: ['g-order', 'g-sweep'] },
+  { name: 'the test', title: 'The test: is the sorted knob a brightness knob?',
+    say: 'The page says centroid sorting makes Position a brightness knob, and puts the cost of a wrong order in the listener’s sense of the axis, not in clicks. A blend has no frame boundaries to click at, so test the rest: along the whole knob, does brightness only rise, and how evenly? And since the blend makes the sound between each pair of neighbours, what does each order give it to cross?',
+    do: 'Read the table. Play the centroid-sorted order and sweep slowly through its fourth fifth, from birds to vgsqu.', watch: 'The columns for falls, the steepest fifth, and the steps walked.', hear: 'Sorted, the tone opens all the way, but not evenly: most of the opening comes in one stretch.',
+    ctl: ['pos'], groups: ['g-order', 'g-sweep'] },
+];
+const ordNow = () => (S.step === 0 ? [0, 4] : ORD[KEYS[S.sel]].o);
+const framesNow = () => ordNow().map((i) => F[i]);
+
+// ---- sound: the engine above, run in a worklet ----
+let ctx = null, node = null, playing = false, live = { pos: 0 }, SR = 48000;
+const PROC = `
+class ScanProc extends AudioWorkletProcessor {
+  constructor() { super(); this.v = null; this.g = 0; this.gt = 1; this.pend = null; this.n = 0;
+    this.port.onmessage = (e) => { const d = e.data; if (d.frames || d.sweep) { this.pend = d; this.gt = 0; } else this.apply(d); }; }
+  apply(d) {
+    if (d.frames) { const o = this.v; this.v = makeVoice(d.frames, sampleRate, d.pos); if (o) this.v.ph = o.ph; }
+    if (!this.v) return;
+    if (d.target !== undefined) { this.v.sweep = null; this.v.target = d.target; }
+    if (d.sweep) { this.v.pos = this.v.target = 0; this.v.sweep = { n: 0, len: Math.round(d.sweep * sampleRate) }; }
+  }
+  process(_i, outs) {
+    const L = outs[0][0], R = outs[0][1] || L, inc = 1 / 512, kg = 1 - Math.exp(-1 / (0.004 * sampleRate));
+    for (let i = 0; i < L.length; i++) {
+      this.g += (this.gt - this.g) * kg;
+      if (this.pend && this.g < 1e-3) { this.apply(this.pend); this.pend = null; this.gt = 1; }
+      const y = this.v ? voiceSample(this.v, inc) * 0.4 * this.g : 0; L[i] = y; R[i] = y;
+    }
+    if ((this.n += L.length) >= 1024 && this.v) { this.n = 0; this.port.postMessage({ pos: this.v.pos, sweeping: !!this.v.sweep }); }
+    return true;
+  }
+}
+registerProcessor('scan-proc', ScanProc);`;
+async function ensureAudio() {
+  if (ctx) return;
+  ctx = new (window.AudioContext || window.webkitAudioContext)(); SR = ctx.sampleRate;
+  const url = URL.createObjectURL(new Blob([$('engine').textContent + PROC], { type: 'application/javascript' }));
+  await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+  node = new AudioWorkletNode(ctx, 'scan-proc', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+  node.connect(comp).connect(ctx.destination);
+  node.port.onmessage = (e) => { live = e.data; if (live.sweeping) { S.pos = live.pos; $('pos').value = S.pos; } show(); };
+  ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) { playing = false; syncPlay(); } };
+}
+function sendFrames() { if (node) node.port.postMessage({ frames: framesNow(), pos: S.pos }); }
+async function start(sweep) {
+  await ensureAudio();
+  if (ctx.state !== 'running') await ctx.resume();
+  if (!playing) { sendFrames(); playing = true; syncPlay(); }
+  if (sweep) node.port.postMessage({ sweep });
+}
+function stopSound() { if (playing && ctx) ctx.suspend(); playing = false; syncPlay(); }
+function syncPlay() { $('play').textContent = playing ? '■ stop' : '▸ play'; }
+
+// ---- the picture: drawn from the same frames and the same readFrame the sound uses ----
+function fit(c) {
+  const d = devicePixelRatio || 1, w = c.clientWidth, h = +c.getAttribute('height');
+  if (c.width !== Math.round(w * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h };
+}
+function box(g, x, y, w, h, label) { g.strokeStyle = '#22222e'; g.lineWidth = 1; g.strokeRect(x, y, w, h); g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'left'; g.fillText(label, x + 6, y + 13); }
+function wave(g, x0, y0, w, hh, fn, col, lw) { g.strokeStyle = col; g.lineWidth = lw; g.beginPath(); for (let i = 0; i <= 256; i++) { const x = x0 + w * i / 256, v = y0 + hh / 2 - fn(i / 256) * hh * 0.45; i ? g.lineTo(x, v) : g.moveTo(x, v); } g.stroke(); }
+const posNow = () => (playing ? live.pos : S.pos);
+const COL = { file: '#8b7cf6', centroid: '#e8b84a', walk: '#4a8fff' };
+let pairCurve = null;
+function draw() {
+  const fr = framesNow(), n = fr.length, p = posNow(), x = p * (n - 1), i = Math.min(n - 2, Math.floor(x)), f = x - i;
+  const read = (ph) => { const a = readFrame(fr[i], ph); return a + f * (readFrame(fr[i + 1], ph) - a); };
+  const { g, w, h } = fit($('pic')); g.clearRect(0, 0, w, h);
+  const gap = 12, lw = Math.max(200, Math.floor((w - gap) * 0.4)), rx = lw + gap, rw = w - rx, top = 20, DIM = 'rgba(200,200,216,0.28)', BLU = '#4a8fff';
+  const named = S.step !== 1, ord = ordNow();
+  box(g, 0, 0, lw, h, (S.step === 0 ? 'cheeze to saw' : named ? ORD[KEYS[S.sel]].name : 'order ' + LET[S.sel]) + ' · Position ' + p.toFixed(2));
+  const rowH = (h - top - 96) / n;
+  for (let k = 0; k < n; k++) {
+    const lit = k === i ? 1 - f : k === i + 1 ? f : 0;
+    wave(g, 76, top + 4 + k * rowH, lw - 84, rowH, (ph) => readFrame(fr[k], ph), lit > 0.01 ? `rgba(232,184,74,${0.25 + 0.75 * lit})` : DIM, 1);
+    g.fillStyle = lit > 0.01 ? '#e8b84a' : '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'left';
+    g.fillText(named ? AKWF_NAMES[ord[k]] : '—', 8, top + 4 + k * rowH + rowH / 2 + 3);
+  }
+  g.fillStyle = '#8a8aa0'; g.fillText('what is read', 8, h - 52);
+  wave(g, 76, h - 92, lw - 84, 84, read, BLU, 2);
+  // right: brightness along the whole knob, on an octave scale
+  box(g, rx, 0, rw, h, 'brightness along the knob · centroid, harmonic number, octave scale');
+  const L = rx + 34, Rr = rx + rw - 10, Tp = top + 8, B = h - 24, y0 = 1, y1 = 128;
+  const X = (q) => L + (Rr - L) * q, Y = (c) => B - (B - Tp) * Math.log2(c / y0) / Math.log2(y1 / y0);
+  g.font = '10px JetBrains Mono, monospace';
+  for (let c = 1; c <= 128; c *= 4) { g.strokeStyle = '#1e1e2a'; g.beginPath(); g.moveTo(L, Y(c)); g.lineTo(Rr, Y(c)); g.stroke(); g.fillStyle = '#8a8aa0'; g.textAlign = 'right'; g.fillText(c, L - 4, Y(c) + 3); }
+  for (let q = 0; q <= 5; q++) { const xx = X(S.step === 0 ? q / 5 : q / 5); g.strokeStyle = '#1e1e2a'; g.beginPath(); g.moveTo(xx, Tp); g.lineTo(xx, B); g.stroke(); }
+  g.textAlign = 'center'; g.fillStyle = '#8a8aa0'; g.fillText('0', X(0), h - 8); g.fillText('Position', X(0.5), h - 8); g.fillText('1', X(1), h - 8);
+  const line = (curve, col, wd) => { g.strokeStyle = col; g.lineWidth = wd; g.beginPath(); for (let j = 0; j < curve.length; j++) { const xx = X(j / (curve.length - 1)), yy = Y(curve[j]); j ? g.lineTo(xx, yy) : g.moveTo(xx, yy); } g.stroke(); };
+  let mark = null;
+  if (S.step === 0) { if (!pairCurve) pairCurve = axisCurve(H, [0, 4], 400, K); line(pairCurve, '#e8b84a', 2); mark = centroidAt(H, [0, 4], p, K); }
+  else if (S.step === 1) { g.fillStyle = '#8a8aa0'; g.textAlign = 'center'; g.fillText('hidden until the next step', (L + Rr) / 2, (Tp + B) / 2); }
+  else { for (const k of KEYS) line(ORD[k].r.curve, COL[k], k === KEYS[S.sel] ? 2.4 : 1); mark = centroidAt(H, ord, p, K);
+    g.textAlign = 'left'; KEYS.forEach((k, j) => { g.fillStyle = COL[k]; g.fillText(ORD[k].name, L + 8, Tp + 12 + j * 13); }); }
+  if (mark) { g.fillStyle = '#e8e8f0'; g.beginPath(); g.arc(X(p), Y(mark), 4.5, 0, 7); g.fill(); }
+}
+function loop() { requestAnimationFrame(loop); draw(); }
+
+// ---- the readout ----
+function show() {
+  const st = S.step, p = posNow(), f0 = SR / 512;
+  $('pic-r').textContent = `fs ${SR} Hz${ctx ? '' : ' (assumed until you play)'} · pitch ${f0.toFixed(2)} Hz · centroid × 44100 ⁄ 1024 is the packer’s hertz`;
+  $('pic-l').textContent = st === 0 ? 'one blend' : st === 1 ? 'order ' + LET[S.sel] + ', hidden' : ORD[KEYS[S.sel]].name;
+  $('pos-v').textContent = p.toFixed(3);
+  document.querySelectorAll('[data-sel]').forEach((b) => { b.setAttribute('aria-pressed', String(+b.dataset.sel === S.sel)); b.textContent = st === 1 ? LET[+b.dataset.sel] : ORD[KEYS[+b.dataset.sel]].name; });
+  document.querySelectorAll('[data-guess]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.guess === S.guess)));
+  let m = '', t = '', fnd = '';
+  if (st === 0) { const c = centroidAt(H, [0, 4], p, K); m = `centroid of what is read: harmonic <b>${c.toFixed(2)}</b>, ${(c * f0).toFixed(0)} Hz at this pitch · cheeze ${C[0].toFixed(2)} · saw ${C[4].toFixed(2)} · at Position 0.5 it is already ${(100 * Math.log2(centroidAt(H, [0, 4], 0.5, K) / C[0]) / Math.log2(C[4] / C[0])).toFixed(0)}% of the way up, in octaves`; }
+  if (st === 1) m = S.guess < 0 ? 'no answer yet · the next step names all three' : `you said order <b>${LET[S.guess]}</b> sweeps brightness · the next step says which is which`;
+  if (st >= 2) {
+    const sel = KEYS[S.sel], r = ORD[sel].r;
+    m = `${ORD[sel].name}: ${ORD[sel].o.map((i) => AKWF_NAMES[i]).join(' → ')} · ${ORD[sel].from}`;
+    if (st === 2 && S.guess >= 0) m += ` · you said ${LET[S.guess]}, which is <b>${ORD[KEYS[S.guess]].name}</b>`;
+  }
+  if (st === 2) {
+    const fc = ORD.centroid.o.join(), proofWalk = (() => { const cs = C.map((v) => (v - Math.min(...C)) / (Math.max(...C) - Math.min(...C))), fl = H.map((h) => flatnessOf(h, K)), fs2 = fl.map((v) => (v - Math.min(...fl)) / (Math.max(...fl) - Math.min(...fl))); return shortestWalk(6, (a, b) => Math.hypot(cs[a] - cs[b], fs2[a] - fs2[b]), (i) => C[i]).join(); })();
+    fnd = `Checked here: the walk through centroid and flatness, the proof’s, ${proofWalk === fc ? 'is the centroid order exactly' : 'is not the centroid order'}; the walk through the waveforms is ${ORD.walk.o.map((i) => AKWF_NAMES[i]).join(', ')}. The centroids reproduce the proof’s table: ${C.map((c, i) => AKWF_NAMES[i] + ' ' + (c * 44100 / 1024).toFixed(1)).join(', ')} Hz.`;
+  }
+  if (st === 3) {
+    t = '<tr><th>order</th><th>ends, centroid</th><th>runs where it falls</th><th>largest fall</th><th>steepest fifth’s share</th><th>steps walked, rms</th><th>middles, mean dip</th></tr>';
+    for (const k of KEYS) { const r = ORD[k].r, md = r.dips.reduce((s, v) => s + v, 0) / r.dips.length;
+      t += `<tr><td>${k === KEYS[S.sel] ? '<b>' + ORD[k].name + '</b>' : ORD[k].name}</td><td>${r.ends[0].toFixed(1)} → ${r.ends[1].toFixed(1)}</td><td>${r.falls}</td><td>${r.bigFall.toFixed(2)} oct</td><td>${(100 * r.steepShare).toFixed(0)}%</td><td>${r.walked.toFixed(2)}</td><td>${md.toFixed(2)} dB</td></tr>`; }
+    const c = ORD.centroid.r, wk = ORD.walk.r, seg = c.seg, big = seg.indexOf(Math.max(...seg)), o = ORD.centroid.o;
+    const md = (r) => r.dips.reduce((s, v) => s + v, 0) / r.dips.length;
+    fnd = `Sorted, the knob is a brightness knob nearly all the way: brightness falls in ${c.falls} short runs, the larger ${c.bigFall.toFixed(2)} of an octave, where the blend overshoots a frame and settles back. But it is not an even one. ${(100 * c.steepShare).toFixed(0)}% of the climb, in octaves, comes in one fifth of the knob, ${AKWF_NAMES[o[big]]} to ${AKWF_NAMES[o[big + 1]]}, and the last fifth carries ${(100 * seg[4] / seg.reduce((s, v) => s + v, 0)).toFixed(0)}%: sorting gives the order, not the spacing. The walk through the waveforms crosses ${(100 * (1 - wk.walked / c.walked)).toFixed(0)}% less between neighbours, and its middles dip ${md(wk).toFixed(1)} dB on average against ${md(c).toFixed(1)} sorted, so the smoothest sweep in sound is the one with no single axis, as the page expects of a walk. No order clicks: the blend has no boundary to click at. What the order costs is the axis, as the page says, and one thing more. The blend makes the sound between each pair of neighbours, so the order decides which in-between sounds exist at all.`;
+  }
+  $('meter').innerHTML = m; $('tab').innerHTML = t; $('found').textContent = fnd;
+  const E = [
+    ['centroid = Σ k · |X_k| ⁄ Σ |X_k|', '(brightness) = (each harmonic’s number, weighted by its strength, added up) ÷ (the strengths added up)'],
+    ['y = F_o(i)(φ) + (x − i) · (F_o(i+1)(φ) − F_o(i)(φ))', '(the output) = the same blend as before, between the frames the order o puts below and above Position: only the order changes'],
+    ['walk = the order o that makes Σ rms(F_o(i+1) − F_o(i)) least', '(the shortest walk) = (the order whose steps between neighbouring frames, measured sample by sample, add up least)'],
+    ['share = max |log2(c_i+1 ⁄ c_i)| ⁄ Σ |log2(c_i+1 ⁄ c_i)|', '(the steepest fifth’s share) = (the biggest change of brightness between neighbouring frames, in octaves) ÷ (all of them added)'],
+  ][st];
+  $('eq1').textContent = E[0]; $('eq1w').textContent = E[1];
+}
+
+// ---- the walk ----
+function setStep(k) {
+  stopSound();
+  S.step = Math.max(0, Math.min(STEPS.length - 1, k)); const st = STEPS[S.step];
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').textContent = st.say;
+  $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  [...$('rail').children].forEach((bt, j) => bt.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  for (const gname of ['g-order', 'g-sweep', 'g-guess']) $(gname).classList.toggle('hide', !st.groups.includes(gname));
+  if (S.step === 3) S.sel = KEYS.indexOf('centroid');
+  S.pos = 0; $('pos').value = 0;
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  show();
+}
+STEPS.forEach((st, i) => { const bt = document.createElement('button'); bt.textContent = `${i + 1} · ${st.name}`; bt.onclick = () => setStep(i); $('rail').appendChild(bt); });
+for (let j = 0; j < 3; j++) {
+  const b = document.createElement('button'); b.className = 'ghost small'; b.dataset.sel = j; b.onclick = () => { S.sel = j; sendFrames(); show(); }; $('g-order').appendChild(b);
+  const q = document.createElement('button'); q.className = 'ghost small'; q.dataset.guess = j; q.textContent = LET[j]; q.onclick = () => { S.guess = j; show(); }; $('g-guess').firstElementChild.appendChild(q);
+}
+document.querySelectorAll('[data-sweep]').forEach((b) => (b.onclick = () => start(+b.dataset.sweep)));
+$('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+$('play').onclick = () => { if (playing) stopSound(); else start(); };
+$('pos').oninput = () => { S.pos = +$('pos').value; if (playing) { live.pos = S.pos; node.port.postMessage({ target: S.pos }); } show(); };
+setStep(0); requestAnimationFrame(loop);
+</script>
+</body>
+</html>
