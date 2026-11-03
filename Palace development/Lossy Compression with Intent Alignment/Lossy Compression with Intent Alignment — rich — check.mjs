@@ -120,13 +120,22 @@ console.log('— the type and the label');
   check('the quoted Origin line is in Resonant Link Labels', rll.includes('It came out of [[Lossy Compression with Intent Alignment]]: links should carry soft labels, not only hard types.'), 'Palace development/Resonant Link Labels.md § Origin');
   const sch = readFileSync(join(ROOT, 'SCHEMA.md'), 'utf8');
   check('the quoted spawned row is SCHEMA’s', sch.includes('| `spawned` | directed A→B | A directly produced B as output | For traceable lineage: this session produced this entry. |'), 'SCHEMA.md, the link-type table');
-  let real = 0, dec = 0, leaks = 0, self = 0;
-  const words = (s) => s.toLowerCase().normalize('NFKD').replace(/[^a-z0-9 -]/g, ' ').split(/[\s-]+/).filter((w) => w.length >= 4);
-  for (const p of D.pool) { if (has(p.s, p.t, p.ty, p.lb)) real++; dec += p.d.filter((t) => has(p.s, t)).length; const tw = new Set(words(p.t).map((w) => w.slice(0, 5))); if (words(p.lb).some((w) => tw.has(w.slice(0, 5)))) leaks++; if (p.s === 'Lossy Compression with Intent Alignment') self++; }
+  // the leak test, written here on its own, at the strict width the challenge asked for: a label word sharing its first three
+  // letters with a title word (four letters or more), a word inside a title word or holding one, a three-letter word inside one,
+  // a token with a digit matching one, or a digit whose name is a title word
+  const NUM = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+  const STOP = new Set(['the', 'and', 'for', 'are', 'not', 'its', 'how', 'why', 'out', 'was', 'but', 'all', 'one', 'two', 'per', 'via', 'vs']);
+  const toks = (s) => s.toLowerCase().normalize('NFKD').replace(/[^a-z0-9 -]/g, ' ').split(/[\s-]+/).filter(Boolean);
+  const spells = (label, title) => { const t = toks(title); return toks(label).some((a) => { if (/^[0-9]$/.test(a) && t.includes(NUM[+a])) return true; if (/[0-9]/.test(a)) return t.includes(a); if (STOP.has(a) || a.length < 3) return false; if (a.length === 3) return t.some((b) => b.length >= 3 && b.includes(a)); return t.some((b) => b.length >= 4 && (a.slice(0, 3) === b.slice(0, 3) || b.includes(a) || a.includes(b))); }); };
+  check('the leak test catches the challenger’s case', spells('drawn-not-damped', 'Resonance and Damping') && spells('dialectic-board-and-lens-channel', 'BBS Blackboard'), 'drawn-not-damped → Resonance and Damping; board → Blackboard');
+  let real = 0, dec = 0, leaks = 0, self = 0; const ME = 'Lossy Compression with Intent Alignment';
+  for (const p of D.pool) { if (has(p.s, p.t, p.ty, p.lb)) real++; dec += p.d.filter((t) => has(p.s, t)).length; if (spells(p.lb, p.t)) leaks++; if (p.s === ME || p.t === ME || p.d.includes(ME)) self++; }
   check('every link in the rebuild pool is real', real === D.pool.length, `${real} of ${D.pool.length}`);
   check('every decoy is a page the source really links to', dec === 3 * D.pool.length, `${dec} of ${3 * D.pool.length}`);
-  check('no pool label spells its target', leaks === 0, `${leaks} share a five-letter stem with the target's title`);
-  check('this page’s own links are not in the pool', self === 0, `${self}`);
+  check('no pool label spells its target, by the strict test', leaks === 0, `${leaks} of ${D.pool.length}`);
+  check('no link from or to this page is in the pool', self === 0, `${self}`);
+  const reused = now.distinct - now.once, multi = (() => { const by = {}; for (const l of lab) (by[l.lb] = by[l.lb] || new Set()).add(l.ty); return Object.values(by).filter((s) => s.size > 1).length; })();
+  check('step 3’s base: labels used more than once, and how many of them spread', reused === D.reused && multi === D.multi, `${multi} of ${reused} reused labels sit under more than one type (${(100 * multi / reused).toFixed(0)} %)`);
   check('every pool trial is from a different page', new Set(D.pool.map((p) => p.s)).size === D.pool.length, `${new Set(D.pool.map((p) => p.s)).size} sources`);
   let p5 = 0; const C = (a, b) => { let c = 1; for (let i = 1; i <= b; i++) c = c * (a - b + i) / i; return c; }; for (let k = 5; k <= 8; k++) p5 += C(8, k) * 0.25 ** k * 0.75 ** (8 - k);
   check('the rebuild rule: 5 or more of 8 by guessing is 1789/65536', Math.abs(p5 - 1789 / 65536) < 1e-12 && Math.round(1 / p5) === 37, `${p5.toFixed(4)}, 1 in ${Math.round(1 / p5)}`);
