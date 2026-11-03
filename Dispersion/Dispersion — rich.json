@@ -75,7 +75,38 @@
      "near": "it falls out of the physics"
     }
    ],
-   "stamped": "2026-11-03"
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Dispersion — rich — what spreads, and which way.html",
+      "verdict": "keep",
+      "why": "Walks up from one crest to a real test: one bend decides both signatures (+196.4 ¢ with highs first by 31.4 ms; −181.1 ¢ with lows first by 42.7 ms), recomputed independently. Note: the beaded 42.7 ms is measured (the law gives 44.5), so say so beside the table; and step 5 already writes the formula in hertz (the no-claim-edit offer)."
+     },
+     {
+      "file": "/Projects/Piano String Inharmonicity/Piano String Inharmonicity — rich — stretch.html",
+      "verdict": "keep",
+      "why": "Walks the section's own formula up to the cube law, and makes the stiffness-free f0 point the third offer makes; landed, tracked, conform clean."
+     },
+     {
+      "file": "/Projects/Particle Synthesis/proofs/2026-10-22-gpu-fountain-AB.png",
+      "verdict": "keep",
+      "why": "Honest decoration, not a test: in A and B the spread comes from the same throws, and only the sound law differs, which the caption says. It is the nearest material for meaning 3, and the granular sentence still needs a made test."
+     },
+     {
+      "file": "/Projects/Particle Synthesis/rich-face/2026-10-22-gpu-fountain-A-ice.wav",
+      "verdict": "keep",
+      "why": "The heard half of the pair above, loudness matched, tracked; same note: it does not test the granular sentence, and its caption does not claim to."
+     },
+     {
+      "file": "/Projects/Particle Synthesis/rich-face/2026-10-22-gpu-fountain-B-mapped.wav",
+      "verdict": "keep",
+      "why": "The mapped half of the pair, honestly captioned as unheard; same note as A."
+     }
+    ]
+   }
   },
   {
    "heading": "The Prism as Unifying Icon",
@@ -99,7 +130,18 @@
      "height": 1300
     }
    ],
-   "stamped": "2026-11-03"
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "/Projects/Particle Synthesis/Particle Synthesis — rich — which way the colours run.html",
+      "verdict": "keep",
+      "why": "Tests the prism's temporal facet on N-BK7 and finds it reversed; 76.0 ns (656 vs 486 nm, 1 km) and 161.1 ns (700 vs 410) recomputed from Schott's Sellmeier; agrees with the page's spatial facet."
+     }
+    ]
+   }
   },
   {
    "heading": "Convolution and Artificial Dispersion",
@@ -133,7 +175,23 @@
      "height": 1510
     }
    ],
-   "stamped": "2026-11-03"
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Dispersion — rich — the recipe, built.html",
+      "verdict": "keep",
+      "why": "Builds the recipe and tests it twice: the fit matches the string's delay within 0.225 ms, yet partials stay on the grid within 0.0012 ¢ (agrees with Categorizing Inharmonicity and Dispersion Table), then Q1 blind. Note: the pair carries two cues, the stretch and the copy's twelve-trip attack chirp (7.9 ms at B = 0.0001, 25.7 at 0.001); the caption could name both and say the trip count was chosen."
+     },
+     {
+      "file": "/Dispersion Table/Dispersion Table — rich — the warp knob.html",
+      "verdict": "keep",
+      "why": "The same cascade inside the loop, where the partials do move: the answer to the gap the walk above leaves, honestly captioned."
+     }
+    ]
+   }
   }
  ],
  "offers": [
