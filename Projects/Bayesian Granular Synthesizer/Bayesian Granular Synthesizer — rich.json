@@ -1,0 +1,226 @@
+{
+  "title": "Bayesian Granular Synthesizer — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Bayesian Granular Synthesizer]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Bayesian Granular Synthesizer's rich face: three walks that test the page's mechanism, its grain spec and its statistics on the engine itself, the takes and pictures the steward already made laid beside the claims they show, and the fingerprint of the words each piece was made against. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Bayesian Granular Synthesizer",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "Bayesian Granular Synthesizer",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "chord-belief.png",
+          "origin": "gathered",
+          "title": "the cloud's belief over pitch, 42 s · the October rebuild",
+          "caption": "**The posterior, sharpening.** The belief over pitch every 50 ms through one take: the flat prior, C E G held (three bumps narrowing to lines), G let go and A taken up, everything released and blurring back, a painted pentatonic prior, low A and E held over it. Below, the share of grains drawn from the prior and the mean grain length in cycles. Drawn from bayes_engine.js, rebuilt from this page's spec in October; the May V8 code was never recovered.",
+          "near": "As notes are held, Gaussian bumps form",
+          "place": "band"
+        },
+        {
+          "file": "chord-belief.wav",
+          "origin": "gathered",
+          "title": "the same take, heard · 42 s",
+          "caption": "The take the picture above was drawn from: clicks, then C E G condensing out of them, A minor, release, the painted prior, low A and E.",
+          "near": "As notes are held, Gaussian bumps form",
+          "place": "margin"
+        }
+      ],
+      "made_against": "e43422562f37",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The mechanism",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Bayesian Granular Synthesizer — rich — prior to belief.html",
+          "origin": "made",
+          "by": "Web Audio Worklet · the engine, unchanged",
+          "height": 1050,
+          "title": "from the prior to belief · a walk in five steps",
+          "caption": "**The mechanism, walked up and then tested.** The prior alone; one note of evidence and the doubt it leaves; the weight and width moving in time; grain length following belief; and the test: the same ten seconds rendered three ways, the same grains at the same pitches, only their lengths different. With every grain short the belief puts 92% of the grains within 25 cents of C E G and only 14% of the sound there, since a 4-cycle grain spreads about ±151 cents. With every grain long 86% of the sound is on the chord, but the doubt's grains ring as wrong notes and the empty cloud hums. Coupled, 86% of the sound is on the chord and the doubt stays clicks. Every number is re-run by the checks file beside it.",
+          "near": "The creative refinement"
+        },
+        {
+          "file": "belief-instrument.html",
+          "origin": "gathered",
+          "height": 1125,
+          "title": "the believing cloud, playable · October rebuild",
+          "caption": "The steward's playable page from 2026-10-14, unchanged: hold notes from the keys (A to K), watch the posterior and the grains, paint a prior and let it hum on its own. Web MIDI only where the browser lets a framed page have it.",
+          "contract": {
+            "needs": "midi",
+            "size": "flow"
+          }
+        },
+        {
+          "file": "belief-helix-states.png",
+          "origin": "gathered",
+          "title": "four moments of the belief helix",
+          "caption": "The same belief drawn for the Belief Cloud plugin's screen: pitch as a helix, one turn per octave. All doubt; C E G believed, the fog condensed onto the strand and the floor drawing the chord; a painted pentatonic prior humming alone; low A and E over it.",
+          "place": "band"
+        }
+      ],
+      "made_against": "5dd0328a0462",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The grain spec",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Bayesian Granular Synthesizer — rich — equal energy.html",
+          "origin": "made",
+          "by": "the engine, offline renders",
+          "height": 1080,
+          "title": "every grain carries the same energy · a walk in three steps",
+          "caption": "**The normalization, tested on the whole cloud.** One grain and its energy, plotted so the rule is a diagonal; a long low grain against a short high one (about 250 times the energy with one amplitude for both, the same with the rule); then A2, E4 and C5 held over the prior, rendered with the rule and with one amplitude for all. With the rule each note's share of the energy follows its share of the grains (30, 28, 33% against 33, 31, 29%) and the cloud rises 0.7 dB as the chord comes in. Without it A2 takes 62% of the energy from 33% of the grains, and the cloud jumps 13.7 dB. It measures energy, not loudness, and says so.",
+          "near": "Equal-energy normalization"
+        }
+      ],
+      "made_against": "ade8e8ccf581",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The statistics underneath, tied to e",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Bayesian Granular Synthesizer — rich — one e, many grains.html",
+          "origin": "made",
+          "by": "the engine, offline renders",
+          "height": 990,
+          "title": "one e, many grains · a walk in four steps",
+          "caption": "**The four statistical names, counted in the cloud.** Onset gaps against λe^(−λt); the gaps and the evidence envelopes on one curve, e^(−x), once each is measured in its own unit; 100,000 draws filling out the belief semitone by semitone, while the average pitch settles on C4 for a held C3 E4 G4, a note nobody holds; and the test, the output's spread of sample values: a bell curve where about 56 grains sound at once (kurtosis 2.95), spiky where about 4 do (4.49).",
+          "near": "The session grounded the design"
+        }
+      ],
+      "made_against": "7981652a3bf5",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Forward Vectors",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "belief-cloud-face.html",
+          "origin": "gathered",
+          "height": 820,
+          "title": "Belief Cloud's face · the VST Template editor, 2026-10-22",
+          "caption": "The steward's whole plugin face, built with the template's own editor code: the helix in the screen, every knob, and a prior you paint by dragging the spokes of the floor dial. Sound on, then the demo, or keys A to K. Not yet a built plugin: it waits on the template building inside this bundle.",
+          "contract": {
+            "needs": "midi",
+            "size": "flow"
+          }
+        },
+        {
+          "file": "rich-face/belief-cloud-take.wav",
+          "origin": "gathered",
+          "title": "the face's demo through the C++ engine · 36 s",
+          "caption": "Flat clicks, C E G, A minor, let go, the painted pentatonic prior alone, then low A and E over it, rendered through the plugin's Algorithm.h. The level holds within 1.1 dB from all clicks to all tone.",
+          "place": "margin"
+        },
+        {
+          "file": "prior-tone-ab.png",
+          "origin": "gathered",
+          "title": "should a painted prior hum? three ways",
+          "caption": "**The painted prior, heard three ways.** Same seed, same D-dorian belief, 31 seconds: A, the prior only steers where clicks land; B, grains on a painted peak grow long in proportion to its height (23% long at rest); C, a wider tonal zone (52% long, some tones up to 25 cents off the note). In B and C the prior keeps humming D and A under a held E major: belief and evidence audibly argue.",
+          "place": "band"
+        },
+        {
+          "file": "prior-tone-A.wav",
+          "origin": "gathered",
+          "title": "A · prior tone off",
+          "caption": "The painted belief is heard only as where the clicks land.",
+          "place": "margin"
+        },
+        {
+          "file": "prior-tone-B.wav",
+          "origin": "gathered",
+          "title": "B · prior tone on, curve 1",
+          "caption": "The resting cloud hums D and A, and argues with E major.",
+          "place": "margin"
+        },
+        {
+          "file": "prior-tone-C.wav",
+          "origin": "gathered",
+          "title": "C · prior tone on, curve 0.5",
+          "caption": "More hum, some long grains up to about 25 cents off the note.",
+          "place": "margin"
+        }
+      ],
+      "made_against": "b7e4569a81de",
+      "stamped": "2026-11-03"
+    }
+  ],
+  "offers": [
+    {
+      "section": "The statistics underneath, tied to e",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The page gives the Law of Large Numbers as 'why the cloud's average pitch converges on the held chord'. On the engine (one e, many grains, step 3), what converges on the belief is the share of grains in each semitone: its distance from the posterior falls 0.390, 0.149, 0.052, 0.012, 0.004 at 10 to 100,000 grains. The average pitch converges on a single pitch, the posterior mean, which for a chord lies between the notes and is pulled toward the range's middle by doubt: C3 E4 G4 held gives 60.04 predicted and 60.05 after 100,000 grains, C4, a note nobody holds. Suggested: 'the Law of Large Numbers (why the grains, counted, trace the posterior more closely as their number grows)'."
+    },
+    {
+      "section": "The statistics underneath, tied to e",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "'the exponential distribution (the time constants governing how fast evidence accumulates and decays)' files the evidence envelopes under the distribution. In the engine the exponential distribution is the gap between Poisson onsets (Kolmogorov-Smirnov D 0.0225 against a 5% line of 0.0237, 20 s at 160/s); the time constants are exponential decays, not distributions (the engine's attack and release match e^(−x) to 4e-16 and 2e-14). The next sentence already has it right, the same e wearing two hats. Suggested: 'the exponential distribution (the gaps between grain onsets) and exponential decay (the time constants governing how fast evidence accumulates and decays)'."
+    },
+    {
+      "section": "The statistics underneath, tied to e",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Summed grain contributions tend Gaussian only where many grains overlap. On the output's sample values (one e, many grains, step 4): C E G believed, about 56 grains at once, kurtosis 2.95 against a bell curve's 3; nothing held, about 4 at once, 4.49; C E G with every grain forced short, about 3.5 at once, 3.65. Suggested: add the condition, 'once enough grains overlap: the believing cloud's long grains do, the clicky cloud's short ones do not'."
+    },
+    {
+      "section": "The mechanism",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "An addition the test supports, not a correction: the length coupling is what lets the sharpened belief be heard at all. Same seed, same grains, C E G held, 6 to 10 s: with every grain 4 cycles, 92.4% of the grains land within 25 cents of the chord but only 13.6% of the sound does, because a 4-cycle grain spreads about ±151 cents (half power) at C4; coupled, 85.7%. At full conviction the two widths meet: the 5-cent floor of the belief and a 128-cycle grain's own ±5.8 cents. Suggested sentence after 'resolves in character': 'Without the coupling the sharpening is mostly inaudible: a short grain is too brief to carry a precise pitch.'"
+    }
+  ]
+}
