@@ -133,11 +133,12 @@ function bellStrike(fs, fb, n, DUR) {
 function cutCycle(strike, s0, P) { return strike.slice(s0, s0 + P); }
 // read the cycle round and round. The counter's phase is (n mod P) ⁄ P; the read can be bent,
 // phase' = phase + (b ⁄ 2π)·sin(2π·phase), which keeps one trip per period while |b| < 1.
-// wob > 0 makes the bend itself move, b·(1 + 0.9·sin(2π·wob·n ⁄ fs)), at a rate unrelated to the pitch.
+// wob > 0 makes the bend itself move, c·(1 + 0.9·sin(2π·wob·n ⁄ fs)), at a rate unrelated to the pitch,
+// with c = b held to ±0.5 so the moving bend peaks at 0.95 and the read stays one-to-one.
 function readCycle(cyc, n, b, wob, fs) {
-  const P = cyc.length, y = new Float64Array(n);
+  const P = cyc.length, y = new Float64Array(n), c = Math.max(-0.5, Math.min(0.5, b));
   for (let i = 0; i < n; i++) {
-    const ph = (i % P) / P, bb = wob ? b * (1 + 0.9 * Math.sin(2 * Math.PI * wob * i / fs)) : b;
+    const ph = (i % P) / P, bb = wob ? c * (1 + 0.9 * Math.sin(2 * Math.PI * wob * i / fs)) : b;
     let q = ph + bb / (2 * Math.PI) * Math.sin(2 * Math.PI * ph); q = (q - Math.floor(q)) * P;
     const i0 = Math.floor(q) % P, fr = q - Math.floor(q);
     y[i] = cyc[i0] + fr * (cyc[(i0 + 1) % P] - cyc[i0]);
@@ -199,8 +200,8 @@ const STEPS = [
     do: 'Play, and move the bend.', watch: 'Right: the peaks grow and shrink, and none of them leaves its tick.', hear: 'The colour changes. The pitch, and the buzz’s harmonic sound, do not.',
     hears: ['bent'], ctl: ['p', 's', 'b'] },
   { name: 'the test', title: 'The test: what lands between?',
-    say: 'Fold the sound onto one trip: lay its trips on top of each other and average them. Everything on the loop’s grid folds onto itself. What does not fold is energy between the harmonics. Four sounds: the bell, the looped cycle, the bent read, and the bent read with the bend itself moving 37.7 times a second, while every trip still takes exactly P samples.',
-    do: 'Play each of the four. Change the cycle’s length and the bend, and read the table again.', watch: 'The last column. Two rows have nothing between the harmonics, not a little but nothing: every trip is the first, bit for bit. The bell, and the moving bend, do not.', hear: 'The moving bend: the same buzz, with something moving in it that the still bend did not have. That movement is the energy between.',
+    say: 'Fold the sound onto one trip: lay its trips on top of each other and average them. Everything on the loop’s grid folds onto itself. What does not fold is energy between the harmonics. Four sounds: the bell, the looped cycle, the bent read, and the bent read with the bend itself moving 37.7 times a second (held under 1 at its peak, so the read never runs backward), while every trip still takes exactly P samples.',
+    do: 'Play each of the four. Change the cycle’s length and the bend, and read the table again.', watch: 'The last column. The looped cycle and the still bend have nothing between the harmonics, every trip the first, bit for bit, and that is by construction: their read depends on n mod P alone, so no trip can differ. The real tests are the bell and the moving bend.', hear: 'The moving bend: the same buzz, with something moving in it that the still bend did not have. That movement is the energy between.',
     hears: ['bell', 'loop', 'bent', 'wob'], ctl: ['p', 's', 'b'] },
 ];
 const HEAR_LABEL = { bell: 'the bell', loop: 'the looped cycle', bent: 'the bent read', wob: 'the bend moving' };
@@ -318,7 +319,7 @@ function show() {
       const r = R.rows[k], db = r.same ? 'none' : r.db === -Infinity ? 'none' : `${r.db.toFixed(1)} dB under the whole`;
       t += `<tr><td>${HEAR_LABEL[k]}</td><td>${r.trips}</td><td>${r.same ? 'yes' : 'no'}</td><td><b>${db}</b></td></tr>`;
     }
-    f = `The looped cycle and the bent read put nothing between the harmonics: the bend moved energy among them and that is all, as the page says. The bell, folded the same way, keeps almost all its energy between. The fourth row is the edge of the claim. Every trip of the moving bend still takes exactly ${S.P} samples, yet ${R.rows.wob.db.toFixed(1)} dB of it lands between the harmonics, because no two trips are read the same way. Keeping the trip’s length is not enough; the read has to hold still too. A bend that moves at a rate of its own is a second clock.`;
+    f = `Measured at ${sr} Hz. The looped cycle and the bent read put nothing between the harmonics, by construction: the bend moved energy among them and that is all, as the page says. The bell, folded the same way, keeps almost all its energy between. The fourth row is the edge of the claim. Every trip of the moving bend still takes exactly ${S.P} samples, yet it puts ${R.rows.wob.db.toFixed(1)} dB under the whole between the harmonics, because no two trips are read the same way. Keeping the trip’s length is not enough; the read has to hold still too, which is what Three Kinds of Warp’s theorem asks: φ(t + T) − φ(t) = 2π at every t, not only at the end of each trip. A bend that moves at a rate of its own is a second clock.`;
   }
   $('meter').innerHTML = m; $('tab').innerHTML = t; $('found').textContent = f;
   const E = {

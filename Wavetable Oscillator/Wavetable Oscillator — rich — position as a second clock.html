@@ -137,7 +137,7 @@ function offGridDb(y, Q, s, M) {
   for (let m = 0; m < M; m++) for (let j = 0; j < Q; j++) { const v = y[s + m * Q + j], r = v - avg[j]; off += r * r; all += v * v; }
   return off === 0 ? -Infinity : 10 * Math.log10(off / all);
 }
-// what the page predicts for a rate unrelated to the pitch: the moving part, depth·sin(…)·(B − A), lands
+// what the blend's own algebra predicts for a rate unrelated to the pitch: the moving part, depth·sin(…)·(B − A), lands
 // wholly between the harmonics, so its share is (depth²⁄2)·mean((B−A)²) over the whole sound's mean square
 function predictOffDb(A, B, p0, depth) {
   let d2 = 0, c2 = 0; const P = A.length;
@@ -191,7 +191,7 @@ const STEPS = [
     hears: [], ctl: ['pos', 'depth', 'rate'] },
   { name: 'the test', title: 'The test: when is Position a clock?',
     say: 'The page says a Position driven fast, at a rate unrelated to the pitch, has become a second clock. So drive it at rates tied to the pitch and rates untied from it, and fold each sound onto one trip: what doesn’t fold lies between the harmonics. Then try longer trips, two, three, up to eight, to see if the sound repeats at all.',
-    do: 'Play each rate. Watch the last three columns.', watch: 'A whole-number rate folds to nothing. Half-way between harmonics folds on two trips: a new fundamental, an octave down. An unrelated rate never folds, and the share between the harmonics comes out where the page’s reading predicts.', hear: 'Tied to the pitch, a new timbre; at three halves, a lower note appears; untied, the roughness of two clocks.',
+    do: 'Play each rate. Watch the last three columns.', watch: 'A whole-number rate folds to nothing. Half-way between harmonics folds on two trips: a new fundamental, an octave down. An unrelated rate never folds, and the share between the harmonics comes out where the blend’s own algebra predicts.', hear: 'Tied to the pitch, a new timbre; at three halves, a lower note appears; untied, the roughness of two clocks.',
     hears: ['still', 'slow', 'whole', 'half', 'r37', 'phi'], ctl: ['pos', 'depth'] },
 ];
 const ROWS = {
@@ -316,8 +316,8 @@ function show() {
       const r = R.rows[k], off = r.off < -200 ? 'none' : `${r.off.toFixed(1)} dB`;
       t += `<tr><td>${k === S.row ? '<b>' + ROWS[k].label + '</b>' : ROWS[k].label}</td><td>${r.rate ? r.rate.toFixed(2) + ' Hz' : '—'}</td><td>${r.rate ? r.near.toFixed(2) + ' Hz' : '—'}</td><td>${r.rep ? r.rep + (r.rep === 1 ? ' trip' : ' trips') : 'not within 8'}</td><td><b>${off}</b></td></tr>`;
     }
-    m = `predicted for a rate unrelated to the pitch, with every new line between harmonics: <b>${R.pred.toFixed(2)} dB</b> under the whole`;
-    f = `Tied to the pitch, Position stays inside one loop: at the pitch itself the new lines land on harmonics, and the sound repeats every trip, a new timbre on the old grid. At three halves it repeats every two trips, a series on half the pitch, a new fundamental an octave down. Untied, at 37.7 Hz or the golden ratio, it never repeats, and the share between the harmonics lands on the prediction: Position has become the second clock. The slow sweep is the honest middle. It doesn’t repeat either, and over a second some of it folds as between, because the strengths have moved; but its new lines sit a quarter of a hertz from their harmonics, inside them, so the ear hears the same harmonics changing strength.`;
+    m = `predicted by the blend’s algebra, (d² ⁄ 2) · mean((B − A)²) over the whole, for a rate unrelated to the pitch: <b>${R.pred.toFixed(2)} dB</b> under the whole`;
+    f = `Tied to the pitch, Position stays inside one loop: at the pitch itself the new lines land on harmonics, and the sound repeats every trip, a new timbre on the old grid. At three halves it repeats every two trips, a series on half the pitch, a new fundamental an octave down; its share misses the prediction because the modulator’s square repeats with the trip, so the moving part is not weighted by ½. Untied, at 37.7 Hz or the golden ratio, it never repeats, and the share between the harmonics lands on the prediction: Position has become the second clock. The slow sweep is the honest middle. It doesn’t repeat either, and over a second some of it folds as between, because the strengths have moved; but its new lines sit a quarter of a hertz from their harmonics, inside them, so the ear hears the same harmonics changing strength.`;
   }
   $('meter').innerHTML = m; $('tab').innerHTML = t; $('found').textContent = f;
   const E = {
