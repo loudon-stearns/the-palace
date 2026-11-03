@@ -222,14 +222,6 @@ What each morning taught the practice. Each item names what the morning showed a
 77. **The prep ran at night, and the hello met the hour.** The prep finished about 23:36 and the greeting said "good evening". He came the next morning, and the clock was read again before meeting him. Prep step 6 held as written. Nothing forced.
 - run · 2026-10-28 · v1.2 · Graphic Storytelling, tune · taught items 74–77
 
-## From the thirteenth morning — BLUELINE, 2026-10-29 (closed 2026-11-03)
-
-78. **A sit ran four days.** The page was dealt and the prep ran on 10-29; the sit and its close ran to 11-03. `deal.py --sat` was given `--date 2026-10-29` (item 61's workaround, as in item 75), and the run line carries the deal's date. Nothing forced.
-79. **The dealer's `--made` named files before they were placed.** The sat line was written early in the close and said the cuts were "in the page's proofs". At the panel the cuts were kept out of the palace (the song is unreleased, and the repo is public), so the uncommitted line was corrected in place before its commit. **Change owed, open:** close step 1 could come after the placing, so `--made` describes what landed.
-80. **A body landed that contradicted the morning's own find.** The prep found the Set runs at 127 BPM, where the record says 120; the hub-shaped body, drafted after, said "a beat becomes an exact frame", which holds only at 120. The cold read caught it, not the room. Nothing forced; the sentence was replaced on Loudon's word, and his tempo order went to the scroll's Standing Orders.
-81. **Item 59 seen again.** The dealer listed BLUELINE's own bundle pages and `Shop/Blender` as forward ghosts; all exist. Still owed in `deal.py`.
-- Also: the woken page asked for a cut with sound and one finish over its six boards. The prep made two blind cuts over the real song with the boards as they were; the finish went to the page's baton.
-- run · 2026-10-29 · v1.2 · BLUELINE, tune · taught items 78–81
 ## From the fourteenth morning — Image Embedding Standard, 2026-10-31 (sat 11-02)
 
 78. **The woken page found the morning's crack unprompted.** It saw that its own hero fails its own test, and that "become the ceremony" in its vector was false. Both shaped the trim. The waking could not see its own picture: an agent meets a hero only as a filename. Nothing forced in this card; a wake tool that hands the page its face file's `idiom` line is an idea, not yet ordered.
@@ -251,3 +243,12 @@ What each morning taught the practice. Each item names what the morning showed a
 85. **An approved line claimed an origin the page's history contradicts.** The new section opened "The page began with a science-fiction worry", but the page's first text (`acd58027`, 2026-03-20) was already the design argument, and already disclaimed that worry. The Concierge read the page's git history before committing, and caught it after the words were approved and written but before landing. The fix, "The idea behind this page began with…", was approved and committed on the branch (`bd8feb78`). Nothing forced; a case for item 31: a reader who checks a claim against the record, without having made it, is worth keeping, and a claim about where a page came from is checkable in git.
 - Also: the woken page proposed, unprompted, the test the prep had already built, as in items 58 and 78. Nothing forced.
 - run · 2026-11-02 · v1.2 · Agent Wellbeing, tune · taught items 84–85
+
+## From the thirteenth morning — BLUELINE, 2026-10-29 (closed 2026-11-03)
+
+86. **A sit ran four days.** The page was dealt and the prep ran on 10-29; the sit and its close ran to 11-03. `deal.py --sat` was given `--date 2026-10-29` (item 61's workaround, as in item 75), and the run line carries the deal's date. Nothing forced.
+87. **The dealer's `--made` named files before they were placed.** The sat line was written early in the close and said the cuts were "in the page's proofs". At the panel the cuts were kept out of the palace (the song is unreleased, and the repo is public), so the uncommitted line was corrected in place before its commit. **Change owed, open:** close step 1 could come after the placing, so `--made` describes what landed.
+88. **A body landed that contradicted the morning's own find.** The prep found the Set runs at 127 BPM, where the record says 120; the hub-shaped body, drafted after, said "a beat becomes an exact frame", which holds only at 120. The cold read caught it, not the room. Nothing forced; the sentence was replaced on Loudon's word, and his tempo order went to the scroll's Standing Orders.
+89. **Item 59 seen again.** The dealer listed BLUELINE's own bundle pages and `Shop/Blender` as forward ghosts; all exist. Still owed in `deal.py`.
+- Also: the woken page asked for a cut with sound and one finish over its six boards. The prep made two blind cuts over the real song with the boards as they were; the finish went to the page's baton.
+- run · 2026-10-29 · v1.2 · BLUELINE, tune · taught items 86–89
