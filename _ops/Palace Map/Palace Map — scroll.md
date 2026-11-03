@@ -15,10 +15,10 @@ forward_vector: "I am Palace Map's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T13:13:24.036Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-03T13:17:04.887Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing · **Steward:** none — this page has no permanent steward yet
-- **Plan:** agreed 2026-10-23 (12 days ago) · 4 made things since
+- **Plan:** agreed 2026-10-23 (12 days ago) · 5 made things since
 - **Runs:** 1 run on 1 day, counted from the ledger's run lines
 - **Last run:** 2026-11-03 — keeper · constellation for the Daily Page sit, Quantization ↔ Precision vs Flow · 7 pages, 13 edges, 4 types, 10/10 · taught: a set that crosses two types reads as one idea; ask for three before the eye settles
 - **Owed in the ledger:** nothing
@@ -92,6 +92,19 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="palace-map-keeper-rhyme-flagged-2026-11-03" -->
+### 2026-11-03 — The keeper's rhyme is a weave flag (commons-the-palace-1793711823205); its reading for the sit is in the proof folder (c528c3ab)
+> flagged on Loudon's yes · Move 3's done-when now has a flag for a Weave to take up
+
+Loudon, 2026-11-03: "Yes, flag it." The rhyme from the first use — Quantization ↔ Precision vs Flow ~ Synthesis ↔ Emergence, no edge either way, ranked first at 0.23 sharing Brian Eno, Cross-Domain Resonances and Flocking, both mirroring Flocking — is on the WEAVE board as a `weave_flag`, posted by `python3 -m commons weave-flag`, id `commons-the-palace-1793711823205`, proposed `couples-with`, unjudged. The next Weave's Step 1c reads it; taking it up or declining it meets Move 3's done-when. `sit-reading.md`, the keeper's prose as returned (what the set shows, pillars by role, the opening question, the log), joins the proof folder, and RESULTS points at it.
+
+**Artifacts:**
+- [sit-reading.md — The Grid and the Flock, as returned](_ops/Palace Map/proofs/2026-11-03-keeper-first-run/sit-reading.md)
+
+_Next moves named:_ Move 3, second use: a route for a Walk's door, on Loudon's word · The next Weave reads the flag
+<sub>`palace-map-keeper-rhyme-flagged-2026-11-03` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="palace-map-keeper-first-use-2026-11-03" -->
 ### 2026-11-03 — Move 3's first use: the keeper drew The Grid and the Flock for today's Daily Page sit (5a54034b) — the map's tuning ledger is open; Move 3 half met
 > shipped · Move 3 of the plan agreed 2026-10-23, first of four uses · done-when half met: the ledger is open, no Weave flag yet
