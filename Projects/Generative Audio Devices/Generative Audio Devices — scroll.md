@@ -96,6 +96,11 @@ Written on Loudon's word at the revival, 2026-10-24, when he played the house ba
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="gad-2026-11-03-synth-templates-emit-pdl" -->
+### 2026-11-03 — Synth Templates' cards emit PDL through this project's renderer
+
+A note from beside: [[Synth Templates]]' `workshop/card-to-pdl.py` writes PDL for all 292 of its cards (blocks 88 %, audio edges 82 %, routes 83 % mapped), and its `pdl/emit-vcv.cjs` runs this project's `emitVcvJson` from Node to make `.vcv` patches; nothing here was changed. The unmapped remainder names what the Fundamental registry lacks: effects, unison and detune, noise, more than one cable per jack, envelope-amount and LFO-depth jacks. Detail on the Synth Templates scroll.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="plan-2026-10-29T00-29-54-04-00" -->
 ### 2026-10-29 — Plan revised: Max, not Pure Data, under the pause
 

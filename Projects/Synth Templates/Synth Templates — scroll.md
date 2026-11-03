@@ -47,6 +47,20 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-03-cards-to-pdl" -->
+### 2026-11-03 — A cross-project find: every card emits PDL, and the house bass reaches VCV Rack
+
+Under the same "move forward where possible": `workshop/card-to-pdl.py` turns a card into [[Generative Audio Devices]]' Patch Description Language, card words through the vocabulary's numbers onto Fundamental knob curves, and `pdl/<id>.pdl` exists for all 292. `pdl/COVERAGE.md` counts what mapped: blocks 88 %, audio edges 82 %, modulation routes 83 %; 68 cards map completely; what cannot map is the effects chains, unison and detune, noise, more than one cable per jack, and the envelope-amount and LFO-depth jacks the Fundamental registry does not have. `pdl/emit-vcv.cjs` runs the renderer's own `emitVcvJson` from Node with no browser, Generative Audio Devices itself untouched, and `pdl/house-bass.vcv` is a valid patch, nine modules and twelve cables, not yet opened in Rack. It differs from the hand-written `house_bass.pdl` by the octave transposition, the added sub and mixer, and knob values from the vocabulary rather than by ear. The entry now carries `connects-to` [[Generative Audio Devices]] (cards-emit-pdl) beside its `emerged-from`; the GAD scroll has a short line.
+
+_Left rough:_ no patch opened in Rack yet; the unmappable list is the registry's shape, not the cards'.
+<!-- /scroll:entry -->
+<!-- scroll:entry id="synth-templates-2026-11-03-reference-renders" -->
+### 2026-11-03 — Plan move 4 begun: reference renders from the site's own voice, offline
+
+Under Loudon's "move forward where possible." `build-site.py` now writes the voice out as `site/voice.js`, loaded by the page with a script tag and imported by Node; it is wrapped in one scope after a first cut collided with the page's VOCAB, caught in the browser. `workshop/render-refs.mjs` renders every card's default pattern through node-web-audio-api's OfflineAudioContext into `renders/<id>.wav` (48 kHz, 16-bit stereo, 223 MB, ignored by git), and `render-features.py` writes `renders/features.json` (peak, RMS, crest, centroid, rise, tail, width, duration), a spectrogram PNG per card (292, committed) and `renders/SANITY-2026-11-03.md`. `renders/manifest.json` names two node-web-audio-api bugs worked around: its DynamicsCompressor runs away on fast onsets, so the offline master compressor is bypassed and peaks run up to about 6 dB hotter than the page; and setTargetAtTime after cancelAndHoldAtTime explodes, so the offline release holds a closed-form value. The sanity pass flags 213 of 292: 157 for length (the voice ignores `render.pattern` and `render.length_s`, playing a chord 3.5 beats, a note as four hits, a mono line as sixteenths), 84 for clipping (polyphonic sums are not scaled by note count; banjo peaks +12.6 dBFS raw), 13 for vocabulary words with no number (amount "a fifth", cutoff "keytracked", fm_index "off", pitch_amount "little"), 7 silent (feedback-fm, self-oscillating-filter-as-oscillator, and five two-filter cards whose series chain closes: parallel-flexible-notch-with-horns, parallel-twin-peaks, serial-bring-out-the-noise, formant-vowels, vocal-formant-lead).
+
+_Left rough, for Loudon:_ the two voice fixes the sanity pass points at, honouring `render.pattern` and `render.length_s`, and scaling chords by voice count, are not done; they change what the site plays, so they wait on his word. The thirteen missing vocabulary words and the seven silent cards are on the same list.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-03-heard-rise" -->
 ### 2026-11-03 — The heard rise goes to the palace: D-2026-11-03-HEARDRISE
 
