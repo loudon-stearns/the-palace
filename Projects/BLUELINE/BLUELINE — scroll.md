@@ -62,7 +62,8 @@ _Nothing decided on the board yet._
 <!-- scroll:orders:start -->
 Decided with Loudon between June and July 2026, carried over from the locked scope in [[BLUELINE — Production Plan]], and confirmed by him as orders on 2026-09-25; not to be reopened without a reason:
 
-- **Fixed tempo.** Sync is exact arithmetic, with beats falling on whole frames, never elastic alignment.
+- **Fixed tempo.** Sync is exact arithmetic, ~~with beats falling on whole frames~~ *(superseded 2026-11-03 by Any tempo)*, never elastic alignment.
+- **Any tempo** (2026-11-03). Loudon: "we must be able to use any arbitrary tempo."
 - **Staged, not simulated.** Comic motion is camera, effects and pose, never simulated contact between figures. Relaxed on 2026-07-03: blending held poses along the flow is in scope as a bounded experiment.
 - **Humanoid only.** Animal motion is out of scope (2026-06-13).
 - **Every milestone ships.** Each rung is a usable tool, never a down payment on the next.
