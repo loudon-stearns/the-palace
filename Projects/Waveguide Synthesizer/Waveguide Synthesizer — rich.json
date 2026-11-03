@@ -29,6 +29,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Waveguide Synthesizer — rich — two travelling waves.html",
+            "verdict": "keep",
+            "why": "A test, walked up in five steps: the strobe step finds the qualifier the page lacks, and the pluck-position rule holds (recomputed in float64: missing harmonics about -335 dB, the rest within 0.064 dB). The play-silent warning stands by design: steps 1 and 2 are for the eye, and a pluck from step 3 posts rich:play (seen in headless Chromium)."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Waveguide Synthesizer — rich — two travelling waves.html",
@@ -52,6 +63,37 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Waveguide Synthesizer — rich — karplus-strong walked up.html",
+            "verdict": "keep",
+            "why": "The best test on the face: it could have agreed with the page and it does not. Recomputed independently: the average has a constant half-sample delay, the pitch is fs/(N+½) within 0.016 cents, fs/N reads 8.6 cents high at N = 100 and 42.7 at N = 20, and each harmonic dies at ρ|cos(πf/fs)| per trip within 0.01 dB/s. Walks up loop, average, decay, test."
+          },
+          {
+            "file": "offline-v1/spacetime-strike-stiffness-0-vs-1.png",
+            "verdict": "keep",
+            "why": "A record from the engine itself, beside the paragraph it evidences: the sign flip at each end, and the dispersion fan at stiffness 1. Caption matches scroll cycle 8."
+          },
+          {
+            "file": "offline-v1.10/ladder-sheet.png",
+            "verdict": "remake",
+            "why": "Caption only: it says every bar was checked within 0.26 cents, but the steward checked every bar loud enough to measure (scroll cycle 17), and the +1195 it quotes for overtone 16 at full stiffness is the ladder's number; the sound puts it at +1187.8 (ladder-vs-sound.json). Restore the qualifier."
+          },
+          {
+            "file": "offline-v1.10/stiffness-tour.wav",
+            "verdict": "keep",
+            "why": "Makes the dispersion claim heard, harmonic to piano to bar, from the engine the ladder measures. Caption matches stiffness-tour.json (steps are 2.25 s, not 2; close enough)."
+          },
+          {
+            "file": "offline-v1.8/bridge-feeds-body.wav",
+            "verdict": "keep",
+            "why": "Numbers confirmed in body-levels.json (rigid 2.98 s, bridge 0.90 0.2 s), and its caption honestly says the board is modal, not a branching waveguide, which is the page's own word it sits beside."
+          }
+        ]
       },
       "pieces": [
         {
@@ -109,6 +151,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "study-v1.13-the-hair-holds-at-half/index.html",
+            "verdict": "remake",
+            "why": "Caption only: it says the study loads Three.js from unpkg, 'which is not on the rich face's library shelf'. Both unpkg scripts (three@0.128.0 build and OrbitControls) are on the shelf with matching SRI since fca09879; the study ran framed with a clean console. Replace the clause with that."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "study-v1.13-the-hair-holds-at-half/index.html",
@@ -135,6 +188,22 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "rich-face/lesson-run.mp4",
+            "verdict": "keep",
+            "why": "The only way a reader without the study sees the seven-stop lesson the section names; tracked under rich-face/, 4.4 MB. Note: it runs 116.4 s, not about 112."
+          },
+          {
+            "file": "offline-v1.12/lesson-sheet.png",
+            "verdict": "keep",
+            "why": "Every stop on one sheet, beside the phrase it serves. Note: 'after the hand' is the scroll's shorthand; 'each stop after a hand has done it' would read plainer."
+          }
+        ]
       },
       "pieces": [
         {
