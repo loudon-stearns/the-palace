@@ -33,8 +33,8 @@ for (const [what, key] of [['the costume dial', 'dial'], ['thin plate, thick pla
 await browser.close(); server.close();
 const r = ref, d = r.dial;
 console.log('\nreference (checks.py):');
-for (const f of ['sorceress', 'barbarian']) console.log(`  ${f.padEnd(10)} ink beyond the body by depth: ${d[f].steps.map((s) => `${s.depth.toFixed(2)} ${s.outside.toFixed(3)} (${Math.round(100 * s.outside / d[f].steps[0].outside)}%)`).join(' · ')}`);
+for (const f of ['sorceress', 'barbarian']) console.log(`  ${f.padEnd(10)} cloth beyond the body by depth: ${d[f].steps.map((s) => `${s.depth.toFixed(2)} ${s.cloth.toFixed(3)} (${Math.round(100 * s.cloth / d[f].steps[0].cloth)}%)`).join(' · ')}`);
 console.log(`  plates lit px: thin ${r.plates.thin} · thick ${r.plates.thick} · ${r.plates.ratio}×`);
 for (const k of ['before', 'after']) { const a = r.autorange[k]; console.log(`  depth ${k.padEnd(6)} interior ${a.min}–${a.max} (${(100 * a.span_frac).toFixed(1)}% of 0–255) · p5–p95 ${a.p5}–${a.p95} (${(100 * a.p5_95_frac).toFixed(1)}%)`); }
-const s = r.shootout; console.log(`  shootout: segment changed ${(100 * s.segment.changed_frac).toFixed(1)}%, ${(100 * s.segment.inside_region).toFixed(1)}% inside · inpaint changed ${(100 * s.inpaint.changed_frac).toFixed(1)}%, ${(100 * s.inpaint.inside_region).toFixed(1)}% inside · seam ${s.seam.inpaint} vs base ${s.seam.base} (frame ${s.seam.frame_mean_inpaint})`);
+const s = r.shootout; console.log(`  shootout: segment changed ${(100 * s.segment.changed_frac).toFixed(1)}%, ${(100 * s.segment.inside_region).toFixed(1)}% inside · inpaint changed ${(100 * s.inpaint.changed_frac).toFixed(1)}%, ${(100 * s.inpaint.inside_region).toFixed(1)}% inside · change inside the region ${s.falloff.inside}, then in 4-px rings ${s.falloff.rings.join(' / ')}`);
 process.exit(bad ? 1 : 0);

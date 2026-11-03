@@ -27,6 +27,14 @@ def cell(a, i):
     r, c = divmod(i, 3); x = PAD + c * (CW + PAD); y = HDR + PAD + LAB + r * (CH + LAB + PAD)
     return a[y:y + CH, x:x + CW]
 STEPS = [0.0, 0.15, 0.30, 0.45, 0.60, 0.80]
+# what the cloth count sets aside, in cell pixels (after the challenge, 2026-11-03): the cell's 8-px margin,
+# where the paper's own edge shows as a light line; the sorceress's hair and hood, above her shoulders
+# (y 100) and above her right arm (shoulder 222,100 to wrist 269,155) where the hair streams; the
+# barbarian's sword, the strip right of x 270
+YY, XX = np.mgrid[0:CH, 0:CW]
+MARGIN = (YY < 8) | (YY >= CH - 8) | (XX < 8) | (XX >= CW - 8)
+ASIDE = {'sorceress': MARGIN | (YY < 100) | ((XX > 222) & (YY < 100 + (XX - 222) * 55 / 47)),
+         'barbarian': MARGIN | (XX > 270)}
 dial = {}
 for name, f in (('sorceress', 'render_021.png'), ('barbarian', 'render_022.png')):
     a = L(Image.open(R(f)))
@@ -38,7 +46,8 @@ for name, f in (('sorceress', 'render_021.png'), ('barbarian', 'render_022.png')
         bg = float(np.median(np.concatenate([c[:8].ravel(), c[-8:].ravel(), c[8:-8, :8].ravel(), c[8:-8, -8:].ravel()])))
         light = c > max(128, bg + 60)
         rows.append({'depth': s, 'bg': bg,
-                     'outside': round(float((light & ~band).sum() / body.sum()), 3)})
+                     'outside': round(float((light & ~band).sum() / body.sum()), 3),
+                     'cloth': round(float((light & ~band & ~ASIDE[name]).sum() / body.sum()), 4)})
     dial[name] = {'body_px': int(body.sum()), 'steps': rows}
 out['dial'] = dial
 
@@ -65,8 +74,11 @@ out['autorange'] = ar
 # ── segment or inpaint: the barbarian's region, against the base it was painted into ──
 alpha_b = np.array(Image.open(R('render_022_beauty.png')).split()[-1]) > 127
 alpha_s = np.array(Image.open(R('render_021_beauty.png')).split()[-1]) > 127
-reg_b = maxf(maxf(alpha_b, 81), 33)      # the shootout's MaxFilter(81), then VAEEncodeForInpaint's grow_mask_by 16
-reg_s = maxf(maxf(alpha_s, 81), 33)
+# the shootout's MaxFilter(81), then VAEEncodeForInpaint's grow: grow_mask_by 16 is a 16-px kernel with
+# padding 8 (_tools/ComfyUI/nodes.py:411-414), about 8 px each way, so MaxFilter(17)
+r81_b = maxf(alpha_b, 81)
+reg_b = maxf(r81_b, 17)
+reg_s = maxf(maxf(alpha_s, 81), 17)
 base = np.array(Image.open(os.path.join(HERE, 'rich-face', 'shootout-inpaint-base.png')).convert('RGB')).astype(int)
 seg = {}
 for name, f in (('segment', 'render_012.png'), ('inpaint', 'render_013.png')):
@@ -74,13 +86,13 @@ for name, f in (('segment', 'render_012.png'), ('inpaint', 'render_013.png')):
     ch = (np.abs(x - base).max(-1) > 24) & ~reg_s
     seg[name] = {'changed_frac': round(float(ch.sum() / (~reg_s).sum()), 3),
                  'inside_region': round(float((ch & reg_b).sum() / ch.sum()), 3)}
-# the seam: mean horizontal luma step across the region's edge, the inpaint against its base
-lb = L(Image.open(os.path.join(HERE, 'rich-face', 'shootout-inpaint-base.png'))).astype(float)
-l13 = L(Image.open(R('render_013.png'))).astype(float)
-edge = reg_b[:, 1:] != reg_b[:, :-1]
-seg['seam'] = {'inpaint': round(float(np.abs(np.diff(l13, axis=1))[edge].mean()), 2),
-               'base': round(float(np.abs(np.diff(lb, axis=1))[edge].mean()), 2),
-               'frame_mean_inpaint': round(float(np.abs(np.diff(l13, axis=1)).mean()), 2)}
+# the fall-off: mean |luma change| of the inpaint against its base, inside the 81-px region and in
+# 4-px rings out from it (the node's own grow ends 8 px out), the sorceress's region set aside
+dl = np.abs(L(Image.open(R('render_013.png'))) - L(Image.open(os.path.join(HERE, 'rich-face', 'shootout-inpaint-base.png'))))
+prev, rings = r81_b, []
+for k in range(5):
+    nxt = maxf(prev, 9); ring = nxt & ~prev & ~reg_s; rings.append(round(float(dl[ring].mean()), 1)); prev = nxt
+seg['falloff'] = {'inside': round(float(dl[r81_b & ~reg_s].mean()), 1), 'rings': rings}
 seg['region_frac'] = round(float(reg_b.mean()), 3)
 out['shootout'] = seg
 

@@ -71,7 +71,7 @@
 <div class="piece">
   <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>gathered renders · measured · sketch</span></div>
   <h3 class="title">The costume dial: what depth's weight does to the cloth</h3>
-  <p class="sub">The section's rule, that depth locks the surface and pose frees it, and its dial from 0.0 to 0.8, built up from the two plates the camera sends. Four steps: the plates, pose alone with the body's outline laid over it, the dial turned, and last a count of the light ink each drawing grows beyond its body. The drawings are the bundle's own sweeps, renders 021 and 022: pose held at 0.9, denoise 0.9, seed 21, only depth's weight changing.</p>
+  <p class="sub">The section's rule, that depth locks the surface and pose frees it, and its dial from 0.0 to 0.8, built up from the two plates the camera sends. Four steps: the plates, pose alone with the body's outline laid over it, the dial turned, and last a count of the light cloth each drawing grows beyond its body. The drawings are the bundle's own sweeps, renders 021 and 022: pose held at 0.9, denoise 0.9, seed 21, only depth's weight changing.</p>
 
   <div class="rail" id="rail"></div>
   <p class="say" id="say"></p>
@@ -84,7 +84,7 @@
   <div class="controls">
     <div class="ctl"><span class="lab">the figure</span><span class="seg" id="figs"></span></div>
     <label class="sl hidden" id="dCtl">depth's weight (pose held at 0.9) <b id="dVal"></b><input id="d" type="range" min="0" max="5" step="1" value="0"></label>
-    <div class="ctl hidden" id="layCtl"><span class="lab">laid over the drawing</span><span class="seg"><button id="tOutline" class="on">the body's outline</button><button id="tCount">ink counted beyond it</button></span></div>
+    <div class="ctl hidden" id="layCtl"><span class="lab">laid over the drawing</span><span class="seg"><button id="tOutline" class="on">the body's outline</button><button id="tCount">cloth counted beyond it</button></span></div>
   </div>
   <div class="read" id="read"></div>
   <div class="verdict hidden" id="verdict"></div>
@@ -92,14 +92,14 @@
   <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
 
   <div class="eqs">
-    <div class="eq">beyond = | light ∖ body⁺ | ÷ | body |</div>
-    <div class="words">(ink beyond the body) = (the light pixels of the drawing that fall outside the body's outline, widened by four pixels) ÷ (the body's own area). Light means brighter than 128 and 60 levels above the cell's background. The body is the depth plate brighter than 40 of 255. It counts white robes, fur, hair and drips; it cannot see black cloth on a dark ground.</div>
+    <div class="eq">cloth = | light ∖ body⁺ ∖ set aside | ÷ | body |</div>
+    <div class="words">(cloth beyond the body) = (the light pixels of the drawing that fall outside the body’s outline, widened by four pixels, and outside what is set aside) ÷ (the body’s own area). Light means brighter than 128 and 60 levels above the cell’s background. The body is the depth plate brighter than 40 of 255. Set aside, grey on the drawing: the sorceress’s hair and hood (above her shoulders and her right arm), the barbarian’s sword (the strip right of his hand), and the cell’s 8-pixel margin, where the paper’s own edge shows. It counts white robes, fur and drips; it cannot see black cloth on a dark ground.</div>
   </div>
   <div class="note" id="src"></div>
   <div class="footer">Loud’n Live</div>
 </div>
 
-<script id="baked" type="application/json">{"dial":{"sorceress":{"body_px":15435,"steps":[{"depth":0.0,"bg":60.0,"outside":1.549},{"depth":0.15,"bg":40.0,"outside":1.117},{"depth":0.3,"bg":20.0,"outside":0.681},{"depth":0.45,"bg":20.0,"outside":0.488},{"depth":0.6,"bg":29.0,"outside":0.388},{"depth":0.8,"bg":38.0,"outside":0.101}]},"barbarian":{"body_px":15426,"steps":[{"depth":0.0,"bg":24.0,"outside":0.23},{"depth":0.15,"bg":19.0,"outside":0.163},{"depth":0.3,"bg":14.0,"outside":0.092},{"depth":0.45,"bg":16.0,"outside":0.064},{"depth":0.6,"bg":22.0,"outside":0.001},{"depth":0.8,"bg":27.0,"outside":0.0}]}},"plates":{"thin":21952,"thick":34987,"ratio":1.59},"autorange":{"before":{"hist":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,172,1202,2335,1822,1641,1374,1508,2106,2967,4150,4959,4826,840,166,93,64,32,15,3,5,11,23,50,56,12,24,9,6,8,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"interior_px":30497,"min":191,"max":221,"p5":194,"p95":203,"span_frac":0.118,"p5_95_frac":0.035},"after":{"hist":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,9,13,32,74,101,113,294,518,858,765,538,483,526,532,490,475,462,477,479,387,360,375,418,409,454,489,566,652,722,746,926,946,1114,1393,1478,1338,1400,1494,1772,2224,1824,717,201,100,95,65,41,45,34,20,33,19,32,8,19,11,7,7,3,0,2,2,1,1,2,2,2,5,7,6,16,10,20,29,23,16,7,6,4,7,10,7,6,2,1,5,5,3,3,1,0,0,0,0,0,0,0,0,0,0,0],"interior_px":30401,"min":154,"max":244,"p5":163,"p95":196,"span_frac":0.353,"p5_95_frac":0.129}},"shootout":{"segment":{"changed_frac":0.456,"inside_region":0.261},"inpaint":{"changed_frac":0.11,"inside_region":0.994},"seam":{"inpaint":2.67,"base":2.62,"frame_mean_inpaint":6.19},"region_frac":0.127}}</script>
+<script id="baked" type="application/json">{"dial":{"sorceress":{"body_px":15435,"steps":[{"depth":0.0,"bg":60.0,"outside":1.549,"cloth":1.3274},{"depth":0.15,"bg":40.0,"outside":1.117,"cloth":0.9252},{"depth":0.3,"bg":20.0,"outside":0.681,"cloth":0.4317},{"depth":0.45,"bg":20.0,"outside":0.488,"cloth":0.2375},{"depth":0.6,"bg":29.0,"outside":0.388,"cloth":0.144},{"depth":0.8,"bg":38.0,"outside":0.101,"cloth":0.0162}]},"barbarian":{"body_px":15426,"steps":[{"depth":0.0,"bg":24.0,"outside":0.23,"cloth":0.1647},{"depth":0.15,"bg":19.0,"outside":0.163,"cloth":0.1053},{"depth":0.3,"bg":14.0,"outside":0.092,"cloth":0.0354},{"depth":0.45,"bg":16.0,"outside":0.064,"cloth":0.02},{"depth":0.6,"bg":22.0,"outside":0.001,"cloth":0.0006},{"depth":0.8,"bg":27.0,"outside":0.0,"cloth":0.0}]}},"plates":{"thin":21952,"thick":34987,"ratio":1.59},"autorange":{"before":{"hist":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,172,1202,2335,1822,1641,1374,1508,2106,2967,4150,4959,4826,840,166,93,64,32,15,3,5,11,23,50,56,12,24,9,6,8,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"interior_px":30497,"min":191,"max":221,"p5":194,"p95":203,"span_frac":0.118,"p5_95_frac":0.035},"after":{"hist":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,9,13,32,74,101,113,294,518,858,765,538,483,526,532,490,475,462,477,479,387,360,375,418,409,454,489,566,652,722,746,926,946,1114,1393,1478,1338,1400,1494,1772,2224,1824,717,201,100,95,65,41,45,34,20,33,19,32,8,19,11,7,7,3,0,2,2,1,1,2,2,2,5,7,6,16,10,20,29,23,16,7,6,4,7,10,7,6,2,1,5,5,3,3,1,0,0,0,0,0,0,0,0,0,0,0],"interior_px":30401,"min":154,"max":244,"p5":163,"p95":196,"span_frac":0.353,"p5_95_frac":0.129}},"shootout":{"segment":{"changed_frac":0.454,"inside_region":0.232},"inpaint":{"changed_frac":0.109,"inside_region":0.986},"falloff":{"inside":91.7,"rings":[73.2,34.3,8.7,3.5,2.5]},"region_frac":0.112}}</script>
 <script>
 const $ = (id) => document.getElementById(id);
 const BAKED = JSON.parse($('baked').textContent);
@@ -138,8 +138,8 @@ const IMG = {}; let fig = 'sorceress', step = 0, showOutline = true, showCount =
 const STEPS = [
   { name: 'the body the camera sees', say: 'One camera sends two plates. <i>Depth</i> holds the whole surface of the mannequin, every pixel a distance; the amber line is where it ends. <i>Pose</i> holds eighteen joints and the bones between them, and nothing of the surface at all.' },
   { name: 'pose alone', say: 'Depth at zero, pose at 0.9. The skeleton sets the stance and leaves the surface open, so the model hangs cloth wherever the prompt asks, far past the body’s outline. Switch figures: robes and fur both leave the line.' },
-  { name: 'the dial', say: 'Now turn depth up. Each step pins more of the drawing to the mannequin’s surface. Watch the cloth come in toward the amber line, and switch on the count to see which ink lies beyond it.' },
-  { name: 'the test', say: 'The page draws the dial in bands: 0.0 to 0.15 full garment, about 0.30 to 0.45 the sweet spot where form and costume both read, 0.60 and up the nude. Here is the ink beyond the body at every step, for both garments, against those bands.' },
+  { name: 'the dial', say: 'Now turn depth up. Each step pins more of the drawing to the mannequin’s surface. Watch the cloth come in toward the amber line, and switch on the count to see which light cloth lies beyond it, and what is set aside.' },
+  { name: 'the test', say: 'The page draws the dial in bands: 0.0 to 0.15 full garment, about 0.30 to 0.45 the sweet spot where form and costume both read, 0.60 and up the nude. Here is the light cloth beyond the body at every step, for both garments, against those bands.' },
 ];
 
 function drawCell(ctx, i) { const [x, y] = cellXY(i); ctx.drawImage(IMG[fig], x, y, CW, CH, 0, 0, CW, CH); ctx.fillStyle = '#000'; ctx.fillRect(0, 0, CW, 1); } // row 0 is the sheet's label bar
@@ -174,34 +174,35 @@ function drawB() {
   ctx.fillText('depth’s weight', (L + R) / 2, B + 72);
   const series = [['sorceress', '#e8e8f0', 'robes'], ['barbarian', '#e8b84a', 'fur']];
   series.forEach(([f, col, name], si) => {
-    const s = NUM.dial[f].steps, v0 = s[0].outside; ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = 3; ctx.beginPath();
-    s.forEach((p, i) => { const x = X(p.depth), y = Y(p.outside / v0); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.stroke();
-    s.forEach((p) => { ctx.beginPath(); ctx.arc(X(p.depth), Y(p.outside / v0), f === fig ? 8 : 5, 0, 7); ctx.fill(); });
+    const s = NUM.dial[f].steps, v0 = s[0].cloth; ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = 3; ctx.beginPath();
+    s.forEach((p, i) => { const x = X(p.depth), y = Y(p.cloth / v0); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.stroke();
+    s.forEach((p) => { ctx.beginPath(); ctx.arc(X(p.depth), Y(p.cloth / v0), f === fig ? 8 : 5, 0, 7); ctx.fill(); });
     ctx.textAlign = 'left'; ctx.fillText(name, R - 150, T + 40 + si * 34);
   });
   ctx.strokeStyle = '#4a8fff'; ctx.lineWidth = 2; ctx.setLineDash([6, 6]); ctx.beginPath(); ctx.moveTo(X(DEPTHS[step]), T); ctx.lineTo(X(DEPTHS[step]), B); ctx.stroke(); ctx.setLineDash([]);
-  $('bLabel').textContent = 'light ink beyond the body'; $('bUnits').textContent = 'share of what pose alone grew';
+  $('bLabel').textContent = 'light cloth beyond the body'; $('bUnits').textContent = 'share of what pose alone grew';
 }
 const NUM = { get dial() { return (LIVE || BAKED).dial; } };
 function readout() {
   const r = $('read'); if (cur < 2) { r.innerHTML = ''; return; }
   const s = NUM.dial[fig].steps, p = s[step];
   r.innerHTML = `<span>${FIG[fig].garment} at <b>${step ? 'depth ' + DEPTHS[step].toFixed(2) : 'pose only'}</b></span>` +
-    `<span>ink beyond the body <b class="hot">${p.outside.toFixed(2)}</b> × the body’s area</span>` +
-    `<span><b>${Math.round(100 * p.outside / s[0].outside)}%</b> of what pose alone grew</span>`;
+    `<span>cloth beyond the body <b class="hot">${p.cloth.toFixed(2)}</b> × the body’s area</span>` +
+    `<span><b>${Math.round(100 * p.cloth / s[0].cloth)}%</b> of what pose alone grew</span>` +
+    `<span>all light ink, set-asides included <b>${p.outside.toFixed(2)}</b></span>`;
 }
-const pct = (f, k) => Math.round(100 * NUM.dial[f].steps[k].outside / NUM.dial[f].steps[0].outside);
+const pct = (f, k) => Math.round(100 * NUM.dial[f].steps[k].cloth / NUM.dial[f].steps[0].cloth);
 function verdict() {
   const v = $('verdict'); if (cur !== 3) { v.classList.add('hidden'); return; } v.classList.remove('hidden');
   const S = NUM.dial.sorceress.steps, B = NUM.dial.barbarian.steps;
-  v.innerHTML = `<p><b>Depth locks the surface: tested, and it holds.</b> The light ink each drawing grows beyond its body falls with every step of depth, for both garments: the robes from ${S[0].outside.toFixed(2)} of the body’s area to ${S[5].outside.toFixed(2)}, the fur from ${B[0].outside.toFixed(2)} to ${B[5].outside.toFixed(2)}.</p>` +
-    `<p>It falls steadily, not in bands. By 0.30 the robes keep ${pct('sorceress', 2)}% of what pose alone grew and the fur ${pct('barbarian', 2)}%; by 0.45, ${pct('sorceress', 3)}% and ${pct('barbarian', 3)}%. The fur is gone by 0.60 (${pct('barbarian', 4)}%), as the page says; the robes keep ${pct('sorceress', 4)}% there, as hair and drips at the edge. So the page’s sweet spot is where more than half the costume has already gone, and what is left still reads. Whether it reads is your eye’s call, not this count’s.</p>` +
-    `<p>Two garments, one curve: to 0.45 the fur falls the same way as the robes. The page’s “fur tolerates a hair more depth” is not in this count, which can’t see the barbarian’s black cape; switch to him at 0.30 and 0.45 and the cape is still there.</p>`;
+  v.innerHTML = `<p><b>Depth locks the surface: tested, and it holds.</b> The light cloth each figure grows beyond its body falls at every step of depth: the robes from ${S[0].cloth.toFixed(2)} of the body’s area to ${S[5].cloth.toFixed(2)}, the fur from ${B[0].cloth.toFixed(2)} to ${B[5].cloth.toFixed(2)}.</p>` +
+    `<p>Most of it goes between 0.15 and 0.30: the robes from ${pct('sorceress', 1)}% of what pose alone grew to ${pct('sorceress', 2)}%, the fur from ${pct('barbarian', 1)}% to ${pct('barbarian', 2)}%. In the page’s sweet spot a third or less is left (robes ${pct('sorceress', 2)}% and ${pct('sorceress', 3)}% at 0.30 and 0.45, fur ${pct('barbarian', 2)}% and ${pct('barbarian', 3)}%), and the fur’s light part is gone by 0.60. That is neither a steady fall nor the page’s bands. The bands are the eye’s judgment on two things, whether the costume reads and whether the body has form; this count is one proxy for the first, and the weaker instrument.</p>` +
+    `<p>What it can’t see is black cloth. By eye the barbarian’s black cape is whole through 0.45 and gone at 0.60, so the page’s “fur tolerates a hair more depth” can’t be tested by this count; if it means the cape, the eye agrees with it to 0.45.</p>`;
 }
 function hint() {
   const h = { 0: 'The amber outline is the depth plate above 40 of 255, laid over the plate it came from. Both plates were cropped to the figure and sized the same as the drawings, so every overlay here lines up pixel for pixel.',
     1: 'The left cell is the drawing; the right is the init the drawing starts from at denoise 0.9. The outline is the same one, unmoved.',
-    2: 'Scrub the dial. “Ink counted beyond it” paints in amber exactly the pixels the test in step 4 counts.',
+    2: 'Scrub the dial. “Cloth counted beyond it” paints in amber exactly the pixels the test in step 4 counts, and in grey the light ink set aside: hair and hood, sword, the paper’s edge.',
     3: 'The dashed line is the dial’s position; scrub it, switch figures, and the drawing on the left follows.' };
   $('hint').textContent = h[cur];
 }
@@ -213,6 +214,9 @@ function go(i) {
   if (i === 2 && step === 0) step = 2;
   $('d').value = step; render();
 }
+// what the cloth count sets aside: the cell's 8-px margin (the paper's edge); the sorceress's hair and hood,
+// above her shoulders and above her right arm (shoulder 222,100 to wrist 269,155); the barbarian's sword, right of x 270
+const aside = (f, x, y) => (y < 8 || y >= CH - 8 || x < 8 || x >= CW - 8) || (f === 'sorceress' ? (y < 100 || (x > 222 && y < 100 + (x - 222) * 55 / 47)) : x > 270);
 // the engine: re-measure every number from the sheets themselves, when this frame may read pixels
 function measure() {
   const out = { dial: {} };
@@ -225,8 +229,9 @@ function measure() {
       const c = cell(3 + k), edge = [];
       for (let y = 0; y < CH; y++) for (let x = 0; x < CW; x++) if (y < 8 || y >= CH - 8 || x < 8 || x >= CW - 8) edge.push(c[y * CW + x]);
       const bg = median(edge), th = Math.max(128, bg + 60); let n = 0;
-      for (let i = 0; i < c.length; i++) if (c[i] > th && !band[i]) n++;
-      steps.push({ depth: DEPTHS[k], bg, outside: Math.round(1000 * n / bodyN) / 1000 });
+      let m = 0;
+      for (let i = 0; i < c.length; i++) if (c[i] > th && !band[i]) { n++; if (!aside(f, i % CW, Math.floor(i / CW))) m++; }
+      steps.push({ depth: DEPTHS[k], bg, outside: Math.round(1000 * n / bodyN) / 1000, cloth: Math.round(10000 * m / bodyN) / 10000 });
     }
     out.dial[f] = { body_px: bodyN, steps };
   }

@@ -19,7 +19,7 @@ def edge_of(mask):
 
 def rgba(h, w): return np.zeros((h, w, 4), np.uint8)
 
-# 1 · the costume dial: cell 0 the body's outline, cells 1–6 the light ink counted beyond it
+# 1 · the costume dial: cell 0 the body's outline, cells 1–6 the light ink beyond it: amber the cloth counted, grey what is set aside
 for name, f in (('sorceress', 'render_021.png'), ('barbarian', 'render_022.png')):
     a = C.L(Image.open(C.R(f)))
     body = C.cell(a, 2) > 40
@@ -29,8 +29,8 @@ for name, f in (('sorceress', 'render_021.png'), ('barbarian', 'render_022.png')
     for k in range(6):
         c = C.cell(a, 3 + k)
         bg = float(np.median(np.concatenate([c[:8].ravel(), c[-8:].ravel(), c[8:-8, :8].ravel(), c[8:-8, -8:].ravel()])))
-        cnt = (c > max(128, bg + 60)) & ~band
-        sl = sp[:, C.CW * (k + 1):C.CW * (k + 2)]; sl[cnt] = (*AMBER, 200)
+        light = (c > max(128, bg + 60)) & ~band
+        sl = sp[:, C.CW * (k + 1):C.CW * (k + 2)]; sl[light & C.ASIDE[name]] = (138, 138, 160, 150); sl[light & ~C.ASIDE[name]] = (*AMBER, 200)
     Image.fromarray(sp, 'RGBA').save(os.path.join(OUT, f'dial-{name}.png'), optimize=True)
 
 # 2 · skeletons with their black taken out: row 0 the pose check's thin and thick (341×480),
@@ -57,7 +57,7 @@ Image.fromarray(np.concatenate(st, axis=1), 'L').save(os.path.join(OUT, 'autoran
 # 4 · the shootout: rows are the segment's changed pixels, the inpaint's, then the barbarian's region
 alpha_b = np.array(Image.open(C.R('render_022_beauty.png')).split()[-1]) > 127
 alpha_s = np.array(Image.open(C.R('render_021_beauty.png')).split()[-1]) > 127
-reg_b = C.maxf(C.maxf(alpha_b, 81), 33); reg_s = C.maxf(C.maxf(alpha_s, 81), 33)
+reg_b = C.maxf(C.maxf(alpha_b, 81), 17); reg_s = C.maxf(C.maxf(alpha_s, 81), 17)
 base = np.array(Image.open(os.path.join(OUT, 'shootout-inpaint-base.png')).convert('RGB')).astype(int)
 H, W = reg_b.shape; so = rgba(H * 3, W)
 for k, f in enumerate(('render_012.png', 'render_013.png')):
