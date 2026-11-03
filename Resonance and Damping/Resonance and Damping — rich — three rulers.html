@@ -116,7 +116,7 @@ status: "proposal, Enrichment's proposal round 2026-11; not yet heard by Loudon"
       <div class="read">
         <div>it settles at, measured<br><b id="r2h"></b></div>
         <div>Q read off the height<br><b id="r2q"></b></div>
-        <div>the swell is within 60 dB of its height after<br><b id="r2t"></b></div>
+        <div>the swell is within a thousandth of its full height after<br><b id="r2t"></b></div>
         <div class="state" data-state></div>
       </div>
       <div class="eqs">
@@ -248,7 +248,7 @@ function swell(f, Q, maxSec) {
     return still >= 3;
   });
   const height = heights.length ? heights[heights.length - 1][1] : NaN;
-  // how long the swell took to come within 60 dB of its height (1 − 1/1000)
+  // how long the swell took to come within a thousandth of its full height (the gap down 60 dB)
   let t999 = NaN;
   for (let i = 0; i < heights.length; i++) if (heights[i][1] >= height * 0.999) {
     if (i === 0) { t999 = heights[0][0]; break; }
@@ -323,7 +323,7 @@ function selfTest() {
   // the height
   for (const Q of [4, 16, 60]) { const s = swell(440, Q); ok(`step 2 · pushed at its own rate it swings Q times as far, Q ${Q}`, s.height, Q, 0.001); }
   const s16 = swell(440, 16), r16 = ring(440, 16);
-  ok('step 2 · the swell comes within 60 dB of its height in the ring time, Q 16 at 440 Hz, s', s16.t999, r16.t60, 0.02);
+  ok('step 2 · the swell comes within a thousandth of its full height in the ring time, Q 16 at 440 Hz, s', s16.t999, r16.t60, 0.02);
   // the width
   for (const Q of [1, 10, 100]) {
     const wd = width(1000, Q);
@@ -523,7 +523,7 @@ function draw2() {
   dashed(g, L, Y(1), R, Y(1), COL.fg3); label(g, 'a push held still: 1', L + 4, Y(1) - 5, COL.fg3);
   dashed(g, L, Y(s.height), R, Y(s.height), COL.amber); label(g, 'settles at ' + s.height.toFixed(3) + ' × the push held still', L + 4, Y(s.height) - 6, COL.amber);
   g.strokeStyle = COL.warn; g.lineWidth = 1.5; g.beginPath(); g.moveTo(X(s.t999), T + 14); g.lineTo(X(s.t999), B); g.stroke();
-  label(g, 'within 60 dB · ' + fmtS(s.t999), X(s.t999) - 6, Y(s.height * 0.5), COL.warn, 'right');
+  label(g, 'within a thousandth · ' + fmtS(s.t999), X(s.t999) - 6, Y(s.height * 0.5), COL.warn, 'right');
   dashed(g, X(r.t60), T + 14, X(r.t60), B, COL.indigo); label(g, 'step 1\'s ring · ' + fmtS(r.t60), Math.min(X(r.t60) + 6, R - 130), Y(s.height * 0.5) + 16, COL.indigo);
   label(g, '0', L, h - 8); label(g, fmtS(span), R, h - 8, COL.fg3, 'right'); label(g, 'faint: how far it swings · amber: each cycle\'s height', L + 30, h - 8);
   $('r2h').textContent = s.height.toFixed(4) + ' × the push held still';

@@ -122,7 +122,7 @@
           "place": "band",
           "title": "the bridge and the board · Waveguide Synthesizer study v1.8",
           "caption": "The Waveguide's soundboard in four states: a rigid bridge keeping 100% each bounce (the board gets nothing), a soft one keeping 90% (the board gets 19% of the energy, 1 − 0.9²), and a small and a big board at the default bridge. Gathered from the Waveguide project's v1.8 round as it was.",
-          "near": "A body is a bank of resonators"
+          "near": "the energy the string loses at the bridge is exactly the energy the board gets"
         }
       ],
       "made_against": "cb694da95737",
@@ -198,9 +198,13 @@
           "file": "Resonance and Damping — sketch — q-you-can-hear.html",
           "origin": "gathered",
           "height": 830,
-          "contract": {},
+          "contract": {
+            "needs": "",
+            "files": "",
+            "net": ""
+          },
           "title": "Q you can hear · the proof",
-          "caption": "**The proof, gathered as it was.** The page's digital resonator, y[n] = x[n] + 2r·cos θ·y[n−1] − r²·y[n−2]: strike it, feed it noise, or sweep a sine push through its peak, with the peak, the ring and the lag drawn from the same two numbers. Its own check measures ring time, half-power width and the 90° lag at f within 1 to 5% of the page's rules. It holds the peak at one height to keep ears safe; the three rulers above measure the height it leaves out. Still a rough by its forward vector: it wants Loudon's ears.",
+          "caption": "**The proof, gathered as it was.** The page's digital resonator, y[n] = x[n] + 2r·cos θ·y[n−1] − r²·y[n−2]: strike it, feed it noise, or sweep a sine push through its peak, with the peak, the ring and the lag drawn from the same two numbers. Its own check measures ring time, half-power width and the 90° lag at f within 1 to 5% of the page's rules. It holds the peak at one height to keep ears safe; the three rulers above measure the height it leaves out. Still a rough by its forward vector: it wants Loudon's ears. It needs nothing of its host: no device, no storage, no palace file, no host beyond its fonts; its link to the steps is a link, not a load.",
           "near": "is this resonator in a page"
         }
       ],
@@ -235,19 +239,19 @@
       "section": "One number, three faces",
       "kind": "no-claim-edit",
       "status": "open",
-      "what": "\"closely once Q is above a few\" can carry its numbers. Measured, the swing's own half-power band runs 8.1% wider than f ÷ Q at Q 2, 3.1% at Q 3, 1.0% at Q 5, 0.25% at Q 10; at Q 1 it has no lower half-power edge at all. The band-pass width matched f ÷ Q to within 0.12% everywhere it was measured, Q 1 to 1000."
+      "what": "\"closely once Q is above a few\" can carry its numbers. Measured, and confirmed in closed form by the challenger: the swing's own half-power band runs wider than f ÷ Q by 8.12% at Q 2, 3.08% at Q 3, 1.04% at Q 5, 0.252% at Q 10; its lower edge first appears at Q = √(1 + 1/√2) ≈ 1.31, so at Q 1 there is none. The band-pass width is exactly f ÷ Q (measured within 0.12%, Q 1 to 1000)."
     },
     {
       "section": "One number, three faces",
       "kind": "claim-change",
       "status": "open",
-      "what": "A fourth face the piece found: pushed at its own rate from rest, the swing comes within 60 dB of its full height in the ring time (49.7 ms against a 50.0 ms ring at Q 10, 440 Hz; within about 1% from Q 5 to 200, 7% short at Q 2). The tall peak takes the long ring to build. A sentence for the section, through the Deposit map."
+      "what": "Not a fourth face: the third seen from the note's start. A push at its own rate starts the swing's own free ring along with the steady swing, and that ring dies at the same rate as a strike's, so the gap to full height closes in the ring time: within a thousandth of full height in 49.7 ms against a 50.0 ms ring at Q 10, 440 Hz (short by 0.5% at Q 10, 0.08% at Q 200, 7.4% at Q 2, where the transient beats against the push). Suggest a clause on the ring-time bullet: \"and a push at its own rate takes the same time to build\". It adds a claim, so through the Deposit map."
     },
     {
       "section": "Pushing it",
       "kind": "claim-change",
       "status": "open",
-      "what": "Galileo's ringer was driving the bell too, tugging every swing; what held it at its own rate is that he timed each tug by the bell. The piece measures it: tugs timed by the swing come at 0.9995 of its own rate at own rates 0.7, 1 and 1.5 (Q 20), while Young's push, keeping its own clock, settles the swing at the push's rate to four decimals. So \"Struck, a thing rings at its own rate. Driven, it moves at yours\" could read: pushed in time with itself, it keeps its own rate; pushed by a clock of its own, it takes the clock's. Also measured: tugs off the middle nudge the rate (0.966 at 60° late, 0.919 at 90°)."
+      "what": "The page is right; this is a second, sharper description to add beside \"Struck, a thing rings at its own rate. Driven, it moves at yours\", not to replace it. Galileo's ringer was driving too, every swing, but he timed each tug by the bell, so the axis that separates his case from Young's is who keeps the time: pushed in time with itself, it keeps its own rate; pushed by a clock of its own, it takes the clock's. Measured: tugs timed by the swing come at 0.9995 of its own rate at own rates 0.7, 1 and 1.5 (Q 20); Young's push settles the swing at the push's rate to four decimals; tugs off the middle nudge the rate (0.966 at 60° late, 0.919 at 90°). A sentence beside the struck/driven pair, through the Deposit map."
     }
   ]
 }
