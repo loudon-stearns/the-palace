@@ -1,0 +1,589 @@
+<!doctype html>
+<!--
+  title: Granular Synthesis — rich — three regimes
+  born: 2026-11-03
+  links: [[Granular Synthesis]] (connects-to · rich-face-piece) · listed in [[Granular Synthesis — rich.json]] · serves § Three Coupling Regimes · leans on [[Kuramoto Coupling]]
+  forward_vector: I am the section's three regimes on one walk: a cloud with no pull, the partials pulling,
+    grains hearing each other within a pile, grains hearing only each other, one grain bent into a harmonic
+    lock, and last the page's boldest sentence put to a cloud nobody placed. I measure what the regimes do
+    rather than draw what they should. I play inside the entry's rich face and stand alone opened directly;
+    I change only when the section I serve does.
+  engine: GrainField, below. The grain-to-grain coupling goes through the cloud's own sound, bent by a soft
+    clip or a lopsided one (a degree-9 polynomial fit, every power turned into its analytic part), so the
+    harmonics the bend makes are the ones that can lock. AudioWorklet for the sound; the same engine at
+    6 kHz on the page for the picture and the test. Sines only, no samples. "Granular Synthesis — rich —
+    checks.mjs" re-runs every number in Node.
+  sound: nothing plays until a play button is clicked; the AudioContext is made on that click. Changing step
+    stops the sound. The kit quiets it when the page hides or is left alone.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Granular Synthesis — three coupling regimes</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366f1; --teal:#33e0c8; --rose:#e86a8a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .gs-piece { padding: 22px 22px 20px; }
+  .gs-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .gs-kicker svg { width: 18px; height: 18px; }
+  .gs-title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .gs-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .gs-rail { display: flex; flex-wrap: wrap; margin: 0 0 14px; }
+  .gs-rail button { border-radius: 0; margin-right: -1px; }
+  .gs-rail button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.gs-go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 104px; }
+  button.gs-on { color: var(--amber); border-color: var(--amberline); }
+  .gs-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .gs-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .gs-says { font-size: 14.5px; line-height: 1.62; color: var(--fg2); max-width: 78ch; margin: 0 0 12px; }
+  .gs-says b { color: var(--fg1); font-weight: 500; }
+  .gs-says q { color: var(--fg1); font-style: italic; }
+  .gs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .gs-grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 760px) { .gs-grid, .gs-grid3 { grid-template-columns: 1fr; } }
+  .gs-panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--bg); padding: 8px 10px; }
+  .gs-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .gs-controls { display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: end; margin-top: 14px; }
+  .gs-controls label.gs-sl { flex: 1 1 240px; }
+  .gs-btns { display: flex; gap: 0; flex-wrap: wrap; align-items: center; }
+  .gs-btns button + button { margin-left: -1px; }
+  .gs-btns .gs-cap { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg3); margin-right: 10px; }
+  label.gs-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.gs-sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .gs-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .gs-read b { color: var(--fg1); font-weight: 500; }
+  .gs-read .gs-flag { color: var(--amber); }
+  .gs-eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .gs-eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .gs-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 78ch; }
+  .gs-back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin-top: 10px; }
+  .gs-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .gs-verdict { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 80ch; border-left: 2px solid var(--amberline); padding-left: 12px; }
+  .gs-verdict b { font-weight: 500; color: var(--amber); }
+  .gs-legend { font-family: var(--mono); font-size: 10.5px; color: var(--fg3); margin-top: 6px; letter-spacing: .04em; }
+</style>
+</head>
+<body>
+<div class="gs-piece">
+  <div class="gs-kicker"><svg id="sigil" viewBox="0 0 18 18" aria-hidden="true"></svg><span>made · Web Audio Worklet · sketch · a walk in six steps</span></div>
+  <h3 class="gs-title">Does a bent cloud tune itself?</h3>
+  <p class="gs-sub">The page names three ways to couple a grain cloud: to the partials only, to the partials and a little to each other, and to each other only, where a nonlinearity is said to grow a harmonic series nobody specified. Walk them one pull at a time; the last step is that sentence, measured.</p>
+
+  <div class="gs-rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="gs-step">
+    <div class="gs-stephead"><span id="stepname"></span><span id="stepof"></span></div>
+    <p class="gs-says" id="says"></p>
+    <div id="stage"></div>
+    <div class="gs-controls" id="controls"></div>
+    <div class="gs-read" id="read"></div>
+    <div id="verdictbox"></div>
+    <div class="gs-eqs" id="eqs"></div>
+    <div class="gs-back" id="backline"></div>
+    <div class="gs-nav"><button id="prev">← back</button><button id="next">next step →</button></div>
+  </div>
+</div>
+
+<script id="engine">
+/* ENGINE:START — the grain field. A cloud of sine grains, each a phase oscillator, pulled by an additive
+   spectrum (the attractor layer) and, if asked, by the cloud's own sound (grain to grain). Each grain turns at
+     dθ_i/dt = ω_i + 2π K_A · Σ_k a_k sin(Θ_k − θ_i) + 2π K_g · Re( Y · e^(−iθ_i) )
+   The first sum is the page's own equation, with K = 2π K_A, so K_A is in Hz: a lone grain locks to partial k
+   when it starts within K_A · a_k Hz of it (Adler's rule). Y is the analytic signal of the cloud's own sound,
+   u = Σ_j e_j sin θ_j ⁄ Σ_j e_j (|u| ≤ 1, e_j each grain's window), after a bend G:
+     straight   G(u) = u                                   (plain Kuramoto: K_g · R · sin(Ψ − θ_i))
+     soft clip  G(u) = tanh(D u) ⁄ D                      (symmetric: odd harmonics only)
+     lopsided   G(u) = [tanh(D(u + b)) − tanh(Db)] ⁄ (D sech²(Db))   (bends one side more: even ones too)
+   Both bends keep slope 1 at zero, so a quiet cloud couples the same either way; only the bend differs.
+   G is fitted by a degree-9 polynomial on −1…1, and each power u^m is turned into its analytic part from
+   Z = Σ_j e_j e^(iθ_j) ⁄ Σ_j e_j:  2 Σ_{k<m/2} C(m,k) (−1)^k |Z|^(2k) Z^(m−2k) ⁄ (2i)^m. Every harmonic and sum
+   tone the bend makes is there; its DC and difference tones are left out (they would need every pair).
+   Coupling through the analytic signal, not the raw sound, keeps the slow equation exact: no ripple at the
+   sum frequency. It touches nothing of the page; the AudioWorklet, the page and the headless check run it. */
+function GrainField(SR, seed) {
+  const TWO_PI = 2 * Math.PI;
+  const P = {
+    N: 48, lifeMs: 300, lifeJit: 0.25, fLo: 150, fHi: 1200, fixedHz: 0,
+    KA: 0, Kg: 0, clip: 'none', drive: 3, bias: 0.3, stagger: true,
+    list: null, partials: [], bpOn: false, bpHz: 440, bpOct: 0.6,
+    envShape: 'hann',
+  };
+  let rs = (seed >>> 0) || 1;
+  const rnd = () => { let t = (rs += 0x6D2B79F5); t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  const MAX = 256;
+  const th = new Float64Array(MAX), om = new Float64Array(MAX), age = new Float64Array(MAX), life = new Float64Array(MAX);
+  const fBirth = new Float64Array(MAX), th0 = new Float64Array(MAX), t0 = new Float64Array(MAX), env = new Float64Array(MAX);
+  const mark = new Float64Array(MAX);                    // phase against the partial it is nearest, at 3⁄4 life (pile coherence)
+  const cs = new Float64Array(MAX), sn = new Float64Array(MAX), fs = new Float64Array(MAX); // cos, sin, smoothed frequency (Hz)
+  const PR = new Float64Array(10), PI = new Float64Array(10), MP = new Float64Array(10);
+  const ALPHA = 1 - Math.exp(-1 / (0.015 * SR));
+  let n = 0, t = 0;                                      // grains alive, samples elapsed
+  let TH = new Float64Array(0), A = new Float64Array(0), F = new Float64Array(0);
+  const deaths = [];                                     // { fBirth, fMean, life, phi (or NaN), k }
+  const DEATHS = 4000;
+  function bp(f) { if (!P.bpOn) return 1; const d = Math.log2(f / P.bpHz) / P.bpOct; return Math.exp(-0.5 * d * d * 4); }
+  function setPartials() {
+    const K = P.partials.length;
+    if (TH.length !== K) { TH = new Float64Array(K); for (let k = 0; k < K; k++) TH[k] = rnd() * TWO_PI; }
+    F = Float64Array.from(P.partials, p => p.f); A = Float64Array.from(P.partials, p => p.A * bp(p.f));
+  }
+  function birthHz(i) { if (P.list && P.list.length) return P.list[i % P.list.length]; return P.fixedHz > 0 ? P.fixedHz : P.fLo * Math.pow(P.fHi / P.fLo, rnd()); }
+  function spawn(i, stagger) {
+    const f = birthHz(i); fBirth[i] = f; om[i] = TWO_PI * f; th[i] = rnd() * TWO_PI;
+    life[i] = Math.max(8, P.lifeMs * (1 + P.lifeJit * (2 * rnd() - 1)) * SR / 1000);
+    age[i] = stagger ? Math.floor(rnd() * life[i]) : 0; th0[i] = NaN; t0[i] = 0; mark[i] = NaN; fs[i] = f;
+  }
+  function fill() { while (n < P.N) spawn(n++, P.stagger); if (n > P.N) n = P.N; }
+  function set(d) {
+    let parts = false, resp = false;
+    for (const k in d) { if (k === 'respawn') { resp = true; continue; } if (k in P) { P[k] = d[k]; if (k === 'partials' || k.startsWith('bp')) parts = true; } }
+    if (parts || d.partials) setPartials();
+    if (resp) { n = 0; deaths.length = 0; }
+    fill();
+  }
+  function nearest(f) { let best = -1, bd = Infinity; for (let k = 0; k < F.length; k++) { const dd = Math.abs(F[k] - f); if (dd < bd) { bd = dd; best = k; } } return best; }
+  function die(i) {
+    const tt = t - t0[i];
+    const fMean = (isFinite(th0[i]) && tt > 0) ? (th[i] - th0[i]) / (TWO_PI * tt / SR) : NaN;
+    deaths.push({ fBirth: fBirth[i], fMean, life: life[i] / SR, phi: mark[i], k: nearest(fMean) });
+    if (deaths.length > DEATHS) deaths.splice(0, deaths.length - DEATHS);
+  }
+  // G as a polynomial, g[m] u^m, m = 0…9, fitted by least squares on −1…1 (|u| ≤ 1 always)
+  const DEG = 9;
+  function fitPoly(fn) {
+    const M = 201, AtA = [], Atb = new Float64Array(DEG + 1);
+    for (let a = 0; a <= DEG; a++) AtA.push(new Float64Array(DEG + 1));
+    for (let q = 0; q < M; q++) {
+      const u = Math.cos(Math.PI * (q + 0.5) / M), y = fn(u), pw = [1]; for (let m = 1; m <= DEG; m++) pw.push(pw[m - 1] * u);
+      for (let a = 0; a <= DEG; a++) { Atb[a] += pw[a] * y; for (let b = 0; b <= DEG; b++) AtA[a][b] += pw[a] * pw[b]; }
+    }
+    for (let c = 0; c <= DEG; c++) {               // Gauss–Jordan
+      let piv = c; for (let r = c + 1; r <= DEG; r++) if (Math.abs(AtA[r][c]) > Math.abs(AtA[piv][c])) piv = r;
+      [AtA[c], AtA[piv]] = [AtA[piv], AtA[c]]; [Atb[c], Atb[piv]] = [Atb[piv], Atb[c]];
+      for (let r = 0; r <= DEG; r++) if (r !== c) { const f = AtA[r][c] / AtA[c][c]; for (let k = c; k <= DEG; k++) AtA[r][k] -= f * AtA[c][k]; Atb[r] -= f * Atb[c]; }
+    }
+    return Array.from(Atb, (v, c) => v / AtA[c][c]);
+  }
+  let polyKey = '', poly = null;
+  // G keeps the straight line's slope at zero (1), so a quiet cloud couples the same either way and
+  // only the bend differs: soft clip tanh(Du)⁄D; lopsided, the same with a bias b, re-centred and re-scaled.
+  function G(u) { const D = P.drive;
+    if (P.clip === 'soft') return Math.tanh(D * u) / D;
+    if (P.clip === 'asym') { const b = P.bias, z = Math.tanh(D * b), c = 1 - z * z; return (Math.tanh(D * (u + b)) - z) / (D * c); }
+    return u; }
+  function coef() {
+    const key = P.clip + ':' + P.drive + ':' + P.bias;
+    if (key !== polyKey) {
+      polyKey = key;
+      if (P.clip === 'none') poly = [0, 1];
+      else { poly = fitPoly(G); poly[0] = 0; }
+    }
+    return poly;
+  }
+  // binomials for the analytic part of u^m: 2 Σ_{k<m/2} C(m,k) (−1)^k |Z|^(2k) Z^(m−2k) ⁄ (2i)^m
+  const BIN = []; for (let m = 0; m <= DEG; m++) { BIN.push([1]); for (let k = 1; k <= m; k++) BIN[m].push(BIN[m][k - 1] * (m - k + 1) / k); }
+  // one sample; returns [grain layer, attractor layer]
+  const out2 = [0, 0];
+  function tick() {
+    const K = F.length;
+    let xr = 0, xi = 0, x = 0;                        // X = Σ a_k e^(iΘ_k); x = its real sound, Σ a_k sin Θ_k
+    for (let k = 0; k < K; k++) { TH[k] += TWO_PI * F[k] / SR; if (TH[k] > TWO_PI) TH[k] -= TWO_PI; const c = Math.cos(TH[k]), sn = Math.sin(TH[k]); xr += A[k] * c; xi += A[k] * sn; }
+    x = xi;
+    let zr = 0, zi = 0, ne = 0, s = 0;
+    for (let i = 0; i < n; i++) {
+      const p = age[i] / life[i];
+      const e = P.envShape === 'rect' ? 1 : Math.sin(Math.PI * p) ** 2;
+      env[i] = e; cs[i] = Math.cos(th[i]); sn[i] = Math.sin(th[i]);
+      zr += e * cs[i]; zi += e * sn[i]; ne += e; s += e * sn[i];
+    }
+    // the pull, as one complex number Q, so grain i feels Re(Q · e^(−iθ_i)) = Qr cos θ_i + Qi sin θ_i
+    // attractor: −i X  →  (xi, −xr)
+    let qr = P.KA * xi, qi = -P.KA * xr;
+    if (P.Kg !== 0 && ne > 0) {
+      zr /= ne; zi /= ne;
+      const g = coef();
+      // powers of Z, and of |Z|²
+      const m2 = zr * zr + zi * zi;
+      const pr = PR, pi = PI, mp = MP; pr[0] = 1; pi[0] = 0; mp[0] = 1;
+      for (let m = 1; m < g.length; m++) { pr[m] = pr[m - 1] * zr - pi[m - 1] * zi; pi[m] = pr[m - 1] * zi + pi[m - 1] * zr; mp[m] = mp[m - 1] * m2; }
+      let yr = 0, yi = 0;
+      for (let m = 1; m < g.length; m++) {
+        if (!g[m]) continue;
+        let ar = 0, ai = 0;
+        for (let k = 0; 2 * k < m; k++) { const w = BIN[m][k] * (k % 2 ? -1 : 1) * mp[k]; ar += w * pr[m - 2 * k]; ai += w * pi[m - 2 * k]; }
+        // divide by (2i)^m: (2i)^m = 2^m · i^m ; 1/i^m cycles 1, −i, −1, i
+        const sc = 2 * g[m] / Math.pow(2, m), q = m % 4;
+        let br, bi; if (q === 0) { br = ar; bi = ai; } else if (q === 1) { br = ai; bi = -ar; } else if (q === 2) { br = -ar; bi = -ai; } else { br = -ai; bi = ar; }
+        yr += sc * br; yi += sc * bi;
+      }
+      qr += P.Kg * yr; qi += P.Kg * yi;
+    }
+    for (let i = 0; i < n; i++) {
+      const w = om[i] + TWO_PI * (qr * cs[i] + qi * sn[i]);
+      th[i] += w / SR; fs[i] += ALPHA * (w / TWO_PI - fs[i]);
+      age[i] += 1;
+      const p = age[i] / life[i];
+      if (!isFinite(th0[i]) && p >= 0.5) { th0[i] = th[i]; t0[i] = t; }
+      if (!isFinite(mark[i]) && p >= 0.75 && K) { const f = (th[i] - th0[i]) / (TWO_PI * (t - t0[i] + 1) / SR); const k = nearest(f); mark[i] = k >= 0 ? th[i] - TH[k] : NaN; }
+      if (age[i] >= life[i]) { die(i); spawn(i, false); }
+    }
+    t++;
+    out2[0] = s; out2[1] = x;
+    return out2;
+  }
+  function run(sec) { const m = Math.round(sec * SR); for (let j = 0; j < m; j++) tick(); }
+  // what the page draws: each grain's smoothed frequency now, its frequency averaged since half its life,
+  // its window and how far through its life it is; each partial's filtered amplitude; grain 0 against partial 0
+  function view() {
+    const g = [];
+    for (let i = 0; i < n; i++) {
+      const fAvg = isFinite(th0[i]) && t > t0[i] ? (th[i] - th0[i]) / (TWO_PI * (t - t0[i]) / SR) : NaN;
+      g.push({ f: fs[i], fAvg, fb: fBirth[i], e: env[i], p: age[i] / life[i] });
+    }
+    const rel = n && F.length ? th[0] - TH[0] : 0, ph = Array.from(th.subarray(0, n));
+    return { grains: g, partials: P.partials.map((q, k) => ({ f: q.f, a: A[k] })), t: t / SR, rel, ph };
+  }
+  // the record of finished grains: how many ended locked to a partial (their average frequency within tol Hz
+  // of it), how many of those to the partial nearest where they were born, each partial's share of the
+  // grains born nearest it, and how tightly a pile's phases agree (r of the phases against the partial)
+  function stats(tol = 0.6, last = 1200) {
+    const ds = deaths.slice(-last), per = F.length ? Array.from(F, () => ({ born: 0, cap: 0 })) : [];
+    let tot = 0, cap = 0, near = 0, re = 0, im = 0, m = 0;
+    for (const d of ds) {
+      if (!isFinite(d.fMean)) continue; tot++;
+      const kb = nearest(d.fBirth); if (kb >= 0) per[kb].born++;
+      let kc = -1; for (let k = 0; k < F.length; k++) if (Math.abs(d.fMean - F[k]) < tol) kc = k;
+      if (kc >= 0) { cap++; if (kc === kb) { near++; per[kb].cap++; } if (isFinite(d.phi)) { re += Math.cos(d.phi); im += Math.sin(d.phi); m++; } }
+    }
+    return { tot, cap: tot ? cap / tot : 0, nearest: cap ? near / cap : 1, r: m ? Math.hypot(re, im) / m : 0, per };
+  }
+  return { P, set, tick, run, view, stats, deaths, nearest, get A() { return A; }, get F() { return F; } };
+}
+/* ENGINE:END */
+
+</script>
+<script>
+(function sigil() { const s = document.getElementById('sigil'); let d = ''; for (let i = 0; i <= 160; i++) { const t = 2 * Math.PI * i / 160; d += (i ? 'L' : 'M') + (9 + 7.5 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 + 7.5 * Math.sin(2 * t)).toFixed(2); } s.innerHTML = '<path d="' + d + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
+const $ = (id) => document.getElementById(id);
+function el(tag, attrs, ...kids) { const e = document.createElement(tag); for (const k in (attrs || {})) { if (k === 'on') for (const ev in attrs.on) e.addEventListener(ev, attrs.on[ev]); else if (k === 'html') e.innerHTML = attrs.html; else e.setAttribute(k, attrs[k]); } kids.forEach(c => e.append(c)); return e; }
+const TAU = 2 * Math.PI;
+
+// ---- the picture's engine: the same GrainField, run here at 6 kHz in real time; the sound's runs in the worklet
+const SRV = 6000;
+let SIM = null, CFG = null, SEED = 7;
+function config(cfg, seed) {
+  CFG = Object.assign({}, cfg); SEED = seed || SEED;
+  SIM = GrainField(SRV, SEED); SIM.set(Object.assign({ respawn: true }, CFG));
+  HIST.length = 0;
+  if (node) node.port.postMessage({ init: true, seed: SEED, set: Object.assign({ respawn: true }, CFG), gains: gainsFor(CFG) });
+}
+function setParam(d) { Object.assign(CFG, d); SIM.set(d); if (node) node.port.postMessage({ set: d, gains: gainsFor(CFG) }); }
+function gainsFor(c) { const n = Math.max(1, c.N || 1), k = Math.max(1, (c.partials || []).length); return { grain: 0.55 / Math.sqrt(n) * (c.gGrain == null ? 1 : c.gGrain), attr: (c.partials || []).length ? 0.45 / Math.sqrt(k) * (c.gAttr == null ? 1 : c.gAttr) : 0 }; }
+// a short history of the picture engine, for traces
+const HIST = [];
+
+// ---- sound: the worklet runs GrainField at the context's own rate
+let ctx = null, node = null, outGain = null, playing = false;
+const PROC = `
+class GFProc extends AudioWorkletProcessor {
+  constructor() { super(); this.g = null; this.gains = { grain: 0, attr: 0 }; this.port.onmessage = (e) => { const d = e.data; if (d.init) this.g = GrainField(sampleRate, d.seed); if (this.g && d.set) this.g.set(d.set); if (d.gains) this.gains = d.gains; }; }
+  process(_in, outs) {
+    const o = outs[0], L = o[0], R = o[1] || o[0];
+    if (!this.g) return true;
+    const gg = this.gains.grain, ga = this.gains.attr;
+    for (let j = 0; j < L.length; j++) { const r = this.g.tick(); const v = r[0] * gg + r[1] * ga; L[j] = v; R[j] = v; }
+    return true;
+  }
+}
+registerProcessor('gf-proc', GFProc);`;
+async function play() {
+  if (!ctx) {
+    ctx = new AudioContext();
+    const src = document.getElementById('engine').textContent + '\n' + PROC;
+    const url = URL.createObjectURL(new Blob([src], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url);
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+    outGain = ctx.createGain(); outGain.gain.value = 0.8; outGain.connect(comp).connect(ctx.destination);
+  }
+  if (ctx.state === 'suspended') await ctx.resume();
+  if (node) { node.disconnect(); node = null; }
+  node = new AudioWorkletNode(ctx, 'gf-proc', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+  node.connect(outGain);
+  node.port.postMessage({ init: true, seed: SEED, set: Object.assign({ respawn: true }, CFG), gains: gainsFor(CFG) });
+  // the picture restarts with the sound, so the two begin from the same grains
+  SIM = GrainField(SRV, SEED); SIM.set(Object.assign({ respawn: true }, CFG)); HIST.length = 0;
+  playing = true; paintGo();
+}
+function stopSound() { if (node) { node.disconnect(); node = null; } playing = false; paintGo(); }
+function paintGo() { document.querySelectorAll('button.gs-go').forEach(b => { b.textContent = playing ? '❚❚ stop' : '▸ play'; }); }
+function goButton() { return el('div', { class: 'gs-btns' }, el('button', { class: 'gs-go', on: { click: () => playing ? stopSound() : play() } }, playing ? '❚❚ stop' : '▸ play')); }
+
+// ---- controls
+function slider({ label, min, max, get, set, fmt, log, step }) {
+  const span = el('b'); const input = el('input', { type: 'range', min: 0, max: 1000, step: 1, 'aria-label': label });
+  const toPos = v => Math.round(log ? Math.log(v / min) / Math.log(max / min) * 1000 : (v - min) / (max - min) * 1000);
+  const fromPos = p => { let v = log ? min * Math.pow(max / min, p / 1000) : min + (max - min) * p / 1000; if (step) v = Math.round(v / step) * step; return v; };
+  input.value = toPos(get()); const show = () => { span.textContent = fmt(get()); };
+  input.addEventListener('input', () => { set(fromPos(+input.value)); show(); }); show();
+  return el('label', { class: 'gs-sl' }, label + ' · ', span, input);
+}
+function choose(cap, opts, get, set) {
+  return el('div', { class: 'gs-btns' }, el('span', { class: 'gs-cap' }, cap), ...opts.map(([v, label]) => el('button', { 'aria-pressed': String(get() === v), class: get() === v ? 'gs-on' : '', on: { click: (e) => { set(v); e.currentTarget.parentNode.querySelectorAll('button').forEach(b => { b.classList.remove('gs-on'); b.setAttribute('aria-pressed', 'false'); }); e.currentTarget.classList.add('gs-on'); e.currentTarget.setAttribute('aria-pressed', 'true'); } } }, label)));
+}
+function fitCanvas(c, h) { const r = c.getBoundingClientRect(), d = window.devicePixelRatio || 1; const W = Math.max(10, Math.round(r.width * d)), H = Math.round(h * d); if (c.width !== W || c.height !== H) { c.width = W; c.height = H; } const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w: r.width, h }; }
+
+// ---- the strip: frequency across; partials as bars; each grain a dot at its frequency now, falling as it ages;
+// under it, where the last finished grains ended (their average frequency over the second half of their life)
+function drawStrip(c, v, o) {
+  const H = o.H || 220, { g, w, h } = fitCanvas(c, H); g.clearRect(0, 0, w, h);
+  const lo = o.lo, hi = o.hi, X = o.log ? (f) => Math.log(f / lo) / Math.log(hi / lo) * w : (f) => (f - lo) / (hi - lo) * w;
+  const top = 8, bot = h - 16, mid = o.hist === false ? bot - 4 : h - 62;
+  g.font = '10px JetBrains Mono, monospace';
+  for (const f of (o.ticks || [])) { const x = X(f); g.fillStyle = 'rgba(255,255,255,.06)'; g.fillRect(x, top, 1, bot - top); g.fillStyle = '#8a8aa0'; g.fillText(f >= 1000 ? (f / 1000) + 'k' : String(f), x + 2, h - 3); }
+  // partials
+  let amax = 0; for (const p of v.partials) amax = Math.max(amax, p.a);
+  for (const p of v.partials) { const x = X(p.f), a = amax ? p.a / amax : 0; g.fillStyle = 'rgba(99,102,241,' + (0.15 + 0.6 * a) + ')'; g.fillRect(x - 1, top + (1 - a) * (mid - top), 2, a * (mid - top)); }
+  for (const m of (o.marks || [])) { const x = X(m.f); g.strokeStyle = m.col || '#e8b84a'; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(x, top); g.lineTo(x, bot); g.stroke(); g.setLineDash([]); g.fillStyle = m.col || '#e8b84a'; if (m.label) g.fillText(m.label, x + 3, top + 10); }
+  // grains
+  const locked = o.locked || ((gr) => v.partials.some(p => Math.abs(gr.f - p.f) < 0.8));
+  v.grains.forEach((gr, i) => { if (gr.f < lo || gr.f > hi) return; const x = X(gr.f), y = top + (o.rows ? (i + 0.5) / v.grains.length : gr.p) * (mid - top - 6) + 3; g.fillStyle = locked(gr) ? 'rgba(232,184,74,' + (0.35 + 0.65 * gr.e) + ')' : 'rgba(200,200,216,' + (0.2 + 0.5 * gr.e) + ')'; g.beginPath(); g.arc(x, y, 2.6, 0, TAU); g.fill(); });
+  // histogram of finished grains
+  if (o.hist !== false && SIM) {
+    const B = Math.max(60, Math.round(w / 2)), cnt = new Float64Array(B); let mx = 0; const ds = SIM.deaths.slice(-(o.histN || 700));
+    for (const d of ds) { if (!isFinite(d.fMean) || d.fMean < lo || d.fMean > hi) continue; const b = Math.min(B - 1, Math.floor(X(d.fMean) / w * B)); cnt[b]++; mx = Math.max(mx, cnt[b]); }
+    g.fillStyle = 'rgba(232,184,74,.75)'; for (let b = 0; b < B; b++) if (cnt[b]) { const hh = cnt[b] / mx * (bot - mid - 8); g.fillRect(b / B * w, bot - hh, Math.max(1, w / B - 0.5), hh); }
+    g.fillStyle = '#8a8aa0'; g.fillText('where the last finished grains ended', 4, mid + 8);
+  }
+}
+function wheel(c, angs, cols, labels) {
+  const { g, w, h } = fitCanvas(c, 190); g.clearRect(0, 0, w, h);
+  const R = Math.min(w, h) / 2 - 18, cx = w / 2, cy = h / 2;
+  g.strokeStyle = 'rgba(255,255,255,.12)'; g.beginPath(); g.arc(cx, cy, R, 0, TAU); g.stroke();
+  g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.fillText('in step', cx + R + 3, cy + 3);
+  angs.forEach((tr, j) => { g.strokeStyle = cols[j]; g.globalAlpha = 0.35; g.beginPath(); tr.forEach((a, k) => { const x = cx + R * Math.cos(a), y = cy - R * Math.sin(a); k ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke(); g.globalAlpha = 1; const a = tr[tr.length - 1]; if (a != null) { g.fillStyle = cols[j]; g.beginPath(); g.arc(cx + R * Math.cos(a), cy - R * Math.sin(a), 5, 0, TAU); g.fill(); if (labels) g.fillText(labels[j], cx + (R + 8) * Math.cos(a) - 8, cy - (R + 8) * Math.sin(a)); } });
+}
+function sleep0() { return new Promise(r => setTimeout(r, 0)); }
+
+// ---- the walk: three regimes
+const ALT = []; for (let h = 2; h <= 12; h++) ALT.push({ f: 110 * h, A: h % 2 ? 0.25 : 1 });   // loud even harmonics, quiet odd ones
+const CL = []; for (let i = 0; i < 10; i++) CL.push(220 + (i - 4.5) * 0.1);                       // step 5's little choir at 220 Hz
+const S = { step: 1, KA: 40, Kg3: 0, Kg4: 120, clip5: 'soft', d5: 1.5, clip6: 'soft', table: null, busy: false };
+const cfgFor = {
+  1: () => ({ N: 48, lifeMs: 400, lifeJit: 0.25, stagger: true, fLo: 165, fHi: 1375, KA: 0, Kg: 0, partials: ALT, gAttr: 0.5 }),
+  2: () => ({ N: 48, lifeMs: 400, lifeJit: 0.25, stagger: true, fLo: 165, fHi: 1375, KA: S.KA, Kg: 0, partials: ALT, gAttr: 0.5 }),
+  3: () => ({ N: 24, lifeMs: 400, lifeJit: 0.25, stagger: true, fLo: 400, fHi: 484, KA: 30, Kg: S.Kg3, clip: 'none', partials: [{ f: 440, A: 1 }], gAttr: 0.5 }),
+  4: () => ({ N: 64, lifeMs: 8000, lifeJit: 0, stagger: false, fLo: 110, fHi: 880, KA: 0, Kg: S.Kg4, clip: 'none', partials: [] }),
+  5: () => ({ N: 12, list: CL.concat([2 * 220 + S.d5, 3 * 220 + S.d5]), lifeMs: 600000, lifeJit: 0, stagger: false, KA: 0, Kg: 40, clip: S.clip5, drive: 3, bias: 0.3, partials: [] }),
+  6: () => ({ N: 64, lifeMs: 8000, lifeJit: 0, stagger: false, fLo: 110, fHi: 880, KA: 0, Kg: 250, clip: S.clip6, drive: 3, bias: 0.3, partials: [] }),
+};
+const BENDS = [['none', 'straight'], ['soft', 'soft clip'], ['asym', 'lopsided']];
+const BEND = { none: 'straight', soft: 'soft clip', asym: 'lopsided' };
+const fmtHz = v => (v < 10 ? v.toFixed(1) : Math.round(v)) + ' Hz';
+// clusters among grains old enough to have a settled average: same frequency within 0.02 Hz
+function clusters(v, minP = 0.6) {
+  const f = v.grains.filter(g => g.p > minP && isFinite(g.fAvg)).map(g => g.fAvg).sort((a, b) => a - b);
+  const cl = []; for (const x of f) { const l = cl[cl.length - 1]; if (l && Math.abs(x - l.f) < 0.02) l.m++; else cl.push({ f: x, m: 1 }); }
+  return cl;
+}
+function harmonics(cl) {
+  if (!cl.length) return { big: null, n2: 0, n3: 0 };
+  const big = cl.reduce((a, q) => q.m > a.m ? q : a, cl[0]); const out = { big, n2: 0, n3: 0 };
+  for (const a of cl) for (const n of [2, 3]) if (Math.abs(a.f - n * big.f) < 0.02 * n) out['n' + n] += a.m;
+  return out;
+}
+
+const STEPS = [
+  { n: 1, name: 'no coupling',
+    says: '<b>A cloud with nothing holding it.</b> 48 sine grains, about 400 ms each, born anywhere from 165 to 1375 Hz, over an additive spectrum: the harmonics of 110 Hz, the even ones loud and the odd ones quiet. No pull at all. Each grain keeps the pitch it was born with; the dots fall straight down, and what you hear is a shimmer of random sines over a fixed chord.',
+    stage: () => stripPanel('grains across frequency · a dot falls as its grain ages'),
+    controls: () => [goButton()],
+    eqs: [['dθ<sub>i</sub>⁄dt = ω<sub>i</sub>', 'Uncoupled: every grain turns at its own speed.']],
+    back: 'Each next step adds one pull.' },
+  { n: 2, name: 'attractor only',
+    says: '<b>The partials pull.</b> Each grain feels the spectrum, as on the section above. The page says each grain <q>independently finds its nearest attractor partial</q> and the cloud forms neat piles. Raise the pull until the wells overlap and read the meters: how many grains are caught at all, and how many of those by the partial nearest where they were born. A loud partial one place further off can win over a quiet one next door.',
+    stage: () => stripPanel('amber = caught · partials\' height = loudness'),
+    controls: () => [goButton(), slider({ label: 'pull K ⁄ 2π at full loudness', min: 10, max: 90, step: 1, get: () => S.KA, set: v => { S.KA = v; setParam({ KA: v }); }, fmt: fmtHz })],
+    eqs: [['dθ<sub>i</sub>⁄dt = ω<sub>i</sub> + Σ<sub>k</sub> A<sub>k</sub> · K · sin(Θ<sub>k</sub> − θ<sub>i</sub>)', 'The page\'s equation: each partial pulls each grain in proportion to its loudness. A grain is caught by partial k only if it is born within A<sub>k</sub>·K ⁄ 2π Hz of it.'],
+          ['r = | mean of e<sup>i(θ<sub>i</sub> − Θ<sub>k</sub>)</sup> |', 'Pile coherence: each caught grain\'s phase against its partial\'s, made into an arrow; average the arrows. 1 means every grain in the pile in step with the others, 0 scattered.']],
+    back: 'Step 1 is this with the pull at zero.' },
+  { n: 3, name: 'weak grain-to-grain',
+    says: '<b>One pile, and grains that hear each other.</b> One partial at 440 Hz, and 24 grains born within 40 Hz either side of it, so this is a single pile. With the grain-to-grain pull at zero, the caught grains are already locked to the partial, each at its own fixed phase offset: the closer it was born, the nearer in step. The page says weak grain-to-grain coupling makes each pile <q>coherent — not just a frequency cluster but a phase-locked cluster</q>. Raise it and read r.',
+    stage: () => stripPanel('one pile · 400 – 484 Hz', { lo: 395, hi: 490, ticks: [400, 420, 440, 460, 480] }),
+    controls: () => [goButton(), slider({ label: 'grain-to-grain pull Kg ⁄ 2π', min: 0, max: 80, step: 1, get: () => S.Kg3, set: v => { S.Kg3 = v; setParam({ Kg: v }); }, fmt: fmtHz })],
+    eqs: [['+ K<sub>g</sub> · R · sin(Ψ − θ<sub>i</sub>)', 'Each grain also feels the cloud\'s own sound: R and Ψ are how together the cloud is and its average phase. With one pile, the cloud is the pile.'],
+          ['r = π ⁄ 4 ≈ 0.785 with K<sub>g</sub> = 0', 'A grain caught Δ Hz off sits at a phase offset whose sine is Δ ⁄ (A·K ⁄ 2π). Born evenly across the catchment, those offsets average to r = π ⁄ 4: locked, but fanned out.']],
+    back: 'Step 2\'s piles, one at a time; the pull of the partial is 30 Hz.' },
+  { n: 4, name: 'grain-to-grain only',
+    says: '<b>No attractor.</b> 64 grains at random frequencies from 110 to 880 Hz, born together and living eight seconds so the crowd has time to agree (then a fresh cloud), coupled only to one another through the cloud\'s own sound. Raise the pull and watch neighbours fall into step: frequency groups, lines of amber dots that nobody placed. With the straight coupling, only 1 : 1: grains join grains at the same pitch.',
+    stage: () => stripPanel('one row per grain · across, its frequency · amber = sharing its pitch with another', { lo: 100, hi: 1000, log: true, ticks: [110, 220, 440, 880] }),
+    controls: () => [goButton(), slider({ label: 'grain-to-grain pull Kg ⁄ 2π', min: 0, max: 250, step: 5, get: () => S.Kg4, set: v => { S.Kg4 = v; setParam({ Kg: v }); PHH.length = 0; }, fmt: fmtHz })],
+    eqs: [['dθ<sub>i</sub>⁄dt = ω<sub>i</sub> + K<sub>g</sub> · R · sin(Ψ − θ<sub>i</sub>)', 'Plain Kuramoto: each grain pulled toward the crowd\'s average phase. A sine pulls only at its own frequency, so a grain can only lock 1 : 1.']],
+    back: 'Step 3 had the same pull among grains of one pile.' },
+  { n: 5, name: 'one bent grain',
+    says: '<b>Bend the feedback.</b> Ten grains sing together at 220 Hz. Two more stand off: one near 440, one near 660, each a little sharp of the exact multiple. The crowd\'s sound is passed through a bend before the grains hear it. Straight, it holds only 220 Hz, and the two strays drift. A soft clip bends both sides alike and adds only odd harmonics: 660 appears in the sound, and the stray there is caught. A lopsided bend adds even ones too: 440 appears, and that stray is caught. Watch the two wheels.',
+    stage: () => el('div', { class: 'gs-grid' },
+      el('div', { class: 'gs-panel' }, el('div', { class: 'gs-plabel' }, el('span', {}, 'the stray near 2 × 220 against 2 × the choir'), el('span', { id: 'w2note' })), el('canvas', { id: 'w2' })),
+      el('div', { class: 'gs-panel' }, el('div', { class: 'gs-plabel' }, el('span', {}, 'the stray near 3 × 220 against 3 × the choir'), el('span', { id: 'w3note' })), el('canvas', { id: 'w3' }))),
+    controls: () => [goButton(), choose('bend', BENDS, () => S.clip5, v => { S.clip5 = v; config(cfgFor[5]()); }),
+      slider({ label: 'how sharp the strays are born', min: -6, max: 6, step: 0.5, get: () => S.d5, set: v => { S.d5 = v; config(cfgFor[5]()); }, fmt: v => (v > 0 ? '+' : '') + v.toFixed(1) + ' Hz' })],
+    eqs: [['tanh(D u) ⁄ D  =  u − D²u³ ⁄ 3 + …', 'A soft clip is the straight line plus odd powers only: u³ makes 3 × the frequency, u⁵ makes 5 ×. It bends both sides alike, so no 2 ×.'],
+          ['tanh(D(u + b)) …  =  u + c<sub>2</sub>u² + c<sub>3</sub>u³ + …', 'A lopsided bend adds even powers: u² makes 2 ×. The grain at 2 × locks only when the bend has an even part.']],
+    back: 'Step 4\'s coupling is the straight one; here K<sub>g</sub> ⁄ 2π = 40 Hz and the drive D = 3.' },
+  { n: 6, name: 'the test',
+    says: '<b>The claim.</b> <q>Add soft clipping or any nonlinearity, and harmonic locking appears. The cloud self-organizes into a harmonic series that nobody specified.</q> Step 5 showed harmonic locking when a grain is placed near a harmonic. Now a cloud nobody placed: 64 grains at random from 110 to 880 Hz, pull 250 Hz, drive 3, each bend on the same six clouds. After 7.5 s the test finds the biggest group and counts grains locked at exactly 2 × and 3 × its pitch. Listen to one live, then run the six.',
+    stage: () => el('div', {}, stripPanel('one row per grain · amber = in a group · dashed: the biggest group, 2 ×, 3 ×', { lo: 100, hi: 2700, log: true, ticks: [110, 220, 440, 880, 1760] }),
+      el('div', { class: 'gs-panel', style: 'margin-top:14px' }, el('div', { class: 'gs-plabel' }, el('span', {}, 'six clouds, three bends'), el('span', { id: 'tnote' })), el('div', { id: 'table', class: 'gs-words', style: 'margin:0' }), el('div', { class: 'gs-btns', style: 'margin-top:8px' }, el('button', { id: 'runt', on: { click: runTest } }, 'run the six clouds')))),
+    controls: () => [goButton(), choose('bend', BENDS, () => S.clip6, v => { S.clip6 = v; config(cfgFor[6]()); })],
+    eqs: [['locked at n × : | f<sub>grain</sub> − n · f<sub>group</sub> | < 0.02 · n Hz', 'Each grain\'s frequency is its average over its last few seconds. Drifting grains almost never land that close by chance; the straight coupling, which cannot lock at 2 × or 3 ×, is the control.']],
+    back: 'Step 4 is this cloud with the straight bend; step 5 is one grain at a time.' },
+];
+function stripPanel(label, o) { S.strip = o || { lo: 150, hi: 1500, log: true, ticks: [220, 330, 440, 660, 880, 1320] }; return el('div', { class: 'gs-panel' }, el('div', { class: 'gs-plabel' }, el('span', {}, label), el('span', {}, S.strip.log ? 'log frequency' : 'Hz')), el('canvas', { id: 'strip' })); }
+
+async function runTest() {
+  if (S.busy) return; S.busy = true; $('runt').disabled = true;
+  const seeds = [11, 12, 13, 14, 15, 16], rows = {};
+  for (const [clip] of BENDS) {
+    rows[clip] = { runs: 0, n2: 0, n3: 0, big: 0 };
+    for (const sd of seeds) {
+      $('tnote').textContent = BEND[clip] + ', cloud ' + (seeds.indexOf(sd) + 1) + ' of 6…'; await sleep0();
+      const g = GrainField(SRV, sd); g.set(Object.assign({ respawn: true }, cfgFor[6](), { clip }));
+      for (let t = 0; t < 7.5; t += 0.5) { g.run(0.5); await sleep0(); }
+      const h = harmonics(clusters(g.view(), 0.5));
+      if (h.n2 + h.n3 > 0) rows[clip].runs++; rows[clip].n2 += h.n2; rows[clip].n3 += h.n3; rows[clip].big += h.big ? h.big.m / seeds.length : 0;
+    }
+  }
+  S.table = rows; $('tnote').textContent = ''; S.busy = false; $('runt').disabled = false; paintTable(); readouts();
+}
+function paintTable() {
+  const t = $('table'); if (!t) return;
+  if (!S.table) { t.innerHTML = 'Not run yet: about ten seconds, six clouds per bend.'; return; }
+  t.innerHTML = '<table style="border-collapse:collapse;font-family:var(--mono);font-size:11.5px;color:var(--fg2)"><tr style="color:var(--fg3)"><td style="padding:3px 14px 3px 0">bend</td><td style="padding:3px 14px">clouds with a harmonic</td><td style="padding:3px 14px">grains at 2 ×</td><td style="padding:3px 14px">grains at 3 ×</td><td style="padding:3px 14px">biggest group, average</td></tr>' +
+    BENDS.map(([k, name]) => { const r = S.table[k]; return '<tr><td style="padding:3px 14px 3px 0;color:var(--fg1)">' + name + '</td><td style="padding:3px 14px">' + r.runs + ' of 6</td><td style="padding:3px 14px">' + r.n2 + '</td><td style="padding:3px 14px">' + r.n3 + '</td><td style="padding:3px 14px">' + r.big.toFixed(1) + ' grains</td></tr>'; }).join('') + '</table>';
+}
+
+// ---- live picture
+const TR = { a: [], b: [], hist: [] };
+// each grain's frequency over the last second, from its phase then and now (a grain reborn in between is skipped)
+const PHH = [];
+function liveFreqs(v) {
+  PHH.push({ t: v.t, ph: v.ph.slice(), p: v.grains.map(g => g.p) }); while (PHH.length > 2 && PHH[1].t <= v.t - 1) PHH.shift();
+  const o = PHH[0], dt = v.t - o.t; if (dt < 0.8) return null;
+  return v.grains.map((g, i) => g.p >= o.p[i] ? (v.ph[i] - o.ph[i]) / (TAU * dt) : NaN);
+}
+function liveGroups(fs, tol = 0.05) {
+  const f = fs.filter(isFinite).sort((a, b) => a - b), cl = [];
+  for (const x of f) { const l = cl[cl.length - 1]; if (l && Math.abs(x - l.f) < tol) { l.f = (l.f * l.m + x) / (l.m + 1); l.m++; } else cl.push({ f: x, m: 1 }); }
+  return cl;
+}
+let LIVE = null;
+function draw() {
+  const v = SIM.view();
+  if (S.step === 5) {
+    // the choir's phase Ψ, and each stray against n·Ψ
+    let zr = 0, zi = 0; for (let i = 0; i < 10; i++) { zr += Math.cos(v.ph[i]); zi += Math.sin(v.ph[i]); }
+    const psi = Math.atan2(zi, zr), a2 = v.ph[10] - 2 * psi, a3 = v.ph[11] - 3 * psi, wrap = a => ((a % TAU) + TAU) % TAU;
+    TR.a.push(wrap(a2)); TR.b.push(wrap(a3)); if (TR.a.length > 120) { TR.a.shift(); TR.b.shift(); }
+    TR.hist.push({ t: v.t, a2, a3 }); while (TR.hist.length && TR.hist[0].t < v.t - 2) TR.hist.shift();
+    wheel($('w2'), [TR.a], ['#e8b84a']); wheel($('w3'), [TR.b], ['#33e0c8']);
+    return;
+  }
+  const o = Object.assign({}, S.strip);
+  if (S.step === 4 || S.step === 6) {
+    const fs = liveFreqs(v); o.hist = false; o.rows = true;
+    if (fs) {
+      const groups = liveGroups(fs), big = groups.reduce((a, q) => q.m > a.m ? q : a, groups[0] || { m: 0 });
+      const n2 = big.m > 1 ? fs.filter(f => Math.abs(f - 2 * big.f) < 0.1).length : 0, n3 = big.m > 1 ? fs.filter(f => Math.abs(f - 3 * big.f) < 0.15).length : 0;
+      LIVE = { groups: groups.filter(q => q.m > 1), big, n2, n3 };
+      const inG = new Set(); v.grains.forEach((g, i) => { if (LIVE.groups.some(q => Math.abs(fs[i] - q.f) < 0.05)) inG.add(g); });
+      o.locked = (gr) => inG.has(gr);
+      if (S.step === 6 && big.m > 1) o.marks = [{ f: big.f, label: 'group' }, { f: 2 * big.f, label: '2 ×', col: '#8a8aa0' }, { f: 3 * big.f, label: '3 ×', col: '#8a8aa0' }];
+    } else { LIVE = null; o.locked = () => false; }
+  }
+  drawStrip($('strip'), v, o);
+}
+function slipRate(key) { const h = TR.hist; if (h.length < 10) return null; const a = h[0], b = h[h.length - 1]; let d = 0; for (let k = 1; k < h.length; k++) { let x = h[k][key] - h[k - 1][key]; x = Math.atan2(Math.sin(x), Math.cos(x)); d += x; } return Math.abs(d) / TAU / (b.t - a.t || 1); }
+function readouts() {
+  const rd = [];
+  if (S.step === 1 || S.step === 2) {
+    const st = SIM.stats(0.6, 900);
+    rd.push('grains caught <b>' + Math.round(st.cap * 100) + '%</b>');
+    if (S.step === 2) { rd.push('of those, by the nearest partial <b>' + Math.round(st.nearest * 100) + '%</b>'); rd.push('pile coherence r <b>' + st.r.toFixed(2) + '</b>'); rd.push('wells overlap when the loud ones reach past 55 Hz: <b>' + (S.KA > 55 ? 'yes' : 'no') + '</b>'); }
+    rd.push('finished grains counted <b>' + st.tot + '</b>');
+  } else if (S.step === 3) {
+    const st = SIM.stats(0.6, 500);
+    rd.push('grains caught <b>' + Math.round(st.cap * 100) + '%</b>'); rd.push('pile coherence r <b>' + st.r.toFixed(2) + '</b> (π ⁄ 4 = 0.785 with no grain-to-grain pull)'); rd.push('finished grains counted <b>' + st.tot + '</b>');
+  } else if (S.step === 4) {
+    if (!LIVE) rd.push('listening…');
+    else { const inG = LIVE.groups.reduce((a, c) => a + c.m, 0); rd.push('groups <b>' + LIVE.groups.length + '</b>'); rd.push('grains in a group <b>' + inG + '</b> of 64'); rd.push('biggest group <b>' + (LIVE.big.m > 1 ? LIVE.big.m + '</b> at ' + LIVE.big.f.toFixed(1) + ' Hz' : '–</b>')); }
+    rd.push('cloud time <b>' + SIM.view().t.toFixed(1) + ' s</b> of 8');
+  } else if (S.step === 5) {
+    const s2 = slipRate('a2'), s3 = slipRate('a3'), lab = s => s == null ? '…' : s < 0.05 ? '<span class="gs-flag">locked</span>' : 'slips ' + s.toFixed(2) + ' a second';
+    rd.push('bend <b>' + BEND[S.clip5] + '</b>'); rd.push('stray at 2 × ' + lab(s2)); rd.push('stray at 3 × ' + lab(s3));
+    $('w2note').textContent = s2 == null ? '' : s2 < 0.05 ? 'sits still: locked 2 : 1' : 'goes round'; $('w3note').textContent = s3 == null ? '' : s3 < 0.05 ? 'sits still: locked 3 : 1' : 'goes round';
+  } else if (S.step === 6) {
+    rd.push('bend <b>' + BEND[S.clip6] + '</b>'); rd.push('cloud time <b>' + SIM.view().t.toFixed(1) + ' s</b> of 8');
+    if (LIVE && LIVE.big.m > 1) { rd.push('biggest group <b>' + LIVE.big.m + '</b> at ' + LIVE.big.f.toFixed(1) + ' Hz'); rd.push('at 2 × <b>' + LIVE.n2 + '</b> · at 3 × <b>' + LIVE.n3 + '</b>'); }
+  }
+  $('read').innerHTML = rd.map(x => '<span>' + x + '</span>').join('');
+  verdict();
+}
+function verdict() {
+  const box = $('verdictbox'); if (S.step !== 6) { box.innerHTML = ''; return; }
+  const T = S.table; if (!T) { box.innerHTML = '<div class="gs-verdict">Run the six clouds.</div>'; return; }
+  const s = T.soft, a = T.asym, n = T.none;
+  const parts = [];
+  if (s.runs === 0 && a.runs > 0) parts.push('<b>Harmonic locking appears, but not from soft clipping alone.</b>');
+  else parts.push('<b>What the six clouds did.</b>');
+  parts.push('Placed by hand near a harmonic (step 5), a grain locks 3 : 1 under a soft clip and 2 : 1 only under a lopsided bend, as the shapes predict. Left to a random cloud, the soft clip grew a harmonic in ' + s.runs + ' of 6 clouds; the lopsided bend in ' + a.runs + ' of 6, with ' + a.n2 + (a.n2 === 1 ? ' grain' : ' grains') + ' at 2 × and ' + a.n3 + ' at 3 × the biggest group; the straight control in ' + n.runs + ' of 6.');
+  if (s.runs === 0) parts.push('So the symmetric soft clip the page names holds only odd ratios, and in these clouds it also kept the groups smaller (' + s.big.toFixed(1) + ' grains on average against ' + n.big.toFixed(1) + ' straight): its pull stops growing as a group gets loud.');
+  if (a.runs > 0) parts.push('A bend with an even part is what grew the start of a harmonic series nobody placed: grains at ' + (a.n2 && a.n3 ? '2 × and 3 ×' : a.n2 ? '2 ×' : '3 ×') + ' a group that formed on its own, not yet a whole series.');
+  box.innerHTML = '<div class="gs-verdict">' + parts.join(' ') + '</div>';
+}
+
+function build() {
+  const s = STEPS[S.step - 1];
+  const rail = $('rail'); rail.innerHTML = '';
+  STEPS.forEach(t => rail.append(el('button', { 'aria-pressed': String(t.n === S.step), on: { click: () => goTo(t.n) } }, t.n + ' · ' + t.name)));
+  $('stepname').textContent = s.n + ' · ' + s.name; $('stepof').textContent = 'step ' + s.n + ' of ' + STEPS.length;
+  $('says').innerHTML = s.says;
+  $('stage').innerHTML = ''; $('stage').append(s.stage());
+  const c = $('controls'); c.innerHTML = ''; s.controls().forEach(x => c.append(x));
+  $('eqs').innerHTML = ''; s.eqs.forEach(([sym, words]) => $('eqs').append(el('div', { class: 'gs-eq', html: sym }), el('div', { class: 'gs-words', html: words })));
+  $('backline').innerHTML = s.back;
+  $('prev').disabled = S.step === 1; $('next').disabled = S.step === STEPS.length;
+  TR.a = []; TR.b = []; TR.hist = []; PHH.length = 0; LIVE = null; config(cfgFor[S.step]());
+  if (S.step === 6) paintTable();
+  readouts(); paintGo();
+}
+function goTo(n) { if (n !== S.step) { stopSound(); S.step = n; build(); } }
+$('prev').addEventListener('click', () => goTo(Math.max(1, S.step - 1)));
+$('next').addEventListener('click', () => goTo(Math.min(STEPS.length, S.step + 1)));
+let last = performance.now(), lastRead = 0;
+function frame(now) {
+  const dt = Math.min(0.05, (now - last) / 1000); last = now;
+  if (SIM) {
+    // step 6 runs one cloud through its 8 s life, then starts it again
+    if ((S.step === 6 || S.step === 4) && SIM.view().t > 7.9) { PHH.length = 0; config(cfgFor[S.step]()); }
+    const n = Math.round(dt * SRV); for (let j = 0; j < n; j++) SIM.tick(); draw(); if (now - lastRead > 300) { lastRead = now; readouts(); }
+  }
+  requestAnimationFrame(frame);
+}
+build(); requestAnimationFrame(frame);
+
+</script>
+</body>
+</html>

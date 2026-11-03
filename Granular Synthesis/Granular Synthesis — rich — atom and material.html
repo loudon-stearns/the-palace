@@ -1,0 +1,416 @@
+<!doctype html>
+<!--
+  title: Granular Synthesis — rich — atom and material
+  born: 2026-11-03
+  links: [[Granular Synthesis]] (connects-to · rich-face-piece) · listed in [[Granular Synthesis — rich.json]] · serves § Granular Synthesis (the opening) · leans on [[Frequency-Time Duality]] and Gabor's acoustic quantum
+  forward_vector: I am one grain, then a cloud of them, walked up to the page's opening sentence and tested: is
+    the cloud's color the grain's? I show a grain's length setting how much pitch it has, its window setting
+    how much it clicks, a cloud's density setting how much it fuses, and last I measure three clouds against
+    what one grain predicts for them. I play inside the entry's rich face and stand alone opened directly;
+    I change only when the section I serve does.
+  engine: every sound here is rendered in this page, in JavaScript, from sines and windows: no samples.
+    The test's numbers come from the same functions, and "Granular Synthesis — rich — checks.mjs" re-runs
+    them in Node.
+  sound: nothing plays until a play button is clicked; the AudioContext is made on that click. Changing step
+    stops the sound. The kit quiets it when the page hides or is left alone.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Granular Synthesis — the atom and the material</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366f1; --teal:#33e0c8; --rose:#e86a8a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .gs-piece { padding: 22px 22px 20px; }
+  .gs-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .gs-kicker svg { width: 18px; height: 18px; }
+  .gs-title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .gs-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .gs-rail { display: flex; flex-wrap: wrap; margin: 0 0 14px; }
+  .gs-rail button { border-radius: 0; margin-right: -1px; }
+  .gs-rail button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.gs-go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 104px; }
+  button.gs-on { color: var(--amber); border-color: var(--amberline); }
+  .gs-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .gs-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .gs-says { font-size: 14.5px; line-height: 1.62; color: var(--fg2); max-width: 78ch; margin: 0 0 12px; }
+  .gs-says b { color: var(--fg1); font-weight: 500; }
+  .gs-says q { color: var(--fg1); font-style: italic; }
+  .gs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .gs-grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 760px) { .gs-grid, .gs-grid3 { grid-template-columns: 1fr; } }
+  .gs-panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--bg); padding: 8px 10px; }
+  .gs-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .gs-controls { display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: end; margin-top: 14px; }
+  .gs-controls label.gs-sl { flex: 1 1 240px; }
+  .gs-btns { display: flex; gap: 0; flex-wrap: wrap; align-items: center; }
+  .gs-btns button + button { margin-left: -1px; }
+  .gs-btns .gs-cap { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg3); margin-right: 10px; }
+  label.gs-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.gs-sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .gs-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .gs-read b { color: var(--fg1); font-weight: 500; }
+  .gs-read .gs-flag { color: var(--amber); }
+  .gs-eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .gs-eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .gs-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 78ch; }
+  .gs-back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin-top: 10px; }
+  .gs-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .gs-verdict { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 80ch; border-left: 2px solid var(--amberline); padding-left: 12px; }
+  .gs-verdict b { font-weight: 500; color: var(--amber); }
+  .gs-legend { font-family: var(--mono); font-size: 10.5px; color: var(--fg3); margin-top: 6px; letter-spacing: .04em; }
+</style>
+</head>
+<body>
+<div class="gs-piece">
+  <div class="gs-kicker"><svg id="sigil" viewBox="0 0 18 18" aria-hidden="true"></svg><span>made · Web Audio · sketch · a walk in four steps</span></div>
+  <h3 class="gs-title">Is the cloud's color the grain's?</h3>
+  <p class="gs-sub">The page opens: <q>The grain is the atom; the cloud is the material.</q> Start with one grain and hear how its length decides whether it is a click or a note. Then its window, then a cloud of grains, and last a test: measure three clouds against what one grain predicts for them.</p>
+
+  <div class="gs-rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="gs-step">
+    <div class="gs-stephead"><span id="stepname"></span><span id="stepof"></span></div>
+    <p class="gs-says" id="says"></p>
+    <div id="stage"></div>
+    <div class="gs-controls" id="controls"></div>
+    <div class="gs-read" id="read"></div>
+    <div id="verdictbox"></div>
+    <div class="gs-eqs" id="eqs"></div>
+    <div class="gs-back" id="backline"></div>
+    <div class="gs-nav"><button id="prev">← back</button><button id="next">next step →</button></div>
+  </div>
+</div>
+
+<script id="engine">
+/* ENGINE:START — grains, clouds and their spectra. Pure functions; nothing of the page. */
+const Grains = (() => {
+  function mulberry(seed) { let s = seed >>> 0; return () => { let t = (s += 0x6D2B79F5); t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  // the window: rectangle (a hard cut), Hann (sin², the usual grain), Gauss (σ = length ⁄ 6, Gabor's choice)
+  function win(kind, x) {            // x in [0, 1)
+    if (kind === 'rect') return 1;
+    if (kind === 'gauss') { const z = (x - 0.5) * 6; return Math.exp(-0.5 * z * z); }
+    const s = Math.sin(Math.PI * x); return s * s;
+  }
+  // one grain: a sine at f Hz, lenMs long, under a window
+  function grain(SR, lenMs, f, kind) {
+    const n = Math.max(1, Math.round(lenMs * SR / 1000)), g = new Float32Array(n);
+    for (let i = 0; i < n; i++) g[i] = win(kind, i / n) * Math.sin(2 * Math.PI * f * i / SR);
+    return g;
+  }
+  // in-place radix-2 FFT
+  function fft(re, im) {
+    const n = re.length;
+    for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+    for (let len = 2; len <= n; len <<= 1) {
+      const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a);
+      for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let k = 0; k < len / 2; k++) {
+        const xr = re[i + k + len / 2] * cr - im[i + k + len / 2] * ci, xi = re[i + k + len / 2] * ci + im[i + k + len / 2] * cr;
+        re[i + k + len / 2] = re[i + k] - xr; im[i + k + len / 2] = im[i + k] - xi; re[i + k] += xr; im[i + k] += xi;
+        const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } }
+    }
+  }
+  // |G(f)|² of a short signal, zero-padded to N (no window: the grain is its own window)
+  function power(x, N) {
+    const re = new Float64Array(N), im = new Float64Array(N);
+    for (let i = 0; i < Math.min(N, x.length); i++) re[i] = x[i];
+    fft(re, im); const p = new Float64Array(N / 2 + 1);
+    for (let k = 0; k <= N / 2; k++) p[k] = re[k] * re[k] + im[k] * im[k];
+    return p;
+  }
+  // a grain's width: full width of its spectral peak at half amplitude (−6 dB), in Hz, and its highest side lobe in dB
+  function shape(SR, lenMs, f, kind) {
+    const N = 1 << 17, p = power(grain(SR, lenMs, f, kind), N), df = SR / N;
+    let k0 = 0; for (let k = 1; k < p.length; k++) if (p[k] > p[k0]) k0 = k;
+    const half = p[k0] / 4; let lo = k0, hi = k0;
+    while (lo > 0 && p[lo] > half) lo--; while (hi < p.length - 1 && p[hi] > half) hi++;
+    let j = hi; while (j + 1 < p.length && p[j + 1] < p[j]) j++;          // walk down the main lobe
+    let side = 0; for (let k = j; k < Math.min(p.length, j + Math.round(40000 / lenMs / df) + 10); k++) side = Math.max(side, p[k]);
+    return { width: (hi - lo) * df, sideDb: 10 * Math.log10(side / p[k0] + 1e-30), p, df, k0 };
+  }
+  // Gabor's measure: rms duration × rms bandwidth of the window, the bandwidth taken out to 40 ⁄ length
+  function gabor(SR, lenMs, kind) {
+    const n = Math.round(lenMs * SR / 1000), w = new Float32Array(n); for (let i = 0; i < n; i++) w[i] = win(kind, i / n);
+    let E = 0, tm = 0; for (let i = 0; i < n; i++) { E += w[i] * w[i]; tm += i * w[i] * w[i]; } tm /= E;
+    let v = 0; for (let i = 0; i < n; i++) v += (i - tm) ** 2 * w[i] * w[i]; const dt = Math.sqrt(v / E) / SR;
+    const N = 1 << 16, p = power(w, N), df = SR / N, fMax = 40 / (lenMs / 1000);
+    let num = 0, den = p[0] / 2; for (let k = 1; k < p.length && k * df <= fMax; k++) { num += (k * df) ** 2 * p[k]; den += p[k]; }
+    return dt * Math.sqrt(num / den);
+  }
+  // a cloud: grains at random (Poisson) or regular onsets, density per second, pitch spread in semitones around f0
+  function cloud(o) {
+    const { SR, dur, density, lenMs, f0, spreadSt = 0, kind = 'hann', onsets = 'random', seed = 1 } = o;
+    const rnd = mulberry(seed), n = Math.round(dur * SR), out = new Float32Array(n), L = Math.max(1, Math.round(lenMs * SR / 1000));
+    const shapeW = new Float32Array(L); for (let i = 0; i < L; i++) shapeW[i] = win(kind, i / L);
+    const list = []; let t = 0;
+    if (onsets === 'regular') { for (t = 0; t < dur; t += 1 / density) list.push(t); }
+    else { for (;;) { t += -Math.log(1 - rnd()) / density; if (t >= dur) break; list.push(t); } }
+    const one = spreadSt ? null : grain(SR, lenMs, f0, kind);   // one pitch: the same grain every time
+    for (const t0 of list) {
+      const f = f0 * Math.pow(2, spreadSt ? (rnd() - 0.5) * spreadSt / 12 : 0), s = Math.round(t0 * SR);
+      if (one) { for (let i = 0; i < L && s + i < n; i++) out[s + i] += one[i]; continue; }
+      // a spread cloud: the sine by rotation, exact to rounding
+      const w = 2 * Math.PI * f / SR, cw = Math.cos(w), sw = Math.sin(w); let c = 1, sn = 0;
+      for (let i = 0; i < L && s + i < n; i++) { out[s + i] += shapeW[i] * sn; const t = c * cw - sn * sw; sn = c * sw + sn * cw; c = t; }
+    }
+    return { x: out, onsets: list };
+  }
+  // the cloud's spectrum, measured: Welch, Hann segments of N, half overlap; P = |X|² ⁄ Σw²
+  function welch(x, N) {
+    const w = new Float64Array(N); let ws = 0; for (let i = 0; i < N; i++) { w[i] = Math.sin(Math.PI * i / N) ** 2; ws += w[i] * w[i]; }
+    const acc = new Float64Array(N / 2 + 1); let segs = 0;
+    for (let s = 0; s + N <= x.length; s += N / 2) {
+      const re = new Float64Array(N), im = new Float64Array(N); for (let i = 0; i < N; i++) re[i] = x[s + i] * w[i];
+      fft(re, im); for (let k = 0; k <= N / 2; k++) acc[k] += (re[k] * re[k] + im[k] * im[k]) / ws; segs++;
+    }
+    for (let k = 0; k <= N / 2; k++) acc[k] /= segs;
+    return acc;
+  }
+  // what one grain predicts for a cloud of random onsets (Campbell's theorem): power (λ ⁄ SR) · |G(f)|², averaged
+  // over the cloud's pitches (24 evenly spaced across the spread), and seen through the same Hann segments the
+  // measurement uses, so the two are compared like for like: E P(f) = (λ ⁄ SR) · DFT[ r_g(m) · r_w(m) ] ⁄ Σw²,
+  // r_g and r_w the grain's and the segment window's autocorrelations.
+  function autocorr(xs, M) {               // xs: list of signals; their autocorrelations, averaged, length M (circular)
+    const acc = new Float64Array(M);
+    for (const x of xs) { const re = new Float64Array(M), im = new Float64Array(M); for (let i = 0; i < x.length; i++) re[i] = x[i]; fft(re, im); for (let k = 0; k < M; k++) acc[k] += (re[k] * re[k] + im[k] * im[k]) / xs.length; }
+    const re = acc, im = new Float64Array(M); fft(re, im);      // the spectrum is real and even, so a forward FFT inverts it up to 1 ⁄ M
+    for (let k = 0; k < M; k++) re[k] /= M;
+    return re;
+  }
+  function predict(o, N) {
+    const { SR, density, lenMs, f0, spreadSt = 0, kind = 'hann' } = o, M0 = spreadSt ? 24 : 1;
+    const L = Math.max(1, Math.round(lenMs * SR / 1000)); let M = 2 * N; while (M < 2 * Math.max(N, L)) M *= 2;
+    const gs = []; for (let m = 0; m < M0; m++) gs.push(grain(SR, lenMs, f0 * Math.pow(2, spreadSt ? ((m + 0.5) / M0 - 0.5) * spreadSt / 12 : 0), kind));
+    const w = new Float64Array(N); let ws = 0; for (let i = 0; i < N; i++) { w[i] = Math.sin(Math.PI * i / N) ** 2; ws += w[i] * w[i]; }
+    const rg = autocorr(gs, M), rw = autocorr([w], M);
+    const re = new Float64Array(M), im = new Float64Array(M); for (let k = 0; k < M; k++) re[k] = rg[k] * rw[k];
+    fft(re, im);
+    const out = new Float64Array(N / 2 + 1), step = M / N;
+    for (let k = 0; k <= N / 2; k++) out[k] = Math.max(0, re[k * step]) * density / SR / ws;
+    return out;
+  }
+  // how far a measured spectrum sits from a predicted one: rms of the dB difference over the bins
+  // where the prediction is within 30 dB of its peak
+  function miss(meas, pred) {
+    let pk = 0; for (const v of pred) pk = Math.max(pk, v);
+    let s = 0, m = 0; for (let k = 1; k < pred.length; k++) if (pred[k] > pk * 1e-3) { const d = 10 * Math.log10((meas[k] + 1e-30) / pred[k]); s += d * d; m++; }
+    return Math.sqrt(s / Math.max(1, m));
+  }
+  function levelDb(x) { let e = 0; for (const v of x) e += v * v; return 10 * Math.log10(e / x.length + 1e-30); }
+  // gappiness: spread of 10 ms loudness frames over their mean
+  function gappiness(x, SR) {
+    const F = Math.round(0.01 * SR), e = []; for (let s = 0; s + F <= x.length; s += F) { let a = 0; for (let i = 0; i < F; i++) a += x[s + i] * x[s + i]; e.push(Math.sqrt(a / F)); }
+    const mu = e.reduce((a, b) => a + b, 0) / e.length; const sd = Math.sqrt(e.reduce((a, b) => a + (b - mu) ** 2, 0) / e.length); return sd / (mu || 1);
+  }
+  // the whole test, as the last step runs it
+  function test(SR, lenMs, kind) {
+    const N = 16384, dur = 6, base = { SR, dur, lenMs, f0: 440, kind };
+    const runs = {
+      random: Object.assign({}, base, { density: 100, onsets: 'random', seed: 3 }),
+      regular: Object.assign({}, base, { density: 100, onsets: 'regular', seed: 3 }),
+      spread: Object.assign({}, base, { density: 100, onsets: 'random', spreadSt: 12, seed: 5 }),
+    };
+    const res = {};
+    for (const k in runs) { const c = cloud(runs[k]), m = welch(c.x, N), p = predict(runs[k], N); res[k] = { miss: miss(m, p), meas: m, pred: p, x: c.x }; }
+    const lv = {}; for (const d of [20, 200, 2000]) { const o = Object.assign({}, base, { density: d, onsets: 'random', seed: 7 }); const c = cloud(o); lv[d] = { db: levelDb(c.x), miss: miss(welch(c.x, N), predict(o, N)) }; }
+    return { res, lv, N };
+  }
+  return { win, grain, power, shape, gabor, cloud, welch, predict, miss, levelDb, gappiness, test, mulberry };
+})();
+/* ENGINE:END */
+</script>
+
+<script>
+(function sigil() { const s = document.getElementById('sigil'); let d = ''; for (let i = 0; i <= 160; i++) { const t = 2 * Math.PI * i / 160; d += (i ? 'L' : 'M') + (9 + 7.5 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 + 7.5 * Math.sin(2 * t)).toFixed(2); } s.innerHTML = '<path d="' + d + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
+const $ = (id) => document.getElementById(id);
+function el(tag, attrs, ...kids) { const e = document.createElement(tag); for (const k in (attrs || {})) { if (k === 'on') for (const ev in attrs.on) e.addEventListener(ev, attrs.on[ev]); else if (k === 'html') e.innerHTML = attrs.html; else e.setAttribute(k, attrs[k]); } kids.forEach(c => e.append(c)); return e; }
+const SR = 44100;
+const S = { step: 1, lenMs: 40, kind: 'hann', density: 30, spread: 0, playing: null, test: null, testFor: '' };
+let ctx = null, src = null, gainN = null;
+function ensureCtx() { if (!ctx) { ctx = new AudioContext({ sampleRate: SR }); const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 4; gainN = ctx.createGain(); gainN.gain.value = 0.5; gainN.connect(comp).connect(ctx.destination); } if (ctx.state === 'suspended') ctx.resume(); return ctx; }
+function stopSound() { if (src) { try { src.stop(); } catch (e) {} src.disconnect(); src = null; } S.playing = null; paintGo(); }
+function playBuffer(x, tag, loop = true) {
+  stopSound(); ensureCtx();
+  let pk = 0; for (const v of x) pk = Math.max(pk, Math.abs(v)); const sc = pk > 0 ? 0.7 / pk : 1;
+  const b = ctx.createBuffer(2, x.length, SR); const L = b.getChannelData(0), R = b.getChannelData(1);
+  for (let i = 0; i < x.length; i++) { L[i] = x[i] * sc; R[i] = x[i] * sc; }
+  src = ctx.createBufferSource(); src.buffer = b; src.loop = loop; src.connect(gainN); src.start(); S.playing = tag;
+  src.onended = () => { if (S.playing === tag && !loop) { S.playing = null; paintGo(); } };
+  paintGo();
+}
+// one grain, every half second, centred
+function grainLoop() { const x = new Float32Array(Math.round(0.5 * SR)), g = Grains.grain(SR, S.lenMs, 440, S.kind), o = Math.max(0, Math.round((x.length - g.length) / 2)); for (let i = 0; i < g.length && o + i < x.length; i++) x[o + i] = g[i]; return x; }
+let cloudKey = '', cloudVal = null;
+function cloudNow() { const key = [S.density, S.lenMs, S.spread, S.kind].join(':'); if (key === cloudKey) return cloudVal; cloudKey = key; return cloudVal = Grains.cloud({ SR, dur: 4, density: S.density, lenMs: S.lenMs, f0: 440, spreadSt: S.spread, kind: S.kind, seed: 9 }); }
+
+// ---- drawing
+function fitCanvas(c, h) { const r = c.getBoundingClientRect(), d = window.devicePixelRatio || 1; c.width = Math.max(10, r.width * d); c.height = h * d; const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w: r.width, h }; }
+function drawWave(c, x, label) {
+  const { g, w, h } = fitCanvas(c, 150); g.clearRect(0, 0, w, h);
+  g.strokeStyle = 'rgba(255,255,255,.08)'; g.beginPath(); g.moveTo(0, h / 2); g.lineTo(w, h / 2); g.stroke();
+  let pk = 0; for (const v of x) pk = Math.max(pk, Math.abs(v)); pk = pk || 1;
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 1.2; g.beginPath();
+  const n = x.length; for (let px = 0; px < w; px++) { const a = Math.floor(px / w * n), b = Math.max(a + 1, Math.floor((px + 1) / w * n)); let lo = 1e9, hi = -1e9; for (let i = a; i < b && i < n; i++) { lo = Math.min(lo, x[i]); hi = Math.max(hi, x[i]); } g.moveTo(px + 0.5, h / 2 - hi / pk * (h / 2 - 8)); g.lineTo(px + 0.5, h / 2 - lo / pk * (h / 2 - 8) + 0.5); }
+  g.stroke();
+  g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.fillText(label, 6, h - 6);
+}
+const FLO = 50, FHI = 8000;
+function fx(f, w) { return Math.log(f / FLO) / Math.log(FHI / FLO) * w; }
+function freqAxis(g, w, h) { g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; for (const f of [100, 220, 440, 880, 2000, 4000]) { const x = fx(f, w); g.fillRect(x, 0, 1, h - 14); g.fillStyle = '#8a8aa0'; g.fillText(f >= 1000 ? f / 1000 + 'k' : String(f), x + 2, h - 3); g.fillStyle = '#4a4a5a'; } }
+function drawSpec(c, curves, dbRange = 70, H = 170) {
+  const { g, w, h } = fitCanvas(c, H); g.clearRect(0, 0, w, h); freqAxis(g, w, h);
+  let top = -1e9; for (const cv of curves) { if (cv.ref === false) continue; for (let k = 1; k < cv.p.length; k++) top = Math.max(top, 10 * Math.log10(cv.p[k] + 1e-30)); }
+  const yy = (db) => (top - db) / dbRange * (h - 18);
+  for (const cv of curves) {
+    g.strokeStyle = cv.col; g.lineWidth = cv.lw || 1.2; g.setLineDash(cv.dash || []); g.beginPath(); let started = false;
+    for (let k = 1; k < cv.p.length; k++) { const f = k * cv.df; if (f < FLO || f > FHI) continue; const y = Math.min(h - 16, yy(10 * Math.log10(cv.p[k] + 1e-30))); const x = fx(f, w); if (!started) { g.moveTo(x, y); started = true; } else g.lineTo(x, y); }
+    g.stroke(); g.setLineDash([]);
+  }
+  g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.fillText('0 dB', w - 34, 10); g.fillText('−' + dbRange + ' dB', w - 46, h - 18);
+}
+function drawOnsets(c, cl) {
+  const { g, w, h } = fitCanvas(c, 150); g.clearRect(0, 0, w, h);
+  const dur = 1, L = S.lenMs / 1000;
+  const rnd = Grains.mulberry(9); // only for vertical jitter when there is no spread
+  g.fillStyle = 'rgba(232,184,74,.55)';
+  let i = 0; for (const t of cl.onsets) { if (t > dur) break; const y = S.spread ? h / 2 + (rnd() - 0.5) * (h - 30) : h / 2 + (rnd() - 0.5) * 30; g.fillRect(t / dur * w, y - 2, Math.max(1.5, L / dur * w), 4); i++; }
+  // loudness, 10 ms frames, over the same second
+  const F = Math.round(0.01 * SR), fr = []; for (let s = 0; s + F <= Math.min(cl.x.length, SR); s += F) { let a = 0; for (let k = 0; k < F; k++) a += cl.x[s + k] ** 2; fr.push(Math.sqrt(a / F)); }
+  const mx = Math.max(...fr, 1e-9); g.strokeStyle = '#33e0c8'; g.lineWidth = 1; g.beginPath(); fr.forEach((v, k) => { const x = k / fr.length * w, y = h - 4 - v / mx * 40; k ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke();
+  g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.fillText('the first second · bars: grains · line: loudness', 6, 12);
+}
+
+// ---- steps
+function slider({ label, min, max, get, set, fmt, log, step }) {
+  const span = el('b'); const input = el('input', { type: 'range', min: 0, max: 1000, step: 1, 'aria-label': label });
+  const toPos = v => Math.round(log ? Math.log(v / min) / Math.log(max / min) * 1000 : (v - min) / (max - min) * 1000);
+  const fromPos = p => { let v = log ? min * Math.pow(max / min, p / 1000) : min + (max - min) * p / 1000; if (step) v = Math.round(v / step) * step; return v; };
+  input.value = toPos(get()); const show = () => { span.textContent = fmt(get()); };
+  let t = 0; input.addEventListener('input', () => { set(fromPos(+input.value)); show(); clearTimeout(t); t = setTimeout(() => { refreshSound(); }, 160); soon(); }); show();
+  return el('label', { class: 'gs-sl' }, label + ' · ', span, input);
+}
+function choose(cap, opts, get, set) {
+  return el('div', { class: 'gs-btns' }, el('span', { class: 'gs-cap' }, cap), ...opts.map(([v, label]) => el('button', { 'aria-pressed': String(get() === v), class: get() === v ? 'gs-on' : '', on: { click: () => { set(v); build(); refreshSound(); } } }, label)));
+}
+function goBtn(tag, label, make) { return el('button', { class: 'gs-go', 'data-tag': tag, 'data-label': label, on: { click: () => { if (S.playing === tag) stopSound(); else playBuffer(make(), tag); } } }, S.playing === tag ? '❚❚ stop' : '▸ ' + label); }
+function paintGo() { document.querySelectorAll('button.gs-go').forEach(b => { const tag = b.getAttribute('data-tag'); b.textContent = S.playing === tag ? '❚❚ stop' : '▸ ' + (b.dataset.label || 'play'); }); }
+function refreshSound() { if (!S.playing) return; const tag = S.playing; if (tag === 'grain') playBuffer(grainLoop(), 'grain'); else if (tag === 'cloud') playBuffer(cloudNow().x, 'cloud'); }
+const fmtMs = v => v < 10 ? v.toFixed(1) + ' ms' : Math.round(v) + ' ms';
+const KIND = { rect: 'rectangle', hann: 'Hann', gauss: 'Gauss' };
+
+const STEPS = [
+  { n: 1, name: 'one grain',
+    says: '<b>One grain:</b> a sine at 440 Hz, cut to a length and faded in and out (a Hann window, the usual one). Slide the length. At 2 ms the grain holds less than one cycle and you hear a click with no pitch. Somewhere past a few cycles it starts to have a note. On the right, its spectrum: the shorter the grain, the wider its peak. That is the trade the grain lives on.',
+    stage: () => { const a = el('canvas', { id: 'wave' }), b = el('canvas', { id: 'spec' }); return el('div', { class: 'gs-grid' }, el('div', { class: 'gs-panel' }, el('div', { class: 'gs-plabel' }, el('span', {}, 'the grain · in time'), el('span', { id: 'wnote' })), a), el('div', { class: 'gs-panel' }, el('div', { class: 'gs-plabel' }, el('span', {}, 'its spectrum · log frequency'), el('span', {}, 'dB')), b)); },
+    controls: () => [el('div', { class: 'gs-btns' }, goBtn('grain', 'play', grainLoop)),
+      slider({ label: 'grain length', min: 1, max: 300, log: true, get: () => S.lenMs, set: v => { S.lenMs = v; }, fmt: fmtMs })],
+    eqs: [['grain(t) = w(t ⁄ T) · sin 2πft,   0 ≤ t < T', 'A grain is a sine at frequency f, lasting T seconds, shaped by a window w that rises from zero and falls back to it.'],
+          ['Δf ≈ c ⁄ T', 'How wide its spectrum is (Δf) is a number c, set by the window\'s shape, divided by how long the grain lasts (T). Halve the grain, double the width. For the Hann window, c is 2 at half amplitude.']],
+    back: 'The later steps keep the length you leave here.' },
+  { n: 2, name: 'the window',
+    says: '<b>The same grain, three shapes.</b> A rectangle cuts the sine off hard, and the spectrum shows it: a narrow peak with side lobes that fall slowly, which you hear as a click at each edge. Hann and Gauss fade in and out; their peaks are wider and their side lobes far lower. Gabor measured a grain by its spread in time times its spread in frequency, and the smallest that product can be is 1 ⁄ 4π, about 0.080, reached by the Gauss shape. That smallest grain is his acoustic quantum.',
+    stage: () => STEPS[0].stage(),
+    controls: () => [el('div', { class: 'gs-btns' }, goBtn('grain', 'play', grainLoop)),
+      choose('window', [['rect', 'rectangle'], ['hann', 'Hann'], ['gauss', 'Gauss']], () => S.kind, v => { S.kind = v; }),
+      slider({ label: 'grain length', min: 1, max: 300, log: true, get: () => S.lenMs, set: v => { S.lenMs = v; }, fmt: fmtMs })],
+    eqs: [['Δt · Δf ≥ 1 ⁄ 4π', 'The grain\'s spread in time (Δt, measured as a standard deviation) times its spread in frequency (Δf, the same way) can never fall below 1 ÷ 4π. Only a Gaussian grain reaches it. A hard-edged grain has no limit at all: the further up the spectrum you look, the more of its click you find.']],
+    back: 'Step 1 was the Hann window; the cloud and the test use the window you leave here.' },
+  { n: 3, name: 'a cloud',
+    says: '<b>Many grains.</b> The same grain, fired at random moments, so many a second. At a few a second you hear separate events. Raise the density and they overlap and fuse; spread their pitches and the cloud widens into a band. Watch the loudness line: the denser the cloud, the steadier it is.',
+    stage: () => el('div', { class: 'gs-grid' }, el('div', { class: 'gs-panel' }, el('div', { class: 'gs-plabel' }, el('span', {}, 'the cloud · first second'), el('span', { id: 'cnote' })), el('canvas', { id: 'onsets' })), el('div', { class: 'gs-panel' }, el('div', { class: 'gs-plabel' }, el('span', {}, 'its spectrum, measured · and one grain\'s'), el('span', {}, 'dB')), el('canvas', { id: 'cspec' }), el('div', { class: 'gs-legend', html: '<span style="color:#e8b84a">——</span> the cloud, measured · <span style="color:#8a8aa0">- - -</span> one grain, raised by the density' }))),
+    controls: () => [el('div', { class: 'gs-btns' }, goBtn('cloud', 'play', () => cloudNow().x)),
+      slider({ label: 'grains a second', min: 1, max: 2000, log: true, get: () => S.density, set: v => { S.density = v; }, fmt: v => v < 10 ? v.toFixed(1) : String(Math.round(v)) }),
+      slider({ label: 'pitch spread', min: 0, max: 24, step: 1, get: () => S.spread, set: v => { S.spread = v; }, fmt: v => v + ' semitones' })],
+    eqs: [['x(t) = Σ<sub>n</sub> grain<sub>n</sub>(t − t<sub>n</sub>)', 'The cloud is every grain added up, each started at its own moment t<sub>n</sub>. Here the moments are random, about λ of them a second: a Poisson stream.']],
+    back: 'Step 2\'s grain is this cloud\'s grain.' },
+  { n: 4, name: 'the test',
+    says: '<b>The claim.</b> <q>The grain is the atom; the cloud is the material.</q> If that is right, a cloud\'s color should come from its grain. For random onsets there is a law that says exactly how: the cloud\'s spectrum is one grain\'s, times the density (Campbell\'s theorem). Three clouds of your grain, 100 a second for six seconds, each measured and set against that prediction: random onsets at one pitch; the same grains at regular onsets; random onsets with pitches spread over an octave. The prediction has no free knob.',
+    stage: () => el('div', {}, el('div', { class: 'gs-grid3' }, ...['random', 'regular', 'spread'].map(k => el('div', { class: 'gs-panel' }, el('div', { class: 'gs-plabel' }, el('span', {}, { random: 'random onsets', regular: 'regular onsets', spread: 'random · an octave of pitches' }[k]), el('span', { id: 'miss-' + k })), el('canvas', { id: 'ts-' + k }), el('div', { class: 'gs-btns', style: 'margin-top:6px' }, goBtn('t-' + k, 'hear it', () => S.test.res[k].x))))),
+      el('div', { class: 'gs-legend', html: '<span style="color:#e8b84a">——</span> measured · <span style="color:#8a8aa0">- - -</span> predicted from one grain' })),
+    controls: () => [],
+    eqs: [['P(f) = λ · |G(f)|²', 'The cloud\'s power at each frequency (P) equals the number of grains a second (λ) times one grain\'s own power at that frequency, |G(f)|². With pitches spread, |G(f)|² is averaged over them. Nothing else enters: not the overlap, not which grain came when.'],
+          ['miss = √ mean( (10 log<sub>10</sub> P<sub>measured</sub> ⁄ P<sub>predicted</sub>)² )', 'How far apart the two curves sit, in decibels, averaged over every frequency where the grain has energy (within 30 dB of its peak).']],
+    back: 'The grain is step 2\'s: its length and window. Change them there and come back; the test runs again.' },
+];
+
+let soonT = 0; function soon() { if (S.step < 3) { update(); return; } clearTimeout(soonT); soonT = setTimeout(update, 90); }
+function update() {
+  const s = S.step, rd = [];
+  if (s === 1 || s === 2) {
+    const g = Grains.grain(SR, S.lenMs, 440, S.kind), x = new Float32Array(Math.max(g.length + 40, Math.round(SR * 0.004)));
+    for (let i = 0; i < g.length; i++) x[i + 20] = g[i];
+    drawWave($('wave'), x, fmtMs(S.lenMs) + ' · ' + KIND[S.kind]);
+    const sh = Grains.shape(SR, S.lenMs, 440, S.kind);
+    drawSpec($('spec'), [{ p: sh.p, df: sh.df, col: '#e8b84a' }], 80);
+    const cyc = S.lenMs / 1000 * 440;
+    rd.push('cycles of 440 Hz in the grain <b>' + (cyc < 10 ? cyc.toFixed(1) : Math.round(cyc)) + '</b>');
+    rd.push('width at half amplitude <b>' + Math.round(sh.width) + ' Hz</b>');
+    rd.push('length × width <b>' + (sh.width * S.lenMs / 1000).toFixed(2) + '</b>');
+    if (s === 2) {
+      rd.push('highest side lobe <b>' + sh.sideDb.toFixed(1) + ' dB</b>');
+      const gp = Grains.gabor(SR, Math.max(S.lenMs, 2), S.kind);
+      rd.push('Gabor\'s Δt·Δf <b>' + gp.toFixed(3) + '</b>' + (S.kind === 'rect' ? ' <span class="gs-flag">and climbing the further you look</span>' : ' <span style="color:#8a8aa0">(floor 0.080)</span>'));
+    }
+    $('wnote').textContent = cyc < 1 ? 'less than a cycle: a click' : cyc < 4 ? 'a few cycles' : 'enough cycles for a pitch';
+  }
+  if (s === 3) {
+    const cl = cloudNow(); drawOnsets($('onsets'), cl);
+    const N = 8192, m = Grains.welch(cl.x, N), p = Grains.predict({ SR, density: S.density, lenMs: S.lenMs, f0: 440, spreadSt: S.spread, kind: S.kind }, N);
+    drawSpec($('cspec'), [{ p: m, df: SR / N, col: '#e8b84a' }, { p, df: SR / N, col: '#8a8aa0', dash: [4, 4] }], 60);
+    const over = S.density * S.lenMs / 1000;
+    $('cnote').textContent = over < 0.5 ? 'mostly gaps' : over < 3 ? 'some overlap' : 'grains on top of grains';
+    rd.push('grains sounding at once, on average <b>' + (over < 10 ? over.toFixed(1) : Math.round(over)) + '</b>');
+    rd.push('gappiness <b>' + Grains.gappiness(cl.x, SR).toFixed(2) + '</b>');
+  }
+  if (s === 4) {
+    const key = S.lenMs.toFixed(3) + S.kind;
+    if (S.testFor !== key) { S.test = Grains.test(SR, S.lenMs, S.kind); S.testFor = key; }
+    const T = S.test;
+    for (const k of ['random', 'regular', 'spread']) { const r = T.res[k]; drawSpec($('ts-' + k), [{ p: r.meas, df: SR / T.N, col: '#e8b84a' }, { p: r.pred, df: SR / T.N, col: '#8a8aa0', dash: [4, 4], lw: 1.5 }], 60, 150); $('miss-' + k).textContent = 'miss ' + r.miss.toFixed(1) + ' dB'; }
+    const lv = T.lv;
+    rd.push('random onsets miss by <b>' + T.res.random.miss.toFixed(1) + ' dB</b>');
+    rd.push('regular onsets miss by <b>' + T.res.regular.miss.toFixed(1) + ' dB</b>');
+    rd.push('an octave of pitches misses by <b>' + T.res.spread.miss.toFixed(1) + ' dB</b>');
+    rd.push('density 20 → 2000: level <b>+' + (lv[2000].db - lv[20].db).toFixed(1) + ' dB</b> (predicted +20.0), shape misses by <b>' + lv[20].miss.toFixed(1) + '</b> and <b>' + lv[2000].miss.toFixed(1) + ' dB</b>');
+    const ok = T.res.random.miss < 2 && T.res.spread.miss < 2, bad = T.res.regular.miss > 4;
+    $('verdictbox').innerHTML = '<div class="gs-verdict">' + (ok && bad
+      ? '<b>The claim holds for random onsets, and only for them.</b> A cloud fired at random moments has exactly its grain\'s color, raised by the density: the measured curve sits on the prediction within ' + Math.max(T.res.random.miss, T.res.spread.miss).toFixed(1) + ' dB, at one pitch or many, and a hundred times the density only lifts it ' + (lv[2000].db - lv[20].db).toFixed(1) + ' dB. Fire the same grains on a regular clock and the prediction misses by ' + T.res.regular.miss.toFixed(1) + ' dB: the clock lays a comb of lines 100 Hz apart over the grain\'s color, and you hear a buzz at 100 Hz that no grain carries. So the atom sets the color; the statistics of <i>when</i> decide whether anything new appears, and density decides how smooth it is, not what color it is. What a random cloud adds is texture, not timbre.'
+      : 'The readings came out differently from the run this page was checked against (random within 2 dB, regular over 4 dB). Read the curves: where the measured line leaves the dashed one is where the cloud is doing something its grain does not.') + '</div>';
+  } else $('verdictbox').innerHTML = '';
+  $('read').innerHTML = rd.map(x => '<span>' + x + '</span>').join('');
+}
+function build() {
+  const s = STEPS[S.step - 1];
+  const rail = $('rail'); rail.innerHTML = '';
+  STEPS.forEach(t => rail.append(el('button', { 'aria-pressed': String(t.n === S.step), on: { click: () => goTo(t.n) } }, t.n + ' · ' + t.name)));
+  $('stepname').textContent = s.n + ' · ' + s.name; $('stepof').textContent = 'step ' + s.n + ' of ' + STEPS.length;
+  $('says').innerHTML = s.says;
+  $('stage').innerHTML = ''; $('stage').append(s.stage());
+  const c = $('controls'); c.innerHTML = ''; s.controls().forEach(x => c.append(x));
+  $('eqs').innerHTML = ''; s.eqs.forEach(([sym, words]) => $('eqs').append(el('div', { class: 'gs-eq', html: sym }), el('div', { class: 'gs-words', html: words })));
+  $('backline').textContent = s.back;
+  $('prev').disabled = S.step === 1; $('next').disabled = S.step === STEPS.length;
+  update(); paintGo();
+}
+function goTo(n) { if (n !== S.step) { stopSound(); S.step = n; build(); } }
+$('prev').addEventListener('click', () => goTo(Math.max(1, S.step - 1)));
+$('next').addEventListener('click', () => goTo(Math.min(STEPS.length, S.step + 1)));
+let rz = 0; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(update, 120); });
+build();
+</script>
+</body>
+</html>
