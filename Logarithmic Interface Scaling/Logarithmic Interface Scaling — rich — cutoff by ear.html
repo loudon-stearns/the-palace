@@ -1,0 +1,390 @@
+<!doctype html>
+<!--
+  title: Logarithmic Interface Scaling — rich — cutoff by ear
+  born: 2026-11-03
+  links: [[Logarithmic Interface Scaling]] (connects-to · rich-face-piece) · listed in [[Logarithmic Interface Scaling — rich.json]] · serves § When to Use This Pattern · the ratio knob it points to is [[Boundary-Crossing Instruments]]' face, "ratio and slope"
+  forward_vector: I am the page's diagnostic put to the ear. One filter cutoff at 1 kHz, halved and doubled; then a linear cutoff knob from 20 Hz to 20 kHz and where it spends its travel; then the same knob mapped in ratio; and last a blind test of five moves, each the same distance down and up the knob, where you say whether the two sounded the same size. I change only when the section I serve does.
+  sound: nothing plays until Play is clicked; the AudioContext is made on that click. Changing step stops the sound.
+  check: Logarithmic Interface Scaling/Logarithmic Interface Scaling — rich — check.mjs runs this page's core in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Cutoff by ear · does down sound as big as up?</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10);
+    --info:#4a8fff; --warn:#e8651b;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  .fader canvas{width:100%;height:70px;display:block;touch-action:none;cursor:pointer;border-radius:4px;outline:none}
+  .fader canvas:focus-visible{box-shadow:0 0 0 1px var(--accent-dim)}
+  .fader[hidden]{display:none}
+  .fader .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .fader .v{font-family:var(--mono);font-size:15px;color:var(--fg-1)}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  .rowb[hidden]{display:none}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.op{font-family:var(--mono);font-size:15px;color:var(--fg-1);background:var(--bg-elev-2);border:1px solid var(--border);border-radius:4px;padding:7px 18px;cursor:pointer}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .seq{font-family:var(--mono);font-size:13px;color:var(--fg-3);letter-spacing:.08em}
+  .seq b{color:var(--accent);font-weight:400}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter i{color:var(--warn);font-style:normal}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 12px 5px 0;text-align:left;font-weight:400}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  p.note{font-family:var(--sans);font-size:14px;color:var(--fg-2);margin:12px 0 0;max-width:72ch;line-height:1.6}
+  p.note[hidden]{display:none}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;gap:10px;align-items:center}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Logarithmic Interface Scaling · when to use this pattern · four steps</div>
+  <h1>Cutoff by ear</h1>
+  <p class="lead">The page’s diagnostic: does doubling feel like the same gesture as halving? Here it is asked of a filter cutoff, a value that spans three decades, 20 Hz to 20 kHz, and is heard by the ear rather than read off a number. A buzzy tone runs through a resonant low-pass filter, so you hear the cutoff as a bright peak that moves. Four steps; the last is blind. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Hear</span><span class="hint" id="hearHint"></span><button class="play" id="play">Play</button></div>
+    <div class="fader" id="knobWrap">
+      <div class="head"><span class="eyebrow" id="knobName">Cutoff</span><span class="v" id="knobV"></span></div>
+      <canvas id="knob" tabindex="0" role="slider" aria-label="Filter cutoff"></canvas>
+    </div>
+    <div class="rowb" id="opsRow" hidden>
+      <span class="eyebrow">move the cutoff</span>
+      <button class="op" id="half">÷ 2</button>
+      <button class="op" id="dbl">× 2</button>
+      <button class="ghost" id="toK">back to 1 kHz</button>
+      <button class="ghost" id="sweep">Sweep end to end, 8 s</button>
+    </div>
+    <div id="testBox" hidden>
+      <div class="rowb"><span class="eyebrow" id="pairLabel">Move 1 of 5</span>
+        <span class="seq" id="seq">start · down · start · up · start</span>
+      </div>
+      <div class="rowb"><span class="eyebrow">the move down was</span>
+        <button class="ghost" data-rate="-1">Bigger than the move up</button>
+        <button class="ghost" data-rate="0">The same size</button>
+        <button class="ghost" data-rate="1">Smaller than the move up</button>
+      </div>
+      <table class="marks" id="reveal" hidden><thead><tr><th>move</th><th>knob</th><th>from</th><th>travel</th><th>down to</th><th>up to</th><th>octaves down · up</th><th>Hz down · up</th><th>you heard down as</th></tr></thead><tbody></tbody></table>
+      <p class="note" id="revealNote" hidden></p>
+      <div class="rowb" id="againRow" hidden><button class="ghost" id="again">Run the five moves again, reshuffled</button></div>
+    </div>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+  <div class="try" id="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg><span><b>LOUD’N LIVE</b> · Logarithmic Interface Scaling · cutoff by ear · Sketch, 2026-11-03</span></footer>
+</main>
+
+<!-- The core. Plain functions, shared by the page and the headless check. Travel p runs 0 to 1. -->
+<script id="lis-c-core">
+var LISC = { LO: 20, HI: 20000, START: 1000, Q: 6, SWEEP: 8,
+  // the blind test: five moves, each the same knob travel down and then up from one start
+  PAIRS: [
+    { id: 'a', map: 'log', from: 1000, travel: 0.10 },
+    { id: 'b', map: 'lin', from: 1000, travel: 0.025 },
+    { id: 'c', map: 'lin', from: 1000, travel: 0.045 },
+    { id: 'd', map: 'log', from: 300,  travel: 0.06 },
+    { id: 'e', map: 'lin', from: 10000, travel: 0.10 }
+  ] };
+function cutLin(p){ return LISC.LO + (LISC.HI - LISC.LO) * p; }
+function posLin(f){ return (f - LISC.LO) / (LISC.HI - LISC.LO); }
+function cutLog(p){ return LISC.LO * Math.pow(LISC.HI / LISC.LO, p); }
+function posLog(f){ return Math.log(f / LISC.LO) / Math.log(LISC.HI / LISC.LO); }
+var CMAPS = { lin: { val: cutLin, pos: posLin }, log: { val: cutLog, pos: posLog } };
+function octaves(f1, f0){ return Math.log2(f1 / f0); }
+// one move of the test: the same travel down and up from the start, in Hz and in octaves
+function pairMove(P){
+  var m = CMAPS[P.map], p0 = m.pos(P.from), down = m.val(p0 - P.travel), up = m.val(p0 + P.travel);
+  return { down: down, up: up, octDown: octaves(down, P.from), octUp: octaves(up, P.from), hzDown: down - P.from, hzUp: up - P.from };
+}
+// what each ruler predicts for "the move down was …": −1 bigger, 0 the same, +1 smaller than the move up.
+// A ruler calls two moves the same size when they are within 25% of each other on it.
+function predict(P, ruler){
+  var r = pairMove(P), a = ruler === 'oct' ? Math.abs(r.octDown) : Math.abs(r.hzDown), b = ruler === 'oct' ? Math.abs(r.octUp) : Math.abs(r.hzUp);
+  if (Math.max(a, b) / Math.min(a, b) < 1.25) return 0;
+  return a > b ? -1 : 1;
+}
+// the verdict: a ruler is named only if every pair where the two rulers disagree was answered as that ruler predicts
+function rulerOf(answers){
+  var split = LISC.PAIRS.filter(function(P){ return predict(P, 'oct') !== predict(P, 'hz'); });
+  var oct = split.every(function(P){ return answers[P.id] === predict(P, 'oct'); });
+  var hz = split.every(function(P){ return answers[P.id] === predict(P, 'hz'); });
+  return oct ? 'oct' : hz ? 'hz' : 'none';
+}
+// a sweep at constant knob speed: the share of its time spent between two cutoffs
+function sweepShare(map, f0, f1){ return Math.abs(CMAPS[map].pos(f1) - CMAPS[map].pos(f0)); }
+</script>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var hz = function(f){ return f >= 1000 ? (f / 1000).toFixed(f >= 10000 ? 1 : 2) + ' kHz' : Math.round(f) + ' Hz'; };
+  var pc = function(x, d){ return (x * 100).toFixed(d == null ? 1 : d) + '%'; };
+  var sg = function(x, d){ return (x >= 0 ? '+' : '−') + Math.abs(x).toFixed(d); };
+  var ACC = '#e8b84a', FG3 = '#8a8aa0', FG4 = '#4a4a5a', INFO = '#4a8fff';
+
+  // ---------- audio: three sawtooth voices into one resonant low-pass ----------
+  var ctx = null, filt = null, out = null, voices = [], playing = false, seqTimer = 0;
+  function ensure(){
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    filt = ctx.createBiquadFilter(); filt.type = 'lowpass'; filt.Q.value = LISC.Q; filt.frequency.value = LISC.START;
+    out = ctx.createGain(); out.gain.value = 0;
+    var safety = ctx.createDynamicsCompressor(); safety.threshold.value = -6; safety.ratio.value = 20; safety.knee.value = 0; safety.attack.value = 0.003; safety.release.value = 0.1;
+    filt.connect(out); out.connect(safety); safety.connect(ctx.destination);
+  }
+  function startVoices(){
+    stopVoices();
+    [[55, 0.5], [55.35, 0.5], [110.2, 0.3]].forEach(function(v){ var o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = v[0]; var g = ctx.createGain(); g.gain.value = v[1] * 0.18; o.connect(g); g.connect(filt); o.start(); voices.push(o); });
+    out.gain.cancelScheduledValues(ctx.currentTime); out.gain.setValueAtTime(0, ctx.currentTime); out.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 0.05);
+  }
+  function stopVoices(){ voices.forEach(function(o){ try { o.stop(); o.disconnect(); } catch(e){} }); voices = []; if (out) { out.gain.cancelScheduledValues(ctx.currentTime); out.gain.setValueAtTime(0, ctx.currentTime); } }
+  function setCut(f, glide){ if (!filt) return; var t = ctx.currentTime; filt.frequency.cancelScheduledValues(t); filt.frequency.setTargetAtTime(f, t, glide == null ? 0.015 : glide); }
+  function stop(){ playing = false; clearTimeout(seqTimer); seqTimer = 0; cancelSweep(); stopVoices(); $('play').textContent = STEPS[step].test ? 'Play this move' : 'Play'; seqShow(-1); }
+
+  // ---------- the knob, drawn on a canvas so travel is measured exactly ----------
+  var kv = $('knob'), K = { map: 'lin', p: posLin(LISC.START), last: null, anim: 0 }, PAD = 18;
+  function kVal(){ return CMAPS[K.map].val(K.p); }
+  function kSet(p, why){ K.p = Math.max(0, Math.min(1, p)); if (playing && STEPS[step].view !== 'test') setCut(kVal()); kv.setAttribute('aria-valuenow', String(Math.round(kVal()))); meter(); }
+  function kAnimate(p, ms){ cancelAnimationFrame(K.anim); var p0 = K.p, t0 = performance.now(); (function tick(now){ var u = Math.min(1, (now - t0) / ms), e = u < .5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2; kSet(p0 + (p - p0) * e, 'anim'); if (u < 1) K.anim = requestAnimationFrame(tick); })(t0); }
+  function kFrom(e){ var r = kv.getBoundingClientRect(); return (e.clientX - r.left - PAD) / (r.width - 2 * PAD); }
+  var drag = false;
+  kv.addEventListener('pointerdown', function(e){ drag = true; kv.setPointerCapture(e.pointerId); cancelSweep(); cancelAnimationFrame(K.anim); K.last = null; kSet(kFrom(e), 'hand'); kv.focus(); });
+  kv.addEventListener('pointermove', function(e){ if (drag) kSet(kFrom(e), 'hand'); });
+  kv.addEventListener('pointerup', function(){ drag = false; });
+  kv.addEventListener('pointercancel', function(){ drag = false; });
+  kv.addEventListener('keydown', function(e){ var d = e.shiftKey ? 0.01 : 0.001, k = e.key;
+    if (k === 'ArrowRight' || k === 'ArrowUp') kSet(K.p + d, 'hand'); else if (k === 'ArrowLeft' || k === 'ArrowDown') kSet(K.p - d, 'hand'); else return; cancelSweep(); e.preventDefault(); });
+  function drawKnob(){
+    var r = kv.getBoundingClientRect(), d = window.devicePixelRatio || 1, W = Math.round(r.width * d), H = Math.round(70 * d);
+    if (!W) return;
+    if (kv.width !== W || kv.height !== H){ kv.width = W; kv.height = H; }
+    var g = kv.getContext('2d'), x0 = PAD * d, x1 = W - PAD * d, ty = 22 * d, X = function(p){ return x0 + p * (x1 - x0); }, m = CMAPS[K.map];
+    g.clearRect(0, 0, W, H);
+    // the top octave, 10 to 20 kHz, shaded
+    g.fillStyle = 'rgba(74,143,255,0.14)'; g.fillRect(X(m.pos(10000)), ty - 7 * d, X(1) - X(m.pos(10000)), 14 * d);
+    g.fillStyle = '#1a1a28'; g.fillRect(x0, ty - 2 * d, x1 - x0, 4 * d);
+    g.strokeStyle = 'rgba(255,255,255,0.10)'; g.lineWidth = d; g.strokeRect(x0, ty - 2 * d, x1 - x0, 4 * d);
+    if (K.last){ var a = X(K.last[0]), b = X(K.last[1]); g.strokeStyle = INFO; g.lineWidth = 1.5 * d; g.beginPath(); g.moveTo(a, ty - 11 * d); g.lineTo(a, ty - 15 * d); g.lineTo(b, ty - 15 * d); g.lineTo(b, ty - 11 * d); g.stroke(); }
+    g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.textAlign = 'center';
+    var ticks = [20, 40, 80, 160, 320, 640, 1280, 2560, 5120, 10240, 20000], lastX = -1e9;
+    ticks.forEach(function(f){ var x = X(m.pos(f)); g.fillStyle = FG3; g.fillRect(x - 0.5 * d, ty + 6 * d, d, 6 * d); });
+    [[20, '20'], [100, '100'], [1000, '1k'], [10000, '10k'], [20000, '20k']].forEach(function(t){ var x = X(m.pos(t[0])); if (x - lastX < 26 * d) return; g.fillStyle = t[0] === 1000 ? ACC : FG3; g.fillText(t[1], x, ty + 26 * d); lastX = x; });
+    g.fillStyle = FG4; g.textAlign = 'left'; g.fillText('ticks: every octave from 20 Hz · blue: the top octave, 10 to 20 kHz', x0, ty + 42 * d);
+    var xt = X(K.p); g.fillStyle = ACC; g.beginPath(); g.arc(xt, ty, 7 * d, 0, 2 * Math.PI); g.fill(); g.fillStyle = '#0a0a0f'; g.beginPath(); g.arc(xt, ty, 2.5 * d, 0, 2 * Math.PI); g.fill();
+  }
+
+  // ---------- the sweep: constant knob speed, scheduled on the filter itself ----------
+  var sweep = null;
+  function cancelSweep(){ if (!sweep) return; cancelAnimationFrame(sweep.raf); sweep = null; if (playing) setCut(kVal()); }
+  function startSweep(){
+    if (!playing) return;
+    cancelSweep(); K.last = null;
+    var t0 = ctx.currentTime + 0.02, T = LISC.SWEEP;
+    filt.frequency.cancelScheduledValues(ctx.currentTime); filt.frequency.setValueAtTime(LISC.LO, t0);
+    if (K.map === 'lin') filt.frequency.linearRampToValueAtTime(LISC.HI, t0 + T); else filt.frequency.exponentialRampToValueAtTime(LISC.HI, t0 + T);
+    sweep = { t0: t0 };
+    (function tick(){ if (!sweep) return; var u = (ctx.currentTime - sweep.t0) / T; K.p = Math.max(0, Math.min(1, u)); meter(); if (u < 1) sweep.raf = requestAnimationFrame(tick); else { sweep = null; } })();
+  }
+
+  // ---------- the four steps ----------
+  var STEPS = [
+    { title: 'One cutoff', short: 'One cutoff', view: 'one', ops: true, map: 'log',
+      say: 'A buzzy tone through a low-pass filter set at 1 kHz. The filter is resonant, so the cutoff is a bright peak you can hear as a sort of pitch. Halve it and the peak drops an octave; double it and it rises one. Those two moves sound like the same size of step in opposite directions.',
+      hint: 'three sawtooth voices at 55 and 110 Hz, through one resonant low-pass',
+      eq1: ['f = 1000 × 2^k', '(cutoff) = 1 kHz × 2 to the power of (how many octaves up; negative is down)'],
+      eq2: ['÷ 2 → k = −1        × 2 → k = +1', 'halving is one octave down, doubling one octave up'],
+      tryText: 'Press Play, then ÷ 2 and × 2 a few times. Listen to the peak move by the same interval each way.' },
+    { title: 'A linear cutoff knob', short: 'Linear', view: 'knob', ops: true, map: 'lin',
+      say: 'Now put the cutoff on a knob from 20 Hz to 20 kHz, mapped the plain way: equal travel adds equal hertz. 1 kHz sits 4.9% of the way along. The blue band at the right is one octave, 10 to 20 kHz, and it is half the knob. The bottom five octaves, 20 to 640 Hz, fit in 3.1%.',
+      hint: 'the same tone, the cutoff on a linear knob',
+      eq1: ['f = 20 + 19 980 × p', '(cutoff in Hz) = 20 + 19 980 × (how far along the knob, 0 to 1)'],
+      eq2: ['Δp(× 2 from f) = f ÷ 19 980', '(travel a doubling costs) = (the cutoff now) ÷ 19 980: 5.0% from 1 kHz, 50% from 10 kHz'],
+      tryText: 'Press Sweep: the knob turns at a steady speed for 8 seconds. Listen to where the time goes. Then from 1 kHz press ÷ 2 and × 2, and drag by hand below 200 Hz.' },
+    { title: 'A log cutoff knob', short: 'Log', view: 'knob', ops: true, map: 'log',
+      say: 'The same knob mapped the page’s way: equal travel multiplies the cutoff by the same amount. Every octave now takes the same 10% of the knob, and 1 kHz sits 57% of the way along. Twenty to twenty thousand is three decades, about ten octaves.',
+      hint: 'the same tone, the cutoff on a log knob',
+      eq1: ['f = 20 × 1000^p', '(cutoff in Hz) = 20 × 1000 to the power of (how far along the knob, 0 to 1)'],
+      eq2: ['Δp(× 2) = Δp(÷ 2) = log 2 ÷ log 1000 = 0.100', 'every octave, up or down, costs 10% of the travel'],
+      tryText: 'Press Sweep again. The peak now rises by the same interval every 0.8 seconds. Then try ÷ 2 and × 2 from anywhere.' },
+    { title: 'Down and up, by ear', short: 'The test', view: 'test', test: true,
+      say: 'The test. Five moves, each played as one gesture made twice: the knob goes down by some distance from a start, comes back, then goes up by the same distance. The knob is hidden, and so is whether it is linear or log. Say whether the move down sounded bigger than the move up, the same size, or smaller. Only after the fifth does the piece say what each move was.',
+      hint: 'the same tone, a knob you cannot see',
+      eq1: ['down = f(p₀ − Δp),  up = f(p₀ + Δp)', 'one start, one distance on the knob, once down and once up'],
+      eq2: ['same size?  in octaves: |log₂(down ÷ f₀)| vs |log₂(up ÷ f₀)|        in Hz: |down − f₀| vs |up − f₀|', 'two rulers for the size of a move: octaves, which is ratio, and plain hertz'],
+      tryText: 'Press Play this move, listen, answer, and the next move comes up. Play a move as often as you like before answering.' }
+  ];
+
+  var rail = $('rail'), step = 0;
+  STEPS.forEach(function(s, i){ var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short; b.addEventListener('click', function(){ go(i); }); rail.appendChild(b); });
+
+  var lastMove = null;
+  function doMove(k){
+    cancelSweep(); var m = CMAPS[K.map], f = kVal(), to = Math.max(LISC.LO, Math.min(LISC.HI, f * k)), p0 = K.p, p1 = m.pos(to);
+    K.last = [p0, p1]; kAnimate(p1, 380); lastMove = { k: k, from: f, to: to, travel: Math.abs(p1 - p0), clipped: to !== f * k };
+  }
+  $('half').addEventListener('click', function(){ doMove(0.5); });
+  $('dbl').addEventListener('click', function(){ doMove(2); });
+  $('toK').addEventListener('click', function(){ cancelSweep(); K.last = null; lastMove = null; kAnimate(CMAPS[K.map].pos(LISC.START), 300); });
+  $('sweep').addEventListener('click', function(){ if (!playing) { $('play').click(); } setTimeout(startSweep, 60); });
+
+  // ---------- the blind test ----------
+  var test = null;
+  function newTest(){
+    var order = LISC.PAIRS.slice();
+    for (var i = order.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)), t = order[i]; order[i] = order[j]; order[j] = t; }
+    test = { order: order, i: 0, answers: {} };
+    $('reveal').hidden = true; $('revealNote').hidden = true; $('againRow').hidden = true; syncTest();
+  }
+  function done(){ return test && test.i >= test.order.length; }
+  function syncTest(){
+    if (!test) return;
+    var fin = done();
+    $('pairLabel').textContent = fin ? 'All five heard' : 'Move ' + (test.i + 1) + ' of 5';
+    Array.prototype.forEach.call(document.querySelectorAll('[data-rate]'), function(b){ b.disabled = fin; });
+    $('play').disabled = fin && STEPS[step].test;
+  }
+  var SEQ = ['start', 'down', 'start', 'up', 'start'];
+  function seqShow(k){ $('seq').innerHTML = SEQ.map(function(w, j){ return j === k ? '<b>' + w + '</b>' : w; }).join(' · '); }
+  function playPair(){
+    var P = test.order[test.i], r = pairMove(P), steps = [P.from, r.down, P.from, r.up, P.from], holds = [0.8, 0.9, 0.7, 0.9, 0.6], k = 0;
+    filt.frequency.cancelScheduledValues(ctx.currentTime); filt.frequency.setValueAtTime(P.from, ctx.currentTime);
+    (function next(){
+      if (!playing) return;
+      if (k >= steps.length){ stop(); return; }
+      setCut(steps[k], k === 0 ? 0.001 : 0.03); seqShow(k);
+      seqTimer = setTimeout(next, holds[k++] * 1000);
+    })();
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-rate]'), function(b){
+    b.addEventListener('click', function(){
+      if (!test || done()) return;
+      test.answers[test.order[test.i].id] = +b.getAttribute('data-rate');
+      if (playing) stop();
+      test.i++; syncTest(); if (done()) reveal(); meter();
+    });
+  });
+  $('again').addEventListener('click', function(){ newTest(); meter(); });
+  function reveal(){
+    var tb = $('reveal').querySelector('tbody'); tb.innerHTML = '';
+    var said = { '-1': 'bigger', '0': 'the same', '1': 'smaller' };
+    test.order.forEach(function(P, n){
+      var r = pairMove(P), tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + (n + 1) + '</td><td>' + (P.map === 'lin' ? 'linear' : 'log') + '</td><td>' + hz(P.from) + '</td><td>' + pc(P.travel) + '</td><td>' + hz(r.down) + '</td><td>' + hz(r.up) + '</td>' +
+        '<td>' + sg(r.octDown, 2) + ' · ' + sg(r.octUp, 2) + '</td><td>' + sg(r.hzDown, 0) + ' · ' + sg(r.hzUp, 0) + '</td><td><b>' + said[String(test.answers[P.id])] + '</b></td>';
+      tb.appendChild(tr);
+    });
+    var v = rulerOf(test.answers), note;
+    if (v === 'oct') note = 'Your answers follow octaves: every move the two rulers disagree on, you heard as octaves count it. On a log knob the same distance down and up is the same number of octaves, so by your ear the log knob passed the page’s diagnostic and the linear knob, near 1 kHz, failed it.';
+    else if (v === 'hz') note = 'Your answers follow plain hertz: every move the two rulers disagree on, you heard as hertz count it. That is unusual for a cutoff; play the moves again before reading much into it.';
+    else note = 'Your answers pick no ruler: on the moves where octaves and hertz disagree, they matched neither all the way. Five moves is a small sample, and the level also changes as the cutoff falls. Run them again, reshuffled.';
+    note += ' The move from 10 kHz on the linear knob is near the same size both ways on either ruler: high up, small moves on a linear knob hardly show its fault. Whichever ruler your ear used, the diagnostic is a question about what you hear, not about the number. A compressor’s ratio knob, from 1:1 to 100:1, spans two decades too, and on a log taper doubling it is the same gesture as halving it; yet Boundary-Crossing Instruments’ face measures that knob’s last third, 20:1 to 100:1, moving the loudest hit under 1 dB, because what the hit loses in decibels goes as one over the ratio, not as the ratio. Its own face lets you hear it.';
+    $('revealNote').textContent = note;
+    $('reveal').hidden = false; $('revealNote').hidden = false; $('againRow').hidden = false;
+  }
+
+  // ---------- play ----------
+  $('play').addEventListener('click', function(){
+    ensure(); if (ctx.state === 'suspended') ctx.resume();
+    if (playing){ stop(); return; }
+    playing = true; $('play').textContent = 'Stop';
+    startVoices();
+    if (STEPS[step].test){ if (!done()) playPair(); }
+    else setCut(kVal(), 0.001);
+  });
+
+  function meter(){
+    var s = STEPS[step], h = [];
+    $('knobV').textContent = s.test ? '' : hz(kVal());
+    if (s.test){
+      if (!done()) h.push('moves answered: <b>' + test.i + '</b> of 5');
+    } else {
+      var m = CMAPS[K.map], f = kVal();
+      h.push('cutoff <b>' + hz(f) + '</b> at <b>' + pc(K.p) + '</b> of the knob · <b>' + sg(octaves(f, 1000), 2) + '</b> octaves from 1 kHz');
+      if (s.view === 'knob'){
+        h.push('1 kHz sits at <b>' + pc(m.pos(1000)) + '</b> · the top octave, 10 to 20 kHz, takes <b>' + pc(sweepShare(K.map, 10000, 20000)) + '</b> · the bottom five octaves, 20 to 640 Hz, take <b>' + pc(sweepShare(K.map, 20, 640)) + '</b>');
+        h.push('in an 8 s sweep: <b>' + (sweepShare(K.map, 10000, 20000) * LISC.SWEEP).toFixed(2) + ' s</b> in the top octave, <b>' + (sweepShare(K.map, 20, 640) * LISC.SWEEP).toFixed(2) + ' s</b> in the bottom five');
+      }
+      if (lastMove) h.push((lastMove.k === 2 ? '× 2' : '÷ 2') + ' from ' + hz(lastMove.from) + ' to ' + hz(lastMove.to) + ' took <b>' + pc(lastMove.travel) + '</b> of the knob' + (lastMove.clipped ? ' <i>(stopped at the end)</i>' : ''));
+    }
+    $('meter').innerHTML = h.join('<br>');
+  }
+
+  function go(i){
+    if (playing) stop();
+    step = i; var s = STEPS[i];
+    Array.prototype.forEach.call(rail.children, function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    $('stepEyebrow').textContent = 'Step ' + (i + 1) + ' of ' + STEPS.length + (s.test ? ' · the test' : '');
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say; $('hearHint').textContent = s.hint;
+    $('eq1').textContent = s.eq1[0]; $('eq1w').textContent = s.eq1[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('tryText').textContent = s.tryText;
+    $('knobWrap').hidden = !!s.test || s.view === 'one';
+    $('opsRow').hidden = !s.ops; $('sweep').hidden = s.view !== 'knob';
+    $('testBox').hidden = !s.test;
+    $('play').textContent = s.test ? 'Play this move' : 'Play'; $('play').disabled = false;
+    if (s.map){ K.map = s.map; $('knobName').textContent = s.map === 'lin' ? 'Cutoff · linear knob, 20 Hz to 20 kHz' : 'Cutoff · log knob, 20 Hz to 20 kHz'; }
+    K.p = CMAPS[K.map].pos(LISC.START); K.last = null; lastMove = null;
+    if (s.test && !test) newTest(); syncTest(); seqShow(-1);
+    $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
+    meter();
+  }
+  $('back').addEventListener('click', function(){ if (step > 0) go(step - 1); });
+  $('next').addEventListener('click', function(){ if (step < STEPS.length - 1) go(step + 1); });
+
+  function frame(){ requestAnimationFrame(frame); if (!$('knobWrap').hidden) drawKnob(); }
+  (function(){ var d = ''; for (var i = 0; i <= 200; i++){ var a = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (9 * Math.sin(3 * a + 0.5)).toFixed(2) + ' ' + (9 * Math.sin(2 * a)).toFixed(2); } $('sigil').setAttribute('d', d); })();
+  go(0); frame();
+})();
+</script>
+</body>
+</html>
