@@ -248,15 +248,16 @@ const CS = (() => {
     { c: 7, sys: 'monoclinic', order: 4, formula: 'orthoclase’s optics; partials guessed', guess: true },
     { c: 8, sys: 'triclinic', order: 2, formula: 'plagioclase · C-1' },
   ];
-  // The page's hypothesis for each system, in its own words, as printed when this piece was made (2026-11-03).
+  // The page's hypothesis for each system, whole and in its own words, as printed when this piece was made (2026-11-03);
+  // where the page adds a sentence naming the mineral that proves it, that sentence follows a ·.
   const HYP = {
-    cubic: 'thick, bright, rich partials — high-frequency modes densely packed, clustering near the zone boundary',
-    tetragonal: 'slightly pinched, with directional coloration — two interleaved mode families from the axis asymmetry',
-    orthorhombic: 'less dense in high frequencies, more separated partials … balanced, complex, neither brilliant nor alien',
-    hexagonal: 'birefringent — a doubled, shimmery quality from two distinct propagation velocities',
-    trigonal: 'near-hexagonal with subtle asymmetries — a slight irregularity in partial spacing that adds shimmer … audible as a slow beating or natural chorus',
-    monoclinic: 'complex, inharmonic — no simple pattern to partial spacing, more bell-like and unpredictable',
-    triclinic: 'deeply inharmonic … chaotic, bell-like, unpredictable decay patterns. The most “alien” timbre of the seven',
+    cubic: 'thick, bright, rich partials — high-frequency modes densely packed, clustering near the zone boundary.',
+    tetragonal: 'slightly pinched, with directional coloration — two interleaved mode families from the axis asymmetry.',
+    orthorhombic: 'less dense in high frequencies, more separated partials — three distinct mode groups with wider spacing. · Topaz is the predicted proof: balanced, complex, neither brilliant nor alien.',
+    hexagonal: 'birefringent — a doubled, shimmery quality from two distinct propagation velocities.',
+    trigonal: 'near-hexagonal with subtle asymmetries — a slight irregularity in partial spacing that adds shimmer without full birefringent doubling. · Ruby’s doublets predict this shimmer will be audible as a slow beating or natural chorus effect.',
+    monoclinic: 'complex, inharmonic — no simple pattern to partial spacing, more bell-like and unpredictable.',
+    triclinic: 'deeply inharmonic, each partial scattered, no recurring structure — chaotic, bell-like, unpredictable decay patterns. The most “alien” timbre of the seven.',
   };
   const LABRADORITE_LINE = 508, LABRADORITE_WIDTH = 17;   // cm⁻¹, crystal-rings/linewidths.json (width estimated)
 
@@ -460,16 +461,16 @@ STEPS.push({ name: 'two modes, one symmetry', build() {
       : `<span>${fmt(1200 * Math.log2(1 + S.split), 0)} cents apart</span><span>beat <b>${fmt(beat, 1)} Hz</b></span><span><b>${fmt(beat * ring, 0)} beats</b> before the ring is gone</span>`;
   };
   const sp = slider({ label: 'how far symmetry splits the pair, Δr', min: 0, max: 0.7, value: S.split,
-    ticks: [[0, '0 · fused'], [0.32, '0.32 · diamond'], [0.7, '0.7']],
+    ticks: [[0, '0 · fused'], [0.32, '0.32 · an interval'], [0.7, '0.7']],
     onInput: (v) => { S.split = v < 0.002 ? 0 : v; draw(); return S.split.toFixed(3); } });
   const preset = (v, t) => el('button', { onclick: () => { sp.set(v); stopSound(); play(CS.normalize([render()])); } }, t);
   return [
-    el('p', { class: 'cs-teach' }, 'Symmetry decides how many different pitches a crystal’s modes land on. In a cubic crystal, modes that symmetry makes equivalent ring at one pitch: fluorite’s first two modes are both 1.00, and two become one. Lower the symmetry and the pair splits. A little apart they beat; far apart they are an interval. Q stays where step 1 left it.'),
+    el('p', { class: 'cs-teach' }, 'Symmetry decides how many different pitches a crystal’s modes land on. In a cubic crystal, modes that symmetry makes equivalent ring at one pitch: fluorite’s first two modes are both 1.00, and two become one. Lower the symmetry and the pair splits. A little apart they beat; far apart they are an interval. Diamond’s 1.00 and 1.32 are that: two different modes about a fourth apart, not one mode split. Q stays where step 1 left it.'),
     el('div', { class: 'cs-eq' }, eq('f_beat = f · Δr', '(how fast the pair wobbles) = (the pitch) × (how far apart their two ratios are)')),
     cv, read,
     el('div', { class: 'cs-row' },
       el('button', { class: 'cs-go', onclick: () => { stopSound(); play(CS.normalize([render()])); } }, '▸ play'),
-      el('span', { class: 'cs-seg' }, preset(0, 'fluorite · fused'), preset(0.04, 'ruby · 1.10 / 1.14'), preset(0.32, 'diamond · 1.00 / 1.32')), sp.lab),
+      el('span', { class: 'cs-seg' }, preset(0, 'fluorite · fused'), preset(0.04, 'ruby · 1.10 / 1.14'), preset(0.32, 'diamond · 1.00 / 1.32 · an interval')), sp.lab),
     el('p', { class: 'cs-back' }, 'Δr at 0 puts you back at step 1: two modes at one pitch ring as one.'),
   ];
 } });
@@ -548,12 +549,13 @@ STEPS.push({ name: 'the test', build() {
     const [d, l] = strikes();
     drawEnvelope(cv, [
       { db: CS.envDb(d, 0.02), win: 0.02, color: '#e8b84a', name: 'diamond · cubic', lx: 48, ly: 150 },
-      { db: CS.envDb(l, 0.02), win: 0.02, color: '#a99cf0', name: 'labradorite · triclinic', lx: 48, ly: 164 }], { label: S.ring === 'summer' ? 'the summer ring: 5.5 s for every mineral' : 'the physics ring: each mode’s Q from its line width' });
+      { db: CS.envDb(l, 0.02), win: 0.02, color: '#a99cf0', name: 'labradorite · triclinic', lx: 48, ly: 164 }], { label: S.ring === 'summer' ? 'the summer ring: τ 5.5 s for every mineral' : 'the physics ring: each mode’s Q from its line width' });
     const Ql = CS.LABRADORITE_LINE / S.width;
     const rd = S.ring === 'summer' ? 5.5 * Math.log(1000) : CS.t60(807, CS.A2), rl = S.ring === 'summer' ? 5.5 * Math.log(1000) : CS.t60(Ql, CS.A2);
     const top = CS.A2 * 17.5, topGone = S.ring === 'summer' ? 5.5 / (1 + 0.15 * 7) : CS.tau(Ql, top);
-    read.innerHTML = `<span>diamond rings <b>${fmt(rd, 1)} s</b> · ${fmt(100 * CS.energyAfter(d, 0.5), 1)}% of its energy after 0.5 s</span>`
-      + `<span>labradorite rings <b>${fmt(rl, 2)} s</b> · ${fmt(100 * CS.energyAfter(l, 0.5), 1)}% after 0.5 s · its top partial, ${fmt(top, 0)} Hz, falls to 1/e in <b>${topGone < 1 ? fmt(topGone * 1000, 0) + ' ms' : fmt(topGone, 1) + ' s'}</b></span>`
+    const how = S.ring === 'summer' ? ' to −60 dB (τ 5.5 s × ln 1000)' : ' to −60 dB';
+    read.innerHTML = `<span>diamond rings <b>${fmt(rd, 1)} s</b>${how} · ${fmt(100 * CS.energyAfter(d, 0.5), 1)}% of its energy after 0.5 s</span>`
+      + `<span>labradorite rings <b>${fmt(rl, 2)} s</b>${how} · ${fmt(100 * CS.energyAfter(l, 0.5), 1)}% after 0.5 s · its top partial, ${fmt(top, 0)} Hz, falls to 1/e in <b>${topGone < 1 ? fmt(topGone * 1000, 0) + ' ms' : fmt(topGone, 1) + ' s'}</b></span>`
       + (S.ring === 'physics' ? `<span>labradorite at Q <b>${fmt(Ql, 0)}</b>, a ${fmt(S.width, 2)} cm⁻¹ line${Math.abs(S.width - CS.LABRADORITE_WIDTH) < 0.05 ? ' (the estimate)' : ''}</span>` : '');
   };
   const ringSeg = el('span', { class: 'cs-seg' },
@@ -568,7 +570,7 @@ STEPS.push({ name: 'the test', build() {
   const tally = () => { const v = Object.values(S.marks); tallyEl.innerHTML = `All your marks: <b>${v.filter((x) => x === 'held').length}</b> held · <b>${v.filter((x) => x === 'failed').length}</b> failed · <b>${v.filter((x) => x === 'unsure').length}</b> can’t tell${S.marks.tri ? ` · the triclinic prediction: <b>${S.marks.tri === 'unsure' ? 'can’t tell' : S.marks.tri}</b>` : ''}.`; };
   tally();
   const node = [
-    el('p', { class: 'cs-teach' }, 'The prediction the section is least sure of: triclinic, the lowest symmetry, rings “chaotic, bell-like, unpredictable”, the most alien of the seven. The summer proofs heard it through a ring chosen by taste, 5.5 seconds for every mineral, and through that ring labradorite is a scattered bell. Give each mode the ring its line width sets instead, and strike the two ends of the symmetry arc through the same engine.'),
+    el('p', { class: 'cs-teach' }, 'The prediction the section is least sure of: triclinic, the lowest symmetry, rings “chaotic, bell-like, unpredictable”, the most alien of the seven. The summer proofs heard it through a ring chosen by taste, a 5.5-second time constant for every mineral (so 38 seconds to fall 60 dB), and through that ring labradorite is a scattered bell. Give each mode the ring its line width sets instead, and strike the two ends of the symmetry arc through the same engine.'),
     el('div', { class: 'cs-row' }, ringSeg),
     cv, read,
     el('div', { class: 'cs-row' },

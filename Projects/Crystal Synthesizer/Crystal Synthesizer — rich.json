@@ -150,7 +150,7 @@
           "file": "dispersion-filter/beryl_c_axis.wav",
           "origin": "gathered",
           "title": "beryl, along the c-axis · 2026-06",
-          "caption": "One click through beryl's softer c-axis dispersion curve: the most smear. Measured here, 12 kHz arrives about 600 ms after the lows.",
+          "caption": "One click through beryl's softer c-axis dispersion curve: the most smear. Its highs reach about 600 ms after the lows, but 600 ms is the render's delay cap (render_anisotropic_beryl.py, MAX_DELAY), so part of that smear is the cap, not the curve.",
           "near": "different directions have different slopes"
         },
         {
@@ -267,7 +267,7 @@
           "file": "charts/comparative_all_crystals.png",
           "origin": "gathered",
           "title": "the palette's partials, compared",
-          "caption": "Every mineral's partial ratios at one root, highest symmetry at the top: diamond packed inside an octave, labradorite strung across four, obsidian a continuous band.",
+          "caption": "Every mineral's partial ratios at one root, ordered roughly by symmetry, highest at the top (ruby sits above emerald, topaz above amethyst): diamond packed inside an octave, labradorite strung across four, obsidian a continuous band.",
           "near": "Eight named crystals"
         }
       ],
@@ -299,7 +299,9 @@
           "file": "crystal-synthesizer-face.html",
           "origin": "gathered",
           "height": 760,
-          "contract": {},
+          "contract": {
+            "needs": "midi"
+          },
           "title": "the plugin's face, playable · 2026-10-24",
           "caption": "**The answer so far to the performer question.** The VST's face in the template's editor, the crystal in its screen, fed by the JavaScript port of the plugin's engine. Press *sound on*, then play keys A to K. Axis angle turns the crystal against the light and parts its two rays; Fire fans each strike from red to violet. MIDI is not granted to pieces here, so play from the keys.",
           "near": "How would a performer interface with this"
@@ -336,19 +338,19 @@
       "section": "The Physical Reality: Crystals as Resonators",
       "kind": "claim-change",
       "status": "open",
-      "what": "\"Long-wavelength phonons (small k) are slow; short-wavelength phonons are fast\" has them reversed. In a chain built from the section's own ω(k), 250 Hz arrives at 120.1 ms and 7.5 kHz at 342 ms; v_g/v₀ is 1.000 at ka 0.05, 0.707 at π/2, 0.025 near π, and the phase velocity also falls (1.000 to 0.647). Suggested: long waves travel fastest, at the speed of sound, and slow to a standstill at the zone boundary; the curve's steepness at small k is the speed of sound (impedance is that times the density)."
+      "what": "\"Long-wavelength phonons (small k) are slow; short-wavelength phonons are fast\" has them reversed on the acoustic branch, the one the section's equation describes. In a chain built from that ω(k), 250 Hz arrives at 120.1 ms and 7.5 kHz at 342 ms; v_g/v₀ is 1.000 at ka 0.05, 0.707 at π/2, 0.025 near π, and the phase velocity falls too (1 to 2/π). The challenger's mass-spring simulation agrees: packet speed 0.7075 against cos(ka/2) 0.7071 at π/2. Suggested: on the acoustic branch long waves travel fastest, at the speed of sound, and slow to a standstill at the zone boundary (optical branches are nearly flat near k = 0, so keep the rewrite to the acoustic branch); the curve's steepness at small k is the speed of sound, and impedance is that times the density."
     },
     {
       "section": "Bravais Lattice Taxonomy: Seven into Fourteen into 230",
       "kind": "claim-change",
       "status": "open",
-      "what": "From reading, not from a piece: \"When you add glide reflection and screw rotation, the 7 primitive systems generate 14 Bravais lattices\". The 14 come from centring the 7 lattice systems (body-, face- and base-centred cells); glide and screw operations, with the 32 point groups, are what take the 14 to 230 space groups."
+      "what": "From reading, not from a piece: \"When you add glide reflection and screw rotation, the 7 primitive systems generate 14 Bravais lattices\". The 14 come from centring the 7 lattice systems (P, C, I, F cells); glide and screw operations, with the 32 point groups, are what take the 14 to 230 space groups. The same rewrite can carry a second fix: quartz (P3₁21), listed under \"Trigonal (Rhombohedral)\", has a hexagonal lattice, not a rhombohedral one; ruby (R-3c) is rhombohedral."
     },
     {
       "section": "Bravais Lattice Taxonomy: Seven into Fourteen into 230",
       "kind": "claim-change",
       "status": "open",
-      "what": "From reading: the orthorhombic entry names four Raman-active families (Ag, B₁g, B₂g, B₃g), and its hypothesis two lines on predicts \"three distinct mode groups\". One of the two counts wants changing."
+      "what": "From reading: the orthorhombic entry names four Raman-active families, the four of point group D2h (Ag, B₁g, B₂g, B₃g), and its hypothesis two lines on predicts \"three distinct mode groups\". The family list is right; one of the two counts wants changing, and which is Loudon's call."
     },
     {
       "section": "The Optical-Sonic Bridge: Dispersion, Anisotropy, and Resonance",
