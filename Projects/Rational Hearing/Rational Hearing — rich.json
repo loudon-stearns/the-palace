@@ -1,0 +1,98 @@
+{
+  "title": "Rational Hearing — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Rational Hearing]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "every-piece-walks-up"
+    },
+    {
+      "target": "[[FM Synthesis]]",
+      "type": "connects-to",
+      "label": "the-ratios-walk-left-the-ear-open"
+    }
+  ],
+  "forward_vector": "I am the manifest of Rational Hearing's rich face, its first round, a Sketch made in the proposal round of 2026-11: the playable handout itself laid as a band, the steward's back-row strip beside the magnifier it measured, and one made walk that ends on a blind test of the ear, the side of the line the page could only draw. I hold the fingerprint of the words each was laid against. I grow when Loudon, or a student, has taken the test and said what the ear did; I never hold the entry's words.",
+  "entry": "Rational Hearing",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The idea in one breath",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "\"Lets you hear it\" holds unevenly, measured on the page's own A/B wave (seven harmonics at 1/i, root C4, each dyad about 1.4 s). The thirds and the major sixth beat fast when tempered (M3 10.4, -3 14.1, M6 11.9 times a second). The fifth and fourth beat 0.89 and 1.18 times a second, so the 1.4 s dyad holds about 1.2 and 1.7 swells. For six columns (-6, M2, -7, M7, -2, T.T.) no partials meet inside seven harmonics, so tempering only shifts a roughness 15 Hz or more fast, never a slow beat. Suggested: \"draws the offset to scale and lets you hear it, as beating where the two notes share a partial\". The plan's A/B decision may prefer a fix in the page: a longer hold, or more harmonics."
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The idea in one breath",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Rational Hearing — rich — the miss, blind.html",
+          "origin": "made",
+          "by": "Web Audio",
+          "title": "The miss, blind · can you hear what the page draws?",
+          "caption": "**Two notes at exactly 3 : 2, walked up to a blind test of your own ear.** It opens on the still fifth. Then it pulls G a few cents off until it beats, takes the partials away to show where the beat lives, and sets five just intervals against the piano's. It ends on a blind staircase. Each trial plays two dyads, one at the whole-number ratio and one off the way the piano is off, each on its own roved note and level. Where you settle is your threshold, drawn against the piano's miss. The engine holds. Two cents off at middle C, the sound swells 0.91 times a second, as |2·f_G − 3·f_C| says. As plain sines, the loudness hardly moves (0.01 % against 10.7 %). The piano's fifth beats 0.89 times a second, so the page's 1.4-second A/B holds about one swell. Against simulated listeners the staircase's median lands within 8 % of their threshold, though a single run can stray by a third. Whether a real ear hears the miss is the test's to say, and no one has taken it yet.",
+          "near": "lets you hear it",
+          "place": "band",
+          "height": 1186
+        }
+      ],
+      "made_against": "c00b23328389",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The page",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "rational-hearing.html",
+          "origin": "gathered",
+          "by": "the project's own page, build 0.2.0 (2026-10-29)",
+          "title": "The handout, playable · the page itself",
+          "caption": "**The page this section describes, laid in whole.** It has the ladder with its prime columns and bracket legend, the string and tube, and the just-against-equal strip with its A/B. Loudon heard it on 2026-10-29 and said the sound works. Gathered as it stands, not the steward's projector draft, which still waits on his answer. Turn the sound on at the top before tapping.",
+          "near": "Tapping a column plays the just dyad",
+          "place": "band",
+          "height": 2446
+        },
+        {
+          "file": "back-row/backrow-temper-x5-strip.png",
+          "origin": "gathered",
+          "by": "the steward, cycle 1 (2026-10-30) · Playwright and a resample",
+          "title": "The just-against-equal strip at ×5, from the front row, the back row at 20/20, and at 20/40",
+          "caption": "The steward's measure of the magnifier this paragraph names. At ×1 the fifth's and fourth's 2-cent gap is 1.4 px, hidden under the 10 px bar from any seat. At ×5 it comes to about 5 arcminutes from 8 screen-heights back, just visible. The eye needs the gap drawn five times over to see the fifth's miss; the piece above asks what the ear needs. A prediction from headless Chromium, not a walk to the back of a real room.",
+          "near": "Magnify ×5 for the back of the room",
+          "place": "band"
+        }
+      ],
+      "made_against": "47336ff35513",
+      "stamped": "2026-11-03"
+    }
+  ]
+}
