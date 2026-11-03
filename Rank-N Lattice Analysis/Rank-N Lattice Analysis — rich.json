@@ -1,0 +1,139 @@
+{
+  "title": "Rank-N Lattice Analysis — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Rank-N Lattice Analysis]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "each-piece-walks-up"
+    },
+    {
+      "target": "[[Inharmonic Wavetable Synthesis]]",
+      "type": "connects-to",
+      "label": "measured-sources-from"
+    }
+  ],
+  "forward_vector": "I am the manifest of Rank-N Lattice Analysis' rich face, its first round, a Sketch and still a proposal: two walks that put the page's two claims to a measurement (the rank of seven measured instruments against chance, and a fit written onto a torus and read back), and the trajectory library's sheet of the struck objects they measure, gathered as it was. I grow when the page is enriched again; I never hold the entry's words.",
+  "entry": "Rank-N Lattice Analysis",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "Rank as a measured property",
+      "kind": "claim-change",
+      "what": "\"A stiff piano string, a struck bar, a bell needs N ≥ 2: its partials require two or more incommensurate generators\" holds as an inequality and draws the wrong picture: a stiff string, f_n = n·f₀·√(1 + B n²), is on no lattice of any rank below its partial count (as Three Kinds of Warp says). Measured with the how-many-clocks piece (checks.mjs; 24 loudest partials within 40 dB, 0.19 s after the strike, from the trajectory library; the number is the clocks plus the partials left alone in the cheapest naming a greedy search finds, so an upper bound): the piano's cheapest naming uses one clock, its fundamental (110.62 Hz for A2, though 110 Hz itself is not among the tracked partials), and leaves the upper partials alone: rank 12 of 24 for A1 and 13 of 24 for A2 at 5 cents. The challenger's ideal stiff string at the library's own B reproduces the measured ranks, so the climb is the bend. The rank climbs with what is counted: A2 at 5 cents gives 1, 1, 3, 6, 9, 13 for 4, 8, 12, 16, 20, 24 partials. The clock saves 41.7 and 40.5 bits over naming every partial outright, where random partials of the same count and levels save at most 18.3 (12 draws; the challenger's 40 draws: none reaches A2's saving). Tuned bars: one clock plus one mode left alone (rank 2 for the vibraphone and the marimba, saving 14.7 and 7.4 bits against chance's 2.2 and 0.2). The bell: rank 19 of 24, saving 13.1 bits where chance saves up to 17.1 (the challenger: 11 of 40 draws reach the bell's saving), so its modes share no clock beyond chance and it reads like the dense texture of the next bullet. A third clock paid in none of 21 measured fits. Suggest the bullet say: a stiff string is one clock and a bend, on no lattice, and its rank read at a tolerance climbs with the partials counted; tuned bars are one clock plus the modes the tuning left; a bell's modes share no clock beyond chance.",
+      "status": "open"
+    },
+    {
+      "section": "Rank as a measured property",
+      "kind": "claim-change",
+      "what": "\"The rank N itself is a measured quantity, a property of the source rather than an assumption imposed on it\" needs what it is measured against. Taken strictly the smallest set is degenerate both ways: exact, a stiff string's partials share no integer relation (rank = partial count); with a tolerance and free integers, two clocks with steps up to ±16 reach 11 of the piece's 12 random partials within 5 cents (11.4 of 12 over 40 seeded draws, all 12 in 17). The piece prices the steps (a frequency named outright costs log₂(band ⁄ 2τ) bits, 10.2 at 5 cents; a step count its Elias-gamma length), and the price is itself a choice that moves the rank: 24 perfect harmonics of 220 Hz read rank 1, 3 and 11 at 5, 10 and 20 cents, because the outright name gets cheaper as τ widens while long step counts do not. Suggest: \"a property of the source at a stated tolerance, partial count and price on the integers, each of which moves it\", since all three are chosen, as Fourier's harmonic basis is.",
+      "status": "open"
+    },
+    {
+      "section": "Cross-Domain Resonance",
+      "kind": "claim-change",
+      "what": "\"Rank as an inharmonicity coordinate\" needs a second number beside it. Measured at 5 cents with 24 partials, the piano A2 is rank 13 and the bell rank 19, and random partials of the same count reach ranks 14–22 and 13–22: the rank alone sits in chance's range for both. The bits saved part them: the piano's clock saves 40.5 bits where 12 random draws save at most 18.3 (none of the challenger's 40 draws reach it), the bell's 13.1 where chance saves up to 17.1 (11 of 40 draws reach it), because the piano's unreached partials are its upper series pushed off one comb by the stretch, and the bell's are modes with no shared clock. Suggest the bullet say the rank is read with its tolerance, its partial count and its margin over chance in bits saved, and that a bent line and a cloud can share a rank. Rests on the rank measurements; no separate measurement of the bend was made here.",
+      "status": "open"
+    },
+    {
+      "section": "The synth as its own oscilloscope",
+      "kind": "claim-change",
+      "what": "\"One artifact is simultaneously what was heard … and what will be played back\" holds exactly, and for fewer bits than the list of partials, only for a sound on a two-generator lattice. Measured with the read-both-ways piece (checks.mjs; fit at 5 cents, priced steps, a one-clock fit's loudest lone partial written on the second axis; 256 × 256 torus read back at 48 kHz): the two-clock tone, the vibraphone and the marimba (one clock plus one mode) and a harmonic with one partial off all come back whole. A measured piano A2 comes back as 14 of 24 partials (99.4 % of the energy), each moved up to 4.98 cents onto its lattice point; a field of two clocks named this way costs 216.7 bits against 245.4 for the list. With free steps, two clocks (55.29 and 10.41 Hz, steps up to 63) place all 24 within 1.35 cents and the field plays them back, but naming that field costs 456.4 bits on this piece's step code (the challenger, counting steps differently, 259.1), more than the 245.4 of the list. So any sound can be laid on two clocks to within τ; it then holds the note without compressing it, which is Three Kinds of Warp's dense, approximate placement. Suggest: the field is what will be played; it is also what was heard exactly and compressively only when the sound is on a two-generator lattice; otherwise it plays the lattice part, or the whole at a cost above the list. The intro's \"Analysis and synthesis become two readings of one artifact\" carries the same condition. The round trip's level match (within 0.1 dB at 256²) tests the table, not this claim.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Rank as a measured property",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Rank-N Lattice Analysis — rich — how many clocks.html",
+            "verdict": "remake",
+            "why": "A real test that walks up well, but its A2 rank 15 is a greedy miss (one clock at 110.62 Hz gives rank 13 for fewer bits, saving 40.5) and above about 10 c the step price, not the source, raises the rank (24 perfect harmonics read 11 at 20 c; A2 goes 12 to 15 between 18 and 20 c). Fix: fine-scan the one-clock fit, cap τ at 10 c or say so at the test step, and label the number an upper bound on the cheapest naming."
+          },
+          {
+            "file": "/Projects/Inharmonic Wavetable Synthesis/trajectory-library/library-sheet.png",
+            "verdict": "remake",
+            "why": "Honest gathered source figure, tracked; caption only: \"filed by rank\" means order (k-th mode in slot k) on the one page where rank means generator count, so say \"filed by order, not the lattice rank this page means\", and name the marimba ×10.52 beside the bars ×1 and ×4.01."
+          }
+        ]
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Rank-N Lattice Analysis — rich — how many clocks.html",
+          "origin": "made",
+          "by": "the Maker · a rank fitter in plain JavaScript, Web Audio",
+          "height": 1500,
+          "title": "how many clocks · a walk in five steps",
+          "caption": "**Does the rank settle at 1, then 2, then more?** One sine; a harmonic tone, where one clock reaches every partial; a tone on two clocks, where two do; random partials, which two clocks nearly all reach once their steps are free, so the fitter prices every step in bits; and last seven measured instruments, each fitted the cheapest way and set beside random partials of the same count. The number it reports is the clocks plus the partials left alone in the cheapest naming a greedy search finds: an upper bound on the page's smallest set, moved by the tolerance, the count and the price on steps (24 perfect harmonics read 1, 3, 11 at 5, 10, 20 cents, so the slider stops at 10). The harmonic tone is rank 1 and the two-clock tone rank 2, as the page says. The piano is one clock and a bend: 12 to 13 of 24 at 5 cents, climbing with what you count, its clock saving twice the bits chance does. The bell, rank 19, saves no more than random partials. Checked offline on the piece's own engine; the sounds are the measured partials as sines, not the recordings.",
+          "near": "A stiff piano string, a struck bar, a bell needs"
+        },
+        {
+          "file": "/Projects/Inharmonic Wavetable Synthesis/trajectory-library/library-sheet.png",
+          "origin": "gathered",
+          "title": "the struck objects, filed by rank · the trajectory library",
+          "caption": "The four struck objects the walk above measures, tracked by the Inharmonic Wavetable Synthesis steward (2026-10-14). The sheet's \"filed by rank\" means filed by order, the k-th mode in slot k, not the lattice rank this page means; each mode is drawn as cents off k × f₁, so a harmonic series would lie on the zero line. The labelled ratios mark the loud modes: the vibraphone's sit at ×1 and ×4.01, the marimba's at ×1 and ×4.01 with a high mode at ×10.52, no whole multiple; the bowl's at ×1 and ×2 and then ×5.35, ×5.74, ×8.37; the bell's at ×1 and ×1.45.",
+          "near": "A dense inharmonic texture has high rank"
+        }
+      ],
+      "made_against": "25a2ee1a6cbd",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The synth as its own oscilloscope",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Rank-N Lattice Analysis — rich — read both ways.html",
+            "verdict": "remake",
+            "why": "Walks up well, but its law (closes only for rank ≤ 2) fails on its own engine: vibraphone, marimba and the +5 c snap are rank 2 and lose a partial because a one-clock fit leaves θ₂ empty, and free steps place all 24 A2 partials on its 256² torus within 2.13 c (at 259.1 bits vs 245.4 outright), as Three Kinds of Warp.md:95 says. Fix: put the loudest lone partial on θ₂, show the dense reading beside the compressive one, drop \"15 dimensions\", and say the dB match tests the table, not the claim."
+          }
+        ]
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Rank-N Lattice Analysis — rich — read both ways.html",
+          "origin": "made",
+          "by": "the Maker · a torus field and two phasors, Web Audio",
+          "height": 1250,
+          "title": "read both ways · a walk in four steps",
+          "caption": "**Is the stored field both what was heard and what will be played?** Two partials on one clock, written onto the torus as a one-cycle table and read back whole; a tone on two clocks, which fills the square and comes back whole; one partial pushed sharp, played back in tune within the tolerance and, past it, given the second axis as a clock of its own; and last a measured note, fitted, written onto a 256 × 256 torus and read back beside what was heard and what was left over, with the steps priced or free. A sound on a two-generator lattice closes whole and for fewer bits than its list (the made tones, the vibraphone, the marimba). The piano A2 at 5 cents plays back 14 of 24 partials with priced steps; with free steps two clocks place all 24, but the field then costs more bits than the list it plays. The level match tests the table, not the claim; nobody has listened to the three side by side.",
+          "near": "One artifact is simultaneously"
+        }
+      ],
+      "made_against": "1d5fefc699db",
+      "stamped": "2026-11-03"
+    }
+  ]
+}
