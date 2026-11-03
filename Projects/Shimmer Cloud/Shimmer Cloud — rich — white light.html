@@ -1,0 +1,394 @@
+<!doctype html>
+<!--
+  title: Shimmer Cloud — rich — white light
+  born: 2026-11-03
+  links: [[Shimmer Cloud]] (connects-to · rich-face-piece) · listed in [[Shimmer Cloud — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test) · [[Frequency-Time Duality]] (connects-to · dispersion) · [[Dispersion Table]] (connects-to · phase-curve lenses) · plays rich-face/p1_droplets.wav and rich-face/p1_dispersion.wav (the steward's pushed pair, 2026-10-22)
+  forward_vector: I am Cross-Domain Parallels' first claim struck with white light: a click, then a pane of glass, then a pitch copy, then one prism, and last a cloud of pitch copies against a cloud of prisms, measured by when their lows and highs land. A prism sorts the frequencies already there; a pitch shift moves them and sorts nothing. I change only when the section I serve does.
+  engine: the script block named engine is pure (no page, no sound) so "Shimmer Cloud — rich — check.mjs" can run it in Node against what this piece says.
+  lens: the steward's pushed lens of 2026-10-22 (proofs/2026-10-22-pushed/render_pushed.py): delay spread evenly per octave from 80 Hz to 11 kHz, tau(f) = D · u^p, highs late, or D · (1 − u)^p, highs early.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:files" content="rich-face/p1_droplets.wav rich-face/p1_dispersion.wav">
+<title>Shimmer Cloud — white light through two kinds of lens</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,.10); --accent-line:rgba(232,184,74,.5);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 18px; border: 1px solid var(--border); border-radius: 2px; width: fit-content; max-width: 100%; }
+  .rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; background: transparent; padding: 7px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button[aria-current="step"] { background: var(--accent-soft); color: var(--accent); }
+  .step { display: none; }
+  .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .teach { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 0 0 12px; }
+  .back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin: 0 0 14px; }
+  .eqs { margin: 4px 0 16px; padding: 10px 14px; border-left: 1px solid var(--accent-line); background: var(--e1); max-width: 76ch; }
+  .eq { font-family: var(--serif); font-size: 20px; color: var(--fg1); font-variant-numeric: lining-nums; }
+  .eq i { font-style: italic; }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .words:last-child { margin-bottom: 0; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; margin-bottom: 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 640px) { .two { grid-template-columns: 1fr; } }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: end; margin: 6px 0 12px; }
+  .controls label.sl { flex: 1 1 240px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: var(--accent-line); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.go { color: var(--accent); border-color: var(--accent-line); }
+  button[aria-pressed="true"] { color: var(--bg); border-color: var(--accent); background: var(--accent); }
+  .seg { display: inline-flex; } .seg button + button { border-left: 0; }
+  .seg button[aria-pressed="true"] { color: var(--accent); background: var(--accent-soft); border-color: var(--accent-line); }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 8px 0 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; color: var(--fg2); width: 100%; max-width: 820px; margin: 6px 0 10px; }
+  table.meas th { text-align: left; font-weight: 400; color: var(--fg3); letter-spacing: .08em; text-transform: uppercase; font-size: 10px; border-bottom: 1px solid var(--border); padding: 6px 8px; }
+  table.meas td { border-bottom: 1px solid var(--soft); padding: 6px 8px; }
+  table.meas td b { color: var(--fg1); font-weight: 500; }
+  .verdict { font-size: 13.5px; line-height: 1.6; max-width: 76ch; padding: 10px 14px; border: 1px solid var(--accent-line); border-radius: 2px; background: var(--accent-soft); color: var(--fg1); margin: 8px 0 12px; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 76ch; margin: 6px 0 0; }
+  .busy { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .06em; }
+  nav.walk { display: flex; gap: 10px; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  nav.walk .where { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; margin-left: auto; }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><span id="sigil"></span>made · sketch · a walk in five steps</div>
+  <h2 class="title">White light through two kinds of lens</h2>
+  <p class="sub">Cross-Domain Parallels says a prism disperses white light into a spectrum, and Shimmer Cloud disperses audio into a spectrum of pitch shifts. A prism doesn't change any colour. It sends each one out at its own angle and its own time. So strike each kind of lens with audio's white light, a click, and watch when its lows and highs come out. We start with the click alone and end on a cloud of each kind.</p>
+  <div class="controls" style="margin-top:0">
+    <div><div class="plabel" style="margin-bottom:4px"><span>strike it with</span></div>
+      <div class="seg" id="srcSeg"><button data-src="click" aria-pressed="true">a click</button><button data-src="pluck" aria-pressed="false">a plucked note, 220 Hz</button></div></div>
+  </div>
+  <div class="rail" id="rail"></div>
+
+  <section class="step">
+    <h3>White light</h3>
+    <p class="teach">A click is every frequency at once, all at the same instant: audio's white light. On the picture, time runs across and pitch runs up, so a click is one thin vertical line. The plucked note is a fainter comparison: harmonics stacked on 220 Hz, all starting together.</p>
+    <div class="btns"><button class="go" id="p0">▸ strike</button></div>
+    <div class="read" id="r0"></div>
+    <div class="panel"><div class="plabel"><span>what comes out · time across, pitch up</span><span>0 – 10 kHz · first 1.2 s</span></div><canvas id="cv0"></canvas></div>
+  </section>
+
+  <section class="step">
+    <h3>A pane of glass</h3>
+    <p class="teach">Delay the click. Every frequency waits the same time, so the line moves right and stays a line. Glass in a window does this to light: it slows every colour about the same, and nothing fans out.</p>
+    <div class="controls"><label class="sl">delay = <b id="dv"></b><input id="d" type="range" min="0" max="600" step="5" value="300"></label></div>
+    <div class="btns"><button class="go" id="p1">▸ strike</button></div>
+    <p class="back">0 ms is step 1.</p>
+    <div class="read" id="r1"></div>
+    <div class="panel"><div class="plabel"><span>what comes out</span><span>0 – 10 kHz · first 1.2 s</span></div><canvas id="cv1"></canvas></div>
+  </section>
+
+  <section class="step">
+    <h3>A pitch copy</h3>
+    <p class="teach">Now copy the sound a little fast or slow, the way each droplet in May's cloud does. Try the plucked note: its harmonics all move up or down together. Then the click: there is nothing to move. A click played faster is still a click. Whatever the shift, lows and highs land at the same moment.</p>
+    <div class="eqs">
+      <div class="eq"><i>rate</i> = 2<sup><i>c</i> ⁄ 1200</sup></div>
+      <div class="words">(how fast the copy is played) = 2 to the power of (the shift in cents ÷ 1200): +1200 cents plays it twice as fast, an octave up.</div>
+    </div>
+    <div class="controls"><label class="sl">shift = <b id="cv"></b><input id="c" type="range" min="-1200" max="1200" step="5" value="700"></label></div>
+    <div class="btns"><button class="go" id="p2">▸ strike</button></div>
+    <p class="back">0 cents is step 1.</p>
+    <div class="read" id="r2"></div>
+    <div class="panel"><div class="plabel"><span>what comes out</span><span>0 – 10 kHz · first 1.2 s</span></div><canvas id="cv2"></canvas></div>
+  </section>
+
+  <section class="step">
+    <h3>One prism</h3>
+    <p class="teach">Now one lens the way the bundle's third model and the steward's pushed lens build it: every frequency passes at full strength, but each waits its own time. The wait climbs evenly per octave from 80 Hz to 11 kHz. Struck with a click, it comes out as a sweep: the click's frequencies, sorted in time. Turn it around and the highs come first.</p>
+    <div class="eqs">
+      <div class="eq">τ(<i>f</i>) = <i>D</i> · <i>u</i>(<i>f</i>), &nbsp; <i>u</i>(<i>f</i>) = log(<i>f</i> ⁄ 80) ⁄ log(11000 ⁄ 80)</div>
+      <div class="words">(how long frequency f waits) = (the lens's strength D) × (how far f sits up the range from 80 Hz to 11 kHz, from 0 to 1, by octaves). Turned around: D × (1 − u). Its gain is 1 everywhere; it only delays.</div>
+    </div>
+    <div class="controls">
+      <label class="sl">strength <i>D</i> = <b id="Dv"></b><input id="D" type="range" min="0" max="600" step="5" value="300"></label>
+      <div><div class="plabel" style="margin-bottom:4px"><span>which way</span></div>
+        <div class="seg" id="dirSeg"><button data-dir="late" aria-pressed="true">highs late</button><button data-dir="early" aria-pressed="false">highs early</button></div></div>
+    </div>
+    <div class="btns"><button class="go" id="p3">▸ strike</button></div>
+    <p class="back">D = 0 is step 1.</p>
+    <div class="read" id="r3"></div>
+    <div class="panel"><div class="plabel"><span>what comes out</span><span><span style="color:#78aaff">- - -</span> <span style="text-transform:none">τ(f)</span>, where each frequency should land</span></div><canvas id="cv3"></canvas></div>
+  </section>
+
+  <section class="step">
+    <h3>A cloud of each</h3>
+    <p class="teach">The claim, tested. Two clouds of 600, each struck the same way, each scattered over the same 25 ms and panned across the field. The first is pitch copies, spread about 25 cents: the "spectrum of pitch shifts". The second is prisms, strengths from 150 to 600 ms, highs late: the steward's pushed cloud. If a spectrum of pitch shifts disperses like a prism, the two should fan the strike the same way. Even laid out along pitch, as the section's mapping has it, each pitch copy carries every frequency of what went in, so nothing is separated; a prism hands each frequency its own place.</p>
+    <div class="btns">
+      <button class="go" id="p4a">▸ 600 pitch copies</button>
+      <button class="go" id="p4b">▸ 600 prisms</button>
+      <span class="busy" id="busy"></span>
+    </div>
+    <div class="two" style="margin-top:12px">
+      <div class="panel"><div class="plabel"><span>600 pitch copies, ±25 ¢</span></div><canvas id="cv4a"></canvas></div>
+      <div class="panel"><div class="plabel"><span>600 prisms, 150 – 600 ms</span></div><canvas id="cv4b"></canvas></div>
+    </div>
+    <table class="meas" id="t4"></table>
+    <div class="verdict" id="v4">Rendering the two clouds…</div>
+    <p class="teach" style="margin-top:14px">And on the voice: the steward's pair from 2026-10-22, the same two clouds with the phrase going in. Listen for the "s" in <i>prism</i>.</p>
+    <div class="btns"><button class="go" data-take="rich-face/p1_droplets.wav">▸ the phrase, 600 pitch copies</button><button class="go" data-take="rich-face/p1_dispersion.wav">▸ the phrase, 600 prisms</button></div>
+    <p class="note">The steward measured the prism cloud the same way, on its own engine: lows at 116 ms, highs at 329 ms, 213 ms apart (proofs/2026-10-22-pushed/findings.json). Its pitch copies were never struck with a click there; this step does that. The pushed listening page beside the proofs has the full ladder of strengths.</p>
+  </section>
+
+  <nav class="walk"><button id="back">◂ back</button><button id="next">next ▸</button><span class="where" id="where"></span></nav>
+  <div class="foot">Loud’n Live</div>
+</div>
+
+<script id="engine">
+// Shimmer Cloud white-light engine — pure: no page, no sound. "Shimmer Cloud — rich — check.mjs" runs it in Node.
+const SR = 24000, NP = 32768, TAU = 2 * Math.PI, F_LO = 80, F_HI = 11000;
+function rng(seed) { let s = (seed >>> 0) || 1; return () => { s ^= s << 13; s >>>= 0; s ^= s >> 17; s ^= s << 5; s >>>= 0; return s / 4294967296; }; }
+function gauss(R) { const u = Math.max(1e-12, R()), v = R(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(TAU * v); }
+function fft(re, im, inv) { // in place, radix 2
+  const n = re.length;
+  for (let i = 1, j = 0; i < n; i++) { let b = n >> 1; for (; j & b; b >>= 1) j ^= b; j ^= b; if (i < j) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+  for (let len = 2; len <= n; len <<= 1) {
+    const a = (inv ? 1 : -1) * TAU / len, wr = Math.cos(a), wi = Math.sin(a);
+    for (let i = 0; i < n; i += len) { let cr = 1, ci = 0;
+      for (let k = 0; k < len / 2; k++) { const p = i + k, q = p + len / 2, tr = re[q] * cr - im[q] * ci, ti = re[q] * ci + im[q] * cr;
+        re[q] = re[p] - tr; im[q] = im[p] - ti; re[p] += tr; im[p] += ti; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } }
+  }
+  if (inv) for (let i = 0; i < n; i++) { re[i] /= n; im[i] /= n; }
+}
+// The two sources: a click (one sample), and a plucked note (harmonics of 220 Hz at 1/n up to 10 kHz, the same decay on all)
+function source(kind) {
+  const x = new Float64Array(NP);
+  if (kind === 'click') { x[0] = 1; return x; }
+  const n = Math.round(0.5 * SR), K = Math.floor(10000 / 220);
+  for (let i = 0; i < n; i++) { const t = i / SR, env = Math.min(1, t / 0.002) * Math.exp(-t / 0.12); let s = 0;
+    for (let k = 1; k <= K; k++) s += Math.sin(TAU * 220 * k * t) / k; x[i] = s * env; }
+  let pk = 0; for (let i = 0; i < n; i++) pk = Math.max(pk, Math.abs(x[i])); for (let i = 0; i < n; i++) x[i] /= pk;
+  return x;
+}
+function spectrum(x) { const re = Float64Array.from(x), im = new Float64Array(NP); fft(re, im, false); return [re, im]; }
+// u(f): how far up the range 80 Hz – 11 kHz, by octaves, clipped to 0..1
+const NB = NP / 2 + 1, DF = SR / NP;
+const LOGU = (() => { const a = new Float64Array(NB); for (let k = 0; k < NB; k++) { const f = k * DF; a[k] = Math.log(Math.min(1, Math.max(1e-12, Math.log(Math.max(f, 1e-9) / F_LO) / Math.log(F_HI / F_LO)))); } return a; })();
+const U = Float64Array.from(LOGU, v => Math.exp(v));
+function tau(f, D, p = 1, late = true) { const u = Math.min(1, Math.max(0, Math.log(Math.max(f, 1e-9) / F_LO) / Math.log(F_HI / F_LO))); return D * (late ? Math.pow(u, p) : Math.pow(1 - u, p)); }
+// Accumulate one lens into a transfer function: gain g, start s (seconds), strength D (seconds), shape p, direction, or a plain delay
+function addLens(Hr, Hi, g, s, D, p, late, plain) {
+  let phi = 0;
+  for (let k = 0; k < NB; k++) {
+    const t = plain ? D : (late ? (U[k] > 0 ? D * Math.exp(p * LOGU[k]) : 0) : D * Math.pow(1 - U[k], p));
+    if (k > 0) phi -= TAU * t * DF; // the phase is the integral of the delay
+    const ph = phi - TAU * k * DF * s; Hr[k] += g * Math.cos(ph); Hi[k] += g * Math.sin(ph);
+  }
+}
+// Below 40 Hz the lenses don't disperse and 600 of them add up in phase, so the steward's lens leaves those bins out.
+// Here the cut is eased in over 20–60 Hz, so it rings less; what rings still is read on a circle (shape, below).
+const HP = Float64Array.from({ length: NB }, (_, k) => { const f = k * DF; return f <= 20 ? 0 : f >= 60 ? 1 : 0.5 - 0.5 * Math.cos(Math.PI * (f - 20) / 40); });
+function applyH(X, Hr, Hi) { // y = irfft(X · H)
+  const re = new Float64Array(NP), im = new Float64Array(NP), [Xr, Xi] = X;
+  for (let k = 0; k < NB; k++) { if (!HP[k]) continue; const a = HP[k] * (Xr[k] * Hr[k] - Xi[k] * Hi[k]), b = HP[k] * (Xr[k] * Hi[k] + Xi[k] * Hr[k]); re[k] = a; im[k] = b; if (k > 0 && k < NP / 2) { re[NP - k] = a; im[NP - k] = -b; } }
+  fft(re, im, true); return re;
+}
+function lensOut(x, D, p, late, plain) { const Hr = new Float64Array(NB), Hi = new Float64Array(NB); addLens(Hr, Hi, 1, 0, D, p, late, plain); return applyH(spectrum(x), Hr, Hi); }
+function resample(x, len, cents) { // linear interpolation, as May's cloud.py: rate > 1 is faster and higher
+  const rate = Math.pow(2, cents / 1200), n = Math.min(NP, Math.round(len / rate)), y = new Float64Array(NP);
+  for (let i = 0; i < n; i++) { const pos = i * rate, j = Math.min(len - 2, Math.floor(pos)), fr = pos - j; y[i] = (1 - fr) * x[j] + fr * x[j + 1]; }
+  return y;
+}
+const srcLen = kind => kind === 'click' ? 2 : Math.round(0.5 * SR);
+// A cloud of 600: pitch copies (Gaussian cents, sd 25) or prisms (D uniform 150–600 ms, p = max(0.3, 1 + 0.3·N), highs late),
+// each started uniformly in 0–25 ms, panned equal-power across the field, amplitude 1 − U(0, 0.3). Stereo out.
+// For speed the prisms' shape p is held to steps of 0.02, each step's running sum of u^p made once, and the phase
+// turned through a 65,536-step table of cosines; the check holds the result to the exact lens and to the steward's measure.
+const CTAB = Float64Array.from({ length: 65536 }, (_, i) => Math.cos(TAU * i / 65536));
+const PSUM = new Map();
+function psum(p) { // the running sum of u^p over the bins, for p on a 0.02 grid
+  const q = Math.round(p * 50); if (PSUM.has(q)) return PSUM.get(q);
+  const pp = q / 50, a = new Float64Array(NB); let acc = 0;
+  for (let k = 1; k < NB; k++) { acc += U[k] > 0 ? Math.exp(pp * LOGU[k]) : 0; a[k] = acc; }
+  PSUM.set(q, a); return a;
+}
+function cloud(kind, which, n = 600, seed = 7) {
+  const R = rng(seed), x = source(kind), L = new Float64Array(NP), Rt = new Float64Array(NP), len = srcLen(kind);
+  if (which === 'pitch') {
+    for (let i = 0; i < n; i++) { const c = 25 * gauss(R), s = Math.floor(R() * 0.025 * SR), a = 1 - 0.3 * R(), th = (R() * 2 - 1 + 1) * Math.PI / 4;
+      const rate = Math.pow(2, c / 1200), m = Math.min(NP - s, Math.round(len / rate)), gl = a * Math.cos(th), gr = a * Math.sin(th);
+      for (let k = 0; k < m; k++) { const pos = k * rate, j = Math.min(len - 2, Math.floor(pos)), fr = pos - j, y = (1 - fr) * x[j] + fr * x[j + 1];
+        L[k + s] += gl * y; Rt[k + s] += gr * y; } }
+    return [L, Rt];
+  }
+  const X = spectrum(x), Hlr = new Float64Array(NB), Hli = new Float64Array(NB), Hrr = new Float64Array(NB), Hri = new Float64Array(NB);
+  const C = 65536 / TAU, MASK = 65535, Q = 16384; // a quarter turn, for the sine
+  for (let i = 0; i < n; i++) { const D = (0.15 + R() * 0.45), p = Math.max(0.3, 1 + 0.3 * gauss(R)), s = R() * 0.025, a = 1 - 0.3 * R(), th = (R() * 2 - 1 + 1) * Math.PI / 4;
+    const P = psum(p), gl = a * Math.cos(th), gr = a * Math.sin(th), kd = -TAU * DF * D, ks = -TAU * DF * s;
+    for (let k = 0; k < NB; k++) { const ph = kd * P[k] + ks * k; let idx = Math.round(ph * C) & MASK; const co = CTAB[idx], si = CTAB[(idx - Q) & MASK];
+      Hlr[k] += gl * co; Hli[k] += gl * si; Hrr[k] += gr * co; Hri[k] += gr * si; } }
+  return [applyH(X, Hlr, Hli), applyH(X, Hrr, Hri)];
+}
+// When a band lands: the energy-weighted time of its short-time energy (Hann 512, hop 64), as the steward measured.
+function bandArrival(m, lo, hi, win = 512, hop = 64) {
+  const pad = new Float64Array(m.length + win * 1.5); pad.set(m, win / 2);
+  const w = Float64Array.from({ length: win }, (_, i) => 0.5 - 0.5 * Math.cos(TAU * i / (win - 1)));
+  const k0 = Math.ceil(lo * win / SR), k1 = Math.floor(hi * win / SR); let et = 0, e = 0;
+  for (let s = 0; s + win <= pad.length; s += hop) { const re = new Float64Array(win), im = new Float64Array(win);
+    for (let i = 0; i < win; i++) re[i] = pad[s + i] * w[i]; fft(re, im, false);
+    let b = 0; for (let k = k0; k <= k1; k++) b += re[k] * re[k] + im[k] * im[k]; et += b * s / SR; e += b; }
+  return e > 0 ? et / e : NaN;
+}
+function shape(x) { // the buffer is a circle: its last 0.1 s is read as the moment before the strike
+  const W = Math.round(0.1 * SR), m = new Float64Array(x.length); m.set(x.subarray(x.length - W), 0); m.set(x.subarray(0, x.length - W), W);
+  const lo = bandArrival(m, 100, 500) - W / SR, hi = bandArrival(m, 3000, 8000) - W / SR;
+  let tot = 0; for (const v of m) tot += v * v; let c = 0, t5 = 0, t95 = 0;
+  for (let i = 0; i < m.length; i++) { c += m[i] * m[i]; if (!t5 && c >= 0.05 * tot) t5 = i; if (c >= 0.95 * tot) { t95 = i; break; } }
+  return { lows: lo * 1000, highs: hi * 1000, gap: (hi - lo) * 1000, spread: (t95 - t5) / SR * 1000 };
+}
+// What a flat spectrum predicts for a band's landing time: tau averaged over the band's frequencies
+function bandTau(lo, hi, D, p = 1, late = true) { let s = 0, n = 0; for (let f = lo; f <= hi; f += DF) { s += tau(f, D, p, late); n++; } return s / n; }
+const mid = (L, R) => Float64Array.from(L, (v, i) => (v + R[i]) / 2);
+const ENGINE = { SR, NP, F_LO, F_HI, source, lensOut, resample, srcLen, cloud, shape, mid, tau, bandTau, bandArrival, fft };
+if (typeof module !== 'undefined') module.exports = ENGINE;
+</script>
+<script id="page">
+const $ = id => document.getElementById(id);
+function sigil(el) { // the Lissajous trace, 3:2, small
+  const p = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * TAU; p.push((11 + 9 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ',' + (11 + 9 * Math.sin(2 * t)).toFixed(2)); }
+  el.innerHTML = '<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.4" fill="none" stroke="#4a4a5e" stroke-width="1"/><polyline points="' + p.join(' ') + '" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>';
+}
+// Sound: nothing exists before a click. One sound at a time, through a compressor; a step change stops it.
+const SND = { ctx: null, out: null, src: null, btn: null, media: new Map(), el: null };
+function soundOn() {
+  if (!SND.ctx) {
+    SND.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = SND.ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+    SND.out = SND.ctx.createGain(); SND.out.gain.value = 0.8; SND.out.connect(comp); comp.connect(SND.ctx.destination);
+  }
+  if (SND.ctx.state === 'suspended') SND.ctx.resume();
+}
+function stopSound() {
+  if (SND.src) { try { SND.src.stop(); } catch (e) {} SND.src = null; }
+  if (SND.el) { SND.el.pause(); SND.el.currentTime = 0; SND.el = null; }
+  if (SND.btn) SND.btn.setAttribute('aria-pressed', 'false'); SND.btn = null;
+}
+function playStereo(L, R, btn) {
+  soundOn(); stopSound();
+  let pk = 1e-9; for (let i = 0; i < L.length; i++) pk = Math.max(pk, Math.abs(L[i]), Math.abs(R[i]));
+  const g = 0.5 / pk, n = Math.round(1.25 * SR), b = SND.ctx.createBuffer(2, n, SR), l = b.getChannelData(0), r = b.getChannelData(1);
+  for (let i = 0; i < n; i++) { const fade = i > n - 600 ? (n - i) / 600 : 1; l[i] = L[i] * g * fade; r[i] = R[i] * g * fade; }
+  const s = SND.ctx.createBufferSource(); s.buffer = b; s.connect(SND.out); s.start(); SND.src = s; SND.btn = btn; btn.setAttribute('aria-pressed', 'true');
+  s.onended = () => { if (SND.src === s) { SND.src = null; btn.setAttribute('aria-pressed', 'false'); SND.btn = null; } };
+}
+function playFile(url, btn) {
+  const was = SND.btn === btn; stopSound(); if (was) return;
+  if (!SND.media.has(url)) { const el = new Audio(url); el.hidden = true; document.body.appendChild(el); SND.media.set(url, el); } // in the page, so the kit hears it start
+  const a = SND.media.get(url); SND.el = a; SND.btn = btn; btn.setAttribute('aria-pressed', 'true');
+  a.onended = () => { if (SND.el === a) stopSound(); };
+  a.play().catch(() => stopSound());
+}
+// The picture: a short-time spectrum, 0–10 kHz, the first 1.2 s; brighter is louder, 70 dB from top to floor.
+function ramp(v) { // 0..1 → night to indigo to amber to white
+  const stops = [[10, 10, 15], [52, 40, 120], [180, 80, 110], [232, 184, 74], [250, 240, 220]];
+  const x = Math.max(0, Math.min(1, v)) * (stops.length - 1), i = Math.min(stops.length - 2, Math.floor(x)), f = x - i;
+  return stops[i].map((c, k) => Math.round(c + (stops[i + 1][k] - c) * f));
+}
+function drawSpec(cv, m, opts = {}) {
+  const dpr = window.devicePixelRatio || 1, w = cv.clientWidth || 600, h = opts.h || 220;
+  cv.style.height = h + 'px'; cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.fillStyle = '#0a0a0f'; g.fillRect(0, 0, w, h);
+  const L = 40, Rr = w - 8, T = 6, B = h - 20, tmax = 1.2, fmax = 10000, win = 512, hop = 96;
+  const wnd = Float64Array.from({ length: win }, (_, i) => 0.5 - 0.5 * Math.cos(TAU * i / (win - 1)));
+  const frames = [], kmax = Math.floor(fmax * win / SR); let top = 1e-12;
+  for (let s = -win / 2; s < tmax * SR; s += hop) { const re = new Float64Array(win), im = new Float64Array(win);
+    for (let i = 0; i < win; i++) { const j = s + i; re[i] = j >= 0 && j < m.length ? m[j] * wnd[i] : 0; }
+    ENGINE.fft(re, im, false); const col = new Float64Array(kmax + 1); for (let k = 0; k <= kmax; k++) { col[k] = re[k] * re[k] + im[k] * im[k]; top = Math.max(top, col[k]); } frames.push([(s + win / 2) / SR, col]); }
+  const img = g.createImageData(Math.round((Rr - L) * dpr), Math.round((B - T) * dpr)), W = img.width, H = img.height;
+  for (let px = 0; px < W; px++) { const t = px / W * tmax, fi = Math.min(frames.length - 1, Math.max(0, Math.round((t + 0) / (hop / SR)))), col = frames[fi][1];
+    for (let py = 0; py < H; py++) { const k = Math.round((1 - py / H) * kmax), db = 10 * Math.log10(col[k] / top + 1e-12), [r, gg, b] = ramp((db + 70) / 70), o = 4 * (py * W + px);
+      img.data[o] = r; img.data[o + 1] = gg; img.data[o + 2] = b; img.data[o + 3] = 255; } }
+  g.putImageData(img, Math.round(L * dpr), Math.round(T * dpr)); g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#8a8aa0';
+  for (const f of [0, 2000, 4000, 6000, 8000, 10000]) { const y = B - (B - T) * f / fmax; g.fillText(f / 1000 + 'k', 4, Math.max(T + 8, y + 3)); }
+  for (const t of [0, 0.2, 0.4, 0.6, 0.8, 1.0]) g.fillText(t.toFixed(1) + ' s', L + (Rr - L) * t / tmax - (t ? 12 : 0), h - 5);
+  if (opts.curve) { g.strokeStyle = 'rgba(120,170,255,.95)'; g.lineWidth = 1.25; g.setLineDash([5, 5]); g.beginPath();
+    for (let py = 0; py <= 120; py++) { const f = Math.max(F_LO * 0.999, fmax * py / 120), t = opts.curve(f), x = L + (Rr - L) * t / tmax, y = B - (B - T) * f / fmax; py ? g.lineTo(x, y) : g.moveTo(x, y); }
+    g.stroke(); g.setLineDash([]); }
+}
+const ms = v => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(0) + ' ms';
+function readShape(el, sh, extra = '') {
+  el.innerHTML = '<span>lows land <b>' + sh.lows.toFixed(0) + ' ms</b></span><span>highs land <b>' + sh.highs.toFixed(0) + ' ms</b></span>' +
+    '<span>highs after lows <b>' + ms(sh.gap) + '</b></span>' + extra;
+}
+let SRC = 'click';
+const state = { d: 0.3, c: 700, D: 0.3, late: true };
+const render = [
+  () => { const m = ENGINE.source(SRC); readShape($('r0'), ENGINE.shape(m)); drawSpec($('cv0'), m); return [m, m]; },
+  () => { const m = ENGINE.lensOut(ENGINE.source(SRC), state.d, 1, true, true); readShape($('r1'), ENGINE.shape(m)); drawSpec($('cv1'), m); return [m, m]; },
+  () => { const m = ENGINE.resample(ENGINE.source(SRC), ENGINE.srcLen(SRC), state.c), sh = ENGINE.shape(m);
+    const p1 = 220 * Math.pow(2, state.c / 1200); readShape($('r2'), sh, SRC === 'pluck' ? '<span>partial 1 now <b>' + p1.toFixed(1) + ' Hz</b></span>' : '<span>the click <b>unchanged</b></span>');
+    drawSpec($('cv2'), m); return [m, m]; },
+  () => { const m = ENGINE.lensOut(ENGINE.source(SRC), state.D, 1, state.late, false), sh = ENGINE.shape(m);
+    const pred = ENGINE.bandTau(3000, 8000, state.D, 1, state.late) - ENGINE.bandTau(100, 500, state.D, 1, state.late);
+    readShape($('r3'), sh, '<span style="text-transform:none">τ predicts <b>' + ms(pred * 1000) + '</b></span>');
+    drawSpec($('cv3'), m, { curve: f => ENGINE.tau(f, state.D, 1, state.late) }); return [m, m]; },
+];
+const CL = {}; // the two clouds, per source, made once
+function clouds() {
+  const key = SRC; if (CL[key]) return CL[key];
+  const a = ENGINE.cloud(SRC, 'pitch'), b = ENGINE.cloud(SRC, 'prism');
+  CL[key] = { a, b, sa: ENGINE.shape(ENGINE.mid(...a)), sb: ENGINE.shape(ENGINE.mid(...b)) }; return CL[key];
+}
+function step4() {
+  $('busy').textContent = 'rendering 1,200 lenses…'; $('v4').textContent = 'Rendering the two clouds…';
+  setTimeout(() => {
+    const c = clouds(); $('busy').textContent = '';
+    drawSpec($('cv4a'), ENGINE.mid(...c.a), { h: 200 }); drawSpec($('cv4b'), ENGINE.mid(...c.b), { h: 200 });
+    const row = (n, s) => '<tr><td><b>' + n + '</b></td><td>' + s.lows.toFixed(0) + ' ms</td><td>' + s.highs.toFixed(0) + ' ms</td><td><b>' + ms(s.gap) + '</b></td><td>' + s.spread.toFixed(0) + ' ms</td></tr>';
+    $('t4').innerHTML = '<tr><th>struck with ' + (SRC === 'click' ? 'a click' : 'the plucked note') + '</th><th>lows land</th><th>highs land</th><th>highs after lows</th><th>90 % of the energy within</th></tr>' + row('600 pitch copies, ±25 ¢', c.sa) + row('600 prisms, 150 – 600 ms', c.sb);
+    $('v4').textContent = 'The pitch copies smear the ' + (SRC === 'click' ? 'click' : 'note') + ' over ' + c.sa.spread.toFixed(0) + ' ms and land its highs ' + ms(c.sa.gap) + ' from its lows: nothing is sorted. The prisms land the highs ' + ms(c.sb.gap) + ' after the lows: a fan, the way a prism spreads light. A spectrum of pitch shifts is not the prism; frequency-dependent delay is. The page\'s own forward vector already says so: "each delaying its frequencies its own way."';
+  }, 30);
+}
+// Controls
+$('d').oninput = e => { state.d = +e.target.value / 1000; $('dv').textContent = e.target.value + ' ms'; render[1](); };
+$('c').oninput = e => { state.c = +e.target.value; $('cv').textContent = (state.c > 0 ? '+' : '') + state.c + ' ¢'; render[2](); };
+$('D').oninput = e => { state.D = +e.target.value / 1000; $('Dv').textContent = e.target.value + ' ms'; render[3](); };
+$('dv').textContent = '300 ms'; $('cv').textContent = '+700 ¢'; $('Dv').textContent = '300 ms';
+document.querySelectorAll('#dirSeg button').forEach(b => b.onclick = () => { state.late = b.dataset.dir === 'late'; document.querySelectorAll('#dirSeg button').forEach(o => o.setAttribute('aria-pressed', o === b ? 'true' : 'false')); render[3](); });
+['p0', 'p1', 'p2', 'p3'].forEach((id, i) => $(id).onclick = e => { const [L, R] = render[i](); playStereo(L, R, e.currentTarget); });
+$('p4a').onclick = e => { const c = clouds(); playStereo(...c.a, e.currentTarget); };
+$('p4b').onclick = e => { const c = clouds(); playStereo(...c.b, e.currentTarget); };
+document.querySelectorAll('[data-take]').forEach(b => b.onclick = () => playFile(b.dataset.take, b));
+// The walk: one step showing, Next and Back, the rail stays open, a step change stops the sound
+const steps = [...document.querySelectorAll('.step')]; let cur = 0;
+const names = ['white light', 'a pane of glass', 'a pitch copy', 'one prism', 'a cloud of each'];
+names.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s; b.onclick = () => go(i); $('rail').appendChild(b); });
+function enter() { if (cur < 4) render[cur](); else step4(); }
+function go(i) {
+  stopSound(); cur = Math.max(0, Math.min(steps.length - 1, i));
+  steps.forEach((el, k) => el.classList.toggle('on', k === cur));
+  $('rail').querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === cur ? 'step' : 'false'));
+  $('back').disabled = cur === 0; $('next').disabled = cur === steps.length - 1;
+  $('where').textContent = 'step ' + (cur + 1) + ' of ' + steps.length; enter();
+}
+document.querySelectorAll('#srcSeg button').forEach(b => b.onclick = () => { SRC = b.dataset.src; document.querySelectorAll('#srcSeg button').forEach(o => o.setAttribute('aria-pressed', o === b ? 'true' : 'false')); stopSound(); enter(); });
+$('back').onclick = () => go(cur - 1); $('next').onclick = () => go(cur + 1);
+go(0); sigil($('sigil'));
+</script>
+</body>
+</html>
