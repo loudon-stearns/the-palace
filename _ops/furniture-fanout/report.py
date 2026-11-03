@@ -34,9 +34,15 @@ L.append('')
 
 L += ['## For Loudon', '',
       '- **Rich-face pieces carry no tab icon, by decision (2026-11-03).** A framed piece never owns a browser tab; the page that '
-      'frames it (the rich face, the scroll\'s trail, a TRICKSTER card) wears the entry\'s avatar. Declaring the icon in `piece:files` '
+      'frames it (the rich face, the scroll\'s trail, a TRICKSTER card) is where the entry\'s avatar belongs. Today it wears none: '
+      'neither `_ops/rich-face/rich.html` nor the STIGMERGY app sets a tab icon, a gap of its own. Declaring the icon in `piece:files` '
       'would give 235 pieces an origin (`allow-same-origin`) and lasting storage (`_ops/rich-face/contract.mjs:217`) for a file the '
       'frame never fetches. Known gap: a piece opened on its own from disk has no icon.',
+      '- **One rule does override pages: reduced motion.** Its `!important` sits in the layer, and a layered `!important` beats a '
+      'page\'s own, so a reader who asks for stillness gets it everywhere. The sheet means this. Every other rule yields to the page.',
+      '- **Pages regenerated from the 22 templates will drop the furniture** the next time their script runs; the templates were left alone.',
+      '- **Two framed pieces link `controls.css` by `../`** (FM Synthesis staged patch, SUBSTRATE anatomy), exactly as they already link '
+      'their token sheet, and both declare it in `piece:files`. conform passes; worth one look in the live frame.',
       '- **A page that hides focus on its own selectors still hides it.** The inlined sheet sits in a layer so the page always wins; '
       'that also means a page\'s own `.btn:focus { outline: none }` beats the house focus line. The census counted 132 such pages. '
       'Fixing them is a per-page edit, not a sheet.',
