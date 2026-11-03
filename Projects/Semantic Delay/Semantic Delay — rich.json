@@ -1,0 +1,121 @@
+{
+  "title": "Semantic Delay — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Semantic Delay]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "each-piece-walks-up"
+    },
+    {
+      "target": "[[Kuramoto Coupling]]",
+      "type": "connects-to",
+      "label": "tested-against"
+    }
+  ],
+  "forward_vector": "I am the manifest of Semantic Delay's rich face, its first round, a Sketch and still a proposal: two walks that each start from one idea and end on a measurement of the real model's takes (what the coupling knob holds, which is the melody and not the rhythm, and whether it locks, which it doesn't; and how long the delay has to be, which is the model's work on the whole phrase, not a fixed 8 seconds), beside two of the bundle's own proof figures. I grow when the page is enriched again; I never hold the entry's words.",
+  "entry": "Semantic Delay",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "Rhythmic Coupling: Two-Stage Pool-Then-Select",
+      "kind": "claim-change",
+      "what": "In Phase 1 the coupling is on melody, and the rhythm is copied rather than coupled. The section and the Technical Stack call the F0 knob rhythmic coupling. On the three real takes (stage4-real) the knob moves the melody 0.33, 0.75 and 1.48 st from the source at K = 1, 0.5 and 0 (RMVPE: 0.33, 0.83, 1.50). The loudness line stays put: the echoes agree with each other at r 0.92 to 0.95, and each lines up with the source best at 0 ms. Offer: say that Phase 1's knob couples melody and the model carries the rhythm; the rhythmic constraint (syllables, stress, duration) stays Phase 2's.",
+      "status": "open"
+    },
+    {
+      "section": "Rhythmic Coupling: Two-Stage Pool-Then-Select",
+      "kind": "claim-change",
+      "what": "The built knob is a blend, not a phase-lock. coupling.py settles the echo at K·melody + (1 − K)·spirit, and swept over 21 settings on this phrase its asked distance falls within 0.13 st of a straight line (1.45 st at K = 0 to 0.04 at K = 1), with no threshold. Two Kuramoto oscillators lock suddenly once the coupling reaches their detuning. Offer: call the knob a pull that borrows Kuramoto's picture, or give it a sine term if a lock you can hear snap is what the instrument wants. Loudon's choice.",
+      "status": "open"
+    },
+    {
+      "section": "Phase 1 Plan — SVC + VST (2026-04-20)",
+      "kind": "claim-change",
+      "what": "'≥8 s as the honest minimum delay time' holds for the 4 s phrase the Stage 0 findings compute, not for every phrase. The gate sends the phrase plus 0.3 s, so the work is r·(L + 0.3); at 1.65 an 8 s delay carries phrases up to 4.55 s, and the plugin's longest phrase (8 s) needs 13.7 s. Measured later through the helper: 32 steps ran 1.99 to 2.27 (bench 2.19, so 8 s carries 3.35 s); 16 steps ran 0.89 to 1.20 (8 s carries 6.42 to 8 s). The offline run at 8 s and 32 steps would have been 5.3 s and 9.7 s late live; the plugin's real-time run at 12 s and 16 steps had 4.6 to 5.9 s to spare on every echo. Offer: a dated note under the Stage 0 findings giving the minimum as r·(L + 0.3) and pointing to the later speeds.",
+      "status": "open"
+    },
+    {
+      "section": "Phase 1 Plan — SVC + VST (2026-04-20)",
+      "kind": "no-claim-edit",
+      "what": "'Dial in a delay time in seconds': both the Python instrument (delay_engine.py) and the plugin (Algorithm.h, due = end + delay) count the delay from the phrase's end, after the gate's 0.3 s, so an echo is heard L + 0.3 + D after the first word (a 4 s phrase at 8 s: 12.3 s). One clause would say so. It matters for the plan's tempo-lock move, where a dotted eighth or a bar has to count from a phrase's start, not its end.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Rhythmic Coupling: Two-Stage Pool-Then-Select",
+      "made_against": "cd57afd88047",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "standalone/demo/stage4-real/stage4-real-coupling-contours.png",
+          "origin": "gathered",
+          "title": "the knob on the real model · 14 October",
+          "caption": "**One phrase, three settings of the knob, the real model on the M1 Max.** Grey is the source melody, blue what the knob asked for, red what the model sang, measured by the model's own pitch tracker. It sang within 0.1 to 0.15 st of what it was asked every time; the source's dive near 6.2 s is the tracker's octave slip, which the knob now folds back.",
+          "near": "The activated spirit selects from the pool",
+          "place": "margin"
+        },
+        {
+          "file": "Semantic Delay — rich — what the knob holds.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio + canvas · measured by measure.py",
+          "height": 900,
+          "caption": "**What does the knob hold, and does it lock?** One phrase, then one echo held, then the knob let go, on the three real takes; last, the claim put to them. The knob moves the melody and leaves the rhythm where it was, and its rule is a blend with no point where it snaps, unlike two Kuramoto oscillators.",
+          "near": "The coupling strength is the constraint",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Phase 1 Plan — SVC + VST (2026-04-20)",
+      "made_against": "64b60caec1da",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Semantic Delay — rich — how long a delay.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio + canvas · measured by measure.py",
+          "height": 860,
+          "caption": "**How long does the delay have to be?** A phrase has to end, the model works for seconds, the delay counts from the end; two real runs hold the arithmetic up, and last the page's 8 seconds against every speed measured since April. Eight seconds is enough for a 4-second phrase, not for the 8-second phrases the plugin will send.",
+          "near": "A consequence worth naming and not fighting",
+          "place": "band"
+        },
+        {
+          "file": "plugin/proofs/echo-through-helper-soulx/timeline.png",
+          "origin": "gathered",
+          "title": "the plugin in real time · 1 November",
+          "caption": "**The plugin's own code, played in real time against the real helper.** Two sung phrases in, a 12 s delay, two repeats each at 16 steps: all four echoes started on the sample they were due (dashed). The phrase-delay return effect, working as the section describes it, at a delay longer than its 8 s.",
+          "near": "A consequence worth naming and not fighting",
+          "place": "margin"
+        }
+      ],
+      "stamped": "2026-11-03"
+    }
+  ]
+}

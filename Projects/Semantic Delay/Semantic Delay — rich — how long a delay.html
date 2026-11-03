@@ -1,0 +1,312 @@
+<!doctype html>
+<!--
+  title: Semantic Delay — rich — how long a delay
+  born: 2026-11-03
+  links: [[Semantic Delay]] (connects-to · rich-face-piece) · listed in [[Semantic Delay — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test) · plays standalone/demo/stage15-real-daemon/ (the helper's first real run, 2026-10-14) · reads plugin/proofs/echo-through-helper-soulx/ (the plugin's real-time run, 2026-11-01)
+  forward_vector: I am the Phase 1 Plan's forcing function played out: latency is musical, seconds not milliseconds, and "≥8 s" as the honest minimum delay. A phrase ends, the model works, the delay counts from the end, two real runs hold the arithmetic up, and last the page's 8 seconds set against every speed the bundle measured. I change when the section, the plugin's timing or the measured speeds do.
+  measured: Semantic Delay — rich — measure.py derives every time on this page from the bundle's reports and the helper's log, into Semantic Delay — rich — measure.json, copied into this page's data block; Semantic Delay — rich — check.mjs holds this page's engine to it.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:files" content="standalone/demo/stage15-real-daemon/stage15-real-daemon-delay.wav">
+<title>Semantic Delay — how long a delay</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,.10); --accent-line:rgba(232,184,74,.5); --indigo:#6366F1; --warn:#ff9b4a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 18px; border: 1px solid var(--border); border-radius: 2px; width: fit-content; max-width: 100%; }
+  .rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; background: transparent; padding: 7px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button[aria-current="step"] { background: var(--accent-soft); color: var(--accent); }
+  .step { display: none; }
+  .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .teach { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 0 0 12px; }
+  .back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin: 0 0 14px; }
+  .eqs { margin: 4px 0 16px; padding: 10px 14px; border-left: 1px solid var(--accent-line); background: var(--e1); max-width: 76ch; }
+  .eq { font-family: var(--serif); font-size: 20px; color: var(--fg1); font-variant-numeric: lining-nums; }
+  .eq i { font-style: italic; }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .words:last-child { margin-bottom: 0; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; margin-bottom: 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: var(--accent-line); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.go { color: var(--accent); border-color: var(--accent-line); }
+  button[aria-pressed="true"] { color: var(--bg); border-color: var(--accent); background: var(--accent); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 12px; }
+  .chips button { text-transform: none; letter-spacing: .02em; padding: 6px 10px; }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 12px; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 8px 0 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .late { color: var(--warn); }
+  .ctl { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 26px; max-width: 760px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  .verdict { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 6px 0 12px; padding: 10px 14px; border: 1px solid var(--accent-line); border-radius: 2px; color: var(--fg1); }
+  .nav { display: flex; align-items: center; gap: 10px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .nav .where { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 76ch; margin: 6px 0 0; }
+  .err { font-family: var(--mono); font-size: 11px; color: var(--warn); }
+  @media (max-width: 720px) { .ctl { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><span id="sigil"></span>gathered and made · sketch · a walk in five steps</div>
+  <h2 class="title">How long does the delay have to be?</h2>
+  <p class="sub">The plan says the latency is musical: seconds of phrase-delay, not zero-latency monitoring, with 8 seconds as the honest minimum. This walks one phrase through the plugin's timing, holds the arithmetic against two real runs, then sets the page's 8 seconds against every speed the bundle has measured since April.</p>
+  <div class="rail" id="rail"></div>
+
+  <section class="step">
+    <h3>A phrase has to end first</h3>
+    <p class="teach">The plugin can't send what you haven't finished singing. It listens for 0.3 seconds of quiet, and only then knows the phrase is over and sends it on, quiet and all. It cuts any phrase at 8 seconds. Play the first phrase of the helper's first real run: 6.4 seconds of SoulX's example vocal.</p>
+    <div class="btns"><button class="go" data-take="p1">▸ one phrase</button></div>
+    <div class="ctl"><label class="sl">your phrase lasts <b id="lv1"></b><input class="L" type="range" min="1" max="8" step="0.1" value="4"></label></div>
+    <div class="panel"><div class="plabel"><span>one phrase, in seconds</span><span>grey: you sing · dashes: the gate's 0.3 s · ▲ sent</span></div><canvas class="tl"></canvas></div>
+  </section>
+
+  <section class="step">
+    <h3>Seconds of work</h3>
+    <p class="teach">Then the model sings it in another voice, and that takes longer than the phrase itself. How much longer is its speed: seconds of work for each second of audio. Pick one the bundle measured. The plugin has to hand the host a buffer every few milliseconds, so the model can't live inside it; it lives in its own process, and the plugin waits.</p>
+    <div class="chips" id="chips2"></div>
+    <div class="eqs">
+      <div class="eq"><i>c</i> = <i>r</i> · (<i>L</i> + 0.3)</div>
+      <div class="words">The model's work (<i>c</i>, seconds) is its speed (<i>r</i>, seconds of work per second of audio) times what was sent: the phrase (<i>L</i>) and the gate's 0.3 s of quiet.</div>
+    </div>
+    <div class="ctl"><label class="sl">your phrase lasts <b id="lv2"></b><input class="L" type="range" min="1" max="8" step="0.1" value="4"></label></div>
+    <div class="panel"><div class="plabel"><span>the phrase, then the model's work</span><span>grey: you · indigo: the model singing it</span></div><canvas class="tl"></canvas></div>
+    <div class="read" id="read2"></div>
+    <p class="back">Step 1 is this with the work left out.</p>
+  </section>
+
+  <section class="step">
+    <h3>The delay counts from the end</h3>
+    <p class="teach">Now the delay knob. In both the Python instrument and the plugin it counts from the moment the phrase was sent, the end of the gate, not from your first word. The echo is due then, and it plays if the model has finished. If it hasn't, the plugin plays it the moment it's ready, late, rather than clipping its start.</p>
+    <div class="eqs">
+      <div class="eq">due = end + <i>D</i> &nbsp;·&nbsp; heard after <i>L</i> + 0.3 + <i>D</i> &nbsp;·&nbsp; on time when <i>c</i> ≤ <i>D</i></div>
+      <div class="words">The echo is due a delay (<i>D</i>) after the phrase was sent. From your first word you wait the phrase, the gate and the delay. It lands on time only if the model's work fits inside the delay.</div>
+    </div>
+    <div class="chips" id="chips3"></div>
+    <div class="ctl">
+      <label class="sl">your phrase lasts <b id="lv3"></b><input class="L" type="range" min="1" max="8" step="0.1" value="4"></label>
+      <label class="sl">delay <b id="dv3"></b><input id="D3" type="range" min="2" max="30" step="0.1" value="8"></label>
+    </div>
+    <div class="panel"><div class="plabel"><span>phrase, work, echo</span><span>grey: you · indigo: the model · amber: the echo · dashes: due</span></div><canvas class="tl"></canvas></div>
+    <div class="read" id="read3"></div>
+    <p class="back">Step 2's work bar is the indigo one.</p>
+  </section>
+
+  <section class="step">
+    <h3>Two real runs</h3>
+    <p class="teach">The arithmetic, held against what happened. On top, the helper's first real run, at the page's 8-second delay and the model's full 32 steps. It ran offline: the instrument waited for the model, so the file plays each echo where it was due. Play it and watch where each echo would have come live. Below, the plugin's own run in real time, at 12 seconds and 16 steps, every conversion timed in the helper's log.</p>
+    <div class="btns"><button class="go" data-take="all">▸ the offline run, 26 s</button></div>
+    <div class="panel"><div class="plabel"><span>offline · 8 s delay · 32 steps</span><span>grey: you · indigo: the model, one at a time · amber: echo as recorded · ▲ live, ready</span></div><canvas id="run1"></canvas></div>
+    <div class="read" id="readRun1"></div>
+    <div class="panel"><div class="plabel"><span>the plugin, real time · 12 s delay · 16 steps · 2 repeats</span><span>indigo: each conversion · amber: each echo · dashes: due</span></div><canvas id="run2"></canvas></div>
+    <div class="read" id="readRun2"></div>
+  </section>
+
+  <section class="step">
+    <h3>The test: is 8 seconds enough?</h3>
+    <p class="teach">The page's own arithmetic: a 4-second phrase at April's speed, 1.65, is about 6.5 seconds of work, so a delay of 8 seconds or more is "musically workable", and 8 is "the honest minimum". Each line below is the shortest delay that lands on time, for every phrase the plugin will send, at one measured speed.</p>
+    <div class="chips" id="chips5"></div>
+    <div class="panel"><div class="plabel"><span>shortest on-time delay, by phrase length</span><span>amber: chosen speed · grey: the others · ◆ the page's 4 s phrase</span></div><canvas id="map"></canvas></div>
+    <div class="read" id="read5"></div>
+    <div class="verdict" id="verdict"></div>
+    <p class="note" id="method"></p>
+  </section>
+
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button><span class="where" id="where"></span></div>
+  <div class="err" id="err"></div>
+</div>
+
+<script id="data" type="application/json">{"hang":0.3,"max_phrase":8.0,"offline":{"file":"standalone/demo/stage15-real-daemon/stage15-real-daemon-delay.wav","seconds":26.494,"delay":8.0,"steps":32,"prompt_sec":10.7,"phrases":[{"sung":[0.5,6.9],"close":7.2,"sent":6.69,"rtf":1.985,"compute":13.28,"due":15.2,"ready_live":20.48,"late_live":5.28,"echo_heard_at":15.27},{"sung":[8.9,13.4],"close":13.7,"sent":4.78,"rtf":2.275,"compute":10.874,"due":21.7,"ready_live":31.354,"late_live":9.654,"echo_heard_at":22.0}]},"realtime":{"delay":12.0,"steps":16,"echoes":[{"phrase":1,"repeat":1,"close":7.198,"sent":6.7,"rtf":1.02,"due":19.198,"ready_model":14.032,"started":19.198,"late_reported":0.0},{"phrase":2,"repeat":1,"close":13.7,"sent":4.79,"rtf":1.2,"due":25.7,"ready_model":19.78,"started":25.7,"late_reported":0.0},{"phrase":1,"repeat":2,"close":7.198,"sent":6.7,"rtf":1.01,"due":31.198,"ready_model":26.547,"started":31.198,"late_reported":0.0},{"phrase":2,"repeat":2,"close":13.7,"sent":4.79,"rtf":1.14,"due":37.7,"ready_model":32.008,"started":37.7,"late_reported":0.0}],"all_on_time":true},"speeds":[{"label":"April, the model alone","rtf":1.65,"where":"Stage 0, the page","longest_phrase_for_8s":4.548,"delay_for_4s_phrase":7.095,"delay_for_8s_phrase":13.695},{"label":"through the helper, 32 steps, 10.7 s singer clip","rtf":2.19,"where":"stage15-latency-bench.json","longest_phrase_for_8s":3.353,"delay_for_4s_phrase":9.417,"delay_for_8s_phrase":18.177},{"label":"through the helper, 16 steps, 10.7 s singer clip","rtf":1.19,"where":"stage15-latency-bench.json","longest_phrase_for_8s":6.423,"delay_for_4s_phrase":5.117,"delay_for_8s_phrase":9.877},{"label":"through the helper, 32 steps, 5 s singer clip","rtf":1.74,"where":"stage15-latency-bench.json","longest_phrase_for_8s":4.298,"delay_for_4s_phrase":7.482,"delay_for_8s_phrase":14.442},{"label":"through the helper, 16 steps, 5 s singer clip","rtf":1.02,"where":"stage15-latency-bench.json","longest_phrase_for_8s":7.543,"delay_for_4s_phrase":4.386,"delay_for_8s_phrase":8.466},{"label":"through the helper, 32 steps, 3 s singer clip","rtf":1.5,"where":"stage15-latency-bench.json","longest_phrase_for_8s":5.033,"delay_for_4s_phrase":6.45,"delay_for_8s_phrase":12.45},{"label":"through the helper, 16 steps, 3 s singer clip","rtf":0.89,"where":"stage15-latency-bench.json","longest_phrase_for_8s":8.0,"delay_for_4s_phrase":3.827,"delay_for_8s_phrase":7.387}],"page_claim":{"phrase":4.0,"rtf":1.65,"compute_page":6.5,"delay":8.0,"compute_with_gate":7.095}}</script>
+<script id="engine">
+// The engine: the plugin's timing as plain arithmetic, run by the page and by "Semantic Delay — rich — check.mjs" alike.
+const E = {
+  HANG: 0.3, MAXL: 8, CALLBACK_S: 512 / 48000,      // the gate's quiet; the plugin's longest phrase; a typical host buffer
+  work(L, r) { return r * (Math.min(L, 8) + 0.3); },            // c = r (L + 0.3)
+  onTime(L, r, D) { return E.work(L, r) <= D + 1e-9; },
+  heardAfter(L, D) { return Math.min(L, 8) + 0.3 + D; },        // from your first word to the echo's
+  shortest(L, r) { return E.work(L, r); },                       // the shortest delay that lands on time
+  longest(r, D) { return Math.max(0, Math.min(8, D / r - 0.3)); }, // the longest phrase a delay carries
+  // One helper, one conversion at a time, in the order given: when each echo is ready.
+  schedule(jobs) { let free = 0; return jobs.map(j => { const start = Math.max(j.close, free), ready = start + j.rtf * j.sent; free = ready; return { ...j, start, ready, late: Math.max(0, ready - j.due) }; }); },
+};
+if (typeof module !== 'undefined') module.exports = E;
+</script>
+<script>
+const $ = id => document.getElementById(id), TAU = Math.PI * 2;
+const RUN = encodeURI('standalone/demo/stage15-real-daemon/stage15-real-daemon-delay.wav');
+const TAKES = { p1: { url: RUN, from: 0.4, stop: 7.0 }, all: { url: RUN, from: 0 } };
+let M = null, speed = 0, L = 4;
+
+function sigil(el) {
+  const p = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * TAU; p.push((11 + 9 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ',' + (11 + 9 * Math.sin(2 * t)).toFixed(2)); }
+  el.innerHTML = '<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.4" fill="none" stroke="#4a4a5e" stroke-width="1"/><polyline points="' + p.join(' ') + '" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>';
+}
+
+// Sound: one audio element, made on the first click and put in the page. A step change stops it.
+let audio = null, playing = null, playingBtn = null, raf = 0;
+function stopSound() {
+  if (audio) audio.pause();
+  playing = null; cancelAnimationFrame(raf);
+  if (playingBtn) playingBtn.setAttribute('aria-pressed', 'false');
+  playingBtn = null; redraw();
+}
+function play(key, btn) {
+  const was = playingBtn === btn; stopSound(); if (was) return;
+  if (!audio) { audio = new Audio(RUN); audio.preload = 'auto'; audio.hidden = true; document.body.appendChild(audio); }
+  const t = TAKES[key]; playing = key; playingBtn = btn; btn.setAttribute('aria-pressed', 'true');
+  audio.currentTime = t.from;
+  audio.onended = () => { if (playing) stopSound(); };
+  audio.onpause = () => { if (playing && !audio.ended) { if (playingBtn) playingBtn.setAttribute('aria-pressed', 'false'); cancelAnimationFrame(raf); } };
+  const tick = () => { if (playing !== key) return; if (t.stop && audio.currentTime >= t.stop) { stopSound(); return; } redraw(audio.currentTime); raf = requestAnimationFrame(tick); };
+  audio.play().then(() => { raf = requestAnimationFrame(tick); }).catch(() => stopSound());
+}
+document.querySelectorAll('button[data-take]').forEach(b => b.addEventListener('click', () => {
+  if (b.dataset.take === 'p1') { L = 6.4; document.querySelectorAll('input.L').forEach(o => { o.value = L; }); }  // the phrase you hear is 6.4 s
+  play(b.dataset.take, b);
+}));
+
+function sized(cv, h) { const dpr = window.devicePixelRatio || 1, w = cv.clientWidth || 640; cv.style.height = h + 'px'; cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h); return [g, w, h]; }
+const f1 = v => (+v).toFixed(1), f2 = v => (+v).toFixed(2);
+function axis(g, w, h, L0, R0, tmax, step) {
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#8a8aa0'; g.strokeStyle = 'rgba(255,255,255,.06)';
+  const x = s => L0 + (R0 - L0) * s / tmax;
+  for (let s = 0; s <= tmax + 1e-9; s += step) { g.beginPath(); g.moveTo(x(s), 6); g.lineTo(x(s), h - 18); g.stroke(); g.fillText(s + ' s', x(s) - 6, h - 5); }
+  return x;
+}
+function bar(g, x0, x1, y, hgt, col, dashed) { if (dashed) { g.setLineDash([3, 3]); g.strokeStyle = col; g.strokeRect(x0, y, Math.max(1, x1 - x0), hgt); g.setLineDash([]); } else { g.fillStyle = col; g.fillRect(x0, y, Math.max(1, x1 - x0), hgt); } }
+function tri(g, x, y, col) { g.fillStyle = col; g.beginPath(); g.moveTo(x, y); g.lineTo(x - 4, y + 7); g.lineTo(x + 4, y + 7); g.fill(); }
+function dueLine(g, x, top, bot) { g.strokeStyle = 'rgba(232,184,74,.75)'; g.setLineDash([4, 3]); g.beginPath(); g.moveTo(x, top); g.lineTo(x, bot); g.stroke(); g.setLineDash([]); }
+
+// Steps 1 to 3: one phrase starting at 0.5 s.
+function drawOne(cv, withWork, D) {
+  const r = M.speeds[speed].rtf, start = 0.5, end = start + L, close = end + E.HANG, c = E.work(L, r);
+  const tmax = withWork ? Math.max(20, Math.ceil((close + Math.max(c, D || 0) + L + 1) / 5) * 5) : 10;
+  const [g, w, h] = sized(cv, 150), x = axis(g, w, h, 10, w - 10, tmax, tmax > 20 ? 5 : (tmax > 10 ? 2 : 1));
+  bar(g, x(start), x(end), 22, 22, 'rgba(200,200,216,.45)'); bar(g, x(end), x(close), 22, 22, '#8a8aa0', true);
+  tri(g, x(close), 48, '#e8e8f0'); g.fillStyle = '#c8c8d8'; g.fillText('you', x(start) + 4, 18);
+  if (withWork) { bar(g, x(close), x(close + c), 64, 16, '#6366F1'); g.fillStyle = '#8b8df5'; g.fillText('the model, ' + f1(c) + ' s', x(close) + 4, 94); }
+  if (D !== undefined) {
+    const due = close + D, ready = close + c, s = Math.max(due, ready), late = ready > due;
+    dueLine(g, x(due), 14, h - 20);
+    bar(g, x(s), x(s + L + E.HANG), 104, 18, late ? '#ff9b4a' : '#e8b84a');
+    g.fillStyle = late ? '#ff9b4a' : '#e8b84a'; g.fillText(late ? 'echo, ' + f1(ready - due) + ' s late' : 'echo, on time', x(s) + 4, 136);
+  }
+}
+function chips(el, onPick) {
+  el.innerHTML = ''; M.speeds.forEach((s, i) => { const b = document.createElement('button'); b.textContent = s.rtf.toFixed(2) + ' · ' + s.label; b.setAttribute('aria-pressed', i === speed ? 'true' : 'false');
+    b.onclick = () => { speed = i; document.querySelectorAll('.chips').forEach(c => c.querySelectorAll('button').forEach((q, k) => q.setAttribute('aria-pressed', k === i ? 'true' : 'false'))); onPick(); }; el.appendChild(b); });
+}
+function read2() { const r = M.speeds[speed].rtf, c = E.work(L, r);
+  $('read2').innerHTML = `<span>work <b>${f1(c)} s</b> for a ${f1(L)} s phrase</span><span>that is <b>${Math.round(c / E.CALLBACK_S)}</b> host buffers of 512 samples at 48 kHz (10.7 ms each)</span>`; }
+function read3() { const r = M.speeds[speed].rtf, D = +$('D3').value, c = E.work(L, r), ok = E.onTime(L, r, D);
+  $('read3').innerHTML = `<span>you hear the echo <b>${f1(E.heardAfter(L, D))} s</b> after your first word</span><span>work <b>${f1(c)} s</b> against a <b>${f1(D)} s</b> delay: ${ok ? '<b>on time</b>' : '<b class="late">' + f1(c - D) + ' s late</b>'}</span><span>shortest on-time delay <b>${f1(E.shortest(L, r))} s</b></span>`; }
+
+// Step 4: the two runs.
+function drawRun1(t) {
+  const o = M.offline, [g, w, h] = sized($('run1'), 170), tmax = 35, x = axis(g, w, h, 10, w - 10, tmax, 5);
+  const jobs = E.schedule(o.phrases.map(p => ({ close: p.close, sent: p.sent, rtf: p.rtf, due: p.due })));
+  o.phrases.forEach((p, i) => {
+    bar(g, x(p.sung[0]), x(p.sung[1]), 16, 18, 'rgba(200,200,216,.45)'); g.fillStyle = '#c8c8d8'; g.fillText('you ' + (i + 1), x(p.sung[0]) + 3, 12);
+    const j = jobs[i]; bar(g, x(j.start), x(j.ready), 44 + i * 18, 14, i ? 'rgba(99,102,241,.7)' : '#6366F1');
+    dueLine(g, x(p.due), 40, h - 20);
+    bar(g, x(p.due), x(p.due + p.sent), 92 + i * 0, 16, '#e8b84a'); g.fillStyle = '#e8b84a'; g.fillText('echo ' + (i + 1), x(p.due) + 3, 122);
+    tri(g, x(j.ready), 128, '#ff9b4a'); g.fillStyle = '#ff9b4a'; g.fillText('live: +' + f1(j.late) + ' s', x(j.ready) - 20, 146);
+  });
+  if (t !== undefined && playing === 'all') { g.strokeStyle = '#e8e8f0'; g.beginPath(); g.moveTo(x(t), 6); g.lineTo(x(t), h - 18); g.stroke(); }
+  $('readRun1').innerHTML = jobs.map((j, i) => `<span>echo ${i + 1}: work <b>${f1(j.rtf * j.sent)} s</b> at ${f2(j.rtf)} · due <b>${f1(j.due)} s</b> · live, ready <b class="late">${f1(j.ready)} s, ${f1(j.late)} s late</b></span>`).join('');
+}
+function drawRun2() {
+  const p = M.realtime, [g, w, h] = sized($('run2'), 150), tmax = 45, x = axis(g, w, h, 10, w - 10, tmax, 5);
+  const jobs = E.schedule(p.echoes.map(e => ({ close: e.close, sent: e.sent, rtf: e.rtf, due: e.due, phrase: e.phrase, repeat: e.repeat })));
+  const seen = new Set();
+  jobs.forEach(j => {
+    if (!seen.has(j.phrase)) { seen.add(j.phrase); bar(g, x(j.close - j.sent), x(j.close - E.HANG), 14, 16, 'rgba(200,200,216,.45)'); g.fillStyle = '#c8c8d8'; g.fillText('you ' + j.phrase, x(j.close - j.sent) + 3, 10); }
+    bar(g, x(j.start), x(j.ready), 40, 14, j.phrase === 1 ? '#6366F1' : 'rgba(99,102,241,.6)');
+    dueLine(g, x(j.due), 36, h - 20);
+    bar(g, x(j.due), x(j.due + j.sent), 70 + (j.repeat - 1) * 22, 16, '#e8b84a');
+    g.fillStyle = '#0a0a0f'; g.fillText('p' + j.phrase + ' r' + j.repeat, x(j.due) + 3, 82 + (j.repeat - 1) * 22);
+  });
+  $('readRun2').innerHTML = jobs.map(j => `<span>p${j.phrase} r${j.repeat}: ready <b>${f1(j.ready)} s</b>, due <b>${f1(j.due)} s</b>, ${f1(j.due - j.ready)} s to spare · the plugin started it at <b>${f2(p.echoes.find(e => e.phrase === j.phrase && e.repeat === j.repeat).started)} s</b></span>`).join('');
+}
+
+// Step 5: the map.
+function drawMap() {
+  const [g, w, h] = sized($('map'), 250), Lx = 40, Rx = w - 12, T = 10, B = h - 26, ymax = 20;
+  const x = l => Lx + (Rx - Lx) * (l - 1) / 7, y = d => B - (B - T) * d / ymax;
+  g.font = '10px JetBrains Mono, monospace'; g.strokeStyle = 'rgba(255,255,255,.06)'; g.fillStyle = '#8a8aa0';
+  for (let d = 0; d <= ymax; d += 4) { g.beginPath(); g.moveTo(Lx, y(d)); g.lineTo(Rx, y(d)); g.stroke(); g.fillText(d + ' s', 4, y(d) + 3); }
+  for (let l = 1; l <= 8; l++) g.fillText(l + ' s', x(l) - 6, h - 8);
+  g.fillText('delay', Lx + 4, T + 8); g.fillText('phrase →', Rx - 56, B - 4);
+  g.strokeStyle = 'rgba(232,232,240,.55)'; g.setLineDash([5, 4]); g.beginPath(); g.moveTo(Lx, y(8)); g.lineTo(Rx, y(8)); g.stroke(); g.setLineDash([]);
+  g.fillStyle = '#e8e8f0'; g.fillText('the page: 8 s', Rx - 84, y(8) - 4);
+  M.speeds.forEach((s, i) => { if (i === speed) return; g.strokeStyle = 'rgba(138,138,160,.45)'; g.lineWidth = 1; g.beginPath(); for (let l = 1; l <= 8.001; l += 0.1) { const v = E.shortest(l, s.rtf); l === 1 ? g.moveTo(x(l), y(v)) : g.lineTo(x(l), y(Math.min(v, ymax + 1))); } g.stroke(); });
+  const s = M.speeds[speed]; g.strokeStyle = '#e8b84a'; g.lineWidth = 2; g.beginPath(); for (let l = 1; l <= 8.001; l += 0.1) { const v = E.shortest(l, s.rtf); l === 1 ? g.moveTo(x(l), y(v)) : g.lineTo(x(l), y(Math.min(v, ymax + 1))); } g.stroke(); g.lineWidth = 1;
+  const pc = M.page_claim; g.fillStyle = '#e8e8f0'; const px = x(pc.phrase), py = y(E.shortest(pc.phrase, pc.rtf)); g.beginPath(); g.moveTo(px, py - 5); g.lineTo(px + 5, py); g.lineTo(px, py + 5); g.lineTo(px - 5, py); g.fill();
+  const lg = E.longest(s.rtf, 8);
+  $('read5').innerHTML = `<span>at <b>${s.rtf.toFixed(2)}</b>, 8 s carries phrases up to <b>${f1(lg)} s</b></span><span>a full 8 s phrase needs <b>${f1(E.shortest(8, s.rtf))} s</b></span><span>a 4 s phrase needs <b>${f1(E.shortest(4, s.rtf))} s</b></span>`;
+}
+function verdict() {
+  const sp = M.speeds, by = r => sp.find(s => Math.abs(s.rtf - r) < 1e-9), a = by(1.65), full = by(2.19), fast = sp.reduce((m, s) => s.rtf < m.rtf ? s : m), pc = M.page_claim;
+  const f16 = sp.filter(s => /16 steps/.test(s.label));
+  $('verdict').innerHTML = `<b>For the page's 4-second phrase, yes.</b> At 1.65 it is ${f1(E.work(pc.phrase, pc.rtf))} s of work counting the gate, inside 8. <b>As the minimum for the instrument, no.</b> The plugin sends phrases up to 8 s, and at 1.65 an 8-second delay carries only those up to ${f1(E.longest(1.65, 8))} s; a full phrase needs ${f1(a.delay_for_8s_phrase)} s. Through the helper at the full 32 steps the speed was ${full.rtf.toFixed(2)}, not 1.65, and 8 s carries ${f1(full.longest_phrase_for_8s)} s. At 16 steps it carries ${f1(Math.min(...f16.map(s => s.longest_phrase_for_8s)))} to ${f1(Math.max(...f16.map(s => s.longest_phrase_for_8s)))} s, the plugin's real run ran at 16, and all four of its echoes landed on time at 12. So 8 seconds is the minimum for a phrase of about four seconds; the honest minimum for any phrase is the work it takes, ${f1(E.HANG)} s of gate included, and the echo is heard the phrase, the gate and the delay after your first word.`;
+  $('method').textContent = `Where the numbers come from: April's 1.65 is the page's own; the six helper speeds are stage15-latency-bench.json, one 4.5 s phrase each; the two runs are stage15-real-daemon-report.json and the plugin's report.json with each conversion's speed from its helper.log. Work is speed times what was sent (the phrase and its 0.3 s of gate), one conversion at a time, which is how the helper runs; it reproduces the plugin run's order and margins, and every one of its echoes started on the sample it was due. Where the delay counts from is in Algorithm.h (due = end + delay) and delay_engine.py. The 10.7 ms buffer is a typical host setting, not a measurement. Speeds come from one phrase and one singer, SoulX's examples, on the M1 Max.`;
+}
+
+const steps = [...document.querySelectorAll('.step')];
+let cur = 0;
+function redraw(t) {
+  if (!M) return;
+  document.querySelectorAll('[id^=lv]').forEach(el => { el.textContent = f1(L) + ' s'; });
+  $('dv3').textContent = f1(+$('D3').value) + ' s';
+  if (cur === 0) drawOne(steps[0].querySelector('canvas.tl'), false);
+  if (cur === 1) { drawOne(steps[1].querySelector('canvas.tl'), true); read2(); }
+  if (cur === 2) { drawOne(steps[2].querySelector('canvas.tl'), true, +$('D3').value); read3(); }
+  if (cur === 3) { drawRun1(t); drawRun2(); }
+  if (cur === 4) drawMap();
+}
+document.querySelectorAll('input.L').forEach(inp => inp.addEventListener('input', () => { L = +inp.value; document.querySelectorAll('input.L').forEach(o => { o.value = L; }); redraw(); }));
+$('D3').addEventListener('input', () => redraw());
+
+(function walk() {
+  const names = ['a phrase ends', 'seconds of work', 'from the end', 'two real runs', 'is 8 s enough?'];
+  const rail = $('rail');
+  names.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s; b.onclick = () => go(i); rail.appendChild(b); });
+  function go(i) {
+    stopSound(); cur = Math.max(0, Math.min(steps.length - 1, i));
+    steps.forEach((el, k) => el.classList.toggle('on', k === cur));
+    rail.querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === cur ? 'step' : 'false'));
+    $('back').disabled = cur === 0; $('next').disabled = cur === steps.length - 1;
+    $('where').textContent = 'step ' + (cur + 1) + ' of ' + steps.length;
+    redraw();
+  }
+  $('back').onclick = () => go(cur - 1); $('next').onclick = () => go(cur + 1);
+  window.addEventListener('resize', () => redraw());
+  Promise.resolve().then(() => JSON.parse($('data').textContent))
+    .then(d => { M = d; const redo = () => redraw(); chips($('chips2'), redo); chips($('chips3'), redo); chips($('chips5'), redo); verdict(); go(0); })
+    .catch(e => { $('err').textContent = 'Could not load the measurements: ' + e.message; go(0); });
+})();
+sigil($('sigil'));
+</script>
+</body>
+</html>
