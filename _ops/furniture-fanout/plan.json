@@ -16787,116 +16787,15 @@
  },
  {
   "path": "_ops/Harvest Ceremony/Archive/oblique-harvest-final.html",
-  "system": "LL",
-  "ground": "dark",
-  "adds": [
-   "controls.css (inline)",
-   "icon (avatar)",
-   "theme-color"
-  ],
-  "dressed_by_page": [
-   "button",
-   "field",
-   "range",
-   "textarea"
-  ],
-  "dressed_here": [
-   "focus",
-   "grip",
-   "link",
-   "motion",
-   "number",
-   "scheme",
-   "scrollbar",
-   "scroller",
-   "selection"
-  ],
-  "borrowed": [
-   "bg←bg",
-   "bg-elev-1←surface",
-   "fg-1←text",
-   "fg-3←text-dim",
-   "border←border",
-   "accent←accent"
-  ],
-  "icon": "../Harvest%20Ceremony%20%E2%80%94%20icon.png",
-  "theme_color": "#0a0a0f"
+  "left": "a record of a past run: it stays as it was made (Loudon, 2026-11-03)"
  },
  {
   "path": "_ops/Harvest Ceremony/Archive/oblique-harvest-round2.html",
-  "system": "LL",
-  "ground": "dark",
-  "adds": [
-   "controls.css (inline)",
-   "icon (avatar)",
-   "theme-color"
-  ],
-  "dressed_by_page": [
-   "button",
-   "field",
-   "range",
-   "textarea"
-  ],
-  "dressed_here": [
-   "check",
-   "focus",
-   "grip",
-   "link",
-   "motion",
-   "number",
-   "scheme",
-   "scrollbar",
-   "scroller",
-   "selection"
-  ],
-  "borrowed": [
-   "bg←bg",
-   "bg-elev-1←surface",
-   "fg-1←text",
-   "fg-3←text-dim",
-   "border←border",
-   "accent←accent"
-  ],
-  "icon": "../Harvest%20Ceremony%20%E2%80%94%20icon.png",
-  "theme_color": "#0a0a0f"
+  "left": "a record of a past run: it stays as it was made (Loudon, 2026-11-03)"
  },
  {
   "path": "_ops/Harvest Ceremony/Archive/oblique-harvest.html",
-  "system": "LL",
-  "ground": "dark",
-  "adds": [
-   "controls.css (inline)",
-   "icon (avatar)",
-   "theme-color"
-  ],
-  "dressed_by_page": [
-   "button",
-   "field",
-   "range",
-   "textarea"
-  ],
-  "dressed_here": [
-   "check",
-   "focus",
-   "grip",
-   "link",
-   "motion",
-   "number",
-   "scheme",
-   "scrollbar",
-   "scroller",
-   "selection"
-  ],
-  "borrowed": [
-   "bg←bg",
-   "bg-elev-1←surface",
-   "fg-1←text",
-   "fg-3←text-dim",
-   "border←border",
-   "accent←accent"
-  ],
-  "icon": "../Harvest%20Ceremony%20%E2%80%94%20icon.png",
-  "theme_color": "#0a0a0f"
+  "left": "a record of a past run: it stays as it was made (Loudon, 2026-11-03)"
  },
  {
   "path": "_ops/Harvest Ceremony/inbox/Environments That Hold.html",
@@ -16952,6 +16851,7 @@
   "ground": "dark",
   "adds": [
    "controls.css (inline)",
+   "icon (Drafting Table mark)",
    "theme-color"
   ],
   "dressed_by_page": [
@@ -16966,7 +16866,7 @@
    "selection"
   ],
   "borrowed": [],
-  "icon_left": "no entry, and not a public-channel page: Loudon Live gives favicon.svg only to the public channel, and Drafting Table gives no mark",
+  "icon": "../drafting-table/design-system/favicon.svg",
   "theme_color": "#0d0d1a"
  },
  {
@@ -17007,6 +16907,7 @@
   "ground": "dark",
   "adds": [
    "controls.css (inline)",
+   "icon (Drafting Table mark)",
    "theme-color",
    "lang"
   ],
@@ -17039,7 +16940,7 @@
    "accent-line←accent-line",
    "mono←mono"
   ],
-  "icon_left": "no entry, and not a public-channel page: Loudon Live gives favicon.svg only to the public channel, and Drafting Table gives no mark",
+  "icon": "../../../drafting-table/design-system/favicon.svg",
   "theme_color": "#0a0a0f",
   "lang": true
  },
@@ -17049,63 +16950,15 @@
  },
  {
   "path": "_ops/swarm/sessions/multi-lens-weave-2026-07-06/multi-lens-weave-report.html",
-  "system": "LL",
-  "ground": "dark",
-  "adds": [
-   "controls.css (inline)",
-   "theme-color"
-  ],
-  "dressed_by_page": [
-   "link"
-  ],
-  "dressed_here": [
-   "focus",
-   "motion",
-   "range",
-   "scheme",
-   "scrollbar",
-   "scroller",
-   "selection"
-  ],
-  "borrowed": [
-   "bg←bg",
-   "bg-elev-1←bg1",
-   "bg-elev-2←bg2",
-   "fg-1←fg1",
-   "fg-2←fg2",
-   "fg-3←fg3",
-   "fg-4←fg4",
-   "border←border",
-   "border-soft←border-soft",
-   "accent←accent",
-   "mono←mono"
-  ],
-  "icon_left": "no entry, and not a public-channel page: Loudon Live gives favicon.svg only to the public channel, and Drafting Table gives no mark",
-  "theme_color": "#0a0a0f"
+  "left": "a record of a past run: it stays as it was made (Loudon, 2026-11-03)"
  },
  {
   "path": "_ops/swarm/sessions/weave-2026-09-24/report.html",
-  "system": "LL",
-  "ground": "dark",
-  "adds": [
-   "controls.css (link)",
-   "theme-color"
-  ],
-  "link_controls": "../../../loudon-live/design-system/controls.css",
-  "icon_left": "no entry, and not a public-channel page: Loudon Live gives favicon.svg only to the public channel, and Drafting Table gives no mark",
-  "theme_color": "#0a0a0f"
+  "left": "a record of a past run: it stays as it was made (Loudon, 2026-11-03)"
  },
  {
   "path": "_ops/swarm/sessions/weave-2026-10-24/report.html",
-  "system": "LL",
-  "ground": "dark",
-  "adds": [
-   "controls.css (link)",
-   "theme-color"
-  ],
-  "link_controls": "../../../loudon-live/design-system/controls.css",
-  "icon_left": "no entry, and not a public-channel page: Loudon Live gives favicon.svg only to the public channel, and Drafting Table gives no mark",
-  "theme_color": "#0a0a0f"
+  "left": "a record of a past run: it stays as it was made (Loudon, 2026-11-03)"
  },
  {
   "path": "Adopt the Craft, Author the Seam/Adopt the Craft, Author the Seam — rich — match it by ear.html",

@@ -1,4 +1,4 @@
-drive-v5-by-hand · 2026-10-30T10:19:00.714Z · 22/22 passed
+drive-v5-by-hand · 2026-11-03T23:42:46.424Z · 24/24 passed
 PASS · page opens with no ?demo= and an empty ten · fresh browser profile
 PASS · ten sentences typed by keyboard land in the boxes · 
 PASS · the exercise stays locked until the ten are filed · 
@@ -10,11 +10,13 @@ PASS · rung 3 marks itself written ·
 PASS · clicking "sit with this rung" opens rung 12 · 
 PASS · rung 12 marks itself written · 
 PASS · step 1 names my lowest rung and quotes my sentences · You filed 2 decisions on rung 12 (constants & parameters), your lowest: "Bought a second s…
+PASS · with two decisions on the lowest rung, step 1 leaves the choice to me · 
 PASS · after reload, all ten sentences come back · 
 PASS · after reload, the rung 3 journal entry comes back · 
 PASS · after reload, the feeling line comes back · 
 PASS · Save shows the saved text · 
 PASS · saved text keeps the old per-rung lines (all 12) · 
+PASS · saved reading keeps its paragraphs apart · 
 PASS · saved text carries my ten in my own words · 
 PASS · saved text carries both journal entries with their questions · 
 PASS · saved text carries the feeling and the move · 

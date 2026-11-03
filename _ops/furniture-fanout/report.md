@@ -4,14 +4,14 @@ Every page in `census.md`, after `furnish.py --apply`. "Dressed here" is the fur
 
 ## Summary
 
-- 487 pages updated, 34 left alone.
+- 481 pages updated, 40 left alone.
 - left, 22: a template a script fills in; the page it makes is the artifact
 - left, 10: STIGMERGY dress: the board keeps its own furniture (the .bbs look), which the sheets grew from
+- left, 6: a record of a past run: it stays as it was made (Loudon, 2026-11-03)
 - left, 2: machinery, not an artifact: the rich-face renderer or the eval server's page; a change there is its owner's code change
 - no tab icon, 238: rich-face piece: a framed piece never owns a tab; the avatar belongs on the page that frames it
 - no tab icon, 5: its entry, Cycle 5 Explorer, has no avatar yet
 - no tab icon, 5: its entry, Rational Hearing, has no avatar yet
-- no tab icon, 5: no entry, and not a public-channel page: Loudon Live gives favicon.svg only to the public channel, and Drafting Table gives no mark
 - no tab icon, 2: its entry, Synth Templates, has no avatar yet
 - no tab icon, 2: its entry, Resonance and Damping, has no avatar yet
 - no tab icon, 1: its entry, The Gallery, has no avatar yet
@@ -57,6 +57,9 @@ Every page in `census.md`, after `furnish.py --apply`. "Dressed here" is the fur
 | `Projects/Quantum Synthesizer/proofs/well_morph_template.html` | a template a script fills in; the page it makes is the artifact |
 | `STIGMERGY/Archive/STIGMERGY v2.0 — recent features presentation.html` | STIGMERGY dress: the board keeps its own furniture (the .bbs look), which the sheets grew from |
 | `STIGMERGY/proofs/2026-11-01-find-the-ask/find-the-ask.html` | STIGMERGY dress: the board keeps its own furniture (the .bbs look), which the sheets grew from |
+| `_ops/Harvest Ceremony/Archive/oblique-harvest-final.html` | a record of a past run: it stays as it was made (Loudon, 2026-11-03) |
+| `_ops/Harvest Ceremony/Archive/oblique-harvest-round2.html` | a record of a past run: it stays as it was made (Loudon, 2026-11-03) |
+| `_ops/Harvest Ceremony/Archive/oblique-harvest.html` | a record of a past run: it stays as it was made (Loudon, 2026-11-03) |
 | `_ops/loudon-eval/rate.html` | machinery, not an artifact: the rich-face renderer or the eval server's page; a change there is its owner's code change |
 | `_ops/rich-face/rich.html` | machinery, not an artifact: the rich-face renderer or the eval server's page; a change there is its owner's code change |
 | `_ops/stigmergy/about/index.html` | STIGMERGY dress: the board keeps its own furniture (the .bbs look), which the sheets grew from |
@@ -67,6 +70,9 @@ Every page in `census.md`, after `furnish.py --apply`. "Dressed here" is the fur
 | `_ops/stigmergy/app/public/trickster-assets/witness/witness-diagram.html` | STIGMERGY dress: the board keeps its own furniture (the .bbs look), which the sheets grew from |
 | `_ops/stigmergy/merleau-entry-agent-prototype.html` | STIGMERGY dress: the board keeps its own furniture (the .bbs look), which the sheets grew from |
 | `_ops/swarm/experiments/palace-gnn-2026-08-26/template.html` | a template a script fills in; the page it makes is the artifact |
+| `_ops/swarm/sessions/multi-lens-weave-2026-07-06/multi-lens-weave-report.html` | a record of a past run: it stays as it was made (Loudon, 2026-11-03) |
+| `_ops/swarm/sessions/weave-2026-09-24/report.html` | a record of a past run: it stays as it was made (Loudon, 2026-11-03) |
+| `_ops/swarm/sessions/weave-2026-10-24/report.html` | a record of a past run: it stays as it was made (Loudon, 2026-11-03) |
 
 ## Updated
 
@@ -550,12 +556,6 @@ Every page in `census.md`, after `furnish.py --apply`. "Dressed here" is the fur
 | `Wavetable Space as Torus/Wavetable Space as Torus — rich — one twist or many.html` | controls.css (inline), theme-color | motion number scheme scrollbar selection | button field focus range | rich-face piece: a framed piece never owns a tab; the avatar |  |
 | `Wavetable Space as Torus/Wavetable Space as Torus — rich — one winding three speeds.html` | controls.css (inline), theme-color | motion number scheme scrollbar selection | button field focus range | rich-face piece: a framed piece never owns a tab; the avatar |  |
 | `Wavetable Space as Torus/Wavetable Space as Torus — rich — which knot.html` | controls.css (inline), theme-color | motion number scheme scrollbar selection | button field focus range | rich-face piece: a framed piece never owns a tab; the avatar |  |
-| `_ops/Harvest Ceremony/Archive/oblique-harvest-final.html` | controls.css (inline), icon (avatar), theme-color | focus grip link motion number scheme scrollbar scroller selection | button field range textarea | ✓ |  |
-| `_ops/Harvest Ceremony/Archive/oblique-harvest-round2.html` | controls.css (inline), icon (avatar), theme-color | check focus grip link motion number scheme scrollbar scroller selection | button field range textarea | ✓ |  |
-| `_ops/Harvest Ceremony/Archive/oblique-harvest.html` | controls.css (inline), icon (avatar), theme-color | check focus grip link motion number scheme scrollbar scroller selection | button field range textarea | ✓ |  |
 | `_ops/Harvest Ceremony/inbox/Environments That Hold.html` | controls.css (inline), icon (avatar), theme-color, lang | range scheme scrollbar scroller selection | code focus link motion | ✓ |  |
-| `_ops/maps/palace-map-2026-03-27.html` | controls.css (inline), theme-color | focus motion scheme scrollbar scroller selection | field | no entry, and not a public-channel page: Loudon Live gives f |  |
-| `_ops/swarm/experiments/palace-gnn-2026-08-26/palace-gnn.html` | controls.css (inline), theme-color, lang | check number scheme scrollbar scroller selection | button field focus link motion range | no entry, and not a public-channel page: Loudon Live gives f |  |
-| `_ops/swarm/sessions/multi-lens-weave-2026-07-06/multi-lens-weave-report.html` | controls.css (inline), theme-color | focus motion range scheme scrollbar scroller selection | link | no entry, and not a public-channel page: Loudon Live gives f |  |
-| `_ops/swarm/sessions/weave-2026-09-24/report.html` | controls.css (link), theme-color | (linked sheet) |  | no entry, and not a public-channel page: Loudon Live gives f |  |
-| `_ops/swarm/sessions/weave-2026-10-24/report.html` | controls.css (link), theme-color | (linked sheet) |  | no entry, and not a public-channel page: Loudon Live gives f |  |
+| `_ops/maps/palace-map-2026-03-27.html` | controls.css (inline), icon (Drafting Table mark), theme-color | focus motion scheme scrollbar scroller selection | field | ✓ |  |
+| `_ops/swarm/experiments/palace-gnn-2026-08-26/palace-gnn.html` | controls.css (inline), icon (Drafting Table mark), theme-color, lang | check number scheme scrollbar scroller selection | button field focus link motion range | ✓ |  |
