@@ -14,7 +14,7 @@ Proposal round, 2026-11-03. Challenger: claude-opus-5-5, which did not make this
 
 ## Checks run
 
-- `node _ops/rich-face/conform.mjs "1D Wavetable Scanning"`: 3 pieces, introduced 3, errors 0, warnings 0, browser pass at 760 and 1130 px.
+- `node _ops/rich-face/conform.mjs "1D Wavetable Scanning"`: 3 pieces, introduced 3, errors 0, browser pass at 760 and 1130 px. Warnings 0 in three of four runs. The fourth gave one `play-silent` warning on switch or scan at 1130 px: "no rich:play arrived after a click (the click may not have found its start control)". By hand, Play started the context on every step, every time. It looks like the same flake the maker saw on the other piece, but it is not explained.
 - `node _ops/rich-face/fingerprint.mjs "1D Wavetable Scanning"`: the three made sections (`75a21efe1b5a`, `6ad1dd17c05d`, `c37b3d2fa244`) in step.
 - `node "1D Wavetable Scanning/1D Wavetable Scanning — rich — check.mjs"`: all checks pass, at 48 and 44.1 kHz.
 - My own recompute, in the scratchpad, loading each piece's engine the same way but working the numbers by a second formula, |a + b·e^{iφ}|/2 per harmonic, and adding a pitch the maker didn't use (440 Hz).
