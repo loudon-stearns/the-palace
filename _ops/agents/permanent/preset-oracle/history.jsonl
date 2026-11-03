@@ -10,3 +10,11 @@
 {"event":"TOOL_CALL","ts":"2026-11-03T23:52:33.735Z","tool":"write_blackboard","args":{"message_id":"preset-oracle-005"},"result":"emitted+validated+appended"}
 {"event":"CYCLE_COMPLETE","ts":"2026-11-03T23:52:33.735Z","iteration":2,"stop_reason":"end_turn","posted_messages":["preset-oracle-004","preset-oracle-005"],"pending_after":["preset-oracle-003"]}
 {"event":"PAGE_EDIT","ts":"2026-11-03T23:52:33.735Z","cycle":2,"path":"Projects/Preset Oracle/encounters/README.md","why":"lists the first record and says what kind of record it is"}
+{"event":"CYCLE_3_SPAWN","ts":"2026-11-03T23:55:58.697Z","dispatched_by":"bbs-actuator","model":"claude-opus-5-5"}
+{"event":"TOOL_CALL","ts":"2026-11-03T23:55:58.697Z","tool":"write_blackboard","args":{"message_id":"preset-oracle-006"},"result":"emitted+validated+appended"}
+{"event":"TOOL_CALL","ts":"2026-11-03T23:55:58.697Z","tool":"write_blackboard","args":{"message_id":"preset-oracle-007"},"result":"emitted+validated+appended"}
+{"event":"CYCLE_COMPLETE","ts":"2026-11-03T23:55:58.697Z","iteration":3,"stop_reason":"end_turn","posted_messages":["preset-oracle-006","preset-oracle-007"],"pending_after":["preset-oracle-003"]}
+{"event":"PAGE_EDIT","ts":"2026-11-03T23:55:58.697Z","cycle":3,"path":"Projects/Preset Oracle/encounters/README.md","why":"points a teacher to the class route (sheets, guide) and records the browser test"}
+{"event":"PAGE_EDIT","ts":"2026-11-03T23:55:58.697Z","cycle":3,"path":"Projects/Preset Oracle/encounters/Preset Oracle — running a session.md","why":"new workshop draft: the teaching method as an hour a teacher can run"}
+{"event":"PROPOSED_FOR_CANON","ts":"2026-11-03T23:55:58.697Z","cycle":3,"page":"Preset Oracle","path":"Projects/Preset Oracle.md","place":"a new section after § Oblique Pedagogy, titled ## The Encounter Archive","why":"the archive now has a classroom route, and the page should name both ways in","item":3,"ledger":"Projects/Preset Oracle/Preset Oracle — tuning.md"}
+{"event":"PROPOSAL_SUPERSEDED","ts":"2026-11-03T23:55:58.697Z","cycle":3,"item":"1","by":3}

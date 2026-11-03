@@ -4,6 +4,8 @@ The oracle is finished as an artifact. What it lacks is a record of the encounte
 
 ## How an encounter is kept
 
+For a whole class, start from `Preset Oracle — running a session.md`: print one `Preset Oracle — encounter sheet.html` per student, run the hour on paper, then type each kept sheet into the journal. For one maker at a time:
+
 1. Open `Preset Oracle — encounter journal.html` in a browser.
 2. Draw a card, or type in the card drawn from the oracle itself.
 3. Start the clock. Make the preset. Press *I committed* when you stop adjusting.
@@ -34,9 +36,13 @@ A record is written only after the maker answers *may this be kept?* The journal
 
 Once a few records exist, they are read together: which cards teach and which only puzzle, what kinds of surprise recur, whether the glassblower prompt teaches as well as *Parmenides Dying Alone in a Warehouse*. That reading, not any one record, is what grows the page.
 
+## Tests
+
+`tools/click-through.mjs` drives the journal in real headless Chrome with mouse clicks: draws (asking twice when the oracle refuses), deals all seven cards, takes a typed-in card, runs and commits the clock, refuses to write before consent, and checks the record for each consent choice. Run it with `node tools/click-through.mjs` after any change to the journal. 15/15 passed on 2026-11-03.
+
 ## Known gap
 
-The original 140-card queue isn't in the palace or on this Mac. The journal carries a seven-card seed deck built from the challenges the page names, and says so on its face. When the 140 turn up, they replace the seed deck.
+The original 140-card queue isn't in the palace or on this Mac. The journal and the sheet carry the same seven-card seed deck (kept in step by hand) built from the challenges the page names, and says so on its face. When the 140 turn up, they replace the seed deck.
 
 ## Records so far
 

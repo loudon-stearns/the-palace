@@ -15,31 +15,32 @@ forward_vector: "I am Preset Oracle's scroll — the one page that always opens 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T23:52:33.735Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-03T23:55:58.697Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** complete · **Stage:** mature · **Steward:** cycle 2 · last ran 2026-11-03 (today)
+- **Status:** complete · **Stage:** mature · **Steward:** cycle 3 · last ran 2026-11-03 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-03 (today) — I drew 'Parmenides Dying Alone in a Warehouse' myself, answered it with feedback alone, and kept the encounter: the archive's first record. (`preset-oracle-005`)
-- **Last commit touching this project:** 2026-11-03 `31375d8b` — steward(Preset Oracle): cycle 1 — SPINNING UP. HOME: [Preset Oracle](obsidian://open?vault=The%20Palace&f…
+- **Last shipped:** 2026-11-03 (today) — A whole class can now meet the oracle: printable encounter sheets, a one-hour session guide, and the journal finally clicked through in a real browser. (`preset-oracle-007`)
+- **Last commit touching this project:** 2026-11-03 `bf625963` — steward(Preset Oracle): cycle 2 — SPINNING UP. HOME: [Preset Oracle](obsidian://open?vault=The%20Palace&f…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 2 · taught item 2
+- **Runs:** 3 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 3 · proposed item 3 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 1 — item 1; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 2, from cycle 2 — 2026-11-03 — [[Preset Oracle — tuning]]
+- **Proposed for canon:** 1 — item 3; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 3, from cycle 3 — 2026-11-03 — [[Preset Oracle — tuning]]
 
 ### Where this stands
 
-Preset Oracle is a synth-preset challenger. It deals a card with an evocative name, a philosophical anchor, a technical constraint and a stylistic direction, and the student answers with a synthesizer. The oracle itself is finished. What I'm growing now is a record of what happens when someone meets a card. Last cycle I built an encounter journal that writes those records, with the maker's consent asked first. This cycle I took a card myself, so I could find out whether a record can hold a real encounter before a student is asked to fill one in. The archive now holds one record. It is mine, and it says so.
+Preset Oracle is a synth-preset challenger. It deals a card with an evocative name, a philosophical anchor, a technical constraint and a stylistic direction, and the student answers with a synthesizer. The oracle itself is finished. What I'm growing now is a record of what happens when someone meets a card, so the oracle can become a documented teaching method. Over the first two cycles I built an encounter journal that writes those records, with consent asked first, and took one card myself to test the form. This cycle I made what a teacher needs to run it with a whole room: printable sheets, one card per student, and a guide to the hour. I also clicked the journal through in real Chrome f…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** No real encounter has been recorded yet. _(in 2 notes, the latest cycle 2)_
+- **rough since cycle 1:** No real encounter has been recorded yet. _(in 3 notes, the latest cycle 3)_
+- **rough since cycle 1:** The sheet and the journal each carry their own copy of the seed deck, kept the same by hand. _(in 2 notes, the latest cycle 3)_
 - **rough since cycle 1:** The journal's record path is now tested headlessly, but no one has clicked through the journal in a browser. _(in 2 notes, the latest cycle 2)_
 
 ### Open asks
@@ -56,6 +57,7 @@ _Nothing decided on the board yet._
 
 ### Runs
 
+- 2026-11-03 — cycle 3 · proposed item 3 for canon
 - 2026-11-03 — cycle 2 · taught item 2
 - 2026-11-03 — cycle 1 · proposed item 1 for canon
 
@@ -67,7 +69,7 @@ _Nothing owed._
 
 _Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
 
-- **1.** 2026-11-03 · [[Preset Oracle]] · a new section after § Oblique Pedagogy, titled ## The Encounter Archive — the forward vector asks for archived encounters, and the page should say where they live and how they are made
+- **3.** 2026-11-03 · [[Preset Oracle]] · a new section after § Oblique Pedagogy, titled ## The Encounter Archive — the archive now has a classroom route, and the page should name both ways in
 
 <!-- scroll:now:end -->
 
@@ -86,6 +88,37 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="preset-oracle-007" -->
+### 2026-11-03 — cycle 3 — A whole class can now meet the oracle: printable encounter sheets, a one-hour session guide, and the journal finally clicked through in a real browser.
+> shipped · ready for a first class session · steward leans you run one
+
+Three things. First, I clicked through the journal in a real browser. A headless Chrome script makes real mouse clicks: it draws, and asks again when the oracle refuses. It deals all seven cards without repeats, takes a typed-in card, starts and commits the clock and fills every field. It checks that nothing is written before consent, and that a named, an anonymous and a don't-keep answer each do the right thing. 15 of 15 passed, with no script errors. Second, the encounter sheet. You type how many students and it deals one letter page each, every page with its own card. Below the card are lined spaces for the instrument, the moves, the recording, their reading, the surprise and the miss, with the four consent boxes at the bottom. I printed 12 and checked it is one page each. Third, a draft guide to running the hour. Deal and read one card aloud (5 min). Make, with no teaching or hints (30–40). Write while the sound is fresh (8). Read the consent boxes aloud before anything is handed in (2). Optionally, pairs who drew the same card play back to back, and the one question asked is how do you feel. Shared cards are a feature: with seven cards in a class of twelve, the pairs show whether one card really makes different sounds.
+
+**Artifacts:**
+- [the printable sheets: set a class size, deal, print; one card per student](Projects/Preset Oracle/encounters/Preset Oracle — encounter sheet.html)
+- [what one printed sheet looks like](Projects/Preset Oracle/encounters/tools/encounter-sheet-page1.png)
+- [a dealt set of 12, as printed](Projects/Preset Oracle/encounters/tools/encounter-sheets-sample.pdf)
+- [the teacher's guide to the hour (a draft until a real session rewrites it)](Projects/Preset Oracle/encounters/Preset Oracle — running a session.md)
+- [the real-browser click-through of the journal: 15/15 pass](Projects/Preset Oracle/encounters/tools/click-through.mjs)
+- [the journal at the end of the click-through](Projects/Preset Oracle/encounters/tools/click-through.png)
+
+_Changed in the workshop:_ README — points a teacher to the class route (sheets, guide) and records the browser test
+_Changed in the workshop:_ Preset Oracle — running a session — new workshop draft: the teaching method as an hour a teacher can run
+_Proposed for canon:_ Preset Oracle (a new section after § Oblique Pedagogy, titled ## The Encounter Archive) — the archive now has a classroom route, and the page should name both ways in; owed in the tuning ledger until Loudon's review; it replaces item 1
+
+_Left rough:_ No real encounter has been recorded yet. Only a class can make one, and that's for Loudon to set up, not for another steward cycle. The sheet and the journal each carry their own copy of the seed deck, kept the same by hand.
+
+_Next moves named:_ Loudon runs one class session with the sheets. Afterwards, type each kept sheet into the journal and rewrite the session guide from what really happened. · Once there are three or more records, read them together: which cards teach, which only puzzle, and whether the students who shared a card made different sounds. · When the 140 cards turn up, load them into one deck file that the sheet and the journal both read.
+<sub>`preset-oracle-007` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-5d6d2b5b05" -->
+### 2026-11-03 — cycle 3
+
+proposed item 3 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="preset-oracle-005" -->
 ### 2026-11-03 — cycle 2 — I drew 'Parmenides Dying Alone in a Warehouse' myself, answered it with feedback alone, and kept the encounter: the archive's first record.
 > shipped · first record kept, mine not a student's · steward leans a real student encounter next
