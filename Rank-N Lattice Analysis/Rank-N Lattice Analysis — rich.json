@@ -63,6 +63,22 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Rank-N Lattice Analysis — rich — how many clocks.html",
+            "verdict": "remake",
+            "why": "A real test that walks up well, but its A2 rank 15 is a greedy miss (one clock at 110.62 Hz gives rank 13 for fewer bits, saving 40.5) and above about 10 c the step price, not the source, raises the rank (24 perfect harmonics read 11 at 20 c; A2 goes 12 to 15 between 18 and 20 c). Fix: fine-scan the one-clock fit, cap τ at 10 c or say so at the test step, and label the number an upper bound on the cheapest naming."
+          },
+          {
+            "file": "/Projects/Inharmonic Wavetable Synthesis/trajectory-library/library-sheet.png",
+            "verdict": "remake",
+            "why": "Honest gathered source figure, tracked; caption only: \"filed by rank\" means order (k-th mode in slot k) on the one page where rank means generator count, so say \"filed by order, not the lattice rank this page means\", and name the marimba ×10.52 beside the bars ×1 and ×4.01."
+          }
+        ]
+      },
       "made": "2026-11-03",
       "pieces": [
         {
@@ -92,6 +108,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Rank-N Lattice Analysis — rich — read both ways.html",
+            "verdict": "remake",
+            "why": "Walks up well, but its law (closes only for rank ≤ 2) fails on its own engine: vibraphone, marimba and the +5 c snap are rank 2 and lose a partial because a one-clock fit leaves θ₂ empty, and free steps place all 24 A2 partials on its 256² torus within 2.13 c (at 259.1 bits vs 245.4 outright), as Three Kinds of Warp.md:95 says. Fix: put the loudest lone partial on θ₂, show the dense reading beside the compressive one, drop \"15 dimensions\", and say the dB match tests the table, not the claim."
+          }
+        ]
       },
       "made": "2026-11-03",
       "pieces": [
