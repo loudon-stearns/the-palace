@@ -34,6 +34,9 @@ Snapshots of the most useful sources live under `_reference/` for offline use.
 | Path | Contents |
 |---|---|
 | `colors_and_type.css` | Locked tokens — type, palettes (Graphite default + 5 skin classes), spacing, radii, motion |
+| `controls.css` | The browser's furniture re-dressed for the bare elements — scrollbars, selects, checkboxes, ranges, the textarea grip, spinners, `<details>`, focus, selection, autofill, links — in tokens, per skin. Load after `colors_and_type.css`. |
+| `preview/controls.html` | The specimen: every control bare, switchable across the six skins. |
+| `assets/favicon.svg` | The tab icon for a public-channel page with no entry of its own: the Lissajous at 32px. |
 | `palace-tokens.js` | Runtime token reader — `palaceTokens()` reads the active skin's values from `colors_and_type.css` into JS so D3 / Plot / p5 charts stay update-safe (never hardcode a hex). Also `palaceSeries()` (ordered ramp) and `palaceCategorical()` (the `--cat-1..6` qualitative palette). Read by any JS-driven visual. |
 | `palace-plot-defaults.js` | Observable Plot house-defaults wrapper — `palacePlot()` bakes the active skin (bg / fg-3 text / mono face / token frame) into every chart. Built on `palace-tokens.js`. |
 | `looks/` | Loud'n Live's complete looks — `worn-broadcast.html`, the first (§ Looks) |
@@ -156,6 +159,24 @@ Iconographic system: **none, by design.** The channel uses **typographic glyphs 
 
 ---
 
+### The browser's furniture
+
+A browser supplies what a page does not: a scrollbar, a select's chevron and popup, the checkbox and the radio, a range slider's thumb, a textarea's resize grip, a number field's spinner, the `<details>` triangle, the focus ring, the selection colour, the autofill tint, the tab icon. Each arrives in the operating system's dress and sits in the artifact like a borrowed chair. On 2026-11-03 Loudon saw one: a Graphite textarea with a white scrollbar and the OS's dotted grip. A sweep found the same on most of the 500 artifacts the palace has made: 424 dark pages with no `color-scheme`, 177 range sliders with the OS thumb, 34 textareas with the OS grip, 123 pages that hid keyboard focus and drew nothing in its place, no tab icon anywhere.
+
+`controls.css`, loaded after `colors_and_type.css` and before the artifact's own styles, re-dresses all of it for the bare elements, so a page gets it for free and a class of its own still wins by order. Its rules are the house grammar's: square or 2 px; a hairline is the control; the thumb is a mark, not a bar; accent only where the hand is (dragging, checked, keyboard focus); every value is also written as text beside its control. Three choices worth knowing:
+
+- **The scrollbar is a thin mark in a transparent gutter.** It rests in `--fg-4`, wakes to `--fg-3` under the pointer, and goes accent only while dragged. No track, no arrows.
+- **`color-scheme` follows the skin.** Graphite, CRT, Strobe and Cobalt Grid are dark; Amber Lab and Drafting are light; the select popup, the date picker and the body scrollbar follow. This one line fixes most of what the sweep found.
+- **Checked is the house's `●` on.** Accent with the page colour ringed inside, not a tick. A radio is round because the shape means one-of. Focus is one accent hairline, 2 px outside; the house's one glow stays with the call to action.
+
+It also sets what the browser draws when nothing is asked: links (accent, hairline under, no purple visited), `hr`, `mark` (accent-soft, not yellow), `kbd`, `code` in the mono face, tabular numerals in cells and readouts, the autofill tint painted back, an invalid field in `--danger` with no OS bubble, `overscroll-behavior: contain` on in-window scrollers, no tap flash, and nothing moving under `prefers-reduced-motion` (the Lissajous rotation and the on-air pulse included). Where Chrome lets a page draw the select popup (`appearance: base-select`, 135+), it wears the skin; elsewhere `color-scheme` keeps it on the right side of the light.
+
+What it cannot dress: `<audio controls>` and `<video controls>` (the OS player; draw a `▸ ■` button and a hairline scrub) and the `title=` tooltip (write the caption, or a `◇` aside). A shared transport is the next component the system wants.
+
+**The tab icon.** Every canon entry wears an avatar and a hero ([[Hero and Avatar Maker]]). A page in an entry's bundle takes the avatar beside it as its tab icon, `<link rel="icon" href="<Entry> — icon.png">`, and may pin the hero behind its header where that fits (STIGMERGY already renders the hero that way). A page in a subfolder of the bundle reaches it by `../` on its own, and by `/palace/<Entry>/<Entry> — icon.png` when it is framed, because the frame refuses `..` (`_ops/rich-face/README.md` § Making pieces). A public-channel page with no entry takes `assets/favicon.svg`. `<meta name="theme-color">` carries the skin's `--bg`. The specimen is `preview/controls.html`.
+
+---
+
 ### Symbolic vocabulary · use intentionally
 
 Each palette and each generator carries a conceptual handle that the autodidact polymath can read at a glance. **Use them when they're relevant, not as decoration.**
@@ -187,6 +208,7 @@ Each palette and each generator carries a conceptual handle that the autodidact 
 - Centred-book-cover layouts in slides — left-aligned editorial spread is the default.
 - Abbreviations cryptic enough to need decoding ("SNR" instead of "Snare").
 - Outcome-promising titles, second-person broadcast voice, emoji.
+- The browser's own furniture: an OS scrollbar, select chevron, checkbox, slider thumb, resize grip, spinner or details triangle on a page in this dress. A dark skin with no `color-scheme: dark`. A page with no tab icon.
 
 ---
 

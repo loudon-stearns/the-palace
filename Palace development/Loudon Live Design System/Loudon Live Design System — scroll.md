@@ -34,6 +34,14 @@ _Loudon's standing direction for this page. Never regenerated; it holds until he
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="2026-11-03-controls" -->
+### 2026-11-03 — The browser's furniture, re-dressed
+
+Loudon saw a Graphite textarea wearing the OS's white scrollbar and dotted grip and asked for a sweep. 503 artifacts: 424 dark pages with no `color-scheme`, 177 OS slider thumbs, 123 pages with keyboard focus hidden, no tab icon anywhere. `_ops/loudon-live/design-system/controls.css` now dresses the bare elements per skin, `preview/controls.html` proves it across the six, and a page wears its entry's avatar as its tab icon. Drafting Table got the same in its own tokens. The fan-out to the artifacts already made is the next move.
+
+<sub>Controls, 2026-11-03 · sketch</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="2026-10-25-drafting-table-cyan" -->
 ### 2026-10-25 — Drafting Table retires "Never cyan" too, and the rethink closes
 

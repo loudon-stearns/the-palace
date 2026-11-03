@@ -74,6 +74,22 @@ No glass, no chrome, no bloom on Paper. On Phosphor, the only lit material is th
 
 Typographic, as both parents have it. State glyphs: `●` on, `○` off, `▸` play, `■` stop, `◐` half, `◇` aside, `*` unread, `>` reply. Drafting symbols: `Ø` diameter, `±` tolerance, `°` degrees, `×` times, `√`. Box drawing is allowed inside a `<pre>` on Phosphor only. No emoji, no CDN icon set; if a pictogram is truly needed, draw it as a hairline SVG in `ink` and say so in a comment.
 
+## The browser's furniture
+
+A browser supplies what a page does not: a scrollbar, a select's chevron and popup, the checkbox and the radio, a range slider's thumb, a textarea's resize grip, a number field's spinner, the `<details>` triangle, the focus ring, the selection colour, the autofill tint, the tab icon. Each arrives in the operating system's dress and sits on the sheet like a part from another drawing. The leverage diagnostic's textarea on 2026-11-03 was the one Loudon saw: a white scrollbar and a dotted grip on a dark panel.
+
+`controls.css`, loaded after the tokens and before `bundle.css`, re-dresses all of it for the bare elements, so a page gets it for free and a class of its own still wins by order. The rules it follows are the grammar's: square; a hairline is the control; what the hand holds is a slab (the range thumb is a fader cap); the pointer's attention is `accent`; every value is also written as text beside the control. Three choices worth knowing:
+
+- **The scrollbar is the one thing the sheet keeps from the terminal** (`.bbs-scroll` in STIGMERGY's app tokens): radius 0, a thumb in `rule` that wakes to `ink-2` and goes `ink` while dragged, no track colour, no arrows. The board's pixel cursors still stay with the board.
+- **`color-scheme` follows the ground.** Paper is light, Phosphor is dark, and the select popup, the date picker and the body scrollbar follow; without it a dark page gets white furniture.
+- **Checked is ink, not accent.** A checkbox is not the one lit thing in a view; it fills in `ink` with the ground ringed inside, the terminal's `●` on. A radio is round because it is a turned part.
+
+It also sets what the browser draws when nothing is asked: links (ink with a hairline under; `source-datasheet` blue when the link leaves the sheet), `hr`, `mark` (hatched), `kbd` (a slab), `code` in `mono`, tabular numerals in cells and readouts, the autofill tint painted back, an invalid field as a HOLD in `source-measure` with no OS bubble, `overscroll-behavior: contain` on in-window scrollers, no tap flash, and nothing moving under `prefers-reduced-motion`. Where Chrome lets a page draw the select popup (`appearance: base-select`, 135+), it is a hairline cell; elsewhere `color-scheme` keeps it on the right ground.
+
+What it cannot dress: `<audio controls>` and `<video controls>` (the OS player; draw a `▸ ■` Button and a hairline scrub from the components) and the `title=` tooltip (write the note on the sheet). A Transport component is the next thing this system wants.
+
+**The tab icon.** Every canon entry wears an avatar and a hero ([[Hero and Avatar Maker]]). A page in an entry's bundle takes the avatar beside it as its tab icon, `<link rel="icon" href="<Entry> — icon.png">`, and may pin the hero behind its header where that fits. A page in a subfolder of the bundle reaches it by `../` on its own, and by `/palace/<Entry>/<Entry> — icon.png` when it is framed, because the frame refuses `..` (`_ops/rich-face/README.md` § Making pieces). The system has no mark of its own (§ Not in this system yet), so a page that belongs to no entry goes without. `<meta name="theme-color">` carries `ground-000`. The specimen is `preview/controls.html`.
+
 ## Components
 
 Twelve, built for a VST plugin face and reusable anywhere a value is set or shown. The props of the controls mirror `tpl::ParamSpec` from the VST Template (`Projects/VST Template/machinery/src/ParamSpec.h`): `id`, `name`, `unit`, `min`, `max`, `def`, `taper` (`Linear` | `Log` | `Choice` | `Toggle`), `choices`. A plugin's parameter table can be handed to the face as data.
@@ -130,6 +146,7 @@ Answers to what the VST Template's WebView editor asked of the system (2026-10-2
 - **JetBrains Mono** is hosted, not a file.
 - **No assembly views, no GD&T symbols**, mirroring what the CAD Drafter has not yet drawn.
 - **Built, not synced.** The components were hand-written from the sources above, not bundled from a repository; there is no React library in the palace to sync from. Change them here.
+- **No Transport.** A play/stop button with a scrub track, so a proof never shows the OS audio player. `controls.css` says what to draw until it lands.
 
 ---
 
@@ -148,5 +165,7 @@ Answers to what the VST Template's WebView editor asked of the system (2026-10-2
 | `fonts/` | VT323 and IBM Plex Mono 400 / 600 as woff2. JetBrains Mono is not shipped. |
 | `plugin-face.md` | How the components compose into one VST editor. |
 | `reference/` | The CAD sheet the look was read from. |
+| `controls.css` | The browser's furniture re-dressed for the bare elements: scrollbars, selects, checkboxes, ranges, the textarea grip, spinners, `<details>`, focus, selection, autofill, links. Load after the tokens. |
+| `preview/controls.html` | The specimen: every control bare, on both grounds. |
 
 The living copy with live previews is the Design System artifact: https://claude.ai/artifact/5B7KLXdyRVpavzgpEgcRVH (private). This folder is its export; when one changes, the other is brought level by hand.

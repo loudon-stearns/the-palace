@@ -11,13 +11,15 @@ Drafting Table is the workshop's dress. It is the STIGMERGY terminal grown up an
 ## How to use this skill
 
 1. Read `README.md` in full: the sources, the two grounds, the eight rules of the grammar, type, colour in use, solid surfaces and 3D, iconography, the component table, and § For a plugin editor.
-2. `colors_and_type.css` is every token, compiled from `tokens.json`. Set `data-theme="paper"` (default) or `data-theme="phosphor"` on the root. Add `fonts.css` for the local faces, `aliases.css` only for a page written against Loudon Live's names.
+2. `colors_and_type.css` is every token, compiled from `tokens.json`. Set `data-theme="paper"` (default) or `data-theme="phosphor"` on the root. Add `fonts.css` for the local faces, `aliases.css` only for a page written against Loudon Live's names. Load `controls.css` after the tokens and before anything of your own: it re-dresses what the browser draws alone (scrollbars, selects, checkboxes, range sliders, the textarea grip, number spinners, `<details>`, focus, selection, autofill) in the sheet's tokens.
 3. For a plugin editor read `plugin-face.md`, then inline, in order: `colors_and_type.css`, `fonts.css`, `aliases.css` (if needed), `bundle.css`, `dt-controls.js`. The controls take a `tpl::ParamSpec` row and a host binding `{get, set, begin, end, on}`.
 4. For a React page load `components/bundle.js` after React 18; `components/index.d.ts` documents the props.
 
 ## Hard rules
 
 - **Text first.** Labels, numbers and notes are text in the mono face; never outlines, raster or an icon font. No emoji, no CDN icon set.
+- **The browser draws nothing.** Every piece of furniture the browser would supply on its own — a scrollbar, a select chevron, a checkbox, a slider thumb, a resize grip, a spinner, a details triangle, a focus ring, the tab icon — is drawn in the sheet's tokens or does not appear. `controls.css` does it for the bare elements; a page sets `color-scheme` by its ground and never `outline: none` without a `:focus-visible` of its own. The one the sheet cannot dress is `<audio controls>`: draw a `▸ ■` Button and a hairline scrub instead.
+- **A page wears its entry's face.** An artifact in an entry's bundle takes the entry's avatar (`<Entry> — icon.png`, [[Hero and Avatar Maker]]) as its tab icon (`<link rel="icon">`) and may set the hero behind its header where that fits. The system has no mark of its own yet (README § Not in this system yet), so a page with no entry goes without. `<meta name="theme-color">` carries the ground's colour. A piece shown in a frame declares the icon in `piece:files` (the space as `%20`) and names it beside itself or as `/palace/<Entry>/<Entry> — icon.png`, never by `../`, which the frame refuses.
 - **A hairline is the card.** 1px `rule` for a container, 2px for the sheet frame and title block. No fills to say "box", no soft drop shadows.
 - **Square.** `radius-0` on everything drawn; `radius-round` only on a turned part; `radius-bevel` only on a slab's edge.
 - **Mass is a slab.** Anything touchable has a `slab-face` outlined in `ink`, lifted by `shadow-slab`; its well is a `recess`. Light is one edge, never a gradient.

@@ -117,6 +117,7 @@ This is the **default dress** for public work — the reliable go-to for everyth
 - **Spacing scale** — 4 / 8 / 12 / 16 / 20 / 24 / 32 / 40 / 48 / 64 / 80 / 120.
 - **Motion** — `cubic-bezier(.4, 0, .2, 1)` at 220 ms ordinary, `.2 .9 .2 1` at 550 ms emphasised. Two ambient motions allowed: the Lissajous rotation, the on-air red-dot pulse. No bounces, no springs.
 - **Iconography** — typographic glyphs (`● ▸ · ◐ ◇`) + the Lissajous trace + the LL monogram. **No emoji, no CDN icon library.**
+- **Furniture** — the browser draws nothing of its own. Scrollbars, selects, checkboxes, range thumbs, the textarea grip, spinners, the `<details>` triangle, focus, selection and autofill are drawn in the skin's tokens by `controls.css` or do not appear; `color-scheme` follows the skin. A page wears its entry's avatar as its tab icon ([[Hero and Avatar Maker]]); a page with no entry wears the Lissajous. Loudon, 2026-11-03: *"scroll bars look ugly and ordinary."*
 - **Footer** — `Loud'n Live` on every shipped artifact: the wordmark alone. *(The `· Autodidact Polymaths` tagline was retired from the universal footer 2026-07 — see [§ Naming the audience](#naming-the-audience-state-it-dont-stamp-it). Forward-only: already-shipped artifacts keep their old footer.)*
 
 **Per-stream skin** (rotates by setting one class on `<html>`):
@@ -186,11 +187,12 @@ _ops/loudon-live/design-system/
 ├── SKILL.md              ← agent skill manifest (invoke for brand guidance)
 ├── README.md             ← full design rationale (read this first)
 ├── colors_and_type.css   ← canonical source of every token
+├── controls.css          ← the browser's furniture, re-dressed per skin
 ├── index.html            ← system overview / cover page
 ├── looks/                ← Loud'n Live's complete looks (worn-broadcast.html, cyanotype.html, night-signal.html)
-├── assets/               ← Lissajous logos, wordmark, monogram, watermark, avatar
+├── assets/               ← Lissajous logos, wordmark, monogram, watermark, avatar, favicon.svg
 │   └── generators/       ← six per-stream generative SVGs
-├── preview/              ← specimen cards (type / colors / spacing / components)
+├── preview/              ← specimen cards (type / colors / spacing / components / controls.html)
 ├── slides/               ← OBS scene templates (1920×1080)
 └── ui_kits/
     ├── session-artifact/ ← long-form session HTML + JSX components
@@ -256,7 +258,7 @@ They are **sibling systems**, both born from palace work, addressing different s
 For a new artifact the public channel shows:
 
 1. **Invoke the SKILL.md** at `_ops/loudon-live/design-system/SKILL.md` — it carries the rules in agent-readable form.
-2. **Include `colors_and_type.css`** as the token source. Set one of `skin-graphite | skin-amber-lab | skin-crt | skin-strobe | skin-cobalt-grid | skin-drafting` on `<html>`. Graphite is the default.
+2. **Include `colors_and_type.css`** as the token source. Set one of `skin-graphite | skin-amber-lab | skin-crt | skin-strobe | skin-cobalt-grid | skin-drafting` on `<html>`. Graphite is the default. Load `controls.css` after it.
 3. **For session pages / long-form artifacts:** copy `ui_kits/session-artifact/` and rewrite `App.jsx`. The reference layout is header → escher-split (theory opener) → mechanism (h2 + diagram) → build steps → tuning grid → footer signature.
 4. **For OBS scene cards:** copy from `slides/`. Swap palette by changing the skin class; swap generator by changing `src` on `.gen img`.
 5. **For throwaway sketches / proofs:** Graphite skin, Cormorant body at 17/1.75, *Sketch / Study / Piece* tier vocabulary.
