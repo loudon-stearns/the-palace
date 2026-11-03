@@ -50,6 +50,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Graphic Storytelling — rich — time is space.html",
+            "verdict": "remake",
+            "why": "A real test with a working size control, and it walks up, but its verdict lines overclaim one run: with a true equal 1.3× effect at 25% scatter it says \"your holds split them\" in 33% of runs and \"time was not drawn as space\" in 51%. Split only when h(wide)/h(gutter) clears ×1.1 in all three stories (≤1/8 by chance), soften the failure line, state that either half showing longer has a ≤1/4 chance, and add the equal-effect check to check.mjs."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Graphic Storytelling — rich — time is space.html",
@@ -73,6 +84,22 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/2026-10-28-daily-page/2026-10-28-color-hold.html",
+            "verdict": "keep",
+            "why": "A blind test of the restraint claim, and its scores match the scroll (5/4/4/3/2). One caption fix: the held take is red from the moment the glove falls (panel 3, per its key at line 91), not from the first panel."
+          },
+          {
+            "file": "proofs/2026-10-28-daily-page/2026-10-29-one-strip-six-stories.html",
+            "verdict": "keep",
+            "why": "Tests the color script with color as the only variable (the arcs could have lost to the moods), the caption matches the scroll record, and it warns honestly that answers are lost on reload."
+          }
+        ]
       },
       "pieces": [
         {
