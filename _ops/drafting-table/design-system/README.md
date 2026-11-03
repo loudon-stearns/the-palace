@@ -88,7 +88,7 @@ It also sets what the browser draws when nothing is asked: links (ink with a hai
 
 What it cannot dress: `<audio controls>` and `<video controls>` (the OS player; draw a `▸ ■` Button and a hairline scrub from the components) and the `title=` tooltip (write the note on the sheet). A Transport component is the next thing this system wants.
 
-**The tab icon.** Every canon entry wears an avatar and a hero ([[Hero and Avatar Maker]]). A page in an entry's bundle takes the avatar beside it as its tab icon, `<link rel="icon" href="<Entry> — icon.png">`, and may pin the hero behind its header where that fits. A page in a subfolder of the bundle reaches it by `../` on its own, and by `/palace/<Entry>/<Entry> — icon.png` when it is framed, because the frame refuses `..` (`_ops/rich-face/README.md` § Making pieces). The system has no mark of its own (§ Not in this system yet), so a page that belongs to no entry goes without. `<meta name="theme-color">` carries `ground-000`. The specimens are `preview/controls.html` and, for the scrollbar at 3×, `preview/scrollbar-3x.html`.
+**The tab icon.** Every canon entry wears an avatar and a hero ([[Hero and Avatar Maker]]). A page in an entry's bundle takes the avatar beside it as its tab icon, `<link rel="icon" href="<Entry> — icon.png">`, and may pin the hero behind its header where that fits. A page in a subfolder of the bundle reaches it by `../` on its own, and by `/palace/<Entry>/<Entry> — icon.png` when it is framed, because the frame refuses `..` (`_ops/rich-face/README.md` § Making pieces). A page that belongs to no entry takes `favicon.svg` beside this file: the entry's knob avatar at 32px, the system's tab mark. `<meta name="theme-color">` carries `ground-000`. The specimens are `preview/controls.html` and, for the scrollbar at 3×, `preview/scrollbar-3x.html`.
 
 ## Components
 
@@ -127,7 +127,7 @@ Answers to what the VST Template's WebView editor asked of the system (2026-10-2
 
 **Fonts offline.** JetBrains Mono is not a file here yet; IBM Plex Mono and VT323 are. A plugin inlines `@font-face` from `fonts/` and loads nothing from the network. Until JetBrains Mono ships as a file, `terminal` (IBM Plex Mono) is the offline face and is already second in the `mono` stack.
 
-**Mark.** None. A plugin header carries the name in `sheet-title` and nothing else. If a mark arrives it will be a hairline SVG in `ink`, 24–32px, transparent, and it will be a palace decision, not this file's.
+**Mark.** The tab icon only. A plugin header carries the name in `sheet-title` and nothing else; the system's one mark, `favicon.svg` (the knob avatar at 32px, a hairline SVG in `ink` on `ground-000`), is the tab icon of a page with no entry, never a header mark. Landed on Loudon's word of 2026-11-03.
 
 **Tier and version.** The title block's `status` line carries the tier as the sheets do: `SKETCH · HOLD: …`, `STUDY`, `PIECE`. Its `version` cell carries the build (`0.1.0`). So a plugin reads `SKETCH` in red on its status line and `version 0.1.0` in its numbers row, never `v1`. Provisional; the form is Loudon's to set.
 
@@ -141,7 +141,7 @@ Answers to what the VST Template's WebView editor asked of the system (2026-10-2
 
 ## Not in this system yet
 
-- **No mark.** Drafting Table has no logo; the name is set in `mono` and that is the mark. Stigmergy's ASCII logo and Loudon Live's Lissajous stay theirs.
+- **A tab mark, not a logo.** Drafting Table has a tab mark since 2026-11-03, the entry's knob avatar at 32px (`favicon.svg`), on Loudon's word: "Yes, land the knob." A plugin header still carries the name in `mono` and nothing else. Stigmergy's ASCII logo and Loudon Live's Lissajous stay theirs.
 - **Stigmergy's pixel cursors** (`cursors.py`) were not carried over; they belong to the board.
 - **JetBrains Mono** is hosted, not a file.
 - **No assembly views, no GD&T symbols**, mirroring what the CAD Drafter has not yet drawn.
@@ -168,5 +168,6 @@ Answers to what the VST Template's WebView editor asked of the system (2026-10-2
 | `controls.css` | The browser's furniture re-dressed for the bare elements: scrollbars, selects, checkboxes, ranges, the textarea grip, spinners, `<details>`, focus, selection, autofill, links. Load after the tokens. |
 | `preview/controls.html` | The specimen: every control bare, on both grounds. |
 | `preview/scrollbar-3x.html` | The scrollbar at 3×, Paper and Phosphor: the cap in its recess, square-ended. |
+| `favicon.svg` | The tab icon for a page with no entry of its own: the knob avatar at 32px, Paper values written in by hand. |
 
 The living copy with live previews is the Design System artifact: https://claude.ai/artifact/5B7KLXdyRVpavzgpEgcRVH (private). This folder is its export; when one changes, the other is brought level by hand.
