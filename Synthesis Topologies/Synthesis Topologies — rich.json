@@ -41,7 +41,18 @@
      "place": "band"
     }
    ],
-   "stamped": "2026-11-03"
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Synthesis Topologies — rich — vibrato into sidebands.html",
+      "verdict": "keep",
+      "why": "A real test: sidebands at fc ± k·fm as loud as |Jk(β)|, from the phase-summing oscillator (0.006 dB) and the Web Audio graph offline (0.004 dB), and it walks up from one sine. Notes: keep the k = 0 row at β = 2.405 (it is hidden under the 1e-4 cutoff), and the check's −80.7 dB 'carrier' at fm = 110 is the k = −8 line folded through 0 Hz (J8 = 9.2e-5); at 137 Hz the carrier reads −181 dB."
+     }
+    ]
+   }
   },
   {
    "heading": "What the Family Shares",
@@ -65,7 +76,18 @@
      "place": "band"
     }
    ],
-   "stamped": "2026-11-03"
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Synthesis Topologies — rich — one loop, two instruments.html",
+      "verdict": "remake",
+      "why": "Steps 3–4 test the page's sentence (whole length nulls, N + ½ parts), and the walk-up is the model one. But step 5's 'test' is algebra: a linear read at ½ is the average, so the null is 0 by construction; retitle it as an identity shown, lead the step-5 table with the whole-vs-half rows, drop 'at every shape and length tried', and say ρ = 1 where it names the Waveguide page's string (that page uses ρ = 0.996)."
+     }
+    ]
+   }
   }
  ],
  "offers": [
