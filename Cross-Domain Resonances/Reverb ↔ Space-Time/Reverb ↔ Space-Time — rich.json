@@ -1,0 +1,200 @@
+{
+ "title": "Reverb ↔ Space-Time — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[Reverb ↔ Space-Time]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  },
+  {
+   "target": "[[Frequency-Time Duality]]",
+   "type": "connects-to",
+   "label": "the-haas-comb-rhymes"
+  }
+ ],
+ "forward_vector": "I am the manifest of Reverb ↔ Space-Time's rich face, its first round at Sketch tier: four made pieces, each walking up to a test of a claim the page makes (an echo late by its path and Sabine's decay against a modelled room, a delay that becomes a place and then a colour, Lucier's loop against the box's computed modes, and the page's own where-are-you), with the fingerprint of the words each was laid against. I grow when the page is rewritten or a piece has something new to test; I never hold the entry's words.",
+ "entry": "Reverb ↔ Space-Time",
+ "tier": "sketch",
+ "made": "2026-11-03",
+ "round": 1,
+ "offers": [
+  {
+   "section": "The Physics",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "\"A wall 10 meters away returns its reflection 29 milliseconds late\" halves the path: the sound goes there and back, 20 m, so a wall 10 m away answers at 58.3 ms; 29 ms is a 10 m path, a wall 5 m away (the clap piece, step 1, and checks.mjs). The section's own bathroom (5–10 ms, walls 0.9–1.7 m) and cathedral (50–100 ms, walls 8.6–17 m) figures already use the round trip. Proposed: \"A wall 5 meters away returns its reflection 29 milliseconds late\", or \"A reflection that travels 10 meters arrives 29 milliseconds late.\""
+  },
+  {
+   "section": "The Physics",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "\"a cathedral's first reflection at 50–100ms\": in the model the floor answers first in every room, at about 9 ms for a clap at standing height, so the cue the sentence means is the first reflection off the walls. Proposed: \"a cathedral's first wall reflection at 50–100ms\" (and the same word for the bathroom)."
+  },
+  {
+   "section": "The Physics",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "Loudon's comment asks how room dimensions and room size work together and how well they represent real spaces. What the clap piece measured, in a 12 × 8 × 5 m box at α 0.2: size sets the decay, every side ×2 took Sabine from 0.99 to 1.97 s (exactly ×2, since V grows ×8 and A ×4) and the box's first 15 dB from 0.99 to 1.98 s, and the first wall echo from 19.6 to 39.2 ms. Shape sets the arrival pattern, and Sabine sees it only as surface area: at the same volume, low and wide (17.0 × 11.3 × 2.5 m) Sabine shortens the decay to 0.74 s, while the box's first 15 dB hold at 0.97 s and its later decay lengthens to 1.56 s. Surfaces set the decay and leave the arrivals alone (tile: Sabine 6.57 s, first wall echo still 19.6 ms). Sabine matched the box's first 15 dB within about 5% for α up to 0.2; at α 0.45 the box falls at 0.38 s, between Sabine's 0.44 s and Eyring's 0.33 s. The box's two-slope decay (later 1.21 s even in the base room) belongs to a bare mirror-walled box, not to real rooms, so this answers the second half of the comment only in part. Proposed, after the Sabine sentence: \"Size and surfaces set how long the room rings; its dimensions set when the first walls answer. Sabine sees shape only as surface area, so it fits a lightly absorbing room with its absorption spread evenly, and misses a long or low one.\""
+  },
+  {
+   "section": "The Relativity Connection",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "An addition the page's Haas sentence doesn't make, which corrects nothing in it: summed to one channel, a 10–30 ms delay between two speakers becomes a comb filter, silent at 1⁄(2Δt) and every 1⁄Δt after (at 25 ms: 20, 60, 100 Hz…, 500 notches below 20 kHz). The same time difference becomes place in two ears and timbre in one, the page's own space–time–frequency triangle and its mirror link to Frequency-Time Duality. The piece demonstrates it on headphones, and says so. Proposed, after the Haas sentence: \"Sum the two speakers to mono and the same delay becomes a comb filter: time difference becomes timbre.\" On where one sound splits into two (under 10 ms for clicks, nearer 50 for speech): the figures trace to Wallach et al. (1949, 1–5 ms for clicks, up to 40 ms for speech and music) and Blauert (about 50 ms for speech); Litovsky et al. (1999) reviews this ground but was not opened this round."
+  },
+  {
+   "section": "Advanced Applications",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "\"Each iteration emphasizes room's natural frequencies\" holds, with a condition the sitting-in-a-box piece measured in a 6 × 4.5 × 2.6 m box (Sabine 1.04 s, Schroeder frequency 244 Hz). Below about 140 Hz each peak is one mode; modal overlap is 0.92, 1.85 and 2.75 at 141, 200 and 244 Hz, so toward the Schroeder frequency two or three share a peak. The 8 strongest peaks below 244 Hz still sit 0.21 Hz from a computed mode, worst 0.41 Hz, where random frequencies within 5 Hz of each peak sit about 0.7 Hz away. Placement matters in every band: when the microphone moves, both peak sets drop about 7 dB (below: +15.1 to +7.5 dB over the band median; above: +10.3 to +3.3 dB), leaving them about 6 dB over random frequencies below 244 Hz and about 2 dB above it, where about 46 modes overlap inside each peak at 1 kHz. The tone that wins after 32 passes moves from 1885.8 to 1228.1 Hz. Without a loudspeaker band in the loop the room alone ends on its lowest mode, 28.6 Hz (1, 0, 0), only with the microphone in its first place (moved, 1228.1 Hz), and that ending sits just under the model's own 30 Hz high-pass. Proposed for \"What's happening\": \"Each iteration emphasizes the room's natural frequencies as heard from where the loudspeaker and microphone stand; the loudspeaker is part of the loop, so part of the room.\""
+  }
+ ],
+ "sections": [
+  {
+   "heading": "The Physics",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Reverb ↔ Space-Time — rich — one clap, one room.html",
+      "verdict": "remake",
+      "why": "A real test that caught the 29 ms slip; numbers reproduce independently. But 'Sabine barely sees it' misreads its own figures (Sabine moves 0.99→0.74 s; the box's first 15 dB barely moves, its late decay lengthens), the two-slope decay is the bare specular box's and only the fine print says so, and the floor is 7.3 ms in the low room, not 9: fix the heading, add a 'how far a box stands for a real room' paragraph (the second half of Loudon's comment), say 7–9 ms."
+     }
+    ]
+   },
+   "pieces": [
+    {
+     "file": "Reverb ↔ Space-Time — rich — one clap, one room.html",
+     "origin": "made",
+     "by": "image-source room model · Sabine",
+     "height": 1500,
+     "place": "band",
+     "near": "Pre-delay makes this manipulable",
+     "title": "one clap, one room · four steps",
+     "caption": "**Loudon's question, played: how do a room's dimensions and its size work together?** The page's clap experiment built up from one wall: an echo late by its path (drag the wall), six walls writing the room's dimensions in time, every echo of a shoebox room with Sabine's RT60 beside the box's own decay, and last the test. Size sets how long the room rings, shape sets when the walls answer, and surfaces set the decay without moving the arrivals. The second half of his question, how well this stands for real rooms, it answers only in part: the box is bare and mirror-walled, and it says what that costs. It also checks the section's numbers: a wall 10 m away answers at 58 ms, not 29."
+    }
+   ],
+   "made_against": "3cbbf4d8b1e5",
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "The Relativity Connection",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Reverb ↔ Space-Time — rich — a delay becomes a place.html",
+      "verdict": "keep",
+      "why": "Walks up from ITD to Haas to a split the reader finds, which can fall outside the page's 10–30 ms; comb numbers right (25 ms: 20, 60, 100 Hz…, 500 notches). Note: the page's sentence is about loudspeakers and the piece is on headphones, disclosed; cite the thresholds to Wallach 1949 and Blauert, not Litovsky 1999 unread."
+     }
+    ]
+   },
+   "pieces": [
+    {
+     "file": "Reverb ↔ Space-Time — rich — a delay becomes a place.html",
+     "origin": "made",
+     "by": "Web Audio · two ears, one delay",
+     "height": 1300,
+     "place": "band",
+     "near": "The Haas Effect makes this visceral",
+     "title": "a delay becomes a place · four steps · headphones",
+     "caption": "**The Haas sentence on headphones.** The same click in both ears, then the right ear late by under a millisecond (the sound walks across your head), then 1 to 40 ms (it stays put and widens), and last the test: push on until you hear two, then sum the ears to one and hear the same delay turn into a comb filter. Time becomes place in two ears and colour in one."
+    }
+   ],
+   "made_against": "382bb2f4d0b4",
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "Advanced Applications",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Reverb ↔ Space-Time — rich — sitting in a box.html",
+      "verdict": "remake",
+      "why": "A real test the page passes; 0.21 Hz reproduces. Words overstate it: overlap is 0.9 at 141 Hz and 2.75 at 244, so 'one each' holds only below ~140 Hz; a local random baseline gives 0.71 Hz, not 1.06; both peak sets drop ~7 dB when the mic moves (6 dB over chance below, 2 above), so 'hold' against 'sink' overstates; 28.6 Hz is mic-here only and under the 30 Hz high-pass. Reword caption and verdict; engine stays."
+     }
+    ]
+   },
+   "pieces": [
+    {
+     "file": "Reverb ↔ Space-Time — rich — sitting in a box.html",
+     "origin": "made",
+     "by": "image-source room model · FFT",
+     "height": 1700,
+     "place": "band",
+     "near": "The room's geometry (space) becomes audible",
+     "title": "sitting in a box · after Lucier · four steps",
+     "caption": "**Lucier's loop as arithmetic.** A voice once through a modelled room, the room's own peaks against the modes its dimensions predict, the voice through the loop up to forty times, and last the test of the page's claim that the room's natural frequencies emerge. They do. Below about 140 Hz each survivor is one mode, and toward 244 Hz two or three share a peak; which tones win depends on where the loudspeaker and microphone stand, in every band and more above 244 Hz."
+    }
+   ],
+   "made_against": "482c5e0d85a5",
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "Teaching Notes",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Reverb ↔ Space-Time — rich — where are you.html",
+      "verdict": "remake",
+      "why": "The blind round offers only the page's own place-names, then tells the reader 'notice what you named: a place, not an amount of reverb', which it couldn't fail. Add a free-words box (or non-place choices) and let the verdict read what was written; fix '3 m in every room' (2.48 m in the small room)."
+     }
+    ]
+   },
+   "pieces": [
+    {
+     "file": "Reverb ↔ Space-Time — rich — where are you.html",
+     "origin": "made",
+     "by": "image-source room model · Kokoro voice",
+     "height": 1250,
+     "place": "band",
+     "near": "They're not describing reverb",
+     "title": "where are you · four steps",
+     "caption": "**The demonstration, with you as the student.** One voice dry, then in a small room, a hall and a cathedral, each drawn to one scale, the voice 2.5 to 3 m from you. Then the four again in a shuffled order, and the page's question: where are you? Among the answers are two that name no place, \"just more reverb\" and \"an effect\", so the round can come out against the page."
+    }
+   ],
+   "made_against": "8e5c0e875f5e",
+   "stamped": "2026-11-03"
+  }
+ ]
+}
