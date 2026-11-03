@@ -47,6 +47,13 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-03-heard-rise" -->
+### 2026-11-03 — The heard rise goes to the palace: D-2026-11-03-HEARDRISE
+
+What the 2026-11-02 matched sitting felt like is now canon in [[Exponential Decay Curvature]] § How the ear takes the rise, with a figure of both curves in decibels (merge `66803aa6`). Loudon's sentence on the two rates: "Like even though it is 'linear' the rise is not linear; it feels like almost two different rates, like it is going up and that at some threshold it jumps to a faster rise. Where when I listen to the Moog one the rise feels like it is a 'straight' line." The entry states the sitting's numbers from `workshop/vocabulary.yaml` draft 0.5 and notes the Moog `time` table has since moved under the 2026-11-03 decay sitting.
+
+_Left rough:_ the bass-versus-treble question (equal-loudness contours), declined as untested; two Weave flags (Blood Compressor, Logarithmic Interface Scaling) drafted, not posted, awaiting Loudon's read.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-03-without-me" -->
 ### 2026-11-03 — Three small moves without him: the tracker's floor, negative routes labelled, the warnings written down
 
