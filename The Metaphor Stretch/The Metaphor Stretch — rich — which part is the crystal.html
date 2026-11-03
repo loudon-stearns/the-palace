@@ -128,7 +128,7 @@
       <div class="eq"><i>r</i> = (<i>f</i><sub>top</sub> / <i>f</i><sub>floor</sub>)<sup>1/<i>N</i></sup>, &nbsp; beats near <i>f</i> ≈ <i>f</i> · (<i>r</i> − 1)</div>
       <div class="words">(the ratio between neighbouring partials) = (the top partial over the lowest) to the power one over (the number of bins); and near any frequency the neighbours beat at about (that frequency) × (the ratio, minus one).</div>
     </div>
-    <p class="back">Step 2's pair, many times over. N = 8 puts every neighbour more than half an octave away.</p>
+    <p class="back">Step 2's pair, many times over. At the code's lowest-mode anchor, N = 8 puts every neighbour more than half an octave away.</p>
     <div class="controls">
       <div class="btns"><button class="go" id="s3play">▸ strike the crystal</button></div>
       <label class="sl">bins <i>N</i> = <b id="s3Nv"></b><input id="s3N" type="range" min="0" max="10" step="1" value="0"></label>
@@ -145,7 +145,7 @@
     <div class="controls"><div class="pick" id="s4cr"></div><span class="busy" id="s4busy"></span></div>
     <table class="meas" id="s4t"></table>
     <div class="verdict" id="s4v">Measuring…</div>
-    <p class="note">The centroid's early value includes the strike's noise burst. Beat rates near 1 kHz at N = 300 for each crystal, from the bins alone: <span id="s4rates"></span>. Each crystal plays with the decay the code gives it.</p>
+    <p class="note">All five renders use the code's lowest-mode anchor; under the centroid anchor the crystal sits between 88 and 160 Hz and even N = 8 beats, at 7 to 12 a second. The centroid's early value includes the strike's noise burst. Beat rates near 1 kHz at N = 300 for each crystal, from the bins alone: <span id="s4rates"></span>. Each crystal plays with the decay the code gives it.</p>
   </section>
 
   <nav class="walk"><button id="back">← back</button><button id="next">next step →</button><span class="where" id="where"></span></nav>
@@ -439,7 +439,7 @@ function verdict(cr) {
   const sw = CASES.filter(c => sweep(R(c.id))).map(c => c.id), bt = CASES.filter(c => beats(R(c.id))).map(c => c.id);
   const apart = sweep(R('a')) && !beats(R('a')) && beats(R('d')) && !sweep(R('d'));
   $('s4v').innerHTML = (apart
-    ? '<b>The two come apart.</b> At N = 8 with the decay law there is no beating (' + fmt(R('a').depth, 1) + ' dB of ripple) and the brightness still falls by ' + fmt(100 * fall(R('a')), 0) + ' %. At N = 300 with the exponent at 0 the beating is all there (' + fmt(R('d').depth, 1) + ' dB) and the brightness does not fall at all (' + fmt(100 * fall(R('d')), 0) + ' %). So the sweep belongs to the decay law, Decision Point 3, and the beating to the bins, Decision Point 2. The beating is not itself true in tendency: it rides a decay that is. '
+    ? '<b>The two come apart.</b> At N = 8 with the decay law there is no beating (' + fmt(R('a').depth, 1) + ' dB of ripple) and the brightness still falls by ' + fmt(100 * fall(R('a')), 0) + ' %. At N = 300 with the exponent at 0 the beating is all there (' + fmt(R('d').depth, 1) + ' dB) and the brightness does not fall at all (' + fmt(100 * fall(R('d')), 0) + ' %). So the sweep belongs to the decay law, Decision Point 3, and the beating to this engine’s bins, Decision Point 2. The beating is not itself true in tendency: it rides a decay that is. '
     : 'The sweep shows in ' + sw.join(', ') + ' and the beating in ' + bt.join(', ') + '. ')
     + 'Noise per bin keeps the ripple as deep (' + fmt(R('e').depth, 1) + ' dB) but not regular (' + fmt(R('e').regular, 2) + ' against ' + fmt(R('b').regular, 2) + ' for the sines): the beating dissolves into texture, and the sweep stays (' + fmt(100 * fall(R('e')), 0) + ' %).';
 }

@@ -67,6 +67,12 @@ ok(sp.every((v, i) => i === 0 || v[3] > sp[i - 1][3]) && sp.every(v => Math.abs(
 ok(sp.slice(0, 3).every(([n, , , s]) => Math.abs(s / (1.1 * n) - 1) < 0.1), 'spread ≈ 1.1 × n for grids up to the code’s 40 (the 0.012 floor cut bends it after)');
 const zb = [10, 40, 120].map(n => E.partials(E.DOS.cubic(n), { N: 100, anchor: 'zone_boundary' }).lo);
 ok(zb[0] > zb[1] && zb[1] > zb[2], `zone boundary: the grid moves the floor instead (${zb.map(v => v.toFixed(0)).join(' → ')} Hz)`);
+const t76 = E.partials(E.DOS.cubic(76), { N: 100 }).hi, t77 = E.partials(E.DOS.cubic(77), { N: 100 }).hi;
+ok(t77 < t76 * 0.9, `the 0.012 floor bites at 77 cells: top ${t76.toFixed(0)} Hz at 76, ${t77.toFixed(0)} Hz at 77`);
+const cen = [10, 40, 120].map(n => { const P = E.partials(E.DOS.cubic(n), { N: 100, anchor: 'centroid' }); return [P.lo, P.hi]; });
+ok(cen.every(([lo, hi]) => Math.abs(Math.log2(hi / cen[0][1])) < 0.1 && Math.abs(Math.log2(lo / cen[0][0])) < 0.1), `centroid: the grid moves nothing (${cen.map(([l, h]) => l.toFixed(0) + '–' + h.toFixed(0)).join(', ')} Hz at 10, 40, 120 cells)`);
+{ const P = E.partials(E.DOS.cubic(), { N: 8, anchor: 'centroid' }), m = E.measure(E.render(P, CR.cubic)), r = Math.pow(P.hi * 1.01 / (P.lo * 0.99), 1 / 8);
+  console.log(`  centroid, N 8: neighbours ${(1200 * Math.log2(r)).toFixed(0)} ¢ apart, ${(P.f[0] * (r - 1)).toFixed(1)}–${(P.f[P.f.length - 2] * (r - 1)).toFixed(1)} Hz gaps; 250 Hz band ripple ${m.bands[0].depth.toFixed(1)} dB`); }
 const ce = Object.keys(CR).map(cr => { const d = E.DOS[cr](), tot = d.filter(v => v > 0.012).length; return [cr, 1 - E.partials(d, { N: 100, anchor: 'centroid' }).modes / tot]; });
 console.log('  centroid anchor, share of modes the 88 Hz cut drops: ' + ce.map(([c, v]) => `${c} ${(100 * v).toFixed(1)} %`).join(', '));
 console.log(fails ? `\n${fails} failed` : '\nall held'); process.exit(fails ? 1 : 0);

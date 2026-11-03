@@ -154,7 +154,7 @@
     </div>
     <p class="back">Everything from steps 1 to 4 holds. The grid the code uses is marked.</p>
     <div class="controls"><div class="btns"><button class="go" id="s5play">▸ strike</button><button class="go" id="s5ab">▸ the code’s grid, then this</button></div>
-      <label class="sl">grid <i>n</i> = <b id="s5nv"></b><input id="s5n" type="range" min="0" max="7" step="1" value="4"></label><span class="busy" id="s5busy"></span></div>
+      <label class="sl">grid <i>n</i> = <b id="s5nv"></b><input id="s5n" type="range" min="0" max="9" step="1" value="4"></label><span class="busy" id="s5busy"></span></div>
     <div class="read"><span>floor <b id="s5lo"></b></span><span>top <b id="s5hi"></b></span><span>spread <b id="s5sp"></b></span><span>beats near 1 kHz <b id="s5b"></b></span><span>lowest modes, as ratios <b id="s5r"></b></span></div>
     <div class="panel"><div class="plabel"><span>the partials at this grid</span><span><span class="amber">— this grid</span> · <span style="color:#8a8aa0">— the code’s</span></span></div><canvas id="s5cv"></canvas></div>
     <div class="verdict" id="s5v"></div>
@@ -362,7 +362,7 @@ function redrawOnResize(fn) { let t = 0; window.addEventListener('resize', () =>
 // ── Piece B: the lesson ──
 const BASE = 110, MAXF = 10000, CRS = ['cubic', 'orthorhombic', 'triclinic'];
 const CR = { cubic: { decayBase: 0.6, decayExp: 0.45, transientDecay: 55 }, orthorhombic: { decayBase: 1.0, decayExp: 0.55, transientDecay: 60 }, triclinic: { decayBase: 1.5, decayExp: 0.7, transientDecay: 70 } };
-const NLIST = [8, 12, 16, 24, 32, 48, 64, 100, 150, 200, 300], GRIDS = [10, 16, 20, 28, 40, 60, 80, 120];
+const NLIST = [8, 12, 16, 24, 32, 48, 64, 100, 150, 200, 300], GRIDS = [10, 16, 20, 28, 40, 60, 76, 77, 80, 120];
 const DOSC = {}; const dosOf = (c, n) => { const k = c + '|' + (n || DEFAULT_GRID[c]); return DOSC[k] || (DOSC[k] = DOS[c](n || DEFAULT_GRID[c])); };
 const S = { N: 32, anchor: 'lowest_mode', cr: 'cubic', exp: { ...Object.fromEntries(CRS.map(c => [c, CR[c].decayExp])) } };
 const PC = {}; const P_ = (cr, o = {}) => { const k = [cr, o.grid || DEFAULT_GRID[cr], o.N || S.N, S.anchor].join('|'); return PC[k] || (PC[k] = partials(dosOf(cr, o.grid), { N: o.N || S.N, anchor: S.anchor, base: BASE, maxf: MAXF })); };
@@ -441,10 +441,21 @@ function s5() {
   $('s5r').textContent = lv.map(v => fmt(v / lv[0], 3)).join(', ');
   const [g, w, h] = fitCanvas($('s5cv'), 150); freqAxis(g, w, h - 16, 50, 10000);
   drawPartials(g, w, h - 16, (h - 26) * 0.5, P0, C.fg3, 50, 10000); drawPartials(g, w, h - 16, h - 26, P, C.amber, 50, 10000);
-  const tops = GRIDS.map(k => P_(cr, { grid: k })), lo = tops[0], hi = tops[tops.length - 1], oct = x => Math.log2(x);
-  const moves = S.anchor === 'lowest_mode' ? 'the top' : S.anchor === 'zone_boundary' ? 'the floor' : 'both ends';
-  const span = S.anchor === 'zone_boundary' ? [lo.lo, hi.lo] : [lo.hi, hi.hi];
-  $('s5v').innerHTML = '<b>All four held, and ' + moves + ' still moves.</b> Across grids of ' + GRIDS[0] + ' to ' + GRIDS[GRIDS.length - 1] + ' cells, with N, the anchor, the decay and the fidelity unchanged, ' + moves + ' of the ' + cr + ' crystal runs from ' + fmt(span[0], 0) + ' to ' + fmt(span[1], 0) + ' Hz (' + fmt(Math.abs(oct(span[1] / span[0])), 1) + ' octaves), and with it every beat rate between neighbours. The softest mode is the longest wave the grid can hold, so under lowest mode the grid, not the lattice, sets how far the spectrum spreads; the lowest partials sit at the grid’s own box ratios (' + lv.slice(0, 4).map(v => fmt(v / lv[0], 2)).join(', ') + '). A crystal a centimetre across would spread some ten million times, from 110 Hz to a few gigahertz. No Decision Point names this choice. Whether it is a fifth stretch or a hidden part of the first is the page’s question.';
+  // The verdict is computed from what the grids measure, not written in advance
+  const all = GRIDS.map(k => ({ k, P: P_(cr, { grid: k }) })), oct = x => Math.log2(x), span = sel => { const v = all.map(o => sel(o.P)); return [Math.min(...v), Math.max(...v)]; };
+  const top = span(P => P.hi), bot = span(P => P.lo), oTop = oct(top[1] / top[0]), oBot = oct(bot[1] / bot[0]);
+  const moved = [oTop > 0.1 ? 'top moves (' + fmt(top[0], 0) + ' to ' + fmt(top[1], 0) + ' Hz, ' + fmt(oTop, 1) + ' octaves)' : '', oBot > 0.1 ? 'floor moves (' + fmt(bot[0], 0) + ' to ' + fmt(bot[1], 0) + ' Hz, ' + fmt(oBot, 1) + ' octaves)' : ''].filter(Boolean);
+  const held = 'Across grids of ' + GRIDS[0] + ' to ' + GRIDS[GRIDS.length - 1] + ' cells, with N, the anchor, the decay and the fidelity unchanged';
+  let v;
+  if (moved.length) {
+    const p76 = all.find(o => o.k === 76), p77 = all.find(o => o.k === 77);
+    const saw = S.anchor === 'lowest_mode' && p76 && p77 && p77.P.hi < p76.P.hi * 0.9 ? ' It does not even move one way: at 76 cells the top is ' + fmt(p76.P.hi, 0) + ' Hz, at 77 it is ' + fmt(p77.P.hi, 0) + ' Hz, because there the code’s 0.012 floor drops the softest mode, another cut nobody names.' : '';
+    v = '<b>All four held, and the grid still moves the instrument.</b> ' + held + ', the ' + cr + ' crystal’s ' + moved.join(' and its ') + ', and with it every beat rate between neighbours. The softest mode is the longest wave the grid can hold, so under this anchor the grid, not the lattice, sets how far the spectrum spreads; the lowest partials sit at the grid’s own box ratios (' + lv.slice(0, 4).map(x => fmt(x / lv[0], 2)).join(', ') + '). A crystal a centimetre across would spread some ten million times.' + saw + ' No Decision Point names this choice.';
+  } else {
+    const d = dosOf(cr), tot = d.filter(x => x > 0.012).length, cut = 1 - P0.modes / tot;
+    v = '<b>Under this anchor the grid moves nothing.</b> ' + held + ', the ' + cr + ' crystal stays between ' + fmt(bot[0], 0) + ' and ' + fmt(top[1], 0) + ' Hz. Centroid pins the middle of the spectrum, not an end, so the grid has no end to move. What this anchor hides instead is its cut: everything that lands below 88 Hz is dropped, ' + fmt(100 * cut, 1) + ' % of the ' + cr + ' crystal’s modes. Each anchor hides a different choice.';
+  }
+  $('s5v').innerHTML = v + ' Whether these are a fifth stretch, or parts of the Frequency Anchor, is the page’s question.';
 }
 // ── wiring ──
 sigil($('sigil'));
