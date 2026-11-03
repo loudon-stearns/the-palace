@@ -51,7 +51,18 @@
         }
       ],
       "made_against": "86d739a2e326",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Synthesis ↔ Emergence — rich — two sines.html",
+            "verdict": "keep",
+            "why": "A real test at the page's own 400/200: it walks carrier, modulator, added, FM at depth 0, then shows the 2 : 1 spectrum stays on the 200 Hz grid at every depth (recomputed), so the 'bell' fails by the page's own account of bells. Note, taste only: 'the bell is in the ratio, not the depth' wants 'the scatter comes from the ratio; the depth fills it in'."
+          }
+        ]
+      }
     },
     {
       "heading": "The Deeper Principle: Levels of Organization",
@@ -75,7 +86,18 @@
         }
       ],
       "made_against": "f246dbbe9df6",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Synthesis ↔ Emergence — rich — predicted beside measured.html",
+            "verdict": "remake",
+            "why": "A real test that walks up, but its loop is the DX7's averaged one and it calls that 'feedback FM' and the 'only' place chaos holds; a plain one-sample loop has a positive Lyapunov exponent from β ≈ 2.45. Its 'disorder, then order again' verdict misreads twins that re-merge below the last bit while only 14–36 % repeats; name the loop, cut the three 'only' phrases, and give the edge as order to 3.90, chaos from about 4.1 (feedback 7.38)."
+          }
+        ]
+      }
     }
   ],
   "offers": [
