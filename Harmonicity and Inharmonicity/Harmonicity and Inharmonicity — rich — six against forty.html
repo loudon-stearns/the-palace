@@ -1,0 +1,598 @@
+<!doctype html>
+<!--
+  title: Harmonicity and Inharmonicity — rich — six against forty
+  born: 2026-11-03
+  links: [[Harmonicity and Inharmonicity]] (connects-to · rich-face-piece) · listed in [[Harmonicity and Inharmonicity — rich.json]] · walks up to Harmonicity and Inharmonicity/proofs/2026-10-17-frustration-sweeps/edgemap.png
+  forward_vector: I am the walk up to "the top partials set the edge". Stretch bites partial n as n³; a tall tone has partials far up that ladder; the voices let go from the top down; a short tone snaps where a tall one frays; and then I measure, live, how much sooner forty partials tear than six, and set it against the n³ the page names. I change only when the section I serve does.
+  sound: nothing plays until Play or a sweep button is clicked; the AudioContext is made on that click. Changing step stops the sound.
+  check: Harmonicity and Inharmonicity/Harmonicity and Inharmonicity — rich — check.mjs runs this page's core and worklet in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Six against forty · where a tall tone tears</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --indigo:#6366F1;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none !important}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.mark{font-family:var(--sans);font-weight:500;font-size:15px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:10px 18px;cursor:pointer}
+  button.mark:disabled{opacity:.35;cursor:default}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .cap{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);margin:12px 0 6px;display:flex;justify-content:space-between;gap:10px}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:10ch}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .reveal{font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.65;margin-top:12px}
+  .reveal b{font-family:var(--mono);font-weight:400;color:var(--accent)}
+  table.res{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.res td,table.res th{border-bottom:1px solid var(--border-soft);padding:5px 16px 5px 0;text-align:left;font-weight:400}
+  table.res th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.res button{font-family:var(--mono);font-size:11px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:3px 8px;cursor:pointer;margin-right:4px}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer svg{flex:none}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:100px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Harmonicity and Inharmonicity · what the sweeps showed · five steps</div>
+  <h1>Six against forty</h1>
+  <p class="lead">The page says the top partials set the edge: stretch bites partial n roughly as B·n³, so a tall spectrum tears long before a short one, and forty partials tore over a hundred times sooner than six. This walks up to that and then measures it, live, on the model the sweeps ran. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Hear</span><span class="hint" id="hearHint"></span><button class="play" id="play">Play</button></div>
+
+    <div id="ladderWrap">
+      <div class="cap"><span id="ladderCap"></span><span id="ladderNote"></span></div>
+      <canvas id="ladder"></canvas>
+    </div>
+    <div id="traceWrap" hidden>
+      <div class="cap"><span>the tone’s pitch (white) as the stretch rises (amber, log scale)</span><span id="traceNote"></span></div>
+      <canvas id="trace"></canvas>
+      <div class="rowb">
+        <button class="ghost" id="sweep6">Sweep six partials</button>
+        <button class="ghost" id="sweep40">Sweep forty partials</button>
+        <span class="hint">Each sweep takes 24 s and runs the stretch across its tone’s edge on a log scale.</span>
+      </div>
+    </div>
+
+    <div class="ctl" id="ctlB" hidden>
+      <label for="B">stretch B</label><input id="B" type="range" min="0" max="1" step="0.001" value="0.5"><span class="v" id="Bv"></span>
+    </div>
+    <div class="rowb" id="detRow" hidden>
+      <span class="eyebrow">voices</span>
+      <button class="ghost" data-det="0" aria-pressed="true">Exactly on the harmonics</button>
+      <button class="ghost" data-det="1" aria-pressed="false">A hair off, as in the sweeps</button>
+    </div>
+
+    <div id="testWrap" hidden>
+      <div class="rowb" id="guessRow"><span class="eyebrow">guess first: forty tear how many times sooner than six?</span></div>
+      <div class="rowb">
+        <button class="ghost" data-guess="n">About 7×, as n</button>
+        <button class="ghost" data-guess="n2">About 44×, as n²</button>
+        <button class="ghost" data-guess="n3">About 300×, as n³</button>
+        <button class="mark" id="measure" disabled>Measure it</button>
+      </div>
+      <p class="hint" id="measureNote">Pick a guess, then measure. The piece holds each stretch still for 4 s, as the map did, and halves its way to where each tone first tears: 6, 10, 16, 25 and 40 partials. It takes a few seconds and plays nothing.</p>
+      <div id="resWrap" hidden>
+        <div class="cap"><span>where each tone first tears, log–log: measured (amber), and n³ drawn through six (dashed)</span><span id="fitNote"></span></div>
+        <canvas id="plot"></canvas>
+        <table class="res" id="res"><thead><tr><th>partials</th><th>first tears at B</th><th>times sooner than six</th><th>n³ would say</th><th>listen</th></tr></thead><tbody></tbody></table>
+        <div class="reveal" id="reveal"></div>
+      </div>
+    </div>
+
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+  <div class="try" id="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg><span><b>LOUD’N LIVE</b> · Harmonicity and Inharmonicity · six against forty · Study, 2026-11-03</span></footer>
+</main>
+
+<!-- The model's core. Plain functions, shared by the page, the worklet, the measuring worker and the headless check. -->
+<script id="frust-core">
+// The model the 2026-10-17 proofs ran (edgemap.py, ride_warm.py), ported line for line. Phases are in cycles.
+var FRUST = (function () {
+  var F0 = 110;
+  // each outside voice sits a hair off n × 110: numpy default_rng(7).uniform(−0.004, 0.004), the proofs' own draw
+  var DET = [0.001000764,0.003177710,0.002205486,-0.002198342,-0.001598670,0.002988428,-0.003957878,0.002569827,0.002376555,-0.000256520,-0.001575741,-0.001772595,-0.001961043,-0.000439390,0.000036386,0.000427979,0.003964002,0.002341295,0.000977434,0.003911681,-0.002277530,-0.002718304,0.000900317,-0.003648464,-0.003714558,0.000119111,-0.000270352,0.003337342,0.001033810,0.000112941,-0.000025013,-0.002019881,-0.003905648,-0.002460783,0.001536257,-0.002395146,-0.001043710,-0.003970126,0.002640382,-0.002764311];
+  var TAB = 4096, SIN = new Float64Array(TAB + 1);
+  for (var i = 0; i <= TAB; i++) SIN[i] = Math.sin(2 * Math.PI * i / TAB);
+  // x in cycles. A tiny negative x floors to 1 − ε, which rounds to exactly 1: wrap that index back to 0
+  function sin1(x) { x -= Math.floor(x); var f = x * TAB, k = f | 0; if (k >= TAB) { k = 0; f = 0; } return SIN[k] + (f - k) * (SIN[k + 1] - SIN[k]); }
+  function rand(seed) { var s = seed >>> 0; return function () { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
+  // one tone of N partials (N ≤ 40) and N outside voices, one per partial
+  function tone(N, seed) {
+    var t = { N: N, B: 0, K: 6, I: 1, pinned: false, f0: F0, F: F0, th: 0, back: 0,
+      r: new Float64Array(N), w: new Float64Array(N), p: new Float64Array(N), ph: new Float64Array(N),
+      amp: new Float64Array(N), offs: new Float64Array(N), mask: new Float64Array(N).fill(1),
+      s: new Float64Array(N), gate: new Float64Array(N).fill(1), sAcc: new Float64Array(N), dd: new Float64Array(N) };
+    var R = rand(seed || 7), sum = 0;
+    for (var n = 1; n <= N; n++) {
+      t.ph[n - 1] = R(); t.offs[n - 1] = R();
+      t.amp[n - 1] = (1 / n) * Math.min(1, 4 / n);      // the warm source: rolled off steeply above the fourth
+      sum += n;
+    }
+    t.back = 21 / sum;                                   // back-pull scaled to the six-partial run (1 + 2 + … + 6 = 21)
+    tune(t, 1, 0); setStretch(t, 0);
+    return t;
+  }
+  // where the voices sit: n × 110 × (1 + det × the proofs' detune), and voice 1 moved by off1 Hz
+  function tune(t, det, off1) { for (var n = 1; n <= t.N; n++) t.w[n - 1] = n * F0 * (1 + det * DET[n - 1]); t.w[0] += off1 || 0; }
+  // the stiff-string stretch: partial n sits at r_n = n·√(1 + B n²) times the one phase (pinned holds partial 1 at 1)
+  function setStretch(t, B) {
+    t.B = B; var pin = t.pinned ? 1 + B : 1;
+    for (var n = 1; n <= t.N; n++) t.r[n - 1] = n * Math.sqrt((1 + B * n * n) / pin);
+  }
+  // far pulls fade: a voice more than 3–4 kHz from its partial loses its grip (the map's and the rides' choice)
+  function setGate(t) {
+    for (var i = 0; i < t.N; i++) { var g = (4000 - Math.abs(t.r[i] * t.F - t.w[i])) / 1000; t.gate[i] = g < 0 ? 0 : g > 1 ? 1 : g; }
+  }
+  // one step of dt seconds; returns the pulse, dθ/dt in Hz
+  //   dθ/dt  = f0 + back · (K / I) · Σ r_n · sin 2π(φ_n − p_n)      p_n = partial n's phase, moving at r_n · dθ/dt
+  //   dφ_n/dt = ω_n − K · sin 2π(φ_n − p_n)
+  function step(t, dt) {
+    var N = t.N, tug = 0, i;
+    for (i = 0; i < N; i++) { var s = t.mask[i] * t.gate[i] * sin1(t.ph[i] - t.p[i]); t.s[i] = s; t.sAcc[i] += s; tug += t.r[i] * s; }
+    var dth = t.f0 + t.back * t.K * tug / t.I;
+    for (i = 0; i < N; i++) {
+      var dp = t.r[i] * dth * dt, dv = (t.w[i] - t.K * t.s[i]) * dt;
+      t.p[i] += dp; t.ph[i] += dv; t.dd[i] += dv - dp;
+    }
+    t.th += dth * dt; t.F = dth;
+    return dth;
+  }
+  function wrap(t) { t.th -= Math.floor(t.th); for (var i = 0; i < t.N; i++) { t.p[i] -= Math.floor(t.p[i]); t.ph[i] -= Math.floor(t.ph[i]); } }
+  // the map's test: hold B for 4 s, read the pulse in 10 ms averages over the last 2 s; torn when they wobble past 0.5 Hz
+  function hold(N, B, K, opt) {
+    opt = opt || {};
+    var CR = opt.rate || 11025, secs = opt.secs || 4, t = tone(N, opt.seed);
+    t.K = K; t.I = opt.inertia || 1; t.pinned = !!opt.pinned; if (opt.det !== undefined) tune(t, opt.det, 0); setStretch(t, B);
+    var steps = Math.round(secs * CR), dt = 1 / CR, hop = Math.round(CR / 100), acc = 0, k = 0, means = [];
+    for (var i = 0; i < steps; i++) {
+      if (i % 64 === 0) setGate(t);
+      var f = step(t, dt);
+      if (i % 4096 === 0) wrap(t);
+      if (i >= steps / 2) { acc += f; if (++k === hop) { means.push(acc / hop); acc = 0; k = 0; } }
+    }
+    var m = 0, v = 0, a;
+    for (a = 0; a < means.length; a++) m += means[a]; m /= means.length;
+    for (a = 0; a < means.length; a++) v += (means[a] - m) * (means[a] - m);
+    return { mean: m, wobble: Math.sqrt(v / means.length) };
+  }
+  // where a tone first tears: up from 1e-7 a quarter decade at a time, then halve the gap five times (on a log scale)
+  function edge(N, K, opt) {
+    var lo = 0, hi = 0, e;
+    for (e = -7; e <= 0.001; e += 0.25) { var B = Math.pow(10, e); if (hold(N, B, K, opt).wobble > 0.5) { hi = B; break; } lo = B; }
+    if (!hi) return null; if (!lo) return { edge: hi, lo: 0, hi: hi };
+    for (var j = 0; j < 5; j++) { var mid = Math.sqrt(lo * hi); if (hold(N, mid, K, opt).wobble > 0.5) hi = mid; else lo = mid; }
+    return { edge: Math.sqrt(lo * hi), lo: lo, hi: hi };
+  }
+  return { F0: F0, DET: DET, sin1: sin1, tone: tone, tune: tune, setStretch: setStretch, setGate: setGate, step: step, wrap: wrap, hold: hold, edge: edge };
+})();
+</script>
+
+<!-- The worklet, read as text and loaded from a Blob with the core above it. -->
+<script type="text/plain" id="frust-worklet">
+// One tone and its voices, run sample by sample with the core above. Reports every 10 ms: the pulse, each voice's tug and slip.
+class FrustProcessor extends AudioWorkletProcessor {
+  constructor(options) {
+    super();
+    var o = (options && options.processorOptions) || {};
+    this.det = o.det === undefined ? 1 : o.det; this.off1 = o.off1 || 0;
+    this.Bt = o.B || 0; this.B = this.Bt; this.Kt = o.K === undefined ? 6 : o.K;
+    this.lvTone = o.tone === undefined ? 1 : o.tone; this.lvVox = o.vox === undefined ? 1 : o.vox; this.push = 0;
+    this.build(o.N || 6, o.mask);
+    this.hop = Math.round(sampleRate / 100); this.cnt = 0; this.acc = 0; this.blocks = 0;
+    var self = this; this.port.onmessage = function (e) { self.msg(e.data || {}); };
+  }
+  build(N, mask) {
+    var t = FRUST.tone(N, 7); FRUST.tune(t, this.det, this.off1); t.K = this.Kt;
+    if (mask) for (var i = 0; i < N; i++) t.mask[i] = mask[i] || 0;
+    this.t = t; this.top = new Float64Array(N).fill(1);
+    var s = 0; for (var j = 0; j < N; j++) s += t.amp[j]; this.norm = 1 / s;
+    FRUST.setStretch(t, this.B);
+  }
+  msg(m) {
+    if (m.N && m.N !== this.t.N) this.build(m.N, m.mask);
+    var t = this.t, i;
+    if (m.mask) for (i = 0; i < t.N; i++) t.mask[i] = m.mask[i] || 0;
+    if (typeof m.B === 'number') { this.Bt = m.B; if (m.jump) this.B = m.B; }
+    if (typeof m.K === 'number') { this.Kt = m.K; t.K = m.K; }
+    if (typeof m.I === 'number') t.I = m.I;
+    if (typeof m.det === 'number') this.det = m.det;
+    if (typeof m.off1 === 'number') this.off1 = m.off1;
+    if (typeof m.det === 'number' || typeof m.off1 === 'number') FRUST.tune(t, this.det, this.off1);
+    if (typeof m.tone === 'number') this.lvTone = m.tone;
+    if (typeof m.vox === 'number') this.lvVox = m.vox;
+    if (m.push) this.push = Math.round(0.35 * sampleRate);
+  }
+  process(inputs, outputs) {
+    var out = outputs[0], L = out[0], R = out[1] || out[0], t = this.t, N = t.N, dt = 1 / sampleRate, i, j;
+    // the stretch glides to its target over about 40 ms, so a slider never clicks
+    this.B += (this.Bt - this.B) * 0.06; if (Math.abs(this.Bt - this.B) <= 1e-9 * this.Bt) this.B = this.Bt;
+    FRUST.setStretch(t, this.B); FRUST.setGate(t);
+    for (j = 0; j < N; j++) { var g = (19000 - t.r[j] * t.F) / 3000; this.top[j] = g < 0 ? 0 : g > 1 ? 1 : g; }
+    var gT = 0.6 * this.lvTone * this.norm, gV = 0.35 * this.lvVox * this.norm;
+    for (i = 0; i < L.length; i++) {
+      t.f0 = this.push > 0 ? FRUST.F0 + 4 : FRUST.F0; if (this.push > 0) this.push--;
+      var f = FRUST.step(t, dt), y = 0, v = 0;
+      for (j = 0; j < N; j++) { y += t.amp[j] * this.top[j] * FRUST.sin1(t.p[j] + t.offs[j]); if (t.mask[j]) v += t.amp[j] * FRUST.sin1(t.ph[j]); }
+      var o = gT * y + gV * v; L[i] = o; if (R !== L) R[i] = o;
+      this.acc += f;
+      if (++this.cnt >= this.hop) this.report();
+    }
+    FRUST.wrap(t);
+    return true;
+  }
+  report() {
+    var t = this.t, N = t.N, c = this.cnt, tug = new Float32Array(N), slip = new Float32Array(N);
+    for (var j = 0; j < N; j++) { tug[j] = t.back * t.K * t.r[j] * t.sAcc[j] / c / t.I; slip[j] = t.dd[j]; t.sAcc[j] = 0; t.dd[j] = 0; }
+    var m = { f: this.acc / c, B: this.B, tug: tug, slip: slip, dt: c / sampleRate };
+    if (++this.blocks % 3 === 0) { m.p = Float32Array.from(t.p); m.th = t.th; m.r = Float32Array.from(t.r); }
+    this.port.postMessage(m); this.acc = 0; this.cnt = 0;
+  }
+}
+registerProcessor('frustration', FrustProcessor);
+</script>
+
+<!-- The measuring worker: the core above it, and the map's edge test for each height of tone. -->
+<script type="text/plain" id="frust-measure">
+onmessage = function (e) {
+  var d = e.data;
+  for (var i = 0; i < d.Ns.length; i++) {
+    postMessage({ working: d.Ns[i] });
+    postMessage({ N: d.Ns[i], r: FRUST.edge(d.Ns[i], 6, { rate: 11025, det: d.det }) });
+  }
+  postMessage({ done: true });
+};
+</script>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var NS = [6, 10, 16, 25, 40];
+  // what the headless check measured with this same core, for the record beside a live run
+  var CHECKED = { 0: { 6: 1.731e-3, 40: 2.308e-5, ratio: 75.0, p: 2.29 }, 1: { 6: 2.148e-3, 40: 1.670e-5, ratio: 128.6, p: 2.49 } };
+
+  var STEPS = [
+    { title: 'Stretch bites the top', short: 'The bite', N: 6, voices: false, ctl: true, range: [1e-6, 1e-2], B: 1e-3,
+      say: 'Six partials, no voices yet: only the stretch. A stiff string moves partial n to n·√(1 + B·n²) times the fundamental. For small B that is about B·n³ ⁄ 2 above where it should be, so the move grows as the cube of n. Partial 2 moves 8 times as far as partial 1; partial 6 moves 216 times as far. The bars show how far each partial has moved, in hertz.',
+      hint: 'the six-partial tone alone',
+      eq1: ['110 · (rₙ − n) ≈ 55 · B · n³  Hz', '(how far partial n sits above n × 110 Hz) ≈ 55 × (stretch) × n cubed'],
+      eq2: ['rₙ = n · √(1 + B · n²)', '(partial n’s ratio to the fundamental) = n × √(1 + (stretch) × n²)'],
+      tryText: 'Slide the stretch and watch partial 6. At 1e-3 it sits about 12 Hz sharp and partial 1 about 0.06 Hz. Hear the colour go metallic as you climb: that is the top running away first.' },
+    { title: 'Forty partials, the same bite', short: 'Forty', N: 40, voices: false, ctl: true, range: [1e-6, 1e-2], B: 1e-5,
+      say: 'Now forty partials, still no voices. The same law, a taller ladder. Partial 40 sits (40 ⁄ 6)³, about 296 times, further up the cube than partial 6 does. So at a stretch a hundred times smaller than the one you just heard, the top of this tone is already three times further out than the six-partial tone’s top was at 1e-3.',
+      hint: 'the forty-partial tone alone',
+      eq1: ['(40 ⁄ 6)³ ≈ 296', 'partial 40 moves about 296 times as far as partial 6, at the same stretch'],
+      eq2: ['110 · (rₙ − n) ≈ 55 · B · n³  Hz', '(how far partial n sits above n × 110 Hz) ≈ 55 × (stretch) × n cubed'],
+      tryText: 'At B = 1e-5 partial 40 is about 35 Hz sharp while partial 6 is about 0.1 Hz. The thin line marks 6 Hz, the coupling the voices will pull with in the next step, drawn for scale only: the next step shows voices holding partials well past it, because the tone sags to meet them.' },
+    { title: 'The voices let go from the top', short: 'The peel', N: 40, voices: true, ctl: true, det: true, range: [1e-6, 3e-4], B: 3e-6,
+      say: 'Now forty voices, one on each harmonic, pulling with K = 6 Hz. Each dot is one voice: amber while it holds its partial, hollow once it slips. Raise the stretch slowly. The voices let go from the top down, the partials furthest up the cube first. The tone itself holds its pitch, sagging a little, while the top voices go; by the time about two in five have let go, it tears. That is the page’s claim made visible: the top partials set the edge.',
+      hint: 'forty partials and forty voices',
+      eq1: ['dθ/dt = f₀ + c · K · Σₙ rₙ · sin 2π(φₙ − rₙθ)      c = 21 ⁄ Σn', '(how fast the tone’s phase turns) = (its own pitch) + (a scale that keeps the total pull as the six-partial run’s) × (coupling) × Σ over voices of (partial n’s ratio) × sin(the gap between voice n and partial n)'],
+      eq2: ['dφₙ/dt = ωₙ − K · sin 2π(φₙ − rₙθ)', '(how fast voice n turns) = (its own pitch) − (coupling) × sin(that same gap)'],
+      tryText: 'Start at the bottom and creep up. Around 6e-6 the top few go; by the time about two in five are gone the pitch jitters. Then switch to the sweeps’ voices, each a hair off its harmonic (up to 0.4%, up to about 17 Hz near the top): about a third of the voices, all of them partial 17 and up, never hold at all, even at the bottom. In the tall tone a voice holds only within about 5 Hz of its partial, not the 12 a lone voice reaches. The page’s 40-partial numbers came from those voices.' },
+    { title: 'Few snap, many fray', short: 'Snap and fray', N: 6, voices: true, sweep: true, det: true,
+      say: 'Two sweeps, the stretch rising on a log scale through each tone’s edge, as the sweeps did. Listen to the pitch. Six partials hold, sag, and then snap: the pitch breaks within a second. Forty partials fray: the jitter creeps in over many seconds as the voices let go one after another.',
+      hint: 'one sweep at a time',
+      eq1: ['B(t) = B₀ · 80^(t ⁄ 24 s)', '(stretch) = (a start below the edge) × 80 to the power of (seconds ÷ 24): equal time for every doubling'],
+      eq2: ['six: 1e-4 → 8e-3      forty: 1e-6 → 8e-5', 'each sweep starts about 20 times below its tone’s edge and ends about 4 times above it'],
+      tryText: 'Run the six, then the forty. In the trace, the six’s line stays smooth and then breaks in one place; the forty’s roughens gradually. Run them again with the sweeps’ voices and listen for the same shapes.' },
+    { title: 'How much sooner?', short: 'The test', N: 40, voices: true, test: true, det: true,
+      say: 'The test. If the edge came exactly where the top partial’s bite reached some fixed size, it would fall as the cube of the partial count, and forty partials would tear about 296 times sooner than six. The page says roughly B·n³, and over a hundred times sooner. Guess first, then measure it on this engine, the same model and the same rule the edge map used: hold each stretch 4 s and call it torn when the pitch wobbles past 0.5 Hz.',
+      hint: 'measuring plays nothing; listen buttons appear with the results',
+      eq1: ['edge(N) ∝ N^(−p)      n³ would make p = 3', '(the stretch where a tone of N partials first tears) falls as N to the power of minus p'],
+      eq2: ['torn: the pitch, in 10 ms averages over the last 2 s of 4, wobbles by more than 0.5 Hz', 'the edge map’s own rule'],
+      tryText: 'Measure with the voices exactly on the harmonics, then with the sweeps’ voices. The ratio moves with the voices’ tuning; the slope stays shallower than the cube. After it measures, play any tone just under and just over its own edge.' }
+  ];
+
+  var step = 0, playing = false, det = 0, Bnow = 1e-3, N = 6;
+  var ctx = null, node = null, comp = null, master = null, loading = null, sweep = null;
+  var live = { f: [], tug: null, slipRate: null, r: null, t: 0, log: [] };
+
+  // ---------- audio ----------
+  function blobURL(ids){
+    var src = ids.map(function(id){ return $(id).textContent; }).join('\n');
+    return URL.createObjectURL(new Blob([src], { type: 'application/javascript' }));
+  }
+  function ensure(){
+    if (ctx) return loading;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    master = ctx.createGain(); master.gain.value = 0.5;
+    comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.knee.value = 6; comp.ratio.value = 8; comp.attack.value = 0.003; comp.release.value = 0.15;
+    master.connect(comp); comp.connect(ctx.destination);
+    loading = ctx.audioWorklet.addModule(blobURL(['frust-core', 'frust-worklet']));
+    return loading;
+  }
+  function start(opt){
+    opt = opt || {};
+    ensure().then(function(){
+      if (!playing) return;
+      stopNode();
+      var s = STEPS[step], n = opt.N || s.N;
+      N = n; resetLive(n);
+      var mask = []; for (var i = 0; i < n; i++) mask.push(s.voices ? 1 : 0);
+      node = new AudioWorkletNode(ctx, 'frustration', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2],
+        processorOptions: { N: n, mask: mask, det: det, B: opt.B !== undefined ? opt.B : Bnow, K: 6, tone: 1, vox: 1 } });
+      node.port.onmessage = onReport;
+      node.connect(master);
+      sweep = opt.sweep || null;
+    });
+  }
+  function stopNode(){ if (node){ try { node.disconnect(); } catch(e){} node.port.onmessage = null; node = null; } sweep = null; }
+  function playBtn(){ var s = STEPS[step]; $('play').textContent = playing ? 'Stop' : 'Play'; $('play').hidden = !!(s.sweep || s.test) && !playing; }
+  function stop(){ playing = false; stopNode(); playBtn(); }
+  function play(opt){
+    ensure(); if (ctx.state === 'suspended') ctx.resume();
+    playing = true; playBtn(); start(opt);
+  }
+  $('play').addEventListener('click', function(){ if (playing){ stop(); return; } play(); });
+  function send(m){ if (node) node.port.postMessage(m); }
+
+  function resetLive(n){ live.f = []; live.log = []; live.t = 0; live.tug = new Float32Array(n); live.slipRate = new Float32Array(n); live.r = null; }
+  function onReport(e){
+    var m = e.data, n = m.tug.length; live.t += m.dt;
+    live.f.push(m.f); if (live.f.length > 200) live.f.shift();
+    live.log.push([live.t, m.f, m.B]); if (live.log.length > 3000) live.log.shift();
+    for (var j = 0; j < n; j++) live.slipRate[j] += (m.slip[j] / m.dt - live.slipRate[j]) * (m.dt / 1.0);
+    if (m.r) live.r = m.r;
+    if (sweep){
+      var u = Math.min(1, live.t / 24); send({ B: sweep.b0 * Math.pow(sweep.b1 / sweep.b0, u) });
+      if (u >= 1 && !sweep.done){ sweep.done = true; $('traceNote').textContent = 'sweep done'; }
+    }
+  }
+  function pulse(win){ var a = live.f, n = Math.min(a.length, win || 100), s = 0; for (var i = a.length - n; i < a.length; i++) s += a[i]; return n ? s / n : 110; }
+  function wobble(){ var a = live.f; if (a.length < 50) return 0; var m = 0, v = 0, i; for (i = 0; i < a.length; i++) m += a[i]; m /= a.length; for (i = 0; i < a.length; i++) v += (a[i] - m) * (a[i] - m); return Math.sqrt(v / a.length); }
+
+  // ---------- controls ----------
+  function range(){ return STEPS[step].range || [1e-6, 1e-2]; }
+  function BFromSlider(v){ var g = range(); return g[0] * Math.pow(g[1] / g[0], v); }
+  function sliderFromB(B){ var g = range(); return Math.log(B / g[0]) / Math.log(g[1] / g[0]); }
+  function fmtB(B){ if (!B) return '0'; var e = Math.floor(Math.log10(B)), m = B / Math.pow(10, e); if (m >= 9.95){ m = 1; e++; } return m.toFixed(1) + 'e' + e; }
+  $('B').addEventListener('input', function(){ Bnow = BFromSlider(parseFloat($('B').value)); $('Bv').textContent = fmtB(Bnow); send({ B: Bnow }); });
+  function showDet(){ Array.prototype.forEach.call(document.querySelectorAll('[data-det]'), function(x){ x.setAttribute('aria-pressed', String(+x.getAttribute('data-det') === det)); }); }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-det]'), function(b){
+    b.addEventListener('click', function(){ det = +b.getAttribute('data-det'); showDet(); send({ det: det }); });
+  });
+  var lastSweep = null;
+  function runSweep(n){
+    if (playing){ var same = lastSweep && lastSweep.n === n && !lastSweep.done; stop(); if (same) return; }
+    var b0 = n === 6 ? 1e-4 : 1e-6;
+    lastSweep = { n: n, b0: b0, b1: b0 * 80, done: false };
+    play({ N: n, B: b0, sweep: lastSweep });
+    $('traceNote').textContent = (n === 6 ? 'six' : 'forty') + ' partials, sweeping · press again to stop';
+  }
+  $('sweep6').addEventListener('click', function(){ runSweep(6); });
+  $('sweep40').addEventListener('click', function(){ runSweep(40); });
+
+  // ---------- the test ----------
+  var guess = null, results = {}, worker = null;
+  Array.prototype.forEach.call(document.querySelectorAll('[data-guess]'), function(b){
+    b.addEventListener('click', function(){
+      guess = b.getAttribute('data-guess');
+      Array.prototype.forEach.call(document.querySelectorAll('[data-guess]'), function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      $('measure').disabled = !!worker;
+    });
+  });
+  $('measure').addEventListener('click', function(){
+    if (worker) return;
+    var d = det; results = {}; $('resWrap').hidden = false; renderResults(d);
+    worker = new Worker(blobURL(['frust-core', 'frust-measure']));
+    $('measure').disabled = true;
+    worker.onmessage = function(e){
+      var m = e.data;
+      if (m.working){ $('measureNote').textContent = 'Measuring ' + m.working + ' partials…'; return; }
+      if (m.N){ results[m.N] = m.r; renderResults(d); return; }
+      if (m.done){ worker.terminate(); worker = null; $('measure').disabled = false; $('measureNote').textContent = 'Done. Measure again with the other voices to compare.'; renderResults(d, true); }
+    };
+    worker.postMessage({ Ns: NS, det: d });
+  });
+  function fitP(){
+    var xs = [], ys = [];
+    NS.forEach(function(n){ if (results[n]){ xs.push(Math.log(n)); ys.push(Math.log(results[n].edge)); } });
+    if (xs.length < 3) return null;
+    var mx = 0, my = 0, i; for (i = 0; i < xs.length; i++){ mx += xs[i]; my += ys[i]; } mx /= xs.length; my /= xs.length;
+    var sxy = 0, sxx = 0; for (i = 0; i < xs.length; i++){ sxy += (xs[i] - mx) * (ys[i] - my); sxx += (xs[i] - mx) * (xs[i] - mx); }
+    return -sxy / sxx;
+  }
+  function renderResults(d, done){
+    var tb = $('res').querySelector('tbody'); tb.innerHTML = '';
+    var e6 = results[6] && results[6].edge;
+    NS.forEach(function(n){
+      var r = results[n], tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + n + '</td><td>' + (r ? fmtB(r.edge) : '…') + '</td><td>' + (r && e6 ? (e6 / r.edge).toFixed(n === 6 ? 0 : 0) + '×' : '') + '</td><td>' + (Math.pow(n / 6, 3)).toFixed(0) + '×</td><td></td>';
+      if (r){
+        [['under', 0.6], ['over', 1.6]].forEach(function(u){
+          var b = document.createElement('button'); b.textContent = 'just ' + u[0];
+          b.addEventListener('click', function(){ if (playing) stop(); play({ N: n, B: r.edge * u[1] }); });
+          tr.lastChild.appendChild(b);
+        });
+      }
+      tb.appendChild(tr);
+    });
+    var p = fitP(), h = [];
+    $('fitNote').textContent = p ? 'fitted slope: p ≈ ' + p.toFixed(2) : '';
+    if (done && results[6] && results[40]){
+      var ratio = results[6].edge / results[40].edge, c = CHECKED[d];
+      h.push('With the voices ' + (d ? 'a hair off, as in the sweeps' : 'exactly on the harmonics') + ', forty partials first tear <b>' + ratio.toFixed(0) + '×</b> sooner than six. The cube would say 296×; the fitted slope is <b>p ≈ ' + p.toFixed(2) + '</b>, not 3.');
+      h.push('The headless check, same core, same rule: ' + c.ratio.toFixed(0) + '× and p ≈ ' + c.p.toFixed(2) + '. With the other voices it gives ' + CHECKED[1 - d].ratio.toFixed(0) + '× and p ≈ ' + CHECKED[1 - d].p.toFixed(2) + '.');
+      h.push('Your guess: ' + ({ n: 'about 7×', n2: 'about 44×', n3: 'about 300×' })[guess] + '. ' + (guess === 'n3' ? 'The cube is the bite on each partial, and the page’s word for it. The edge comes on more slowly: in the peel the voices let go one at a time while the tone sags toward the ones still holding, so a tall tone loses its grip in stages.' : guess === 'n2' ? 'Closer than the cube: the measured slope sits between n² and n³.' : 'Too few: the bite grows as the cube of n, and the edge falls nearly that fast.'));
+      h.push('So the page’s “over a hundred times sooner” holds for the sweeps’ voices (118 to 129×, by this engine at two rates), and drops to about 75× with the voices exactly on the harmonics. “Roughly as B·n³” is right about the bite on each partial; the edge falls more like N to the 2.3 to 2.5.');
+    }
+    $('reveal').innerHTML = h.join('<br><br>');
+    drawPlot();
+  }
+  function drawPlot(){
+    if ($('resWrap').hidden) return;
+    var o = fit($('plot'), 220), g = o.g, w = o.w, h = o.h;
+    g.clearRect(0, 0, w, h);
+    var X = function(n){ return 64 + (Math.log(n) - Math.log(5)) / (Math.log(48) - Math.log(5)) * (w - 94); };
+    var Y = function(B){ return 14 + (Math.log10(1e-2) - Math.log10(B)) / 4.5 * (h - 34); };
+    g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#8a8aa0'; g.strokeStyle = '#22222e';
+    [1e-2, 1e-3, 1e-4, 1e-5].forEach(function(B){ var y = Y(B); g.beginPath(); g.moveTo(58, y); g.lineTo(w - 20, y); g.stroke(); g.textAlign = 'right'; g.fillText(fmtB(B), 54, y + 3); });
+    NS.forEach(function(n){ g.textAlign = 'center'; g.fillText(String(n), X(n), h - 4); });
+    var e6 = results[6] && results[6].edge;
+    if (e6){
+      g.setLineDash([4, 4]); g.strokeStyle = 'rgba(200,200,216,.6)'; g.beginPath();
+      for (var n = 6; n <= 40; n++){ var B = e6 * Math.pow(6 / n, 3); if (n === 6) g.moveTo(X(n), Y(B)); else g.lineTo(X(n), Y(B)); }
+      g.stroke(); g.setLineDash([]);
+    }
+    g.fillStyle = '#e8b84a';
+    NS.forEach(function(n){ var r = results[n]; if (r){ g.beginPath(); g.arc(X(n), Y(r.edge), 4.5, 0, 7); g.fill(); } });
+  }
+
+  // ---------- step changes ----------
+  function buildRail(){
+    var r = $('rail'); r.innerHTML = '';
+    STEPS.forEach(function(s, i){ var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short; b.addEventListener('click', function(){ go(i); }); r.appendChild(b); });
+  }
+  function go(i){
+    if (playing) stop();
+    step = Math.max(0, Math.min(STEPS.length - 1, i));
+    var s = STEPS[step];
+    Array.prototype.forEach.call($('rail').children, function(b, k){ if (k === step) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    $('stepEyebrow').textContent = 'Step ' + (step + 1) + ' of ' + STEPS.length;
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say; $('hearHint').textContent = s.hint;
+    $('eq1').textContent = s.eq1[0]; $('eq1w').textContent = s.eq1[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('tryText').textContent = s.tryText;
+    N = s.N; resetLive(N);
+    $('ctlB').hidden = !s.ctl; if (s.ctl){ Bnow = s.B; $('B').value = String(sliderFromB(Bnow)); $('Bv').textContent = fmtB(Bnow); }
+    $('detRow').hidden = !s.det; det = 0; showDet();
+    $('ladderWrap').hidden = !!(s.sweep || s.test);
+    $('traceWrap').hidden = !s.sweep; $('traceNote').textContent = '';
+    $('testWrap').hidden = !s.test; playBtn();
+    $('ladderCap').textContent = s.voices ? 'each partial’s distance from its voice’s own pitch, Hz · dots: amber holds, hollow has let go' : 'how far each partial sits above n × 110 Hz';
+    $('back').disabled = step === 0; $('next').disabled = step === STEPS.length - 1;
+  }
+  $('back').addEventListener('click', function(){ go(step - 1); });
+  $('next').addEventListener('click', function(){ go(step + 1); });
+
+  // ---------- pictures ----------
+  function fit(c, H){
+    var w = c.clientWidth || 600, d = window.devicePixelRatio || 1;
+    if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)){ c.width = Math.round(w * d); c.height = Math.round(H * d); c.style.height = H + 'px'; }
+    var g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g: g, w: w, h: H };
+  }
+  function drawLadder(){
+    var s = STEPS[step], o = fit($('ladder'), 200), g = o.g, w = o.w, h = o.h, n = s.N, j;
+    g.clearRect(0, 0, w, h);
+    var F = playing && s.voices ? pulse(30) : 110, B = playing && live.r ? null : Bnow, vals = [], max = 7;
+    for (j = 1; j <= n; j++){
+      var r = live.r && playing ? live.r[j - 1] : j * Math.sqrt(1 + Bnow * j * j);
+      var v = s.voices ? r * F - j * 110 * (1 + det * FRUST.DET[j - 1]) : 110 * (r - j);
+      vals.push(v); max = Math.max(max, Math.abs(v));
+    }
+    var top = 26, bot = h - 34, zero = s.voices ? (top + bot) / 2 : bot, sc = (s.voices ? (bot - top) / 2 : bot - top) / max;
+    var cw = (w - 40) / n;
+    g.strokeStyle = '#4a4a5e'; g.beginPath(); g.moveTo(20, zero); g.lineTo(w - 20, zero); g.stroke();
+    g.setLineDash([2, 4]); g.strokeStyle = 'rgba(200,200,216,.45)';
+    [6, -6].forEach(function(k){ if (!s.voices && k < 0) return; var y = zero - k * sc; if (y > top - 4 && y < bot + 4){ g.beginPath(); g.moveTo(20, y); g.lineTo(w - 20, y); g.stroke(); } });
+    g.setLineDash([]);
+    g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'left'; g.fillStyle = '#8a8aa0';
+    g.fillText('6 Hz, the coupling, for scale', 24, zero - 6 * sc - 4);
+    for (j = 0; j < n; j++){
+      var v2 = vals[j], x = 20 + cw * j, bh = v2 * sc;
+      var held = !s.voices || !playing ? true : Math.abs(live.slipRate[j]) < 0.5;
+      g.fillStyle = s.voices ? (held ? '#e8b84a' : '#4a4a5a') : '#e8b84a';
+      g.fillRect(x + cw * 0.15, bh >= 0 ? zero - bh : zero, Math.max(1, cw * 0.7), Math.max(1, Math.abs(bh)));
+      if (s.voices){
+        g.beginPath(); g.arc(x + cw / 2, 12, Math.min(4, cw * 0.35), 0, 7);
+        if (held && playing){ g.fillStyle = '#e8b84a'; g.fill(); } else { g.strokeStyle = playing ? '#8a8aa0' : '#4a4a5a'; g.stroke(); }
+      }
+      if (n <= 6 || (j + 1) % 5 === 0 || j === 0){ g.fillStyle = '#8a8aa0'; g.textAlign = 'center'; g.fillText(String(j + 1), x + cw / 2, h - 18); }
+    }
+    g.textAlign = 'right'; g.fillStyle = '#8a8aa0'; g.fillText('partial n', w - 20, h - 4);
+    $('ladderNote').textContent = 'top bar: ' + (vals[n - 1] >= 0 ? '+' : '') + vals[n - 1].toFixed(1) + ' Hz';
+  }
+  function drawTrace(){
+    var o = fit($('trace'), 200), g = o.g, w = o.w, h = o.h, L = live.log;
+    g.clearRect(0, 0, w, h);
+    if (!L.length){ g.fillStyle = '#8a8aa0'; g.font = '12px Manrope, sans-serif'; g.fillText('Press a sweep.', 14, 24); return; }
+    var X = function(t){ return 10 + t / 24 * (w - 20); };
+    var fmin = 100, fmax = 112; L.forEach(function(e){ fmin = Math.min(fmin, e[1]); fmax = Math.max(fmax, e[1]); });
+    var Yf = function(f){ return h - 12 - (f - fmin) / (fmax - fmin) * (h - 24); };
+    var b0 = lastSweep ? lastSweep.b0 : L[0][2], b1 = b0 * 80, Yb = function(B){ return h - 12 - Math.log(B / b0) / Math.log(b1 / b0) * (h - 24); };
+    g.strokeStyle = 'rgba(232,184,74,.7)'; g.beginPath(); L.forEach(function(e, i){ var x = X(e[0]), y = Yb(Math.max(b0, e[2])); if (i) g.lineTo(x, y); else g.moveTo(x, y); }); g.stroke();
+    g.strokeStyle = '#e8e8f0'; g.beginPath(); L.forEach(function(e, i){ var x = X(e[0]), y = Yf(e[1]); if (i) g.lineTo(x, y); else g.moveTo(x, y); }); g.stroke();
+    g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'right'; g.fillText(fmax.toFixed(0) + ' Hz', w - 12, 14); g.fillText(fmin.toFixed(0) + ' Hz', w - 12, h - 14);
+  }
+  function drawMeter(){
+    var s = STEPS[step], h = [];
+    if (s.test && !playing){ $('meter').innerHTML = ''; return; }
+    if (!playing){ $('meter').innerHTML = s.sweep ? 'silent · press a sweep' : 'silent · press Play'; return; }
+    h.push('the tone’s pitch: <b>' + pulse(100).toFixed(2) + ' Hz</b>' + (s.voices ? ' · wobble over 2 s: <b>' + wobble().toFixed(2) + ' Hz</b>' : ''));
+    if (s.voices && live.slipRate){
+      var held = 0; for (var j = 0; j < live.slipRate.length; j++) if (Math.abs(live.slipRate[j]) < 0.5) held++;
+      h.push('voices holding: <b>' + held + ' of ' + live.slipRate.length + '</b> · state: <b>' + (wobble() > 0.5 ? 'torn' : 'held') + '</b>');
+    }
+    if (!s.voices){ var r6 = 6 * Math.sqrt(1 + Bnow * 36); h.push((s.N > 6 ? 'partial ' + s.N + ': <b>+' + (110 * (s.N * Math.sqrt(1 + Bnow * s.N * s.N) - s.N)).toFixed(2) + ' Hz</b> · ' : '') + 'partial 6: <b>+' + (110 * (r6 - 6)).toFixed(3) + ' Hz</b> · partial 1: <b>+' + (110 * (Math.sqrt(1 + Bnow) - 1)).toFixed(4) + ' Hz</b>'); }
+    $('meter').innerHTML = h.join('<br>');
+  }
+  function frame(){
+    requestAnimationFrame(frame);
+    if (!$('ladderWrap').hidden) drawLadder();
+    if (!$('traceWrap').hidden) drawTrace();
+    drawMeter();
+  }
+  (function(){ var d = ''; for (var i = 0; i <= 200; i++){ var a = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (9 * Math.sin(3 * a + 0.5)).toFixed(2) + ' ' + (9 * Math.sin(2 * a)).toFixed(2); } $('sigil').setAttribute('d', d); })();
+
+  buildRail(); go(0); frame();
+})();
+</script>
+</body>
+</html>
