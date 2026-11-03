@@ -28,19 +28,26 @@ const near = (x, y, tol) => Math.abs(x - y) <= tol;
 {
   const E = piece('only ratios');
   check('R1 ω/ω₁ against the printed r_n', near(E.roundGap, 0.0048, 1e-4), `largest gap ${E.roundGap.toFixed(4)} (mode 4)`);
-  let worstAB = 0, bestBC = Infinity;
-  for (let m = 33; m <= 96; m++) { const T = E.nullTest(m); worstAB = Math.max(worstAB, T.devAB); bestBC = Math.min(bestBC, T.devBC); }
-  check('R2 the null: two scalings agree, every note 33–96', worstAB < E.RULE, `worst ${worstAB.toExponential(1)} against the rule ${E.RULE}`);
-  check('R3 the control fails, every note 33–96', bestBC > 1e-3, `smallest control deviation ${bestBC.toFixed(4)}`);
-  const T = E.nullTest(57);
-  check('R4 A3 puts mode 1 on 220 Hz', near(T.b[0], 220, 1e-9), `${T.b[0]}`);
-  check('R5 the section’s 10⁻⁹ puts the root at 11.3 kHz', near(T.a[0], 11332.15, 0.05) && near(T.a[6], 22424.48, 0.05), `${T.a[0].toFixed(2)} · top ${T.a[6].toFixed(2)} Hz`);
+  let worstId = 0; for (let m = 33; m <= 96; m++) worstId = Math.max(worstId, E.identity(m));
+  check('R2 the identity, shown not tested', worstId < 1e-12, `${worstId.toExponential(1)}`);
+  // The test: the doublet scored at every note, scaled (the page's way) and shifted (the control).
+  const sc = (m) => E.doubletAt(m, 'scale'), sh = (m) => E.doubletAt(m, 'shift');
+  let chordAll = true, beatOkUpTo = 0; for (let m = 33; m <= 96; m++) { if (!sc(m).sameChord) chordAll = false; if (sc(m).shimmer) beatOkUpTo = m; }
+  check('R3 scaling keeps the doublet’s interval at every note', chordAll && near(E.TABLE_DOUBLET_CENTS, 61.84, 0.01), `${E.TABLE_DOUBLET_CENTS.toFixed(2)} c`);
+  check('R3b scaling keeps the shimmer only up to MIDI 66', beatOkUpTo === 66 && near(sc(33).beat, 2.2, 1e-9) && near(sc(57).beat, 8.8, 1e-9) && near(sc(66).beat, 14.80, 0.01) && near(sc(67).beat, 15.68, 0.01) && near(sc(96).beat, 83.72, 0.01),
+    `33 ${sc(33).beat.toFixed(2)} · 57 ${sc(57).beat.toFixed(2)} · 66 ${sc(66).beat.toFixed(2)} · 67 ${sc(67).beat.toFixed(2)} · 96 ${sc(96).beat.toFixed(2)} Hz`);
+  let shiftBeat = true, shiftChordOnlyA3 = true; for (let m = 33; m <= 96; m++) { if (!near(sh(m).beat, 8.8, 1e-9)) shiftBeat = false; if (sh(m).sameChord !== (m === 57)) shiftChordOnlyA3 = false; }
+  check('R3c the shift control keeps the beat and breaks the chord', shiftBeat && shiftChordOnlyA3 && near(sh(96).cents, 7.19, 0.01), `beat 8.8 Hz at every note · interval ${sh(33).cents.toFixed(1)} c at 33, ${sh(96).cents.toFixed(1)} c at 96`);
+  check('R3d the beat from the cm⁻¹ column', near(E.beatFromOmega(57), 7.566, 0.001), `${E.beatFromOmega(57).toFixed(3)} Hz at A3`);
+  const A3 = E.scaled(E.factorFor(57)), D9 = E.scaled(E.DOC);
+  check('R4 A3 puts mode 1 on 220 Hz', near(A3[0], 220, 1e-9), `${A3[0]}`);
+  check('R5 the section’s 10⁻⁹ puts the root at 11.3 kHz', near(D9[0], 11332.15, 0.05) && near(D9[6], 22424.48, 0.05), `${D9[0].toFixed(2)} · top ${D9[6].toFixed(2)} Hz`);
   const C = 29.9792458e9, mh = (m) => 440 * 2 ** ((m - 69) / 12);
   const fac = { 'ruby A3': mh(57) / (378 * C), 'diamond G3': mh(55) / (805 * C), 'labradorite A2': mh(45) / (60 * C) };
   check('R6 the prompts’ factors', near(fac['ruby A3'], 1.94e-11, 0.01e-11) && near(fac['diamond G3'], 8.1e-12, 0.05e-12) && near(fac['labradorite A2'], 6.1e-11, 0.05e-11), Object.entries(fac).map(([k, v]) => `${k} ${v.toExponential(2)}`).join(' · '));
   const M = E.throughSound(57);
   check('R7 through the sound: peaks within the page’s 0.5 Hz', M.errHz < 0.5, `largest ${M.errHz.toFixed(4)} Hz`);
-  check('R8 through the sound: measured ratios agree', M.dev < 1e-4, `${M.dev.toExponential(1)}`);
+  check('R8 through the sound: measured ratios agree, the beat halves', M.dev < 1e-4 && near(M.beatB / M.beatD, 2, 1e-3), `${M.dev.toExponential(1)} · beats ${M.beatB.toFixed(3)} and ${M.beatD.toFixed(3)} Hz`);
 }
 
 // ── Where is the physics ────────────────────────────────────────────────────
@@ -77,6 +84,8 @@ const near = (x, y, tol) => Math.abs(x - y) <= tol;
   check('I2 ruby 1.10 is nearer a major second', !J.ruby.holds && J.ruby.nearest.name === 'a major second' && near(J.ruby.ct, 165.0, 0.1), `${J.ruby.ct.toFixed(1)} c`);
   check('I3 emerald 1.68 is a major sixth', !J.emerald.holds && J.emerald.nearest.name === 'a major sixth' && near(J.emerald.ct, 898.2, 0.1), `${J.emerald.ct.toFixed(1)} c, ${J.emerald.nearest.off.toFixed(1)} from a major sixth`);
   check('I4 amethyst 8.32 is just over three octaves', !J.span.holds && near(J.span.ct, 3667.9, 0.1), `${J.span.ct.toFixed(1)} c = 3 octaves + ${(J.span.ct - 3600).toFixed(1)} c`);
+  const shape = E.CLAIMS.every((c) => { const J = E.judge(c); return J.cands.length === 3 && J.cands.some((x) => x.k === J.nearest.k) && J.cands.some((x) => x.k === c.named / 100) && J.cands.every((x, i, a) => !i || a[i - 1].k < x.k); });
+  check('I4b every naming offers three choices, the nearest and the page’s among them', shape && near(E.CHANCE, 1 / 3, 1e-12), E.CLAIMS.map((c) => E.judge(c).cands.map((x) => x.k * 100).join('/')).join(' · '));
   // The dyads, measured.
   const sp = (x) => { const N = 1 << 18, re = new Float64Array(N), im = new Float64Array(N); for (let i = 0; i < x.length && i < N; i++) re[i] = x[i] * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / (x.length - 1))); fftIn(re, im); return { re, im, N }; };
   let worst = 0; for (const c of E.CLAIMS) { const x = E.dyad(c.r), s = sp(x); for (const f of [220, 220 * c.r]) worst = Math.max(worst, Math.abs(peak(s, f, 44100) - f)); }
@@ -95,6 +104,9 @@ const near = (x, y, tol) => Math.abs(x - y) <= tol;
     check(`G5 the rendered glass peaks where it says (${f})`, m.every((x, i) => Math.abs(Math.log2(x / c[i])) < 1 / 6), `measured ${m.map((x) => x.toFixed(0)).join(' · ')} against ${c.map((x) => x.toFixed(0)).join(' · ')} Hz`); }
   const q = E.quartz(1.5), g = E.glass(1.5, 'page'), qr = E.rms(q, 8820, 57330), gr = E.rms(g, 8820, 57330);
   check('G6 the glass at the quartz’s level', Math.abs(20 * Math.log10(gr / qr)) < 0.3, `${(20 * Math.log10(gr / qr)).toFixed(2)} dB`);
+  const qp = E.quartz(5), gp = E.glass(5, 'page'); let pk = 0; for (const v of qp) pk = Math.max(pk, Math.abs(v)); for (const v of gp) pk = Math.max(pk, Math.abs(v));
+  const played = 20 * Math.log10(E.rms(gp, 8820, 200000) / E.rms(qp, 8820, 200000));
+  check('G6b quartz and glass played at one gain, the same RMS', Math.abs(played) < 0.3 && pk * E.PLAY_GAIN < 1, `glass ${played.toFixed(2)} dB against quartz · peak ${(pk * E.PLAY_GAIN).toFixed(2)}`);
   const x = E.crossfade('quartz'), segs = [[1, 5], [5.5, 6.5], [6.5, 7.5], [8.2, 9.7]].map(([s, e]) => E.rms(x, Math.round(s * 44100), Math.round(e * 44100)));
   const spread = 20 * Math.log10(Math.max(...segs) / Math.min(...segs));
   check('G7 the crossfade holds level', spread < 1, `segments within ${spread.toFixed(2)} dB`);

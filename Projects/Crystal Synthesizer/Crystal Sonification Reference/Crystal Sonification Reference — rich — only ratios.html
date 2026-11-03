@@ -3,8 +3,8 @@
   title: Crystal Sonification Reference — rich — only ratios
   born: 2026-11-03
   links: [[Crystal Sonification Reference]] connects-to · rich-face-piece · listed in [[Crystal Sonification Reference — rich.json]] · [[Crystal Synthesizer]] belongs-to · [[Progressive Staging]] exemplifies · a walk in three steps
-  forward_vector: I am the section's one critical insight, only ratios matter, put to a test that can fail. Ruby's seven Raman modes go from wavenumbers to terahertz, are divided by the lowest, multiplied up to a MIDI note, and then transposed twice, by the section's own 10^-9 and by the factor a played note implies; the interval structure has to come out identical, and an additive shift shows what a failure would read. I change when the section's table or its scale factor does.
-  engine: ruby's ω from the page's table (378, 417, 430, 448, 576, 644, 748 cm⁻¹); 1 cm⁻¹ = 29.9792458 GHz. A render is a sum of sines at 44.1 kHz with fixed phases; the measured frequencies come from a Hann-windowed FFT zero-padded to 2^18 points, parabolic on the log magnitude. The verdict rule (agree to 1e-12) is stated in the piece before the result.
+  forward_vector: I am the section's one critical insight, only ratios matter, put to a test that can fail. Ruby's seven Raman modes go from wavenumbers to terahertz, are divided by the lowest and multiplied up to a MIDI note; then the walk asks what transposition moves, and scores the page's own doublet at every note: its interval holds, its beat does not, and a shift that keeps the beat breaks the chord. I change when the section's table or its scale factor does.
+  engine: ruby's ω from the page's table (378, 417, 430, 448, 576, 644, 748 cm⁻¹); 1 cm⁻¹ = 29.9792458 GHz. A render is a sum of sines at 44.1 kHz with fixed phases; the measured frequencies come from a Hann-windowed FFT zero-padded to 2^18 points, parabolic on the log magnitude. The rules (the doublet within 1 cent of the table's interval; its beat under 15 Hz) are stated in the piece before any result.
   checks: rich-checks/check-rich-pieces.mjs, in this bundle, runs the CHECK block headless and asserts every number this piece prints.
   dress: Loudon Live, Graphite skin.
 -->
@@ -75,7 +75,7 @@
     </div>
     <svg width="30" height="30" viewBox="-1.2 -1.2 2.4 2.4" aria-label="Lissajous sigil"><circle r="1.12" fill="none" stroke="#4a4a5e" stroke-width=".04"/><path id="sigil" fill="none" stroke="#e8b84a" stroke-width=".06"/></svg>
   </div>
-  <p class="sr-sub">The section says the crystal's timbre lives in the ratios between its modes, and that the factor taking terahertz down to hearing cancels out. Three steps with ruby's seven modes: divide, multiply, then transpose two ways and check that nothing but the pitch moved. Nothing sounds until you press play.</p>
+  <p class="sr-sub">The section says the crystal's timbre lives in the ratios between its modes, and that the factor taking terahertz down to hearing cancels out. Three steps with ruby’s seven modes: divide, multiply, then find what a transposition moves besides the pitch. Nothing sounds until you press play.</p>
   <div class="sr-tabs" id="tabs" role="group" aria-label="steps"></div>
   <div id="stage"></div>
   <div class="sr-nav"><button id="back">← back</button><button id="next">next step →</button></div>
@@ -132,23 +132,31 @@ const ENG = (() => {
   const shifted = (f, d) => f.map((x) => x + d);
   const maxDev = (a, b) => { const ra = ratios(a), rb = ratios(b); return Math.max(...ra.map((x, i) => Math.abs(x / rb[i] - 1))); };
   const stepsCents = (f) => f.slice(1).map((x, i) => cents(x / f[i]));
-  const DOC = 1e-9, RULE = 1e-12;
-  // The test: two scalings of the same terahertz set, and the additive control.
-  function nullTest(m, shiftHz = 110) {
-    const a = scaled(DOC), b = scaled(factorFor(m)), c = shifted(b, shiftHz);
-    return { a, b, c, devAB: maxDev(a, b), devBC: maxDev(b, c), holds: maxDev(a, b) < RULE, controlFails: maxDev(b, c) > RULE };
-  }
+  const DOC = 1e-9;
+  // The identity, shown once: any factor cancels from a ratio.
+  const identity = (m) => maxDev(scaled(DOC), scaled(factorFor(m)));
+  // The test. The page puts ruby's character in its doublet, modes 2 and 3, and a doublet is heard as a beat, in hertz.
+  // Rule, stated in the piece before any result: the rubiness survives at a note if the doublet beats under 15 Hz (a slow
+  // shimmer); and the timbre is the same chord if the doublet's interval stays within 1 cent of the table's.
+  const SHIMMER_HZ = 15, SAME_CENTS = 1;
+  const TABLE_DOUBLET_CENTS = cents(RUBY.r[2] / RUBY.r[1]);
+  // Two ways to move ruby to a note: scale every partial (what the page does), or shift every partial by the same hertz (the control).
+  const atNote = (m, how) => how === 'scale' ? RUBY.r.map((r) => midiHz(m) * r) : RUBY.r.map((r) => 220 * r + (midiHz(m) - 220));
+  function doubletAt(m, how) { const f = atNote(m, how), beat = f[2] - f[1], c = cents(f[2] / f[1]);
+    return { beat, cents: c, shimmer: beat < SHIMMER_HZ, sameChord: Math.abs(c - TABLE_DOUBLET_CENTS) <= SAME_CENTS }; }
+  const NOTES = [33, 45, 57, 66, 67, 69, 81, 96];
+  const beatFromOmega = (m) => midiHz(m) * (RUBY.cm[2] - RUBY.cm[1]) / RUBY.cm[0];
   // Through the sound: render two transpositions, measure every peak, compare the measured ratios.
   const AMPS = RUBY.cm.map(() => 1 / 7);
   function measure(freqs, dur = 3) { const sp = spectrum(render(freqs, AMPS, dur)); return freqs.map((f) => peakNear(sp, f).f); }
   function throughSound(m) {
     const b = scaled(factorFor(m)), d = scaled(factorFor(m - 12));
     const mb = measure(b), md = measure(d);
-    return { b, d, mb, md, errHz: Math.max(...mb.map((x, i) => Math.abs(x - b[i])), ...md.map((x, i) => Math.abs(x - d[i]))), dev: maxDev(mb, md) };
+    return { b, d, mb, md, errHz: Math.max(...mb.map((x, i) => Math.abs(x - b[i])), ...md.map((x, i) => Math.abs(x - d[i]))), dev: maxDev(mb, md), beatB: mb[2] - mb[1], beatD: md[2] - md[1] };
   }
   const DOC_PROMPT = [220, 242, 250.8, 261.8, 334.4, 374, 435.6];   // the page's "ruby sustained tone" prompt
   const DOC_AMPS = [1, 0.85, 0.85, 0.85, 0.85, 0.85, 1];
-  return { SR, C_CM, RUBY, hzPhys, fromCm, roundGap, factorFor, scaled, shifted, ratios, maxDev, stepsCents, DOC, RULE, nullTest, throughSound, measure, AMPS, DOC_PROMPT, DOC_AMPS, midiHz, cents, render, spectrum, peakNear };
+  return { SR, C_CM, RUBY, hzPhys, fromCm, roundGap, factorFor, scaled, shifted, ratios, maxDev, stepsCents, DOC, identity, SHIMMER_HZ, SAME_CENTS, TABLE_DOUBLET_CENTS, atNote, doubletAt, NOTES, beatFromOmega, throughSound, measure, AMPS, DOC_PROMPT, DOC_AMPS, midiHz, cents, render, spectrum, peakNear };
 })();
 /*CHECK-END*/
 // ───────────────────────── sound: silent until a click ─────────────────────────
@@ -252,36 +260,38 @@ STEPS.push({ name: 'multiply', build() {
   return node;
 } });
 
-STEPS.push({ name: 'the null', build() {
-  const read = el('div'), answer = el('div'), sound = el('div', { class: 'sr-read' });
-  const run = () => {
-    const T = ENG.nullTest(S.midi), row = (lab, f) => `<tr><td>${lab}</td>${f.map((x) => `<td>${x >= 1e4 ? (x / 1000).toFixed(2) + 'k' : x.toFixed(2)}</td>`).join('')}</tr>`;
-    const crow = (lab, f) => `<tr><td>${lab}</td><td>—</td>${ENG.stepsCents(f).map((x) => `<td>${x.toFixed(1)}</td>`).join('')}</tr>`;
-    read.innerHTML = `<div class="sr-wrap"><table class="sr-t"><tr><th></th>${ENG.RUBY.sym.map((s, i) => `<th>${i + 1} · ${s}</th>`).join('')}</tr>
-      ${row('Hz · × 10⁻⁹, the section’s factor', T.a)}${row('Hz · × ' + sci(ENG.factorFor(S.midi), 2) + ', ' + NOTE(S.midi), T.b)}${row('Hz · control: ' + NOTE(S.midi) + ' + 110 Hz', T.c)}
-      ${crow('steps in cents · × 10⁻⁹', T.a)}${crow('steps in cents · ' + NOTE(S.midi), T.b)}${crow('steps in cents · control', T.c)}</table></div>
-      <div class="sr-read"><span>largest ratio difference, the two scalings: <b class="${T.holds ? 'sr-ok' : 'sr-bad'}">${T.devAB.toExponential(1)}</b> ${T.holds ? '· under 10⁻¹², holds' : '· fails'}</span>
-      <span>the control against ${NOTE(S.midi)}: <b class="sr-bad">${T.devBC.toFixed(3)}</b> · what a failure reads</span></div>`;
-  };
-  const measure = () => { const M = ENG.throughSound(S.midi);
-    sound.innerHTML = `<span>measured from the two renders, ${NOTE(S.midi)} and ${NOTE(S.midi - 12)}: every peak within <b>${M.errHz.toFixed(3)} Hz</b> of its partial</span><span>measured ratios agree to <b>${M.dev.toExponential(1)}</b></span>`; };
-  const pick = (v) => { answer.innerHTML = `<p class="sr-answer">${v === 'oct' ? 'Yes.' : 'Listen again.'} The first two are the same chord an octave apart: one factor was half the other, and every interval stayed. The third kept the same root and moved every partial by the same 110 Hz, so the spacing in hertz held and the ratios did not: the steps in cents shrank, and it is a different chord. <b>Only ratios matter</b> holds, in the sense the section means: scaling by any factor leaves the interval structure exactly as it was, and the factor never enters except as the note you choose.</p>`; };
+STEPS.push({ name: 'what moves', build() {
+  const grid = el('div', { class: 'sr-wrap' }), answer = el('div'), sound = el('div', { class: 'sr-read' }), read = el('div', { class: 'sr-read' });
+  const inp = el('input', { type: 'range', min: 33, max: 96, step: 1, 'aria-label': 'MIDI note' }); inp.value = S.midi;
+  const b = el('b'), lab = el('label', { class: 'sr-sl' }, 'the note, M ', b, inp);
+  const draw = () => { const d = ENG.doubletAt(S.midi, 'scale');
+    b.textContent = S.midi + ' · ' + NOTE(S.midi) + ' · ' + ENG.midiHz(S.midi).toFixed(1) + ' Hz';
+    read.innerHTML = `<span>the doublet at ${NOTE(S.midi)}: <b>${d.cents.toFixed(1)} cents</b> apart, beating <b>${d.beat.toFixed(1)} Hz</b></span>`;
+    if (oscs.length) { const f = ENG.atNote(S.midi, 'scale'); oscs.forEach((o, i) => o.o.frequency.setTargetAtTime(f[i + 1], actx.currentTime, 0.02)); } };
+  inp.addEventListener('input', () => { S.midi = +inp.value; draw(); });
+  const live = el('button', { class: 'sr-go', 'data-live': '▸ play the doublet, and move the note', onclick: () => {
+    if (oscs.length) { stopSound(); return; }
+    const a = ctx(), f = ENG.atNote(S.midi, 'scale');
+    oscs = [f[1], f[2]].map((x) => { const o = a.createOscillator(), g = a.createGain(); o.frequency.value = x; g.gain.value = 0; o.connect(g); g.connect(out); o.start(); g.gain.setTargetAtTime(0.2, a.currentTime, 0.03); return { o, g }; });
+    live.textContent = '■ stop'; live.classList.remove('sr-go'); } }, '▸ play the doublet, and move the note');
+  const score = () => {
+    const row = (m) => { const s = ENG.doubletAt(m, 'scale'), c = ENG.doubletAt(m, 'shift');
+      const mk = (ok, t) => `<td class="${ok ? 'sr-ok' : 'sr-bad'}">${t}</td>`;
+      return `<tr><td>${m} · ${NOTE(m)}</td>${mk(s.sameChord, s.cents.toFixed(1) + ' c')}${mk(s.shimmer, s.beat.toFixed(1) + ' Hz')}${mk(c.sameChord, c.cents.toFixed(1) + ' c')}${mk(c.shimmer, c.beat.toFixed(1) + ' Hz')}</tr>`; };
+    grid.innerHTML = `<table class="sr-t"><tr><th>note</th><th>scaled · interval</th><th>scaled · beat</th><th>shifted · interval</th><th>shifted · beat</th></tr>${ENG.NOTES.map(row).join('')}</table>`;
+    answer.innerHTML = `<p class="sr-answer">Scaling, the page’s way, keeps the chord: the doublet is ${ENG.TABLE_DOUBLET_CENTS.toFixed(1)} cents at every note, so the ratios really are independent of pitch. But the beat is not. It is 0.04 × the root: <b>${ENG.doubletAt(33, 'scale').beat.toFixed(1)} Hz</b> at MIDI 33, 8.8 Hz at A3, <b>${ENG.doubletAt(96, 'scale').beat.toFixed(1)} Hz</b> at MIDI 96, and it passes 15 Hz between MIDI 66 and 67. Above that the rubiness the page hears in the doublet, a slow shimmer, turns into roughness. The control fails the other way: shifting keeps the 8.8 Hz beat at every note and breaks the chord, the doublet shrinking to ${ENG.doubletAt(96, 'shift').cents.toFixed(1)} cents at MIDI 96. No single move keeps both. So “only ratios matter” holds for the intervals and not for the beats, and ruby’s shimmer is a property of the note you choose as much as of the crystal. From the cm⁻¹ column rather than the rounded ratios the beat is a little slower, ${ENG.beatFromOmega(57).toFixed(2)} Hz at A3.</p>`; };
   const node = [
-    el('p', { class: 'sr-teach' }, 'The test. Take the seven modes in terahertz and bring them down two ways: by the section’s 10⁻⁹, and by the factor your note from step 2 implies. If only ratios matter, the interval structure of the two must come out identical. The rule, set before the result: the two sets hold if their ratios agree to within 10⁻¹², which leaves four orders of magnitude for arithmetic rounding. The control is a move that is not a scaling: add 110 Hz to every partial. It should fail, and it shows what failing reads.'),
-    el('div', { class: 'sr-eq' }, eq('(s · ω_n) ⁄ (s · ω₁) = ω_n ⁄ ω₁,   but   (f_n + d) ⁄ (f₁ + d) ≠ f_n ⁄ f₁', '(any factor cancels from a ratio); (an added offset does not)')),
-    read,
-    el('div', { class: 'sr-row' },
-      playButton('▸ at your note', () => playBuf(ENG.render(ENG.scaled(ENG.factorFor(S.midi)), ENG.AMPS, 3), 0.6)),
-      playButton('▸ an octave down: the factor halved', () => playBuf(ENG.render(ENG.scaled(ENG.factorFor(S.midi - 12)), ENG.AMPS, 3), 0.6)),
-      playButton('▸ the control: + 110 Hz', () => playBuf(ENG.render(ENG.shifted(ENG.scaled(ENG.factorFor(S.midi)), 110), ENG.AMPS, 3), 0.6))),
-    el('div', { class: 'sr-row' }, el('span', { class: 'sr-words' }, 'Which two are the same chord?'),
-      el('button', { onclick: () => pick('oct') }, 'the first two'), el('button', { onclick: () => pick('ctl') }, 'one of them and the control')),
-    answer,
-    el('div', { class: 'sr-row' }, el('button', { onclick: measure }, 'measure it through the sound')), sound,
-    el('p', { class: 'sr-note' }, 'The three play at the same level per partial; the octave-down one sounds softer only because it is lower. The 10⁻⁹ set is checked as numbers, not played: its top mode, 22.4 kHz, is past what this page can sound. The measurement renders 3 seconds of each and reads every peak off a 2^18-point spectrum.'),
-    el('p', { class: 'sr-back' }, 'The note is step 2’s; set it there and come back.'),
+    el('p', { class: 'sr-teach' }, 'First the part that cannot fail: a factor cancels from any ratio, so the section’s 10⁻⁹ and your note’s factor give the same seven ratios. That is algebra, not a test. The test is what else moves. The page puts ruby’s character in its doublet, modes 2 and 3 (“the rubiness is in the doublets”), and a doublet is heard as a beat, which is counted in hertz, not in ratios.'),
+    el('div', { class: 'sr-eq' }, eq('Δf = f_root × (r₃ − r₂) = 0.04 × f_root', '(how fast the doublet beats) = (the root) × (the gap between the two ratios): it moves with the note')),
+    el('p', { class: 'sr-teach' }, 'The rules, set before any result. The chord is the same at a note if the doublet’s interval stays within 1 cent of the table’s. The rubiness survives at a note if the doublet beats slower than 15 Hz, roughly where a beat stops sounding like a shimmer and starts to sound rough (the boundary varies by listener and register). Two ways to move ruby: scale every partial, as the page does, or, as a control, shift every partial by the same number of hertz. Play the doublet and move the note, then score both.'),
+    read, el('div', { class: 'sr-row' }, live, lab),
+    el('div', { class: 'sr-read' }, el('span', {}, 'the identity: the two scalings’ ratios agree to ', el('b', {}, ENG.identity(S.midi).toExponential(1)))),
+    el('div', { class: 'sr-row' }, el('button', { onclick: score }, 'score every note')), grid, answer,
+    el('div', { class: 'sr-row' }, el('button', { onclick: () => { const M = ENG.throughSound(S.midi);
+      sound.innerHTML = `<span>measured from renders at ${NOTE(S.midi)} and ${NOTE(S.midi - 12)}: every peak within <b>${M.errHz.toFixed(3)} Hz</b></span><span>the doublet, from the cm⁻¹ column, beats <b>${M.beatB.toFixed(2)} Hz</b> and <b>${M.beatD.toFixed(2)} Hz</b>: halved with the root</span>`; } }, 'measure it through the sound')), sound,
+    el('p', { class: 'sr-note' }, 'The doublet plays at one level throughout. The note slider is step 2’s.'),
   ];
-  node._after = run; node._redraw = run;
+  node._after = draw; node._redraw = draw;
   return node;
 } });
 // ───────────────────────── the walk ─────────────────────────

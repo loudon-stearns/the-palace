@@ -3,8 +3,8 @@
   title: Crystal Sonification Reference — rich — the intervals named
   born: 2026-11-03
   links: [[Crystal Sonification Reference]] connects-to · rich-face-piece · listed in [[Crystal Sonification Reference — rich.json]] · [[Crystal Synthesizer]] belongs-to · [[Rational Hearing]] connects-to · [[Progressive Staging]] exemplifies · a walk in three steps
-  forward_vector: I am the crystals' interval names, put to the ear and to the cents. The page names an interval for a ratio in several places; I play each crystal's dyad beside the interval the page names and the nearest one, and say which it is. Three steps: a ratio is an interval; a naming that holds; the namings to test. I change when the page's interval names or its tables do.
-  engine: dyads over A3 (220 Hz), two sines at equal level, 2.5 s, the same 20 ms rise and 150 ms fall for every dyad; cents = 1200 log₂ r; named intervals are equal-tempered. The verdict rule, stated in the piece before any result: a naming holds if the named interval lies within 50 cents, a quarter tone, of the crystal's.
+  forward_vector: I am the crystals' interval names, put to the ear and to the cents. The page names an interval for a ratio in several places; I play each crystal's dyad beside the interval the page names and the nearest one, and say which it is. Three steps: a ratio is an interval; the first naming; three more. Each naming is a three-way choice by ear, rule and chance stated first, with the numbers shown only after the pick. I change when the page's interval names or its tables do.
+  engine: dyads over A3 (220 Hz), two sines at equal level, 2.5 s, the same 20 ms rise and 150 ms fall for every dyad; cents = 1200 log₂ r; named intervals are equal-tempered. Every dyad two sines at 0.5, played at one fixed gain: equal RMS by construction. The verdict rule, stated in step 2 before the first trial: a naming holds if the named interval lies within 50 cents of the crystal's. The reader picks the nearest of three named intervals (chance one in three); verdicts show only after the pick.
   checks: rich-checks/check-rich-pieces.mjs, in this bundle, runs the CHECK block headless and asserts every number this piece prints.
   dress: Loudon Live, Graphite skin.
 -->
@@ -75,7 +75,7 @@
     </div>
     <svg width="30" height="30" viewBox="-1.2 -1.2 2.4 2.4" aria-label="Lissajous sigil"><circle r="1.12" fill="none" stroke="#4a4a5e" stroke-width=".04"/><path id="sigil" fill="none" stroke="#e8b84a" stroke-width=".06"/></svg>
   </div>
-  <p class="sr-sub">Several crystals here are described by the interval a ratio makes: a minor second, a perfect fifth, a minor sixth. Three steps: hear a ratio as an interval, hear a naming that holds, then put the others to the ear and the numbers. Nothing sounds until you press play.</p>
+  <p class="sr-sub">Several crystals here are described by the interval a ratio makes: a minor second, a perfect fifth, a minor sixth. Three steps: hear a ratio as an interval, then put each of the page’s namings to your ear before the numbers. Nothing sounds until you press play.</p>
   <div class="sr-tabs" id="tabs" role="group" aria-label="steps"></div>
   <div id="stage"></div>
   <div class="sr-nav"><button id="back">← back</button><button id="next">next step →</button></div>
@@ -132,10 +132,15 @@ const ENG = (() => {
     { id: 'emerald', crystal: 'Emerald', r: 1.68, named: 700, quote: 'It sits at ratio 1.68 above the lowest mode — close to a perfect fifth.', where: 'Emerald · The math' },
     { id: 'span', crystal: 'Amethyst / quartz', r: 8.32, named: 4000, quote: 'Ratio range 1.00 to 8.32 — the widest span of the collection, nearly three octaves and a major third above the fundamental.', where: 'Amethyst / Quartz · The Spectrum' },
   ];
+  // Three named intervals to choose among, the same shape for every naming: the two equal-tempered intervals either side of
+  // the crystal, plus the page's name; if the page's name is already one of the two, the next one up. Ascending, by name only.
+  function candidates(c) { const ct = cents(c.r), lo = Math.floor(ct / 100), hi = lo + 1, set = new Set([lo, hi, c.named / 100]);
+    if (set.size < 3) set.add(hi + 1); return [...set].sort((a, b) => a - b).map((k) => ({ k, cents: k * 100, name: nameOf(k), ratio: 2 ** (k / 12) })); }
   function judge(c) { const ct = cents(c.r), n = near(ct), off = ct - c.named;
-    return { ...c, ct, nearest: n, off, holds: Math.abs(off) <= RULE, namedRatio: 2 ** (c.named / 1200), nearestRatio: 2 ** (n.cents / 1200) }; }
-  const dyad = (r) => render([ROOT, ROOT * r], [0.5, 0.5], 2.5);
-  return { SR, ROOT, RULE, NAMES, near, nameOf, CLAIMS, judge, dyad, cents, render };
+    return { ...c, ct, nearest: n, off, holds: Math.abs(off) <= RULE, cands: candidates(c), namedRatio: 2 ** (c.named / 1200), nearestRatio: 2 ** (n.cents / 1200) }; }
+  const CHANCE = 1 / 3;
+  const dyad = (r) => render([ROOT, ROOT * r], [0.5, 0.5], 2.5);   // every dyad two sines at 0.5: the same RMS, so loudness is matched by construction
+  return { SR, ROOT, RULE, CHANCE, NAMES, near, nameOf, CLAIMS, candidates, judge, dyad, cents, render };
 })();
 /*CHECK-END*/
 // ───────────────────────── sound: silent until a click ─────────────────────────
@@ -212,41 +217,43 @@ STEPS.push({ name: 'a ratio is an interval', build() {
   return node;
 } });
 
-function claimBlock(c, { open = false } = {}) {
-  const J = ENG.judge(c), box = el('div'), nums = el('div');
-  const show = () => { nums.innerHTML = `<div class="sr-read"><span>the crystal: <b>${J.ct.toFixed(0)} cents</b> (r ${J.r.toFixed(2)})</span><span>the page’s name: <b>${ENG.nameOf(J.named / 100)}</b>, ${J.named} cents, ${J.off >= 0 ? '+' : ''}${J.off.toFixed(0)} off</span><span>the nearest: <b>${J.nearest.name}</b>, ${J.nearest.off >= 0 ? '+' : ''}${J.nearest.off.toFixed(0)} off</span><span class="${J.holds ? 'sr-ok' : 'sr-bad'}">${J.holds ? 'the naming holds' : 'the naming does not hold'}</span></div>`;
-    const cv = canvas(80); nums.append(cv); const lo = Math.floor(Math.min(J.ct, J.named, J.nearest.cents) / 100) * 100 - 100, hi = Math.ceil(Math.max(J.ct, J.named, J.nearest.cents) / 100) * 100 + 100;
-    requestAnimationFrame(() => drawLine(cv, [{ ct: J.named, color: '#e0604a', label: 'the page’s name', up: false }, { ct: J.ct, color: '#e8b84a', label: J.crystal.toLowerCase(), up: true }, ...(J.nearest.cents !== J.named ? [{ ct: J.nearest.cents, color: '#8fd18a', label: 'nearest', up: false }] : [])], { lo, hi })); };
+const RULE_TEXT = 'The rule, set before any trial: a naming holds if the interval the page names lies within 50 cents of the crystal’s, a quarter tone, past which another name is nearer. For each naming, play the crystal’s dyad and the three named intervals, then pick the one the crystal is nearest. Three choices, so a guess is right one time in three. Only after you pick do the numbers show.';
+const tally = { n: 0, right: 0 };
+function claimBlock(c) {
+  const J = ENG.judge(c), box = el('div'), nums = el('div'), picks = el('div', { class: 'sr-row' });
+  let picked = false;
+  const show = (k) => { picked = true; tally.n++; const right = k === J.nearest.k; if (right) tally.right++;
+    [...picks.querySelectorAll('button')].forEach((b) => { b.disabled = true; if (+b.dataset.k === k) b.setAttribute('aria-pressed', 'true'); });
+    nums.innerHTML = `<div class="sr-read"><span>you picked <b>${ENG.nameOf(k)}</b> · ${right ? '<span class="sr-ok">the nearest</span>' : '<span class="sr-bad">not the nearest</span>'}</span><span>the crystal: <b>${J.ct.toFixed(0)} cents</b> (r ${J.r.toFixed(2)})</span><span>the nearest: <b>${J.nearest.name}</b>, ${J.nearest.off >= 0 ? '+' : ''}${J.nearest.off.toFixed(0)}</span><span>the page’s name: <b>${ENG.nameOf(J.named / 100)}</b>, ${J.off >= 0 ? '+' : ''}${J.off.toFixed(0)} off</span><span class="${J.holds ? 'sr-ok' : 'sr-bad'}">${J.holds ? 'the naming holds' : 'the naming does not hold'}</span><span>your ear so far: <b>${tally.right} of ${tally.n}</b> (chance: one in three)</span></div>`;
+    const cv = canvas(80); nums.append(cv); const lo = J.cands[0].cents - 100, hi = J.cands[2].cents + 100;
+    requestAnimationFrame(() => drawLine(cv, [...J.cands.map((x) => ({ ct: x.cents, color: x.k === J.named / 100 ? '#e0604a' : '#8a8aa0', label: x.k === J.named / 100 ? 'the page’s name' : '', up: false })), { ct: J.ct, color: '#e8b84a', label: J.crystal.toLowerCase(), up: true }], { lo, hi })); };
+  J.cands.forEach((x) => picks.append(el('button', { class: 'sr-pick', 'data-k': x.k, onclick: () => { if (!picked) show(x.k); } }, 'nearest: ' + x.name)));
   box.append(
     el('div', { class: 'sr-quote' }, '“' + c.quote + '” — ' + c.where),
     el('div', { class: 'sr-row' },
-      playButton('▸ the crystal, r ' + J.r.toFixed(2), () => playBuf(ENG.dyad(J.r), 0.6)),
-      playButton('▸ the page’s interval', () => playBuf(ENG.dyad(J.namedRatio), 0.6)),
-      ...(J.nearest.cents !== J.named ? [playButton('▸ the nearest', () => playBuf(ENG.dyad(J.nearestRatio), 0.6))] : []),
-      el('button', { onclick: show }, 'show the numbers')),
-    nums);
-  if (open) requestAnimationFrame(show);
+      playButton('▸ the crystal, r ' + J.r.toFixed(2), () => playBufAt(ENG.dyad(J.r), 0.6)),
+      ...J.cands.map((x) => playButton('▸ ' + x.name, () => playBufAt(ENG.dyad(x.ratio), 0.6)))),
+    picks, nums);
   return box;
 }
 
-STEPS.push({ name: 'a naming that holds', build() {
-  const node = [
-    el('p', { class: 'sr-teach' }, 'Quartz’s soft mode, the one that drives its phase change at 573 °C, sits at 1.62 above the lowest mode. The page calls that interval close to a minor sixth. Play the crystal’s dyad, then a true minor sixth, and listen for how close they sit. Then show the numbers.'),
+STEPS.push({ name: 'the first naming', build() {
+  return [
+    el('p', { class: 'sr-teach' }, 'Quartz’s soft mode, the one that drives its phase change at 573 °C, sits at 1.62 above the lowest mode. The page names the interval it makes.'),
+    el('p', { class: 'sr-teach' }, RULE_TEXT),
     claimBlock(ENG.CLAIMS[0]),
-    el('p', { class: 'sr-note' }, 'All dyads here play over A3 at the same level, two sines of equal amplitude, for the same 2.5 seconds, so the only thing that differs between them is the upper partial.'),
+    el('p', { class: 'sr-note' }, 'Every dyad here is two sines of equal amplitude over A3, 2.5 seconds, played at one fixed level, so every dyad has the same RMS and only the upper partial differs. The three choices are always the two equal-tempered intervals either side of the crystal and the page’s name, or the next one up when the page’s name is already one of the two; they are listed low to high.'),
     el('p', { class: 'sr-back' }, 'The cents are step 1’s formula; the dyad is step 1’s, held at 1.62.'),
   ];
-  return node;
 } });
 
-STEPS.push({ name: 'the namings', build() {
-  const node = [
-    el('p', { class: 'sr-teach' }, 'Three more namings, from the ruby, emerald and amethyst sections. For each, play the crystal, then the interval the page names, then the nearest one, and decide by ear before you look. The rule, set before any result: a naming holds if the named interval lies within 50 cents of the crystal’s, a quarter tone, the point where another name becomes nearer.'),
+STEPS.push({ name: 'three more', build() {
+  return [
+    el('p', { class: 'sr-teach' }, 'Three more namings, from the ruby, emerald and amethyst sections, under the same rule and the same three-way choice.'),
     ...ENG.CLAIMS.slice(1).map((c) => claimBlock(c)),
-    el('p', { class: 'sr-note' }, 'The bundle’s own charts already carry the right names on their top axes: ruby’s labels 1.10 M2 and emerald’s labels 1.68 M6. The amethyst span plays a dyad nearly four octaves wide, A3 and 1830 Hz.'),
+    el('p', { class: 'sr-note' }, 'The bundle’s own charts carry interval names on their top axes; look at them after you pick. The amethyst span plays a dyad nearly four octaves wide, A3 and 1830 Hz.'),
     el('p', { class: 'sr-back' }, 'Each block is step 2’s, on another sentence.'),
   ];
-  return node;
 } });
 // ───────────────────────── the walk ─────────────────────────
 const tabs = $('#tabs'), stage = $('#stage');

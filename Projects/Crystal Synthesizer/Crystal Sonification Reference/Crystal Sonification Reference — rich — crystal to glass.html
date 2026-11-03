@@ -162,7 +162,9 @@ const ENG = (() => {
     const best = (lo, hi) => { let bf = lo, bv = -1; for (let f = lo; f <= hi; f *= 1.01) { const v = smooth(f); if (v > bv) { bv = v; bf = f; } } return bf; };
     const [c0, c1] = centres(frame), split = Math.sqrt(c0 * c1);
     return [best(c0 / 2.5, split), best(split, c1 * 2.5)]; }
-  return { SR, ROOT, Q, AMPS, BANDS, power, centres, famSpan, famCentre, test, bp, mag, glass, quartz, crossfade, measuredPeaks, rms, render, spectrum, cents };
+  // One fixed gain for everything this piece plays, set from the quartz render's peak, so the RMS match above is what you hear.
+  const PLAY_GAIN = 0.45 / AMPS.reduce((a, b) => a + b, 0);
+  return { SR, ROOT, Q, AMPS, BANDS, PLAY_GAIN, power, centres, famSpan, famCentre, test, bp, mag, glass, quartz, crossfade, measuredPeaks, rms, render, spectrum, cents };
 })();
 /*CHECK-END*/
 // ───────────────────────── sound: silent until a click ─────────────────────────
@@ -227,7 +229,7 @@ STEPS.push({ name: 'quartz', build() {
   const cv = canvas(170);
   const node = [
     el('p', { class: 'sr-teach' }, 'Quartz over A3, as the page’s crossfade prompt starts: nine discrete partials in three families, the cage modes low, the ring modes in the middle, the silicon-oxygen stretches high, and the soft mode on its own. Each partial is a line: one exact frequency, held.'),
-    cv, el('div', { class: 'sr-row' }, playButton('▸ play quartz, 5 seconds', () => playBuf(ENG.quartz(5), 0.6))),
+    cv, el('div', { class: 'sr-row' }, playButton('▸ play quartz, 5 seconds', () => playBufAt(ENG.quartz(5), ENG.PLAY_GAIN))),
     el('p', { class: 'sr-note' }, 'Each partial at 85% of the one below, as the page’s amethyst prompt sets the levels.'),
   ];
   node._after = () => drawSpec(cv, { label: 'quartz over A3 · log frequency' }); node._redraw = node._after;
@@ -239,8 +241,8 @@ STEPS.push({ name: 'glass', build() {
   const node = [
     el('p', { class: 'sr-teach' }, 'Now the glass alone, as the page’s obsidian prompt builds it: no lattice, so no discrete modes, only a density of them. Noise through two broad band-pass filters, one for each peak in the glass’s vibrational density of states, at 400 and 1000 Hz for A4, moved by the note. At A3 they sit at 200 and 500 Hz. Nothing here has a pitch.'),
     el('div', { class: 'sr-eq' }, eq('centre = 400 Hz × f ⁄ 440,   1000 Hz × f ⁄ 440   (Q 1.5, 2.0)', '(where each band sits) = (its place for A4) × (how far the played note is from A4)')),
-    cv, el('div', { class: 'sr-row' }, playButton('▸ play the glass, 5 seconds', () => playBuf(ENG.glass(5, 'page'), 0.6))),
-    el('p', { class: 'sr-note' }, 'The two bands are weighted 0.87 and 0.65, the heights the bundle’s VDOS chart draws; the prompt gives no weights. The glass plays at the level of the quartz render, matched by RMS.'),
+    cv, el('div', { class: 'sr-row' }, playButton('▸ play the glass, 5 seconds', () => playBufAt(ENG.glass(5, 'page'), ENG.PLAY_GAIN))),
+    el('p', { class: 'sr-note' }, 'The two bands are weighted 0.87 and 0.65, the heights the bundle’s VDOS chart draws; the prompt gives no weights. The glass is scaled to the RMS of the quartz render, and both play at one fixed gain, so they sound at the same RMS level (not loudness-weighted).'),
   ];
   node._after = () => drawSpec(cv, { partials: false, frame: 'page', label: 'the glass over A3, as the prompt places it · log frequency' }); node._redraw = node._after;
   return node;
@@ -252,7 +254,7 @@ STEPS.push({ name: 'crystal to glass', build() {
     el('p', { class: 'sr-teach' }, 'The page’s crossfade: five seconds of quartz, then three seconds in which the partials give way to the glass, the crystal’s order dissolving as a melt does when it cools too fast to crystallize. Here both are drawn on one axis. Listen to where the sound goes as the lines become a haze.'),
     cv,
     el('div', { class: 'sr-read' }, el('span', {}, 'glass bands at ', el('b', {}, T.lo.toFixed(0) + ' and ' + T.hi.toFixed(0) + ' Hz')), el('span', {}, 'quartz’s ring modes ', el('b', {}, T.ring.map((f) => f.toFixed(0)).join('–') + ' Hz')), el('span', {}, 'its stretches ', el('b', {}, T.st.map((f) => f.toFixed(0)).join('–') + ' Hz'))),
-    el('div', { class: 'sr-row' }, playButton('▸ play the crossfade, 10 seconds', () => playBuf(ENG.crossfade('page'), 0.6))),
+    el('div', { class: 'sr-row' }, playButton('▸ play the crossfade, 10 seconds', () => playBufAt(ENG.crossfade('page'), ENG.PLAY_GAIN))),
     el('p', { class: 'sr-back' }, 'The quartz is step 1’s and the glass step 2’s; only the crossing is new.'),
   ];
   node._after = () => drawSpec(cv, { frame: 'page', label: 'quartz and the glass over A3, as the prompts place them' }); node._redraw = node._after;
@@ -267,14 +269,14 @@ STEPS.push({ name: 'where the glass lands', build() {
     [...row.children].forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.f === S.frame))); };
   row.append(el('button', { class: 'sr-pick', 'data-f': 'page', onclick: () => { S.frame = 'page'; draw(); } }, 'as the prompt places it'), el('button', { class: 'sr-pick', 'data-f': 'quartz', onclick: () => { S.frame = 'quartz'; draw(); } }, 'in quartz’s own frame'));
   const reveal = () => { const a = ENG.test('page'), b = ENG.test('quartz');
-    answer.innerHTML = `<p class="sr-answer">As the prompt places it, the glass lands <b>${a.offRing.toFixed(2)} octaves</b> below the crystal it is meant to smear: its 400 cm⁻¹ band at ${a.lo.toFixed(0)} Hz sits under quartz’s lowest partial, not among its ring modes, and its 1000 cm⁻¹ band at ${a.hi.toFixed(0)} Hz sits below even the ring modes, far from the stretches. The prompt maps wavenumber to hertz one for one at A4, while every crystal section maps the lowest mode to the root, so the two frames differ by 440 ⁄ 128 = 3.44 at every note. In quartz’s own frame the bands land at ${b.lo.toFixed(0)} and ${b.hi.toFixed(0)} Hz, inside the ring modes and the stretches, and the crossfade dissolves the crystal into its own glass. The bundle’s VDOS chart already draws the glass this way, in quartz’s ratios.</p>`; };
+    answer.innerHTML = `<p class="sr-answer">As the prompt places it, the glass lands <b>${a.offRing.toFixed(2)} octaves</b> below the crystal it is meant to smear: its 400 cm⁻¹ band at ${a.lo.toFixed(0)} Hz sits under quartz’s lowest partial, not among its ring modes, and its 1000 cm⁻¹ band at ${a.hi.toFixed(0)} Hz sits below even the ring modes, far from the stretches. The crossfade prompt names no frame, only “shaped noise matching the obsidian VDOS profile”; the obsidian noise prompt fixes one, wavenumber to hertz one for one at A4, and that is the frame tested here. Every crystal section maps the lowest mode to the root instead, so the two frames differ by 440 ⁄ 128 = 3.44 at every note. In quartz’s own frame the bands land at ${b.lo.toFixed(0)} and ${b.hi.toFixed(0)} Hz, inside the ring modes and the stretches, and the crossfade dissolves the crystal into its own glass. The bundle’s VDOS chart already draws the glass this way, in quartz’s ratios.</p>`; };
   const node = [
-    el('p', { class: 'sr-teach' }, 'The page calls the glass “a smeared version of the quartz spectrum”, and asks the chart for its bumps “at similar frequency regions”. The test: does the glass land where the crystal was? The rule, set before the result: it does if the 400 cm⁻¹ band sits inside quartz’s ring modes and the 1000 cm⁻¹ band inside its stretches, at the same note. Switch between the prompt’s placement and quartz’s own, and play both crossfades.'),
+    el('p', { class: 'sr-teach' }, 'The page calls the glass “a smeared version of the quartz spectrum”, and asks the chart for its bumps “at similar frequency regions”. The crossfade prompt doesn’t say which frame its noise is in; the noise prompt gives one. The test: in that frame, does the glass land where the crystal was? The rule, set before the result: it does if the 400 cm⁻¹ band sits inside quartz’s ring modes and the 1000 cm⁻¹ band inside its stretches, at the same note. Switch between the prompt’s placement and quartz’s own, and play both crossfades.'),
     el('div', { class: 'sr-quote' }, '“g(ω) has broad peaks around ~400 cm⁻¹ and ~1000 cm⁻¹ with no discrete lines — a smeared version of the quartz spectrum” — Obsidian, as printed when this piece was made'),
     row, cv, read,
-    el('div', { class: 'sr-row' }, playButton('▸ crossfade, as the prompt places it', () => { S.frame = 'page'; draw(); playBuf(ENG.crossfade('page'), 0.6); }), playButton('▸ crossfade, in quartz’s frame', () => { S.frame = 'quartz'; draw(); playBuf(ENG.crossfade('quartz'), 0.6); })),
+    el('div', { class: 'sr-row' }, playButton('▸ crossfade, as the prompt places it', () => { S.frame = 'page'; draw(); playBufAt(ENG.crossfade('page'), ENG.PLAY_GAIN); }), playButton('▸ crossfade, in quartz’s frame', () => { S.frame = 'quartz'; draw(); playBufAt(ENG.crossfade('quartz'), ENG.PLAY_GAIN); })),
     el('div', { class: 'sr-row' }, el('button', { onclick: reveal }, 'show the answer')), answer,
-    el('p', { class: 'sr-note' }, 'Both crossfades hold the glass at the quartz render’s level. A test that could have passed: had the prompt placed its bands in quartz’s frame, the first switch would read 0.00 octaves.'),
+    el('p', { class: 'sr-note' }, 'Both crossfades hold the glass at the quartz render’s RMS, and every sound in this piece plays at one fixed gain. A test that could have passed: had the prompt placed its bands in quartz’s frame, the first switch would read 0.00 octaves.'),
   ];
   node._after = draw; node._redraw = draw;
   return node;

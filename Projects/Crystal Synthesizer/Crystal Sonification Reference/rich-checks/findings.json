@@ -1,7 +1,7 @@
 {
  "checked": "2026-11-03",
- "pass": 38,
- "of": 38,
+ "pass": 43,
+ "of": 43,
  "results": [
   {
    "name": "R1 ω/ω₁ against the printed r_n",
@@ -9,14 +9,29 @@
    "detail": "largest gap 0.0048 (mode 4)"
   },
   {
-   "name": "R2 the null: two scalings agree, every note 33–96",
+   "name": "R2 the identity, shown not tested",
    "ok": true,
-   "detail": "worst 2.2e-16 against the rule 1e-12"
+   "detail": "2.2e-16"
   },
   {
-   "name": "R3 the control fails, every note 33–96",
+   "name": "R3 scaling keeps the doublet’s interval at every note",
    "ok": true,
-   "detail": "smallest control deviation 0.0253"
+   "detail": "61.84 c"
+  },
+  {
+   "name": "R3b scaling keeps the shimmer only up to MIDI 66",
+   "ok": true,
+   "detail": "33 2.20 · 57 8.80 · 66 14.80 · 67 15.68 · 96 83.72 Hz"
+  },
+  {
+   "name": "R3c the shift control keeps the beat and breaks the chord",
+   "ok": true,
+   "detail": "beat 8.8 Hz at every note · interval 187.3 c at 33, 7.2 c at 96"
+  },
+  {
+   "name": "R3d the beat from the cm⁻¹ column",
+   "ok": true,
+   "detail": "7.566 Hz at A3"
   },
   {
    "name": "R4 A3 puts mode 1 on 220 Hz",
@@ -39,9 +54,9 @@
    "detail": "largest 0.0006 Hz"
   },
   {
-   "name": "R8 through the sound: measured ratios agree",
+   "name": "R8 through the sound: measured ratios agree, the beat halves",
    "ok": true,
-   "detail": "6.3e-6"
+   "detail": "6.3e-6 · beats 7.566 and 3.782 Hz"
   },
   {
    "name": "P1 the piece’s map is the page’s formula",
@@ -114,6 +129,11 @@
    "detail": "3667.9 c = 3 octaves + 67.9 c"
   },
   {
+   "name": "I4b every naming offers three choices, the nearest and the page’s among them",
+   "ok": true,
+   "detail": "800/900/1000 · 100/200/300 · 700/800/900 · 3600/3700/4000"
+  },
+  {
    "name": "I5 each dyad sounds at its two frequencies",
    "ok": true,
    "detail": "largest 0.0004 Hz"
@@ -152,6 +172,11 @@
    "name": "G6 the glass at the quartz’s level",
    "ok": true,
    "detail": "0.06 dB"
+  },
+  {
+   "name": "G6b quartz and glass played at one gain, the same RMS",
+   "ok": true,
+   "detail": "glass 0.00 dB against quartz · peak 0.52"
   },
   {
    "name": "G7 the crossfade holds level",
