@@ -77,7 +77,23 @@
         }
       ],
       "made_against": "737d7224ba46",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "The Flow Field is the Spine — rich — one field, three legs.html",
+            "verdict": "remake",
+            "why": "A real test that walks up and ends where the page ends. Two text errors: step 6 says the numbers are in widths of the frame, but they are in frame heights (domain units). And the verdict says the steers whirls land mirrored, when the motion it encodes turns each vortex into a saddle (curl at the cores 0.004 or less against ±0.34 to ±0.39). Fix both lines."
+          },
+          {
+            "file": "/Projects/BLUELINE/proofs/session-3-flowfield/renders/CONTACT-SHEET-one-field-three-resolutions.png",
+            "verdict": "keep",
+            "why": "The evidence the page cites, tracked, and the caption checks out (0.0021 against 0.105). Note: mirrored is true of the hue panel; in the warped-noise frames the vortices act as saddles."
+          }
+        ]
+      }
     },
     {
       "heading": "Now it flows around a character (Session 4, 2026-07-02)",
@@ -107,7 +123,23 @@
         }
       ],
       "made_against": "f06a73f27ded",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/BLUELINE/proofs/session-4-figure-flow/renders/CONTACT-SHEET-one-field-around-a-character.png",
+            "verdict": "keep",
+            "why": "Cited evidence, tracked. Its pointer is faint at face scale (the source lines are dim), but true of the field (windward flux +4.24×)."
+          },
+          {
+            "file": "The Flow Field is the Spine — rich — around a body.html",
+            "verdict": "remake",
+            "why": "The strongest test on the face: it rebuilds flow-field.json and shows the solve driving air into the body, then the same matrix on faces parting it (I recomputed both). One line misquotes the page: step 3 says the page calls the wake authored, not shed. The page says shed; it is Session 4’s report that says placed by hand."
+          }
+        ]
+      }
     },
     {
       "heading": "The render-noise sub-claim is retired (M3–M3.7, 2026-06-18/19)",
@@ -128,7 +160,18 @@
         }
       ],
       "made_against": "a003fbc939a5",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/BLUELINE/proofs/m3-warped-noise/renders-seq/m3.7-filmstrip.png",
+            "verdict": "keep",
+            "why": "Cited evidence, tracked, and 0.858 against 0.809 matches m3.7-verdict.json. Drop “sooner”: both rows break at s3 (drift from s0 0.707 against 0.704)."
+          }
+        ]
+      }
     }
   ]
 }
