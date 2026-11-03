@@ -1,0 +1,508 @@
+<!doctype html>
+<!--
+  title: Metric Modulation — rich — there and back
+  born: 2026-11-03
+  links: [[Metric Modulation]] connects-to · rich-face-piece-of · [[Progressive Staging]] exemplifies · a walk up to its test
+  forward_vector: I am the 3/4 symmetry as a walk of four steps: the drop from 120 to 90 alone, the return alone, the two laid over each
+    other as a picture of the mirror, and last the round trip with a stay at 90 drawn at random and hidden until you say whether
+    the return arrived, so the page's "hits with recognition" meets your answer before it meets the page's.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: the script marked id="mm-engine", the same in all three pieces. MM.P2 builds the drop, the return, the round trip and the meetings of the two grids. Every sound is synthesised
+    in Web Audio (kick: a falling sine; hat and rim: filtered noise; bell: two sines at 880 and 2429 Hz); no samples.
+  checks: Metric Modulation — rich — check.mjs, beside this file, pulls the mm-engine script out of each piece and re-runs
+    every claim in Node.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>There and back</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --cyan:#6aa8e8; --cyanline:rgba(106,168,232,.55);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .mm-piece { padding: 22px 22px 16px; max-width: 1100px; }
+  .mm-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .mm-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .mm-sub { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 16px; }
+  .mm-nav { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
+  .mm-rail { display: flex; flex-wrap: wrap; border: 1px solid var(--border); border-radius: 2px; }
+  .mm-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .mm-rail button:last-child { border-right: 0; }
+  .mm-rail button[aria-pressed="true"] { color: var(--amber); background: var(--e2); }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 220ms var(--ease), border-color 220ms var(--ease); }
+  button:hover:not(:disabled) { border-color: var(--amberline); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.mm-go { color: var(--amber); border-color: var(--amberline); }
+  button.mm-on { color: var(--bg); background: var(--amber); border-color: var(--amber); }
+  .mm-step { display: none; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .mm-step.mm-shown { display: block; }
+  .mm-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .mm-step p { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 12px; }
+  .mm-step p i { color: var(--fg1); }
+  .mm-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 4px 0 12px; }
+  .mm-tl { display: block; width: 100%; margin: 6px 0 4px; }
+  .mm-read { font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); line-height: 1.7; margin-top: 6px; }
+  .mm-read b { color: var(--fg1); font-weight: 500; }
+  .mm-read .mm-hi { color: var(--amber); }
+  .mm-eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .mm-eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .mm-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .mm-pad { font-family: var(--mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--cyan);
+    border: 1px solid var(--cyanline); background: var(--bg); border-radius: 2px; padding: 18px 34px; cursor: pointer; user-select: none; touch-action: manipulation; }
+  .mm-pad.mm-hit { background: rgba(106,168,232,.18); }
+  .mm-names { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .04em; margin: -4px 0 10px; }
+  table.mm-t { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin-top: 10px; }
+  table.mm-t th, table.mm-t td { text-align: left; padding: 4px 14px 4px 0; border-bottom: 1px solid var(--soft); }
+  table.mm-t th { color: var(--fg3); font-weight: 400; letter-spacing: .08em; }
+  table.mm-t td { color: var(--fg1); }
+  .mm-ask { margin-top: 10px; }
+  .mm-foot { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; color: var(--fg4); margin-top: 14px; display: flex; align-items: center; gap: 8px; }
+  .mm-foot svg { width: 16px; height: 16px; }
+  .mm-hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 180px; height: 3px; background: var(--fg4); outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="mm-piece">
+  <div class="mm-kicker">made · Web Audio · sketch</div>
+  <h3 class="mm-title">There and back</h3>
+  <p class="mm-sub">The page's mirror: 120 drops to 90 and snaps back. Four steps: the drop alone, the return alone, the two laid over each other, then the whole trip, with how long you stay at 90 in your hands. Every sound here is synthesised.</p>
+  <div class="mm-nav">
+    <nav class="mm-rail" aria-label="steps">
+      <button data-go="1">1 · the drop</button><button data-go="2">2 · the return</button><button data-go="3">3 · one over the other</button><button data-go="4">4 · the test</button>
+    </nav>
+    <button id="mm-back">◂ back</button><button id="mm-next">next ▸</button>
+  </div>
+
+  <section class="mm-step" data-step="1">
+    <h2>The drop</h2>
+    <p>Two bars at 120 with a bell every four triplet eighths: two thirds of a second, three bells to every four kicks. At 4 s the kick moves onto the bell. That is 90.</p>
+    <div class="mm-row"><button class="mm-go" id="s1-play">▸ play the drop</button></div>
+    <canvas class="mm-tl" id="s1-tl"></canvas>
+    <div class="mm-read" id="s1-read"></div>
+    <div class="mm-eqs">
+      <div class="mm-eq">4 × (60 ⁄ 120 ⁄ 3) s = ⅔ s &nbsp;→&nbsp; 60 ⁄ ⅔ = 90 BPM &nbsp;=&nbsp; 120 × ¾</div>
+      <div class="mm-words">(four triplet eighths at 120) last two thirds of a second; a pulse that long is 90 beats a minute, three quarters of 120. Said the other way: the old quarter, half a second, is the new dotted eighth.</div>
+    </div>
+  </section>
+
+  <section class="mm-step" data-step="2">
+    <h2>The return</h2>
+    <p>Three bars at 90. In the last four seconds a bell sounds every half second, the old 120 beat, now a dotted eighth. At 8 s the kick moves onto it: 120. It is the drop's pivot with the pair swapped: there the old quarter became the new dotted eighth; here the old dotted eighth becomes the new quarter.</p>
+    <div class="mm-row"><button class="mm-go" id="s2-play">▸ play the return</button></div>
+    <canvas class="mm-tl" id="s2-tl"></canvas>
+    <div class="mm-read" id="s2-read"></div>
+    <div class="mm-eqs">
+      <div class="mm-eq">¾ × (60 ⁄ 90) s = 0.5 s &nbsp;→&nbsp; 60 ⁄ 0.5 = 120 BPM &nbsp;=&nbsp; 90 × 4⁄3</div>
+      <div class="mm-words">(a dotted eighth at 90, three quarters of its beat) lasts half a second; a pulse that long is 120, four thirds of 90.</div>
+    </div>
+  </section>
+
+  <section class="mm-step" data-step="3">
+    <h2>Lay one over the other</h2>
+    <p>Each beat drawn as a bar as long as the beat lasts: the drop above, the return below. Flip the drop end to end and it lands on the return, beat for beat. That is a picture of the mirror, not a test of it: the two were built eight beats of ½ s and twelve of ⅔ s, so reversed they must match. Drawn under the bars is the one place the mirror can break: if the return is to land back on the old 120&rsquo;s bar lines, the two tempos do not offer the same places to leave from.</p>
+    <div class="mm-row"><button class="mm-go" id="s3-flip">flip the drop</button><button class="mm-go" id="s3-play">▸ play the drop, then the return</button></div>
+    <canvas class="mm-tl" id="s3-cv"></canvas>
+    <div class="mm-read" id="s3-read"></div>
+    <div class="mm-eqs">
+      <div class="mm-eq">¾ × 4⁄3 = 1 &nbsp;·&nbsp; 4 × 0.5 s = 3 × ⅔ s = 2 s</div>
+      <div class="mm-words">(the drop's ratio) times (the return's) is one: you come home to the same tempo. And four beats of 120 take as long as three of 90, so, counted from one start, the two grids meet every two seconds. A return that keeps the old 120 in step has to leave on one of those meetings; a return counted from wherever it starts can leave from any 90 beat, a little out of step with a 120 nobody is still playing.</div>
+    </div>
+  </section>
+
+  <section class="mm-step" data-step="4">
+    <h2>The test: does the return arrive?</h2>
+    <p>The page's choreography: build at 120, drop, let the new pulse settle, snap back. It says the return hits <i>with recognition and a sense of arrival</i> because you have adjusted to 90. Each trip below stays at 90 for one bar, three bars or six (about 3, 8 or 16 s), drawn at random and not shown. Every return is prepared alike: four bells on the old beat in the last two seconds. Listen to the whole trip, say how the return landed, and only then see which stay it was.</p>
+    <div class="mm-row"><button class="mm-go" id="s4-play">▸ play a trip</button><span class="mm-hint" id="s4-left"></span></div>
+    <canvas class="mm-tl" id="s4-tl"></canvas>
+    <div class="mm-ask" id="s4-ask" hidden><span class="mm-hint">the return to 120 · </span><button data-say="arrived">it arrived</button> <button data-say="changed">it just changed</button> <button data-say="unsure">can't tell</button></div>
+    <div class="mm-read" id="s4-read"></div>
+    <table class="mm-t" id="s4-table"><thead><tr><th>stay at 90</th><th>arrived</th><th>just changed</th><th>can't tell</th></tr></thead><tbody></tbody></table>
+    <p class="mm-hint" style="margin-top:12px">Read the tally once each stay has been heard twice. The page's account predicts <i>arrived</i> grows with the stay; your answers can say otherwise.</p>
+  </section>
+  <div class="mm-foot"><svg viewBox="0 0 16 16" aria-hidden="true"><polyline points="15.00,8.00 14.98,8.37 14.91,8.73 14.81,9.10 14.66,9.46 14.47,9.81 14.24,10.16 13.97,10.51 13.66,10.85 13.32,11.18 12.95,11.50 12.55,11.81 12.11,12.11 11.66,12.41 11.18,12.68 10.68,12.95 10.16,13.20 9.63,13.44 9.10,13.66 8.55,13.87 8.00,14.06 7.45,14.24 6.90,14.39 6.37,14.54 5.84,14.66 5.32,14.76 4.82,14.85 4.34,14.91 3.89,14.96 3.45,14.99 3.05,15.00 2.68,14.99 2.34,14.96 2.03,14.91 1.76,14.85 1.53,14.76 1.34,14.66 1.19,14.54 1.09,14.39 1.02,14.24 1.00,14.06 1.02,13.87 1.09,13.66 1.19,13.44 1.34,13.20 1.53,12.95 1.76,12.68 2.03,12.41 2.34,12.11 2.68,11.81 3.05,11.50 3.45,11.18 3.89,10.85 4.34,10.51 4.82,10.16 5.32,9.81 5.84,9.46 6.37,9.10 6.90,8.73 7.45,8.37 8.00,8.00 8.55,7.63 9.10,7.27 9.63,6.90 10.16,6.54 10.68,6.19 11.18,5.84 11.66,5.49 12.11,5.15 12.55,4.82 12.95,4.50 13.32,4.19 13.66,3.89 13.97,3.59 14.24,3.32 14.47,3.05 14.66,2.80 14.81,2.56 14.91,2.34 14.98,2.13 15.00,1.94 14.98,1.76 14.91,1.61 14.81,1.46 14.66,1.34 14.47,1.24 14.24,1.15 13.97,1.09 13.66,1.04 13.32,1.01 12.95,1.00 12.55,1.01 12.11,1.04 11.66,1.09 11.18,1.15 10.68,1.24 10.16,1.34 9.63,1.46 9.10,1.61 8.55,1.76 8.00,1.94 7.45,2.13 6.90,2.34 6.37,2.56 5.84,2.80 5.32,3.05 4.82,3.32 4.34,3.59 3.89,3.89 3.45,4.19 3.05,4.50 2.68,4.82 2.34,5.15 2.03,5.49 1.76,5.84 1.53,6.19 1.34,6.54 1.19,6.90 1.09,7.27 1.02,7.63 1.00,8.00 1.02,8.37 1.09,8.73 1.19,9.10 1.34,9.46 1.53,9.81 1.76,10.16 2.03,10.51 2.34,10.85 2.68,11.18 3.05,11.50 3.45,11.81 3.89,12.11 4.34,12.41 4.82,12.68 5.32,12.95 5.84,13.20 6.37,13.44 6.90,13.66 7.45,13.87 8.00,14.06 8.55,14.24 9.10,14.39 9.63,14.54 10.16,14.66 10.68,14.76 11.18,14.85 11.66,14.91 12.11,14.96 12.55,14.99 12.95,15.00 13.32,14.99 13.66,14.96 13.97,14.91 14.24,14.85 14.47,14.76 14.66,14.66 14.81,14.54 14.91,14.39 14.98,14.24 15.00,14.06 14.98,13.87 14.91,13.66 14.81,13.44 14.66,13.20 14.47,12.95 14.24,12.68 13.97,12.41 13.66,12.11 13.32,11.81 12.95,11.50 12.55,11.18 12.11,10.85 11.66,10.51 11.18,10.16 10.68,9.81 10.16,9.46 9.63,9.10 9.10,8.73 8.55,8.37 8.00,8.00 7.45,7.63 6.90,7.27 6.37,6.90 5.84,6.54 5.32,6.19 4.82,5.84 4.34,5.49 3.89,5.15 3.45,4.82 3.05,4.50 2.68,4.19 2.34,3.89 2.03,3.59 1.76,3.32 1.53,3.05 1.34,2.80 1.19,2.56 1.09,2.34 1.02,2.13 1.00,1.94 1.02,1.76 1.09,1.61 1.19,1.46 1.34,1.34 1.53,1.24 1.76,1.15 2.03,1.09 2.34,1.04 2.68,1.01 3.05,1.00 3.45,1.01 3.89,1.04 4.34,1.09 4.82,1.15 5.32,1.24 5.84,1.34 6.37,1.46 6.90,1.61 7.45,1.76 8.00,1.94 8.55,2.13 9.10,2.34 9.63,2.56 10.16,2.80 10.68,3.05 11.18,3.32 11.66,3.59 12.11,3.89 12.55,4.19 12.95,4.50 13.32,4.82 13.66,5.15 13.97,5.49 14.24,5.84 14.47,6.19 14.66,6.54 14.81,6.90 14.91,7.27 14.98,7.63 15.00,8.00" fill="none" stroke="#e8b84a" stroke-width=".8"/></svg>Loud’n Live</div>
+</div>
+
+<script id="mm-engine">
+// The Metric Modulation engine: every score the three pieces play, and the scorer that reads a reader's taps.
+// Pure functions of time in seconds; no audio, no page. The check beside these pieces pulls this block out
+// of each one and re-runs every claim in Node. Identical in all three pieces.
+const MM = (() => {
+  const r9 = (t) => Math.round(t * 1e9) / 1e9;
+  const beat = (bpm) => 60 / bpm;
+  // every multiple of period from `from + phase`, up to but not including `to`
+  function grid(period, from, to, phase = 0) {
+    const out = [];
+    for (let k = 0; ; k++) { const t = r9(from + phase + k * period); if (t > to - 1e-6) break; out.push(t); }
+    return out;
+  }
+  const ev = (times, v) => times.map((t) => ({ t, v }));
+  const sortEv = (a) => a.sort((x, y) => x.t - y.t || (x.v < y.v ? -1 : 1));
+  const uniq = (a) => [...new Set(a.map(r9))].sort((x, y) => x - y);
+  const common = (a, b) => a.filter((t) => b.some((u) => Math.abs(t - u) < 1e-6));
+  const timesOf = (score, v) => score.events.filter((e) => e.v === v).map((e) => e.t);
+  const iois = (ts) => ts.slice(1).map((t, i) => r9(t - ts[i]));
+  // a groove at bpm on [from, to): kick on the beat, hat on the off-beat eighth, rim on two and four
+  function groove(bpm, from, to, o = {}) {
+    const q = beat(bpm), out = [];
+    if (o.kick !== false) out.push(...ev(grid(q, from, to), 'kick'));
+    if (o.hat !== false) out.push(...ev(grid(q, from, to, q / 2), 'hat'));
+    if (o.rim) out.push(...ev(grid(2 * q, from, to, q), 'rim'));
+    return out;
+  }
+  // beat times of a tempo ramped linearly, in beats, from bpm0 to bpm1 over n beats, starting at t0;
+  // n + 1 times, the last the landing beat. t(b) = t0 + (60n ⁄ Δ) · ln((bpm0 + Δ·b⁄n) ⁄ bpm0)
+  function rampBeats(bpm0, bpm1, n, t0) {
+    const d = bpm1 - bpm0, out = [];
+    for (let b = 0; b <= n; b++) out.push(r9(t0 + (60 * n / d) * Math.log((bpm0 + d * b / n) / bpm0)));
+    return out;
+  }
+
+  // ── piece 1 · the same hits, a new beat ─────────────────────────────────────────────────────────
+  const P1 = {
+    pulse: () => ({ events: sortEv(groove(120, 0, 8)), dur: 8, pivots: [], shared: [], beats: grid(0.5, 0, 8) }),
+    dotted(withGroove) {
+      const bell = grid(0.75, 0, 6);
+      const g = withGroove ? groove(120, 0, 6) : [];
+      return { events: sortEv([...g, ...ev(bell, 'bell')]), dur: 6, pivots: [],
+        shared: withGroove ? common(grid(0.5, 0, 6), bell) : [], beats: withGroove ? grid(0.5, 0, 6) : bell };
+    },
+    // 120 for three bars with the bell on every dotted quarter; at 6 s the kick moves onto the bell: 80
+    // quiet = true: the same jump with the bell silent until the change (the grid does not run through it)
+    pivot(after = 12, quiet = false) {
+      const P = 6, end = P + after * 0.75, bell = grid(0.75, quiet ? P : 0, end);
+      return { events: sortEv([...groove(120, 0, P), ...ev(bell, 'bell'), ...groove(80, P, end)]), dur: end,
+        pivots: [{ t: P, label: '120 → 80' }], shared: uniq([...common(grid(0.5, 0, P), bell), P]),
+        beats: [...grid(0.5, 0, P), ...grid(0.75, P, end)], changeAt: P, quiet };
+    },
+    // a figure `fig` seconds long sounds through 120; at 6 s it becomes the beat
+    door(fig) {
+      const P = 6, bpm = r9(60 / fig), n = bpm < 120 ? 12 : 16, end = r9(P + n * fig), f = grid(fig, 0, P);
+      return { events: sortEv([...groove(120, 0, P), ...ev(f, 'bell'), ...groove(bpm, P, end)]), dur: end, bpm,
+        pivots: [{ t: P, label: '120 → ' + Math.round(bpm) }], shared: uniq([...common(grid(0.5, 0, P), f), P]),
+        beats: [...grid(0.5, 0, P), ...grid(fig, P, end)], changeAt: P };
+    },
+    // the same start and end, reached by an even ramp over four bars (sixteen beats), as a DAW draws it
+    glide() {
+      const P = 6, rb = rampBeats(120, 80, 16, P), rEnd = rb[16], end = r9(rEnd + 8 * 0.75);
+      const kicks = [...grid(0.5, 0, P), ...rb.slice(0, 16), ...grid(0.75, rEnd, end)];
+      const hats = [...grid(0.5, 0, P, 0.25), ...rb.slice(0, 16).map((t, i) => r9((t + rb[i + 1]) / 2)), ...grid(0.75, rEnd, end, 0.375)];
+      return { events: sortEv([...ev(kicks, 'kick'), ...ev(hats, 'hat')]), dur: end, rampEnd: rEnd,
+        pivots: [{ t: P, label: 'ramp starts' }, { t: rEnd, label: 'lands on 80' }], shared: [], beats: kicks, changeAt: P };
+    },
+  };
+
+  // ── piece 2 · there and back ─────────────────────────────────────────────────────────────────────
+  const Q120 = 0.5, Q90 = 2 / 3;
+  const P2 = {
+    // 120 for eight beats with a bell every four triplet eighths (⅔ s); at 4 s the kick moves onto it: 90 for twelve
+    drop() {
+      const P = 4, end = r9(P + 12 * Q90), f = grid(Q90, 0, P);
+      return { events: sortEv([...groove(120, 0, P), ...ev(f, 'bell'), ...groove(90, P, end)]), dur: end,
+        pivots: [{ t: P, label: '120 → 90' }], shared: uniq([...common(grid(Q120, 0, P), f), P]),
+        beats: [...grid(Q120, 0, P), ...grid(Q90, P, end)], changeAt: P };
+    },
+    // 90 for twelve beats, a bell every half second in the last four; at 8 s the kick moves onto it: 120 for eight
+    ret() {
+      const P = 8, end = P + 8 * Q120, f = grid(Q120, P - 4, P);
+      return { events: sortEv([...groove(90, 0, P), ...ev(f, 'bell'), ...groove(120, P, end)]), dur: end,
+        pivots: [{ t: P, label: '90 → 120' }], shared: uniq([...common(grid(Q90, 0, P), f), P]),
+        beats: [...grid(Q90, 0, P), ...grid(Q120, P, end)], changeAt: P };
+    },
+    // build at 120 (four plain beats, eight with the bell), drop, stay `stay` beats at 90 (four or more), snap back
+    // for eight. The return's bell is always the last 2 s before it, counted back from the return, so every stay
+    // is prepared alike; 2 s back from any 90 beat is again a 90 beat, a place both grids agree.
+    trip(stay) {
+      const A = 6, B = r9(A + stay * Q90), end = B + 8 * Q120;
+      const f1 = grid(Q90, 2, A), f2 = grid(Q120, r9(B - 2), B);
+      return { events: sortEv([...groove(120, 0, A), ...ev(f1, 'bell'), ...groove(90, A, B), ...ev(f2, 'bell'), ...groove(120, B, end)]),
+        dur: end, stay, pivots: [{ t: A, label: '120 → 90' }, { t: B, label: '90 → 120' }],
+        shared: uniq([A, B, ...common(grid(Q120, 0, A), f1), ...common(grid(Q90, A, B), f2)]),
+        beats: [...grid(Q120, 0, A), ...grid(Q90, A, B), ...grid(Q120, B, end)] };
+    },
+    // where both grids meet, and which bar lines of each tempo (4/4) are such a meeting
+    meetings(span = 24) {
+      const a = grid(Q120, 0, span), b = grid(Q90, 0, span), m = common(a, b);
+      const bars120 = grid(4 * Q120, 0, span), bars90 = grid(4 * Q90, 0, span);
+      return { m, bars120: bars120.map((t) => ({ t, shared: m.some((x) => Math.abs(x - t) < 1e-6) })),
+        bars90: bars90.map((t) => ({ t, shared: m.some((x) => Math.abs(x - t) < 1e-6) })) };
+    },
+  };
+
+  // ── piece 3 · the anchor, blind ──────────────────────────────────────────────────────────────────
+  const P3 = {
+    // 120: hats and a rim on two and four, no kick; with the anchor, a kick on every dotted quarter
+    groove120(anchor) {
+      const g = groove(120, 0, 6, { kick: false, rim: true });
+      return { events: sortEv([...g, ...(anchor ? ev(grid(0.75, 0, 6), 'kick') : [])]), dur: 6, pivots: [], shared: [], beats: grid(0.5, 0, 6) };
+    },
+    // the anchored change: the kick stays on the dotted quarter throughout; at 6 s the groove around it becomes 80
+    anchored() {
+      const P = 6, end = 15;
+      return { events: sortEv([...groove(120, 0, P, { kick: false, rim: true }), ...ev(grid(0.75, 0, end), 'kick'),
+        ...groove(80, P, end, { kick: false, rim: true })]), dur: end, pivots: [{ t: P, label: '120 → 80' }],
+        shared: [P], beats: [...grid(0.5, 0, P), ...grid(0.75, P, end)], changeAt: P };
+    },
+    // the anchor kept, the alignment broken: the anchored 120 section (kick on the dotted quarter) to `6 + late`,
+    // then the 80 groove with its own kick from there. late 0 is anchored() note for note.
+    misaligned(late = 0) {
+      const P = 6, S = r9(P + late), end = r9(15 + late);
+      return { events: sortEv([...groove(120, 0, S, { kick: false, rim: true }), ...ev(grid(0.75, 0, S), 'kick'), ...groove(80, S, end, { rim: true })]),
+        dur: end, late, pivots: [{ t: S, label: '120 → 80' }], shared: late ? [] : [P], beats: [...grid(0.5, 0, S), ...grid(0.75, S, end)], changeAt: S };
+    },
+    // the same change with no anchor: a 120 groove with its kick on the beat; the 80 groove comes in `late` seconds after 6
+    unanchored(late = 0) {
+      const P = 6, S = r9(P + late), end = r9(15 + late);
+      return { events: sortEv([...groove(120, 0, S, { rim: true }), ...groove(80, S, end, { rim: true })]), dur: end, late,
+        pivots: [{ t: S, label: '120 → 80' }], shared: [], beats: [...grid(0.5, 0, S), ...grid(0.75, S, end)], changeAt: S };
+    },
+  };
+
+  // ── the scorer: how soon a reader's taps were back on the beat after a change ───────────────────
+  const median = (a) => { const s = [...a].sort((x, y) => x - y), n = s.length; return n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2; };
+  const nearest = (t, set) => set.reduce((b, x) => (Math.abs(x - t) < Math.abs(b - t) ? x : b), set[0]);
+  // beats: the pulse the piece played, in score seconds; taps: the reader's, same clock; changeAt: where it changed.
+  // The steady delay between a hand and its speakers is read from the taps before the change and taken out.
+  function scoreTaps(beats, taps, changeAt, within = 0.05) {
+    const before = beats.filter((b) => b < changeAt - 1e-6), after = beats.filter((b) => b >= changeAt - 1e-6);
+    const calib = taps.filter((t) => t > 1 && t < changeAt - 0.25).map((t) => t - nearest(t, before));
+    if (calib.length < 3) return { ok: false, why: 'tap along before the change: three taps or more' };
+    const offset = median(calib);
+    const post = taps.map((t) => t - offset).filter((t) => t >= changeAt - 0.2).map((t) => ({ t, err: t - nearest(t, after) }));
+    if (post.length < 4) return { ok: false, why: 'keep tapping after the change' };
+    let landed = null;
+    for (let i = 0; i + 2 < post.length; i++) if (post.slice(i, i + 3).every((p) => Math.abs(p.err) <= within)) { landed = i; break; }
+    const first = post.slice(0, 8), miss = first.reduce((s, p) => s + Math.abs(p.err), 0) / first.length;
+    return { ok: true, offset, landedTap: landed == null ? null : landed + 1,
+      landedAfter: landed == null ? null : post[landed].t - changeAt, miss, n: post.length };
+  }
+  // chance of k or more right of n by guessing
+  function binomTail(k, n) { let p = 0; for (let i = k; i <= n; i++) { let c = 1; for (let j = 0; j < i; j++) c = c * (n - j) / (j + 1); p += c; } return p / 2 ** n; }
+
+  return { r9, beat, grid, groove, rampBeats, common, timesOf, iois, P1, P2, P3, scoreTaps, binomTail, median };
+})();
+</script>
+<script>
+// The page side, shared by the three pieces: the voices, playback of a score, the timeline, the step rail,
+// the tap pad. Sound starts only on a click; no audio context exists before one. Hushing and the minute cap
+// are the piece kit's, not this file's.
+const COL = { fg1: '#e8e8f0', fg2: '#c8c8d8', fg3: '#8a8aa0', fg4: '#4a4a5a', ring: '#22222e', amber: '#e8b84a', cyan: '#6aa8e8' };
+let actx = null, bus = null, noiseBuf = null, run = null;
+async function ensureAudio() {
+  if (!actx) {
+    actx = new AudioContext();
+    const comp = actx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+    bus = actx.createGain(); bus.gain.value = 0.8; bus.connect(comp).connect(actx.destination);
+    noiseBuf = actx.createBuffer(1, Math.round(actx.sampleRate * 0.5), actx.sampleRate);
+    const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  }
+  if (actx.state !== 'running') await actx.resume();
+}
+function env(g, t, peak, decay) { g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + 0.003); g.gain.exponentialRampToValueAtTime(0.0001, t + decay); }
+function voice(v, t, out) {
+  const g = actx.createGain(); g.connect(out);
+  if (v === 'kick') {
+    const o = actx.createOscillator(); o.frequency.setValueAtTime(150, t); o.frequency.exponentialRampToValueAtTime(46, t + 0.12);
+    env(g, t, 0.95, 0.42); o.connect(g); o.start(t); o.stop(t + 0.46);
+  } else if (v === 'hat' || v === 'rim') {
+    const s = actx.createBufferSource(); s.buffer = noiseBuf; const f = actx.createBiquadFilter();
+    if (v === 'hat') { f.type = 'highpass'; f.frequency.value = 7600; env(g, t, 0.2, 0.06); }
+    else { f.type = 'bandpass'; f.frequency.value = 1900; f.Q.value = 2.5; env(g, t, 0.5, 0.1); }
+    s.connect(f).connect(g); s.start(t); s.stop(t + 0.14);
+  } else if (v === 'bell') {
+    for (const [hz, a] of [[880, 0.26], [2429, 0.1]]) {
+      const o = actx.createOscillator(), gg = actx.createGain(); o.frequency.value = hz; env(gg, t, a, hz > 1000 ? 0.5 : 1.1);
+      o.connect(gg).connect(g); o.start(t); o.stop(t + 1.15);
+    }
+    g.gain.value = 1;
+  }
+}
+// play a score from now; onEnd fires once when it has run out
+function play(score, onEnd) {
+  stop();
+  const g = actx.createGain(); g.connect(bus);
+  const t0 = actx.currentTime + 0.15;
+  for (const e of score.events) voice(e.v, t0 + e.t, g);
+  run = { g, t0, score, onEnd, taps: [] };
+  return run;
+}
+function stop() {
+  if (!run) return;
+  const r = run; run = null;
+  r.g.gain.setTargetAtTime(0, actx.currentTime, 0.01); setTimeout(() => r.g.disconnect(), 150);
+  if (r.btn) r.btn.classList.remove('mm-on');
+}
+const now = () => (run ? actx.currentTime - run.t0 : null);
+// a tap, on the score's clock, with the event's own age and the output's delay taken out
+function tapAt(e) {
+  if (!run) return null;
+  const age = Math.max(0, (performance.now() - e.timeStamp) / 1000);
+  return actx.currentTime - age - (actx.outputLatency || 0) - run.t0;
+}
+
+// ── the timeline: one lane per voice, the change marked, the shared hits ringed, your taps below ──
+const LANES = [['bell', 'bell · the figure', COL.amber], ['kick', 'kick', COL.fg1], ['rim', 'rim', COL.fg3], ['hat', 'hat', COL.fg3]];
+function fit(c, H) {
+  const w = c.clientWidth || 600, d = devicePixelRatio || 1;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); c.style.height = H + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+}
+function drawTimeline(c, score, o = {}) {
+  const lanes = LANES.filter(([v]) => score.events.some((e) => e.v === v));
+  if (o.taps) lanes.push(['tap', 'your taps', COL.cyan]);
+  const L = 22, top = 22, H = top + lanes.length * L + 22, { g, w } = fit(c, H);
+  const left = 108, right = w - 10, T = o.dur || score.dur, x = (t) => left + (t / T) * (right - left);
+  g.clearRect(0, 0, w, H);
+  g.font = '10.5px JetBrains Mono, monospace'; g.textBaseline = 'middle';
+  for (const p of score.pivots) {
+    g.strokeStyle = 'rgba(232,184,74,.55)'; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(x(p.t), 14); g.lineTo(x(p.t), H - 20); g.stroke(); g.setLineDash([]);
+    g.fillStyle = COL.amber; g.textAlign = x(p.t) > w - 90 ? 'right' : 'left'; g.fillText(p.label, x(p.t) + (g.textAlign === 'right' ? -5 : 5), 9);
+  }
+  lanes.forEach(([v, label, col], i) => {
+    const y = top + i * L + L / 2;
+    g.fillStyle = COL.fg3; g.textAlign = 'left'; g.fillText(label, 0, y);
+    g.strokeStyle = COL.ring; g.lineWidth = 1; g.beginPath(); g.moveTo(left, y); g.lineTo(right, y); g.stroke();
+    if (v === 'tap') {
+      g.fillStyle = col; for (const t of (o.taps || [])) if (t >= 0 && t <= T) g.fillRect(x(t) - 1, y - 7, 2, 14);
+      return;
+    }
+    g.fillStyle = col;
+    const hh = v === 'hat' ? 5 : v === 'rim' ? 6 : 8;
+    for (const e of score.events) if (e.v === v) g.fillRect(x(e.t) - 1, y - hh, 2, hh * 2);
+    if (v === 'kick' || (v === 'bell' && !lanes.some(([u]) => u === 'kick'))) {
+      g.strokeStyle = COL.amber; g.lineWidth = 1.2;
+      for (const t of score.shared) { g.beginPath(); g.arc(x(t), y, 6.5, 0, 7); g.stroke(); }
+    }
+  });
+  g.fillStyle = COL.fg4; g.textAlign = 'center';
+  const step = T > 20 ? 4 : T > 10 ? 2 : 1;
+  for (let t = 0; t <= T + 1e-9; t += step) { g.fillRect(x(t), H - 18, 1, 4); g.fillText(t + ' s', x(t), H - 7); }
+  const p = o.playhead;
+  if (p != null && p >= 0 && p <= T) { g.strokeStyle = COL.fg1; g.lineWidth = 1; g.beginPath(); g.moveTo(x(p), top - 4); g.lineTo(x(p), H - 20); g.stroke(); }
+}
+
+// ── the step rail: one step shown at a time; changing step stops the sound ──
+function rail(onShow) {
+  const steps = [...document.querySelectorAll('.mm-step')], btns = [...document.querySelectorAll('.mm-rail [data-go]')];
+  let cur = 0;
+  function show(i) {
+    cur = Math.max(0, Math.min(steps.length - 1, i)); stop();
+    steps.forEach((s, j) => s.classList.toggle('mm-shown', j === cur));
+    btns.forEach((b, j) => b.setAttribute('aria-pressed', j === cur ? 'true' : 'false'));
+    document.getElementById('mm-back').disabled = cur === 0; document.getElementById('mm-next').disabled = cur === steps.length - 1;
+    onShow && onShow(cur + 1);
+  }
+  btns.forEach((b, j) => (b.onclick = () => show(j)));
+  document.getElementById('mm-back').onclick = () => show(cur - 1);
+  document.getElementById('mm-next').onclick = () => show(cur + 1);
+  show(0);
+  return { show, get cur() { return cur + 1; } };
+}
+// a play button for a score maker; stop on a second click
+function playButton(btn, make, after) {
+  btn.addEventListener('click', async () => {
+    if (run && run.btn === btn) { stop(); return; }
+    await ensureAudio();
+    const r = play(make(), after); r.btn = btn; btn.classList.add('mm-on');
+  });
+}
+const $ = (id) => document.getElementById(id);
+const fmt = (x, d = 3) => (+x).toFixed(d);
+
+// piece 2: what each step shows and plays
+const STAYS = [4, 12, 24], NAME = { 4: '1 bar · 2.7 s', 12: '3 bars · 8 s', 24: '6 bars · 16 s' };
+const S = { 1: MM.P2.drop(), 2: MM.P2.ret(), 4: MM.P2.trip(12) };
+const tally = Object.fromEntries(STAYS.map((st) => [st, { arrived: 0, changed: 0, unsure: 0 }]));
+let deck = [], current = null;
+let lastStay = null;
+
+// beat lengths: the time from each beat to the next, the last to the score's end
+const lengths = (sc) => sc.beats.map((t, i) => MM.r9((sc.beats[i + 1] ?? sc.dur) - t));
+const dropL = lengths(S[1]), retL = lengths(S[2]);
+const flipped = [...dropL].reverse();
+const match = flipped.filter((x, i) => Math.abs(x - retL[i]) < 1e-9).length;
+const meet = MM.P2.meetings(24);
+
+playButton($('s1-play'), () => S[1]);
+playButton($('s2-play'), () => S[2]);
+$('s1-read').innerHTML = `bell every <b>${fmt(MM.iois(MM.timesOf(S[1], 'bell'))[0])} s</b> · it meets the kick at <b>${S[1].shared.map((t) => fmt(t, 0)).join(', ')} s</b> · after 4 s every kick is ${fmt(2 / 3)} s apart: <b>90 BPM</b>`;
+$('s2-read').innerHTML = `bell every <b>${fmt(MM.iois(MM.timesOf(S[2], 'bell'))[0])} s</b> from 4 s · it meets the 90 kick at <b>${S[2].shared.map((t) => fmt(t, 0)).join(', ')} s</b> · after 8 s: <b>120 BPM</b>`;
+
+// step 3: the drop's beat lengths, flipped onto the return's
+let flipT = 0, flipping = false, flipDir = 1;
+$('s3-flip').onclick = () => { flipping = true; flipDir = flipT >= 1 ? -1 : 1; $('s3-flip').textContent = flipDir > 0 ? 'unflip' : 'flip the drop'; };
+const RT = { events: [...S[1].events, ...S[2].events.map((e) => ({ t: e.t + S[1].dur, v: e.v }))], dur: S[1].dur + S[2].dur, pivots: [], shared: [], beats: [] };
+playButton($('s3-play'), () => RT);
+$('s3-read').innerHTML = `<b>${match} of ${retL.length}</b> beat lengths match, flipped drop on return, as built · ` +
+  `counted from one start, <b>${meet.bars120.filter((b) => b.shared).length} of ${meet.bars120.length}</b> bar lines at 120 in 24 s are a meeting of the two grids; ` +
+  `at 90 in 4/4, <b class="mm-hi">${meet.bars90.filter((b) => b.shared).length} of ${meet.bars90.length}</b>, one bar in three. So a return that must land back on the old 120's bar lines leaves only every third bar, or mid-bar. In 3/4 at 90 every bar line would meet.`;
+function drawMirror(c) {
+  const H = 236, { g, w } = fit(c, H), left = 108, right = w - 10, T = 12, x = (t) => left + (t / T) * (right - left);
+  g.clearRect(0, 0, w, H); g.font = '10.5px JetBrains Mono, monospace'; g.textBaseline = 'middle';
+  const row = (y, L, col, label) => {
+    g.fillStyle = COL.fg3; g.textAlign = 'left'; g.fillText(label, 0, y + 9);
+    let t = 0; for (const d of L) { g.fillStyle = col; g.fillRect(x(t) + 1, y, x(t + d) - x(t) - 2, 18); t += d; }
+  };
+  // the drop, its bars moving to their flipped places as flipT goes 0 → 1, and down onto the return's row
+  const e = flipT < 0.5 ? 2 * flipT * flipT : 1 - 2 * (1 - flipT) ** 2;
+  { const y = 30 + e * 46; let t = 0;
+    g.fillStyle = COL.fg3; g.textAlign = 'left'; if (e < 0.5) g.fillText('the drop', 0, y + 9);
+    for (const d of dropL) { const t1 = T - t - d, tx = t + (t1 - t) * e; g.fillStyle = d > 0.6 ? 'rgba(232,184,74,.75)' : 'rgba(200,200,216,.75)'; g.fillRect(x(tx) + 1, y, x(tx + d) - x(tx) - 2, 18); t += d; } }
+  row(80, retL, 'rgba(106,168,232,.35)', e < 0.5 ? 'the return' : 'return + drop');
+  g.fillStyle = COL.fg4; g.textAlign = 'left'; g.fillText('amber ⅔ s · 90 — grey ½ s · 120', left, 18);
+  // where each tempo can leave from: its bar lines, filled when the two grids meet there
+  const marks = (y, bars, label, beatLen) => {
+    g.fillStyle = COL.fg3; g.textAlign = 'left'; g.fillText(label, 0, y);
+    g.strokeStyle = COL.ring; g.beginPath(); g.moveTo(left, y); g.lineTo(right, y); g.stroke();
+    for (const b of bars) { if (b.t > T + 1e-9) continue; g.beginPath(); g.arc(x(b.t), y, 4.5, 0, 7); if (b.shared) { g.fillStyle = COL.amber; g.fill(); } else { g.strokeStyle = COL.fg3; g.stroke(); } }
+  };
+  marks(132, meet.bars120, 'bar lines, 120', 0.5);
+  marks(156, meet.bars90, 'bar lines, 90', 2 / 3);
+  g.fillStyle = COL.fg4; g.textAlign = 'center';
+  for (let t = 0; t <= T; t += 2) { g.fillRect(x(t), H - 54, 1, 4); g.fillText(t + ' s', x(t), H - 42); }
+  g.textAlign = 'left'; g.fillText('● a bar line where the two grids meet · ○ one where they do not', left, H - 12);
+}
+
+// step 4: the round trip, the stay drawn at random and hidden until the answer
+function draw() { if (!deck.length) deck = [...STAYS, ...STAYS].sort(() => Math.random() - 0.5); return deck.pop(); }
+const blank = (sc) => ({ events: [], dur: 34, pivots: [], shared: [], beats: [] });
+playButton($('s4-play'), () => {
+  $('s4-ask').hidden = true; $('s4-read').textContent = '';
+  if (current == null) current = draw();
+  return (S[4] = MM.P2.trip(current));
+}, () => { $('s4-ask').hidden = false; });
+for (const b of document.querySelectorAll('#s4-ask [data-say]')) b.onclick = () => {
+  if (current == null) return;
+  tally[current][b.dataset.say]++; $('s4-ask').hidden = true;
+  $('s4-read').innerHTML = `that trip stayed <b>${NAME[current]}</b> at 90`;
+  current = null; drawTally();
+};
+function drawTally() {
+  $('s4-table').querySelector('tbody').innerHTML = STAYS.map((s) => `<tr><td>${NAME[s]}</td><td>${tally[s].arrived}</td><td>${tally[s].changed}</td><td>${tally[s].unsure}</td></tr>`).join('');
+}
+drawTally();
+
+const R = rail(() => {});
+function frame() {
+  requestAnimationFrame(frame);
+  const n = R.cur;
+  if (flipping) { flipT = Math.max(0, Math.min(1, flipT + flipDir * 0.02)); if (flipT === 0 || flipT === 1) flipping = false; }
+  if (n === 3) drawMirror($('s3-cv'));
+  else drawTimeline($('s' + n + '-tl'), n === 4 ? blank(S[4]) : S[n], { playhead: run && run.score === S[n] ? now() : null, dur: n === 4 ? 34 : null });
+  if (run && now() > run.score.dur + 0.4) { const r = run; stop(); r.onEnd && r.onEnd(r); }
+}
+frame();
+</script>
+</body>
+</html>
