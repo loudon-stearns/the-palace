@@ -1,0 +1,140 @@
+{
+  "title": "Adopt the Craft, Author the Seam — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Adopt the Craft, Author the Seam]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    },
+    {
+      "target": "[[BLUELINE]]",
+      "type": "connects-to",
+      "label": "seam-1-gathered"
+    }
+  ],
+  "forward_vector": "I am the manifest of Adopt the Craft, Author the Seam's rich face, its first round at Sketch tier, a proposal. For the first seam I gather BLUELINE's round-trip, where the staging vocabulary survived 2D to 3D and back. For the rest I carry the page's claim into music, Loudon's home craft, which it names and never works: a chart read by a drummer and by a machine, walked up to sixteen blind trials asking which take is the drummer; one record written three ways, walked up to two scored rounds asking whether the ear can read it back; and, beside the tension, Loudon's own open reading made playable and left open. One engine runs all three. I grow when a listener's scores come back, and when he answers the question. I never hold the entry's words.",
+  "entry": "Adopt the Craft, Author the Seam",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "grain": "The page's own ## grain: four sections carry pieces, one each, so each can be approved on its own. The opening section, Forward Vectors and Active Baton carry none.",
+  "offers": [
+    {
+      "section": "The generalization",
+      "kind": "no-claim-edit",
+      "what": "The section names music production and never works it. Once a listener scores 7 or more of 8 on the first kind of trial in \"which one is the drummer\" (the drummer against the machine reading the chart as written; guessing does that 3.5% of the time), the section could carry one worked line: a chart that says \"swing, laid back\" goes to a sequencer and comes back straight; the seam is two numbers and a switch, the swing ratio, the lay-back and a lean on 2 and 4. It adds an example and changes no claim. It waits on that score, and on Loudon's answer to the open question the baton carries, since the text stays as it is until then.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The two seams (the worked example)",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "/Projects/BLUELINE/proofs/seam-a-roundtrip/roundtrip.html",
+          "origin": "gathered",
+          "title": "BLUELINE seam A round-trip · animatic → Blender → reprojected, 2026-06-17",
+          "caption": "**The first seam, already tested.** Five board records realized in Blender, their keypoints reprojected to 2D, and the authored staging diffed against what came back: facing, shot size, laterality and eyeline. 17 pass, 3 warn, 0 fail, after three passes of fixes to the shared rig (11/3/6, then 16/2/2, then 17/3/0). Amber is the facing the board authored, coral the facing read back from the render; where they coincide, the vocabulary survived the handoff. What it tests is that one vocabulary crosses from 2D to 3D intact. It doesn't render the comic fidelity, and it doesn't write depth back to the record, so those two halves of the section stay untested here. Gathered from BLUELINE as it stands, not rebuilt: the baton says so, and the report beside it is `seam-a-roundtrip-report.md`.",
+          "near": "The first seam you control with discipline",
+          "place": "band",
+          "height": 2500,
+          "contract": {
+            "files": "roundtrip-report.json passes/"
+          }
+        }
+      ],
+      "made_against": "cd3c1329b30c",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "One vocabulary, three jobs",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Adopt the Craft, Author the Seam — rich — match it by ear.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio",
+          "title": "Match it by ear · one record, four readers, up to two scored rounds",
+          "caption": "**Can a person read the record back off the sound?** The section's sign of the right seam is one vocabulary serving the human read, the machine and the handoff. In music the vocabulary is two numbers, and the machine and the handoff read them by construction, so the ear is the part that can be tested. Five steps: one groove written three ways at once (the chart, the machine's instructions, a file); swing heard alone at three settings; lay-back heard alone; the match-by-ear game from the Daily Page's rough two, which Loudon called a great ear-training quiz, unscored; and last two scored rounds of six, swing then lay-back. Chance is stated before the first trial: a reader who never listens locks in 30% and 33% of trials, and gets 5 or 6 of 6 that way 1.2% and 1.8% of the time. 5 or 6 of 6 says the ear reads that number. The hidden groove and yours differ only in the one number: same hits, weights, length and loudness (checked headless).",
+          "near": "That convergence is the signal you have found the right seam",
+          "place": "band",
+          "height": 1150
+        }
+      ],
+      "made_against": "8f421c5aab12",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The generalization",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Adopt the Craft, Author the Seam — rich — which one is the drummer.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio",
+          "title": "Which one is the drummer? · from the chart to the seam, up to sixteen blind trials",
+          "caption": "**The section's claim, carried into music.** A chart that says *swing, laid back*, read by a drummer; the same chart read by a machine, which plays it straight because nothing in it reads swing; one number authored (where the skip note lands); then two numbers and a switch (the lay-back, a lean on 2 and 4), the whole record. Last, sixteen blind trials, two kinds shuffled together: the drummer against the machine as written, and against the machine reading the drummer's own seam. Chance is 4 of 8 in each; 7 or more of 8 by guessing is 3.5%. The page predicts the first kind easy and, if the seam is the only new work, the second near chance. Near chance on the first would fail the page: no sign the swap of readers costs anything you can hear. 7 or more on the second says the seam is wider than its record: what's left is the drummer's wander, up to 7 ms and 15% a hit, which has no field. Every take's drums are set to one RMS and the bass is the same; two nulls show the pair differs in nothing else. The drummer is a model, as rough two's was; the real test is a real record.",
+          "near": "Find that point; it is your only new work.",
+          "place": "band",
+          "height": 1150
+        }
+      ],
+      "made_against": "eeea5b1d201e",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The tension it lives in",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Adopt the Craft, Author the Seam — rich — where it stops being a groove.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio",
+          "title": "Where it stops being a groove · Loudon's open reading, played, not settled",
+          "caption": "**Loudon's open reading, not the page's claim.** In the Daily Page sit of 2026-10-19 he wondered whether authorship lives in the zone between a craft's norm and its breaking point. The page doesn't carry that reading, and this piece doesn't decide it; it sits here because the reading is about where make-first energy goes. Four steps: the groove at its norm (64%, 22 ms, leaning on 2 and 4); the swing pushed from straight to limping; the kit dragged back until it comes loose; and last fourteen shuffled takes, seven swing amounts each heard twice, each answered \"still a groove\" or \"it broke\". The rule is stated first: the best cut between your two answers, and how many sit on its wrong side, gives a sharp edge, an edge with a zone, fog, or no edge in the range. A coin flipper gets a sharp edge 0.5% of the time and fog 85%, so the probe can fail to find an edge. What the zone means is his to say.",
+          "near": "The contrary is generative",
+          "place": "band",
+          "height": 1100
+        }
+      ],
+      "made_against": "c9f0e3fc278f",
+      "stamped": "2026-11-03"
+    }
+  ]
+}

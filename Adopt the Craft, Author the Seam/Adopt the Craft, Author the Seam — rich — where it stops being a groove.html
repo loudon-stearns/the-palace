@@ -1,0 +1,405 @@
+<!doctype html>
+<!--
+  title: Adopt the Craft, Author the Seam — rich — where it stops being a groove
+  born: 2026-11-03
+  links: [[Adopt the Craft, Author the Seam]] (connects-to · rich-face-piece) · listed in [[Adopt the Craft, Author the Seam — rich.json]] · plays Loudon's open reading from the Daily Page sit of 2026-10-19 (the page's scroll, § Where this stands; [[Adopt the Craft, Author the Seam — baton]]), which the page's text does not carry and this piece does not settle · its siblings on this face are "which one is the drummer" and "match it by ear", which share its engine byte for byte
+  forward_vector: I am Loudon's open question made playable: the groove at its norm, the swing and the lay-back pushed past it until the groove comes apart, and last fourteen shuffled takes that find where your own edge is and how wide the zone around it, or that you have none. I am not the page's claim. I change when he answers the question, or when the section I sit beside does.
+  sound: nothing plays until a click; the AudioContext is made on that click. Changing step stops the sound. Every sound is made here, from sines and noise.
+  check: "Adopt the Craft, Author the Seam — rich — check.mjs", beside this file, runs the engine in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Where it stops being a groove · Adopt the Craft, Author the Seam</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --coral:#e07a5f; --info:#4a8fff;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  [hidden]{display:none !important}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.1;margin:2px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  p{margin:0 0 10px;max-width:70ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .chart{font-family:var(--mono);font-size:14px;color:var(--fg-1);background:var(--bg-elev-2);border-left:2px solid var(--fg-4);padding:10px 14px;border-radius:2px;margin:6px 0 14px}
+  .chart span{color:var(--fg-3)}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+  button{font-family:var(--sans);font-size:13px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 13px;cursor:pointer}
+  button[aria-pressed="true"]{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+  button:disabled{opacity:.35;cursor:default}
+  button.play{font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;padding:9px 20px}
+  button.play.on{background:var(--fg-2)}
+  canvas.grid{width:100%;height:210px;display:block;background:var(--bg-elev-2);border-radius:2px;margin:10px 0 4px}
+  .now{font-family:var(--sans);font-size:13px;color:var(--fg-3);min-height:1.5em}
+  .now b{color:var(--fg-1);font-weight:500}
+  .ctl{display:grid;grid-template-columns:110px 1fr 170px;gap:10px 14px;align-items:center;margin:12px 0}
+  .ctl label{font-family:var(--sans);font-size:14px;color:var(--fg-2)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:13px;color:var(--fg-1);text-align:right;white-space:nowrap}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:12px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:12px;margin-top:2px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.55}
+  .rules{border-left:2px solid var(--accent-dim);background:var(--bg-elev-2);padding:12px 16px;margin:10px 0 14px;font-family:var(--sans);font-size:14px;line-height:1.6;color:var(--fg-2)}
+  .rules b{color:var(--fg-1);font-weight:500}
+  .rules p{margin:0 0 8px}
+  .trial{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .lamp{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-4);border:1px solid var(--border-soft);border-radius:2px;padding:4px 10px;margin-right:6px}
+  .lamp.on{color:var(--accent);border-color:var(--accent-line)}
+  .result{font-family:var(--sans);font-size:15px;line-height:1.6;color:var(--fg-2);margin-top:12px}
+  .result b{color:var(--fg-1);font-weight:500}
+  table.log{border-collapse:collapse;font-family:var(--mono);font-size:12px;margin-top:10px;width:100%}
+  table.log td,table.log th{padding:3px 8px;border-bottom:1px solid var(--border-soft);text-align:left;color:var(--fg-2);font-weight:400}
+  table.log th{color:var(--fg-3);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+  .record{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px}
+  .record div{background:var(--bg-elev-2);border-radius:2px;padding:12px 14px}
+  .record b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:block;margin-bottom:4px}
+  .record code{font-family:var(--mono);font-size:13px;color:var(--fg-1);white-space:pre-wrap;overflow-wrap:anywhere}
+  .walk{display:flex;gap:10px;margin:16px 0 0}
+  footer{margin-top:24px;font-family:var(--sans);font-size:12px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer svg{flex:none}
+  @media (max-width:640px){ h1{font-size:34px} .ctl{grid-template-columns:80px 1fr} .ctl .v{grid-column:1 / -1;text-align:left} }
+  .strip{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:14px 0 6px}
+  .strip div{background:var(--bg-elev-2);border-radius:2px;padding:8px 6px;text-align:center;font-family:var(--mono);font-size:12px;color:var(--fg-2);position:relative}
+  .strip div i{display:block;font-style:normal;font-size:16px;letter-spacing:.2em;margin-top:4px}
+  .strip div.cut{box-shadow:inset 2px 0 0 var(--accent)}
+  .strip .g{color:var(--accent)} .strip .b{color:var(--coral)}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">made · Web Audio · sketch · proposal · an open question, not the page's claim</div>
+  <h1>Where it stops being a groove</h1>
+  <p class="lead">Loudon, in the Daily Page sit of 2026-10-19: a craft's norms are how art communicates clearly. The voice lives in breaking them. Break too far and the communication fails; break too little and it isn't art. Maybe authorship is the zone between the norm and the breaking point. The page doesn't say this, and this piece doesn't settle it. It lets you play the question.</p>
+
+  <div class="rail" id="rail"></div>
+
+  <section class="panel" data-step="0">
+    <h2>The norm</h2>
+    <p>Medium swing as the craft has it: the skip note near a triplet, 64% of the beat; the ride and hat 22 ms behind the bass; two and four leaning. These are the drummer's numbers from the page's other pieces, played exactly. The craft speaking clearly.</p>
+    <div class="row"><button class="play" id="p0">Play the norm</button></div>
+    <canvas class="grid" id="g0"></canvas>
+  </section>
+
+  <section class="panel" data-step="1" hidden>
+    <h2>Push the swing</h2>
+    <p>One number, pushed. Below 64% it heads back toward the machine's straight eighths. Above, it gets harder, then starts to limp. Somewhere the skip note stops sounding like a pickup into the next beat and starts sounding like a late hit. Listen for where that happens for you.</p>
+    <div class="ctl"><label for="s1">Swing</label><input type="range" id="s1" min="50" max="90" step="1" value="64"><span class="v" id="s1v"></span></div>
+    <div class="row"><button class="play" id="p1">Play</button><button id="n1">Back to the norm</button></div>
+    <canvas class="grid" id="g1"></canvas>
+  </section>
+
+  <section class="panel" data-step="2" hidden>
+    <h2>Drag the kit back</h2>
+    <p>The other number, pushed. The ride and hat slide behind the bass and the feathered kick, from laid back to way back, until they come loose and sound like a second band a beat behind.</p>
+    <div class="ctl"><label for="l2">Lay-back</label><input type="range" id="l2" min="-20" max="90" step="1" value="22"><span class="v" id="l2v"></span></div>
+    <div class="row"><button class="play" id="p2">Play</button><button id="n2">Back to the norm</button></div>
+    <canvas class="grid" id="g2"></canvas>
+  </section>
+
+  <section class="panel" data-step="3" hidden>
+    <h2>Find your edge</h2>
+    <div class="rules">
+      <p><b>No right answer here.</b> What's measured is whether you have an edge, and how wide the zone around it is. Fourteen takes: seven swing amounts, 64, 68, 72, 76, 80, 84 and 88%, each played twice, in a shuffled order. The lay-back stays at 22 ms and two and four lean. For each, say whether it is still a groove or has broken.</p>
+      <p><b>The rule, fixed now.</b> We find the cut that best splits your "still a groove" answers below it from your "broke" answers above it, and count the answers on the wrong side. 0 or 1: <b>a sharp edge</b>, at that cut. 2 or 3: <b>an edge with a zone</b>, the amounts where you went both ways. 4 or more: <b>fog</b>, your answers don't sort by the number. No cut inside the range does best: <b>no edge in this range</b>.</p>
+      <p><b>If you answered by coin flip</b>, you'd find a sharp edge <span id="ch-sharp"></span> of the time, an edge with a zone <span id="ch-zone"></span>, fog <span id="ch-fog"></span> and no edge <span id="ch-none"></span>. A sharp edge is hard to get by chance; fog is what chance looks like.</p>
+      <p><b>Nothing else gives it away.</b> Every take has the same hits, the same weights, the same length and the same loudness; only the swing moves. The grid stays dark.</p>
+    </div>
+    <div class="row"><button class="play" id="start">Start the fourteen</button></div>
+    <div id="tbox" hidden>
+      <div class="trial" id="tn"></div>
+      <div class="row"><button id="hear">Play the take</button></div>
+      <div class="row"><button id="yes" disabled>Still a groove</button><button id="no" disabled>It broke</button></div>
+      <p class="hint">You can play a take again before you answer.</p>
+    </div>
+    <div class="result" id="res"></div>
+  </section>
+
+  <div class="walk"><button id="back">Back</button><button id="next">Next</button></div>
+
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><b>LOUD’N LIVE</b> · Adopt the Craft, Author the Seam · where it stops being a groove · Sketch, 2026-11-03 · proposal · Loudon's open reading</footer>
+</main>
+
+<script id="gr-core">
+// The engine, the same in all three of this face's pieces, byte for byte: the reader, the sounds, the
+// level match and the chance figures. Plain functions, shared by the picture, the sound and the headless
+// check beside the pieces. It grew from rough two of the Daily Page (2026-10-19), "Hand the Groove,
+// Loosened": the same chart, the same ride pattern, the same drummer's numbers.
+const GR = (() => {
+  const SR = 44100, BPM = 96, T = 60 / BPM, BEATS = 8, LOOP = BEATS * T;   // two bars of 4/4, 5 seconds
+  const BASS = [50, 48, 45, 41, 43, 45, 47, 49];                           // | Dm7 D C A F | G7 G A B C# |
+  // Who reads the chart. swing: where the skip note lands, as a share of the beat. lay: how far the ride
+  // and hat sit behind the grid, in ms (the bass and the feathered kick stay on it). accent: lean on 2
+  // and 4. feel: the drummer's leftovers, hits wandering in time and weight, as rough two had them; its
+  // ghost notes are left out, so the drummer plays only what the chart asks for.
+  const DRUMMER = { swing: 0.64, lay: 22, accent: true, feel: true };
+  const MACHINE = { swing: 0.50, lay: 0, accent: false, feel: false };
+  const SEAM = { swing: 0.64, lay: 22, accent: true, feel: false };
+  const FEEL = { time: 0.007, weight: 0.15 };
+  function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  // The reader: the chart and one reading of it -> every hit of the two bars. at = seconds from the loop's start.
+  //   t(skip) = t(beat) + s·T + L        t(hit) = t(grid) + L
+  function read(P, seed) {
+    const r = rng(seed || 1), L = P.lay / 1000, hits = [];
+    const wander = () => P.feel ? (r() + r() - 1) * FEEL.time : 0;          // triangular, within ±7 ms
+    const weight = () => P.feel ? 1 - FEEL.weight + r() * 2 * FEEL.weight : 1; // within ±15%
+    for (let i = 0; i < BEATS; i++) {
+      const g = i * T, back = i % 2 === 1;
+      hits.push({ lane: 'ride', beat: i, grid: g, at: g + L + wander(), v: P.accent && back ? 0.8 : 0.55, w: weight(), id: i * 4 });
+      if (back) hits.push({ lane: 'ride', beat: i, grid: g + 0.5 * T, at: g + P.swing * T + L + wander(), v: 0.38, w: weight(), id: i * 4 + 1, skip: true });
+      if (back) hits.push({ lane: 'hat', beat: i, grid: g, at: g + L + wander(), v: P.accent ? 0.7 : 0.5, w: weight(), id: i * 4 + 2 });
+      hits.push({ lane: 'kick', beat: i, grid: g, at: g, v: 0.28, w: 1, id: i * 4 + 3 });
+      hits.push({ lane: 'bass', beat: i, grid: g, at: g, v: 0.8, w: 1, midi: BASS[i] });
+    }
+    // The wander in weight is centred lane by lane: its mean square is 1, so the drummer is no louder
+    // than the reading without it, only less even.
+    for (const lane of ['ride', 'hat']) {
+      const hs = hits.filter((h) => h.lane === lane), ms = hs.reduce((a, h) => a + h.w * h.w, 0) / hs.length;
+      hs.forEach((h) => { h.w /= Math.sqrt(ms); });
+    }
+    return hits;
+  }
+  // ── the sounds, made here from sines and noise ──
+  // Each hit writes into a stem. wrap: a looping two bars, each tail coming round to the start. Otherwise
+  // the take starts `pre` seconds before the grid and runs `tail` seconds past it, so nothing is cut.
+  function put(x, start, len, f, o) {
+    const n = x.length;
+    for (let i = 0; i < len; i++) { let j = start + i; if (o.wrap) j = ((j % n) + n) % n; else if (j < 0 || j >= n) continue; x[j] += f(i / SR); }
+  }
+  // Noise is seeded by the hit's place in the bar, not by the order of drawing, so the same hit has the
+  // same grain in every reading: two takes differ only in where and how hard.
+  function noise(seed) { const r = rng(seed); let p1 = 0, p2 = 0; return () => { const w = r() * 2 - 1, d1 = w - p1, d2 = d1 - p2; p1 = w; p2 = d1; return d2; }; }
+  const RIDE = [[2980, 1], [4170, 0.7], [5320, 0.55], [6650, 0.4], [7910, 0.3]];
+  function ride(x, at, a, id, o) {
+    // The partials turn as phasors, one small rotation a sample, rather than a sine call each.
+    const nz = noise(7000 + id), K = RIDE.length, re = new Float64Array(K), im = new Float64Array(K), c = RIDE.map((p) => Math.cos(2 * Math.PI * p[0] / SR)), sn = RIDE.map((p) => Math.sin(2 * Math.PI * p[0] / SR));
+    for (let k = 0; k < K; k++) { re[k] = 1; im[k] = 0; }
+    let e1 = 1, e2 = 1, e3 = 1; const k1 = Math.exp(-1 / (0.5 * SR)), k2 = Math.exp(-1 / (0.35 * SR)), k3 = Math.exp(-1 / (0.01 * SR));
+    put(x, at, Math.round(1.0 * SR), (t) => {
+      let s = 0; for (let k = 0; k < K; k++) { const r = re[k] * c[k] - im[k] * sn[k]; im[k] = re[k] * sn[k] + im[k] * c[k]; re[k] = r; s += RIDE[k][1] * im[k]; }
+      const env = Math.min(1, t / 0.0005), y = a * env * (0.05 * s * e1 + 0.22 * nz() * e2 + 0.35 * nz() * e3);
+      e1 *= k1; e2 *= k2; e3 *= k3; return y;                     // e^(−t/0.5), e^(−t/0.35), e^(−t/0.01), one multiply a sample
+    }, o);
+  }
+  function hat(x, at, a, id, o) { const nz = noise(9000 + id); put(x, at, Math.round(0.12 * SR), (t) => a * 0.5 * nz() * Math.min(1, t / 0.0005) * Math.exp(-t / 0.03), o); }
+  function kick(x, at, a, o) { let ph = 0; put(x, at, Math.round(0.5 * SR), (t) => { ph += 2 * Math.PI * (48 + 62 * Math.exp(-t / 0.02)) / SR; return a * 0.9 * Math.sin(ph) * Math.min(1, t / 0.002) * Math.exp(-t / 0.18); }, o); }
+  function bass(x, at, midi, a, o) {
+    const f = 440 * Math.pow(2, (midi - 69) / 12), L = T * 0.95, c = Math.cos(2 * Math.PI * f / SR), sn = Math.sin(2 * Math.PI * f / SR); let re = 1, im = 0;
+    put(x, at, Math.round(L * SR), (t) => { const r = re * c - im * sn; im = re * sn + im * c; re = r; const env = Math.min(1, t / 0.01, (L - t) / 0.02) * Math.exp(-t / 0.6);
+      return a * 0.5 * env * (im + 0.45 * 2 * im * re + 0.2 * im * (3 - 4 * im * im)); }, o);   // sin φ, sin 2φ = 2 sin φ cos φ, sin 3φ = sin φ (3 − 4 sin² φ)
+  }
+  // render: hits -> { drums, bass } stems, each a Float64Array.
+  function render(hits, o) {
+    o = o || { wrap: true };
+    const pre = o.wrap ? 0 : (o.pre || 0.06), n = Math.round((o.wrap ? LOOP : pre + LOOP + (o.tail || 1.0)) * SR);
+    const drums = new Float64Array(n), low = new Float64Array(n);
+    for (const h of hits) {
+      const at = Math.round((h.at + pre) * SR), a = h.v * h.w;
+      if (h.lane === 'ride') ride(drums, at, a, h.id, o);
+      else if (h.lane === 'hat') hat(drums, at, a, h.id, o);
+      else if (h.lane === 'kick') kick(drums, at, a, o);
+      else bass(low, at, h.midi, a, o);
+    }
+    // A take played once ends on a 150 ms fade, the same in every take, so no tail is cut off with a click.
+    if (!o.wrap) { const f = Math.round(0.15 * SR); for (let i = 0; i < f; i++) { const g = i / f; drums[n - 1 - i] *= g; low[n - 1 - i] *= g; } }
+    return { drums, bass: low, pre, n };
+  }
+  function rms(x, a = 0, b = x.length) { let s = 0; for (let i = a; i < b; i++) s += x[i] * x[i]; return Math.sqrt(s / Math.max(1, b - a)); }
+  // The level match. Every take's drums are set to one RMS over the whole take, and the bass, the same
+  // in every take, to another: so louder never tells you which is which.
+  const DRUMS_RMS = 0.06, BASS_RMS = 0.05;
+  function mix(st) {
+    const kd = DRUMS_RMS / Math.max(rms(st.drums), 1e-12), kb = BASS_RMS / Math.max(rms(st.bass), 1e-12), y = new Float32Array(st.n);
+    for (let i = 0; i < st.n; i++) y[i] = st.drums[i] * kd + st.bass[i] * kb;
+    return y;
+  }
+  function take(P, seed, o) { return mix(render(read(P, seed), o)); }
+  // Chance: the probability of k or more right out of n, each right with probability p.
+  function atLeast(k, n, p) { let s = 0; for (let j = k; j <= n; j++) { let c = 1; for (let i = 0; i < j; i++) c = c * (n - i) / (i + 1); s += c * Math.pow(p, j) * Math.pow(1 - p, n - j); } return s; }
+  // The edge finder for the breaking-point probe. answers: [{ level index, broke: bool }]. For every cut
+  // between levels it counts the answers on the wrong side ("groove" at or above it, "broke" below it);
+  // the fewest wrong is the fit. Cut 0: every level broke; cut = levels: none did.
+  function edge(answers, levels) {
+    const errs = [];
+    for (let c = 0; c <= levels; c++) errs.push(answers.reduce((e, a) => e + ((a.level >= c) !== a.broke ? 1 : 0), 0));
+    const best = Math.min(...errs), cuts = errs.map((e, c) => e === best ? c : -1).filter((c) => c >= 0);
+    // A fit whose only best cuts are the ends finds no edge inside the range.
+    const inside = cuts.some((c) => c > 0 && c < levels);
+    const kind = !inside ? (best <= 3 ? 'none' : 'fog') : best <= 1 ? 'sharp' : best <= 3 ? 'zone' : 'fog';
+    return { errs, best, cuts, kind };
+  }
+  // How often a coin-flip answerer lands in each kind: every one of the 2^n answer sets, counted.
+  function edgeChance(levels, reps) {
+    const n = levels * reps, count = { none: 0, sharp: 0, zone: 0, fog: 0 };
+    for (let m = 0; m < (1 << n); m++) { const ans = []; for (let k = 0; k < n; k++) ans.push({ level: k % levels, broke: !!(m & (1 << k)) }); count[edge(ans, levels).kind]++; }
+    for (const k in count) count[k] /= (1 << n);
+    return count;
+  }
+  return { SR, BPM, T, BEATS, LOOP, BASS, DRUMMER, MACHINE, SEAM, FEEL, rng, read, render, rms, mix, take, atLeast, edge, edgeChance, DRUMS_RMS, BASS_RMS };
+})();
+</script>
+<script id="gr-grid">
+// The grid: two bars, a solid line on each beat, a dashed line where a straight skip note would land
+// (half the beat) and a dotted one where a triplet's would (two thirds). Each layer is one reading's hits.
+const GRID = (() => {
+  const LANES = ['ride', 'hat', 'kick', 'bass'];
+  function css(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+  function draw(cv, layers, head) {
+    const dpr = window.devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight, g = cv.getContext('2d');
+    if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+    g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+    const L = 46, R = 8, top = 10, bot = 20, laneH = (H - top - bot) / LANES.length, bw = (W - L - R) / GR.BEATS;
+    g.font = '10px JetBrains Mono, monospace'; g.textBaseline = 'middle';
+    LANES.forEach((n, l) => { g.fillStyle = css('--fg-3'); g.fillText(n, 6, top + laneH * (l + 0.5)); });
+    for (let b = 0; b <= GR.BEATS; b++) {
+      const x = L + b * bw;
+      g.setLineDash([]); g.strokeStyle = b % 4 === 0 ? css('--fg-3') : css('--border'); g.lineWidth = b % 4 === 0 ? 1.2 : 0.8;
+      g.beginPath(); g.moveTo(x, top); g.lineTo(x, H - bot); g.stroke();
+      if (b < GR.BEATS) {
+        g.strokeStyle = css('--fg-4'); g.setLineDash([2, 4]); g.beginPath(); g.moveTo(x + bw / 2, top); g.lineTo(x + bw / 2, H - bot); g.stroke();
+        g.setLineDash([1, 6]); g.beginPath(); g.moveTo(x + bw * 2 / 3, top); g.lineTo(x + bw * 2 / 3, H - bot); g.stroke();
+        g.setLineDash([]); g.fillStyle = css('--fg-4'); g.fillText(String((b % 4) + 1), x + 3, H - 9);
+      }
+    }
+    const px = (t) => { let u = t / GR.LOOP; u -= Math.floor(u); return L + u * GR.BEATS * bw; };
+    for (const ly of layers) {
+      for (const h of ly.hits) {
+        const l = LANES.indexOf(h.lane); if (l < 0) continue;
+        const grey = h.lane === 'bass' || h.lane === 'kick';
+        if (ly.drumsOnly && grey) continue;
+        const r = 2.5 + h.v * h.w * 5, x = px(h.at), y = top + laneH * (l + 0.5), col = grey ? css('--fg-3') : css(ly.color);
+        g.globalAlpha = grey ? 0.55 : 1; g.beginPath(); g.arc(x, y, ly.ring ? r + 2 : r, 0, Math.PI * 2);
+        if (ly.ring) { g.lineWidth = 1.6; g.strokeStyle = col; g.stroke(); } else { g.fillStyle = col; g.fill(); }
+        g.globalAlpha = 1;
+      }
+    }
+    if (head != null) { const x = L + head * GR.BEATS * bw; g.strokeStyle = css('--fg-1'); g.lineWidth = 1; g.beginPath(); g.moveTo(x, top); g.lineTo(x, H - bot); g.stroke(); }
+  }
+  return { draw, LANES };
+})();
+</script>
+<script id="gr-ui">
+// The scaffolding every piece here shares: sound only on a click, one buffer at a time, the walk, the sigil.
+const UI = (() => {
+  const $ = (id) => document.getElementById(id);
+  let ctx = null, src = null, startedAt = 0, len = 0, looping = false;
+  function audio() { if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state === 'suspended') ctx.resume(); return ctx; }
+  // Play a mono take. loop: round and round; keep: a new loop picks up where the old one was, so a slider
+  // moves the groove without restarting it. ended: called when a take played once runs out.
+  function play(y, o) {
+    o = o || {}; const c = audio();
+    let off = 0; if (o.keep && src && looping && o.loop) off = (c.currentTime - startedAt) % (y.length / GR.SR);
+    stop();
+    const b = c.createBuffer(1, y.length, GR.SR); b.getChannelData(0).set(y);
+    const s = c.createBufferSource(); s.buffer = b; s.loop = !!o.loop; s.connect(c.destination);
+    const at = c.currentTime + 0.03; s.start(at, Math.max(0, off)); startedAt = at - off; len = y.length / GR.SR; looping = !!o.loop;
+    s.onended = () => { if (src === s) { src = null; if (o.ended) o.ended(); } };
+    src = s;
+  }
+  function stop() { if (src) { const s = src; src = null; s.onended = null; try { s.stop(); } catch (e) { /* already stopped */ } } }
+  function playing() { return !!src; }
+  // Where the playhead is: seconds into the current buffer.
+  function at() { if (!src || !ctx) return null; const t = ctx.currentTime - startedAt; return t < 0 ? 0 : looping ? t % len : Math.min(t, len); }
+  function sigil(el) { const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); }
+    el.innerHTML = '<polyline points="' + pts.join(' ') + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; }
+  // The walk: one step shows at a time; changing step stops the sound; the rail stays open.
+  function walk(names, onStep) {
+    let cur = 0; const rail = $('rail');
+    names.forEach((n, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + n; b.addEventListener('click', () => go(i)); rail.appendChild(b); });
+    function go(i) {
+      stop(); cur = Math.max(0, Math.min(names.length - 1, i));
+      Array.from(rail.children).forEach((b, k) => b.setAttribute('aria-current', k === cur ? 'step' : 'false'));
+      document.querySelectorAll('[data-step]').forEach((el) => { el.hidden = +el.dataset.step !== cur; });
+      $('back').disabled = cur === 0; $('next').disabled = cur === names.length - 1;
+      onStep(cur);
+    }
+    $('back').addEventListener('click', () => go(cur - 1)); $('next').addEventListener('click', () => go(cur + 1));
+    return { go, get cur() { return cur; } };
+  }
+  function shuffle(a, r) { r = r || Math.random; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  function swingWord(p) { return p < 48 ? 'inverted' : p <= 52 ? 'straight' : p <= 60 ? 'light' : p <= 70 ? 'triplet feel' : p <= 78 ? 'hard' : 'limping'; }
+  function layWord(ms) { return ms < -5 ? 'pushing' : ms <= 5 ? 'on the grid' : ms <= 30 ? 'laid back' : ms <= 50 ? 'way back' : 'coming loose'; }
+  function lay(ms) { return ms < 0 ? 'pushing ' + (-ms) + ' ms ahead' : ms === 0 ? 'on the grid' : 'laid back ' + ms + ' ms'; }
+  return { $, audio, play, stop, playing, at, sigil, walk, shuffle, swingWord, layWord, lay };
+})();
+</script>
+<script>
+(() => {
+  const $ = UI.$;
+  const seed0 = 20261019, LEVELS = [64, 68, 72, 76, 80, 84, 88];
+  const norm = (s, l) => ({ swing: s, lay: l, accent: true, feel: false });
+  const loopTake = (P) => GR.mix(GR.render(GR.read(P, seed0), { wrap: true }));
+  let hits = [], playBtn = null, pend = false, P = norm(0.64, 22);
+  function setPlay(b, on) { b.textContent = on ? 'Stop' : (b.dataset.label || 'Play'); b.classList.toggle('on', on); }
+  function use(Q) { P = Q; hits = GR.read(P, seed0);
+    if (UI.playing() && playBtn && !pend) { pend = true; setTimeout(() => { pend = false; if (UI.playing()) UI.play(loopTake(P), { loop: true, keep: true }); }, 40); } }
+  function toggle(btn) { if (UI.playing()) { UI.stop(); setPlay(btn, false); playBtn = null; return; } UI.play(loopTake(P), { loop: true }); playBtn = btn; setPlay(btn, true); }
+  $('p0').dataset.label = 'Play the norm';
+  $('p0').addEventListener('click', () => { use(norm(0.64, 22)); toggle($('p0')); });
+  function r1() { const s = +$('s1').value; $('s1v').textContent = s + '% · ' + UI.swingWord(s) + (s === 64 ? ' · the norm' : s === 50 ? ' · the machine' : ''); use(norm(s / 100, 22)); }
+  function r2() { const l = +$('l2').value; $('l2v').textContent = l + ' ms · ' + UI.layWord(l) + (l === 22 ? ' · the norm' : ''); use(norm(0.64, l)); }
+  $('s1').addEventListener('input', r1); $('l2').addEventListener('input', r2);
+  $('n1').addEventListener('click', () => { $('s1').value = 64; r1(); }); $('n2').addEventListener('click', () => { $('l2').value = 22; r2(); });
+  $('p1').addEventListener('click', () => { r1(); toggle($('p1')); }); $('p2').addEventListener('click', () => { r2(); toggle($('p2')); });
+
+  // ── the probe ──
+  const ch = GR.edgeChance(LEVELS.length, 2), pc = (p) => (p * 100 < 1 ? (p * 100).toFixed(1) : Math.round(p * 100)) + '%';
+  ['sharp', 'zone', 'fog', 'none'].forEach((k) => { $('ch-' + k).textContent = pc(ch[k]); });
+  const PRE = 0.06, TAIL = 0.7;
+  let takes = [], k = 0, heard = false;
+  function startRun() {
+    takes = UI.shuffle(LEVELS.flatMap((s, i) => [{ level: i, swing: s }, { level: i, swing: s }]));
+    k = 0; $('res').innerHTML = ''; $('tbox').hidden = false; $('start').textContent = 'Start again'; showT();
+  }
+  function showT() { heard = false; $('tn').textContent = 'take ' + (k + 1) + ' of ' + takes.length; $('yes').disabled = $('no').disabled = true; }
+  $('hear').addEventListener('click', () => {
+    const y = GR.take(norm(takes[k].swing / 100, 22), seed0, { wrap: false, pre: PRE, tail: TAIL });
+    UI.play(y, { loop: false, ended: () => { heard = true; $('yes').disabled = $('no').disabled = false; } });
+  });
+  function answer(broke) { if (!heard) return; UI.stop(); takes[k].broke = broke; k++; if (k < takes.length) showT(); else finish(); }
+  $('yes').addEventListener('click', () => answer(false)); $('no').addEventListener('click', () => answer(true));
+  function finish() {
+    $('tbox').hidden = true;
+    const e = GR.edge(takes, LEVELS.length), inside = e.cuts.filter((c) => c > 0 && c < LEVELS.length);
+    const lo = inside.length ? Math.min(...inside) : null, hi = inside.length ? Math.max(...inside) : null;
+    const cells = LEVELS.map((s, i) => { const a = takes.filter((t) => t.level === i).map((t) => t.broke ? '<span class="b">✕</span>' : '<span class="g">●</span>').join(' ');
+      return '<div class="' + (i === lo ? 'cut' : '') + '">' + s + '%<i>' + a + '</i></div>'; }).join('');
+    const between = (c) => LEVELS[c - 1] + ' and ' + LEVELS[c] + '%';
+    let say;
+    if (e.kind === 'sharp') say = '<b>A sharp edge</b>, between ' + between(lo) + (hi !== lo ? ' (the fit is as good anywhere up to ' + between(hi) + ')' : '') + ', with ' + e.best + ' answer' + (e.best === 1 ? '' : 's') + ' on the wrong side. A coin gets this ' + pc(ch.sharp) + ' of the time.';
+    else if (e.kind === 'zone') say = '<b>An edge with a zone</b>: the best cut is between ' + between(lo) + (hi !== lo ? ', or as well anywhere up to ' + between(hi) : '') + ', with ' + e.best + ' answers on the wrong side. Those are the amounts where you went both ways.';
+    else if (e.kind === 'fog') say = '<b>Fog</b>: ' + e.best + ' answers sit on the wrong side of the best cut. Your answers don’t sort by the swing, which is what a coin’s answers look like.';
+    else say = '<b>No edge in this range</b>: ' + (takes.every((t) => !t.broke) ? 'every take was still a groove to you. Your edge, if there is one, is past 88%.' : takes.every((t) => t.broke) ? 'every take broke for you, even 64%. Your norm may sit lower.' : 'the best fit puts every amount on one side, with ' + e.best + ' off.');
+    $('res').innerHTML = '<div class="strip">' + cells + '</div><p class="hint">● still a groove · ✕ it broke · the amber line is the best cut</p><p>' + say + '</p>' +
+      '<p class="hint">Whether the zone between the norm and the breaking point is where an author works is Loudon’s question, and his to answer. The page’s text stays as it is until he does.</p>';
+  }
+  $('start').addEventListener('click', () => { UI.stop(); startRun(); });
+
+  const grids = ['g0', 'g1', 'g2'];
+  function frame() { const s = walk.cur; if (s < 3) { const t = UI.at(); GRID.draw($(grids[s]), [{ hits, color: '--accent' }], t == null ? null : t / GR.LOOP); } requestAnimationFrame(frame); }
+  const walk = UI.walk(['the norm', 'push the swing', 'drag the kit back', 'find your edge'], (s) => {
+    ['p0', 'p1', 'p2'].forEach((id) => setPlay($(id), false)); playBtn = null;
+    if (s === 0) use(norm(0.64, 22)); if (s === 1) r1(); if (s === 2) r2();
+  });
+  UI.sigil($('sigil')); walk.go(0); requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
