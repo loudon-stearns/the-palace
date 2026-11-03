@@ -174,7 +174,7 @@ const STEPS = [
   { n: 2, name: 'backwards', says: 'Sixteen steps. Write the first eight; the second eight are made from them. Repeat slides them along; backwards plays them in reverse, a mirror in time; half-turn spins them about the middle. On one line, backwards and half-turn make the same loop every time: a line has no second direction to turn through.' },
   { n: 3, name: 'two voices', says: 'Add a second voice, a high drum above the low one, and the strip gets a second direction. Now a half-turn swaps the voices as it reverses, and a glide slides and swaps. A strip like this can repeat in exactly seven ways, the frieze groups: the line’s version of the seventeen. Try kick-snare-kick-snare.' },
   { n: 4, name: 'the loop as a clock', says: 'Wrap the loop into a circle and a turn of the circle is a slide in time: a quarter-turn of a 16-step loop is a slide of 4 steps. Pick a turn; the loop is laid from copies of its opening cell, and it is k-fold when turning it by 1/k lands every hit on a hit.' },
-  { n: 5, name: 'the test · five-fold', says: 'The section says a drum pattern can’t both tile the timeline without a gap and have 5-fold rotational symmetry. Try it in a 16-step bar, then in a loop of 15 or 20 steps.' },
+  { n: 5, name: 'the test · five-fold', says: 'The section says a drum pattern can’t both tile the timeline without a gap and have 5-fold rotational symmetry. Try it on a 16-step grid, then on a loop of 15 or 20 steps.' },
 ];
 const S = { step: 1, fill2: 'backwards', fill3: 'half-turn', n4: 16, k4: 4, n5: 16, len5: 3 };
 const row = (n, hits) => Array.from({ length: n }, (_, i) => (hits.includes(i) ? 1 : 0));
@@ -302,7 +302,7 @@ function readout() {
     if (S.step === 4) verdict = lands ? `A 1/${k} turn is a slide of ${n / k} steps, so ${k} copies of the opening cell fill the loop and every hit lands on a hit.` : `A 1/${k} turn of ${n} steps falls between steps.`;
     if (S.step === 5) verdict = lands
       ? `Five copies of a ${n / 5}-step cell fill the ${n}-step loop with no gap, and a fifth of a turn lands every hit on a hit: five-fold, gapless, and it plays. In time the limit is arithmetic, not geometry: a k-fold turn fits any loop whose length k divides, so every k fits some loop.`
-      : (() => { const c = cellOf().map((r) => r.slice(0, 16)), g = layCells(c, 5, 3).gap, o = layCells(c, 5, 4).overlap; return `In 16 steps a fifth of the loop is 3.2 steps, between two steps. Cells of 3 leave a ${g}-step gap; cells of 4 overlap by ${o}. In a 16-step bar the section is right. Now try 15 or 20.`; })();
+      : (() => { const c = cellOf().map((r) => r.slice(0, 16)), g = layCells(c, 5, 3).gap, o = layCells(c, 5, 4).overlap; return `In 16 steps a fifth of the loop is 3.2 steps, between two steps. Cells of 3 leave a ${g}-step gap; cells of 4 overlap by ${o}. On a 16-step grid the section is right; off the grid, five quintuplets in a 4/4 bar are five-fold too. Now try 15 or 20.`; })();
   }
   $('read').innerHTML = html; $('verdict').textContent = verdict;
 }

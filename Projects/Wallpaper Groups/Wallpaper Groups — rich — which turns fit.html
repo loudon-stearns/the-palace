@@ -454,7 +454,7 @@ function drawBins() {
   else $('read').innerHTML = `<span>groups <b>${prof.length}</b></span><span>by the section's kinds, counted <b>${counts.join(' · ')}</b></span><span>the section's list <b>4 · 5 · 3 · 5</b></span>`;
   const turnCounts = [1, 2, 3, 4, 6].map((k) => prof.filter((x) => x.p.turn === k).length);
   const kindCounts = Object.keys(TEXT).map((k) => prof.filter((x) => textBin(x.p) === k).length);
-  $('verdict').textContent = `Seventeen holds. The section's split does not: counted by its own four kinds the groups go ${kindCounts.join(', ')}, not 4, 5, 3, 5. Only p1 has translation alone; reflection without rotation is pm, pg and cm; rotation alone is p2, p3, p4 and p6. The section's numbers are the split by highest turn, ${turnCounts.slice(0, 3).join(', ')}, then ${turnCounts[3]} + ${turnCounts[4]}, under other names.`;
+  $('verdict').textContent = `Seventeen holds. The section's split does not: counted by its own four kinds the groups go ${kindCounts.join(', ')}, not 4, 5, 3, 5. Only p1 has translation alone; reflection without rotation is pm, pg and cm; rotation alone is p2, p3, p4 and p6. The section's numbers are the split by highest turn, ${turnCounts.join(', ')}, with two bins merged under other names: quarter and sixth (${turnCounts[3]} + ${turnCounts[4]}), or third and sixth, the hexagonal family (${turnCounts[2]} + ${turnCounts[4]}). The count alone can't tell which.`;
 }
 function draw() {
   for (const id of ['ang', 'tn']) { const v = $(id + '-val'); if (v) v.textContent = id === 'ang' ? `${S.ang}°` : `${S.tn} (${(360 / S.tn).toFixed(S.tn === 7 || S.tn === 11 ? 1 : 0)}°)`; }

@@ -47,7 +47,7 @@ const kinds = ['translation only', 'translation and reflection', 'translation an
 const byKind = kinds.map((k) => G.GROUPS.filter((g) => G.textBin(G.profile(g)) === k).length);
 const members = kinds.map((k) => G.GROUPS.filter((g) => G.textBin(G.profile(g)) === k).map((g) => g.id).join(' '));
 say(JSON.stringify(byKind) === '[1,3,4,9]' && byKind.reduce((a, b) => a + b) === 17, `by the section's four kinds: ${byKind.join(', ')}`, members.join(' | '));
-finding(`the section lists 4, 5, 3, 5; its own kinds count ${byKind.join(', ')}; its numbers are the split by highest turn ${byTurn.slice(0, 3).join(', ')}, then ${byTurn[3]} + ${byTurn[4]}`);
+finding(`the section lists 4, 5, 3, 5; its own kinds count ${byKind.join(', ')}; its numbers are the split by highest turn ${byTurn.join(', ')} with two bins merged, quarter + sixth or third + sixth, which the count can't tell apart`);
 // the kaleidoscope sentence: turn the tile, which copies turn with it
 const refl = G.GROUPS.filter((g) => G.cartOps(g).some((o) => G.det(o.M) < 0));
 const half = refl.every((g) => { const ops = G.cartOps(g); return 2 * ops.filter((o) => G.det(o.M) < 0).length === ops.length; });
@@ -100,7 +100,7 @@ const c16 = [row(16, [0, 1]), row(16, [2])], g3 = R.layCells(c16, 5, 3), o4 = R.
 say(g3.gap === 1 && !R.kfold(g3.P, 5) && o4.overlap === 4 && !R.kfold(o4.P, 5), `16 steps, five cells: of 3 leave a ${g3.gap}-step gap, of 4 overlap by ${o4.overlap}; neither is five-fold`);
 const c20 = [row(20, [0, 1, 3]), row(20, [2])], L20 = R.layCells(c20, 5, 4), c15 = [row(15, [0, 1]), row(15, [2])], L15 = R.layCells(c15, 5, 3);
 say(L20.gap === 0 && L20.overlap === 0 && R.kfold(L20.P, 5) && L15.gap === 0 && L15.overlap === 0 && R.kfold(L15.P, 5), '20 steps (cells of 4) and 15 steps (cells of 3): no gap, no overlap, five-fold');
-finding('"a drum pattern cannot both tile the timeline perfectly and exhibit 5-fold rotational symmetry" holds in a 16-step bar and fails in 15 or 20 steps');
+finding('"a drum pattern cannot both tile the timeline perfectly and exhibit 5-fold rotational symmetry" holds on a 16-step grid and fails on 15 or 20 steps (and off the grid: quintuplets)');
 // the World Music section's Ewe bell, as listed: accents at 1, 3, 5, 6, 8, 10, 12 of 12
 const bellHits = [1, 3, 5, 6, 8, 10, 12].map((v) => v - 1), bell = [row(12, bellHits)];
 const euclid = (k, n) => [...Array(k)].map((_, j) => Math.floor((j * n) / k));
