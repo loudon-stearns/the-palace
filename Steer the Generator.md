@@ -77,6 +77,6 @@ The wins are the mirror image: the style **locked** via generate-volume-and-sele
 
 ## Where it lives
 
-This is the [[FOUR PILLARS]] inversion — *make first, learn through friction* — applied to generative tooling, and it pairs with [[Cooperation Yields Agency]]: the human supplies intuition and the verdict, the model supplies volume, and steering is the seam where the two become an agency neither has alone. Operationally it is the production discipline behind [[The Shop]]'s generative specialists. Worked examples and the full negative-space evidence: BLUELINE's `proofs/m3-warped-noise/` and `proofs/style-lock/`.
+This is the [[FOUR PILLARS]] inversion — *make first, learn through friction* — applied to generative tooling, and it pairs with [[Cooperation Yields Agency]]: the human supplies intuition and the verdict, the model supplies volume, and steering is the seam where the two become an agency neither has alone. Operationally it is the production discipline behind [[The Shop]]'s generative specialists. Worked examples and the full negative-space evidence: BLUELINE's `Projects/BLUELINE/proofs/m3-warped-noise/` and `Projects/BLUELINE/proofs/style-lock/`.
 
 <!-- CLAUDE → LOUDON: deposited as a sprout from the 2026-06 BLUELINE style-lock/character session. The Taste Breeder is named here as an exemplar of move #2 — if it earns its own entry (a built tool with a Job Contract), a future Weave can promote it to a Shop specialist and link it back here. -->
