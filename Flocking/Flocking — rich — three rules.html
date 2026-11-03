@@ -1,0 +1,443 @@
+<!doctype html>
+<!--
+title: Flocking — rich — three rules
+born: 2026-11-03
+links:
+  - target: "[[Flocking]]"
+    type: connects-to
+    label: rich-face-piece
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: walks-up-to-its-test
+forward_vector: "I am the page's three rules taken one at a time and then taken away: the bundle's own seeded flock, line for line, walked up from separation, alignment and cohesion each alone, to the three summed, to the test of what the section says each rule prevents. I keep the measurements beside the flock that makes them, so anyone can re-run a point. I change only when the section I serve does."
+status: "proposal, Enrichment's proposal round 2026-11; not yet seen by Loudon"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Three rules</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --teal:#3fd6c0; --warn:#ff9b4a; --ok:#7fd49a; --indigo:#6366f1;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 18px; max-width: 1180px; }
+  .kicker, .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); }
+  .kicker { margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 16px; border-bottom: 1px solid var(--soft); }
+  .rail button { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: none; color: var(--fg3); background: none; border: 0; border-bottom: 2px solid transparent; border-radius: 0; padding: 8px 12px 7px; cursor: pointer; transition: color 220ms var(--ease); }
+  .rail button:hover { color: var(--fg1); }
+  .rail button[aria-current=step] { color: var(--amber); border-bottom-color: var(--amber); }
+  .rail button .n { color: var(--fg4); margin-right: 6px; }
+  .rail button[aria-current=step] .n { color: var(--amber); }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 300; color: var(--fg1); margin: 4px 0 8px; }
+  .say { font-size: 14px; line-height: 1.65; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 12px 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .bar .hint { flex: 1 1 260px; }
+  canvas { display: block; width: 100%; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button[aria-pressed=true] { color: var(--amber); border-color: var(--amberline); }
+  button:disabled { opacity: .4; cursor: default; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { text-transform: none; letter-spacing: .04em; }
+  .ctls { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px 26px; margin-top: 12px; }
+  .ctlrow { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; margin-top: 10px; font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px 22px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--fg3); line-height: 1.5; }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); }
+  .eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .try { font-size: 13.5px; line-height: 1.6; color: var(--fg2); margin: 14px 0 0; max-width: 80ch; }
+  .try .eyebrow { margin-right: 10px; color: var(--amber); }
+  .two { display: grid; grid-template-columns: 1.5fr 1fr; gap: 14px; align-items: start; }
+  @media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin-top: 10px; width: 100%; }
+  table.meas th, table.meas td { text-align: right; padding: 5px 8px; border-bottom: 1px solid var(--soft); }
+  table.meas th:first-child, table.meas td:first-child { text-align: left; }
+  table.meas th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; }
+  table.meas td { color: var(--fg1); }
+  .marks { margin-top: 14px; display: grid; gap: 10px; }
+  .marks div { font-size: 13.5px; line-height: 1.6; }
+  .marks q { font-family: var(--serif); font-size: 16px; font-style: italic; color: var(--fg1); quotes: "“" "”"; }
+  .marks b { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; margin-right: 8px; }
+  .yes { color: var(--ok); } .no { color: var(--warn); } .part { color: var(--amber); }
+  .walk { display: flex; justify-content: space-between; margin-top: 18px; }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot .mark { display: inline-flex; align-items: center; gap: 8px; color: var(--fg3); letter-spacing: .12em; text-transform: none; }
+  .foot .mark i { font-family: var(--serif); color: var(--amber); font-weight: 300; }
+  .g { font-family: Georgia, 'Times New Roman', serif; font-style: italic; }
+
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · sketch · five steps · the bundle's own seeded flock, live · silent</div>
+  <h1 class="title">Take one rule away</h1>
+  <p class="sub">The section says each of the three rules holds the flock against one way of failing: without separation it collapses, without alignment it mills, without cohesion it scatters. Here the rules come one at a time, then summed, and then you take one away and see how the flock fails. Every bird runs the bundle's one shared model, the same code the three lenses on this page run, to the last digit.</p>
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <section class="step" data-title="Separation">
+    <div class="eyebrow">Step 1 of 5 · one rule alone</div>
+    <h3>Separation: steer away from whoever is too close</h3>
+    <p class="say">Twelve birds and only the first rule. Each bird looks at everyone inside its reach, the dashed ring around the amber bird, and steers away from them, the nearest hardest. Drop them in a heap and watch them push apart until nobody is inside anyone's ring. Then they stop pushing and just fly on.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">twelve birds · separation only · the ring is the amber bird's reach, 50 px</span><button id="heap1">drop them in a heap</button></div>
+      <canvas id="c1"></canvas>
+      <div class="read"><div>nearest neighbour, on average<br><b id="r1a">–</b></div><div>pairs inside each other's reach<br><b id="r1b">–</b></div></div>
+      <div class="eqs">
+        <div class="eq">s<sub>i</sub> = − Σ<sub>j near i</sub> (x<sub>j</sub> − x<sub>i</sub>) ⁄ |x<sub>j</sub> − x<sub>i</sub>|²</div>
+        <div class="words">(the way bird i wants to go to get clear) = away from every neighbour in reach, each one counted more the closer it is (one over the distance).</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Drop them in a heap a few times. Within a second the nearest-neighbour number climbs past the ring's size, and the pairs inside each other's reach fall to none or nearly none: separation sets the spacing at its reach.</p>
+  </section>
+
+  <section class="step" data-title="Alignment" hidden>
+    <div class="eyebrow">Step 2 of 5 · one rule alone</div>
+    <h3>Alignment: steer toward the way your neighbours fly</h3>
+    <p class="say">Now only the second rule. Each bird turns, a small nudge a frame, toward the average heading of the birds in its reach. On the right every heading is a dot on a circle, and the amber arrow is their average. Scattered dots mean everyone flies their own way; one clump means one direction. Nobody tells the birds where to go, and still they agree.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">twelve birds · alignment only</span><button id="deal2">deal again</button></div>
+      <div class="two"><canvas id="c2"></canvas><canvas id="c2r"></canvas></div>
+      <div class="read"><div>how much they agree, R<br><b id="r2a">–</b></div><div>seconds since the deal<br><b id="r2b">–</b></div></div>
+      <div class="eqs">
+        <div class="eq">a<sub>i</sub> = (1 ⁄ n<sub>i</sub>) Σ<sub>j near i</sub> v<sub>j</sub></div>
+        <div class="words">(the way bird i wants to go to fit in) = the average velocity of the n<sub>i</sub> birds in its reach.</div>
+        <div class="eq">R = | Σ<sub>i</sub> v<sub>i</sub> ⁄ |v<sub>i</sub>| | ⁄ N</div>
+        <div class="words">(how much the flock agrees) = add every bird's heading as an arrow of length one, and take the sum's length per bird: 1 when all fly one way, near 0 when every bird goes its own.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Deal a few times. Birds that start out of each other's reach can't agree, so the dots gather into clumps first and one clump only if the reach chains them together.</p>
+  </section>
+
+  <section class="step" data-title="Cohesion" hidden>
+    <div class="eyebrow">Step 3 of 5 · one rule alone</div>
+    <h3>Cohesion: steer toward the middle of your neighbours</h3>
+    <p class="say">Only the third rule. Each bird steers toward the average position of the birds in its reach, the small cross. They pull together, overshoot, swing back, and pile up. With nothing pushing them apart, the piles keep shrinking: half a minute in, neighbours are a few pixels apart.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">twelve birds · cohesion only · the cross is the middle of the amber bird's neighbours</span><button id="deal3">deal again</button></div>
+      <canvas id="c3"></canvas>
+      <div class="read"><div>nearest neighbour, on average<br><b id="r3a">–</b></div><div>groups (birds chained by reach)<br><b id="r3b">–</b></div></div>
+      <div class="eqs">
+        <div class="eq">c<sub>i</sub> = (1 ⁄ n<sub>i</sub>) Σ<sub>j near i</sub> (x<sub>j</sub> − x<sub>i</sub>)</div>
+        <div class="words">(the way bird i wants to go to stay with them) = toward the average position of the birds in its reach.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Watch the nearest-neighbour number fall and keep falling. That is the collapse the section says separation is there to stop.</p>
+  </section>
+
+  <section class="step" data-title="All three, summed" hidden>
+    <div class="eyebrow">Step 4 of 5 · the three combined</div>
+    <h3>Each bird adds its three wants, and a flock appears that no bird holds</h3>
+    <p class="say">Eighty birds, the bundle's model as the three lenses run it: seed 7, a field that wraps at its edges, one reach of 50 px for all three rules, and weights 1.5, 1.0 and 1.0. Every frame each bird turns each want into a small steering force, weights them, adds them, and flies. The amber lines are each bird's summed force. Keep an eye on the count of birds with nobody in reach: you'll need it in the next step.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">eighty birds · the bundle's model at its defaults</span><button id="restart4">restart from seed 7</button><button id="force4" aria-pressed="false">show the forces</button></div>
+      <canvas id="c4"></canvas>
+      <div class="read"><div>R, flying one way<br><b id="r4a">–</b></div><div>birds with nobody in reach<br><b id="r4b">–</b></div><div>largest group<br><b id="r4c">–</b></div><div>nearest neighbour, on average<br><b id="r4d">–</b></div><div>seconds<br><b id="r4e">–</b></div></div>
+      <div class="eqs">
+        <div class="eq">v<sub>i</sub> ← limit( v<sub>i</sub> + 1.5·f(s<sub>i</sub>) + 1.0·f(a<sub>i</sub>) + 1.0·f(c<sub>i</sub>), 3 )</div>
+        <div class="words">(bird i's new velocity) = its old one plus the three wants, each turned into a steering force f (aim at top speed that way, then turn by at most 0.05 a frame) and weighted, with the result held under top speed, 3 px a frame. Then every bird moves at once.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Let it run a full minute. R climbs toward 1: they fly one way. Now look at the count of birds alone.</p>
+  </section>
+
+  <section class="step" data-title="Take one away" hidden>
+    <div class="eyebrow">Step 5 of 5 · the test</div>
+    <h3>Take one rule away: does the flock fail the way the page says?</h3>
+    <p class="say">Pick which rules run, and restart. The readouts are live; the table below them is the same flock measured headless, four starts (seeds 7, 11, 13 and 17). <i>No rules</i> is the control every row is read against. Two more switches. Noise jostles every heading a little each frame: with none, nothing can knock a flock apart, so a rule that holds against dispersal has nothing to hold against. And how far separation reaches. The bundle's model gives it the whole 50 px reach. Shiffman's <i>Nature of Code</i> flock, whose weights 1.5, 1.0 and 1.0 the bundle keeps, gives it 25 px.</p>
+    <div class="panel">
+      <div class="ctlrow"><span>rules</span><span class="seg" id="case5">
+        <button data-v="all" aria-pressed="true">all three</button><button data-v="noSep" aria-pressed="false">no separation</button><button data-v="noAli" aria-pressed="false">no alignment</button><button data-v="noCoh" aria-pressed="false">no cohesion</button><button data-v="aliOnly" aria-pressed="false">alignment alone</button><button data-v="noRules" aria-pressed="false">no rules</button></span></div>
+      <div class="ctlrow"><span>noise</span><span class="seg" id="eta5"><button data-v="0" aria-pressed="true">none</button><button data-v="0.04" aria-pressed="false">η 0.04 · each heading jostled up to ±7° a frame</button></span></div>
+      <div class="ctlrow"><span>separation reaches</span><span class="seg" id="reach5">
+        <button data-v="50" aria-pressed="true">50 px · the bundle</button><button data-v="25" aria-pressed="false">25 px · Nature of Code</button></span>
+        <button id="restart5">restart</button><button id="force5" aria-pressed="false">show the forces</button></div>
+      <div style="margin-top:12px"><canvas id="c5"></canvas></div>
+      <div class="read"><div>R, flying one way<br><b id="r5a">–</b></div><div>nearest neighbour<br><b id="r5d">–</b></div><div>birds with nobody in reach<br><b id="r5b">–</b></div><div>largest group<br><b id="r5c">–</b></div><div>speed, of 3 px a frame<br><b id="r5f">–</b></div><div>seconds<br><b id="r5e">–</b></div></div>
+      <table class="meas" id="t5"></table>
+      <div class="marks" id="m5"></div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Run no alignment and watch the speed, not the shape. Then set separation to 25 px, noise on, and run all three and then no cohesion for a few minutes each: count the birds alone and the largest group.</p>
+  </section>
+
+  <div class="walk"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="foot"><span>Flocking · rich · three rules · sketch · 2026-11-03</span><span class="mark"><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>Loud’n <i>Live</i></span></div>
+</div>
+
+<script>
+// ---- math (pure: no page, no clock; the check beside this piece runs this block in Node) ----
+// The bundle's one shared Reynolds model (flocking-*.html, "SHARED FLOCKING MODEL"), the same arithmetic in the same
+// order, made a function of its settings: N birds, seed, field W x H wrapping at its edges, neighbour radius R.
+// Two additions, both off by default so the defaults are the bundle's model to the last digit:
+//   sepR — how far separation reaches. The bundle gives it the whole radius (50 px); Shiffman's Nature of Code
+//          flock, whose weights 1.5 / 1.0 / 1.0 the bundle keeps, gives it 25 px.
+//   eta  — heading noise: every frame each bird's heading turns by a random angle, up to ±eta·180°.
+const MAX_SPEED = 3, MAX_FORCE = 0.05;
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function makeFlock(N = 80, seed = 7, W = 960, H = 540, R = 50, sepR = R) {
+  const rng = mulberry32(seed), b = [];
+  for (let i = 0; i < N; i++) {
+    const x = rng() * W, y = rng() * H, angle = rng() * Math.PI * 2, sp = 0.5 * MAX_SPEED + rng() * 0.5 * MAX_SPEED;
+    b.push({ x, y, vx: Math.cos(angle) * sp, vy: Math.sin(angle) * sp, fx: 0, fy: 0 });
+  }
+  return { b, N, W, H, R, R2: R * R, S2: sepR * sepR, noise: mulberry32(seed * 7919 + 1), frame: 0 };
+}
+function setMag(x, y, mag) { const m = Math.hypot(x, y); return m > 0 ? [x / m * mag, y / m * mag] : [0, 0]; }
+function limitMag(x, y, max) { const m = Math.hypot(x, y); return (m > max && m > 0) ? [x / m * max, y / m * max] : [x, y]; }
+function stepFlock(F, w) {
+  const { b, N, W, H, R2, S2 } = F, nvx = new Float64Array(N), nvy = new Float64Array(N), sfx = new Float64Array(N), sfy = new Float64Array(N);
+  for (let i = 0; i < N; i++) {
+    const p = b[i];
+    let sepX = 0, sepY = 0, sepN = 0, aliX = 0, aliY = 0, aliN = 0, cohX = 0, cohY = 0, cohN = 0;
+    for (let j = 0; j < N; j++) {
+      if (i === j) continue;
+      const o = b[j];
+      let dx = o.x - p.x, dy = o.y - p.y;
+      if (dx > W * 0.5) dx -= W; else if (dx < -W * 0.5) dx += W;
+      if (dy > H * 0.5) dy -= H; else if (dy < -H * 0.5) dy += H;
+      const d2 = dx * dx + dy * dy;
+      if (d2 > 0 && d2 < R2) {
+        if (d2 < S2) { sepX -= dx / d2; sepY -= dy / d2; sepN++; }
+        aliX += o.vx; aliY += o.vy; aliN++;
+        cohX += dx; cohY += dy; cohN++;
+      }
+    }
+    let fx = 0, fy = 0;
+    if (sepN > 0) { const [dx, dy] = setMag(sepX, sepY, MAX_SPEED); const [sx, sy] = limitMag(dx - p.vx, dy - p.vy, MAX_FORCE); fx += w.sep * sx; fy += w.sep * sy; }
+    if (aliN > 0) { const [dx, dy] = setMag(aliX / aliN, aliY / aliN, MAX_SPEED); const [sx, sy] = limitMag(dx - p.vx, dy - p.vy, MAX_FORCE); fx += w.ali * sx; fy += w.ali * sy; }
+    if (cohN > 0) { const [dx, dy] = setMag(cohX / cohN, cohY / cohN, MAX_SPEED); const [sx, sy] = limitMag(dx - p.vx, dy - p.vy, MAX_FORCE); fx += w.coh * sx; fy += w.coh * sy; }
+    let vx = p.vx + fx, vy = p.vy + fy;
+    [vx, vy] = limitMag(vx, vy, MAX_SPEED);
+    if (w.eta) { const t = (F.noise() * 2 - 1) * Math.PI * w.eta, c = Math.cos(t), s = Math.sin(t); [vx, vy] = [vx * c - vy * s, vx * s + vy * c]; }
+    nvx[i] = vx; nvy[i] = vy; sfx[i] = fx; sfy[i] = fy;
+  }
+  for (let i = 0; i < N; i++) {
+    const p = b[i];
+    p.vx = nvx[i]; p.vy = nvy[i]; p.fx = sfx[i]; p.fy = sfy[i];
+    p.x = (p.x + p.vx + W) % W;
+    p.y = (p.y + p.vy + H) % H;
+  }
+  F.frame++;
+}
+// R, the polarization: every bird's heading as an arrow of length one, summed, per bird (Kuramoto's R on the headings)
+function polarization(F) {
+  let sx = 0, sy = 0;
+  for (const p of F.b) { const m = Math.hypot(p.vx, p.vy); if (m > 0) { sx += p.vx / m; sy += p.vy / m; } }
+  return Math.hypot(sx, sy) / F.N;
+}
+function wrapD(F, a, c) {
+  let dx = c.x - a.x, dy = c.y - a.y;
+  if (dx > F.W * 0.5) dx -= F.W; else if (dx < -F.W * 0.5) dx += F.W;
+  if (dy > F.H * 0.5) dy -= F.H; else if (dy < -F.H * 0.5) dy += F.H;
+  return [dx, dy];
+}
+// groups: birds joined by any chain of neighbours within R; how many, the largest, how many birds have no one in reach
+function groups(F) {
+  const { b, N, R2 } = F, lab = new Int32Array(N).fill(-1), sizes = [];
+  let g = 0;
+  for (let s = 0; s < N; s++) {
+    if (lab[s] >= 0) continue;
+    const st = [s]; lab[s] = g; let n = 0;
+    while (st.length) {
+      const i = st.pop(); n++;
+      for (let j = 0; j < N; j++) { if (lab[j] >= 0) continue; const [dx, dy] = wrapD(F, b[i], b[j]); if (dx * dx + dy * dy < R2) { lab[j] = g; st.push(j); } }
+    }
+    sizes.push(n); g++;
+  }
+  sizes.sort((x, y) => y - x);
+  return { count: g, largest: sizes[0], alone: sizes.filter(s => s === 1).length, lab };
+}
+function nearest(F) {
+  const { b, N } = F; let s = 0;
+  for (let i = 0; i < N; i++) { let m = Infinity; for (let j = 0; j < N; j++) { if (i === j) continue; const [dx, dy] = wrapD(F, b[i], b[j]); m = Math.min(m, Math.hypot(dx, dy)); } s += m; }
+  return s / N;
+}
+function meanSpeed(F) { let s = 0; for (const p of F.b) s += Math.hypot(p.vx, p.vy); return s / F.N; }
+// milling: within each group of 3 or more, how much the birds circle their centre (1 = a perfect mill, 0 = none)
+function milling(F, G = groups(F)) {
+  let num = 0, den = 0;
+  for (let g = 0; g < G.count; g++) {
+    const idx = []; for (let i = 0; i < F.N; i++) if (G.lab[i] === g) idx.push(i);
+    if (idx.length < 3) continue;
+    const r0 = F.b[idx[0]]; let mx = 0, my = 0;
+    const rel = idx.map(i => { const [dx, dy] = wrapD(F, r0, F.b[i]); mx += dx; my += dy; return [dx, dy, F.b[i].vx, F.b[i].vy]; });
+    mx /= idx.length; my /= idx.length; let L = 0, A = 0;
+    for (const [dx, dy, vx, vy] of rel) { const rx = dx - mx, ry = dy - my; L += rx * vy - ry * vx; A += Math.hypot(rx, ry) * Math.hypot(vx, vy); }
+    num += Math.abs(L); den += A;
+  }
+  return den > 0 ? num / den : 0;
+}
+// R for N headings dealt at random, averaged over many deals: the floor a flock with no order sits on
+function randomFloor(N, deals = 4000, seed = 3) {
+  const rng = mulberry32(seed); let s = 0;
+  for (let d = 0; d < deals; d++) { let x = 0, y = 0; for (let i = 0; i < N; i++) { const a = rng() * 2 * Math.PI; x += Math.cos(a); y += Math.sin(a); } s += Math.hypot(x, y) / N; }
+  return s / deals;
+}
+// ---- end math ----
+
+
+const DATA = /*DATA*/{"knock":{"25":{"all":{"seeds":[{"R":0.895,"nn":22.13,"alone":0,"largest":33,"groups":4,"speed":2.462,"mill":0.02},{"R":0.961,"nn":22.902,"alone":1,"largest":52,"groups":5,"speed":2.326,"mill":0.11},{"R":0.977,"nn":19.762,"alone":1,"largest":69,"groups":3,"speed":2.5,"mill":0.035},{"R":0.913,"nn":23.914,"alone":3,"largest":33,"groups":9,"speed":2.435,"mill":0.052}],"sum":{"R":{"mean":0.936,"min":0.895,"max":0.977},"nn":{"mean":22.177,"min":19.762,"max":23.914},"alone":{"mean":1.25,"min":0,"max":3},"largest":{"mean":46.75,"min":33,"max":69},"groups":{"mean":5.25,"min":3,"max":9},"speed":{"mean":2.431,"min":2.326,"max":2.5},"mill":{"mean":0.054,"min":0.02,"max":0.11}}},"noSep":{"seeds":[{"R":1,"nn":0.002,"alone":0,"largest":58,"groups":2,"speed":2.965,"mill":0.001},{"R":0.999,"nn":0.001,"alone":0,"largest":70,"groups":2,"speed":2.967,"mill":0.001},{"R":0.963,"nn":0.001,"alone":0,"largest":68,"groups":2,"speed":2.962,"mill":0},{"R":0.997,"nn":0.002,"alone":0,"largest":35,"groups":3,"speed":2.963,"mill":0.001}],"sum":{"R":{"mean":0.99,"min":0.963,"max":1},"nn":{"mean":0.002,"min":0.001,"max":0.002},"alone":{"mean":0,"min":0,"max":0},"largest":{"mean":57.75,"min":35,"max":70},"groups":{"mean":2.25,"min":2,"max":3},"speed":{"mean":2.964,"min":2.962,"max":2.967},"mill":{"mean":0.001,"min":0,"max":0.001}}},"noAli":{"seeds":[{"R":0.142,"nn":20.806,"alone":0,"largest":25,"groups":7,"speed":0.296,"mill":0.054},{"R":0.102,"nn":21.236,"alone":0,"largest":30,"groups":6,"speed":0.269,"mill":0.115},{"R":0.043,"nn":21.692,"alone":0,"largest":25,"groups":10,"speed":0.264,"mill":0.037},{"R":0.062,"nn":21.685,"alone":0,"largest":23,"groups":8,"speed":0.266,"mill":0.118}],"sum":{"R":{"mean":0.087,"min":0.043,"max":0.142},"nn":{"mean":21.355,"min":20.806,"max":21.692},"alone":{"mean":0,"min":0,"max":0},"largest":{"mean":25.75,"min":23,"max":30},"groups":{"mean":7.75,"min":6,"max":10},"speed":{"mean":0.274,"min":0.264,"max":0.296},"mill":{"mean":0.081,"min":0.037,"max":0.118}}},"noCoh":{"seeds":[{"R":1,"nn":27.637,"alone":0,"largest":80,"groups":1,"speed":3,"mill":0},{"R":1,"nn":27.836,"alone":0,"largest":80,"groups":1,"speed":3,"mill":0},{"R":1,"nn":28.34,"alone":0,"largest":80,"groups":1,"speed":3,"mill":0},{"R":1,"nn":27.96,"alone":0,"largest":80,"groups":1,"speed":3,"mill":0}],"sum":{"R":{"mean":1,"min":1,"max":1},"nn":{"mean":27.943,"min":27.637,"max":28.34},"alone":{"mean":0,"min":0,"max":0},"largest":{"mean":80,"min":80,"max":80},"groups":{"mean":1,"min":1,"max":1},"speed":{"mean":3,"min":3,"max":3},"mill":{"mean":0,"min":0,"max":0}}},"aliOnly":{"seeds":[{"R":1,"nn":15.66,"alone":0,"largest":80,"groups":1,"speed":3,"mill":0},{"R":1,"nn":10.849,"alone":0,"largest":80,"groups":1,"speed":3,"mill":0},{"R":1,"nn":12.975,"alone":0,"largest":80,"groups":1,"speed":3,"mill":0},{"R":1,"nn":16.18,"alone":0,"largest":80,"groups":1,"speed":3,"mill":0}],"sum":{"R":{"mean":1,"min":1,"max":1},"nn":{"mean":13.916,"min":10.849,"max":16.18},"alone":{"mean":0,"min":0,"max":0},"largest":{"mean":80,"min":80,"max":80},"groups":{"mean":1,"min":1,"max":1},"speed":{"mean":3,"min":3,"max":3},"mill":{"mean":0,"min":0,"max":0}}},"noRules":{"seeds":[{"R":0.047,"nn":40.334,"alone":27,"largest":8,"groups":43,"speed":2.351,"mill":0.356},{"R":0.036,"nn":38.739,"alone":24,"largest":8,"groups":44,"speed":2.277,"mill":0.246},{"R":0.147,"nn":40.976,"alone":23,"largest":6,"groups":41,"speed":2.209,"mill":0.201},{"R":0.13,"nn":41.728,"alone":22,"largest":6,"groups":41,"speed":2.254,"mill":0.284}],"sum":{"R":{"mean":0.09,"min":0.036,"max":0.147},"nn":{"mean":40.444,"min":38.739,"max":41.728},"alone":{"mean":24,"min":22,"max":27},"largest":{"mean":7,"min":6,"max":8},"groups":{"mean":42.25,"min":41,"max":44},"speed":{"mean":2.273,"min":2.209,"max":2.351},"mill":{"mean":0.272,"min":0.201,"max":0.356}}}},"50":{"all":{"seeds":[{"R":0.969,"nn":49.449,"alone":38,"largest":7,"groups":51,"speed":2.289,"mill":0.106},{"R":0.965,"nn":50.147,"alone":41,"largest":10,"groups":53,"speed":2.267,"mill":0.137},{"R":0.963,"nn":51.265,"alone":46,"largest":7,"groups":58,"speed":2.264,"mill":0.036},{"R":0.924,"nn":47.793,"alone":30,"largest":15,"groups":43,"speed":2.189,"mill":0.1}],"sum":{"R":{"mean":0.955,"min":0.924,"max":0.969},"nn":{"mean":49.664,"min":47.793,"max":51.265},"alone":{"mean":38.75,"min":30,"max":46},"largest":{"mean":9.75,"min":7,"max":15},"groups":{"mean":51.25,"min":43,"max":58},"speed":{"mean":2.252,"min":2.189,"max":2.289},"mill":{"mean":0.095,"min":0.036,"max":0.137}}},"noSep":{"seeds":[{"R":1,"nn":0.002,"alone":0,"largest":58,"groups":2,"speed":2.965,"mill":0.001},{"R":0.999,"nn":0.001,"alone":0,"largest":70,"groups":2,"speed":2.967,"mill":0.001},{"R":0.963,"nn":0.001,"alone":0,"largest":68,"groups":2,"speed":2.962,"mill":0},{"R":0.997,"nn":0.002,"alone":0,"largest":35,"groups":3,"speed":2.963,"mill":0.001}],"sum":{"R":{"mean":0.99,"min":0.963,"max":1},"nn":{"mean":0.002,"min":0.001,"max":0.002},"alone":{"mean":0,"min":0,"max":0},"largest":{"mean":57.75,"min":35,"max":70},"groups":{"mean":2.25,"min":2,"max":3},"speed":{"mean":2.964,"min":2.962,"max":2.967},"mill":{"mean":0.001,"min":0,"max":0.001}}},"noAli":{"seeds":[{"R":0.18,"nn":60.293,"alone":76,"largest":2,"groups":78,"speed":0.074,"mill":0},{"R":0.085,"nn":59.007,"alone":78,"largest":2,"groups":79,"speed":0.074,"mill":0},{"R":0.114,"nn":61.375,"alone":80,"largest":1,"groups":80,"speed":0.071,"mill":0},{"R":0.061,"nn":60.104,"alone":80,"largest":1,"groups":80,"speed":0.068,"mill":0}],"sum":{"R":{"mean":0.11,"min":0.061,"max":0.18},"nn":{"mean":60.195,"min":59.007,"max":61.375},"alone":{"mean":78.5,"min":76,"max":80},"largest":{"mean":1.5,"min":1,"max":2},"groups":{"mean":79.25,"min":78,"max":80},"speed":{"mean":0.072,"min":0.068,"max":0.074},"mill":{"mean":0,"min":0,"max":0}}},"noCoh":{"seeds":[{"R":0.994,"nn":58.782,"alone":78,"largest":2,"groups":79,"speed":2.59,"mill":0},{"R":0.988,"nn":57.464,"alone":80,"largest":1,"groups":80,"speed":2.633,"mill":0},{"R":0.999,"nn":58.332,"alone":80,"largest":1,"groups":80,"speed":2.672,"mill":0},{"R":0.999,"nn":59.913,"alone":78,"largest":2,"groups":79,"speed":2.68,"mill":0}],"sum":{"R":{"mean":0.995,"min":0.988,"max":0.999},"nn":{"mean":58.623,"min":57.464,"max":59.913},"alone":{"mean":79,"min":78,"max":80},"largest":{"mean":1.5,"min":1,"max":2},"groups":{"mean":79.5,"min":79,"max":80},"speed":{"mean":2.644,"min":2.59,"max":2.68},"mill":{"mean":0,"min":0,"max":0}}},"aliOnly":{"seeds":[{"R":1,"nn":15.66,"alone":0,"largest":80,"groups":1,"speed":3,"mill":0},{"R":1,"nn":10.849,"alone":0,"largest":80,"groups":1,"speed":3,"mill":0},{"R":1,"nn":12.975,"alone":0,"largest":80,"groups":1,"speed":3,"mill":0},{"R":1,"nn":16.18,"alone":0,"largest":80,"groups":1,"speed":3,"mill":0}],"sum":{"R":{"mean":1,"min":1,"max":1},"nn":{"mean":13.916,"min":10.849,"max":16.18},"alone":{"mean":0,"min":0,"max":0},"largest":{"mean":80,"min":80,"max":80},"groups":{"mean":1,"min":1,"max":1},"speed":{"mean":3,"min":3,"max":3},"mill":{"mean":0,"min":0,"max":0}}},"noRules":{"seeds":[{"R":0.047,"nn":40.334,"alone":27,"largest":8,"groups":43,"speed":2.351,"mill":0.356},{"R":0.036,"nn":38.739,"alone":24,"largest":8,"groups":44,"speed":2.277,"mill":0.246},{"R":0.147,"nn":40.976,"alone":23,"largest":6,"groups":41,"speed":2.209,"mill":0.201},{"R":0.13,"nn":41.728,"alone":22,"largest":6,"groups":41,"speed":2.254,"mill":0.284}],"sum":{"R":{"mean":0.09,"min":0.036,"max":0.147},"nn":{"mean":40.444,"min":38.739,"max":41.728},"alone":{"mean":24,"min":22,"max":27},"largest":{"mean":7,"min":6,"max":8},"groups":{"mean":42.25,"min":41,"max":44},"speed":{"mean":2.273,"min":2.209,"max":2.351},"mill":{"mean":0.272,"min":0.201,"max":0.356}}}}},"knockNoisy":{"25":{"all":{"seeds":[{"R":0.934,"nn":17.21,"alone":0,"largest":78,"groups":2,"speed":1.861,"mill":0.104},{"R":0.859,"nn":18.929,"alone":0,"largest":34,"groups":3,"speed":1.948,"mill":0.071},{"R":0.966,"nn":17.531,"alone":1,"largest":79,"groups":2,"speed":2.224,"mill":0.004},{"R":0.971,"nn":17.034,"alone":0,"largest":80,"groups":1,"speed":1.997,"mill":0.139}],"sum":{"R":{"mean":0.933,"min":0.859,"max":0.971},"nn":{"mean":17.676,"min":17.034,"max":18.929},"alone":{"mean":0.25,"min":0,"max":1},"largest":{"mean":67.75,"min":34,"max":80},"groups":{"mean":2,"min":1,"max":3},"speed":{"mean":2.008,"min":1.861,"max":2.224},"mill":{"mean":0.08,"min":0.004,"max":0.139}}},"noSep":{"seeds":[{"R":0.979,"nn":2.384,"alone":0,"largest":80,"groups":1,"speed":2.49,"mill":0.019},{"R":0.983,"nn":2.056,"alone":0,"largest":80,"groups":1,"speed":2.562,"mill":0.014},{"R":0.979,"nn":1.73,"alone":0,"largest":80,"groups":1,"speed":2.554,"mill":0.022},{"R":0.976,"nn":1.919,"alone":0,"largest":80,"groups":1,"speed":2.586,"mill":0.02}],"sum":{"R":{"mean":0.979,"min":0.976,"max":0.983},"nn":{"mean":2.022,"min":1.73,"max":2.384},"alone":{"mean":0,"min":0,"max":0},"largest":{"mean":80,"min":80,"max":80},"groups":{"mean":1,"min":1,"max":1},"speed":{"mean":2.548,"min":2.49,"max":2.586},"mill":{"mean":0.019,"min":0.014,"max":0.022}}},"noAli":{"seeds":[{"R":0.126,"nn":22.617,"alone":0,"largest":14,"groups":8,"speed":0.255,"mill":0.054},{"R":0.12,"nn":20.3,"alone":0,"largest":26,"groups":6,"speed":0.327,"mill":0.176},{"R":0.065,"nn":20.526,"alone":0,"largest":34,"groups":6,"speed":0.284,"mill":0.144},{"R":0.132,"nn":21.136,"alone":0,"largest":25,"groups":6,"speed":0.289,"mill":0.051}],"sum":{"R":{"mean":0.111,"min":0.065,"max":0.132},"nn":{"mean":21.145,"min":20.3,"max":22.617},"alone":{"mean":0,"min":0,"max":0},"largest":{"mean":24.75,"min":14,"max":34},"groups":{"mean":6.5,"min":6,"max":8},"speed":{"mean":0.289,"min":0.255,"max":0.327},"mill":{"mean":0.106,"min":0.051,"max":0.176}}},"noCoh":{"seeds":[{"R":0.911,"nn":35.962,"alone":8,"largest":27,"groups":22,"speed":2.837,"mill":0.092},{"R":0.879,"nn":35.317,"alone":7,"largest":18,"groups":16,"speed":2.751,"mill":0.088},{"R":0.924,"nn":35.269,"alone":6,"largest":27,"groups":17,"speed":2.85,"mill":0.078},{"R":0.875,"nn":34.932,"alone":9,"largest":19,"groups":20,"speed":2.843,"mill":0.107}],"sum":{"R":{"mean":0.897,"min":0.875,"max":0.924},"nn":{"mean":35.37,"min":34.932,"max":35.962},"alone":{"mean":7.5,"min":6,"max":9},"largest":{"mean":22.75,"min":18,"max":27},"groups":{"mean":18.75,"min":16,"max":22},"speed":{"mean":2.82,"min":2.751,"max":2.85},"mill":{"mean":0.091,"min":0.078,"max":0.107}}},"aliOnly":{"seeds":[{"R":0.809,"nn":26.423,"alone":6,"largest":39,"groups":15,"speed":2.886,"mill":0.115},{"R":0.883,"nn":29.162,"alone":8,"largest":27,"groups":17,"speed":2.805,"mill":0.078},{"R":0.922,"nn":22.548,"alone":7,"largest":37,"groups":12,"speed":2.928,"mill":0.086},{"R":0.938,"nn":27.463,"alone":7,"largest":16,"groups":22,"speed":2.947,"mill":0.121}],"sum":{"R":{"mean":0.888,"min":0.809,"max":0.938},"nn":{"mean":26.399,"min":22.548,"max":29.162},"alone":{"mean":7,"min":6,"max":8},"largest":{"mean":29.75,"min":16,"max":39},"groups":{"mean":16.5,"min":12,"max":22},"speed":{"mean":2.891,"min":2.805,"max":2.947},"mill":{"mean":0.1,"min":0.078,"max":0.121}}},"noRules":{"seeds":[{"R":0.09,"nn":40.242,"alone":28,"largest":7,"groups":42,"speed":2.351,"mill":0.291},{"R":0.098,"nn":38.94,"alone":18,"largest":6,"groups":40,"speed":2.277,"mill":0.303},{"R":0.058,"nn":39.675,"alone":22,"largest":5,"groups":42,"speed":2.209,"mill":0.275},{"R":0.214,"nn":44.275,"alone":29,"largest":5,"groups":47,"speed":2.254,"mill":0.303}],"sum":{"R":{"mean":0.115,"min":0.058,"max":0.214},"nn":{"mean":40.783,"min":38.94,"max":44.275},"alone":{"mean":24.25,"min":18,"max":29},"largest":{"mean":5.75,"min":5,"max":7},"groups":{"mean":42.75,"min":40,"max":47},"speed":{"mean":2.273,"min":2.209,"max":2.351},"mill":{"mean":0.293,"min":0.275,"max":0.303}}}},"50":{"all":{"seeds":[{"R":0.79,"nn":46.002,"alone":29,"largest":9,"groups":42,"speed":1.808,"mill":0.229},{"R":0.843,"nn":49.195,"alone":28,"largest":6,"groups":44,"speed":1.824,"mill":0.114},{"R":0.796,"nn":48.427,"alone":36,"largest":9,"groups":50,"speed":1.738,"mill":0.057},{"R":0.779,"nn":44.918,"alone":27,"largest":14,"groups":36,"speed":1.976,"mill":0.095}],"sum":{"R":{"mean":0.802,"min":0.779,"max":0.843},"nn":{"mean":47.136,"min":44.918,"max":49.195},"alone":{"mean":30,"min":27,"max":36},"largest":{"mean":9.5,"min":6,"max":14},"groups":{"mean":43,"min":36,"max":50},"speed":{"mean":1.837,"min":1.738,"max":1.976},"mill":{"mean":0.124,"min":0.057,"max":0.229}}},"noSep":{"seeds":[{"R":0.979,"nn":2.384,"alone":0,"largest":80,"groups":1,"speed":2.49,"mill":0.019},{"R":0.983,"nn":2.056,"alone":0,"largest":80,"groups":1,"speed":2.562,"mill":0.014},{"R":0.979,"nn":1.73,"alone":0,"largest":80,"groups":1,"speed":2.554,"mill":0.022},{"R":0.976,"nn":1.919,"alone":0,"largest":80,"groups":1,"speed":2.586,"mill":0.02}],"sum":{"R":{"mean":0.979,"min":0.976,"max":0.983},"nn":{"mean":2.022,"min":1.73,"max":2.384},"alone":{"mean":0,"min":0,"max":0},"largest":{"mean":80,"min":80,"max":80},"groups":{"mean":1,"min":1,"max":1},"speed":{"mean":2.548,"min":2.49,"max":2.586},"mill":{"mean":0.019,"min":0.014,"max":0.022}}},"noAli":{"seeds":[{"R":0.117,"nn":60.504,"alone":78,"largest":2,"groups":79,"speed":0.046,"mill":0},{"R":0.083,"nn":59.779,"alone":80,"largest":1,"groups":80,"speed":0.047,"mill":0},{"R":0.136,"nn":58.186,"alone":78,"largest":2,"groups":79,"speed":0.049,"mill":0},{"R":0.145,"nn":59.942,"alone":80,"largest":1,"groups":80,"speed":0.049,"mill":0}],"sum":{"R":{"mean":0.12,"min":0.083,"max":0.145},"nn":{"mean":59.603,"min":58.186,"max":60.504},"alone":{"mean":79,"min":78,"max":80},"largest":{"mean":1.5,"min":1,"max":2},"groups":{"mean":79.5,"min":79,"max":80},"speed":{"mean":0.048,"min":0.046,"max":0.049},"mill":{"mean":0,"min":0,"max":0}}},"noCoh":{"seeds":[{"R":0.787,"nn":50.53,"alone":35,"largest":12,"groups":48,"speed":1.944,"mill":0.057},{"R":0.822,"nn":53.738,"alone":45,"largest":5,"groups":59,"speed":1.911,"mill":0.177},{"R":0.806,"nn":54.577,"alone":54,"largest":4,"groups":65,"speed":1.848,"mill":0.063},{"R":0.832,"nn":54.882,"alone":57,"largest":4,"groups":66,"speed":1.916,"mill":0.175}],"sum":{"R":{"mean":0.812,"min":0.787,"max":0.832},"nn":{"mean":53.432,"min":50.53,"max":54.882},"alone":{"mean":47.75,"min":35,"max":57},"largest":{"mean":6.25,"min":4,"max":12},"groups":{"mean":59.5,"min":48,"max":66},"speed":{"mean":1.905,"min":1.848,"max":1.944},"mill":{"mean":0.118,"min":0.057,"max":0.177}}},"aliOnly":{"seeds":[{"R":0.809,"nn":26.423,"alone":6,"largest":39,"groups":15,"speed":2.886,"mill":0.115},{"R":0.883,"nn":29.162,"alone":8,"largest":27,"groups":17,"speed":2.805,"mill":0.078},{"R":0.922,"nn":22.548,"alone":7,"largest":37,"groups":12,"speed":2.928,"mill":0.086},{"R":0.938,"nn":27.463,"alone":7,"largest":16,"groups":22,"speed":2.947,"mill":0.121}],"sum":{"R":{"mean":0.888,"min":0.809,"max":0.938},"nn":{"mean":26.399,"min":22.548,"max":29.162},"alone":{"mean":7,"min":6,"max":8},"largest":{"mean":29.75,"min":16,"max":39},"groups":{"mean":16.5,"min":12,"max":22},"speed":{"mean":2.891,"min":2.805,"max":2.947},"mill":{"mean":0.1,"min":0.078,"max":0.121}}},"noRules":{"seeds":[{"R":0.09,"nn":40.242,"alone":28,"largest":7,"groups":42,"speed":2.351,"mill":0.291},{"R":0.098,"nn":38.94,"alone":18,"largest":6,"groups":40,"speed":2.277,"mill":0.303},{"R":0.058,"nn":39.675,"alone":22,"largest":5,"groups":42,"speed":2.209,"mill":0.275},{"R":0.214,"nn":44.275,"alone":29,"largest":5,"groups":47,"speed":2.254,"mill":0.303}],"sum":{"R":{"mean":0.115,"min":0.058,"max":0.214},"nn":{"mean":40.783,"min":38.94,"max":44.275},"alone":{"mean":24.25,"min":18,"max":29},"largest":{"mean":5.75,"min":5,"max":7},"groups":{"mean":42.75,"min":40,"max":47},"speed":{"mean":2.273,"min":2.209,"max":2.351},"mill":{"mean":0.293,"min":0.275,"max":0.303}}}}},"noisy":{"eta":0.04,"frames":10800},"cohSweep":[{"coh":1,"sum":{"R":{"mean":0.955,"min":0.924,"max":0.969},"nn":{"mean":49.664,"min":47.793,"max":51.265},"alone":{"mean":38.75,"min":30,"max":46},"largest":{"mean":9.75,"min":7,"max":15},"groups":{"mean":51.25,"min":43,"max":58},"speed":{"mean":2.252,"min":2.189,"max":2.289},"mill":{"mean":0.095,"min":0.036,"max":0.137}}},{"coh":1.5,"sum":{"R":{"mean":0.882,"min":0.844,"max":0.939},"nn":{"mean":33.542,"min":32.645,"max":34.061},"alone":{"mean":11.5,"min":8,"max":15},"largest":{"mean":29.75,"min":14,"max":55},"groups":{"mean":20.25,"min":15,"max":25},"speed":{"mean":2.086,"min":1.959,"max":2.207},"mill":{"mean":0.116,"min":0.027,"max":0.272}}},{"coh":2,"sum":{"R":{"mean":0.936,"min":0.916,"max":0.954},"nn":{"mean":18.329,"min":12.9,"max":20.874},"alone":{"mean":6.5,"min":3,"max":9},"largest":{"mean":38,"min":24,"max":69},"groups":{"mean":10.75,"min":6,"max":14},"speed":{"mean":2.032,"min":1.997,"max":2.061},"mill":{"mean":0.039,"min":0.026,"max":0.05}}},{"coh":2.5,"sum":{"R":{"mean":0.974,"min":0.95,"max":0.983},"nn":{"mean":3.713,"min":1.871,"max":7.912},"alone":{"mean":0.75,"min":0,"max":3},"largest":{"mean":73.5,"min":57,"max":80},"groups":{"mean":2,"min":1,"max":4},"speed":{"mean":2.03,"min":1.965,"max":2.094},"mill":{"mean":0.013,"min":0.003,"max":0.032}}},{"coh":3,"sum":{"R":{"mean":0.923,"min":0.733,"max":0.989},"nn":{"mean":1.196,"min":0.767,"max":1.658},"alone":{"mean":0,"min":0,"max":0},"largest":{"mean":54.5,"min":33,"max":80},"groups":{"mean":2.25,"min":1,"max":4},"speed":{"mean":1.942,"min":1.863,"max":1.995},"mill":{"mean":0.004,"min":0.002,"max":0.007}}}],"seeds":[7,11,13,17],"frames":3600}/*END*/;
+
+// ---- the walk: one step showing, Next and Back, the rail always open ----
+const STEPS = [...document.querySelectorAll('.step')];
+const rail = document.querySelector('.rail');
+let cur = 0;
+STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `<span class="n">${i + 1}</span>${s.dataset.title}`; b.addEventListener('click', () => show(i)); rail.appendChild(b); });
+function show(i) {
+  cur = Math.max(0, Math.min(STEPS.length - 1, i));
+  STEPS.forEach((s, k) => { s.hidden = k !== cur; });
+  [...rail.children].forEach((b, k) => { if (k === cur) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+  document.getElementById('back').disabled = cur === 0;
+  document.getElementById('next').disabled = cur === STEPS.length - 1;
+  if (ENTER[cur]) ENTER[cur]();
+}
+document.getElementById('back').addEventListener('click', () => show(cur - 1));
+document.getElementById('next').addEventListener('click', () => show(cur + 1));
+function seg(el, onPick) {
+  el.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { el.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false')); onPick(b.dataset.v); }));
+}
+// ---- drawing ----
+function fit(cv, aspect) {
+  const w = cv.clientWidth || 600, d = window.devicePixelRatio || 1, h = Math.round(w * aspect);
+  if (cv.width !== Math.round(w * d) || cv.height !== Math.round(h * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); cv.style.height = h + 'px'; }
+  const g = cv.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h };
+}
+function dart(g, x, y, vx, vy, s, col) {
+  const a = Math.atan2(vy, vx), c = Math.cos(a), sn = Math.sin(a);
+  g.fillStyle = col; g.beginPath();
+  const P = [[5, 0], [-4, 3], [-2, 0], [-4, -3]];
+  P.forEach(([px, py], k) => { const X = x + (px * c - py * sn) * s, Y = y + (px * sn + py * c) * s; if (k) g.lineTo(X, Y); else g.moveTo(X, Y); });
+  g.closePath(); g.fill();
+}
+function drawField(g, w, h, F, opt = {}) {
+  const k = w / F.W;
+  g.fillStyle = '#0d0d14'; g.fillRect(0, 0, w, h);
+  g.strokeStyle = 'rgba(255,255,255,.06)'; g.strokeRect(0.5, 0.5, w - 1, h - 1);
+  if (opt.ring != null) {
+    const p = F.b[opt.ring];
+    g.strokeStyle = 'rgba(232,184,74,.35)'; g.setLineDash([3, 4]); g.beginPath(); g.arc(p.x * k, p.y * k, F.R * k, 0, 2 * Math.PI); g.stroke();
+    if (F.S2 < F.R2) { g.strokeStyle = 'rgba(255,155,74,.35)'; g.beginPath(); g.arc(p.x * k, p.y * k, Math.sqrt(F.S2) * k, 0, 2 * Math.PI); g.stroke(); }
+    g.setLineDash([]);
+  }
+  if (opt.force) { g.strokeStyle = 'rgba(232,184,74,.75)'; g.lineWidth = 1; g.beginPath(); for (const p of F.b) { g.moveTo(p.x * k, p.y * k); g.lineTo((p.x + p.fx * 260) * k, (p.y + p.fy * 260) * k); } g.stroke(); }
+  F.b.forEach((p, i) => dart(g, p.x * k, p.y * k, p.vx || 1e-9, p.vy, Math.max(0.9, k * 1.6), opt.color ? opt.color(p, i) : (i === opt.ring ? '#e8b84a' : '#8f93f7')));
+}
+function headingRing(g, cx, cy, r, F, label) {
+  g.strokeStyle = 'rgba(255,255,255,.14)'; g.lineWidth = 1; g.beginPath(); g.arc(cx, cy, r, 0, 2 * Math.PI); g.stroke();
+  let sx = 0, sy = 0, n = 0;
+  for (const p of F.b) { const m = Math.hypot(p.vx, p.vy); if (!(m > 0)) continue; const ux = p.vx / m, uy = p.vy / m; sx += ux; sy += uy; n++;
+    g.fillStyle = 'rgba(143,147,247,.85)'; g.beginPath(); g.arc(cx + ux * r, cy + uy * r, 3, 0, 2 * Math.PI); g.fill(); }
+  const R = n ? Math.hypot(sx, sy) / n : 0;
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 2; g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + (n ? sx / n : 0) * r, cy + (n ? sy / n : 0) * r); g.stroke(); g.lineWidth = 1;
+  g.fillStyle = '#8a8aa0'; g.font = '11px JetBrains Mono, monospace'; g.textAlign = 'center'; g.fillText(label || 'headings, as points on a circle', cx, cy + r + 18); g.textAlign = 'left';
+  return R;
+}
+const fmt = (x, d = 2) => (x == null || !Number.isFinite(x)) ? '–' : x.toFixed(d);
+// a number as a reader wants it: whole counts whole, tiny distances to three places
+const num = x => Number.isInteger(x) ? String(x) : Math.abs(x) < 0.01 ? x.toFixed(3) : Math.abs(x) >= 10 ? x.toFixed(0) : x.toFixed(2);
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI, x = 9 * Math.sin(3 * t + Math.PI / 2), y = 9 * Math.sin(2 * t); d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+
+
+// ---- steps 1 to 3: twelve birds, one rule each, on a half-size field ----
+const SMALL = { W: 480, H: 270 };
+function twelve(seed, spread, still) {
+  const F = makeFlock(12, seed, SMALL.W, SMALL.H, 50);
+  const rng = mulberry32(seed + 101);
+  for (const p of F.b) { const a = rng() * 2 * Math.PI, r = spread * Math.sqrt(rng()); p.x = SMALL.W / 2 + r * Math.cos(a); p.y = SMALL.H / 2 + r * Math.sin(a); if (still) { const h = rng() * 2 * Math.PI; p.vx = 1e-3 * Math.cos(h); p.vy = 1e-3 * Math.sin(h); } }
+  return F;
+}
+let deal = 1;
+let F1 = twelve(1, 22, true), F2 = twelve(2, 70, false), F3 = twelve(3, 80, false);
+document.getElementById('heap1').addEventListener('click', () => { F1 = twelve(++deal, 22, true); });
+document.getElementById('deal2').addEventListener('click', () => { F2 = twelve(++deal, 70, false); });
+document.getElementById('deal3').addEventListener('click', () => { F3 = twelve(++deal, 80, false); });
+function pairsInReach(F) { let n = 0; for (let i = 0; i < F.N; i++) for (let j = i + 1; j < F.N; j++) { const [dx, dy] = wrapD(F, F.b[i], F.b[j]); if (dx * dx + dy * dy < F.R2) n++; } return n; }
+function middleOf(F, i) { let sx = 0, sy = 0, n = 0; for (let j = 0; j < F.N; j++) { if (j === i) continue; const [dx, dy] = wrapD(F, F.b[i], F.b[j]); if (dx * dx + dy * dy < F.R2) { sx += dx; sy += dy; n++; } } return n ? [F.b[i].x + sx / n, F.b[i].y + sy / n] : null; }
+
+// ---- steps 4 and 5: eighty birds ----
+let F4 = makeFlock(), F5 = null, show4 = false, show5 = false, case5 = 'all', reach5 = 50;
+const W5 = { all: { sep: 1.5, ali: 1, coh: 1 }, noSep: { sep: 0, ali: 1, coh: 1 }, noAli: { sep: 1.5, ali: 0, coh: 1 }, noCoh: { sep: 1.5, ali: 1, coh: 0 }, aliOnly: { sep: 0, ali: 1, coh: 0 }, noRules: { sep: 0, ali: 0, coh: 0 } };
+let eta5 = 0;
+function restart5() { F5 = makeFlock(80, 7, 960, 540, 50, reach5); }
+restart5();
+document.getElementById('restart4').addEventListener('click', () => { F4 = makeFlock(); });
+document.getElementById('force4').addEventListener('click', e => { show4 = !show4; e.target.setAttribute('aria-pressed', String(show4)); });
+document.getElementById('force5').addEventListener('click', e => { show5 = !show5; e.target.setAttribute('aria-pressed', String(show5)); });
+document.getElementById('restart5').addEventListener('click', restart5);
+seg(document.getElementById('case5'), v => { case5 = v; restart5(); table5(); });
+seg(document.getElementById('reach5'), v => { reach5 = +v; restart5(); table5(); });
+seg(document.getElementById('eta5'), v => { eta5 = +v; restart5(); table5(); });
+
+const NAMES = { all: 'all three', noSep: 'no separation', noAli: 'no alignment', noCoh: 'no cohesion', aliOnly: 'alignment alone', noRules: 'no rules · the control' };
+const rng2 = s => num(s.min) === num(s.max) ? num(s.min) : `${num(s.min)}–${num(s.max)}`;
+const rngF = s => fmt(s.min) === fmt(s.max) ? fmt(s.min) : `${fmt(s.min)}–${fmt(s.max)}`;   // R and speed: always two places
+function table5() {
+  const set = eta5 ? DATA.knockNoisy : DATA.knock, K = set && set[reach5]; const t = document.getElementById('t5');
+  if (!K) { t.innerHTML = '<tr><td>no measurements written yet</td></tr>'; return; }
+  t.innerHTML = `<tr><th>separation reaching ${reach5} px · ${eta5 ? 'noise η ' + eta5 + ' · four starts, three minutes each' : 'no noise · four starts, a minute each'}</th><th>R</th><th>nearest, px</th><th>alone, of 80</th><th>largest group</th><th>speed</th></tr>` +
+    Object.keys(NAMES).map(k => { const s = K[k].sum; return `<tr${k === case5 ? ' style="background:rgba(232,184,74,.07)"' : ''}><td>${NAMES[k]}</td><td>${rngF(s.R)}</td><td>${rng2(s.nn)}</td><td>${rng2(s.alone)}</td><td>${rng2(s.largest)}</td><td>${rngF(s.speed)}</td></tr>`; }).join('');
+  marks5();
+}
+function marks5() {
+  const el = document.getElementById('m5'); if (!DATA.knock || !DATA.knockNoisy) { el.innerHTML = ''; return; }
+  const A = DATA.knock[50], B = DATA.knock[25], NA = DATA.knockNoisy[50], NB = DATA.knockNoisy[25], c2 = DATA.cohSweep.find(c => c.coh === 2).sum, mins = DATA.noisy.frames / 3600;
+  el.innerHTML = [
+    `<div><b>the control</b>Read every row against <i>no rules</i>, birds flying straight from where they were dealt: ${rng2(A.noRules.sum.alone)} of 80 alone, and a circling index of ${rngF(A.noRules.sum.mill)} by chance. One thing shows at once. The bundle's defaults leave more birds alone (${rng2(A.all.sum.alone)}) than no flocking does: separation, weighted 1.5 and reaching the whole 50 px, outpulls cohesion at 1.0 for any pair in reach. Raise cohesion to 2 and those alone fall to ${rng2(c2.alone)}; with separation reaching 25 px, as in Shiffman's flock, ${rng2(B.all.sum.alone)}. That is the model's choice of reach, not the page's sentence.</div>`,
+    `<div><q>Separation prevents collapse. Without it the population implodes to a point.</q><br><b class="yes">holds</b>Take separation away and every bird ends sitting on another: nearest neighbour ${rng2(A.noSep.sum.nn)} px, at either reach. Not one point but ${rng2(A.noSep.sum.groups)}: each patch of birds in reach of each other falls to its own point, and the points fly on together.</div>`,
+    `<div><q>Alignment produces flow. Without it the population mills without direction.</q><br><b class="yes">holds, given a floor on speed</b>Without alignment R falls to ${rngF(A.noAli.sum.R)}: no flow. In the bundle's model the birds then coast almost to rest, ${fmt(A.noAli.sum.speed.mean)} px a frame of 3 at 50 px and ${fmt(B.noAli.sum.speed.mean)} at 25 px, circling index at most ${fmt(Math.max(A.noAli.sum.mill.max, B.noAli.sum.mill.max))}, below the ${rngF(A.noRules.sum.mill)} that birds with no rules score by chance. Speed here has a ceiling and no floor, as in Reynolds' own default ("a minimum speed … defaults to zero", 1987). Give the birds a floor and they keep moving and wander with no direction: milling in the everyday sense.</div>`,
+    `<div><q>Cohesion prevents dispersal. Without it the population scatters and the flock dies.</q><br><b class="yes">holds against the control, and whenever the birds are jostled</b>At 50 px, take cohesion away and the birds alone go from ${rng2(A.all.sum.alone)} to ${rng2(A.noCoh.sum.alone)}. At 25 px with noise <i class="g">η</i> ${DATA.noisy.eta}, after ${mins} minutes: all three rules leave ${rng2(NB.all.sum.alone)} alone with a largest group of ${rng2(NB.all.sum.largest)}; no cohesion leaves ${rng2(NB.noCoh.sum.alone)} alone, largest ${rng2(NB.noCoh.sum.largest)}. The one place it doesn't show is 25 px with no noise, where the birds hold as one even sheet without cohesion (R ${rngF(B.noCoh.sum.R)}, nobody alone): aligned birds with nothing to jostle them keep their spacing for good, as Reynolds noted. Nothing there could disperse them, with cohesion or without.</div>`,
+    `<div><q>They are the minimal set that makes coordination without communication work.</q><br><b class="part">alignment makes the flow; the other two make the body</b>Alignment alone, with no noise: R ${rngF(A.aliOnly.sum.R)}, one group of ${rng2(A.aliOnly.sum.largest)}. With noise at 25 px it keeps the flow (R ${rngF(NB.aliOnly.sum.R)}) but loses the body: ${rng2(NB.aliOnly.sum.alone)} alone, largest group ${rng2(NB.aliOnly.sum.largest)}, against ${rng2(NB.all.sum.largest)} with all three. Vicsek's 1995 model, the one the next section names, has only alignment and noise.</div>`,
+  ].join('');
+}
+
+// ---- one loop: only the showing step runs ----
+const ENTER = [];
+let last = 0, acc = 0, tick = 0;
+function frame(now) {
+  acc += Math.min(100, now - (last || now)); last = now;
+  let steps = 0;
+  while (acc >= 1000 / 60 && steps < 4) {
+    acc -= 1000 / 60; steps++;
+    if (cur === 0) stepFlock(F1, { sep: 1.5, ali: 0, coh: 0 });
+    else if (cur === 1) stepFlock(F2, { sep: 0, ali: 1, coh: 0 });
+    else if (cur === 2) stepFlock(F3, { sep: 0, ali: 0, coh: 1 });
+    else if (cur === 3) stepFlock(F4, { sep: 1.5, ali: 1, coh: 1 });
+    else stepFlock(F5, { ...W5[case5], eta: eta5 });
+  }
+  const slow = (tick++ % 15) === 0;
+  if (cur === 0) { const { g, w, h } = fit(document.getElementById('c1'), 270 / 480); drawField(g, w, h, F1, { ring: 0 }); if (slow) { document.getElementById('r1a').textContent = fmt(nearest(F1), 1) + ' px'; document.getElementById('r1b').textContent = pairsInReach(F1); } }
+  else if (cur === 1) { const a = fit(document.getElementById('c2'), 270 / 480); drawField(a.g, a.w, a.h, F2, { ring: 0 }); const r = fit(document.getElementById('c2r'), 0.78); r.g.fillStyle = '#0d0d14'; r.g.fillRect(0, 0, r.w, r.h); const R = headingRing(r.g, r.w / 2, r.h * 0.45, Math.min(r.w, r.h) * 0.34, F2); if (slow) { document.getElementById('r2a').textContent = fmt(R); document.getElementById('r2b').textContent = fmt(F2.frame / 60, 0); } }
+  else if (cur === 2) { const { g, w, h } = fit(document.getElementById('c3'), 270 / 480); drawField(g, w, h, F3, { ring: 0 }); const m = middleOf(F3, 0), k = w / F3.W; if (m) { g.strokeStyle = '#e8b84a'; g.beginPath(); g.moveTo(m[0] * k - 5, m[1] * k); g.lineTo(m[0] * k + 5, m[1] * k); g.moveTo(m[0] * k, m[1] * k - 5); g.lineTo(m[0] * k, m[1] * k + 5); g.stroke(); } if (slow) { document.getElementById('r3a').textContent = fmt(nearest(F3), 1) + ' px'; document.getElementById('r3b').textContent = groups(F3).count; } }
+  else if (cur === 3) { const { g, w, h } = fit(document.getElementById('c4'), 540 / 960); drawField(g, w, h, F4, { ring: 0, force: show4 }); if (slow) { const G = groups(F4); document.getElementById('r4a').textContent = fmt(polarization(F4)); document.getElementById('r4b').textContent = G.alone; document.getElementById('r4c').textContent = G.largest; document.getElementById('r4d').textContent = fmt(nearest(F4), 1) + ' px'; document.getElementById('r4e').textContent = fmt(F4.frame / 60, 0); } }
+  else { const { g, w, h } = fit(document.getElementById('c5'), 540 / 960); drawField(g, w, h, F5, { ring: 0, force: show5 }); if (slow) { const G = groups(F5); document.getElementById('r5a').textContent = fmt(polarization(F5)); document.getElementById('r5b').textContent = G.alone; document.getElementById('r5c').textContent = G.largest; document.getElementById('r5d').textContent = fmt(nearest(F5), 1) + ' px'; document.getElementById('r5f').textContent = fmt(meanSpeed(F5)); document.getElementById('r5e').textContent = fmt(F5.frame / 60, 0); } }
+  requestAnimationFrame(frame);
+}
+table5();
+show(0);
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
