@@ -1,0 +1,32 @@
+{
+ "entry": "Hyperdimensional Prism",
+ "path": "Hyperdimensional Prism.md",
+ "type": "hub",
+ "stage": "mature",
+ "weight": 6,
+ "claim": "Opening: one higher-dimensional object casts different shadows depending on the angle of the light; the Four Pillars are four shadows of one thing, and 'these are all views of the same thing.' § Kaleidoscope, Crystal, and Wallpaper: a kaleidoscope multiplies one fragment through symmetry — 'the viewer isn't seeing more stuff; they're seeing the same fragment from many angles' — and the pillars are 'symmetry operations' on one fundamental domain.",
+ "pieces": [
+  {
+   "section": "Hyperdimensional Prism",
+   "what": "One object, many shadows: a 4D object (a tesseract, or a closed 4D Lissajous trajectory) projected to the plane, with the light's angle under the reader's hand. The test comes last: four shadows are shown and the reader must say whether they could all come from one object or must come from two — chance level and verdict rule stated before the first trial, both arms scored (one-object sets and two-object sets). Tests whether 'one thing, four shadows' is distinguishable from 'four things' at all, which is what the opening claims.",
+   "kind": "interactive",
+   "walks_up_from": "a cube's shadow on a wall, at one angle"
+  },
+  {
+   "section": "The Visual Identity",
+   "what": "The Lissajous-in-a-sphere identity rebuilt live: two or three oscillators with frequency-ratio sliders; the trace is a projection of a trajectory on a torus. Tests the section's own claim that 'the pattern changes depending on the frequency relationships' — a rational ratio closes the curve, an irrational one fills the surface — and shows the same figure at the four interpretive levels only if the page's four levels are real readings of one trace, not four captions.",
+   "kind": "interactive",
+   "walks_up_from": "one oscillator drawing a line"
+  },
+  {
+   "section": "Kaleidoscope, Crystal, and Wallpaper",
+   "what": "A kaleidoscope: one fragment multiplied through a chosen symmetry group, the group switchable among a few wallpaper groups. Tests 'the viewer isn't seeing more stuff' by counting: the information in the tiling is the fragment's, and the piece shows a tiling can be recovered from its fundamental domain plus the group and nothing else. Then the page's harder claim: can four 'canonical symmetries' be a group? The piece shows the two groups of order four (cyclic and Klein) acting on a domain and lets the reader see what the four projections would be under each — a probe of the open question, not an answer; whatever it finds is an offer.",
+   "kind": "interactive",
+   "walks_up_from": "one fragment, no mirror"
+  }
+ ],
+ "gathered": [],
+ "tier": "sketch",
+ "note": "October nomination (the weave asked for it by name); weight here is the cloud pilot's, matching the board's other concept pages. The page says the logo patch is P5.js in one place and 'the Max/MSP patch' in another — the Context says which is true is Loudon's to say: an offer if a piece touches it, never a correction. No board notes; no baton on the page. The bundle holds only the hero and icon.",
+ "slice": "cloud-1"
+}
