@@ -56,6 +56,17 @@
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
    },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Retrospective Delay — rich — the tape.html",
+      "verdict": "keep",
+      "why": "A test: the page’s write-side knob against the summoning gesture, with the still knob as control (1.00 everywhere). The twelve recomputed on my own tape from the steward’s gate: 0.97 out vs 0.00 in mid-phrase, 0.94 only out+keeps a measure later. Quotes the page, walks up in five, sounds only on a click, hushes."
+     }
+    ]
+   },
    "pieces": [
     {
      "file": "Retrospective Delay — rich — the tape.html",
@@ -79,6 +90,17 @@
     "date": "2026-11-03",
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Retrospective Delay — rich — phrase or taps.html",
+      "verdict": "keep",
+      "why": "Two tests that could fail: the null (0 at every sample, confirmed from the steward’s model and WAV) and the keep-then-overwrite sweep (séance 0.94/0.00; echo 0.42 left at f 0.8, none of 51 does both). Gives the clarity to the séance, not the architecture, and walks up. Taste note: the hold is a loop at feedback 1 the present overwrites, a line Loudon could keep."
+     }
+    ]
    },
    "pieces": [
     {
@@ -104,6 +126,17 @@
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
    },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "stage-2-seance/seance-performance.wav",
+      "verdict": "keep",
+      "why": "The summoning made audible, and it would fail with a write-side knob: the ghost survives a dismissed measure. Caption matches seance_model.py’s performance() and says it is model-rendered; 30.0 s."
+     }
+    ]
+   },
    "pieces": [
     {
      "file": "stage-2-seance/seance-performance.wav",
@@ -125,6 +158,27 @@
     "date": "2026-11-03",
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/2026-05-04-seance-cat-poses-v2-7frames.svg",
+      "verdict": "keep",
+      "why": "Illustrates more than it tests, but faithfully: the page’s character concept as drawn, seven knob-only poses whose labels match the caption; face-moments’ empty room supplies the contrast."
+     },
+     {
+      "file": "stage-4-character/face/face-moments.png",
+      "verdict": "keep",
+      "why": "Labels match the caption; carries the steward’s finding that the cat reads the device, not the knob, credited as the steward’s, with the empty room showing what a knob-only pose can’t tell apart."
+     },
+     {
+      "file": "stage-4-character/face/face-film.mp4",
+      "verdict": "keep",
+      "why": "30.0 s with sound as captioned, drawn from the face model and honest that nothing has run in JSUI."
+     }
+    ]
    },
    "pieces": [
     {
@@ -163,6 +217,32 @@
     "date": "2026-11-03",
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "stage-3-grammar/shrinking-measure.wav",
+      "verdict": "keep",
+      "why": "A real cross-domain moment beside the buffer-length question, captioned as crossing it the other way; figures match cycle 21. Note: under always-recording the length never shows, so item 1 only means something once the tape holds — maybe a later offer."
+     },
+     {
+      "file": "stage-2-seance/seam-hard.wav",
+      "verdict": "keep",
+      "why": "0.1784 from the WAV, 0.008 at the measure line. Caption precision: the tick sits where the tape starts holding, about 0.45 s after the chord stops (0.82 of the measure vs 0.60), because of the gate’s 100 ms release, not at the instant you stop."
+     },
+     {
+      "file": "stage-2-seance/seam-smoothed.wav",
+      "verdict": "keep",
+      "why": "0.0110 from the WAV, below the chord’s 0.013, with the 5 ms crossfade Loudon asked for, as captioned."
+     },
+     {
+      "file": "stage-5-portal/portal-web.html",
+      "verdict": "keep",
+      "why": "The grant-missing microphone error stands until Loudon’s yes; the piece plays its own phrase without the mic and asks only from its button. Caption matches build_portal_web.mjs. Not driven here (below the fold)."
+     }
+    ]
    },
    "pieces": [
     {
