@@ -1,0 +1,98 @@
+{
+  "title": "Hyperdimensional Prism — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Hyperdimensional Prism]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Hyperdimensional Prism's rich face: what the proposal round made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Hyperdimensional Prism",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "note": "Two pieces, one engine (byte for byte the same in both; workshop/rich-checks.mjs re-runs every claim). The page's own ## grain is used. Kaleidoscope, Crystal, and Wallpaper has no piece: Wallpaper Groups' face already builds every group from one tile, and whether four 'canonical symmetries' can be a group is settled by the group axioms, so a piece there would illustrate a theorem rather than test the page.",
+  "sections": [
+    {
+      "heading": "Hyperdimensional Prism",
+      "made_against": "3ad0de298047",
+      "made": "2026-11-03",
+      "stamped": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round · cloud",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Hyperdimensional Prism — rich — one object or four.html",
+          "origin": "made",
+          "by": "the Maker · canvas",
+          "height": 1400,
+          "title": "one object or four · canvas",
+          "caption": "**Can four views of one thing be told from four things?** A cube's shadow; a flat square that casts the same one; a curve in four dimensions and its shadow; four shadows of it at once; the count of directions the stacked shadows need. Then the test: ten sets, five of each kind, chance 5 of 10 and the rule (9 or more) stated first, both kinds scored apart, your eye against the count. Then lose the links between shadows, or let the hidden object grow, and watch the verdict go.",
+          "near": "Just as a three-dimensional object casts",
+          "place": "band"
+        }
+      ]
+    },
+    {
+      "heading": "The Visual Identity",
+      "made_against": "e19a318691d5",
+      "made": "2026-11-03",
+      "stamped": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round · cloud",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Hyperdimensional Prism — rich — angle or object.html",
+          "origin": "made",
+          "by": "the Maker · canvas · Web Audio",
+          "height": 1400,
+          "title": "angle or object · canvas, Web Audio",
+          "caption": "**Is a new frequency relationship a new angle of light?** One oscillator; two at right angles, where a whole-number ratio closes the curve; the phase, which makes the figure roll; the four-dimensional curve the scope is a shadow of. Then the count: four phases at one ratio need no more than four directions, one curve under four lights; four ratios need seven, a new curve each time. Listen plays x in the left ear and y in the right.",
+          "near": "The pattern changes depending on the frequency relationships",
+          "place": "band"
+        }
+      ]
+    }
+  ],
+  "offers": [
+    {
+      "section": "The Visual Identity",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "\"The pattern changes depending on the frequency relationships of the input oscillations — different 'angles of light' produce different projections\" holds for phase, not for ratio. Measured on the angle-or-object piece's engine: four figures at one ratio and four random phases need at most 3 directions in 250 of 250 sets, so they are four lights on one curve in four dimensions; four ratios (1:2, 2:3, 3:4, 3:5) at one phase need at least 7 in 50 of 50, so no one such curve casts them. Proposed: \"The pattern changes with the phase between the oscillators, which turns the light on one fixed curve, and with their frequency relationship, which changes the curve itself.\""
+    },
+    {
+      "section": "Open Questions",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The third question (\"Could the visual identity literally show a higher-dimensional object being projected?\") has a partial answer: it already does. At any phase, the scope's x = sin(at), y = sin(bt + φ) is a linear shadow of the curve (sin at, cos at, sin bt, cos bt), which lies on a torus in four dimensions, and φ turns the light (the two agree to 1.8e-15, a trig identity, shown rather than tested). The familiar slow roll of a slightly detuned scope figure is that light turning. Proposed, under the question: \"It already does: the figure is a shadow of a curve on a torus in four dimensions, and the phase turns the light.\""
+    },
+    {
+      "section": "Open Questions",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The first question (a projection from n dimensions to four-dimensional pillar-space) meets two conditions on the one-object-or-four piece. With the links between shadows kept and the hidden object held to four dimensions, the count told one object from four in 1000 of 1000 sets of each kind. Shuffle which point is which inside each shadow, and every set reads as four things (1000 of 1000). Let the object have eight dimensions, and every set reads as one thing (1000 of 1000): any four flat shadows are shadows of one eight-dimensional thing. So \"four projections of one thing\" can fail only when the matches between views are given and the thing has fewer dimensions than its views put together. With one number per pillar, four pillars are four numbers, and that is always a projection of something. Proposed, under the question: \"A precise version has to say which point in one pillar is which in another, and keep the hidden thing smaller than its four views together; otherwise every four things are one.\""
+    },
+    {
+      "section": "Cross-Pillar Connections",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "\"You're not making analogies — you're seeing the same object from four angles\" gets a test from the one-object-or-four piece: four shadows read as one object only while the matches between them, held all at once, need fewer directions than the shadows together; with the matches shuffled, one object read as four in 1000 of 1000 sets. Shown on curves, not on Kuramoto's four domains. Proposed, after the sentence: \"The difference can be checked: a pattern seen in four projections points to one object when the matches between them, taken together, need fewer dimensions than the four views do; a match you chose is an analogy.\""
+    }
+  ]
+}

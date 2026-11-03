@@ -1,0 +1,287 @@
+<!doctype html>
+<!--
+  title: Hyperdimensional Prism — rich — one object or four
+  born: 2026-11-03
+  links: [[Hyperdimensional Prism]] (connects-to · rich-face-piece) · listed in [[Hyperdimensional Prism — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am the page's opening sentence made to answer for itself. I start on a cube's shadow, walk up to four shadows of one four-dimensional curve, and last ask whether "four views of one thing" can be told from "four things" at all — by your eye, and by a count that can. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  engine: everything between ENGINE-START and ENGINE-END is pure and runs in Node too; it is byte for byte the engine in "Hyperdimensional Prism — rich — angle or object.html", and Hyperdimensional Prism/workshop/rich-checks.mjs re-runs the claims on it.
+  dress: Loudon Live house style, Graphite skin, fonts named but not fetched (the stack falls back). Silent: no sound.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>One object or four?</title>
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --cool:#7f9cff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; color-scheme: dark; }
+  .piece { padding: 22px 22px 16px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .rail button { border-radius: 0; margin-right: -1px; }
+  .rail button.here { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); margin: 4px 0 4px; }
+  .says { font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 78ch; margin: 0 0 14px; min-height: 4.8em; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 26px; align-items: end; margin-top: 16px; min-height: 40px; }
+  .ctl { min-width: 220px; flex: 1; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seglabel { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 10px; font-size: 14px; line-height: 1.6; color: var(--amber); max-width: 82ch; min-height: 1.6em; }
+  .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 92ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 86ch; }
+  table.score { border-collapse: collapse; font-family: var(--mono); font-size: 11px; color: var(--fg2); margin-top: 12px; }
+  table.score td, table.score th { border: 1px solid var(--soft); padding: 4px 9px; text-align: left; font-weight: 400; }
+  table.score th { color: var(--fg3); letter-spacing: .1em; text-transform: uppercase; font-size: 10px; }
+  .right { color: var(--amber); } .wrong { color: var(--fg3); }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 16px; display: flex; align-items: center; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · canvas · sketch · proposal</div>
+  <h3 class="title">One object or four?</h3>
+  <p class="sub">The page says the four pillars are four shadows of one higher-dimensional thing, and that a shadow's shape depends on the angle of the light. This walks from a cube's shadow up to four shadows of a four-dimensional curve, then asks whether "four views of one thing" can be told apart from "four things" at all.</p>
+  <div class="rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="stephead" id="stephead"></div>
+  <div class="says" id="says"></div>
+  <div class="panel"><div class="plabel"><span id="plabel"></span><span id="pright"></span></div><canvas id="cv"></canvas></div>
+  <div class="controls" id="controls"></div>
+  <div class="read" id="read"></div>
+  <div id="extra"></div>
+  <div class="verdict" id="verdict"></div>
+  <div class="nav"><button id="back">← back</button><button id="next">next step →</button></div>
+  <div class="eqs">
+    <div class="eq">S = [ L₁ ; L₂ ; L₃ ; L₄ ] · X &nbsp;&nbsp;⇒&nbsp;&nbsp; rank S ≤ d</div>
+    <div class="words">In words: stack the four shadows, two numbers each for every point, eight numbers a point. If all four are shadows of one thing with d dimensions, those eight numbers never need more than d directions. Four separate things need up to eight. The count in steps 5 and 6 is that rank, read off the singular values; a direction counts when it carries more than one hundred-thousandth of the largest.</div>
+  </div>
+  <div class="foot"><svg width="16" height="16" viewBox="-1 -1 2 2"><path id="sig" fill="none" stroke="#e8b84a" stroke-width=".08"/></svg>Loud’n Live</div>
+</div>
+<script>
+// ENGINE-START
+const HP = (() => {
+  const TAU = Math.PI * 2;
+  function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function gauss(r) { let u = 0, v = 0; while (u === 0) u = r(); v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(TAU * v); }
+  // the hidden object: a closed curve in four dimensions, one sine per coordinate (a four-voice Lissajous)
+  const FREQS = [1, 2, 3, 5];
+  function object4(r) { return FREQS.map((f) => ({ f, amp: 0.6 + 0.6 * r(), ph: TAU * r() })); }
+  function sample(obj, N) { return obj.map((c) => { const row = new Float64Array(N); for (let n = 0; n < N; n++) row[n] = c.amp * Math.sin(c.f * TAU * n / N + c.ph); return row; }); }
+  // a light: two orthonormal rows in four dimensions
+  function light(r, dim = 4) { const rows = []; while (rows.length < 2) { let v = Array.from({ length: dim }, () => gauss(r)); for (const u of rows) { const d = v.reduce((s, x, i) => s + x * u[i], 0); v = v.map((x, i) => x - d * u[i]); } const nrm = Math.hypot(...v); if (nrm > 1e-6) rows.push(v.map((x) => x / nrm)); } return rows; }
+  function cast(L, X) { const N = X[0].length; return L.map((row) => { const out = new Float64Array(N); row.forEach((w, k) => { for (let n = 0; n < N; n++) out[n] += w * X[k][n]; }); return out; }); }
+  // the count: stack every shadow's rows, centre each, and ask how many directions they need
+  function singular(rows) {
+    const m = rows.length, N = rows[0].length;
+    const C = rows.map((r) => { let mu = 0; for (let n = 0; n < N; n++) mu += r[n]; mu /= N; const o = new Float64Array(N); for (let n = 0; n < N; n++) o[n] = r[n] - mu; return o; });
+    const G = Array.from({ length: m }, (_, i) => Array.from({ length: m }, (_, j) => { let s = 0; for (let n = 0; n < N; n++) s += C[i][n] * C[j][n]; return s; }));
+    for (let sweep = 0; sweep < 80; sweep++) { let off = 0; for (let p = 0; p < m; p++) for (let q = p + 1; q < m; q++) off += G[p][q] * G[p][q]; if (off < 1e-30) break;
+      for (let p = 0; p < m; p++) for (let q = p + 1; q < m; q++) { if (Math.abs(G[p][q]) < 1e-300) continue;
+        const th = (G[q][q] - G[p][p]) / (2 * G[p][q]); const t = Math.sign(th || 1) / (Math.abs(th) + Math.sqrt(th * th + 1)); const c = 1 / Math.sqrt(t * t + 1), s = t * c;
+        for (let k = 0; k < m; k++) { const a = G[k][p], b = G[k][q]; G[k][p] = c * a - s * b; G[k][q] = s * a + c * b; }
+        for (let k = 0; k < m; k++) { const a = G[p][k], b = G[q][k]; G[p][k] = c * a - s * b; G[q][k] = s * a + c * b; } } }
+    const ev = G.map((r, i) => Math.sqrt(Math.max(0, r[i]))).sort((a, b) => b - a); return ev.map((x) => x / (ev[0] || 1));
+  }
+  const TOL = 1e-5; // a direction counts when it carries more than this share of the largest
+  function count(sv) { return sv.filter((x) => x > TOL).length; }
+  // a trial: four shadows, cast from one object or from four
+  function trial(seed, kind, N = 240) {
+    const r = rng(seed); const objs = kind === 'one' ? [object4(r)] : [object4(r), object4(r), object4(r), object4(r)];
+    const shadows = []; for (let i = 0; i < 4; i++) shadows.push(cast(light(r), sample(objs[kind === 'one' ? 0 : i], N)));
+    // size each shadow alike, so size says nothing
+    for (const S of shadows) { let ss = 0; for (const row of S) for (const x of row) ss += x * x; const k = 1 / Math.sqrt(ss / N); for (const row of S) for (let n = 0; n < N; n++) row[n] *= k; }
+    return { kind, shadows };
+  }
+  // lose the links: inside each shadow, which point is which is shuffled; the four drawings are unchanged
+  function unlink(shadows, seed) { const r = rng(seed); return shadows.map((S) => { const N = S[0].length; const p = Array.from({ length: N }, (_, i) => i); for (let i = N - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [p[i], p[j]] = [p[j], p[i]]; } return S.map((row) => Float64Array.from(p, (k) => row[k])); }); }
+  // the count's verdict, for a hidden object allowed `cap` dimensions
+  function judge(shadows, cap = 4) { const sv = singular(shadows.flat()); const d = count(sv); return { sv, d, says: d <= cap ? 'one' : 'four' }; }
+  // the scope: x = sin(a t), y = sin(b t + phi)
+  function scope(a, b, phi, N = 720, turns = 1) { const x = new Float64Array(N), y = new Float64Array(N); for (let n = 0; n < N; n++) { const t = TAU * turns * n / N; x[n] = Math.sin(a * t); y[n] = Math.sin(b * t + phi); } return [x, y]; }
+  // the scope as a light on one four-dimensional curve (sin at, cos at, sin bt, cos bt)
+  function torusCurve(a, b, N = 720, turns = 1) { const X = [0, 1, 2, 3].map(() => new Float64Array(N)); for (let n = 0; n < N; n++) { const t = TAU * turns * n / N; X[0][n] = Math.sin(a * t); X[1][n] = Math.cos(a * t); X[2][n] = Math.sin(b * t); X[3][n] = Math.cos(b * t); } return X; }
+  function scopeLight(phi) { return [[1, 0, 0, 0], [0, 0, Math.cos(phi), Math.sin(phi)]]; }
+  function gcd(a, b) { return b ? gcd(b, a % b) : a; }
+  function closes(r, qmax = 50) { for (let q = 1; q <= qmax; q++) { const p = Math.round(r * q); if (p > 0 && Math.abs(r * q - p) < 1e-9 && gcd(p, q) === 1) return { p, q }; } return null; }
+  return { TAU, FREQS, rng, object4, sample, light, cast, singular, count, TOL, trial, unlink, judge, scope, torusCurve, scopeLight, closes, gcd };
+})();
+// ENGINE-END
+const $ = (id) => document.getElementById(id);
+(() => { let d = ''; for (let n = 0; n <= 200; n++) { const t = HP.TAU * n / 200; d += (n ? 'L' : 'M') + (0.8 * Math.sin(3 * t + 0.5)).toFixed(3) + ' ' + (0.8 * Math.sin(2 * t)).toFixed(3); } $('sig').setAttribute('d', d); })();
+const AMB = [232, 184, 74], COOL = [127, 156, 255];
+function hue(u) { const k = 0.5 - 0.5 * Math.cos(HP.TAU * u); return `rgb(${AMB.map((a, i) => Math.round(a + (COOL[i] - a) * k)).join(',')})`; }
+const cv = $('cv'), ctx = cv.getContext('2d');
+let W = 0, H = 0;
+function size(aspect) { const dpr = window.devicePixelRatio || 1; W = cv.clientWidth || 600; H = Math.round(W * aspect); cv.style.height = H + 'px'; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H); }
+function label(txt, x, y, col = '#8a8aa0', align = 'left') { ctx.fillStyle = col; ctx.font = '10.5px JetBrains Mono, ui-monospace, monospace'; ctx.textAlign = align; ctx.fillText(txt, x, y); ctx.textAlign = 'left'; }
+
+// ---- steps 1 and 2: a cube, a flat square, and their shadows
+const CUBE = []; for (const x of [-1, 1]) for (const y of [-1, 1]) for (const z of [-1, 1]) CUBE.push([x, y, z]);
+const CUBE_E = []; for (let i = 0; i < 8; i++) for (let j = i + 1; j < 8; j++) { const d = CUBE[i].reduce((s, v, k) => s + (v !== CUBE[j][k] ? 1 : 0), 0); if (d === 1) CUBE_E.push([i, j]); }
+const SQ = [[-1, -1, 0], [1, -1, 0], [1, 1, 0], [-1, 1, 0]], SQ_E = [[0, 1], [1, 2], [2, 3], [3, 0]];
+function roty(p, a) { const c = Math.cos(a), s = Math.sin(a); return [c * p[0] + s * p[2], p[1], -s * p[0] + c * p[2]]; }
+function rotx(p, a) { const c = Math.cos(a), s = Math.sin(a); return [p[0], c * p[1] - s * p[2], s * p[1] + c * p[2]]; }
+function hull(pts) { const P = pts.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]); const cr = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]); const lo = [], up = []; for (const p of P) { while (lo.length >= 2 && cr(lo[lo.length - 2], lo[lo.length - 1], p) <= 0) lo.pop(); lo.push(p); } for (const p of P.slice().reverse()) { while (up.length >= 2 && cr(up[up.length - 2], up[up.length - 1], p) <= 0) up.pop(); up.push(p); } return lo.slice(0, -1).concat(up.slice(0, -1)); }
+function drawSolid(V, E, theta, cx, cy, sc) {
+  const P = V.map((p) => rotx(roty(roty(p, theta), -0.55), 0.38));
+  ctx.strokeStyle = '#e8e8f0'; ctx.lineWidth = 1.2;
+  for (const [i, j] of E) { ctx.beginPath(); ctx.moveTo(cx + sc * P[i][0], cy - sc * P[i][1]); ctx.lineTo(cx + sc * P[j][0], cy - sc * P[j][1]); ctx.stroke(); }
+}
+function drawShadow(V, theta, cx, cy, sc) {
+  const P = V.map((p) => roty(p, theta)).map((p) => [p[0], p[1]]);
+  let h = hull(P); if (h.length < 3) h = P;
+  ctx.fillStyle = 'rgba(232,184,74,.22)'; ctx.strokeStyle = '#e8b84a'; ctx.lineWidth = 1.2; ctx.beginPath();
+  h.forEach((p, i) => (i ? ctx.lineTo : ctx.moveTo).call(ctx, cx + sc * p[0], cy - sc * p[1])); ctx.closePath(); ctx.fill(); ctx.stroke();
+  const xs = P.map((p) => p[0]); return Math.max(...xs) - Math.min(...xs);
+}
+function drawLightArrow(x, y, len) { ctx.strokeStyle = '#8a8aa0'; ctx.setLineDash([3, 4]); ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + len, y); ctx.stroke(); ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(x + len, y); ctx.lineTo(x + len - 7, y - 4); ctx.lineTo(x + len - 7, y + 4); ctx.closePath(); ctx.fillStyle = '#8a8aa0'; ctx.fill(); }
+function drawCube(both) {
+  size(both ? 0.62 : 0.42);
+  const rows = both ? [['the cube', CUBE, CUBE_E], ['a flat square', SQ, SQ_E]] : [['the cube', CUBE, CUBE_E]];
+  const rh = H / rows.length, sc = Math.min(W * 0.1, rh * 0.26);
+  const widths = [];
+  rows.forEach(([name, V, E], r) => {
+    const cy = rh * r + rh * 0.55;
+    drawSolid(V, E, S.theta, W * 0.2, cy, sc); label(name, W * 0.04, rh * r + 16);
+    drawLightArrow(W * 0.36, cy, W * 0.16); label('light', W * 0.36, cy - 8);
+    ctx.strokeStyle = '#4a4a5a'; ctx.beginPath(); ctx.moveTo(W * 0.6, rh * r + 10); ctx.lineTo(W * 0.6, rh * (r + 1) - 10); ctx.stroke(); label('the wall', W * 0.6 + 6, rh * r + 16);
+    widths.push(drawShadow(V, S.theta, W * 0.8, cy, sc)); label('its shadow', W * 0.8, rh * r + 16, '#8a8aa0', 'center');
+  });
+  return widths;
+}
+
+// ---- steps 3 to 6: the four-dimensional curve and its shadows
+const OBJ = HP.object4(HP.rng(20261103)), N = 240, X = HP.sample(OBJ, N);
+function rot4(a, b) { const c = Math.cos(a), s = Math.sin(a), c2 = Math.cos(b), s2 = Math.sin(b); return [[c, 0, s, 0], [0, c2, 0, s2]]; }
+function drawCurve(Sh, x0, y0, w, h, mark, dots) {
+  let m = 0; for (const r of Sh) for (const v of r) m = Math.max(m, Math.abs(v)); const sc = 0.45 * Math.min(w, h) / (m || 1); const cx = x0 + w / 2, cy = y0 + h / 2; const n = Sh[0].length;
+  if (dots) { for (let i = 0; i < n; i++) { ctx.fillStyle = hue(i / n); ctx.fillRect(cx + sc * Sh[0][i] - 1.3, cy - sc * Sh[1][i] - 1.3, 2.6, 2.6); } return; }
+  ctx.lineWidth = 1.3; for (let i = 0; i < n; i++) { const j = (i + 1) % n; ctx.strokeStyle = hue(i / n); ctx.beginPath(); ctx.moveTo(cx + sc * Sh[0][i], cy - sc * Sh[1][i]); ctx.lineTo(cx + sc * Sh[0][j], cy - sc * Sh[1][j]); ctx.stroke(); }
+  if (mark != null) { const i = Math.floor(mark) % n; ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(cx + sc * Sh[0][i], cy - sc * Sh[1][i], 4, 0, HP.TAU); ctx.fill(); }
+}
+function drawFour(sets, mark, names, dots) {
+  const cols = W > 560 ? 4 : 2, rows = 4 / cols, cw = W / cols, ch = Math.min(cw, 220); size(0); H = ch * rows; cv.style.height = H + 'px'; const dpr = window.devicePixelRatio || 1; cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  sets.forEach((Sh, i) => { const x0 = (i % cols) * cw, y0 = Math.floor(i / cols) * ch; ctx.strokeStyle = '#22222e'; ctx.strokeRect(x0 + 3, y0 + 3, cw - 6, ch - 6); drawCurve(Sh, x0 + 6, y0 + 14, cw - 12, ch - 20, mark, dots); label(names ? names[i] : 'shadow ' + (i + 1), x0 + 10, y0 + 16); });
+}
+function drawBars(sv, cap, title) {
+  size(0.34); const n = sv.length, lo = -12, x0 = 70, w = W - x0 - 20, bw = Math.min(46, w / n - 8), base = H - 26, top = 22;
+  const yOf = (v) => base - (base - top) * (Math.log10(Math.max(v, 1e-12)) - lo) / -lo;
+  ctx.strokeStyle = '#22222e'; for (const e of [0, -3, -6, -9, -12]) { const y = yOf(Math.pow(10, e)); ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(W - 10, y); ctx.stroke(); label(e === 0 ? '1' : '1e' + e, x0 - 8, y + 4, '#4a4a5a', 'right'); }
+  const yt = yOf(HP.TOL); ctx.strokeStyle = '#e8b84a'; ctx.setLineDash([4, 4]); ctx.beginPath(); ctx.moveTo(x0, yt); ctx.lineTo(W - 10, yt); ctx.stroke(); ctx.setLineDash([]); label('counts above this line', W - 12, yt - 5, '#e8b84a', 'right');
+  sv.forEach((v, i) => { const x = x0 + i * (w / n) + 4, y = yOf(v); ctx.fillStyle = v > HP.TOL ? '#e8b84a' : '#4a4a5a'; ctx.fillRect(x, y, bw, base - y); label(v.toExponential(0), x + bw / 2, base + 14, '#8a8aa0', 'center'); });
+  if (cap) { label(title, x0, 14, '#c8c8d8'); }
+}
+
+// ---- the test's ten sets, drawn fresh each time the step is opened
+function newTrials() { const seed0 = (Date.now() ^ Math.floor(Math.random() * 1e9)) >>> 0; const kinds = ['one', 'one', 'one', 'one', 'one', 'four', 'four', 'four', 'four', 'four']; const r = HP.rng(seed0); for (let i = 9; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [kinds[i], kinds[j]] = [kinds[j], kinds[i]]; } return kinds.map((k, i) => ({ ...HP.trial(seed0 + 7919 * (i + 1), k), seed: seed0 + 7919 * (i + 1), answer: null })); }
+
+const STEPS = [
+  { name: 'one shadow', says: 'A cube, a light, a wall. Turn the light around the cube and its shadow changes shape: a square head-on, a wider block as it turns. The cube never changes. That is the page’s picture: one thing, a shadow whose shape depends on the angle.' },
+  { name: 'a shadow can’t tell', says: 'A second object beside the first: a flat square. Head-on, the two cast the same shadow, and from the wall you could not say which is behind it. Turn the light and they part. One shadow under-tells its object; it takes more than one angle.' },
+  { name: 'a four-dimensional object', says: 'Now the object you can’t see: a closed curve in four dimensions, each coordinate a sine (frequencies 1, 2, 3 and 5, a four-voice Lissajous). You only ever see its shadow on a flat wall. Turn the light through the two extra dimensions and the shadow changes; the curve doesn’t. The colour runs along the curve, so the same moment is the same colour in every view.' },
+  { name: 'four shadows', says: 'Four lights at once, four shadows of the one curve, the four pillars as the page draws them. The white dot is one moment of the curve, seen in all four. That dot is the link between the shadows: which point here is which point there.' },
+  { name: 'the count', says: 'How do you know four shadows have one object behind them? Stack them: eight numbers for every point. Count how many directions those numbers need. One four-dimensional object: four, however you light it. Switch to four separate objects, each casting one shadow: eight.' },
+  { name: 'the test · one thing or four things', says: '' }
+];
+const S = { step: 1, theta: 0.0, a: 0.6, b: 0.9, mark: 0, anim: null, kind: 'one', trials: null, at: 0, unlinked: false, cap: 4 };
+const LIGHTS = (() => { const r = HP.rng(4); return [0, 1, 2, 3].map(() => HP.light(r)); })();
+const FOURS = (() => { const r = HP.rng(99); return [0, 1, 2, 3].map(() => HP.sample(HP.object4(r), N)); })();
+function shadowsFor(kind) { return LIGHTS.map((L, i) => HP.cast(L, kind === 'one' ? X : FOURS[i])); }
+
+function slider(lbl, key, min, max, stepv, fmt) { const d = document.createElement('div'); d.className = 'ctl'; d.innerHTML = `<label class="sl">${lbl} · <b></b><input type="range" min="${min}" max="${max}" step="${stepv}"></label>`; const inp = d.querySelector('input'), b = d.querySelector('b'); inp.value = S[key]; b.textContent = fmt(S[key]); inp.oninput = () => { S[key] = +inp.value; b.textContent = fmt(S[key]); draw(); }; return d; }
+function seg(lbl, opts, get, set) { const d = document.createElement('div'); d.innerHTML = `<span class="seglabel">${lbl}</span>`; const g = document.createElement('div'); g.className = 'seg'; for (const [t, v] of opts) { const b = document.createElement('button'); b.textContent = t; if (get() === v) b.classList.add('on'); b.onclick = () => { set(v); [...g.children].forEach((c) => c.classList.toggle('on', c === b)); draw(); }; g.append(b); } d.append(g); return d; }
+const deg = (v) => Math.round(v * 180 / Math.PI) + '°';
+
+function controls() {
+  const c = $('controls'); c.innerHTML = ''; $('extra').innerHTML = ''; $('verdict').textContent = ''; $('read').innerHTML = '';
+  if (S.step <= 2) c.append(slider('turn the light', 'theta', -1.57, 1.57, 0.01, deg));
+  if (S.step === 3) { c.append(slider('turn through the third and first dimensions', 'a', -3.14, 3.14, 0.01, deg)); c.append(slider('turn through the fourth and second', 'b', -3.14, 3.14, 0.01, deg)); }
+  if (S.step === 5) c.append(seg('what is behind the four shadows', [['one object', 'one'], ['four objects', 'four']], () => S.kind, (v) => (S.kind = v)));
+  if (S.step === 6) testControls();
+}
+function draw() {
+  const st = S.step;
+  if (st <= 2) { const w = drawCube(st === 2); $('plabel').textContent = st === 1 ? 'the object · the light · the shadow' : 'two objects, one light'; $('pright').textContent = '';
+    $('read').innerHTML = st === 1 ? `<span>shadow width <b>${w[0].toFixed(2)}</b></span><span>cube edge <b>2.00</b>, always</span>` : `<span>cube’s shadow width <b>${w[0].toFixed(2)}</b></span><span>square’s <b>${w[1].toFixed(2)}</b></span><span>${Math.abs(w[0] - w[1]) < 0.02 ? '<b>the same shadow</b>' : 'different shadows'}</span>`; }
+  if (st === 3) { size(0.55); drawCurve(HP.cast(rot4(S.a, S.b), X), 0, 0, W, H); $('plabel').textContent = 'one shadow of the four-dimensional curve'; $('pright').textContent = ''; }
+  if (st === 4) { drawFour(shadowsFor('one'), S.mark); $('plabel').textContent = 'four lights · one curve'; $('pright').textContent = 'white · the same moment in each'; }
+  if (st === 5) { const sv = HP.singular(shadowsFor(S.kind).flat()); drawBars(sv); const d = HP.count(sv); $('plabel').textContent = 'the eight directions of the stacked shadows, largest first'; $('pright').textContent = 'log scale';
+    $('read').innerHTML = `<span>behind them <b>${S.kind === 'one' ? 'one object' : 'four objects'}</b></span><span>directions needed <b>${d}</b></span><span>the fifth <b>${sv[4].toExponential(1)}</b> of the first</span>`; }
+  if (st === 6) drawTest();
+}
+function tick() { if (S.step === 4) { S.mark = (S.mark + 0.6) % N; draw(); S.anim = requestAnimationFrame(tick); } }
+
+// ---- step 6
+function testControls() {
+  if (!S.trials) { S.trials = newTrials(); S.at = 0; }
+  $('says').innerHTML = 'Ten sets of four shadows. Five come from one four-dimensional curve under four lights, five from four separate curves, one shadow each, in a shuffled order. Say which.<br><b>Fixed before the first set:</b> chance is 5 of 10. Nine or more right says the eye can tell one thing from four things; fewer says it hasn’t shown it (nine or more by guessing comes about one time in 93). Both kinds are scored apart, so answering “one” every time, which is what the page leads you to, scores 5. Every shadow is sized alike and every curve uses the same four frequencies, so a single shadow says nothing about its set; only the four together can.';
+  const c = $('controls');
+  if (S.at < 10) { const b1 = document.createElement('button'), b4 = document.createElement('button'); b1.textContent = 'one object'; b4.textContent = 'four objects'; b1.className = b4.className = 'go';
+    b1.onclick = () => answer('one'); b4.onclick = () => answer('four'); c.append(b1, b4); }
+  else {
+    c.append(seg('the links between shadows', [['kept', false], ['lost (points shuffled)', true]], () => S.unlinked, (v) => { S.unlinked = v; testControls2(); }));
+    c.append(seg('the hidden object may have', [['4 dimensions', 4], ['6', 6], ['8', 8]], () => S.cap, (v) => { S.cap = v; testControls2(); }));
+    const again = document.createElement('button'); again.textContent = 'ten new sets'; again.onclick = () => { S.trials = null; S.unlinked = false; S.cap = 4; controls(); draw(); }; c.append(again);
+    testControls2();
+  }
+}
+function answer(k) { S.trials[S.at].answer = k; S.at++; controls(); draw(); }
+function judged() { return S.trials.map((t, i) => HP.judge(S.unlinked ? HP.unlink(t.shadows, t.seed + 1) : t.shadows, S.cap)); }
+function score(says) { let one = 0, four = 0; S.trials.forEach((t, i) => { if (says[i] === t.kind) { if (t.kind === 'one') one++; else four++; } }); return { one, four, all: one + four }; }
+function testControls2() {
+  const J = judged(), you = score(S.trials.map((t) => t.answer)), cnt = score(J.map((j) => j.says));
+  let rows = S.trials.map((t, i) => `<tr><td>${i + 1}</td><td>${t.kind === 'one' ? 'one object' : 'four objects'}</td><td class="${t.answer === t.kind ? 'right' : 'wrong'}">${t.answer}</td><td class="${J[i].says === t.kind ? 'right' : 'wrong'}">${J[i].says} · ${J[i].d} directions</td></tr>`).join('');
+  $('extra').innerHTML = `<table class="score"><tr><th>set</th><th>what it was</th><th>you said</th><th>the count said</th></tr>${rows}<tr><th></th><th>score</th><th>${you.all}/10 · one ${you.one}/5 · four ${you.four}/5</th><th>${cnt.all}/10 · one ${cnt.one}/5 · four ${cnt.four}/5</th></tr></table>`;
+  const pass = (s) => s.all >= 9;
+  let v = `Your eye: ${you.all} of 10, ${pass(you) ? 'past the rule: you told them apart' : 'under the rule: not shown'}. The count: ${cnt.all} of 10. `;
+  if (!S.unlinked && S.cap === 4) v += 'With the links kept and the hidden object held to four dimensions, one thing seen four ways can be told from four things, but only from the four shadows together, by which point is which. That is the opening’s claim given a test it could fail, and it passes. Now lose the links, or let the object grow.';
+  else if (S.unlinked && S.cap === 4) v += 'Shuffle which point is which inside each shadow, and every shadow holds the same points as before, yet the count calls every set four things. The oneness was never in any one shadow. It was in the links across them.';
+  else if (S.cap >= 8) v += 'Let the hidden object have eight dimensions and the count calls every set one thing: any four flat shadows, stacked, are the shadows of one eight-dimensional thing. A claim of oneness with no limit on the dimension cannot fail.';
+  else v += `At six dimensions the four-object sets still need eight directions, so the count still tells them apart${S.unlinked ? ', but with the links lost every set needs eight, and every set reads as four things' : ''}. The claim holds while the object is smaller than its shadows put together.`;
+  $('verdict').textContent = v; drawTest();
+}
+function drawTest() {
+  if (!S.trials) return;
+  if (S.at < 10) { drawFour(S.trials[S.at].shadows, null); $('plabel').textContent = `set ${S.at + 1} of 10`; $('pright').textContent = 'one object, or four?'; $('read').innerHTML = `<span>answered <b>${S.at}</b> of 10</span>`; }
+  else { const t = S.trials[0]; if (S.unlinked) drawFour(HP.unlink(t.shadows, t.seed + 1), null, null, true); else drawFour(t.shadows, null); $('plabel').textContent = 'set 1, ' + (S.unlinked ? 'links lost: the same points, drawn as dots, each coloured by the moment it is now paired with' : 'as you saw it'); $('pright').textContent = t.kind === 'one' ? 'it was one object' : 'it was four objects'; }
+}
+
+function goStep(n) {
+  n = Math.max(1, Math.min(STEPS.length, n)); S.step = n; const s = STEPS[n - 1];
+  $('stephead').textContent = `step ${n} of ${STEPS.length} · ${s.name}`; $('says').textContent = s.says;
+  [...$('rail').children].forEach((b, i) => b.classList.toggle('here', i === n - 1));
+  $('back').disabled = n === 1; $('next').textContent = n === STEPS.length ? 'the last step' : 'next step →'; $('next').disabled = n === STEPS.length;
+  if (S.anim) cancelAnimationFrame(S.anim); S.anim = null;
+  controls(); draw(); if (n === 4) S.anim = requestAnimationFrame(tick);
+}
+STEPS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.name; b.onclick = () => goStep(i + 1); $('rail').append(b); });
+$('back').onclick = () => goStep(S.step - 1); $('next').onclick = () => goStep(S.step + 1);
+let rw = 0; new ResizeObserver(() => { const w = cv.clientWidth; if (Math.abs(w - rw) > 2) { rw = w; draw(); } }).observe(cv.parentElement);
+goStep(1);
+</script>
+</body>
+</html>
