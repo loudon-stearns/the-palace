@@ -1,0 +1,414 @@
+<!doctype html>
+<!--
+  title: Brian Eno — rich — the frame, counted
+  born: 2026-11-03
+  links: [[Brian Eno]] (connects-to · rich-face-piece) · listed in [[Brian Eno — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test) · [[John Cage]] (connects-to · the coin in the loop) · [[The Blindspot Is the Surprise Fuel]] (connects-to · counting the hand on the dial)
+  forward_vector: I am "the system only sounds free because someone chose the frame", counted: one chosen loop length, then the whole frame tallied choice by choice, then an hour of loops in which every note can be traced back to a choice, and last a test that puts a coin in the loop, Cage's move, to see when the system starts deciding more than the person who framed it. Every sound is synthesised here; nothing of Eno's recordings is in it. I change only when the section I serve does.
+  engine: the script block with id "engine" holds the counting: the size of each choice in yes/no questions, the starts in an hour, the coin's share, and where any start came from.
+  checks: People/Brian Eno/Brian Eno — rich — check.mjs runs this engine against what the piece claims.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content=""><!-- needs nothing of its host: no device, no storage, no files, no network but the fonts -->
+<title>Brian Eno — the frame, counted</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  /* Loudon Live house style, Graphite skin. Amber is a choice a person made; indigo is a choice the system made. */
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#191924; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amber-soft:rgba(232,184,74,.10); --amber-line:rgba(232,184,74,.5); --indigo:#6366F1; --indigo-soft:rgba(99,102,241,.14);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 18px; border: 1px solid var(--border); border-radius: 2px; width: fit-content; max-width: 100%; }
+  .rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; background: transparent; padding: 7px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button[aria-current="step"] { background: var(--amber-soft); color: var(--amber); }
+  .step { display: none; }
+  .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .teach { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 0 0 12px; }
+  .back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin: 0 0 14px; }
+  .eqs { margin: 4px 0 16px; padding: 10px 14px; border-left: 1px solid var(--amber-line); background: var(--e1); max-width: 76ch; }
+  .eq { font-family: var(--serif); font-size: 20px; color: var(--fg1); font-variant-numeric: lining-nums; }
+  .eq i { font-style: italic; }
+  .words { font-size: 13px; line-height: 1.55; margin: 2px 0 8px; }
+  .words:last-child { margin-bottom: 0; }
+  button, select { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  select { text-transform: none; letter-spacing: .02em; padding: 5px 6px; }
+  button:hover { border-color: var(--amber-line); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.go { color: var(--amber); border-color: var(--amber-line); }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amber-line); background: var(--amber-soft); }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 6px 0 12px; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 8px 0 4px; font-family: var(--mono); font-size: 12px; letter-spacing: .03em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; margin-bottom: 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .two { display: grid; grid-template-columns: 1fr minmax(240px, 360px); gap: 16px; align-items: start; }
+  canvas { display: block; width: 100%; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); margin: 4px 0 8px; max-width: 520px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 10px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .loops { display: grid; gap: 6px; margin: 4px 0 10px; }
+  .loop { display: grid; grid-template-columns: 54px 1fr 84px 70px; gap: 10px; align-items: center; font-family: var(--mono); font-size: 11.5px; color: var(--fg3); }
+  .loop input[type=range] { margin: 0; }
+  .loop b { color: var(--fg1); font-weight: 500; }
+  table.tally { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; color: var(--fg2); width: 100%; }
+  table.tally th { text-align: left; font-weight: 400; color: var(--fg3); letter-spacing: .06em; font-size: 10px; border-bottom: 1px solid var(--border); padding: 4px 6px; }
+  table.tally td { border-bottom: 1px solid var(--soft); padding: 3px 6px; }
+  table.tally td.n { text-align: right; font-variant-numeric: tabular-nums; }
+  table.tally tr.sum td { color: var(--fg1); border-bottom: 0; border-top: 1px solid var(--border); font-weight: 500; }
+  table.tally tr.sys td { color: #9a9cf5; }
+  .bar { display: flex; height: 16px; border: 1px solid var(--border); border-radius: 2px; overflow: hidden; margin: 6px 0 4px; }
+  .bar i { display: block; height: 100%; transition: width 220ms var(--ease); }
+  .bar i.you { background: var(--amber); }
+  .bar i.sys { background: var(--indigo); }
+  .key { display: flex; gap: 16px; font-family: var(--mono); font-size: 10.5px; color: var(--fg3); }
+  .key span::before { content: ''; display: inline-block; width: 9px; height: 9px; margin-right: 6px; vertical-align: -1px; }
+  .key .you::before { background: var(--amber); } .key .sys::before { background: var(--indigo); }
+  .why { font-size: 13px; line-height: 1.55; min-height: 3.1em; padding: 8px 12px; border-left: 1px solid var(--amber-line); background: var(--e2); color: var(--fg1); margin: 6px 0 10px; max-width: 80ch; }
+  .verdict { font-size: 13.5px; line-height: 1.6; max-width: 80ch; padding: 10px 14px; border: 1px solid var(--amber-line); border-radius: 2px; background: var(--amber-soft); color: var(--fg1); margin: 8px 0 12px; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 76ch; margin: 6px 0 0; }
+  nav.walk { display: flex; gap: 10px; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  nav.walk .where { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; margin-left: auto; }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+  @media (max-width: 760px) { .two { grid-template-columns: 1fr; } .loop { grid-template-columns: 46px 1fr 72px 62px; gap: 6px; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><span id="sigil"></span>made · sketch · a walk in four steps</div>
+  <h2 class="title">How much of the drift was chosen?</h2>
+  <p class="sub">The section says Eno chooses the loops, the sounds, the constraints and the take, then lets go inside the box he built, so "the system did it" quietly credits the system for his selecting. Here the same kind of loop machine is built with every choice counted, and then a coin is put in it, to see what it takes for the system to decide more than the person who framed it. The sounds are made by this file. Silent until you press something.</p>
+  <div class="rail" id="rail"></div>
+
+  <!-- step 1 -->
+  <section class="step">
+    <h3>One chosen length</h3>
+    <p class="teach">Before a loop can drift, someone cuts it. Choose a length. The slider offers every length from 2 to 40 seconds in sixteenths of a second, so picking one is picking one of 609. A fair way to say how big that choice is: count the yes/no questions it would take someone to find out which length you picked, halving the options each time.</p>
+    <div class="eqs">
+      <div class="eq">size of a choice = log<sub>2</sub>(number of options) &nbsp; questions</div>
+      <div class="words">(how big a choice is) = how many yes/no questions it takes to pin down which option was picked. One of 2 is one question; one of 609 is about 9¼. A finer slider makes the same choice bigger; a coarser one, smaller.</div>
+    </div>
+    <label class="sl">your loop · <b id="s1Lv"></b><input id="s1L" type="range" min="32" max="640" step="1"></label>
+    <div class="btns"><button class="go" id="s1play">▸ hear it</button></div>
+    <div class="read"><span>choices made <b>1</b></span><span>options it was picked from <b>609</b></span><span>size <b id="s1bits"></b> questions</span></div>
+  </section>
+
+  <!-- step 2 -->
+  <section class="step">
+    <h3>The whole frame</h3>
+    <p class="teach">A piece of loops needs more than one length. How many loops, each one's length, each one's note, and the sound they are sung in. That is the frame: everything that is decided before the machine runs. Build one, play it, and watch the tally. Every row is a choice a person made.</p>
+    <p class="back">Loop 1's length is step 1's. Each row of the tally is counted the way step 1 counted it.</p>
+    <div class="two">
+      <div>
+        <label class="sl">how many loops · <b id="s2kv"></b><input id="s2k" type="range" min="1" max="7" step="1"></label>
+        <div class="loops" id="s2loops"></div>
+        <label class="sl">the sound · <select id="s2snd"><option value="0">a sung tone</option><option value="1">glass</option><option value="2">a reed</option></select></label>
+        <div class="btns"><button class="go" id="s2play">▸ play the frame</button></div>
+      </div>
+      <div class="panel"><div class="plabel"><span>the tally</span><span>questions</span></div><table class="tally" id="s2tally"></table></div>
+    </div>
+  </section>
+
+  <!-- step 3 -->
+  <section class="step">
+    <h3>Let it run, and ask any note where it came from</h3>
+    <p class="teach">Now the machine runs for an hour. It lays down every start without anyone touching it, and that is the part that sounds free: chords that nobody wrote form and dissolve. Below is the whole hour, one row per loop, a tick for each start. Press any tick and the piece tells you who decided it.</p>
+    <p class="back">The loops are step 2's frame, unchanged.</p>
+    <div class="eqs">
+      <div class="eq"><i>t<sub>i,n</sub></i> = <i>n</i> · <i>L<sub>i</sub></i>, &nbsp; note<sub><i>i</i></sub> fixed</div>
+      <div class="words">(when loop <i>i</i> sounds for the <i>n</i>th time) = <i>n</i> × (the length you cut for loop <i>i</i>), and it sounds the note you gave it. There is no term in this for the machine to choose anything.</div>
+    </div>
+    <div class="panel"><div class="plabel"><span>the hour · every start</span><span>press a tick</span></div><canvas id="c3"></canvas></div>
+    <div class="why" id="s3why">Press a tick.</div>
+    <div class="btns"><button class="go" id="s3play">▸ play from the top</button></div>
+    <div class="read"><span>starts the machine laid in the hour <b id="s3n"></b></span><span>choices you made <b id="s3k"></b></span><span>decisions the machine made <b>0</b></span></div>
+  </section>
+
+  <!-- step 4 -->
+  <section class="step">
+    <h3>The test: who made this hour?</h3>
+    <p class="teach">The section's reading is that the system only sounds free because someone chose the frame. With loops alone, step 3 already shows every start traced to a choice. The reading can fail, though, and this is how: put a coin in the machine. Each time a loop comes round, the coin decides whether that note sounds. That is Cage's move, the one the section sets against Eno's. Now the machine is making decisions of its own. Then add the take: Eno chose which stretch of tape to keep, so say how many takes you heard before you kept one. The bar counts both sides for one hour.</p>
+    <p class="back">At "always sounds" this is step 3's hour exactly; the frame is step 2's.</p>
+    <div class="eqs">
+      <div class="eq"><i>H</i>(<i>p</i>) = − <i>p</i> log<sub>2</sub> <i>p</i> − (1 − <i>p</i>) log<sub>2</sub>(1 − <i>p</i>) &nbsp; questions per start</div>
+      <div class="words">(how much the coin decides each time a loop comes round) = the yes/no questions it takes to learn how the coin fell, where <i>p</i> is the chance the note sounds. A coin that always says yes decides nothing; a fair coin decides one question a start.</div>
+      <div class="eq">the system's share = (starts in the hour × <i>H</i>(<i>p</i>)) ⁄ (that + the frame + log<sub>2</sub>(takes heard))</div>
+      <div class="words">(how much of the hour the system decided) = what the coin decided, over everything anyone or anything decided.</div>
+    </div>
+    <div class="two">
+      <div>
+        <label class="sl">chance a start sounds · <b id="s4pv"></b><input id="s4p" type="range" min="0.5" max="1" step="0.01"></label>
+        <label class="sl">takes you heard before keeping one · <b id="s4av"></b><input id="s4a" type="range" min="1" max="64" step="1"></label>
+        <div class="btns"><button class="go" id="s4play">▸ play this hour</button><button id="s4throw">throw the coins again</button></div>
+      </div>
+      <div class="panel"><div class="plabel"><span>one hour, decided by</span><span id="s4share"></span></div>
+        <div class="bar"><i class="you" id="s4you"></i><i class="sys" id="s4sys"></i></div>
+        <div class="key"><span class="you">you: the frame and the take</span><span class="sys">the coin</span></div>
+        <table class="tally" id="s4tally" style="margin-top:8px"></table></div>
+    </div>
+    <div class="panel"><div class="plabel"><span>the hour · bright ticks sound, dim ones the coin silenced</span><span>press a tick</span></div><canvas id="c4"></canvas></div>
+    <div class="why" id="s4why">Press a tick.</div>
+    <div class="verdict" id="s4verdict"></div>
+    <p class="note">The counts depend on the menus: a finer slider makes every choice of yours bigger, and the coin's count grows with every minute the hour runs. What does not depend on any menu is the first result: with loops alone, the machine decides nothing. The piece counts decisions, not taste; it cannot say which choices were good, and it cannot hear.</p>
+  </section>
+
+  <nav class="walk"><button id="back">◀ back</button><button id="next">next ▶</button><span class="where" id="where"></span></nav>
+  <div class="foot">Loud’n Live</div>
+</div>
+
+<script id="engine">
+// The counting. A choice made from n options is log2(n) yes/no questions. Lengths are whole sixteenths of a
+// second, from 2 s to 40 s; notes come from a two-octave palette; three sounds.
+const G = 16, LMIN = 2 * G, LMAX = 40 * G, HOUR = 3600;
+const MENU = { loops: 7, lengths: LMAX - LMIN + 1, notes: 25, sounds: 3 };
+const q = n => Math.log2(n);
+// the frame's tally: one row per choice
+function frameTally(frame) {
+  const rows = [{ what: 'how many loops', options: MENU.loops }];
+  frame.lens.forEach((l, i) => { rows.push({ what: 'loop ' + (i + 1) + ' length', options: MENU.lengths }); rows.push({ what: 'loop ' + (i + 1) + ' note', options: MENU.notes }); });
+  rows.push({ what: 'the sound', options: MENU.sounds });
+  rows.forEach(r => { r.q = q(r.options); });
+  return rows;
+}
+const frameQ = frame => frameTally(frame).reduce((a, r) => a + r.q, 0);
+// every start in [0, HOUR): loop i sounds at n * L_i, all loops starting together at 0
+function hourStarts(lens) {
+  const out = [];
+  lens.forEach((l16, i) => { for (let n = 0; n * l16 < HOUR * G; n++) out.push({ loop: i, n, t16: n * l16 }); });
+  return out.sort((a, b) => a.t16 - b.t16 || a.loop - b.loop);
+}
+const startsPerHour = lens => lens.reduce((a, l16) => a + Math.floor((HOUR * G - 1) / l16) + 1, 0);
+// the coin: binary entropy, in questions per start
+function H(p) { if (p <= 0 || p >= 1) return 0; return -p * Math.log2(p) - (1 - p) * Math.log2(1 - p); }
+// one hour's account: what the person decided, what the coin decided, and when the coin passes the person
+function account(frame, p, takes) {
+  const you = frameQ(frame) + q(takes), n = startsPerHour(frame.lens), sys = n * H(p);
+  const rate = frame.lens.reduce((a, l16) => a + G / l16, 0) * H(p); // the coin's questions per second
+  return { you, sys, n, share: sys / (you + sys), passesAt: rate > 0 ? you / rate : Infinity };
+}
+// a coin that falls the same way for the same loop, turn and throw: a hash, not a stream, so the drawing,
+// the sound and a second look all agree
+function coin(seed, loop, n) {
+  let h = (seed * 2654435761 ^ (loop + 1) * 40503 ^ (n + 1) * 2246822519) >>> 0;
+  h = Math.imul(h ^ (h >>> 16), 2246822507) >>> 0; h = Math.imul(h ^ (h >>> 13), 3266489909) >>> 0; h = (h ^ (h >>> 16)) >>> 0;
+  return h / 4294967296;
+}
+// where a start came from
+function origin(frame, st) {
+  const L = frame.lens[st.loop] / G;
+  return { loop: st.loop + 1, n: st.n, t: st.n * L, L, note: frame.notes[st.loop] };
+}
+const mmss = s => { const m = Math.floor(s / 60), r = s - 60 * m; return m + ':' + (r < 10 ? '0' : '') + r.toFixed(3).replace(/\.?0+$/, ''); };
+</script>
+
+<script>
+const $ = id => document.getElementById(id);
+(function sigil(el) {
+  const p = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; p.push((11 + 9 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ',' + (11 + 9 * Math.sin(2 * t)).toFixed(2)); }
+  el.innerHTML = '<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.4" fill="none" stroke="#4a4a5e" stroke-width="1"/><polyline points="' + p.join(' ') + '" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>';
+})($('sigil'));
+
+const COLORS = ['#e8b84a', '#6366F1', '#d06a8a', '#5fb3a1', '#c8c8d8', '#b08ad8', '#e07a4a'];
+const NOTE_NAMES = ['C', 'C♯', 'D', 'E♭', 'E', 'F', 'F♯', 'G', 'A♭', 'A', 'B♭', 'B'];
+const nn = m => NOTE_NAMES[m % 12] + (Math.floor(m / 12) - 1);
+const PALETTE = []; for (let m = 50; m <= 74; m++) PALETTE.push(m);
+const fmtLen = l16 => { const s = l16 / G; return (Number.isInteger(s) ? s : +s.toFixed(4)) + ' s'; };
+// this piece's own frame to start from: lengths of the kind Eno described, notes chosen here
+const SPARE = { lens: [376, 414, 479, 331, 557, 283, 503], notes: [62, 66, 69, 57, 71, 64, 73] };
+const FR = { lens: [376, 414, 479], notes: [62, 66, 69], snd: 0 };
+
+// ---- sound ----
+const SND = { ctx: null, bus: null, verb: null, take: null };
+function audio() {
+  if (!SND.ctx) {
+    const c = SND.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = c.createDynamicsCompressor(); comp.threshold.value = -18; comp.ratio.value = 3; comp.connect(c.destination);
+    SND.bus = c.createGain(); SND.bus.gain.value = 0.5; SND.bus.connect(comp);
+    const len = Math.floor(c.sampleRate * 3.2), ir = c.createBuffer(2, len, c.sampleRate);
+    for (let ch = 0; ch < 2; ch++) { const d = ir.getChannelData(ch); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3); }
+    SND.verb = c.createConvolver(); SND.verb.buffer = ir;
+    const wet = c.createGain(); wet.gain.value = 0.32; SND.verb.connect(wet).connect(SND.bus);
+  }
+  if (SND.ctx.state === 'suspended') SND.ctx.resume();
+  return SND.ctx;
+}
+// three sounds: a sung tone (soft partials, slow swell), glass (a sine and an inharmonic partial, struck),
+// a reed (odd partials, slower swell). All made here.
+const SOUNDS = [
+  { parts: [[1, 1], [2, 0.32], [3, 0.12], [4, 0.05]], att: 0.9, fall: 1.3, lp: 2400 },
+  { parts: [[1, 1], [2.76, 0.28], [5.4, 0.07]], att: 0.01, fall: 1.6, lp: 6000 },
+  { parts: [[1, 1], [3, 0.4], [5, 0.2], [7, 0.1]], att: 0.5, fall: 1.0, lp: 1800 }
+];
+function note(dest, midi, when, gain, snd) {
+  const c = SND.ctx, f = 440 * Math.pow(2, (midi - 69) / 12), S = SOUNDS[snd], dur = 7;
+  const env = c.createGain(), lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = S.lp; lp.Q.value = 0.3;
+  env.gain.setValueAtTime(0, when); env.gain.linearRampToValueAtTime(gain, when + S.att); env.gain.setTargetAtTime(0, when + S.att + 0.5, S.fall);
+  const vib = c.createOscillator(), vg = c.createGain(); vib.frequency.value = 4.6; vg.gain.value = snd === 1 ? 0 : f * 0.003; vib.connect(vg);
+  S.parts.forEach(([h, a]) => { const o = c.createOscillator(), g = c.createGain(); o.frequency.value = f * h; vg.connect(o.frequency); g.gain.value = a; o.connect(g).connect(lp); o.start(when); o.stop(when + dur); });
+  vib.start(when); vib.stop(when + dur);
+  lp.connect(env); env.connect(dest); env.connect(SND.verb);
+}
+// a take: the frame's loops from zero; `keep(loop, n)` says whether that start sounds (the coin, or always)
+function play(frame, keep, btn, label) {
+  stop(); const c = audio();
+  const out = c.createGain(); out.connect(SND.bus);
+  const t0 = c.currentTime + 0.08, next = frame.lens.map(() => 0), gain = 0.22 / Math.sqrt(Math.max(1, frame.lens.length));
+  const take = { out, t0, timer: null, btn, label };
+  const pump = () => {
+    const ahead = c.currentTime + 0.25;
+    frame.lens.forEach((l16, i) => { const L = l16 / G; while (t0 + next[i] * L < ahead) { if (keep(i, next[i])) note(out, frame.notes[i], t0 + next[i] * L, gain, frame.snd); next[i]++; } });
+  };
+  pump(); take.timer = setInterval(pump, 60); SND.take = take;
+  if (window.RichPiece && RichPiece.capAfter) RichPiece.capAfter(300); // an hour of loops wants minutes, not one
+  btn.setAttribute('aria-pressed', 'true'); btn.textContent = '❚❚ stop';
+}
+function stop() {
+  const tk = SND.take; if (!tk) return; SND.take = null;
+  clearInterval(tk.timer); tk.out.gain.setTargetAtTime(0, SND.ctx.currentTime, 0.08); setTimeout(() => tk.out.disconnect(), 900);
+  tk.btn.setAttribute('aria-pressed', 'false'); tk.btn.textContent = '▸ ' + tk.label;
+}
+function toggle(btn, label, frame, keep) { if (SND.take && SND.take.btn === btn) { stop(); return; } play(frame, keep, btn, label); }
+const always = () => true;
+const elapsed = () => (SND.take ? Math.max(0, SND.ctx.currentTime - SND.take.t0) : null);
+
+function fit(cv, h) {
+  const w = cv.clientWidth || 300, d = window.devicePixelRatio || 1;
+  if (cv.width !== Math.round(w * d) || cv.height !== Math.round(h * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); cv.style.height = h + 'px'; }
+  const g = cv.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h };
+}
+function tallyHTML(rows, extra) {
+  const sum = rows.reduce((a, r) => a + r.q, 0) + (extra ? extra.reduce((a, r) => a + r.q, 0) : 0);
+  return '<tr><th>choice</th><th class="n">one of</th><th class="n">questions</th></tr>' +
+    rows.concat(extra || []).map(r => '<tr class="' + (r.sys ? 'sys' : '') + '"><td>' + r.what + '</td><td class="n">' + (r.options == null ? '' : r.options.toLocaleString('en')) + '</td><td class="n">' + r.q.toFixed(2) + '</td></tr>').join('') +
+    '<tr class="sum"><td>all of it</td><td></td><td class="n">' + sum.toFixed(1) + '</td></tr>';
+}
+
+// ---- step 1 ----
+$('s1L').value = FR.lens[0];
+function draw1() { $('s1Lv').textContent = fmtLen(FR.lens[0]); $('s1bits').textContent = q(MENU.lengths).toFixed(2); }
+$('s1L').oninput = e => { FR.lens[0] = +e.target.value; stop(); draw1(); };
+$('s1play').onclick = () => toggle($('s1play'), 'hear it', { lens: [FR.lens[0]], notes: [FR.notes[0]], snd: FR.snd }, always);
+
+// ---- step 2 ----
+function loopsUI() {
+  const box = $('s2loops'); box.innerHTML = '';
+  FR.lens.forEach((l16, i) => {
+    const row = document.createElement('div'); row.className = 'loop';
+    row.innerHTML = '<span style="color:' + COLORS[i] + '">loop ' + (i + 1) + '</span><input type="range" min="' + LMIN + '" max="' + LMAX + '" step="1" value="' + l16 + '" aria-label="loop ' + (i + 1) + ' length"><b>' + fmtLen(l16) + '</b>' +
+      '<select aria-label="loop ' + (i + 1) + ' note">' + PALETTE.map(m => '<option value="' + m + '"' + (m === FR.notes[i] ? ' selected' : '') + '>' + nn(m) + '</option>').join('') + '</select>';
+    const [, sl, lab, sel] = row.children;
+    sl.oninput = () => { FR.lens[i] = +sl.value; lab.textContent = fmtLen(FR.lens[i]); stop(); };
+    sel.onchange = () => { FR.notes[i] = +sel.value; stop(); };
+    box.appendChild(row);
+  });
+}
+function draw2() {
+  $('s2k').value = FR.lens.length; $('s2kv').textContent = FR.lens.length; $('s2snd').value = FR.snd;
+  loopsUI(); $('s2tally').innerHTML = tallyHTML(frameTally(FR));
+}
+$('s2k').oninput = e => {
+  const k = +e.target.value; stop();
+  while (FR.lens.length < k) { FR.lens.push(SPARE.lens[FR.lens.length]); FR.notes.push(SPARE.notes[FR.notes.length]); }
+  FR.lens.length = k; FR.notes.length = k; draw2();
+};
+$('s2snd').onchange = e => { FR.snd = +e.target.value; stop(); };
+$('s2play').onclick = () => toggle($('s2play'), 'play the frame', FR, always);
+
+// ---- steps 3 and 4: the hour ----
+const S4 = { p: 1, takes: 1, seed: 1 };
+const keepCoin = (i, n) => S4.p >= 1 || coin(S4.seed, i, n) < S4.p;
+function hour(cv, withCoin, now) {
+  const rowH = 16, { g, w, h } = fit(cv, FR.lens.length * rowH + 24); g.clearRect(0, 0, w, h);
+  const x = t => 8 + (w - 16) * t / HOUR;
+  g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace';
+  for (let m = 0; m <= 60; m += 10) { g.fillRect(x(m * 60), h - 16, 1, 4); g.fillText(m + ' min', Math.min(x(m * 60) + 3, w - 40), h - 4); }
+  hourStarts(FR.lens).forEach(st => {
+    const on = !withCoin || keepCoin(st.loop, st.n);
+    g.fillStyle = COLORS[st.loop]; g.globalAlpha = on ? 0.95 : 0.16;
+    g.fillRect(x(st.t16 / G) - 0.5, 3 + st.loop * rowH, 1.6, rowH - 5);
+  });
+  g.globalAlpha = 1;
+  if (now != null && now < HOUR) { g.fillStyle = '#e8e8f0'; g.fillRect(x(now), 0, 1, h - 18); }
+  cv._hit = (px, py) => {
+    const loop = Math.floor((py - 3) / rowH); if (loop < 0 || loop >= FR.lens.length) return null;
+    const t = (px - 8) / (w - 16) * HOUR, L = FR.lens[loop] / G, n = Math.max(0, Math.min(Math.floor((HOUR * G - 1) / FR.lens[loop]), Math.round(t / L)));
+    return { loop, n, t16: n * FR.lens[loop] };
+  };
+}
+function explain(st, withCoin) {
+  const o = origin(FR, st);
+  let s = 'Loop ' + o.loop + ' sounds at ' + mmss(o.t) + '. It is there because ' + o.n + ' × ' + fmtLen(FR.lens[st.loop]) + ' = ' + (+o.t.toFixed(4)) + ' s: the length you cut for loop ' + o.loop + ', gone round ' + o.n + (o.n === 1 ? ' time' : ' times') + '. It sings ' + nn(o.note) + ', the note you gave loop ' + o.loop + ', in the sound you chose.';
+  if (withCoin && S4.p < 1) s += keepCoin(st.loop, st.n) ? ' Then the coin let it sound. That yes was the coin\'s, not yours.' : ' Then the coin silenced it. That no was the coin\'s, not yours.';
+  else s += ' Nothing else had a say.';
+  return s;
+}
+function hookHits(cv, why, withCoin) {
+  cv.onclick = e => { const r = cv.getBoundingClientRect(), st = cv._hit && cv._hit(e.clientX - r.left, e.clientY - r.top); if (st) $(why).textContent = explain(st, withCoin); };
+}
+hookHits($('c3'), 's3why', false); hookHits($('c4'), 's4why', true);
+function draw3() {
+  const now = SND.take && SND.take.btn === $('s3play') ? elapsed() : null;
+  hour($('c3'), false, now);
+  if (now == null) { $('s3n').textContent = startsPerHour(FR.lens).toLocaleString('en'); $('s3k').textContent = frameTally(FR).length + ' (' + frameQ(FR).toFixed(1) + ' questions)'; }
+}
+$('s3play').onclick = () => toggle($('s3play'), 'play from the top', FR, always);
+
+$('s4p').value = S4.p; $('s4a').value = S4.takes;
+function draw4(still) {
+  const now = SND.take && SND.take.btn === $('s4play') ? elapsed() : null;
+  hour($('c4'), true, now);
+  if (still) return;
+  const A = account(FR, S4.p, S4.takes);
+  $('s4pv').textContent = S4.p >= 1 ? 'always (no coin)' : Math.round(S4.p * 100) + ' in 100';
+  $('s4av').textContent = S4.takes + (S4.takes === 1 ? ' (the first)' : '');
+  $('s4you').style.width = (100 * (1 - A.share)) + '%'; $('s4sys').style.width = (100 * A.share) + '%';
+  $('s4share').textContent = 'the system ' + (100 * A.share).toFixed(1) + '%';
+  const extra = [{ what: 'the take', options: S4.takes, q: q(S4.takes) }, { what: 'the coin, ' + A.n.toLocaleString('en') + ' starts', options: null, q: A.sys, sys: true }];
+  $('s4tally').innerHTML = tallyHTML(frameTally(FR), extra);
+  const yours = A.you.toFixed(1), sounded = hourStarts(FR.lens).filter(st => keepCoin(st.loop, st.n)).length;
+  const passes = A.passesAt < 60 ? A.passesAt.toFixed(0) + ' seconds' : (A.passesAt / 60).toFixed(1) + ' minutes';
+  $('s4verdict').innerHTML = S4.p >= 1
+    ? '<b>With loops alone, the reading holds exactly.</b> The machine laid ' + A.n.toLocaleString('en') + ' starts this hour and decided none of them: every one traces back to a length and a note you chose. Your ' + yours + ' questions are the whole of what was decided. The machine did the labour, not the choosing. That is the section\'s blind spot, counted: "the system did it" is true of the work and false of the decisions. Now lower the chance a start sounds.'
+    : A.share < 0.5
+    ? '<b>A light coin: you still decided most of this hour.</b> The coin decided ' + A.sys.toFixed(1) + ' questions (' + sounded.toLocaleString('en') + ' of ' + A.n.toLocaleString('en') + ' starts sounded), against your ' + yours + '. At this chance it would pass you after ' + passes + '. Lower the chance further.'
+    : '<b>With a coin in it, the reading fails, by this count.</b> The coin decided ' + A.sys.toFixed(0) + ' questions this hour (' + sounded.toLocaleString('en') + ' of ' + A.n.toLocaleString('en') + ' starts sounded), against your ' + yours + '; it passed you after ' + passes + '. A system with chance in it really does decide most of what you hear, moment to moment. What it still cannot decide is anything outside the frame: it only says yes or no to starts you placed, on notes you chose. So the honest split is Cage\'s and Eno\'s at once: the moments are the coin\'s, the room they happen in is yours. Tape loops have no coin. That is why the section is right about <i>Music for Airports</i>.';
+}
+$('s4p').oninput = e => { S4.p = +e.target.value; draw4(); };
+$('s4a').oninput = e => { S4.takes = +e.target.value; draw4(); };
+$('s4throw').onclick = () => { S4.seed = (S4.seed * 7919 + 13) % 1000003; stop(); draw4(); };
+$('s4play').onclick = () => toggle($('s4play'), 'play this hour', FR, keepCoin);
+
+// ---- the walk ----
+const STEPS_ = [{ name: 'one length', draw: draw1 }, { name: 'the frame', draw: draw2 }, { name: 'the hour', draw: draw3 }, { name: 'the test', draw: () => draw4() }];
+let cur = 0;
+STEPS_.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.name; b.onclick = () => go(i); $('rail').appendChild(b); });
+function go(i) {
+  stop(); cur = Math.max(0, Math.min(STEPS_.length - 1, i));
+  document.querySelectorAll('.step').forEach((el, k) => el.classList.toggle('on', k === cur));
+  $('rail').querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === cur ? 'step' : 'false'));
+  STEPS_[cur].draw();
+  $('back').disabled = cur === 0; $('next').disabled = cur === STEPS_.length - 1;
+  $('where').textContent = 'step ' + (cur + 1) + ' of ' + STEPS_.length;
+}
+$('back').onclick = () => go(cur - 1);
+$('next').onclick = () => go(cur + 1);
+// the playhead on the hour moves only while a take plays
+setInterval(() => { if (!SND.take) return; if (cur === 2) draw3(); else if (cur === 3) draw4(true); }, 250);
+window.addEventListener('resize', () => STEPS_[cur].draw());
+go(0);
+</script>
+</body>
+</html>

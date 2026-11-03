@@ -1,0 +1,96 @@
+{
+  "title": "Brian Eno — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Brian Eno]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "each-piece-walks-up"
+    }
+  ],
+  "forward_vector": "I am the manifest of Brian Eno's rich face, its first round, a Sketch and still a proposal: two walks about his method, not his voice. One builds tape loops from a single ring to many and asks whether different lengths are enough to keep a piece from coming round again (not quite: the ratios have to sit far from simple fractions, even to the ear). The other counts the frame choice by choice and puts a coin in the loop, to find where the page's reading of his blind spot holds and where it splits. Every sound is made by the pieces; none of his recordings is here. I grow when the page is enriched again; I never hold the entry's words.",
+  "entry": "Brian Eno",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "How his mind moves",
+      "kind": "claim-change",
+      "what": "'Tape loops of different lengths drifting out of phase' holds with a condition the section doesn't state: different lengths drift only when their ratios sit far from simple fractions, even to the ear. Measured on the loops piece's engine (checked by Brian Eno — rich — check.mjs): 8, 12, 16 and 24 s are four different lengths and come round every 48 s; cut the 24 s loop a sixteenth of a second longer and the exact return moves to 5.13 hours, yet every start lands within 1/8 s of the others again at 48.125 s, so an ear hears the old cycle. The three lengths Eno gave (23.5, 25.875 and 29.9375 s, in his 1996 talk 'Generative Music', printed in In Motion Magazine) come back exactly after 26.97 days, and within 1/8 s after 50.6 hours. A possible line: '…tape loops whose lengths share no simple ratio, drifting out of phase: he set the lengths, and the lengths decided when, if ever, it comes round again.'",
+      "status": "open"
+    },
+    {
+      "section": "How his mind moves",
+      "kind": "claim-change",
+      "what": "Scope, from the source: in the 1996 talk Eno describes the three loops as 'at least one of the pieces on there', not the whole record. 'One piece on Music for Airports is tape loops…' would match his own words. Checked against the In Motion Magazine text of the talk; not checked against the record's credits or any other source.",
+      "status": "open"
+    },
+    {
+      "section": "Where he can't see",
+      "kind": "claim-change",
+      "what": "Counted, the reading holds for tape loops and splits once chance is in the loop. With loops alone the machine decides nothing: an hour of a three-loop frame (Eno's three lengths, notes chosen in the piece) is 415 starts, every one n × a length the person cut, and the frame is about 46 yes/no questions on the piece's menus (609 lengths, 25 notes, 3 sounds, up to 7 loops); so 'the system did it' is true of the labour and false of the decisions. With a fair coin deciding whether each start sounds (Cage's move, which the section names), the coin decides 415 questions in the hour, 90% of all that was decided, and passes the frame after 6.7 minutes; it still only says yes or no to starts the frame placed. A line the section could carry: 'With fixed loops every decision is in the frame; the system adds time, not choices. Put a coin in it and the moments become the system's, while the room they happen in stays his.'",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "How his mind moves",
+      "made_against": "7c8b32736e33",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Brian Eno — rich — loops of different lengths.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio",
+          "title": "loops of different lengths · a walk in four steps",
+          "caption": "**He set the lengths. What did the lengths do?** One tape loop alone, then two drifting on a square where one moment is one point, then up to seven, and last a test: are different lengths enough to keep the whole from coming round again? Measured two ways, exactly and to the ear. The notes and the sound are made here; from Eno it takes only three loop lengths he gave in a 1996 talk.",
+          "near": "is tape loops of different lengths drifting out of phase",
+          "place": "band",
+          "height": 1360
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Where he can't see",
+      "made_against": "a317bbb642b5",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Brian Eno — rich — the frame, counted.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio",
+          "title": "the frame, counted · a walk in four steps",
+          "caption": "**How much of the drift was chosen?** One chosen loop length, sized in yes/no questions; then the whole frame, tallied; then an hour of loops where any note can be asked who decided it; and last a coin in the loop, Cage's move, to find when the system starts deciding more than the person who framed it.",
+          "near": "He chooses the loops, the synths, the constraints, the take",
+          "place": "band",
+          "height": 1000
+        }
+      ],
+      "stamped": "2026-11-03"
+    }
+  ]
+}
