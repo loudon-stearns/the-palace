@@ -317,3 +317,9 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 65. **A session that spans a gap can have its canon reshaped by a Weave before its close, and the cold read saw it only by diffing.** The Weave of 2026-10-24 removed the page's outbound links to Haptic Handwheel, Merleau-Ponty and Biomechanical Synthesis. The cold read caught it because it diffed the session's last commit against HEAD on the files the session touched. This is item 58's gap rule from the other side: the room's own landings, not Loudon's answers, moved. Data, not a spec change; the version stays v1.13. Nothing owed. Also data: `due.mjs --session` listed six tier-2 scenarios owed, all floor files changed by other sessions in the gap; no birth row is owed to this session, so the next close on main should not re-attribute them.
 
 - run · 2026-10-25 · v1.13 · close-2026-10-25-playful-interface-design · taught item 65
+
+## From the Daily Page close — BLUELINE, 2026-11-03
+
+66. **The cold read caught a public-surface hazard the room had not raised.** The close's checklist would have copied a rough's two cuts and their script into a bundle's proofs: the cuts carry about 35 seconds of an unreleased song, and the script carried a private cloud-drive path with an address in it. The repo is public. The cold read raised it; at the panel Loudon kept the music and the address out, and a tracked dealer line that had already promised the files was corrected before its commit. Data for item 60's witness question; no spec change. The version stays v1.13.
+
+- run · 2026-11-03 · v1.13 · close-2026-10-29-daily-page-blueline · taught item 66

@@ -221,3 +221,12 @@ What each morning taught the practice. Each item names what the morning showed a
 76. **The piece tested the page, and his correction moved the page to its real subject.** The Color Hold tested the page's claim for one held color. He redirected: the page is about storytelling, and color is one tool, unproven as the strongest. The second rough then tested color as the only variable, and its arcs beat its moods. Nothing forced; a case for the bias toward making a piece that tests the page (§ What Loudon decided).
 77. **The prep ran at night, and the hello met the hour.** The prep finished about 23:36 and the greeting said "good evening". He came the next morning, and the clock was read again before meeting him. Prep step 6 held as written. Nothing forced.
 - run · 2026-10-28 · v1.2 · Graphic Storytelling, tune · taught items 74–77
+
+## From the thirteenth morning — BLUELINE, 2026-10-29 (closed 2026-11-03)
+
+78. **A sit ran four days.** The page was dealt and the prep ran on 10-29; the sit and its close ran to 11-03. `deal.py --sat` was given `--date 2026-10-29` (item 61's workaround, as in item 75), and the run line carries the deal's date. Nothing forced.
+79. **The dealer's `--made` named files before they were placed.** The sat line was written early in the close and said the cuts were "in the page's proofs". At the panel the cuts were kept out of the palace (the song is unreleased, and the repo is public), so the uncommitted line was corrected in place before its commit. **Change owed, open:** close step 1 could come after the placing, so `--made` describes what landed.
+80. **A body landed that contradicted the morning's own find.** The prep found the Set runs at 127 BPM, where the record says 120; the hub-shaped body, drafted after, said "a beat becomes an exact frame", which holds only at 120. The cold read caught it, not the room. Nothing forced; the sentence was replaced on Loudon's word, and his tempo order went to the scroll's Standing Orders.
+81. **Item 59 seen again.** The dealer listed BLUELINE's own bundle pages and `Shop/Blender` as forward ghosts; all exist. Still owed in `deal.py`.
+- Also: the woken page asked for a cut with sound and one finish over its six boards. The prep made two blind cuts over the real song with the boards as they were; the finish went to the page's baton.
+- run · 2026-10-29 · v1.2 · BLUELINE, tune · taught items 78–81
