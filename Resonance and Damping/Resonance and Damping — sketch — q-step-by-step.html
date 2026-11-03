@@ -21,6 +21,52 @@ status: "finished 2026-10-29: step 5 pushes in hertz, step 4's sheet draws the s
 <meta name="piece:needs" content="storage">
 <title>Q, step by step</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="theme-color" content="#f0eee5">
+<style data-furniture="_ops/drafting-table/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/drafting-table/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, link, textarea. */
+@layer furniture {
+:where(*) { --fx-ground-000: var(--ground-000, #f0eee5); --fx-ground-100: var(--ground-100, #e6e3d7); --fx-ground-200: var(--ground-200, #dcd9ca); --fx-ink: var(--ink, #1a1916); --fx-ink-2: var(--ink-2, #3a3a35); --fx-ink-3: var(--ink-3, #6a6862); --fx-rule: var(--rule, #b8b09a); --fx-slab-face: var(--slab-face, #d8d4c6); --fx-slab-light: var(--slab-light, #ebe8dd); --fx-accent: var(--accent, #c8261a); --fx-selection: #1a1916; --fx-on-selection: #f0eee5; --fx-source-measure: #c8261a; --fx-source-datasheet: var(--source-datasheet, #2b5fb0); --fx-shadow-slab: var(--shadow-slab, inset 0 1px 0 #ebe8dd, 0 1px 0 #b9b4a3, 0 2px 3px rgba(26,25,22,0.18)); --fx-shadow-recess: var(--shadow-recess, inset 0 1px 2px rgba(26,25,22,0.28), inset 0 0 0 1px #b8b09a); --fx-font-mono: var(--font-mono, 'JetBrains Mono', 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace); --fx-space-1: 4px; --fx-space-2: 8px; --fx-space-3: 12px; --fx-space-4: 16px; --fx-space-5: 24px; --fx-radius-0: 0; --fx-radius-bevel: 2px; --fx-radius-round: 999px; --fx-stroke-frame: 2px; --fx-stroke-rule: 1px; }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: var(--fx-ground-100); border-left: var(--fx-stroke-rule) solid var(--fx-rule);}
+::-webkit-scrollbar-track:horizontal {border-left: 0; border-top: var(--fx-stroke-rule) solid var(--fx-rule);}
+::-webkit-scrollbar-thumb {background: var(--fx-slab-face); border: var(--fx-stroke-rule) solid var(--fx-ink); border-radius: var(--fx-radius-0); box-shadow: inset 0 1px 0 var(--fx-slab-light);}
+::-webkit-scrollbar-thumb:hover {background: var(--fx-slab-light);}
+::-webkit-scrollbar-thumb:active {background: var(--fx-slab-light); border-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: var(--fx-ground-100);}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-rule) var(--fx-ground-100);}
+*:hover {scrollbar-color: var(--fx-ink-2) var(--fx-ground-100);}}
+::selection {background: var(--fx-selection); color: var(--fx-on-selection); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px dashed var(--fx-ink); outline-offset: 2px;}
+textarea {resize: vertical; min-height: 3.5em;}
+textarea::-webkit-resizer {background: linear-gradient(135deg, transparent 0 58%, var(--fx-rule) 58% 64%, transparent 64% 76%, var(--fx-rule) 76% 82%, transparent 82%); background-clip: content-box;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="checkbox"], input[type="radio"] {appearance: none; -webkit-appearance: none; width: 14px; height: 14px; margin: 0 var(--fx-space-2) 0 0; vertical-align: -2px; flex: none; border: var(--fx-stroke-rule) solid var(--fx-ink-2); border-radius: var(--fx-radius-0); background: var(--fx-ground-000); cursor: pointer;}
+input[type="radio"] {border-radius: var(--fx-radius-round);}
+input[type="checkbox"]:hover, input[type="radio"]:hover {border-color: var(--fx-ink);}
+input[type="checkbox"]:checked, input[type="radio"]:checked {border-color: var(--fx-ink); background: var(--fx-ink); box-shadow: inset 0 0 0 3px var(--fx-ground-000);}
+input[type="checkbox"]:indeterminate {border-color: var(--fx-ink); background: linear-gradient(var(--fx-ink), var(--fx-ink)) center / 8px 2px no-repeat var(--fx-ground-000);}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 18px; margin: 0; padding: 0; background: transparent; border: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-rule);}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-rule);}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-ink-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 10px; height: 16px; margin-top: -7px; background: var(--fx-slab-face); border: var(--fx-stroke-rule) solid var(--fx-ink); border-radius: var(--fx-radius-bevel); box-shadow: var(--fx-shadow-slab);}
+input[type="range"]::-moz-range-thumb {width: 8px; height: 14px; background: var(--fx-slab-face); border: var(--fx-stroke-rule) solid var(--fx-ink); border-radius: var(--fx-radius-bevel); box-shadow: var(--fx-shadow-slab);}
+input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-slab-light); border-color: var(--fx-accent);}
+input[type="range"]:active::-moz-range-thumb {background: var(--fx-slab-light); border-color: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 18px; height: 100%; cursor: ns-resize;}
+.sheet-dim {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"], input[type="checkbox"], input[type="radio"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
   /* Drafting Table tokens, paper ground, copied from _ops/drafting-table/design-system/colors_and_type.css */
