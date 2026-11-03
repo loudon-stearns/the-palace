@@ -1,0 +1,489 @@
+<!doctype html>
+<!--
+  title: Brian Eno — rich — loops of different lengths
+  born: 2026-11-03
+  links: [[Brian Eno]] (connects-to · rich-face-piece) · listed in [[Brian Eno — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test) · [[Generative Audio Devices]] (connects-to · set the rules, not the events)
+  forward_vector: I am "he set the lengths, the room made the piece", walked: one tape loop alone, then two drifting against each other, then many, and last a test of whether different lengths are enough to make a piece that never comes round again. Every sound here is synthesised by this file; nothing of Eno's recordings is in it, only the three loop lengths he gave in a 1996 talk. I change only when the section I serve does.
+  engine: the script block with id "engine" is the arithmetic: lengths in sixteenths of a second, the exact return (lcm), the return to within a tolerance, and the starts in a stretch of time.
+  checks: People/Brian Eno/Brian Eno — rich — check.mjs runs this engine against what the piece claims, and against a brute-force search.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content=""><!-- needs nothing of its host: no device, no storage, no files, no network but the fonts -->
+<title>Brian Eno — loops of different lengths</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  /* Loudon Live house style, Graphite skin: workshop in dim light. Amber is the loop you are hearing; indigo is
+     the second loop; mist is everything already gone round. */
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#191924; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amber-soft:rgba(232,184,74,.10); --amber-line:rgba(232,184,74,.5); --indigo:#6366F1; --rose:#d06a8a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 18px; border: 1px solid var(--border); border-radius: 2px; width: fit-content; max-width: 100%; }
+  .rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; background: transparent; padding: 7px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button[aria-current="step"] { background: var(--amber-soft); color: var(--amber); }
+  .step { display: none; }
+  .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .teach { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 0 0 12px; }
+  .back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin: 0 0 14px; }
+  .eqs { margin: 4px 0 16px; padding: 10px 14px; border-left: 1px solid var(--amber-line); background: var(--e1); max-width: 76ch; }
+  .eq { font-family: var(--serif); font-size: 20px; color: var(--fg1); font-variant-numeric: lining-nums; }
+  .eq i { font-style: italic; }
+  .words { font-size: 13px; line-height: 1.55; margin: 2px 0 8px; }
+  .words:last-child { margin-bottom: 0; }
+  button, select { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  select { text-transform: none; letter-spacing: .02em; padding: 5px 6px; }
+  button:hover { border-color: var(--amber-line); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.go { color: var(--amber); border-color: var(--amber-line); }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amber-line); background: var(--amber-soft); }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 6px 0 12px; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 8px 0 4px; font-family: var(--mono); font-size: 12px; letter-spacing: .03em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; margin-bottom: 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .two { display: grid; grid-template-columns: minmax(220px, 340px) 1fr; gap: 16px; align-items: start; }
+  canvas { display: block; width: 100%; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); margin: 4px 0 8px; max-width: 520px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 10px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .loops { display: grid; gap: 6px; margin: 4px 0 10px; }
+  .loop { display: grid; grid-template-columns: 22px 1fr 92px 72px 30px; gap: 10px; align-items: center; font-family: var(--mono); font-size: 11.5px; color: var(--fg3); }
+  .loop .sw { width: 12px; height: 12px; border-radius: 50%; }
+  .loop input[type=range] { margin: 0; }
+  .loop b { color: var(--fg1); font-weight: 500; }
+  .loop button { padding: 3px 7px; }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; color: var(--fg2); width: 100%; margin: 4px 0 6px; }
+  table.meas th { text-align: left; font-weight: 400; color: var(--fg3); letter-spacing: .06em; font-size: 10px; border-bottom: 1px solid var(--border); padding: 6px; vertical-align: bottom; }
+  table.meas td { border-bottom: 1px solid var(--soft); padding: 6px; vertical-align: top; }
+  table.meas td b { color: var(--fg1); font-weight: 500; }
+  table.meas td.lab { color: var(--fg1); max-width: 260px; }
+  table.meas td.lab small { display: block; color: var(--fg3); font-size: 10.5px; margin-top: 2px; line-height: 1.4; }
+  table.meas button { padding: 4px 8px; white-space: nowrap; }
+  .tbl-wrap { overflow-x: auto; }
+  .verdict { font-size: 13.5px; line-height: 1.6; max-width: 80ch; padding: 10px 14px; border: 1px solid var(--amber-line); border-radius: 2px; background: var(--amber-soft); color: var(--fg1); margin: 8px 0 12px; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 76ch; margin: 6px 0 0; }
+  nav.walk { display: flex; gap: 10px; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  nav.walk .where { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; margin-left: auto; }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+  @media (max-width: 700px) { .two { grid-template-columns: 1fr; } .loop { grid-template-columns: 18px 1fr 80px 64px 28px; gap: 6px; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><span id="sigil"></span>made · sketch · a walk in four steps</div>
+  <h2 class="title">He set the lengths. What did the lengths do?</h2>
+  <p class="sub">The section says <i>Music for Airports</i> is tape loops of different lengths drifting out of phase. This builds that machine from one loop up and then asks it a question: are different lengths enough to make a piece that never comes round again? The notes and the sound are this piece's own; from Eno it takes only three loop lengths he once gave in a talk. Silent until you press something.</p>
+  <div class="rail" id="rail"></div>
+
+  <!-- step 1 -->
+  <section class="step">
+    <h3>One loop</h3>
+    <p class="teach">A tape loop is a strip of tape spliced into a ring. Put one sung note on it and leave the rest blank: every time the splice comes round, the note sounds again. One loop is a clock. Set its length and press play; the ring turns once per length, and the note sounds each time the playhead passes the top.</p>
+    <div class="eqs">
+      <div class="eq"><i>t<sub>n</sub></i> = <i>n</i> · <i>L</i>, &nbsp; <i>n</i> = 0, 1, 2, …</div>
+      <div class="words">(when the note sounds for the <i>n</i>th time) = <i>n</i> × (the loop's length). Nothing else decides it. Lengths here are cut to a sixteenth of a second.</div>
+    </div>
+    <div class="two">
+      <div class="panel"><div class="plabel"><span>the loop</span><span id="s1clock">0.0 s</span></div><canvas id="c1"></canvas></div>
+      <div>
+        <label class="sl">loop length · <b id="s1Lv"></b><input id="s1L" type="range" min="32" max="640" step="1"></label>
+        <div class="btns"><button class="go" id="s1play">▸ play the loop</button></div>
+        <div class="read"><span>it sounds <b id="s1per"></b> times a minute</span><span>it comes round every <b id="s1rep"></b></span></div>
+        <p class="note">One loop alone repeats exactly, for ever. Whatever makes Eno's piece change, it is not inside any single loop.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- step 2 -->
+  <section class="step">
+    <h3>Two loops, drifting</h3>
+    <p class="teach">Now two loops of different lengths, each with its own note, started together. Each is still a clock; what changes is the gap between them. The square shows both at once: across is where loop A is in its turn, up is where loop B is, so one moment is one point, and time draws a line. If the line closes up after a few passes, the pair repeats. If it keeps finding new ground, the pair is drifting. Try the three pairs.</p>
+    <p class="back">Each loop is step 1's. Set B to A's length and you are back to one clock.</p>
+    <div class="eqs">
+      <div class="eq"><i>T</i> = lcm(<i>L<sub>A</sub></i>, <i>L<sub>B</sub></i>) = <i>L<sub>A</sub></i> · <i>L<sub>B</sub></i> ⁄ gcd(<i>L<sub>A</sub></i>, <i>L<sub>B</sub></i>)</div>
+      <div class="words">(how long until the pair is back where it started) = the shortest time that is a whole number of turns of A and also of B. Lengths counted in sixteenths of a second, so it is the least common multiple of two whole numbers.</div>
+    </div>
+    <div class="btns">
+      <button data-pair="64,96">4 s and 6 s</button>
+      <button data-pair="64,128">4 s and 8 s</button>
+      <button data-pair="376,414">23.5 s and 25.875 s</button>
+    </div>
+    <div class="two">
+      <div class="panel"><div class="plabel"><span>A across, B up</span><span id="s2span"></span></div><canvas id="c2"></canvas></div>
+      <div>
+        <label class="sl">loop A · <b id="s2Av"></b><input id="s2A" type="range" min="32" max="640" step="1"></label>
+        <label class="sl">loop B · <b id="s2Bv"></b><input id="s2B" type="range" min="32" max="640" step="1"></label>
+        <div class="btns"><button class="go" id="s2play">▸ play the pair</button>
+          <span class="seg" id="s2spanBtns"><button data-span="60">path over 1 min</button><button data-span="600">10 min</button><button data-span="3600">1 hour</button></span></div>
+        <div class="read"><span>back where they started after <b id="s2T"></b></span><span>A turns <b id="s2nA"></b>, B turns <b id="s2nB"></b></span></div>
+        <div class="read"><span>gap between their last starts <b id="s2gap">–</b></span></div>
+        <p class="note">4 and 8 are different lengths and never drift: every second note of A lands on B. 23.5 and 25.875 are two of the lengths Eno gave (the talk is cited on the last step); this pair comes back exactly after 81 minutes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- step 3 -->
+  <section class="step">
+    <h3>Many loops</h3>
+    <p class="teach">Add loops, up to seven, each with its length and its note. Each pair drifts as in step 2; together they make chords that form and dissolve as the starts slide past each other. The rings show where each loop is; the strip below shows every start in the last 90 seconds, one row per loop, so you can watch the pattern of starts change, or come round.</p>
+    <p class="back">Two loops here are step 2's pair. The whole comes back when every loop does at once.</p>
+    <div class="eqs">
+      <div class="eq"><i>T</i> = lcm(<i>L</i><sub>1</sub>, <i>L</i><sub>2</sub>, …, <i>L<sub>k</sub></i>)</div>
+      <div class="words">(how long until the whole thing is back where it started) = the shortest time that is a whole number of turns of every loop at once.</div>
+    </div>
+    <div class="btns">
+      <button data-set="eno">Eno's three lengths</button>
+      <button data-set="even">8, 12, 16, 24 s</button>
+      <button data-set="seven">seven of mine</button>
+    </div>
+    <div class="loops" id="s3loops"></div>
+    <div class="btns"><button id="s3add">+ add a loop</button><button class="go" id="s3play">▸ play them all</button></div>
+    <div class="two">
+      <div class="panel"><div class="plabel"><span>the loops</span><span id="s3clock">0.0 s</span></div><canvas id="c3"></canvas></div>
+      <div class="panel"><div class="plabel"><span>every start, last 90 s</span><span>now at the right</span></div><canvas id="c3t"></canvas></div>
+    </div>
+    <div class="read"><span>the whole comes back after <b id="s3T"></b></span></div>
+  </section>
+
+  <!-- step 4 -->
+  <section class="step">
+    <h3>The test: are different lengths enough?</h3>
+    <p class="teach">The section's line is "he set the lengths, the room made the piece". If the lengths are what he set, they alone decide when the piece repeats, and different lengths should keep it from repeating. Here four sets are measured two ways: when the whole comes back <i>exactly</i>, and when every loop's start lands within a small tolerance of the others again, which is what an ear would hear as the same moment returning. Choose the tolerance; play any row.</p>
+    <p class="back">The exact column is step 3's lcm. The ear column relaxes it: the starts need only be close, not equal (their spread at most ε, so a return can sit right on the edge). The last column counts every such return in the first hour, one by one.</p>
+    <div class="eqs">
+      <div class="eq"><i>t</i><sub>ε</sub> = the smallest <i>t</i> &gt; 0 with every <i>n<sub>i</sub> L<sub>i</sub></i> within ε of each other</div>
+      <div class="words">(when it sounds as if it has come round) = the first moment at which every loop has made a whole number of turns, give or take ε. Found by trying each turn of the longest loop in order, up to four million turns.</div>
+    </div>
+    <div class="btns"><span class="read" style="margin:0">tolerance ε</span>
+      <span class="seg" id="epsBtns"><button data-eps="1">1⁄16 s</button><button data-eps="2">1⁄8 s</button><button data-eps="4">1⁄4 s</button></span></div>
+    <div class="tbl-wrap"><table class="meas" id="s4table"></table></div>
+    <div class="verdict" id="s4verdict"></div>
+    <p class="note">The lengths 23.5, 25.875 and 29.9375 s are from Eno's talk "Generative Music" (San Francisco, 8 June 1996, printed in <i>In Motion Magazine</i>), where he gives them with "or something like that" and calls the cycles incommensurable, "not likely to come back into sync again". Real tape stretches and wavers, so a real loop's length is never exact; the ear column is the more honest of the two. What this piece cannot check is what you hear. The table measures starts, not music.</p>
+  </section>
+
+  <nav class="walk"><button id="back">◀ back</button><button id="next">next ▶</button><span class="where" id="where"></span></nav>
+  <div class="foot">Loud’n Live</div>
+</div>
+
+<script id="engine">
+// The arithmetic. Every length is a whole number of sixteenths of a second, as a loop cut to the sixteenth,
+// so the exact return is the least common multiple of whole numbers and can be computed, not estimated.
+const G = 16;                      // sixteenths per second
+const LMIN = 2 * G, LMAX = 40 * G; // the slider's range: 2 s to 40 s
+function gcdB(a, b) { a = BigInt(a); b = BigInt(b); while (b) { const r = a % b; a = b; b = r; } return a; }
+// exact return of the whole set, in sixteenths (BigInt: seven loops can pass 2^53)
+function period(lens) { return lens.reduce((acc, l) => acc / gcdB(acc, l) * BigInt(l), 1n); }
+// first return to within eps sixteenths: try every turn of the longest loop and take the nearest turn of each
+// other loop; the spread of those starts must be no more than eps. Returns sixteenths, or null past the cap.
+function nearReturn(lens, eps, cap = 4e6) {
+  const M = Math.max(...lens);
+  for (let n = 1; n <= cap; n++) {
+    const t = n * M; let lo = 0, hi = 0;
+    for (const l of lens) { let r = t % l; if (r > l / 2) r -= l; if (r < lo) lo = r; if (r > hi) hi = r; }
+    if (hi - lo <= eps) return t;
+  }
+  return null;
+}
+// every return to within eps in (0, horizon] sixteenths, counted turn by turn of the longest loop (not
+// horizon / first return: a slow drift comes round once and then smears, so the returns are counted)
+function returnsIn(lens, eps, horizon16) {
+  const M = Math.max(...lens), out = [];
+  for (let t = M; t <= horizon16; t += M) {
+    let lo = 0, hi = 0;
+    for (const l of lens) { let r = t % l; if (r > l / 2) r -= l; if (r < lo) lo = r; if (r > hi) hi = r; }
+    if (hi - lo <= eps) out.push({ t, spread: hi - lo });
+  }
+  return out;
+}
+// every start in [t0, t1) seconds, all loops started together at 0: { loop, n, t }
+function startsIn(lens, t0, t1) {
+  const out = [];
+  lens.forEach((l16, i) => { const L = l16 / G; for (let n = Math.max(0, Math.ceil(t0 / L - 1e-9)); n * L < t1; n++) out.push({ loop: i, n, t: n * L }); });
+  return out.sort((a, b) => a.t - b.t);
+}
+const AGE = 4.35e17; // seconds since the Big Bang, roughly
+function human(sec) {
+  if (sec < 120) return (Math.round(sec * 100) / 100) + ' s';
+  if (sec < 7200) return (sec / 60).toFixed(1) + ' min';
+  if (sec < 172800) return (sec / 3600).toFixed(1) + ' hours';
+  if (sec < 2 * 365.25 * 86400) return (sec / 86400).toFixed(1) + ' days';
+  if (sec < 1e6 * 365.25 * 86400) return Math.round(sec / (365.25 * 86400)).toLocaleString('en') + ' years';
+  if (sec < 1e9 * 365.25 * 86400) return Math.round(sec / (365.25 * 86400 * 1e6)).toLocaleString('en') + ' million years';
+  if (sec < AGE) return (sec / (365.25 * 86400 * 1e9)).toFixed(1) + ' billion years';
+  return (sec / AGE).toPrecision(3) + ' × the age of the universe';
+}
+function fmtLen(l16) { const s = l16 / G; return (Number.isInteger(s) ? s : +s.toFixed(4)) + ' s'; }
+</script>
+
+<script>
+const $ = id => document.getElementById(id);
+(function sigil(el) {
+  const p = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; p.push((11 + 9 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ',' + (11 + 9 * Math.sin(2 * t)).toFixed(2)); }
+  el.innerHTML = '<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.4" fill="none" stroke="#4a4a5e" stroke-width="1"/><polyline points="' + p.join(' ') + '" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>';
+})($('sigil'));
+
+const COLORS = ['#e8b84a', '#6366F1', '#d06a8a', '#5fb3a1', '#c8c8d8', '#b08ad8', '#e07a4a'];
+const NOTE_NAMES = ['C', 'C♯', 'D', 'E♭', 'E', 'F', 'F♯', 'G', 'A♭', 'A', 'B♭', 'B'];
+const nn = m => NOTE_NAMES[m % 12] + (Math.floor(m / 12) - 1);
+const PALETTE = []; for (let m = 50; m <= 74; m++) PALETTE.push(m); // D3 to D5, two octaves
+// this piece's own notes: a D-centred set, nothing taken from any record
+const MINE = [62, 69, 66, 57, 71, 64, 73];
+const SETS = {
+  eno: { lens: [376, 414, 479], notes: [62, 66, 69] },
+  even: { lens: [128, 192, 256, 384], notes: [62, 66, 69, 57] },
+  seven: { lens: [283, 331, 367, 419, 461, 503, 557], notes: MINE.slice() }
+};
+
+// ---- sound: nothing exists before a click. One take at a time; a step change stops it. ----
+// The voice: four sine partials with a slow swell and a long fall, a little vibrato, a lowpass, then a small
+// synthetic room (a convolver on decaying noise) and a compressor. Made here; no samples.
+const SND = { ctx: null, bus: null, verb: null, take: null };
+function audio() {
+  if (!SND.ctx) {
+    const c = SND.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = c.createDynamicsCompressor(); comp.threshold.value = -18; comp.ratio.value = 3; comp.connect(c.destination);
+    SND.bus = c.createGain(); SND.bus.gain.value = 0.5; SND.bus.connect(comp);
+    const len = Math.floor(c.sampleRate * 3.2), ir = c.createBuffer(2, len, c.sampleRate);
+    for (let ch = 0; ch < 2; ch++) { const d = ir.getChannelData(ch); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3); }
+    SND.verb = c.createConvolver(); SND.verb.buffer = ir;
+    const wet = c.createGain(); wet.gain.value = 0.32; SND.verb.connect(wet).connect(SND.bus);
+  }
+  if (SND.ctx.state === 'suspended') SND.ctx.resume();
+  return SND.ctx;
+}
+function note(dest, midi, when, gain) {
+  const c = SND.ctx, f = 440 * Math.pow(2, (midi - 69) / 12), dur = 6.5;
+  const env = c.createGain(), lp = c.createBiquadFilter();
+  lp.type = 'lowpass'; lp.frequency.value = 2400; lp.Q.value = 0.3;
+  env.gain.setValueAtTime(0, when); env.gain.linearRampToValueAtTime(gain, when + 0.9); env.gain.setTargetAtTime(0, when + 1.6, 1.3);
+  const vib = c.createOscillator(), vg = c.createGain(); vib.frequency.value = 4.6; vg.gain.value = f * 0.003; vib.connect(vg);
+  [[1, 1], [2, 0.32], [3, 0.12], [4, 0.05]].forEach(([h, a]) => {
+    const o = c.createOscillator(), g = c.createGain(); o.frequency.value = f * h; vg.connect(o.frequency); g.gain.value = a;
+    o.connect(g).connect(lp); o.start(when); o.stop(when + dur);
+  });
+  vib.start(when); vib.stop(when + dur);
+  lp.connect(env); env.connect(dest); env.connect(SND.verb);
+}
+// A take plays a set of loops, all starting together at the take's zero, scheduled a little ahead.
+function play(lens, notes, onTick) {
+  stop(); const c = audio();
+  const out = c.createGain(); out.gain.value = 1; out.connect(SND.bus);
+  const t0 = c.currentTime + 0.08, next = lens.map(() => 0), gain = 0.22 / Math.sqrt(Math.max(1, lens.length));
+  const take = { out, t0, lens: lens.slice(), notes: notes.slice(), timer: null, onTick };
+  const pump = () => {
+    const ahead = c.currentTime + 0.25;
+    take.lens.forEach((l16, i) => { const L = l16 / G; while (t0 + next[i] * L < ahead) { note(out, take.notes[i], t0 + next[i] * L, gain); next[i]++; } });
+  };
+  pump(); take.timer = setInterval(pump, 60);
+  SND.take = take;
+  if (window.RichPiece && RichPiece.capAfter) RichPiece.capAfter(300); // drift needs minutes, not one; five, then the kit's stop
+  return take;
+}
+function stop() {
+  const tk = SND.take; if (!tk) return; SND.take = null;
+  clearInterval(tk.timer);
+  tk.out.gain.setTargetAtTime(0, SND.ctx.currentTime, 0.08);
+  setTimeout(() => tk.out.disconnect(), 900);
+  document.querySelectorAll('button.go[aria-pressed="true"], button[data-row][aria-pressed="true"]').forEach(b => b.setAttribute('aria-pressed', 'false'));
+  if (tk.onStop) tk.onStop();
+}
+const elapsed = () => (SND.take ? Math.max(0, SND.ctx.currentTime - SND.take.t0) : 0);
+function toggle(btn, label, lensFn, notesFn) {
+  if (SND.take && SND.take.btn === btn) { stop(); btn.textContent = '▸ ' + label; return; }
+  const tk = play(lensFn(), notesFn()); tk.btn = btn; btn.setAttribute('aria-pressed', 'true'); btn.textContent = '❚❚ stop';
+  tk.onStop = () => { btn.textContent = '▸ ' + label; };
+}
+
+// ---- drawing ----
+function fit(cv, h) {
+  const w = cv.clientWidth || 300, d = window.devicePixelRatio || 1, H = h || w;
+  if (cv.width !== Math.round(w * d) || cv.height !== Math.round(H * d)) { cv.width = Math.round(w * d); cv.height = Math.round(H * d); cv.style.height = H + 'px'; }
+  const g = cv.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+}
+function rings(cv, lens, t) {
+  const { g, w } = fit(cv); const cx = w / 2, cy = w / 2, R = w * 0.44; g.clearRect(0, 0, w, w);
+  lens.forEach((l16, i) => {
+    const L = l16 / G, r = lens.length === 1 ? R * 0.8 : R * (0.35 + 0.65 * (lens.length - 1 - i) / Math.max(1, lens.length - 1));
+    g.strokeStyle = '#22222e'; g.lineWidth = 1.2; g.beginPath(); g.arc(cx, cy, r, 0, 7); g.stroke();
+    g.fillStyle = '#4a4a5e'; g.fillRect(cx - 1, cy - r - 5, 2, 10);
+    const ph = (t % L) / L, a = ph * 2 * Math.PI - Math.PI / 2, since = t % L, glow = SND.take && since < 1.4 ? 1 - since / 1.4 : 0;
+    g.strokeStyle = COLORS[i % COLORS.length]; g.globalAlpha = 0.35; g.lineWidth = 2; g.beginPath(); g.arc(cx, cy, r, -Math.PI / 2, a); g.stroke(); g.globalAlpha = 1;
+    g.fillStyle = COLORS[i % COLORS.length]; g.beginPath(); g.arc(cx + r * Math.cos(a), cy + r * Math.sin(a), 4 + 5 * glow, 0, 7); g.fill();
+  });
+}
+
+// ---- step 1 ----
+const S1 = { L: 376 };
+$('s1L').value = S1.L;
+function draw1() {
+  $('s1Lv').textContent = fmtLen(S1.L);
+  $('s1per').textContent = (60 / (S1.L / G)).toFixed(2);
+  $('s1rep').textContent = fmtLen(S1.L);
+  rings($('c1'), [S1.L], elapsed()); $('s1clock').textContent = elapsed().toFixed(1) + ' s';
+}
+$('s1L').oninput = e => { S1.L = +e.target.value; if (SND.take && SND.take.btn === $('s1play')) { stop(); } draw1(); };
+$('s1play').onclick = () => toggle($('s1play'), 'play the loop', () => [S1.L], () => [62]);
+
+// ---- step 2 ----
+const S2 = { A: 376, B: 414, span: 600 };
+$('s2A').value = S2.A; $('s2B').value = S2.B;
+function torus(cv, A, B, span, now) {
+  const { g, w } = fit(cv); const pad = 10, s = w - 2 * pad; g.clearRect(0, 0, w, w);
+  g.strokeStyle = '#22222e'; g.lineWidth = 1; g.strokeRect(pad, pad, s, s);
+  const LA = A / G, LB = B / G;
+  // the path is straight between wraps; step through each wrap of either loop
+  const seg = (t0, t1, col, alpha, lw) => {
+    g.strokeStyle = col; g.globalAlpha = alpha; g.lineWidth = lw; g.beginPath();
+    let t = t0;
+    while (t < t1) {
+      const xa = t % LA, yb = t % LB, dt = Math.min(LA - xa, LB - yb, t1 - t);
+      g.moveTo(pad + s * xa / LA, pad + s - s * yb / LB);
+      g.lineTo(pad + s * (xa + dt) / LA, pad + s - s * (yb + dt) / LB);
+      t += dt + 1e-9;
+    }
+    g.stroke(); g.globalAlpha = 1;
+  };
+  seg(0, span, '#8a8aa0', 0.55, 0.8);
+  if (SND.take) { seg(Math.max(0, now - 30), now, '#e8b84a', 0.9, 1.6);
+    g.fillStyle = '#e8b84a'; g.beginPath(); g.arc(pad + s * (now % LA) / LA, pad + s - s * (now % LB) / LB, 4, 0, 7); g.fill(); }
+  g.fillStyle = '#e8b84a'; g.beginPath(); g.arc(pad, pad + s, 3.5, 0, 7); g.fill();
+}
+function draw2() {
+  $('s2Av').textContent = fmtLen(S2.A); $('s2Bv').textContent = fmtLen(S2.B);
+  const T = Number(period([S2.A, S2.B])) / G;
+  $('s2T').textContent = human(T);
+  $('s2nA').textContent = Math.round(T / (S2.A / G)).toLocaleString('en') + ' times';
+  $('s2nB').textContent = Math.round(T / (S2.B / G)).toLocaleString('en') + ' times';
+  $('s2span').textContent = 'path over ' + human(S2.span);
+  document.querySelectorAll('#s2spanBtns button').forEach(b => b.setAttribute('aria-pressed', +b.dataset.span === S2.span ? 'true' : 'false'));
+  const now = elapsed(); torus($('c2'), S2.A, S2.B, S2.span, now);
+  if (SND.take && SND.take.btn === $('s2play')) {
+    const la = Math.floor(now / (S2.A / G)) * S2.A / G, lb = Math.floor(now / (S2.B / G)) * S2.B / G;
+    $('s2gap').textContent = Math.abs(la - lb).toFixed(2) + ' s';
+  } else $('s2gap').textContent = '–';
+}
+['A', 'B'].forEach(k => { $('s2' + k).oninput = e => { S2[k] = +e.target.value; if (SND.take && SND.take.btn === $('s2play')) stop(); draw2(); }; });
+document.querySelectorAll('[data-pair]').forEach(b => b.onclick = () => { const [a, c] = b.dataset.pair.split(',').map(Number); S2.A = a; S2.B = c; $('s2A').value = a; $('s2B').value = c; if (SND.take) stop(); draw2(); });
+document.querySelectorAll('#s2spanBtns button').forEach(b => b.onclick = () => { S2.span = +b.dataset.span; draw2(); });
+$('s2play').onclick = () => toggle($('s2play'), 'play the pair', () => [S2.A, S2.B], () => [62, 69]);
+
+// ---- step 3 ----
+const S3 = { lens: SETS.eno.lens.slice(), notes: SETS.eno.notes.slice() };
+function loopsUI() {
+  const box = $('s3loops'); box.innerHTML = '';
+  S3.lens.forEach((l16, i) => {
+    const row = document.createElement('div'); row.className = 'loop';
+    row.innerHTML = '<span class="sw" style="background:' + COLORS[i % COLORS.length] + '"></span>' +
+      '<input type="range" min="' + LMIN + '" max="' + LMAX + '" step="1" value="' + l16 + '" aria-label="loop ' + (i + 1) + ' length">' +
+      '<b>' + fmtLen(l16) + '</b><select aria-label="loop ' + (i + 1) + ' note">' + PALETTE.map(m => '<option value="' + m + '"' + (m === S3.notes[i] ? ' selected' : '') + '>' + nn(m) + '</option>').join('') + '</select>' +
+      '<button title="remove this loop"' + (S3.lens.length <= 1 ? ' disabled' : '') + '>×</button>';
+    const [, sl, lab, sel, rm] = row.children;
+    sl.oninput = () => { S3.lens[i] = +sl.value; lab.textContent = fmtLen(S3.lens[i]); if (SND.take && SND.take.btn === $('s3play')) stop(); readT3(); };
+    sel.onchange = () => { S3.notes[i] = +sel.value; if (SND.take && SND.take.btn === $('s3play')) SND.take.notes[i] = S3.notes[i]; };
+    rm.onclick = () => { S3.lens.splice(i, 1); S3.notes.splice(i, 1); if (SND.take && SND.take.btn === $('s3play')) stop(); loopsUI(); };
+    box.appendChild(row);
+  });
+  $('s3add').disabled = S3.lens.length >= 7; readT3();
+}
+function readT3() { $('s3T').textContent = human(Number(period(S3.lens)) / G); }
+$('s3add').onclick = () => { if (S3.lens.length >= 7) return; const k = S3.lens.length; S3.lens.push(SETS.seven.lens[k]); S3.notes.push(MINE[k]); if (SND.take && SND.take.btn === $('s3play')) stop(); loopsUI(); };
+document.querySelectorAll('[data-set]').forEach(b => b.onclick = () => { const s = SETS[b.dataset.set]; S3.lens = s.lens.slice(); S3.notes = s.notes.slice(); if (SND.take) stop(); loopsUI(); });
+$('s3play').onclick = () => toggle($('s3play'), 'play them all', () => S3.lens, () => S3.notes);
+function timeline(cv, lens, now) {
+  const { g, w, h } = fit(cv, Math.max(90, 18 * lens.length + 20)); g.clearRect(0, 0, w, h);
+  const win = 90, x = t => 6 + (w - 12) * (t - (now - win)) / win, rowH = (h - 18) / lens.length;
+  g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace';
+  for (let s = Math.ceil((now - win) / 15) * 15; s <= now; s += 15) { if (s < 0) continue; g.fillRect(x(s), h - 14, 1, 4); if (x(s) + 34 < w) g.fillText(Math.round(s) + ' s', x(s) + 4, h - 4); }
+  startsIn(lens, Math.max(0, now - win), now + 1e-6).forEach(st => {
+    g.fillStyle = COLORS[st.loop % COLORS.length]; g.fillRect(x(st.t) - 1, 4 + st.loop * rowH, 2.5, rowH - 4);
+  });
+}
+function draw3() {
+  const playing = SND.take && SND.take.btn === $('s3play'), now = playing ? elapsed() : 0;
+  rings($('c3'), S3.lens, now); timeline($('c3t'), S3.lens, playing ? now : 90);
+  $('s3clock').textContent = now.toFixed(1) + ' s';
+}
+
+// ---- step 4: the test ----
+const S4 = { eps: 2 };
+const ROWS = [
+  { key: 'even', label: 'four different lengths', small: '8, 12, 16 and 24 s: every ratio reduces to small whole numbers' },
+  { key: 'nudge', label: 'the same four, one nudged', small: '24 s cut a sixteenth longer: 24.0625 s', lens: [128, 192, 256, 385], notes: SETS.even.notes },
+  { key: 'eno', label: 'Eno\'s three lengths', small: '23.5, 25.875, 29.9375 s, as he gave them in 1996' },
+  { key: 'yours', label: 'yours, from step 3', small: '' }
+];
+const rowSet = r => r.key === 'yours' ? { lens: S3.lens.slice(), notes: S3.notes.slice() } : r.lens ? { lens: r.lens, notes: r.notes } : SETS[r.key];
+function measure() {
+  return ROWS.map(r => {
+    const s = rowSet(r), T = Number(period(s.lens)) / G, nr = nearReturn(s.lens, S4.eps), te = nr == null ? null : nr / G;
+    const back = returnsIn(s.lens, S4.eps, 3600 * G);
+    return { r, s, T, te, perHour: back.length, back };
+  });
+}
+function draw4() {
+  document.querySelectorAll('#epsBtns button').forEach(b => b.setAttribute('aria-pressed', +b.dataset.eps === S4.eps ? 'true' : 'false'));
+  const M = measure(), epsTxt = S4.eps === 1 ? '1⁄16 s' : S4.eps === 2 ? '1⁄8 s' : '1⁄4 s';
+  const cap = l => human(4e6 * Math.max(...l) / G);
+  $('s4table').innerHTML = '<tr><th>set</th><th>lengths</th><th>comes back exactly after</th><th>comes back to within ' + epsTxt + ' after</th><th>returns in the first hour, to the ear</th><th></th></tr>' +
+    M.map((m, i) => '<tr><td class="lab">' + m.r.label + (m.r.small ? '<small>' + m.r.small + '</small>' : '') + '</td><td>' + m.s.lens.map(fmtLen).join(', ') +
+      '</td><td><b>' + human(m.T) + '</b></td><td><b>' + (m.te == null ? 'more than ' + cap(m.s.lens) : human(m.te)) + '</b></td><td><b>' + m.perHour.toLocaleString('en') + '</b></td>' +
+      '<td><button data-row="' + i + '">▸ play</button></td></tr>').join('');
+  $('s4table').querySelectorAll('button[data-row]').forEach(b => b.onclick = () => {
+    const i = +b.dataset.row, was = SND.take && SND.take.row === i; stop(); if (was) return;
+    const s = M[i].s, tk = play(s.lens, s.notes); tk.row = i; b.setAttribute('aria-pressed', 'true'); b.textContent = '❚❚ stop';
+    tk.onStop = () => { b.textContent = '▸ play'; };
+  });
+  const [ev, nu, en] = M, times = n => n === 0 ? 'not once' : n === 1 ? 'once' : n === 2 ? 'twice' : n + ' times';
+  const edge = nu.back.length && nu.back[0].spread === S4.eps ? ', right on the tolerance\'s edge' : '';
+  $('s4verdict').innerHTML =
+    '<b>The lengths set how fast it drifts.</b> Four different lengths whose ratios reduce to small whole numbers don\'t drift at all: they come round every ' + human(ev.T) + ', ' + times(ev.perHour) + ' in the first hour. ' +
+    'Cut the 24 s loop a sixteenth of a second longer and it drifts, slowly. The other three stay locked at 48 s and the long one slides 1⁄8 s later against them every cycle, so the old cycle smears. Exactly, all four meet again after ' + human(nu.T) + '; to within ' + epsTxt + (nu.perHour ? ' they come round ' + times(nu.perHour) + ' in the first hour' : ' they never come round in the first hour') +
+    (nu.perHour ? ' (first at ' + human(nu.back[0].t / G) + edge + ')' : '') + '. ' +
+    'Eno\'s three come back exactly after ' + human(en.T) + ' and to within ' + epsTxt + ' after ' + (en.te == null ? 'more than ' + cap(en.s.lens) : human(en.te)) + (en.te == null || en.te >= 3600 ? ', longer than a sitting. ' : '. ') +
+    'So the section\'s line holds, and the test puts a measure on it: he set the lengths, and how near their ratios sit to simple ones decides how fast the room\'s piece drifts and how soon, if ever, it comes round. Near-equal lengths drift too, slowly; Reich\'s phasing tape loops are the famous case. The 27 days rests on the precision Eno quoted ("or something like that").';
+}
+document.querySelectorAll('#epsBtns button').forEach(b => b.onclick = () => { S4.eps = +b.dataset.eps; stop(); draw4(); });
+
+// ---- the walk ----
+const STEPS_ = [{ name: 'one loop', draw: draw1 }, { name: 'two drifting', draw: draw2 }, { name: 'many loops', draw: () => { loopsUI(); draw3(); } }, { name: 'the test', draw: draw4 }];
+let cur = 0;
+STEPS_.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.name; b.onclick = () => go(i); $('rail').appendChild(b); });
+function go(i) {
+  stop(); cur = Math.max(0, Math.min(STEPS_.length - 1, i));
+  document.querySelectorAll('.step').forEach((el, k) => el.classList.toggle('on', k === cur));
+  $('rail').querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === cur ? 'step' : 'false'));
+  STEPS_[cur].draw();
+  $('back').disabled = cur === 0; $('next').disabled = cur === STEPS_.length - 1;
+  $('where').textContent = 'step ' + (cur + 1) + ' of ' + STEPS_.length;
+}
+$('back').onclick = () => go(cur - 1);
+$('next').onclick = () => go(cur + 1);
+// animate only what moves: the step on show, and only while a take plays (or once after it stops)
+let wasPlaying = false;
+(function frame() {
+  requestAnimationFrame(frame);
+  const playing = !!SND.take;
+  if (!playing && !wasPlaying) return;
+  wasPlaying = playing;
+  if (cur === 0) draw1(); else if (cur === 1) draw2(); else if (cur === 2) draw3();
+})();
+window.addEventListener('resize', () => STEPS_[cur].draw());
+go(0);
+</script>
+</body>
+</html>
