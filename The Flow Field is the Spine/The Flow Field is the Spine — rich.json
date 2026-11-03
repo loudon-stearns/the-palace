@@ -1,0 +1,183 @@
+{
+  "title": "The Flow Field is the Spine — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[The Flow Field is the Spine]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[BLUELINE]]",
+      "type": "connects-to",
+      "label": "proofs-gathered-from"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "walks-built-by-the-method"
+    }
+  ],
+  "forward_vector": "I am the manifest of The Flow Field is the Spine's rich face: two walks the Shop made, one field read by three legs ending on whether one number could serve them all, and a body in the wind ending on whether Session 4's solve bends the wind around it; beside them the Session 3 and Session 4 contact sheets and the M3.7 filmstrip the page cites, with the fingerprint of the words each was made against. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "The Flow Field is the Spine",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The bet, stated honestly",
+      "kind": "no-claim-edit",
+      "what": "An added measurement, not a change of claim (relabelled after the challenge: the page already calls the strong claim falsified and says the per-leg work is a scalar). Session 3's three chosen numbers, in one unit (how far one tick of the leg carries a point, in frame heights, per unit of field speed; the drawn leg's per step along the unit direction): drawn 0.00600 (drawn_speedlines.py STEP), steers 0.03877 (steers_motion.py DT_PX = 18/mag_max px on a 380 px panel), sim 0.00352 (particles.html SCALE·DT·0.016). They span ×11.01; one shared number fits at most two of three within ×2, and would need ×3.32 either way to fit all three. Each leg's tick is its own clock, so the spread says the scalars differ, not that they are costly. Possible addition after 'the per-leg work is a scalar': 'Session 3's three scalars differ by a factor of eleven in one unit, because each leg runs on its own clock.'",
+      "status": "open"
+    },
+    {
+      "section": "Why it's a spine and not a feature",
+      "kind": "no-claim-edit",
+      "what": "A caveat on 'automatically' (relabelled after the challenge: the page already names a format choice as part of the per-leg transfer; this is about Session 3's code and its cited contact sheet). steers_motion.py zooms the field array without flipping its rows but keeps the upright sign of vy, so the dense map and the warped noise in 02-steers-motion.png (and the contact sheet's Steers row) show the field mirrored top to bottom, and the motion they carry loses its whirls: each vortex becomes a saddle (spin where the picture shows the four vortices −0.002 / 0.044 / −0.019 / 0.243 per frame height, against the field's 25.8 / −29.4 / 29.6 / −29.9). The render matches that reading to 0.0021 mean difference per channel and the upright field to 0.105; its arrows differ from the field's by 18° (speed-weighted). The field was untouched throughout. Session 4 moved its field to image orientation 'on purpose' (session-4-figure-flow/field.py docstring), and the noise-warp half of this leg was later retired (M3.7). Possible caveat after 'stay in register automatically': 'once each leg reads the field the right way up; Session 3's steers leg didn't, and its contact-sheet row lost the vortices.' Session 3's report line 'the vortices sit in the same places across source / drawn / steers / sim' would need the same note.",
+      "status": "open"
+    },
+    {
+      "section": "Now it flows around a character (Session 4, 2026-07-02)",
+      "kind": "claim-change",
+      "what": "As field.py writes it, the solve does not bend the field tangent to the body; the legs make it look so. The face rebuilds Session 4's flow-field.json to 5e-6 and measures it directly: at the air cells beside the body, the flow runs into the windward side at 4.24× the wind and out of the lee side at 9.68× (mean into the body 2.49×), where merely zeroing the inside gave 0.94× and 0.32×; the 22.4× 'corner speed spikes' are this, not voxelisation alone; and the central-difference divergence rises from 0.0075 to 0.107. Cause: field.py is collocated (2-cell central differences for the divergence and the gradient, the compact 5-point stencil for the Laplacian), and it leaves p = 0 inside the body and feeds that to the gradient while the matrix assumes no push across the body's edge. The challenger split the two: with p extended into the body to agree with the matrix, central differences give 0.70× windward and −0.69× lee (fastest 4.80×), still not tangent; kept on faces it is 0.054×. Kept on faces (same matrix, divergence and push taken on cell faces), the flow into the body is 0.054× windward and 0.057× lee, fastest 4.97×. In the renders the lines part and the dust piles because both legs read the body mask (flowlib.in_body; dust_sim.py is_solid): a line stops at the edge, and a dust grain that would land in the body is counted into the 'pile' and respawned, so the bright windward edge is the dust leg's rule (0.97 hits per 1,000 grain-steps as written, 0.28 on faces, the rest from its jitter). So 'the coupling adds a stage to the field author, not to each leg' is not what Session 4 built: each leg also reads the mask. On the face-kept field, legs that read only the arrows leave 0.03% of the dust inside the body (17.4% as written) and 2.7% of the speed-lines run into it (9.1%). Also 'shed a counter-rotating wake' is a pair placed by hand (the Session 4 report says so). Proposed: '…a single pressure-projection is meant to bend the field tangent to it; as first written it didn't (the push reached inside the body and drove the air into it), and the parting in the renders came from the legs reading the body mask. Kept on cell faces, the same solve parts the air and the legs need no mask. The wake is a placed counter-rotating pair.' The recipe carries the same words; see the next offer. Confirmed independently by the challenger with field.py's own scipy solve (4.241× / −9.675×).",
+      "status": "open"
+    },
+    {
+      "section": "→ flow-field-spine recipe",
+      "kind": "claim-change",
+      "what": "Projects/BLUELINE/flow-field-spine.md § Obstacle (lines 39–51, read by the challenger) carries the same two claims as the page: that the projection makes the field tangent to the body, and that the wake is shed. As field.py builds it, neither holds (offer 3: 4.24× into the windward side, 9.68× out of the lee; the wake is a pair placed by hand at field.py lines 113–121). The recipe's step would need the solve kept on faces (or at least p extended into the body, which gives 0.70×) and the wake named as placed. Not this page's text: carried here so the round doesn't lose it.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The bet, stated honestly",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "The Flow Field is the Spine — rich — one field, three legs.html",
+          "origin": "made",
+          "by": "the Maker · canvas",
+          "height": 1870,
+          "title": "one field, three legs · a walk in six steps",
+          "caption": "**Can one untouched field feed all three legs?** One arrow, then a vortex in the wind, then Session 3's whole field rebuilt from field.py (it matches flow-field.json cell for cell), then the drawn leg, then all three legs reading the field at once while you drag a vortex in any panel. The last step locks the three legs' numbers together and looks for one setting that serves them all; then it draws the steers leg the way Session 3's code drew it. Silent.",
+          "near": "The strong claim is that one untouched field"
+        },
+        {
+          "file": "/Projects/BLUELINE/proofs/session-3-flowfield/renders/CONTACT-SHEET-one-field-three-resolutions.png",
+          "origin": "gathered",
+          "title": "one source, three resolutions · Session 3 contact sheet, 2026-06-13",
+          "caption": "The spike's evidence: the one field (curl of a potential, drift plus four vortices), then the drawn speed-lines, the steers leg (dense motion map and three frames of warped noise) and the Blender sim, each rendered from the untouched flow-field.json. One correction the walk above measures: the steers row reads the field's rows from the top but keeps the upright sign of the vertical arrow, so its picture sits mirrored top to bottom against the other rows and the motion it carries turns each vortex into a saddle (02-steers-motion.png matches that reading to 0.002 mean difference per channel, the upright field to 0.105).",
+          "near": "Spike result (2026-06-13"
+        }
+      ],
+      "made_against": "737d7224ba46",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "The Flow Field is the Spine — rich — one field, three legs.html",
+            "verdict": "remake",
+            "why": "A real test that walks up and ends where the page ends. Two text errors: step 6 says the numbers are in widths of the frame, but they are in frame heights (domain units). And the verdict says the steers whirls land mirrored, when the motion it encodes turns each vortex into a saddle (curl at the cores 0.004 or less against ±0.34 to ±0.39). Fix both lines."
+          },
+          {
+            "file": "/Projects/BLUELINE/proofs/session-3-flowfield/renders/CONTACT-SHEET-one-field-three-resolutions.png",
+            "verdict": "keep",
+            "why": "The evidence the page cites, tracked, and the caption checks out (0.0021 against 0.105). Note: mirrored is true of the hue panel; in the warped-noise frames the vortices act as saddles."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Now it flows around a character (Session 4, 2026-07-02)",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "/Projects/BLUELINE/proofs/session-4-figure-flow/renders/CONTACT-SHEET-one-field-around-a-character.png",
+          "origin": "gathered",
+          "title": "one character-aware field, two resolutions · Session 4 contact sheet, 2026-07-02",
+          "caption": "Session 4's evidence: the source field around the crouching mannequin (body in blue, the wake pair behind it), the comic speed-lines and the dust with its bright windward edge, all from one flow-field.json. Look at the source panel's lines on the windward side: they run straight at the body. The walk below measures why.",
+          "near": "Session-3 field was character-blind"
+        },
+        {
+          "file": "The Flow Field is the Spine — rich — around a body.html",
+          "origin": "made",
+          "by": "the Maker · canvas",
+          "height": 1420,
+          "title": "around a body · a walk in six steps",
+          "caption": "**Does the solve bend the wind around the body, and do the legs need to know the body is there?** A wind and a stone, then one pressure solve, then the wake pair, then Session 4's own figure (its 2,534-cell mask, or one you paint), then the speed-lines and the dust reading the field. The last step switches the solve to the way field.py wrote it, which rebuilds Session 4's flow-field.json to 5e-6, and the legs' mask off, and reads where the air meets the body. Silent.",
+          "near": "Session-3 field was character-blind"
+        }
+      ],
+      "made_against": "f06a73f27ded",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/BLUELINE/proofs/session-4-figure-flow/renders/CONTACT-SHEET-one-field-around-a-character.png",
+            "verdict": "keep",
+            "why": "Cited evidence, tracked. Its pointer is faint at face scale (the source lines are dim), but true of the field (windward flux +4.24×)."
+          },
+          {
+            "file": "The Flow Field is the Spine — rich — around a body.html",
+            "verdict": "remake",
+            "why": "The strongest test on the face: it rebuilds flow-field.json and shows the solve driving air into the body, then the same matrix on faces parting it (I recomputed both). One line misquotes the page: step 3 says the page calls the wake authored, not shed. The page says shed; it is Session 4’s report that says placed by hand."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The render-noise sub-claim is retired (M3–M3.7, 2026-06-18/19)",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "/Projects/BLUELINE/proofs/m3-warped-noise/renders-seq/m3.7-filmstrip.png",
+          "origin": "gathered",
+          "title": "seed-lock against the warped chain · M3.7 filmstrip, 2026-06-19",
+          "caption": "M3.7's six-frame coil-to-leap sequence, one prompt rendered twice: seed-lock on top (one noise for every frame), the warped chain below (each frame's noise carried one step along the flow). Adjacent-frame coherence 0.858 against 0.809 (m3.7-verdict.json). Neither row keeps one figure all the way through; both break at s3 (drift from s0 there: 0.707 seed-lock, 0.704 warped). The numbers carry the verdict, not the eye.",
+          "near": "adjacent-frame coherence 0.858"
+        }
+      ],
+      "made_against": "a003fbc939a5",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/BLUELINE/proofs/m3-warped-noise/renders-seq/m3.7-filmstrip.png",
+            "verdict": "keep",
+            "why": "Cited evidence, tracked, and 0.858 against 0.809 matches m3.7-verdict.json. Drop “sooner”: both rows break at s3 (drift from s0 0.707 against 0.704)."
+          }
+        ]
+      }
+    }
+  ]
+}
