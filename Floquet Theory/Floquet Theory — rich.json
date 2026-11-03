@@ -34,6 +34,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/Floquet Time-Modulated Loops/Floquet Time-Modulated Loops — rich — multipliers.html",
+            "verdict": "keep",
+            "why": "Tests the page's |ρ| list against det M = 1 and finds the undamped stable pair on the circle (recomputed: 941 of 941 at q = 0.3, worst 2e-13). Walks up from circle-to-ellipse to the test; the caption is honest that its 'page' is the project's."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "/Projects/Floquet Time-Modulated Loops/Floquet Time-Modulated Loops — rich — multipliers.html",
@@ -55,6 +66,32 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Floquet Theory — rich — three ways out.html",
+            "verdict": "remake",
+            "why": "A real test that walks up, and the pitchfork finding is right (my run: 16 starts, all hold one point, both signs occur), but the step-5 line 'in general a crossing at +1 is a fold, and transcritical and pitchfork are its special cases' frames the wrong case: the pumped rest state persists, so it cannot fold, and the linear equation alone grows no branch. Replace only that sentence with the one in the challenge record."
+          },
+          {
+            "file": "/Projects/Floquet Time-Modulated Loops/audio/04a_below_threshold.wav",
+            "verdict": "keep",
+            "why": "Tests the period-doubling signature (one pump period on, correlation −0.998); the caption honestly relabels it as sitting on q_c = 2ζ, as the sibling faces do. Level −48 to −25 dB recomputed."
+          },
+          {
+            "file": "/Projects/Floquet Time-Modulated Loops/audio/04b_at_threshold.wav",
+            "verdict": "keep",
+            "why": "Recomputed: 220.00 Hz, −10.0 dB, 440 Hz 93 dB down, 660 Hz at −30.8 dB: odd harmonics only, the period doubled, as captioned."
+          },
+          {
+            "file": "/Projects/Floquet Time-Modulated Loops/audio/04c_above_threshold.wav",
+            "verdict": "keep",
+            "why": "Recomputed: 220.00 Hz, −5.1 dB, 660 Hz at −19.5 dB, as captioned."
+          }
+        ]
       },
       "pieces": [
         {
@@ -103,6 +140,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Floquet Theory — rich — same equation twice.html",
+            "verdict": "keep",
+            "why": "Pins the page's dictionary (k ↔ Im μ, E ↔ a) by two methods that share no code; recomputed against scipy's Mathieu values to 2e-13 and DOP853 edges to 9e-9. Note: the caption's 2e-7 is its RK4's bound, not the duality's."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Floquet Theory — rich — same equation twice.html",
@@ -125,6 +173,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Floquet Theory — rich — standing on a shake.html",
+            "verdict": "keep",
+            "why": "Holds 'fast enough' against the multipliers and finds the long-stroke top; recomputed 15.798 vs 15.764 Hz, h/L 0.45402, 3.304–6.714 Hz at L/2. Note: the on-screen fall time is integrator-sensitive (3.2–8.6 s at 12 Hz), the fall itself robust."
+          }
+        ]
       },
       "pieces": [
         {
