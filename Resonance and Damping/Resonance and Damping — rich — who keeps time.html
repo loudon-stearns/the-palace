@@ -1,0 +1,593 @@
+<!doctype html>
+<!--
+title: Resonance and Damping — rich — who keeps time
+born: 2026-11-03
+links:
+  - target: "[[Resonance and Damping]]"
+    type: connects-to
+    label: rich-face-piece
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: walks-up-to-its-test
+forward_vector: "I am Galileo's ringer and Young's push on one weight: a pusher who times every pull to the swing, against one who keeps his own time, with the energy each push gives and takes back measured. I walk up in four steps to the test of the section's claims, and I change only when the section I serve does."
+status: "proposal, Enrichment's proposal round 2026-11; not yet heard by Loudon"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Who keeps the time</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --warn:#ff9b4a; --ok:#7fd49a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 18px; max-width: 1180px; }
+  .kicker, .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); }
+  .kicker { margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 4px 0 16px; border-bottom: 1px solid var(--soft); }
+  .rail button { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--fg3); background: none; border: 0; border-bottom: 2px solid transparent; padding: 8px 12px 7px; cursor: pointer; transition: color 220ms var(--ease); }
+  .rail button:hover { color: var(--fg1); }
+  .rail button[aria-current=step] { color: var(--amber); border-bottom-color: var(--amber); }
+  .rail button .n { color: var(--fg4); margin-right: 6px; }
+  .rail button[aria-current=step] .n { color: var(--amber); }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 300; color: var(--fg1); margin: 4px 0 8px; }
+  .say { font-size: 14px; line-height: 1.65; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 12px 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .bar .hint { flex: 1 1 260px; }
+  canvas { display: block; width: 100%; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button[aria-pressed=true] { color: var(--amber); border-color: var(--amberline); }
+  button:disabled { opacity: .4; cursor: default; }
+  .ctls { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px 26px; margin-top: 12px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px 22px; margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--fg3); line-height: 1.5; }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .yes { color: var(--ok); } .read .no { color: var(--warn); }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); }
+  .state { color: var(--amber); }
+  .eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .try { font-size: 13.5px; line-height: 1.6; color: var(--fg2); margin: 14px 0 0; max-width: 80ch; }
+  .try .eyebrow { margin-right: 10px; color: var(--amber); }
+  .walk { display: flex; justify-content: space-between; margin-top: 18px; }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin-top: 12px; width: 100%; }
+  table.meas th, table.meas td { text-align: right; padding: 5px 10px; border-bottom: 1px solid var(--soft); }
+  table.meas th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; }
+  table.meas td { color: var(--fg1); }
+  table.meas td.page { color: var(--fg3); }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot .mark { display: inline-flex; align-items: center; gap: 8px; color: var(--fg3); letter-spacing: .12em; text-transform: none; }
+  .foot .mark i { font-family: var(--serif); color: var(--amber); font-weight: 300; }
+  @media (max-width: 680px) { .ctls { grid-template-columns: 1fr; } .read { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · study · four steps · Galileo and Young on one weight</div>
+  <h1 class="title">Who keeps the time</h1>
+  <p class="sub">Galileo watched one ringer swing a great bell and decided a pendulum moves only at its own rate. Young showed it moves at the rate of a smooth push. Both were watching something true. Here both pushers work the same weight, slowed 300 times so the eye can follow; the sound is the same run at full speed. Nothing plays until you press start.</p>
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <section class="step" data-title="The ringer">
+    <div class="eyebrow">Step 1 of 4 · Galileo's ringer</div>
+    <h3>A ringer who watches the bell</h3>
+    <p class="say">One ringer, one rope. He gives one tug to start it, then waits, and tugs again each time the bell comes back past the middle toward him. He has no clock. His timing is the bell's. The bell has some friction, so each tug only makes up what the last swing lost, and the swing grows until they balance.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">amber ticks: his tugs · ink: the bell's swing</span><button class="go" data-start>▶ start</button><button data-stop>stop</button></div>
+      <canvas id="c1"></canvas>
+      <div class="ctls"><label class="sl">the bell's own rate <b id="v1r"></b><input id="s1r" type="range" min="0" max="1000" value="500"></label></div>
+      <div class="read">
+        <div>tugs per second, counted<br><b id="r1a"></b></div>
+        <div>the bell's own rate<br><b id="r1b"></b></div>
+        <div>tugs per swing of its own<br><b id="r1c"></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">tug when φ(t) = φ<sub>tug</sub>,   φ = atan2(y, v ÷ ω)</div>
+        <div class="words">(he tugs) whenever (where the bell is in its swing) comes round to (the point he waits for). Nothing in that rule is a rate: the rate comes from the bell.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Change the bell's own rate while it swings. The tugs follow it at once, one per swing, whatever rate you choose. That is what Galileo saw: however hard the ringer works, the bell keeps its own time, because he takes his time from it.</p>
+  </section>
+
+  <section class="step" data-title="When he tugs" hidden>
+    <div class="eyebrow">Step 2 of 4 · push times speed</div>
+    <h3>The moment of the tug decides whether it gives or takes</h3>
+    <p class="say">Now let him wait for a different point in the swing. A tug while the bell is coming toward him, fast, adds the most. A tug at the top of the swing, where it stands still for an instant, adds almost nothing. A tug while it is moving away takes energy out. What a push gives is the push times the speed it meets. Set his moment to 0° and you are back on step 1.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">left: where in the swing he tugs · right: what one tug gives a swing of size 1</span><button class="go" data-start>▶ start</button><button data-stop>stop</button></div>
+      <canvas id="c2"></canvas>
+      <div class="ctls"><label class="sl">he tugs <b id="v2p"></b> after the middle, coming his way<input id="s2p" type="range" min="0" max="180" value="0"></label></div>
+      <div class="read">
+        <div>one tug gives a swing of size 1<br><b id="r2a"></b></div>
+        <div>the swing it settles at<br><b id="r2b"></b></div>
+        <div>tugs per swing of its own<br><b id="r2c"></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">ΔE ÷ E = 2p·cos φ + p²</div>
+        <div class="words">(the share of the swing's energy one tug adds) = 2 × (how hard he tugs) × (how fast it is moving his way, as a share of its fastest) + (the tug's own small part). Positive gives; negative takes.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Slide his moment to 90°: the tugs land at the top of the swing and it settles small. Slide past it and the tugs start taking; at 180° the swing shrinks to a sliver the size of one tug. Watch the third box too: tugs anywhere but the middle nudge the rate as well, slower the later he waits. Galileo's ringer pulled in time, at the middle.</p>
+  </section>
+
+  <section class="step" data-title="Young's push" hidden>
+    <div class="eyebrow">Step 3 of 4 · a push with its own clock</div>
+    <h3>A push that keeps its own time</h3>
+    <p class="say">Now the other pusher. He does not watch the bell. He pushes smoothly, back and forth, at a rate of his own: Young's push. At first the bell does both, its own ring and his rhythm, beating against each other. The ring dies away, as friction makes it, and what is left moves at his rate. Under the traces, green is energy going in; orange is energy the bell hands back to him.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">amber: the push · ink: the swing · green and orange: push × speed</span><button class="go" data-start>▶ start</button><button data-stop>stop</button></div>
+      <canvas id="c3"></canvas>
+      <div class="ctls"><label class="sl">his rate <b id="v3u"></b><input id="s3u" type="range" min="0" max="1000" value="250"></label></div>
+      <div class="read">
+        <div>once the ring has died, it swings at<br><b id="r3a"></b></div>
+        <div>energy handed back each cycle<br><b id="r3b"></b></div>
+        <div>the swing is behind the push by<br><b id="r3c"></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">P(t) = F(t) · v(t)</div>
+        <div class="words">(the energy flowing in, each instant) = (the push) × (the speed). Where the two have opposite signs, energy flows back out to the pusher.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Press start at half its rate and watch the first swings beat, then settle into his rhythm. Read the second box: well off its own rate, most of what goes in each cycle comes back out. Slide his rate onto the bell's own and the orange disappears.</p>
+  </section>
+
+  <section class="step" data-title="The test" hidden>
+    <div class="eyebrow">Step 4 of 4 · the test</div>
+    <h3>Every push goes in and none comes back</h3>
+    <p class="say">The section's claims, each measured on a run: pushed, it moves at the push's rate; at its own rate it swings Q times as far, a quarter cycle behind, and no energy comes back; the push only ever supplies what friction spends; the peak slides below its own rate as friction grows, and below Q 0.707 it is gone. And the ringer, beside it: his tugs keep the bell's rate.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint" id="h4">measured at every push rate, one run each</span><button class="go" data-start>▶ start</button><button data-stop>stop</button></div>
+      <canvas id="c4"></canvas>
+      <div class="ctls">
+        <label class="sl">his rate <b id="v4u"></b><input id="s4u" type="range" min="0" max="1000" value="500"></label>
+        <label class="sl">Q <b id="v4q"></b><input id="s4q" type="range" min="0" max="1000" value="600"></label>
+      </div>
+      <div class="read" id="r4"></div>
+      <div id="tab4"></div>
+      <div class="eqs">
+        <div class="eq">lag = 90° at f;   ∮F·v dt = ∮(ω ÷ Q)·v² dt</div>
+        <div class="words">(at its own rate the swing is a quarter cycle behind the push, so the push is in step with the speed) · (over each cycle, what the push puts in) = (what friction takes out), at every rate.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Slide Q down past 0.707 and watch the peak flatten into a push held still. Then put his rate on the bell's own and press start: you hear the swell build at its own pitch. Who keeps the time is the whole difference: the ringer takes his from the bell, so the bell keeps its own; Young's pusher brings his own, so the bell takes his.</p>
+  </section>
+
+  <div class="walk"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="foot"><span>Resonance and Damping · rich · who keeps the time · study · 2026-11-03</span><span class="mark"><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>Loud’n <i>Live</i></span></div>
+</div>
+
+<script>
+// ---- math (pure: the check runs this block in node and calls selfTest) ----
+// One weight on a spring, the page's equation: y'' + (ω/Q)·y' + ω²·y = F(t). Time is counted in seconds at rate f.
+// Two pushers. The ringer (Galileo's) watches the swing and tugs once a cycle, when it reaches the same point of
+// its swing; his timing is the swing's. The pusher (Young's) keeps his own time: a smooth sine at his own rate.
+const TAU = 2 * Math.PI;
+function phaseOf(y, v, w) { return Math.atan2(y, v / w); }                 // 0: passing the middle, moving the ringer's way
+// one RK4 step of the swing under a force that is F0, F1 (midway) and F2 (at the end)
+function step(st, w, c, h, F0, F1, F2) {
+  const k = w * w, y = st.y, v = st.v, h2 = h / 2;
+  const k1y = v, k1v = F0 - c * v - k * y;
+  const k2y = v + h2 * k1v, k2v = F1 - c * k2y - k * (y + h2 * k1y);
+  const k3y = v + h2 * k2v, k3v = F1 - c * k3y - k * (y + h2 * k2y);
+  const k4y = v + h * k3v, k4v = F2 - c * k4y - k * (y + h * k3y);
+  st.y = y + h / 6 * (k1y + 2 * k2y + 2 * k3y + k4y);
+  st.v = v + h / 6 * (k1v + 2 * k2v + 2 * k3v + k4v);
+}
+// The ringer. A tug is a sudden change of speed, tug·ω, toward him, given each time the swing's phase passes phi.
+// The first tug starts it from rest. Returns the run (every sample) and every tug: when, and the energy it added.
+function ringer(f, Q, phi, tug, seconds, rate, keep) {
+  const w = TAU * f, c = w / Q, h = 1 / rate, n = Math.round(seconds * rate);
+  const st = { y: 0, v: tug * w }, tugs = [[0, 0.5 * (tug * w) ** 2]];
+  const ys = keep ? new Float32Array(n) : null;
+  let th = phaseOf(st.y, st.v, w);
+  const crossed = (a, b) => { const d = ((b - a) % TAU + TAU) % TAU; const toPhi = ((phi - a) % TAU + TAU) % TAU; return toPhi > 0 && toPhi <= d && d < Math.PI; };
+  let since = 0;                                                       // he tugs once a swing: half a turn must pass first
+  for (let i = 0; i < n; i++) {
+    step(st, w, c, h, 0, 0, 0);
+    const th2 = phaseOf(st.y, st.v, w);
+    since += ((th2 - th) % TAU + TAU + Math.PI) % TAU - Math.PI;
+    if (since >= Math.PI && crossed(th, th2)) {
+      since = 0;
+      const e0 = 0.5 * st.v * st.v + 0.5 * w * w * st.y * st.y;
+      st.v += tug * w;
+      const e1 = 0.5 * st.v * st.v + 0.5 * w * w * st.y * st.y;
+      tugs.push([(i + 1) * h, e1 - e0]);
+    }
+    th = phaseOf(st.y, st.v, w);
+    if (ys) ys[i] = st.y;
+  }
+  return { ys, tugs, y: st.y, v: st.v, energy: 0.5 * st.v * st.v + 0.5 * w * w * st.y * st.y };
+}
+// how often the ringer tugs once he has settled in, and how big the swing is then
+function ringerRate(f, Q, phi, tug) {
+  const sec = Math.max(40, 30 * Q) / f, r = ringer(f, Q, phi, tug, sec, f * 400, false);
+  const late = r.tugs.filter((t) => t[0] > sec * 0.6);
+  const rate = late.length > 2 ? (late.length - 1) / (late[late.length - 1][0] - late[0][0]) : 0;
+  const gain = late.length ? late.reduce((s, t) => s + t[1], 0) / late.length : 0;
+  return { rate, tugs: r.tugs.length, gain, amp: Math.sqrt(2 * r.energy) / (TAU * f) };
+}
+// What one tug does to a swing of size 1 caught at phase phi: the share of its energy added (negative: taken).
+function tugGain(phi, tug) {
+  const y = Math.sin(phi), v = Math.cos(phi), e0 = 0.5 * (v * v + y * y), v1 = v + tug;
+  return (0.5 * (v1 * v1 + y * y) - e0) / e0;
+}
+// Young's pusher: F = ω²·sin(2π·fp·t), sized so the push held still moves the weight 1. Run until the start has
+// died away, then read whole push cycles: how far, how often, how far behind, and where the energy goes.
+function young(f, Q, fp) {
+  const w = TAU * f, c = w / Q, per = 400, h = 1 / (fp * per), tau = 2 * Q / w;
+  const settle = Math.ceil((12 * tau + 3 / fp) * fp) * per, cycles = 4, n = settle + cycles * per;
+  const st = { y: 0, v: 0 }, wp = TAU * fp;
+  let amp = 0, ein = 0, eback = 0, efric = 0, a = 0, b = 0, ups = [], lastY = 0;
+  for (let i = 0; i < n; i++) {
+    const t = i * h, F0 = w * w * Math.sin(wp * t), F1 = w * w * Math.sin(wp * (t + h / 2)), F2 = w * w * Math.sin(wp * (t + h));
+    const v0 = st.v;
+    step(st, w, c, h, F0, F1, F2);
+    if (i >= settle) {
+      const vm = (v0 + st.v) / 2, P = F1 * vm * h;                       // the push's work this step
+      if (P >= 0) ein += P; else eback -= P;
+      efric += c * vm * vm * h;                                          // what friction spent this step
+      amp = Math.max(amp, Math.abs(st.y));
+      a += st.y * Math.sin(wp * (t + h)); b += st.y * Math.cos(wp * (t + h));
+      if (lastY < 0 && st.y >= 0) ups.push((i + lastY / (lastY - st.y)) * h);
+    }
+    lastY = st.y;
+  }
+  const lag = ((Math.atan2(-b, a) * 180 / Math.PI) % 360 + 360) % 360;
+  const rate = ups.length > 1 ? (ups.length - 1) / (ups[ups.length - 1] - ups[0]) : NaN;
+  return { amp, lag, rate, back: eback / ein, balance: (ein - eback) / efric };
+}
+// where the swing's peak is, by a scan and a golden-section search; flat when the biggest swing is the push held still
+function peakOf(f, Q) {
+  const lo = 0.05, hi = 3, N = 40; let best = 0, bi = 0; const us = [];
+  for (let i = 0; i < N; i++) { const u = lo * Math.pow(hi / lo, i / (N - 1)); us.push(u); const a = young(f, Q, u * f).amp; if (a > best) { best = a; bi = i; } }
+  if (bi === 0 || best <= 1.0005) return { flat: true, u: 0, amp: Math.max(best, 1) };
+  let A = Math.log(us[bi - 1]), B = Math.log(us[Math.min(N - 1, bi + 1)]); const g = (Math.sqrt(5) - 1) / 2;
+  let c1 = B - g * (B - A), c2 = A + g * (B - A), f1 = young(f, Q, Math.exp(c1) * f).amp, f2 = young(f, Q, Math.exp(c2) * f).amp;
+  for (let it = 0; it < 26; it++) {
+    if (f1 > f2) { B = c2; c2 = c1; f2 = f1; c1 = B - g * (B - A); f1 = young(f, Q, Math.exp(c1) * f).amp; }
+    else { A = c1; c1 = c2; f1 = f2; c2 = A + g * (B - A); f2 = young(f, Q, Math.exp(c2) * f).amp; }
+  }
+  return { flat: false, u: Math.exp((A + B) / 2), amp: Math.max(f1, f2) };
+}
+function selfTest() {
+  const lines = [], ok = (name, got, want, tol) => {
+    const pass = Math.abs(got - want) <= Math.max(Math.abs(want) * tol, tol * 1e-3);
+    lines.push(`${pass ? 'PASS' : 'FAIL'}  ${name}: ${(+got).toPrecision(5)} against ${(+want).toPrecision(5)}`);
+  };
+  const yes = (name, cond, detail) => lines.push(`${cond ? 'PASS' : 'FAIL'}  ${name}${detail ? ` (${detail})` : ''}`);
+  // step 1: the ringer's tugs come at the swing's own rate, whatever its own rate
+  for (const f of [1, 1.5, 0.7]) { const r = ringerRate(f, 20, 0, 0.1); ok(`step 1 · the ringer tugs at its own rate, own rate ${f}`, r.rate, f * Math.sqrt(1 - 1 / (4 * 400)), 0.002); }
+  const grow = ringerRate(1, 20, 0, 0.1); yes('step 1 · tugged at the middle of its swing, it grows to a steady swing', grow.amp > 0.5, 'swing ' + grow.amp.toFixed(3));
+  // step 2: when he tugs decides whether a tug gives or takes
+  ok('step 2 · a tug in the middle of the swing, coming his way, adds the most: 2·tug + tug²', tugGain(0, 0.1), 0.21, 0.001);
+  ok('step 2 · at the top of the swing, standing still, it adds only tug²', tugGain(Math.PI / 2, 0.1), 0.01, 0.001);
+  ok('step 2 · in the middle going away, it takes: −2·tug + tug²', tugGain(Math.PI, 0.1), -0.19, 0.001);
+  const give = ringerRate(1, 20, 0, 0.1), take = ringerRate(1, 20, Math.PI, 0.1);
+  const amps = [0, 30, 60, 90, 120, 150, 180].map((d) => ringerRate(1, 20, d * Math.PI / 180, 0.1));
+  yes('step 2 · the later he tugs, the smaller the swing it settles at', amps.every((r, i) => i === 0 || r.amp < amps[i - 1].amp), amps.map((r) => r.amp.toFixed(3)).join(' > '));
+  lines.push(`INFO  step 2 · tugs off the middle nudge its rate too: tugs per own cycle at 0°, 60°, 90° late: ${[0, 2, 3].map((i) => amps[i].rate.toFixed(4)).join(', ')}`);
+  yes('step 2 · tugged as it moves away, the swing shrinks to a sliver the size of the tug itself', take.amp < give.amp / 8 && take.amp <= 0.1, `${take.amp.toFixed(3)} against ${give.amp.toFixed(3)}`);
+  // step 3: Young's push, off its own rate
+  for (const u of [0.5, 1.7]) {
+    const r = young(1, 10, u);
+    ok(`step 3 · pushed at ${u} × its own rate it settles at the push's rate`, r.rate, u, 0.001);
+    yes(`step 3 · off its own rate (${u}), energy comes back each cycle`, r.back > 0.01, (r.back * 100).toFixed(1) + '% of what went in');
+  }
+  // step 4: the test
+  for (const Q of [2, 10, 50]) {
+    const r = young(1, Q, 1);
+    ok(`step 4 · at its own rate, Q ${Q}: swings Q times the push held still`, r.amp, Q, 0.002);
+    ok(`step 4 · at its own rate, Q ${Q}: a quarter cycle behind, degrees`, r.lag, 90, 0.002);
+    yes(`step 4 · at its own rate, Q ${Q}: no energy comes back`, r.back < 1e-4, (r.back * 100).toFixed(4) + '%');
+  }
+  for (const u of [0.3, 0.8, 1, 1.25, 3]) { const r = young(1, 10, u); ok(`step 4 · at ${u} × its rate the push supplies exactly what friction spends`, r.balance, 1, 0.002); }
+  const below = young(1, 10, 0.2), above = young(1, 10, 5);
+  yes('step 4 · far below its rate it moves with the push', below.lag < 5, below.lag.toFixed(2) + '°');
+  yes('step 4 · far above, against it', above.lag > 175, above.lag.toFixed(2) + '°');
+  for (const Q of [1, 2, 5]) { const p = peakOf(1, Q); ok(`step 4 · the swing's peak slides below its own rate, Q ${Q}`, p.u, Math.sqrt(1 - 1 / (2 * Q * Q)), 0.003); }
+  for (const Q of [0.7, 0.6]) { const p = peakOf(1, Q); yes(`step 4 · at Q ${Q}, below 0.707, the peak is gone`, p.flat, p.flat ? 'flat' : 'peak at ' + p.u.toFixed(3)); }
+  { const p = peakOf(1, 0.75); yes('step 4 · at Q 0.75, just above 0.707, a peak is still there', !p.flat, p.flat ? 'flat' : 'peak at ' + p.u.toFixed(3) + ', ' + p.amp.toFixed(4)); }
+  return lines;
+}
+// ---- end math ----
+
+// ---- the walk: one step showing, Next and Back, the rail always open; changing step stops the sound ----
+const STEPS = [...document.querySelectorAll('.step')];
+const rail = document.querySelector('.rail');
+let cur = 0;
+STEPS.forEach((s, i) => {
+  const b = document.createElement('button');
+  b.innerHTML = `<span class="n">${i + 1}</span>${s.dataset.title}`;
+  b.addEventListener('click', () => show(i));
+  rail.appendChild(b);
+});
+function show(i) {
+  stopSound();
+  cur = Math.max(0, Math.min(STEPS.length - 1, i));
+  STEPS.forEach((s, k) => { s.hidden = k !== cur; });
+  [...rail.children].forEach((b, k) => { if (k === cur) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+  document.getElementById('back').disabled = cur === 0;
+  document.getElementById('next').disabled = cur === STEPS.length - 1;
+  if (typeof onStep === 'function') onStep(cur);
+}
+document.getElementById('back').addEventListener('click', () => show(cur - 1));
+document.getElementById('next').addEventListener('click', () => show(cur + 1));
+// ---- sound: nothing exists before a click; one buffer plays at a time. The kit quiets the page's context
+// itself (a hush from the page around it, a hidden tab, a minute untouched); the piece only keeps its words in step. Never name
+// the page's hush message in this script: the kit reads a script that names it as one that answers it. ----
+let actx = null, src = null, outGain = null;
+function audio() {
+  if (!actx) {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = actx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 8;
+    outGain = actx.createGain(); outGain.gain.value = 0.7;
+    outGain.connect(comp).connect(actx.destination);
+    actx.onstatechange = () => { if (actx.state !== 'running') setPlaying(null); };
+  }
+  return actx;
+}
+let playingLabel = null;
+function setPlaying(label) {
+  playingLabel = label;
+  document.querySelectorAll('[data-state]').forEach((el) => { el.textContent = label ? 'playing · ' + label : (window.IDLE_TEXT || 'silent until you press a sound button'); });
+}
+// samples: Float32Array at rate; held level (peak at 0.5), with 8 ms fades so it never clicks
+function playSamples(samples, rate, label) {
+  stopSound();
+  const ctx = audio();
+  const n = samples.length, buf = ctx.createBuffer(1, n, rate), d = buf.getChannelData(0);
+  let pk = 1e-12; for (let i = 0; i < n; i++) pk = Math.max(pk, Math.abs(samples[i]));
+  const g = 0.5 / pk, fade = Math.round(rate * 0.008);
+  for (let i = 0; i < n; i++) d[i] = samples[i] * g * Math.min(1, (n - 1 - i) / fade);
+  const s = ctx.createBufferSource(); s.buffer = buf; s.connect(outGain);
+  s.onended = () => { if (src === s) { src = null; setPlaying(null); } };
+  const go = () => { s.start(); src = s; setPlaying(label); };
+  if (ctx.state !== 'running') ctx.resume().then(go); else go();
+}
+function stopSound() { if (src) { try { src.stop(); } catch (e) {} src = null; } setPlaying(null); }
+// opened on its own from a file, with no kit around it, a hidden tab still goes quiet; nothing starts again on its own
+document.addEventListener('visibilitychange', () => { if (document.hidden) stopSound(); });
+// ---- drawing helpers ----
+function fit(c, aspect) {
+  const w = c.clientWidth || 600, d = window.devicePixelRatio || 1, h = Math.round(Math.max(170, Math.min(420, w * aspect)));
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, w, h); return { g, w, h };
+}
+const COL = { ink: '#c8c8d8', dim: '#4a4a5a', grid: '#22222e', amber: '#e8b84a', indigo: '#6366F1', warn: '#ff9b4a', ok: '#7fd49a', fg1: '#e8e8f0', fg3: '#8a8aa0' };
+function label(g, text, x, y, color, align) { g.fillStyle = color || COL.fg3; g.font = '10.5px JetBrains Mono, monospace'; g.textAlign = align || 'left'; g.fillText(text, x, y); }
+function dashed(g, x0, y0, x1, y1, color, w) { g.save(); g.strokeStyle = color; g.lineWidth = w || 1; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1); g.stroke(); g.restore(); }
+// a long signal drawn as its min and max in each pixel column, so any number of cycles draws honestly
+function columns(g, ys, rate, t0, t1, X, Y, color) {
+  const x0 = Math.floor(X(t0)), x1 = Math.ceil(X(t1));
+  g.fillStyle = color;
+  for (let x = x0; x < x1; x++) {
+    const a = Math.max(0, Math.floor(((x - X(0)) / (X(1) - X(0))) * rate)), b = Math.min(ys.length, Math.ceil(((x + 1 - X(0)) / (X(1) - X(0))) * rate));
+    if (b <= a) continue;
+    let lo = Infinity, hi = -Infinity; for (let i = a; i < b; i++) { const v = ys[i]; if (v < lo) lo = v; if (v > hi) hi = v; }
+    const yA = Y(hi), yB = Y(lo); g.fillRect(x, yA, 1, Math.max(1, yB - yA));
+  }
+}
+const fmtHz = (x) => (x >= 1000 ? (x / 1000).toFixed(x >= 10000 ? 1 : 3) + ' kHz' : x >= 100 ? x.toFixed(1) + ' Hz' : x.toFixed(x >= 10 ? 2 : 3) + ' Hz');
+const fmtS = (x) => (x >= 1 ? x.toFixed(3) + ' s' : (x * 1000).toFixed(x >= 0.1 ? 1 : 2) + ' ms');
+const fmtQ = (q) => (q >= 100 ? q.toFixed(1) : q >= 10 ? q.toFixed(2) : q.toFixed(3));
+const pct = (a, b) => ((a / b - 1) * 100);
+const agree = (a, b, tol) => Math.abs(a / b - 1) <= tol;
+
+// ---- the piece ----
+const SLOW = 300, FA = 220;                                           // the sound at 220 Hz; the picture 300 times slower
+const TUG = 0.1, Q12 = 20, Q3 = 10;
+const $ = (id) => document.getElementById(id);
+window.IDLE_TEXT = 'silent until you press start';
+const S = { r: 1, phi: 0, u: 0.5, u4: 1, Q4: 10 };
+const rFrom = (v) => Math.pow(2, (v - 500) / 500);                    // own rate: half to double
+const uFrom = (v) => Math.pow(4, (v - 500) / 500);                    // his rate: f ÷ 4 .. 4f
+const qFrom = (v) => 0.5 * Math.pow(100, v / 1000);                   // Q 0.5 .. 50
+// ---- the live run the picture shows ----
+let live = null, raf = 0, lastT = 0;
+function newLive(kind) {
+  const f = (kind === 'push' ? 1 : S.r) * FA / SLOW;
+  live = { kind, t: 0, st: { y: 0, v: kind === 'push' ? 0 : TUG * TAU * f }, f, hist: [], tugs: [0], since: 0, th: 0, Q: kind === 'push' ? (cur === 3 ? S.Q4 : Q3) : Q12 };
+  live.th = phaseOf(live.st.y, live.st.v, TAU * f);
+}
+function advance(dt) {
+  if (!live) return;
+  const L = live, sub = Math.max(1, Math.ceil(dt * L.f * 240)), h = dt / sub;
+  for (let i = 0; i < sub; i++) {
+    const w = TAU * L.f, c = w / L.Q;
+    let F0 = 0, F1 = 0, F2 = 0, fp = 0;
+    if (L.kind === 'push') { fp = (cur === 3 ? S.u4 : S.u) * L.f; F0 = w * w * Math.sin(TAU * fp * L.t); F1 = w * w * Math.sin(TAU * fp * (L.t + h / 2)); F2 = w * w * Math.sin(TAU * fp * (L.t + h)); }
+    const v0 = L.st.v;
+    step(L.st, w, c, h, F0, F1, F2);
+    L.t += h;
+    if (L.kind === 'ringer') {
+      const th2 = phaseOf(L.st.y, L.st.v, w);
+      L.since += ((th2 - L.th) % TAU + TAU + Math.PI) % TAU - Math.PI;
+      const phi = cur === 1 ? S.phi * Math.PI / 180 : 0;
+      const d = ((th2 - L.th) % TAU + TAU) % TAU, toPhi = ((phi - L.th) % TAU + TAU) % TAU;
+      if (L.since >= Math.PI && toPhi > 0 && toPhi <= d && d < Math.PI) { L.since = 0; L.st.v += TUG * w; L.tugs.push(L.t); }
+      L.th = phaseOf(L.st.y, L.st.v, w);
+      L.hist.push([L.t, L.st.y, 0, 0]);
+    } else {
+      const vm = (v0 + L.st.v) / 2;
+      L.hist.push([L.t, L.st.y, F1 / (w * w), F1 * vm / (w * w * w)]);
+    }
+  }
+  const keep = 9 / L.f; while (L.hist.length && L.hist[0][0] < L.t - keep) L.hist.shift();
+  while (L.tugs.length > 1 && L.tugs[0] < L.t - keep) L.tugs.shift();
+}
+function frame(t) {
+  raf = requestAnimationFrame(frame);
+  const dt = lastT ? Math.min(0.05, (t - lastT) / 1000) : 0; lastT = t;
+  advance(dt);
+  [draw1, draw2, draw3, draw4][cur]();
+}
+function startRun() {
+  const kind = cur === 0 || cur === 1 ? 'ringer' : 'push';
+  newLive(kind);
+  if (!raf) { lastT = 0; raf = requestAnimationFrame(frame); }
+  // the sound: the same run, 300 times faster, rendered from rest
+  const fs = 48000, sec = kind === 'ringer' ? 3 : 4;
+  if (kind === 'ringer') {
+    const r = ringer(S.r * FA, Q12, cur === 1 ? S.phi * Math.PI / 180 : 0, TUG, sec, fs, true);
+    playSamples(r.ys, fs, 'the ringer, at ' + Math.round(S.r * FA) + ' Hz');
+  } else {
+    const Q = cur === 3 ? S.Q4 : Q3, u = cur === 3 ? S.u4 : S.u, f = FA, w = TAU * f, c = w / Q, h = 1 / fs, n = sec * fs, out = new Float32Array(n), st = { y: 0, v: 0 };
+    for (let i = 0; i < n; i++) { const t = i * h, wp = TAU * u * f; step(st, w, c, h, w * w * Math.sin(wp * t), w * w * Math.sin(wp * (t + h / 2)), w * w * Math.sin(wp * (t + h))); out[i] = st.y; }
+    playSamples(out, fs, 'his push at ' + Math.round(u * FA) + ' Hz, the bell at ' + FA + ' Hz');
+  }
+}
+document.querySelectorAll('[data-start]').forEach((b) => b.addEventListener('click', startRun));
+document.querySelectorAll('[data-stop]').forEach((b) => b.addEventListener('click', () => { stopSound(); live = null; }));
+function onStep(i) { live = null; if (!raf) { lastT = 0; raf = requestAnimationFrame(frame); } readouts(); }
+// ---- drawing: the bell on the left, its traces on the right ----
+function bell(g, x0, w, h, y, scale, tugFlash, tugAt) {
+  const cx = x0 + w / 2, top = 16, len = h * 0.62, a = Math.max(-1.2, Math.min(1.2, y * scale));
+  g.strokeStyle = COL.dim; g.lineWidth = 1; g.beginPath(); g.arc(cx, top, len, Math.PI / 2 - 1.2, Math.PI / 2 + 1.2); g.stroke();
+  if (tugAt !== undefined) {                                           // where he waits, on the arc
+    const ta = Math.max(-1.2, Math.min(1.2, tugAt)); g.fillStyle = COL.amber; g.beginPath(); g.arc(cx + len * Math.sin(ta), top + len * Math.cos(ta), 3, 0, 7); g.fill();
+  }
+  const bx = cx + len * Math.sin(a), by = top + len * Math.cos(a);
+  g.strokeStyle = COL.ink; g.lineWidth = 1.5; g.beginPath(); g.moveTo(cx, top); g.lineTo(bx, by); g.stroke();
+  g.fillStyle = COL.ink; g.beginPath(); g.moveTo(bx - 13, by + 14); g.quadraticCurveTo(bx - 11, by - 8, bx, by - 9); g.quadraticCurveTo(bx + 11, by - 8, bx + 13, by + 14); g.closePath(); g.fill();
+  g.fillStyle = COL.fg1; g.fillRect(cx - 2, top - 2, 4, 4);
+  // the rope, to the ringer at the right; it glows for a moment after each tug
+  g.strokeStyle = tugFlash > 0 ? `rgba(232,184,74,${0.3 + 0.7 * tugFlash})` : COL.dim; g.lineWidth = tugFlash > 0 ? 2 : 1;
+  g.beginPath(); g.moveTo(bx + 6, by + 6); g.lineTo(x0 + w - 6, h - 20); g.stroke();
+  label(g, 'the ringer', x0 + w - 6, h - 6, tugFlash > 0 ? COL.amber : COL.fg3, 'right');
+}
+function traces(g, x0, w, h, scale, opts) {
+  const L = live, T0 = 10, B0 = h - 22, mid = (T0 + B0) / 2;
+  g.strokeStyle = COL.grid; g.lineWidth = 1; g.beginPath(); g.moveTo(x0, mid); g.lineTo(x0 + w, mid); g.stroke();
+  if (!L || !L.hist.length) { label(g, 'press start', x0 + 8, mid - 8); return; }
+  const span = 8 / L.f, tEnd = Math.max(L.t, span), X = (t) => x0 + w * (t - (tEnd - span)) / span, Y = (v) => mid - v * scale * (B0 - T0) / 2;
+  if (opts.power) {
+    let pk = 1e-9; for (const r of L.hist) pk = Math.max(pk, Math.abs(r[3])); const pScale = 34 / pk;
+    for (const [t, , , p] of L.hist) { if (t < tEnd - span) continue; const x = X(t); g.fillStyle = p >= 0 ? 'rgba(127,212,154,.55)' : 'rgba(255,155,74,.75)'; const y0 = B0 - 2, y1 = y0 - p * pScale; g.fillRect(x, Math.min(y0, y1), 1, Math.max(1, Math.abs(y1 - y0))); }
+  }
+  const line = (idx, color, s) => { g.strokeStyle = color; g.lineWidth = 1.6; g.beginPath(); let first = true; for (const r of L.hist) { if (r[0] < tEnd - span) continue; const x = X(r[0]), y = mid - r[idx] * s * (B0 - T0) / 2; first ? g.moveTo(x, y) : g.lineTo(x, y); first = false; } g.stroke(); };
+  if (opts.push) line(2, COL.amber, opts.pushScale);
+  line(1, COL.ink, scale);
+  if (opts.tugs) { g.fillStyle = COL.amber; for (const t of L.tugs) if (t >= tEnd - span) g.fillRect(X(t) - 1, T0, 2, 10); }
+  label(g, 'the last 8 swings of its own rate', x0 + w, h - 6, COL.fg3, 'right');
+}
+function flashOf() { if (!live || live.kind !== 'ringer') return 0; const last = live.tugs[live.tugs.length - 1]; return Math.max(0, 1 - (live.t - last) * live.f * 4); }
+function countRate() {
+  if (!live || live.tugs.length < 4) return null;
+  const t = live.tugs.slice(-6); return (t.length - 1) / (t[t.length - 1] - t[0]);
+}
+function draw1() {
+  const c = $('c1'), { g, w, h } = fit(c, 0.34), bw = Math.min(260, w * 0.3);
+  bell(g, 0, bw, h, live ? live.st.y : 0, 0.9, flashOf());
+  traces(g, bw + 14, w - bw - 14, h, 0.75, { tugs: true });
+  const rate = countRate(), own = S.r * FA / SLOW;
+  $('r1a').textContent = rate ? (rate).toFixed(4) + ' a second (the picture\'s, slowed)' : 'start it, then wait a few tugs';
+  $('r1b').textContent = own.toFixed(4) + ' a second (the picture\'s) · ' + (S.r * FA).toFixed(1) + ' Hz in the sound';
+  $('r1c').textContent = rate ? (rate / own).toFixed(4) : '—';
+}
+let tug2 = null;
+function draw2() {
+  const c = $('c2'), { g, w, h } = fit(c, 0.34), bw = Math.min(260, w * 0.3), gw = Math.min(300, w * 0.3);
+  bell(g, 0, bw, h, live ? live.st.y : 0, 0.9, flashOf(), 0.9 * 0.61 * Math.sin(S.phi * Math.PI / 180));
+  traces(g, bw + 14, w - bw - gw - 28, h, 0.75, { tugs: true });
+  // what one tug gives, at every moment he could choose; the dot is his
+  const x0 = w - gw, T0 = 14, B0 = h - 24, Xp = (d) => x0 + gw * d / 180, Yg = (v) => (T0 + B0) / 2 - v * (B0 - T0) / 0.5;
+  g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(x0, Yg(0)); g.lineTo(x0 + gw, Yg(0)); g.stroke();
+  g.strokeStyle = COL.amber; g.lineWidth = 1.5; g.beginPath();
+  for (let d = 0; d <= 180; d += 3) { const y = Yg(tugGain(d * Math.PI / 180, TUG)); d ? g.lineTo(Xp(d), y) : g.moveTo(Xp(d), y); } g.stroke();
+  g.fillStyle = COL.fg1; g.beginPath(); g.arc(Xp(S.phi), Yg(tugGain(S.phi * Math.PI / 180, TUG)), 4, 0, 7); g.fill();
+  label(g, 'gives', x0, T0 + 8); label(g, 'takes', x0, B0, COL.warn); label(g, '0°', x0, h - 8); label(g, '90°', Xp(90), h - 8, COL.fg3, 'center'); label(g, '180°', x0 + gw, h - 8, COL.fg3, 'right');
+  const rate = countRate(), own = S.r * FA / SLOW;
+  $('r2c').textContent = rate ? (rate / own).toFixed(4) : 'start it, then wait a few tugs';
+}
+function draw3() {
+  const c = $('c3'), { g, w, h } = fit(c, 0.36), bw = Math.min(240, w * 0.26);
+  bell(g, 0, bw, h, live ? live.st.y : 0, 0.18, 0);
+  traces(g, bw + 14, w - bw - 14, h, 0.09, { push: true, pushScale: 0.09, power: true });
+}
+function draw4() {
+  const c = $('c4'), { g, w, h } = fit(c, 0.42);
+  if (!meas4) return;
+  const half = w / 2 - 44, T0 = 16, B0 = h - 26, lo = 0.25, hi = 4, X = (u, x0) => x0 + half * Math.log(u / lo) / Math.log(hi / lo);
+  const top = Math.max(...meas4.pts.map((p) => p.amp)) * 1.08, Ya = (v) => B0 - (B0 - T0) * v / top, Yb = (v) => B0 - (B0 - T0) * v;
+  for (const [x0, name] of [[14, 'how far it swings, × the push held still'], [half + 62, 'share of each cycle\'s energy handed back']]) {
+    [0.25, 0.5, 1, 2, 4].forEach((m) => { g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(X(m, x0), T0); g.lineTo(X(m, x0), B0); g.stroke(); label(g, m === 1 ? 'f' : m < 1 ? 'f÷' + (1 / m) : m + 'f', X(m, x0), h - 9, COL.fg3, 'center'); });
+    label(g, name, x0 + 4, T0 - 4);
+  }
+  dashed(g, 14, Ya(1), 14 + half, Ya(1), COL.fg3); label(g, 'a push held still', 14 + half - 4, Ya(1) - 5, COL.fg3, 'right');
+  const curve = (key, Y, x0, color) => { g.strokeStyle = color; g.lineWidth = 1.6; g.beginPath(); meas4.pts.forEach((p, i) => { const x = X(p.u, x0), y = Y(p[key]); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke(); };
+  curve('amp', Ya, 14, COL.ink); curve('back', Yb, half + 62, COL.warn);
+  if (!meas4.peak.flat) { const x = X(Math.max(lo, meas4.peak.u), 14); g.fillStyle = COL.fg1; g.beginPath(); g.arc(x, Ya(meas4.peak.amp), 4, 0, 7); g.fill(); }
+  const me = meas4.mine; g.strokeStyle = COL.amber; g.lineWidth = 1.2;
+  for (const x0 of [14, half + 62]) { g.beginPath(); g.moveTo(X(S.u4, x0), T0); g.lineTo(X(S.u4, x0), B0); g.stroke(); }
+}
+// ---- measurements, rerun when a slider moves ----
+let meas4 = null, pend = 0, ringerAt = null;
+function readouts() {
+  $('v1r').textContent = (S.r * FA).toFixed(1) + ' Hz in the sound';
+  $('v2p').textContent = S.phi + '°';
+  $('v3u').textContent = S.u.toFixed(3) + ' × its own rate · ' + (S.u * FA).toFixed(1) + ' Hz';
+  $('v4u').textContent = S.u4.toFixed(3) + ' × its own rate';
+  $('v4q').textContent = fmtQ(S.Q4);
+  clearTimeout(pend);
+  pend = setTimeout(() => {
+    if (cur === 1) {
+      const gNow = tugGain(S.phi * Math.PI / 180, TUG), r = ringerRate(1, Q12, S.phi * Math.PI / 180, TUG), r0 = ringerRate(1, Q12, 0, TUG);
+      $('r2a').innerHTML = (gNow >= 0 ? '+' : '') + (gNow * 100).toFixed(1) + '% of its energy <span class="' + (gNow >= 0 ? 'yes' : 'no') + '">' + (gNow >= 0.02 ? 'gives' : gNow >= 0 ? 'barely gives' : 'takes') + '</span>';
+      $('r2b').textContent = (r.amp / r0.amp).toFixed(3) + ' × the swing at 0°';
+    }
+    if (cur === 2) {
+      const y = young(1, Q3, S.u);
+      $('r3a').innerHTML = y.rate.toFixed(4) + ' × its own rate <span class="' + (agree(y.rate, S.u, 0.001) ? 'yes' : 'no') + '">' + (agree(y.rate, S.u, 0.001) ? 'his rate' : '') + '</span>';
+      $('r3b').textContent = (y.back * 100).toFixed(1) + '% of what went in';
+      $('r3c').textContent = y.lag.toFixed(1) + '°';
+    }
+    if (cur === 3) { $('h4').textContent = 'measuring…'; setTimeout(measure4, 30); }
+  }, cur === 3 ? 120 : 30);
+}
+function measure4() {
+  const pts = []; for (let i = 0; i < 49; i++) { const u = 0.25 * Math.pow(16, i / 48); const y = young(1, S.Q4, u); pts.push({ u, amp: y.amp, back: y.back }); }
+  const mine = young(1, S.Q4, S.u4), atF = young(1, S.Q4, 1), peak = peakOf(1, S.Q4);
+  if (!ringerAt) ringerAt = ringerRate(1, Q12, 0, TUG);
+  meas4 = { pts, mine, atF, peak };
+  const yes = (c, t) => `<span class="${c ? 'yes' : 'no'}">${t}</span>`;
+  $('r4').innerHTML =
+    `<div>at your rate it swings at<br><b>${mine.rate.toFixed(4)} × f</b> ${yes(agree(mine.rate, S.u4, 0.001), 'the push\'s rate')}</div>` +
+    `<div>at your rate, behind the push by<br><b>${mine.lag.toFixed(2)}°</b> · handed back <b>${(mine.back * 100).toFixed(2)}%</b></div>` +
+    `<div>in ÷ friction's share, each cycle<br><b>${mine.balance.toFixed(5)}</b> ${yes(agree(mine.balance, 1, 0.002), 'they balance')}</div>` +
+    `<div>at f exactly<br><b>${atF.amp.toFixed(3)} × · ${atF.lag.toFixed(2)}° · back ${(atF.back * 100).toFixed(4)}%</b> ${yes(agree(atF.amp, S.Q4, 0.003) && Math.abs(atF.lag - 90) < 0.2 && atF.back < 1e-4, 'Q times · a quarter cycle · none')}</div>` +
+    `<div>the swing's peak<br><b>${peak.flat ? 'none: biggest held still' : 'at ' + peak.u.toFixed(4) + ' × f'}</b> ${peak.flat ? yes(S.Q4 <= 0.7072, 'Q below 0.707') : yes(peak.u < 1, 'below f') + ' <span class="hint">√(1 − 1/2Q²) = ' + Math.sqrt(Math.max(0, 1 - 1 / (2 * S.Q4 * S.Q4))).toFixed(4) + '</span>'}</div>` +
+    `<div>the ringer, beside it<br><b>${ringerAt.rate.toFixed(4)} tugs per own cycle</b> ${yes(agree(ringerAt.rate, 1, 0.002), 'the bell\'s rate')}</div>` +
+    `<div class="state" data-state></div>`;
+  setPlaying(playingLabel);
+  $('h4').textContent = 'measured at every push rate, one run each · amber line: his rate';
+}
+$('s1r').addEventListener('input', (e) => { S.r = rFrom(+e.target.value); if (live && live.kind === 'ringer') live.f = S.r * FA / SLOW; stopSound(); readouts(); });
+$('s2p').addEventListener('input', (e) => { S.phi = +e.target.value; stopSound(); readouts(); });
+$('s3u').addEventListener('input', (e) => { S.u = uFrom(+e.target.value); stopSound(); readouts(); });
+$('s4u').addEventListener('input', (e) => { S.u4 = uFrom(+e.target.value); stopSound(); readouts(); });
+$('s4q').addEventListener('input', (e) => { S.Q4 = qFrom(+e.target.value); if (live) live.Q = S.Q4; stopSound(); readouts(); });
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI, x = 9 * Math.sin(3 * t + Math.PI / 2), y = 9 * Math.sin(2 * t); d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+S.Q4 = qFrom(651); $('s4q').value = 651; S.u = uFrom(250); S.u4 = uFrom(500);
+setPlaying(null);
+show(0);
+</script>
+</body>
+</html>

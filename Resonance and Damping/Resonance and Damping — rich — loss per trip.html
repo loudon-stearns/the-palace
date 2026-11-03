@@ -1,0 +1,453 @@
+<!doctype html>
+<!--
+title: Resonance and Damping — rich — loss per trip
+born: 2026-11-03
+links:
+  - target: "[[Resonance and Damping]]"
+    type: connects-to
+    label: rich-face-piece
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: walks-up-to-its-test
+forward_vector: "I am a waveguide string whose loss is set by two hands, the loop's gain and its filter, with every partial's ring time measured from the sound, so brightness and sustain show as one damping curve. I walk up from one partial losing a fraction each trip to the test, and I change only when the section I serve does."
+status: "proposal, Enrichment's proposal round 2026-11; not yet heard by Loudon"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Loss per trip</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --warn:#ff9b4a; --ok:#7fd49a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 18px; max-width: 1180px; }
+  .kicker, .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); }
+  .kicker { margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 4px 0 16px; border-bottom: 1px solid var(--soft); }
+  .rail button { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--fg3); background: none; border: 0; border-bottom: 2px solid transparent; padding: 8px 12px 7px; cursor: pointer; transition: color 220ms var(--ease); }
+  .rail button:hover { color: var(--fg1); }
+  .rail button[aria-current=step] { color: var(--amber); border-bottom-color: var(--amber); }
+  .rail button .n { color: var(--fg4); margin-right: 6px; }
+  .rail button[aria-current=step] .n { color: var(--amber); }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 300; color: var(--fg1); margin: 4px 0 8px; }
+  .say { font-size: 14px; line-height: 1.65; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 12px 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .bar .hint { flex: 1 1 260px; }
+  canvas { display: block; width: 100%; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button[aria-pressed=true] { color: var(--amber); border-color: var(--amberline); }
+  button:disabled { opacity: .4; cursor: default; }
+  .ctls { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px 26px; margin-top: 12px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px 22px; margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--fg3); line-height: 1.5; }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .yes { color: var(--ok); } .read .no { color: var(--warn); }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); }
+  .state { color: var(--amber); }
+  .eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .try { font-size: 13.5px; line-height: 1.6; color: var(--fg2); margin: 14px 0 0; max-width: 80ch; }
+  .try .eyebrow { margin-right: 10px; color: var(--amber); }
+  .walk { display: flex; justify-content: space-between; margin-top: 18px; }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin-top: 12px; width: 100%; }
+  table.meas th, table.meas td { text-align: right; padding: 5px 10px; border-bottom: 1px solid var(--soft); }
+  table.meas th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; }
+  table.meas td { color: var(--fg1); }
+  table.meas td.page { color: var(--fg3); }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot .mark { display: inline-flex; align-items: center; gap: 8px; color: var(--fg3); letter-spacing: .12em; text-transform: none; }
+  .foot .mark i { font-family: var(--serif); color: var(--amber); font-weight: 300; }
+  @media (max-width: 680px) { .ctls { grid-template-columns: 1fr; } .read { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · study · four steps · a waveguide string, read partial by partial</div>
+  <h1 class="title">Loss per trip</h1>
+  <p class="sub">A waveguide string has no friction term. What it loses, it loses going round its loop: a fraction each trip, and more from the high partials than the low ones if the loop has a filter in it. Here the string is played, and every partial's ring time is read back off the sound. Nothing plays until you press pluck.</p>
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <section class="step" data-title="One trip">
+    <div class="eyebrow">Step 1 of 4 · one partial</div>
+    <h3>A wave that keeps a fraction g each time round</h3>
+    <p class="say">Start with one partial alone: a sine at 220 Hz. Each trip round the loop takes one period, and each trip it keeps a fraction g of itself. A fixed fraction each trip is a fixed number of decibels each trip, so the level falls in a straight line, and the ring time is just how many trips it takes to lose 60 dB.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">its level each trip, read off the sound</span><button class="go" data-sound="one">▶ pluck</button><button data-stop>stop</button></div>
+      <canvas id="c1"></canvas>
+      <div class="ctls"><label class="sl">loop gain g <b data-gval></b><input data-g type="range" min="0" max="1000"></label></div>
+      <div class="read">
+        <div>one trip loses<br><b id="r1a"></b></div>
+        <div>trips to fall 60 dB<br><b id="r1b"></b></div>
+        <div>ring time, read off the sound<br><b id="r1c"></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">trips = 60 ÷ (−20·log₁₀ g),   ring time = trips ÷ f</div>
+        <div class="words">(trips to fall 60 dB) = 60 ÷ (decibels lost each trip) · (seconds) = (trips) × (one period each).</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Set g to 0.995, the page's example: 0.044 dB a trip, about 1,380 trips, 6.3 seconds at 220 Hz. Then 0.990: twice the loss a trip, half the ring.</p>
+  </section>
+
+  <section class="step" data-title="The whole string" hidden>
+    <div class="eyebrow">Step 2 of 4 · every partial at once</div>
+    <h3>A pluck holds every partial, and gain alone treats them all alike</h3>
+    <p class="say">Now a real pluck: a burst of noise in a delay line one period long, going round and round. The loop makes it a string: only waves that fit the loop survive, the partials at 220, 440, 660 Hz and up. With only the gain in the loop, every partial keeps the same fraction each trip. They fade together, and the note never darkens. It sounds like a buzz that gets quieter.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint" id="h2">each partial's level, read off the sound · amber: low · violet: high</span><button class="go" data-sound="pluck">▶ pluck</button><button data-stop>stop</button></div>
+      <canvas id="c2"></canvas>
+      <div class="ctls"><label class="sl">loop gain g <b data-gval></b><input data-g type="range" min="0" max="1000"></label></div>
+      <div class="read">
+        <div>partial 1 rings<br><b id="r2a"></b></div>
+        <div>partial 6 rings<br><b id="r2b"></b></div>
+        <div>partial 12 rings<br><b id="r2c"></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">y[n] = g · y[n − N]</div>
+        <div class="words">(what comes out now) = (the loop gain) × (what came out one trip ago, N samples back).</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Watch the lines stay parallel as you move g. Listen for the colour: there is no change of brightness, only of loudness.</p>
+  </section>
+
+  <section class="step" data-title="The loop filter" hidden>
+    <div class="eyebrow">Step 3 of 4 · a Q for every partial</div>
+    <h3>A filter in the loop takes more from the top</h3>
+    <p class="say">Put a gentle low-pass in the loop: each trip, mix a little of the sample before into the sample now. Low partials barely notice; high ones lose a little more every trip. Each partial is a resonator of its own, and now each has its own Q. The upper partials die first, and the note goes from bright to dark. Set the filter to 0 and you are back on step 2.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">each partial's level, read off the sound · amber: low · violet: high</span><button class="go" data-sound="pluck">▶ pluck</button><button data-stop>stop</button></div>
+      <canvas id="c3"></canvas>
+      <div class="ctls">
+        <label class="sl">loop filter b <b data-bval></b><input data-b type="range" min="0" max="500"></label>
+      </div>
+      <div class="read">
+        <div>partial 1 rings<br><b id="r3a"></b></div>
+        <div>partial 6 rings<br><b id="r3b"></b></div>
+        <div>partial 12 rings<br><b id="r3c"></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">y[n] = g · ((1 − b) · y[n − N] + b · y[n − N − 1]),   |H(f)| = √((1−b)² + b² + 2b(1−b)·cos(2πf ÷ fs))</div>
+        <div class="words">(now) = (gain) × (mostly one trip ago, plus a share b of the sample before it) · (what the filter keeps of a partial) falls from 1 at the bottom as the partial's frequency rises.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Bring b up slowly from 0 and watch the lines fan out, the top ones falling fastest. At 0.5 the loop is Karplus and Strong's original averaging filter.</p>
+  </section>
+
+  <section class="step" data-title="One curve" hidden>
+    <div class="eyebrow">Step 4 of 4 · the test</div>
+    <h3>Brightness and sustain are one curve</h3>
+    <p class="say">Every partial's loss each trip, measured off the sound, against what the page says it should be: g times what the filter keeps. If the page is right, the gain lifts the whole curve by the same decibels at every partial, which is mostly sustain, and the filter bends only its upper end, which is mostly brightness. Two hands, one curve.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint" id="h4">dots: measured off the sound · line: g·|H| · shaded: the gain's share and the filter's</span><button class="go" data-sound="pluck">▶ pluck</button><button data-stop>stop</button></div>
+      <canvas id="c4"></canvas>
+      <div class="ctls">
+        <label class="sl">loop gain g <b data-gval></b><input data-g type="range" min="0" max="1000"></label>
+        <label class="sl">loop filter b <b data-bval></b><input data-b type="range" min="0" max="500"></label>
+        <label class="sl">the note <b id="fval"></b><input id="f4" type="range" min="0" max="1000"></label>
+      </div>
+      <div class="read" id="r4"></div>
+      <div class="hint state" data-state style="margin-top:8px"></div>
+      <div class="eqs">
+        <div class="eq">loss per trip (dB) = −20·log₁₀ g − 20·log₁₀ |H(f<sub>k</sub>)|</div>
+        <div class="words">(what partial k loses each trip) = (the gain's share, the same for every partial) + (the filter's share, which grows with the partial's frequency).</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Move only g and watch the shaded floor rise and fall under every dot at once. Move only b and watch the floor stay put while the top bends. Then play the same note twice, once dark and long, once bright and short, and hear that one curve set both.</p>
+  </section>
+
+  <div class="walk"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="foot"><span>Resonance and Damping · rich · loss per trip · study · 2026-11-03</span><span class="mark"><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>Loud’n <i>Live</i></span></div>
+</div>
+
+<script>
+// ---- math (pure: the check runs this block in node and calls selfTest) ----
+// A plucked waveguide string, the Karplus-Strong loop: a delay line one period long, and on every trip round it
+// the wave is multiplied by the loop gain g and passed through a two-tap loop filter, (1 − b)·now + b·one sample ago.
+// b = 0 is no filter at all. Every partial's level is then read off the sound, frame by frame.
+const FS = 48000;
+function lossDb(g) { return -20 * Math.log10(g); }                     // what one trip takes, in dB
+function filterGain(b, hz) { const w = 2 * Math.PI * hz / FS; return Math.sqrt((1 - b) ** 2 + b * b + 2 * b * (1 - b) * Math.cos(w)); }
+// the loop: N whole samples plus the filter's own delay make one period
+function loopOf(f, b) { const N = Math.round(FS / f - b); return { N, f0: FS / (N + b) }; }
+function pluck(f, g, b, seconds, seed) {
+  const { N, f0 } = loopOf(f, b), n = Math.round(seconds * FS), out = new Float32Array(n), buf = new Float64Array(N + 2);
+  let s = seed || 7, mean = 0;
+  for (let i = 0; i < N; i++) { s = (s * 1664525 + 1013904223) >>> 0; buf[i] = s / 4294967296 * 2 - 1; mean += buf[i]; }
+  mean /= N; for (let i = 0; i < N; i++) buf[i] -= mean;               // no DC: nothing to ring at 0 Hz
+  // y[n] = g·((1 − b)·y[n − N] + b·y[n − N − 1]); the first N samples are the pluck itself
+  const hist = new Float64Array(n + N + 1);
+  for (let i = 0; i < N; i++) hist[i] = buf[i];
+  for (let i = N; i < n + N; i++) hist[i] = g * ((1 - b) * hist[i - N] + b * (i - N - 1 >= 0 ? hist[i - N - 1] : 0));
+  for (let i = 0; i < n; i++) out[i] = hist[i];
+  return { out, N, f0 };
+}
+// one partial alone: a sine at f that keeps a fraction g of itself each period
+function onePartial(f, g, seconds) {
+  const n = Math.round(seconds * FS), out = new Float32Array(n);
+  for (let i = 0; i < n; i++) { const trips = i * f / FS; out[i] = Math.pow(g, trips) * Math.sin(2 * Math.PI * f * i / FS); }
+  return out;
+}
+// each partial's level in every frame (Hann window, Goertzel at the partial's frequency), in dB
+function partialLevels(x, f0, K, frame, hop) {
+  frame = frame || 4096; hop = hop || 1024;
+  const win = new Float64Array(frame); for (let i = 0; i < frame; i++) win[i] = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (frame - 1));
+  const frames = Math.floor((x.length - frame) / hop) + 1, lev = [], times = [];
+  for (let k = 1; k <= K; k++) lev.push(new Float64Array(frames));
+  for (let j = 0; j < frames; j++) {
+    times.push((j * hop + frame / 2) / FS);
+    for (let k = 1; k <= K; k++) {
+      const w = 2 * Math.PI * k * f0 / FS, c = 2 * Math.cos(w); let s1 = 0, s2 = 0;
+      for (let i = 0; i < frame; i++) { const s0 = x[j * hop + i] * win[i] + c * s1 - s2; s2 = s1; s1 = s0; }
+      const p = s1 * s1 + s2 * s2 - c * s1 * s2;
+      lev[k - 1][j] = 10 * Math.log10(p + 1e-30);
+    }
+  }
+  return { lev, times };
+}
+// a straight line through a partial's level in dB, over the frames from 3 dB to 60 dB under its start; its slope,
+// turned into seconds per 60 dB, is that partial's measured ring time
+function ringTimes(x, f0, K) {
+  const { lev, times } = partialLevels(x, f0, K);
+  return lev.map((L) => {
+    const top = Math.max(...L.slice(0, 4)); const pts = [];
+    for (let j = 0; j < L.length; j++) if (L[j] < top - 3 && L[j] > top - 60) pts.push([times[j], L[j]]);
+    if (pts.length < 3) return { t60: NaN, perTripDb: NaN, levels: L };
+    let sx = 0, sy = 0, sxx = 0, sxy = 0; for (const [t, l] of pts) { sx += t; sy += l; sxx += t * t; sxy += t * l; }
+    const m = pts.length, slope = (m * sxy - sx * sy) / (m * sxx - sx * sx);   // dB per second (negative)
+    return { t60: -60 / slope, perTripDb: -slope / f0, levels: L };
+  }).map((r, i) => ({ ...r, k: i + 1, hz: (i + 1) * f0 }));
+}
+// what the page predicts for each partial: g·|H| kept each trip, so 60 ÷ (that loss in dB) trips of one period each
+function predicted(f0, g, b, k) { const hz = k * f0, kept = g * filterGain(b, hz), db = lossDb(kept); return { perTripDb: db, trips: 60 / db, t60: 60 / db / f0 }; }
+function selfTest() {
+  const lines = [], ok = (name, got, want, tol) => {
+    const pass = Math.abs(got - want) <= Math.abs(want) * tol;
+    lines.push(`${pass ? 'PASS' : 'FAIL'}  ${name}: ${(+got).toPrecision(5)} against ${(+want).toPrecision(5)} (±${(tol * 100).toFixed(1)}%)`);
+  };
+  // step 1: the page's numbers
+  ok('step 1 · g 0.995 loses 0.044 dB a trip', lossDb(0.995), 0.044, 0.02);
+  ok('step 1 · ... and rings for about 1,380 trips', 60 / lossDb(0.995), 1380, 0.005);
+  ok('step 1 · ... which at 220 Hz is 6.3 seconds', 60 / lossDb(0.995) / 220, 6.3, 0.01);
+  const one = onePartial(220, 0.995, 8), r1 = ringTimes(one, 220, 1)[0];
+  ok('step 1 · one partial at 220 Hz, g 0.995: ring time read off the sound, s', r1.t60, 60 / lossDb(0.995) / 220, 0.01);
+  // step 2: gain only, every partial alike
+  const p2 = pluck(220, 0.995, 0, 6), r2 = ringTimes(p2.out, p2.f0, 12);
+  for (const k of [1, 4, 12]) ok(`step 2 · no loop filter: partial ${k} rings as long as the first, s`, r2[k - 1].t60, 60 / lossDb(0.995) / p2.f0, 0.02);
+  // step 3: the filter takes more from the top
+  const p3 = pluck(220, 0.995, 0.3, 6), r3 = ringTimes(p3.out, p3.f0, 12);
+  for (const k of [1, 4, 8, 12]) { const pr = predicted(p3.f0, 0.995, 0.3, k); ok(`step 3 · b 0.3: partial ${k}'s ring time, measured against g·|H| per trip, s`, r3[k - 1].t60, pr.t60, 0.02); }
+  lines.push(`${r3[11].t60 < r3[0].t60 / 3 ? 'PASS' : 'FAIL'}  step 3 · upper partials die first: partial 12 rings ${r3[11].t60.toFixed(2)} s, partial 1 ${r3[0].t60.toFixed(2)} s`);
+  // step 4: two hands on one curve
+  const gA = 0.995, gB = 0.99, pa = pluck(220, gA, 0.3, 6), pb = pluck(220, gB, 0.3, 6), ra = ringTimes(pa.out, pa.f0, 12), rb = ringTimes(pb.out, pb.f0, 12);
+  for (const k of [1, 6, 12]) ok(`step 4 · lowering the gain adds the same loss a trip to partial ${k}, dB`, rb[k - 1].perTripDb - ra[k - 1].perTripDb, lossDb(gB) - lossDb(gA), 0.04);
+  const pc = pluck(220, 0.995, 0.1, 6), rc = ringTimes(pc.out, pc.f0, 12);
+  const d1 = ra[0].perTripDb - rc[0].perTripDb, d12 = ra[11].perTripDb - rc[11].perTripDb;
+  lines.push(`${d12 > 20 * d1 ? 'PASS' : 'FAIL'}  step 4 · raising the filter from 0.1 to 0.3 adds ${d1.toFixed(4)} dB a trip at partial 1 and ${d12.toFixed(4)} dB at partial 12: it bends the top`);
+  return lines;
+}
+// ---- end math ----
+
+// ---- the walk: one step showing, Next and Back, the rail always open; changing step stops the sound ----
+const STEPS = [...document.querySelectorAll('.step')];
+const rail = document.querySelector('.rail');
+let cur = 0;
+STEPS.forEach((s, i) => {
+  const b = document.createElement('button');
+  b.innerHTML = `<span class="n">${i + 1}</span>${s.dataset.title}`;
+  b.addEventListener('click', () => show(i));
+  rail.appendChild(b);
+});
+function show(i) {
+  stopSound();
+  cur = Math.max(0, Math.min(STEPS.length - 1, i));
+  STEPS.forEach((s, k) => { s.hidden = k !== cur; });
+  [...rail.children].forEach((b, k) => { if (k === cur) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+  document.getElementById('back').disabled = cur === 0;
+  document.getElementById('next').disabled = cur === STEPS.length - 1;
+  if (typeof onStep === 'function') onStep(cur);
+}
+document.getElementById('back').addEventListener('click', () => show(cur - 1));
+document.getElementById('next').addEventListener('click', () => show(cur + 1));
+// ---- sound: nothing exists before a click; one buffer plays at a time. The kit quiets the page's context
+// itself (a hush from the page around it, a hidden tab, a minute untouched); the piece only keeps its words in step. Never name
+// the page's hush message in this script: the kit reads a script that names it as one that answers it. ----
+let actx = null, src = null, outGain = null;
+function audio() {
+  if (!actx) {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = actx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 8;
+    outGain = actx.createGain(); outGain.gain.value = 0.7;
+    outGain.connect(comp).connect(actx.destination);
+    actx.onstatechange = () => { if (actx.state !== 'running') setPlaying(null); };
+  }
+  return actx;
+}
+let playingLabel = null;
+function setPlaying(label) {
+  playingLabel = label;
+  document.querySelectorAll('[data-state]').forEach((el) => { el.textContent = label ? 'playing · ' + label : (window.IDLE_TEXT || 'silent until you press a sound button'); });
+}
+// samples: Float32Array at rate; held level (peak at 0.5), with 8 ms fades so it never clicks
+function playSamples(samples, rate, label) {
+  stopSound();
+  const ctx = audio();
+  const n = samples.length, buf = ctx.createBuffer(1, n, rate), d = buf.getChannelData(0);
+  let pk = 1e-12; for (let i = 0; i < n; i++) pk = Math.max(pk, Math.abs(samples[i]));
+  const g = 0.5 / pk, fade = Math.round(rate * 0.008);
+  for (let i = 0; i < n; i++) d[i] = samples[i] * g * Math.min(1, (n - 1 - i) / fade);
+  const s = ctx.createBufferSource(); s.buffer = buf; s.connect(outGain);
+  s.onended = () => { if (src === s) { src = null; setPlaying(null); } };
+  const go = () => { s.start(); src = s; setPlaying(label); };
+  if (ctx.state !== 'running') ctx.resume().then(go); else go();
+}
+function stopSound() { if (src) { try { src.stop(); } catch (e) {} src = null; } setPlaying(null); }
+// opened on its own from a file, with no kit around it, a hidden tab still goes quiet; nothing starts again on its own
+document.addEventListener('visibilitychange', () => { if (document.hidden) stopSound(); });
+// ---- drawing helpers ----
+function fit(c, aspect) {
+  const w = c.clientWidth || 600, d = window.devicePixelRatio || 1, h = Math.round(Math.max(170, Math.min(420, w * aspect)));
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, w, h); return { g, w, h };
+}
+const COL = { ink: '#c8c8d8', dim: '#4a4a5a', grid: '#22222e', amber: '#e8b84a', indigo: '#6366F1', warn: '#ff9b4a', ok: '#7fd49a', fg1: '#e8e8f0', fg3: '#8a8aa0' };
+function label(g, text, x, y, color, align) { g.fillStyle = color || COL.fg3; g.font = '10.5px JetBrains Mono, monospace'; g.textAlign = align || 'left'; g.fillText(text, x, y); }
+function dashed(g, x0, y0, x1, y1, color, w) { g.save(); g.strokeStyle = color; g.lineWidth = w || 1; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1); g.stroke(); g.restore(); }
+// a long signal drawn as its min and max in each pixel column, so any number of cycles draws honestly
+function columns(g, ys, rate, t0, t1, X, Y, color) {
+  const x0 = Math.floor(X(t0)), x1 = Math.ceil(X(t1));
+  g.fillStyle = color;
+  for (let x = x0; x < x1; x++) {
+    const a = Math.max(0, Math.floor(((x - X(0)) / (X(1) - X(0))) * rate)), b = Math.min(ys.length, Math.ceil(((x + 1 - X(0)) / (X(1) - X(0))) * rate));
+    if (b <= a) continue;
+    let lo = Infinity, hi = -Infinity; for (let i = a; i < b; i++) { const v = ys[i]; if (v < lo) lo = v; if (v > hi) hi = v; }
+    const yA = Y(hi), yB = Y(lo); g.fillRect(x, yA, 1, Math.max(1, yB - yA));
+  }
+}
+const fmtHz = (x) => (x >= 1000 ? (x / 1000).toFixed(x >= 10000 ? 1 : 3) + ' kHz' : x >= 100 ? x.toFixed(1) + ' Hz' : x.toFixed(x >= 10 ? 2 : 3) + ' Hz');
+const fmtS = (x) => (x >= 1 ? x.toFixed(3) + ' s' : (x * 1000).toFixed(x >= 0.1 ? 1 : 2) + ' ms');
+const fmtQ = (q) => (q >= 100 ? q.toFixed(1) : q >= 10 ? q.toFixed(2) : q.toFixed(3));
+const pct = (a, b) => ((a / b - 1) * 100);
+const agree = (a, b, tol) => Math.abs(a / b - 1) <= tol;
+
+// ---- the piece ----
+const K = 12, SEC = 6;
+const $ = (id) => document.getElementById(id);
+window.IDLE_TEXT = 'silent until you press pluck';
+const S = { g: 0.995, b: 0.3, f: 220 };
+const gFrom = (v) => 1 - 0.02 * Math.pow(0.05, v / 1000);           // 0.980 .. 0.999
+const gTo = (g) => Math.round(1000 * Math.log((1 - g) / 0.02) / Math.log(0.05));
+const fFrom = (v) => 110 * Math.pow(8, v / 1000);                     // 110 Hz .. 880 Hz
+const fTo = (f) => Math.round(1000 * Math.log(f / 110) / Math.log(8));
+const bNow = () => (cur <= 1 ? 0 : S.b);
+const fNow = () => (cur === 3 ? S.f : 220);
+const memo = {};
+function run() {
+  const key = [cur, S.g, bNow(), fNow()].join(':');
+  if (!memo[key]) {
+    if (cur === 0) { const x = onePartial(220, S.g, Math.min(10, 60 / lossDb(S.g) / 220 + 1)); memo[key] = { x, f0: 220, r: ringTimes(x, 220, 1) }; }
+    else { const p = pluck(fNow(), S.g, bNow(), SEC); memo[key] = { x: p.out, f0: p.f0, r: ringTimes(p.out, p.f0, K) }; }
+  }
+  return memo[key];
+}
+function colorOf(k) { const t = (k - 1) / (K - 1), a = [232, 184, 74], b = [139, 118, 255]; return `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * t)).join(',')})`; }
+function sync() {
+  document.querySelectorAll('[data-g]').forEach((el) => { el.value = gTo(S.g); });
+  document.querySelectorAll('[data-gval]').forEach((el) => { el.textContent = S.g.toFixed(4); });
+  document.querySelectorAll('[data-b]').forEach((el) => { el.value = Math.round(S.b * 1000); });
+  document.querySelectorAll('[data-bval]').forEach((el) => { el.textContent = S.b.toFixed(3) + (S.b === 0 ? ' · no filter' : S.b >= 0.5 ? ' · the averaging filter' : ''); });
+  $('f4').value = fTo(S.f); $('fval').textContent = S.f.toFixed(1) + ' Hz';
+}
+let pend = 0;
+function redraw() { sync(); clearTimeout(pend); pend = setTimeout(() => [draw1, draw2, draw3, draw4][cur](), 30); }
+document.querySelectorAll('[data-g]').forEach((el) => el.addEventListener('input', () => { S.g = +gFrom(+el.value).toFixed(4); stopSound(); redraw(); }));
+document.querySelectorAll('[data-b]').forEach((el) => el.addEventListener('input', () => { S.b = +el.value / 1000; stopSound(); redraw(); }));
+$('f4').addEventListener('input', () => { S.f = fFrom(+$('f4').value); stopSound(); redraw(); });
+document.querySelectorAll('[data-stop]').forEach((b) => b.addEventListener('click', stopSound));
+document.querySelectorAll('[data-sound]').forEach((b) => b.addEventListener('click', () => { const r = run(); playSamples(r.x, FS, cur === 0 ? 'one partial at 220 Hz' : 'a pluck at ' + fNow().toFixed(1) + ' Hz'); }));
+function onStep() { redraw(); }
+const fmt = (t) => (isFinite(t) ? t.toFixed(2) + ' s' : 'under the floor');
+// ---- step 1 ----
+function draw1() {
+  const r = run(), rt = r.r[0], { g, w, h } = fit($('c1'), 0.34), L = 48, R = w - 14, T = 14, B = h - 26;
+  const trips = 60 / lossDb(S.g), spanTrips = trips * 1.25, X = (n) => L + (R - L) * n / spanTrips, Y = (db) => T + (B - T) * (-db) / 72;
+  [0, -20, -40, -60].forEach((d) => { g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(L, Y(d)); g.lineTo(R, Y(d)); g.stroke(); label(g, d + ' dB', L - 6, Y(d) + 4, COL.fg3, 'right'); });
+  const top = rt.levels[0];
+  g.strokeStyle = COL.amber; g.lineWidth = 1.6; g.beginPath();
+  rt.levels.forEach((l, j) => { const t = (j * 1024 + 2048) / FS, n = t * 220, x = X(n); if (n > spanTrips) return; j ? g.lineTo(x, Y(l - top)) : g.moveTo(x, Y(l - top)); }); g.stroke();
+  const mt = rt.t60 * 220;
+  g.strokeStyle = COL.warn; g.lineWidth = 1.5; g.beginPath(); g.moveTo(X(mt), T); g.lineTo(X(mt), B); g.stroke();
+  label(g, '−60 dB after ' + Math.round(mt) + ' trips', Math.min(X(mt) + 6, R - 170), T + 12, COL.warn);
+  label(g, 'trips round the loop →', R, h - 8, COL.fg3, 'right'); label(g, '0', L, h - 8);
+  $('r1a').textContent = lossDb(S.g).toFixed(4) + ' dB';
+  $('r1b').textContent = Math.round(mt) + ' measured · ' + trips.toFixed(0) + ' from 60 ÷ loss';
+  $('r1c').textContent = fmt(rt.t60) + ' · ' + (trips / 220).toFixed(2) + ' s from trips ÷ f';
+}
+// ---- steps 2 and 3: every partial's level over time ----
+function fan(id, aspect) {
+  const r = run(), { g, w, h } = fit($(id), aspect), L = 48, R = w - 20, T = 14, B = h - 26;
+  const X = (t) => L + (R - L) * t / SEC, Y = (db) => T + (B - T) * (-db) / 70;
+  [0, -20, -40, -60].forEach((d) => { g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(L, Y(d)); g.lineTo(R, Y(d)); g.stroke(); label(g, d + ' dB', L - 6, Y(d) + 4, COL.fg3, 'right'); });
+  for (let k = K; k >= 1; k--) {
+    const rr = r.r[k - 1], lv = rr.levels, top = Math.max(...lv.slice(0, 4));
+    g.strokeStyle = colorOf(k); g.lineWidth = 1.4; g.beginPath(); let started = false, lastY = 0;
+    lv.forEach((l, j) => { const t = (j * 1024 + 2048) / FS; if (l - top < -70) return; const y = Y(l - top); started ? g.lineTo(X(t), y) : g.moveTo(X(t), y); started = true; lastY = y; }); g.stroke();
+  }
+  label(g, '0 s', L, h - 8); label(g, SEC + ' s', R, h - 8, COL.fg3, 'right');
+  return r;
+}
+function draw2() { const r = fan('c2', 0.36); $('r2a').textContent = fmt(r.r[0].t60); $('r2b').textContent = fmt(r.r[5].t60); $('r2c').textContent = fmt(r.r[11].t60); }
+function draw3() { const r = fan('c3', 0.36); $('r3a').textContent = fmt(r.r[0].t60); $('r3b').textContent = fmt(r.r[5].t60); $('r3c').textContent = fmt(r.r[11].t60); }
+// ---- step 4: the curve ----
+function draw4() {
+  const r = run(), { g, w, h } = fit($('c4'), 0.38), L = 56, R = w - 20, T = 16, B = h - 28;
+  const pred = r.r.map((rr) => predicted(r.f0, S.g, S.b, rr.k)), gainDb = lossDb(S.g);
+  const top = Math.max(...pred.map((p) => p.perTripDb), ...r.r.map((x) => x.perTripDb || 0)) * 1.12;
+  const X = (k) => L + (R - L) * (k - 0.5) / K, Y = (db) => B - (B - T) * db / top;
+  // the two shares, stacked
+  for (const p of pred.map((p, i) => [i + 1, p])) {
+    const [k, pr] = p, x0 = X(k) - (R - L) / K * 0.38, bw = (R - L) / K * 0.76;
+    g.fillStyle = 'rgba(232,184,74,.18)'; g.fillRect(x0, Y(gainDb), bw, B - Y(gainDb));
+    g.fillStyle = 'rgba(139,118,255,.22)'; g.fillRect(x0, Y(pr.perTripDb), bw, Y(gainDb) - Y(pr.perTripDb));
+  }
+  g.strokeStyle = COL.fg1; g.lineWidth = 1.2; g.beginPath(); pred.forEach((p, i) => { const x = X(i + 1), y = Y(p.perTripDb); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke();
+  r.r.forEach((rr) => { if (!isFinite(rr.perTripDb)) return; g.fillStyle = colorOf(rr.k); g.beginPath(); g.arc(X(rr.k), Y(rr.perTripDb), 4.5, 0, 7); g.fill(); });
+  for (let k = 1; k <= K; k++) label(g, String(k), X(k), h - 10, COL.fg3, 'center');
+  label(g, 'partial', L - 8, h - 10, COL.fg3, 'right');
+  [0, top / 2].forEach((d) => label(g, d.toFixed(3) + ' dB', L - 6, Y(d) + 4, COL.fg3, 'right'));
+  label(g, 'loss each trip', L + 4, T + 4);
+  label(g, 'amber: the gain\'s share · violet: the filter\'s share', R, T + 4, COL.fg3, 'right');
+  const worst = Math.max(...r.r.map((rr, i) => (isFinite(rr.perTripDb) ? Math.abs(rr.perTripDb / pred[i].perTripDb - 1) : 0)));
+  const f1 = -20 * Math.log10(filterGain(S.b, r.f0)), f12 = -20 * Math.log10(filterGain(S.b, 12 * r.f0));
+  const yes = (c, t) => `<span class="${c ? 'yes' : 'no'}">${t}</span>`;
+  $('r4').innerHTML =
+    `<div>every partial, measured against g·|H|<br><b>worst ${(worst * 100).toFixed(3)}% apart</b> ${yes(worst < 0.02, 'the page\'s loss per trip holds')}</div>` +
+    `<div>the gain's share, every partial<br><b>${gainDb.toFixed(4)} dB a trip</b></div>` +
+    `<div>the filter's share<br><b>${f1.toFixed(4)} dB at partial 1 · ${f12.toFixed(4)} dB at partial 12</b></div>` +
+    `<div>ring time, partial 1 · partial 12<br><b>${fmt(r.r[0].t60)} · ${fmt(r.r[11].t60)}</b></div>`;
+  $('h4').textContent = 'dots: measured off the sound · line: g·|H| · shaded: the gain\'s share and the filter\'s';
+}
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI, x = 9 * Math.sin(3 * t + Math.PI / 2), y = 9 * Math.sin(2 * t); d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+window.addEventListener('resize', () => redraw());
+setPlaying(null);
+show(0);
+</script>
+</body>
+</html>

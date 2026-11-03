@@ -1,0 +1,597 @@
+<!doctype html>
+<!--
+title: Resonance and Damping — rich — three rulers
+born: 2026-11-03
+links:
+  - target: "[[Resonance and Damping]]"
+    type: connects-to
+    label: rich-face-piece
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: walks-up-to-its-test
+forward_vector: "I am one swing measured three ways: a strike timed, a push at its own rate measured for height, a push at every rate measured for width, each turned back into a Q, so the section's claim that the three faces are one number is read off runs and not drawn from its formula. I walk up in four steps to the test, and I change only when the section I serve does."
+status: "proposal, Enrichment's proposal round 2026-11; not yet heard by Loudon"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Three rulers, one Q</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --warn:#ff9b4a; --ok:#7fd49a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 18px; max-width: 1180px; }
+  .kicker, .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); }
+  .kicker { margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 4px 0 16px; border-bottom: 1px solid var(--soft); }
+  .rail button { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--fg3); background: none; border: 0; border-bottom: 2px solid transparent; padding: 8px 12px 7px; cursor: pointer; transition: color 220ms var(--ease); }
+  .rail button:hover { color: var(--fg1); }
+  .rail button[aria-current=step] { color: var(--amber); border-bottom-color: var(--amber); }
+  .rail button .n { color: var(--fg4); margin-right: 6px; }
+  .rail button[aria-current=step] .n { color: var(--amber); }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 300; color: var(--fg1); margin: 4px 0 8px; }
+  .say { font-size: 14px; line-height: 1.65; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 12px 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .bar .hint { flex: 1 1 260px; }
+  canvas { display: block; width: 100%; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button[aria-pressed=true] { color: var(--amber); border-color: var(--amberline); }
+  button:disabled { opacity: .4; cursor: default; }
+  .ctls { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px 26px; margin-top: 12px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px 22px; margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--fg3); line-height: 1.5; }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .yes { color: var(--ok); } .read .no { color: var(--warn); }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); }
+  .state { color: var(--amber); }
+  .eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .try { font-size: 13.5px; line-height: 1.6; color: var(--fg2); margin: 14px 0 0; max-width: 80ch; }
+  .try .eyebrow { margin-right: 10px; color: var(--amber); }
+  .walk { display: flex; justify-content: space-between; margin-top: 18px; }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin-top: 12px; width: 100%; }
+  table.meas th, table.meas td { text-align: right; padding: 5px 10px; border-bottom: 1px solid var(--soft); }
+  table.meas th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; }
+  table.meas td { color: var(--fg1); }
+  table.meas td.page { color: var(--fg3); }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot .mark { display: inline-flex; align-items: center; gap: 8px; color: var(--fg3); letter-spacing: .12em; text-transform: none; }
+  .foot .mark i { font-family: var(--serif); color: var(--amber); font-weight: 300; }
+  @media (max-width: 680px) { .ctls { grid-template-columns: 1fr; } .read { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · study · four steps · measured, not drawn</div>
+  <h1 class="title">Three rulers, one Q</h1>
+  <p class="sub">The section says the peak's height, the peak's width and the ring's length are one number. Here each is measured on its own, from a swing the page's own equation moves, and each ruler gives back a Q. Nothing on the sheets is drawn from a formula: every curve, edge and time is read off a run. Nothing plays until you press a sound button.</p>
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <section class="step" data-title="The ring">
+    <div class="eyebrow">Step 1 of 4 · how long</div>
+    <h3>Strike it once and time the ring</h3>
+    <p class="say">A weight on a spring at 440 Hz, struck once and left alone. It rings at its own rate and forgets, a little each cycle. Time how long the ring takes to fall 60 dB, a thousandth of its first height, and turn that time back into a Q with the page's rule. Only Q moves here.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">the ring, every cycle, read off the run</span><button class="go" data-sound="strike">▶ strike</button><button data-stop>stop</button></div>
+      <canvas id="c1"></canvas>
+      <div class="ctls"><label class="sl">Q <b data-qval></b><input data-q type="range" min="0" max="1000"></label></div>
+      <div class="read">
+        <div>ring to −60 dB, measured<br><b id="r1t"></b></div>
+        <div>Q read off the ring (time × f ÷ 2.2)<br><b id="r1q"></b></div>
+        <div>energy lost each cycle, measured<br><b id="r1e"></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">ring time ≈ 2.2 × Q ÷ f</div>
+        <div class="words">(seconds to fall 60 dB) ≈ 2.2 × (Q) ÷ (cycles a second). Turned round: Q ≈ (ring time) × f ÷ 2.2.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Double Q and listen: the same pitch, twice as long. Then read the third box. At Q 100 the run loses about a sixteenth of its energy each cycle, as the page says. Pull Q down to 2 and the page's shortcut, 2π ÷ Q, would have it lose more than all of it; the run loses 96%. The shortcut is for a high Q.</p>
+  </section>
+
+  <section class="step" data-title="The height" hidden>
+    <div class="eyebrow">Step 2 of 4 · how tall</div>
+    <h3>Push it at its own rate and measure how far it swings</h3>
+    <p class="say">Now nothing strikes it. A smooth push at 440 Hz, its own rate, starts from rest, sized so that the same push held still would move the weight exactly 1. Every cycle adds to the last, until friction spends as much as the push gives. Measure where it stops growing. That height is the second ruler.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">the swell, from rest, cycle by cycle</span><button class="go" data-sound="push">▶ push</button><button data-stop>stop</button></div>
+      <canvas id="c2"></canvas>
+      <div class="ctls"><label class="sl">Q <b data-qval></b><input data-q type="range" min="0" max="1000"></label></div>
+      <div class="read">
+        <div>it settles at, measured<br><b id="r2h"></b></div>
+        <div>Q read off the height<br><b id="r2q"></b></div>
+        <div>the swell is within 60 dB of its height after<br><b id="r2t"></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">height at f = Q × (a push held still)</div>
+        <div class="words">(how far it swings, pushed at its own rate) = (Q) × (how far the same push would move it held still).</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Watch the third box against step 1's ring time at the same Q: the swell takes the ring's own time to build. The sound is held level to keep your ears safe, so what you hear is the swell's shape, not its height; the sheet shows the height.</p>
+  </section>
+
+  <section class="step" data-title="The width" hidden>
+    <div class="eyebrow">Step 3 of 4 · how narrow</div>
+    <h3>Push it at every rate and measure the band it answers</h3>
+    <p class="say">Push at many rates, one run each, and wait every time for the start to die away. Record how far it swings and how fast it moves. Each makes a peak. Find the two rates where a peak has fallen to half its power, 1 ÷ √2 of its height, and the gap between them is the third ruler. The speed's peak is the band-pass filter's; the swing's is the weight's own.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint" id="h3">amber: its speed, the band-pass · ink: the swing · each against its own peak · one run per dot</span><button class="go" data-sound="sweep">▶ sweep the push</button><button data-stop>stop</button></div>
+      <canvas id="c3"></canvas>
+      <div class="ctls"><label class="sl">Q <b data-qval></b><input data-q type="range" min="0" max="1000"></label></div>
+      <div class="read">
+        <div>the speed's band (band-pass), measured<br><b id="r3v"></b></div>
+        <div>Q read off the width (f ÷ width)<br><b id="r3q"></b></div>
+        <div>the swing's own band<br><b id="r3y"></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">width = f ÷ Q</div>
+        <div class="words">(the band it answers, between its half-power points) = (its own rate) ÷ (Q). Exactly, for the speed; for the swing, closely once Q is above a few.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Set Q to 10 and the two bands agree to a quarter of a percent. Bring Q down to 3, then 2: the swing's band runs 3%, then 8% wide, and its peak slides below 440 Hz. At Q 1 it has no lower edge at all, because the swing never falls to half power below its peak. The speed's band stays exactly f ÷ Q the whole way down.</p>
+  </section>
+
+  <section class="step" data-title="One number" hidden>
+    <div class="eyebrow">Step 4 of 4 · the test</div>
+    <h3>Three rulers, laid side by side</h3>
+    <p class="say">Choose any rate and any Q. The ring, the height and the width are measured again, each in its own run, and each gives back a Q. If the section is right they land on one line. Then the trade itself: the width times the time the ring takes to fall to 1/e should be 1 ÷ π, whatever the Q. Last, the page's own table, measured at 1 kHz.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint" id="h4">three rulers on one scale of Q</span>
+        <button class="go" data-sound="strike">▶ strike</button><button data-sound="push">▶ push</button><button data-sound="sweep">▶ sweep</button><button data-stop>stop</button></div>
+      <canvas id="c4"></canvas>
+      <div class="ctls">
+        <label class="sl">its own rate f <b id="fval"></b><input id="f4" type="range" min="0" max="1000"></label>
+        <label class="sl">Q <b data-qval></b><input data-q type="range" min="0" max="1000"></label>
+      </div>
+      <div class="read" id="r4"></div>
+      <div class="hint state" data-state style="margin-top:8px"></div>
+      <div class="bar" style="margin-top:12px"><button id="table">measure the page's table at 1 kHz</button><span class="hint" id="tabnote">four Qs, each run to the end; about a second</span></div>
+      <div id="tab"></div>
+      <div class="eqs">
+        <div class="eq">width × τ = 1 ÷ π</div>
+        <div class="words">(the band in hertz) × (seconds for the ring to fall to 1/e, about a third) = one over π, at every Q. A peak that is sharp in frequency is long in time.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Drag Q from 1 to 200 and watch the three dots ride the line together. Then run the table. If every box agrees, the section's claim stands as measured; if one doesn't, it says by how much.</p>
+  </section>
+
+  <div class="walk"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="foot"><span>Resonance and Damping · rich · three rulers · study · 2026-11-03</span><span class="mark"><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>Loud’n <i>Live</i></span></div>
+</div>
+
+<script>
+// ---- math (pure: the check runs this block in node and calls selfTest) ----
+const FS = 48000;                         // the simulation's own rate; the sound is played at this rate too
+const RULE = 2.2;                         // the page's ring-time rule: ring ≈ 2.2 × Q ÷ f
+// The swing as the page states it: y'' + 2ζω·y' + ω²·y = F(t), stepped with RK4 at FS.
+// push: null (struck), or { hz, amp } a sine push amp·sin(2π·hz·t). y0, v0: where it starts.
+// each(y, v, n) is called after every step; return true to stop.
+function swing(f, Q, push, y0, v0, maxN, each) {
+  const w = 2 * Math.PI * f, c = w / Q, k = w * w, h = 1 / FS, h2 = h / 2;
+  let y = y0, v = v0;
+  let s = 0, co = 1, rs = 0, rc = 1, A = 0;
+  if (push) { A = push.amp; const d = 2 * Math.PI * push.hz * h2; rs = Math.sin(d); rc = Math.cos(d); }
+  for (let n = 0; n < maxN; n++) {
+    const F0 = A * s;
+    let t = s * rc + co * rs; co = co * rc - s * rs; s = t;            // half a step on
+    const F1 = A * s;
+    t = s * rc + co * rs; co = co * rc - s * rs; s = t;                // the other half
+    const F2 = A * s;
+    const k1y = v, k1v = F0 - c * v - k * y;
+    const k2y = v + h2 * k1v, k2v = F1 - c * k2y - k * (y + h2 * k1y);
+    const k3y = v + h2 * k2v, k3v = F1 - c * k3y - k * (y + h2 * k2y);
+    const k4y = v + h * k3v, k4v = F2 - c * k4y - k * (y + h * k3y);
+    y += h / 6 * (k1y + 2 * k2y + 2 * k3y + k4y);
+    v += h / 6 * (k1v + 2 * k2v + 2 * k3v + k4v);
+    if (each(y, v, n)) break;
+  }
+}
+// Ruler 1, the ring. Strike it (a kick of speed, nothing pushing), keep every sample, and read the peaks of the
+// ring: the time between them, and a straight line fitted to their height in dB. Nothing here uses the 2.2 rule;
+// it only reads the 2.2 rule's answer off the sound.
+function ring(f, Q, maxSec) {
+  const w = 2 * Math.PI * f, maxN = Math.round((maxSec || 8) * FS);
+  const ys = new Float32Array(maxN), peaks = [], ups = [];
+  let lastV = w, lastY = 0, n0 = 0, first = 0;
+  swing(f, Q, null, 0, w, maxN, (y, v, n) => {
+    ys[n] = y; n0 = n;
+    if ((lastV > 0) !== (v > 0)) { const a = Math.abs(lastY); peaks.push([n / FS, a]); if (!first) first = a; }
+    if (lastY < 0 && y >= 0) ups.push([n / FS, 0.5 * v * v + 0.5 * w * w * y * y]);
+    lastV = v; lastY = y;
+    return first && Math.abs(y) < first * 3e-5 && n > 4 * FS / f;    // stop past −90 dB
+  });
+  // fit ln(peak) = a − σt over the peaks down to −80 dB
+  const use = peaks.filter((p) => p[1] > first * 1e-4);
+  let sx = 0, sy = 0, sxx = 0, sxy = 0;
+  for (const [t, a] of use) { const l = Math.log(a); sx += t; sy += l; sxx += t * t; sxy += t * l; }
+  const m = use.length, slope = (m * sxy - sx * sy) / (m * sxx - sx * sx), sigma = -slope;
+  const t60 = Math.log(1000) / sigma, tau = 1 / sigma;
+  // energy lost per cycle: one upward crossing to the next, averaged over the first cycles
+  let lost = NaN;
+  if (ups.length > 2) { const q = Math.min(ups.length - 1, 6); lost = 1 - Math.pow(ups[q][1] / ups[0][1], 1 / q); }
+  const period = peaks.length > 3 ? 2 * (peaks[Math.min(peaks.length - 1, 4)][0] - peaks[0][0]) / Math.min(peaks.length - 1, 4) : NaN;
+  return { ys: ys.subarray(0, n0 + 1), peaks, t60, tau, lost, period, q: t60 * f / RULE, nPeaks: use.length };
+}
+// Ruler 2, the height. Push at its own rate, from rest, with a push that held still would move it 1, and watch
+// the swing grow cycle by cycle until it stops growing. Keeps the whole swell and each cycle's height.
+function swell(f, Q, maxSec) {
+  const w = 2 * Math.PI * f, maxN = Math.round((maxSec || 12) * FS), per = FS / f;
+  const ys = new Float32Array(maxN), heights = [];
+  let top = 0, tTop = 0, cnt = 0, n0 = 0, lastY = 0, still = 0;
+  swing(f, Q, { hz: f, amp: w * w }, 0, 0, maxN, (y, v, n) => {
+    ys[n] = y; n0 = n; if (Math.abs(y) > top) { top = Math.abs(y); tTop = n / FS; } cnt++;
+    if (lastY < 0 && y >= 0 && cnt > per * 0.5) {
+      const prev = heights.length ? heights[heights.length - 1][1] : 0;
+      heights.push([tTop, top]);
+      still = Math.abs(top - prev) < top * 2e-7 ? still + 1 : 0;
+      top = 0; cnt = 0;
+    }
+    lastY = y;
+    return still >= 3;
+  });
+  const height = heights.length ? heights[heights.length - 1][1] : NaN;
+  // how long the swell took to come within 60 dB of its height (1 − 1/1000)
+  let t999 = NaN;
+  for (let i = 0; i < heights.length; i++) if (heights[i][1] >= height * 0.999) {
+    if (i === 0) { t999 = heights[0][0]; break; }
+    const [t0, a0] = heights[i - 1], [t1, a1] = heights[i];
+    t999 = t0 + (t1 - t0) * (height * 0.999 - a0) / (a1 - a0); break;
+  }
+  return { ys: ys.subarray(0, n0 + 1), heights, height, q: height, t999 };
+}
+// A push at any rate, run until the start has died away, then how far it swings and how fast it moves.
+// The speed is the band-pass output: the page's "exactly" is about it.
+function settled(f, Q, hz) {
+  const w = 2 * Math.PI * f, tau = 2 * Q / w;                          // the run is sized from the push's own Q, not measured
+  const settle = Math.ceil((12 * tau + 3 / hz) * FS), tail = Math.ceil(2 / hz * FS) + 2;
+  let ya = 0, va = 0;
+  swing(f, Q, { hz, amp: w * w }, 0, 0, settle + tail, (y, v, n) => {
+    if (n >= settle) { ya = Math.max(ya, Math.abs(y)); va = Math.max(va, Math.abs(v)); }
+    return false;
+  });
+  return { y: ya, v: va / w };
+}
+// Ruler 3, the width: find each curve's peak, then the two rates where it has fallen to half power (1/√2 of the
+// peak), by halving the gap. "none" when the curve never falls that far on that side.
+function width(f, Q) {
+  const memo = new Map();
+  const at = (hz) => { const key = hz.toPrecision(12); if (!memo.has(key)) memo.set(key, settled(f, Q, hz)); return memo.get(key); };
+  const lo = f / 8, hi = f * 4, L = Math.log;
+  const out = {};
+  for (const which of ['v', 'y']) {
+    // coarse scan, then golden section around the best
+    const N = 25; let best = 0, bi = 0; const xs = [];
+    for (let i = 0; i < N; i++) { const hz = lo * Math.pow(hi / lo, i / (N - 1)); xs.push(hz); const a = at(hz)[which]; if (a > best) { best = a; bi = i; } }
+    let pk = xs[bi], top = best, flat = bi === 0;
+    if (!flat) {
+      let a = L(xs[Math.max(0, bi - 1)]), b = L(xs[Math.min(N - 1, bi + 1)]);
+      const g = (Math.sqrt(5) - 1) / 2;
+      let c1 = b - g * (b - a), c2 = a + g * (b - a), f1 = at(Math.exp(c1))[which], f2 = at(Math.exp(c2))[which];
+      for (let it = 0; it < 28; it++) {
+        if (f1 > f2) { b = c2; c2 = c1; f2 = f1; c1 = b - g * (b - a); f1 = at(Math.exp(c1))[which]; }
+        else { a = c1; c1 = c2; f1 = f2; c2 = a + g * (b - a); f2 = at(Math.exp(c2))[which]; }
+      }
+      pk = Math.exp((a + b) / 2); top = Math.max(f1, f2, best);
+    }
+    const level = top / Math.SQRT2;
+    const edge = (x0, x1) => {               // x0 inside the peak, x1 outside; halve until close
+      let a = L(x0), b = L(x1);
+      for (let it = 0; it < 30; it++) { const m = (a + b) / 2; if (at(Math.exp(m))[which] >= level) a = m; else b = m; }
+      return Math.exp((a + b) / 2);
+    };
+    const lower = flat || at(lo)[which] >= level ? null : edge(pk, lo);
+    const upper = at(hi)[which] >= level ? null : edge(pk, hi);
+    out[which] = { peakHz: pk, top, flat, lower, upper, width: lower && upper ? upper - lower : null };
+  }
+  out.curve = (n) => { const pts = []; for (let i = 0; i < n; i++) { const hz = (f / 4) * Math.pow(16, i / (n - 1)); const r = at(hz); pts.push([hz, r.y, r.v]); } return pts; };
+  return out;
+}
+function selfTest() {
+  const lines = [], ok = (name, got, want, tol, unit) => {
+    const pass = Math.abs(got - want) <= Math.abs(want) * tol;
+    lines.push(`${pass ? 'PASS' : 'FAIL'}  ${name}: ${(+got).toPrecision(5)}${unit || ''} against ${(+want).toPrecision(5)}${unit || ''} (±${(tol * 100).toFixed(2)}%)`);
+  };
+  // the ring
+  for (const [f, Q] of [[1000, 10], [440, 5], [220, 40]]) {
+    const r = ring(f, Q);
+    ok(`step 1 · ring time to −60 dB, ${f} Hz, Q ${Q}, s`, r.t60, RULE * Q / f, 0.002);
+    ok(`step 1 · Q read off the ring, ${f} Hz, Q ${Q}`, r.q, Q, 0.002);
+  }
+  const r100 = ring(1000, 100);
+  ok('step 1 · Q 100 loses about a sixteenth of its energy each cycle (measured, against 1/16)', r100.lost, 1 / 16, 0.04);
+  ok('step 1 · ... and the page\'s 2π ÷ Q is close at Q 100', r100.lost, 2 * Math.PI / 100, 0.04);
+  const r2 = ring(1000, 2);
+  lines.push(`INFO  step 1 · at Q 2 the energy lost each cycle is ${(r2.lost * 100).toFixed(1)}%, where 2π ÷ Q says ${(2 * Math.PI / 2 * 100).toFixed(0)}%: the 2π ÷ Q reading holds only for a high Q`);
+  // the height
+  for (const Q of [4, 16, 60]) { const s = swell(440, Q); ok(`step 2 · pushed at its own rate it swings Q times as far, Q ${Q}`, s.height, Q, 0.001); }
+  const s16 = swell(440, 16), r16 = ring(440, 16);
+  ok('step 2 · the swell comes within 60 dB of its height in the ring time, Q 16 at 440 Hz, s', s16.t999, r16.t60, 0.02);
+  // the width
+  for (const Q of [1, 10, 100]) {
+    const wd = width(1000, Q);
+    ok(`step 3 · the speed's (band-pass) half-power width is f ÷ Q, Q ${Q}, Hz`, wd.v.width, 1000 / Q, 0.002);
+  }
+  const w1 = width(1000, 1);
+  lines.push(`${w1.y.lower === null ? 'PASS' : 'FAIL'}  step 3 · at Q 1 the swing has no lower half-power edge (it never falls that far below its peak)`);
+  for (const Q of [2, 3, 5, 10]) {
+    const wd = width(1000, Q);
+    lines.push(`INFO  step 3 · the swing's own width at Q ${Q}: ${wd.y.width.toFixed(2)} Hz against f ÷ Q = ${(1000 / Q).toFixed(2)} Hz (${((wd.y.width * Q / 1000 - 1) * 100).toFixed(2)}% over)`);
+  }
+  // one number: width × 1/e time
+  for (const Q of [3, 30]) {
+    const wd = width(440, Q), r = ring(440, Q);
+    ok(`step 4 · width × time to fall to 1/e is 1 ÷ π, Q ${Q}`, wd.v.width * r.tau, 1 / Math.PI, 0.003);
+  }
+  return lines;
+}
+// ---- end math ----
+
+// ---- the walk: one step showing, Next and Back, the rail always open; changing step stops the sound ----
+const STEPS = [...document.querySelectorAll('.step')];
+const rail = document.querySelector('.rail');
+let cur = 0;
+STEPS.forEach((s, i) => {
+  const b = document.createElement('button');
+  b.innerHTML = `<span class="n">${i + 1}</span>${s.dataset.title}`;
+  b.addEventListener('click', () => show(i));
+  rail.appendChild(b);
+});
+function show(i) {
+  stopSound();
+  cur = Math.max(0, Math.min(STEPS.length - 1, i));
+  STEPS.forEach((s, k) => { s.hidden = k !== cur; });
+  [...rail.children].forEach((b, k) => { if (k === cur) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+  document.getElementById('back').disabled = cur === 0;
+  document.getElementById('next').disabled = cur === STEPS.length - 1;
+  if (typeof onStep === 'function') onStep(cur);
+}
+document.getElementById('back').addEventListener('click', () => show(cur - 1));
+document.getElementById('next').addEventListener('click', () => show(cur + 1));
+// ---- sound: nothing exists before a click; one buffer plays at a time. The kit quiets the page's context
+// itself (a hush from the page around it, a hidden tab, a minute untouched); the piece only keeps its words in step. Never name
+// the page's hush message in this script: the kit reads a script that names it as one that answers it. ----
+let actx = null, src = null, outGain = null;
+function audio() {
+  if (!actx) {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = actx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 8;
+    outGain = actx.createGain(); outGain.gain.value = 0.7;
+    outGain.connect(comp).connect(actx.destination);
+    actx.onstatechange = () => { if (actx.state !== 'running') setPlaying(null); };
+  }
+  return actx;
+}
+let playingLabel = null;
+function setPlaying(label) {
+  playingLabel = label;
+  document.querySelectorAll('[data-state]').forEach((el) => { el.textContent = label ? 'playing · ' + label : (window.IDLE_TEXT || 'silent until you press a sound button'); });
+}
+// samples: Float32Array at rate; held level (peak at 0.5), with 8 ms fades so it never clicks
+function playSamples(samples, rate, label) {
+  stopSound();
+  const ctx = audio();
+  const n = samples.length, buf = ctx.createBuffer(1, n, rate), d = buf.getChannelData(0);
+  let pk = 1e-12; for (let i = 0; i < n; i++) pk = Math.max(pk, Math.abs(samples[i]));
+  const g = 0.5 / pk, fade = Math.round(rate * 0.008);
+  for (let i = 0; i < n; i++) d[i] = samples[i] * g * Math.min(1, (n - 1 - i) / fade);
+  const s = ctx.createBufferSource(); s.buffer = buf; s.connect(outGain);
+  s.onended = () => { if (src === s) { src = null; setPlaying(null); } };
+  const go = () => { s.start(); src = s; setPlaying(label); };
+  if (ctx.state !== 'running') ctx.resume().then(go); else go();
+}
+function stopSound() { if (src) { try { src.stop(); } catch (e) {} src = null; } setPlaying(null); }
+// opened on its own from a file, with no kit around it, a hidden tab still goes quiet; nothing starts again on its own
+document.addEventListener('visibilitychange', () => { if (document.hidden) stopSound(); });
+// ---- drawing helpers ----
+function fit(c, aspect) {
+  const w = c.clientWidth || 600, d = window.devicePixelRatio || 1, h = Math.round(Math.max(170, Math.min(420, w * aspect)));
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, w, h); return { g, w, h };
+}
+const COL = { ink: '#c8c8d8', dim: '#4a4a5a', grid: '#22222e', amber: '#e8b84a', indigo: '#6366F1', warn: '#ff9b4a', ok: '#7fd49a', fg1: '#e8e8f0', fg3: '#8a8aa0' };
+function label(g, text, x, y, color, align) { g.fillStyle = color || COL.fg3; g.font = '10.5px JetBrains Mono, monospace'; g.textAlign = align || 'left'; g.fillText(text, x, y); }
+function dashed(g, x0, y0, x1, y1, color, w) { g.save(); g.strokeStyle = color; g.lineWidth = w || 1; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1); g.stroke(); g.restore(); }
+// a long signal drawn as its min and max in each pixel column, so any number of cycles draws honestly
+function columns(g, ys, rate, t0, t1, X, Y, color) {
+  const x0 = Math.floor(X(t0)), x1 = Math.ceil(X(t1));
+  g.fillStyle = color;
+  for (let x = x0; x < x1; x++) {
+    const a = Math.max(0, Math.floor(((x - X(0)) / (X(1) - X(0))) * rate)), b = Math.min(ys.length, Math.ceil(((x + 1 - X(0)) / (X(1) - X(0))) * rate));
+    if (b <= a) continue;
+    let lo = Infinity, hi = -Infinity; for (let i = a; i < b; i++) { const v = ys[i]; if (v < lo) lo = v; if (v > hi) hi = v; }
+    const yA = Y(hi), yB = Y(lo); g.fillRect(x, yA, 1, Math.max(1, yB - yA));
+  }
+}
+const fmtHz = (x) => (x >= 1000 ? (x / 1000).toFixed(x >= 10000 ? 1 : 3) + ' kHz' : x >= 100 ? x.toFixed(1) + ' Hz' : x.toFixed(x >= 10 ? 2 : 3) + ' Hz');
+const fmtS = (x) => (x >= 1 ? x.toFixed(3) + ' s' : (x * 1000).toFixed(x >= 0.1 ? 1 : 2) + ' ms');
+const fmtQ = (q) => (q >= 100 ? q.toFixed(1) : q >= 10 ? q.toFixed(2) : q.toFixed(3));
+const pct = (a, b) => ((a / b - 1) * 100);
+const agree = (a, b, tol) => Math.abs(a / b - 1) <= tol;
+
+// ---- the piece ----
+const qFrom = (v) => Math.pow(10, (v / 1000) * Math.log10(200));          // 1 .. 200, log
+const qTo = (q) => Math.round(1000 * Math.log10(q) / Math.log10(200));
+const fFrom = (v) => 220 * Math.pow(1000 / 220, v / 1000);                 // 220 Hz .. 1 kHz, log
+const fTo = (f) => Math.round(1000 * Math.log(f / 220) / Math.log(1000 / 220));
+const S = { f: 440, Q: 10 };
+const $ = (id) => document.getElementById(id);
+const cache = {};
+function measured(kind) {
+  const key = kind + ':' + S.f.toFixed(4) + ':' + S.Q.toFixed(6);
+  if (!cache[key]) cache[key] = kind === 'ring' ? ring(S.f, S.Q, 10) : kind === 'swell' ? swell(S.f, S.Q, 14) : width(S.f, S.Q);
+  return cache[key];
+}
+function syncSliders() {
+  document.querySelectorAll('[data-q]').forEach((el) => { el.value = qTo(S.Q); });
+  document.querySelectorAll('[data-qval]').forEach((el) => { el.textContent = fmtQ(S.Q); });
+  $('f4').value = fTo(S.f); $('fval').textContent = fmtHz(S.f);
+}
+let pending = 0;
+function redraw() {
+  syncSliders();
+  clearTimeout(pending);
+  const heavy = cur >= 2;
+  if (heavy) { const h = cur === 2 ? $('h3') : $('h4'); h.textContent = 'measuring…'; }
+  pending = setTimeout(() => { [draw1, draw2, draw3, draw4][cur](); }, heavy ? 60 : 0);
+}
+document.querySelectorAll('[data-q]').forEach((el) => el.addEventListener('input', () => { S.Q = qFrom(+el.value); stopSound(); redraw(); }));
+$('f4').addEventListener('input', () => { S.f = fFrom(+$('f4').value); stopSound(); redraw(); });
+function onStep(i) { if (i < 3) S.f = 440; redraw(); }
+document.querySelectorAll('[data-stop]').forEach((b) => b.addEventListener('click', stopSound));
+document.querySelectorAll('[data-sound]').forEach((b) => b.addEventListener('click', () => {
+  const k = b.dataset.sound;
+  if (k === 'strike') {
+    // three strikes, each left to ring out, so a short ring is still something to hear
+    const r = measured('ring'), gap = Math.round(Math.max(0.45, r.ys.length / FS + 0.25) * FS), n = Math.min(gap * 3, 12 * FS), out = new Float32Array(n);
+    for (let s = 0; s < 3; s++) out.set(r.ys.subarray(0, Math.max(0, Math.min(r.ys.length, n - s * gap))), s * gap);
+    playSamples(out, FS, 'three strikes, each rung out');
+  }
+  else if (k === 'push') playSamples(pushSound(S.f, S.Q), FS, 'a push at its own rate');
+  else playSamples(sweepSound(S.f, S.Q, 8), FS, 'a push swept from f ÷ 4 to 4f');
+}));
+// sound only: a push at its own rate for long enough to hear the swell, and a slow sweep of the push
+function pushSound(f, Q) {
+  const w = 2 * Math.PI * f, n = Math.round(Math.max(1.4, Math.min(6, 1.4 * 2.2 * Q / f + 0.6)) * FS), out = new Float32Array(n);
+  swing(f, Q, { hz: f, amp: w * w }, 0, 0, n, (y, v, i) => { out[i] = y; return false; });
+  return out;
+}
+function sweepSound(f, Q, sec) {
+  const w = 2 * Math.PI * f, c = w / Q, k = w * w, h = 1 / FS, n = Math.round(sec * FS), out = new Float32Array(n);
+  let y = 0, v = 0, ph = 0;
+  for (let i = 0; i < n; i++) {
+    const hz = (f / 4) * Math.pow(16, i / n), F = (p) => k * Math.sin(p);
+    const d = 2 * Math.PI * hz * h;
+    const F0 = F(ph), F1 = F(ph + d / 2), F2 = F(ph + d);
+    const k1y = v, k1v = F0 - c * v - k * y;
+    const k2y = v + h / 2 * k1v, k2v = F1 - c * k2y - k * (y + h / 2 * k1y);
+    const k3y = v + h / 2 * k2v, k3v = F1 - c * k3y - k * (y + h / 2 * k2y);
+    const k4y = v + h * k3v, k4v = F2 - c * k4y - k * (y + h * k3y);
+    y += h / 6 * (k1y + 2 * k2y + 2 * k3y + k4y); v += h / 6 * (k1v + 2 * k2v + 2 * k3v + k4v);
+    ph += d; out[i] = y;
+  }
+  return out;
+}
+// ---- step 1: the ring ----
+function draw1() {
+  const r = measured('ring');
+  const { g, w, h } = fit($('c1'), 0.36), L = 44, R = w - 14, T = 16, B = h - 24;
+  const span = r.t60 * 1.2, X = (t) => L + (R - L) * t / span, mid = (T + B) / 2, A = (B - T) / 2 / 1.05, Y = (v) => mid - v * A;
+  g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(L, mid); g.lineTo(R, mid); g.stroke();
+  columns(g, r.ys, FS, 0, Math.min(span, r.ys.length / FS), X, Y, COL.ink);
+  // the fitted envelope, and the peaks it was fitted to
+  const a0 = Math.exp(Math.log(r.peaks[0][1]) + r.peaks[0][0] / r.tau);
+  g.strokeStyle = COL.amber; g.lineWidth = 1.2; g.setLineDash([5, 4]);
+  for (const s of [1, -1]) { g.beginPath(); for (let i = 0; i <= 200; i++) { const t = span * i / 200, y = Y(s * a0 * Math.exp(-t / r.tau)); i ? g.lineTo(X(t), y) : g.moveTo(X(t), y); } g.stroke(); }
+  g.setLineDash([]);
+  if (r.peaks.length < 200) { g.fillStyle = COL.amber; for (const [t, a] of r.peaks) if (t < span) g.fillRect(X(t) - 1.5, Y(a) - 1.5, 3, 3); }
+  g.strokeStyle = COL.warn; g.lineWidth = 1.5; g.beginPath(); g.moveTo(X(r.t60), T); g.lineTo(X(r.t60), B); g.stroke();
+  label(g, '−60 dB · ' + fmtS(r.t60), Math.min(X(r.t60) + 6, R - 120), T + 10, COL.warn);
+  label(g, '0', L, h - 8); label(g, fmtS(span), R, h - 8, COL.fg3, 'right');
+  label(g, r.peaks.length < 200 ? 'dots: each peak · dashed: the line fitted to them' : 'dashed: the line fitted to ' + r.nPeaks + ' peaks', L + 30, h - 8);
+  $('r1t').textContent = fmtS(r.t60) + '  (2.2 × Q ÷ f = ' + fmtS(2.2 * S.Q / S.f) + ')';
+  $('r1q').innerHTML = fmtQ(r.q) + ' <span class="' + (agree(r.q, S.Q, 0.005) ? 'yes' : 'no') + '">' + (agree(r.q, S.Q, 0.005) ? 'is the Q you set' : pct(r.q, S.Q).toFixed(2) + '% off') + '</span>';
+  $('r1e').textContent = (r.lost * 100).toFixed(2) + '%  (2π ÷ Q says ' + (2 * Math.PI / S.Q * 100).toFixed(S.Q > 6.3 ? 2 : 0) + '%)';
+}
+// ---- step 2: the height ----
+function draw2() {
+  const s = measured('swell'), r = measured('ring');
+  const { g, w, h } = fit($('c2'), 0.36), L = 44, R = w - 14, T = 16, B = h - 24;
+  const span = Math.min(s.ys.length / FS, Math.max(s.t999, r.t60) * 1.25), X = (t) => L + (R - L) * t / span;
+  const top = s.height * 1.08, Y = (v) => B - (B - T) * v / top;
+  g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(L, B); g.lineTo(R, B); g.stroke();
+  columns(g, s.ys.map ? Float32Array.from(s.ys, Math.abs) : s.ys, FS, 0, span, X, Y, 'rgba(200,200,216,.32)');
+  g.strokeStyle = COL.amber; g.lineWidth = 1.6; g.beginPath();
+  s.heights.forEach(([t, a], i) => { if (t <= span) { i ? g.lineTo(X(t), Y(a)) : g.moveTo(X(t), Y(a)); } }); g.stroke();
+  dashed(g, L, Y(1), R, Y(1), COL.fg3); label(g, 'a push held still: 1', L + 4, Y(1) - 5, COL.fg3);
+  dashed(g, L, Y(s.height), R, Y(s.height), COL.amber); label(g, 'settles at ' + s.height.toFixed(3) + ' × the push held still', L + 4, Y(s.height) - 6, COL.amber);
+  g.strokeStyle = COL.warn; g.lineWidth = 1.5; g.beginPath(); g.moveTo(X(s.t999), T + 14); g.lineTo(X(s.t999), B); g.stroke();
+  label(g, 'within 60 dB · ' + fmtS(s.t999), X(s.t999) - 6, Y(s.height * 0.5), COL.warn, 'right');
+  dashed(g, X(r.t60), T + 14, X(r.t60), B, COL.indigo); label(g, 'step 1\'s ring · ' + fmtS(r.t60), Math.min(X(r.t60) + 6, R - 130), Y(s.height * 0.5) + 16, COL.indigo);
+  label(g, '0', L, h - 8); label(g, fmtS(span), R, h - 8, COL.fg3, 'right'); label(g, 'faint: how far it swings · amber: each cycle\'s height', L + 30, h - 8);
+  $('r2h').textContent = s.height.toFixed(4) + ' × the push held still';
+  $('r2q').innerHTML = fmtQ(s.q) + ' <span class="' + (agree(s.q, S.Q, 0.005) ? 'yes' : 'no') + '">' + (agree(s.q, S.Q, 0.005) ? 'is the Q you set' : pct(s.q, S.Q).toFixed(2) + '% off') + '</span>';
+  $('r2t').textContent = fmtS(s.t999) + '  (the ring took ' + fmtS(r.t60) + ')';
+}
+// ---- step 3: the width ----
+function draw3() {
+  const wd = measured('width'), pts = wd.curve(73);
+  const { g, w, h } = fit($('c3'), 0.4), L = 44, R = w - 14, T = 14, B = h - 26;
+  const lo = S.f / 4, hi = S.f * 4, X = (hz) => L + (R - L) * Math.log(hz / lo) / Math.log(hi / lo), Y = (v) => B - (B - T) * v;
+  [0.25, 0.5, 1, 2, 4].forEach((m) => { g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(X(S.f * m), T); g.lineTo(X(S.f * m), B); g.stroke(); label(g, m === 1 ? 'f' : m < 1 ? 'f÷' + (1 / m) : m + 'f', X(S.f * m), h - 9, COL.fg3, 'center'); });
+  dashed(g, L, Y(Math.SQRT1_2), R, Y(Math.SQRT1_2), COL.fg3); label(g, 'half power', L + 2, Y(Math.SQRT1_2) - 4);
+  if (wd.v.width) { g.fillStyle = 'rgba(232,184,74,.10)'; g.fillRect(X(wd.v.lower), T, X(wd.v.upper) - X(wd.v.lower), B - T); }
+  const curve = (idx, top, color) => { g.strokeStyle = color; g.lineWidth = 1.6; g.beginPath(); pts.forEach((p, i) => { const y = Y(p[idx] / top); i ? g.lineTo(X(p[0]), y) : g.moveTo(X(p[0]), y); }); g.stroke(); g.fillStyle = color; pts.forEach((p) => g.fillRect(X(p[0]) - 1, Y(p[idx] / top) - 1, 2, 2)); };
+  curve(1, wd.y.top, COL.ink); curve(2, wd.v.top, COL.amber);
+  const edge = (hz, color) => { if (!hz) return; g.strokeStyle = color; g.lineWidth = 1.2; g.beginPath(); g.moveTo(X(hz), Y(Math.SQRT1_2) - 7); g.lineTo(X(hz), Y(Math.SQRT1_2) + 7); g.stroke(); };
+  edge(wd.v.lower, COL.amber); edge(wd.v.upper, COL.amber); edge(wd.y.lower, COL.ink); edge(wd.y.upper, COL.ink);
+  $('h3').textContent = 'amber: its speed, the band-pass · ink: the swing · each against its own peak · one run per dot';
+  $('r3v').textContent = fmtHz(wd.v.lower) + ' to ' + fmtHz(wd.v.upper) + ': ' + fmtHz(wd.v.width) + '  (f ÷ Q = ' + fmtHz(S.f / S.Q) + ')';
+  const qw = S.f / wd.v.width;
+  $('r3q').innerHTML = fmtQ(qw) + ' <span class="' + (agree(qw, S.Q, 0.005) ? 'yes' : 'no') + '">' + (agree(qw, S.Q, 0.005) ? 'is the Q you set' : pct(qw, S.Q).toFixed(2) + '% off') + '</span>';
+  $('r3y').textContent = wd.y.flat ? 'no peak at all: flattest held still' : wd.y.width ? fmtHz(wd.y.width) + ', ' + pct(wd.y.width, S.f / S.Q).toFixed(2) + '% over f ÷ Q · its peak at ' + fmtHz(wd.y.peakHz) : 'no lower edge: never falls to half power below its peak (' + fmtHz(wd.y.peakHz) + ')';
+}
+// ---- step 4: one number ----
+function draw4() {
+  const r = measured('ring'), s = measured('swell'), wd = measured('width');
+  const qr = r.q, qh = s.q, qv = S.f / wd.v.width, qy = wd.y.width ? S.f / wd.y.width : null;
+  const { g, w, h } = fit($('c4'), 0.3), L = 150, R = w - 20, T = 18, B = h - 26;
+  const qlo = 0.5, qhi = 400, X = (q) => L + (R - L) * Math.log(q / qlo) / Math.log(qhi / qlo);
+  [1, 2, 5, 10, 20, 50, 100, 200].forEach((q) => { g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(X(q), T); g.lineTo(X(q), B); g.stroke(); label(g, String(q), X(q), h - 9, COL.fg3, 'center'); });
+  label(g, 'Q', L - 12, h - 9, COL.fg3, 'right');
+  g.strokeStyle = COL.amber; g.lineWidth = 1.5; g.beginPath(); g.moveTo(X(S.Q), T - 6); g.lineTo(X(S.Q), B); g.stroke();
+  const rows = [['the ring', qr, COL.ink], ['the height', qh, COL.ink], ['the width (speed)', qv, COL.ink], ['the width (swing)', qy, COL.fg3]];
+  rows.forEach(([name, q, color], i) => {
+    const y = T + (B - T) * (i + 0.5) / rows.length;
+    label(g, name, 12, y + 4, color);
+    g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(L, y); g.lineTo(R, y); g.stroke();
+    if (q) { g.fillStyle = color === COL.fg3 ? COL.fg3 : COL.fg1; g.beginPath(); g.arc(X(q), y, 4.5, 0, 7); g.fill(); }
+    else label(g, 'no lower edge: no width to read', X(S.Q) + 10, y + 4, COL.fg3);
+  });
+  const prod = wd.v.width * r.tau;
+  const line = (name, val, ok, extra) => `<div>${name}<br><b>${val}</b> <span class="${ok ? 'yes' : 'no'}">${extra}</span></div>`;
+  $('r4').innerHTML =
+    line('Q from the ring', fmtQ(qr), agree(qr, S.Q, 0.005), pct(qr, S.Q).toFixed(2) + '%') +
+    line('Q from the height', fmtQ(qh), agree(qh, S.Q, 0.005), pct(qh, S.Q).toFixed(2) + '%') +
+    line('Q from the width (band-pass)', fmtQ(qv), agree(qv, S.Q, 0.005), pct(qv, S.Q).toFixed(2) + '%') +
+    line('width × time to 1/e', prod.toFixed(4), agree(prod, 1 / Math.PI, 0.005), '1 ÷ π = 0.3183');
+  $('h4').textContent = 'three rulers on one scale of Q · amber line: the Q you set';
+}
+$('table').addEventListener('click', () => {
+  $('tabnote').textContent = 'measuring…';
+  setTimeout(() => {
+    const rows = [[1, '1000 Hz', '2.2 ms'], [10, '100 Hz', '22 ms'], [100, '10 Hz', '0.22 s'], [1000, '1 Hz', '2.2 s']];
+    let html = '<table class="meas"><tr><th>Q</th><th>ζ</th><th>width of the peak, measured</th><th>the swing\'s own</th><th>page</th><th>ring time, measured</th><th>page</th></tr>';
+    for (const [Q, pw, pr] of rows) {
+      const wd = width(1000, Q), r = ring(1000, Q, 12);
+      html += `<tr><td>${Q}</td><td>${(1 / (2 * Q)).toPrecision(1)}</td><td>${fmtHz(wd.v.width)}</td><td>${wd.y.width ? fmtHz(wd.y.width) : 'no lower edge'}</td><td class="page">${pw}</td><td>${fmtS(r.t60)}</td><td class="page">${pr}</td></tr>`;
+    }
+    $('tab').innerHTML = html + '</table>';
+    $('tabnote').textContent = 'measured at 1 kHz, every value from its own run';
+  }, 40);
+});
+// the sigil: a 3:2 Lissajous, still
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI, x = 9 * Math.sin(3 * t + Math.PI / 2), y = 9 * Math.sin(2 * t); d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+window.addEventListener('resize', () => redraw());
+setPlaying(null);
+show(0);
+</script>
+</body>
+</html>
