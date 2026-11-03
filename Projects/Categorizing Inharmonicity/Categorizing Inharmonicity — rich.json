@@ -1,0 +1,198 @@
+{
+ "title": "Categorizing Inharmonicity — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[Categorizing Inharmonicity]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  },
+  {
+   "target": "[[Progressive Staging]]",
+   "type": "connects-to",
+   "label": "each-piece-walks-up"
+  }
+ ],
+ "forward_vector": "I am the manifest of Categorizing Inharmonicity's rich face, its first round, a Study and still a proposal: two walks that each start from one idea and end on a measurement (where each kind of inharmonicity leaves the harmonic series for the person listening, on one ruler for all six; and whether phase alone can make a tone inharmonic, which it can, but only in a loop, and what it makes there is the stretch), beside the page's own May proofs, gathered as they were and captioned with what was measured on them. I grow when the page is enriched again; I never hold the entry's words.",
+ "entry": "Categorizing Inharmonicity",
+ "tier": "study",
+ "made": "2026-11-03",
+ "round": 1,
+ "offers": [
+  {
+   "section": "The Inharmonicity Space: Primary Dimensions",
+   "kind": "claim-change",
+   "what": "§ 6's synthesis list says to feed a harmonic tone through the all-pass cascade and that 'the output spectrum is inharmonic even though the input was harmonic'. Measured on the phase-loop piece's engine: through the cascade once, no partial of a harmonic tone moves (0.0000 ¢ over sixteen partials, M = 4 to 16, a = −0.85 to 0.5; energy in ÷ out 1.0000). A fixed filter can't make a frequency that wasn't there. It takes the cascade inside a delay loop, as the section's first sentence says: then partial 16 sits +48.75 ¢ off its ghost (M = 8, a = −0.6), within 0.08 ¢ of where ω·D + M·φ(ω) = 2πk predicts. Proposed: 'Put the cascade inside a delay loop and pluck it; the loop's modes are inharmonic though nothing in it changes level', in place of feeding a tone through.",
+   "status": "open"
+  },
+  {
+   "section": "The Inharmonicity Space: Primary Dimensions",
+   "kind": "claim-change",
+   "what": "§ 6's signature φ(f) = α·f + β·f² + …: only the part beyond α·f bends the spacing. α·f is plain delay; it retunes the loop and keeps it harmonic (the straight-line-phase control of the same low-frequency length sits within 0.11 ¢ of whole-number places). And what a fixed first-order cascade makes is § 1's pattern: the stiff-string formula fits the loop's sixteen partials to 1.22 ¢ rms (M = 8, a = −0.6, B = 2.31 × 10⁻⁴), drifting off it only at extreme settings (24.9 ¢ rms at M = 4, a = −0.85). This is how waveguide pianos model stiffness (Van Duyne and Smith, 1994). So phase accumulation reads as a pathway to the stretch rather than a pattern of its own, and its 'ghostly … slowly evolving' character needs the coefficients to move; a fixed chain gives a fixed tone.",
+   "status": "open"
+  },
+  {
+   "section": "The Inharmonicity Space: Primary Dimensions",
+   "kind": "claim-change",
+   "what": "§ 4: 'logarithmic in their frequency (or equivalently, proportional to the partial number)' — the two are not equivalent; log n is not n. What the formula f_n = n·f₀·(1 + B·log n) gives, for small B, is almost exactly f₀·n^(1+B) (within 0.65 ¢ over sixteen partials at B = 0.01, 2.57 ¢ at 0.02): the same stretch for every doubling of partial number (23.8, 23.5, 23.2, 22.9 ¢ per octave at 0.02), a stretched octave. The section's B is also a different quantity from § 1's B under the same letter; b would keep them apart.",
+   "status": "open"
+  },
+  {
+   "section": "The Inharmonicity Space: Primary Dimensions",
+   "kind": "claim-change",
+   "what": "§ 2: a drumhead's rim holds still, ψ = 0, so its modes sit at zeros of J_m, which are the J₀ and J₁ lists the section gives (checked numerically). The condition the section names, ∂ψ/∂r = 0, is a free rim, whose radial modes sit at zeros of J₀′ = −J₁ (3.832, 7.016 …). Found in reading, not by a piece: cymbals and tam-tams are plates, not membranes; their bending waves put frequency with k², not k, so their partials are not these zeros.",
+   "status": "open"
+  },
+  {
+   "section": "The Inharmonicity Space: Primary Dimensions",
+   "kind": "claim-change",
+   "what": "§ 2: 'The spacing is not uniform' — within one family it nearly is. Consecutive zeros of J₀ differ by 3.115, 3.134, 3.138, 3.139 … tending to π; the gathered Bessel proof's partials are 285 to 287 Hz apart above the first. One family is a harmonic comb slid up (partial n at about π·(n − ¼)), levelling near +463 ¢ against the harmonic places. The non-uniform, bell-like spacing comes from several families (m = 0, 1, 2 …) sounding together.",
+   "status": "open"
+  },
+  {
+   "section": "The Inharmonicity Space: Primary Dimensions",
+   "kind": "claim-change",
+   "what": "The opening holds that the types are different kinds, not degrees. Set to the same mistuning on one ruler (loudness-weighted RMS cents), their patterns of partials measured: at 10 ¢, stretched and the phase loop are 0.96 ¢ apart, Bessel and logarithmic 2.38 ¢, every other pair 6.8 to 14.8 ¢ (at 25 ¢: 3.49, 5.86, and 14 to 37). Stretched and the phase loop are one pattern on any ruler (the challenger matched them unweighted and on the farthest partial too: 0.38 ¢ and 0.87 ¢ apart); both are dispersion. Bessel and logarithmic are close on this ruler only (33% of the mistuning apart when matched on the farthest partial, against 49 to 51% for other pairs), and differ in shape: Bessel levels off, log keeps climbing. Chaotic and stochastic differ mainly in that one moves and one is frozen. The list mixes mechanisms (stiffness, an all-pass loop, chaos, chance) with patterns (stretched, logarithmic, Bessel). Whether any of these gaps is heard is untested: the face's step 3 is sighted listening, and its blind test compares each kind only with harmonic.",
+   "status": "open"
+  },
+  {
+   "section": "Open Questions",
+   "kind": "no-claim-edit",
+   "what": "Under Perceptual threshold, a pointer like the Kuramoto question's: the rich face now asks it of each listener, blind (two tones, which one left; a 2-down 1-up staircase, about thirty rounds a kind), on one ruler for all six kinds. The question as written assumes a common magnitude that the palette's 'magnitude slider 0 = perfectly harmonic, 1 = maximum deviation' doesn't define; the face's ruler is loudness-weighted RMS cents, and a ruler that counted the farthest partial would rank the kinds differently.",
+   "status": "open"
+  },
+  {
+   "section": "Synthesis Directions: Building an Inharmonicity Pallete",
+   "kind": "no-claim-edit",
+   "what": "The heading reads 'Pallete'; 'Palette'. Renaming it changes the section's key; nothing on the rich face anchors there.",
+   "status": "open"
+  }
+ ],
+ "sections": [
+  {
+   "heading": "The Inharmonicity Space: Primary Dimensions",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "made": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/2026-05-04-five-flavors.png",
+      "verdict": "keep",
+      "why": "A record; the caption states what was measured on the WAVs and the image matches it."
+     },
+     {
+      "file": "Categorizing Inharmonicity — rich — threshold.html",
+      "verdict": "keep",
+      "why": "Tests the Open Questions threshold blind and walks up to it; textbook 2-down 1-up. Notes for a later round: the reference is never roved (pitch and brightness count as cues), it never tests kind against kind, and its symbol m collides with the Bessel order."
+     },
+     {
+      "file": "proofs/2026-05-04-01-harmonic.wav",
+      "verdict": "keep",
+      "why": "A record; partials measured on their places, 220.0 to 3520.0 Hz."
+     },
+     {
+      "file": "proofs/2026-05-04-02-stretched.wav",
+      "verdict": "remake",
+      "why": "Caption only: partial 16 at 3863.7 Hz is 161.3 cents above 3520 (160.6 against 16 x 220.09), not 162; write 161."
+     },
+     {
+      "file": "proofs/2026-05-04-03-bessel.wav",
+      "verdict": "keep",
+      "why": "A record; the J0 family and the near-even 287 Hz spacing re-measured independently, and the caption says one family is a comb slid up."
+     },
+     {
+      "file": "proofs/2026-05-04-04-stochastic.wav",
+      "verdict": "keep",
+      "why": "A record; partial 1 near 229 Hz, scatter up to 58 Hz, frozen, as the caption says."
+     },
+     {
+      "file": "proofs/2026-05-04-05-chaotic.wav",
+      "verdict": "remake",
+      "why": "Caption only: by ear claims a hearing nobody made; write by its spectrum. Frozen and nothing below 220 Hz both re-measured."
+     },
+     {
+      "file": "Categorizing Inharmonicity — rich — phase loop.html",
+      "verdict": "remake",
+      "why": "Wording only, engine unchanged: line 80 drops the section’s in a feedback path, and the step-4 verdict (line 425) says the condition is one the section doesn’t state; its first sentence states it, and it is the synthesis list that drops it."
+     }
+    ]
+   },
+   "pieces": [
+    {
+     "file": "proofs/2026-05-04-five-flavors.png",
+     "origin": "gathered",
+     "title": "five flavours · the May spectrograms",
+     "caption": "**The May proofs, side by side.** Spectrograms of a harmonic reference and four kinds at 220 Hz, sixteen partials, the first second of each. Measured on the sound files beside it: stretched is B = 0.0008; Bessel is the J₀ family scaled so partial 1 is 220 Hz; stochastic moved partial 1 too, to 229 Hz; chaotic is a frozen scatter. No proof for logarithmic or phase accumulation; the two pieces in this section play all six.",
+     "near": "Inharmonic partial deviations lie in a multidimensional space"
+    },
+    {
+     "file": "Categorizing Inharmonicity — rich — threshold.html",
+     "origin": "made",
+     "by": "the Maker · Web Audio, rendered buffers",
+     "height": 900,
+     "title": "when does it leave? · a walk in four steps",
+     "caption": "**When does each kind leave the harmonic series, and is it the same for every kind?** The page's open threshold question, asked of you. The harmonic series alone, with one ruler for all six kinds (loudness-weighted RMS cents); one kind raised from zero, with a sighted mark; all six set to the same mistuning, where stretched and the phase loop land about a tenth of it apart and Bessel and logarithmic about a quarter; and last a blind two-tone staircase that finds your threshold for each kind and compares them. The engine was checked headless: a simulated listener's threshold comes back within 2%. What a person hears was not checked. Three limits, for a later round: the harmonic reference is never shifted in pitch, so a slight pitch or brightness cue can give the answer away; it compares each kind with harmonic, never one kind with another, so it can't test “kinds, not degrees”; and its Bessel symbol m clashes with the Bessel order m in Jₘ.",
+     "near": "Inharmonic partial deviations lie in a multidimensional space"
+    },
+    {
+     "file": "proofs/2026-05-04-01-harmonic.wav",
+     "origin": "gathered",
+     "title": "harmonic · May proof",
+     "caption": "**Harmonic, the reference.** 220 Hz, sixteen partials on their whole-number places, a 4 s fall.",
+     "near": "Inharmonic partial deviations lie in a multidimensional space"
+    },
+    {
+     "file": "proofs/2026-05-04-02-stretched.wav",
+     "origin": "gathered",
+     "title": "stretched · May proof",
+     "caption": "**Stretched.** B = 0.0008, measured on the file: partial 16 at 3863.7 Hz against a ghost at 3520, 161 ¢ sharp. f₀ is 220 Hz and not pinned, so partial 1 sits at 220.09.",
+     "near": "The most familiar form: partials sharpen progressively"
+    },
+    {
+     "file": "proofs/2026-05-04-03-bessel.wav",
+     "origin": "gathered",
+     "title": "Bessel · May proof",
+     "caption": "**Bessel.** The zeros of J₀ scaled so the first is 220 Hz: 505.0, 791.7, 1078.7 Hz and up. One family, so above the first gap the spacing is almost even, about 287 Hz: a comb slid up rather than a stretch. A real drumhead sounds many families at once.",
+     "near": "Certain boundary conditions (circular membranes"
+    },
+    {
+     "file": "proofs/2026-05-04-04-stochastic.wav",
+     "origin": "gathered",
+     "title": "stochastic · May proof",
+     "caption": "**Stochastic.** Every partial scattered by up to about 60 Hz, the first included (to 229.1 Hz), and fixed for the whole note.",
+     "near": "Partials deviate from harmonic positions by random amounts"
+    },
+    {
+     "file": "proofs/2026-05-04-05-chaotic.wav",
+     "origin": "gathered",
+     "title": "chaotic · May proof",
+     "caption": "**Chaotic, as rendered in May.** Scattered, not moving: the same partials in its first and second seconds, and nothing below 220 Hz, so no period-doubling. By its spectrum it is a second stochastic proof. The threshold piece's chaotic kind is the one that moves while it sounds.",
+     "near": "When a physical oscillator is driven beyond a critical amplitude"
+    },
+    {
+     "file": "Categorizing Inharmonicity — rich — phase loop.html",
+     "origin": "made",
+     "by": "the Maker · a loop rendered sample by sample, measured by FFT",
+     "height": 900,
+     "title": "phase only, in a loop · a walk in four steps",
+     "caption": "**Can phase alone make a tone inharmonic?** § 6's claim, measured on the sound. A loop that only delays rings harmonic; the same all-passes outside the loop move no partial; inside it they put partial 16 about 49 ¢ sharp at the start setting, while a straight-line-phase control of the same length stays within 0.11 ¢, and the stiff-string formula fits the loop's sixteen partials to about 1.2 ¢. So yes, entirely phase, but only in a loop, and what it makes is the stretch. Every number was checked headless; the sound was not listened to.",
+     "near": "The output spectrum is inharmonic even though the input was harmonic"
+    }
+   ],
+   "made_against": "363ca6a0285a",
+   "stamped": "2026-11-03"
+  }
+ ]
+}

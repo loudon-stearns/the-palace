@@ -1,0 +1,491 @@
+<!doctype html>
+<!--
+  title: Categorizing Inharmonicity — rich — threshold
+  born: 2026-11-03
+  links: [[Categorizing Inharmonicity]] (connects-to · rich-face-piece) · listed in [[Categorizing Inharmonicity — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am the page's open threshold question, played: one note, the harmonic series alone, then one kind of inharmonicity raised from zero, then all six set to the same mistuning, and last a blind test that finds where each kind leaves the harmonic series for the person listening. I change only when the section I serve, or its open question, does.
+  engine: the six kinds, the mistuning yardstick, the all-pass loop and the staircase; the block is byte-identical in this face's two pieces.
+  checks: Projects/Categorizing Inharmonicity/workshop/rich-face-checks.mjs runs this file's own engine against what it claims.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow"><!-- needs nothing of its host: no device, no storage, no files, no network but the fonts -->
+<title>Categorizing Inharmonicity — when does it leave?</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,.10); --accent-line:rgba(232,184,74,.5);
+    --coral:#ff6b5a; --blue:#4a8fff; --green:#6bd45a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .kicker svg { flex: none; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 4px 0 18px; border: 1px solid var(--border); border-radius: 2px; width: fit-content; max-width: 100%; }
+  .rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; background: transparent; padding: 7px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button[aria-current="step"] { background: var(--accent-soft); color: var(--accent); }
+  .step { display: none; }
+  .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .teach { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 0 0 12px; }
+  .back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin: 0 0 14px; }
+  .eqs { margin: 4px 0 16px; padding: 10px 14px; border-left: 1px solid var(--accent-line); background: var(--e1); max-width: 76ch; }
+  .eq { font-family: var(--serif); font-size: 20px; color: var(--fg1); font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+  .eq i { font-style: italic; }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .words:last-child { margin-bottom: 0; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; margin-bottom: 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: end; margin: 6px 0 12px; }
+  .controls label.sl { flex: 1 1 220px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: var(--accent-line); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.go { color: var(--accent); border-color: var(--accent-line); }
+  button[aria-pressed="true"] { color: var(--accent); border-color: var(--accent-line); background: var(--accent-soft); }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 8px 0 4px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .amber { color: var(--accent); } .coral { color: var(--coral); } .ok { color: var(--green); } .bad { color: var(--coral); }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; color: var(--fg2); width: 100%; max-width: 900px; margin: 6px 0 10px; }
+  table.meas th { text-align: left; font-weight: 400; color: var(--fg3); letter-spacing: .08em; text-transform: uppercase; font-size: 10px; border-bottom: 1px solid var(--border); padding: 6px 8px; }
+  table.meas td { border-bottom: 1px solid var(--soft); padding: 6px 8px; }
+  table.meas td b { color: var(--fg1); font-weight: 500; }
+  table.meas td.hi { color: var(--accent); }
+  .verdict { font-size: 13.5px; line-height: 1.6; max-width: 76ch; padding: 10px 14px; border: 1px solid var(--accent-line); border-radius: 2px; background: var(--accent-soft); color: var(--fg1); margin: 8px 0 12px; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 76ch; margin: 6px 0 0; }
+  nav.walk { display: flex; gap: 10px; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  nav.walk .where { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; margin-left: auto; }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+  .kinds button { padding: 7px 10px; }
+  .answer button { min-width: 120px; padding: 12px 16px; font-size: 12px; }
+  .copy { font-family: var(--mono); font-size: 11px; color: var(--fg2); background: var(--e1); border: 1px solid var(--soft); border-radius: 2px; padding: 8px 10px; user-select: all; white-space: pre-wrap; max-width: 900px; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><span id="sigil"></span>made · study · a walk in four steps</div>
+  <h2 class="title">When does it leave?</h2>
+  <p class="sub">One note at 220 Hz with sixteen partials. We start with the harmonic series alone and end on the page's open question: at what size does each kind of inharmonicity become audibly different from harmonic, and is that the same for every kind? Silent until you press a button. Headphones help.</p>
+  <div class="rail" id="rail"></div>
+
+  <section class="step">
+    <h3>The harmonic series</h3>
+    <p class="teach">Every partial sits exactly on a whole-number multiple of 220 Hz, and the sixteen fuse into one note. The dashed lines are those places, the ghosts every later step measures against. Each partial is 1/n as loud as the first, and every tone in this piece has the same partials at the same loudness, the same envelope and the same first partial, so the only thing that changes is where partials 2 to 16 sit.</p>
+    <div class="eqs">
+      <div class="eq"><i>f<sub>n</sub></i> = <i>n</i> · 220 Hz</div>
+      <div class="words">(the nth partial) = (its number) × (the fundamental).</div>
+      <div class="eq">mistuning = √( Σ (1/<i>n</i>²) · <i>c<sub>n</sub></i>² ⁄ Σ 1/<i>n</i>² ), &nbsp; <i>c<sub>n</sub></i> = 1200 · log₂( <i>f<sub>n</sub></i> ⁄ (<i>n</i> · 220) )</div>
+      <div class="words">(mistuning) = the root-mean-square distance of every partial from its ghost, in cents, each counted by its loudness (1/n²). Zero here. It is one ruler for all six kinds, so their thresholds can be compared; it is a choice, and step 4 says what it hides.</div>
+    </div>
+    <div class="controls"><div class="btns"><button class="go" id="s1play">▸ strike</button></div></div>
+    <div class="read"><span>mistuning <b>0.0 ¢</b></span><span>partial 16 <b>3520 Hz</b>, on its ghost</span></div>
+    <div class="panel"><div class="plabel"><span>partials 1 to 16 on their ghosts</span><span>0 to 4.8 kHz</span></div><canvas id="s1cv"></canvas></div>
+  </section>
+
+  <section class="step">
+    <h3>One kind, raised from zero</h3>
+    <p class="teach">Pick a kind and raise its own number from zero. At zero every kind is step 1's tone. Strike the harmonic tone and this one back to back, raise the slider, and press <b>I hear it leave</b> at the first setting where you can tell them apart. That mark is sighted (you can see the slider), so step 4 measures it again, blind.</p>
+    <div class="btns kinds" id="s2kinds"></div>
+    <div class="eqs"><div class="eq" id="s2eq"></div><div class="words" id="s2words"></div></div>
+    <p class="teach" id="s2listen"></p>
+    <p class="back">Its number at 0 is step 1's harmonic tone.</p>
+    <div class="controls">
+      <label class="sl"><span id="s2sym"></span> = <b id="s2pv"></b> &nbsp;· <span id="s2pw"></span><input id="s2p" type="range" min="0" max="1000" step="1" value="0"></label>
+    </div>
+    <div class="controls"><div class="btns">
+      <button class="go" id="s2play">▸ strike</button><button class="go" id="s2ab">▸ harmonic, then this</button><button id="s2mark">I hear it leave</button><button id="s2seed" title="a new random draw">new draw</button>
+    </div></div>
+    <div class="read"><span>mistuning <b id="s2D"></b></span><span>farthest partial <b id="s2max"></b></span><span>your sighted mark <b id="s2m">—</b></span></div>
+    <div class="panel"><div class="plabel"><span>partials against their ghosts</span><span id="s2lab">cents above or below each ghost</span></div><canvas id="s2cv"></canvas></div>
+  </section>
+
+  <section class="step">
+    <h3>Six kinds, the same mistuning</h3>
+    <p class="teach">Now every kind is set to the same mistuning, so the ruler can't tell them apart. Listen to the six in a row after the harmonic tone. If the page is right that these are kinds and not degrees, they should sound different from one another here, not just more or less out. The table says how far apart their patterns are, in the same cents: a small number means two kinds put their partials in nearly the same places.</p>
+    <p class="back">Mistuning 0 makes all six step 1's tone.</p>
+    <div class="controls">
+      <label class="sl">mistuning for all six = <b id="s3Dv"></b><input id="s3D" type="range" min="0" max="1000" step="1" value="650"></label>
+      <div class="btns"><button class="go" id="s3all">▸ harmonic, then all six</button></div>
+    </div>
+    <div class="btns kinds" id="s3kinds"></div>
+    <div class="read"><span>now playing <b id="s3now">—</b></span></div>
+    <div class="panel"><div class="plabel"><span>each kind at this mistuning</span><span>dashed · the ghosts</span></div><canvas id="s3cv"></canvas></div>
+    <div class="panel"><div class="plabel"><span>how far apart the patterns are</span><span>weighted cents, as the ruler counts</span></div><table class="meas" id="s3t"></table></div>
+    <p class="note" id="s3n"></p>
+  </section>
+
+  <section class="step">
+    <h3>Where does each kind leave? A blind test</h3>
+    <p class="teach">The open question, asked of you. Pick a kind and start. Each round plays two tones, one harmonic and one not, in a random order; say which one left. Two right answers in a row make the next pair harder, one wrong makes it easier, so the mistuning settles where you are right about seven times in ten. It ends after eight turnarounds, about twenty to thirty rounds, a minute or two. Run as many kinds as you like; the table and the verdict fill as you go.</p>
+    <div class="eqs">
+      <div class="eq">threshold = the geometric mean of the last six turnaround mistunings</div>
+      <div class="words">(where you start hearing it) = the middle of the last six places the staircase changed direction. The spread beside it says how much those six disagreed.</div>
+    </div>
+    <div class="btns kinds" id="s4kinds"></div>
+    <div class="controls"><div class="btns"><button class="go" id="s4start">▸ start this kind</button><button class="go" id="s4replay" disabled>▸ play the pair again</button></div></div>
+    <div class="btns answer"><button id="s4a1" disabled>the first left · 1</button><button id="s4a2" disabled>the second left · 2</button></div>
+    <div class="read"><span>round <b id="s4r">—</b></span><span>mistuning now <b id="s4d">—</b></span><span>turnarounds <b id="s4v">—</b></span><span id="s4f"></span></div>
+    <div class="panel"><div class="plabel"><span>your thresholds</span><span>blind, by the staircase · sighted, from step 2</span></div><table class="meas" id="s4t"></table></div>
+    <div class="verdict" id="s4verdict"></div>
+    <div class="copy" id="s4copy"></div>
+    <p class="note">One listener, one note (220 Hz, sixteen partials, a 0.8 s fall), one pair of speakers or headphones. The ruler weights partials by loudness; a ruler that counted the farthest partial instead would rank the kinds differently (the table gives that number too). For stretch alone, the laboratory version of this question found the threshold depends strongly on the fundamental (Järveläinen, Välimäki and Karjalainen, 2001), so a lower or higher note may move every number here.</p>
+  </section>
+
+  <nav class="walk"><button id="back">◂ back</button><button id="next">next ▸</button><span class="where" id="where"></span></nav>
+  <div class="foot">Loud’n Live</div>
+</div>
+
+<script id="engine">
+// Categorizing Inharmonicity engine — one block, byte-identical in both pieces of this face.
+const TAU = 2 * Math.PI, SR = 48000, F1 = 220, NP = 16;
+const cents = (f, ref) => 1200 * Math.log2(f / ref);
+// Every tone here: sixteen partials at 1/n, partial 1 held at 220 Hz, the same envelope, the same level.
+const AMP = Array.from({ length: NP }, (_, i) => 1 / (i + 1));
+const WGT = AMP.map(a => a * a), WSUM = WGT.reduce((s, w) => s + w, 0);
+
+// The zeros of J0 (Abramowitz & Stegun table 9.5); the workshop checks re-find them from J0's integral.
+const J0Z = [2.404825557695773, 5.520078110286311, 8.653727912911013, 11.79153443901428, 14.93091770848779, 18.07106396791092,
+  21.21163662987926, 24.35247153074930, 27.49347913204025, 30.63460646843198, 33.77582021357357, 36.91709835366404,
+  40.05842576462824, 43.19979171317673, 46.34118837166181, 49.48260989739782];
+function besselJ(m, x) { // (1/π)∫₀^π cos(mθ − x·sinθ) dθ, Simpson's rule
+  const K = 600, h = Math.PI / K; let s = 0;
+  for (let k = 0; k <= K; k++) { const t = k * h, w = k === 0 || k === K ? 1 : k % 2 ? 4 : 2; s += w * Math.cos(m * t - x * Math.sin(t)); }
+  return s * h / 3 / Math.PI;
+}
+
+// A seeded generator (xorshift32) and its normal draws
+function rng(seed) { let s = (seed >>> 0) || 1; return () => { s ^= s << 13; s >>>= 0; s ^= s >> 17; s ^= s << 5; s >>>= 0; return s / 4294967296; }; }
+function gauss(R) { const u = Math.max(1e-12, R()), v = R(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(TAU * v); }
+
+// The logistic map x → r·x·(1 − x) at r = 3.9: chaotic, so two starts a hair apart part ways within a few dozen steps.
+const LOGR = 3.9;
+const LOGSTAT = (() => { let x = 0.3141, s = 0, s2 = 0; const n = 200000; for (let i = 0; i < 1000; i++) x = LOGR * x * (1 - x);
+  for (let i = 0; i < n; i++) { x = LOGR * x * (1 - x); s += x; s2 += x * x; } const m = s / n; return { mean: m, sd: Math.sqrt(s2 / n - m * m) }; })();
+function lyapunov(r = LOGR, n = 100000) { let x = 0.2718, s = 0; for (let i = 0; i < 1000; i++) x = r * x * (1 - x); for (let i = 0; i < n; i++) { x = r * x * (1 - x); s += Math.log(Math.abs(r * (1 - 2 * x))); } return s / n; }
+
+// The all-pass, first order: H(z) = (a + z⁻¹) / (1 + a·z⁻¹). Its gain is 1 at every frequency; only its delay depends on frequency.
+function apLag(w, a) { return w - 2 * Math.atan(a * Math.sin(w) / (1 + a * Math.cos(w))); } // phase lag, radians, at ω radians per sample
+function apGain(w, a) { const nr = a + Math.cos(w), ni = -Math.sin(w), dr = 1 + a * Math.cos(w), di = -a * Math.sin(w); return Math.hypot(nr, ni) / Math.hypot(dr, di); }
+// A loop of D samples' delay and M all-passes rings where its round-trip lag ω·D + M·φ(ω) is a whole number of turns.
+function loopModes(D, M, a, K = NP, extra = 0) {
+  const Th = w => w * (D + extra) + M * apLag(w, a), out = [];
+  for (let k = 1; k <= K; k++) { let lo = 0, hi = Math.PI; if (Th(hi) < TAU * k) break;
+    for (let i = 0; i < 64; i++) { const m = (lo + hi) / 2; if (Th(m) < TAU * k) lo = m; else hi = m; } out.push(lo / TAU * SR); }
+  return out;
+}
+const apDC = (M, a) => M * (1 - a) / (1 + a);             // the cascade's delay at low frequency, in samples
+const loopD = (M, a, f = F1) => Math.max(2, Math.round(SR / f - apDC(M, a))); // the plain delay that puts mode 1 near f
+
+// The six kinds. Each turns one number p into sixteen frequency tracks (control rate CR); p = 0 is the harmonic series.
+const CR = 100;
+const KINDS = [
+  { id: 'stretched', name: 'stretched', sym: 'B', lo: 0, hi: 0.003, dec: 5, words: 'the stiffness coefficient',
+    f: (p) => { const f0 = F1 / Math.sqrt(1 + p); return n => n * f0 * Math.sqrt(1 + p * n * n); } },
+  { id: 'bessel', name: 'Bessel', sym: 'm', lo: 0, hi: 1, dec: 3, words: 'how far toward the drum’s J₀ family',
+    f: (p) => n => n * F1 * Math.pow((J0Z[n - 1] / J0Z[0]) / n, p) },
+  { id: 'stochastic', name: 'stochastic', sym: 'σ', lo: 0, hi: 60, dec: 2, unit: ' Hz', words: 'the scatter, in hertz', seeded: true,
+    f: (p, seed) => { const R = rng(seed * 7919 + 17), z = [0]; for (let n = 2; n <= NP; n++) z.push(gauss(R)); return n => Math.max(n * F1 * 0.5, n * F1 + p * z[n - 1]); } },
+  { id: 'log', name: 'logarithmic', sym: 'b', lo: 0, hi: 0.08, dec: 4, words: 'the log coefficient',
+    f: (p) => n => n * F1 * (1 + p * Math.log(n)) },
+  { id: 'chaotic', name: 'chaotic', sym: 'd', lo: 0, hi: 150, dec: 1, unit: ' ¢', words: 'how deep the map swings each partial, in cents', seeded: true, moving: true },
+  { id: 'phase', name: 'phase (all-pass loop)', sym: '−a', lo: 0, hi: 0.85, dec: 3, words: 'the all-pass coefficient, eight in the loop',
+    f: (p) => { if (p === 0) return n => n * F1; const fs = loopModes(loopD(8, -p), 8, -p); return n => fs[n - 1] * F1 / fs[0]; } }
+];
+const kindById = id => KINDS.find(k => k.id === id);
+// Tracks: NP arrays of frequency in Hz, sampled CR times a second over `seconds`.
+function tracks(kind, p, { seed = 1, seconds = 1.2 } = {}) {
+  const L = Math.ceil(seconds * CR) + 2, T = [];
+  if (kind.moving) { // each partial above the first rides its own logistic orbit, a new value 25 times a second, slid between
+    const R = rng(seed * 104729 + 3);
+    for (let n = 1; n <= NP; n++) {
+      const tr = new Float64Array(L); if (n === 1 || p === 0) { tr.fill(n * F1); T.push(tr); continue; }
+      let x = 0.05 + 0.9 * R(); for (let i = 0; i < 50; i++) x = LOGR * x * (1 - x);
+      const step = CR / 25; let prev = (x - LOGSTAT.mean) / LOGSTAT.sd; x = LOGR * x * (1 - x); let next = (x - LOGSTAT.mean) / LOGSTAT.sd;
+      for (let i = 0; i < L; i++) { const ph = (i % step) / step; if (i && i % step === 0) { prev = next; x = LOGR * x * (1 - x); next = (x - LOGSTAT.mean) / LOGSTAT.sd; }
+        tr[i] = n * F1 * Math.pow(2, p * (prev + (next - prev) * ph) / 1200); }
+      T.push(tr);
+    }
+    return T;
+  }
+  const fn = kind.f(p, seed);
+  for (let n = 1; n <= NP; n++) { const tr = new Float64Array(L); tr.fill(fn(n)); T.push(tr); }
+  return T;
+}
+// The yardstick: mistuning, the loudness-weighted RMS distance of every partial from its place n·220 Hz, in cents.
+function mistuning(T) { let s = 0; T.forEach((tr, i) => { let q = 0; for (const f of tr) q += cents(f, (i + 1) * F1) ** 2; s += WGT[i] * q / tr.length; }); return Math.sqrt(s / WSUM); }
+function maxCents(T) { let m = 0; T.forEach((tr, i) => { for (const f of tr) m = Math.max(m, Math.abs(cents(f, (i + 1) * F1))); }); return m; }
+// How far apart two kinds' patterns are, in the same weighted cents
+function patternGap(Ta, Tb) { let s = 0; Ta.forEach((tr, i) => { let q = 0; for (let j = 0; j < tr.length; j++) q += (cents(tr[j], (i + 1) * F1) - cents(Tb[i][j], (i + 1) * F1)) ** 2; s += WGT[i] * q / tr.length; }); return Math.sqrt(s / WSUM); }
+// The p that gives a kind a chosen mistuning (bisection; every kind's mistuning rises with p)
+function pFor(kind, D, opts) { let lo = kind.lo, hi = kind.hi; if (D <= 0) return 0; if (mistuning(tracks(kind, hi, opts)) < D) return hi;
+  for (let i = 0; i < 48; i++) { const m = (lo + hi) / 2; if (mistuning(tracks(kind, m, opts)) < D) lo = m; else hi = m; } return (lo + hi) / 2; }
+
+// One struck tone from its tracks: a quick attack, an exponential fall (τ = 0.8 s), a short fade at the end.
+function renderTone(T, { seconds = 1.2, tau = 0.8, gain = 0.25 } = {}) {
+  const len = Math.floor(seconds * SR), out = new Float32Array(len), att = Math.floor(0.008 * SR), fade = Math.floor(0.03 * SR);
+  T.forEach((tr, i) => { let ph = 0; const A = AMP[i] * gain;
+    for (let k = 0; k < len; k++) { const c = k / SR * CR, j = Math.floor(c), f = tr[j] + (tr[Math.min(j + 1, tr.length - 1)] - tr[j]) * (c - j);
+      if (f < SR / 2) out[k] += A * Math.sin(ph); ph += TAU * f / SR; if (ph > TAU) ph -= TAU; } });
+  for (let k = 0; k < len; k++) { const e = Math.min(1, k / att) * Math.exp(-k / SR / tau) * Math.min(1, (len - 1 - k) / fade); out[k] *= e; }
+  return out;
+}
+function joinBuffers(list, gap = 0.35) { const g = Math.floor(gap * SR), len = list.reduce((z, b) => z + b.length + g, 0) - g, out = new Float32Array(len); let at = 0; for (const b of list) { out.set(b, at); at += b.length + g; } return out; }
+
+// The loop, sample by sample: y[n] = x[n] + g·AP^M(y[n − D]). mode 'none' is the bare delay; 'delay' swaps the
+// all-passes for plain delay of the same low-frequency length (straight-line phase); 'in' puts the all-passes in the loop.
+function loopRender({ D, M = 8, a = 0, g = 0.996, seconds = 1.6, mode = 'in' }) {
+  const len = Math.floor(seconds * SR), y = new Float64Array(len), Dx = mode === 'delay' ? D + Math.round(apDC(M, a)) : D;
+  const xs = new Float64Array(M), ys = new Float64Array(M), W = 12;
+  for (let n = 0; n < len; n++) {
+    let v = n >= Dx ? y[n - Dx] : 0;
+    if (mode === 'in') for (let s = 0; s < M; s++) { const o = a * v + xs[s] - a * ys[s]; xs[s] = v; ys[s] = o; v = o; }
+    const x = n < W ? 0.5 - 0.5 * Math.cos(TAU * (n + 0.5) / W) : 0; // a short smooth pulse: the pluck
+    y[n] = x + g * v;
+  }
+  return y;
+}
+// The same all-passes outside any loop: a harmonic tone goes in once and comes out once.
+function cascade(x, M, a) { const y = Float64Array.from(x), xs = new Float64Array(M), ys = new Float64Array(M);
+  for (let n = 0; n < y.length; n++) { let v = y[n]; for (let s = 0; s < M; s++) { const o = a * v + xs[s] - a * ys[s]; xs[s] = v; ys[s] = o; v = o; } y[n] = v; } return y; }
+function toFloat32(x, scale) { const out = new Float32Array(x.length), fade = Math.floor(0.03 * SR); for (let i = 0; i < x.length; i++) out[i] = x[i] * scale * Math.min(1, (x.length - 1 - i) / fade); return out; }
+const peakAbs = x => { let m = 0; for (const v of x) m = Math.max(m, Math.abs(v)); return m; };
+
+// Radix-2 FFT, and the frequency of the strongest peak near each guess (Hann window, parabolic on the log magnitude)
+function fft(re, im) {
+  const n = re.length;
+  for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+  for (let size = 2; size <= n; size <<= 1) { const half = size >> 1, ang = -2 * Math.PI / size, wr = Math.cos(ang), wi = Math.sin(ang);
+    for (let s = 0; s < n; s += size) { let cr = 1, ci = 0; for (let k = 0; k < half; k++) { const A = s + k, B = A + half, tr = re[B] * cr - im[B] * ci, ti = re[B] * ci + im[B] * cr;
+      re[B] = re[A] - tr; im[B] = im[A] - ti; re[A] += tr; im[A] += ti; const nr = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = nr; } } }
+}
+function spectrum(x, s0 = 0, N = 65536) { const re = new Float64Array(N), im = new Float64Array(N);
+  for (let i = 0; i < N && s0 + i < x.length; i++) re[i] = x[s0 + i] * (0.5 - 0.5 * Math.cos(TAU * i / (N - 1)));
+  fft(re, im); const mag = new Float64Array(N / 2); for (let k = 0; k < N / 2; k++) mag[k] = Math.hypot(re[k], im[k]); return { mag, N }; }
+function peakNear({ mag, N }, f, spanHz) { const bin = SR / N, k0 = Math.max(1, Math.floor((f - spanHz) / bin)), k1 = Math.min(mag.length - 2, Math.ceil((f + spanHz) / bin));
+  let kb = k0; for (let k = k0; k <= k1; k++) if (mag[k] > mag[kb]) kb = k;
+  const l = Math.log(mag[kb - 1] + 1e-30), c = Math.log(mag[kb] + 1e-30), r = Math.log(mag[kb + 1] + 1e-30), d = 0.5 * (l - r) / (l - 2 * c + r || 1e-30);
+  return (kb + d) * bin; }
+
+// The stretched formula fitted to a set of partials: the B, and f0, whose curve f_n = n·f0·√(1 + B·n²) sits closest, in cents
+function fitStretch(fs) {
+  const score = B => { const l = fs.map((f, j) => Math.log2(f / ((j + 1) * Math.sqrt(1 + B * (j + 1) ** 2)))), m = l.reduce((a, b) => a + b) / l.length;
+    const r = l.map(x => 1200 * (x - m)); return { B, f0: 2 ** m, rms: Math.sqrt(r.reduce((a, b) => a + b * b, 0) / r.length), max: Math.max(...r.map(Math.abs)) }; };
+  const lim = -0.98 / (fs.length * fs.length); let best = score(0);
+  for (let i = 0; i <= 2000; i++) { const B = lim + (0.004 - lim) * i / 2000, s = score(B); if (s.rms < best.rms) best = s; }
+  let step = (0.004 - lim) / 2000; for (let r = 0; r < 30; r++) { step /= 2; for (const B of [best.B - step, best.B + step]) if (B > lim) { const s = score(B); if (s.rms < best.rms) best = s; } }
+  return best;
+}
+
+// The blind test: two tones, one harmonic and one not, in random order; which one left? Two right in a row lowers the
+// mistuning, one wrong raises it, so it settles where you are right about 71% of the time (Levitt's 2-down 1-up).
+function staircase({ start = 40, ceil = 200, floor = 0.05, maxRev = 8, maxTrials = 50 } = {}) {
+  const S = { D: start, run: 0, dir: 0, rev: [], trials: 0, done: false, history: [] };
+  S.factor = () => (S.rev.length < 2 ? 2 : Math.SQRT2);
+  S.answer = (right) => {
+    S.history.push({ D: S.D, right }); S.trials++;
+    let move = 0; if (right) { S.run++; if (S.run === 2) { move = -1; S.run = 0; } } else { move = 1; S.run = 0; }
+    if (move) { if (S.dir && move !== S.dir) S.rev.push(S.D); S.dir = move; S.D = Math.min(ceil, Math.max(floor, move < 0 ? S.D / S.factor() : S.D * S.factor())); }
+    if (S.rev.length >= maxRev || S.trials >= maxTrials) S.done = true;
+  };
+  S.estimate = () => { const r = S.rev.slice(-6); if (r.length < 2) return null; const lg = r.map(Math.log), m = lg.reduce((a, b) => a + b) / lg.length;
+    return { D: Math.exp(m), spread: Math.exp(Math.sqrt(lg.reduce((a, b) => a + (b - m) ** 2, 0) / lg.length)), n: r.length }; };
+  return S;
+}
+</script>
+<script id="shared">
+// The sigil, the walk, the sound and the canvases: byte-identical in both pieces of this face.
+function sigil(el) { // the Lissajous trace, 3:2, small
+  const p = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * TAU; p.push((11 + 9 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ',' + (11 + 9 * Math.sin(2 * t)).toFixed(2)); }
+  el.innerHTML = '<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.4" fill="none" stroke="#4a4a5e" stroke-width="1"/><polyline points="' + p.join(' ') + '" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>';
+}
+const $ = id => document.getElementById(id);
+// Sound: nothing exists before a click. One sound at a time, through a compressor; a step change stops it.
+const SND = { ctx: null, out: null, src: null };
+function soundOn() {
+  if (!SND.ctx) {
+    SND.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = SND.ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+    SND.out = SND.ctx.createGain(); SND.out.gain.value = 0.9; SND.out.connect(comp); comp.connect(SND.ctx.destination);
+  }
+  if (SND.ctx.state === 'suspended') SND.ctx.resume();
+}
+function stopSound() {
+  if (SND.src) { try { SND.src.stop(); } catch (e) {} SND.src = null; }
+  document.querySelectorAll('button.go[aria-pressed="true"]').forEach(b => b.setAttribute('aria-pressed', 'false'));
+}
+function playBuffer(buf, btn, onEnd) { // a mono Float32Array at SR
+  soundOn(); stopSound();
+  const c = SND.ctx, b = c.createBuffer(1, buf.length, SR); b.copyToChannel(buf, 0);
+  const s = c.createBufferSource(); s.buffer = b; s.connect(SND.out); s.start(); SND.src = s;
+  if (btn) btn.setAttribute('aria-pressed', 'true');
+  s.onended = () => { if (SND.src === s) { SND.src = null; if (btn) btn.setAttribute('aria-pressed', 'false'); if (onEnd) onEnd(); } };
+}
+// The walk: one step showing, Next and Back, the rail stays open, a step change stops the sound
+function walk(steps) {
+  const rail = $('rail'); let cur = 0;
+  steps.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.name; b.onclick = () => go(i); rail.appendChild(b); });
+  function go(i) {
+    stopSound(); cur = Math.max(0, Math.min(steps.length - 1, i));
+    document.querySelectorAll('.step').forEach((el, k) => el.classList.toggle('on', k === cur));
+    rail.querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === cur ? 'step' : 'false'));
+    $('back').disabled = cur === 0; $('next').disabled = cur === steps.length - 1;
+    $('where').textContent = 'step ' + (cur + 1) + ' of ' + steps.length;
+    if (steps[cur].enter) steps[cur].enter();
+  }
+  $('back').onclick = () => go(cur - 1); $('next').onclick = () => go(cur + 1);
+  go(0); return { go, current: () => cur };
+}
+function fitCanvas(cv, h) {
+  const dpr = window.devicePixelRatio || 1, w = cv.clientWidth || cv.parentNode.clientWidth || 600;
+  cv.style.height = h + 'px'; cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace'; return [g, w, h];
+}
+function onSlide(id, fn) { const el = $(id); el.addEventListener('input', fn); return el; }
+function redrawOnResize(fn) { let t = 0; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(fn, 80); }); }
+const fmtC = c => (Math.abs(c) < 9.95 ? c.toFixed(1) : String(Math.round(c)));
+</script>
+<script>
+// ── kind text: the equation twice, and what to listen for ──
+const KT = {
+  stretched: { eq: '<i>f<sub>n</sub></i> = <i>n</i> · <i>f</i>₀ · √(1 + <i>B</i> · <i>n</i>²)', words: '(the nth partial) = (its number) × (a fundamental set so partial 1 stays at 220 Hz) × the square root of (one plus the stiffness coefficient times n squared). § 1, the stiff string.',
+    listen: 'The top runs sharp first and furthest; the low partials hardly move. Listen for a faint shimmer and a brighter, slightly higher-sounding note.' },
+  bessel: { eq: '<i>f<sub>n</sub></i> = <i>n</i> · 220 · ( (<i>j</i>₀,<i><sub>n</sub></i> ⁄ <i>j</i>₀,₁) ⁄ <i>n</i> )<sup><i>m</i></sup>', words: '(the nth partial) = its harmonic place, bent toward the nth zero of J₀ divided by the first, by the fraction m. At m = 1 these are one family of a drumhead’s modes, the same set as the page’s Bessel proof. § 2.',
+    listen: 'Even partial 2 jumps at once (238 cents sharp at m = 1); the higher ones go further but level off near 463 cents. At m = 1 the family is almost evenly spaced, about 287 Hz apart: a comb slid up, not a stretch. The note stops fusing.' },
+  stochastic: { eq: '<i>f<sub>n</sub></i> = <i>n</i> · 220 + <i>σ</i> · <i>z<sub>n</sub></i>', words: '(the nth partial) = its harmonic place plus (the scatter, in hertz) × (a fixed random draw for that partial), for n from 2 up. § 3. New draw rolls the dice again.',
+    listen: 'A fixed roughness: some neighbours now beat against each other, others don’t. Because σ is in hertz, the low partials move most in cents.' },
+  log: { eq: '<i>f<sub>n</sub></i> = <i>n</i> · 220 · (1 + <i>b</i> · ln <i>n</i>)', words: '(the nth partial) = its harmonic place × (one plus the coefficient times the natural log of n). § 4. For small b this is almost exactly 220 · n<sup>1+b</sup>: every octave of partials stretched by the same few cents.',
+    listen: 'The stretch grows slowly with n, so it is spread across the whole tone rather than piled at the top: a stretched octave, gentler than the stiff string.' },
+  chaotic: { eq: '<i>f<sub>n</sub></i>(<i>t</i>) = <i>n</i> · 220 · 2<sup><i>d</i> · <i>u<sub>n</sub></i>(<i>t</i>) ⁄ 1200</sup>, &nbsp; <i>x</i> → 3.9 · <i>x</i> · (1 − <i>x</i>)', words: '(the nth partial, now) = its harmonic place, moved by (the depth in cents) × (where partial n’s own logistic map is, scaled to unit spread), the map stepping 25 times a second. § 5’s logistic-map route. Each strike starts from new values.',
+    listen: 'The only kind that moves while it sounds: a wobble that never repeats. The others are frozen once struck.' },
+  phase: { eq: 'ω · <i>D</i> + 8 · φ(ω) = 2π<i>k</i>, &nbsp; φ(ω) = ω − 2 · atan( <i>a</i> · sin ω ⁄ (1 + <i>a</i> · cos ω) )', words: '(the loop’s kth partial) sits where (the delay’s phase) + (eight all-passes’ phase) makes a whole number of turns; the slider is −a. The modes are played on the same sines as every other kind. § 6; the second piece in this section builds the loop itself.',
+    listen: 'Compare it with stretched at the same mistuning in step 3: the loop’s phase lands its partials almost where a stiff string’s go.' }
+};
+const harmonicTracks = tracks(KINDS[0], 0);
+const HARM = renderTone(harmonicTracks);
+const seeds = {}; KINDS.forEach(k => seeds[k.id] = 1);
+const fmtP = (k, p) => (p === 0 ? '0' : k.id === 'stretched' ? p.toExponential(2).replace('e-', ' × 10⁻').replace(/⁻(\d)/, (m, d) => '⁻' + '⁰¹²³⁴⁵⁶⁷⁸⁹'[d]) : p.toFixed(k.dec)) + (k.unit || '');
+
+// ── the spectrum, against the ghosts ──
+function drawPartials(g, x0, y0, W, H, T, { fmax = 4800, labels = true, colour = '#e8b84a' } = {}) {
+  const X = f => x0 + f / fmax * W;
+  for (let n = 1; n * F1 < fmax; n++) { g.setLineDash([3, 4]); g.strokeStyle = 'rgba(200,200,216,.30)'; g.beginPath(); g.moveTo(X(n * F1), y0 + 14); g.lineTo(X(n * F1), y0 + H); g.stroke(); g.setLineDash([]); }
+  const every = W / NP > 30 ? 1 : 2;
+  T.forEach((tr, i) => { const n = i + 1; let lo = Infinity, hi = -Infinity, s = 0; for (const f of tr) { lo = Math.min(lo, f); hi = Math.max(hi, f); s += f; } const mean = s / tr.length;
+    const top = y0 + 18 + (H - 18) * (1 - Math.pow(AMP[i], 0.5));
+    if (hi - lo > 0.2) { g.fillStyle = 'rgba(232,184,74,.22)'; g.fillRect(X(lo), top, Math.max(1, X(hi) - X(lo)), y0 + H - top); }
+    g.strokeStyle = colour; g.lineWidth = 2; g.beginPath(); g.moveTo(X(mean), y0 + H); g.lineTo(X(mean), top); g.stroke(); g.lineWidth = 1;
+    if (labels && n > 1 && (n % every === 0)) { const c = cents(mean, n * F1); g.fillStyle = Math.abs(c) < 0.05 ? '#8a8aa0' : colour; g.fillText((c > 0.04 ? '+' : '') + fmtC(c), X(mean) - 8, top - 4); } });
+  g.fillStyle = '#4a4a5a'; g.fillRect(x0, y0 + H, W, 1);
+}
+// ── step 1 ──
+function s1() { const [g, W, H] = fitCanvas($('s1cv'), 190); drawPartials(g, 10, 4, W - 20, H - 24, harmonicTracks); g.fillStyle = '#8a8aa0'; g.fillText('0', 8, H - 6); g.fillText('4.8 kHz', W - 54, H - 6); }
+// ── step 2 ──
+let k2 = KINDS[0], marks = {}, p2 = {}; KINDS.forEach(k => p2[k.id] = 0);
+const sToP = (k, s) => k.hi * (s / 1000) ** 2, pToS = (k, p) => Math.round(1000 * Math.sqrt(p / k.hi));
+let T2 = harmonicTracks;
+function s2() {
+  const k = k2, p = p2[k.id]; $('s2p').value = pToS(k, p);
+  $('s2eq').innerHTML = KT[k.id].eq; $('s2words').innerHTML = KT[k.id].words; $('s2listen').textContent = KT[k.id].listen;
+  $('s2sym').textContent = k.sym; $('s2pw').textContent = k.words; $('s2pv').textContent = fmtP(k, p);
+  $('s2seed').style.display = k.seeded ? '' : 'none';
+  document.querySelectorAll('#s2kinds button').forEach(b => b.setAttribute('aria-pressed', b.dataset.k === k.id ? 'true' : 'false'));
+  T2 = tracks(k, p, { seed: seeds[k.id] });
+  $('s2D').textContent = mistuning(T2).toFixed(1) + ' ¢'; $('s2max').textContent = maxCents(T2).toFixed(1) + ' ¢';
+  $('s2m').textContent = marks[k.id] ? marks[k.id].D.toFixed(1) + ' ¢ (' + k.sym + ' = ' + fmtP(k, marks[k.id].p) + ')' : '—';
+  $('s2lab').textContent = k.moving ? 'shaded · where each partial wandered in one strike' : 'cents above or below each ghost';
+  const [g, W, H] = fitCanvas($('s2cv'), 210); drawPartials(g, 10, 4, W - 20, H - 24, T2); g.fillStyle = '#8a8aa0'; g.fillText('0', 8, H - 6); g.fillText('4.8 kHz', W - 54, H - 6);
+}
+// ── step 3 ──
+const sToD = s => s <= 0 ? 0 : 0.5 * Math.pow(100, s / 1000);
+let T3 = [];
+function s3() {
+  const D = sToD(+$('s3D').value); $('s3Dv').textContent = D.toFixed(1) + ' ¢';
+  T3 = KINDS.map(k => tracks(k, pFor(k, D, { seed: seeds[k.id] }), { seed: seeds[k.id] }));
+  const rowH = 62, [g, W, H] = fitCanvas($('s3cv'), rowH * KINDS.length + 16);
+  KINDS.forEach((k, i) => { const y = 4 + i * rowH; drawPartials(g, 150, y, W - 160, rowH - 10, T3[i], { labels: false }); g.fillStyle = '#c8c8d8'; g.fillText(k.name, 4, y + rowH / 2 + 2);
+    g.fillStyle = '#8a8aa0'; g.fillText(k.sym + ' = ' + fmtP(k, pFor(k, D, { seed: seeds[k.id] })), 4, y + rowH / 2 + 15); });
+  let best = null; const gaps = KINDS.map((a, i) => KINDS.map((b, j) => { const v = patternGap(T3[i], T3[j]); if (j > i && (!best || v < best.v)) best = { v, i, j }; return v; }));
+  $('s3t').innerHTML = '<tr><th></th>' + KINDS.map(k => '<th>' + k.name.split(' ')[0] + '</th>').join('') + '</tr>' + KINDS.map((a, i) => '<tr><td><b>' + a.name.split(' ')[0] + '</b></td>' + gaps[i].map((v, j) =>
+    '<td class="' + (best && ((i === best.i && j === best.j) || (i === best.j && j === best.i)) ? 'hi' : '') + '">' + (i === j ? '·' : v.toFixed(1)) + '</td>').join('') + '</tr>').join('');
+  $('s3n').textContent = D > 0 && best ? `Closest pair at ${D.toFixed(1)} ¢: ${KINDS[best.i].name} and ${KINDS[best.j].name}, ${best.v.toFixed(1)} ¢ apart, ${Math.round(100 * best.v / D)}% of the mistuning itself. Stochastic and chaotic are far from everything, each other included, because their patterns are random; what sets them apart from each other is that one is frozen and one moves.` : '';
+}
+function playRow(btn) {
+  const list = [HARM, ...T3.map(t => renderTone(t))], names = ['harmonic', ...KINDS.map(k => k.name)], step = (1.2 + 0.35);
+  playBuffer(joinBuffers(list), btn, () => { $('s3now').textContent = '—'; });
+  const t0 = SND.ctx.currentTime, src = SND.src;
+  (function tick() { if (SND.src !== src) { $('s3now').textContent = '—'; return; } const i = Math.min(names.length - 1, Math.floor((SND.ctx.currentTime - t0) / step)); $('s3now').textContent = names[i]; requestAnimationFrame(tick); })();
+}
+// ── step 4: the blind test ──
+let k4 = KINDS[0], test = null; const results = {};
+function trialPair() {
+  const k = k4, seed = 1000 + test.S.trials, p = pFor(k, test.S.D, { seed }), odd = renderTone(tracks(k, p, { seed }));
+  test.order = Math.random() < 0.5 ? 0 : 1; test.buf = joinBuffers(test.order === 0 ? [odd, HARM] : [HARM, odd], 0.4); test.awaiting = true;
+}
+function playPair() { if (!test) return; playBuffer(test.buf, $('s4replay')); setAnswer(true); }
+function setAnswer(on) { $('s4a1').disabled = !on; $('s4a2').disabled = !on; $('s4replay').disabled = !test || test.S.done; }
+function startTest() { stopSound(); test = { kind: k4, S: staircase({ start: 30, ceil: 60 }) }; $('s4f').textContent = ''; trialPair(); progress(); playPair(); }
+function answer(which) {
+  if (!test || !test.awaiting) return; test.awaiting = false; setAnswer(false); stopSound();
+  const right = which === test.order; test.S.answer(right);
+  $('s4f').innerHTML = right ? '<span class="ok">right</span>' : '<span class="bad">no, it was the ' + (test.order === 0 ? 'first' : 'second') + '</span>';
+  progress();
+  if (test.S.done) { const e = test.S.estimate(), k = test.kind;
+    if (e) { const p = pFor(k, e.D, { seed: 1 }); results[k.id] = { D: e.D, spread: e.spread, p, max: maxCents(tracks(k, p, { seed: 1 })), trials: test.S.trials }; }
+    $('s4f').innerHTML += ' · <span class="amber">done: ' + (e ? e.D.toFixed(1) + ' ¢' : 'too few turnarounds') + '</span>'; test = null; setAnswer(false); s4table(); return; }
+  setTimeout(() => { if (test) { trialPair(); playPair(); } }, 650);
+}
+function progress() { if (!test) return; $('s4r').textContent = String(test.S.trials + 1); $('s4d').textContent = test.S.D.toFixed(2) + ' ¢'; $('s4v').textContent = test.S.rev.length + ' of 8'; }
+function s4table() {
+  document.querySelectorAll('#s4kinds button').forEach(b => b.setAttribute('aria-pressed', b.dataset.k === k4.id ? 'true' : 'false'));
+  $('s4t').innerHTML = '<tr><th>kind</th><th>blind threshold</th><th>spread</th><th>its own number</th><th>farthest partial</th><th>rounds</th><th>sighted mark</th></tr>' + KINDS.map(k => { const r = results[k.id], m = marks[k.id];
+    return '<tr><td><b>' + k.name + '</b></td><td>' + (r ? '<b>' + r.D.toFixed(2) + ' ¢</b>' : '—') + '</td><td>' + (r ? '× ' + r.spread.toFixed(2) : '') + '</td><td>' + (r ? k.sym + ' = ' + fmtP(k, r.p) : '') + '</td><td>' + (r ? r.max.toFixed(1) + ' ¢' : '') + '</td><td>' + (r ? r.trials : '') + '</td><td>' + (m ? m.D.toFixed(1) + ' ¢' : '—') + '</td></tr>'; }).join('');
+  const done = KINDS.filter(k => results[k.id]).map(k => ({ k, ...results[k.id] })).sort((a, b) => a.D - b.D);
+  let v;
+  if (!done.length) v = 'Run one kind to its end and its threshold appears here; run two or more and this line compares them.';
+  else if (done.length === 1) v = `Your threshold for ${done[0].k.name}: ${done[0].D.toFixed(2)} ¢ of mistuning (${done[0].k.sym} = ${fmtP(done[0].k, done[0].p)}). Run another kind to compare.`;
+  else { const lo = done[0], hi = done[done.length - 1], r = hi.D / lo.D, spread = Math.exp(done.reduce((s, d) => s + Math.log(d.spread), 0) / done.length);
+    v = `You hear ${lo.k.name} leave first, at ${lo.D.toFixed(2)} ¢, and ${hi.k.name} last, at ${hi.D.toFixed(2)} ¢: a factor of ${r.toFixed(1)}. ` +
+      (r < Math.max(1.6, spread * spread) ? `That is within what the staircase itself wobbles (about × ${spread.toFixed(2)}), so by this ruler the threshold is about the same across these kinds, for you.` : `That is more than the staircase’s own wobble (about × ${spread.toFixed(2)}), so by this ruler the threshold is not the same across these kinds, for you.`);
+    const b = results.bessel, s = results.stochastic;
+    if (b && s) { const q = s.D / b.D; v += ` The page asks whether Bessel is more salient than stochastic scatter: Bessel left at ${b.D.toFixed(2)} ¢, stochastic at ${s.D.toFixed(2)} ¢, so for you Bessel is ${q > 1.4 ? 'more salient' : q < 1 / 1.4 ? 'less salient' : 'about as salient'}.`; } }
+  $('s4verdict').textContent = v;
+  $('s4copy').textContent = done.length ? 'Categorizing Inharmonicity · threshold, blind, 220 Hz: ' + done.map(d => `${d.k.name} ${d.D.toFixed(2)} ¢ (×${d.spread.toFixed(2)}, ${d.k.sym} = ${fmtP(d.k, d.p)})`).join('; ') : 'Your results will appear here as one line you can copy into a note.';
+}
+// ── wiring ──
+sigil($('sigil'));
+function kindButtons(id, onPick) { KINDS.forEach(k => { const b = document.createElement('button'); b.textContent = k.name; b.dataset.k = k.id; b.onclick = () => onPick(k); $(id).appendChild(b); }); }
+kindButtons('s2kinds', k => { stopSound(); k2 = k; s2(); });
+kindButtons('s3kinds', k => { const i = KINDS.indexOf(k); playBuffer(renderTone(T3[i])); $('s3now').textContent = k.name; });
+kindButtons('s4kinds', k => { if (test) { test = null; stopSound(); setAnswer(false); $('s4f').textContent = 'the unfinished run was set aside'; } k4 = k; s4table(); });
+onSlide('s2p', () => { p2[k2.id] = sToP(k2, +$('s2p').value); s2(); });
+onSlide('s3D', s3);
+$('s1play').onclick = e => playBuffer(HARM, e.currentTarget);
+$('s2play').onclick = e => { T2 = tracks(k2, p2[k2.id], { seed: seeds[k2.id] }); playBuffer(renderTone(T2), e.currentTarget); };
+$('s2ab').onclick = e => playBuffer(joinBuffers([HARM, renderTone(T2)], 0.4), e.currentTarget);
+$('s2mark').onclick = () => { marks[k2.id] = { D: mistuning(T2), p: p2[k2.id] }; s2(); };
+$('s2seed').onclick = () => { seeds[k2.id]++; s2(); };
+$('s3all').onclick = e => playRow(e.currentTarget);
+$('s4start').onclick = startTest;
+$('s4replay').onclick = playPair;
+$('s4a1').onclick = () => answer(0); $('s4a2').onclick = () => answer(1);
+const W4 = walk([{ name: 'the harmonic series', enter: s1 }, { name: 'one kind, raised', enter: s2 }, { name: 'six kinds, one mistuning', enter: s3 }, { name: 'the blind test', enter: s4table }]);
+window.addEventListener('keydown', e => { if (W4.current() === 3 && test && test.awaiting && (e.key === '1' || e.key === '2')) answer(e.key === '1' ? 0 : 1); });
+redrawOnResize(() => [s1, s2, s3].forEach(f => { try { f(); } catch (e) {} }));
+</script>
+</body>
+</html>
