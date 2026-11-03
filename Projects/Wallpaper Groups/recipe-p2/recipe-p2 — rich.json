@@ -72,7 +72,18 @@
     }
    ],
    "made_against": "05fb95199c5a",
-   "stamped": "2026-11-03"
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "recipe-p2 — rich — the recipe cooked.html",
+      "verdict": "remake",
+      "why": "Numbers all recompute (126, 120, 62, 1568, 1540), and step 4 (clock vs strip) is a real find; but step 5 says the note asks for a second voice, which it does not (one voice; its own 8-steps-doubled reading gives 17 − n = pm), and the test set before it cannot fail (n + 8 is the half twice by definition). Reword the second voice as one reading; test the note's own claims instead (centre at 8|9 holds in 6 of 126, no mirror axis fails in 62 of 126); label identities as identities; optionally add the glide map."
+     }
+    ]
+   }
   },
   {
    "heading": "Where to break it",
@@ -95,7 +106,18 @@
     }
    ],
    "made_against": "6c2daf3ea3db",
-   "stamped": "2026-11-03"
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "recipe-p2 — rich — the break and the clave.html",
+      "verdict": "remake",
+      "why": "0 of 8960 and the parity argument confirmed, son clave exact through 4|12, rumba = son with 7 → 8; but 'the clave lives by pm, not here' overreaches: the arms compare a slide with a mirror, on one voice a half-turn about step 4 is that same mirror, and recipe-pm cooks the clave 0 of 7840 times too (its 8|9 centre pairs every hit). Rewrite the verdict around a centre through a step, add a between-steps mirror arm (son 3, rumba 1), and note the section's break is exact from son 2-3 (15 → 16)."
+     }
+    ]
+   }
   }
  ]
 }
