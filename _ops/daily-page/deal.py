@@ -268,6 +268,7 @@ def brief(root: Path, s: dict, title: str, today: str) -> dict:
         "revival_conditions": field(fm, "revival_conditions"),
         "has_agency_profile": bool(re.search(r"^agency_profile:", fm, re.M)),
         "has_rich_face": (bundle / f"{title} — rich.json").exists(),
+        "rich_face_waiting": rich_face_waiting(bundle / f"{title} — rich.json"),
         "has_scroll": (bundle / f"{title} — scroll.md").exists(),
         "has_context": (path.parent / f"{title} — Context.md").exists()
                        or (bundle / f"{title} — Context.md").exists(),
@@ -279,6 +280,23 @@ def brief(root: Path, s: dict, title: str, today: str) -> dict:
         "yesterday": yesterday,
         "standing": standing(s),
     }
+
+
+def rich_face_waiting(manifest: Path):
+    """What the page's rich face still waits on Loudon for: sections at `status: proposal` and
+    open offers (Enrichment § Proposal and approval; the fields are in _ops/rich-face/README.md).
+    None when the page has no face; a section with no status counts as approved."""
+    if not manifest.exists():
+        return None
+    try:
+        m = json.loads(manifest.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {"unreadable": True}
+    sections = [x for x in (m.get("sections") or []) if isinstance(x, dict)]
+    proposal = [x for x in sections if x.get("status") == "proposal"]
+    offers = [o for o in (m.get("offers") or []) if isinstance(o, dict) and (o.get("status") or "open") == "open"]
+    return {"sections": len(sections), "proposal_sections": len(proposal),
+            "proposal_headings": [x.get("heading") for x in proposal], "open_offers": len(offers)}
 
 
 def standing(s: dict) -> dict:
@@ -305,6 +323,16 @@ def print_brief(b: dict):
                            ("scroll", "has_scroll"), ("Context", "has_context")) if not b[k]]
     print(f"  has: {', '.join(have) or 'nothing beyond its text'}")
     print(f"  lacks: {', '.join(lack) or 'nothing'}")
+    w = b.get("rich_face_waiting")
+    if w:
+        if w.get("unreadable"):
+            print("  the rich face's manifest could not be read: open it by hand")
+        elif w["proposal_sections"] or w["open_offers"]:
+            print(f"  the rich face waits on Loudon: {w['proposal_sections']} of {w['sections']} section(s) at proposal, "
+                  f"{w['open_offers']} open offer(s) — tell him at the hello and urge him to look "
+                  f"(node _ops/rich-face/proposals.mjs lists them)")
+        else:
+            print("  the rich face is approved; nothing on it waits")
     print(f"  bundle: {b['bundle'] or '(no folder)'}")
     print(f"\n  siblings, from the {b['siblings_from']}")
     print(f"  siblings it points to ({len(b['links_out'])}):")
