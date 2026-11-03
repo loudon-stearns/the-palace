@@ -1,0 +1,89 @@
+{
+  "title": "Progressive Staging — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Action Potential Oscillator]]",
+      "type": "connects-to",
+      "label": "its-dev-plan-is-the-engine"
+    },
+    {
+      "target": "[[Dispersion Table]]",
+      "type": "connects-to",
+      "label": "gathered-from"
+    }
+  ],
+  "forward_vector": "I am the manifest of Progressive Staging's rich face, its first round, still a proposal: a walk that puts the page's first rule to its fourth (turn the leak off and get Stage 1 back exactly, tested by Stage 1's own inherited frequency test), and one walk from this round gathered as it landed, with each step's one thing named and the page's walk rules checked against it. I grow when Loudon has heard them; I never hold the entry's words.",
+  "entry": "Progressive Staging",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The Method",
+      "kind": "claim-change",
+      "what": "'the student can set leak_tau to infinity and recover Stage 1 exactly' holds for the climb and not for the reset. The dev plan's Stage 2 resets to zero (membrane_v = 0, on purpose: 'Unlike Stage 1's wrap, a hard reset is more appropriate here'), and the March artifact's Stage 2 pseudocode does the same, where Stage 1 subtracts the threshold and keeps the spill. With the leak at its stop, Stage 2's samples are Stage 1's up to the first reset; after it each cycle takes a whole number of samples, the period rounded up, and the note runs flat: 14.37 cents at 440 Hz at 48 kHz, 63.97 cents at 1760 Hz at 44.1 kHz. Stage 1's own test (440 Hz within 0.1 Hz), inherited as the page's fourth rule says, fails at 5 of 5 notes at 48 kHz and 4 of 5 at 44.1 kHz. Given Stage 1's reset, Stage 2 at its stop is Stage 1 exactly: largest sample difference 0 at all five notes and both rates. And infinity itself is a limit: the plan's drive line gives 1 ÷ (∞ × 0) there, not a number. Proposed: 'Stage 2's leak equation wraps around Stage 1's linear ramp: let leak_tau grow without end and the leak's coefficient goes to one and its drive to Stage 1's step, so the climb is Stage 1's again, sample for sample. To get Stage 1 back exactly, the reset has to come along too. The dev plan's Stage 2 resets to zero where Stage 1 keeps what spilled past the threshold, and that alone leaves its notes flat, 14 cents at 440 Hz. Stage 1's inherited frequency test catches it.'",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The Method",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Progressive Staging — rich — the leak at its stop.html",
+          "origin": "made",
+          "by": "Web Audio · canvas",
+          "height": 1300,
+          "title": "the leak at its stop · a walk in four steps",
+          "caption": "**Does turning the leak off give Stage 1 back exactly?** Stages 1 and 2 as the Action Potential Oscillator's dev plan writes them. Stage 1 alone, threshold and reset; Stage 2 alone, the time constant; the leak run to its stop and laid over Stage 1; and last Stage 1's own frequency test, inherited as the paragraph on testing says, run on Stage 2. The climb comes back sample for sample, up to the first reset. The reset doesn't: the plan's Stage 2 resets to zero where Stage 1 keeps what spilled past the threshold, so each cycle ends on a whole sample and the note goes flat, 14.4 cents at 440 Hz at 48 kHz and 64 cents at 1760 Hz at 44.1 kHz. The inherited test fails at every note at 48 kHz and at 4 of 5 at 44.1. Give Stage 2 Stage 1's reset and the two give the same samples at every note, exactly. At the stop itself the plan's drive line divides by ∞ × 0, so the stop is the limit. Measured in the piece and its check; not heard by the agent that made it.",
+          "near": "Nothing is thrown away; everything is extended.",
+          "place": "band"
+        }
+      ],
+      "made_against": "4ece20e8ee64",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Inside One Piece",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "/Dispersion Table/Dispersion Table — rich — the table and the loop.html",
+          "origin": "gathered",
+          "by": "Dispersion Table · rich face, 2026-11-03 proposal round",
+          "height": 1900,
+          "title": "the table and the loop · Loudon's outline, walked",
+          "caption": "**One walk from this round, gathered as it landed: the outline above, made into steps for Dispersion Table's face.** Each step's one thing: 1 · the table, a reader sweeping a cycle that holds still; 2 · the loop, the same cycle sliding past a tap that holds still; 3 · their difference, silence at every sample, with the loop one sample longer so you can watch the test fail; 4 · the test, the loop half a sample longer, where reading between samples puts a filter in it that nobody put there. The outline's last word, the filter, is the Dissolutions proof the walk climbs to. Checked headless against this section's rules: silent until a click, no audio context before one, one step at a time, Back returns and stops the sound, the rail goes straight to the test, step 3 plays the table alone and the loop alone again, and a check file beside it runs every step, the first included. One rule it bends: its last step names the proof ('the proof below') but doesn't link to it, so opened on its own a reader has no way there; in its own face the proof sits beneath it.",
+          "near": "Loudon's outline for the Dissolutions proof",
+          "place": "band"
+        }
+      ],
+      "made_against": "9405608f6612",
+      "stamped": "2026-11-03"
+    }
+  ]
+}
