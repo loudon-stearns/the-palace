@@ -125,8 +125,15 @@ const near = (a, b, tol) => Math.abs(a - b) <= tol;
   check('the moves split the rulers: on a, b, c, d octaves and hertz disagree; on e both say the same size',
     ['a', 'b', 'c', 'd'].every((id) => C.predict(C.LISC.PAIRS.find((P) => P.id === id), 'oct') !== C.predict(C.LISC.PAIRS.find((P) => P.id === id), 'hz')) && C.predict(C.LISC.PAIRS[4], 'oct') === 0 && C.predict(C.LISC.PAIRS[4], 'hz') === 0, 'e is the check');
   check('the reveal names octaves only for the octave pattern, hertz only for the hertz pattern, and no ruler otherwise',
-    C.rulerOf(octAns) === 'oct' && C.rulerOf(hzAns) === 'hz' && C.rulerOf(ans({ a: 0, b: 0, c: 0, d: 0, e: 0 })) === 'none' && C.rulerOf(ans({ a: 0, b: -1, c: 0, d: 0, e: 0 })) === 'none' && C.rulerOf({ ...octAns, e: 1 }) === 'oct',
-    'all the same → none; one miss → none; e answered either way leaves the verdict alone');
+    C.rulerOf(octAns) === 'oct' && C.rulerOf(hzAns) === 'hz' && C.rulerOf(ans({ a: 0, b: 0, c: 0, d: 0, e: 0 })) === 'none' && C.rulerOf(ans({ a: 0, b: -1, c: 0, d: 0, e: 0 })) === 'none',
+    'all the same → none; one miss → none');
+  check('a ruler is named only when the check held: move e answered other than “the same” names none',
+    C.rulerOf({ ...octAns, e: -1 }) === 'check-failed' && C.rulerOf({ ...octAns, e: 1 }) === 'check-failed' && C.rulerOf({ ...hzAns, e: 1 }) === 'check-failed',
+    'octave or hertz pattern with e bigger or smaller → check-failed');
+  // the decibel ruler: on a log ratio taper, equal travel from 2:1 up (×2) and down (÷2) moves the 24 dB hit unequally
+  const hitDb = (R) => 24 / R, up = hitDb(2) - hitDb(4), down = hitDb(1) - hitDb(2);
+  check('cited reason: from 2:1 on a log ratio taper, doubling moves the hit 6 dB, halving 12 dB, for equal travel; even in 1/R',
+    near(up, 6, 1e-9) && near(down, 12, 1e-9) && near((1 / 2 - 1 / 4) * 24, up, 1e-9), `${up} dB vs ${down} dB`);
   // the ratio knob the reveal cites, from Boundary-Crossing Instruments' face: hit 24 dB over, out = over ÷ R,
   // a 1 to 100 knob in the first 97% of travel, the last 3% a notch at ∞
   const DET = 0.97, over = 24, posR = (R, taper) => (taper === 'log' ? Math.log(R) / Math.log(100) : (R - 1) / 99) * DET;

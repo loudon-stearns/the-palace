@@ -153,8 +153,11 @@ function predict(P, ruler){
   if (Math.max(a, b) / Math.min(a, b) < 1.25) return 0;
   return a > b ? -1 : 1;
 }
-// the verdict: a ruler is named only if every pair where the two rulers disagree was answered as that ruler predicts
+// the verdict: a ruler is named only when the check held (every move both rulers call the same size, move e,
+// was answered "the same") and every move where the two rulers disagree was answered as that ruler predicts
 function rulerOf(answers){
+  var checks = LISC.PAIRS.filter(function(P){ return predict(P, 'oct') === predict(P, 'hz'); });
+  if (!checks.every(function(P){ return answers[P.id] === predict(P, 'oct'); })) return 'check-failed';
   var split = LISC.PAIRS.filter(function(P){ return predict(P, 'oct') !== predict(P, 'hz'); });
   var oct = split.every(function(P){ return answers[P.id] === predict(P, 'oct'); });
   var hz = split.every(function(P){ return answers[P.id] === predict(P, 'hz'); });
@@ -327,8 +330,9 @@ function sweepShare(map, f0, f1){ return Math.abs(CMAPS[map].pos(f1) - CMAPS[map
     var v = rulerOf(test.answers), note;
     if (v === 'oct') note = 'Your answers follow octaves: every move the two rulers disagree on, you heard as octaves count it. On a log knob the same distance down and up is the same number of octaves, so by your ear the log knob passed the page’s diagnostic and the linear knob, near 1 kHz, failed it.';
     else if (v === 'hz') note = 'Your answers follow plain hertz: every move the two rulers disagree on, you heard as hertz count it. That is unusual for a cutoff; play the moves again before reading much into it.';
+    else if (v === 'check-failed') note = 'Your answers pick no ruler: the check move, from 10 kHz on the linear knob, is about the same size both ways on either ruler (−0.32 and +0.26 octaves, 1998 Hz each way), and you did not hear it as the same. With the check off, the other answers can’t name a ruler. Run them again, reshuffled.';
     else note = 'Your answers pick no ruler: on the moves where octaves and hertz disagree, they matched neither all the way. Five moves is a small sample, and the level also changes as the cutoff falls. Run them again, reshuffled.';
-    note += ' The move from 10 kHz on the linear knob is near the same size both ways on either ruler: high up, small moves on a linear knob hardly show its fault. Whichever ruler your ear used, the diagnostic is a question about what you hear, not about the number. A compressor’s ratio knob, from 1:1 to 100:1, spans two decades too, and on a log taper doubling it is the same gesture as halving it; yet Boundary-Crossing Instruments’ face measures that knob’s last third, 20:1 to 100:1, moving the loudest hit under 1 dB, because what the hit loses in decibels goes as one over the ratio, not as the ratio. Its own face lets you hear it.';
+    note += ' The move from 10 kHz on the linear knob is near the same size both ways on either ruler: high up, small moves on a linear knob hardly show its fault. Whichever ruler your ear used, the diagnostic is a question about what you hear, not about the number. A compressor’s ratio knob, from 1:1 to 100:1, spans two decades too, and on a log taper doubling it is the same gesture as halving it; yet Boundary-Crossing Instruments’ face measures that knob’s last third, 20:1 to 100:1, moving the loudest hit under 1 dB. A log taper doesn’t fix that knob because what you hear there is decibels, already a ratio ruler, and the decibels the hit loses move evenly with one over the ratio. The page’s inverse-relationships section holds when the result is read as a ratio; here it is read in decibels. Its own face lets you hear it.';
     $('revealNote').textContent = note;
     $('reveal').hidden = false; $('revealNote').hidden = false; $('againRow').hidden = false;
   }
