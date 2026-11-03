@@ -96,7 +96,7 @@
 <script>
 'use strict';
 // ---------- what "Radio Play — rich — checks.py" measured from the film (copied; checks.mjs keeps it honest)
-const MEASURED = /*MEASURED*/{"segments":[{"segment":"s1_title","audio_s":12.95,"picture_s":12.933,"picture_minus_audio_ms":-16.7},{"segment":"s2_problem","audio_s":35.725,"picture_s":35.7,"picture_minus_audio_ms":-25.0},{"segment":"s3_loop","audio_s":36.225,"picture_s":36.2,"picture_minus_audio_ms":-25.0},{"segment":"s4_demo","audio_s":43.6,"picture_s":43.6,"picture_minus_audio_ms":0.0},{"segment":"s5_close","audio_s":23.7,"picture_s":23.7,"picture_minus_audio_ms":0.0}],"film":{"picture_s":152.175,"audio_sum_s":152.2,"worst_segment_ms":25.0,"frame_ms":33.3},"joins":[{"audio_join_s":12.95,"picture_cut_s":12.967,"off_ms":16.7,"change":6.07},{"audio_join_s":48.675,"picture_cut_s":48.667,"off_ms":-8.3,"change":4.16},{"audio_join_s":84.9,"picture_cut_s":84.9,"off_ms":0.0,"change":4.07},{"audio_join_s":128.5,"picture_cut_s":128.5,"off_ms":0.0,"change":6.64}],"loudness":{"s1_title":-16.0,"s2_problem":-15.7,"s3_loop":-15.8,"s4_demo":-16.4,"s5_close":-15.6,"film_audio":-15.9},"s2":{"line_onsets_s":[0.6,8.175,16.8,25.0],"line_lengths_s":[7.075,8.125,7.7,6.225],"laugh_at_s":31.725,"planned_total_s":36.425,"stretch":1.2319,"picture_beats_designed_s":[0.0,8.623,18.355,26.239],"picture_beats_measured_s":[0.433,8.833,18.433,26.267],"lag_s":[-0.6,0.448,1.555,1.239],"first_words_s":[0.87,8.433,17.119,25.41],"lag_measured_s":[-0.437,0.4,1.314,0.857],"counter_rests_designed_s":31.167,"counter_rests_measured_s":31.2,"foreman_says_913_at_s":25.41,"motion":[0.0,0.0,0.003,0.013,0.022,0.039,0.084,0.093,0.108,0.134,0.133,0.096,0.118,0.052,0.044,0.072,0.018,0.029,0.014,0.008,0.003,0.004,0.004,0.013,0.018,0.008,0.018,0.011,0.014,0.009,0.009,0.007,0.005,0.002,0.003,0.003,0.003,0.016,0.011,0.01,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.009,0.0,0.0,0.006,0.013,0.023,0.084,0.137,0.159,0.121,0.074,0.043,0.041,0.054,0.078,0.112,0.158,0.157,0.104,0.051,0.026,0.04,0.001,0.001,0.001,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.012,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.001,0.024,0.038,0.055,0.048,0.078,0.096,0.11,0.099,0.078,0.119,0.123,0.072,0.067,0.045,0.043,0.021,0.017,0.04,0.012,0.017,0.026,0.037,0.041,0.064,0.069,0.067,0.041,0.031,0.021,0.032,0.01,0.012,0.002,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.013,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.033,0.01,0.07,0.076,0.19,0.209,0.283,0.27,0.32,0.219,0.097,0.027,0.021,2.493,4.199,2.244,2.236,2.294,2.27,2.018,2.815,2.085,2.205,2.347,2.4,2.029,1.821,2.477,2.555,2.477,2.095,2.398,2.703,2.565,1.552,1.781,1.798,1.781,1.546,2.259,1.614,1.735,1.933,0.846,1.622,1.473,1.473,1.616,1.774,1.455,0.823,0.002,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.01,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"motion_fps":10},"s2_balance":{"voice_lufs":-26.3,"bed_lufs":-36.0,"bed_under_voice_lu":9.7,"span_s":[0.6,31.225]},"heard":{"s1_beat":{"set_s":[0.6],"heard_s":[1.454]},"s2_lines":{"set_s":[0.5,0.5,0.5],"heard_s":[1.247,1.523,1.35]},"s4_exchange":{"set_s":[0.4,0.4,0.3],"heard_s":[1.359,1.391,1.255]},"s4_laugh_after_last_word_s":0.634}}/*END*/;
+const MEASURED = /*MEASURED*/{"segments":[{"segment":"s1_title","audio_s":12.95,"picture_s":12.933,"picture_minus_audio_ms":-16.7},{"segment":"s2_problem","audio_s":35.725,"picture_s":35.7,"picture_minus_audio_ms":-25.0},{"segment":"s3_loop","audio_s":36.225,"picture_s":36.2,"picture_minus_audio_ms":-25.0},{"segment":"s4_demo","audio_s":43.6,"picture_s":43.6,"picture_minus_audio_ms":0.0},{"segment":"s5_close","audio_s":23.7,"picture_s":23.7,"picture_minus_audio_ms":0.0}],"film":{"picture_s":152.175,"audio_sum_s":152.2,"worst_segment_ms":25.0,"frame_ms":33.3},"joins":[{"audio_join_s":12.95,"picture_cut_s":12.967,"off_ms":16.7,"change":6.07},{"audio_join_s":48.675,"picture_cut_s":48.667,"off_ms":-8.3,"change":4.16},{"audio_join_s":84.9,"picture_cut_s":84.9,"off_ms":0.0,"change":4.07},{"audio_join_s":128.5,"picture_cut_s":128.5,"off_ms":0.0,"change":6.64}],"loudness":{"s1_title":-16.0,"s2_problem":-15.7,"s3_loop":-15.8,"s4_demo":-16.4,"s5_close":-15.6,"film_audio":-15.9},"s2":{"line_onsets_s":[0.6,8.175,16.8,25.0],"line_lengths_s":[7.075,8.125,7.7,6.225],"laugh_at_s":31.725,"planned_total_s":36.425,"stretch":1.2319,"picture_beats_designed_s":[0.0,8.623,18.355,26.239],"picture_beats_measured_s":[0.433,8.833,18.433,26.267],"lag_s":[-0.6,0.448,1.555,1.239],"first_words_s":[0.87,8.433,17.119,25.41],"lag_measured_s":[-0.437,0.4,1.314,0.857],"counter_rests_designed_s":31.167,"counter_rests_measured_s":31.2,"foreman_says_913_at_s":25.41,"motion":[0.0,0.0,0.003,0.013,0.022,0.039,0.084,0.093,0.108,0.134,0.133,0.096,0.118,0.052,0.044,0.072,0.018,0.029,0.014,0.008,0.003,0.004,0.004,0.013,0.018,0.008,0.018,0.011,0.014,0.009,0.009,0.007,0.005,0.002,0.003,0.003,0.003,0.016,0.011,0.01,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.009,0.0,0.0,0.006,0.013,0.023,0.084,0.137,0.159,0.121,0.074,0.043,0.041,0.054,0.078,0.112,0.158,0.157,0.104,0.051,0.026,0.04,0.001,0.001,0.001,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.012,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.001,0.024,0.038,0.055,0.048,0.078,0.096,0.11,0.099,0.078,0.119,0.123,0.072,0.067,0.045,0.043,0.021,0.017,0.04,0.012,0.017,0.026,0.037,0.041,0.064,0.069,0.067,0.041,0.031,0.021,0.032,0.01,0.012,0.002,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.013,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.033,0.01,0.07,0.076,0.19,0.209,0.283,0.27,0.32,0.219,0.097,0.027,0.021,2.493,4.199,2.244,2.236,2.294,2.27,2.018,2.815,2.085,2.205,2.347,2.4,2.029,1.821,2.477,2.555,2.477,2.095,2.398,2.703,2.565,1.552,1.781,1.798,1.781,1.546,2.259,1.614,1.735,1.933,0.846,1.622,1.473,1.473,1.616,1.774,1.455,0.823,0.002,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.01,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"motion_fps":10},"s2_balance":{"chain_voice_lufs":-26.2,"chain_bed_lufs":-31.9,"bed_under_voice_lu":5.7,"rebuild_voice_lufs":-26.3,"rebuild_bed_lufs":-31.9,"rebuild_bed_under_voice_lu":5.6,"span_s":[0.6,31.225]},"heard":{"s1_beat":{"set_s":[0.6],"heard_s":[1.454]},"s2_lines":{"set_s":[0.5,0.5,0.5],"heard_s":[1.247,1.523,1.35]},"s4_exchange":{"set_s":[0.4,0.4,0.3],"heard_s":[1.359,1.391,1.255]},"s4_laugh_after_last_word_s":0.634},"laugh":{"punchline_s":2.125,"under":{"voice_over_laugh_db":-10.54,"spoken_voice_over_laugh_db":-9.38,"about":"whole take against the laugh from the take's start; spoken: the words against the laugh starting with them"},"on":{"voice_over_laugh_db":null}}}/*END*/;
 
 const DIR = 'rich-face/unsung-path-stems/', FILM = 'rich-face/The%20Unsung%20Path.mp4';
 const CAST = { NARRATOR: '#e8b84a', FOREMAN: '#8b8df8', SKEPTIC: '#e86a8a', WIKILINK: '#33e0c8' };
@@ -119,16 +119,21 @@ function parseWav(buf) {
     p += 8 + len + (len & 1);
   }
   if (!fmt || !data || fmt.bits !== 16) throw new Error('expects 16-bit PCM WAV');
-  const n = Math.floor(data.len / 2 / fmt.ch), out = new Float32Array(n);
-  for (let i = 0; i < n; i++) { let s = 0; for (let c = 0; c < fmt.ch; c++) s += v.getInt16(data.off + (i * fmt.ch + c) * 2, true); out[i] = s / fmt.ch / 32768; }
-  return { sr: fmt.sr, x: out };
+  const n = Math.floor(data.len / 2 / fmt.ch), chs = [];
+  for (let c = 0; c < fmt.ch; c++) { const x = new Float32Array(n); for (let i = 0; i < n; i++) x[i] = v.getInt16(data.off + (i * fmt.ch + c) * 2, true) / 32768; chs.push(x); }
+  return { sr: fmt.sr, chs };
 }
-function toSR(w) { if (w.sr === SR) return w.x; const n = Math.round(w.x.length * SR / w.sr), o = new Float32Array(n), r = w.sr / SR;
-  for (let i = 0; i < n; i++) { const t = i * r, k = Math.floor(t), f = t - k; o[i] = (w.x[k] || 0) * (1 - f) + (w.x[k + 1] || 0) * f; } return o; }
-const BUF = {};
+function toSR(x, sr) { if (sr === SR) return x; const n = Math.round(x.length * SR / sr), o = new Float32Array(n), r = sr / SR;
+  for (let i = 0; i < n; i++) { const t = i * r, k = Math.floor(t), f = t - k; o[i] = (x[k] || 0) * (1 - f) + (x[k + 1] || 0) * f; } return o; }
+// Every stem in stereo, as build_audio.py's chain heard it (aformat=channel_layouts=stereo): a mono Kokoro take
+// at -3 dB on each side, the Stable Audio bed and laugh in their own two channels. BUF is a mono view for drawing.
+const UPMIX = Math.SQRT1_2, ST = {}, BUF = {};
 async function loadAll() {
   await Promise.all(LINES.map(l => l.file).concat(['bed_low', 'laugh']).map(async n => {
-    const r = await fetch(DIR + n + '.wav'); if (!r.ok) throw new Error(n + '.wav: ' + r.status); BUF[n] = toSR(parseWav(await r.arrayBuffer())); }));
+    const r = await fetch(DIR + n + '.wav'); if (!r.ok) throw new Error(n + '.wav: ' + r.status);
+    const w = parseWav(await r.arrayBuffer()), chs = w.chs.map(x => toSR(x, w.sr));
+    ST[n] = chs.length === 1 ? [chs[0].map(v => v * UPMIX), chs[0].map(v => v * UPMIX)] : [chs[0], chs[1]];
+    BUF[n] = chs.length === 1 ? chs[0] : chs[0].map((v, i) => (v + chs[1][i]) / 2); }));
 }
 const len = n => BUF[n].length / SR;
 
@@ -141,21 +146,22 @@ function plan() {
   ev.push({ key: 'laugh', at: laughAt, gain: V_LAUGH, lane: 'laugh' });
   return { ev, end: laughAt + len('laugh') };
 }
+// the mix in stereo, the two channels interleaved (L, R, L, R ...)
 function mix(ev, end, which) {
-  const out = new Float32Array(Math.ceil(end * SR));
-  ev.filter(e => which.includes(e.lane)).forEach(e => { const x = BUF[e.key], o = Math.round(e.at * SR), g = e.gain * MASTER * (e.lane === 'bed' ? S.bedGain : 1);
-    for (let i = 0; i < x.length && o + i < out.length; i++) out[o + i] += g * x[i]; });
+  const n = Math.ceil(end * SR), out = new Float32Array(2 * n);
+  ev.filter(e => which.includes(e.lane)).forEach(e => { const [l, r] = ST[e.key], o = Math.round(e.at * SR), g = e.gain * MASTER * (e.lane === 'bed' ? S.bedGain : 1);
+    for (let i = 0; i < l.length && o + i < n; i++) { out[2 * (o + i)] += g * l[i]; out[2 * (o + i) + 1] += g * r[i]; } });
   return out;
 }
 
-// ---------- ITU-R BS.1770 integrated loudness, mono, 48 kHz
+// ---------- ITU-R BS.1770 integrated loudness, stereo (channel weights 1), 48 kHz; x interleaved
 function biquad(x, b, a) { const y = new Float64Array(x.length); let x1 = 0, x2 = 0, y1 = 0, y2 = 0;
   for (let i = 0; i < x.length; i++) { const v = b[0] * x[i] + b[1] * x1 + b[2] * x2 - a[1] * y1 - a[2] * y2; x2 = x1; x1 = x[i]; y2 = y1; y1 = v; y[i] = v; } return y; }
 function lufs(x) {
-  let y = biquad(x, [1.53512485958697, -2.69169618940638, 1.19839281085285], [1, -1.69065929318241, 0.73248077421585]);
-  y = biquad(y, [1, -2, 1], [1, -1.99004745483398, 0.99007225036621]);
+  const n = x.length >> 1, chs = [0, 1].map(c => { const ch = new Float64Array(n); for (let i = 0; i < n; i++) ch[i] = x[2 * i + c]; return ch; });
+  const ys = chs.map(ch => biquad(biquad(ch, [1.53512485958697, -2.69169618940638, 1.19839281085285], [1, -1.69065929318241, 0.73248077421585]), [1, -2, 1], [1, -1.99004745483398, 0.99007225036621]));
   const N = Math.round(0.4 * SR), hop = Math.round(0.1 * SR), z = [];
-  for (let s = 0; s + N <= y.length; s += hop) { let e = 0; for (let i = s; i < s + N; i++) e += y[i] * y[i]; z.push(e / N); }
+  for (let s = 0; s + N <= n; s += hop) { let e = 0; for (const y of ys) for (let i = s; i < s + N; i++) e += y[i] * y[i]; z.push(e / N); }
   const L = q => -0.691 + 10 * Math.log10(q);
   let g = z.filter(q => L(q) > -70); if (!g.length) return -Infinity;
   const rel = L(g.reduce((a, b) => a + b, 0) / g.length) - 10; g = g.filter(q => L(q) > rel);
@@ -166,10 +172,11 @@ function lufs(x) {
 let ac = null, src = null, playing = null, t0 = 0, video = null;
 function ctx() { if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume(); return ac; }
 function stopSound() { if (src) { try { src.stop(); } catch (e) {} src.onended = null; src = null; } if (video) video.pause(); playing = null; draw(); }
-function play(x, tag) { stopSound(); const c = ctx(), b = c.createBuffer(1, x.length, SR);
+function play(x, tag) { stopSound(); const c = ctx(), n = x.length >> 1, b = c.createBuffer(2, n, SR);
   let pk = 0; for (let i = 0; i < x.length; i++) pk = Math.max(pk, Math.abs(x[i]));
   if (pk > 0.98) { const k = 0.98 / pk; x = x.map(v => v * k); $('rp-status').textContent = 'turned the whole mix down ' + (20 * Math.log10(1 / k)).toFixed(1) + ' dB so it does not clip; the balance is unchanged'; } else $('rp-status').textContent = '';
-  b.copyToChannel(x, 0);
+  const L = new Float32Array(n), R = new Float32Array(n); for (let i = 0; i < n; i++) { L[i] = x[2 * i]; R[i] = x[2 * i + 1]; }
+  b.copyToChannel(L, 0); b.copyToChannel(R, 1);
   src = c.createBufferSource(); src.buffer = b; src.connect(c.destination); src.start(c.currentTime + 0.03); t0 = c.currentTime + 0.03; playing = { tag };
   src.onended = () => { src = null; playing = null; draw(); }; tick(); }
 function nowT() { if (playing && playing.tag === 'film' && video) return video.currentTime - SEG_START; if (playing && ac) return ac.currentTime - t0; return null; }
@@ -234,13 +241,13 @@ const STEPS = [
       current = { cv, o: { lanes: lanesFor(P, ['bed', 'laugh']) } };
     } },
   { n: 3, name: 'balance',
-    says: 'Then the balance, which the page says is set <b>by meter</b>: the bed <q>well under</q> the voices, the whole thing brought to −16 LUFS. Here is the bed’s fader, starting at the Shop’s level, with a loudness meter on the voices and on the bed while the voices speak. Move it and watch the gap between them; play it and hear where “under” stops being under.',
+    says: 'Then the balance, which the page says is set <b>by meter</b>: the bed <q>well under</q> the voices, the whole thing brought to −16 LUFS. Here is the bed’s fader, starting at the Shop’s level, with a loudness meter on the voices and on the bed while the voices speak, both in stereo as the Shop mixed them. Move it and watch the gap between them; play it and hear where “under” stops being under.',
     back: 'At 0 dB the mix is step 2’s, at the Shop’s gains. The −16 LUFS is the Shop’s last pass (ffmpeg loudnorm) over the whole segment, and here is measured from the film, not redone in the piece.',
     build(body, P) {
       const { p, cv } = panel('the bed against the voices', '');
       body.append(p);
       const span = [P.ev[0].at, P.ev[3].at + len(P.ev[3].key)], a = Math.round(span[0] * SR), b = Math.round(span[1] * SR);
-      const v = mix(P.ev, P.end, ['voice']).subarray(a, b), bd = mix(P.ev, P.end, ['bed']).subarray(a, b);
+      const v = mix(P.ev, P.end, ['voice']).subarray(2 * a, 2 * b), bd = mix(P.ev, P.end, ['bed']).subarray(2 * a, 2 * b);
       const lv = lufs(v), lb = lufs(bd), gap = lv - lb; S.meter = { lv, lb, gap };
       const lab = el('b', {}, (dbOf(S.bedGain) >= 0 ? '+' : '') + dbOf(S.bedGain).toFixed(1) + ' dB' + (S.bedGain === 1 ? ' · the Shop’s' : ''));
       const inp = el('input', { type: 'range', min: -24, max: 18, step: 0.5, 'aria-label': 'bed fader' }); inp.value = dbOf(S.bedGain);
@@ -250,7 +257,8 @@ const STEPS = [
       body.append(el('div', { class: 'rp-read' },
         el('span', {}, 'voices, in this rebuild ', el('b', {}, lv.toFixed(1) + ' LUFS')),
         el('span', {}, 'bed under them ', el('b', {}, lb.toFixed(1) + ' LUFS')),
-        el('span', { class: gap < 6 ? 'rp-flag' : '' }, 'the bed sits ', el('b', {}, gap.toFixed(1) + ' LU'), gap >= 0 ? ' under' : ' over'),
+        el('span', { class: gap < 3 ? 'rp-flag' : '' }, 'the bed sits ', el('b', {}, gap.toFixed(1) + ' LU'), gap >= 0 ? ' under' : ' over'),
+        el('span', {}, 'through the Shop\u2019s own ffmpeg chain, at its levels: ', el('b', {}, MEASURED.s2_balance.bed_under_voice_lu.toFixed(1) + ' LU')),
         el('span', {}, 'the Shop’s finished segment ', el('b', {}, L.s2_problem.toFixed(1) + ' LUFS'), ', the whole film ', el('b', {}, L.film_audio.toFixed(1)))));
       body.append(el('div', { class: 'rp-eqs' },
         el('div', { class: 'rp-eq', html: 'L<sub>K</sub> = −0.691 + 10 log<sub>10</sub> ⟨ z ⟩<sub>gated</sub>' }),
@@ -282,8 +290,8 @@ const STEPS = [
       body.append(seg);
       const worst = Math.max(...s2.lag_measured_s), worstJoin = Math.max(...M.joins.map(j => Math.abs(j.off_ms)));
       body.append(el('div', { class: 'rp-verdict', html:
-        '<b>At the scale of a segment, the claim holds.</b> Every one of the film’s five pictures is as long as its sound to within ' + M.film.worst_segment_ms.toFixed(0) + ' ms, less than one frame (' + M.film.frame_ms + ' ms), and each cut between them falls within ' + worstJoin.toFixed(0) + ' ms of the join in the sound. The sound was finished first and the picture made to its measured length. ' +
-        '<b>Inside a segment, it was stretched, not synced.</b> Each Manim scene was designed at a nominal length (29 s for this one) and every beat scaled by one factor, here ×' + s2.stretch.toFixed(3) + ', to fill the sound. So the picture drifts against its lines, from ' + Math.abs(Math.min(...s2.lag_measured_s)).toFixed(2) + ' s early to ' + worst.toFixed(1) + ' s late in this segment; the foreman starts saying \u201cnine hundred and thirteen\u201d at ' + s2.foreman_says_913_at_s.toFixed(1) + ' s and the counter comes to rest on 913 at ' + s2.counter_rests_measured_s.toFixed(1) + ' s, just after his last word. ' +
+        '<b>At the scale of a segment, the claim holds.</b> Every one of the film’s five pictures is as long as its sound to within ' + M.film.worst_segment_ms.toFixed(0) + ' ms, less than one frame (' + M.film.frame_ms + ' ms), and each cut between them falls within about 20 ms of the join in the sound (' + worstJoin.toFixed(0) + ' ms by the picture\u2019s content here; 21 ms by packet timestamps). The sound was finished first and the picture made to its measured length. ' +
+        '<b>Inside a segment, it was stretched, not synced.</b> Each Manim scene was designed at a nominal length (29 s for this one) and every beat scaled by one factor, here ×' + s2.stretch.toFixed(3) + ', to fill the sound. So the beats sit up to about ' + Math.max(...s2.lag_measured_s.map(Math.abs)).toFixed(1) + ' s off their lines, early for some and late for others; the foreman starts saying \u201cnine hundred and thirteen\u201d at ' + s2.foreman_says_913_at_s.toFixed(1) + ' s and the counter comes to rest on 913 at ' + s2.counter_rests_measured_s.toFixed(1) + ' s, just after his last word. ' +
         'Everything the picture spells out here, the stamp, “no typed link in the frontmatter”, the 913, the voices have already said, apart from the names of the two example pages; the one thing the picture says differently is the wikilink’s line, which is shown as <q>…I link to you. [[in my prose]].</q> while it says <q>I mention you</q>. Did the picture tell you anything the sound hadn’t?' }));
     } },
 ];
@@ -305,7 +313,7 @@ window.addEventListener('resize', draw);
 (function sigil() { const s = $('rp-sigil'); let d = ''; for (let i = 0; i <= 160; i++) { const t = 2 * Math.PI * i / 160; d += (i ? 'L' : 'M') + (9 + 7.5 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 + 7.5 * Math.sin(2 * t)).toFixed(2); } s.innerHTML = '<path d="' + d + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
 
 $('rp-status').textContent = 'loading the stems…';
-loadAll().then(() => { $('rp-status').textContent = ''; PLAN = plan(); build(); window.__rp = { S, STEPS, PLAN, mix, lufs, BUF, len, SR, MEASURED, goTo }; })
+loadAll().then(() => { $('rp-status').textContent = ''; PLAN = plan(); build(); window.__rp = { S, STEPS, PLAN, mix, lufs, BUF, ST, len, SR, MEASURED, goTo }; })
   .catch(e => { $('rp-status').textContent = 'could not load the stems: ' + e.message; throw e; });
 </script>
 </body>

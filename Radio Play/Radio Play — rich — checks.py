@@ -12,7 +12,8 @@ Run:  python3 "Radio Play — rich — checks.py" [--gather]
       --gather copies and converts the media first (needs the scratch folder on this Mac).
 Needs: numpy, soundfile, ffmpeg/ffprobe on PATH.
 Nothing here is synthesised anew: every voice is a Kokoro take the Shop rendered in June,
-copied unchanged; the SFX are converted to mono 16-bit 44.1 kHz to keep the face small.
+copied unchanged; the SFX are converted to 16-bit 44.1 kHz, kept stereo as the Shop mixed them
+(a mono fold-down set the bed about 4 dB and the laugh about 3.4 dB under the Shop's balance: the challenge, 2026-11-03).
 """
 from __future__ import annotations
 import json, re, shutil, subprocess, sys
@@ -50,7 +51,7 @@ def gather():
     for n in LINES:
         shutil.copy2(SRC / "audio" / "raw" / f"{n}.wav", STEMS / f"{n}.wav")
     for n in SFX:
-        run(["ffmpeg", "-y", "-v", "error", "-i", str(SRC / "sfx" / f"{n}.wav"), "-ac", "1",
+        run(["ffmpeg", "-y", "-v", "error", "-i", str(SRC / "sfx" / f"{n}.wav"), "-ac", "2",
              "-ar", "44100", "-sample_fmt", "s16", str(STEMS / f"{n}.wav")])
     print("gathered into", RF)
 
@@ -73,13 +74,29 @@ def lufs_array(x, sr):
         tmp.unlink()
 
 
+UPMIX = 0.70710678  # ffmpeg's aformat=channel_layouts=stereo puts a mono take at -3 dB on each side
+
+
 def load(name, sr=48000):
+    """A stem as the Shop's chain hears it: stereo at 48 kHz, a mono take spread at -3 dB per side."""
     x, r = sf.read(STEMS / f"{name}.wav", dtype="float32", always_2d=True)
-    x = x.mean(axis=1)
+    if x.shape[1] == 1:
+        x = np.repeat(x * UPMIX, 2, axis=1)
     if r != sr:
-        n = int(round(len(x) * sr / r))
-        x = np.interp(np.arange(n) * r / sr, np.arange(len(x)), x).astype(np.float32)
+        n = int(round(len(x) * sr / r)); t = np.arange(n) * r / sr
+        x = np.stack([np.interp(t, np.arange(len(x)), x[:, c]) for c in range(2)], axis=1).astype(np.float32)
     return x
+
+
+def shop_chain(elements, total, out):
+    """build_audio.py's own ffmpeg chain, stopped before loudnorm: [(stem, offset_s, gain)] -> stereo wav."""
+    inputs, filters, labels = [], [], []
+    for i, (name, off, vol) in enumerate(elements):
+        inputs += ["-i", str(STEMS / f"{name}.wav")]; ms = int(round(off * 1000))
+        filters.append(f"[{i}:a]aresample=48000,aformat=channel_layouts=stereo,adelay={ms}|{ms},volume={vol}[a{i}]")
+        labels.append(f"[a{i}]")
+    fc = ";".join(filters) + f";{''.join(labels)}amix=inputs={len(elements)}:duration=longest:normalize=0,atrim=0:{total}[out]"
+    run(["ffmpeg", "-y", "-v", "error", *inputs, "-filter_complex", fc, "-map", "[out]", "-c:a", "pcm_f32le", str(out)])
 
 
 def speech(x, sr, th_db=-40.0, win_s=0.01):
@@ -214,24 +231,41 @@ def main():
     # 3. loudness: the Shop's segments, and voice against bed in segment two before loudnorm
     R["loudness"] = {s: round(lufs(SRC / "segments" / f"{s}.wav"), 2) for s in SEGS}
     R["loudness"]["film_audio"] = round(lufs(RF / "The Unsung Path — audio.m4a"), 2)
-    sr = 48000; n = int(total * sr) + sr
-    voice = np.zeros(n, np.float32); bed = np.zeros(n, np.float32)
+    # the balance, measured through build_audio.py's own stereo chain (voices only, bed only), before loudnorm
+    sr = 48000; a, b = onsets[0], onsets[3] + D[3]
+    tv, tb = HERE / "_chain_voice.wav", HERE / "_chain_bed.wav"
+    try:
+        shop_chain([(n_, t, V_VO) for n_, t in zip(LINES[2:6], onsets)] + [("bed_low", 0.0, 0.0)], total, tv)
+        shop_chain([("bed_low", 0.0, V_BED)], total, tb)
+        cv = lufs(["-ss", f"{a}", "-to", f"{b}", "-i", str(tv)]); cb = lufs(["-ss", f"{a}", "-to", f"{b}", "-i", str(tb)])
+    finally:
+        for t in (tv, tb):
+            t.exists() and t.unlink()
+    # the same, rebuilt in numpy the way the pieces do (stereo, mono takes at -3 dB a side)
+    n = int(total * sr) + sr
+    voice = np.zeros((n, 2), np.float32); bed = np.zeros((n, 2), np.float32)
     for name, t in zip(LINES[2:6], onsets):
-        x = load(name); i = int(t * sr); voice[i:i + len(x)] += V_VO * x
+        x = load(name); i = int(round(t * sr)); voice[i:i + len(x)] += V_VO * x
     x = load("bed_low"); bed[:len(x)] += V_BED * x
-    span = slice(int(onsets[0] * sr), int((onsets[3] + D[3]) * sr))
+    span = slice(int(a * sr), int(b * sr))
     lv, lb = lufs_array(voice[span], sr), lufs_array(bed[span], sr)
-    R["s2_balance"] = {"voice_lufs": round(lv, 2), "bed_lufs": round(lb, 2), "bed_under_voice_lu": round(lv - lb, 2),
-                       "span_s": [round(onsets[0], 3), round(onsets[3] + D[3], 3)]}
+    R["s2_balance"] = {"chain_voice_lufs": round(cv, 2), "chain_bed_lufs": round(cb, 2), "bed_under_voice_lu": round(cv - cb, 2),
+                       "rebuild_voice_lufs": round(lv, 2), "rebuild_bed_lufs": round(lb, 2), "rebuild_bed_under_voice_lu": round(lv - lb, 2),
+                       "span_s": [round(a, 3), round(b, 3)]}
 
     # 4. the laugh, on the joke or under it: segment four's punchline, "Don't sound so shocked."
+    # power summed over both channels, as the Shop's stereo mix carries them
     p = load("s4_demo__05__FOREMAN"); lg = load("laugh")
-    def rms_db(x): return 20 * np.log10(np.sqrt(np.mean(x.astype(np.float64) ** 2)) + 1e-12)
-    pv = V_VO * p
-    under = V_LAUGH * lg[:len(pv)]
+    def pdb(x): return 10 * np.log10(np.mean(np.sum(x.astype(np.float64) ** 2, axis=1)) + 1e-24)
+    pv = V_VO * p; under = V_LAUGH * lg[:len(pv)]
+    w0, w1 = int(round(T[LINES[9]]["first_word_s"] * sr)), int(round(T[LINES[9]]["last_word_end_s"] * sr))
+    lw0 = int(round(T["laugh"]["first_word_s"] * sr))   # the laugh's first sound laid on the first word
+    spoken_l = V_LAUGH * lg[lw0:lw0 + (w1 - w0)]
     R["laugh"] = {"punchline_s": round(len(p) / sr, 3),
-                  "under": {"voice_over_laugh_db": round(rms_db(pv) - rms_db(under), 2)},
-                  "on": {"voice_over_laugh_db": None, "gap_after_s": 0.1}}
+                  "under": {"voice_over_laugh_db": round(pdb(pv) - pdb(under), 2),
+                            "spoken_voice_over_laugh_db": round(pdb(pv[w0:w1]) - pdb(spoken_l), 2),
+                            "about": "whole take against the laugh from the take's start; spoken: the words against the laugh starting with them"},
+                  "on": {"voice_over_laugh_db": None}}
 
     # 5. the blind pair: identical takes, the only difference a held beat
     R["pair"] = {"rushed_heard_s": 0.1, "held_heard_s": R["heard"]["s4_exchange"]["heard_s"][2], "shop_set_s": 0.3}
@@ -239,7 +273,7 @@ def main():
     OUT.write_text(json.dumps(R, indent=1) + "\n")
     # copy what the picture piece prints into it, between its markers
     piece = HERE / "Radio Play — rich — audio first, picture last.html"
-    keep = {k: R[k] for k in ("segments", "film", "joins", "loudness", "s2", "s2_balance", "heard")}
+    keep = {k: R[k] for k in ("segments", "film", "joins", "loudness", "s2", "s2_balance", "heard", "laugh")}
     html = piece.read_text()
     html = re.sub(r"/\*MEASURED\*/.*?/\*END\*/", lambda m: "/*MEASURED*/" + json.dumps(keep, separators=(",", ":")) + "/*END*/",
                   html, count=1, flags=re.S)

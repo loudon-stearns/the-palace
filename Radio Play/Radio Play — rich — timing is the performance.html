@@ -113,7 +113,7 @@ const T = {
   f2: { file: 's4_demo__05__FOREMAN', who: 'FOREMAN', text: 'Don’t sound so shocked.' },
 };
 const LAUGH = 'laugh';
-const SR = 48000, V_VO = 0.92, V_LAUGH = 0.62, MASTER = 1.6;   // the Kokoro takes peak low; one gain for every render   // the Shop's gains, build_audio.py
+const SR = 48000, V_VO = 0.92, V_LAUGH = 0.62, MASTER = 1.5;   // the Kokoro takes peak low; one gain for every render   // the Shop's gains, build_audio.py
 const SHOP_SET = { beat: 0.6, gaps: [0.4, 0.4, 0.3], laughAfter: 0.1 };   // what build_audio.py set, between the files
 let SHOP = null;   // the same cut, as heard between the words: filled in once the takes are read
 const EXCH = ['k1', 'f1', 'k2', 'f2'];
@@ -128,22 +128,27 @@ function parseWav(buf) {
     p += 8 + len + (len & 1);
   }
   if (!fmt || !data || fmt.bits !== 16) throw new Error('expects 16-bit PCM WAV');
-  const n = Math.floor(data.len / 2 / fmt.ch), out = new Float32Array(n);
-  for (let i = 0; i < n; i++) { let s = 0; for (let c = 0; c < fmt.ch; c++) s += v.getInt16(data.off + (i * fmt.ch + c) * 2, true); out[i] = s / fmt.ch / 32768; }
-  return { sr: fmt.sr, x: out };
+  const n = Math.floor(data.len / 2 / fmt.ch), chs = [];
+  for (let c = 0; c < fmt.ch; c++) { const x = new Float32Array(n); for (let i = 0; i < n; i++) x[i] = v.getInt16(data.off + (i * fmt.ch + c) * 2, true) / 32768; chs.push(x); }
+  return { sr: fmt.sr, chs };
 }
-function toSR(w) { // linear resample to the timeline's 48 kHz
-  if (w.sr === SR) return w.x;
-  const n = Math.round(w.x.length * SR / w.sr), out = new Float32Array(n), r = w.sr / SR;
-  for (let i = 0; i < n; i++) { const t = i * r, k = Math.floor(t), f = t - k; out[i] = (w.x[k] || 0) * (1 - f) + (w.x[k + 1] || 0) * f; }
+function toSR(x, sr) { // linear resample to the timeline's 48 kHz
+  if (sr === SR) return x;
+  const n = Math.round(x.length * SR / sr), out = new Float32Array(n), r = sr / SR;
+  for (let i = 0; i < n; i++) { const t = i * r, k = Math.floor(t), f = t - k; out[i] = (x[k] || 0) * (1 - f) + (x[k + 1] || 0) * f; }
   return out;
 }
-const BUF = {};
+// Each stem in stereo, the way the Shop's ffmpeg chain heard it: a mono Kokoro take at -3 dB on each side
+// (aformat=channel_layouts=stereo), the Stable Audio laugh in its own two channels. BUF is a mono view for
+// drawing and for finding the words.
+const UPMIX = Math.SQRT1_2, ST = {}, BUF = {};
 async function loadAll() {
   const names = [...new Set(Object.values(T).map(t => t.file).concat([LAUGH]))];
   await Promise.all(names.map(async n => {
     const r = await fetch(DIR + n + '.wav'); if (!r.ok) throw new Error(n + '.wav: ' + r.status);
-    BUF[n] = toSR(parseWav(await r.arrayBuffer()));
+    const w = parseWav(await r.arrayBuffer()), chs = w.chs.map(x => toSR(x, w.sr));
+    ST[n] = chs.length === 1 ? [chs[0].map(v => v * UPMIX), chs[0].map(v => v * UPMIX)] : [chs[0], chs[1]];
+    BUF[n] = chs.length === 1 ? chs[0] : chs[0].map((v, i) => (v + chs[1][i]) / 2);
   }));
 }
 const fileOf = key => key in T ? T[key].file : key;
@@ -166,15 +171,15 @@ function shopHeard() {
     laughAfter: tail('f2') + SHOP_SET.laughAfter + on(LAUGH) };
 }
 
-// ---------- the timeline: events {key, at, gain} summed at 48 kHz
+// ---------- the timeline: events {key, at, gain} summed at 48 kHz, stereo; x is the two channels interleaved
 function render(events) {
-  const end = Math.max(...events.map(e => e.at + dur(e.key))) + 0.4;
-  const out = new Float32Array(Math.ceil(end * SR));
+  const end = Math.max(...events.map(e => e.at + dur(e.key))) + 0.4, n = Math.ceil(end * SR);
+  const out = new Float32Array(2 * n);
   for (const e of events) {
-    const x = BUF[e.key in T ? T[e.key].file : e.key], o = Math.round(e.at * SR), g = e.gain * MASTER;
-    for (let i = 0; i < x.length && o + i < out.length; i++) out[o + i] += g * x[i];
+    const [l, r] = ST[fileOf(e.key)], o = Math.round(e.at * SR), g = e.gain * MASTER;
+    for (let i = 0; i < l.length && o + i < n; i++) { out[2 * (o + i)] += g * l[i]; out[2 * (o + i) + 1] += g * r[i]; }
   }
-  return { events, x: out, end };
+  return { events, x: out, n, end };
 }
 // lay takes so the silence between one take's last word and the next one's first is exactly silences[i]
 function sequence(keys, silences, firstWord = 0.5) {
@@ -187,14 +192,16 @@ function exchange(silences, laughAfter) {
   if (laughAfter !== null) ev.push({ key: LAUGH, at: Math.round((lastWord + laughAfter - on(LAUGH)) * SR) / SR, gain: V_LAUGH });
   return ev;
 }
-function rmsDb(x, a, b) { let s = 0; for (let i = a; i < b; i++) s += x[i] * x[i]; return 10 * Math.log10(s / Math.max(1, b - a) + 1e-24); }
+// power summed over both channels, as a stereo mix carries it
+function powDb(key, gain, a, b) { const [l, r] = ST[fileOf(key)]; let s = 0; for (let i = a; i < b; i++) s += (l[i] || 0) * (l[i] || 0) + (r[i] || 0) * (r[i] || 0); return 10 * Math.log10(gain * gain * s / Math.max(1, b - a) + 1e-24); }
 
 // ---------- sound: one buffer at a time
 let ac = null, src = null, playing = null, t0 = 0;
 function ctx() { if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume(); return ac; }
 function stopSound() { if (src) { try { src.stop(); } catch (e) {} src.onended = null; src = null; } playing = null; draw(); }
 function play(r, tag, from = 0) {
-  stopSound(); const c = ctx(); const b = c.createBuffer(1, r.x.length, SR); b.copyToChannel(r.x, 0);
+  stopSound(); const c = ctx(); const b = c.createBuffer(2, r.n, SR), L = new Float32Array(r.n), R = new Float32Array(r.n);
+  for (let i = 0; i < r.n; i++) { L[i] = r.x[2 * i]; R[i] = r.x[2 * i + 1]; } b.copyToChannel(L, 0); b.copyToChannel(R, 1);
   src = c.createBufferSource(); src.buffer = b; src.connect(c.destination); src.start(c.currentTime + 0.03, from);
   t0 = c.currentTime + 0.03 - from; playing = { r, tag };
   src.onended = () => { src = null; playing = null; draw(); };
@@ -285,7 +292,7 @@ const STEPS = [
       current = { r, cv, opts: { gaps: gapsOf(r), span: 22 } };
     } },
   { n: 4, name: 'the laugh',
-    says: 'The page says the audience track goes <b><q>on the joke, not under it</q></b>. Here is the exchange at the Shop’s gaps with its laugh, which you can slide. Pull it left and it starts while the foreman is still saying the punchline; the readout measures how much of the line it covers and how loud the line is against it there. In the Shop’s cut the laughter begins about 630 ms after the last word: 100 ms set after the file, plus the quiet at the end of the take.',
+    says: 'The page says the audience track goes <b><q>on the joke, not under it</q></b>. Here is the exchange at the Shop’s gaps with its laugh, which you can slide. Pull it left and it starts while the foreman is still saying the punchline; the readout measures how much of the line it covers and how loud the line is against it there, both in stereo as the Shop mixed them. Laid right on the first word, the laughter sits about 9 dB over the line. In the Shop’s cut the laughter begins about 630 ms after the last word: 100 ms set after the file, plus the quiet at the end of the take.',
     back: 'The turns are step 3’s at ×1, the Shop’s cut. The laugh is a Stable Audio 3 render the Shop made for this play, at its own level, 0.62 against the voices’ 0.92.',
     build(body) {
       const r = render(exchange(SHOP.gaps, S.laugh));
@@ -293,10 +300,8 @@ const STEPS = [
       const ovA = Math.max(plA, Math.round((la.at + on(LAUGH)) * SR)), ovB = plB, ov = Math.max(0, ovB - ovA) / SR;
       let readout;
       if (ov > 0.01) {
-        const v = BUF[T.f2.file], l = BUF[LAUGH], vx = new Float32Array(ovB - ovA), lx = new Float32Array(ovB - ovA);
-        const pS = Math.round(pl.at * SR), lS = Math.round(la.at * SR);
-        for (let i = 0; i < vx.length; i++) { vx[i] = V_VO * v[ovA - pS + i]; lx[i] = V_LAUGH * (l[ovA - lS + i] || 0); }
-        const d = rmsDb(vx, 0, vx.length) - rmsDb(lx, 0, lx.length);
+        const pS = Math.round(pl.at * SR), lS = Math.round(la.at * SR), w = ovB - ovA;
+        const d = powDb('f2', V_VO, ovA - pS, ovA - pS + w) - powDb(LAUGH, V_LAUGH, ovA - lS, ovA - lS + w);
         readout = [el('span', {}, 'laugh starts ', el('b', {}, (S.laugh >= 0 ? '+' : '') + Math.round(S.laugh * 1000) + ' ms'), ' from the last word'),
           el('span', {}, 'covers ', el('b', {}, Math.round(100 * ov / (off('f2') - on('f2'))) + '%'), ' of “Don’t sound so shocked.”'),
           el('span', { class: d < 0 ? 'rp-flag' : '' }, 'the line is ', el('b', {}, (d >= 0 ? '+' : '') + d.toFixed(1) + ' dB'), ' against the laugh there' + (d < 0 ? ': under it' : ''))];
@@ -312,7 +317,7 @@ const STEPS = [
       current = { r, cv, opts: { gaps: gapsOf(r), span: 22 } };
     } },
   { n: 5, name: 'the test',
-    says: 'Two renders of the whole exchange, <b>A</b> and <b>B</b>, in an order the piece chose at random and won’t tell you yet. Same four takes, same levels, the first two turns and the laugh as the Shop cut them. One thing differs: the silence before <q>Don’t sound so shocked</q>. One rushes it, 100 ms between the words; one holds it for 1.25 seconds, which is what the Shop’s cut gives. Play both, as often as you like, and say which one lands the joke.',
+    says: 'Two renders of the whole exchange, <b>A</b> and <b>B</b>, in an order the piece chose at random and won’t tell you yet. Same four takes, same levels, the same first two turns and the same laugh. One thing differs: the silence before <q>Don’t sound so shocked</q>. One rushes it, 100 ms between the words; one holds it for 1.25 seconds. Play both, as often as you like, and say which one lands the joke.',
     back: 'Every earlier step is inside these two: the cast, a beat, the turns as the Shop cut them, the laugh on the joke. Only one silence has moved, once.',
     build(body) {
       if (!S.pair) {
@@ -347,7 +352,7 @@ const STEPS = [
         const held = P.heldIs, rushed = held === 'A' ? 'B' : 'A';
         const { p, cv } = canvasPanel('the held render, ' + held, P.held.end.toFixed(2) + ' s');
         const yours = S.pick === 'same' ? 'You heard no difference worth choosing between.' : 'You chose <b>' + S.pick + '</b>, the ' + (S.pick === held ? 'held beat (' + Math.round(SHOP.gaps[2] * 1000) + ' ms, the Shop’s)' : 'rushed beat (100 ms)') + '.';
-        body.append(el('div', { class: 'rp-verdict', html: yours + ' <b>' + held + '</b> was the held one, <b>' + rushed + '</b> the rushed. Each render is three turns that stay put plus a punchline and its laugh that move together; the engine above compared those parts sample by sample and found no difference at all. The punchline simply arrives ' + Math.round(c.diffMs) + ' ms later in one than the other. So whatever changed for you between them, a laugh, a wince, nothing at all, came from that much silence and nothing else. That is the page’s claim made into something you can try; whether the held beat is the funnier one is yours to say, and the piece won’t answer for you. The held one is the Shop’s own cut. Reload to draw the order again.' }));
+        body.append(el('div', { class: 'rp-verdict', html: yours + ' <b>' + held + '</b> was the held one, <b>' + rushed + '</b> the rushed. Each render is three turns that stay put plus a punchline and its laugh that move together; the engine above compared those parts sample by sample, in both channels, and ' + (c.maxHead === 0 && c.maxTail === 0 ? 'found no difference at all' : 'found differences up to ' + Math.max(c.maxHead, c.maxTail).toExponential(1)) + '. The punchline simply arrives ' + Math.round(c.diffMs) + ' ms later in one than the other. So whatever changed for you between them, a laugh, a wince, nothing at all, came from that much silence and nothing else. That is the page’s claim made into something you can try; whether the held beat is the funnier one is yours to say, and the piece won’t answer for you. The held one is the Shop’s own cut. Reload to draw the order again.' }));
         body.append(p); current = { r: P.held, cv, opts: { gaps: gapsOf(P.held), span: 22 } };
       } else current = null;
     } },
@@ -369,7 +374,7 @@ window.addEventListener('resize', draw);
 (function sigil() { const s = $('rp-sigil'); let d = ''; for (let i = 0; i <= 160; i++) { const t = 2 * Math.PI * i / 160; d += (i ? 'L' : 'M') + (9 + 7.5 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 + 7.5 * Math.sin(2 * t)).toFixed(2); } s.innerHTML = '<path d="' + d + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
 
 $('rp-status').textContent = 'loading the takes…';
-loadAll().then(() => { for (const n in BUF) SPEECH[n] = speechOf(BUF[n]); SHOP = shopHeard(); S.beat = SHOP.beat; S.laugh = SHOP.laughAfter; $('rp-status').textContent = ''; build(); window.__rp = { S, STEPS, render, exchange, sequence, BUF, SPEECH, SHOP, dur, on, off, rmsDb, SR, V_VO, V_LAUGH, T, goTo }; })
+loadAll().then(() => { for (const n in BUF) SPEECH[n] = speechOf(BUF[n]); SHOP = shopHeard(); S.beat = SHOP.beat; S.laugh = SHOP.laughAfter; $('rp-status').textContent = ''; build(); window.__rp = { S, STEPS, render, exchange, sequence, BUF, ST, SPEECH, SHOP, dur, on, off, powDb, SR, V_VO, V_LAUGH, T, goTo }; })
   .catch(e => { $('rp-status').textContent = 'could not load the takes: ' + e.message; throw e; });
 </script>
 </body>
