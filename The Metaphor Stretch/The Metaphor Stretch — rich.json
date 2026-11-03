@@ -1,0 +1,113 @@
+{
+ "title": "The Metaphor Stretch — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[The Metaphor Stretch]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  },
+  {
+   "target": "[[Crystal Synthesizer]]",
+   "type": "connects-to",
+   "label": "the-instrument-it-plays"
+  },
+  {
+   "target": "[[Progressive Staging]]",
+   "type": "connects-to",
+   "label": "each-piece-walks-up"
+  }
+ ],
+ "forward_vector": "I am the manifest of The Metaphor Stretch's rich face, its first round, a Sketch and still a proposal: two walks on the Crystal Synthesizer's own engine, ported from its Python, that end on measurements — the beating and the sweep pulled apart to ask which part of the sound is the crystal, and the four Decision Points taken in the lesson's order until a fifth, unnamed choice turns up — beside the crystal-rings strikes that put the decay rate to physics. I grow when the page is enriched again; I never hold the entry's words.",
+ "entry": "The Metaphor Stretch",
+ "tier": "sketch",
+ "made": "2026-11-03",
+ "round": 1,
+ "sections": [
+  {
+   "heading": "Confirmed Instances",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "made": "2026-11-03",
+   "pieces": [
+    {
+     "file": "/Projects/Crystal Synthesizer/crystal-rings/strike_vs_ring.wav",
+     "origin": "gathered",
+     "title": "the taste decay, then the physics ring · crystal-rings, 2026-10-14",
+     "place": "margin",
+     "caption": "**Decision Point 3, decided two ways.** Seven minerals at A2, in turn: diamond, fluorite, emerald, ruby, amethyst, topaz, labradorite. Each plays the summer proof's strike first, every mineral given the same 5.5-second ring shortened by mode number, a rate chosen by taste; then the crystal-rings resonator bank, each mode's ring time taken from the mineral's Raman line width (Q = line position ÷ width, τ = Q ÷ πf). Diamond stays a bell; the rest turn to knocks. Only three of the widths are measured values; the rest are estimates.",
+     "near": "The decay exponent is where the instrument designer's hand touches the physics"
+    },
+    {
+     "file": "The Metaphor Stretch — rich — four choices.html",
+     "origin": "made",
+     "by": "the Maker · crystal_synth.py ported to the browser, Web Audio buffers",
+     "height": 900,
+     "title": "four choices, one crystal · a walk in five steps",
+     "caption": "**The four Decision Points as the lesson the Forward Vectors ask for, then a test of the count.** Resolution first, the most audible; then the Anchor, three crystals landing three ways; then the Decay, with exponent 1 marked as what one measured Q gives; then the Fidelity Claim's three paths as three labelled renders, discrete, continuous, and the two separated. Last, with all four held still, the size of the grid the code computes its crystal on: under lowest mode it moves the cubic crystal's top from 1.1 to 8.3 kHz, and no Decision Point names it. The engine renders the instrument's Python sample for sample.",
+     "near": "This is the deepest stretch"
+    }
+   ],
+   "made_against": "967967197c6f",
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "The Honest Artifact",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "made": "2026-11-03",
+   "pieces": [
+    {
+     "file": "The Metaphor Stretch — rich — which part is the crystal.html",
+     "origin": "made",
+     "by": "the Maker · crystal_synth.py ported to the browser, Web Audio buffers",
+     "height": 1000,
+     "title": "which part is the crystal? · a walk in four steps",
+     "caption": "**Is the beating the crystal or the rendering, and is the sweep?** One struck partial, dying faster the higher it sits; two neighbours, whose beats are their gap in hertz; the whole crystal at 8 to 300 partials, each band's level drawn so the beating shows as ripple; and last five renders that pull the two apart. At N = 8 there is no beating at all and the brightness still falls by half over three seconds; with the decay exponent at 0 the beating at N = 300 is unchanged and the brightness does not fall. The sweep is the decay's, Decision Point 3; the beating is the bins', and rides on it. Noise per bin keeps the ripple as deep and loses its regularity. Measured on the instrument's own engine, in three crystals.",
+     "near": "At Decision Point 2, an interesting case arises"
+    }
+   ],
+   "made_against": "31426c12295c",
+   "stamped": "2026-11-03"
+  }
+ ],
+ "offers": [
+  {
+   "section": "Confirmed Instances",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "Decision Point 2 says N runs 'from 8 (bell-like instrument, discrete modes, audible beating) to 300+ (dense texture approaching the continuous DOS)'. On the instrument's own engine (crystal_synth.py, ported; its sine renders match the Python sample for sample) N = 8 has no beating: neighbouring partials sit 818 ¢ apart in the cubic crystal and no third-octave band ripples (0.2 to 0.4 dB in the cubic, orthorhombic and triclinic crystals). Beating arrives near N = 24 to 32 (1.7 to 2.8 dB, very regular, autocorrelation 0.87 to 0.95), is too fast to count through the middle (170 a second near 1 kHz at N = 24, 38 at N = 100), and at N = 300 slows to countable beats (about 13 a second near 1 kHz) while its regularity falls to 0.42 to 0.57; noise per bin is as deep (4.1 to 4.8 dB) and irregular (0.10 to 0.13). Proposed: 'N ranges from 8 (bell-like, discrete modes, no beating: neighbours more than half an octave apart) through a beating middle to 300+ (slow beating that loses its regularity, approaching the texture of the continuous DOS)'. The code's own Decision Point 2 comment ('Low N (8–20) → … Audible beating') carries the same slip."
+  },
+  {
+   "section": "The Honest Artifact",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "The section ties the descending sweep to the beating ('the direction of the effect … is physically real'). The piece pulls them apart. With the decay law and no beating (N = 8) the spectral centroid still falls from 0.15 to 3 s by 47 % (cubic), 95 % (orthorhombic) and 94 % (triclinic); with the decay exponent at 0 it falls by 0.0 % while the beating at N = 300 is unchanged (4.2 dB cubic, against 4.2 with the decay law). So the sweep is Decision Point 3's and the beating Decision Point 2's; the beating is true in tendency only because it rides a decay that is. Proposed: say the artifact is honest because of what it rides on. The section's other claim holds: near 1 kHz at N = 300 the beat rates are 12.7, 13.9 and 12.0 a second across the three crystals, set by the bins (and by the spread, see the grid offer), not the lattice."
+  },
+  {
+   "section": "Confirmed Instances",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "'Four stretch points were formally identified.' The code makes a choice none of the four names: how many cells across it computes the crystal (dos_cubic(n=40), dos_triclinic(n=28)). The softest mode is the longest wave that grid holds, so under lowest_mode the floor stays on 110 Hz and the top moves with the grid: 1.1 kHz at 10 cells, 2.3 at 20, 4.7 at the code's 40, 6.8 at 80, 8.3 at 120 (spread about 1.1 × n up to 40); under zone_boundary the grid moves the floor instead (1003, 232, 132 Hz at 10, 40, 120). The lowest partials sit at the grid's box ratios (1, 1.41, 1.73, 2). A crystal a centimetre across is some 10⁷ cells wide and would spread about as far. Two smaller unnamed cuts sit beside it: the 0.012 floor (in the cubic crystal it drops the softest mode once the grid passes about 77 cells) and the 88 Hz cut, which removes 17.5 to 21 % of the modes under the centroid anchor. Proposed: name the grid in Confirmed Instances or in the Forward Vectors' taxonomy question, as a fifth stretch or a hidden part of the Frequency Anchor. The code's Decision Point 1 comment, 'the spread is determined by physics', is the grid's doing."
+  },
+  {
+   "section": "Confirmed Instances",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "From reading, not from a piece: Decision Point 3 says the physics 'does not specify the rate'. The crystal-rings build (Projects/Crystal Synthesizer/crystal-rings/README.md, 2026-10-14) takes the rate from a measured Raman line width, Q = line position ÷ width and τ = Q ÷ πf, which is a decay exponent of exactly 1 at that Q; its ring times land within 0.4 to 2.2 % of Q ÷ πf. Only diamond's, amethyst's and fluorite's widths are measured (fluorite's from a powder); the others are estimates, and one Q is given to every mode. Proposed: 'The physics guarantees the direction. Where a line width has been measured it can give the rate too, as the crystal-rings build does; what stays the designer's is giving every mode one width, and the exponent wherever no width is known.'"
+  }
+ ]
+}

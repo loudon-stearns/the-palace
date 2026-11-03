@@ -1,0 +1,465 @@
+<!doctype html>
+<!--
+  title: The Metaphor Stretch — rich — four choices
+  born: 2026-11-03
+  links: [[The Metaphor Stretch]] (connects-to · rich-face-piece) · listed in [[The Metaphor Stretch — rich.json]] · [[Crystal Synthesizer]] (connects-to · the instrument it plays) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am "Confirmed Instances" as the lesson its Forward Vectors ask for: the Crystal Synthesizer's four Decision Points one at a time, most audible first — Resolution, Anchor, Decay, Fidelity — each step keeping the last, and the Fidelity Claim's three paths as three labelled renders. My last step tests the count: with all four held still, a choice none of them names still moves the instrument. I change only when that section does.
+  engine: a line-for-line port of crystal_synth.py (Projects/Generative Sample Libraries/crystal-audio/); its sine renders match the Python sample for sample. The engine and shared blocks are byte-identical in this face's two pieces.
+  checks: The Metaphor Stretch/The Metaphor Stretch — rich — check.mjs runs this file's own engine against the claims.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow"><!-- needs nothing of its host: no device, no storage, no files, no network but the fonts -->
+<title>The Metaphor Stretch — four choices, one crystal</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,.10); --accent-line:rgba(232,184,74,.5);
+    --coral:#ff6b5a; --blue:#4a8fff; --green:#6bd45a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .kicker svg { flex: none; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 4px 0 18px; border: 1px solid var(--border); border-radius: 2px; width: fit-content; max-width: 100%; }
+  .rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; background: transparent; padding: 7px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button[aria-current="step"] { background: var(--accent-soft); color: var(--accent); }
+  .step { display: none; }
+  .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .teach { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 0 0 12px; }
+  .back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin: 0 0 14px; }
+  .eqs { margin: 4px 0 16px; padding: 10px 14px; border-left: 1px solid var(--accent-line); background: var(--e1); max-width: 76ch; }
+  .eq { font-family: var(--serif); font-size: 20px; color: var(--fg1); font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+  .eq i { font-style: italic; }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .words:last-child { margin-bottom: 0; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; margin-bottom: 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: end; margin: 6px 0 12px; }
+  .controls label.sl { flex: 1 1 220px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: var(--accent-line); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.go { color: var(--accent); border-color: var(--accent-line); }
+  button[aria-pressed="true"] { color: var(--accent); border-color: var(--accent-line); background: var(--accent-soft); }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 8px 0 4px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .amber { color: var(--accent); } .coral { color: var(--coral); } .ok { color: var(--green); } .bad { color: var(--coral); }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; color: var(--fg2); width: 100%; max-width: 900px; margin: 6px 0 10px; }
+  table.meas th { text-align: left; font-weight: 400; color: var(--fg3); letter-spacing: .08em; text-transform: uppercase; font-size: 10px; border-bottom: 1px solid var(--border); padding: 6px 8px; }
+  table.meas td { border-bottom: 1px solid var(--soft); padding: 6px 8px; }
+  table.meas td b { color: var(--fg1); font-weight: 500; }
+  .verdict { font-size: 13.5px; line-height: 1.6; max-width: 76ch; padding: 10px 14px; border: 1px solid var(--accent-line); border-radius: 2px; background: var(--accent-soft); color: var(--fg1); margin: 8px 0 12px; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 76ch; margin: 6px 0 0; }
+  nav.walk { display: flex; gap: 10px; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  nav.walk .where { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; margin-left: auto; }
+  .busy { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+  .pick { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tick { font-family: var(--mono); font-size: 10.5px; color: var(--fg3); display: flex; justify-content: space-between; margin-top: -2px; }
+  table.meas td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  table.meas th.num { text-align: right; }
+  table.meas tr.on td { background: var(--accent-soft); }
+  .claim { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; margin: 0 0 10px; max-width: 76ch; transition: border-color 220ms var(--ease); }
+  .claim.on { border-color: var(--accent-line); }
+  .claim .who { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 4px; }
+  .claim .say { font-family: var(--serif); font-size: 18px; color: var(--fg1); font-style: italic; margin-bottom: 4px; }
+  .claim .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 13px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><span id="sigil"></span>made · sketch · a walk in five steps</div>
+  <h2 class="title">Four choices, one crystal</h2>
+  <p class="sub">The Crystal Synthesizer's four Decision Points, in the order the page's Forward Vectors ask a lesson to take them: the most audible first, the most conceptual last. Each step adds one choice and keeps the ones before. The engine is the instrument's own, ported from its Python. Silent until you press a button.</p>
+  <div class="rail" id="rail"></div>
+
+  <section class="step">
+    <h3>Resolution</h3>
+    <p class="teach">A cubic crystal's phonon spectrum, sorted into N bins, one partial per bin that holds any modes. The physics has no opinion on N; a real crystal has some 10²² modes. Strike it at a few settings: few bins give a bell of separate tones, many give a dense shimmer.</p>
+    <div class="eqs">
+      <div class="eq"><i>N</i> partials ≪ 10²² modes</div>
+      <div class="words">(the number of partials we choose to sound) is far less than (the number of modes a real crystal has).</div>
+    </div>
+    <div class="controls">
+      <div class="btns"><button class="go" id="s1play">▸ strike</button></div>
+      <label class="sl">bins <i>N</i> = <b id="s1Nv"></b><input id="s1N" type="range" min="0" max="10" step="1" value="4"></label>
+      <span class="busy" id="s1busy"></span>
+    </div>
+    <div class="read"><span>partials <b id="s1n"></b></span><span>ripple <b id="s1dep"></b></span></div>
+    <div class="panel"><div class="plabel"><span>the partials, by level</span><span>the cubic crystal, anchored at 110 Hz</span></div><canvas id="s1cv"></canvas></div>
+  </section>
+
+  <section class="step">
+    <h3>Anchor</h3>
+    <p class="teach">The physics gives ratios; somebody has to say where they land. Three answers, three claims. <b>Lowest mode</b> puts each crystal's softest phonon on 110 Hz and lets the rest spread up. <b>Zone boundary</b> puts each crystal's hardest phonon on 10 kHz, so they share a ceiling and their floors differ. <b>Centroid</b> puts the middle of each crystal's spectrum on 110 Hz, and the code then drops whatever falls below 88 Hz. Three crystals, so the claim can be heard as a comparison.</p>
+    <div class="eqs">
+      <div class="eq"><i>f</i><sub>audio</sub> = <i>ω</i> · (<i>f</i><sub>anchor</sub> / <i>ω</i><sub>anchor</sub>)</div>
+      <div class="words">(each mode's pitch) = (its frequency in the crystal) × (the pitch we chose) ÷ (the frequency of the mode we chose to put there).</div>
+    </div>
+    <p class="back">N stays where step 1 left it. Lowest mode is what step 1 used.</p>
+    <div class="controls"><div class="pick" id="s2a"></div><div class="btns"><button class="go" id="s2play">▸ the three in turn</button></div><span class="busy" id="s2busy"></span></div>
+    <div class="panel"><div class="plabel"><span>where each crystal lands</span><span id="s2lab"></span></div><canvas id="s2cv"></canvas></div>
+    <div class="read" id="s2read"></div>
+  </section>
+
+  <section class="step">
+    <h3>Decay</h3>
+    <p class="teach">Phonons shake each other apart, the high ones faster: that direction is the physics. The rate is the exponent, and the exponent is ours. At 0 every partial rings as long as every other, a drone; at 2 the top is gone almost at once. The grey line is exponent 1, which is what the crystal-rings build gets when it gives every mode one Q from a measured Raman line width.</p>
+    <div class="eqs">
+      <div class="eq"><i>T</i><sub>60</sub>(<i>f</i>) = ln 1000 / (<i>d</i>₀ · (<i>f</i> / <i>f</i><sub>a</sub>)<sup><i>p</i></sup>)</div>
+      <div class="words">(how long a partial takes to fall 60 dB) = (the natural log of a thousand) ÷ ((the base rate) × (its frequency over the anchor) to the power (the exponent)).</div>
+    </div>
+    <p class="back">N and the anchor stay as you left them. Each crystal starts at the exponent its code gives it.</p>
+    <div class="controls"><div class="pick" id="s3cr"></div><div class="btns"><button class="go" id="s3play">▸ strike</button></div>
+      <label class="sl">exponent <i>p</i> = <b id="s3pv"></b><input id="s3p" type="range" min="0" max="2" step="0.05" value="0.45"></label><span class="busy" id="s3busy"></span></div>
+    <div class="panel"><div class="plabel"><span>ring time to −60 dB, each partial</span><span><span class="amber">— your exponent</span> · <span style="color:#8a8aa0">— exponent 1</span></span></div><canvas id="s3cv"></canvas></div>
+    <div class="read"><span>lowest partial <b id="s3lo"></b></span><span>top partial <b id="s3hi"></b></span></div>
+  </section>
+
+  <section class="step">
+    <h3>Fidelity</h3>
+    <p class="teach">The deepest choice: what is this sound claiming to be? The page names three paths. Each card below plays the crystal you have built so far, rendered the way that path would render it.</p>
+    <div class="claim" id="c1"><div class="who">lean into discrete · it teaches instrument design</div><div class="say">“These frequency ratios are real; the rest is composition.”</div><div class="row"><button class="go" id="f1">▸ sines, as you built it</button><span id="f1m"></span></div></div>
+    <div class="claim" id="c2"><div class="who">approach continuous · it teaches scientific visualization</div><div class="say">“This approximates what you’d hear if you could transduce THz vibration straight into audio.”</div><div class="row"><button class="go" id="f2">▸ noise per bin, N 300</button><span id="f2m"></span></div></div>
+    <div class="claim" id="c3"><div class="who">separate the claims · it teaches epistemology</div><div class="say">Two versions, each labelled.</div><div class="row"><button class="go" id="f3">▸ both, in turn</button><span id="f3m"></span></div>
+      <div class="row" style="margin-top:6px"><span class="claim-l" id="f3a">1 · faithful: <i>this is what the dispersion relation contains</i></span></div>
+      <div class="row"><span class="claim-l" id="f3b">2 · shaped: <i>this is a composition drawn from it</i></span></div></div>
+    <p class="note">The code has a third setting, <code>ratios_only</code>, with every partial decaying at one rate: the spectral claim alone. <button class="go" id="f4">▸ hear it</button> <span id="f4m"></span></p>
+    <p class="note">Ripple and regular are measured on each render as in the honest-artifact piece: noise per bin keeps the ripple and loses its regularity.</p>
+  </section>
+
+  <section class="step">
+    <h3>A fifth?</h3>
+    <p class="teach">The page counts four stretch points and asks whether that is the whole list. Hold all four where you left them and turn one thing none of them names: how many cells across the code computes its crystal. The engine works on a grid of wavevectors, 40 to a side for the cubic crystal. A real crystal a centimetre across is some ten million cells wide.</p>
+    <div class="eqs">
+      <div class="eq"><i>ω</i><sub>top</sub> / <i>ω</i><sub>floor</sub> ≈ 1.1 · <i>n</i></div>
+      <div class="words">(the hardest mode over the softest) is about (1.1) × (the cells across the grid), for the cubic crystal; the softest mode is the longest wave the grid can hold.</div>
+    </div>
+    <p class="back">Everything from steps 1 to 4 holds. The grid the code uses is marked.</p>
+    <div class="controls"><div class="btns"><button class="go" id="s5play">▸ strike</button><button class="go" id="s5ab">▸ the code’s grid, then this</button></div>
+      <label class="sl">grid <i>n</i> = <b id="s5nv"></b><input id="s5n" type="range" min="0" max="7" step="1" value="4"></label><span class="busy" id="s5busy"></span></div>
+    <div class="read"><span>floor <b id="s5lo"></b></span><span>top <b id="s5hi"></b></span><span>spread <b id="s5sp"></b></span><span>beats near 1 kHz <b id="s5b"></b></span><span>lowest modes, as ratios <b id="s5r"></b></span></div>
+    <div class="panel"><div class="plabel"><span>the partials at this grid</span><span><span class="amber">— this grid</span> · <span style="color:#8a8aa0">— the code’s</span></span></div><canvas id="s5cv"></canvas></div>
+    <div class="verdict" id="s5v"></div>
+  </section>
+
+  <nav class="walk"><button id="back">← back</button><button id="next">next step →</button><span class="where" id="where"></span></nav>
+  <div class="foot">Loud’n Live</div>
+</div>
+<script id="engine">
+// ── The engine: a line-for-line port of crystal_synth.py (Projects/Generative Sample Libraries/crystal-audio/) ──
+// DOS from the code's own lattice models; the four Decision Points as arguments; analysis to measure what the ear is asked to hear.
+const TAU = 2 * Math.PI;
+function grid(n) { const k = new Float64Array(n); for (let i = 0; i < n; i++) k[i] = n === 1 ? 0 : Math.PI * i / (n - 1); return k; }
+const DOS = {
+  cubic(n = 40) { // simple cubic: three equal axes
+    const k = grid(n), s = k.map(v => Math.sin(v / 2) ** 2), out = new Float64Array(n * n * n); let m = 0;
+    for (let a = 0; a < n; a++) for (let b = 0; b < n; b++) for (let c = 0; c < n; c++) out[m++] = Math.sqrt((s[a] + s[b] + s[c]) / 3);
+    return out;
+  },
+  orthorhombic(n = 40) { // three unequal spring constants
+    const Ka = 1.0, Kb = 0.62, Kc = 0.32, k = grid(n), s = k.map(v => Math.sin(v / 2) ** 2), out = new Float64Array(n * n * n); let m = 0;
+    for (let a = 0; a < n; a++) for (let b = 0; b < n; b++) for (let c = 0; c < n; c++) out[m++] = Math.sqrt((Ka * s[a] + Kb * s[b] + Kc * s[c]) / (Ka + Kb + Kc));
+    return out;
+  },
+  triclinic(n = 28) { // no right angles: every shear term present
+    const k = grid(n), sn = k.map(v => Math.sin(v / 2)), out = new Float64Array(n * n * n); let m = 0, mx = 0;
+    const cxy = 0.16 * Math.cos(82 * Math.PI / 180), cxz = 0.13 * Math.cos(106 * Math.PI / 180), cyz = 0.10 * Math.cos(97 * Math.PI / 180);
+    for (let a = 0; a < n; a++) for (let b = 0; b < n; b++) for (let c = 0; c < n; c++) {
+      const x = sn[a], y = sn[b], z = sn[c];
+      const w2 = 0.65 * x * x + 0.47 * y * y + 0.35 * z * z + cxy * x * y + cxz * x * z + cyz * y * z;
+      const w = Math.sqrt(Math.max(w2, 0)); out[m++] = w; if (w > mx) mx = w;
+    }
+    for (let i = 0; i < out.length; i++) out[i] /= mx;
+    return out;
+  }
+};
+const DEFAULT_GRID = { cubic: 40, orthorhombic: 40, triclinic: 28 };
+// Decision Point 1: where the ratios land in hearing
+function computeScale(f, anchor, base, maxf) {
+  let mn = Infinity, mx = -Infinity, sum = 0; for (const v of f) { if (v < mn) mn = v; if (v > mx) mx = v; sum += v; }
+  if (anchor === 'lowest_mode') return base / mn;
+  if (anchor === 'zone_boundary') return maxf / mx;
+  if (anchor === 'centroid') return base / (sum / f.length);
+  throw new Error('unknown anchor ' + anchor);
+}
+// Decision Point 2: N log-spaced bins over the mapped modes; one partial per bin that holds any
+function partials(freqsNorm, { N = 100, base = 110, anchor = 'lowest_mode', maxf = 10000 } = {}) {
+  const f = freqsNorm.filter(v => v > 0.012), scale = computeScale(f, anchor, base, maxf);
+  const a = []; for (const v of f) { const x = v * scale; if (x >= base * 0.8 && x <= maxf) a.push(x); }
+  let lo = Infinity, hi = -Infinity; for (const x of a) { if (x < lo) lo = x; if (x > hi) hi = x; }
+  const l0 = Math.log10(lo * 0.99), l1 = Math.log10(hi * 1.01), edges = new Float64Array(N + 1);
+  for (let i = 0; i <= N; i++) edges[i] = Math.pow(10, l0 + (l1 - l0) * i / N);
+  const hist = new Float64Array(N);
+  for (const x of a) { // np.histogram: [e_i, e_i+1), the last bin closed
+    let lo_i = 0, hi_i = N; while (hi_i - lo_i > 1) { const m = (lo_i + hi_i) >> 1; if (x >= edges[m]) lo_i = m; else hi_i = m; }
+    if (x >= edges[0] && x <= edges[N]) hist[Math.min(lo_i, N - 1)]++;
+  }
+  const P = { f: [], bw: [], a: [], count: [], lo, hi, scale, modes: a.length, N, base, anchor };
+  for (let i = 0; i < N; i++) if (hist[i] > 0) {
+    const c = Math.sqrt(edges[i] * edges[i + 1]); P.f.push(c); P.bw.push(edges[i + 1] - edges[i]); P.count.push(hist[i]); P.a.push(hist[i] / Math.pow(c / base, 0.3));
+  }
+  const s = P.a.reduce((z, v) => z + v, 0); P.a = P.a.map(v => v / s);
+  return P;
+}
+function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function gauss(r) { let g = 0, has = false; return () => { if (has) { has = false; return g; } let u = 0; while (u === 0) u = r(); const v = r(), m = Math.sqrt(-2 * Math.log(u)); g = m * Math.sin(TAU * v); has = true; return m * Math.cos(TAU * v); }; }
+function biquadBP(fc, Q, sr) { // RBJ band-pass, 0 dB peak
+  const w = TAU * fc / sr, al = Math.sin(w) / (2 * Q), a0 = 1 + al;
+  return { b0: al / a0, b1: 0, b2: -al / a0, a1: -2 * Math.cos(w) / a0, a2: (1 - al) / a0 };
+}
+function runBQ(q, x, y) { let x1 = 0, x2 = 0, y1 = 0, y2 = 0; for (let i = 0; i < x.length; i++) { const v = q.b0 * x[i] + q.b1 * x1 + q.b2 * x2 - q.a1 * y1 - q.a2 * y2; x2 = x1; x1 = x[i]; y2 = y1; y1 = v; y[i] = v; } return y; }
+// Decision Points 3 and 4: the decay law and what each partial is made of
+function render(P, { decayBase = 0.6, decayExp = 0.45, fidelity = 'shaped', seconds = 5, sr = 44100, transientDecay = 55, impulse = 0.12, seed = 42, fade = 0.25 } = {}) {
+  const L = Math.round(seconds * sr), dt = seconds / (L - 1), out = new Float64Array(L), g = gauss(rng(seed)), nyq = sr / 2;
+  const noise = new Float64Array(fidelity === 'continuous' ? L : 0), tmp = new Float64Array(noise.length); let xs = (seed * 2654435761) | 1;
+  for (let p = 0; p < P.f.length; p++) {
+    const f = P.f[p], amp = P.a[p], rate = fidelity === 'ratios_only' ? decayBase : decayBase * Math.pow(f / P.base, decayExp), k = Math.exp(-rate * dt);
+    if (fidelity === 'continuous') {
+      const lo = Math.max(f - P.bw[p] / 2, 1), hi = Math.min(f + P.bw[p] / 2, nyq * 0.99);
+      for (let i = 0; i < L; i++) { xs ^= xs << 13; xs ^= xs >>> 17; xs ^= xs << 5; noise[i] = ((xs >>> 0) / 4294967296 - 0.5) * 3.4641016; } // white, unit variance; the band filter makes it Gaussian
+      if (lo < hi) { const q = biquadBP(Math.sqrt(lo * hi), Math.sqrt(lo * hi) / (hi - lo), sr); runBQ(q, noise, tmp); runBQ(q, tmp, noise); }
+      let e = 0; for (let i = 0; i < L; i++) e += noise[i] * noise[i]; const n = 1 / (Math.sqrt(e / L) + 1e-12);
+      let env = amp * n; for (let i = 0; i < L; i++) { out[i] += env * noise[i]; env *= k; }
+    } else {
+      const c = Math.cos(TAU * f * dt), s = Math.sin(TAU * f * dt); let re = 1, im = 0, env = amp;
+      for (let i = 0; i < L; i++) { out[i] += env * im; const r2 = re * c - im * s; im = re * s + im * c; re = r2; env *= k; if ((i & 4095) === 4095) { const m = Math.hypot(re, im); re /= m; im /= m; } }
+    }
+  }
+  if (impulse > 0) { let e = impulse; const k = Math.exp(-transientDecay * dt); for (let i = 0; i < L; i++) { out[i] += e * g(); e *= k; } }
+  let pk = 0; for (let i = 0; i < L; i++) pk = Math.max(pk, Math.abs(out[i]));
+  const y = new Float32Array(L), F = Math.round(fade * sr), gn = pk > 0 ? 0.88 / pk : 0;
+  for (let i = 0; i < L; i++) y[i] = out[i] * gn * (i >= L - F ? (L - i) / F : 1);
+  return y;
+}
+// ── Analysis: what changes when a Decision Point turns ──
+function fftMag2(x) { // radix-2, x.length a power of two; returns |X|² for bins 0..n/2
+  const n = x.length, re = Float64Array.from(x), im = new Float64Array(n);
+  for (let i = 1, j = 0; i < n; i++) { let b = n >> 1; for (; j & b; b >>= 1) j ^= b; j ^= b; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; } }
+  for (let len = 2; len <= n; len <<= 1) { const a = -TAU / len, wr = Math.cos(a), wi = Math.sin(a);
+    for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let k = 0; k < len / 2; k++) { const ur = re[i + k], ui = im[i + k], vr = re[i + k + len / 2] * cr - im[i + k + len / 2] * ci, vi = re[i + k + len / 2] * ci + im[i + k + len / 2] * cr; re[i + k] = ur + vr; im[i + k] = ui + vi; re[i + k + len / 2] = ur - vr; im[i + k + len / 2] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } }
+  const m = new Float64Array(n / 2 + 1); for (let i = 0; i <= n / 2; i++) m[i] = re[i] * re[i] + im[i] * im[i]; return m;
+}
+// Spectral centroid of a 4096-sample Hann window starting at t0: the "pitch character" whose sweep the text names
+function centroid(y, t0, sr = 44100) {
+  const n = 4096, s = Math.round(t0 * sr), w = new Float64Array(n);
+  for (let i = 0; i < n; i++) w[i] = (y[s + i] || 0) * (0.5 - 0.5 * Math.cos(TAU * i / (n - 1)));
+  const m = fftMag2(w); let a = 0, b = 0; for (let i = 1; i < m.length; i++) { a += m[i] * i * sr / n; b += m[i]; } return b > 0 ? a / b : 0;
+}
+// One third-octave band's envelope: depth (dB std about its own slow decay) and regularity (envelope autocorrelation peak)
+function bandEnvelope(y, fc, sr = 44100) {
+  const q = biquadBP(fc, 4.32, sr), a = new Float64Array(y.length), b = new Float64Array(y.length);
+  runBQ(q, y, a); runBQ(q, a, b); b.reverse(); runBQ(q, b, a); runBQ(q, a, b); b.reverse(); // zero-phase, fourth order each way
+  const W = Math.max(1, Math.round(2 * sr / fc)), D = Math.round(sr / 1000), env = [];
+  let acc = 0; for (let i = 0; i < b.length; i++) { acc += b[i] * b[i]; if (i >= W) acc -= b[i - W] * b[i - W]; if (i % D === 0) env.push(Math.sqrt(Math.max(acc, 0) / W * 2)); }
+  return Float64Array.from(env); // 1 kHz frames
+}
+function beating(y, fc, { t0 = 0.3, t1 = 3.0, sr = 44100 } = {}) {
+  const env = bandEnvelope(y, fc, sr), dB = Array.from(env.slice(Math.round(t0 * 1000), Math.round(t1 * 1000)), v => 20 * Math.log10(v + 1e-9));
+  const w = 400, h = w / 2, r = [];
+  for (let i = h; i < dB.length - h; i++) { let s = 0; for (let j = i - h; j < i + h; j++) s += dB[j]; r.push(dB[i] - s / w); }
+  const mu = r.reduce((z, v) => z + v, 0) / r.length, d = r.map(v => v - mu), v0 = d.reduce((z, v) => z + v * v, 0);
+  const depth = Math.sqrt(v0 / d.length);
+  let best = -1, lag = 0; for (let L = 25; L <= 1000 && L < d.length / 2; L++) { let s = 0; for (let i = 0; i + L < d.length; i++) s += d[i] * d[i + L]; const c = v0 > 0 ? s / v0 : 0; if (c > best) { best = c; lag = L; } }
+  return { depth, regular: Math.max(0, best), rate: lag ? 1000 / lag : 0 };
+}
+const BANDS = [250, 500, 1000, 2000, 4000];
+function measure(y) {
+  const b = BANDS.map(fc => beating(y, fc)), mid = b.slice(1, 4);
+  return { bands: b, depth: mid.reduce((z, v) => z + v.depth, 0) / 3, regular: mid.reduce((z, v) => z + v.regular, 0) / 3,
+    cent: [0.15, 1.0, 3.0].map(t => centroid(y, t)) };
+}
+</script>
+<script id="shared">
+// The sigil, the walk, the sound and the canvases: byte-identical in this face's two pieces.
+function sigil(el) { // the Lissajous trace, 3:2, small
+  const p = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * TAU; p.push((11 + 9 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ',' + (11 + 9 * Math.sin(2 * t)).toFixed(2)); }
+  el.innerHTML = '<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.4" fill="none" stroke="#4a4a5e" stroke-width="1"/><polyline points="' + p.join(' ') + '" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>';
+}
+const $ = id => document.getElementById(id);
+const fmt = (x, d = 1) => Number.isFinite(x) ? x.toFixed(d) : '—';
+const SR = 44100;
+// Sound: nothing exists before a click. One sound at a time, through a compressor; a step change stops it.
+const SND = { ctx: null, out: null, src: null, btn: null };
+function soundOn() {
+  if (!SND.ctx) {
+    SND.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = SND.ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+    SND.out = SND.ctx.createGain(); SND.out.gain.value = 0.55; SND.out.connect(comp); comp.connect(SND.ctx.destination);
+  }
+  if (SND.ctx.state === 'suspended') SND.ctx.resume();
+}
+function stopSound() {
+  if (SND.src) { try { SND.src.stop(); } catch (e) {} SND.src = null; }
+  document.querySelectorAll('button.go[aria-pressed="true"]').forEach(b => b.setAttribute('aria-pressed', 'false'));
+}
+function playBuffer(buf, btn, onend) { // a mono Float32Array at SR
+  soundOn(); stopSound();
+  const c = SND.ctx, b = c.createBuffer(1, buf.length, SR); b.copyToChannel(buf, 0);
+  const s = c.createBufferSource(); s.buffer = b; s.connect(SND.out); s.start(); SND.src = s;
+  if (btn) btn.setAttribute('aria-pressed', 'true');
+  s.onended = () => { if (SND.src === s) { SND.src = null; if (btn) btn.setAttribute('aria-pressed', 'false'); if (onend) onend(); } };
+}
+function joinBuffers(list, gap = 0.4) { // one buffer, the parts in order with a little silence between
+  const g = Math.floor(gap * SR), len = list.reduce((z, b) => z + b.length + g, 0), out = new Float32Array(len); let at = 0;
+  for (const b of list) { out.set(b, at); at += b.length + g; } return out;
+}
+// Work that takes a moment: say so, then do it on the next frame so the words show first
+function busy(el, text, fn) { if (el) el.textContent = text; setTimeout(() => { try { fn(); } finally { if (el && el.textContent === text) el.textContent = ''; } }, 30); }
+// The walk: one step showing, Next and Back, the rail stays open, a step change stops the sound
+function walk(steps) {
+  const rail = $('rail'); let cur = 0;
+  steps.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.name; b.onclick = () => go(i); rail.appendChild(b); });
+  function go(i) {
+    stopSound(); cur = Math.max(0, Math.min(steps.length - 1, i));
+    document.querySelectorAll('.step').forEach((el, k) => el.classList.toggle('on', k === cur));
+    rail.querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === cur ? 'step' : 'false'));
+    $('back').disabled = cur === 0; $('next').disabled = cur === steps.length - 1;
+    $('where').textContent = 'step ' + (cur + 1) + ' of ' + steps.length;
+    if (steps[cur].enter) steps[cur].enter();
+  }
+  $('back').onclick = () => go(cur - 1); $('next').onclick = () => go(cur + 1);
+  go(0); return go;
+}
+function fitCanvas(cv, h) {
+  const dpr = window.devicePixelRatio || 1, w = cv.clientWidth || cv.parentNode.clientWidth || 600;
+  cv.style.height = h + 'px'; cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace'; return [g, w, h];
+}
+const C = { fg3: '#8a8aa0', fg4: '#4a4a5a', soft: 'rgba(255,255,255,.06)', amber: '#e8b84a', coral: '#ff6b5a', blue: '#4a8fff', green: '#6bd45a', fg1: '#e8e8f0' };
+// A log-frequency axis, 100 Hz to 10 kHz unless told otherwise
+function logX(f, w, lo = 100, hi = 10000, pad = 36) { return pad + (w - pad - 10) * Math.log(f / lo) / Math.log(hi / lo); }
+function freqAxis(g, w, y, lo = 100, hi = 10000) {
+  g.strokeStyle = C.soft; g.fillStyle = C.fg3; g.lineWidth = 1;
+  for (const f of [100, 200, 500, 1000, 2000, 5000, 10000]) if (f >= lo && f <= hi) { const x = logX(f, w, lo, hi); g.beginPath(); g.moveTo(x, 4); g.lineTo(x, y); g.stroke(); g.fillText(f >= 1000 ? (f / 1000) + 'k' : String(f), x - 8, y + 12); }
+}
+// Partials as lines on a log axis, height by level (40 dB range)
+function drawPartials(g, w, y0, h, P, color, lo = 100, hi = 10000) {
+  const mx = Math.max(...P.a); g.strokeStyle = color; g.lineWidth = 1;
+  P.f.forEach((f, i) => { const db = 20 * Math.log10(P.a[i] / mx), hh = Math.max(2, h * (1 + db / 40)); const x = logX(f, w, lo, hi); g.beginPath(); g.moveTo(x, y0); g.lineTo(x, y0 - hh); g.stroke(); });
+}
+function onSlide(id, fn) { const el = $(id); el.addEventListener('input', fn); return el; }
+function redrawOnResize(fn) { let t = 0; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(fn, 80); }); }
+</script>
+<script>
+// ── Piece B: the lesson ──
+const BASE = 110, MAXF = 10000, CRS = ['cubic', 'orthorhombic', 'triclinic'];
+const CR = { cubic: { decayBase: 0.6, decayExp: 0.45, transientDecay: 55 }, orthorhombic: { decayBase: 1.0, decayExp: 0.55, transientDecay: 60 }, triclinic: { decayBase: 1.5, decayExp: 0.7, transientDecay: 70 } };
+const NLIST = [8, 12, 16, 24, 32, 48, 64, 100, 150, 200, 300], GRIDS = [10, 16, 20, 28, 40, 60, 80, 120];
+const DOSC = {}; const dosOf = (c, n) => { const k = c + '|' + (n || DEFAULT_GRID[c]); return DOSC[k] || (DOSC[k] = DOS[c](n || DEFAULT_GRID[c])); };
+const S = { N: 32, anchor: 'lowest_mode', cr: 'cubic', exp: { ...Object.fromEntries(CRS.map(c => [c, CR[c].decayExp])) } };
+const PC = {}; const P_ = (cr, o = {}) => { const k = [cr, o.grid || DEFAULT_GRID[cr], o.N || S.N, S.anchor].join('|'); return PC[k] || (PC[k] = partials(dosOf(cr, o.grid), { N: o.N || S.N, anchor: S.anchor, base: BASE, maxf: MAXF })); };
+const opts = (cr, o = {}) => ({ ...CR[cr], decayExp: S.exp[cr], ...o });
+const cache = {}; const rend = (key, P, o) => cache[key] || (cache[key] = render(P, o));
+const keyOf = (cr, extra = '') => [cr, S.N, S.anchor, S.exp[cr], extra].join('|');
+function strike(cr, o = {}, extra = '') { const g = o.grid; return rend(keyOf(cr, extra + '|' + (g || '')), P_(cr, o), opts(cr, o.render || {})); }
+function ripple(y) { const m = measure(y); return 'ripple ' + fmt(m.depth, 1) + ' dB' + (m.depth >= 1 ? ', regular ' + fmt(m.regular, 2) : ''); }
+// Step 1
+function s1() {
+  S.N = NLIST[+$('s1N').value]; $('s1Nv').textContent = S.N;
+  const P = P_('cubic'); $('s1n').textContent = P.f.length + ' of ' + S.N;
+  const [g, w, h] = fitCanvas($('s1cv'), 110); freqAxis(g, w, h - 16, 100, 6000); drawPartials(g, w, h - 16, h - 26, P, C.amber, 100, 6000);
+  $('s1dep').textContent = 'strike to measure';
+}
+// Step 2
+function s2() {
+  const box = $('s2a'); if (!box.childElementCount) [['lowest_mode', 'lowest mode'], ['zone_boundary', 'zone boundary'], ['centroid', 'centroid']].forEach(([v, t]) => { const b = document.createElement('button'); b.textContent = t; b.dataset.v = v; b.onclick = () => { S.anchor = v; stopSound(); s2(); }; box.appendChild(b); });
+  box.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === S.anchor ? 'true' : 'false'));
+  $('s2lab').textContent = 'N ' + S.N + ' · ' + S.anchor.replace('_', ' ');
+  const [g, w, h] = fitCanvas($('s2cv'), 200), rh = (h - 20) / 3; freqAxis(g, w, h - 16, 50, 10000);
+  const cols = [C.amber, C.blue, C.coral]; let read = '';
+  CRS.forEach((cr, k) => {
+    const P = P_(cr), y0 = 6 + (k + 1) * rh - 4; g.fillStyle = cols[k]; g.fillText(cr.slice(0, 5), 2, y0 - rh / 2 + 4);
+    drawPartials(g, w, y0, rh - 10, P, cols[k], 50, 10000);
+    const total = dosOf(cr).filter(v => v > 0.012).length;
+    read += '<span>' + cr + ' <b>' + fmt(P.lo, 0) + '–' + fmt(P.hi, 0) + ' Hz</b>' + (P.modes < total ? ' · ' + fmt(100 * (1 - P.modes / total), 0) + ' % of modes cut' : '') + '</span>';
+  });
+  $('s2read').innerHTML = read;
+}
+// Step 3
+function s3() {
+  const box = $('s3cr'); if (!box.childElementCount) CRS.forEach(cr => { const b = document.createElement('button'); b.textContent = cr; b.onclick = () => { S.cr = cr; stopSound(); $('s3p').value = S.exp[cr]; s3(); }; box.appendChild(b); });
+  box.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.textContent === S.cr ? 'true' : 'false'));
+  const cr = S.cr; S.exp[cr] = +$('s3p').value; $('s3pv').textContent = fmt(S.exp[cr], 2) + (Math.abs(S.exp[cr] - CR[cr].decayExp) < 1e-9 ? ' (the code’s)' : '');
+  const P = P_(cr), d0 = CR[cr].decayBase, T = (f, p) => Math.log(1000) / (d0 * Math.pow(f / BASE, p));
+  $('s3lo').textContent = fmt(P.f[0], 0) + ' Hz · ' + fmt(T(P.f[0], S.exp[cr]), 2) + ' s'; $('s3hi').textContent = fmt(P.f[P.f.length - 1], 0) + ' Hz · ' + fmt(T(P.f[P.f.length - 1], S.exp[cr]), 2) + ' s';
+  const [g, w, h] = fitCanvas($('s3cv'), 180), lo = 50, hi = 10000, ty = t => 8 + (h - 30) * (1 - Math.log(t / 0.01) / Math.log(100 / 0.01));
+  freqAxis(g, w, h - 16, lo, hi); g.fillStyle = C.fg3; for (const t of [0.01, 0.1, 1, 10, 100]) g.fillText(t + ' s', 2, ty(t) + 3);
+  for (const [p, col] of [[1, C.fg3], [S.exp[cr], C.amber]]) { g.fillStyle = col; P.f.forEach(f => { const t = T(f, p); if (t > 0.01 && t < 100) g.fillRect(logX(f, w, lo, hi) - 1.5, ty(t) - 1.5, 3, 3); }); }
+}
+// Step 4
+function play4(btn, which) {
+  clearTimeout(SND.timer);
+  const say = { f1: 'f1m', f2: 'f2m', f3: 'f3m', f4: 'f4m' }[which];
+  busy($(say), 'rendering…', () => {
+    const cr = S.cr;
+    if (which === 'f1') { const y = strike(cr); $(say).textContent = ripple(y); hl('c1'); playBuffer(y, btn, () => hl()); }
+    if (which === 'f2') { const y = strike(cr, { N: 300, render: { fidelity: 'continuous' } }, 'cont300'); $(say).textContent = ripple(y); hl('c2'); playBuffer(y, btn, () => hl()); }
+    if (which === 'f4') { const y = strike(cr, { render: { fidelity: 'ratios_only' } }, 'ratios'); $(say).textContent = ripple(y); playBuffer(y, btn); }
+    if (which === 'f3') {
+      const a = strike(cr, { N: 300, render: { fidelity: 'continuous' } }, 'cont300'), b = strike(cr), ab = joinBuffers([a, b], 0.6);
+      $(say).textContent = 'faithful: ' + ripple(a) + ' · shaped: ' + ripple(b); hl('c3', 'f3a'); playBuffer(ab, btn, () => hl());
+      const t = setTimeout(() => { if (SND.src) hl('c3', 'f3b'); }, (a.length / SR + 0.6) * 1000); SND.timer = t;
+    }
+  });
+}
+function hl(card, line) {
+  ['c1', 'c2', 'c3'].forEach(c => $(c).classList.toggle('on', c === card));
+  ['f3a', 'f3b'].forEach(l => $(l).style.color = l === line ? C.amber : '');
+}
+function s4() { hl(); }
+// Step 5
+const LV = {};
+function lowest(cr, n) { // the five softest distinct modes, without sorting a million of them
+  const k = cr + '|' + n; if (LV[k]) return LV[k];
+  const d = dosOf(cr, n), out = []; let prev = 0.012;
+  for (let j = 0; j < 5; j++) { let m = Infinity; for (const v of d) if (v > prev && v < m && (!out.length || v / out[out.length - 1] > 1.0005)) m = v; if (!Number.isFinite(m)) break; out.push(m); prev = m; }
+  return (LV[k] = out);
+}
+function s5() {
+  const cr = S.cr, n = GRIDS[+$('s5n').value], n0 = DEFAULT_GRID[cr]; $('s5nv').textContent = n + (n === n0 ? ' (the code’s)' : '') + ' · ' + cr + ' · ' + S.anchor.replace('_', ' ');
+  const P = P_(cr, { grid: n }), P0 = P_(cr), r = Math.pow(P.hi * 1.01 / (P.lo * 0.99), 1 / S.N);
+  $('s5lo').textContent = fmt(P.lo, 0) + ' Hz'; $('s5hi').textContent = fmt(P.hi, 0) + ' Hz'; $('s5sp').textContent = fmt(P.hi / P.lo, 1) + '×'; $('s5b').textContent = (b => b < 15 ? fmt(b, 1) + ' a second, countable' : b < 150 ? fmt(b, 1) + ' a second, a roughness' : 'none: ' + fmt(b, 0) + ' Hz apart is two notes')(1000 * (r - 1));
+  const lv = lowest(cr, n);
+  $('s5r').textContent = lv.map(v => fmt(v / lv[0], 3)).join(', ');
+  const [g, w, h] = fitCanvas($('s5cv'), 150); freqAxis(g, w, h - 16, 50, 10000);
+  drawPartials(g, w, h - 16, (h - 26) * 0.5, P0, C.fg3, 50, 10000); drawPartials(g, w, h - 16, h - 26, P, C.amber, 50, 10000);
+  const tops = GRIDS.map(k => P_(cr, { grid: k })), lo = tops[0], hi = tops[tops.length - 1], oct = x => Math.log2(x);
+  const moves = S.anchor === 'lowest_mode' ? 'the top' : S.anchor === 'zone_boundary' ? 'the floor' : 'both ends';
+  const span = S.anchor === 'zone_boundary' ? [lo.lo, hi.lo] : [lo.hi, hi.hi];
+  $('s5v').innerHTML = '<b>All four held, and ' + moves + ' still moves.</b> Across grids of ' + GRIDS[0] + ' to ' + GRIDS[GRIDS.length - 1] + ' cells, with N, the anchor, the decay and the fidelity unchanged, ' + moves + ' of the ' + cr + ' crystal runs from ' + fmt(span[0], 0) + ' to ' + fmt(span[1], 0) + ' Hz (' + fmt(Math.abs(oct(span[1] / span[0])), 1) + ' octaves), and with it every beat rate between neighbours. The softest mode is the longest wave the grid can hold, so under lowest mode the grid, not the lattice, sets how far the spectrum spreads; the lowest partials sit at the grid’s own box ratios (' + lv.slice(0, 4).map(v => fmt(v / lv[0], 2)).join(', ') + '). A crystal a centimetre across would spread some ten million times, from 110 Hz to a few gigahertz. No Decision Point names this choice. Whether it is a fifth stretch or a hidden part of the first is the page’s question.';
+}
+// ── wiring ──
+sigil($('sigil'));
+$('s1N').addEventListener('input', s1);
+$('s1play').onclick = e => { const btn = e.currentTarget; busy($('s1busy'), 'rendering…', () => { const y = strike('cubic'); $('s1dep').textContent = ripple(y); playBuffer(y, btn); }); };
+$('s2play').onclick = e => { const btn = e.currentTarget; busy($('s2busy'), 'rendering…', () => playBuffer(joinBuffers(CRS.map(cr => strike(cr).subarray(0, Math.round(3 * SR))), 0.5), btn)); };
+$('s3p').addEventListener('input', s3);
+$('s3play').onclick = e => { const btn = e.currentTarget; busy($('s3busy'), 'rendering…', () => playBuffer(strike(S.cr), btn)); };
+['f1', 'f2', 'f3', 'f4'].forEach(id => $(id).onclick = e => play4(e.currentTarget, id));
+$('s5n').addEventListener('input', () => { stopSound(); s5(); });
+$('s5play').onclick = e => { const btn = e.currentTarget, n = GRIDS[+$('s5n').value]; busy($('s5busy'), 'rendering…', () => playBuffer(strike(S.cr, { grid: n }, 'g'), btn)); };
+$('s5ab').onclick = e => { const btn = e.currentTarget, n = GRIDS[+$('s5n').value]; busy($('s5busy'), 'rendering…', () => playBuffer(joinBuffers([strike(S.cr).subarray(0, Math.round(3.5 * SR)), strike(S.cr, { grid: n }, 'g').subarray(0, Math.round(3.5 * SR))], 0.6), btn)); };
+const steps = [{ name: 'resolution', enter: s1 }, { name: 'anchor', enter: s2 }, { name: 'decay', enter: () => { $('s3p').value = S.exp[S.cr]; s3(); } }, { name: 'fidelity', enter: s4 }, { name: 'a fifth?', enter: () => { $('s5n').value = GRIDS.indexOf(DEFAULT_GRID[S.cr]); s5(); } }];
+walk(steps);
+redrawOnResize(() => [s1, s2, s3, s5].forEach(f => { try { f(); } catch (e) {} }));
+</script>
+</body>
+</html>
