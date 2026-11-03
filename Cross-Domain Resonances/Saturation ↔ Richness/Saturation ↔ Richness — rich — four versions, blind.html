@@ -3,7 +3,7 @@
   title: Saturation ↔ Richness — rich — four versions, blind
   born: 2026-11-03
   links: [[Saturation ↔ Richness]] (connects-to · rich-face-piece) · listed in [[Saturation ↔ Richness — rich.json]] · the curve is the one walked in "the bend and the lean", beside me on this face
-  forward_vector: I am the walk up to Teaching the Resonance's saturation experiment. A clean bass line, alone and in a small mix; the page's four versions, clean, light, medium and heavy, named and matched in loudness; what the drive costs, in peaks and in the loudness that fools an A/B; and last the four again with their names hidden, for you to put in order and to choose the one you would keep, scored against what guessing does. I change only when the section I serve does.
+  forward_vector: I am the walk up to Teaching the Resonance's saturation experiment. A clean bass line, alone and in a small mix; the page's four versions, clean, light, medium and heavy, named and matched in K-weighted loudness; what the drive costs, in peaks and in the loudness that fools an A/B; and last the four again with their names hidden, for you to put in order and to choose the one you would keep, both scored against what guessing does. A sine bass is the source kindest to saturation; a voice would be harder. I change only when the section I serve does.
   sound: nothing plays until Play is clicked; the AudioContext is made on that click. Changing step stops the sound. Every sound is made in this page by the core below: sines, a swept kick, noise hats, a sine pad. No sample, no file.
   check: Cross-Domain Resonances/Saturation ↔ Richness/Saturation ↔ Richness — rich — check.mjs runs this page's core in Node.
 -->
@@ -118,7 +118,7 @@
 const MX = (() => {
   const RATE = 48000, BPM = 100, BEAT = 60 / BPM, BARS = 2, LEN = Math.round(BARS * 4 * BEAT * RATE);
   // The four versions the section asks for. The curve is the page's soft clip with a slight lean;
-  // only the drive changes. Drives chosen so a held note at the bass's peak level adds about −36, −20 and −10 dB of harmonics.
+  // only the drive changes. Drives chosen so a held note at the bass's peak level adds about −31, −16 and −10 dB of harmonics.
   const LEAN = 0.12;
   const VERSIONS = [
     { id: 'clean', name: 'Clean', d: 0 },
@@ -198,6 +198,8 @@ const MX = (() => {
   // every note's fundamental is below 90 Hz; everything above 90 Hz in the bass is something the curve made
   const SPLIT = 90;
   function bands(x) { const { p, df } = power(x); let lo = 0, hi = 0; for (let k = 1; k < p.length; k++) (k * df < SPLIT ? (lo += p[k]) : (hi += p[k])); return { lo, hi, share: hi / (lo + hi) }; }
+  // A-weighting (IEC 61672), applied to the power spectrum: a second reading of level, leaning harder on the low end than K
+  function aLevel(x) { const { p, df } = power(x); let s = 0; for (let k = 1; k < p.length; k++) { const f = k * df, f2 = f * f; const ra = 12194 * 12194 * f2 * f2 / ((f2 + 20.6 * 20.6) * Math.sqrt((f2 + 107.7 * 107.7) * (f2 + 737.9 * 737.9)) * (f2 + 12194 * 12194)); s += p[k] * ra * ra; } return 10 * Math.log10(s); }
   // the spectrum drawn: power summed into 1/6-octave bands from 30 Hz to 12 kHz
   function sixths(x) { const { p, df } = power(x), out = []; for (let f = 30; f < 12000; f *= Math.pow(2, 1 / 6)) { const f2 = f * Math.pow(2, 1 / 6); let s = 0; for (let k = Math.ceil(f / df); k * df < f2 && k < p.length; k++) s += p[k]; out.push({ f: Math.sqrt(f * f2), db: 10 * Math.log10(s + 1e-20) }); } return out; }
   // a held note at the bass's peak level: what the drive adds, in dB below the fundamental
@@ -205,12 +207,12 @@ const MX = (() => {
   // render everything: four bass stems matched in K-weighted loudness to the clean one, and each in the mix
   function render() {
     const clean = bassClean(), k = kick(), hh = hats(), pd = pad();
-    const ref = kLoud(clean), refBands = bands(clean);
+    const ref = kLoud(clean), refBands = bands(clean), refA = aLevel(clean);
     const drums = new Float64Array(LEN); for (let i = 0; i < LEN; i++) drums[i] = k[i] + hh[i] + pd[i];
     const out = VERSIONS.map((v) => {
       const raw = saturate(clean, v.d), unmatchedLu = kLoud(raw) - ref, g = Math.pow(10, -unmatchedLu / 20), stem = scale(raw, g);
       const b = bands(stem), mix = new Float64Array(LEN); for (let i = 0; i < LEN; i++) mix[i] = 0.8 * stem[i] + drums[i];
-      return { ...v, stem, mix, unmatchedLu, matchGainDb: 20 * Math.log10(g), share: b.share, fundDb: 10 * Math.log10(b.lo / refBands.lo), crestDb: 20 * Math.log10(peak(stem) / rms(stem)), heldDb: heldNote(v.d), loud: kLoud(stem), spectrum: sixths(stem) };
+      return { ...v, stem, mix, unmatchedLu, matchGainDb: 20 * Math.log10(g), share: b.share, fundDb: 10 * Math.log10(b.lo / refBands.lo), crestDb: 20 * Math.log10(peak(stem) / rms(stem)), aDb: aLevel(stem) - refA, heldDb: heldNote(v.d), loud: kLoud(stem), spectrum: sixths(stem) };
     });
     return { versions: out, ref, LEN };
   }
@@ -220,7 +222,7 @@ const MX = (() => {
   function inversions(order) { let c = 0; for (let i = 0; i < order.length; i++) for (let j = i + 1; j < order.length; j++) if (order[i] > order[j]) c++; return c; }
   // of the 24 orders of four, how many sit within k swapped pairs of the truth
   function within(k) { const perms = []; const go = (a, rest) => { if (!rest.length) perms.push(a); rest.forEach((v, i) => go([...a, v], rest.filter((_, j) => j !== i))); }; go([], [0, 1, 2, 3]); return perms.filter((p) => inversions(p) <= k).length; }
-  return { RATE, LEN, VERSIONS, LEAN, SPLIT, curve, rng, render, kLoud, bands, heldNote, inversions, within, shuffle, peak, rms };
+  return { RATE, LEN, VERSIONS, LEAN, SPLIT, curve, rng, render, kLoud, aLevel, bands, heldNote, inversions, within, shuffle, peak, rms };
 })();
 </script>
 
@@ -230,7 +232,7 @@ const MX = (() => {
   const MASTER = 0.34;   // the loudest mix, heavy as the drive leaves it, peaks near 2.8 before this; after it, under full scale
   let R = null;          // the render, made on first need
   const need = () => (R || (R = MX.render()));
-  const S = { step: 0, solo: 0, v: 0, match: 1, map: null, ranks: [null, null, null, null], keep: null, x: 0, shown: false, rounds: 0, exact: 0 };
+  const S = { step: 0, solo: 0, v: 0, match: 1, map: null, ranks: [null, null, null, null], keep: null, x: 0, shown: false, rounds: 0, exact: 0, keeps: 0, keptLight: 0 };
   const NAMES = MX.VERSIONS.map((v) => v.name);
   const fmt = (v, n) => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(n == null ? 1 : n);
 
@@ -240,8 +242,8 @@ const MX = (() => {
       hear: 'the clean bass, in the mix or alone',
       eq: ['y = x', '(the bass that plays) = (the bass as written): no curve yet'], eq2: ['', ''] },
     { key: 'versions', rail: 'four versions', title: 'Light, medium, heavy',
-      say: 'The same line through the soft clip from this face’s other piece, leaning slightly, at three drives. On a held note at the bass’s peak, light adds harmonics about 31 dB below the note, medium about 16, heavy about 10. Each is turned down to the clean one’s loudness, so what changes is the colour, not the level. Watch the spectrum fill above 90 Hz, where none of the notes are: everything there the curve made. Switch while it plays; the loop keeps its place.',
-      hear: 'one version at a time, matched in loudness',
+      say: 'The same line through the soft clip from this face’s other piece, leaning slightly, at three drives. On a held note at the bass’s peak, light adds harmonics about 31 dB below the note, medium about 16, heavy about 10. Each is turned down to the clean one’s K-weighted loudness (BS.1770, the broadcast meter). That is one reading of level, not the ear’s: by A-weighting, which leans harder against the low end, heavy still sits about 4 dB above clean and medium about 1, and further on small speakers that drop the fundamentals; light and clean differ by 0.03 dB. So from light to clean only the colour changes; from medium to heavy, level may still speak. Watch the spectrum fill above 90 Hz, where none of the notes are: everything there the curve made. Switch while it plays; the loop keeps its place.',
+      hear: 'one version at a time, matched in K-weighted loudness',
       eq: ['y = [tanh(d·(x + b)) − tanh(d·b)] ÷ [tanh(d·(1 + b)) − tanh(d·b)],  b = 0.12', '(out) = the soft clip of (drive × (in + a slight lean)), middle at zero, full scale kept; only the drive d changes: 0, 0.6, 1.8, 4.5'],
       eq2: ['', ''] },
     { key: 'cost', rail: 'what it costs', title: 'What it costs',
@@ -249,10 +251,10 @@ const MX = (() => {
       hear: 'the attack, matched or as the drive leaves it',
       eq: ['crest = 20·log₁₀(peak ÷ rms)', '(crest factor, dB) = how far the highest peak stands above the average level'], eq2: ['', ''] },
     { key: 'test', rail: 'four, blind', title: 'Four, blind',
-      say: 'The four again, matched in loudness, with their names hidden behind A to D in an order chosen at random. Play them in the mix, or alone, as often as you like. Put them in order from clean to heavy, and choose the one you would keep in this mix. The page’s students found light “fuller, sits better in mix”. Your order is scored against what guessing does: of the 24 ways to order four, guessing lands on the right one 1 time in 24.',
+      say: 'The four again, matched in K-weighted loudness, with their names hidden behind A to D in an order chosen at random. Play them in the mix, or alone, as often as you like. Put them in order from clean to heavy, and choose the one you would keep in this mix. The page’s students found light “fuller, sits better in mix”. Both answers are scored against what guessing does. Of the 24 ways to order four, guessing lands on the right one 1 time in 24. Guessing keeps light 1 time in 4; your keeps are tallied across rounds. Remember that heavy still reads about 4 dB louder A-weighted, so placing heavy may be placing the loudest.',
       hear: 'press A, B, C or D',
       eq: ['P(exact order by guessing) = 1 ÷ 4! = 1/24', 'four things can be ordered 24 ways; a guess finds the right one about 4 times in 100'],
-      eq2: ['P(within one swapped pair) = 4/24 · within two = 9/24', 'counting the orders one neighbour-swap from the truth, then two'] },
+      eq2: ['P(keep light at least k of n by guessing) = Σⱼ₌ₖⁿ C(n, j) · (1/4)ʲ · (3/4)ⁿ⁻ʲ', 'the chance a guesser keeps light that often: 2 of 2, 1 in 16; 3 or more of 4, 1 in 20; 4 or more of 5, 1 in 64'] },
   ];
 
   // ── sound: eight loops start together (four versions × mix or alone), one is heard ──
@@ -308,14 +310,17 @@ const MX = (() => {
     // the guessed order of the true versions: list the letters by the place given, read off what each was
     const byPlace = [0, 1, 2, 3].sort((a, b) => S.ranks[a] - S.ranks[b]).map((letter) => S.map[letter]);
     const inv = MX.inversions(byPlace); if (inv === 0) S.exact++;
-    const kept = S.keep == null ? null : S.map[S.keep];
+    const kept = S.keep == null ? null : S.map[S.keep]; if (kept != null) { S.keeps++; if (kept === 1) S.keptLight++; }
+    const keepTail = (n, k) => { let p = 0; const C = (a, b) => { let c = 1; for (let i = 1; i <= b; i++) c = c * (a - b + i) / i; return c; }; for (let j = k; j <= n; j++) p += C(n, j) * Math.pow(0.25, j) * Math.pow(0.75, n - j); return p; };
     const within = MX.within(inv);
     const read = inv === 0 ? 'The exact order. Guessing finds it 1 time in 24.'
       : `${inv} pair${inv > 1 ? 's' : ''} swapped. Guessing lands this close or closer ${within} times in 24${within >= 12 ? ', so this round can’t tell your ear from a guess' : ''}.`;
-    const keepLine = kept == null ? 'You didn’t choose one to keep.' : `You’d keep <b>${NAMES[kept].toLowerCase()}</b>${kept === 1 ? ', the one the page’s students chose.' : '. The page’s students chose light; this is your ear, in this mix, on these speakers.'}`;
+    const pk = S.keeps ? keepTail(S.keeps, S.keptLight) : 1;
+    const keepLine = (kept == null ? 'You didn’t choose one to keep.' : `You’d keep <b>${NAMES[kept].toLowerCase()}</b>${kept === 1 ? ', the one the page’s students chose.' : '. The page’s students chose light.'}`)
+      + (S.keeps ? ` Across rounds you kept light <b>${S.keptLight} of ${S.keeps}</b>; guessing keeps light that often or more ${pk >= 0.5 ? 'more often than not' : `about 1 time in ${Math.round(1 / pk)}`}${S.keeps < 3 ? ', and one or two rounds can’t say much' : ''}.` : '');
     const rows = [0, 1, 2, 3].map((i) => { const v = R.versions[S.map[i]]; return `<tr><td><b>${'ABCD'[i]}</b></td><td>${NAMES[S.ranks[i]].toLowerCase()}</td><td>${v.name.toLowerCase()}</td><td>${v.d ? fmt(v.heldDb) + ' dB' : 'none'}</td><td>${v.crestDb.toFixed(1)} dB</td></tr>`; }).join('');
     $('result').innerHTML = `<p class="score">${read} ${keepLine}</p><table class="marks"><tr><th>hidden</th><th>you placed it</th><th>it was</th><th>added, held note</th><th>crest</th></tr>${rows}</table>
-      <p class="hint">Exact orders so far: ${S.exact} of ${S.rounds}. Guessing makes an exact order 1 round in 24, so two in a handful of rounds is already unlikely by chance. One ear, one sitting, one pair of speakers: it says what you heard, not what every ear hears. The spectra are drawn above.</p>`;
+      <p class="hint">Exact orders so far: ${S.exact} of ${S.rounds}. Matched in K-weighted loudness; A-weighted, light is ${fmt(R.versions[1].aDb, 2)}, medium ${fmt(R.versions[2].aDb, 2)} and heavy ${fmt(R.versions[3].aDb, 2)} dB from clean. Guessing makes an exact order 1 round in 24, so two in a handful of rounds is already unlikely by chance. One ear, one sitting, one pair of speakers: it says what you heard, not what every ear hears. The spectra are drawn above.</p>`;
     $('result').hidden = false; $('tally').textContent = `rounds: ${S.rounds}`; draw();
   };
   $('again').onclick = () => newRound();
@@ -349,7 +354,7 @@ const MX = (() => {
   function draw() {
     need(); const k = STEPS[S.step].key; let meter = '';
     if (k === 'clean') { spectrum([0]); legend([0]); const v = R.versions[0]; meter = `crest factor <b>${v.crestDb.toFixed(1)} dB</b> · power above 90 Hz: <b>${(100 * v.share).toFixed(2)} %</b> (the notes’ onsets; no curve yet)`; }
-    if (k === 'versions') { const list = S.v ? [0, S.v] : [0]; spectrum(list); legend(list); const v = R.versions[S.v]; meter = `${v.name}: added on a held note <b>${v.d ? fmt(v.heldDb) + ' dB' : 'none'}</b> · power above 90 Hz <b>${(100 * v.share).toFixed(2)} %</b> · turned down <b>${fmt(v.matchGainDb)} dB</b> to match the clean one`; }
+    if (k === 'versions') { const list = S.v ? [0, S.v] : [0]; spectrum(list); legend(list); const v = R.versions[S.v]; meter = `${v.name}: added on a held note <b>${v.d ? fmt(v.heldDb) + ' dB' : 'none'}</b> · power above 90 Hz <b>${(100 * v.share).toFixed(2)} %</b> · turned down <b>${fmt(v.matchGainDb)} dB</b> to match the clean one (K-weighted) · A-weighted, still <b>${fmt(v.aDb, 2)} dB</b> from clean`; }
     if (k === 'cost') { const list = S.v ? [0, S.v] : [0]; waveform(list); legend(list); const v = R.versions[S.v]; meter = `${v.name}: crest factor <b>${v.crestDb.toFixed(1)} dB</b> (clean ${R.versions[0].crestDb.toFixed(1)}) · as the drive leaves it, <b>${fmt(v.unmatchedLu)} dB</b> louder than clean (K-weighted)` + (S.match ? ' · now: matched' : ' · now: as the drive leaves it'); }
     if (k === 'test') { if (S.shown) { spectrum([0, 1, 2, 3]); legend([0, 1, 2, 3]); } else { const { g, h } = fit(280); g.fillStyle = css('--fg-3'); g.font = '12px ' + css('--mono'); g.fillText('hidden until you press Show me', 16, h / 2); $('legend').innerHTML = ''; } }
     $('meter').innerHTML = meter;

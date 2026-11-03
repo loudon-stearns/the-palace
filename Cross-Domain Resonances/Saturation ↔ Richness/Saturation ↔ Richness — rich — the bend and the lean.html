@@ -3,7 +3,7 @@
   title: Saturation ↔ Richness — rich — the bend and the lean
   born: 2026-11-03
   links: [[Saturation ↔ Richness]] (connects-to · rich-face-piece) · listed in [[Saturation ↔ Richness — rich.json]] · the test's two curves are [[Chebyshev is Fourier]]'s drawbars, driven at full scale where they hold · the corner and the knee are walked on [[Compressor Design]]'s face, not here
-  forward_vector: I am the walk up to The Technical Side's claim that even harmonics are warmth and odd ones edge. One sine and one line; an EQ boost that adds no line, as Common Misunderstandings says; a drive that bends the sine and makes only odd harmonics; a lean that makes the even ones, and the identity that says why; and last a blind test of ten pairs where your ear says which is warmer, scored against a coin. I change only when the section I serve does.
+  forward_vector: I am the walk up to The Technical Side's claim that even harmonics are warmth and odd ones edge. One sine and one line; an EQ boost that adds no line to it, as Common Misunderstandings says; a drive that bends the sine and makes only odd harmonics; a lean that makes the even ones, and the identity that says why; and last a blind test of ten pairs where your ear says which is warmer, half with the even lines below the odd and half above, so evenness is scored apart from brightness, against a coin. I change only when the section I serve does.
   sound: nothing plays until Play is clicked; the AudioContext is made on that click. Changing step stops the sound. Every tone is made in this page by the core below. From the drive on, every sound is matched in K-weighted loudness, so a richer sound is not simply a louder one.
   check: Cross-Domain Resonances/Saturation ↔ Richness/Saturation ↔ Richness — rich — check.mjs runs this page's core in Node.
 -->
@@ -113,7 +113,7 @@
 
     <div id="test" hidden>
       <div class="rowb" id="levelRow"><span class="eyebrow">added lines</span>
-        <button class="ghost" data-lv="-30">faint, −30 dB</button><button class="ghost" data-lv="-20">clear, −20 dB</button>
+        <button class="ghost" data-lv="-30">faint, −30 dB</button><button class="ghost" data-lv="-24">clear, −24 dB</button>
         <button class="ghost" id="begin">Begin ten pairs</button>
       </div>
       <div id="trial" hidden>
@@ -150,15 +150,15 @@ const SC = (() => {
   const evenPart = (f, x) => (f(x) + f(-x)) / 2;
   // Chebyshev polynomials: Tₙ(cos θ) = cos nθ, so at full scale each term is one harmonic.
   function cheb(n, x) { let a = 1, c = x; if (n === 0) return 1; for (let k = 1; k < n; k++) { const t = 2 * x * c - a; a = c; c = t; } return c; }
-  // The test's two curves: the same three added lines, a step of 6 dB apart, on the evens or on the odds.
+  // The test's curves: the same three added lines, a step of 6 dB apart. 'even' adds the 2nd, 4th, 6th, which sit
+  // below the odd set; 'evenHigh' adds the 4th, 6th, 8th, which sit above it; 'odd' adds the 3rd, 5th, 7th.
+  // Half the pairs set each even set against the odd one, so evenness and brightness are pulled apart.
   // Signs alternate so each curve bends over (compresses) rather than flaring.
-  function pairCurve(parity, levelDb, x) {
+  const SETS = { even: [2, 4, 6], evenHigh: [4, 6, 8], odd: [3, 5, 7] };
+  function pairCurve(set, levelDb, x) {
     const L = Math.pow(10, levelDb / 20), r = Math.pow(10, -6 / 20);
     let y = x;
-    for (let j = 0; j < 3; j++) {
-      const n = parity === 'even' ? 2 * (j + 1) : 2 * (j + 1) + 1;
-      y += (j % 2 === 0 ? -1 : 1) * L * Math.pow(r, j) * cheb(n, x);
-    }
+    SETS[set].forEach((n, j) => { y += (j % 2 === 0 ? -1 : 1) * L * Math.pow(r, j) * cheb(n, x); });
     return y;
   }
   // ── signals: one period, then a loop of whole periods ────────────────────────
@@ -213,7 +213,7 @@ const SC = (() => {
   // ── the score: how often a coin would do as well ───────────────────────────
   function choose(n, k) { let c = 1; for (let i = 1; i <= k; i++) c = c * (n - k + i) / i; return c; }
   function tailAtLeast(n, s) { let p = 0; for (let k = s; k <= n; k++) p += choose(n, k); return p / Math.pow(2, n); }
-  return { RATE, curve, oddPart, evenPart, cheb, pairCurve, period, sinePeriod, sawPeriod, shape, dc, bell, eqPeriod, harmonics, db, powerSplit, lines, kLoud, loop, choose, tailAtLeast };
+  return { RATE, SETS, curve, oddPart, evenPart, cheb, pairCurve, period, sinePeriod, sawPeriod, shape, dc, bell, eqPeriod, harmonics, db, powerSplit, lines, kLoud, loop, choose, tailAtLeast };
 })();
 </script>
 
@@ -224,7 +224,7 @@ const SC = (() => {
   const TARGET = -20;              // the loudness every matched loop is set to (K-weighted, ungated)
   const K = 24;                    // harmonics drawn
   const FLOOR = -120;              // below this, a bar is drawn as empty
-  const S = { step: 0, src: 'sine', fc: 0, d: 2, b: 0.1, level: -20, trials: null, t: 0, ab: 0, done: false };
+  const S = { step: 0, src: 'sine', fc: 0, d: 2, b: 0.1, level: -24, trials: null, t: 0, ab: 0, done: false };
   const fmt = (v, n) => (v <= -200 ? 'none' : (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(n == null ? 1 : n));
 
   const STEPS = [
@@ -243,15 +243,15 @@ const SC = (() => {
       eq: ['y = tanh(d·x) ÷ tanh(d)', '(out) = the soft clip of (drive × in), scaled so a full-scale input still comes out at full scale'],
       eq2: ['f(−x) = −f(x)  →  odd harmonics only', 'a curve that treats down exactly as it treats up makes only odd harmonics'] },
     { key: 'lean', rail: 'the lean', title: 'Lean the curve',
-      say: 'Add a lean: move the curve’s middle off centre, so it bends sooner on one side than the other. Now the even bars fill. The dashed line is the curve’s bend, the part that treats up and down alike; the dotted line is its lean, the part that doesn’t. The bend makes only the odd harmonics and the lean makes only the even ones, at any drive. So the page’s “even-order warmth” needs a curve that leans. A curve that is symmetric makes none, however hard you drive it.',
+      say: 'Add a lean: move the curve’s middle off centre, so it bends sooner on one side than the other. Now the even bars fill. The dashed line is the curve’s bend, the part that treats up and down alike; the dotted line is its lean, the part that doesn’t. The bend makes only the odd harmonics and the lean makes only the even ones, at any drive. So, on a sine, the page’s “even-order warmth” needs a curve that leans: a symmetric curve makes no even harmonic from a sine, however hard you drive it. Feed it a wave that already has evens, a voice or a guitar, and it makes more of them.',
       hear: 'the sine through the leaning curve',
       eq: ['y = [tanh(d·(x + b)) − tanh(d·b)] ÷ [tanh(d·(1 + b)) − tanh(d·b)]', '(out) = the soft clip of (drive × (in + lean)), with the middle put back at zero and full scale kept'],
       eq2: ['f(x) = ½[f(x) − f(−x)] + ½[f(x) + f(−x)]', '(any curve) = (its bend, which flips sign with the input) + (its lean, which doesn’t); the bend gives the odd lines, the lean the even'] },
     { key: 'test', rail: 'warm or edge', title: 'Warm or edge, blind',
-      say: 'The page says even harmonics are warmth and odd ones edge. Here is the claim with everything else held still. Each pair is one note made two ways: one gets the 2nd, 4th and 6th harmonics, the other the 3rd, 5th and 7th, at the same strength, each 6 dB below the last, and the pair matched in loudness. Which is which, and which comes first, is chosen at random. Choose how strong the added lines are, then for each of ten pairs say which sounds warmer. Nothing is shown until the end.',
+      say: 'The page says even harmonics are warmth and odd ones edge. Here is the claim with everything else held still. Each pair is one note made two ways, at the same strength, each added line 6 dB below the last, the pair matched in K-weighted loudness: one gets the 3rd, 5th and 7th harmonics, the other an even set. In five of the ten pairs the even set is the 2nd, 4th and 6th, lower than the odd lines; in the other five it is the 4th, 6th and 8th, higher. So an ear that hears darker as warmer picks the even one in the first five and the odd one in the second, and only an ear that hears evenness picks the even one in both. Which pairs are which, which note, and which comes first are chosen at random. Choose how strong the added lines are, then for each pair say which sounds warmer. Nothing is shown until the end.',
       hear: 'press X or Y',
-      eq: ['y = x ∓ a·T₂(x) ± (a/2)·T₄(x) ∓ (a/4)·T₆(x)   or   y = x ∓ a·T₃(x) ± (a/2)·T₅(x) ∓ (a/4)·T₇(x)', '(out) = (in) plus three Chebyshev terms: at full scale each one is exactly one harmonic, so the two curves differ only in which harmonics they add'],
-      eq2: ['P(at least s of 10 by guessing) = Σₖ₌ₛ¹⁰ C(10, k) ÷ 2¹⁰', 'the chance a coin would call the even one warmer at least s times in ten: 8 or more, 1 in 18; 9 or more, 1 in 93; all 10, 1 in 1024'] },
+      eq: ['y = x − a·Tₙ₁(x) + (a/2)·Tₙ₂(x) − (a/4)·Tₙ₃(x),   n = 2, 4, 6  or  4, 6, 8  or  3, 5, 7', '(out) = (in) plus three Chebyshev terms: at full scale each one is exactly one harmonic, so the curves differ only in which harmonics they add'],
+      eq2: ['P(at least s of n by guessing) = Σₖ₌ₛⁿ C(n, k) ÷ 2ⁿ', 'what a coin does: the even one called warmer 8 or more times in ten, 1 in 18; all 5 in one half, 1 in 32; 4 or more in both halves, about 1 in 28'] },
   ];
 
   // ── what each step sounds like and shows ──
@@ -304,7 +304,9 @@ const SC = (() => {
   async function playPair() { const tr = S.trials && S.trials[S.t]; if (!tr) { stopSound(); return; } await ensure(); playing = true; $('play').textContent = 'Stop'; startLoops(pairLoops(tr), S.ab); markAB(); }
   function markAB() { document.querySelectorAll('[data-ab]').forEach((b) => b.setAttribute('aria-pressed', String(playing && +b.dataset.ab === S.ab))); }
   function newRun() {
-    S.trials = Array.from({ length: 10 }, () => ({ f: NOTES[Math.floor(Math.random() * NOTES.length)], order: Math.random() < 0.5 ? ['even', 'odd'] : ['odd', 'even'], pick: null }));
+    const kinds = ['even', 'even', 'even', 'even', 'even', 'evenHigh', 'evenHigh', 'evenHigh', 'evenHigh', 'evenHigh'];
+    for (let i = kinds.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [kinds[i], kinds[j]] = [kinds[j], kinds[i]]; }
+    S.trials = kinds.map((ev) => ({ f: NOTES[Math.floor(Math.random() * NOTES.length)], ev, order: Math.random() < 0.5 ? [ev, 'odd'] : ['odd', ev], pick: null }));
     S.t = 0; S.ab = 0; S.done = false; $('trial').hidden = false; $('result').hidden = true; showTrial();
   }
   function showTrial() { $('trialN').textContent = `pair ${S.t + 1} of 10`; if (playing) playPair(); markAB(); }
@@ -317,17 +319,21 @@ const SC = (() => {
   function markLevel() { document.querySelectorAll('[data-lv]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.lv === S.level))); }
   $('begin').onclick = () => { newRun(); $('begin').textContent = 'Start again'; };
   function showResult() {
-    const T = S.trials, warmEven = T.filter((t) => t.order[t.pick] === 'even').length;
-    const pHi = SC.tailAtLeast(10, warmEven), pLo = SC.tailAtLeast(10, 10 - warmEven);
-    const odds = (p) => (p >= 0.5 ? 'more often than not' : `about 1 time in ${Math.round(1 / p)}`), p2 = Math.min(1, 2 * Math.min(pHi, pLo));
+    const T = S.trials, isEven = (t) => t.order[t.pick] !== 'odd';
+    const lo = T.filter((t) => t.ev === 'even'), hi = T.filter((t) => t.ev === 'evenHigh');
+    const eLo = lo.filter(isEven).length, eHi = hi.filter(isEven).length, warmEven = eLo + eHi, darker = eLo + (hi.length - eHi);
+    const odds = (p) => (p >= 0.5 ? 'more often than not' : `about 1 time in ${Math.round(1 / p)}`), both = Math.pow(SC.tailAtLeast(5, 4), 2);
     let read;
-    if (warmEven >= 8) read = `By guessing, ${warmEven} or more happens ${odds(pHi)}. Your ear heard the even lines as the warmer, as the page says.`;
-    else if (warmEven <= 2) read = `By guessing, ${warmEven} or fewer happens ${odds(pLo)}. Your ear heard a difference, and called the odd lines the warmer: the opposite of the page’s claim, for you, at this strength.`;
-    else read = `A coin lands this far from 5, one way or the other, ${odds(p2)}. At this strength, this run can’t tell your “warm” from a guess. Try the other strength, or ten more.`;
-    const rows = T.map((t, i) => `<tr><td>${i + 1}</td><td>${t.f} Hz</td><td>${t.order[0] === 'even' ? 'X' : 'Y'}</td><td>${'XY'[t.pick]}</td><td>${t.order[t.pick] === 'even' ? 'even' : 'odd'}</td></tr>`).join('');
-    $('result').innerHTML = `<p class="score">You called the even one warmer in <b>${warmEven} of 10</b>. Chance is 5 of 10. ${read}</p>
-      <table class="marks"><tr><th>pair</th><th>note</th><th>the even one</th><th>you said warmer</th><th>which was</th></tr>${rows}</table>
-      <p class="hint">Lines added at −${-S.level} dB, −${6 - S.level} dB and −${12 - S.level} dB re the note; each pair matched in K-weighted loudness. One ear, one sitting: it says what you heard today, not what every ear hears. The spectra of both curves are drawn above.</p>`;
+    if (eLo >= 4 && eHi >= 4) read = `The even one won both halves, below the odd lines and above them. By guessing, 4 or more in both happens ${odds(both)}. Your ear heard evenness as warmth, as the page says.`;
+    else if (eLo <= 1 && eHi <= 1) read = `The odd one won both halves. By guessing, that happens ${odds(both)}. Your ear heard the odd lines as the warmer: the opposite of the page’s claim, for you, at this strength.`;
+    else if (darker >= 8) read = `You picked the lower set ${darker} times in 10, whichever its parity; by guessing, ${darker} or more happens ${odds(SC.tailAtLeast(10, darker))}. Your “warm” followed register, darker against brighter, not even against odd.`;
+    else if (darker <= 2) read = `You picked the higher set ${10 - darker} times in 10, whichever its parity; by guessing, that often happens ${odds(SC.tailAtLeast(10, 10 - darker))}. Your “warm” followed register, not parity.`;
+    else read = `Neither parity nor register stands out from what a coin does: the even one ${warmEven} of 10, the darker one ${darker} of 10, against 5 by chance. At this strength, this run can’t tell your “warm” from a guess. Try the other strength, or ten more.`;
+    const name = (k) => ({ even: 'even, below', evenHigh: 'even, above', odd: 'odd' })[k];
+    const rows = T.map((t, i) => `<tr><td>${i + 1}</td><td>${t.f} Hz</td><td>${t.ev === 'even' ? '2 4 6' : '4 6 8'}</td><td>${t.order[0] === 'odd' ? 'Y' : 'X'}</td><td>${'XY'[t.pick]}</td><td>${name(t.order[t.pick])}</td></tr>`).join('');
+    $('result').innerHTML = `<p class="score">The even one called warmer: <b>${eLo} of ${lo.length}</b> when it sat below the odd lines, <b>${eHi} of ${hi.length}</b> when it sat above them; <b>${warmEven} of 10</b> in all. Chance is half of each. ${read}</p>
+      <table class="marks"><tr><th>pair</th><th>note</th><th>even set</th><th>the even one</th><th>you said warmer</th><th>which was</th></tr>${rows}</table>
+      <p class="hint">Lines added at −${-S.level} dB, −${6 - S.level} dB and −${12 - S.level} dB re the note; each pair matched in K-weighted loudness. Five pairs set the 2nd, 4th, 6th against the 3rd, 5th, 7th; five set the 4th, 6th, 8th against them. One ear, one sitting: it says what you heard today, not what every ear hears. The spectra of both curves are drawn above.</p>`;
     $('result').hidden = false;
   }
 
@@ -356,7 +362,7 @@ const SC = (() => {
     const slot = pw / K;
     for (let k = 1; k <= K; k++) { if (k === 1 || k % 2 === 0 || k <= 7) { g.fillStyle = css('--fg-3'); g.fillText(String(k), l + (k - 0.5) * slot - 4, h - 8); } }
     sets.forEach((set, si) => {
-      const bw = sets.length > 1 ? slot * 0.34 : slot * 0.56, off = sets.length > 1 ? (si ? 0.08 : -0.42) * slot : -0.28 * slot;
+      const n = sets.length, bw = n > 1 ? slot * 0.8 / n : slot * 0.56, off = n > 1 ? -0.42 * slot + si * slot * 0.84 / n : -0.28 * slot;
       for (let k = 1; k <= K; k++) {
         const d = SC.db(set.h[k]); const x = l + (k - 0.5) * slot + off;
         g.fillStyle = k === 1 ? css('--fg-1') : k % 2 ? css('--accent') : css('--info');
@@ -373,8 +379,8 @@ const SC = (() => {
   function draw() {
     const k = STEPS[S.step].key; let meter = '';
     if (k === 'test') {
-      const show = S.done; const f = (x) => SC.pairCurve('even', S.level, x), o = (x) => SC.pairCurve('odd', S.level, x);
-      if (show) { const { g, w, h } = fit(C1, 260); drawPairCurves(g, w, h, f, o); drawBars([{ h: SC.harmonics(SC.shape(SINE, f), K) }, { h: SC.harmonics(SC.shape(SINE, o), K) }]); legend('<span>left of each pair: the even curve; right: the odd</span>'); }
+      const show = S.done; const f = (x) => SC.pairCurve('even', S.level, x), fh = (x) => SC.pairCurve('evenHigh', S.level, x), o = (x) => SC.pairCurve('odd', S.level, x);
+      if (show) { const { g, w, h } = fit(C1, 260); drawPairCurves(g, w, h, f, o, fh); drawBars([{ h: SC.harmonics(SC.shape(SINE, f), K) }, { h: SC.harmonics(SC.shape(SINE, o), K) }, { h: SC.harmonics(SC.shape(SINE, fh), K) }]); legend('<span>in each group: even below, odd, even above</span>'); }
       else { const { g, w, h } = fit(C1, 260); g.fillStyle = css('--fg-3'); g.font = '12px ' + css('--mono'); g.fillText('hidden until the tenth answer', 16, h / 2); const c2 = fit(C2, 260); c2.g.fillStyle = css('--fg-3'); c2.g.font = '12px ' + css('--mono'); c2.g.fillText('hidden until the tenth answer', 16, c2.h / 2); legend(''); }
       $('meter').innerHTML = S.trials && !S.done ? `pair <b>${S.t + 1}</b> of 10 · added lines at <b>−${-S.level} dB</b>` : '';
       return;
@@ -398,12 +404,12 @@ const SC = (() => {
     }
     $('meter').innerHTML = meter;
   }
-  function drawPairCurves(g, w, h, f, o) {
+  function drawPairCurves(g, w, h, f, o, fh) {
     const pad = 18, sz = Math.min(w, h) - 2 * pad, ox = (w - sz) / 2, oy = (h - sz) / 2, X = (x) => ox + (x + 1) / 2 * sz, Y = (y) => oy + (1 - (y + 1) / 2) * sz;
     g.clearRect(0, 0, w, h); g.strokeStyle = css('--border'); g.lineWidth = 1; g.strokeRect(ox, oy, sz, sz);
     const path = (fn, col) => { g.strokeStyle = col; g.lineWidth = 1.6; g.beginPath(); for (let i = 0; i <= 200; i++) { const x = -1 + i / 100, y = Math.max(-1.3, Math.min(1.3, fn(x))); i ? g.lineTo(X(x), Y(y)) : g.moveTo(X(x), Y(y)); } g.stroke(); };
-    path(f, css('--info')); path(o, css('--accent'));
-    g.fillStyle = css('--fg-3'); g.font = '10px ' + css('--mono'); g.fillText('blue: the even curve', ox + 6, oy + 14); g.fillText('amber: the odd', ox + 6, oy + 28);
+    path(f, css('--info')); path(o, css('--accent')); if (fh) { g.setLineDash([4, 3]); path(fh, css('--info')); g.setLineDash([]); }
+    g.fillStyle = css('--fg-3'); g.font = '10px ' + css('--mono'); g.fillText('blue: even below', ox + 6, oy + 14); g.fillText('dashed: even above', ox + 6, oy + 28); g.fillText('amber: odd', ox + 6, oy + 42);
   }
 
   // ── the walk ──

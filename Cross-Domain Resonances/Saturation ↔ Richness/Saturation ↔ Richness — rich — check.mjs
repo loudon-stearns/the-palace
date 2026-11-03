@@ -88,28 +88,42 @@ for (const fc of [400, 600, 1000]) {
   check('evens appear as soon as the curve leans, and grow with it', ev(0) < -200 && ev(0.05) > -40 && ev(0.4) > ev(0.05), `even power ${ev(0) < -200 ? 'none' : ev(0).toFixed(1)}, ${ev(0.05).toFixed(1)}, ${ev(0.4).toFixed(1)} dB at lean 0, 0.05, 0.4 (d 3)`); }
 
 // 4 · the test's two curves: the same lines at the same strength, on the evens or on the odds, matched
-for (const L of [-30, -20]) {
+const html = readFileSync(join(HERE, 'Saturation ↔ Richness — rich — the bend and the lean.html'), 'utf8');
+const LEVELS = [...html.matchAll(/data-lv="(-?\d+)"/g)].map((m) => +m[1]);
+check('the piece offers two strengths, −30 and −24 dB', LEVELS.join() === '-30,-24', LEVELS.join(', '));
+const centre = (set) => { let a = 0, w = 0; set.forEach((k, j) => { const amp = Math.pow(10, -6 * j / 20); a += k * amp; w += amp; }); return a / w; };
+check('the even set sits below the odd in half the pairs and above it in the other half', centre(SC.SETS.even) < centre(SC.SETS.odd) && centre(SC.SETS.evenHigh) > centre(SC.SETS.odd), `amplitude-weighted centre: 2 4 6 at harmonic ${centre(SC.SETS.even).toFixed(2)}, 3 5 7 at ${centre(SC.SETS.odd).toFixed(2)}, 4 6 8 at ${centre(SC.SETS.evenHigh).toFixed(2)}`);
+{ const kinds = html.match(/const kinds = \[([^\]]*)\]/)[1].split(',').map((t) => t.trim().replace(/'/g, ''));
+  check('ten pairs: five with the even set below, five above', kinds.length === 10 && kinds.filter((k) => k === 'even').length === 5 && kinds.filter((k) => k === 'evenHigh').length === 5, kinds.join(' ')); }
+for (const L of LEVELS) {
   const amps = [L, L - 6, L - 12];
   for (const f of [160, 200, 240, 250, 300]) {
-    const Pn = SC.period(f), x = SC.sinePeriod(Pn, 1);
-    const he = SC.harmonics(SC.shape(x, (v) => SC.pairCurve('even', L, v)), 12), ho = SC.harmonics(SC.shape(x, (v) => SC.pairCurve('odd', L, v)), 12);
-    const errE = Math.max(Math.abs(he[1] - 1), ...[2, 4, 6].map((k, j) => Math.abs(dB(he[k]) - amps[j]))), errO = Math.max(Math.abs(ho[1] - 1), ...[3, 5, 7].map((k, j) => Math.abs(dB(ho[k]) - amps[j])));
-    let strayE = -Infinity, strayO = -Infinity; for (let k = 1; k <= 12; k++) { if (![1, 2, 4, 6].includes(k)) strayE = Math.max(strayE, dB(he[k])); if (![1, 3, 5, 7].includes(k)) strayO = Math.max(strayO, dB(ho[k])); }
-    if (f === 200 || errE > 1e-6 || errO > 1e-6 || strayE > -200 || strayO > -200)
-      check(`pair at ${L} dB, ${f} Hz: lines at ${amps.join(', ')} dB and nothing else`, errE < 1e-6 && errO < 1e-6 && strayE < -200 && strayO < -200, `worst error ${Math.max(errE, errO).toExponential(1)}; loudest stray ${Math.max(strayE, strayO).toFixed(0)} dB`);
-    const le = SC.loop(SC.shape(x, (v) => SC.pairCurve('even', L, v)), -20).y, lo = SC.loop(SC.shape(x, (v) => SC.pairCurve('odd', L, v)), -20).y;
-    const kl = (y) => SC.kLoud(Float64Array.from(y.subarray(0, Pn)));
-    if (Math.abs(kl(le) - kl(lo)) > 0.01 || f === 200) check(`pair at ${L} dB, ${f} Hz: matched in K-weighted loudness`, Math.abs(kl(le) - kl(lo)) < 0.01, `${kl(le).toFixed(3)} and ${kl(lo).toFixed(3)} LUFS`);
-    if (le.length % Pn || lo.length % Pn) check(`pair at ${f} Hz: loop is whole cycles`, false, `${le.length} samples, period ${Pn}`);
+    const Pn = SC.period(f), x = SC.sinePeriod(Pn, 1), loops = {};
+    for (const set of ['even', 'evenHigh', 'odd']) {
+      const h = SC.harmonics(SC.shape(x, (v) => SC.pairCurve(set, L, v)), 12), want = SC.SETS[set];
+      const err = Math.max(Math.abs(h[1] - 1), ...want.map((k, j) => Math.abs(dB(h[k]) - amps[j])));
+      let stray = -Infinity; for (let k = 2; k <= 12; k++) if (!want.includes(k)) stray = Math.max(stray, dB(h[k]));
+      if (f === 200 || err > 1e-6 || stray > -200) check(`${set} set at ${L} dB, ${f} Hz: harmonics ${want.join(', ')} at ${amps.join(', ')} dB and nothing else`, err < 1e-6 && stray < -200, `worst error ${err.toExponential(1)}; loudest stray ${stray.toFixed(0)} dB`);
+      loops[set] = SC.loop(SC.shape(x, (v) => SC.pairCurve(set, L, v)), -20).y;
+      if (loops[set].length % Pn) check(`${set} at ${f} Hz: loop is whole cycles`, false, `${loops[set].length} samples, period ${Pn}`);
+    }
+    const kl = (y) => SC.kLoud(Float64Array.from(y.subarray(0, Pn))), ks = Object.values(loops).map(kl), spread = Math.max(...ks) - Math.min(...ks);
+    if (spread > 0.01 || f === 200) check(`all three at ${L} dB, ${f} Hz: matched in K-weighted loudness`, spread < 0.01, ks.map((v) => v.toFixed(3)).join(', ') + ' LUFS');
   }
   // each curve bends over and never folds back at the strengths offered
-  let mono = true; for (const par of ['even', 'odd']) for (let i = 0; i < 4000; i++) { const a = -1 + i / 2000, b = a + 1 / 2000; if (SC.pairCurve(par, L, b) < SC.pairCurve(par, L, a)) mono = false; }
-  check(`pair curves at ${L} dB never fold back`, mono, 'slope checked at 4000 points across full scale');
+  let mono = true; for (const set of ['even', 'evenHigh', 'odd']) for (let i = 0; i < 4000; i++) { const a = -1 + i / 2000, b = a + 1 / 2000; if (SC.pairCurve(set, L, b) < SC.pairCurve(set, L, a)) mono = false; }
+  check(`all three curves at ${L} dB never fold back`, mono, 'slope checked at 4000 points across full scale');
 }
-{ let edge = null; for (let L = -30; L <= -10; L += 0.1) { let ok = true; for (let i = 0; i < 2000; i++) { const a = -1 + i / 1000, b = a + 1 / 1000; if (SC.pairCurve('odd', L, b) < SC.pairCurve('odd', L, a)) ok = false; } if (!ok) { edge = L; break; } }
-  info('the odd curve starts to fold back near', `${edge.toFixed(1)} dB; its end slope is 1 − 8.75·a, zero at a = 0.114 (−18.8 dB), which is why the strongest strength offered is −20`); }
+for (const set of ['odd', 'evenHigh']) { let edge = null; for (let L = -30; L <= -10; L += 0.1) { let ok = true; for (let i = 0; i < 2000; i++) { const a = -1 + i / 1000, b = a + 1 / 1000; if (SC.pairCurve(set, L, b) < SC.pairCurve(set, L, a)) ok = false; } if (!ok) { edge = L; break; } }
+  info(`the ${set} curve starts to fold back near`, `${edge.toFixed(1)} dB, which is why the strongest strength offered is −24`); }
+// a symmetric curve makes no evens from a sine, but makes more from a wave that has them
+{ const x = Array.from({ length: P }, (_, n) => 0.7 * Math.cos(2 * Math.PI * n / P) + 0.3 * Math.cos(4 * Math.PI * n / P));
+  const y = SC.dc(Float64Array.from(x.map((v) => SC.curve(v, 3, 0))));
+  check('a symmetric curve fed a wave with a 2nd makes new even harmonics', dB(harm(y, 4)) > -40 && dB(harm(y, 6)) > -40, `drive 3, 0.7 of the note and 0.3 of its 2nd in: 4th ${dB(harm(y, 4)).toFixed(1)}, 6th ${dB(harm(y, 6)).toFixed(1)} dB FS; the piece says "from a sine" for this reason`); }
 
 // 5 · the chance figures the piece prints
+{ const t4 = SC.tailAtLeast(5, 4), b = t4 * t4;
+  check('one half, all 5 of 5 by guessing: 1 in 32; 4 or more in both halves: about 1 in 28', Math.abs(SC.tailAtLeast(5, 5) - 1 / 32) < 1e-15 && Math.round(1 / b) === 28, `P(5 of 5) = ${SC.tailAtLeast(5, 5)}, P(≥4 of 5) = ${t4.toFixed(4)}, both = ${b.toFixed(4)}`); }
 { const C = (n, k) => { let c = 1; for (let i = 1; i <= k; i++) c = c * (n - k + i) / i; return c; };
   const own = (s) => { let t = 0; for (let k = s; k <= 10; k++) t += C(10, k); return t / 1024; };
   const ok = [10, 9, 8, 7].every((s) => Math.abs(SC.tailAtLeast(10, s) - own(s)) < 1e-15);
@@ -121,9 +135,13 @@ for (const L of [-30, -20]) {
     const y = SC.dc(Float64Array.from(x.map((v) => SC.curve(v, d, b)))); let notes = 0, harmonics = 0, neither = 0, top = [];
     for (let k = 1; k <= 80; k++) { const a = harm(y, k), p = a * a, f = 50 * k; if (f === 200 || f === 250) notes += p; else if (f % 200 === 0 || f % 250 === 0) harmonics += p; else { neither += p; top.push([f, dB(a)]); } }
     top.sort((p, q) => q[1] - p[1]);
-    info(`two notes, 200 and 250 Hz, through the ${name} curve at d 3`, `harmonics of either note ${(10 * Math.log10(harmonics / notes)).toFixed(1)} dB re the notes; tones of neither ${(10 * Math.log10(neither / notes)).toFixed(1)} dB; loudest of those ${top.slice(0, 3).map(([f, a]) => `${f} Hz ${a.toFixed(1)} dB FS`).join(', ')}`);
+    info(`two notes, 200 and 250 Hz, through the ${name} curve at d 3`, `harmonics of either note ${(10 * Math.log10(harmonics / notes)).toFixed(1)} dB re the notes (1000 Hz, a harmonic of both, counted here); tones of neither ${(10 * Math.log10(neither / notes)).toFixed(1)} dB; loudest of those ${top.slice(0, 6).map(([f, a]) => `${f} Hz ${a.toFixed(1)}`).join(', ')} dB FS`);
     if (name === 'symmetric') check('two notes through one curve make tones that are harmonics of neither', neither / notes > 1e-3, `${(10 * Math.log10(neither / notes)).toFixed(1)} dB re the notes, more than the harmonics' ${(10 * Math.log10(harmonics / notes)).toFixed(1)}`);
   } }
+
+{ const P2 = 960, x = Array.from({ length: P2 }, (_, n) => 0.5 * Math.sin(2 * Math.PI * 4 * n / P2) + 0.5 * Math.sin(2 * Math.PI * 5 * n / P2)), rows = [];
+  for (const b of [0, 0.12]) { const gaps = []; for (const d of [0.25, 1, 3, 4.5, 8]) { const y = SC.dc(Float64Array.from(x.map((v) => SC.curve(v, d, b)))); let hm = 0, ne = 0; for (let k = 1; k <= 80; k++) { const p = harm(y, k) ** 2, f = 50 * k; if (f === 200 || f === 250) continue; if (f % 200 === 0 || f % 250 === 0) hm += p; else ne += p; } gaps.push(`d ${d} ${(10 * Math.log10(ne / hm)).toFixed(1)}`); } rows.push(`lean ${b}: ${gaps.join(', ')}`); }
+  info('how far the tones of neither stand above the true harmonics, by drive (dB)', rows.join(' · ')); }
 
 console.log('— four versions, blind —');
 const R = MX.render(), R2 = MX.render(), V = R.versions;
@@ -134,6 +152,9 @@ check('crest factor falls with the drive, by about 4 dB clean → heavy', V[0].c
 check('unmatched, each step up is louder: about 1, 5 and 12 dB', V[1].unmatchedLu > 0.5 && V[2].unmatchedLu > 4 && V[3].unmatchedLu > 11 && V[1].unmatchedLu < V[2].unmatchedLu && V[2].unmatchedLu < V[3].unmatchedLu, V.map((v) => `${v.id} ${v.unmatchedLu.toFixed(2)}`).join(', ') + ' LU');
 check('power above 90 Hz grows with the drive', V[0].share <= V[1].share + 1e-6 && V[1].share < V[2].share && V[2].share < V[3].share, V.map((v) => `${v.id} ${(100 * v.share).toFixed(2)} %`).join(', '));
 info('what light adds is small in power', `on the stem, light moves the share above 90 Hz from ${(100 * V[0].share).toFixed(3)} % to ${(100 * V[1].share).toFixed(3)} %; its harmonics are −31 dB on a held note`);
+check('matched in K-weighted loudness, A-weighting still differs: light near 0, heavy about +4 dB', Math.abs(V[1].aDb) < 0.1 && Math.abs(V[3].aDb - 4.2) < 0.4 && V[2].aDb > 0.5, V.map((v) => `${v.id} ${v.aDb.toFixed(2)}`).join(', ') + ' dB A-weighted re clean');
+{ const C = (n, k) => { let c = 1; for (let i = 1; i <= k; i++) c = c * (n - k + i) / i; return c; }, t = (n, k) => { let p = 0; for (let j = k; j <= n; j++) p += C(n, j) * 0.25 ** j * 0.75 ** (n - j); return p; };
+  check('keeping light by guessing: 1 in 4 a round; 2 of 2, 1 in 16; 3+ of 4, 1 in 20; 4+ of 5, 1 in 64', Math.round(1 / t(2, 2)) === 16 && Math.round(1 / t(4, 3)) === 20 && Math.round(1 / t(5, 4)) === 64, `${t(2, 2).toFixed(4)}, ${t(4, 3).toFixed(4)}, ${t(5, 4).toFixed(4)}`); }
 info('at matched loudness the fundamentals give up', V.map((v) => `${v.id} ${v.fundDb.toFixed(2)} dB`).join(', ') + ' (power below 90 Hz, re clean)');
 { const notes = [33, 33, 36, 38, 40, 31, 33, 36].map((m) => 440 * Math.pow(2, (m - 69) / 12));
   check('every note’s fundamental is below the 90 Hz split', Math.max(...notes) < MX.SPLIT && Math.min(...notes) * 2 > MX.SPLIT, `notes ${Math.min(...notes).toFixed(1)} to ${Math.max(...notes).toFixed(1)} Hz; lowest 2nd harmonic ${(2 * Math.min(...notes)).toFixed(1)} Hz`); }

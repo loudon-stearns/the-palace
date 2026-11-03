@@ -1,123 +1,123 @@
 {
-  "title": "Saturation ↔ Richness — rich",
-  "born": "2026-11-03",
-  "links": [
+ "title": "Saturation ↔ Richness — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[Saturation ↔ Richness]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  },
+  {
+   "target": "[[Progressive Staging]]",
+   "type": "connects-to",
+   "label": "the-test-is-the-last-step"
+  },
+  {
+   "target": "[[Chebyshev is Fourier]]",
+   "type": "connects-to",
+   "label": "the-blind-pair-is-its-drawbars-at-full-scale"
+  }
+ ],
+ "forward_vector": "I am the manifest of Saturation ↔ Richness's rich face, its first round at Sketch tier, a proposal: for the technical side, a walk from one sine through an EQ boost, a drive and a lean to a blind test of whether even harmonics sound warmer than odd ones; for the saturation experiment, the page's four versions on a bass line in a small mix, named, then costed, then hidden and ranked against what guessing does. Both blind tests state their chance level. The life half of the page has nothing here a piece could test, so it has nothing. I grow when a listener's results come back, or when the page gets a recorded take to saturate. I never hold the entry's words.",
+ "entry": "Saturation ↔ Richness",
+ "tier": "sketch",
+ "made": "2026-11-03",
+ "round": 1,
+ "sections": [
+  {
+   "heading": "The Technical Side",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "made": "2026-11-03",
+   "pieces": [
     {
-      "target": "[[Saturation ↔ Richness]]",
-      "type": "connects-to",
-      "label": "rich-face-of"
-    },
-    {
-      "target": "[[Enrichment]]",
-      "type": "connects-to",
-      "label": "made-by"
-    },
-    {
-      "target": "[[Progressive Staging]]",
-      "type": "connects-to",
-      "label": "the-test-is-the-last-step"
-    },
-    {
-      "target": "[[Chebyshev is Fourier]]",
-      "type": "connects-to",
-      "label": "the-blind-pair-is-its-drawbars-at-full-scale"
+     "file": "Saturation ↔ Richness — rich — the bend and the lean.html",
+     "origin": "made",
+     "by": "maker · claude-opus-5-5 · Web Audio",
+     "title": "The bend and the lean · from one sine to a blind test of warm and edge",
+     "caption": "**Are even harmonics warmth and odd ones edge, by your ear, and not just by brightness?** Five steps, one 200 Hz sine. One line in the spectrum. An EQ bell, +12 dB, adds no line to the sine (every other harmonic stays more than 120 dB down) and lifts a sawtooth's line by 12 dB: Common Misunderstandings' claim, held. A drive into a symmetric soft clip makes the 3rd, 5th, 7th from a sine and not one even harmonic at any drive. A lean fills the evens, and the curve splits into its bend, which makes only the odd lines, and its lean, which makes only the even. So, on a sine, the warmth the section names needs a curve that leans; a wave that already carries evens, a voice or a guitar, gets more of them from a symmetric curve too. Last, ten blind pairs, the 3rd, 5th and 7th against an even set at the same strength, matched in K-weighted loudness. In five pairs the even set is the 2nd, 4th and 6th, below the odd lines; in five it is the 4th, 6th and 8th, above them. Each half is scored on its own, so an ear that hears darker as warmer shows up as register, not as the page's claim. The coin's figures are given before the first pair: 4 or more of 5 in both halves happens by guessing about 1 time in 28. The steps up to the test are also the Teaching Notes' demonstration.",
+     "near": "Even-order harmonics",
+     "place": "band",
+     "height": 1300
     }
-  ],
-  "forward_vector": "I am the manifest of Saturation ↔ Richness's rich face, its first round at Sketch tier, a proposal: for the technical side, a walk from one sine through an EQ boost, a drive and a lean to a blind test of whether even harmonics sound warmer than odd ones; for the saturation experiment, the page's four versions on a bass line in a small mix, named, then costed, then hidden and ranked against what guessing does. Both blind tests state their chance level. The life half of the page has nothing here a piece could test, so it has nothing. I grow when a listener's results come back, or when the page gets a recorded take to saturate. I never hold the entry's words.",
-  "entry": "Saturation ↔ Richness",
-  "tier": "sketch",
-  "made": "2026-11-03",
-  "round": 1,
-  "sections": [
+   ],
+   "made_against": "aaa9c918085a",
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Saturation ↔ Richness — rich — the bend and the lean.html",
+      "verdict": "remake",
+      "why": "The walk up and the EQ test hold to the dB, but the blind pair sets 2nd/4th/6th against 3rd/5th/7th, so the even one is always the darker and can win as warmer with parity doing nothing; put half the pairs at 4th/6th/8th against 3rd/5th/7th and score both halves. Step 4 should say a symmetric curve makes no evens from a sine: fed a wave with a 2nd, it makes a 4th at −15.7 and a 6th at −25.2 dB FS (drive 3)."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "Teaching the Resonance",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "made": "2026-11-03",
+   "pieces": [
     {
-      "heading": "The Technical Side",
-      "status": "proposal",
-      "proposed": {
-        "date": "2026-11-03",
-        "by": "maker · claude-opus-5-5 · proposal round",
-        "round": "proposal-round-2026-11"
-      },
-      "made": "2026-11-03",
-      "pieces": [
-        {
-          "file": "Saturation ↔ Richness — rich — the bend and the lean.html",
-          "origin": "made",
-          "by": "maker · claude-opus-5-5 · Web Audio",
-          "title": "The bend and the lean · from one sine to a blind test of warm and edge",
-          "caption": "**Are even harmonics warmth and odd ones edge, by your ear?** Five steps, one 200 Hz sine. One line in the spectrum. An EQ bell, +12 dB, adds no line to the sine (every other harmonic stays more than 120 dB down) and lifts a sawtooth's line by 12 dB: Common Misunderstandings' claim, held. A drive into a symmetric soft clip makes the 3rd, 5th, 7th and not one even harmonic at any drive. A lean fills the evens, and the curve splits into its bend, which makes only the odd lines, and its lean, which makes only the even. So the warmth the section names needs a curve that leans. Last, ten blind pairs: the same note with the 2nd, 4th and 6th added, or the 3rd, 5th and 7th, at the same strength and matched in loudness; you say which is warmer, and the score is set against a coin (8 or more of 10 happens by guessing 1 time in 18). The steps up to the test are also the Teaching Notes' demonstration.",
-          "near": "Even-order harmonics",
-          "place": "band",
-          "height": 1300
-        }
-      ],
-      "made_against": "aaa9c918085a",
-      "stamped": "2026-11-03",
-      "challenge": {
-        "date": "2026-11-03",
-        "by": "challenger · claude-opus-5-5",
-        "verdicts": [
-          {
-            "file": "Saturation ↔ Richness — rich — the bend and the lean.html",
-            "verdict": "remake",
-            "why": "The walk up and the EQ test hold to the dB, but the blind pair sets 2nd/4th/6th against 3rd/5th/7th, so the even one is always the darker and can win as warmer with parity doing nothing; put half the pairs at 4th/6th/8th against 3rd/5th/7th and score both halves. Step 4 should say a symmetric curve makes no evens from a sine: fed a wave with a 2nd, it makes a 4th at −15.7 and a 6th at −25.2 dB FS (drive 3)."
-          }
-        ]
-      }
-    },
-    {
-      "heading": "Teaching the Resonance",
-      "status": "proposal",
-      "proposed": {
-        "date": "2026-11-03",
-        "by": "maker · claude-opus-5-5 · proposal round",
-        "round": "proposal-round-2026-11"
-      },
-      "made": "2026-11-03",
-      "pieces": [
-        {
-          "file": "Saturation ↔ Richness — rich — four versions, blind.html",
-          "origin": "made",
-          "by": "maker · claude-opus-5-5 · Web Audio",
-          "title": "Four versions, blind · the saturation experiment on a bass line",
-          "caption": "**Can you hear light from clean when the level can't tell you?** Part 1's assignment, made in the page: a sine bass line with a kick, hats and a pad, four versions from clean to heavy (on a held note the curve adds about −31, −16 and −10 dB of harmonics). Four steps: the clean line; the versions named and matched in K-weighted loudness, the spectrum filling above 90 Hz where no note is; what it costs, about 4 dB of crest factor from clean to heavy, and the trap the assignment's A/B walks into, since unmatched each step up is also louder, by about 1, 5 and 12 dB; then the four hidden behind A to D for you to order and to choose one to keep. Guessing finds the exact order 1 time in 24. A synthesized bass, not the vocal or guitar the assignment names; on laptop speakers most of its fundamental is below what they play.",
-          "near": "Take clean recording",
-          "place": "band",
-          "height": 1150
-        }
-      ],
-      "made_against": "ebbe445ac0b3",
-      "stamped": "2026-11-03",
-      "challenge": {
-        "date": "2026-11-03",
-        "by": "challenger · claude-opus-5-5",
-        "verdicts": [
-          {
-            "file": "Saturation ↔ Richness — rich — four versions, blind.html",
-            "verdict": "remake",
-            "why": "The blind order is clean and can fail, but the keep, which is the section’s own claim (light: fuller, sits better), is never scored; state 1 in 4 before the first round and tally it. Say ‘matched in K-weighted loudness’: matched that way, heavy is still +4.2 dB A-weighted (medium +0.9, light +0.03), more on small speakers; and a synth is on the assignment’s list, a sine bass the case kindest to saturation."
-          }
-        ]
-      }
+     "file": "Saturation ↔ Richness — rich — four versions, blind.html",
+     "origin": "made",
+     "by": "maker · claude-opus-5-5 · Web Audio",
+     "title": "Four versions, blind · the saturation experiment on a bass line",
+     "caption": "**Can you hear light from clean when K-weighted loudness can't tell you, and is light the one you keep?** Part 1's assignment, made in the page with a synth, one of its three sources: a sine bass line with a kick, hats and a pad, four versions from clean to heavy (on a held note the curve adds about −31, −16 and −10 dB of harmonics). A sine bass is the source kindest to saturation: nothing of its own sits above its fundamentals, which small speakers barely play, so what light adds is most of what they can play; a voice would be a harder case. Four steps: the clean line; the versions named and matched in K-weighted loudness, the spectrum filling above 90 Hz where no note is; what it costs, about 4 dB of crest factor from clean to heavy, and the trap the assignment's A/B walks into, since unmatched each step up is also louder, by about 1, 5 and 12 dB. K-matching is one reading of level: A-weighted, heavy still stands about 4 dB above clean, medium about 1, light 0.03. Then the four hidden behind A to D, ordered and one kept. Guessing finds the exact order 1 time in 24 and keeps light 1 time in 4; keeps are tallied across rounds.",
+     "near": "Take clean recording",
+     "place": "band",
+     "height": 1150
     }
-  ],
-  "offers": [
-    {
-      "section": "The Technical Side",
-      "kind": "claim-change",
-      "status": "open",
-      "what": "'Even-order harmonics (2nd, 4th) produce octave-related warmth — the sound of tape and tubes. Odd-order … the sound of transformers.' Measured in 'the bend and the lean': a curve that treats up and down alike makes no even harmonic at any drive (tanh, drive 0.25 to 8: every even harmonic below −200 dB); evens come only from the curve's lean, its even part, and the bend makes only odd ones (both exact to −269 dB). So the claim rests on which curves lean, which the text doesn't say. Tape is the doubtful case. Not measured here, from the trade's own practice: tape's maximum output level is specified where the third harmonic reaches 3% (Wikipedia, Compact Cassette tape types and formulations), which points to a near-symmetric, odd-led curve. Single-ended tube stages lean; push-pull stages cancel the evens. Suggested: 'Even-order harmonics come from a curve that leans, clipping one side sooner than the other, as a single-ended tube stage does; odd-order from a curve that bends both ways alike, as tape, transformers and many solid-state clippers mostly do.' Whether the evens sound warmer is what the piece's blind pairs ask an ear; no ear has answered yet."
-    },
-    {
-      "section": "Common Misunderstandings",
-      "kind": "no-claim-edit",
-      "status": "open",
-      "what": "'EQ boosts existing frequencies. Saturation CREATES new harmonics' holds as written for one note: a +12 dB bell on a sine adds no line (every other harmonic below −280 dB) and moves the sine only by the bell's own gain at its frequency (1.47 dB at 400 Hz, matching the transfer function to 0.01 dB). The check adds what the line leaves out, measured on the piece's own curve, not shown in it: two notes at once, 200 and 250 Hz through the symmetric curve at drive 3, come out with tones that are harmonics of neither (300, 650 and 700 Hz at −17 dB FS each), −10.7 dB re the notes in total, against −31.4 dB for the true harmonics. With a lean, 150 Hz, below both notes, is among the loudest. A clause could say so: 'on a single note those are harmonics; on a chord most of what it creates belongs to neither note, which is much of what heavy saturation costs.'"
-    },
-    {
-      "section": "Teaching the Resonance",
-      "kind": "no-claim-edit",
-      "status": "open",
-      "what": "Step 3, 'A/B test in mix context', needs the versions matched in level, or the test can be a test of loudness. On the piece's bass line the drive alone makes light 0.9 dB, medium 5.1 dB and heavy 11.7 dB louder than clean (K-weighted, BS.1770, ungated). Suggested: '3. A/B test in mix context, each version turned to the same loudness, and blind if you can.'"
-    }
-  ]
+   ],
+   "made_against": "ebbe445ac0b3",
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Saturation ↔ Richness — rich — four versions, blind.html",
+      "verdict": "remake",
+      "why": "The blind order is clean and can fail, but the keep, which is the section’s own claim (light: fuller, sits better), is never scored; state 1 in 4 before the first round and tally it. Say ‘matched in K-weighted loudness’: matched that way, heavy is still +4.2 dB A-weighted (medium +0.9, light +0.03), more on small speakers; and a synth is on the assignment’s list, a sine bass the case kindest to saturation."
+     }
+    ]
+   }
+  }
+ ],
+ "offers": [
+  {
+   "section": "The Technical Side",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "'Even-order harmonics (2nd, 4th) produce octave-related warmth — the sound of tape and tubes. Odd-order … the sound of transformers.' Measured in 'the bend and the lean', on a sine: a curve that treats up and down alike makes no even harmonic at any drive (tanh, drive 0.25 to 8: every even harmonic below −200 dB); evens come from the curve's lean, its even part, and the bend makes only odd ones (both exact to −269 dB). That holds for a pure tone, not for every input: fed a wave that already has a 2nd (0.7 note, 0.3 2nd), the same symmetric curve at drive 3 makes a new 4th at −15.7 and a 6th at −25.2 dB FS. So the claim rests on which curves lean and on what goes in, and the text says neither. Tape: the trade specifies its maximum output level by the third harmonic. RMGI's LPR35 technical data, §2.1: 'MOL315/3, MOL1/3 (Maximum Output Level): Output level at 315 Hz (9.53 cm/s) or 1 kHz (19.05 cm/s) relative to reference level RL IEC, with a third harmonic distortion factor of 3 %.' The sheet gives no 2nd-harmonic figure, so 'tape is mostly odd' is an inference, not a measurement. Suggested: 'On a pure tone, even-order harmonics come from a curve that leans, clipping one side sooner than the other, as a single-ended tube stage does; a curve that bends both ways alike makes odd ones. Tape's saturation is specified by its third harmonic, which suggests it leans little.' Whether evens sound warmer, apart from sounding darker, is what the piece's blind pairs ask an ear; no ear has answered yet."
+  },
+  {
+   "section": "Common Misunderstandings",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "'EQ boosts existing frequencies. Saturation CREATES new harmonics' holds as written for one note: a +12 dB bell on a sine adds no line (every other harmonic below −270 dB) and moves the sine only by the bell's own gain at its frequency (1.47 dB at 400 Hz, matching the transfer function to 0.01 dB). What it leaves out, measured in check.mjs on the piece's own curve and not shown in a piece: two notes at once, 200 and 250 Hz at 0.5 each through the symmetric curve at drive 3, come out with tones that are harmonics of neither, −10.7 dB re the notes in total, against −31.4 dB for the true harmonics (1000 Hz, a harmonic of both and also a sum tone, counted as harmonic). The loudest of them tie four ways, 150, 300, 650 and 700 Hz at −17.0 dB FS each, with no lean; a lean adds 50 and 450 Hz (−15.3, −15.4). How far the tones of neither stand above the harmonics depends on drive: 12.7 to 20.6 dB with no lean (drive 0.25 to 8, widest at 3), 9.4 to 17.6 with a lean of 0.12. A clause would add a claim the page doesn't make, so it is offered as one: 'on a single note those are harmonics; on a chord most of what it creates belongs to neither note, which is much of what heavy saturation costs.'"
+  },
+  {
+   "section": "Teaching the Resonance",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "Step 3, 'A/B test in mix context', needs the versions matched in level, or the test can be a test of loudness. On the piece's bass line the drive alone makes light 0.90 dB, medium 5.08 dB and heavy 11.73 dB louder than clean (K-weighted, BS.1770, ungated; the challenger's gated reading agrees to 0.02). Which meter matters: matched in K-weighted loudness, heavy still reads about 4.2 dB above clean A-weighted, medium about 0.9, light 0.03. Suggested: '3. A/B test in mix context, each version turned to the same loudness on one meter (say which), and blind if you can.'"
+  }
+ ]
 }
