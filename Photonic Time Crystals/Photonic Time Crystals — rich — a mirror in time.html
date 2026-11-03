@@ -1,0 +1,448 @@
+<!doctype html>
+<!--
+  title: Photonic Time Crystals — rich — a mirror in time
+  born: 2026-11-03
+  links: [[Photonic Time Crystals]] connects-to · rich-face-piece-of · the first open question, heard · [[Frequency-Time Duality]] connects-to · a mirror that swaps them · [[Progressive Staging]] exemplifies · a walk up to its test
+  forward_vector: I am the page's first open question made audible: one phrase sent down a uniform line and sent back
+    by a wall, by a jump of the whole line's index, and by a jump and a jump back, then set against the strongest
+    digital rivals, a reverse buffer slowed and scaled and a reverse buffer through a two-tap comb, under a rule stated
+    before the trial. I say which operation a time mirror adds to a reverse, and I check the mixing rule I run on
+    against Maxwell's equations on a Yee grid that knows nothing of it.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: the script marked id="pm-engine": phrase() makes the phrase; timeMirror() holds a uniform line as its forward
+    and backward parts, moves them at the line's speed, and at each jump of the index keeps D and B continuous;
+    yeeJump() is a separate 1-D Yee grid, a pulse and a switched 1/eps, that checks the rule from outside;
+    revVarispeed() and revComb() are the digital rivals, built on a windowed-sinc reader that shares nothing with the
+    line's cubic one.
+  checks: Photonic Time Crystals — proof — rich checks.mjs, beside this file.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>A mirror in time</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --cyan:#6aa8e8; --cyanline:rgba(106,168,232,.55);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .pm-piece { padding: 22px 22px 16px; max-width: 1100px; }
+  .pm-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .pm-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .pm-sub { font-size: 14px; line-height: 1.6; max-width: 78ch; margin: 0 0 16px; }
+  .pm-rail { display: flex; flex-wrap: wrap; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .pm-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .pm-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 220ms var(--ease), border-color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.08); }
+  .pm-rail button[aria-pressed="true"] { border-right: 1px solid var(--border); }
+  button.pm-go { color: var(--amber); border-color: var(--amberline); min-width: 120px; }
+  button.pm-go.pm-on { box-shadow: 0 0 14px rgba(232,184,74,.22); }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .pm-step { display: none; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .pm-step.pm-shown { display: block; }
+  .pm-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .pm-idea { font-size: 14.5px; line-height: 1.6; color: var(--fg1); max-width: 80ch; margin: 0 0 12px; }
+  .pm-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin: 10px 0 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; background: var(--bg); border: 1px solid var(--soft); border-radius: 2px; }
+  .pm-two { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
+  .pm-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .pm-row label { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; min-width: 13ch; }
+  input[type=range] { accent-color: var(--amber); flex: 1; min-width: 160px; max-width: 420px; }
+  .pm-val { font-family: var(--mono); font-size: 12px; color: var(--fg1); min-width: 12ch; font-variant-numeric: tabular-nums; }
+  .pm-eq { border-left: 2px solid var(--amberline); padding: 6px 12px; margin: 12px 0; }
+  .pm-eq .pm-sym { font-family: var(--mono); font-size: 15px; color: var(--fg1); }
+  .pm-eq .pm-words { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--fg2); margin-top: 2px; }
+  .pm-test { font-size: 14px; line-height: 1.6; color: var(--fg1); border: 1px solid var(--soft); background: var(--e2); padding: 10px 12px; border-radius: 2px; max-width: 88ch; margin: 12px 0 4px; }
+  .pm-test b { color: var(--amber); font-weight: 500; }
+  .pm-test:empty { display: none; }
+  .pm-note { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.6; margin: 6px 0 0; max-width: 100ch; }
+  .pm-scroll { overflow-x: auto; }
+  table.pm-t { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 10px 0; }
+  table.pm-t th, table.pm-t td { border: 1px solid var(--soft); padding: 4px 9px; text-align: right; font-variant-numeric: tabular-nums; vertical-align: top; }
+  table.pm-t th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; }
+  table.pm-t td:first-child, table.pm-t th:first-child { text-align: left; }
+  .pm-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+  .pm-foot { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--fg3); }
+  .pm-foot i { color: var(--amber); font-weight: 300; }
+  .pm-legend { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+</style>
+</head>
+<body>
+<main class="pm-piece">
+  <div class="pm-kicker">Photonic time crystals · open question one</div>
+  <h1 class="pm-title">A mirror in time</h1>
+  <p class="pm-sub">The page asks what time-reversed audio from a time-modulated system sounds like, and whether it is anything more than a reverse buffer. One phrase goes into a long uniform line and comes back off a wall, off a jump of the whole line’s index, and off a jump and a jump back. Then the two time mirrors meet the strongest digital rivals a reverse buffer has. Five steps, the last one the test.</p>
+  <nav class="pm-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · a mirror in space</button>
+    <button data-go="2" aria-pressed="false">2 · a mirror in time</button>
+    <button data-go="3" aria-pressed="false">3 · there and back</button>
+    <button data-go="4" aria-pressed="false">4 · two digital rivals</button>
+    <button data-go="5" aria-pressed="false">5 · which reverse?</button>
+  </nav>
+
+  <section class="pm-step pm-shown" data-step="1">
+    <h2>1 · A mirror in space</h2>
+    <p class="pm-idea">A phrase of four notes goes into a long line from where you stand. At the far end a wall sends it back. The first note to reach the wall is the first to come home, so the echo keeps the phrase’s order. That is the ordinary mirror: it reverses direction in space, never order in time.</p>
+    <div class="pm-row"><button class="pm-go" id="go1">play the phrase and its echo</button></div>
+    <div class="pm-two"><div><div class="pm-label"><span>where each note’s start is · x across, time down</span></div><canvas id="c1"></canvas></div>
+      <div><div class="pm-label"><span>what you hear where it went in</span></div><canvas id="c1b"></canvas></div></div>
+    <p class="pm-test" id="t1"></p>
+  </section>
+
+  <section class="pm-step" data-step="2">
+    <h2>2 · A mirror in time</h2>
+    <p class="pm-idea">No wall now; the line runs on. Once the whole phrase is inside it, the whole line’s index jumps at one instant, from n₁ to n₂, everywhere at once. Nothing in space has changed, so every wave keeps its wave number; only its speed and frequency can change. Part of every wave turns round. The note that went in last is nearest, so it comes home first: the phrase returns reversed. And since the line is now slower, it comes back lower and longer.</p>
+    <div class="pm-row"><label for="n2">index after, n₂ / n₁</label><input id="n2" type="range" min="1.25" max="3" step="0.05" value="2"><span class="pm-val" id="n2v"></span>
+      <button class="pm-go" id="go2">play it</button></div>
+    <div class="pm-two"><div><div class="pm-label"><span>the jump is the dashed line · x across, time down</span></div><canvas id="c2"></canvas></div>
+      <div><div class="pm-label"><span>what you hear where it went in</span></div><canvas id="c2b"></canvas></div></div>
+    <div class="pm-eq"><div class="pm-sym">D and B continuous at the jump  ⇒  ω₂ = ω₁ · n₁/n₂ ,   r_E = n₁(n₁ − n₂) / (2 n₂²)</div>
+      <div class="pm-words">at an instant, nothing can jump in the fields that carry the stored charge and flux; so the wave number stays, the frequency scales by the ratio of the indices, and the backward wave’s electric field is this fraction of the incoming one</div></div>
+    <p class="pm-test" id="t2"></p>
+  </section>
+
+  <section class="pm-step" data-step="3">
+    <h2>3 · There and back</h2>
+    <p class="pm-idea">Jump the index up and, a moment τ later, back down. Now the returning copy travels at the old speed, so its pitch is the phrase’s own. But it is two turned copies, one from each jump, a hair apart in time and of opposite sign: a comb, a temporal Fabry–Pérot. Some frequencies come back strongly, some not at all, and the lowest hardly come back.</p>
+    <div class="pm-row"><label for="tau">time held up, τ</label><input id="tau" type="range" min="0.1" max="2" step="0.01" value="1"><span class="pm-val" id="tauv"></span>
+      <button class="pm-go" id="go3">play it</button></div>
+    <div class="pm-label"><span>how much comes back at each frequency · line: the rule · dots: the engine, one tone at a time</span><span id="h3"></span></div>
+    <canvas id="c3"></canvas>
+    <div class="pm-eq"><div class="pm-sym">|r(f)| = ½ · |n₂/n₁ − n₁/n₂| · |sin(2π f τ · n₁/n₂)|</div>
+      <div class="pm-words">what returns is half the difference of the index ratio and its inverse, times a sine of how many half-cycles fit in the time the line was held, at the frequency the wave had while it was held</div></div>
+    <p class="pm-test" id="t3"></p>
+  </section>
+
+  <section class="pm-step" data-step="4">
+    <h2>4 · Two digital rivals</h2>
+    <p class="pm-idea">A plain reverse buffer was never the strong rival. Step 2 already sounded like tape played backward slowly, and step 3 like a reverse through a comb. So build both, in plain DSP, from the rule’s own numbers. For the single jump: reverse the phrase, read it n₂/n₁ times slower, scale it by r_E. For the there-and-back: reverse the phrase, add it to itself delayed 2τ·n₁/n₂ with the opposite sign, both scaled by ¼(n₂/n₁ − n₁/n₂). Listen to each beside the mirror it imitates.</p>
+    <div class="pm-row"><button class="pm-go" data-play4="jump">single jump</button><button class="pm-go" data-play4="revvs">reverse, slowed and scaled</button></div>
+    <div class="pm-row"><button class="pm-go" data-play4="slab">there and back</button><button class="pm-go" data-play4="revcomb">reverse through a two-tap comb</button></div>
+    <div class="pm-eq"><div class="pm-sym">jump: y(t) = r_E · R(t·n₁/n₂)      there and back: y(t) = K · [R(t − d/2) − R(t + d/2)] ,  K = ¼(n₂/n₁ − n₁/n₂) ,  d = 2τ·n₁/n₂</div>
+      <div class="pm-words">R is the phrase reversed; one rival reads it slower and quieter, the other adds it to a copy of itself a hair later and turned over</div></div>
+    <p class="pm-test" id="t4"></p>
+  </section>
+
+  <section class="pm-step" data-step="5">
+    <h2>5 · Which reverse?</h2>
+    <p class="pm-idea">The test. First the rule, before any number: a time mirror counts as a sound of its own only if no chain of reverse, varispeed and comb comes within −40 dB of it, measured as the energy of the difference against the mirror’s own. If a chain does, then in this ideal line the mirror is that chain, and the finding is which operation it adds to a reverse. Then the numbers: the strongest rivals and a plain reverse against each mirror, what each does to order, pitch, length and loudness, and the mixing rule checked against Maxwell’s equations on a Yee grid that knows nothing of it.</p>
+    <div class="pm-row"><button class="pm-go" data-play4="rev">plain reverse buffer</button><button class="pm-go" data-play4="jump">single jump</button><button class="pm-go" data-play4="slab">there and back</button></div>
+    <div class="pm-scroll"><table class="pm-t" id="tab5n"></table></div>
+    <div class="pm-scroll"><table class="pm-t" id="tab4"></table></div>
+    <div class="pm-scroll"><table class="pm-t" id="tab4b"></table></div>
+    <p class="pm-test" id="t5"></p>
+    <p class="pm-note">The line here is lossless and has no dispersion, and the jumps are instant. Whatever could give a physical time mirror a sound of its own lies outside that ideal: a switch with a finite rise (Moussa et al.’s took about 3 ns), a material whose speed depends on frequency, and, in a periodic time crystal, gain in the momentum gap (the piece above, step 3). The level is the electric field, read where the phrase went in. The page also says time-reflection happens “at bandgap frequencies”: the single jump turns every frequency round at once; only a periodic run of jumps, the crystal, makes it strong and selective.</p>
+  </section>
+
+  <div class="pm-nav"><button id="back">back</button><button id="next">next</button></div>
+  <div class="pm-foot">
+    <svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#4a4a5e" stroke-width="1"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>
+    <span>Loud’n <i>Live</i></span>
+  </div>
+</main>
+<script id="pm-engine">
+/* The phrase: four plucked notes, A3 C#4 E4, then A4 held. Onsets in seconds; the held note is nearly a pure tone so its
+   pitch can be read by zero crossings. */
+const NOTES = [[0, 220, 0.25], [0.25, 277.18, 0.25], [0.5, 329.63, 0.25], [0.75, 440, 0.65]];
+const PHRASE_S = 1.4;
+function phrase(sr) {
+  const n = Math.round(PHRASE_S * sr), p = new Float64Array(n);
+  for (const [t0, f, len] of NOTES) {
+    const a = Math.round(t0 * sr), b = Math.min(n, Math.round((t0 + len) * sr));
+    for (let i = a; i < b; i++) {
+      const t = (i - a) / sr, tail = Math.min(1, (b - i) / (0.01 * sr)), att = Math.min(1, t / 0.004);
+      p[i] += att * tail * (Math.exp(-2.2 * t) * Math.sin(2 * Math.PI * f * t) + 0.3 * Math.exp(-9 * t) * Math.sin(4 * Math.PI * f * t) + 0.12 * Math.exp(-16 * t) * Math.sin(6 * Math.PI * f * t));
+    }
+  }
+  let pk = 0; for (const v of p) pk = Math.max(pk, Math.abs(v)); for (let i = 0; i < n; i++) p[i] *= 0.5 / pk;
+  return p;
+}
+function cubic(a, x) {
+  const i = Math.floor(x), t = x - i, n = a.length;
+  if (i < 1 || i + 2 >= n) return i >= 0 && i + 1 < n ? a[i] + t * (a[i + 1] - a[i]) : 0;
+  const p0 = a[i - 1], p1 = a[i], p2 = a[i + 1], p3 = a[i + 2];
+  return p1 + 0.5 * t * (p2 - p0 + t * (2 * p0 - 5 * p1 + 4 * p2 - p3 + t * (3 * (p1 - p2) + p3 - p0)));
+}
+function shift(A, by) { const N = A.length, out = new Float64Array(N); for (let i = 0; i < N; i++) out[i] = cubic(A, i - by); return out; }
+/* THE LINE. Uniform, lossless, no dispersion. Positions count samples of travel at the first speed (n1 = 1). F(x), B(x)
+   are the forward and backward parts of D. At a jump of the whole line's index from n to n', D and B (= H here) stay
+   continuous: with H = (F - B)/n, the new parts are F' = (D + n'H)/2 and B' = (D - n'H)/2. Between jumps F moves right
+   and B left at 1/n samples per sample. The phrase p went in at x = 0 until tJ. plan = [[t after tJ, n'], ...].
+   Returns what the listener at x = 0 hears from tJ on: E = D / n^2 of what comes back, `len` samples. */
+function timeMirror(p, tJ, plan, len) {
+  const L = tJ + 4096; let F = new Float64Array(L), B = new Float64Array(L); // room for what a jump's travel pushes past the far end
+  for (let x = 0; x < tJ; x++) { const k = tJ - 1 - x; F[x] = k < p.length ? p[k] : 0; }
+  const out = new Float64Array(len); let n = 1, tev = 0;
+  for (let e = 0; e <= plan.length; e++) {
+    const tNext = e < plan.length ? plan[e][0] : len, c = 1 / n;
+    for (let s = Math.ceil(tev); s < Math.min(tNext, len); s++) { const D = cubic(B, c * (s - tev)); out[s] = D / (n * n); }
+    if (e === plan.length) break;
+    const dt = tNext - tev; F = shift(F, c * dt); B = shift(B, -c * dt);
+    const n2 = plan[e][1], F2 = new Float64Array(L), B2 = new Float64Array(L);
+    for (let i = 0; i < L; i++) { const D = F[i] + B[i], H = (F[i] - B[i]) / n; F2[i] = (D + n2 * H) / 2; B2[i] = (D - n2 * H) / 2; }
+    F = F2; B = B2; n = n2; tev = tNext;
+  }
+  return out;
+}
+/* the wall: the listener hears the echo 2L later, turned over (a perfect mirror) */
+function wallEcho(p, Lsamp, len) { const out = new Float64Array(len); for (let i = 0; i < len; i++) { const k = i - 2 * Lsamp; if (k >= 0 && k < p.length) out[i] = -p[k]; } return out; }
+/* the reverse buffer */
+function reverseBuffer(p) { const out = new Float64Array(p.length); for (let i = 0; i < p.length; i++) out[i] = p[p.length - 1 - i]; return out; }
+/* the rule for a there-and-back of length tau (in samples of the first speed), as a function of frequency f (cycles/sample) */
+const slabRule = (f, n2, tau) => 0.5 * Math.abs(n2 - 1 / n2) * Math.abs(Math.sin(2 * Math.PI * f * tau / n2));
+/* THE RIVALS. A windowed-sinc reader (Hann, 32 taps), separate from the line's cubic one, and two digital chains built
+   from the rule's numbers. L = phrase length, delta = tJ - L (the silence between the phrase's end and the jump). */
+function sincAt(a, x) {
+  const i0 = Math.floor(x), f = x - i0; if (f === 0) return i0 >= 0 && i0 < a.length ? a[i0] : 0;
+  let y = 0;
+  for (let j = -15; j <= 16; j++) { const i = i0 + j; if (i < 0 || i >= a.length) continue; const u = j - f, w = 0.5 + 0.5 * Math.cos(Math.PI * u / 16.5); y += a[i] * w * Math.sin(Math.PI * u) / (Math.PI * u); }
+  return y;
+}
+/* reverse, read n2 times slower, scaled by r_E */
+function revVarispeed(p, n2, delta, len) {
+  const R = reverseBuffer(p), rE = (1 - n2) / (2 * n2 * n2), out = new Float64Array(len);
+  for (let s = 0; s < len; s++) out[s] = rE * sincAt(R, s / n2 - delta); return out;
+}
+/* reverse through a two-tap comb: K [R(s - tau - a - delta) - R(s - tau + a - delta)], a = tau / n2 */
+function revComb(p, n2, tau, delta, len) {
+  const R = reverseBuffer(p), K = (n2 - 1 / n2) / 4, a = tau / n2, out = new Float64Array(len);
+  for (let s = 0; s < len; s++) out[s] = s < tau ? 0 : K * (sincAt(R, s - tau - a - delta) - sincAt(R, s - tau + a - delta)); return out;
+}
+/* the energy of y - g z against the energy of y, in dB; g is 1, or the best single gain when fit is true */
+function residualDb(y, z, fit) {
+  let yz = 0, zz = 0, yy = 0; const n = Math.min(y.length, z.length);
+  for (let i = 0; i < n; i++) { yz += y[i] * z[i]; zz += z[i] * z[i]; yy += y[i] * y[i]; }
+  for (let i = n; i < y.length; i++) yy += y[i] * y[i];
+  const g = fit ? (zz ? yz / zz : 0) : 1; let e = 0;
+  for (let i = 0; i < y.length; i++) { const d = y[i] - g * (i < n ? z[i] : 0); e += d * d; }
+  return 10 * Math.log10(Math.max(e, 1e-300) / yy);
+}
+/* MEASURING */
+function zcHz(y, a, b, sr) { let first = -1, last = -1, c = 0; for (let i = Math.max(1, a + 1); i < Math.min(b, y.length); i++) if (y[i - 1] < 0 && y[i] >= 0) { const x = i - 1 + y[i - 1] / (y[i - 1] - y[i]); if (first < 0) first = x; last = x; c++; } return c > 4 ? (c - 1) / (last - first) * sr : null; }
+function rms(y, a, b) { let s = 0, n = 0; for (let i = Math.max(0, a); i < Math.min(b, y.length); i++) { s += y[i] * y[i]; n++; } return n ? Math.sqrt(s / n) : 0; }
+/* correlation of y (from offset a, `step` samples of y per sample of p) with p forward and with p reversed: which
+   order came back */
+function orderScore(y, a, step, p) {
+  let sf = 0, sr2 = 0, yy = 0, pp = 0;
+  for (let k = 0; k < p.length; k++) { const v = cubic(y, a + k * step), pr = p[p.length - 1 - k], pf = p[k]; sf += v * pf; sr2 += v * pr; yy += v * v; pp += pf * pf; }
+  const d = Math.sqrt(yy * pp) || 1; return { fwd: sf / d, rev: sr2 / d };
+}
+/* THE OUTSIDE CHECK. A 1-D Yee grid, dx = 1, dt = S, a forward pulse of wavelength lam cells; at each step in `plan` the
+   whole grid's 1/eps is switched to 1/n^2. Nothing here knows the mixing rule. Returns the backward pulse's largest D,
+   and its frequency at a probe left of the start (as a fraction of the incoming one). */
+function yeeJump(lam, plan, opt) {
+  opt = opt || {}; const S = 0.5, N = opt.N || 4000, x0 = opt.x0 || 2500, w = opt.w || 120, probe = opt.probe || 1900, k = 2 * Math.PI / lam;
+  const nMax = Math.max(1, ...plan.map((q) => q[1])), J = plan.length ? plan[0][0] : 0;
+  const steps = opt.steps || J + Math.ceil((x0 - probe + 4 * w) * nMax / S) + (plan.length > 1 ? plan[plan.length - 1][0] - J : 0);
+  const D = new Float64Array(N), H = new Float64Array(N);
+  for (let i = 0; i < N; i++) { D[i] = Math.exp(-(((i - x0) / w) ** 2)) * Math.cos(k * i); const xs = i + 0.5 + 0.5 * S; H[i] = Math.exp(-(((xs - x0) / w) ** 2)) * Math.cos(k * xs); }
+  let eta = 1; const rec = new Float64Array(steps);
+  for (let s = 0; s < steps; s++) {
+    for (const [st, n] of plan) if (s === st) eta = 1 / (n * n);
+    for (let i = 0; i < N - 1; i++) H[i] -= S * eta * (D[i + 1] - D[i]);
+    for (let i = 1; i < N; i++) D[i] -= S * (H[i] - H[i - 1]);
+    rec[s] = D[probe];
+  }
+  let back = 0; for (let i = 0; i < x0 - 4 * w; i++) back = Math.max(back, Math.abs(D[i]));
+  let pk = 0; for (const v of rec) pk = Math.max(pk, Math.abs(v));
+  let a = 0; while (a < steps && Math.abs(rec[a]) < 0.3 * pk) a++; let b = steps - 1; while (b > a && Math.abs(rec[b]) < 0.3 * pk) b--;
+  let first = -1, last = -1, c = 0; for (let i = a + 1; i <= b; i++) if (rec[i - 1] < 0 && rec[i] >= 0) { const x = i - 1 + rec[i - 1] / (rec[i - 1] - rec[i]); if (first < 0) first = x; last = x; c++; }
+  return { back, freq: c > 2 ? (c - 1) / ((last - first) * S) * lam : null };
+}
+</script>
+<script>
+const $ = (id) => document.getElementById(id);
+const COL = { bg: '#0a0a0f', fg1: '#e8e8f0', fg2: '#c8c8d8', fg3: '#8a8aa0', fg4: '#4a4a5a', amber: '#e8b84a', cyan: '#6aa8e8', grid: 'rgba(255,255,255,.07)' };
+const NOTECOL = ['#6aa8e8', '#9ad0a0', '#d79be0', '#e8b84a'];
+function cv(id, ratio, hMin) {
+  const c = $(id), dpr = window.devicePixelRatio || 1, w = c.clientWidth || 500, h = Math.max(hMin || 120, Math.round(w * ratio));
+  if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h); g.fillStyle = COL.bg; g.fillRect(0, 0, w, h);
+  g.font = '11px JetBrains Mono, monospace'; return { g, w, h };
+}
+function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+const st = { n2: 2, tau: 1 }, TJ_S = 1.45, WALL_S = 0.8;
+let step = 1;
+
+/* renders: the phrase, then what comes back, at the context's rate (48 kHz before any sound) */
+let SR = 48000, P = null; const cache = {};
+function base() { if (!P || P.sr !== SR) { P = { sr: SR, p: phrase(SR) }; for (const k in cache) delete cache[k]; } return P.p; }
+function render(kind) {
+  const key = kind + (kind === 'jump' || kind === 'revvs' ? st.n2 : kind === 'slab' || kind === 'revcomb' ? st.tau : '');
+  if (cache[key]) return cache[key];
+  const p = base(), tJ = Math.round(TJ_S * SR); let back, lead = tJ;
+  if (kind === 'wall') { back = wallEcho(p, Math.round(WALL_S * SR), Math.round(3.4 * SR)); lead = 0; }
+  else if (kind === 'rev') back = reverseBuffer(p);
+  else if (kind === 'jump') back = timeMirror(p, tJ, [[0, st.n2]], Math.round((PHRASE_S * st.n2 + 0.3) * SR));
+  else if (kind === 'revvs') back = revVarispeed(p, st.n2, tJ - p.length, Math.round((PHRASE_S * st.n2 + 0.3) * SR));
+  else if (kind === 'revcomb') back = revComb(p, 2, st.tau * 1e-3 * SR, tJ - p.length, Math.round((PHRASE_S + 0.3) * SR));
+  else back = timeMirror(p, tJ, [[0, 2], [st.tau * 1e-3 * SR, 1]], Math.round((PHRASE_S + 0.3) * SR));
+  const len = kind === 'wall' ? back.length : lead + back.length, all = new Float64Array(len);
+  for (let i = 0; i < p.length; i++) all[i] += p[i]; for (let i = 0; i < back.length; i++) all[lead + i] += back[i];
+  return (cache[key] = { all, back, lead });
+}
+
+/* sound: one buffer at a time, from a click */
+let ctx = null, src = null, playingBtn = null;
+async function play(kind, btn) {
+  if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+  if (ctx.state !== 'running') await ctx.resume();
+  if (SR !== ctx.sampleRate) SR = ctx.sampleRate;
+  stopSound();
+  const r = render(kind), buf = ctx.createBuffer(2, r.all.length, SR);
+  let pk = 0; for (const v of r.all) pk = Math.max(pk, Math.abs(v)); const g = pk > 0.9 ? 0.9 / pk : 1;
+  for (let ch = 0; ch < 2; ch++) { const d = buf.getChannelData(ch); for (let i = 0; i < d.length; i++) d[i] = r.all[i] * g; }
+  src = ctx.createBufferSource(); src.buffer = buf; const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 3;
+  src.connect(comp).connect(ctx.destination); src.start();
+  playingBtn = btn; if (btn) btn.classList.add('pm-on');
+  src.onended = () => { if (playingBtn) playingBtn.classList.remove('pm-on'); playingBtn = null; src = null; };
+}
+function stopSound() { if (src) { try { src.stop(); } catch (e) { /* already ended */ } src = null; } if (playingBtn) playingBtn.classList.remove('pm-on'); playingBtn = null; }
+
+/* drawing: x–t paths of each note's start, and the heard waveform */
+function xt(id, kind) {
+  const { g, w, h } = cv(id, 0.75, 240), n2 = st.n2, tJ = TJ_S, Xmax = kind === 'wall' ? WALL_S : tJ, Tmax = kind === 'wall' ? 3.2 : kind === 'jump' ? tJ + tJ * n2 + 0.1 : tJ + tJ + 0.2;
+  const X = (x) => 30 + (w - 44) * x / Xmax, T = (t) => 20 + (h - 34) * t / Tmax;
+  g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(X(0), T(0)); g.lineTo(X(0), T(Tmax)); g.stroke();
+  g.fillStyle = COL.fg3; g.fillText('you', X(0) - 6, 12); g.fillText('x →', w - 34, 12);
+  if (kind === 'wall') { g.strokeStyle = COL.fg2; g.lineWidth = 2; g.beginPath(); g.moveTo(X(Xmax), T(0)); g.lineTo(X(Xmax), T(Tmax)); g.stroke(); g.lineWidth = 1; g.fillText('wall', X(Xmax) - 34, 12); }
+  else { g.strokeStyle = COL.fg2; g.setLineDash([5, 4]); g.beginPath(); g.moveTo(X(0), T(tJ)); g.lineTo(X(Xmax), T(tJ)); g.stroke();
+    if (kind === 'slab') { g.fillStyle = 'rgba(232,184,74,.16)'; g.fillRect(X(0), T(tJ), X(Xmax) - X(0), Math.max(2, T(tJ + 0.04) - T(tJ))); }
+    g.setLineDash([]); g.fillStyle = COL.fg3; g.fillText(kind === 'slab' ? 'index up, then back' : 'index jumps', X(Xmax) - 140, T(tJ) - 6); }
+  NOTES.forEach(([t0], j) => {
+    g.strokeStyle = NOTECOL[j]; g.lineWidth = 1.5; g.beginPath(); g.moveTo(X(0), T(t0));
+    if (kind === 'wall') { g.lineTo(X(Xmax), T(t0 + Xmax)); g.lineTo(X(0), T(t0 + 2 * Xmax)); g.stroke(); dotAt(g, X(0), T(t0 + 2 * Xmax), NOTECOL[j]); }
+    else {
+      const xJ = tJ - t0, c2 = kind === 'jump' ? 1 / n2 : 1; g.lineTo(X(xJ), T(tJ)); g.lineTo(X(0), T(tJ + xJ / c2)); g.stroke(); dotAt(g, X(0), T(tJ + xJ / c2), NOTECOL[j]);
+      g.globalAlpha = 0.35; g.beginPath(); g.moveTo(X(xJ), T(tJ)); g.lineTo(X(Math.min(Xmax, xJ + c2 * (Tmax - tJ))), T(Math.min(Tmax, tJ + (Xmax - xJ) / c2))); g.stroke(); g.globalAlpha = 1;
+    }
+    g.lineWidth = 1;
+  });
+  g.fillStyle = COL.fg3; g.fillText('time ↓', 34, h - 6);
+}
+const dotAt = (g, x, y, c) => { g.fillStyle = c; g.beginPath(); g.arc(x, y, 4.5, 0, 7); g.fill(); };
+function wave(id, kind) {
+  const r = render(kind), { g, w, h } = cv(id, 0.75, 240), y = r.all, n = y.length, cy = h / 2;
+  let pk = 1e-9; for (const v of y) pk = Math.max(pk, Math.abs(v));
+  g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(8, cy); g.lineTo(w - 8, cy); g.stroke();
+  const cols = Math.floor(w - 16); g.fillStyle = COL.cyan;
+  for (let c = 0; c < cols; c++) { const a = Math.floor(c / cols * n), b = Math.floor((c + 1) / cols * n); let mx = 0; for (let i = a; i < b; i++) mx = Math.max(mx, Math.abs(y[i])); const hh = mx / pk * (h * 0.42); g.fillStyle = (kind !== 'wall' && a >= r.lead) || (kind === 'wall' && a >= 2 * WALL_S * SR) ? COL.amber : COL.cyan; g.fillRect(8 + c, cy - hh, 1, 2 * hh); }
+  g.fillStyle = COL.fg3; g.fillText((n / SR).toFixed(1) + ' s', w - 46, h - 6); g.fillText('blue: what went in · amber: what came back', 10, 14);
+}
+
+/* the measures used by steps 1 to 4 */
+function measure(kind) {
+  const r = render(kind), p = base(), y = r.back, sr = SR, held = NOTES[3];
+  if (kind === 'wall') { const o = orderScore(y, 2 * WALL_S * sr, 1, p); return { o }; }
+  const c = kind === 'jump' ? 1 / st.n2 : 1, tJ = Math.round(TJ_S * sr), lagS = kind === 'rev' ? 0 : (tJ - p.length);
+  // in what comes back, sample s holds the phrase at time p.length - 1 - (c s - lagS)
+  const sOf = (tp) => (p.length - 1 - tp * sr + lagS) / c, a = sOf(held[0] + held[2] - 0.1), b = sOf(held[0] + 0.15);
+  const hz = zcHz(y, Math.round(a), Math.round(b), sr), o = orderScore(y, sOf((p.length - 1) / sr), 1 / c, p);
+  let end = y.length - 1; while (end > 0 && Math.abs(y[end]) < 1e-4) end--; let beg = 0; while (beg < end && Math.abs(y[beg]) < 1e-4) beg++;
+  return { hz, o, len: (end - beg) / sr, level: 20 * Math.log10(rms(y, beg, end) / rms(p, 0, p.length)) };
+}
+
+function draw1() { xt('c1', 'wall'); wave('c1b', 'wall'); const m = measure('wall');
+  $('t1').innerHTML = '<b>Same order.</b> Read against the phrase, the echo correlates ' + Math.abs(m.o.fwd).toFixed(3) + ' with it played forward (sign aside: the wall turns it over) and ' + Math.abs(m.o.rev).toFixed(3) + ' with it reversed. The coloured dots, where each note’s start comes home, run in the order they left.'; }
+function draw2() {
+  $('n2v').textContent = st.n2.toFixed(2); xt('c2', 'jump'); wave('c2b', 'jump');
+  const m = measure('jump'), n2 = st.n2, rE = (1 - n2) / (2 * n2 * n2);
+  const rv = Math.abs(m.o.rev) > 0.99 && Math.abs(m.o.fwd) < 0.2, lw = m.hz && m.hz < 435, lg = m.len > PHRASE_S + 0.05;
+  $('t2').innerHTML = '<b>' + (rv ? 'Reversed' : 'Not reversed') + ', ' + (lw ? 'lower' : 'not lower') + ', ' + (lg ? 'longer' : 'not longer') + '.</b> What came back correlates ' + Math.abs(m.o.rev).toFixed(3) + ' with the phrase reversed (read at the new speed) and ' + Math.abs(m.o.fwd).toFixed(3) + ' forward. The held A4 returns at ' + (m.hz ? m.hz.toFixed(2) : '–') + ' Hz, against 440 × n₁/n₂ = ' + (440 / n2).toFixed(2) + '. The copy lasts ' + m.len.toFixed(2) + ' s, the phrase ' + PHRASE_S.toFixed(2) + ' s. Its level is ' + m.level.toFixed(1) + ' dB against the phrase; the rule says ' + (20 * Math.log10(Math.abs(rE))).toFixed(1) + ' dB. Like tape played backward at ' + (1 / n2).toFixed(2) + ' speed.';
+}
+let curve3 = null;
+function draw3() {
+  $('tauv').textContent = st.tau.toFixed(2) + ' ms';
+  const { g, w, h } = cv('c3', 0.3, 200), fMax = 5000, tauS = st.tau * 1e-3 * SR, n2 = 2, top = 0.5 * (n2 - 1 / n2) * 1.1;
+  const xf = (f) => 40 + (w - 56) * f / fMax, yr = (r) => h - 22 - (h - 34) * r / top;
+  g.fillStyle = COL.fg4; g.strokeStyle = COL.grid; for (let f = 0; f <= fMax; f += 1000) { g.beginPath(); g.moveTo(xf(f), 10); g.lineTo(xf(f), h - 22); g.stroke(); g.fillText(f ? (f / 1000) + ' kHz' : '0', Math.min(xf(f) - 8, w - 52), h - 6); }
+  for (let r = 0; r <= 0.75; r += 0.25) { g.beginPath(); g.moveTo(40, yr(r)); g.lineTo(w - 16, yr(r)); g.stroke(); g.fillText(r.toFixed(2), 4, yr(r) + 4); }
+  g.strokeStyle = COL.amber; g.lineWidth = 1.5; g.beginPath(); for (let i = 0; i <= 500; i++) { const f = fMax * i / 500, v = slabRule(f / SR, n2, tauS); i ? g.lineTo(xf(f), yr(v)) : g.moveTo(xf(f), yr(v)); } g.stroke(); g.lineWidth = 1;
+  // the engine, one tone at a time
+  const key = st.tau + ':' + SR; if (!curve3 || curve3.key !== key) {
+    const pts = []; for (let f = 150; f <= fMax; f += 230) { const len = Math.round(0.08 * SR), p = new Float64Array(len); for (let i = 0; i < len; i++) p[i] = Math.sin(2 * Math.PI * f * i / SR) * Math.min(1, i / 400, (len - i) / 400); const out = timeMirror(p, len + 10, [[0, 2], [tauS, 1]], len + 400); pts.push([f, rms(out, 600, len - 600) / rms(p, 600, len - 600)]); }
+    curve3 = { key, pts };
+  }
+  curve3.pts.forEach(([f, v]) => { g.fillStyle = COL.cyan; g.beginPath(); g.arc(xf(f), yr(v), 3.5, 0, 7); g.fill(); });
+  const notch = n2 / (2 * st.tau * 1e-3); $('h3').textContent = 'n₂/n₁ = 2 · first notch ' + notch.toFixed(0) + ' Hz';
+  let worst = 0; curve3.pts.forEach(([f, v]) => (worst = Math.max(worst, Math.abs(v - slabRule(f / SR, n2, tauS)))));
+  const m = measure('slab');
+  const rv3 = Math.abs(m.o.rev) > 0.5 && Math.abs(m.o.fwd) < 0.2, ap = m.hz && Math.abs(m.hz - 440) < 0.5, cb = worst < 0.01;
+  $('t3').innerHTML = '<b>' + (rv3 ? 'Reversed' : 'Not reversed') + ', ' + (ap ? 'at pitch' : 'off pitch') + ', ' + (cb ? 'combed by the rule' : 'off the rule') + '.</b> The held A4 comes back at ' + (m.hz ? m.hz.toFixed(2) : '–') + ' Hz. Nothing returns at ' + notch.toFixed(0) + ' Hz and its multiples, where the held time is a whole number of half-cycles; the most returns halfway between, up to ' + (0.5 * (n2 - 1 / n2)).toFixed(2) + ' of what went in. Below the first peak the return falls 6 dB an octave toward nothing. The engine’s tones sit on the rule within ' + worst.toExponential(1) + '. Correlation with the phrase reversed: ' + Math.abs(m.o.rev).toFixed(3) + '; forward: ' + Math.abs(m.o.fwd).toFixed(3) + '.';
+}
+function draw4() {
+  const n2 = st.n2, rE = (1 - n2) / (2 * n2 * n2), K = 0.25 * (2 - 0.5), d = 2 * st.tau / 2;
+  $('t4').innerHTML = 'The single jump’s rival reads the reversed phrase at ' + (1 / n2).toFixed(2) + ' speed and scales it by r_E = ' + rE.toFixed(4) + ' (n₂/n₁ = ' + n2.toFixed(2) + ', from step 2). The there-and-back’s rival adds the reversed phrase to itself ' + d.toFixed(2) + ' ms later, turned over, both at K = ' + K.toFixed(3) + ' (n₂/n₁ = 2, τ = ' + st.tau.toFixed(2) + ' ms, from step 3). Neither rival knows anything about a line; whether they match is step 5’s question.';
+}
+let res4 = null;
+function draw5() {
+  const key = st.n2 + ':' + st.tau + ':' + SR;
+  if (!res4 || res4.key !== key) { $('tab5n').innerHTML = '<tr><td>computing…</td></tr>'; $('tab4').innerHTML = ''; $('tab4b').innerHTML = ''; setTimeout(() => { res4 = compute4(key); draw5(); }, 30); return; }
+  const R = res4, N = R.nulls, pass = (v) => v <= -40;
+  $('tab5n').innerHTML = '<tr><th>time mirror against</th><th>residual</th><th>within −40 dB?</th></tr>'
+    + '<tr><td>single jump · plain reverse, best gain</td><td>' + N.jumpPlain.toFixed(1) + ' dB</td><td>' + (pass(N.jumpPlain) ? 'yes' : 'no') + '</td></tr>'
+    + '<tr><td>single jump · reverse, slowed and scaled</td><td>' + N.jumpVs.toFixed(1) + ' dB</td><td>' + (pass(N.jumpVs) ? 'yes' : 'no') + '</td></tr>'
+    + '<tr><td>there and back · plain reverse, best gain</td><td>' + N.slabPlain.toFixed(1) + ' dB</td><td>' + (pass(N.slabPlain) ? 'yes' : 'no') + '</td></tr>'
+    + '<tr><td>there and back · reverse through a two-tap comb</td><td>' + N.slabComb.toFixed(1) + ' dB</td><td>' + (pass(N.slabComb) ? 'yes' : 'no') + '</td></tr>';
+  const row = (name, f) => '<tr><td>' + name + '</td>' + ['rev', 'jump', 'slab'].map((k) => '<td>' + f(R.m[k], k) + '</td>').join('') + '</tr>';
+  $('tab4').innerHTML = '<tr><th></th><th>plain reverse buffer</th><th>single jump, n₂ = ' + st.n2.toFixed(2) + '</th><th>there and back, τ = ' + st.tau.toFixed(2) + ' ms</th></tr>'
+    + row('order (correlation, reversed / forward)', (m) => Math.abs(m.o.rev).toFixed(3) + ' / ' + Math.abs(m.o.fwd).toFixed(3))
+    + row('held A4 comes back at', (m) => (m.hz ? m.hz.toFixed(2) : '–') + ' Hz')
+    + row('length (phrase 1.40 s)', (m) => m.len.toFixed(2) + ' s')
+    + row('level against the phrase', (m) => m.level.toFixed(1) + ' dB');
+  const Y = R.yee, n2 = st.n2;
+  $('tab4b').innerHTML = '<tr><th>Yee grid against the rule</th><th>grid</th><th>rule</th><th>difference</th></tr>'
+    + '<tr><td>single jump: backward D, as a fraction</td><td>' + Y.jump.back.toFixed(4) + '</td><td>' + Math.abs((1 - n2) / 2).toFixed(4) + '</td><td>' + Math.abs(Y.jump.back - Math.abs((1 - n2) / 2)).toExponential(1) + '</td></tr>'
+    + '<tr><td>single jump: its frequency, as a fraction</td><td>' + (Y.jump.freq ? Y.jump.freq.toFixed(4) : '–') + '</td><td>' + (1 / n2).toFixed(4) + '</td><td>' + (Y.jump.freq ? Math.abs(Y.jump.freq - 1 / n2).toExponential(1) : '–') + '</td></tr>'
+    + Y.slab.map((s) => '<tr><td>there and back, n₂ = 2, τ = 10 steps of travel: λ = ' + s.lam + ' cells</td><td>' + s.back.toFixed(4) + '</td><td>' + s.rule.toFixed(4) + '</td><td>' + Math.abs(s.back - s.rule).toExponential(1) + '</td></tr>').join('');
+  const fine = Math.max(Math.abs(Y.jump.back - Math.abs((1 - n2) / 2)) / Math.abs((1 - n2) / 2), ...Y.slab.map((s) => Math.abs(s.back - s.rule) / s.rule));
+  const chains = pass(N.jumpVs) && pass(N.slabComb), plain = pass(N.jumpPlain) || pass(N.slabPlain);
+  $('t5').innerHTML = (chains && !plain
+    ? '<b>A reverse buffer plus one operation.</b> Neither mirror is a plain reverse (' + N.jumpPlain.toFixed(1) + ' and ' + N.slabPlain.toFixed(1) + ' dB, nowhere near). But by the rule stated above, each is matched by a digital chain: the single jump by a reverse read ' + (1 / n2).toFixed(2) + ' times as fast and scaled (' + N.jumpVs.toFixed(0) + ' dB), the there-and-back by a reverse through a two-tap comb (' + N.slabComb.toFixed(0) + ' dB). So in this ideal line a time mirror is not a sound of its own: it is a reverse with varispeed, or a reverse with a comb, and which one is set by whether the index comes back. '
+    : '<b>' + (chains ? 'Matched, and so is the plain reverse.' : 'Not matched by these chains.') + '</b> Residuals: ' + [N.jumpPlain, N.jumpVs, N.slabPlain, N.slabComb].map((v) => v.toFixed(1) + ' dB').join(', ') + '. ')
+    + 'The Yee grid, which knows nothing of the mixing rule, agrees with it within ' + (100 * fine).toFixed(1) + ' %, the size of its own step. What a physical mirror could add beyond these chains lies outside the ideal; see the note.';
+}
+function compute4(key) {
+  const m = { rev: measure('rev'), jump: measure('jump'), slab: measure('slab') };
+  const p = base(), delta = Math.round(TJ_S * SR) - p.length, Rv = reverseBuffer(p), n2v = st.n2;
+  const J = render('jump').back, S2 = render('slab').back, VS = render('revvs').back, CB = render('revcomb').back;
+  const plainJ = new Float64Array(J.length); for (let s = 0; s < J.length; s++) { const k = s - Math.round(delta * n2v); plainJ[s] = k >= 0 && k < Rv.length ? Rv[k] : 0; }
+  const plainS = new Float64Array(S2.length); const tauS = st.tau * 1e-3 * SR; for (let s = 0; s < S2.length; s++) { const k = s - Math.round(delta + tauS); plainS[s] = k >= 0 && k < Rv.length ? Rv[k] : 0; }
+  const nulls = { jumpPlain: residualDb(J, plainJ, true), jumpVs: residualDb(J, VS, false), slabPlain: residualDb(S2, plainS, true), slabComb: residualDb(S2, CB, false) };
+  const n2 = st.n2, jump = yeeJump(40, [[100, n2]]);
+  const slab = [20, 30, 60].map((lam) => { const r = yeeJump(lam, [[100, 2], [120, 1]], { N: 5000, x0: 3000, w: 250, probe: 10, steps: 120 + 2400 }); return { lam, back: r.back, rule: slabRule(1 / lam, 2, 10) }; });
+  return { key, m, nulls, yee: { jump, slab } };
+}
+
+/* steps */
+function show(n) {
+  step = Math.max(1, Math.min(5, n)); stopSound();
+  document.querySelectorAll('.pm-step').forEach((s) => s.classList.toggle('pm-shown', +s.dataset.step === step));
+  document.querySelectorAll('.pm-rail button').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.go === step)));
+  $('back').disabled = step === 1; $('next').disabled = step === 5;
+  ({ 1: draw1, 2: draw2, 3: draw3, 4: draw4, 5: draw5 })[step]();
+}
+document.querySelectorAll('.pm-rail button').forEach((b) => b.addEventListener('click', () => show(+b.dataset.go)));
+$('back').addEventListener('click', () => show(step - 1)); $('next').addEventListener('click', () => show(step + 1));
+let raf = 0; const later = (f) => { cancelAnimationFrame(raf); raf = requestAnimationFrame(f); };
+$('n2').addEventListener('input', (e) => { st.n2 = +e.target.value; stopSound(); later(draw2); });
+$('tau').addEventListener('input', (e) => { st.tau = +e.target.value; stopSound(); later(draw3); });
+$('go1').addEventListener('click', (e) => play('wall', e.currentTarget).then(() => draw1()));
+$('go2').addEventListener('click', (e) => play('jump', e.currentTarget).then(() => draw2()));
+$('go3').addEventListener('click', (e) => play('slab', e.currentTarget).then(() => draw3()));
+document.querySelectorAll('[data-play4]').forEach((b) => b.addEventListener('click', () => play(b.dataset.play4, b).then(() => (step === 5 ? draw5() : draw4()))));
+window.addEventListener('resize', () => ({ 1: draw1, 2: draw2, 3: draw3, 4: draw4, 5: draw5 })[step]());
+sigil(); show(1);
+</script>
+</body>
+</html>

@@ -71,3 +71,4 @@ What each enrichment taught the ceremony, appended after a run that taught it so
 - run · 2026-11-03 · v2.7 with the proposal-round settings · Remnants in Depth · nothing new
 - run · 2026-11-03 · v2.7 with the proposal-round settings · Sidechain ↔ Conversation · nothing new
 - run · 2026-11-03 · v2.7 with the proposal-round settings · Radio Play · nothing new
+- run · 2026-11-03 · v2.7 with the proposal-round settings · Photonic Time Crystals · nothing new
