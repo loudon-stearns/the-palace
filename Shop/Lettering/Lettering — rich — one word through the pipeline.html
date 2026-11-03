@@ -1,0 +1,191 @@
+<!doctype html>
+<!--
+  title: Lettering — rich — one word through the pipeline
+  born: 2026-11-03
+  links: [[Lettering]] (connects-to · rich-face-piece) · listed in [[Lettering — rich.json]] · plates from [[BLUELINE — Text Layer]]'s proofs
+  forward_vector: I walk one word through the four stages of the Lettering pipeline, one stage at a time, and end on the test the page invites — across all seven BLUELINE voices, which stage adds the feeling and which keeps the spelling, measured and then judged by your eye. I change when the pipeline section does, or when the bench re-renders.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:files" content="plates/">
+<title>Lettering — one word through the pipeline</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&family=Shadows+Into+Light&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --warn:#ff9b4a; --ok:#7fd1a8;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+  .rail button { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg3); background: var(--bg); border: 1px solid var(--soft); border-radius: 2px; padding: 6px 9px; cursor: pointer; }
+  .rail button.on { color: var(--amber); border-color: var(--amberline); }
+  .rail button.test { border-style: dashed; }
+  button.b { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button.b:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.b.on, button.b.go { color: var(--amber); border-color: var(--amberline); }
+  button.b:disabled { opacity: .35; cursor: default; }
+  .nav { display: flex; gap: 10px; align-items: center; margin-top: 14px; }
+  .nav .where { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; }
+  .step { display: none; } .step.on { display: block; }
+  .step h4 { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .step p { font-size: 14px; line-height: 1.6; max-width: 78ch; margin: 0 0 12px; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  img.plate { display: block; width: 100%; height: auto; aspect-ratio: 1216 / 832; background: #000; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); margin-top: 10px; }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); margin-top: 8px; line-height: 1.6; }
+  .note { font-size: 13px; line-height: 1.55; color: var(--fg3); border-left: 2px solid var(--amberline); padding: 2px 0 2px 10px; margin: 10px 0; max-width: 78ch; }
+  .amber { color: var(--amber); }
+  .seg { display: inline-flex; } .seg button + button { border-left: 0; }
+
+  .big { max-width: 760px; }
+  .grid { display: grid; grid-template-columns: 112px repeat(4, 1fr) 150px; gap: 6px 8px; align-items: center; margin-top: 12px; }
+  .grid .h { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); }
+  .grid .w { font-family: var(--mono); font-size: 11.5px; color: var(--fg1); }
+  .grid img { width: 100%; display: block; cursor: pointer; border: 1px solid transparent; aspect-ratio: 1216/832; background:#000; }
+  .grid img.sel { border-color: var(--amber); }
+  .grid .m { font-family: var(--mono); font-size: 10.5px; color: var(--fg3); margin-top: 2px; }
+  .grid .m b { color: var(--fg1); font-weight: 500; }
+  .mark { display: flex; gap: 4px; flex-wrap: wrap; }
+  .mark button { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; padding: 5px 7px; background: var(--bg); color: var(--fg3); border: 1px solid var(--soft); border-radius: 2px; cursor: pointer; }
+  .mark button.on { color: var(--amber); border-color: var(--amberline); }
+  .live { font-family: 'Shadows Into Light', cursive; color: #fff; background: #000; aspect-ratio: 1216/832; display: flex; align-items: center; justify-content: center; font-size: clamp(60px, 16vw, 150px); }
+  .mine { display: none; } .mine.on { display: block; }
+  @media (max-width: 720px) { .grid { grid-template-columns: 70px repeat(4, 1fr); } .grid .markcol, .grid .h.markcol { grid-column: 2 / -1; } }
+</style>
+</head>
+<body>
+<div class="piece" id="p">
+  <div class="kicker">made · Lettering · study</div>
+  <h3 class="title">One word, four stages: which adds the feeling, which keeps the spelling?</h3>
+  <p class="sub">The pipeline, walked on the dying woman's <i>stay</i> from BLUELINE's seven-voice suite (seed 1111). Each step adds one stage. Every setting named here was read from the render's own metadata, not from the script's defaults.</p>
+  <div class="rail"></div>
+
+  <section class="step" data-name="the word, in a font">
+    <h4>The word, in a font</h4>
+    <p>The skeleton is the word set white on black, by a font. It carries the spelling and nothing else yet: no material, no gesture.</p>
+    <div class="seg" style="margin-bottom:10px"><button class="b on" data-font="used">the font the proof used · Chalkduster</button><button class="b" data-font="named">the font the page names · Shadows Into Light</button></div>
+    <div class="panel big"><img class="plate" id="f-used" src="plates/whisper-stay-skeleton.webp" alt="the word stay in Chalkduster, white on black"><div class="live" id="f-named" style="display:none">stay</div></div>
+    <p class="note">All seven proofs on the bench were rendered on Chalkduster. The per-voice fonts the page names (Nosifer for <i>too late</i>, Bangers for <i>NO</i>, Shadows Into Light here) are the script's picks now, but they exist only as skeleton previews (<code>skel-preview/</code>, commit 28e9adaa); none has been through diffusion yet. The second button sets the word live in the named font, from Google Fonts.</p>
+  </section>
+
+  <section class="step" data-name="what the lock sees">
+    <h4>What the lock sees</h4>
+    <p>The ControlNet never sees letters. It sees their edges: the skeleton run through a Canny edge detector at thresholds 0.1 and 0.3. This outline is the pose; whatever diffusion paints has to stand in it.</p>
+    <div class="panel big"><img class="plate" src="plates/whisper-stay-canny.webp" alt="the edges of the word stay"></div>
+    <p class="hint">This plate is a reproduction of ComfyUI's Canny node (gaussian σ 1, normalized Sobel, thin, hysteresis 0.1 / 0.3), made for this face, drawn 3 px wide so it survives the downsize. It is not the node's own output.</p>
+  </section>
+
+  <section class="step" data-name="the material arrives">
+    <h4>The material arrives: photoreal, under the lock</h4>
+    <p>Now diffusion paints, from noise, with the outline held at strength <b>0.8</b> and let go at <b>85%</b> of the 36 steps. The prompt asked for faint trembling graphite thinning into breath. The word stays where the font put it; the surface is new.</p>
+    <div class="panel big"><img class="plate" src="plates/whisper-stay-photoreal.webp" alt="stay rendered as graphite on brown paper"></div>
+    <div class="read"><span>outline held <b id="h-photo">–</b></span><span>chance <b id="c-photo">–</b></span></div>
+  </section>
+
+  <section class="step" data-name="values carry the form">
+    <h4>Values carry the form: desaturate</h4>
+    <p>The colour goes; the light and dark stay. This grey image is what the next pass starts from, so the letters it carries are the floor the ink pass stands on.</p>
+    <div class="panel big"><img class="plate" src="plates/whisper-stay-desat.webp" alt="the same render in greyscale"></div>
+  </section>
+
+  <section class="step" data-name="ink, last">
+    <h4>Ink, last: the loose lock</h4>
+    <p>Image-to-image from the grey at denoise <b>0.85</b>, toward pen-and-ink on black. The outline is still applied, but loosely: strength <b>0.5</b>, let go at <b>45%</b> of the steps. The letters go organic. Watch the <i>y</i>.</p>
+    <div class="panel big"><img class="plate" src="plates/whisper-stay-ink.webp" alt="stay as ink on a scratchboard field"></div>
+    <div class="read"><span>outline held <b id="h-ink">–</b></span><span>chance <b id="c-ink">–</b></span></div>
+  </section>
+
+  <section class="step" data-name="the void">
+    <h4>The void: the font left black</h4>
+    <p>The knockout takes the font's own skeleton, widens it by 2 px, and pastes it pure black into the ink. The word becomes the hole the energy flows around.</p>
+    <div class="panel big"><img class="plate" src="plates/whisper-stay-void.webp" alt="stay as a black void in a light ink field"></div>
+    <p class="note">The void is the font, exactly. The shape the loose pass worked to release comes back as the void's edge. So the hand-drawn skeleton matters twice: once as the lock, and again as the hole.</p>
+  </section>
+
+  <section class="step" data-name="the test · seven voices" data-test="1">
+    <h4>The test: which stage adds the feeling, which keeps the spelling?</h4>
+    <p>All seven voices, the same four stages. Click any plate to see it large. Two readings sit under each row: a measure of how much of the font's outline each stage still draws, and your own eye on whether the ink still spells the word. Mark the ink for all seven before you read mine.</p>
+    <div class="panel big"><div class="plabel"><span id="v-label">–</span><span id="v-stage">–</span></div><img class="plate" id="viewer" src="plates/whisper-stay-ink.webp" alt=""></div>
+    <div class="grid" id="grid">
+      <div class="h">voice</div><div class="h">skeleton</div><div class="h">photoreal</div><div class="h">ink</div><div class="h">void</div><div class="h markcol">does the ink spell it?</div>
+    </div>
+    <div class="read"><span>your marks: <b id="tally">0 of 7</b></span><span>photoreal held <b id="r-photo">–</b></span><span>ink held <b id="r-ink">–</b></span></div>
+    <div class="eq">H = |{ p ∈ O : |cos∠(∇I, ∇S)| &gt; 0.9 and |∇I| &gt; median|∇I| }| ⁄ |O|</div>
+    <div class="words">(outline held) = (the font's outline pixels where the image has an edge in the same place, running the same way, at least as strong as its median edge) ÷ (all the font's outline pixels). Chance is the same outline slid to eight places it doesn't belong. It counts a grey letter on black as much as a white one, and it can't read: a held outline is not a spelled word.</div>
+    <div class="mine" id="mine">
+      <p class="note"><b>My reading, after yours.</b> The photoreal holds 71–81% of the outline in every voice (chance 16–23%). The ink pass halves it: 30–45% (chance 16–20%). By eye, the ink still spells <i>stay</i> and <i>THOOM</i>; <i>ASCENSION</i> turns its C into a G and its I into a scratch, <i>BURNING</i> opens on something nearer a 3, <i>was it real</i> blurs its first word, <i>too late</i> reads nearer <i>too lote</i>, and <i>NO</i>'s O curls toward a G. That is an agent's eye, not a test; yours above is the one that counts. And one thing the lock never promised: in <i>too late</i> the photoreal invented two more rows of letters above and below the word. The lock holds the letters it is given; it does not stop new ones in the empty field.</p>
+      <p class="note">So the feeling arrives in two places: the material at the photoreal, the gesture at the ink. The spelling is held hard only through the photoreal. In the ink pass it rests on the grey starting image, and there it can slip.</p>
+    </div>
+  </section>
+
+  <div class="nav"><button class="b" data-back>◂ back</button><button class="b go" data-next>next ▸</button><span class="where"></span></div>
+</div>
+<script>
+// the walk: one step at a time, Back and Next, the rail stays open (a path, not a gate)
+function walk(root, onStep) {
+  const steps = [...root.querySelectorAll('.step')], rail = root.querySelector('.rail');
+  const back = root.querySelector('[data-back]'), next = root.querySelector('[data-next]'), where = root.querySelector('.where');
+  let i = 0;
+  steps.forEach((s, k) => { const b = document.createElement('button'); b.textContent = (k + 1) + ' · ' + s.dataset.name;
+    if (s.dataset.test) b.classList.add('test'); b.onclick = () => go(k); rail.appendChild(b); });
+  function go(k) { i = Math.max(0, Math.min(steps.length - 1, k));
+    steps.forEach((s, j) => s.classList.toggle('on', j === i)); [...rail.children].forEach((b, j) => b.classList.toggle('on', j === i));
+    back.disabled = i === 0; next.disabled = i === steps.length - 1; where.textContent = 'step ' + (i + 1) + ' of ' + steps.length;
+    if (onStep) onStep(i, steps[i]); }
+  back.onclick = () => go(i - 1); next.onclick = () => go(i + 1); go(0);
+  return go;
+}
+
+const M = {"voices":{"ascension":{"outline_held":{"photoreal":[0.708,0.232],"ink":[0.439,0.203]},"impact_outline_held":{"photoreal":[0.998,0.256],"ink":[1.0,0.262]},"void_field":[0.705,0.733],"fragment":{"n":1,"letter":"E","font":"NewRocker","ink_box":[504,408,169],"components":8}},"shout-no":{"outline_held":{"photoreal":[0.807,0.181],"ink":[0.334,0.16]},"impact_outline_held":{"photoreal":[0.999,0.209],"ink":[0.997,0.227]},"void_field":[0.283,0.177],"fragment":{"n":6,"letter":"O","font":"Bangers","ink_box":[742,406,384],"components":2}},"whisper-stay":{"outline_held":{"photoreal":[0.769,0.165],"ink":[0.31,0.171]},"impact_outline_held":{"photoreal":[1.0,0.164],"ink":[0.999,0.151]},"void_field":[0.567,0.686],"fragment":{"n":2,"letter":"a","font":"ShadowsIntoLight","ink_box":[673,441,290],"components":4}},"sfx-thoom":{"outline_held":{"photoreal":[0.783,0.189],"ink":[0.354,0.163]},"impact_outline_held":{"photoreal":[0.999,0.228],"ink":[0.988,0.22]},"void_field":[0.178,0.191],"fragment":{"n":5,"letter":"O","font":"Frijole","ink_box":[588,408,301],"components":5}},"dying-toolate":{"outline_held":{"photoreal":[0.714,0.178],"ink":[0.3,0.179]},"impact_outline_held":{"photoreal":[0.999,0.218],"ink":[0.971,0.212]},"void_field":[0.233,0.32],"fragment":{"n":3,"letter":"a","font":"Nosifer","ink_box":[812,430,184],"components":7}},"lyric-burning":{"outline_held":{"photoreal":[0.768,0.164],"ink":[0.452,0.164]},"impact_outline_held":{"photoreal":[0.989,0.299],"ink":[0.928,0.301]},"void_field":[0.13,0.097],"fragment":{"n":7,"letter":"R","font":"MetalMania","ink_box":[444,418,216],"components":7}},"thought-real":{"outline_held":{"photoreal":[0.768,0.182],"ink":[0.369,0.177]},"impact_outline_held":{"photoreal":[1.0,0.218],"ink":[0.985,0.256]},"void_field":[0.587,0.737],"fragment":{"n":4,"letter":"a","font":"SpecialElite","ink_box":[684,581,184],"components":9}}}};
+const V = [
+  ['whisper-stay', 'stay', 'the dying woman → the hero'], ['shout-no', 'NO', 'the hero → the recoiling crowd'],
+  ['dying-toolate', 'too late', 'the hero, hollowed → himself'], ['ascension', 'ASCENSION', 'the author → the audience'],
+  ['sfx-thoom', 'THOOM', 'the impact → no one'], ['lyric-burning', 'BURNING', 'the song → the audience'],
+  ['thought-real', 'was it real', "the hero's mind → himself"]];
+const STAGES = [['skeleton', 'skeleton · Chalkduster'], ['photoreal', 'photoreal · lock 0.8 to 85%'], ['ink', 'ink · denoise 0.85, lock 0.5 to 45%'], ['void', 'void · knockout']];
+const pct = x => Math.round(x * 100) + '%';
+const s = M.voices['whisper-stay'].outline_held;
+document.getElementById('h-photo').textContent = pct(s.photoreal[0]); document.getElementById('c-photo').textContent = pct(s.photoreal[1]);
+document.getElementById('h-ink').textContent = pct(s.ink[0]); document.getElementById('c-ink').textContent = pct(s.ink[1]);
+document.querySelectorAll('[data-font]').forEach(b => b.onclick = () => {
+  document.querySelectorAll('[data-font]').forEach(x => x.classList.toggle('on', x === b));
+  const named = b.dataset.font === 'named';
+  document.getElementById('f-used').style.display = named ? 'none' : ''; document.getElementById('f-named').style.display = named ? 'flex' : 'none'; });
+const grid = document.getElementById('grid'), viewer = document.getElementById('viewer'), marks = {};
+function show(id, word, who, st, label, img) {
+  viewer.src = 'plates/' + id + '-' + st + '.webp'; viewer.alt = word + ', ' + label;
+  document.getElementById('v-label').textContent = '“' + word + '” · ' + who; document.getElementById('v-stage').textContent = label;
+  grid.querySelectorAll('img').forEach(x => x.classList.toggle('sel', x === img)); }
+const lo = (k, i) => Math.min(...V.map(v => M.voices[v[0]].outline_held[k][i])), hi = (k, i) => Math.max(...V.map(v => M.voices[v[0]].outline_held[k][i]));
+document.getElementById('r-photo').textContent = pct(lo('photoreal', 0)) + '–' + pct(hi('photoreal', 0)) + ' (chance ' + pct(lo('photoreal', 1)) + '–' + pct(hi('photoreal', 1)) + ')';
+document.getElementById('r-ink').textContent = pct(lo('ink', 0)) + '–' + pct(hi('ink', 0)) + ' (chance ' + pct(lo('ink', 1)) + '–' + pct(hi('ink', 1)) + ')';
+V.forEach(([id, word, who]) => {
+  const w = document.createElement('div'); w.className = 'w'; w.textContent = word; grid.appendChild(w);
+  STAGES.forEach(([st, label]) => {
+    const c = document.createElement('div'), im = document.createElement('img');
+    im.src = 'plates/' + id + '-' + st + '.webp'; im.alt = ''; im.loading = 'lazy'; im.onclick = () => show(id, word, who, st, label, im); c.appendChild(im);
+    const h = M.voices[id].outline_held[st];
+    if (h) { const m = document.createElement('div'); m.className = 'm'; m.innerHTML = 'held <b>' + pct(h[0]) + '</b> · chance ' + pct(h[1]); c.appendChild(m); }
+    grid.appendChild(c); if (id === 'whisper-stay' && st === 'ink') im.classList.add('sel'); });
+  const mk = document.createElement('div'); mk.className = 'mark markcol';
+  [['spells', 'it spells it'], ['slips', 'a letter slips']].forEach(([k, t]) => { const b = document.createElement('button'); b.textContent = t;
+    b.onclick = () => { marks[id] = k; [...mk.children].forEach(x => x.classList.toggle('on', x === b)); tally(); }; mk.appendChild(b); });
+  grid.appendChild(mk); });
+function tally() { const n = Object.keys(marks).length, sp = Object.values(marks).filter(x => x === 'spells').length;
+  document.getElementById('tally').textContent = n + ' of 7' + (n ? ' · you read ' + sp + ' as spelled' : '');
+  document.getElementById('mine').classList.toggle('on', n === 7); }
+show('whisper-stay', 'stay', 'the dying woman → the hero', 'ink', STAGES[2][1], grid.querySelector('img.sel'));
+walk(document.getElementById('p'));
+</script>
+</body>
+</html>
