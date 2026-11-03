@@ -1,0 +1,329 @@
+<!doctype html>
+<!--
+  title: Generative Wavetable Libraries — rich — brighter all the way
+  born: 2026-11-03
+  links: [[Generative Wavetable Libraries]] (connects-to · rich-face-piece) · listed in [[Generative Wavetable Libraries — rich.json]] · serves § Plan, at Phase 2's first proof, the Shepard CENTROID-FREQ table · recipe from [[Shepard Tone Synthesizer]] · the same counter as [[1D Wavetable Scanning]]'s "which order is brightness"
+  forward_vector: I am the Shepard table's one sentence, counted. One frame and its brightness; the bell slid by the knob; one note swept the whole way; and last, the test: every place the brightness falls back, counted across the shipped table, the shipped audition and a shuffled control that must fail. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until a play button is clicked; the AudioContext is made on that click. Changing step stops the sound. Quieting and the time cap are the kit's.
+  engine: shepard-centroid/generate_shepard.py ported line for line (nine octave partials under a Gaussian, mu = 1 + 6p, sigma 1.6, peak normalize) and its render_sweep as the player. It reproduces shepard_centroid.wav to within 3e-8.
+  check: Generative Wavetable Libraries — rich — check.py holds this engine to the shipped wavs and recomputes every count through Python.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Brighter all the way</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --violet:#8b7cf6; --red:#e2574c;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .grp{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .grp .l{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);margin-right:2px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .ctl{display:grid;grid-template-columns:170px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:11ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--fg-2)}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:right;font-weight:400;vertical-align:top}
+  table.t th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td:first-child,table.t th:first-child{text-align:left}
+  table.t b{color:var(--accent);font-weight:400}
+  table.t tr.on td{color:var(--fg-1)}
+  .found{margin-top:12px;font-family:var(--sans);font-size:14px;color:var(--fg-2);max-width:72ch;line-height:1.6}
+  .found b{color:var(--fg-1);font-weight:500}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:23px}.ctl{grid-template-columns:110px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Generative Wavetable Libraries · Phase 2 · four steps</div>
+  <h1>Brighter all the way</h1>
+  <p class="lead">The page says of the Shepard table: “One note brightens monotonically as the position sweeps.” Monotonically means it never once gets darker on the way up. That can be counted.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel">
+    <div class="plabel"><span id="pic-l"></span><span id="pic-r"></span></div>
+    <canvas id="pic" height="260"></canvas>
+    <div class="rowb">
+      <button class="play" id="play">▸ play</button>
+      <span class="grp" id="g-sweep"><span class="l">sweep A2 the whole way in</span><button class="ghost small" data-sweep="12">12 s, as the audition</button><button class="ghost small" data-sweep="3">3 s</button></span>
+      <span class="grp" id="g-count"><button class="ghost small" id="count">count the falls here</button><button class="ghost small" id="shuffle">shuffle the frames, count again</button></span>
+    </div>
+    <div class="ctl" id="ctl-pos"><label for="pos">Position</label><input id="pos" type="range" min="0" max="1" step="0.001" value="0"><span class="v" id="pos-v"></span></div>
+    <div class="meter" id="meter"></div>
+    <table class="t" id="tab"></table>
+    <table class="t" id="tab2"></table>
+    <p class="found" id="found"></p>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><b>LOUD’N LIVE</b> · made for the rich face of Generative Wavetable Libraries · the table is shepard_centroid.wav, rebuilt from shepard-centroid/generate_shepard.py · counted here, in the shipped files, and in the check</footer>
+</main>
+<script id="engine">
+// ---- engine: the project's own recipes (crystal-bravais/generate.py, shepard-centroid/generate_shepard.py) and its own player (loop-smoothing/buzz_probe.py naive_sweep), line for line ----
+const SPF = 2048, NF = 64, TAU = 2 * Math.PI;
+// name, partials, rolloff, detune (cents), odd bias: generate.py BRAVAIS_SYSTEMS
+const SYSTEMS = [["cubic",3,1.30,0.0,1.0],["hexagonal",6,1.10,4.0,1.0],["tetragonal",9,0.95,9.0,1.15],["rhombohedral",13,0.85,16.0,1.25],["orthorhombic",18,0.78,24.0,1.4],["monoclinic",26,0.70,34.0,1.6],["triclinic",36,0.62,48.0,1.85]];
+// the 'turned' arm: each system's cycle rolled by this many samples (one draw, seed 22, the median of 40 draws by worst dip)
+const TURNS = [0,1579,750,1351,408,1933,181];
+const c2r = (c) => Math.pow(2, c / 1200);
+function normalize(f) { let p = 0; for (const v of f) p = Math.max(p, Math.abs(v)); if (p < 1e-12) return f; for (let i = 0; i < f.length; i++) f[i] /= p; return f; }
+function partialMult(s, k, detuneOn = true) { const [, n, , dt] = s; return k * c2r((detuneOn ? dt : 0) * ((k - 1) / Math.max(1, n - 1))); }
+function partialAmp(s, k) { const [, , ro, , ob] = s; let a = 1 / Math.pow(k, ro); if (k % 2 === 0) a /= ob; return a; }
+// one system's cycle; phases: start phase per partial (default 0, the shipped zero-phase reset)
+function systemFrame(s, opt = {}) {
+  const spf = opt.spf || SPF, f = new Float64Array(spf), ph = opt.phases || {};
+  for (let k = 1; k <= s[1]; k++) { const a = partialAmp(s, k), m = partialMult(s, k, opt.detune !== false), p0 = ph[k] || 0;
+    for (let i = 0; i < spf; i++) f[i] += a * Math.sin(m * (TAU * i / spf) + p0); }
+  return normalize(f);
+}
+// the seven keyframes under a phase policy: 'zero' (shipped), 'carry' (each partial starts where it ended in the last system), 'turned' (cycles rolled by TURNS)
+function keyframes(mode = 'zero', spf = SPF) {
+  const out = [], ph = {};
+  SYSTEMS.forEach((s, j) => {
+    const start = {}; for (let k = 1; k <= s[1]; k++) start[k] = mode === 'carry' ? (ph[k] || 0) : 0;
+    let f = systemFrame(s, { spf, phases: start });
+    for (let k = 1; k <= s[1]; k++) ph[k] = (start[k] + TAU * partialMult(s, k)) % TAU;
+    if (mode === 'turned') { const r = new Float64Array(spf), sh = TURNS[j] * spf / SPF; for (let i = 0; i < spf; i++) r[(i + sh) % spf] = f[i]; f = r; }
+    out.push(f);
+  });
+  return out;
+}
+// generate.py interpolate_table: keyframes pinned at j/6, frames at i/63, each blend re-normalized
+function interpolate(K, n = NF) {
+  const nk = K.length, out = [];
+  for (let i = 0; i < n; i++) {
+    const pos = i / (n - 1); let idx = 0; for (let j = 0; j < nk; j++) if (j / (nk - 1) <= pos) idx = j;
+    idx = Math.min(Math.max(idx, 0), nk - 2); const frac = (pos - idx / (nk - 1)) * (nk - 1);
+    const a = K[idx], b = K[idx + 1], f = new Float64Array(a.length);
+    for (let s = 0; s < a.length; s++) f[s] = (1 - frac) * a[s] + frac * b[s];
+    out.push(normalize(f));
+  }
+  return out;
+}
+// which systems a frame blends, and how much: frame i sits at i/63 on a line with a system every 1/6
+function frameSystems(i, n = NF) { const x = i / (n - 1) * 6, j = Math.min(Math.floor(x), 5), fr = x - j; return fr < 1e-9 ? [[j, 1]] : fr > 1 - 1e-9 ? [[j + 1, 1]] : [[j, 1 - fr], [j + 1, fr]]; }
+// generate_shepard.py: nine octave partials 1..256 under a Gaussian over octave index, centred at mu = 1 + 6p, sigma 1.6
+function shepardFrame(mu, spf = SPF) { const f = new Float64Array(spf); for (let o = 0; o < 9; o++) { const k = 2 ** o, a = Math.exp(-((o - mu) ** 2) / (2 * 1.6 * 1.6)); for (let i = 0; i < spf; i++) f[i] += a * Math.sin(k * (TAU * i / spf)); } return normalize(f); }
+function shepardTable(spf = SPF, n = NF) { const out = []; for (let i = 0; i < n; i++) out.push(shepardFrame(1 + (i / (n - 1)) * 6, spf)); return out; }
+// buzz_probe.py naive_sweep: a held note, Position 0 -> 1 over dur, straight lines in phase and in Position
+function sweep(T, f0, dur, sr) {
+  const n = Math.floor(dur * sr), nf = T.length, fs = T[0].length, x = new Float32Array(n);
+  for (let i = 0; i < n; i++) {
+    const sp = ((f0 / sr * i) % 1) * fs, s0 = Math.floor(sp) % fs, s1 = (s0 + 1) % fs, fr = sp - Math.floor(sp);
+    const fp = i / (n - 1) * (nf - 1), a0 = Math.floor(fp), a1 = Math.min(a0 + 1, nf - 1), ff = fp - a0;
+    const A = T[a0][s0] * (1 - fr) + T[a0][s1] * fr, B = T[a1][s0] * (1 - fr) + T[a1][s1] * fr;
+    x[i] = A * (1 - ff) + B * ff;
+  }
+  return x;
+}
+// buzz_probe.py finish: 50 ms fades
+function fades(x, sr) { const r = Math.floor(0.05 * sr); for (let i = 0; i < r; i++) { x[i] *= i / (r - 1); x[x.length - 1 - i] *= i / (r - 1); } return x; }
+const dB = (v) => 20 * Math.log10(Math.max(v, 1e-12));
+const rms = (f) => { let s = 0; for (const v of f) s += v * v; return Math.sqrt(s / f.length); };
+// scale_up.py morph_dips_db: level of the 50/50 blend against the mean of its two ends, in dB
+function morphDips(K) { const out = []; for (let j = 0; j + 1 < K.length; j++) { const a = K[j], b = K[j + 1], m = new Float64Array(a.length); for (let s = 0; s < a.length; s++) m[s] = 0.5 * (a[s] + b[s]); out.push(20 * Math.log10(rms(m) / (0.5 * (rms(a) + rms(b))))); } return out; }
+// radix-2 FFT magnitude
+function fftMag(x) {
+  const n = x.length, re = Float64Array.from(x), im = new Float64Array(n);
+  for (let i = 1, j = 0; i < n; i++) { let b = n >> 1; for (; j & b; b >>= 1) j ^= b; j ^= b; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; } }
+  for (let len = 2; len <= n; len <<= 1) { const ang = -TAU / len, wr = Math.cos(ang), wi = Math.sin(ang);
+    for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let j = 0; j < len / 2; j++) { const a = i + j, b = a + len / 2, tr = re[b] * cr - im[b] * ci, ti = re[b] * ci + im[b] * cr; re[b] = re[a] - tr; im[b] = im[a] - ti; re[a] += tr; im[a] += ti; const nr = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = nr; } } }
+  const m = new Float64Array(n / 2 + 1); for (let k = 0; k <= n / 2; k++) m[k] = Math.hypot(re[k], im[k]); return m;
+}
+// generate_shepard.py spectral_centroid_octaves: amplitude-weighted mean bin of one cycle, in octaves above the fundamental
+// p = 1 weights by amplitude, as the generator does; p = 2 by power
+function frameCentroid(f, p = 1) { const A = fftMag(f); A[0] = 0; let s = 0, w = 0; for (let k = 0; k < A.length; k++) { const a = A[k] ** p; s += k * a; w += a; } return Math.log2(Math.max(s / w, 1)); }
+// the same along a sweep: 4096-sample Hann windows every 1024, skipping the 50 ms fades; returns log2 of the centroid in Hz
+function sweepCentroids(x, sr, N = 4096, H = 1024) { const w = new Float64Array(N); for (let i = 0; i < N; i++) w[i] = 0.5 - 0.5 * Math.cos(TAU * i / (N - 1)); const out = [], st = Math.floor(0.06 * sr), seg = new Float64Array(N);
+  for (let s0 = st; s0 < x.length - N - st; s0 += H) { for (let i = 0; i < N; i++) seg[i] = x[s0 + i] * w[i]; const A = fftMag(seg); let s = 0, t = 0; for (let k = 0; k < A.length; k++) { const f = k * sr / N; if (f < 20) continue; s += f * A[k]; t += A[k]; } out.push(Math.log2(s / t)); } return out; }
+function falls(c) { let n = 0, worst = Infinity; for (let i = 1; i < c.length; i++) { const d = c[i] - c[i - 1]; if (d < 0) n++; worst = Math.min(worst, d); } return { n, worst, steps: c.length - 1 }; }
+// ---- this page's measures, pure functions (the check runs them) ----
+function shuffled(n, seed) { let a = seed >>> 0; const r = () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; const p = [...Array(n).keys()]; for (let i = n - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [p[i], p[j]] = [p[j], p[i]]; } return p; }
+function countHere(order, f0) { const T1 = shepardTable(1024), T = order ? order.map((i) => T1[i]) : T1; const fc = falls(T.map((f) => frameCentroid(f))); const sc = falls(sweepCentroids(fades(sweep(T, f0, 12, 44100), 44100), 44100)); return { fc, sc }; }
+</script>
+<script id="ui">
+// ---- sound: one table voice in a worklet, read the way the project's own player reads (straight lines in phase and in Position) ----
+const PROC = `
+class TableVoice extends AudioWorkletProcessor {
+  constructor() { super(); this.T = null; this.ph = 0; this.pos = 0; this.tgt = 0; this.f0 = 110; this.g = 0; this.gt = 0; this.sw = null; this.n = 0;
+    this.k = 1 - Math.exp(-1 / (0.015 * sampleRate));
+    this.port.onmessage = (e) => { const d = e.data;
+      if (d.table) this.T = d.table;
+      if (d.pos !== undefined) { this.tgt = d.pos; if (d.jump) this.pos = d.pos; }
+      if (d.f0) this.f0 = d.f0;
+      if (d.gain !== undefined) this.gt = d.gain;
+      if (d.sweep) { this.sw = { n: 0, len: Math.floor(d.sweep * sampleRate) }; this.pos = this.tgt = 0; }
+      if (d.still) this.sw = null; }; }
+  process(_, outs) { const o = outs[0], L = o[0], R = o[1] || o[0], T = this.T; if (!T) return true;
+    const nf = T.length, fs = T[0].length, inc = this.f0 / sampleRate;
+    for (let i = 0; i < L.length; i++) {
+      if (this.sw) { this.sw.n++; this.pos = this.tgt = Math.min(1, this.sw.n / this.sw.len); if (this.sw.n >= this.sw.len) { this.sw = null; this.port.postMessage({ pos: 1, done: true }); } }
+      else this.pos += (this.tgt - this.pos) * this.k;
+      this.g += (this.gt - this.g) * 0.002;
+      const sp = this.ph * fs, s0 = Math.floor(sp) % fs, s1 = (s0 + 1) % fs, fr = sp - Math.floor(sp);
+      const fp = this.pos * (nf - 1), a0 = Math.floor(fp), a1 = Math.min(a0 + 1, nf - 1), ff = fp - a0;
+      const A = T[a0][s0] * (1 - fr) + T[a0][s1] * fr, B = T[a1][s0] * (1 - fr) + T[a1][s1] * fr;
+      const v = (A * (1 - ff) + B * ff) * this.g; L[i] = v; if (R !== L) R[i] = v;
+      this.ph += inc; if (this.ph >= 1) this.ph -= 1;
+    }
+    if (this.sw && (this.n++ % 24 === 0)) this.port.postMessage({ pos: this.pos });
+    return true; }
+}
+registerProcessor('table-voice', TableVoice);`;
+let ctx = null, node = null, comp = null, playing = false, onPos = null, bufSrc = null;
+async function ensureAudio() {
+  if (ctx) { if (ctx.state !== 'running') await ctx.resume(); return; }
+  ctx = new AudioContext();
+  const url = URL.createObjectURL(new Blob([PROC], { type: 'application/javascript' }));
+  await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+  node = new AudioWorkletNode(ctx, 'table-voice', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+  comp = ctx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 4;
+  node.connect(comp).connect(ctx.destination);
+  node.port.onmessage = (e) => { if (onPos) onPos(e.data); };
+  ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) { playing = false; if (typeof syncPlay === 'function') syncPlay(); } };
+}
+const f32 = (T) => T.map((f) => Float32Array.from(f));
+async function voicePlay(table, pos, f0, gain) { await ensureAudio(); stopBuffer(); node.port.postMessage({ table: f32(table), pos, jump: true, f0, gain }); playing = true; }
+function voiceSet(d) { if (node) node.port.postMessage(d); }
+function voiceStop() { if (node) node.port.postMessage({ gain: 0, still: true }); stopBuffer(); playing = false; }
+function stopBuffer() { if (bufSrc) { try { bufSrc.stop(); } catch (e) {} bufSrc = null; } }
+// a rendered buffer, straight to the output at a fixed gain: no compressor, so two buffers matched in level stay matched
+async function playBuffer(x, gain, onend) { await ensureAudio(); voiceSet({ gain: 0, still: true }); stopBuffer();
+  const b = ctx.createBuffer(1, x.length, ctx.sampleRate); b.copyToChannel(x, 0);
+  const s = ctx.createBufferSource(), g = ctx.createGain(); g.gain.value = gain; s.buffer = b; s.connect(g).connect(ctx.destination);
+  s.onended = () => { if (bufSrc === s) { bufSrc = null; if (onend) onend(); } }; bufSrc = s; s.start(); playing = true; }
+// ---- drawing ----
+function prep(cv) { const r = devicePixelRatio || 1, w = cv.clientWidth, h = +cv.getAttribute('height'); cv.width = w * r; cv.height = h * r; cv.style.height = h + 'px'; const g = cv.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); g.clearRect(0, 0, w, h); return { g, w, h }; }
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function label(g, txt, x, y, col, align) { g.font = '10px JetBrains Mono, monospace'; g.fillStyle = col || css('--fg-3'); g.textAlign = align || 'left'; g.fillText(txt, x, y); }
+function wave(g, f, x, y, w, h, col, lw) { g.strokeStyle = col; g.lineWidth = lw || 1.4; g.beginPath(); const n = f.length; for (let i = 0; i <= w; i++) { const v = f[Math.min(n - 1, Math.floor(i / w * n))]; const yy = y + h / 2 - v * h * 0.45; i ? g.lineTo(x + i, yy) : g.moveTo(x + i, yy); } g.stroke(); }
+const $ = (id) => document.getElementById(id);
+// ---- the page ----
+const F0 = 110, ST = shepardTable(), CENT = ST.map((f) => frameCentroid(f)), CF = falls(CENT);
+// counted by check.py on the shipped files, with the counter below: the 64 frames of shepard_centroid.wav, and the 507 windows of shepard_centroid_audition_sweep.wav
+const SHIPPED = { table: { n: 0, steps: 63, worst: 0.0430 }, audition: { n: 0, steps: 507, worst: 0.0036, from: 498, to: 9992 } };
+// the same sweep at other notes, through the audition's plain reader and through a band-limited one (harmonics above 18 kHz dropped first), 12 s
+const NOTES = [['A1', 55, 0, 0], ['A2', 110, 0, 0], ['A3', 220, 0, 0], ['A4', 440, 0, 0], ['A5', 880, 69, 0], ['A6', 1760, 177, 0]];
+const S = { step: 0, pos: 0, live: null };
+// a fixed shuffle, so the control comes out the same everywhere
+const STEPS = [
+  { t: 'One frame’s brightness', say: 'One frame of the table: one pitch stacked in nine octaves, the partials at 1, 2, 4, 8 … 256 times the fundamental, their strengths under a bell. Its brightness is one number, the centroid: the average partial, weighted by how strong each one is.',
+    do: 'Press play.', watch: 'Nine bars on an octave scale; the bell over them; the centroid, the line.', hear: 'A dark, hollow A2: the bell sits low.' },
+  { t: 'Slide the bell', say: 'The knob slides the bell up the octaves, from octave 1 at the start to octave 7 at the end. Each of the 64 frames is built with its own bell; between frames the reader blends.',
+    do: 'Play, and drag Position.', watch: 'The bell and the centroid move together; the number is the centroid at A2.', hear: 'The same note, its weight climbing from the low octaves into the air.' },
+  { t: 'One note, the whole knob', say: 'Now the knob swept for you, the way the project’s audition sweeps it: A2 held, Position 0 to 1 in 12 seconds, read by the audition’s own reader.',
+    do: 'Sweep it.', watch: 'The curve is the centroid of every frame along the knob; the dot is where the sweep is.', hear: 'Listen for any moment it seems to dim.' },
+  { t: 'The test: count the falls', say: 'The rule, set before counting: the claim holds if the brightness never falls from one step to the next. One fall refutes it. Counted three ways: frame by frame through the shipped table; window by window (93 ms windows, 23 ms apart) through the shipped audition; and here, through this page’s engine. Then the same counter on the frames shuffled, which has to find falls, or the counter is blind.',
+    do: 'Count here; then shuffle and count again.', watch: 'The count of falls, and the smallest step, in octaves.', hear: 'Nothing new: this step measures.' },
+];
+function rail() { const r = $('rail'); r.innerHTML = ''; STEPS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${s.t}`; if (i === S.step) b.setAttribute('aria-current', 'step'); b.onclick = () => go(i); r.appendChild(b); }); }
+function go(i) { voiceStop(); syncPlay(); S.step = i; if (i === 0) S.pos = 0; $('pos').value = S.pos; rail(); show(); }
+function syncPlay() { $('play').textContent = playing ? '■ stop' : '▸ play'; }
+const muAt = (p) => 1 + 6 * p;
+function frameAt(p) { const fp = p * (NF - 1), a = Math.floor(fp), b = Math.min(a + 1, NF - 1), f = fp - a, out = new Float64Array(SPF); for (let i = 0; i < SPF; i++) out[i] = ST[a][i] * (1 - f) + ST[b][i] * f; return out; }
+function draw() {
+  const { g, w, h } = prep($('pic')), top = 16, ph = h - 46;
+  if (S.step === 2 || S.step === 3) { // the centroid along the knob
+    const lo = Math.floor(CENT[0]) - 0.5, hi = Math.ceil(CENT[63]) + 0.5, X = (p) => 40 + p * (w - 56), Y = (c) => top + ph * (1 - (c - lo) / (hi - lo));
+    g.strokeStyle = css('--border-soft'); for (let o = Math.ceil(lo); o <= hi; o++) { g.beginPath(); g.moveTo(40, Y(o)); g.lineTo(w - 16, Y(o)); g.stroke(); label(g, `${2 ** o}×`, 34, Y(o) + 3, css('--fg-4'), 'right'); }
+    g.strokeStyle = css('--accent'); g.lineWidth = 2; g.beginPath(); CENT.forEach((c, i) => { const x = X(i / 63), y = Y(c); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke();
+    CENT.forEach((c, i) => { g.fillStyle = css('--accent'); g.fillRect(X(i / 63) - 1.5, Y(c) - 1.5, 3, 3); });
+    if (S.step === 3 && S.live && S.live.shuf) { const sc = S.live.shufCent; g.strokeStyle = css('--red'); g.lineWidth = 1.2; g.beginPath(); sc.forEach((c, i) => { const x = X(i / 63), y = Y(c); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke(); label(g, 'shuffled', w - 16, top + 10, css('--red'), 'right'); }
+    if (S.step === 2) { const fp = S.pos * 63, a = Math.floor(fp), c = CENT[a] + (CENT[Math.min(a + 1, 63)] - CENT[a]) * (fp - a); g.fillStyle = css('--fg-1'); g.beginPath(); g.arc(X(S.pos), Y(c), 5, 0, TAU); g.fill(); }
+    label(g, 'Position 0', 40, h - 8); label(g, 'Position 1', w - 16, h - 8, null, 'right'); label(g, 'centroid, × the fundamental', 40, top - 4);
+    return; }
+  // steps 1-2: nine partials on an octave axis, the bell, the centroid
+  const f = S.step === 0 ? ST[0] : frameAt(S.pos), A = fftMag(f), X = (o) => 40 + (o + 0.5) / 9 * (w - 56), Y = (a) => top + ph * (1 - a);
+  let amax = 0; for (let o = 0; o < 9; o++) amax = Math.max(amax, A[2 ** o]);
+  const mu = muAt(S.step === 0 ? 0 : S.pos);
+  g.strokeStyle = css('--fg-4'); g.setLineDash([4, 4]); g.beginPath(); for (let i = 0; i <= 200; i++) { const o = -0.5 + i / 200 * 9, b = Math.exp(-((o - mu) ** 2) / (2 * 1.6 * 1.6)); i ? g.lineTo(X(o), Y(b)) : g.moveTo(X(o), Y(b)); } g.stroke(); g.setLineDash([]);
+  for (let o = 0; o < 9; o++) { const a = A[2 ** o] / amax; g.fillStyle = css('--accent'); g.fillRect(X(o) - 9, Y(a), 18, top + ph - Y(a)); label(g, String(2 ** o), X(o), h - 14, css('--fg-4'), 'center'); }
+  const c = frameCentroid(f), oc = c; g.strokeStyle = css('--info'); g.lineWidth = 2; g.beginPath(); g.moveTo(X(oc), top); g.lineTo(X(oc), top + ph); g.stroke(); label(g, `centroid ${(2 ** c).toFixed(1)}×`, X(oc) + 6, top + 10, css('--info'));
+  label(g, 'partial, × the fundamental (octaves)', w - 16, h - 2, css('--fg-4'), 'right');
+}
+function show() {
+  const st = STEPS[S.step]; $('st-title').textContent = `${S.step + 1}. ${st.t}`; $('st-say').textContent = st.say; $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  $('ctl-pos').classList.toggle('hide', !(S.step === 1 || S.step === 2)); $('g-sweep').classList.toggle('hide', S.step !== 2); $('g-count').classList.toggle('hide', S.step !== 3); $('play').classList.toggle('hide', S.step === 3);
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  $('pic-l').textContent = S.step >= 2 ? 'brightness along the knob, all 64 frames' : 'one frame, its nine partials'; $('pic-r').textContent = S.step >= 2 ? 'the curve may never step down' : 'bars: partials · dashes: the bell · line: the centroid';
+  let m = '', tab = '', tab2 = '', found = '', e1 = '', e2 = '';
+  if (S.step <= 1) { const p = S.step === 0 ? 0 : S.pos, c = frameCentroid(S.step === 0 ? ST[0] : frameAt(p));
+    m = `bell centred on octave <b>${muAt(p).toFixed(2)}</b> · centroid <b>${(2 ** c).toFixed(1)}</b> × the fundamental, <b>${Math.round(F0 * 2 ** c)} Hz</b> at A2`;
+    e1 = 'a_o = exp( −(o − μ)² / (2σ²) ),  o = 0 … 8,  σ = 1.6    frame = Σ a_o · sin(2^o · θ)    centroid = Σ k·|X_k| / Σ |X_k|';
+    e2 = 'Octave o gets strength a_o from a bell centred at μ; the partial sits at 2^o times the fundamental. The centroid is the average harmonic number k, each weighted by its strength |X_k| in the frame’s spectrum: one number for brightness.'; }
+  if (S.step === 1) { e1 += '    μ = 1 + 6p'; e2 += ' The knob p moves the bell’s centre μ from 1 to 7.'; }
+  if (S.step === 2) { m = `Position <b>${S.pos.toFixed(3)}</b> · frame ${Math.round(S.pos * 63) + 1} of 64 · across the knob the centroid climbs from ${(2 ** CENT[0]).toFixed(1)}× to ${(2 ** CENT[63]).toFixed(1)}× the fundamental`; }
+  if (S.step === 3) {
+    m = 'Rule: <b>0 falls</b> holds the claim; <b>1 or more</b> refutes it. Chance has no part here: the counts are exact.';
+    const L = S.live;
+    tab = '<tr><th>counted on</th><th>steps</th><th>falls</th><th>smallest step</th></tr>' +
+      `<tr><td>shepard_centroid.wav, frame by frame</td><td>${SHIPPED.table.steps}</td><td><b>${SHIPPED.table.n}</b></td><td>+${SHIPPED.table.worst.toFixed(4)} oct</td></tr>` +
+      `<tr><td>the audition sweep, window by window</td><td>${SHIPPED.audition.steps}</td><td><b>${SHIPPED.audition.n}</b></td><td>+${SHIPPED.audition.worst.toFixed(4)} oct</td></tr>` +
+      (L ? `<tr><td>this page’s engine, frames</td><td>${L.fc.steps}</td><td><b>${L.fc.n}</b></td><td>${L.fc.worst >= 0 ? '+' : ''}${L.fc.worst.toFixed(4)} oct</td></tr><tr><td>this page’s engine, the sweep</td><td>${L.sc.steps}</td><td><b>${L.sc.n}</b></td><td>${L.sc.worst >= 0 ? '+' : ''}${L.sc.worst.toFixed(4)} oct</td></tr>` : '<tr><td>this page’s engine</td><td colspan="3">press “count the falls here”</td></tr>') +
+      (L && L.shuf ? `<tr><td>control: frames shuffled, frames</td><td>${L.shuf.fc.steps}</td><td><b>${L.shuf.fc.n}</b></td><td>${L.shuf.fc.worst.toFixed(4)} oct</td></tr><tr><td>control: frames shuffled, the sweep</td><td>${L.shuf.sc.steps}</td><td><b>${L.shuf.sc.n}</b></td><td>${L.shuf.sc.worst.toFixed(4)} oct</td></tr>` : '');
+    tab2 = '<tr><th>the same sweep at</th><th>audition’s plain reader: falls</th><th>band-limited reader: falls</th></tr>' + NOTES.map(([n, hz, a, b]) => `<tr><td>${n}, ${hz} Hz</td><td>${a}</td><td>${b}</td></tr>`).join('');
+    found = `<b>The claim holds.</b> Zero falls in the shipped table and zero in the shipped audition, whose brightness runs from ${SHIPPED.audition.from} Hz to ${SHIPPED.audition.to} Hz; the shuffled control finds falls, so the counter can see them. Weighted by power instead of amplitude, the shipped table also falls 0 times. It holds for a reason, not by luck: sliding one bell over fixed partials can only move the weighted average one way. Where it stops: read without band-limiting, as the audition’s reader reads, the top partial (256 × the fundamental) passes Nyquist above 86 Hz and folds back down. At A2 it lands at 15.94 kHz, not an octave of anything, and between 10.5 and 11.5 s carries −9.6 dB of the sound. From A5 up the folding makes the brightness stall and step back, 69 and 177 times, each by under 0.002 octave. A band-limited reader, as Serum and Ableton use, drops that partial instead, and the count stays at zero on every note.`;
+  }
+  $('meter').innerHTML = m; $('tab').innerHTML = tab; $('tab2').innerHTML = tab2; $('found').innerHTML = found; $('eq1').textContent = e1; $('eq1w').textContent = e2; $('pos-v').textContent = S.pos.toFixed(3);
+  draw();
+}
+$('play').onclick = async () => { if (playing) { voiceStop(); syncPlay(); return; } await voicePlay(ST, S.step === 0 ? 0 : S.pos, F0, 0.25); syncPlay(); };
+$('pos').oninput = (e) => { S.pos = +e.target.value; voiceSet({ pos: S.pos, still: true }); show(); };
+document.querySelectorAll('[data-sweep]').forEach((b) => b.onclick = async () => { if (!playing) await voicePlay(ST, 0, F0, 0.25); voiceSet({ sweep: +b.dataset.sweep }); syncPlay(); });
+onPos = (d) => { if (S.step === 2 && d.pos !== undefined) { S.pos = d.pos; $('pos').value = S.pos; show(); } };
+$('count').onclick = () => { $('count').textContent = 'counting…'; setTimeout(() => { const r = countHere(null, F0); S.live = Object.assign(S.live || {}, r); $('count').textContent = 'count the falls here'; show(); }, 30); };
+$('shuffle').onclick = () => { $('shuffle').textContent = 'counting…'; setTimeout(() => { const order = shuffled(64, 1); const r = countHere(order, F0); S.live = Object.assign(S.live || { fc: null }, { shuf: r, shufCent: order.map((i) => CENT[i]) }); if (!S.live.fc) Object.assign(S.live, countHere(null, F0)); $('shuffle').textContent = 'shuffle the frames, count again'; show(); }, 30); };
+$('back').onclick = () => go(Math.max(0, S.step - 1)); $('next').onclick = () => go(Math.min(STEPS.length - 1, S.step + 1));
+addEventListener('resize', draw);
+go(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+{
+ "title": "Generative Wavetable Libraries — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[Generative Wavetable Libraries]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  }
+ ],
+ "forward_vector": "I am the manifest of Generative Wavetable Libraries' rich face: the crystal table's one knob, walked up to what a single cycle keeps of the crystal; the Shepard table's brightness, counted; and the page's phase warning put to the crystal table with a blind test. I grow when the entry is enriched again; I never hold the entry's words.",
+ "entry": "Generative Wavetable Libraries",
+ "tier": "sketch",
+ "made": "2026-11-03",
+ "round": 1,
+ "grain": "The page opens sections at ## only, and its claims sit under ###: Phase 1 and Phase 2 are both inside Plan, and What Requires Development inside Capability Assessment. So Plan is one section with one stamp and one approval for two pieces and a gathered sound; Capability Assessment is one with one piece and a gathered figure.",
+ "sections": [
+  {
+   "heading": "Capability Assessment",
+   "made_against": "862013a48934",
+   "made": "2026-11-03",
+   "stamped": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "Generative Wavetable Libraries — rich — line up or not.html",
+     "origin": "made",
+     "by": "Web Audio Worklet",
+     "height": 1300,
+     "place": "band",
+     "near": "sweeping a wavetable produces audible artifacts if frame phases are not aligned",
+     "title": "line up or not · five steps",
+     "caption": "**The phase warning, put to the crystal table.** Two of its frames crossfaded; one turned, so the middle thins; what carrying phase through does to this recipe (the fundamental is never detuned, so it never carries anything); the whole table swept three ways and read with the project's own meters; and last, a blind test, its rules set before the first trial. The warning holds: cycles turned to different starts, as arbitrary sources arrive, sag up to 6.1 dB between systems and buzz 19 dB more than the shipped table. The page's open question barely matters here: carried phase sits within 0.3 dB of sag and 1.1 dB of buzz of zero-phase, and what it does change is level, up to 2.5 dB frame to frame, through the per-frame peak scaling. The blind test matches level every 46 ms by default for that reason, and offers zero-phase against turned as the control a listener should pass. Measured by an agent; nobody has listened."
+    },
+    {
+     "file": "loop-smoothing/smoothing.png",
+     "origin": "gathered",
+     "by": "the project's steward, cycle 19",
+     "place": "margin",
+     "near": "sweeping a wavetable produces audible artifacts if frame phases are not aligned",
+     "title": "the second frame-to-frame problem",
+     "caption": "A second sweep artifact, found from Loudon's October buzz note and not yet in the text: on aligned frames, big jumps between neighbours flutter at the sweep's frame rate. Left, the buzz against a blur across neighbouring frames; right, one harmonic of the FM family chain as shipped and blurred. Measured by the steward (2026-10-28), not yet heard; its bullet for this section waits in the steward's tuning ledger for Loudon's review."
+    }
+   ]
+  },
+  {
+   "heading": "Plan",
+   "made_against": "e64e0d9341cd",
+   "made": "2026-11-03",
+   "stamped": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "Generative Wavetable Libraries — rich — the crystal knob.html",
+     "origin": "made",
+     "by": "Web Audio Worklet",
+     "height": 1250,
+     "place": "band",
+     "near": "Sweeping a wavetable position becomes a traversal through crystallographic symmetry space",
+     "title": "the crystal knob · four steps",
+     "caption": "**The crystal table's one knob, walked up to what a cycle keeps.** One cycle read round; the seven systems and the four numbers that make each; the knob through all 64 frames; and the test: each system's recipe played as free sines, which is what it asks for, against the stored cycle. The engine rebuilds crystal_bravais.wav sample for sample. The detune that stands for broken symmetry does not survive the loop: triclinic asks for about a quarter of its sound off the harmonics and the band-limited cycle holds −109 dB there. What reaches the ear is a seam up to 12× the cycle's sharpest step. Brightness climbs all the way weighted by power, and falls through the last stretch weighted by amplitude."
+    },
+    {
+     "file": "Generative Wavetable Libraries — rich — brighter all the way.html",
+     "origin": "made",
+     "by": "Web Audio Worklet",
+     "height": 1200,
+     "place": "band",
+     "near": "One note brightens monotonically as the position sweeps",
+     "title": "brighter all the way · four steps",
+     "caption": "**The sentence, counted.** One frame's brightness; the bell slid by the knob; one note swept the whole way; and the test, with its rule set first (one fall refutes it): 0 falls in the shipped table's 63 steps, 0 in the shipped audition's 507 windows, 0 in this page's engine, and a shuffled control that finds dozens, so the counter can fail. Where it stops: read without band-limiting, the top partial folds back from 86 Hz up (at A2 to 15.94 kHz, −9.6 dB of the sound late in the audition), and from A5 up the brightness steps back by under 0.002 octave. A band-limited reader keeps zero falls on every note."
+    },
+    {
+     "file": "rich-face/shepard_centroid_audition_sweep.wav",
+     "origin": "gathered",
+     "by": "the project's steward, cycle 9",
+     "place": "margin",
+     "near": "One note brightens monotonically as the position sweeps",
+     "title": "the audition Loudon accepted",
+     "caption": "The steward's audition seed (2026-06-06): A2 held, the Shepard table swept from dark to bright in 12 s by the project's plain reader. Counted above, its brightness never falls. Late in the sweep a faint 15.94 kHz tone is the top octave folded back past Nyquist, which Serum and Ableton would drop."
+    }
+   ]
+  }
+ ],
+ "offers": [
+  {
+   "section": "Plan",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "Phase 1 says the table synthesizes 'the combined phonon partial spectrum' and is 'the phonon dispersion parameter space made performable with a single knob' (lines 131, 134). The shipped generator maps each lattice system to four timbre numbers, partial count 3 to 36, roll-off, even-partial divisor and detune, and its BUILD.md says it is 'not a physically rigorous lattice/phonon model'. And the detune cannot survive one stored cycle: played as free sines, triclinic puts −4.6 dB off/on the 110 Hz harmonics; stored and read band-limited, −109 dB. It reaches the ear only as a loop seam, up to 12.3× the cycle's sharpest step (orthorhombic). Suggest the section say the knob sweeps partial count, roll-off and odd weight in order of falling symmetry, a symmetry-to-timbre sketch, and that a single cycle can only be harmonic ([[Wavetable Oscillator]]), with inharmonic crystal partials left to [[Inharmonic Wavetable Synthesis]]. The generator's own comment (crystal-bravais/generate.py:58–60, 'the crystal rings inharmonically') is the steward's to correct."
+  },
+  {
+   "section": "Open Questions",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "The answered question (zero-phase reset or carry phase through) could carry why it barely matters on the crystal table: the fundamental is never detuned, so it carries no phase, and only quiet upper partials drift. Carried against zero-phase, worst sag −0.34 against −0.08 dB and buzz −57.2 against −58.3 dB (6 s sweep at A2, the project's own morph_dips_db and offnote_db). What carrying changes is per-frame level, up to 2.5 dB, through the per-frame peak scaling. The artifact the page warns of comes from cycles that start at different points: −6.1 dB sag and −39.1 dB buzz. So for arbitrary source cycles the open policy is alignment of start points, not phase carrying."
+  },
+  {
+   "section": "Capability Assessment",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "'Phase coherence across frames' holds as measured, and could be sharpened with the numbers: on the crystal table, cycles turned to different starts sag up to 6.1 dB between systems (−3.2 to −7.8 dB over 40 random draws) and buzz 19.2 dB more than aligned ones. Not heard yet: the piece's blind test is waiting on a listener. The steward's proposed second bullet (smoothness along Position, tuning ledger item 2) sits beside this and is not this offer."
+  }
+ ]
+}
