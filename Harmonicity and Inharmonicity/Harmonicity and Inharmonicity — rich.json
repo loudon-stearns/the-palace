@@ -1,0 +1,210 @@
+{
+  "title": "Harmonicity and Inharmonicity — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Harmonicity and Inharmonicity]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    }
+  ],
+  "forward_vector": "I am the manifest of Harmonicity and Inharmonicity's rich face, its first round at Study tier, a proposal: two walks made on the proofs' own model, live, each walking up to the claim it tests, and the 2026-10-17 sweep recordings laid beside the sentences they are the evidence for, tone alone first, as the field guide asks. I grow when the edge is tested on a real instrument; I never hold the entry's words.",
+  "entry": "Harmonicity and Inharmonicity",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "What the Sweeps Showed",
+      "kind": "claim-change",
+      "what": "'Stretch bites the nth partial roughly as B·n³' is right for the bite (partial n sits B·n³⁄2 above whole for small B), but the edge itself falls more slowly than the cube. On the proofs' model at K = 6 Hz, with the map's rule (hold 4 s, torn past 0.5 Hz wobble), the first tear for 6, 10, 16, 25 and 40 partials falls as N^−2.49 with the sweeps' voices and N^−2.29 with voices exactly on the harmonics; a pure cube would make forty tear 296× sooner than six. Proposed for the bullet and for Open Questions' 'roughly as B·n³': keep the bite at B·n³ and add that the edge falls about as N^2.3 to 2.5 in this model. The scroll already says the model gave 130 to 180× where n³ predicted about 300×.",
+      "status": "open"
+    },
+    {
+      "section": "What the Sweeps Showed",
+      "kind": "claim-change",
+      "what": "'40 partials tore over a hundred times sooner than six' holds for the voices the sweeps used, each a hair off its harmonic: 118× at the map's rate (22050 Hz) and 129× at 11025 Hz on this engine, 130 to 180× in the 2026-10-17 runs. With the voices exactly on the harmonic series the same test gives 75×. Proposed: 'over a hundred times sooner than six, with the voices a hair off their harmonics (about 75 times with them exactly on)', or fold it into the page's existing 'the numbers depend on the model'.",
+      "status": "open"
+    },
+    {
+      "section": "What the Sweeps Showed",
+      "kind": "no-claim-edit",
+      "what": "'outside voices tuned to the plain harmonic series': in every proof the voices sit up to 0.4% off their harmonics (numpy default_rng(7).uniform(−0.004, 0.004), frustration.py through ride_warm.py), and the scroll's five-scenes entry says 'tuned near'. Proposed: 'tuned near the plain harmonic series, each a hair off'. The shapes stand.",
+      "status": "open"
+    },
+    {
+      "section": "What the Sweeps Showed",
+      "kind": "claim-change",
+      "what": "Two findings from the six-against-forty walk's peel, checked headless. With the voices exactly on the harmonics, the voices let go strictly from the top down as stretch rises (2, 8, 14 of 40 gone at B = 5.6e-6, 1e-5, 1.8e-5), and the tone tears by the time about half have gone: a mechanism for 'the top partials set the edge'. With the sweeps' voices, 14 of 40 never hold even at B = 1e-7, since 0.4% of partial 40 is up to 17 Hz, past a 6 Hz pull; so 'frozen' for the tall tone means its pitch holds while a third of its voices never grip. Offered as an addition to the bullet, or to the scroll if the entry should stay short.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The Frustrated Coupling Insight",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Harmonicity and Inharmonicity — rich — frustration.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio Worklet",
+          "title": "One phase, pulled six ways · a walk up to the edge",
+          "caption": "**The claim above, run live on the sweeps' own model.** Five steps: the tone alone, six partials on one phase; one voice pulling it, which holds within 12 Hz and slips past; six voices on the harmonics, which agree (push the tone sharp and all six pull back together); a little stretch, where the low voices pull up and the top one down, and the tone settles about 0.5 Hz flat and holds; then the edge, found by ear with the numbers hidden, and only then shown where the map put it. A switch sets the voices a hair off their harmonics, as the sweeps did. Every number the walk shows is re-run headless by `Harmonicity and Inharmonicity — rich — check.mjs`.",
+          "near": "Mildly stretched, the tone doesn't fight",
+          "place": "band",
+          "height": 1500
+        }
+      ],
+      "made_against": "af19f88107c8",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The Asymmetry",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "proofs/2026-10-17-frustration-sweeps/frustration-five-scenes.m4a",
+          "origin": "gathered",
+          "title": "five scenes · the first test, 2026-10-17",
+          "caption": "**The asymmetry, heard.** One six-partial tone and six voices near its harmonics (K = 6 Hz), five scenes of 6 s. 0 s: harmonic, locked at 110 Hz. 6.6 s: piano-ish stretch (B 0.0004), still locked, about 0.5 Hz flat. 13.2 s: strong stretch (B 0.004), wandering ±4.4 Hz. 19.8 s: bell-wide (B 0.02), the light tone dragged about 18 Hz flat and wandering ±12.8 Hz. 26.4 s: the same stretch on a heavy master (inertia 60), holding within 0.8 Hz. Tone and voices together; there is no tone-alone take of this one.",
+          "near": "works beautifully",
+          "place": "margin"
+        },
+        {
+          "file": "proofs/2026-10-17-frustration-sweeps/frustration-fundamental.png",
+          "origin": "gathered",
+          "title": "the pulse in each scene",
+          "caption": "The tone's pulse through the five scenes: the light tone is dragged and wanders; the heavy master barely moves.",
+          "near": "Aurally unstable",
+          "place": "margin"
+        }
+      ],
+      "made_against": "4735c28ea322",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "What the Sweeps Showed",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "proofs/2026-10-17-frustration-sweeps/sweep4x-singer-alone.m4a",
+          "origin": "gathered",
+          "title": "the 4× sweep, tone alone · all five places",
+          "caption": "**The whole path in one take.** Forty partials, two minutes, the stretch doubling on a steady clock. 0–13 s frozen, then alive: the colour moves, the pitch holds. About 13.5 s: the edge (B ≈ 1.7e-5). 16–28 s: torn, the pitch wobbling 3–6 Hz and diving to about 70 Hz at 24 s. 28–40 s: released, the wobble under 1 Hz by 40 s as the voices lose their grip. From about 52 s the stretched partials have climbed past hearing. Tone alone, as the field guide says to listen first.",
+          "near": "A path with five places",
+          "place": "margin"
+        },
+        {
+          "file": "Harmonicity and Inharmonicity — rich — six against forty.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio Worklet",
+          "title": "Six against forty · a walk up to how much sooner",
+          "caption": "**The bullet above, walked up to and measured.** Five steps: the stretch alone on six partials, where partial n moves about 55·B·n³ Hz; the same on forty; the voices letting go from the top down while the tone holds, then tearing by the time about half are gone; six snapping against forty fraying in two 24 s sweeps; then a guess and a live measurement, by the edge map's own rule, of where 6, 10, 16, 25 and 40 partials first tear. With the sweeps' voices forty tear about 120 to 130 times sooner than six, as the page says; with the voices exactly on the harmonics, about 75. Either way the edge falls about as N^2.3 to 2.5, not the cube. Checked headless by `Harmonicity and Inharmonicity — rich — check.mjs`.",
+          "near": "The top partials set the edge",
+          "place": "band",
+          "height": 1500
+        },
+        {
+          "file": "proofs/2026-10-17-frustration-sweeps/edgemap.png",
+          "origin": "gathered",
+          "title": "the edge map · four panels",
+          "caption": "**The map the sweeps were read against.** Seven couplings by 33 stretches, held 4 s each; dark holds, bright is torn. At K = 6 Hz six partials first tear on this grid at B ≈ 3e-3 and forty at ≈ 1.8e-5. Both walks run this model, and their check reproduces the K = 6 Hz rows of the unpinned panels.",
+          "near": "The top partials set the edge",
+          "place": "margin"
+        },
+        {
+          "file": "proofs/2026-10-17-frustration-sweeps/sweep-singer-alone.m4a",
+          "origin": "gathered",
+          "title": "the six-partial sweep, tone alone · the snap",
+          "caption": "**Six partials: the bargain, then the snap.** 48 s. For 40 s the pitch holds with almost no wobble and sags slowly, 110 to 107.3 Hz, while the colour turns over: the light tone bargaining by sagging. At 40.75 s (B ≈ 0.0022) it snaps, and the wobble jumps past 2 Hz.",
+          "near": "Few voices snap",
+          "place": "margin"
+        },
+        {
+          "file": "proofs/2026-10-17-frustration-sweeps/sweep40-singer-alone.m4a",
+          "origin": "gathered",
+          "title": "the forty-partial sweep, tone alone · the fray",
+          "caption": "**Forty partials: the fray.** One minute, on a log scale. 4–40 s alive: the shape changes while the pitch barely sags (109.9 to 109.5 Hz). About 42 s: the edge (B ≈ 1.7e-5). 44–60 s: the wobble creeps from 0.6 to 2 Hz over many seconds and the pitch slides to 105 Hz. A brighter source than the warm renders, so the top is audible.",
+          "near": "Few voices snap",
+          "place": "margin"
+        },
+        {
+          "file": "proofs/2026-10-17-frustration-sweeps/sweeppin-singer-alone.m4a",
+          "origin": "gathered",
+          "title": "the pinned sweep, tone alone · string to bar",
+          "caption": "**Pinned: torn, then periodic again.** Partial 1 held while the rest stretch, two minutes. About 13 s: the edge. 16–24 s: torn, diving to about 84 Hz. 28–32 s: relocked. 32–52 s: the bar arrives, partials 2 to 5 moving from 2.73, 5.44, 9.2, 14.0 to 4, 9, 16, 25. From 52 s a steady bar tone whose waveform repeats again.",
+          "near": "Pinned stretch runs string",
+          "place": "margin"
+        }
+      ],
+      "made_against": "78d63f21718a",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Open Questions",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "proofs/2026-10-17-frustration-sweeps/ride-breathe-warm-alone.m4a",
+          "origin": "gathered",
+          "title": "breathing across the edge · warm tone alone",
+          "caption": "**Breathing across it.** 48 s at K = 6 Hz, the stretch swinging on a log curve through the warm tone's edge and back, peaking at 6, 18, 30 and 42 s: a tear-and-heal phrase every 12 s.",
+          "near": "musically useful",
+          "place": "margin"
+        },
+        {
+          "file": "proofs/2026-10-17-frustration-sweeps/gestures-warm-alone.m4a",
+          "origin": "gathered",
+          "title": "gestures at the edge · warm tone alone",
+          "caption": "**Striking past it and stepping through it.** 34 s. 0–10 s: the stretch wobbles three times a second across the edge, a flutter that never quite relocks. 10–21 s: a strike every 1.25 s throws the stretch far past the edge and lets it decay (τ ≈ 0.25 s); each tears and heals, a pitch drop made by the physics, with no envelope drawn. 21–34 s: an eight-step sequence through frozen, alive, edge and torn; only the steps above the edge tear, so the boundary plays as a rhythm.",
+          "near": "musically useful",
+          "place": "margin"
+        },
+        {
+          "file": "proofs/2026-10-17-frustration-sweeps/ride-coupling-warm-alone.m4a",
+          "origin": "gathered",
+          "title": "coupling as the knob · warm tone alone",
+          "caption": "**More coupling pushes the edge out, heard.** 40 s with the stretch held just past the edge while coupling swings 2 → 18 → 2 Hz twice, tightest at 10 and 30 s. The tone locks near the top of each swing and tears near 0, 20 and 40 s.",
+          "near": "Where does coupling break",
+          "place": "margin"
+        }
+      ],
+      "made_against": "1a636f436e46",
+      "stamped": "2026-11-03"
+    }
+  ]
+}
