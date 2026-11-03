@@ -30,6 +30,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "1D Wavetable Scanning — rich — switch or scan.html",
+            "verdict": "keep",
+            "why": "A real test twice over: picking against blending on one ruler (−26.5 vs −69.1 dB, recomputed), and the middle of each real pair split into arithmetic and phase (recomputed by |a + b·e^{iφ}|/2). Notes: say the saw loses its odd harmonics only moved half a cycle; step 5’s headline counts level, not tilt; name the fs/512 pitch where the ruler’s floor is quoted."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "1D Wavetable Scanning — rich — switch or scan.html",
@@ -54,6 +65,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "1D Wavetable Scanning — rich — which order is brightness.html",
+            "verdict": "remake",
+            "why": "Step 4 says birds → vgsqu is the fourth fifth; it is the third (check.mjs:102). The finding calls the waveform walk the smoothest sweep in sound, but it measured rms steps, not perception; by brightness the walk travels 12.6 octaves to the sort’s 4.9. Quote the page’s ‘perceptually close’ and say what this walk measures instead."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "1D Wavetable Scanning — rich — which order is brightness.html",
@@ -77,6 +99,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Projects/Wavetable Scanner/wavetable_scanner.html",
+            "verdict": "keep",
+            "why": "A record, not a test, and the right one: the Mode toggle replays the first build’s silence. Caption checked against the source (gateTarget = 1 at line 279; cursor from the worklet’s array, 512–515). Its WebGL stall notices are the face’s only console noise."
+          }
+        ]
       },
       "pieces": [
         {
