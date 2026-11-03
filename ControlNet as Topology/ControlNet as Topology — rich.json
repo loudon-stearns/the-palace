@@ -72,7 +72,18 @@
      "caption": "**The first strokes commit the pose: tested, and given its reason.** Built up from the raw block of noise: one stroke of fog with the best guess under it, the scales the picture is made of against the noise floor, and last the whole schedule beside a control image with no coarse shape. Coarse is decided before fine at every stroke for the page's hero and for a GenAI Camera render; the control gets nothing until halfway, then everything at once. The fog is the same at every scale, so the order is the picture's, not the schedule's."
     }
    ],
-   "stamped": "2026-11-03"
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "ControlNet as Topology — rich — rough to fine.html",
+      "verdict": "keep",
+      "why": "A real test: the flat-spectrum control could have climbed with the schedule and didn't (nothing until 54%, all by 55%); walks up from the raw block. Note: the verdict headline 'the schedule is not what orders it' overreaches its own last sentence; 'the schedule alone does not order it', and 'for a linear carver' once in the caption."
+     }
+    ]
+   }
   },
   {
    "heading": "The same truth, made precise: the landscape",
@@ -96,7 +107,18 @@
      "caption": "**An energy landscape you can carve.** One ball rolls down one valley; fog over six valleys cools rough to fine; CFG leans on the commission *a lion* and never lands a ball where no valley was; ControlNet carves a canyon there and takes them; last, the test of denoise against weight from one init, a map of a hundred balls a square. High denoise lets a deep enough canyon win, as the page says. Low denoise does not make the canyon compete evenly: it shortens its reach, and a canyon out of reach is never felt. It also checks the fog: balls end in every valley by its size, not only in the deepest."
     }
    ],
-   "stamped": "2026-11-03"
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "ControlNet as Topology — rich — the landscape.html",
+      "verdict": "remake",
+      "why": "Walks up well and every number reproduces, but (1) step 3 tallies against BASE alone (comps('cfg'), line 198/297), so 'where no valley was' reads 0.0% by construction; tally with cnNow()[0] as checks.mjs does. (2) Step 5's verdict says 'not as the page says' for the beside-the-init canyon, where d 0.5 splits 50–62% flat in weight, the page's 'competes evenly'; report that row, and name that the far canyon's zero rests on its flat floor (floorless, d 0.5 catches 26% at λ1, 100% at λ3). (3) One scoping clause in the caption: the page's picture in two dimensions, not a network."
+     }
+    ]
+   }
   },
   {
    "heading": "Pose vs depth — canyons of different shape (2026-07-09)",
@@ -140,7 +162,33 @@
      "caption": "The pose side, with the record's own caveat: this ran on the thin pose plate, and the robes and fur came mostly from the image-to-image init with depth gone, not from the pose. The hard edges are the composite mask clipping the cloth. Renders 021 and 022 above are the test that stands."
     }
    ],
-   "stamped": "2026-11-03"
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "/GenAI Camera/renders/render_021.png",
+      "verdict": "keep",
+      "why": "The thick-plate depth sweep is the test the section's rule passed; caption matches the image. Note: GenAI Camera.md:171 reads 0.30–0.45 as the sweet spot where form and costume both read; one clause would carry the dial's middle, not just its loss."
+     },
+     {
+      "file": "/GenAI Camera/renders/render_022.png",
+      "verdict": "keep",
+      "why": "Same sweep, second garment type; caption matches the image and the record (costume retreats to a loincloth by 0.60)."
+     },
+     {
+      "file": "/GenAI Camera/renders/render_010.png",
+      "verdict": "keep",
+      "why": "The section's original depth-side evidence; caption matches renders.json n 10 (depth-only at 0.97) and the image."
+     },
+     {
+      "file": "/GenAI Camera/renders/render_011.png",
+      "verdict": "keep",
+      "why": "The weak first evidence kept and labelled with the record's own caveat (renders.json n 11, thin plate; init and denoise did the work), pointing to 021/022 as the test that stands. Honest."
+     }
+    ]
+   }
   }
  ]
 }
