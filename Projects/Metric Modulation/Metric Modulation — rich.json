@@ -34,6 +34,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Metric Modulation — rich — the same hits, a new beat.html",
+            "verdict": "remake",
+            "why": "Steps 1–4 walk up well, but the step 5 test can't fairly fail: a glide never throws a tap outside 50 ms, and a model tapper landed at tap 1 on B in 591 of 600 runs and on A in none. The page also never says a pivot re-syncs faster than a glide. Score A against the same jump with the bell silent, and drop the A-beats-B prediction."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Metric Modulation — rich — the same hits, a new beat.html",
@@ -58,6 +69,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Metric Modulation — rich — there and back.html",
+            "verdict": "remake",
+            "why": "The bar-line asymmetry holds only if the return must land in phase with the old 120 grid, so say that condition or cut it. The trip test tells the reader the expected answer and lets them choose the stay: shuffle and hide the stay until they answer, and name the 2 s stay's confound (its return bell starts at the drop)."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Metric Modulation — rich — there and back.html",
@@ -81,6 +103,22 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/2026-05-04-pivot-via-bell-v2.wav",
+            "verdict": "keep",
+            "why": "A faithful record: re-measured, it has 19 bells 0.75 s apart and kicks every 0.5 s to 5.5 s, then every 1.5 s from 6.0 s, as the caption says. Loudon's quote is real (2026-05-04 Proof Showcase v2)."
+          },
+          {
+            "file": "Metric Modulation — rich — the anchor, blind.html",
+            "verdict": "remake",
+            "why": "The blind step hides only the order. The two 120 sections are audibly different and were just labelled, so the tally measures an expected preference, not a hidden difference. Make the pairs identical before the change and differ only in whether the 80 groove aligns with the kick (offset by 0.25 s), or call the step 'by ear'."
+          }
+        ]
       },
       "pieces": [
         {
