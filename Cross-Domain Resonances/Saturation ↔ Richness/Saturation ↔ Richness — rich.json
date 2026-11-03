@@ -51,7 +51,18 @@
         }
       ],
       "made_against": "aaa9c918085a",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Saturation ↔ Richness — rich — the bend and the lean.html",
+            "verdict": "remake",
+            "why": "The walk up and the EQ test hold to the dB, but the blind pair sets 2nd/4th/6th against 3rd/5th/7th, so the even one is always the darker and can win as warmer with parity doing nothing; put half the pairs at 4th/6th/8th against 3rd/5th/7th and score both halves. Step 4 should say a symmetric curve makes no evens from a sine: fed a wave with a 2nd, it makes a 4th at −15.7 and a 6th at −25.2 dB FS (drive 3)."
+          }
+        ]
+      }
     },
     {
       "heading": "Teaching the Resonance",
@@ -75,7 +86,18 @@
         }
       ],
       "made_against": "ebbe445ac0b3",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Saturation ↔ Richness — rich — four versions, blind.html",
+            "verdict": "remake",
+            "why": "The blind order is clean and can fail, but the keep, which is the section’s own claim (light: fuller, sits better), is never scored; state 1 in 4 before the first round and tally it. Say ‘matched in K-weighted loudness’: matched that way, heavy is still +4.2 dB A-weighted (medium +0.9, light +0.03), more on small speakers; and a synth is on the assignment’s list, a sine bass the case kindest to saturation."
+          }
+        ]
+      }
     }
   ],
   "offers": [
