@@ -164,11 +164,11 @@ const $=id=>document.getElementById(id);
   el.innerHTML='<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.4" fill="none" stroke="#b9b5a7" stroke-width="1"/><polyline points="'+p.join(' ')+'" fill="none" stroke="#c8261a" stroke-width="1"/></svg>';})($('sigil'));
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
 const LET="ABCDEFG";
-const result={};
+const result={},tries={};
 
 // ---- the three ordering steps ----
 function setupOrder(k){
-  const S=ORDER_STEPS[k],g=$('g-'+k),shown=shuffle(S.items);let picks=[],keyed=false;
+  const S=ORDER_STEPS[k],g=$('g-'+k);let shown=shuffle(S.items);let picks=[],keyed=false;
   function render(){
     g.innerHTML="";
     shown.forEach((it,i)=>{const b=document.createElement('button');b.className='spec'+(picks.includes(it.id)?' picked':'');
@@ -180,10 +180,11 @@ function setupOrder(k){
   $('k-'+k).onclick=()=>{keyed=true;render();
     const truth=id=>S.items.find(x=>x.id===id).truth,p=pairsAgree(picks,truth),c=chanceOrder(S.items.length);
     const yours=picks.map(id=>LET[shown.findIndex(x=>x.id===id)]).join(", "),grammar=S.items.slice().sort((a,b)=>a.truth-b.truth).map(x=>LET[shown.indexOf(x)]).join(", ");
-    result[k]={ok:p.ok,all:p.all,exact:p.ok===p.all,mean:c.meanPairs,oneIn:c.oneIn};
-    $('o-'+k).innerHTML=`Your order, ${S.ask}: <b>${yours}</b>. The grammar's: <b>${grammar}</b> (${S.rule}). Pairs you put in the grammar's order: <b>${p.ok} of ${p.all}</b>. A random order gets ${c.meanPairs} on average, and all ${p.all} once in ${c.oneIn}.`;
+    tries[k]=(tries[k]||0)+1;
+    result[k]={ok:p.ok,all:p.all,exact:p.ok===p.all,mean:c.meanPairs,oneIn:c.oneIn,try:tries[k]};
+    $('o-'+k).innerHTML=`${tries[k]>1?`<b>Try ${tries[k]}</b>, after seeing the key: the tally marks it. `:""}Your order, ${S.ask}: <b>${yours}</b>. The grammar's: <b>${grammar}</b> (${S.rule}). Pairs you put in the grammar's order: <b>${p.ok} of ${p.all}</b>. A random order gets ${c.meanPairs} on average, and all ${p.all} once in ${c.oneIn}.`;
     tally();};
-  $('r-'+k).onclick=()=>{picks=[];keyed=false;delete result[k];$('o-'+k).innerHTML="";render();tally();};
+  $('r-'+k).onclick=()=>{picks=[];keyed=false;delete result[k];$('o-'+k).innerHTML="";shown=shuffle(S.items);render();tally();};
   render();
 }
 
@@ -201,7 +202,7 @@ function balloonPath(id){
   }
 }
 function setupShapes(){
-  const g=$('g-shape'),shown=shuffle(SHAPES),menu=shuffle(MEANINGS);let answers={},keyed=false;
+  const g=$('g-shape'),menu=shuffle(MEANINGS);let shown=shuffle(SHAPES);let answers={},keyed=false;
   function render(){
     g.innerHTML="";
     shown.forEach((s,i)=>{const d=document.createElement('div');d.className='bal';
@@ -216,10 +217,11 @@ function setupShapes(){
   }
   $('k-shape').onclick=()=>{keyed=true;render();const ok=scoreShapes(answers);
     const missed=shown.filter(s=>answers[s.id]!==s.means).map(s=>`${s.means} (you read it as ${answers[s.id]})`);
-    result.shape={ok,all:SHAPES.length,mean:chanceShapes.mean};
-    $('o-shape').innerHTML=`You named <b>${ok} of ${SHAPES.length}</b> the way the grammar does. Naming at random gets ${chanceShapes.mean} on average.${missed.length?" Where you and the grammar parted: "+missed.join("; ")+".":""}`;
+    tries.shape=(tries.shape||0)+1;
+    result.shape={ok,all:SHAPES.length,mean:chanceShapes.mean,try:tries.shape};
+    $('o-shape').innerHTML=`${tries.shape>1?`<b>Try ${tries.shape}</b>, after seeing the key: the tally marks it. `:""}You named <b>${ok} of ${SHAPES.length}</b> the way the grammar does. Naming at random gets ${chanceShapes.mean} on average.${missed.length?" Where you and the grammar parted: "+missed.join("; ")+".":""}`;
     tally();};
-  $('r-shape').onclick=()=>{answers={};keyed=false;delete result.shape;$('o-shape').innerHTML="";render();tally();};
+  $('r-shape').onclick=()=>{answers={};keyed=false;delete result.shape;$('o-shape').innerHTML="";shown=shuffle(SHAPES);render();tally();};
   render();
 }
 const NAMES={weight:"weight is volume",case:"case is intimacy",hand:"hand inside, type outside",shape:"the outline is the feeling"};
@@ -227,9 +229,9 @@ function tally(){
   const done=Object.keys(NAMES).filter(k=>result[k]);
   if(!result.shape){$('tally').innerHTML="";$('verdict').innerHTML="";return;}
   $('tally').innerHTML=`<tr><th>the grammar says</th><th>you agreed</th><th>chance alone</th></tr>`+Object.keys(NAMES).map(k=>{const r=result[k];
-    return `<tr><td>${NAMES[k]}</td><td class="n">${r?r.ok+" of "+r.all+(k==="shape"?" named":" pairs"):"not done"}</td><td class="n">${r?(k==="shape"?r.mean+" named":r.mean+" pairs"):""}</td></tr>`;}).join("");
+    return `<tr><td>${NAMES[k]}</td><td class="n">${r?r.ok+" of "+r.all+(k==="shape"?" named":" pairs")+(r.try>1?" · try "+r.try+", key seen":""):"not done"}</td><td class="n">${r?(k==="shape"?r.mean+" named":r.mean+" pairs"):""}</td></tr>`;}).join("");
   const held=done.filter(k=>result[k].ok===result[k].all),weak=done.filter(k=>result[k].ok<=result[k].mean);
-  $('verdict').innerHTML=`${held.length?`For you, the grammar held whole where it says <b>${held.map(k=>NAMES[k]).join("</b>, <b>")}</b>. `:""}${weak.length?`It did no better than chance where it says <b>${weak.map(k=>NAMES[k]).join("</b>, <b>")}</b>: there the form did not carry the meaning by itself, which is what the section's last forward vector asks to find. `:"Nowhere did it fall to chance. "}${done.length<4?"The steps you skipped are not counted. ":""}The section claims each part of the lettering carries its meaning before a word is read; this is one reader's evidence for or against, part by part.`;
+  $('verdict').innerHTML=`${held.length?`For you, the grammar held whole where it says <b>${held.map(k=>NAMES[k]).join("</b>, <b>")}</b>. `:""}${weak.length?`It did no better than chance where it says <b>${weak.map(k=>NAMES[k]).join("</b>, <b>")}</b>: there the form did not carry the meaning by itself, which is what the section's last forward vector asks to find. `:"Nowhere did it fall to chance. "}${done.length<4?"The steps you skipped are not counted. ":""}${done.some(k=>result[k].try>1)?"A row marked as a later try was answered after seeing its key, so it says less than a first try. ":""}The section claims each part of the lettering carries its meaning before a word is read; this is one reader's evidence for or against, part by part.`;
 }
 
 // ---- the walk ----

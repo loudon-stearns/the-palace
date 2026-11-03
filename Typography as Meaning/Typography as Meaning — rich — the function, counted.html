@@ -141,7 +141,7 @@
     <div class="grid" id="grid"></div>
     <div class="detail" id="detail"></div>
     <div class="verdict" id="verdict"></div>
-    <p class="note">Counted on the function, not on a reader. The function marks inside or outside every time; whether a reader sees the mark is the other test, the blind read in <code>whos-talking.html</code>, where a quiet margin caption was looked straight past. Tremor is drawn at random each time, so the tiles shake differently on each look; whether a form shakes is fixed. Two answer-sets count as one form when they differ only in what a reading can't see: under "to the eye", a 2 px shift; under "without size", the type size too.</p>
+    <p class="note">Counted on the function, not on a reader. The function marks inside or outside every time; whether a reader sees the mark is the other test, the blind read in <code>whos-talking.html</code>, where a quiet margin caption was looked straight past. Tremor is drawn at random each time, so the tiles shake differently on each look; whether a form shakes is fixed. Two answer-sets count as one form when they differ only in what a reading can't see: under "to the eye", a 2 px shift of a margin caption, while a 3 px step in type size still counts as seen (merge those too and 73 forms remain); under "without size", every type size.</p>
   </section>
 
   <nav class="walk"><button id="back">◀ back</button><button id="next">next ▶</button><span class="where" id="where"></span></nav>
@@ -200,11 +200,14 @@ function where(r,ruler){
   if(r.to==="us")return (r.source==="radio"?"over the radio":"over A")+", breaking the frame";
   return r.source==="radio"?"between the radio and B":"between A and B";
 }
-// readings: ruler = every difference counts; eye = a 2 px shift does not; nosize = the type size does not either
+// readings: ruler = every difference counts; eye = a 2 px shift does not; coarse = nor a 3 px type step; nosize = no type size
 function formOf(r,reading){
+  const ruler=reading==="ruler";
   const f={balloon:r.shape,face:r.font,caps:!!r.caps,size:+(+r.size).toFixed(1),slant:!!r.italic,shake:!!r.tremor,
-    tail:r.tail?(r.source==="radio"?"to the radio":"to A"):"none",trail:!!r.trail,place:where(r,reading==="ruler"),tilt:r.where==="frame"&&r.to==="us"};
+    tail:r.tail?(r.source==="radio"?"to the radio":"to A"):"none",trail:!!r.trail,place:where(r,ruler),tilt:r.where==="frame"&&r.to==="us"};
   if(reading==="nosize")f.size=0;
+  // coarse: the eye's reading with the two small type steps merged too (21 with 24 px, 16.8 with 19.2 px)
+  if(reading==="coarse"){if(f.size===21)f.size=24;if(f.size===16.8)f.size=19.2;}
   return f;
 }
 const key=f=>JSON.stringify(f);
@@ -360,8 +363,8 @@ function step4(){
     b.innerHTML=`<svg viewBox="0 0 640 400"></svg><span class="n">×${g.sets.length}</span>`;grid.appendChild(b);
     draw(b.querySelector('svg'),g.r);b.onclick=()=>{picked=i;grid.querySelectorAll('.tile').forEach((t,k)=>t.setAttribute('aria-pressed',k===i));detail(g);};tiles.push(b);});
   if(picked<0){picked=0;grid.firstChild.setAttribute('aria-pressed',true);}detail(gs[picked]);
-  const eye=count("eye"),ns=count("nosize"),ru=count("ruler");
-  $('verdict').innerHTML=`It is a function: the same four answers always draw the same form. It does not run all the way backwards. <b>${ru.forms}</b> forms come out of 120 answer-sets to a ruler, <b>${eye.forms}</b> to the eye, <b>${ns.forms}</b> if size is not read. Inside or outside reads back every time (${eye.back.diegesis} / 120): the margin always marks it. To whom reads back least (${eye.back.addressee} / 120): in the margin, "to B" and "to us" differ by 2 px. Source outranks emotion on the balloon and the face, as the page says, and the feeling moves into size and case, so a menacing radio differs from a calm one only by its size. The narrator is where the feeling is lost: inside the story, its five feelings make ${feelingsKept("narrator","eye")} forms, since it takes size and case too and only the shake of "weak" survives.`;
+  const eye=count("eye"),ns=count("nosize"),ru=count("ruler"),co=count("coarse");
+  $('verdict').innerHTML=`It is a function: the same four answers always draw the same form. It does not run all the way backwards. <b>${ru.forms}</b> forms come out of 120 answer-sets to a ruler; <b>${eye.forms}</b> to the eye, which here merges only the margin's 2 px shift and still counts every type size; <b>${co.forms}</b> if the small type steps (21 against 24 px) are merged too; <b>${ns.forms}</b> if size is not read. Inside or outside reads back every time (${eye.back.diegesis} / 120): the margin always marks it. To whom reads back least (${eye.back.addressee} / 120), and the reason is in the grammar: the margin does two jobs, "outside the story" and "to us", so a voice already outside has only 2 px left to say it turns to us. Source outranks emotion where both want the same part, as the page says, but what each source takes differs. A radio takes the balloon and the face and leaves the feeling its size and case, so a menacing radio is a calm one ${letter(RM).size-letter(R).size} px larger. A mind takes the balloon and the case. The narrator takes everything but a tremor: inside the story its five feelings make ${feelingsKept("narrator","eye")} forms.`;
 }
 function detail(g){
   const f=g.form;

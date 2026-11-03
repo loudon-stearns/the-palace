@@ -32,13 +32,13 @@
     {
       "section": "The three axes",
       "kind": "claim-change",
-      "what": "Counted on whos-talking.html's own letter() over all 120 answer-sets: 80 forms to the eye (95 to a ruler, 58 if size isn't read). Inside or outside reads back 120/120, so the missed margin caption was a matter of being seen, not of the mark being absent. To whom reads back least (80/120): in the margin, \"to B\" and \"to us\" differ by 2 px. Source outranks emotion only on the balloon and the face. The feeling moves into size and case, so a menacing radio differs from a calm one only by 24 → 30 px; the narrator takes size and case too, and inside the story its five feelings make 2 forms. A possible line: 'Run as a function, the precedence is per channel: the source takes the balloon and the face, the feeling keeps size and case, and only the narrator takes everything.'",
+      "what": "Counted on whos-talking.html's own letter() over all 120 answer-sets: 95 forms to a ruler, 80 to the eye (only the margin's 2 px shift merged), 73 if the small type steps (21 against 24 px, 16.8 against 19.2) are merged too, 58 if size isn't read; numbers confirmed by the challenger. Inside or outside reads back 120/120; to whom 80/120. The page's sentence is right where source and feeling want the same channel, but precedence is set per source as well as per channel: a radio takes the balloon and the face and leaves the feeling only size and case, so a menacing radio is a calm one 6 px larger (24 → 30); a mind takes the balloon and the case; the narrator takes everything but a tremor; outside the story the margin takes the balloon from every voice but the narrator's. Sharper: the to-whom loss comes from the grammar using the margin for two things, 'outside the story' (Placement) and 'addresses us' (Tail), so a voice already outside has no mark left for 'to us' but 2 px. A possible line: 'Run as a function, the precedence is set per source: a radio takes the balloon and the face and leaves the feeling only its size, so a menacing radio is a calm one 6 px larger; a mind takes the balloon and the case; the narrator takes everything but a tremor. And the margin does two jobs, outside the story and to us, so a voice already outside cannot turn to us.'",
       "status": "open"
     },
     {
-      "section": "The letterform as material",
-      "kind": "claim-change",
-      "what": "In BLUELINE's canny sweep (one bleeding 'too late' bubble, control 0.35 and 0.5 × end 0.4 and 0.7, four renders), the word reads in all four and the guide's tail is gone in all four; at 0.35 the balloon body dissolves too. Seen by eye in four images of one word, so it is not a measure. If it holds, the model can supply the material for the word and the body, but the tail (the part that says who and to whom) has to be drawn last, by the letterer, the way Comic Chat routes tails last. A possible clause after 'let the model supply the material': '…and keep the tail for last: in BLUELINE's sweep the renders kept the word and lost the tail every time.'",
+      "section": "Forward Vectors",
+      "kind": "no-claim-edit",
+      "what": "Beside 'the balloon as authored geometry', an observation, not a claim: BLUELINE's canny sweep lost the guide's thin tail at both strengths tried (0.35, 0.5; one guide, one seed, one word), and its gen-AI montage draws every tail with balloon_lib after the render, so the model never touches them. A possible clause: 'BLUELINE's canny sweep lost the guide's tail at both strengths tried; its montage draws the tails after the render.' The test that would earn more: tail survival at cn 0.65, 0.8 and 1.0, thin and filled, in BLUELINE's queued sweep.",
       "status": "open"
     }
   ],
@@ -179,10 +179,10 @@
       },
       "pieces": [
         {
-          "file": "rich-face/lyric-burning_skeleton_s1111.png",
+          "file": "/Projects/BLUELINE/proofs/text-layer/out/lyric-burning_skeleton_s1111.png",
           "origin": "gathered",
           "title": "BURNING · skeleton and canny, BLUELINE text layer, 2026-06-24",
-          "caption": "**The word made of its material.** A hand-drawn skeleton in Metal Mania, held by a canny lock while SDXL supplies \"living flame and streaming light\". BLUELINE's render, copied here so the public face can show it.",
+          "caption": "**The word made of its material.** A Chalkduster skeleton held by a canny lock while SDXL supplies \"living flame and streaming light\". BLUELINE's render, named where it lives.",
           "near": "Generative rendering lets the strokes be made of the feeling itself",
           "place": "margin"
         },
@@ -206,15 +206,15 @@
           "file": "/Projects/BLUELINE/proofs/text-layer/balloons-genai/sweep/cn0.5_end0.4.png",
           "origin": "gathered",
           "title": "control 0.5 · the structure held",
-          "caption": "**Held.** At 0.5 the bubble reads as a bubble and the drama moves inside it (BLUELINE's sweet spot). In all four renders of the sweep the guide's tail is gone.",
+          "caption": "**Held.** At 0.5 the bubble reads as a bubble and the drama moves inside it (BLUELINE's sweet spot). At both strengths tried, 0.35 and 0.5, the guide's tail is gone.",
           "near": "Generative rendering lets the strokes be made of the feeling itself",
           "place": "margin"
         },
         {
-          "file": "rich-face/lyric-burning_negspace_s1111.png",
+          "file": "/Projects/BLUELINE/proofs/text-layer/out/lyric-burning_negspace_s1111.png",
           "origin": "gathered",
           "title": "BURNING · negative space, BLUELINE text layer, 2026-06-24",
-          "caption": "**The font left black.** The same word as a void the ink flows around. BLUELINE's render, copied here so the public face can show it.",
+          "caption": "**The font left black.** The same word as a void the ink flows around. The void is the letterer's, not the model's: the skeleton's mask knocks the word out after the render. On a dark field the black word half vanishes, the case [[Shop/Lettering]] warns about. BLUELINE's render, named where it lives.",
           "near": "leave the font black, put the word in negative space",
           "place": "margin"
         }
@@ -225,7 +225,7 @@
         "by": "challenger · claude-opus-5-5",
         "verdicts": [
           {
-            "file": "rich-face/lyric-burning_skeleton_s1111.png",
+            "file": "/Projects/BLUELINE/proofs/text-layer/out/lyric-burning_skeleton_s1111.png",
             "verdict": "remake",
             "why": "The skeleton is Chalkduster, not Metal Mania (skel/lyric-burning.png; commit 28e9adaa 'Chalkduster skeletons'), and the original is tracked at /Projects/BLUELINE/proofs/text-layer/out/ (same md5): drop the copy, name the original in place, fix the font and drop 'copied here so the public face can show it'."
           },
@@ -245,7 +245,7 @@
             "why": "True by eye; note that end 0.4 and 0.7 are near-identical at each strength (2–4% of pixels differ), so say 'at both strengths tried' rather than 'all four renders'."
           },
           {
-            "file": "rich-face/lyric-burning_negspace_s1111.png",
+            "file": "/Projects/BLUELINE/proofs/text-layer/out/lyric-burning_negspace_s1111.png",
             "verdict": "remake",
             "why": "Caption true, but the original is tracked at /Projects/BLUELINE/proofs/text-layer/out/ (same md5): drop the 1.16 MB copy and name it in place. Optional: the void is knocked out by mask after the render (render_text.py:94–99), on the dark field Lettering warns about."
           }
@@ -267,7 +267,7 @@
           "file": "/Projects/BLUELINE/proofs/blender-handdrawn/followups/rig-openpose/renders/text-anchor/balloons/catalog_grid.png",
           "origin": "gathered",
           "title": "BLUELINE's balloon catalog · balloon_lib.py",
-          "caption": "**The grammar as BLUELINE's letterer draws it**: twelve balloons, each named for what it means. The page's list, plus a rounded rectangle for speech, a double rim for loud, and an off-panel tail.",
+          "caption": "**The grammar as BLUELINE's letterer draws it**: twelve balloons, each named for what it means. The page's seven, plus five: a rounded rectangle for speech, a double rim for loud, an off-panel tail, a serrated radio and a title burst.",
           "near": "noir-tragedy voices first",
           "place": "margin"
         },
