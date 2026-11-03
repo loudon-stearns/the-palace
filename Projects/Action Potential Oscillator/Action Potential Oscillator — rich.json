@@ -77,7 +77,18 @@
         }
       ],
       "made_against": "b63c4cf32945",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Action Potential Oscillator — rich — four stages.html",
+            "verdict": "remake",
+            "why": "A real test that walks up and runs clean, but its centroid in Hz sums only the first 64 harmonics, so the band slides with the note (3.5 kHz at 55 Hz, full only above about 375 Hz); measure over one fixed band (full band: 764 → 1206 Hz, not 481 → 1206) and draw the sawtooth's centroid beside it. Also fix the silent corner at τ 0.5 ms / 55 Hz (fire at thr − 1e-9, or floor τ at 0.6 ms)."
+          }
+        ]
+      }
     },
     {
       "heading": "Implementation Status",
@@ -105,7 +116,23 @@
         }
       ],
       "made_against": "058040d75e88",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "neuropulse-faust-sweep.wav",
+            "verdict": "keep",
+            "why": "An honest record of the first Faust crowd; the caption matches render_sweep.py (32 neurons from the render harness, K 0 → 0.016 → 0 over 30 s, the pre-anchor 116 Hz lock)."
+          },
+          {
+            "file": "faust-vs-python.png",
+            "verdict": "keep",
+            "why": "A record whose caption says what each panel shows; it is the evidence behind the section's 14 October line."
+          }
+        ]
+      }
     },
     {
       "heading": "The Artifact",
@@ -128,7 +155,18 @@
         }
       ],
       "made_against": "2724dc75b58c",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "neuron_oscillator.html",
+            "verdict": "keep",
+            "why": "The artifact the section describes, unchanged; its caption flags the τ label that measurement contradicts (31 vs 10 harmonics within 20 dB at 110 Hz, confirmed), carried as offer 5."
+          }
+        ]
+      }
     },
     {
       "heading": "Population Dynamics",
@@ -166,7 +204,28 @@
         }
       ],
       "made_against": "37f4b3cca523",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Action Potential Oscillator — rich — crowd.html",
+            "verdict": "keep",
+            "why": "Tests the section's own hypothesis live and walks up to it (one neuron, scatter, couple, test); the engine matches Faust v0.4 within 5.4e-8, every quoted number re-ran, console clean."
+          },
+          {
+            "file": "neuropulse-spike-shapes.wav",
+            "verdict": "keep",
+            "why": "The steward's offline version of the same test; the caption's timings match analysis.py (5.5 s per shape, 0.4 s gaps, 23.6 s)."
+          },
+          {
+            "file": "spike-shape-findings.png",
+            "verdict": "keep",
+            "why": "The right evidence, honestly captioned. Note: the tail's small effect on the lock changed sign between v0.2.1 (0.0039 vs 0.0033) and v0.4 (0.0034 vs 0.0037), and 'the numbers move a little' could say so."
+          }
+        ]
+      }
     },
     {
       "heading": "Open Questions",
@@ -187,7 +246,18 @@
         }
       ],
       "made_against": "756998e44690",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/2026-05-04-spike-oscillator.wav",
+            "verdict": "keep",
+            "why": "A first listen at a spike whose shape emerges, beside the Hodgkin–Huxley question; the caption agrees with the May proof-showcase record (FitzHugh–Nagumo, A2, I 0.45 → 0.85, 6 s)."
+          }
+        ]
+      }
     }
   ]
 }
