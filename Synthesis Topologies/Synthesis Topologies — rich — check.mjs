@@ -36,12 +36,12 @@ const E = engine(LOOP, ['makeCycle', 'tableRead', 'loopRead', 'ksString', 'maxAb
     for (let n = 0; n < len; n++) { const x = (n % N) / N * c.length, i0 = Math.floor(x), f = x - i0; t[n] = c[i0 % c.length] + (c[(i0 + 1) % c.length] - c[i0 % c.length]) * f; }
     ok(E.maxAbsDiff(t, E.loopRead(t, N, len)) === 0, 'with a counter that lands exactly on 1 after N steps, the null is exactly zero for 4 s');
   }
-  // the in-between loop at d = ½ is the Karplus-Strong string, sample for sample
+  // the identity, run (it holds by algebra: ½a + ½b and ½(a + b) are the same IEEE sum): the in-between loop at d = ½ is Karplus-Strong's average at ρ = 1
   for (const shape of ['saw', 'hollow', 'soft', 'burst']) for (const N of [40, 77, 100, 250, 400]) {
     const t = E.tableRead(E.makeCycle(shape), N + 0.5, 48000 * 4), l = E.loopRead(t, N + 0.5, t.length), k = E.ksString(t, N, t.length);
     if (E.maxAbsDiff(l, k) !== 0) ok(false, `in-between loop vs string, ${shape}, N ${N}`);
   }
-  ok(true, 'in-between loop at N + ½ and the Karplus-Strong string at N: difference exactly 0, 4 s, 4 shapes × 5 lengths');
+  ok(true, 'identity: in-between loop at N + ½ and Karplus-Strong at N, ρ = 1: difference 0 (by algebra, not an experiment)');
   // and the table against the in-between loop does not null
   const hr = [];
   for (const N of [50, 100, 200, 400]) {
@@ -86,9 +86,16 @@ const F = engine(FM, ['fmRender', 'fmRenderByFrequency', 'besselJ', 'dtftAmp', '
   console.table(rows);
   ok(worst < 0.02, `every line above −60 dB, 6 rates × 4 indexes: within ${worst.toFixed(4)} dB of |Jₖ(β)|`);
   ok(worstBy < 0.02, `the same, made by summing frequency into phase as an oscillator does: within ${worstBy.toFixed(4)} dB`);
-  { const y = F.fmRender(440, 110, 2.404825557695773, fs_, n, 0); ok(dB(F.dtftAmp(y, 0, n, 440, fs_)) < -80, `at β = 2.4048 the carrier line is ${dB(F.dtftAmp(y, 0, n, 440, fs_)).toFixed(1)} dB: silent`); }
+  // the carrier's drop-out, at a rate where nothing folds onto 440 Hz (at 137 Hz, 880 ⁄ 137 is not whole)
+  { const z = 2.404825557695773, y = F.fmRender(440, 137, z, fs_, n, 0), c = dB(F.dtftAmp(y, 0, n, 440, fs_)); ok(c < -150, `at β = 2.40483 and 137 Hz the carrier line is ${c.toFixed(1)} dB: silent`); }
+  // at 110 Hz the 440 Hz line is not the carrier: k = −8 sits at 440 − 880 = −440 Hz and folds onto it, at |J₈(2.40483)|
+  { const z = 2.404825557695773, y = F.fmRender(440, 110, z, fs_, n, 0), c = dB(F.dtftAmp(y, 0, n, 440, fs_)), j8 = dB(Math.abs(F.besselJ(8, z)));
+    ok(Math.abs(c - j8) < 0.05, `at 110 Hz the 440 Hz line reads ${c.toFixed(2)} dB, which is the folded k = −8 line (|J₈| = ${j8.toFixed(2)} dB), not the carrier`);
+    ok(F.fmLines(440, 110, z).find((L) => L.k === 0).clash, 'and the piece flags that row as a line from below 0 Hz'); }
+  // the carrier row stays in the test table at the drop-out
+  ok(F.fmLines(440, 130, 2.405).some((L) => L.k === 0), 'the k = 0 row is kept at β = 2.405, where J₀ = −81 dB');
   // the long look sees lines 5 Hz apart at a 5 Hz vibrato, ± 30 Hz: they are there below 20 Hz
-  { const y = F.fmRender(440, 5, 6, 4000, 1 << 14, 0), lines = F.fmLines(440, 5, 6).filter((L) => Math.abs(L.J) > 0.05); let e = 0; for (const L of lines) e = Math.max(e, Math.abs(dB(F.dtftAmp(y, 0, y.length, L.f, 4000)) - dB(Math.abs(L.J)))); ok(e < 0.05, `a 5 Hz vibrato, ± 30 Hz: ${lines.length} lines 5 Hz apart, each within ${e.toFixed(3)} dB of |Jₖ(6)|`); }
+  { const y = F.fmRender(440, 5, 6, 4000, 1 << 14, 0), lines = F.fmLines(440, 5, 6).filter((L) => Math.abs(L.J) > 0.05); let e = 0; for (const L of lines) e = Math.max(e, Math.abs(dB(F.dtftAmp(y, 0, y.length, L.f, 4000)) - dB(Math.abs(L.J)))); ok(e < 0.05, `a 5 Hz vibrato, ± 30 Hz (β 6): ${lines.length} lines 5 Hz apart with |Jₖ| > 0.05 (${F.fmLines(440, 5, 6).filter((L) => Math.abs(L.J) > 1e-3).length} above 1e-3), each within ${e.toFixed(3)} dB of |Jₖ(6)|`); }
   // from what rate does a look tell the lines apart?
   const sr = [];
   for (const look of [0.02, 0.05, 0.1, 0.12, 0.25]) { const r = {}; r['look ms'] = look * 1000; for (const b of [0.5, 1, 2]) r[`β ${b}`] = F.separatesFrom(look, b, 440); sr.push(r); }

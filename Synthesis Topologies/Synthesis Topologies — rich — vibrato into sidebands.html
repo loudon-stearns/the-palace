@@ -146,13 +146,13 @@ function dtftAmp(y, s, w, f, fs) {
   for (let i = 0; i < w; i++) { const v = y[s + i] * h[i]; re += v * pr; im -= v * pi; const t = pr * cr - pi * ci; pi = pr * ci + pi * cr; pr = t; }
   return 2 * Math.hypot(re, im) / h.sum;
 }
-// the lines: every k with a share above 1e-4, where it lands, and whether a line from below 0 Hz lands on it too
+// the lines: the carrier always, and every other k with a share above 1e-4; where each lands, and whether a line from below 0 Hz lands on it too
 function fmLines(fc, fm, beta) {
   const out = [], K = Math.ceil(beta + 12);
   const folded = []; for (let k = -K; k <= K; k++) { const f = fc + k * fm; if (f < 0 && Math.abs(besselJ(k, beta)) >= 1e-6) folded.push(-f); }
   for (let k = -K; k <= K; k++) {
     const f = fc + k * fm, J = besselJ(k, beta);
-    if (f <= 0 || Math.abs(J) < 1e-4) continue;
+    if (f <= 0 || (k !== 0 && Math.abs(J) < 1e-4)) continue;
     out.push({ k, f, J, clash: folded.some((g) => Math.abs(g - f) < 2.5) });
   }
   return out;
@@ -216,7 +216,7 @@ const STEPS = [
     do: 'Play, then walk the rate, or drag it. Lengthen and shorten the short look.', watch: 'Left: the swinging line blurring, then splitting into still, parallel lines. The meter says from what rate this look tells the lines apart.', hear: 'Wobble, then a buzz, then a new tone colour: the page puts that turn near 20 Hz.',
     show: { depth: true, rate: true, beta: false, look: true, hold: true, long: true, walk: true, zero: false, test: false }, set: {} },
   { name: 'the test', title: 'The test: where the lines sit, and how loud',
-    say: 'The page says the sidebands sit at the carrier plus and minus whole multiples of the modulator, weighted by Bessel functions of the index β, the depth over the rate. Hold the index here and set the rate anywhere from 20 to 200 Hz. Every line is measured from the sound and set beside its prediction: |Jₖ(β)|. At β = 2.405 the first zero of J₀ arrives, and the carrier itself goes silent.',
+    say: 'The page says the sidebands sit at the carrier plus and minus whole multiples of the modulator, weighted by Bessel functions of the index β, the depth over the rate. Hold the index here and set the rate anywhere from 20 to 200 Hz. Every line is measured from the sound and set beside its prediction: |Jₖ(β)|. Near β = 2.405 the first zero of J₀ arrives (exactly, 2.40483), and the carrier itself goes silent: its row stays in the table, reading about −81 dB at 2.405.',
     do: 'Set β and the rate. Press “measure the sound itself”. Then set β = 2.405.', watch: 'Right: the measured lines, with a violet tick where each prediction says it lands. The table: prediction, the engine, and the audio graph you are hearing.', hear: 'At 2.405 the note’s own pitch drops out, and the tone is made of sidebands alone.',
     show: { depth: false, rate: true, beta: true, look: false, hold: false, long: true, walk: false, zero: true, test: true }, set: { hold: 'index' } },
 ];
@@ -350,7 +350,7 @@ function testTable() {
   if (!STEPS[S.step].show.test) return;
   const b = beta(), lines = fmLines(FC, S.rate, b).filter((L) => Math.abs(L.k) <= 6);
   const eng = measureLines(fmRender(FC, S.rate, b, 48000, 1 << 17, 0), 48000, lines, 0);
-  const db = (v) => v < 1e-6 ? 'silent' : (20 * Math.log10(v)).toFixed(2);
+  const db = (v) => v < 1e-7 ? 'under −140' : (20 * Math.log10(v)).toFixed(2);
   let html = '<tr><th>k</th><th>sits at, Hz</th><th>|Jₖ(β)|, dB</th><th>the engine, dB</th><th>the audio graph, dB</th></tr>';
   for (const r of eng) {
     const m = measured && measured.key === `${S.rate}|${b}` ? measured.rows.find((x) => x.k === r.k) : null;

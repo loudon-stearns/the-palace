@@ -3,7 +3,7 @@
   title: Synthesis Topologies — rich — one loop, two instruments
   born: 2026-11-03
   links: [[Synthesis Topologies]] (connects-to · rich-face-piece) · listed in [[Synthesis Topologies — rich.json]] · serves § What the Family Shares · leans on [[Wavetable Oscillator]] § The same object as a loop and [[Waveguide Synthesizer]]
-  forward_vector: I am the loop that holds wavetable and waveguide together, taken one idea at a time. A cycle read from a table; the same cycle going round a delay loop; their difference, which is zero at every whole length; then the loop half a sample longer, which has to read between its own samples and loses its highs doing it; and last the test, where that in-between loop and the Karplus-Strong string null against each other, sample for sample. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  forward_vector: I am the loop that holds wavetable and waveguide together, taken one idea at a time. A cycle read from a table; the same cycle going round a delay loop; their difference, which is nothing at every whole length and is the page's test; then the loop half a sample longer, which has to read between its own samples, parts from the table and loses its highs doing it. Last I show an identity rather than test one: a straight-line read halfway is Karplus-Strong's average at ρ = 1, term for term. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
   sound: nothing plays until Play is clicked; the AudioContext is made on that click. Changing step, shape or length stops the sound.
   check: Synthesis Topologies — rich — check.mjs runs this page's engine in Node against every number the page shows.
 -->
@@ -120,7 +120,7 @@
   </div>
 
   <div class="panel" id="p-test">
-    <div class="plabel"><span>the test · three differences, measured from the renders you hear</span><span>4 s each</span></div>
+    <div class="plabel"><span>the page’s test, then an identity shown · measured from the renders you hear</span><span>4 s each</span></div>
     <table class="t" id="test-t"></table>
     <p class="links" id="test-links"></p>
   </div>
@@ -177,7 +177,7 @@ function loopRead(first, T, len) {
   }
   return y;
 }
-// the Karplus-Strong string, as the Waveguide Synthesizer page builds it: a loop of N with the average of two neighbours in it
+// Karplus-Strong's average, at ρ = 1: a loop of N with the average of two neighbours in it (the Waveguide Synthesizer page's string puts ρ = 0.996 in front)
 // y[n] = ½ · (y[n − N] + y[n − N − 1]), its first N + 1 samples from 'first'
 function ksString(first, N, len) {
   const y = new Float64Array(len);
@@ -226,7 +226,7 @@ const $ = (id) => document.getElementById(id);
 const S = { step: 0, N: 100, d: 0.5, shape: 'saw', hear: 'table' };
 const HEAR = {
   table: 'the table', loop: 'the loop', diff: 'their difference',
-  ks: 'the Karplus-Strong string', ksdiff: 'in-between loop − string',
+  ks: 'Karplus-Strong’s average (ρ = 1)', ksdiff: 'in-between loop − Karplus-Strong',
 };
 const STEPS = [
   { name: 'the table', title: 'One cycle, read from a table',
@@ -245,9 +245,9 @@ const STEPS = [
     say: 'A period that is not a whole number of samples is the ordinary case: most notes. The table does not care; its counter reads between two stored points, fresh from the stored cycle, every trip. The loop has no stored cycle to go back to. It has to read between the samples of its own last trip, every trip, and reading halfway between two samples is taking their average. Do that a few hundred times a second and the highs wear away.',
     do: 'Play the loop, then their difference. Move d from 0 to ½ and back.', watch: 'The ring rounds off trip by trip while the gold cycle stays sharp. The difference climbs from nothing toward the level of the sound.', hear: 'The loop darkens and fades like a string; the table does not. At d = 0 the null comes back.',
     hears: ['table', 'loop', 'diff'], loopPic: true, res: true, decay: true, test: false, frac: true },
-  { name: 'the test', title: 'The test: the loop that loses is a string',
-    say: 'At d = ½ the loop reads exactly halfway, so each new sample is the average of two neighbours from one trip ago. That is the whole of Karplus-Strong, the plucked string the Waveguide Synthesizer page starts from. If the in-between loop and the string are one object, their difference is zero, as the table’s and the loop’s was at a whole length. Choose the burst of noise to hear it as a pluck.',
-    do: 'Play the string, then the in-between loop minus the string. Try every shape, and any N.', watch: 'Three differences. Gold: table against loop, nothing at a whole length, climbing at N + ½. Violet: in-between loop against the string, on the floor.', hear: 'The difference against the string is silence, at every length and every shape.',
+  { name: 'an identity', title: 'An identity, shown: halfway is the average',
+    say: 'The test was the last two steps: at a whole length the table and the loop are one sound, and half a sample longer they part. This step shows, rather than tests, why the loop that parts sounds like a string. At d = ½ the loop reads exactly halfway, (1 − ½)·a + ½·b, and that is the average of the two neighbours, ½·(a + b): the whole of Karplus-Strong’s loop, here with nothing else in front of it (ρ = 1; the Waveguide Synthesizer page’s string adds ρ = 0.996). The two are the same sum, so their difference is zero by algebra; the violet line could not have come out any other way. A straight-line read is one choice: a filter that only delays, an allpass, also makes the loop half a sample longer and loses nothing.',
+    do: 'Play Karplus-Strong’s average, then the in-between loop. Choose the burst of noise to hear it as a pluck.', watch: 'The page’s test first in the table: nothing at a whole length, parting at N + ½. Then the identity, violet, on the floor.', hear: 'The in-between loop and Karplus-Strong’s average are the same sound; the table against either is not.',
     hears: ['table', 'loop', 'ks', 'diff', 'ksdiff'], loopPic: true, res: true, decay: true, test: true, frac: true, dFix: 0.5 },
 ];
 
@@ -384,7 +384,7 @@ function meters() {
     $('test-t').innerHTML = `<tr><th>what is set against what</th><th>length</th><th>result</th></tr>
       <tr><td>the table against the bare loop</td><td>N = ${S.N}</td><td>max difference ${fmtMax(R.wholeMax)}</td></tr>
       <tr><td>the table against the in-between loop</td><td>N + ½</td><td><b>${fmtDb(R.half[0])}</b> at 0.05 s · <b>${fmtDb(R.half[1])}</b> at 1 s · <b>${fmtDb(R.half[2])}</b> at 3 s</td></tr>
-      <tr><td>the in-between loop against the Karplus-Strong string</td><td>N + ½ · N with the average</td><td><i>max difference ${R.ksMax === 0 ? '0, exactly' : R.ksMax.toExponential(2)}</i></td></tr>`;
+      <tr><td>shown, not tested: the in-between loop against Karplus-Strong’s average (ρ = 1)</td><td>N + ½ · N with the average</td><td><i>max difference ${R.ksMax === 0 ? '0, by algebra' : R.ksMax.toExponential(2)}</i></td></tr>`;
     $('test-links').innerHTML = 'The string’s pitch is the loop’s length, N + ½, not N: the Waveguide Synthesizer page’s <em>Karplus-Strong, walked up</em> measures that to 0.02 cents. Put a filter that only delays, and loses nothing, in the same slot and the partials leave the harmonic grid instead of fading: Dissolutions’ proof <em>the table that travels</em> walks that branch.';
   }
 }
@@ -397,7 +397,7 @@ function hearButtons() {
   if (S.step === 0) S.hear = 'table';
   $('hear-btns').innerHTML = '';
   for (const k of st.hears) { const b = document.createElement('button'); b.className = 'ghost small'; b.textContent = HEAR[k]; b.setAttribute('aria-pressed', k === S.hear ? 'true' : 'false'); b.onclick = () => { S.hear = k; stopSound(); hearButtons(); }; $('hear-btns').appendChild(b); $('hear-btns').appendChild(document.createTextNode(' ')); }
-  const hint = { table: '', loop: '', diff: 'The difference plays at the level it has: if it is silent, it is silent.', ks: '', ksdiff: 'The difference plays at the level it has.' }[S.hear];
+  const hint = { table: '', loop: '', diff: 'The difference plays at the level it has: if it is silent, it is silent.', ks: '', ksdiff: 'Silent by algebra: the two are the same sum, so this cannot sound.' }[S.hear];
   $('hear-hint').textContent = hint;
 }
 function setStep(i) {
@@ -419,10 +419,10 @@ function eqs() {
     'the loop': ['y[n] = y[n − N]', '(the output now) = (the output exactly N samples ago): whatever went in comes round again, once per trip'],
     'the difference': ['table[n] − loop[n] = 0, for every n, when N is whole', '(what the table plays) minus (what the loop plays) = nothing, at every sample, when one trip is a whole number of samples'],
     'between samples': ['y[n] = (1 − d) · y[n − N] + d · y[n − N − 1]      kept per trip = |(1 − d) + d · e^(−iω)|', '(the output now) = a straight-line read d of the way between two samples one trip ago; (what one trip keeps of a harmonic) = 1 at the bottom, less for every harmonic above, least at d = ½'],
-    'the test': ['d = ½:  y[n] = ½ · (y[n − N] + y[n − N − 1])', '(halfway between two samples) = (the average of the two): Karplus-Strong’s string, term for term'],
+    'an identity': ['d = ½:  (1 − ½) · a + ½ · b = ½ · (a + b)', '(a straight-line read halfway between two samples) = (the average of the two): Karplus-Strong’s loop at ρ = 1, term for term'],
   }[STEPS[S.step].name];
   $('eq1').textContent = E[0]; $('eq1w').textContent = E[1];
-  const t = STEPS[S.step].name === 'the test';
+  const t = STEPS[S.step].name === 'an identity';
   $('eq2').textContent = t ? 'f = fs ⁄ (N + ½)' : ''; $('eq2w').textContent = t ? '(the pitch of both) = (the sample rate) ÷ (the whole length plus the half sample read between)' : '';
 }
 STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${st.name}`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
