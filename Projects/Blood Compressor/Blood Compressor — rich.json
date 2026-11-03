@@ -1,0 +1,200 @@
+{
+  "title": "Blood Compressor — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Blood Compressor]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    }
+  ],
+  "forward_vector": "I am the manifest of Blood Compressor's rich face, its first round at Study tier, a proposal: the vessel prototype and the plugin's face gathered where the page imagines them; the plugin's body take beside the three body knobs, and one made walk that tests the sympathetic knob's sentence; the plugin's attack take beside the attack lesson, and one made walk down to the attack knob's floor that tests the page's 'set attack to 0'. Both made pieces run the plugin's own engine, held to it sample for sample. I grow when the Mapping earns a piece that tests its numbers rather than restates them. I never hold the entry's words.",
+  "entry": "Blood Compressor",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "Pedagogical Framing",
+      "kind": "claim-change",
+      "what": "The paragraph 'When students set attack=0 and feel the compressor lunge' describes a setting this compressor cannot reach. Measured on the plugin's own engine (attack floor piece, check.mjs; confirmed by the challenger): asking for 0 or 1 ms gives the 5 ms floor bit for bit; at the floor, on the drum loop at threshold −36, ratio 10, the vessel moves +0.1 dB in a kick's first 5 ms (it does not close; the 5 ms nerve comes first), then −8.4 dB by 10 ms: the click passes and the boom is clamped. The instant clamp the sentence names needs no floor and no nerve, and then closes −16.9 dB inside the same 5 ms. The 200 ms half holds (−0.2 dB by 10 ms). Suggest the paragraph say what the floor does, and drop 'what the body would do without baroreceptors': losing them leaves pressure unbuffered and more variable, closer to bypass than to a clamp (the challenger's reading of search abstracts, PMC3737155 and PMC329818, not of the papers whole; a flag, not a finding). This agrees with tuning item 2's proposal but disputes its evidence: the crest rises with no floor and no nerve too (14.5 dry, 25.3 at the floor, 27.7 with neither), because the squeeze lowers the average, not because the front gets through; the first 5 ms is the evidence.",
+      "status": "open"
+    },
+    {
+      "section": "DSP Architecture",
+      "kind": "claim-change",
+      "what": "The Sympathetic activation bullet says the knob 'globally raises threshold + reduces release time, simulating a stressed body that compresses more aggressively'. Measured (the stressed body piece, check.mjs; sign confirmed by the challenger): on the body take's settings, a raised line squeezes less at every step, a quicker release holds less on average, and the two together squeeze less than at rest at every rise from 0 to 12 dB, −1.4 dB average and −5.3 deepest at +12 against −9.2 and −13.2 at rest. The plugin's knob drops the line 12 dB and squeezes more (−15.1, −23.3). The page writes 'raises' and means 'compresses more'. 'Raises' may be honest physiology, since the baroreflex resets to a higher set point under stress while sympathetic constriction squeezes harder (challenger, from PMC5559464 and PMC5418217), so the rewrite can hold the contradiction (the body raises its set point; the knob drops the line because it means more squeeze) rather than flip the word. This duplicates tuning item 5, which proposes words for the build.",
+      "status": "open"
+    },
+    {
+      "section": "DSP Architecture",
+      "kind": "no-claim-edit",
+      "what": "Item 3 (Attack) names one floor, '~5 ms minimum delay', where the build has two: a fixed 5 ms nerve delay before the reflex, and an attack time that cannot go under 5 ms. Measured: asking for 0 ms gives the 5 ms attack bit for bit; from rest the wall first moves 5.17 ms after the hit; with only the nerve the vessel moves +0.13 dB in a kick's first 5 ms, with only the floor −8.50 dB. The nerve decides the first 5 ms, the floor how hard it closes after. Suggest: 'a fixed 5 ms nerve-conduction delay before the reflex, and an attack that cannot be set below 5 ms'. This contradicts tuning item 5's phrase 'never under the 5 ms nerve floor': the reflex's floor is the attack minimum, not the nerve; if item 5 is taken, say '5 ms floor'.",
+      "status": "open"
+    },
+    {
+      "section": "→ bundle",
+      "kind": "no-claim-edit",
+      "what": "plugin/check/render_take.py, docstring lines 7–8, say the 5 ms floor clamps the kick's front 'with the rest, and the beat goes flat'; its own lines 16–17 and the engine say the front passes (the wall first moves 5.17 ms after the hit; +0.12 dB in a kick's first 5 ms in the loop). Change 7–8 to 'the front passes, then the boom is clamped and the beat goes flat'. plugin/README.md lines 97–100 carry the same crest reasoning as tuning item 2: keep the conclusion, drop the crest (14.7 to 26.3 dB) as its evidence, since the crest rises with no nerve as well.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Interface Mythology",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "stage2-vessel-prototype-v3.html",
+          "origin": "gathered",
+          "contract": {},
+          "height": 720,
+          "place": "band",
+          "near": "a tube running across the screen",
+          "title": "The vessel, across · Stage 2 prototype v3",
+          "caption": "**The cross-section this section describes, built.** One compressor drives both the sound and the picture: a heartbeat (lub, dub, 72 bpm) runs through the vessel, the walls clamp when the pressure crosses the amber systolic line, the baroreceptors light, and the opening follows the gain. Blood cells ride the lumen and squeeze faster through the narrow parts. Drag the line or the slider; it runs with the sound off too, and Sound on starts the heartbeat. Gathered as the steward made it, 2026-10-14. Its knobs are five of the page's six (no sidechain) plus input and makeup, and the beating heart icon the text puts at the bottom is not in it; the heartbeat is the sound source instead."
+        },
+        {
+          "file": "blood-compressor-face.html",
+          "origin": "gathered",
+          "contract": {},
+          "height": 640,
+          "place": "band",
+          "near": "The character of the compressor",
+          "title": "The plugin's face · inside the vessel, looking downstream",
+          "caption": "**The face the plugin got, October 2026.** Not the cross-section above: you are inside the artery looking down it, and each beat rolls away from the glass as a ring of wall. Pink where the wall is pushed past the systolic line, dark bands where the muscle squeezes, a crown of baroreceptors that flares while the reflex fires. The strip on the glass stands in for a host: sound on, then a heartbeat or a drum loop. The editor is VST Template's own, built from the plugin's parameter table (`plugin/ui/build_face.py`); the plugin itself is not yet built. This is the text's last line taken literally: you are looking inside someone's neck."
+        }
+      ],
+      "made_against": "19aee85e1ef0",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "stage2-vessel-prototype-v3.html",
+            "verdict": "keep",
+            "why": "A gathered record of the cross-section the section describes; its caption names where the build departs (five of six controls, no sidechain, no heart icon), all checked in the source."
+          },
+          {
+            "file": "blood-compressor-face.html",
+            "verdict": "keep",
+            "why": "The caption says plainly that this is not the section's cross-section but a view from inside the artery; its one console line, the JUCE placeholder, is expected outside a host."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "DSP Architecture",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "rich-face/blood-compressor-body-take.wav",
+          "origin": "gathered",
+          "place": "margin",
+          "near": "The biological framing also suggests features",
+          "title": "the body take · the plugin's C++ engine",
+          "caption": "**The three body knobs, one at a time, on one drum loop.** Six seconds each: at rest, stressed (sympathetic 1), old (vessel age 1), breathing (heart-rate variability 1). Threshold −30 dB, ratio 4, attack 60 ms, release 300 ms, each section matched to −27 dBFS so you hear the shape, not the level. Average squeeze, deepest: at rest −9.2, −13.3 dB; stressed −15.2, −23.4; old −10.7, −15.5; breathing −9.3, −14.7, with the squeeze swinging 2.5 dB beat to beat against 0.3 at rest (`plugin/out/body-take.json`). Rendered 2026-10-24 by `plugin/check/render_body.py`. Nobody has listened to it yet, the scroll says."
+        },
+        {
+          "file": "Blood Compressor — rich — the stressed body.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio",
+          "place": "band",
+          "height": 1420,
+          "near": "Sympathetic activation knob",
+          "title": "The stressed body · raise the line, or drop it?",
+          "caption": "**The sympathetic bullet says a stressed body raises the threshold and compresses more aggressively. Can it do both?** Four steps on the plugin's own engine (held to it sample for sample) and a drum loop made from sine and noise: the body at rest; the systolic line alone, where higher squeezes less at every step; the smooth muscle alone, where a quicker release holds less on average; and last the stressed body two ways, answered before heard. As written, line raised and muscle four times quicker, it squeezes less than at rest at every rise from 0 to 12 dB: −1.4 dB on average at +12 against −9.2 at rest. As the plugin built it, line dropped 12 dB, it squeezes more: −15.1. Loudness is matched. The page sizes neither move; the four-times release and the 12 dB are the plugin's.\n\nas built: T′ = T − 12·S, attack′ = attack ⁄ (1 + S), release′ = release ⁄ (1 + 3·S)\n\n(the stressed line) = (the line at rest) − 12 dB × (how stressed, 0 to 1); the reflex up to twice as quick, the muscle up to four times"
+        }
+      ],
+      "made_against": "9ac647544d85",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "rich-face/blood-compressor-body-take.wav",
+            "verdict": "keep",
+            "why": "Caption numbers match plugin/out/body-take.json row for row and settings match render_body.py; byte-identical to the steward's render. Unheard, and the caption says so."
+          },
+          {
+            "file": "Blood Compressor — rich — the stressed body.html",
+            "verdict": "keep",
+            "why": "A test that comes out against the text: as written it squeezes less than rest at every rise (−1.4 at +12 vs −9.2), recomputed on the plugin's file; faithful, since it names the amounts as the plugin's; walks up from rest, to the line alone, to the muscle alone, to the test. The crest reading of 'aggressive' agrees (17.1 written, 20.0 rest, 24.6 built)."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Pedagogical Framing",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "rich-face/blood-compressor-attack-lesson.wav",
+          "origin": "gathered",
+          "place": "margin",
+          "near": "When students set attack=0",
+          "title": "the attack lesson · the plugin's C++ engine",
+          "caption": "**The lesson as the plugin's engine renders it.** A drum loop, 4.8 s per section: as it arrives; attack at its floor, 5 ms; attack 80 ms; attack 80 ms with a 40 ms release, the vessel breathing with the beat. Threshold −36 dB, ratio 10, each section matched to −27 dBFS. Rendered 2026-10-24 by `plugin/check/render_take.py`, whose notes say the floor clamps the kick's front; the piece beside this measures that it doesn't. Nobody has listened to it yet, the scroll says."
+        },
+        {
+          "file": "Blood Compressor — rich — attack floor.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio",
+          "place": "band",
+          "height": 1260,
+          "near": "When students set attack=0",
+          "title": "Set attack to zero · a walk down to the knob's floor",
+          "caption": "**Can this compressor lunge?** Four steps on the plugin's own engine, held to it sample for sample, and a drum loop made from sine and noise: one kick alone in the vessel; the body noticing and acting at 200 ms, baroreceptors lit and the nerve's 5 ms marked; the attack swept down until the knob stops at 5 ms; and the sentence tested, answered before heard, in five loudness-matched takes. Asking the engine for 0 ms gives the 5 ms floor bit for bit. At the floor the vessel does not close at all in a kick's first 5 ms (+0.1 dB, still letting go of the last hit), then clamps, −8.4 dB by 10 ms: a click, then a flattened boom. The instant clamp the sentence describes takes no floor and no nerve, which this compressor refuses; that body closes −16.9 dB inside the same 5 ms. Take E drops only the reflex floor and keeps the nerve: +0.1 dB in the first 5 ms, −16.7 by 10 ms, so the nerve decides the first 5 ms and the floor how hard the vessel closes after. The crest rises in B and C alike, 14.5 dB to 25.3 and 27.7, because the squeeze lowers the average, so crest can't tell them apart. Loudness is matched; whether the floor sounds like a lunge is for your ear.\n\ng[n] = c·g[n−1] + (1 − c)·target[n − d],  c = e^(−1 ⁄ (fs·τ)),  τ = max(5 ms, attack),  d = 5 ms · fs\n\n(squeeze now) = c × (squeeze a sample ago) + (1 − c) × (what the line asked for 5 ms ago); the reflex never goes under 5 ms, and the nerve's 5 ms sits before it at every setting"
+        }
+      ],
+      "made_against": "5463674cecea",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "rich-face/blood-compressor-attack-lesson.wav",
+            "verdict": "keep",
+            "why": "Byte-identical to the steward's render; the caption's claim about render_take.py is true (its docstring lines 7–8 contradict lines 16–17 and the engine). That should be filed as an offer with section → bundle, which the challenger may not write."
+          },
+          {
+            "file": "Blood Compressor — rich — attack floor.html",
+            "verdict": "keep",
+            "why": "A test the build fails as the sentence says it should not: at the floor +0.12 dB in a kick's first 5 ms, −8.38 by 10 ms, against −16.85 with no floor and no nerve, recomputed on the plugin's file. Walks up in four steps. Taste notes: a 'floor off, nerve kept' take would show the nerve alone holds the first 5 ms (+0.13), and step 3's 'the DSP section says so too' blurs the two floors."
+          }
+        ]
+      }
+    }
+  ]
+}

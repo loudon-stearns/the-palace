@@ -1,0 +1,498 @@
+<!doctype html>
+<!--
+  title: Blood Compressor — rich — attack floor
+  born: 2026-11-03
+  links: [[Blood Compressor]] (connects-to · rich-face-piece) · listed in [[Blood Compressor — rich.json]] · the engine is the plugin's own, plugin/ui/blood_compressor.js
+  forward_vector: I am the attack lesson walked down to its floor. One kick alone in the vessel, then the body noticing and acting at 200 ms, then the attack knob swept down until it stops, and last the page's own sentence put to the test: set attack to 0 and feel the compressor lunge. The knob stops at 5 ms and a 5 ms nerve sits before it, so I show what the floor does and what it would take to clamp the hit the way the sentence says. I change only when Pedagogical Framing or DSP Architecture does.
+  sound: nothing plays until Play is clicked; the AudioContext is made on that click. Changing step stops the sound. Every take is loudness-matched.
+  check: Projects/Blood Compressor/Blood Compressor — rich — check.mjs runs this page's engine in Node, holds it to the plugin's, and re-measures every number the page shows.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Attack floor · Blood Compressor</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10);
+    --blood:#C8254C; --wall:#8B4A5E; --baro:#F5C16C; --warn:#e8651b;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas#stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:130px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl[hidden]{display:none}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:13ch}
+  .ends{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--fg-3);grid-column:2}
+  .ends b{color:var(--accent);font-weight:400}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .rowb[hidden]{display:none}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.ab{font-family:var(--display);font-size:20px;letter-spacing:.06em;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 20px;cursor:pointer}
+  button.ab[aria-pressed="true"]{color:#0a0a0f;background:var(--accent);border-color:var(--accent)}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--fg-2);width:100%}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 12px 5px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  table.marks tr.sel td{color:var(--fg-1)}
+  .verdict{font-family:var(--sans);font-size:14.5px;line-height:1.65;color:var(--fg-1);margin-top:14px;padding:12px 16px;border:1px solid var(--accent-dim);border-radius:4px}
+  .verdict[hidden]{display:none}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:96px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Blood Compressor · the attack lesson · four steps</div>
+  <h1>Set attack to zero</h1>
+  <p class="lead">The page says: set attack to 0 and feel the compressor lunge, the body with no baroreceptors, clamping at once. Give it 200 ms and the body notices before it acts. This walks there from one kick drum alone, through the plugin's own compressor and a drum loop made here from sine and noise. Four steps, one thing to notice in each; the last is the sentence's test. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Hear</span><span class="hint" id="hearHint"></span><button class="play" id="play">Play</button></div>
+    <canvas id="stage"></canvas>
+    <div class="legend" id="legend"></div>
+
+    <div class="ctl" id="ctlAttack" hidden>
+      <label for="atk">attack · reflex</label><input id="atk" type="range" min="0" max="1" step="0.001" value="1"><span class="v" id="atkv"></span>
+      <div class="ends"><span><b>◂ 5 ms · the floor</b></span><span>200 ms ▸</span></div>
+    </div>
+
+    <div id="testBox" hidden>
+      <div class="rowb" id="askRow"><span class="eyebrow">before you listen</span>
+        <span class="hint">At the knob’s floor, how far does the vessel close during the kick’s first 5 ms?</span>
+        <button class="ghost" data-guess="yes">Most of the way</button>
+        <button class="ghost" data-guess="no">Not at all</button>
+      </div>
+      <div class="rowb" id="takeRow" hidden><span class="eyebrow">takes</span>
+        <button class="ab" data-take="0" aria-pressed="false">A</button>
+        <button class="ab" data-take="1" aria-pressed="true">B</button>
+        <button class="ab" data-take="2" aria-pressed="false">C</button>
+        <button class="ab" data-take="3" aria-pressed="false">D</button>
+        <button class="ab" data-take="4" aria-pressed="false">E</button>
+        <span class="hint">Press Play, then switch takes as often as you like. Each is matched to the same loudness.</span>
+      </div>
+      <table class="marks" id="marks" hidden><thead><tr><th>take</th><th>reflex</th><th>nerve</th><th>closed as the kick lands</th><th>closes in its first 5 ms</th><th>by 10 ms</th><th>crest</th></tr></thead><tbody></tbody></table>
+      <div class="verdict" id="verdict" hidden></div>
+    </div>
+
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+  </div>
+  <div class="try" id="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><b>LOUD’N LIVE</b> · Blood Compressor · attack floor · Study, 2026-11-03</footer>
+</main>
+<script id="bc-core">
+// The engine and the loop. Plain functions, shared by the picture, the sound and the headless check.
+// The compressor is the plugin's (plugin/ui/blood_compressor.js, itself held to the C++ engine and the
+// Python sketch to 5 × 10⁻⁸), line for line, with two doors the plugin keeps shut: opts.floor, the
+// shortest reflex time (the plugin's 5 ms), and opts.nerve, the conduction delay (the plugin's 5 ms).
+// Leave both alone and this is the plugin, sample for sample; the check holds it to that.
+const BC = (() => {
+  const SR = 44100;
+  const IDS = ["threshold", "ratio", "knee", "attack", "release", "detector", "sc_hpf", "makeup", "bypass",
+               "rel_curve", "sympathetic", "hrv", "age"];
+  const DEFAULTS = [-20, 4, 6, 0.06, 0.3, 0.01, 80, 0, 0, 0, 0, 0, 0];
+  const NERVE_S = 0.005, FLOOR_S = 0.005, DLEN = 16384, DB10 = 4.342944819032518;
+  function curve(x, T, R, K) {
+    const lo = T - K / 2.0, hi = T + K / 2.0;
+    if (K <= 0.0 || x <= lo) { if (x > T) return T + (x - T) / R; return x; }
+    if (x >= hi) return T + (x - T) / R;
+    const s = (x - lo) / K, y0 = lo, y1 = T + (K / 2.0) / R, m0 = K, m1 = K / R;
+    const s2 = s * s, s3 = s2 * s;
+    return (2.0 * s3 - 3.0 * s2 + 1.0) * y0 + (s3 - 2.0 * s2 + s) * m0
+         + (-2.0 * s3 + 3.0 * s2) * y1 + (s3 - s2) * m1;
+  }
+  class Compressor {
+    constructor(sr, opts) {
+      opts = opts || {};
+      this.sr = sr;
+      this.floor = opts.floor === undefined ? FLOOR_S : opts.floor;
+      const nerve = opts.nerve === undefined ? NERVE_S : opts.nerve;
+      this.d = nerve === 0 ? 0 : Math.max(1, Math.floor(sr * nerve + 0.5));
+      this.dline = new Float64Array(DLEN); this.out = [0, 0]; this.probes = [0, 0, 0, 0, 0];
+      this.reset();
+    }
+    reset() { this.hpX = this.hpY = this.hpX2 = this.hpY2 = 0; this.ms = 0; this.g = 0; this.dline.fill(0); this.dw = 0; this.n = 0; }
+    step(v, x, x2) {
+      const sr = this.sr;
+      const S = Math.min(1.0, Math.max(0.0, v[10])), A = Math.min(1.0, Math.max(0.0, v[12])), Hv = Math.min(1.0, Math.max(0.0, v[11]));
+      const b = 0.6 * Math.sin(2.0 * Math.PI * 0.25 * this.n / sr) + 0.4 * Math.sin(2.0 * Math.PI * 0.1 * this.n / sr);
+      this.n += 1.0;
+      const br = Hv * b;
+      const R = Math.max(1.0, v[1]) * (1.0 + A), K = Math.max(0.0, v[2]) * (1.0 - 0.8 * A), T = v[0] - 12.0 * S + 3.0 * br;
+      const a = Math.exp(-2.0 * Math.PI * v[6] / sr);
+      const hp = a * (this.hpY + x - this.hpX); this.hpX = x; this.hpY = hp;
+      const hp2 = a * (this.hpY2 + x2 - this.hpX2); this.hpX2 = x2; this.hpY2 = hp2;
+      const ar = Math.exp(-1.0 / (sr * (v[5] * (1.0 + 0.2 * br))));
+      this.ms = ar * this.ms + (1.0 - ar) * Math.max(hp * hp, hp2 * hp2);
+      const det = DB10 * Math.log(this.ms + 1e-12) + 3.0103;
+      const target = Math.min(0.0, curve(det, T, R, K) - det);
+      this.dline[this.dw] = target;
+      let r = this.dw - this.d; if (r < 0) r += DLEN;
+      const delayed = this.dline[r];
+      if (++this.dw >= DLEN) this.dw = 0;
+      const atk = Math.max(this.floor, v[3] / (1.0 + S));
+      const m = Math.min(4.0, Math.max(0.25, Math.pow(2.0, -v[9] * (-this.g - 6.0) / 6.0)));
+      const rel = Math.max(0.005, v[4] / (1.0 + 3.0 * S) * m);
+      const c = delayed < this.g ? Math.exp(-1.0 / (sr * atk)) : Math.exp(-1.0 / (sr * rel));
+      this.g = c * this.g + (1.0 - c) * delayed;
+      if (v[8] >= 0.5) { this.out[0] = x; this.out[1] = x2; }
+      else { const gl = Math.pow(10.0, (this.g + v[7]) / 20.0); this.out[0] = x * gl; this.out[1] = x2 * gl; }
+      const p = this.probes; p[0] = det; p[1] = target; p[2] = this.g; p[3] = target < -0.05 ? 1 : 0; p[4] = br;
+      return this.out;
+    }
+  }
+  // The drum loop: the plugin check's recipe (reference/paths.py, drums), 100 bpm, kick on 1 and 3,
+  // snare on 2 and 4, eighth hats, made here from sine and seeded noise. Two bars, 4.8 s.
+  function drums(N, sr) {
+    sr = sr || SR;
+    let s = 7 >>> 0; const rnd = () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296 * 2 - 1; };
+    const x = new Float64Array(N), beat = 0.6, kph = [0, 0];
+    for (let n = 0; n < N; n++) {
+      const t = n / sr, pos = t % (4 * beat), nz = rnd();
+      let k = 0;
+      for (let i = 0; i < 2; i++) {
+        const u = pos - (i * 2) * beat;
+        if (u >= 0) { const f = 45 + 90 * Math.exp(-u / 0.03); kph[i] += 2 * Math.PI * f / sr; k += Math.exp(-u / 0.25) * Math.sin(kph[i]); }
+        else kph[i] = 0;
+      }
+      let sn = 0;
+      for (const bb of [1, 3]) { const u = pos - bb * beat; if (u >= 0) sn += Math.exp(-u / 0.12) * (0.6 * nz + 0.4 * Math.sin(2 * Math.PI * 190 * t)); }
+      const h = Math.exp(-((t % (beat / 2)) / 0.02)) * nz * 0.25;
+      x[n] = 0.7 * k + 0.45 * sn + h;
+    }
+    return x;
+  }
+  const LOOP_S = 4.8, N = Math.round(LOOP_S * SR);
+  let LOOP = null;
+  const loop = () => LOOP || (LOOP = drums(N, SR));
+  // Run the loop through one compressor twice; the first pass settles it, the second is what you hear
+  // and what is measured. The first `first` samples of the first pass, from rest, are one hit alone.
+  function render(set, opts, first) {
+    const x = loop(), c = new Compressor(SR, opts), v = Float64Array.from(DEFAULTS);
+    for (const k in set) v[IDS.indexOf(k)] = set[k];
+    first = first || 0;
+    const one = { x: new Float32Array(first), y: new Float32Array(first), g: new Float32Array(first), det: new Float32Array(first), fire: new Uint8Array(first) };
+    for (let n = 0; n < N; n++) {
+      const o = c.step(v, x[n], 0.92 * x[n]);
+      if (n < first) { one.x[n] = x[n]; one.y[n] = o[0]; one.g[n] = c.g; one.det[n] = c.probes[0]; one.fire[n] = c.probes[3]; }
+    }
+    const L = new Float32Array(N), R = new Float32Array(N), g = new Float32Array(N), det = new Float32Array(N);
+    for (let n = 0; n < N; n++) { const o = c.step(v, x[n], 0.92 * x[n]); L[n] = o[0]; R[n] = o[1]; g[n] = c.g; det[n] = c.probes[0]; }
+    return { L, R, g, det, one, v };
+  }
+  function stats(L) {
+    let pk = 0, ss = 0;
+    for (let i = 0; i < L.length; i++) { const a = Math.abs(L[i]); if (a > pk) pk = a; ss += L[i] * L[i]; }
+    const rms = Math.sqrt(ss / L.length);
+    return { peak: 20 * Math.log10(pk), rms: 20 * Math.log10(rms), crest: 20 * Math.log10(pk / rms) };
+  }
+  // The loop's four kicks (0, 1.2, 2.4, 3.6 s): how closed the vessel already is as each lands, and how much
+  // further it closes in the kick's first 5 ms (220 samples, the last before a 5 ms nerve can act) and by 10 ms.
+  const KICKS = [0, 1.2, 2.4, 3.6], IN5 = Math.floor(0.005 * SR), IN10 = Math.round(0.010 * SR);
+  function kicks(g) {
+    let pre = 0, c5 = 0, c10 = 0;
+    for (const k of KICKS) {
+      const n = Math.round(k * SR), p = n === 0 ? g[g.length - 1] : g[n - 1];
+      pre += p; c5 += g[n + IN5] - p; c10 += g[n + IN10] - p;
+    }
+    return { pre: pre / 4, close5: c5 / 4, close10: c10 / 4 };
+  }
+  function squeeze(g) { let m = 0, d = 0; for (let i = 0; i < g.length; i++) { m += g[i]; if (g[i] < d) d = g[i]; } return { mean: m / g.length, deepest: d }; }
+  // Loudness match: every take to the same RMS, so the ear compares shape, not level; lowered further
+  // only if a take's peak would pass the ceiling. The check runs every take the page can make.
+  const MATCH_RMS = -33, CEIL = -1;
+  function matchGain(st) { return Math.pow(10, Math.min(MATCH_RMS - st.rms, CEIL - st.peak) / 20); }
+  return { SR, IDS, DEFAULTS, NERVE_S, FLOOR_S, curve, Compressor, drums, loop, render, stats, squeeze, kicks, KICKS, IN5, IN10, matchGain, N, LOOP_S, MATCH_RMS, CEIL };
+})();
+</script>
+<script id="bc-audio">
+// Sound. Nothing exists until Play is clicked: the AudioContext is made on that click. A take is a
+// rendered, loudness-matched loop; a new take crossfades in at the same place in the bar.
+const Player = (() => {
+  let ctx = null, master = null, cur = null, startedAt = 0, playing = false, want = null;
+  function ensure() {
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    master = ctx.createGain(); master.gain.value = 0.9; master.connect(ctx.destination);
+  }
+  function bufferOf(take) {
+    const b = ctx.createBuffer(2, take.L.length, BC.SR), k = take.gain;
+    const l = b.getChannelData(0), r = b.getChannelData(1);
+    for (let i = 0; i < take.L.length; i++) { l[i] = take.L[i] * k; r[i] = take.R[i] * k; }
+    return b;
+  }
+  function startTake(take) {
+    const src = ctx.createBufferSource(), g = ctx.createGain();
+    src.buffer = bufferOf(take); src.loop = true; src.connect(g); g.connect(master);
+    const now = ctx.currentTime, dur = src.buffer.duration;
+    const off = cur ? ((now - startedAt) % dur + dur) % dur : 0;
+    if (!cur) startedAt = now;
+    g.gain.setValueAtTime(0, now); g.gain.linearRampToValueAtTime(1, now + 0.03);
+    src.start(now, off);
+    if (cur) { const old = cur; old.g.gain.setValueAtTime(1, now); old.g.gain.linearRampToValueAtTime(0, now + 0.03); old.src.stop(now + 0.05); }
+    cur = { src, g };
+  }
+  return {
+    get playing() { return playing; },
+    play(take) { ensure(); if (ctx.state === 'suspended') ctx.resume(); playing = true; want = take; startTake(take); },
+    swap(take) { want = take; if (playing && ctx) startTake(take); },
+    stop() {
+      playing = false;
+      if (cur && ctx) { const now = ctx.currentTime; cur.g.gain.setValueAtTime(1, now); cur.g.gain.linearRampToValueAtTime(0, now + 0.03); cur.src.stop(now + 0.05); }
+      cur = null;
+    }
+  };
+})();
+</script>
+<script id="bc-ui">
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const FIRST = Math.round(0.16 * BC.SR);           // one hit: 160 ms from rest
+  const BASE = { threshold: -36, ratio: 10, release: 0.3 };   // the plugin's attack-lesson settings (check/render_take.py)
+  const atkOf = (u) => 0.005 * Math.pow(200 / 5, u); // the knob: its floor to 200 ms, even in log
+  const fmtMs = (s) => (s * 1000 < 10 ? (s * 1000).toFixed(1) : Math.round(s * 1000)) + ' ms';
+  const f1 = (x) => (x >= 0 ? '+' : '−') + Math.abs(x).toFixed(1);
+  const f1n = (x) => (x < 0 ? '−' : '') + Math.abs(x).toFixed(1);
+
+  // ── takes: render once, keep ──
+  const cache = new Map();
+  function take(key, set, opts) {
+    if (cache.has(key)) return cache.get(key);
+    const r = BC.render(Object.assign({}, BASE, set), opts, FIRST);
+    r.st = BC.stats(r.L); r.gain = BC.matchGain(r.st); r.sq = BC.squeeze(r.g);
+    const at = (ms) => r.one.g[Math.round(ms / 1000 * BC.SR)];
+    r.at5 = r.one.g[BC.IN5]; r.at10 = r.one.g[BC.IN10]; r.at30 = at(30); r.k = BC.kicks(r.g);
+    let fire = -1, move = -1, full = -1;
+    for (let i = 0; i < FIRST; i++) {
+      if (fire < 0 && r.one.fire[i]) fire = i;
+      if (move < 0 && r.one.g[i] < -0.1) move = i;
+      if (full < 0 && r.one.g[i] < -1) full = i;
+    }
+    r.fireMs = fire / BC.SR * 1000; r.moveMs = move / BC.SR * 1000; r.passMs = full / BC.SR * 1000;
+    cache.set(key, r); return r;
+  }
+  const bypass = () => take('bypass', { bypass: 1, attack: 0.06 });
+  const atk = (s) => take('atk' + s.toFixed(6), { attack: s });
+  const unbodied = () => take('unbodied', { attack: 0 }, { floor: 0, nerve: 0 });
+  const nerveOnly = () => take('nerveOnly', { attack: 0 }, { floor: 0 });
+
+  // ── steps ──
+  const STEPS = [
+    { rail: '1 · one hit', eyebrow: 'Step 1 of 4 · the hit alone', title: 'One kick, the vessel open',
+      say: 'One kick drum, from silence, in the vessel. The tube’s opening is the gain: wide open is the sound passing as it came. The red inside is the sound itself. Look at the very front of the hit: the kick goes from nothing to nearly its loudest in under two milliseconds. That front is what this lesson is about. Play the loop as it arrives.',
+      hint: 'the loop as it arrives, no compression', view: { pressure: false, baro: false, front: false }, take: () => bypass(),
+      tryText: 'Listen for the kick’s click on top of its boom. The click is the front.' },
+    { rail: '2 · notice, then act', eyebrow: 'Step 2 of 4 · baroreceptors and the reflex', title: 'The body notices, then acts',
+      say: 'Now the compressor, with attack at 200 ms. The lower strip is the pressure the detector feels, against the systolic line at −36 dB. The baroreceptors on the wall light the moment pressure crosses the line: the body noticing. Then nothing happens for 5 ms. That is the nerve, fixed, the same at every setting. Only after it does the muscle start to close the vessel, at the pace the attack sets. At 200 ms, slowly: the hit’s weight is through before the squeeze arrives. The picture starts from rest so the front is easy to see; in the loop you hear, the hats and snare keep the vessel partly closed when each kick lands.',
+      hint: 'the loop, attack 200 ms', view: { pressure: true, baro: true, front: false }, take: () => atk(0.2),
+      tryText: 'Find the gap between the first lit baroreceptor and the wall starting to move. That gap is the nerve.' },
+    { rail: '3 · the knob', eyebrow: 'Step 3 of 4 · attack, swept to its floor', title: 'Sweep the reflex down',
+      say: 'Now the attack is yours. Sweep it down from 200 ms and the vessel closes sooner and harder after each hit. Keep going. The knob stops at 5 ms. That is one of two floors the plugin keeps: the reflex can’t act faster than 5 ms, and before it, at every setting, sits a fixed 5 ms nerve delay. The DSP section names one floor, a nerve-conduction delay, and says the attack cannot be set to 0; the build has both. Watch the shaded band at the front of the hit while you sweep. It runs from the hit landing to the wall first moving, the part of the hit no reflex can touch, and it never gets shorter than the nerve.',
+      hint: 'the loop, attack where you set it', view: { pressure: true, baro: true, front: true }, attack: true, take: () => atk(atkOf(+$('atk').value)),
+      tryText: 'Drag all the way left. That is as far as it goes. Listen to what the floor does to the kick: the click, then the boom.' },
+    { rail: '4 · the test', eyebrow: 'Step 4 of 4 · the sentence, tested', title: 'Does the floor lunge?',
+      say: 'The page: “When students set attack=0 and feel the compressor lunge at the audio, they are feeling what the body would do without baroreceptors — instant clamping, no breath, no give.” Attack can’t reach 0 here, so test the nearest thing: the floor. Answer first, then listen. Take A is the loop as it arrives. B is this compressor at its floor. C is the body the sentence imagines: no floor and no nerve, attack 0, not this compressor. D is 200 ms, the sentence’s other half. E takes away only the reflex floor and keeps the nerve, so you can hear which floor does what.',
+      hint: 'four takes, loudness matched', view: { pressure: true, baro: true, front: true }, test: true, take: () => guessed ? testTakes()[sel] : bypass(),
+      tryText: 'Flip between B and C on the kick. One lets the click through and clamps the boom; the other catches the click too.' }
+  ];
+  let step = 0, sel = 1, guessed = false;
+  const testTakes = () => [bypass(), atk(0.005), unbodied(), atk(0.2), nerveOnly()];
+  const TAKE_NAMES = ['A · as it arrives', 'B · this compressor, floor', 'C · no nerve, no floor', 'D · this compressor, 200 ms', 'E · no floor, nerve kept'];
+  const TAKE_REFLEX = ['—', '5 ms (floor)', '0 ms', '200 ms', '0 ms'];
+  const TAKE_NERVE = ['—', '5 ms', '0 ms', '5 ms', '5 ms'];
+
+  // ── picture ──
+  const cv = $('stage'), cx = cv.getContext('2d');
+  function size() {
+    const w = cv.clientWidth || 900, h = STEPS[step].view.pressure ? 380 : 270, d = window.devicePixelRatio || 1;
+    cv.style.height = h + 'px'; cv.width = Math.round(w * d); cv.height = Math.round(h * d); cx.setTransform(d, 0, 0, d, 0, 0);
+    return { w, h };
+  }
+  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  function draw() {
+    const { w, h } = size(), s = STEPS[step], r = s.take(), one = r.one;
+    cx.clearRect(0, 0, w, h);
+    const L = 54, Rr = w - 16, top = 26, vh = 200, cy = top + vh / 2, R0 = vh / 2 - 8;
+    const tx = (ms) => L + (Rr - L) * Math.sqrt(Math.max(0, ms) / 160);          // square-root time: the first 10 ms get room
+    const ms = (i) => i / BC.SR * 1000;
+    // ticks
+    cx.font = '10px "JetBrains Mono", monospace'; cx.fillStyle = css('--fg-3'); cx.strokeStyle = 'rgba(255,255,255,0.06)'; cx.lineWidth = 1;
+    for (const t of [0, 1, 2, 5, 10, 20, 40, 80, 160]) { const x = tx(t); cx.beginPath(); cx.moveTo(x, top - 6); cx.lineTo(x, h - 18); cx.stroke(); cx.fillText(t + (t === 160 ? ' ms' : ''), x + 2, h - 6); }
+    // front band: the part that passes at full width (gain above −1 dB)
+    if (s.view.front && r.moveMs > 0) {
+      cx.fillStyle = 'rgba(232,184,74,0.10)'; cx.fillRect(tx(0), top - 6, tx(r.moveMs) - tx(0), vh + 12);
+      cx.fillStyle = css('--accent'); cx.fillText('the wall cannot move yet: ' + r.moveMs.toFixed(1) + ' ms', tx(0) + 4, top - 10 + 2);
+    }
+    // ghost of the open wall
+    cx.setLineDash([4, 4]); cx.strokeStyle = 'rgba(139,74,94,0.55)'; cx.beginPath(); cx.moveTo(L, cy - R0); cx.lineTo(Rr, cy - R0); cx.moveTo(L, cy + R0); cx.lineTo(Rr, cy + R0); cx.stroke(); cx.setLineDash([]);
+    // the tube: opening = linear gain
+    const rad = (i) => Math.max(2, R0 * Math.pow(10, one.g[i] / 20));
+    cx.beginPath(); for (let i = 0; i < FIRST; i += 4) { const x = tx(ms(i)); i ? cx.lineTo(x, cy - rad(i)) : cx.moveTo(x, cy - rad(i)); }
+    for (let i = FIRST - 1; i >= 0; i -= 4) cx.lineTo(tx(ms(i)), cy + rad(i));
+    cx.closePath(); cx.fillStyle = 'rgba(200,37,76,0.10)'; cx.fill();
+    // the sound as it arrived (faint) and as it leaves (red): out = in × gain, so the red always fits the tube
+    const pk = 0.95;
+    for (const [arr, col, lw] of [[one.x, 'rgba(200,200,216,0.18)', 1], [one.y, css('--blood'), 1.2]]) {
+      cx.strokeStyle = col; cx.lineWidth = lw; cx.beginPath();
+      for (let px = Math.floor(L); px < Rr; px++) {
+        const t0 = Math.pow((px - L) / (Rr - L), 2) * 160, t1 = Math.pow((px + 1 - L) / (Rr - L), 2) * 160;
+        const i0 = Math.floor(t0 / 1000 * BC.SR), i1 = Math.min(FIRST - 1, Math.max(i0 + 1, Math.floor(t1 / 1000 * BC.SR)));
+        let lo = 0, hi = 0; for (let i = i0; i < i1; i++) { const v = arr[i] / pk; if (v < lo) lo = v; if (v > hi) hi = v; }
+        cx.moveTo(px + 0.5, cy - hi * R0); cx.lineTo(px + 0.5, cy - lo * R0 + 0.5);
+      }
+      cx.stroke();
+    }
+    // walls
+    cx.strokeStyle = css('--wall'); cx.lineWidth = 3;
+    for (const sgn of [-1, 1]) { cx.beginPath(); for (let i = 0; i < FIRST; i += 4) { const x = tx(ms(i)), y = cy + sgn * rad(i); i ? cx.lineTo(x, y) : cx.moveTo(x, y); } cx.stroke(); }
+    // baroreceptors and the nerve
+    if (s.view.baro) {
+      const n = 26;
+      for (let k = 0; k < n; k++) {
+        const t = Math.pow((k + 0.5) / n, 2) * 160, i = Math.round(t / 1000 * BC.SR), lit = one.fire[i];
+        const x = tx(t), y = cy - rad(i) - 7;
+        cx.beginPath(); cx.arc(x, y, 3.2, 0, 2 * Math.PI);
+        if (lit) { cx.fillStyle = css('--baro'); cx.shadowColor = css('--baro'); cx.shadowBlur = 8; cx.fill(); cx.shadowBlur = 0; }
+        else { cx.strokeStyle = 'rgba(245,193,108,0.35)'; cx.lineWidth = 1; cx.stroke(); }
+      }
+      if (r.fireMs >= 0 && r.moveMs > 0) {
+        const y = cy + R0 + 16, x0 = tx(r.fireMs), x1 = tx(r.moveMs);
+        cx.strokeStyle = css('--baro'); cx.lineWidth = 1; cx.beginPath(); cx.moveTo(x0, y - 4); cx.lineTo(x0, y); cx.lineTo(x1, y); cx.lineTo(x1, y - 4); cx.stroke();
+        cx.fillStyle = css('--baro'); cx.fillText('noticed ' + r.fireMs.toFixed(2) + ' ms · wall moves ' + r.moveMs.toFixed(1) + ' ms', x0, y + 12);
+      }
+    }
+    // pressure strip
+    if (s.view.pressure) {
+      const p0 = top + vh + 40, ph = 80, py = (db) => p0 + ph * (1 - (Math.max(-60, Math.min(0, db)) + 60) / 60);
+      cx.fillStyle = css('--fg-3'); cx.fillText('pressure (detector, dB)', 4, p0 - 14);
+      cx.fillText('0', L - 14, py(0) + 3); cx.fillText('−60', L - 30, py(-60) + 3);
+      cx.setLineDash([6, 4]); cx.strokeStyle = css('--accent'); cx.lineWidth = 1; cx.beginPath(); cx.moveTo(L, py(-36)); cx.lineTo(Rr, py(-36)); cx.stroke(); cx.setLineDash([]);
+      cx.fillStyle = css('--accent'); cx.fillText('systolic line −36', Rr - 112, py(-36) - 4);
+      cx.strokeStyle = css('--fg-1'); cx.lineWidth = 1.2; cx.beginPath();
+      for (let i = 0; i < FIRST; i += 2) { const x = tx(ms(i)), y = py(one.det[i]); i ? cx.lineTo(x, y) : cx.moveTo(x, y); }
+      cx.stroke();
+    }
+    cx.fillStyle = css('--fg-3'); cx.textAlign = 'right'; cx.fillText('one kick, from rest · time on a square-root scale', Rr, 12); cx.textAlign = 'left';
+  }
+
+  // ── words ──
+  function legend() {
+    const s = STEPS[step], items = [
+      ['the tube', 'Its opening is the gain, linear: half open is −6 dB. Dashed: wide open.'],
+      ['the red', 'The sound leaving the vessel. Faint behind it: the sound as it arrived.']
+    ];
+    if (s.view.baro) items.push(['baroreceptors', 'Lit while the pressure is over the line. The bracket runs from the first one lit to the wall first moving.']);
+    if (s.view.front) items.push(['the shaded front', 'From the hit landing to the wall first moving: the part of the hit no reflex can touch.']);
+    $('legend').innerHTML = items.map(([a, b]) => '<div><b>' + a + '</b>' + b + '</div>').join('');
+  }
+  function meter() {
+    const s = STEPS[step], r = s.take(), by = bypass();
+    const lines = [];
+    if (step === 0) lines.push('the loop as it arrives · loudest peak <b>' + f1n(by.st.peak) + ' dBFS</b> · crest (peak over average) <b>' + by.st.crest.toFixed(1) + ' dB</b>');
+    else {
+      lines.push('one kick, from rest (the picture) · squeeze 5 ms in <b>' + f1n(r.at5) + ' dB</b> · 10 ms in <b>' + f1n(r.at10) + ' dB</b> · 30 ms in <b>' + f1n(r.at30) + ' dB</b>');
+      lines.push('the loop (what you hear) · the hats and snare leave the vessel <b>' + Math.abs(r.k.pre).toFixed(1) + ' dB</b> closed as each kick lands · in the kick’s first 5 ms it moves <b>' + f1(r.k.close5) + ' dB</b>, by 10 ms <b>' + f1(r.k.close10) + ' dB</b> · crest (peak over average) <b>' + r.st.crest.toFixed(1) + ' dB</b>, as it arrives ' + by.st.crest.toFixed(1));
+    }
+    lines.push('<span class="hint">what you hear is matched to ' + BC.MATCH_RMS + ' dBFS average, so the ear compares shape, not level</span>');
+    $('meter').innerHTML = lines.join('<br>');
+    if (step >= 1) {
+      $('eq1').textContent = 'g[n] = c · g[n−1] + (1 − c) · target[n − d],   c = e^(−1 ⁄ (fs · τ)),   τ = max(5 ms, attack),   d = 5 ms · fs';
+      $('eq1w').textContent = '(squeeze now) = c × (squeeze a sample ago) + (1 − c) × (what the line asked for 5 ms ago); c is how slowly the muscle moves; the reflex time never goes under 5 ms, and the 5 ms of nerve sits before it at every setting.';
+    } else { $('eq1').textContent = ''; $('eq1w').textContent = ''; }
+  }
+  function table() {
+    const T = testTakes(), by = T[0];
+    $('marks').querySelector('tbody').innerHTML = T.map((r, k) => '<tr class="' + (k === sel ? 'sel' : '') + '"><td>' + TAKE_NAMES[k] + '</td><td>' + TAKE_REFLEX[k] + '</td><td>' + TAKE_NERVE[k] + '</td><td>' + (k ? Math.abs(r.k.pre).toFixed(1) + ' dB' : '—') + '</td><td><b>' + (k ? f1(r.k.close5) + ' dB' : '—') + '</b></td><td>' + (k ? f1(r.k.close10) + ' dB' : '—') + '</td><td>' + r.st.crest.toFixed(1) + ' dB</td></tr>').join('');
+    const B = T[1], C = T[2], D = T[3], E = T[4];
+    $('verdict').innerHTML = 'The knob stops at 5 ms, and the nerve’s 5 ms sits before it. At the floor the vessel does not close at all in the kick’s first 5 ms (' + f1(B.k.close5) + ' dB: it is still letting go of the last hit). The front comes through at whatever opening the vessel already had, ' + Math.abs(B.k.pre).toFixed(1) + ' dB closed in this loop, and only then does it clamp, ' + f1(B.k.close10) + ' dB by 10 ms in. A click, then a flattened boom. ' +
+      'The instant clamp the sentence describes is take C, and it takes two things this compressor refuses, no floor and no nerve: C moves ' + f1(C.k.close5) + ' dB inside those same 5 ms. D, at 200 ms, moves only ' + f1(D.k.close10) + ' dB by 10 ms: the body has noticed and is still deciding. ' +
+      'E keeps the nerve and drops only the reflex floor: it moves ' + f1(E.k.close5) + ' dB in the first 5 ms, like B, and ' + f1(E.k.close10) + ' dB by 10 ms, harder than B. The nerve decides the first 5 ms; the reflex floor decides how hard the vessel closes after. ' +
+      'The crest does not tell B from C: both raise it, from ' + by.st.crest.toFixed(1) + ' dB to ' + B.st.crest.toFixed(1) + ' and ' + C.st.crest.toFixed(1) + ', because the squeeze lowers the average, not because the front gets through. What tells them apart is the first 5 ms.' +
+      '<br><br>You answered <b>' + (guessed === 'yes' ? 'most of the way' : 'not at all') + '</b>. Whether the floor sounds like a lunge is for your ear; what the numbers rule out is “instant clamping” at any setting this compressor has.';
+  }
+
+  // ── step machinery ──
+  function syncTakes() { document.querySelectorAll('[data-take]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.take === sel))); }
+  function render() {
+    const s = STEPS[step];
+    $('rail').querySelectorAll('button').forEach((b, k) => { b.removeAttribute('aria-current'); if (k === step) b.setAttribute('aria-current', 'step'); });
+    $('stepEyebrow').textContent = s.eyebrow; $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say;
+    $('hearHint').textContent = s.hint; $('tryText').textContent = s.tryText;
+    $('ctlAttack').hidden = !s.attack; $('testBox').hidden = !s.test;
+    $('back').disabled = step === 0; $('next').disabled = step === STEPS.length - 1;
+    if (s.attack) $('atkv').textContent = fmtMs(atkOf(+$('atk').value)) + (+$('atk').value === 0 ? ' · floor' : '');
+    if (s.test) { $('takeRow').hidden = !guessed; $('marks').hidden = !guessed; $('verdict').hidden = !guessed; if (guessed) table(); syncTakes(); }
+    legend(); meter(); draw();
+  }
+  function go(i) { Player.stop(); $('play').textContent = 'Play'; step = Math.max(0, Math.min(STEPS.length - 1, i)); render(); }
+  $('rail').innerHTML = STEPS.map((s, k) => '<button type="button">' + s.rail + '</button>').join('');
+  $('rail').querySelectorAll('button').forEach((b, k) => b.addEventListener('click', () => go(k)));
+  $('back').addEventListener('click', () => go(step - 1));
+  $('next').addEventListener('click', () => go(step + 1));
+  $('play').addEventListener('click', () => {
+    if (Player.playing) { Player.stop(); $('play').textContent = 'Play'; return; }
+    if (STEPS[step].test && !guessed) { $('askRow').querySelector('.hint').textContent = 'Answer first, then listen: at the knob’s floor, how far does the vessel close during the kick’s first 5 ms?'; return; }
+    Player.play(STEPS[step].take()); $('play').textContent = 'Stop';
+  });
+  let pend = 0;
+  $('atk').addEventListener('input', () => { if (pend) return; pend = requestAnimationFrame(() => { pend = 0; render(); if (Player.playing) Player.swap(STEPS[step].take()); }); });
+  document.querySelectorAll('[data-guess]').forEach((b) => b.addEventListener('click', () => {
+    guessed = b.dataset.guess; document.querySelectorAll('[data-guess]').forEach((o) => { o.setAttribute('aria-pressed', String(o === b)); o.disabled = true; });
+    render();
+  }));
+  document.querySelectorAll('[data-take]').forEach((b) => b.addEventListener('click', () => { sel = +b.dataset.take; render(); if (Player.playing) Player.swap(STEPS[step].take()); }));
+  window.addEventListener('resize', () => draw());
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => draw());
+  render();
+})();
+</script>
+</body>
+</html>
