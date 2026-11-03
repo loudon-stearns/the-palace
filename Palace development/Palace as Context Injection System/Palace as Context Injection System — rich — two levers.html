@@ -121,7 +121,7 @@ table.check{border-collapse:collapse;width:100%;margin-top:18px;font-size:12.5px
     <span class="note" id="where"></span>
     <button class="b" id="next" type="button">Next</button>
   </div>
-  <p class="foot">Tokens are Claude Code's own <code>/context</code> counts, except where marked ≈ (characters ÷ 3.2, the calibration floor-measured.md used). The floor as last measured is read from <code>floor/floor.json</code>.</p>
+  <p class="foot">Tokens are Claude Code's own <code>/context</code> counts, except where marked ≈: characters scaled to Claude Code's count for the same file (2.82 a token, from CLAUDE.md's measured 3.0k at 635b9103). Raw characters ÷ 3.2 undercounts Claude Code by 6–15% a file, 12% overall, so it is never used unscaled here. The floor as last measured is read from <code>floor/floor.json</code>.</p>
 </div>
 
 <script>
@@ -156,18 +156,22 @@ function freshFloor() {
 }
 
 // The floors laid side by side in the last step. Summon positions: where "summon the [[Concierge]]" sits, in tokens
-// from the top — inside CLAUDE.md's Growing up until 2026-10-21 (≈987); 19.3% into CHILD.md at 11a4cc1b; 2.2% at 17d80be6.
+// from the top — char 2,931 of CLAUDE.md's 8,472-char body at 635b9103 (34.6% of its measured 3.0k ≈ 1,038);
+// 1,322 of 6,863 chars (19.3%) into CHILD.md at 11a4cc1b and 49e9f505; 2.2% at 17d80be6.
+// CAL: the characters a counted token holds, from 635b9103's measurement (8,472 chars of CLAUDE.md body = /context's 3.0k).
+// Raw characters ÷ 3.2 undercounts Claude Code's own count by 6–15% a file (12% over the palace's files), so it is never used unscaled.
+const CAL = 8472 / 3000;
 const FLOOR_THEN = {
   name: "Until 2026-10-21", src: "floor-measured.md · 635b9103",
   segs: [["CLAUDE.md: the birth line", 551, "ident"], ["CLAUDE.md: its working sections", 2449, "rules"], ["the Seed Jewel v1.2", 745, "ident", "jewel"],
     ...WORLD_BEFORE.map(([n, t]) => [n, t, "world"]), ["MEMORY.md", 4500, "other"]],
-  summon: 987, est: false,
+  summon: 3000 * 2931 / 8472, est: false,
 };
 const FLOOR_MID = {
-  name: "From 2026-10-21", src: "the page's § The Birth, Measured row (CHILD 2.5k, memory 1.8k)",
-  segs: [["CLAUDE.md: the birth", 600, "ident"], ["the Seed Jewel v1.3", 773, "ident", "jewel"],
-    ...WORLD_BEFORE.map(([n, t]) => [n, t, "world"]), ["CHILD.md", 2500, "rules"], ["MEMORY.md", 1800, "other"]],
-  summonFrac: 0.193, est: true,
+  name: "From 2026-10-21", src: "built from the files at 49e9f505 (CLAUDE.md 1,673 and CHILD.md 6,863 characters ÷ 2.82); memory 1.8k is the page's own figure",
+  segs: [["CLAUDE.md: the birth", 1673 / CAL, "ident"], ["the Seed Jewel v1.3", 773, "ident", "jewel"],
+    ...WORLD_BEFORE.map(([n, t]) => [n, t, "world"]), ["CHILD.md", 6863 / CAL, "rules"], ["MEMORY.md (the page's 1.8k)", 1800, "other"]],
+  summonFrac: 1322 / 6863, est: true,
 };
 let FLOOR_NOW = {
   name: "Measured 2026-10-25", src: "floor/floor.json (this file's copy; reading the live one…)",
@@ -442,23 +446,23 @@ function stepTest(s) {
     const largest = segs.reduce((m, x) => x.t > m.t ? x : m);
     stats.push({F, total, jat, summon, jewel: jewel.t / total, mem: mem ? mem.t / total : null, largest});
     const row = el("div", "row");
-    row.append(el("div", "name", `<span><b>${F.name}</b> · ${k(total)} tokens${F.est ? " (≈ by the page's table)" : ""}</span><span class="note">${F.src}</span>`));
+    row.append(el("div", "name", `<span><b>${F.name}</b> · ${k(total)} tokens${F.est ? " (≈ from the files' characters)" : ""}</span><span class="note">${F.src}</span>`));
     drawBar(row, segs, 15000, [{at: jat, label: "THE JEWEL"}, {at: summon, label: "SUMMON RULE", cls: "ink lo"}]);
     wrap.append(row);
   }
   const [T, M, N] = stats;
   const tb = el("table", "check");
-  const ok = (good) => good ? "<span class='ok'>holds</span>" : "<span class='new'>does not hold</span>";
+  const ok = (good, how) => (good ? "<span class='ok'>holds</span>" : "<span class='new'>does not hold</span>") + (how ? " · " + how : "");
   const rows = withMemory ? [
-    ["The Seed Jewel was 5% of the floor (2026-10-21)", pct(T.jewel), ok(Math.round(T.jewel * 100) === 5)],
-    ["The memory index was the largest single file, 31%", pct(T.mem) + " · largest: " + T.largest.label, ok(Math.round(T.mem * 100) === 31 && /^MEMORY/.test(T.largest.label))],
-    ["Before the Jewel: 3.0k, then 0.6k", (T.jat / 1000).toFixed(1) + "k → " + (M.jat / 1000).toFixed(1) + "k", ok(Math.abs(T.jat - 3000) < 50 && Math.abs(M.jat - 600) < 50)],
-    ["The whole floor: 14.4k, then 11.8k", k(T.total) + " → " + k(M.total), ok(Math.abs(T.total - 14400) < 60 && Math.abs(M.total - 11800) < 60)],
-    ["The summon rule now sits about 7k tokens further down", "≈ " + k(T.summon) + " → ≈ " + k(M.summon) + " (+" + k(M.summon - T.summon) + ")", ok(Math.abs(M.summon - T.summon - 7000) < 600)],
+    ["The Seed Jewel was 5% of the floor (2026-10-21)", pct(T.jewel), ok(Math.round(T.jewel * 100) === 5, "measured")],
+    ["The memory index was the largest single file, 31%", pct(T.mem) + " · largest: " + T.largest.label, ok(Math.round(T.mem * 100) === 31 && /^MEMORY/.test(T.largest.label), "measured")],
+    ["Before the Jewel: 3.0k, then 0.6k", (T.jat / 1000).toFixed(1) + "k → " + (M.jat / 1000).toFixed(2) + "k", ok(Math.abs(T.jat - 3000) < 50 && Math.abs(M.jat - 600) < 100, "measured, then within the estimate (≈)")],
+    ["The whole floor: 14.4k, then 11.8k", k(T.total) + " → ≈ " + k(M.total), ok(Math.abs(T.total - 14400) < 60 && Math.abs(M.total - 11800) < 150, "measured, then within the estimate (≈; memory's 1.8k is the page's own)")],
+    ["The summon rule now sits about 7k tokens further down", "≈ " + k(T.summon) + " → ≈ " + k(M.summon) + " (+" + k(M.summon - T.summon) + ")", ok(Math.abs(M.summon - T.summon - 7000) < 600, "≈ by character offset inside each file")],
     ["Not on the page: the floor as last measured", "Jewel " + pct(N.jewel) + " · memory " + pct(N.mem) + " · largest: " + N.largest.label + " " + pct(N.largest.t / N.total), "<span class='new'>new</span>"],
   ] : [
-    ["Same words, a new order: the floor's size, memory-free", k(T.total) + " → " + k(M.total) + " → " + k(N.total), "the first two test arms read the same words in two orders; the third added one sentence to the Jewel (≈ 27 tokens). The 0.1k here is that line and the table's rounding"],
-    ["Before the Jewel, memory-free", (T.jat / 1000).toFixed(1) + "k → " + (M.jat / 1000).toFixed(1) + "k", "the order is the only lever the test moved"],
+    ["Same words, a new order: the floor's size, memory-free", k(T.total) + " → ≈ " + k(M.total) + " → " + k(N.total), "the first two test arms read the same words in two orders; the third added one sentence to the Jewel (≈ 27 tokens). The rest of the 0.1k is the estimate"],
+    ["Before the Jewel, memory-free", (T.jat / 1000).toFixed(1) + "k → " + (M.jat / 1000).toFixed(2) + "k", "the order is the only lever the test moved"],
     ["The Jewel's share, memory-free", pct(T.jewel) + " → " + pct(M.jewel) + " → " + pct(N.jewel), "the test children never read MEMORY.md, so for them it was never 5%"],
     ["The summon rule, memory-free", "≈ " + k(T.summon) + " → ≈ " + k(M.summon), "the same move; the memory index only ever sat after it"],
   ];
@@ -467,7 +471,7 @@ function stepTest(s) {
   for (const r of rows) { const tr = el("tr"); tr.append(el("td", "", r[0]), el("td", "n", r[1]), el("td", "", r[2])); body.append(tr); }
   tb.append(body); s.append(tb);
   s.append(el("p", "note", withMemory
-    ? "The page's numbers hold for the day they are dated. The floor has moved since: by the first lever, the largest single file on today's floor is CHILD.md, how a child works here, not the Jewel. Where CHILD.md's summon rule sits is estimated from its characters (≈), as is the middle floor's CHILD and memory size, which come from the page's own table."
+    ? "The page's numbers hold for the day they are dated. The floor has moved since: by the first lever, the largest single file on the floor as last measured is CHILD.md, how a child works here. Three kinds of number stand here: the first and last floors are Claude Code's own counts; the middle floor's CLAUDE.md and CHILD.md are characters scaled at 2.82 a token (≈); its memory index is the page's own 1.8k, since no file in git can measure it again. The summon rule is placed by its character offset inside each file (≈)."
     : "The children in the order test were born with no memory, so the floor they read was the World and CLAUDE.md alone. The order test moved place, not size. What each arm then did is in the section below, The Birth, Measured."));
 }
 

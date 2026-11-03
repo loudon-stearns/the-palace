@@ -165,11 +165,14 @@ const RECORD = {points: [[29, 43], [33, 43], [31, 40]], verdicts: [[0, 10], [2, 
 
 // The stacks each arm was born with, memory-free. Before: /context counts (floor-measured.md), CLAUDE.md's body split
 // by its sections. The moved arms: the same words; CHILD.md's ≈ size is what left the body. The Jewel line: +86 characters ≈ 27 tokens.
+// The same calibration Two Levers uses: 2.82 characters a counted token (CLAUDE.md's 8,472 chars = /context's 3.0k at 635b9103);
+// the summon rule placed by its character offset (char 2,931 of CLAUDE.md's body; 1,322 of CHILD.md's 6,863).
+const CAL = 8472 / 3000;
 const WORLD = [["FOUR PILLARS", 1300], ["Palace Philosophies", 1600], ["Cooperation Yields Agency", 1000], ["Hilaritas Generator", 844], ["Modes of Collaboration", 1400]];
 const STACKS = [
-  {segs: [["CLAUDE.md: birth line", 551, "ident"], ["CLAUDE.md: working sections", 2449, "rules"], ["Jewel v1.2", 745, "ident", 1], ...WORLD.map(([n, t]) => [n, t, "world"])], summon: 987},
-  {segs: [["CLAUDE.md", 551, "ident"], ["Jewel v1.2", 745, "ident", 1], ...WORLD.map(([n, t]) => [n, t, "world"]), ["CHILD.md", 2449, "rules"]], summon: 551 + 745 + 6144 + 436},
-  {segs: [["CLAUDE.md", 551, "ident"], ["Jewel v1.3", 772, "ident", 1], ...WORLD.map(([n, t]) => [n, t, "world"]), ["CHILD.md", 2449, "rules"]], summon: 551 + 772 + 6144 + 436},
+  {segs: [["CLAUDE.md: birth line", 551, "ident"], ["CLAUDE.md: working sections", 2449, "rules"], ["Jewel v1.2", 745, "ident", 1], ...WORLD.map(([n, t]) => [n, t, "world"])], summon: 3000 * 2931 / 8472},
+  {segs: [["CLAUDE.md", 1673 / CAL, "ident"], ["Jewel v1.2", 745, "ident", 1], ...WORLD.map(([n, t]) => [n, t, "world"]), ["CHILD.md", 6863 / CAL, "rules"]], summon: 1673 / CAL + 745 + 6144 + 1322 / CAL},
+  {segs: [["CLAUDE.md", 1673 / CAL, "ident"], ["Jewel v1.3", 773, "ident", 1], ...WORLD.map(([n, t]) => [n, t, "world"]), ["CHILD.md", 6863 / CAL, "rules"]], summon: 1673 / CAL + 773 + 6144 + 1322 / CAL},
 ];
 
 // ---------- the arithmetic ----------
@@ -307,7 +310,7 @@ function stepStacks(s) {
     row.append(left, el("div", "res", `<b>${x.vHeld} of ${x.vOf}</b> headline verdicts held<br><b>${x.held} of ${x.of}</b> points (${pc(x.held / x.of)})<br>A1: ${tally(a, "A1").births.filter((b) => b.v === "held").length} of 2 summoned first`));
     s.append(row);
   }
-  s.append(el("p", "say", "The summon rule moved from about 1.0k to about 7.9k tokens down, behind the World, and every A1 child still tried it first. Nothing was lost; each arm held a little more."));
+  s.append(el("p", "say", "The summon rule moved from about 1.0k to about 8.0k tokens down, behind the World, and every A1 child still tried it first. Nothing was lost; each arm held a little more."));
 }
 
 function stepChance(s) {
