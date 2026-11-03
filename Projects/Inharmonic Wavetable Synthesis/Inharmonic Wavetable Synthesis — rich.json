@@ -68,7 +68,33 @@
         }
       ],
       "made_against": "273cf4076552",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Inharmonic Wavetable Synthesis — rich — bend the line.html",
+            "verdict": "keep",
+            "why": "Tests the flat line (table rebuilt to 2e-13, every line home at D = 0) and the material claim, which the bell fails; walks table → one bent partial → any curve → materials. The bell's distance depends on rank filing, but its modes (1, 1.135, 1.451) are off J₀ under any filing."
+          },
+          {
+            "file": "proofs/2026-05-04-bending-spectra-v2.png",
+            "verdict": "keep",
+            "why": "The figure's own title (B 0 → 0.005 over 12 s, four panels) matches the caption; the peaks walk right of the grid."
+          },
+          {
+            "file": "proofs/2026-05-04-bending-the-line-v2.wav",
+            "verdict": "keep",
+            "why": "The sweep behind the spectra; the library's 5.0e-3 at F♯6 matches the caption. Sound unchecked."
+          },
+          {
+            "file": "rich-face/bent-line-take.wav",
+            "verdict": "keep",
+            "why": "Tracked and synthesized; the caption matches the scroll's account, including that nobody had listened to it."
+          }
+        ]
+      }
     },
     {
       "heading": "What This Sounds Like",
@@ -113,7 +139,33 @@
         }
       ],
       "made_against": "6948c2569c35",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Inharmonic Wavetable Synthesis — rich — two ways to settle.html",
+            "verdict": "remake",
+            "why": "Words only: step 3 and the caption state as fact that the 0.03–0.09 s drop is partials 2–3 settling, when it may be the tracker's first frames; add that after 0.1 s the line holds and the loudness carries the slow fall (1.83 → 1.34 c by 2.6 s; A1 halves between 3.8 and 5.5 s the same way), and name that the power weighting gives partials 2–3 70 % of the measure at the strike."
+          },
+          {
+            "file": "dual-wavetable/02-organ-struck-piano-settling.wav",
+            "verdict": "keep",
+            "why": "The scroll matches the caption (three strikes, depth 0.3), and the caption honestly calls it the designed gesture, not the string."
+          },
+          {
+            "file": "dual-wavetable/03-organ-bell-dissolving.wav",
+            "verdict": "keep",
+            "why": "The scroll's partial 2 at 252.5 Hz on 110 Hz is the J₀ ratio 2.295, so 'Bessel positions' is right, and so is 'not a measured bowl'."
+          },
+          {
+            "file": "dual-wavetable/04-two-clocks-chord.wav",
+            "verdict": "keep",
+            "why": "The caption matches the cube-walls floor path (18 s). Sound unchecked."
+          }
+        ]
+      }
     },
     {
       "heading": "What This Looks Like",
@@ -135,7 +187,18 @@
         }
       ],
       "made_against": "5e3b47ceb472",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "bent-line-editor.png",
+            "verdict": "keep",
+            "why": "The plugin as built; the caption's 'still dark' matches the scroll's 'centre screen is off'."
+          }
+        ]
+      }
     },
     {
       "heading": "The Cube Architecture: Higher-Dimensional Framing, Unison, and Spatial Partials",
@@ -179,7 +242,28 @@
         }
       ],
       "made_against": "10c2bb8b472d",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "dual-wavetable/cube-walls.png",
+            "verdict": "keep",
+            "why": "The panels match the caption. Its middle title says 'bell (zeros of J0)', which offer 5 covers; the caption rightly says Bessel positions."
+          },
+          {
+            "file": "dual-wavetable/dual-wavetable-instrument.html",
+            "verdict": "keep",
+            "why": "The play-silent warning is a checker miss: the first visible button is the ◇ review pin, and clicking A2 starts a running context headless. Leave as built and name it at landing."
+          },
+          {
+            "file": "Inharmonic Wavetable Synthesis — rich — the bundle of lines.html",
+            "verdict": "keep",
+            "why": "Step 5 sets slope beside width and the Bessel shape fails the page's reason; it walks one voice → detune → τ_B → bundle → test. Note: width = δ·S(n) only because its frames relax by uniform scaling, and the measured bundle's 7.69 c peak is tracker noise (partial 15)."
+          }
+        ]
+      }
     },
     {
       "heading": "At the Coupling Edge",
@@ -213,7 +297,23 @@
         }
       ],
       "made_against": "7e2e19b4a7fd",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "coupling-edge/coupling-edge-instrument.html",
+            "verdict": "keep",
+            "why": "The MIDI grant-missing stands correctly (Loudon's grant alone); with MIDI blocked, ▸ start runs and the only console line is the block, so the caption's 'plays from the mouse' is true."
+          },
+          {
+            "file": "coupling-edge/coupling-edge.png",
+            "verdict": "keep",
+            "why": "Plots the section's three findings."
+          }
+        ]
+      }
     },
     {
       "heading": "Physical Trajectory Library",
@@ -257,7 +357,33 @@
         }
       ],
       "made_against": "a38cb2e2dc66",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "trajectory-library/keyboard-stiffness.png",
+            "verdict": "keep",
+            "why": "Its numbers match the JSONs (4.67e-5, 8.30e-5, 2.3e-3; about 3× an octave above A2). Note: the right panel's title is steward-018's reason, which this challenge finds right for the slow part of the settling."
+          },
+          {
+            "file": "trajectory-library/library-sheet.png",
+            "verdict": "keep",
+            "why": "The panels match the caption: bell and vibraphone below the line, marimba and bowl above, attack and last frames nearly coincident."
+          },
+          {
+            "file": "trajectory-library/01-real-piano-two-walls.wav",
+            "verdict": "keep",
+            "why": "The measured string rebuilt from its own two walls. Sound unchecked."
+          },
+          {
+            "file": "trajectory-library/09-bell-choir-measured.wav",
+            "verdict": "keep",
+            "why": "A measured bell set against the page's Bessel bell choir. Sound unchecked."
+          }
+        ]
+      }
     }
   ],
   "offers": [
