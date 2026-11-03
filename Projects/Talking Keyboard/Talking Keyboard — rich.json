@@ -1,0 +1,180 @@
+{
+  "title": "Talking Keyboard — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Talking Keyboard]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Talking Keyboard's rich face: the instrument played from its own SFZ, the spoken-A bug heard and read one layer down, and the page's future variants rendered before anyone builds them. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Talking Keyboard",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "Why This Instrument First",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Talking Keyboard — rich — 88 keys.html",
+            "verdict": "remake",
+            "why": "A real test that walks up well (C4 → four voices → 88 → planted bug), but a swap can be named by elimination without being heard: the menu lists all four bugs and the other three show on press 1 (headless: 5 presses, guessed swap, \"Right … It never spoke in what you played\"). Plant a fifth case, no bug, ~1 in 5, and add it to the menu, or make a swap guess name a swapped key; and for reversed voices say \"first played the wrong voice\", not \"first spoke\"."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Talking Keyboard — rich — 88 keys.html",
+          "origin": "made",
+          "by": "Web Audio · reads the build's SFZ",
+          "height": 980,
+          "place": "band",
+          "near": "It also gave instant audible verification",
+          "title": "88 keys · four steps",
+          "caption": "**The instrument, played from its own SFZ.** One key held, then one key's four voices by where you press, then all 88, and last a hidden map to judge by ear: one of four planted bugs, or, one time in five, none, so a swap you haven't reached can't be named by elimination. The page plays `talking_keyboard.sfz` itself, so a tap cuts the word the way the SFZ's `no_loop` and 50 ms release say it would; a switch plays on as `one_shot`. A bug that moves every name shows on the first press; a swapped pair waits, on average, for about the thirtieth distinct key."
+        }
+      ],
+      "made_against": "68d7e16b09fa",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The Pronunciation Lesson",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Talking Keyboard — rich — three spellings of A.html",
+            "verdict": "remake",
+            "why": "Walks up and re-renders the build within 2 LSB, but its found text says a phoneme check could not pick among ate, ace, \"A.\" and eigh, while its own check (/^ˈeɪ /, line 322) passes eigh alone of all seven (ˈeɪt, ˈeɪs, ˈeɪ. fail). Rewrite: a strict check catches both bad passes and picks what the ear picked, once ˈeɪ is written down as the target; the ear confirms each voice speaks it. Show the strict check beside \"reach /eɪ/\" in step 4."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Talking Keyboard — rich — three spellings of A.html",
+          "origin": "made",
+          "by": "Kokoro · Web Audio",
+          "height": 1180,
+          "place": "band",
+          "near": "The fix iterated through three spellings",
+          "title": "three spellings of A · five steps",
+          "caption": "**The bug only listening caught, played back.** A4 as it ships; the spec's “A four”, which the front end wrote as ɐ, the article; pass one's “ay”, written ˈaɪ; the build's seven-spelling audition, where ay, aye and ey come out as one file and a strict phoneme check (the A word exactly ˈeɪ) passes eigh alone; and last a blind test of your ear, beside what the front end wrote for each before any sound existed and a vowel meter's reading of the sound. Renders made 2026-11-03 with the build's settings; every shipped file re-renders to within two 16-bit steps."
+        }
+      ],
+      "made_against": "15ad5b405a18",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Future Variants",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Talking Keyboard — rich — the next variant.html",
+            "verdict": "remake",
+            "why": "Steps 1–3 are real tests (solfège 1/7, respelt 7/7, Italian 7/7, French 6/7, all reproduced), but step 4 plays one identical file for every C, so its score is chance by construction, and its found text calls the loss \"total, not partial\" when pitch class still verifies. Say the octave is lost entirely, the letter not; call the game a demonstration, or add a retuned arm (one C at playbackRate 2^((m−60)/12), as pitch_keycenter=60 would) that could come out otherwise."
+          },
+          {
+            "file": "proofs/2026-05-04-velocity-language-madlib-v2.html",
+            "verdict": "keep",
+            "why": "A gathered record, honestly captioned, beside \"different voice schemes\"; silent, clean, tracked. Note: \"its words are placeholders\" is half true; keys 60–76 carry real words in five languages, the rest are blank."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Talking Keyboard — rich — the next variant.html",
+          "origin": "made",
+          "by": "Kokoro · Web Audio",
+          "height": 1080,
+          "place": "band",
+          "near": "Solfège variant",
+          "title": "the next variant · four steps",
+          "caption": "**The variants, rendered first.** Solfège through the build's English front end gets one syllable of seven right (do comes out “doo”, mi “my”, ti “tie”); respelt, all seven; the page's “Do quattro” in Italian, all seven; its “Do quatre” in French, six, with C handed to English and the language flags passed to the model. Last, which C: with the octave word, without it (one file for every C, a demonstration), and that one file retuned to its key, so pitch has to carry the octave. Beside it, the voice pitch, which stays near 200 Hz from C1 to C7."
+        },
+        {
+          "file": "proofs/2026-05-04-velocity-language-madlib-v2.html",
+          "origin": "gathered",
+          "contract": {},
+          "height": 760,
+          "place": "band",
+          "title": "velocity-as-language madlib · v2 mockup, 2026-05-04",
+          "caption": "**A variant the list doesn't name, from the bundle.** A silent mockup from two days after the build: each key a word, the velocity layer picking the language (Latin, Japanese, English, French, German). No sound; seventeen keys (C4 to E5) carry words in all five languages, the rest are blank. Kept here as the record of a voice scheme that was sketched and not built."
+        }
+      ],
+      "made_against": "7bc8d71ed599",
+      "stamped": "2026-11-03"
+    }
+  ],
+  "offers": [
+    {
+      "section": "The Pronunciation Lesson",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "“Only listening caught it” is true of what happened and not of what was possible. The bug was written down one layer below the spec and the script before any sound existed: kokoro-onnx 0.5.0’s front end (espeak-ng) turns “A four” into ɐ fˈɔːɹ (the article), “ay four” into ˈaɪ fˈɔːɹ, and “eigh four” into ˈeɪ fˈɔːɹ; it writes “A” alone as ˈeɪ, so the word after it is what makes A an article. A strict check, that the A word is exactly ˈeɪ, stops both bad renders and over the seven audition spellings passes eigh alone, the one the ear picked; what it needs first is the target written down, the Phase 2 convention gate. The ear’s last job is confirming each voice speaks the phonemes it was handed. ay, aye and ey give the same phonemes and the same audio, sample for sample. Suggest keeping the sentence and adding: “though the front end had already written it down: ɐ for A, ˈaɪ for ay.”"
+    },
+    {
+      "section": "Why This Instrument First",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "“Any mapping bug is obvious in the first second of play” holds for a bug that moves names across the whole map (an octave or semitone shift shows on the first key you check). It overstates two cases: a bug confined to a few keys shows only when you press one, and pressing distinct keys at random you first meet one of k bad keys on press (N+1)/(k+1), so about the 30th for a swapped pair (89/3 = 29.7; simulated 29.66); and a bug in the velocity split never shows in the names at all. Suggest: “any mapping bug is obvious the first time you press a key it touches.” The map itself checks clean: 352 regions, each naming its own key by generate.py’s naming, tiling velocity 1–127 in the four stated layers."
+    },
+    {
+      "section": "Future Variants",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The solfège variant as written would hit the A lesson again: through the build’s en-us front end, 1 of 7 syllables comes out as meant (do → dˈuː, re → ɹˌiː, mi → mˈaɪ, sol → sˈɑːl, la → lˌæ, ti → tˈaɪ; only fa). Respelt (doe ray mee fah soh lah tee), 7 of 7. The page’s own “Do quattro” through the Italian front end in if_sara reads all 7; its “Do quatre” through the French front end in ff_siwis reads 6, and on do it switches to English and writes (en)dˈuː(fr), language flags that kokoro-onnx passes to the model as sounds (that render runs 1216 ms, the other six 811–896). Suggest a clause on the solfège line: each variant needs the audition gate, and a phoneme check before it."
+    },
+    {
+      "section": "Open Questions",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Bears on the first Open Question (a student naming notes by ear) and on the Palace Connections line “learn note names by ear”: no sample is pitched to its key (every region’s pitch_keycenter is its own key, so nothing is retuned), and the voice speaks at 125 to 240 Hz across C1 to C7 in all four layers (at most ×1.23 within a layer; the challenger’s own meter: 138–245 Hz, ×1.05–1.26) while the keys span ×64. The keyboard teaches the names of positions, not pitches. It also sharpens the pitch-class variant line: what that variant loses is the octave, all of it, while the letter still verifies. Suggest a note under Open Question 1."
+    },
+    {
+      "section": "Stack",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "A build finding the 88-keys piece plays: talking_keyboard.sfz sets ampeg_attack=0.001 ampeg_release=0.05 in its group and no loop_mode, so by the SFZ spec it plays as no_loop, stopping 50 ms after the key comes up; a tap shorter than the word cuts it. BUILD.md lines 114–115 asked for no ampeg opcodes and one-shots. One opcode in the group, loop_mode=one_shot, would make a tap speak the whole name. Read from the spec, not tried in sforzando. The text could add “(hold the key: the SFZ is no_loop)” to the Format line, or nothing if the SFZ is fixed."
+    },
+    {
+      "section": "Talking Keyboard",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "bf_emma is called a British female voice, and its timbre is, but generate.py (line 104) passes lang=\"en-us\" for all four voices, so it is handed American phonemes: “F sharp five” reaches it as ˈɛf ʃˈɑːɹp fˈaɪv, r and all. Suggest “bf_emma’s British voice, speaking American phonemes”, or nothing."
+    }
+  ]
+}
