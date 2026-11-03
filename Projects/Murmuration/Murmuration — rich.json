@@ -28,19 +28,19 @@
       "section": "The phase transition as the signature macro",
       "kind": "claim-change",
       "status": "open",
-      "what": "'Snap' and 'second-order', measured on the page's flock at 30 to 240 birds: the turn is a real phase transition by three marks (the wobble peaks at the knee at every size; the peak grows 1.01 to 2.65 and the 90-to-10% drop narrows from η 0.097 to 0.066 as the flock grows; no memory at 60 and 120 birds). But it is a steep knee, not a jump, and at 240 birds the way up stays more ordered at η 0.06 by 0.124 (four standard errors). Offer: 'the steep knee of a real transition' for 'snap', and 'second-order' held as what the flock does at the instrument's sizes, 8 to 120 birds (Grégoire and Chaté 2004 found the Vicsek transition turns discontinuous in large flocks, a finding that was disputed)."
+      "what": "Fact and emphasis. 'Second-order' is a fact claim the page can't keep: Grégoire and Chaté (2004) found the two-dimensional Vicsek transition first-order, with small flocks only looking continuous; disputed for this angular noise (Aldana et al. 2007) and answered (Chaté et al. 2008). What the page's flock shows, measured at 30 to 240 birds, is a real transition that turns continuously and steeply at the instrument's sizes: the wobble peaks at the knee at every size, the peak grows 1.01 to 2.65 and the 90-to-10% drop narrows from η 0.097 to 0.066 as the flock grows, and at 120 birds in the instrument's own field there is no memory up and down (largest gap 1.83 standard errors). 'Snap' is emphasis: a steep knee, not a jump. Offer: 'turns continuously and steeply, at the sizes the instrument plays' for 'the nonlinear snap of a real second-order transition', naming no order."
+    },
+    {
+      "section": "The phase transition as the signature macro",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "Emphasis only. The remapped slider (η = 0.25·x²) spreads the 90-to-10% drop (η 0.029 to 0.123) over 36% of the travel; on the first build's linear knob it took 9%, a ratio of 3.8. The knee's width in η is unchanged; only the hand's share moved, and 9% of a slider is a few pixels, so the remap is a playability gain as much as a softening. Nothing on the page about feel is contradicted (36% is still far from a crossfade's 80%). Offer: say which slider the 'snap' is felt on, if Loudon wants it said."
     },
     {
       "section": "The phase transition as the signature macro",
       "kind": "claim-change",
       "status": "open",
-      "what": "The remapped slider (η = 0.25·x²) spreads the 90-to-10% drop over 36% of the travel; on the first build's linear knob it took 9%. So the knee is about four times gentler under the hand than when the section was written, though still far from a crossfade (80%). Whether that is still the snap the forward vector asks to keep ('not soften into a crossfade') is Loudon's call; the page could say which slider it means."
-    },
-    {
-      "section": "The phase transition as the signature macro",
-      "kind": "claim-change",
-      "status": "open",
-      "what": "'The flock crystallizes from broadband noise into a coherent tone' comes true only under the order mapping (heading is pitch). Under the first build's mapping, the one the Architecture section describes, the sound's pitch focus did not follow the flock (3.38 to 3.46 bits of pitch-class entropy throughout; page-as-built.wav). Under the order mapping it narrows to 2.45 to 2.67 bits when ordered: a tightened cluster, not one tone (0 bits). Steward's measurement, cycle 1; offer: name the mapping that carries the transition to the ear, and 'toward a tone' for 'into a coherent tone'."
+      "what": "Fact under the first mapping, emphasis under the order mapping. 'The flock crystallizes from broadband noise into a coherent tone': under the first build's mapping, the one the Architecture section describes, the sound's pitch focus does not follow the flock (3.38 to 3.46 bits of pitch-class entropy throughout; page-as-built.wav). Under the order mapping it narrows to 2.45 bits ordered and 2.50 regathered, about five or six equally loud pitch classes: a tightened cluster, not one tone (0 bits); the pad reaches 2.02. Offer: 'toward a tone, under the order mapping'."
     },
     {
       "section": "The phase transition as the signature macro",
@@ -52,19 +52,19 @@
       "section": "The Architecture — one plane, three readings",
       "kind": "claim-change",
       "status": "open",
-      "what": "Cohesion's morph holds only over the top of the knob. Measured on the page's flock (η 0.06, four starts): up to 1.25 the flock spreads nearly as wide as random (254 to 286 px against 305; pitches 5.3 to 5.5 semitones against 5.5); it gathers between 1.5 and 2, often into a few clumps (a chord more than a tone); it reaches one tone only near 3 (41 px, 1.1 semitones). The instrument's default, 1.0, sits on the cloud end. Offer: say where on the knob the morph lives, or move the default."
+      "what": "Fact. Cohesion's morph lives at the top of the knob only. Measured on the page's flock at η 0.06, four starts: up to 1.25 the flock spreads nearly as wide as random (254 to 286 px against 305; pitches 5.3 to 5.5 semitones against 5.5); it gathers from 1.5 to 2, often into a few clumps (a chord more than a tone); it reaches one tone between 2.5 and 3 (41 px, 1.1 semitones at 3; at η 0 and 0.03 the tightest is 2.5, per the challenger). The challenger found the flat end the same at η 0 and 0.03. The instrument's default, 1.0, sits on the cloud end. Offer: say where on the knob the morph lives, or move the default."
     },
     {
       "section": "The Architecture — one plane, three readings",
       "kind": "claim-change",
       "status": "open",
-      "what": "The grains reading as described (screen-height sets pitch, speed drives grain density, 'This is the reading the prototype builds') is the first build's mapping. Since 2026-10-14 the instrument's default is the order mapping (heading is pitch, one octave around; grain length follows how steady a bird's course is), and all three readings are built, as the Open Decisions answer already says. Offer: describe both mappings, and drop 'the reading the prototype builds'."
+      "what": "Fact, out of date. The grains reading as described (screen-height sets pitch, speed drives grain density, 'This is the reading the prototype builds') is the first build's mapping. Since 2026-10-14 the instrument's default is the order mapping (Murmuration.html:463, map:'order'; heading is pitch, one octave around; grain length follows how steady a bird's course is), and all three readings are built, as the Open Decisions answer already says. The same holds for Open Decisions' 'Pitch vs timbre decoupling' (Murmuration.md:81, 'the prototype maps height→pitch'): under the order mapping pitch comes from heading, not place, which is itself one answer to that decision. Offer: describe both mappings in both places, and drop 'the reading the prototype builds'."
     },
     {
       "section": "Forward Vectors",
       "kind": "claim-change",
       "status": "open",
-      "what": "The blind verdict is in: Loudon answered 'can't tell' on 2026-10-15 (murmuration-steward-003), and the key is open in engine/blind-key.json. The line '— progressed: … the verdict is Loudon's, waiting on the board' is out of date (the steward proposes the same, item 2 of its tuning). Measured on the takes: the flock's pitch is more focused in the ordered stretch (2.45 against 2.88 bits) and the scare (2.96 against 3.24), the same elsewhere; the steward's reading is that coordination alone isn't audible at this mapping."
+      "what": "Fact, out of date. The blind verdict is in: Loudon answered 'can't tell' (_ops/swarm/persistent/blackboard.jsonl:824, a RESOURCE_GRANT to murmuration-steward-003, option CANT-TELL, stamped 2026-10-15T01:50Z), and the key is open in engine/blind-key.json. The line '— progressed: … the verdict is Loudon's, waiting on the board' is no longer true (the steward proposes the same, item 2 of its tuning). Measured on the takes: the flock's pitch is more focused in the ordered stretch (2.45 against 2.88 bits) and the scare (2.96 against 3.24), the same elsewhere; the steward's reading is that coordination alone isn't audible at this mapping."
     }
   ],
   "sections": [
@@ -117,7 +117,7 @@
           "by": "the Maker · the page's flock and grain voice, live",
           "height": 1080,
           "title": "One plane · four steps",
-          "caption": "**The plane built up, and the Cohesion claim tried.** Four steps: the terrain of four corner waveforms, with the point under your finger as a steady tone; one bird as a grain voice under the section's own mapping (place is timbre, height is pitch, speed is grain rate); sixty birds as a cloud, their pitches counted; then Cohesion over the instrument's whole range, 0 to 3. Measured on the page's flock, equal to the engine, four starts a setting: cohesion does gather the flock into one tone at the top of the knob (at 3, a spread of 41 px and pitches within 1.1 semitones), but only there. Up to 1.25 the flock spreads nearly as wide as birds dropped at random (254 to 286 px against 305); it gathers between 1.5 and 2, often into a few clumps; the instrument's default, 1.0, sits on the cloud end. Pitch spread measures focus, not how broadband the sound is; heard by no ear.",
+          "caption": "**The plane built up, and the Cohesion claim tried.** Four steps: the terrain of four corner waveforms, with the point under your finger as a steady tone; one bird as a grain voice under the section's own mapping (place is timbre, height is pitch, speed is grain rate); sixty birds as a cloud, their pitches counted; then Cohesion over the instrument's whole range, 0 to 3. Measured on the page's flock, equal to the engine, four starts a setting: cohesion does gather the flock into one tone at the top of the knob (at η 0.06 the tightest is 3, a spread of 41 px and pitches within 1.1 semitones; with less disorder it is 2.5), but only there. Up to 1.25 the flock spreads nearly as wide as birds dropped at random (254 to 286 px against 305); it gathers between 1.5 and 2, often into a few clumps; the instrument's default, 1.0, sits on the cloud end. Pitch spread measures focus, not how broadband the sound is; heard by no ear.",
           "near": "Define a 2D field where every coordinate"
         },
         {
@@ -219,7 +219,7 @@
           "by": "the Maker · the page's flock and grain voice, live",
           "height": 1180,
           "title": "The knee · four steps",
-          "caption": "**Snap, or a curved knob?** The page's own flock, equal to the engine to the last digit over 1200 frames, heard through its own grain voice and walked up: one bird turning toward its neighbours against the Disorder knob, then sixty birds and their one number φ, then the slider swept against a crossfade, then the test. Measured here: on the instrument's slider the flock gives up its order, 90% of the way to 10%, over 36% of the travel (a crossfade: 80%; the first build's linear knob: 9%). The wobble, N times the variance of φ, peaks at η 0.06 to 0.07, where φ is halfway down, at every size from 30 to 240 birds; growing the flock at the same crowding raises that peak from 1.01 to 2.65 and narrows the drop from η 0.097 to 0.066. Those are the marks of a real phase transition, which a curved knob doesn't leave. It comes back the way it went at 60 and 120 birds; at 240 the way up stays more ordered at η 0.06, by 0.124 (four standard errors), which this sweep can't tell from slow settling. The section's own numbers hold: at η 0 φ goes from 0.10 past 0.9 in 5.7 s; at η 0.80 it sits at 0.114, the floor for sixty random birds. Checked by the check beside it; heard by no ear.",
+          "caption": "**Snap, or a curved knob?** The page's own flock, equal to the engine to the last digit over 1200 frames, heard through its own grain voice and walked up: one bird turning toward its neighbours against the Disorder knob, then sixty birds and their one number φ, then the slider swept against a crossfade, then the test. Measured here: on the instrument's slider the flock gives up its order, 90% of the way to 10%, over 36% of the travel (a crossfade: 80%; the first build's linear knob: 9%). The wobble, N times the variance of φ, peaks at η 0.06 to 0.07, where φ is halfway down, at every size from 30 to 240 birds; growing the flock at the same crowding raises that peak from 1.01 to 2.65 and narrows the drop from η 0.097 to 0.066. Those are the marks of a real phase transition, which a curved knob doesn't leave. It comes back the way it went at 60 and 120 birds, and at 240 no memory holds up across other starts and longer settling. That is a continuous-looking turn at these sizes; it doesn't name the transition's order, which the literature puts at first for large flocks. The section's own numbers hold: at η 0 φ goes from 0.10 past 0.9 in 5.7 s; at η 0.80 it sits at 0.114, the floor for sixty random birds. Checked by the check beside it; heard by no ear.",
           "near": "Raising a Vicsek-style heading-noise term"
         },
         {
