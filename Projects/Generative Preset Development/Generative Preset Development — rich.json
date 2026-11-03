@@ -48,6 +48,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Generative Preset Development — rich — where the fences sit.html",
+            "verdict": "remake",
+            "why": "A real blind test with honest loudness matching (BS.1770, 0.04 dB) and right chance (4.0%, 2.1%), but its \"project fences\" are the Wavetable corpus-fifths rule (corpus_bands.py) applied to Vital; Vital's generator uses hand-placed bands (generate_vital.py:34-41, cutoff rungs 3,5,9,11, agreeing 2 of 4). Remake: name whose fences, add the generator's bands as a scored row, strip the reveal from the caption (it lifts 4/4 to 25% for a reader who knows init is 60), add a bottom-of-ladder arm (attack 2,3,4,5 scores 4/4 unheard), state chance of partly (42.7%, 22.9%), and note the critical-band residual (16.6 phon) in step 2."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Generative Preset Development — rich — where the fences sit.html",
