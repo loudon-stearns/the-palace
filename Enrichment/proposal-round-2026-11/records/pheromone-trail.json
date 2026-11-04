@@ -1,0 +1,26 @@
+{
+ "entry": "Pheromone Trail",
+ "path": "Palace development/Pheromone Trail.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 6,
+ "claim": "§ Connection to Pages as Agents: 'a richly written entry with clear typed links and densely worked prose produces strong trails. A thin entry with sparse connections produces weak ones. Swarm workers will cluster around strong trails and neglect weak ones'; § The Inverse: Trail Decay: 'Trails that are never reinforced fade'; § Open Questions: 'Can a trail be too strong — a deeply worn path that forecloses lateral exploration because workers always follow the same route?'",
+ "pieces": [
+  {
+   "section": "Connection to Pages as Agents",
+   "what": "An ant-colony model with deposit and evaporation: a nest, two food sources, workers that choose by the pheromone on each path and lay more where they succeed. The walk: one ant on one path, laying and fading; then a few ants and two paths; then the colony. Scored on the two stated claims — do workers cluster around the strong trail and neglect the weak one (the share of workers on each path over time, with a chance level of an even split), and does a trail that is never reinforced fade (its strength over time once its source is removed, with the model's evaporation rate named as the model's)? The verdict rules are stated before the first run and both arms (strong and weak trail) are scored.",
+   "kind": "interactive",
+   "walks_up_from": "one ant walking one path, laying a trail that fades"
+  },
+  {
+   "section": "Open Questions",
+   "what": "The open question run on the same engine: a trail made strong by a long run on one source, then a better source opened nearer the nest. Can the colony leave the worn path? The piece reports how long (or whether) the colony switches at each trail strength and evaporation rate — the number the open question asks for — and names it as this model's answer, beside the page's own note that the Swarm Weave's oblique lens is the palace's answer. It states before the run what result would mean a trail cannot be too strong.",
+   "kind": "interactive",
+   "walks_up_from": "the colony settled on one source, nothing else on the table"
+  }
+ ],
+ "gathered": [],
+ "tier": "sketch",
+ "note": "Weight-6 board line of the 2026-11-03 round. The board line places the cluster claim under How It Works in Practice; in the text it sits under Connection to Pages as Agents, and the decay claim under The Inverse: Trail Decay — place pieces where the words are. The open question is already marked answered on Swarm Weave § The oblique lens (2026-10-24): the piece gives the question its number without re-answering it for the palace. Prior art: _ops/stigmergy/app/scripts/weave-emit-trails.mjs is the palace's own trail emitter (not a model); Deneubourg's double-bridge result is the classic case of a colony failing to switch to a shorter path opened later — if the piece cites it, cite it as outside the palace. No baton on the page; no board notes.",
+ "slice": "cloud-3"
+}
