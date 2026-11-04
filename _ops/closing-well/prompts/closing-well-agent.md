@@ -90,7 +90,9 @@ arc spans a gap, `git log` the entries it touched and name what moved.
 ### The stance
 Shift out of building and into reflection. You are the panelist who was in the room all
 day; a moderator (me) has read it back with fresh eyes. Go slow. This is calm and plain —
-a graceful close, not a scripted liturgy. Do not reach for the reckoning yet.
+a graceful close, not a scripted liturgy. Do not reach for the reckoning yet. Two things
+stay apart: the room does not decide Loudon's ask for him, and the room may always state
+its own error.
 
 ### The two or three wonderings to put to Loudon
 <the genuine questions only Loudon can settle — drawn from what a cold reader can't see.
