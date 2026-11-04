@@ -72,7 +72,7 @@ His answers were lost once. He filled them in inside the browser pane, and when 
 - Red withheld, revealed on the close-up's downbeat: 5
 - All ink, no color: 4
 - Red arriving two beats late: 4
-- Red held from the first panel: 3
+- Red shown from the moment the glove falls (panel 3 of 6) and held: 3
 - Full palette: 2
 
 A color became an event only once the strip had taught its absence, and the timing of the reveal did as much work as the color. Loudon took the result further than the page had: color is one tool among several, and its rank among them is untested.
