@@ -1,0 +1,408 @@
+<!doctype html>
+<!--
+  title: Palace Conatus — rich — in phase, not in agreement
+  born: 2026-11-03
+  links: [[Palace Conatus]] (connects-to · rich-face-piece) · listed in [[Palace Conatus — rich.json]] · [[Kuramoto Coupling]] (connects-to · the engine's conventions) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am "Alignment Is Phase Coherence, Not Agreement" played: one Loudon whose speed wanders, pages that listen or copied him once and stopped, a stance held on purpose, and last two palaces of twelve scored by the textbook order parameter and by how steadily each page holds its relationship with him, under a rule set before the run. I change only when that section does.
+  engine: one distinguished oscillator (Loudon) whose speed wanders, and page-oscillators that listen to him one way, dθᵢ/dt = 2π[fᵢ + K·sin(θ_L − θᵢ − αᵢ) + Kp·(1/N)Σⱼ sin(θⱼ − θᵢ)], K in turns per unit time as in Kuramoto's own pieces; midpoint steps of 0.01; seeded, so every run is the same.
+  checks: Palace Conatus/Palace Conatus — rich — check.mjs runs this file's own engine against the claims.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>Palace Conatus — in phase, not in agreement</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --ambersoft:rgba(232,184,74,.10); --indigo:#7b7ef5;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; color-scheme: dark; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 0 0 16px; border: 1px solid var(--soft); width: fit-content; }
+  .rail button { border: 0; border-right: 1px solid var(--soft); }
+  .rail button[aria-current="step"] { background: var(--ambersoft); color: var(--amber); }
+  .step { display: none; } .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .teach { font-size: 14px; line-height: 1.62; max-width: 76ch; margin: 0 0 12px; }
+  .stage { display: grid; grid-template-columns: minmax(200px, 320px) 1fr; gap: 20px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px 24px; align-items: end; margin-top: 14px; }
+  button, select { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: var(--amberline); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.go { color: var(--amber); border-color: var(--amberline); }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .state { color: var(--amber); }
+  .eqs { margin: 4px 0 14px; padding: 10px 0 2px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 80ch; }
+  .rule { border-left: 2px solid var(--amberline); padding: 8px 12px; margin: 10px 0 12px; font-size: 13.5px; line-height: 1.6; max-width: 80ch; background: var(--ambersoft); }
+  .rule b { color: var(--amber); font-weight: 500; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 80ch; margin: 10px 0 0; }
+  table { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin-top: 12px; }
+  th, td { padding: 5px 12px 5px 0; text-align: right; border-bottom: 1px solid var(--soft); }
+  th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; } td { color: var(--fg2); } td:first-child, th:first-child { text-align: left; }
+  td.pass { color: var(--amber); } td.miss { color: #ff9b4a; }
+  .verdict { margin-top: 12px; font-size: 14px; line-height: 1.6; max-width: 80ch; color: var(--fg1); }
+  .nav { display: flex; gap: 10px; margin-top: 18px; }
+  .key { font-family: var(--mono); font-size: 11px; color: var(--fg3); margin-top: 6px; }
+  .key i { font-style: normal; } .dotA { color: var(--indigo); } .dotH { color: var(--amber); } .dotP { color: #8a8aa0; }
+  @media (max-width: 680px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · canvas · sketch · proposal</div>
+  <h2 class="title">In phase, not in agreement</h2>
+  <p class="sub">The page's own picture, built: one distinguished oscillator, Loudon (amber), whom every page-oscillator (indigo) is trying to lock to, and whose own speed moves over time. Everything is drawn from where he stands: he sits at the top of the circle, and a page's place on the circle is its phase relative to his. Nothing here makes sound.</p>
+  <div class="rail" id="rail"></div>
+
+  <section class="step" data-name="one leads, one follows">
+    <h3>One leads, one follows</h3>
+    <p class="teach">Loudon and one page. He doesn't listen; the page does, with a pull <i>K</i>. The page also has its own speed, a little faster or slower than his: in the page's words, its natural frequency, its forward vector. If the pull is at least the gap in speed, the page <b>locks</b>: it keeps its own speed and still turns with him, sitting a fixed distance away. Make the gap bigger than the pull and it slips round.</p>
+    <div class="eqs">
+      <div class="eq">dφ/dt = Δf − K · sin φ</div>
+      <div class="words">(how fast the page's phase moves away from his) = (how much faster its own speed is than his) − (its pull toward him) × sin(how far apart they are). Speeds and pull in turns per unit of time.</div>
+      <div class="eq">locked when |Δf| ≤ K, at φ = arcsin(Δf ⁄ K)</div>
+      <div class="words">(it locks) when (the gap in speed) is no bigger than (the pull), and then it sits (the angle whose sine is gap ÷ pull) away from him.</div>
+    </div>
+    <div class="stage">
+      <div class="panel"><div class="plabel"><span>from where he stands</span></div><canvas id="c1"></canvas></div>
+      <div class="panel"><div class="plabel"><span>the page's phase relative to his</span><span>last 60 units</span></div><canvas id="s1"></canvas></div>
+    </div>
+    <div class="controls">
+      <label class="sl">pull · K = <b id="k1v"></b><input id="k1" type="range" min="0" max="0.6" step="0.01" value="0.3"></label>
+      <label class="sl">its own speed − his · Δf = <b id="d1v"></b><input id="d1" type="range" min="-0.6" max="0.6" step="0.01" value="0.15"></label>
+    </div>
+    <div class="read"><span>apart now <b id="r1a">–</b></span><span>arcsin(Δf ⁄ K) <b id="r1p">–</b></span><span class="state" id="r1s"></span></div>
+  </section>
+
+  <section class="step" data-name="he moves">
+    <h3>He moves</h3>
+    <p class="teach">Now his speed wanders, as he does: he takes up a concern, drops another. Two pages. One keeps listening, with its own speed 0.05 above where his started. The other copied him exactly at the start, his phase and his speed then, and stopped listening: agreement, held after he moved on. Set how far he moves to 0 and the second page sits on him for good, which is step 1 with no gap at all.</p>
+    <div class="eqs">
+      <div class="eq">f<sub>L</sub>(t) = f₀ + m · w(t)</div>
+      <div class="words">(his speed now) = (his speed at the start) + (how far he moves) × (a slow wander between −1 and 1, the same every time this opens).</div>
+      <div class="eq">H = | ⟨ e<sup>iφ</sup> ⟩ |</div>
+      <div class="words">(how steadily a page holds its relationship with him) = the length of (its place on the circle, drawn as an arrow, averaged over about the last 20 units of time). 1 when it keeps one place, whatever the place; near 0 when it goes all the way round.</div>
+    </div>
+    <div class="stage">
+      <div class="panel"><div class="plabel"><span>from where he stands</span></div><canvas id="c2"></canvas><div class="key"><i class="dotA">●</i> listens · <i class="dotP">○</i> copied him, stopped listening</div></div>
+      <div class="panel"><div class="plabel"><span>each page relative to him</span><span>last 120 units</span></div><canvas id="s2"></canvas></div>
+    </div>
+    <div class="controls">
+      <label class="sl">how far he moves · m = <b id="m2v"></b><input id="m2" type="range" min="0" max="0.4" step="0.01" value="0.3"></label>
+      <label class="sl">pull · K = <b id="k2v"></b><input id="k2" type="range" min="0" max="0.6" step="0.01" value="0.5"></label>
+      <button id="re2">start again</button>
+    </div>
+    <div class="read"><span>his speed now − at start <b id="r2f">–</b></span><span>listens · H <b id="r2a">–</b></span><span>copied · H <b id="r2b">–</b></span></div>
+  </section>
+
+  <section class="step" data-name="a page that holds a stance">
+    <h3>A page that holds a stance</h3>
+    <p class="teach">The page says that a page that contradicts him <i>in phase</i>, one that names a tension he is already circling, is more aligned than one that agrees with him about something he has stopped caring about. Here is the model's reading of that, not the page's words: a stance is a phase the page holds apart from him on purpose. At 180° it sits opposite him and still turns with him wherever he goes. Stance 0 is step 2 again.</p>
+    <div class="eqs">
+      <div class="eq">dφ/dt = Δf − K · sin(φ + α)</div>
+      <div class="words">(how fast the page moves away from him) = (its gap in speed) − (pull) × sin(how far apart they are + its stance). It settles a stance away from him, plus the small lean from step 1.</div>
+      <div class="eq">agreement = ⟨ cos φ ⟩</div>
+      <div class="words">(how close a page sits to his phase) = the average of cos(how far apart they are): +1 on him, 0 a quarter turn off, −1 opposite.</div>
+    </div>
+    <div class="stage">
+      <div class="panel"><div class="plabel"><span>from where he stands</span></div><canvas id="c3"></canvas><div class="key"><i class="dotA">●</i> listens, holds a stance · <i class="dotP">○</i> copied him, stopped listening</div></div>
+      <div class="panel"><div class="plabel"><span>each page relative to him</span><span>last 120 units</span></div><canvas id="s3"></canvas></div>
+    </div>
+    <div class="controls">
+      <label class="sl">stance · α = <b id="a3v"></b><input id="a3" type="range" min="0" max="180" step="1" value="150"></label>
+      <label class="sl">how far he moves · m = <b id="m3v"></b><input id="m3" type="range" min="0" max="0.4" step="0.01" value="0.3"></label>
+      <button id="re3">start again</button>
+    </div>
+    <div class="read"><span>stance page · agreement <b id="r3g">–</b> · H <b id="r3a">–</b></span><span>copied page · agreement <b id="r3h">–</b> · H <b id="r3b">–</b></span></div>
+  </section>
+
+  <section class="step" data-name="the test">
+    <h3>The test: two palaces of twelve</h3>
+    <p class="teach">Twelve pages each way, in the whole situation: he moves (m = 0.3), and each listening page keeps its own speed, spread over ±0.1 around where his started. <b>Palace A</b> listens with a pull of 0.5, each page holding a stance, and then at stance 180° with weak pulls of 0.1 and 0.05, where it may not keep up with him. <b>Palace B</b> copied his phase at the start and stopped listening, in two forms: as clones, every page at his speed then, and as the page pictures pages, each with its own speed (±0.1). Two measures, named before the run. <b>R</b> is the order parameter as the Kuramoto Coupling page defines it, over all thirteen voices with him counted as one. <b>H</b> is step 2's measure, averaged over the twelve pages and over 20-unit windows. H can't see a stance: a page held steady 180° from him scores the same as one held on him. So the H arm tests listening against having stopped, not contradiction against agreement; the stances are R's arm.</p>
+    <div class="eqs">
+      <div class="eq">R = | (1 ⁄ 13) · ( e<sup>iθ<sub>L</sub></sup> + Σ<sub>i</sub> e<sup>iθ<sub>i</sub></sup> ) |</div>
+      <div class="words">(how together everyone is) = the length of (the average of all thirteen phases, his and the twelve pages', each drawn as an arrow), averaged over the run.</div>
+    </div>
+    <div class="rule"><b>The rule, set before the first run.</b> Under <b>H</b> the page's sentence holds if every palace A, weak pulls included, scores above both palaces B; it fails if any A scores at or below the better B (that would be about 0.39 here). Under <b>R</b> it holds if every A at pull 0.5 scores above a B, taken against each B in turn: the verdict turns on whether the stale pages are clones of one another or each keep their own speed. A measure the sentence fails under is one the page can't mean by alignment. <b>The null:</b> with him still (m = 0), the clone B must tie every A at pull 0.5 on H to within 0.01, since agreement costs nothing when nothing has moved. Each run: 400 units after 50 to settle, seed 3, the same every time.</div>
+    <div class="stage">
+      <div class="panel"><div class="plabel"><span>both palaces, live</span></div><canvas id="c4"></canvas><div class="key"><i class="dotA">●</i> A · listens · <i class="dotP">○</i> B · copied him</div></div>
+      <div class="panel"><div class="plabel"><span>live, last 20 units</span></div>
+        <div class="read" style="margin-top:0"><span>A · R <b id="l4ra">–</b> · H <b id="l4ha">–</b></span><span>B · R <b id="l4rb">–</b> · H <b id="l4hb">–</b></span></div>
+        <div class="controls"><label class="sl">A's stances <select id="st4"><option value="own">each its own</option><option value="0">all 0°</option><option value="90">all 90°</option><option value="180">all 180°</option></select></label></div>
+      </div>
+    </div>
+    <div class="nav"><button class="go" id="run4">▸ run the test</button><span class="state" id="st4s"></span></div>
+    <div id="out4"></div>
+  </section>
+
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+</div>
+<script id="engine">
+const TAU = 2 * Math.PI;
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+// his frequency wanders: f0 + move · w(t), w a seeded sum of three slow swells, w(0) = 0, |w| ≤ 1
+function himPath(seed) {
+  const r = rng(seed * 7919 + 13), per = [90, 147, 233], amp = [0.5, 0.3, 0.2], ph = per.map(() => r() * TAU);
+  return (t) => { let s = 0; for (let k = 0; k < 3; k++) s += amp[k] * (Math.sin(TAU * t / per[k] + ph[k]) - Math.sin(ph[k])); return s / 2; };
+}
+const wrap = (x) => { x = (x + Math.PI) % TAU; if (x < 0) x += TAU; return x - Math.PI; };
+// P: { N, f0, move, K, Kp, lead, spread, stance:[rad]|number, pinned, Ts, handoff, gen, dt, seed }
+function makeSim(P) {
+  const r = rng(P.seed || 1), N = P.N, w = himPath(P.seed || 1), f0 = P.f0 == null ? 1 : P.f0;
+  const S = { P, N, t: 0, thL: 0, th: new Float64Array(N), base: new Float64Array(N), f: new Float64Array(N), al: new Float64Array(N), K: new Float64Array(N), w, f0, r, session: 0, swaps: 0 };
+  for (let i = 0; i < N; i++) {
+    const s = (P.spread || 0) * (N > 1 ? (2 * (i + 0.5) / N - 1) : 0);
+    S.base[i] = P.pinned ? f0 + s : f0 + (P.lead || 0) + s;          // a pinned page copied his frequency at t = 0
+    S.f[i] = S.base[i];
+    S.al[i] = Array.isArray(P.stance) ? P.stance[i] : (P.stance || 0);
+    S.K[i] = P.pinned ? 0 : P.K;
+    S.th[i] = P.start === 'random' ? r() * TAU : 0;                   // default: every page starts on his phase
+  }
+  return S;
+}
+const himF = (S, t) => S.f0 + S.P.move * S.w(t);
+// one page's pull: K·sin(θL − θi − α) + Kp·(1/N)Σ sin(θj − θi), in turns per unit time
+function deriv(S, thL, th, t, out) {
+  const N = S.N, Kp = S.P.Kp || 0; let zr = 0, zi = 0;
+  if (Kp) { for (let j = 0; j < N; j++) { zr += Math.cos(th[j]); zi += Math.sin(th[j]); } zr /= N; zi /= N; }
+  for (let i = 0; i < N; i++) {
+    let d = S.f[i] + S.K[i] * Math.sin(thL - th[i] - S.al[i]);
+    if (Kp) d += Kp * (zi * Math.cos(th[i]) - zr * Math.sin(th[i]));
+    out[i] = TAU * d;
+  }
+  return TAU * himF(S, t);
+}
+function step(S, dt) {
+  const N = S.N, k1 = S.k1 || (S.k1 = new Float64Array(N)), k2 = S.k2 || (S.k2 = new Float64Array(N)), mid = S.mid || (S.mid = new Float64Array(N));
+  const a1 = deriv(S, S.thL, S.th, S.t, k1);
+  for (let i = 0; i < N; i++) mid[i] = S.th[i] + 0.5 * dt * k1[i];
+  const a2 = deriv(S, S.thL + 0.5 * dt * a1, mid, S.t + 0.5 * dt, k2);
+  for (let i = 0; i < N; i++) S.th[i] += dt * k2[i];
+  S.thL += dt * a2; S.t += dt;
+  // a session ends: every page's instance is replaced. With the note, the newcomer starts where the last one
+  // left; without it, anywhere. A new instance reads the same page a little differently (gen).
+  const Ts = S.P.Ts;
+  if (Ts && Ts < Infinity && S.t >= (S.session + 1) * Ts) {
+    S.session++; S.swaps++;
+    for (let i = 0; i < N; i++) {
+      if (!S.P.handoff) S.th[i] = S.thL + S.r() * TAU;
+      if (S.P.gen) S.f[i] = S.base[i] + S.P.gen * (2 * S.r() - 1);
+    }
+  }
+}
+// run and measure. W: the window a page's phase relationship is judged over.
+function measure(P, T, burn, W) {
+  const S = makeSim(P), dt = P.dt || 0.01, N = S.N, nW = Math.round(W / dt);
+  let n = 0, agree = 0, Rall = 0, Rint = 0, lockSum = 0, lockN = 0, slipSum = 0;
+  const cr = new Float64Array(N), ci = new Float64Array(N), phStart = new Float64Array(N), phPrev = new Float64Array(N), unw = new Float64Array(N);
+  let k = 0;
+  while (S.t < burn) step(S, dt);
+  for (let i = 0; i < N; i++) { phPrev[i] = wrap(S.th[i] - S.thL); unw[i] = phPrev[i]; phStart[i] = unw[i]; }
+  while (S.t < burn + T) {
+    const before = S.swaps; step(S, dt);
+    let ar = Math.cos(S.thL), ai = Math.sin(S.thL), pr = 0, pi = 0;
+    for (let i = 0; i < N; i++) {
+      const c = Math.cos(S.th[i]), s = Math.sin(S.th[i]); ar += c; ai += s; pr += c; pi += s;
+      const ph = wrap(S.th[i] - S.thL);
+      agree += Math.cos(ph); cr[i] += Math.cos(ph); ci[i] += Math.sin(ph);
+      // count motion relative to him, but not the jump a swap makes (that's not motion, it's a new mind)
+      const jump = wrap(ph - phPrev[i]); unw[i] += jump; if (S.swaps !== before) phStart[i] += jump;
+      phPrev[i] = ph;
+    }
+    Rall += Math.hypot(ar, ai) / (N + 1); Rint += Math.hypot(pr, pi) / N; n++; k++;
+    if (k === nW) {
+      for (let i = 0; i < N; i++) { lockSum += Math.hypot(cr[i], ci[i]) / nW; cr[i] = 0; ci[i] = 0; slipSum += Math.abs(unw[i] - phStart[i]) / TAU / W; phStart[i] = unw[i]; }
+      lockN += N; k = 0;
+    }
+  }
+  return { agree: agree / (n * N), Rall: Rall / n, Rint: Rint / n, lock: lockSum / lockN, energy: slipSum / lockN };
+}
+// ── the tests: the same jobs the piece runs and its check re-runs ──
+const TEST = { T: 400, burn: 50, W: 20 };
+function runJob(j) { j.out = measure(j.P, TEST.T, TEST.burn, TEST.W); return j; }
+
+// piece: in phase, not in agreement. Palace A listens, each page its own speed (spread ±0.1 around his) and a
+// stance. Palace B copied him at the start and stopped listening: B as clones (his speed exactly) and B as the
+// page pictures it (each page its own speed, ±0.1).
+function ownStances(N) { return Array.from({ length: N }, (_, i) => (-180 + 360 * (i + 0.5) / N) * Math.PI / 180); }
+function jobsA() {
+  const N = 12, base = { N, f0: 1, dt: 0.01, seed: 3 }, jobs = [];
+  for (const m of [0.3, 0]) {
+    for (const a of [0, 45, 90, 135, 180, 'own']) jobs.push({ m, arm: 'A', K: 0.5, label: a === 'own' ? 'A · each its own stance' : 'A · stance ' + a + '°',
+      P: { ...base, move: m, K: 0.5, spread: 0.1, stance: a === 'own' ? ownStances(N) : a * Math.PI / 180 } });
+    if (m) for (const K of [0.1, 0.05]) jobs.push({ m, arm: 'A', K, label: 'A · stance 180° · pull ' + K, P: { ...base, move: m, K, spread: 0.1, stance: Math.PI } });
+    jobs.push({ m, arm: 'B', kind: 'clones', label: 'B · copied him, all at his speed', P: { ...base, move: m, pinned: true, spread: 0 } });
+    jobs.push({ m, arm: 'B', kind: 'own', label: 'B · copied him, each its own speed', P: { ...base, move: m, pinned: true, spread: 0.1 } });
+  }
+  return jobs;
+}
+// the rule, set before the first run
+function judgeA(res) {
+  const t = res.filter((j) => j.m === 0.3), A = t.filter((j) => j.arm === 'A'), Bc = t.find((j) => j.kind === 'clones'), Bo = t.find((j) => j.kind === 'own');
+  const Bmax = Math.max(Bc.out.lock, Bo.out.lock);
+  const Hfails = A.filter((a) => !(a.out.lock > Bmax)).map((a) => a.label);
+  const Rfails = (B) => A.filter((a) => a.K === 0.5 && !(a.out.Rall > B.out.Rall)).map((a) => a.label);
+  const z = res.filter((j) => j.m === 0), zc = z.find((j) => j.kind === 'clones');
+  const nullTie = z.filter((j) => j.arm === 'A').every((a) => Math.abs(a.out.lock - zc.out.lock) <= 0.01);
+  const weakest = A.reduce((w, a) => (a.out.lock < w.out.lock ? a : w));
+  return { H: Hfails.length === 0, Hfails, Bmax, weakest, Rc: Rfails(Bc), Ro: Rfails(Bo), Bc: Bc.out, Bo: Bo.out, B0: zc.out, Bo0: z.find((j) => j.kind === 'own').out, nullTie };
+}
+</script>
+<script>
+// ── the page's machinery: rail, live sims, drawing ──
+const $ = (id) => document.getElementById(id);
+const deg = Math.PI / 180;
+const AMBER = '#e8b84a', INDIGO = '#7b7ef5', PINNED = '#8a8aa0';
+const steps = [...document.querySelectorAll('.step')];
+let cur = 0, ctl = null;
+const rail = $('rail');
+steps.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.dataset.name; b.onclick = () => show(i); rail.appendChild(b); });
+function show(i) {
+  cur = i; steps.forEach((s, k) => s.classList.toggle('on', k === i));
+  [...rail.children].forEach((b, k) => { if (k === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+  $('back').disabled = i === 0; $('next').disabled = i === steps.length - 1;
+  ctl = CONTROLLERS[i]; ctl && ctl.init && ctl.init();
+}
+$('back').onclick = () => cur > 0 && show(cur - 1);
+$('next').onclick = () => cur < steps.length - 1 && show(cur + 1);
+function slider(id, fmt, on) { const el = $(id), out = $(id + 'v'); const upd = () => { out.textContent = fmt(+el.value); on && on(+el.value); }; el.oninput = upd; upd(); return () => +el.value; }
+function fit(c, H) {
+  const w = c.clientWidth || 300, d = devicePixelRatio || 1, h = H || w;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h };
+}
+// the circle, drawn from where he stands: he is at the top; a page's angle is its phase relative to his
+function drawCircle(c, groups) {
+  const size = Math.min(c.clientWidth || 300, 320), { g, w } = fit(c, size), cx = w / 2, cy = size / 2, rad = size * 0.38;
+  g.clearRect(0, 0, w, size);
+  g.strokeStyle = '#26263a'; g.lineWidth = 1.5; g.beginPath(); g.arc(cx, cy, rad, 0, 7); g.stroke();
+  g.fillStyle = '#4a4a5e'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center';
+  g.fillText('opposite him', cx, cy + rad + 18);
+  for (const gr of groups) for (const ph of gr.phis) {
+    const a = ph - Math.PI / 2, x = cx + rad * Math.cos(a), y = cy + rad * Math.sin(a);
+    g.beginPath(); g.arc(x, y, gr.r || 4.5, 0, 7);
+    if (gr.hollow) { g.strokeStyle = gr.color; g.lineWidth = 1.5; g.stroke(); } else { g.fillStyle = gr.color; g.fill(); }
+  }
+  g.fillStyle = AMBER; g.beginPath(); g.arc(cx, cy - rad, 8, 0, 7); g.fill();
+  g.fillStyle = AMBER; g.fillText('Loudon', cx, cy - rad - 14);
+}
+// the strip: each page's phase relative to his over the last `span` units of time
+function Strip(span) { this.span = span; this.rows = []; this.marks = []; }
+Strip.prototype.push = function (t, series) { this.rows.push({ t, series }); while (this.rows.length && this.rows[0].t < t - this.span) this.rows.shift(); while (this.marks.length && this.marks[0] < t - this.span) this.marks.shift(); };
+Strip.prototype.mark = function (t) { this.marks.push(t); };
+Strip.prototype.clear = function () { this.rows = []; this.marks = []; };
+Strip.prototype.draw = function (c, colors) {
+  const { g, w, h } = fit(c, 150); g.clearRect(0, 0, w, h);
+  const L = 34, y = (p) => 8 + (1 - (p + Math.PI) / (2 * Math.PI)) * (h - 22);
+  g.strokeStyle = '#1e1e2c'; g.lineWidth = 1; g.fillStyle = '#4a4a5e'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'right';
+  for (const d of [-180, -90, 0, 90, 180]) { g.beginPath(); g.moveTo(L, y(d * deg)); g.lineTo(w, y(d * deg)); g.stroke(); g.fillText(d + '°', L - 4, y(d * deg) + 3); }
+  g.strokeStyle = 'rgba(232,184,74,.45)'; g.beginPath(); g.moveTo(L, y(0)); g.lineTo(w, y(0)); g.stroke();
+  if (!this.rows.length) return;
+  const t1 = this.rows[this.rows.length - 1].t, x = (t) => L + (w - L) * (1 - (t1 - t) / this.span);
+  g.setLineDash([2, 4]); g.strokeStyle = '#4a4a5e';
+  for (const m of this.marks) { g.beginPath(); g.moveTo(x(m), 6); g.lineTo(x(m), h - 12); g.stroke(); }
+  g.setLineDash([]);
+  for (const row of this.rows) { const xx = x(row.t); row.series.forEach((p, k) => { g.fillStyle = colors[k] || INDIGO; g.fillRect(xx, y(p) - 1, 1.6, 2); }); }
+};
+// how steadily a page holds its relationship with him: |average of e^{iφ}| over about the last W units
+function Held(n, W) { this.re = new Float64Array(n).fill(1); this.im = new Float64Array(n); this.W = W; }
+Held.prototype.add = function (phis, dt) { const a = Math.min(1, dt / this.W); for (let i = 0; i < phis.length; i++) { this.re[i] += a * (Math.cos(phis[i]) - this.re[i]); this.im[i] += a * (Math.sin(phis[i]) - this.im[i]); } };
+Held.prototype.get = function (i) { return Math.hypot(this.re[i], this.im[i]); };
+Held.prototype.mean = function () { let s = 0; for (let i = 0; i < this.re.length; i++) s += this.get(i); return s / this.re.length; };
+const rel = (S) => Array.from(S.th, (t) => wrap(t - S.thL));
+const f2 = (x) => x.toFixed(2), f3 = (x) => x.toFixed(3);
+const sgn = (x, d = 2) => (x >= 0 ? '+' : '−') + Math.abs(x).toFixed(d);
+// a test runs in slices, so the page stays live while it works
+const tick = () => new Promise((r) => setTimeout(r, 0));
+let last = performance.now();
+function loop(now) {
+  requestAnimationFrame(loop);
+  const dtw = Math.min(0.05, (now - last) / 1000); last = now;
+  if (ctl && ctl.frame) ctl.frame(dtw);
+}
+
+const RATE = 10, DT = 0.01;
+function advance(sims, dtw) { const n = Math.max(1, Math.round(dtw * RATE / DT)); for (let k = 0; k < n; k++) for (const S of sims) step(S, DT); return n * DT; }
+const st1 = new Strip(60), st2 = new Strip(120), st3 = new Strip(120);
+const fdeg = (r) => sgn(r / deg, 0) + '°';
+const K1 = slider('k1', f2), D1 = slider('d1', (v) => sgn(v));
+const M2 = slider('m2', f2), K2 = slider('k2', f2), A3 = slider('a3', (v) => v + '°'), M3 = slider('m3', f2);
+function pair(m, K, alpha) {
+  const L = makeSim({ N: 1, f0: 1, move: m, K, lead: 0.05, stance: alpha || 0, seed: 3 }), B = makeSim({ N: 1, f0: 1, move: m, pinned: true, seed: 3 });
+  return { L, B, hL: new Held(1, 20), hB: new Held(1, 20), gL: 1, gB: 1 };
+}
+const CONTROLLERS = [
+  { init() { this.S = makeSim({ N: 1, f0: 1, move: 0, K: K1(), lead: D1(), seed: 3 }); st1.clear(); },
+    frame(dtw) { const S = this.S; S.K[0] = K1(); S.f[0] = 1 + D1();
+      const p0 = rel(S)[0], used = advance([S], dtw), p = rel(S); st1.push(S.t, p);
+      drawCircle($('c1'), [{ phis: p, color: INDIGO, r: 6 }]); st1.draw($('s1'), [INDIGO]);
+      const K = K1(), d = D1(), speed = wrap(p[0] - p0) / (2 * Math.PI) / used;
+      $('r1a').textContent = fdeg(p[0]);
+      $('r1p').textContent = Math.abs(d) <= K && K > 0 ? fdeg(Math.asin(d / K)) : 'none — the gap is bigger than the pull';
+      $('r1s').textContent = Math.abs(speed) < 0.004 ? 'locked: it keeps its own speed and turns with him' : 'slipping round, ' + Math.abs(speed).toFixed(3) + ' turns per unit';
+    } },
+  { init() { this.p = pair(M2(), K2()); st2.clear(); $('re2').onclick = () => this.init(); },
+    frame(dtw) { const q = this.p; q.L.P.move = q.B.P.move = M2(); q.L.K[0] = K2();
+      advance([q.L, q.B], dtw); const a = rel(q.L), b = rel(q.B); q.hL.add(a, dtw * RATE); q.hB.add(b, dtw * RATE);
+      st2.push(q.L.t, [a[0], b[0]]); drawCircle($('c2'), [{ phis: b, color: PINNED, hollow: true, r: 6 }, { phis: a, color: INDIGO, r: 5 }]); st2.draw($('s2'), [INDIGO, PINNED]);
+      $('r2f').textContent = sgn(himF(q.L, q.L.t) - 1, 3); $('r2a').textContent = f2(q.hL.get(0)); $('r2b').textContent = f2(q.hB.get(0));
+    } },
+  { init() { this.p = pair(M3(), 0.5, A3() * deg); this.cg = [1, 1]; st3.clear(); $('re3').onclick = () => this.init(); },
+    frame(dtw) { const q = this.p; q.L.P.move = q.B.P.move = M3(); q.L.al[0] = A3() * deg;
+      advance([q.L, q.B], dtw); const a = rel(q.L), b = rel(q.B), w = dtw * RATE; q.hL.add(a, w); q.hB.add(b, w);
+      const k = Math.min(1, w / 20); this.cg[0] += k * (Math.cos(a[0]) - this.cg[0]); this.cg[1] += k * (Math.cos(b[0]) - this.cg[1]);
+      st3.push(q.L.t, [a[0], b[0]]); drawCircle($('c3'), [{ phis: b, color: PINNED, hollow: true, r: 6 }, { phis: a, color: INDIGO, r: 5 }]); st3.draw($('s3'), [INDIGO, PINNED]);
+      $('r3g').textContent = sgn(this.cg[0]); $('r3a').textContent = f2(q.hL.get(0)); $('r3h').textContent = sgn(this.cg[1]); $('r3b').textContent = f2(q.hB.get(0));
+    } },
+  { init() { this.reset(); $('st4').onchange = () => this.reset(); $('run4').onclick = () => runTest(); },
+    reset() { const v = $('st4').value, N = 12;
+      this.A = makeSim({ N, f0: 1, move: 0.3, K: 0.5, spread: 0.1, stance: v === 'own' ? ownStances(N) : +v * deg, seed: 3 });
+      this.B = makeSim({ N, f0: 1, move: 0.3, pinned: true, seed: 3 }); this.hA = new Held(N, 20); this.hB = new Held(N, 20); this.rA = 1; this.rB = 1; },
+    frame(dtw) { advance([this.A, this.B], dtw); const a = rel(this.A), b = rel(this.B), w = dtw * RATE; this.hA.add(a, w); this.hB.add(b, w);
+      const R = (S) => { let x = Math.cos(S.thL), y = Math.sin(S.thL); for (const t of S.th) { x += Math.cos(t); y += Math.sin(t); } return Math.hypot(x, y) / (S.N + 1); };
+      const k = Math.min(1, w / 20); this.rA += k * (R(this.A) - this.rA); this.rB += k * (R(this.B) - this.rB);
+      drawCircle($('c4'), [{ phis: b, color: PINNED, hollow: true, r: 5 }, { phis: a, color: INDIGO, r: 4 }]);
+      $('l4ra').textContent = f2(this.rA); $('l4ha').textContent = f2(this.hA.mean()); $('l4rb').textContent = f2(this.rB); $('l4hb').textContent = f2(this.hB.mean());
+    } },
+];
+async function runTest() {
+  const jobs = jobsA(), btn = $('run4'); btn.disabled = true; const t0 = performance.now();
+  for (let i = 0; i < jobs.length; i++) { $('st4s').textContent = 'running ' + (i + 1) + ' of ' + jobs.length; await tick(); runJob(jobs[i]); }
+  const v = judgeA(jobs); let h = '';
+  for (const m of [0.3, 0]) {
+    h += '<table><tr><th>' + (m ? 'he moves · m = 0.3' : 'the null · he stays still') + '</th><th>agreement</th><th>R</th><th>H</th></tr>';
+    for (const j of jobs.filter((j) => j.m === m)) {
+      const cls = j.arm === 'B' || !m ? '' : (j.out.lock > v.Bmax ? 'pass' : 'miss');
+      h += '<tr><td>' + j.label + '</td><td>' + sgn(j.out.agree) + '</td><td>' + f3(j.out.Rall) + '</td><td class="' + cls + '">' + f3(j.out.lock) + '</td></tr>';
+    }
+    h += '</table>';
+  }
+  const list = (a) => a.map((x) => x.replace('A · ', '')).join(', ');
+  h += '<div class="verdict"><b>Under H</b> the sentence ' + (v.H ? 'holds: every palace A scores above both Bs (the better B holds ' + f3(v.Bmax) + '); the closest is ' + v.weakest.label.replace('A · ', '') + ', at ' + f3(v.weakest.out.lock) + '. Since H can\'t see a stance, this says a page that keeps listening holds him better than one that stopped, at every stance.' : 'fails at ' + list(v.Hfails) + '.') +
+    ' <b>Under R</b> the verdict turns on B. Against the clones (R ' + f3(v.Bc.Rall) + ') it ' + (v.Rc.length ? 'fails at ' + list(v.Rc) + ': twelve pages agreeing with each other outscore pages that contradict him.' : 'holds.') +
+    ' Against pages that each keep their own speed (R ' + f3(v.Bo.Rall) + ') it ' + (v.Ro.length ? 'fails only at ' + list(v.Ro) + ': R also marks down a palace whose pages each hold a different tension with him.' : 'holds at every stance.') +
+    ' <b>The null</b> ' + (v.nullTie ? 'passes: with him still, the clone B ties every A on H (' + f3(v.B0.lock) + ').' : 'fails: with him still, the clone B and A differ on H by more than 0.01.') + '</div>';
+  h += '<p class="note">' + jobs.length + ' runs in ' + ((performance.now() - t0) / 1000).toFixed(1) + ' s. These are the model\'s numbers, from its choice of pull, spread, wander and window, not a measurement of the palace. On H, amber is a pass for A against the better B, orange a miss. The B with its own speeds drifts even when he is still (H ' + f3(v.Bo0.lock) + ' in the null), from its own speeds alone.</p>';
+  $('out4').innerHTML = h; $('st4s').textContent = ''; btn.disabled = false;
+}
+show(0); requestAnimationFrame(loop);
+</script>
+</body>
+</html>
