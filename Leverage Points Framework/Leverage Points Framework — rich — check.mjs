@@ -49,7 +49,14 @@ function bake1(L) {
   const p = L.withRefs({}, A), base = L.many(p, A), sw = [];
   for (const g of [0, 0.25, 0.5, 0.75, 0.9, 0.97, 0.99, 0.999, 1]) { const s = L.many(L.P(Object.assign({}, p, { g })), A); sw.push({ g, D: r(L.D(s, base)), Afast: r(s.Afast), dW: r(s.W / base.W - 1), dS: r(s.S / base.S - 1), dC: r(s.C / base.C - 1), dR: r(s.R / base.R - 1) }); }
   const yEnd = r(L.D(L.many(L.P(Object.assign({}, p, { y: 2 })), A), base));
-  return { def, Q, verdict, rise, under, sw, yEnd };
+  const ns = L.withRefs({ sigma: 0.01 }, A), nsb = L.many(ns, A), nsg = L.many(L.P(Object.assign({}, ns, { g: 0.1 })), A);
+  const quiet = { D: r(L.D(nsg, nsb)), Afast: r(nsg.Afast) };
+  const slow30 = r(L.D(L.many(L.P(Object.assign({}, p, { g: 0.5, tau: 30 })), A), base));
+  const yLow = r(L.D(L.many(L.P(Object.assign({}, p, { y: 0.5 })), A), base));
+  const swD = []; for (let i = 0; i < 64; i++) { const q = L.withRefs(L.draw(i), A), bq = L.many(q, A); swD.push(r(L.D(L.many(L.P(Object.assign({}, q, { g: 1 })), A), bq))); }
+  const sge = swD.filter(x => x >= 1.5).length, sle = swD.filter(x => x <= 0.5).length;
+  const switchRule = { ge: sge, le: sle, v: sge / 64 >= 0.8 ? 'HOLDS' : sle / 64 >= 0.5 ? 'FAILS' : 'MIXED' };
+  return { def, Q, verdict, rise, under, sw, yEnd, quiet, slow30, yLow, swD, switchRule };
 }
 function bake2(L) {
   const A = L.seeds(1, 40), r = x => +x.toFixed(4);
@@ -67,7 +74,15 @@ function bake2(L) {
   for (let i = 0; i < 64; i++) { const c = L.draw(i); for (const t of [1, 7, 30]) if (score(c, t, B).hijacked) hij[t]++;
     const q = L.withRefs(c, B), k1 = L.many(L.P(Object.assign({}, q, { g: .5, Ds: 30, tau: 1 })), B), k30 = L.many(L.P(Object.assign({}, q, { g: .5, Ds: 30, tau: 30 })), B), k90 = L.many(L.P(Object.assign({}, q, { g: .5, Ds: 30, tau: 90 })), B);
     if (k30.K > 1.1 * k1.K) rise++; if (k90.K > 1.1 * k1.K) rise90++; if (k30.Afast < k30.Aslow + 0.2) lift++; }
-  return { table, pos, nul, slow, viewsOut: { Afast: r(out1.Afast), Aslow: r(out1.Aslow), K: r(out1.K) }, sweep: { hij, lift, rise, rise90 } };
+  const nd = L.many(L.P(Object.assign({}, p, { g: 0.5, Ds: 0 })), A), noDelay = { Afast: r(nd.Afast), Aslow: r(nd.Aslow) };
+  const refMonthly = { Ds0: r(L.many(L.P(Object.assign({}, p, { g: 1, tau: 30, Ds: 0 })), A).K), Ds30: r(L.many(L.P(Object.assign({}, p, { g: 1, tau: 30, Ds: 30 })), A).K) };
+  function scoreG(cons, tau, sd, g) { const q = L.withRefs(cons, sd); const s = L.many(L.P(Object.assign({}, q, { g, tau, Ds: 30 })), sd), f = L.many(L.P(Object.assign({}, q, { g: 1, tau, Ds: 30 })), sd);
+    return { tau, g, Afast: r(s.Afast), Aslow: r(s.Aslow), K: r(s.K), Kref: r(f.K), hijacked: s.Afast >= s.Aslow + 0.2 && s.K <= 0.9 * f.K, lifted: s.Afast < s.Aslow + 0.2 }; }
+  const demoted = [1, 7].map(t => scoreG({}, t, A, 0.99));
+  const dsw = { h1: 0, h7: 0, l1: 0, l7: 0, rise: 0 };
+  for (let i = 0; i < 64; i++) { const c = L.draw(i), a = scoreG(c, 1, B, 0.99), b = scoreG(c, 7, B, 0.99); if (a.hijacked) dsw.h1++; if (b.hijacked) dsw.h7++; if (a.lifted) dsw.l1++; if (b.lifted) dsw.l7++; if (b.K > 1.1 * a.K) dsw.rise++; }
+  dsw.v = (64 - dsw.h7) / 64 >= 0.8 && dsw.h1 / 64 >= 0.5 ? 'WORKS' : dsw.h7 / 64 >= 0.5 ? 'FAILS' : 'MIXED';
+  return { table, pos, nul, slow, viewsOut: { Afast: r(out1.Afast), Aslow: r(out1.Aslow), K: r(out1.K) }, sweep: { hij, lift, rise, rise90 }, noDelay, refMonthly, demoted, dsw };
 }
 const t0 = Date.now(); const b1 = bake1(L), b2 = bake2(L);
 const same = (a, b, path = '') => { if (typeof a === 'number') return Math.abs(a - b) < 1e-9 ? [] : [path]; if (a && typeof a === 'object') { const ks = new Set([...Object.keys(a), ...Object.keys(b || {})]); return [...ks].flatMap(k => same(a[k], (b || {})[k], path + '.' + k)); } return a === b ? [] : [path]; };
@@ -91,5 +106,13 @@ pass(T[1].hijacked && T[7].hijacked && !T[30].hijacked, `hijack rule: daily ${T[
 pass(T[30].Afast >= T[30].Aslow + 0.2, `the reading: at monthly looks decisions still follow views (${T[30].Afast} vs ${T[30].Aslow})`);
 pass(T[30].Kref < T[1].Kref * 0.5 && Math.abs(T[30].K - T[1].K) < 0.1, `the reading: monthly passes because the slow-alone reference fell (${T[1].Kref} -> ${T[30].Kref}), not because the creator rose (${T[1].K} -> ${T[30].K})`);
 info(`sweep: hijacked daily ${b2.sweep.hij[1]}/64, weekly ${b2.sweep.hij[7]}/64, monthly ${b2.sweep.hij[30]}/64; capture lifts at monthly ${b2.sweep.lift}/64; K rises >10% monthly ${b2.sweep.rise}/64, 90-day ${b2.sweep.rise90}/64`);
+// the remake's cases (after the challenge, 2026-11-04)
+pass(b1.switchRule.v === 'HOLDS', `the page's reading (switch, views out): D >= 1.5 in ${b1.switchRule.ge}/64, <= 0.50 in ${b1.switchRule.le}/64 -> ${b1.switchRule.v} (the piece prints "holds in this model")`);
+pass(b1.yEnd === 0.5 && b1.yLow === 0.25, `the parameter across its range is fixed by construction: D ${b1.yEnd} at 2x, ${b1.yLow} at 0.5x`);
+pass(b1.quiet.D < 0.01 && b1.slow30 < 0.1, `the dial's cause is not noise and not a delay: sigma 0.01 -> D ${b1.quiet.D}; 30-day looks at g 0.5 -> D ${b1.slow30}`);
+pass(b2.noDelay.Afast >= b2.noDelay.Aslow + 0.2, `the hijack holds with no delay: ${b2.noDelay.Afast} with views, ${b2.noDelay.Aslow} with slow`);
+pass(b2.refMonthly.Ds0 > 2 * b2.refMonthly.Ds30, `the 30-day delay is what drops the monthly reference: ${b2.refMonthly.Ds0} -> ${b2.refMonthly.Ds30}`);
+pass(b2.demoted[0].hijacked && !b2.demoted[1].hijacked, `views demoted to 1%: daily hijacked ${b2.demoted[0].hijacked}, weekly ${b2.demoted[1].hijacked}`);
+pass(b2.dsw.v === 'MIXED' && b2.dsw.h7 === 0, `demoted arm across 64 draws: weekly hijacked ${b2.dsw.h7}, daily ${b2.dsw.h1}; capture lifts weekly ${b2.dsw.l7}, daily ${b2.dsw.l1}; K up >10% in ${b2.dsw.rise} -> ${b2.dsw.v} (the piece prints "mixed" by the letter)`);
 info('not checked here: anything a person feels; the model is the maker\'s, and its structure decides what any number can mean');
 process.exit(fails ? 1 : 0);
