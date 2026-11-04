@@ -1,0 +1,30 @@
+{
+ "entry": "Synth Templates",
+ "path": "Projects/Synth Templates.md",
+ "type": "project",
+ "stage": "sprout",
+ "weight": 6,
+ "claim": "Opening §: 'The split is the lesson' — essential settings make the sound that sound, taste settings are what a player moves; a learner who can say which knobs are which has understood the patch.",
+ "pieces": [
+  {
+   "section": "Synth Templates (opening)",
+   "what": "house bass from the reference voice, then move a taste knob (cutoff) and an essential one (filter-envelope sustain): one stays house bass, the other stops being it; tests the split by ear",
+   "kind": "interactive",
+   "walks_up_from": "the house bass as rendered, untouched"
+  },
+  {
+   "section": "Synth Templates (signal-flow sheet)",
+   "what": "the house-bass card's signal-flow sheet in the house style",
+   "kind": "image",
+   "walks_up_from": "oscillator → filter → amp"
+  }
+ ],
+ "gathered": [
+  "Projects/Synth Templates/workshop/cards/house-bass.svg",
+  "Projects/Synth Templates/workshop/cards/house-bass-preview-1.png",
+  "Projects/Synth Templates/workshop/picker.html",
+  "Projects/Synth Templates/workshop/site/index.html"
+ ],
+ "tier": "sketch",
+ "slice": 4
+}
