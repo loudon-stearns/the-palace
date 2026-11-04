@@ -101,6 +101,7 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 - **No dead controls.** A rack carries no named macros and no Macro Variations until the forge maps them to something. (Loudon, 2026-10-24, on seeing the Slicing default's Hold/Play/Looped Slices in a kit.)
 - **Prove structure, hear sound.** A Set is done when it opens and `check` is clean. Whether it sounds right is Loudon's ear; never say a Set sounds right.
 - **Prove in a Live you launched.** A steward or a session proves a Set only in a Live 12 it started itself, a new instance, never in one Loudon started. When a new one can't come up (the screen is locked, or the "Another instance…" box waits for a click), the proof stays owed and the hand-off says so. (Loudon, 2026-10-29: "I'd rather a steward load a new version of live and not use a copy of live that I started.")
+- **A download link is a key.** A presigned Splice URL carries the account's key id, so never write one, or anything with an `X-Amz-` query string, into a file in the bundle; record the sample's `uuid` and `file`, or the bare URL cut at `?`. Live links for a `fetch` go in `_ops/scratch/`, outside the bundle. Twice they reached a commit and main had to be rewritten (2026-10-25, 2026-10-29); see tuning item 4. (Loudon, 2026-11-04: "the 'presigned-link rule' I agree with your suggestion.")
 <!-- scroll:orders:end -->
 
 ## The making
