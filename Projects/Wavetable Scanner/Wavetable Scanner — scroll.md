@@ -15,25 +15,33 @@ forward_vector: "I am Wavetable Scanner's scroll — the one page that always op
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T23:58:54.930Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T00:04:14.483Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 1 · last ran 2026-11-03 (today)
+- **Status:** active · **Stage:** growing · **Steward:** cycle 2 · last ran 2026-11-04 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — The scanner packs its own tables now: drop a folder of single-cycle WAVs on the page and it sorts, plays and draws them, no Python. (`wavetable-scanner-steward-001`)
-- **Last commit touching this project:** 2026-11-03 `a027a3f7` — edit(Loudon Live Design System): the browser's furniture fan-out, batch 3 of 5: Projects, Q to Z (94 pages)
+- **Last shipped:** 2026-11-04 (today) — The scanner now packs folders in the family-chain order you picked, with a switch to blur away the sweep buzz. Three-way listening files are ready. (`wavetable-scanner-steward-004`)
+- **Last commit touching this project:** 2026-11-03 `73b0f5d3` — steward(Wavetable Scanner): cycle 1 — The scanner packs its own tables now: drop a folder of single-cycle WAV…
 - **Signal:** steady
+- **Left uncommitted:** ⚠ 14 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Wavetable Scanner/packer/chain/cello_centroid.json`, `Projects/Wavetable Scanner/packer/chain/cello_chain.json`, `Projects/Wavetable Scanner/packer/chain/cello_chain_smooth.json`, `Projects/Wavetable Scanner/packer/chain/eorgan_centroid.json`, `Projects/Wavetable Scanner/packer/chain/eorgan_chain.json`, and 9 more. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 1 · taught item 1, proposed items 2, 3 for canon
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 2 · taught item 4, proposed item 5 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 2 — items 2, 3; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 3, from cycle 1 — 2026-11-03 — [[Wavetable Scanner — tuning]]
+- **Proposed for canon:** 2 — items 3, 5; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 5, from cycle 2 — 2026-11-03 — [[Wavetable Scanner — tuning]]
 
 ### Where this stands
 
-Wavetable Scanner is the browser page that shows a wavetable as a 3D ridge landscape and lets you sweep Position to hear the frames morph. It was built as a Sketch on 2026-05-31. Until now it could only load a table that was already packed, and packing a folder of single cycles meant running pack_wavetable.py outside the browser. This cycle moved that packer into the page. Now you can drop a folder of single-cycle WAVs onto the stage, or pick one. The page resamples every cycle to 1024 samples, sorts the cycles dull to bright, normalises them together, and plays and draws the table. A toggle keeps the folder's own order instead, and a button downloads the table for Ableton. The old Sketch p…
+Wavetable Scanner is the browser page that draws a wavetable as a 3D landscape and lets you sweep Position to hear the frames morph. Last cycle the page learned to pack its own tables: drop in a folder of single-cycle WAVs and it resamples, sorts and plays them, with no Python needed. This cycle it learned to pack them the way you chose for Generative Wavetable Libraries on 2026-10-14. That's the family chain: similar cycles grouped into families, darkest family first, each family walked smoothly, and every frame rotated to line up with its neighbour. The chain is now the default order. Centroid and file order are one click away. A new switch blurs each frame gently into its neighbours. Tha…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 1:** Nobody has heard these. _(in 2 notes, the latest cycle 2)_
+- **rough since cycle 1:** The page hasn't been tried in Safari or Firefox, and folder drag-and-drop hasn't been driven, only the picker. _(in 2 notes, the latest cycle 2)_
 
 ### Open asks
 
@@ -49,6 +57,7 @@ _Nothing decided on the board yet._
 
 ### Runs
 
+- 2026-11-03 — cycle 2 · taught item 4, proposed item 5 for canon
 - 2026-11-03 — cycle 1 · taught item 1, proposed items 2, 3 for canon
 
 ### Owed
@@ -59,8 +68,8 @@ _Nothing owed._
 
 _Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
 
-- **2.** 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Sketch round 2 — Drone default fix' — the Study tier names 'port the resampler to JS' as its reach, and it now exists
 - **3.** 2026-11-03 · `Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md` · a new gotcha at the end — a trap the next browser wavetable tool would fall into silently; it belongs beside the other build gotchas
+- **5.** 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Sketch round 2 — Drone default fix' — the Study tier's reach, porting the packer to JS, now exists, and it packs in the order Loudon chose
 
 <!-- scroll:now:end -->
 
@@ -79,6 +88,65 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="wavetable-scanner-steward-004" -->
+### 2026-11-04 — cycle 2 — The scanner now packs folders in the family-chain order you picked, with a switch to blur away the sweep buzz. Three-way listening files are ready.
+> shipped · family chain is the default order, blur off until heard · steward leans blur 1 once you've listened
+
+I ported the family chain from the Python in Generative Wavetable Libraries into packer.js. It works out each cycle's timbre from its first 64 harmonics with loudness taken out, splits the folder into 3 to 8 families with k-means (choosing the count that separates best), walks each family nearest-neighbour and tidies the walk, and lines the frames up so the crossfades don't cancel. The blur along Position is the same one-frame Gaussian GWL used.
+
+To check it, I packed three AKWF folders three ways and scored them with GWL's own yardsticks (the table below). On FM and organ, the chain cuts the big jumps between neighbouring frames from 48 to 13 and from 90 to 17. The blur then takes the buzz down another 11 to 15 dB, and the worst morph dip comes up to about −0.6 dB. What you give up is that Position no longer means strictly brighter (0.82 on FM, 0.71 on organ, where 1.00 would be always brighter).
+
+The organ folder splits into the same three families the Python found: round, warm, and the same 12 bright-nasal cycles. On FM the browser picks 3 families where the Python picked 5. The scores come out almost the same (13 jumps against 14), and this folder has no sharp family boundary, so the random start decides the count.
+
+In Chrome I dropped 122 FM files on the page. The HUD names the family at every position. I turned the blur on and exported, and the download is bit-identical to the same pack run headless. The page threw no errors.
+
+**Artifacts:**
+- [Start here: three 20 s FM sweeps at 110 Hz (centroid, then family chain, then chain blurred), with a second of silence between. The first should stutter, the second glide, the third lose the flutter.](Projects/Wavetable Scanner/packer/chain/fmsynth_ABC_centroid_chain_smoothed.wav)
+- [The same three sweeps through 154 organ cycles.](Projects/Wavetable Scanner/packer/chain/eorgan_ABC_centroid_chain_smoothed.wav)
+- [The page: family chain by default, the blur switch, and the HUD naming the family you're in. Open in Chrome and drop a folder on it.](Projects/Wavetable Scanner/wavetable_scanner_study.html)
+- [122 FM cycles in the chain, 62% of the way through the bright-full family.](Projects/Wavetable Scanner/packer/shot-fmsynth-chain-mid.png)
+- [The chain's start: the darkest member of the warm family.](Projects/Wavetable Scanner/packer/shot-fmsynth-chain-start.png)
+- [The chain's end: the glassy family.](Projects/Wavetable Scanner/packer/shot-fmsynth-chain-end.png)
+- [The packer, now with families, the walk, frame alignment and the blur.](Projects/Wavetable Scanner/packer/packer.js)
+- [Packs three folders three ways through packer.js and scores them with GWL's yardsticks.](Projects/Wavetable Scanner/packer/chain_check.py)
+- [The scores.](Projects/Wavetable Scanner/packer/chain_check.json)
+- [Drives the page in Chrome: pack, HUD at three positions, blur, export, the other orders.](Projects/Wavetable Scanner/packer/browser_check.mjs)
+- [What Chrome saw: no page errors, and the families named in the HUD.](Projects/Wavetable Scanner/packer/browser_check.json)
+- [The page's own download (FM chain, blurred), bit-identical to the headless pack.](Projects/Wavetable Scanner/packer/browser_export_fmsynth_chain_smooth.wav)
+- [Builds the Study page from the Sketch, with the new order and smoothing controls.](Projects/Wavetable Scanner/packer/build_page.py)
+- [The headless packer, now taking an order and a blur width.](Projects/Wavetable Scanner/packer/pack_folder.cjs)
+- [The FM table, family chain blurred: 122 × 1024 frames, float32, ready for Ableton's Wavetable.](Projects/Wavetable Scanner/packer/chain/fmsynth_chain_smooth.wav)
+- [The organ table, family chain blurred.](Projects/Wavetable Scanner/packer/chain/eorgan_chain_smooth.wav)
+- [What changed, the numbers, and what to listen for.](Projects/Wavetable Scanner/packer/BUILD.md)
+
+_Same cycles, three orders, scored with Generative Wavetable Libraries' yardsticks (chain_check.json)_
+| folder | order | big jumps | worst morph dip | brighter as Position rises | sweep buzz |
+| --- | --- | --- | --- | --- | --- |
+| fmsynth (122) | centroid | 48 | −5.1 dB | 1.00 | −21.7 dB |
+| fmsynth | family chain | 13 | −2.2 dB | 0.82 | −26.2 dB |
+| fmsynth | chain + blur 1 | 13 | −0.7 dB | 0.82 | −36.9 dB |
+| eorgan (154) | centroid | 90 | −4.1 dB | 1.00 | −19.9 dB |
+| eorgan | family chain | 17 | −2.7 dB | 0.71 | −24.1 dB |
+| eorgan | chain + blur 1 | 17 | −0.6 dB | 0.71 | −39.3 dB |
+| cello (19) | centroid | 4 | −3.3 dB | 1.00 | −44.8 dB |
+| cello | chain + blur 1 | 2 | −0.5 dB | 0.83 | −56.3 dB |
+
+_Changed in the workshop:_ BUILD — adds the family chain section, the three-folder scores, the Chrome check, and what to listen for
+_Proposed for canon:_ Wavetable Scanner (§ Tiers, a new subsection after 'Sketch round 2 — Drone default fix') — the Study tier's reach, porting the packer to JS, now exists, and it packs in the order Loudon chose; owed in the tuning ledger until Loudon's review; it replaces item 2
+
+_Left rough:_ Nobody has heard these. The page hasn't been tried in Safari or Firefox, and folder drag-and-drop hasn't been driven, only the picker. GWL's tilted chain (its pick for organs) isn't ported. I deleted last cycle's three screenshots and its export WAV in favour of the new ones, and that deletion may not ride the commit.
+
+_Next moves named:_ Finish the Study tier: drag the cursor plane in the 3D scene to set Position, check Safari and Firefox, drive folder drag-and-drop, then add phone audio unlock and a short test plan. · After that, export for the synths you use: a Serum/Vital WAV with 2048-sample frames and the CLM chunk, and a Surge .wt, beside the Ableton WAV. · When you've heard the A/B/C, make blur 1 the page's default (or set it wherever your ear lands). Your verdict also answers the open smoothing question in Generative Wavetable Libraries.
+<sub>`wavetable-scanner-steward-004` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-26a7094bfe" -->
+### 2026-11-03 — cycle 2
+
+taught item 4, proposed item 5 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="wavetable-scanner-steward-001" -->
 ### 2026-11-04 — cycle 1 — The scanner packs its own tables now: drop a folder of single-cycle WAVs on the page and it sorts, plays and draws them, no Python.
 > shipped · checked against pack_wavetable.py on six AKWF folders · steward leans family chain next

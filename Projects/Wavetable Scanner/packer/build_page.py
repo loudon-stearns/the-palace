@@ -42,17 +42,26 @@ rep('''        <label>Load .wav <span id="vFile">— (drop a wavetable WAV or pi
         <input id="cFile" type="file" multiple accept=".wav,audio/wav,audio/wave" />
       </div>
       <div class="ctl">
-        <label>Frame order <span id="vOrder">dull → bright</span></label>
-        <div class="seg" id="orderSeg">
-          <button class="seg-btn active" data-order="centroid">Centroid</button>
+        <label>Frame order <span id="vOrder">families, each walked smoothly</span></label>
+        <div class="seg seg3" id="orderSeg">
+          <button class="seg-btn active" data-order="chain">Family chain</button>
+          <button class="seg-btn" data-order="centroid">Centroid</button>
           <button class="seg-btn" data-order="file">File order</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label>Smooth along Position <span id="vSmooth">off — frames as packed</span></label>
+        <div class="seg seg3" id="smoothSeg">
+          <button class="seg-btn active" data-smooth="0">Off</button>
+          <button class="seg-btn" data-smooth="1">Blur 1 frame</button>
+          <button class="seg-btn" data-smooth="1.5">Blur 1.5</button>
         </div>
       </div>
       <div class="ctl">
         <label>Export <span id="vExport">— pack something first</span></label>
         <button class="filebtn" id="cExport" disabled>Download packed .wav</button>''')
 rep(".ctl input[type=file] { display: none; }",
-    ".ctl input[type=file] { display: none; }\n.ctl button.filebtn:disabled { opacity: .4; cursor: default; }\n.seg label.seg-btn { text-align: center; }")
+    ".ctl input[type=file] { display: none; }\n.ctl button.filebtn:disabled { opacity: .4; cursor: default; }\n.seg label.seg-btn { text-align: center; }\n.seg.seg3 { grid-template-columns: 1fr 1fr 1fr; }")
 
 # 3. the packer itself, inlined
 rep("<script>\n/* =====================================================================\n *  WAVETABLE DATA",
@@ -62,7 +71,8 @@ rep("const FRAME_LEN = 1024;\nconst TABLES = [", "const FRAME_LEN = 1024;\nconst
 # 4. file handling: parse ourselves, pack folders, keep the order toggle live
 start = src.index("async function handleFile(file){")
 end = src.index("/* =====================================================================\n *  ENGAGE")
-src = src[:start] + r'''const packState = { files: null, folder: '', order: 'centroid', lastIdx: -1 };
+src = src[:start] + r'''const packState = { files: null, folder: '', order: 'chain', smooth: 0, lastIdx: -1 };
+const ORDER_WORDS = { chain: 'family chain', centroid: 'dull → bright', file: 'file order' };
 
 // Read every File into {name, buffer}. Names are paths when a folder came in.
 async function readAll(fileList){
@@ -120,10 +130,10 @@ async function handleFiles(fileList){
 function repack(){
   if (!packState.files) return;
   let t;
-  try { t = WTPacker.packCycles(packState.files, { frameLen: FRAME_LEN, order: packState.order }); }
+  try { t = WTPacker.packCycles(packState.files, { frameLen: FRAME_LEN, order: packState.order, smooth: packState.smooth }); }
   catch (e){ $('vFile').textContent = `— ${e.message}`; return; }
-  const entry = { label: `Packed — ${packState.folder}, ${t.order === 'centroid' ? 'dull → bright' : 'file order'}`,
-    frames: t.frames, frameNames: t.frameNames, centroids: t.centroids, order: t.order,
+  const entry = { label: `Packed — ${packState.folder}, ${ORDER_WORDS[t.order]}${t.smooth ? `, blurred ${t.smooth}` : ''}`,
+    frames: t.frames, frameNames: t.frameNames, centroids: t.centroids, order: t.order, families: t.families,
     samples: t.samples, data: null, packed: t };
   if (packState.lastIdx >= 0) tableData[packState.lastIdx] = entry;
   else { tableData.push(entry); packState.lastIdx = tableData.length - 1; }
@@ -131,6 +141,7 @@ function repack(){
   const notes = [];
   if (t.skipped.length) notes.push(`${t.skipped.length} skipped (${t.skipped[0].why})`);
   if (t.thinned) notes.push(`${t.thinned} thinned to fit 256 frames`);
+  if (t.families) notes.push(`${t.families.k} families: ${t.families.names.map((n, i) => `${n} ${t.families.of.filter(f => f === i).length}`).join(', ')}`);
   $('vFile').textContent = `${packState.folder} — ${t.frames} cycles packed${notes.length ? ' · ' + notes.join(' · ') : ''}`;
   $('cExport').disabled = false;
   $('vExport').textContent = `${t.frames} × ${FRAME_LEN}, float32`;
@@ -139,10 +150,17 @@ function repack(){
 function setOrder(order){
   packState.order = order;
   document.querySelectorAll('#orderSeg .seg-btn').forEach(b => b.classList.toggle('active', b.dataset.order === order));
-  $('vOrder').textContent = order === 'centroid' ? 'dull → bright' : 'as the folder lists them';
+  $('vOrder').textContent = { chain: 'families, each walked smoothly', centroid: 'dull → bright', file: 'as the folder lists them' }[order];
   repack();
 }
 document.querySelectorAll('#orderSeg .seg-btn').forEach(b => b.addEventListener('click', () => setOrder(b.dataset.order)));
+function setSmooth(sigma){
+  packState.smooth = +sigma;
+  document.querySelectorAll('#smoothSeg .seg-btn').forEach(b => b.classList.toggle('active', +b.dataset.smooth === +sigma));
+  $('vSmooth').textContent = +sigma ? `each frame blended into its neighbours, sigma ${sigma}` : 'off — frames as packed';
+  repack();
+}
+document.querySelectorAll('#smoothSeg .seg-btn').forEach(b => b.addEventListener('click', () => setSmooth(b.dataset.smooth)));
 
 $('cExport').addEventListener('click', () => {
   const t = tableData[packState.lastIdx] && tableData[packState.lastIdx].packed;
@@ -166,7 +184,7 @@ stage.addEventListener('drop', async e => { handleFiles(await filesFromDrop(e.da
 
 # 5. HUD: say what the order means, and the current frame's brightness
 rep("    `<div class=\"row\"><span class=\"k\">note</span>",
-    "    `<div class=\"row\"><span class=\"k\">order</span><span class=\"v\">${t.order === 'centroid' ? 'dull → bright (centroid sort): back ridges are brighter' : t.order === 'file' ? 'file order: depth means nothing' : 'as authored'}${t.centroids ? ` · this frame ${Math.round(t.centroids[cur])} Hz` : ''}</span></div>` +\n    `<div class=\"row\"><span class=\"k\">note</span>")
+    "    `<div class=\"row\"><span class=\"k\">order</span><span class=\"v\">${t.order === 'chain' && t.families ? `family chain: ${t.families.names[t.families.of[cur]]} (family ${t.families.of[cur] + 1} of ${t.families.k}, darkest first)` : t.order === 'centroid' ? 'dull → bright (centroid sort): back ridges are brighter' : t.order === 'file' ? 'file order: depth means nothing' : 'as authored'}${t.centroids ? ` · this frame ${Math.round(t.centroids[cur])} Hz` : ''}</span></div>` +\n    `<div class=\"row\"><span class=\"k\">note</span>")
 
 # 6. many frames: show a window of chips around the cursor
 rep("  table.frameNames.forEach((nm, i) => {\n    const span",
@@ -175,7 +193,7 @@ rep("    strip.appendChild(span);\n  });\n}", "    strip.appendChild(span);\n  }
 
 rep("function selectTable(idx){\n  state.tableIdx = idx;", "function selectTable(idx){\n  state.tableIdx = idx;\n  $('cTable').value = idx;")
 rep("window.__wavetable = { state, tableData, palaceTokens, VIZ, FRAME_LEN };",
-    "window.__wavetable = { state, tableData, palaceTokens, VIZ, FRAME_LEN, packState, handleFiles, setOrder };")
+    "window.__wavetable = { state, tableData, palaceTokens, VIZ, FRAME_LEN, packState, handleFiles, setOrder, setSmooth };")
 
 (BUNDLE / "wavetable_scanner_study.html").write_text(src)
 print("wrote", BUNDLE / "wavetable_scanner_study.html", len(src), "bytes")

@@ -1,0 +1,126 @@
+{
+  "AKWF_fmsynth": {
+    "centroid": {
+      "frames": 122,
+      "far_steps": 48,
+      "mean_step": 83.0,
+      "max_step": 177.2,
+      "worst_dip_db": -5.1,
+      "brighter_as_position_rises": 1.0,
+      "buzz_db": -21.7
+    },
+    "chain": {
+      "frames": 122,
+      "far_steps": 13,
+      "mean_step": 52.7,
+      "max_step": 171.2,
+      "worst_dip_db": -2.2,
+      "brighter_as_position_rises": 0.82,
+      "buzz_db": -26.2,
+      "families": [
+        "warm-full (62)",
+        "bright-full (44)",
+        "glassy-full (16)"
+      ]
+    },
+    "chain_smooth": {
+      "frames": 122,
+      "far_steps": 13,
+      "mean_step": 52.7,
+      "max_step": 171.2,
+      "worst_dip_db": -0.7,
+      "brighter_as_position_rises": 0.82,
+      "buzz_db": -36.9,
+      "families": [
+        "warm-full (62)",
+        "bright-full (44)",
+        "glassy-full (16)"
+      ]
+    },
+    "far_step_yardstick": 92.0
+  },
+  "AKWF_eorgan": {
+    "centroid": {
+      "frames": 154,
+      "far_steps": 90,
+      "mean_step": 61.1,
+      "max_step": 151.0,
+      "worst_dip_db": -4.1,
+      "brighter_as_position_rises": 1.0,
+      "buzz_db": -19.9
+    },
+    "chain": {
+      "frames": 154,
+      "far_steps": 17,
+      "mean_step": 32.7,
+      "max_step": 115.0,
+      "worst_dip_db": -2.7,
+      "brighter_as_position_rises": 0.71,
+      "buzz_db": -24.1,
+      "families": [
+        "round-full (79)",
+        "warm-full (63)",
+        "bright-nasal (12)"
+      ]
+    },
+    "chain_smooth": {
+      "frames": 154,
+      "far_steps": 17,
+      "mean_step": 32.7,
+      "max_step": 115.0,
+      "worst_dip_db": -0.6,
+      "brighter_as_position_rises": 0.71,
+      "buzz_db": -39.3,
+      "families": [
+        "round-full (79)",
+        "warm-full (63)",
+        "bright-nasal (12)"
+      ]
+    },
+    "far_step_yardstick": 54.3
+  },
+  "AKWF_cello": {
+    "centroid": {
+      "frames": 19,
+      "far_steps": 4,
+      "mean_step": 45.5,
+      "max_step": 76.4,
+      "worst_dip_db": -3.3,
+      "brighter_as_position_rises": 1.0,
+      "buzz_db": -44.8
+    },
+    "chain": {
+      "frames": 19,
+      "far_steps": 2,
+      "mean_step": 42.6,
+      "max_step": 81.9,
+      "worst_dip_db": -1.8,
+      "brighter_as_position_rises": 0.83,
+      "buzz_db": -47.9,
+      "families": [
+        "warm-full (4)",
+        "warm-full-2 (5)",
+        "warm-full-3 (4)",
+        "bright-full (4)",
+        "warm-full-4 (2)"
+      ]
+    },
+    "chain_smooth": {
+      "frames": 19,
+      "far_steps": 2,
+      "mean_step": 42.6,
+      "max_step": 81.9,
+      "worst_dip_db": -0.5,
+      "brighter_as_position_rises": 0.83,
+      "buzz_db": -56.3,
+      "families": [
+        "warm-full (4)",
+        "warm-full-2 (5)",
+        "warm-full-3 (4)",
+        "bright-full (4)",
+        "warm-full-4 (2)"
+      ]
+    },
+    "far_step_yardstick": 53.9
+  }
+}

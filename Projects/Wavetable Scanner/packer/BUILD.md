@@ -6,11 +6,41 @@
 
 1. Open `wavetable_scanner_study.html` in Chrome. It opens on a cello table that this same packer built from `AKWF_cello`.
 2. Click **Engage**. Sweep **Position**. The HUD shows each frame's brightness in Hz, climbing as you go.
-3. Click **Choose folder…** and pick `~/Desktop/AKWF/AKWF_fmsynth` (or drag the folder onto the stage). 122 cycles pack in about a tenth of a second.
-4. Flip **Frame order** to *File order* and back. Same cycles. Listen for whether centroid order sweeps somewhere and file order wanders.
-5. **Download packed .wav** saves a 32-bit float table. Drop it on Ableton Wavetable's oscillator display.
+3. Click **Choose folder…** and pick `~/Desktop/AKWF/AKWF_fmsynth` (or drag the folder onto the stage). 122 cycles pack in about a quarter of a second, in the **family chain** order by default. The HUD names the family you are in.
+4. Flip **Frame order** between *Family chain*, *Centroid* and *File order*. Same cycles each time.
+5. Try **Smooth along Position**: *Blur 1 frame* is the fix for the sweep buzz from Generative Wavetable Libraries. Sweep Position fast with it off, then on.
+6. **Download packed .wav** saves a 32-bit float table. Drop it on Ableton Wavetable's oscillator display.
 
-## What to listen for
+## The family chain (cycle 2, 2026-11-04)
+
+On 2026-10-14 Loudon picked the family chain as the order for Generative Wavetable Libraries, and asked about a buzz in it; on 2026-10-28 that project traced the buzz to big jumps between neighbouring frames and blurred it away. `packer.js` now does both, ported from `akwf-scale-up-fmsynth/scale_up.py` and `loop-smoothing/smooth_tables.py`:
+
+- **Families.** Each cycle's fingerprint is the log of its harmonics 1 to 64, loudness taken out. k-means (k-means++ seeding, 24 restarts, seeded so a folder always packs the same way) for k = 3 to 8, k picked by silhouette. A folder under six cycles is one family.
+- **The chain.** Families darkest first. Inside each, a nearest-neighbour walk from the darkest member, tidied by 2-opt. The next family starts at the member closest to where the last one ended.
+- **Lined up.** Every frame is rotated to best match the one before, so the crossfade never cancels (in chain order, and whenever smoothing is on).
+- **Smoothing.** A Gaussian along Position, sigma in frames, ends held, DC removed after. Off by default, because nobody has heard the GWL A/B yet.
+
+`chain_check.py` packs three folders three ways through `packer.js` and scores them with GWL's own yardsticks (`chain_check.json`). Jumps are steps bigger than the folder's own 90th-percentile walk step. Buzz is energy 4 to 15 Hz off the harmonics in a 24 s sweep.
+
+| folder | order | jumps | mean step | worst morph dip | brighter as Position rises | buzz |
+|---|---|---|---|---|---|---|
+| fmsynth (122) | centroid | 48 | 83.0 | −5.1 dB | 1.00 | −21.7 dB |
+| | chain | 13 | 52.7 | −2.2 dB | 0.82 | −26.2 dB |
+| | chain, blur 1 | 13 | 52.7 | −0.7 dB | 0.82 | −36.9 dB |
+| eorgan (154) | centroid | 90 | 61.1 | −4.1 dB | 1.00 | −19.9 dB |
+| | chain | 17 | 32.7 | −2.7 dB | 0.71 | −24.1 dB |
+| | chain, blur 1 | 17 | 32.7 | −0.6 dB | 0.71 | −39.3 dB |
+| cello (19) | centroid | 4 | 45.5 | −3.3 dB | 1.00 | −44.8 dB |
+| | chain | 2 | 42.6 | −1.8 dB | 0.83 | −47.9 dB |
+| | chain, blur 1 | 2 | 42.6 | −0.5 dB | 0.83 | −56.3 dB |
+
+Against the Python: the organ folder splits into the same three families (round 79, warm 63, bright-nasal 12; the Python run read 142 of these 154 cycles and found 72/58/12, the same 12 bright-nasal). The FM chain scores about the same as the Python one (13 jumps against 14, mean step 52.7 against 53.5, worst dip −2.2 against −2.9 dB) but the browser picks k = 3 where Python picked k = 5. Both silhouettes sit near 0.21 to 0.23, so the folder has no sharp family boundary and the random seeding decides.
+
+`browser_check.mjs` drove the page in Chrome: 122 FM files, the HUD at three positions naming the family, blur on, export, then centroid and file order. No page errors. The blurred download is bit-identical to `node pack_folder.cjs <folder> out.wav chain 1`.
+
+**Listen:** `chain/fmsynth_ABC_centroid_chain_smoothed.wav` and `chain/eorgan_ABC_…`: three 20 s sweeps at 110 Hz with a second of silence between: centroid, family chain, family chain blurred. The first should stutter, the second glide with a seam or two, the third glide without the flutter. Then listen for the cost: does the third still travel as far?
+
+## What to listen for (cycle 1)
 
 - `sweep_fmsynth_packed_in_browser.wav`: 20 s at 110 Hz, Position 0 → 1, played with the page's own lookup. Does it get brighter the whole way? Where does it lurch? The Generative Wavetable Libraries run found 50 of 121 steps lurch in this order.
 - `sweep_cello_packed_in_browser.wav`: 12 s through the 19 cello cycles. It's a calmer folder.
@@ -26,4 +56,4 @@
 
 ## Not yet
 
-Nobody has heard these. The page hasn't been tried in Safari or Firefox. Folder drag-and-drop goes through `webkitGetAsEntry`, and only the picker path was driven in the check. Tables are capped at 256 frames, and a bigger folder is thinned evenly along the order. There's no family-chain order yet: Generative Wavetable Libraries found it beats centroid past about 24 cycles, and porting it is the obvious next step.
+Nobody has heard these. The page hasn't been tried in Safari or Firefox. Folder drag-and-drop goes through `webkitGetAsEntry`, and only the picker path was driven in the check. Tables are capped at 256 frames, and a bigger folder is thinned evenly along the order. The tilted chain (each family's walk pulled toward dull-to-bright, GWL's pick for organs) isn't ported. The family chain hasn't been heard in this page either.
