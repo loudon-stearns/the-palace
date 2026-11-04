@@ -15,14 +15,14 @@ forward_vector: "I am VST Template's scroll — the one page that always opens o
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T23:38:06-05:00 from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T08:08:53-05:00 from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-10-28 (6 days ago)
-- **Plan:** agreed 2026-11-03 (today) · 0 made things since
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-10-28 (7 days ago)
+- **Plan:** agreed 2026-11-04 (today) · 0 made things since
 - **Waiting on you:** nothing
 - **Ready to advance:** 1 answer filed since the steward last ran — a cycle will consume it
-- **Last shipped:** 2026-10-28 (6 days ago) — Frustration's screen now shows the loom: voices on pegs, partials on one rod, and a thread between each that holds or slips as you play. (`vst-template-steward-005`)
-- **Last commit touching this project:** 2026-11-03 `53e9ddec` — handoff(VST Template): the CRT-and-bundles baton is closed as a reconciler: the move landed in steward cycle 1; the file and pointer go
+- **Last shipped:** 2026-10-28 (7 days ago) — Frustration's screen now shows the loom: voices on pegs, partials on one rod, and a thread between each that holds or slips as you play. (`vst-template-steward-005`)
+- **Last commit touching this project:** 2026-11-03 `bdda438e` — edit(VST Template): the Plan takes Loudon's comments from playing both plugins in Live, and a seventh move: Frustration's MIDI and modulation through the B–K space
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 - **Runs:** 2 runs on 1 day, counted from the ledger's run lines
@@ -85,14 +85,16 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 3. **Make Simple Synth and check it against its sketch.** One oscillator, one filter and one amplifier, with envelopes and a vibrato LFO, played from MIDI notes. Nothing in it is chaotic, so every path must match its sketch sample for sample.
 4. **Validate, install, and prove they load.** pluginval and auval for both plugins, install to the user plug-in folders, then load them in a host and in Live 12. Where it stands: both pass every check. Frustration loaded in Live 12 from a Set at 00:16 on 2026-10-21 (Live's log, quoted in `proofs/2026-10-21-seal/README.md`), and the same proof records Simple Synth restored from a Set at 00:03. On 2026-11-03 Loudon inserted both from Live's browser and played them, Simple Synth ("I inserted it from the browser") and Frustration ("I inserted from teh browser"), so the condition that kept this move open is met.
 5. **Write the afternoon recipe.** How the next sketch gets from numpy to an installed plugin in one afternoon.
-6. **Give every plugin made from the template a custom editor in the [[Drafting Table Design System]] on its Phosphor theme**, generated from `Algorithm.h`'s parameter table, with no editor code per plugin. It starts with a written design standard in the template's bundle: the layout, the type, the control vocabulary for continuous, stepped and toggle parameters, how values are shown, how the editor resizes, and what the plugin shows about itself. Loudon picked from three rendered directions on 2026-10-21: the bench layout, with the edge-map pad on Frustration. Then it is finished on Frustration and Simple Synth and proved: screenshots at two sizes, pluginval and the seal checks still passing, and the recipe updated so the next plugin inherits it. Where it stands: the editor's screen, the CRT, plays each plugin's own picture, fed live by its probes (`proofs/2026-10-28-crt/README.md`), and Loudon has seen both pictures in Live. Simple Synth's, the stone and the chisel: "simple synth works great", "works great, keep it as is", so it stays as it is. Frustration's, the loom: "The loom made sense."
+6. **Give every plugin made from the template a custom editor in the [[Drafting Table Design System]] on its Phosphor theme**, generated from `Algorithm.h`'s parameter table, with no editor code per plugin. It starts with a written design standard in the template's bundle: the layout, the type, the control vocabulary for continuous, stepped and toggle parameters, how values are shown, how the editor resizes, and what the plugin shows about itself. Loudon picked from three rendered directions on 2026-10-21: the bench layout, with the edge-map pad on Frustration. Then it is finished on Frustration and Simple Synth and proved: screenshots at two sizes, pluginval and the seal checks still passing, and the recipe updated so the next plugin inherits it. Where it stands: the editor's screen, the CRT, plays each plugin's own picture, fed live by its probes (`proofs/2026-10-28-crt/README.md`), and Loudon has seen both pictures in Live. Simple Synth's, the stone and the chisel: "simple synth works great", "works great, keep it as is", so it stays as it is. Frustration's, the loom: "The loom made sense", "I watched it in live".
 7. **Give Frustration MIDI and modulation that move through the B–K space.** Loudon, 2026-11-03, after playing it in Live: "frustration is really cool, I have never played with a sound generator like it" and "I was dying for midi control and LFO's envelopes to move through the 2D space." Today Frustration takes no MIDI, and its pitch, `f0`, is a knob (`plugins/Frustration/src/Algorithm.h`). Simple Synth is the prior art to reuse: its `Env` struct, its note handling and its vibrato LFO (`plugins/SimpleSynth/src/Algorithm.h:59`, `:115-142`, `:149-154`). Four parts give the move its shape; how to build each is the steward's call.
    - **Notes set the fundamental.** Each MIDI note becomes `f0`.
-   - **Envelopes are gestures on the map.** A note fires an envelope that carries the point from where it rests toward the edge and back: a long attack slides into the tear, and the release lets the threads settle.
+   - **Envelopes are two things.** Loudon, 2026-11-03: "for envelop, also a basic amplitude envelope as well as a 2D gesture envelope." The amplitude envelope shapes each note's loudness. The gesture envelope carries the point from where it rests toward the edge and back: a long attack slides into the tear, and the release lets the threads settle.
    - **LFOs are orbits.** LFOs on B and K trace a loop across the pad, tearing and healing as it crosses the line.
    - **The path is drawn on the pad.** The modulation shows as a trail on the edge map, so the route and the sound are seen and heard together.
 
-   Done when Loudon plays Frustration from a keyboard in Live, with an envelope and an LFO moving the point across the pad and its trail visible, and the template's gates still pass.
+   Open, to explore and not part of done-when: Loudon, "I'd also be curious about draggin a mouse across the loom adn what that could do."
+
+   Done when Loudon plays Frustration from a keyboard in Live, each note shaped by its amplitude envelope, with the gesture envelope and an LFO moving the point across the pad and its trail visible, and the template's gates still pass.
 
 **The five defaults Loudon accepted** (from the framework comparison, `Projects/VST Template/proofs/2026-10-20-framework-choice/README.md`):
 
@@ -114,6 +116,43 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-2026-11-04T08-08-53-05-00" -->
+### 2026-11-04 — Plan revised: Loudon confirms the seventh move and adds to it
+
+Loudon, 2026-11-03, at the close: "yes, those are them, for envelop, also a basic amplitude envelope as well as a 2D gesture envelope. I'd also be curious about draggin a mouse across the loom adn what that could do." And of the loom: "I watched it in live." The four parts of the seventh move are confirmed as his. Its envelope becomes two, an amplitude envelope and a 2D gesture envelope, and dragging a mouse across the loom is added as an open question, not a requirement. The sixth move takes his confirmation that he watched the loom move in Live. Nothing else changed.
+
+_The plan before this change:_
+
+> **Where this is going.** A reusable plugin template at `Projects/VST Template/template/`, plus a `new-plugin.py` that copies and renames it, so the next numpy sketch becomes a plugin with one file to fill in and one command to run. The build, the JUCE wrapper, the harness, the host check and `verify.py` live once in a shared `machinery/` folder, so a plugin folder holds only what it fills in, and a fix to the machinery reaches every plugin. Two plugins come first. **Frustration** is the frustration model from `Harmonicity and Inharmonicity/proofs/2026-10-17-frustration-sweeps/ride.py`, with B and K automatable. **Simple Synth**, one oscillator, one filter and one amplifier with envelopes and a vibrato LFO, is the template's worked example of playing MIDI notes. It is built on JUCE 8 + CMake, cloned from [[Tract Mirror]].
+>
+> **The moves ahead**
+>
+> 1. **Build the template and its example.** Tract Mirror's JUCE scaffold, cut down to a template: the algorithm in one `Algorithm.h` that knows no JUCE, a console render harness, and `new-plugin.py`.
+> 2. **Make the Frustration plugin and check it against `ride.py`.** Port the per-sample body into the template, render `ride.py`'s three paths (breathe, coupling, string–bar) through the harness, and compare. Away from the edge it must match sample for sample. At the edge the check is behavioural: the fundamental's range and wobble, not the waveform.
+> 3. **Make Simple Synth and check it against its sketch.** One oscillator, one filter and one amplifier, with envelopes and a vibrato LFO, played from MIDI notes. Nothing in it is chaotic, so every path must match its sketch sample for sample.
+> 4. **Validate, install, and prove they load.** pluginval and auval for both plugins, install to the user plug-in folders, then load them in a host and in Live 12. Where it stands: both pass every check. Frustration loaded in Live 12 from a Set at 00:16 on 2026-10-21 (Live's log, quoted in `proofs/2026-10-21-seal/README.md`), and the same proof records Simple Synth restored from a Set at 00:03. On 2026-11-03 Loudon inserted both from Live's browser and played them, Simple Synth ("I inserted it from the browser") and Frustration ("I inserted from teh browser"), so the condition that kept this move open is met.
+> 5. **Write the afternoon recipe.** How the next sketch gets from numpy to an installed plugin in one afternoon.
+> 6. **Give every plugin made from the template a custom editor in the [[Drafting Table Design System]] on its Phosphor theme**, generated from `Algorithm.h`'s parameter table, with no editor code per plugin. It starts with a written design standard in the template's bundle: the layout, the type, the control vocabulary for continuous, stepped and toggle parameters, how values are shown, how the editor resizes, and what the plugin shows about itself. Loudon picked from three rendered directions on 2026-10-21: the bench layout, with the edge-map pad on Frustration. Then it is finished on Frustration and Simple Synth and proved: screenshots at two sizes, pluginval and the seal checks still passing, and the recipe updated so the next plugin inherits it. Where it stands: the editor's screen, the CRT, plays each plugin's own picture, fed live by its probes (`proofs/2026-10-28-crt/README.md`), and Loudon has seen both pictures in Live. Simple Synth's, the stone and the chisel: "simple synth works great", "works great, keep it as is", so it stays as it is. Frustration's, the loom: "The loom made sense."
+> 7. **Give Frustration MIDI and modulation that move through the B–K space.** Loudon, 2026-11-03, after playing it in Live: "frustration is really cool, I have never played with a sound generator like it" and "I was dying for midi control and LFO's envelopes to move through the 2D space." Today Frustration takes no MIDI, and its pitch, `f0`, is a knob (`plugins/Frustration/src/Algorithm.h`). Simple Synth is the prior art to reuse: its `Env` struct, its note handling and its vibrato LFO (`plugins/SimpleSynth/src/Algorithm.h:59`, `:115-142`, `:149-154`). Four parts give the move its shape; how to build each is the steward's call.
+>    - **Notes set the fundamental.** Each MIDI note becomes `f0`.
+>    - **Envelopes are gestures on the map.** A note fires an envelope that carries the point from where it rests toward the edge and back: a long attack slides into the tear, and the release lets the threads settle.
+>    - **LFOs are orbits.** LFOs on B and K trace a loop across the pad, tearing and healing as it crosses the line.
+>    - **The path is drawn on the pad.** The modulation shows as a trail on the edge map, so the route and the sound are seen and heard together.
+>
+>    Done when Loudon plays Frustration from a keyboard in Live, with an envelope and an LFO moving the point across the pad and its trail visible, and the template's gates still pass.
+>
+> **The five defaults Loudon accepted** (from the framework comparison, `Projects/VST Template/proofs/2026-10-20-framework-choice/README.md`):
+>
+> - **Port path.** Claude ports the per-sample body by hand into `Algorithm.h`: a `State` struct, a `Params` table and a `process()`. The numpy sketch stays the reference, and the sketch's random constants are exported so both start identically.
+> - **Parameters.** B on a log taper from about 1e-7 to 30, K linear from 0 to 20 Hz, both smoothed per sample (B in the log domain, about 20 ms). Inertia is a continuous knob. N (40, 64 or 96) and pinning are set-and-forget.
+> - **Real-time cost.** Mono first. Polyphony is measured before it is promised.
+> - **The check.** As in the second move.
+> - **Where it lives.** `Projects/VST Template/template/` and `new-plugin.py`, with the plugins beside the template.
+>
+> Agreed by Loudon on 2026-10-20, in the VST Template session. Simple Synth was added on his word the same evening, and the custom editor on his word of 2026-10-21. His comments from playing both plugins in Live, and the seventh move, went in on his word of 2026-11-03.
+<sub>`plan-2026-11-04T08-08-53-05-00` · plan revised · agreed 2026-11-04T08:08:53-05:00 · Loudon (written by the Concierge on his yes)</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-11-03T23-38-06-05-00" -->
 ### 2026-11-03 — Plan revised: Loudon's comments from playing both plugins in Live, and Frustration's MIDI and modulation
 
