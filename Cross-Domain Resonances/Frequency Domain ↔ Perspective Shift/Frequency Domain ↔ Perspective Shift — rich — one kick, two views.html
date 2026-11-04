@@ -477,7 +477,7 @@ function binomAtLeast(k, n, p){ var s = 0; for (var j = k; j <= n; j++){ var c =
       for (i = 0; i < x.length; i++) err = Math.max(err, Math.abs(xr[i] - x[i]));
       var z0 = rebuild(SP(state.f0, 0), false), zd = 0; KICK.ONSETS.forEach(function(o){ var zo = rebuild(SP(state.f0, o), false); for (var k = 0; k < zo.length; k++) zd = Math.max(zd, Math.abs(zo[k] - z0[k])); });
       drawSpec($('spec'), MG(state.f0, state.on)); drawRebuild($('rebuild'), xr, z);
-      meter.push('rebuilt with its phase, largest miss against the kick: <b>' + sci(err) + '</b> <span class="src">· on a peak of ' + peakOf(x).toFixed(2) + '</span>');
+      meter.push('rebuilt with its phase, largest miss against the kick: <b>' + sci(err) + '</b> <span class="src">· on a peak of ' + peakOf(x).toFixed(2) + ' · a floating-point round trip, which cannot fail: it shows nothing is lost, it does not test it</span>');
       meter.push('rebuilt from the magnitude alone, largest difference across the five onsets: <b>' + sci(zd) + '</b> <span class="src">· the same picture whenever the kick starts</span>'); }
     if (step === 4){
       var fr = GR(state.f0, state.on, state.win), rd = readGram(fr, state.win); drawGram($('gram'), fr, state.win, rd);
@@ -527,12 +527,12 @@ function binomAtLeast(k, n, p){ var s = 0; for (var j = k; j <= n; j++){ var c =
         else r = readOnsetSpec(magDb(spectrum(x)));
         if (r === truth) proc++;
       });
-      var holds = a.says === 'plain' ? mine >= 4 : mine <= 2, against = a.says === 'plain' ? mine <= 2 : mine >= 4;
-      return '<tr><td>' + a.name + '</td><td>' + a.says + '</td><td class="n">' + mine + ' of 6</td><td>' + verdict(mine) + (holds ? ' · as the notes say' : against ? ' · against the notes' : '') +
+      var holds = a.says === 'plain' ? mine >= 4 : mine <= 2, against = a.says === 'plain' ? mine <= 2 : mine >= 4, holdsLabel = a.says === 'plain' ? ' · as the notes say' : ' · as the notes say, but a guess looks the same (a guesser lands here 90.1% of the time)';
+      return '<tr><td>' + a.name + '</td><td>' + a.says + '</td><td class="n">' + mine + ' of 6</td><td>' + verdict(mine) + (holds ? holdsLabel : against ? ' · against the notes' : '') +
         '</td><td class="n">' + proc + ' of 6</td><td>' + a.proc + '</td></tr>';
     });
     $('results').innerHTML = '<table class="res"><thead><tr><th>arm</th><th>the notes say</th><th>you</th><th>by the rule</th><th>procedure</th><th>what the procedure does</th></tr></thead><tbody>' + rows.join('') + '</tbody></table>' +
-      '<p class="say" style="margin-top:14px">What this can and can’t show. The <b>spectrum → onset</b> arm can only be passed by luck: all five onsets draw the same picture, to within 3 × 10⁻⁹ dB, so that half of the sentence is strict. The magnitude spectrum of the whole clip doesn’t hold the onset, and no procedure does better than guessing on it. The <b>waveform → fundamental</b> arm is the live one. The period is in the samples, and counting the cycles in the tail reads the fundamental to within 0.04 Hz, every time. If you got 4 or more there, the waveform showed you, and the notes’ “can’t tell” is about a glance, not the view. If 2 or fewer, it held for you at this zoom. One run is one reader; the 1.7% is per arm, and four arms give a guesser about one chance in fifteen of passing at least one.</p>' +
+      '<p class="say" style="margin-top:14px">What this can and can’t show. The <b>spectrum → onset</b> arm can only be passed by luck: all five onsets draw the same picture, to within 3 × 10⁻⁹ dB, so that half of the sentence is strict. The magnitude spectrum of the whole clip doesn’t hold the onset, and no procedure does better than guessing on it. The <b>waveform → fundamental</b> arm is the live one. The period is in the samples. On this kick, whose tail is a clean sine, counting the cycles reads the fundamental to within 0.04 Hz on all 25. That is true of this kick only. Give it a 2% noise floor, or an 80 ms pitch glide, and the same count reads 5 of 25, while the spectrum’s peak still reads 25 of 25 on the noisy kicks. If you got 4 or more there, the waveform showed you, and the notes’ “can’t tell” is about a glance, not the view. If 2 or fewer, it held for you at this zoom. One run is one reader; the 1.7% is per arm, and four arms give a guesser about one chance in fifteen of passing at least one.</p>' +
       '<div class="rowb"><button class="ghost" id="again">Run the 24 trials again</button></div>';
     $('results').hidden = false; $('rule').hidden = false;
     $('again').addEventListener('click', function(){ resetTest(); $('start').click(); });

@@ -74,7 +74,7 @@ console.log('\n· what the analyzer dropped: the phase');
       for (let i = 0; i < x.length; i++){ err = Math.max(err, Math.abs(r[i] - x[i])); zd = Math.max(zd, Math.abs(z[i] - z0[i])); }
       if (on) { const x0 = C.kick(f0, 0); for (let i = 0; i < x.length; i++) xd = Math.max(xd, Math.abs(x[i] - x0[i])); } }
   }
-  t('magnitude and phase give the kick back', err < 1e-9, `largest miss ${err.toExponential(1)} (FAIL past 1e-9)`);
+  t('magnitude and phase give the kick back (a floating-point round trip: it cannot fail, it shows the piece is wired right)', err < 1e-9, `largest miss ${err.toExponential(1)}`);
   t('the magnitude alone gives one picture for every onset, peaked at time zero', zd < 1e-9 && zpk, `largest difference ${zd.toExponential(1)}`);
   t('control: the kicks themselves differ across onsets', xd > 0.5, `largest difference ${xd.toFixed(2)} (FAIL under 0.5)`);
 }
