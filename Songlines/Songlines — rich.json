@@ -42,7 +42,18 @@
           "height": 1500
         }
       ],
-      "stamped": "2026-11-04"
+      "stamped": "2026-11-04",
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5 · cloud batch 3",
+        "verdicts": [
+          {
+            "file": "Songlines — rich — two-walkers.html",
+            "verdict": "remake",
+            "why": "A real test, honestly scored, but A also holds with the same use values shuffled across entries (median 100.5 unreached, 1.70× chance; real use beats only 171 of 200 shuffles), so add a scored shuffled-use arm with its bar before the run. Also correct step 3's 'walking more does not open the land' (worn unreached falls 175.5 → 28.5), and have the caption say that use counts edits and links formed, not visits, and that tracks never deepen."
+          }
+        ]
+      }
     }
   ],
   "offers": [
