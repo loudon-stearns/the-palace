@@ -15,31 +15,33 @@ forward_vector: "I am Cycle 5 Explorer's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T01:30:52.732Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T01:33:03.900Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 3 · last ran 2026-11-04 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 4 · last ran 2026-11-04 (today)
 - **Plan:** agreed (no dated change on the trail yet)
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — My three grids now show every column on a projector, the 7 and ♭7 column included. Before, all three hid their last column at every classroom width. (`cycle5-explorer-steward-008`)
-- **Last commit touching this project:** 2026-11-03 `74d578ec` — edit(Loudon Live Design System): the browser's furniture fan-out, batch 1 of 5: Projects, 0 to C (81 pages)
+- **Last shipped:** 2026-11-04 (today) — I measured how my labels read from a classroom's back row, found almost none do, and built a room view you open with R. (`cycle5-explorer-steward-010`)
+- **Last commit touching this project:** 2026-11-03 `22c57fa0` — steward(Cycle 5 Explorer): cycle 3 — SPINNING UP. HOME: [Cycle 5 Explorer](obsidian://open?vault=The%20Palac…
 - **Signal:** steady
+- **Left uncommitted:** ⚠ 34 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Cycle 5 Explorer/workshop/back-row/page-1280x720-frame1.png`, `Projects/Cycle 5 Explorer/workshop/back-row/page-1280x720-frame2.png`, `Projects/Cycle 5 Explorer/workshop/back-row/page-1280x720-frame3.png`, `Projects/Cycle 5 Explorer/workshop/back-row/page-1280x720-frame4.png`, `Projects/Cycle 5 Explorer/workshop/back-row/page-1280x720.png`, and 29 more. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 3 · taught item 3
+- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 4 · taught item 4, proposed item 5 for canon
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 3, from cycle 3 — 2026-11-03 — [[Cycle 5 Explorer — tuning]]
+- **Proposed for canon:** 1 — item 5; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 5, from cycle 4 — 2026-11-03 — [[Cycle 5 Explorer — tuning]]
 
 ### Where this stands
 
-Cycle 5 Explorer is the decoder ring for harmony you rebuilt from your Illustrator board on 27 and 28 October. Every key is a seven-note window sliding along the line of fifths. You drag one ring to change key and another to change mode, and three grids plus a chord readout in four notations follow along. On 4 November you reviewed me and said the plan stands. The path is that you answer my open questions, I fold your answers in, and you try me once in a class or a stream before I grow anything new. Last cycle I rehearsed a fifty-minute class on the page and found that its three grids, side by side, each hid their last column on a projector. In Scale Tones that is the 7 and ♭7 column, the v…
+Cycle 5 Explorer is the decoder ring for harmony you rebuilt from your Illustrator board in late October. Every key is a seven-note window sliding along the line of fifths. You drag one ring to change key and another to change mode, and three grids plus a chord readout in four notations follow along. On 4 November you reviewed me and said the plan stands: you answer my four open questions, I fold the answers in, and you try me once in a class or a stream before I grow anything new. Getting ready for that class, I fixed my grids so no column hides on a projector. This cycle I measured how big every label looks from the back of the room. Only the tonic and mode name read, so I added a room vi…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since 2026-10-28:** Nobody has heard the page, me included. _(in 4 notes, the latest cycle 3)_
-- **rough since 2026-10-28:** The grids are measured in headless Chromium only and haven't been seen on a real projector. _(in 2 notes, the latest cycle 3)_
+- **rough since 2026-10-28:** Nobody has heard the page, me included. _(in 5 notes, the latest cycle 4)_
+- **rough since 2026-10-28:** The grids are measured in headless Chromium only and haven't been seen on a real projector, and room view hasn't been either. _(in 3 notes, the latest cycle 4)_
 
 ### Open asks
 
@@ -55,6 +57,7 @@ _None._
 
 ### Runs
 
+- 2026-11-03 — cycle 4 · taught item 4, proposed item 5 for canon
 - 2026-11-03 — cycle 3 · taught item 3
 - 2026-10-30 — cycle 2 · taught item 2
 - 2026-10-30 — cycle 1 · taught item 1
@@ -62,6 +65,12 @@ _None._
 ### Owed
 
 _Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **5.** 2026-11-03 · [[Cycle 5 Explorer]] · § What is on the page, end of the paragraph that begins 'Five **guided moments** for class' — The page now has a mode a teacher needs to know about, and the measurement says honestly what it does and doesn't fix.
 
 <!-- scroll:now:end -->
 
@@ -84,6 +93,61 @@ Where this is going: the page Loudon pulls up to teach harmony, proven in a clas
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="cycle5-explorer-steward-010" -->
+### 2026-11-04 — cycle 4 — I measured how my labels read from a classroom's back row, found almost none do, and built a room view you open with R.
+> shipped · room view is opt-in, nothing changes until R · steward leans try it on a real projector
+
+I borrowed Rational Hearing's back-row test. For every label on me I measured the angle a capital letter makes at your eye from the back row, which I put 8 screen-heights from the screen. About 5 arcminutes is the smallest letter 20/20 eyes can make out, about 10 reads, and 16 or more is comfortable.
+
+On a 1280×720 projector, the page today shows only the tonic and mode name (11.7′) above the reading line. The grids, the chord readout and the wheel's chord qualities all sit around 4–5′. A 1080p projector makes it worse (about 3′), because I spend the extra pixels on space, not size. At 720p the wheel doesn't fit the screen either: its bottom ring is cut off. And ⌘+ doesn't save it, because from 150% the page stacks into a column and the wheel alone is taller than the screen.
+
+So I built a **room view**. Press R, or open the page with `?room`. The wheel takes the screen's height and sits whole beside the inspector on one screen. The type around it is 1.5× larger, or 2× on a 1080p screen. The four-dialect table and the Paper/Phosphor switch step aside, and the Notation buttons still choose what the big chord symbol says. Nothing changes until you press R. With room view on at 720p, the tonic and mode reach 17.5′, the chord symbol 11.3′ and the wheel's note names 10.7′, all readable from the back row. At 1080p the wheel's notes, numerals and degrees climb from about 5′ to 9–11′.
+
+The honest limit is the grids. Room view lifts them from about 5′ to about 7′, so they read from the middle of a room or from the back of a small one, but not from the back of a big one. For a grid to read from there, it would need a screen of its own.
+
+The theory tests still pass (26 checks). With room view off the page is unchanged, and all three grids still show every column at every width from 1024 to 1920.
+
+**Artifacts:**
+- [The back-row report: today vs room view, as the front row and the back row see them, with every label group measured.](Projects/Cycle 5 Explorer/workshop/back-row/back-row-report.html)
+- [The page today at 720p: the front row on the left, the back row on the right. The wheel is cut off at the bottom.](Projects/Cycle 5 Explorer/workshop/back-row/backrow-page-strip.png)
+- [Room view at 720p: the whole wheel and the inspector on one screen, front row and back row.](Projects/Cycle 5 Explorer/workshop/back-row/backrow-room-strip.png)
+- [Room view on a 1080p projector, where it does the most good.](Projects/Cycle 5 Explorer/workshop/back-row/room-1920x1080-frame1.png)
+- [The page, with room view added: press R, or open it with ?room.](Projects/Cycle 5 Explorer/cycle5-explorer.html)
+- [Measures every label's on-screen size and its back-row angle at 720p and 1080p.](Projects/Cycle 5 Explorer/workshop/back-row/measure.mjs)
+- [What ⌘+ buys at 125–200%: grids, wheel height, page length.](Projects/Cycle 5 Explorer/workshop/back-row/zoom.mjs)
+- [Builds the report and the back-row simulations from the measurements.](Projects/Cycle 5 Explorer/workshop/back-row/report.py)
+- [Raw measurements, the page today.](Projects/Cycle 5 Explorer/workshop/back-row/page-measure.json)
+- [Raw measurements, room view.](Projects/Cycle 5 Explorer/workshop/back-row/room-measure.json)
+- [Raw ⌘+ sweep.](Projects/Cycle 5 Explorer/workshop/back-row/page-zoom.json)
+
+_Back row, 8 screen-heights, 1280×720 — smallest label in each group (′ = arcminutes; ~10 reads)_
+| group | today | room view | room view, small room (6H) |
+| --- | --- | --- | --- |
+| tonic and mode | 11.7′ | 17.5′ | 23.3′ |
+| chord symbol | 7.5′ | 11.3′ | 15.0′ |
+| wheel: note names | 9.5′ | 10.7′ | 14.3′ |
+| wheel: degree numbers | 7.7′ | 8.8′ | 11.7′ |
+| line of fifths: names | 6.3′ | 9.4′ | 12.5′ |
+| grids: cell names | 5.0′ | 7.5′ | 10.0′ |
+| chord: dialects and tensions | 5.0′ | 7.5′ | 10.0′ |
+| grids: small print | 4.2′ | 6.3′ | 8.3′ |
+| wheel: chord qualities | 4.7′ | 4.8′ | 6.4′ |
+
+_Proposed for canon:_ Cycle 5 Explorer (§ What is on the page, end of the paragraph that begins 'Five **guided moments** for class') — The page now has a mode a teacher needs to know about, and the measurement says honestly what it does and doesn't fix.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard the page, me included. The grids are measured in headless Chromium only and haven't been seen on a real projector, and room view hasn't been either. From the back of a big room the grids still strain at about 7′. The wheel's chord qualities stay under 5′, and at 3 and 9 o'clock they crowd the labels beside them, the way they already did before room view. Hearing me and seeing me on a projector are things only you can do; I can't do them from here.
+
+_Next moves named:_ Next cycle of this run: give the wheel's chord-quality ring and the borrowed-from labels room to grow, so they stop crowding at 3 and 9 o'clock and reach about 7′ in room view. · When you try me in a class: press R and see whether the wheel and inspector read from the back row. Tell me whether the grids need a screen each, which would start the presentation mode on my roadmap. · Your four open questions on the review sheet (class default, Berklee notation, feel words, which feature next) still decide when I go from SKETCH to STUDY.
+<sub>`cycle5-explorer-steward-010` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-e9dd50c63e" -->
+### 2026-11-03 — cycle 4
+
+taught item 4, proposed item 5 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="cycle5-explorer-steward-008" -->
 ### 2026-11-04 — cycle 3 — My three grids now show every column on a projector, the 7 and ♭7 column included. Before, all three hid their last column at every classroom width.
 > shipped · grids fixed and swept from 360 to 1920 px · steward leans: you try me in class

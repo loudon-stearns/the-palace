@@ -335,6 +335,28 @@ kbd { font-family: var(--font-mono); border: var(--stroke-rule) solid var(--rule
 .shake { animation: shake 240ms steps(4); }
 @keyframes shake { 25% { transform: translateX(-4px);} 75% { transform: translateX(4px);} }
 @media (prefers-reduced-motion: reduce) { .rotor, .lof .win, .slot { transition: none !important; } .shake { animation: none; } }
+
+/* ROOM VIEW: the page for the back row of a classroom. ?room or the R key.
+   Measured 2026-11-04: at 1280×720 every label but the tonic and mode fell under ~10 arcmin from 8 screen-heights,
+   and ⌘+ only traded that for a wheel taller than the screen. Room view keeps the wheel and the inspector on one
+   screen, wheel sized to the screen's height, and enlarges the type everywhere else. */
+body.room { padding-block: 6px; }
+.room .sheet { max-width: none; border: 0; padding: 0 var(--space-2); gap: var(--space-5); }
+.room header.top .sub, .room .hint, .room .controls .ctl:nth-child(4) { display: none; }
+.room header.top { padding-bottom: var(--space-1); }
+.room h1 { font-size: 18px; line-height: 22px; }
+.room .stage { grid-template-columns: auto minmax(0, 1fr); min-height: calc(100vh - 70px); align-items: start; }
+.room .wheelbox { gap: 0; }
+.room #wheel { width: min(calc(100vh - 110px), 56vw); max-width: none; }
+.room .t-note { font-size: 27px; } .room .t-deg { font-size: 22px; } .room .t-mode { font-size: 16px; }
+.room .t-func { font-size: 21px; } .room .t-qual { font-size: 12px; } .room .t-from { font-size: 11px; opacity: 1; }
+.room .t-legend { display: none; }
+.room .stepper b, .room .stepper button { font-size: 15px; }
+.room .inspector { zoom: var(--room-zoom, 1.5); gap: var(--space-2); }
+.room #chordPanel .trans, .room #chordPanel h3 { display: none; }
+.room .grids { grid-template-columns: minmax(0, 1fr); zoom: var(--room-zoom, 1.5); }
+.room .prog, .room .sheet > section.panel { zoom: var(--room-zoom, 1.5); }
+@media (min-width: 1600px) { body.room { --room-zoom: 2; } }
 </style>
 </head>
 <body>
@@ -431,7 +453,7 @@ kbd { font-family: var(--font-mono); border: var(--stroke-rule) solid var(--rule
     <div class="keys">
       <span><kbd>←</kbd> <kbd>→</kbd> key by fifths</span><span><kbd>↑</kbd> <kbd>↓</kbd> brighter / darker</span>
       <span><kbd>1</kbd>–<kbd>7</kbd> diatonic chords</span><span><kbd>S</kbd> scale</span><span><kbd>D</kbd> drone</span>
-      <span><kbd>T</kbd> same notes / same tonic</span><span><kbd>N</kbd> notation</span><span><kbd>P</kbd> ground</span><span><kbd>Space</kbd> play progression</span>
+      <span><kbd>T</kbd> same notes / same tonic</span><span><kbd>N</kbd> notation</span><span><kbd>P</kbd> ground</span><span><kbd>R</kbd> room view</span><span><kbd>Space</kbd> play progression</span>
     </div>
     <div class="titleblock" aria-label="Title block">
       <div class="name"><span class="k">Name</span>CYCLE 5 EXPLORER</div>
@@ -1097,11 +1119,13 @@ document.addEventListener("keydown", e => {
   else if (k === "t" || k === "T") { S.keep = S.keep === "tonic" ? "notes" : "tonic"; renderHeader(); }
   else if (k === "n" || k === "N") { const ks = Object.keys(DIALECTS); S.dialect = ks[(ks.indexOf(S.dialect) + 1) % ks.length]; renderAll(); }
   else if (k === "p" || k === "P") setTheme(S.theme === "paper" ? "phosphor" : "paper");
+  else if (k === "r" || k === "R") document.body.classList.toggle("room");
   else if (k === " ") { stopTour(); playing ? stopProg() : startProg(); }
   else return;
   e.preventDefault();
 });
 
+if (/[?&]room\b/.test(location.search)) document.body.classList.add("room");
 renderAll();
 </script>
 </body>

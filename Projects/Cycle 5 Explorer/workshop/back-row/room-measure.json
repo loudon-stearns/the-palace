@@ -1,0 +1,8702 @@
+{
+ "page": "/Users/loudonstearns/Documents/The Palace/Projects/Cycle 5 Explorer/cycle5-explorer.html",
+ "tag": "room",
+ "ran": "2026-11-04T01:38:03.831Z",
+ "cap_em": 0.7,
+ "room": "back row at 8 screen-heights (6 for a small room)",
+ "runs": [
+  {
+   "screen": [
+    1280,
+    720
+   ],
+   "doc_h": 4142,
+   "screens_tall": 5.75,
+   "shot": "room-1280x720.png",
+   "frames": [
+    "room-1280x720-frame1.png",
+    "room-1280x720-frame2.png",
+    "room-1280x720-frame3.png",
+    "room-1280x720-frame4.png",
+    "room-1280x720-frame5.png",
+    "room-1280x720-frame6.png"
+   ],
+   "groups": {
+    "title": {
+     "min_cap_px": 12.6,
+     "smallest": "Cycle 5 Explorer",
+     "count": 1,
+     "arcmin_8H": 7.5,
+     "arcmin_6H": 10,
+     "band_8H": "strains"
+    },
+    "other text": {
+     "min_cap_px": 7.7,
+     "smallest": "Notation",
+     "count": 6,
+     "arcmin_8H": 4.6,
+     "arcmin_6H": 6.1,
+     "band_8H": "below 20/20"
+    },
+    "buttons": {
+     "min_cap_px": 8.4,
+     "smallest": "Berklee",
+     "count": 18,
+     "arcmin_8H": 5,
+     "arcmin_6H": 6.7,
+     "band_8H": "strains"
+    },
+    "wheel: mode names": {
+     "min_cap_px": 10.67,
+     "smallest": "Lydian",
+     "count": 7,
+     "arcmin_8H": 6.4,
+     "arcmin_6H": 8.5,
+     "band_8H": "strains"
+    },
+    "wheel: chord qualities": {
+     "min_cap_px": 8.01,
+     "smallest": "maj7",
+     "count": 12,
+     "arcmin_8H": 4.8,
+     "arcmin_6H": 6.4,
+     "band_8H": "below 20/20"
+    },
+    "wheel: borrowed-from labels": {
+     "min_cap_px": 7.34,
+     "smallest": "from Lydian",
+     "count": 5,
+     "arcmin_8H": 4.4,
+     "arcmin_6H": 5.8,
+     "band_8H": "below 20/20"
+    },
+    "wheel: degree numbers": {
+     "min_cap_px": 14.68,
+     "smallest": "4",
+     "count": 12,
+     "arcmin_8H": 8.8,
+     "arcmin_6H": 11.7,
+     "band_8H": "strains"
+    },
+    "wheel: Roman numerals": {
+     "min_cap_px": 14.01,
+     "smallest": "IV",
+     "count": 12,
+     "arcmin_8H": 8.4,
+     "arcmin_6H": 11.1,
+     "band_8H": "strains"
+    },
+    "wheel: note names": {
+     "min_cap_px": 18.01,
+     "smallest": "F",
+     "count": 12,
+     "arcmin_8H": 10.7,
+     "arcmin_6H": 14.3,
+     "band_8H": "reads"
+    },
+    "inspector: tonic and mode": {
+     "min_cap_px": 29.4,
+     "smallest": "Ionian",
+     "count": 2,
+     "arcmin_8H": 17.5,
+     "arcmin_6H": 23.3,
+     "band_8H": "comfortable"
+    },
+    "inspector: scale and facts": {
+     "min_cap_px": 12.6,
+     "smallest": "▸ Scale",
+     "count": 28,
+     "arcmin_8H": 7.5,
+     "arcmin_6H": 10,
+     "band_8H": "strains"
+    },
+    "inspector: bright-dark meter": {
+     "min_cap_px": 11.55,
+     "smallest": "BRIGHT",
+     "count": 2,
+     "arcmin_8H": 6.9,
+     "arcmin_6H": 9.2,
+     "band_8H": "strains"
+    },
+    "chord: headings": {
+     "min_cap_px": 11.55,
+     "smallest": "Selected chord",
+     "count": 1,
+     "arcmin_8H": 6.9,
+     "arcmin_6H": 9.2,
+     "band_8H": "strains"
+    },
+    "chord: dialects and tensions": {
+     "min_cap_px": 12.6,
+     "smallest": "Chord",
+     "count": 15,
+     "arcmin_8H": 7.5,
+     "arcmin_6H": 10,
+     "band_8H": "strains"
+    },
+    "chord: big symbol": {
+     "min_cap_px": 18.9,
+     "smallest": "Imaj7",
+     "count": 2,
+     "arcmin_8H": 11.3,
+     "arcmin_6H": 15,
+     "band_8H": "reads"
+    },
+    "chord: tones": {
+     "min_cap_px": 11.55,
+     "smallest": "1",
+     "count": 14,
+     "arcmin_8H": 6.9,
+     "arcmin_6H": 9.2,
+     "band_8H": "strains"
+    },
+    "chord: staff": {
+     "min_cap_px": 34.91,
+     "smallest": "𝄞",
+     "count": 1,
+     "arcmin_8H": 20.8,
+     "arcmin_6H": 27.7,
+     "band_8H": "comfortable"
+    },
+    "grids: notes and heads": {
+     "min_cap_px": 11.55,
+     "smallest": "Scale tones",
+     "count": 25,
+     "arcmin_8H": 6.9,
+     "arcmin_6H": 9.2,
+     "band_8H": "strains"
+    },
+    "grids: column heads": {
+     "min_cap_px": 11.55,
+     "smallest": "1",
+     "count": 21,
+     "arcmin_8H": 6.9,
+     "arcmin_6H": 9.2,
+     "band_8H": "strains"
+    },
+    "grids: row heads": {
+     "min_cap_px": 12.6,
+     "smallest": "C",
+     "count": 42,
+     "arcmin_8H": 7.5,
+     "arcmin_6H": 10,
+     "band_8H": "strains"
+    },
+    "grids: cell names": {
+     "min_cap_px": 12.6,
+     "smallest": "1",
+     "count": 147,
+     "arcmin_8H": 7.5,
+     "arcmin_6H": 10,
+     "band_8H": "strains"
+    },
+    "grids: cell small print": {
+     "min_cap_px": 10.5,
+     "smallest": "C",
+     "count": 98,
+     "arcmin_8H": 6.3,
+     "arcmin_6H": 8.3,
+     "band_8H": "strains"
+    },
+    "progressions: presets and controls": {
+     "min_cap_px": 11.55,
+     "smallest": "Diatonic",
+     "count": 16,
+     "arcmin_8H": 6.9,
+     "arcmin_6H": 9.2,
+     "band_8H": "strains"
+    },
+    "progressions: slots": {
+     "min_cap_px": 13.65,
+     "smallest": "Pick a progression above",
+     "count": 1,
+     "arcmin_8H": 8.1,
+     "arcmin_6H": 10.8,
+     "band_8H": "strains"
+    },
+    "line of fifths: degrees, chord tones, range": {
+     "min_cap_px": 10.5,
+     "smallest": "TONIC RANGE C♭ – C♯",
+     "count": 20,
+     "arcmin_8H": 6.3,
+     "arcmin_6H": 8.3,
+     "band_8H": "strains"
+    },
+    "line of fifths: names": {
+     "min_cap_px": 15.75,
+     "smallest": "G𝄫",
+     "count": 27,
+     "arcmin_8H": 9.4,
+     "arcmin_6H": 12.5,
+     "band_8H": "strains"
+    },
+    "keyboard help": {
+     "min_cap_px": 7.7,
+     "smallest": "←",
+     "count": 23,
+     "arcmin_8H": 4.6,
+     "arcmin_6H": 6.1,
+     "band_8H": "below 20/20"
+    },
+    "title block": {
+     "min_cap_px": 6.3,
+     "smallest": "Name",
+     "count": 16,
+     "arcmin_8H": 3.8,
+     "arcmin_6H": 5,
+     "band_8H": "below 20/20"
+    }
+   },
+   "rows": [
+    {
+     "g": "title",
+     "text": "Cycle 5 Explorer",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 30
+    },
+    {
+     "g": "other text",
+     "text": "Notation",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 6
+    },
+    {
+     "g": "buttons",
+     "text": "Berklee",
+     "font_px": 12,
+     "cap_px": 8.4,
+     "y": 27
+    },
+    {
+     "g": "buttons",
+     "text": "Jazz shorthand",
+     "font_px": 12,
+     "cap_px": 8.4,
+     "y": 27
+    },
+    {
+     "g": "buttons",
+     "text": "Lead sheet",
+     "font_px": 12,
+     "cap_px": 8.4,
+     "y": 27
+    },
+    {
+     "g": "buttons",
+     "text": "Classical",
+     "font_px": 12,
+     "cap_px": 8.4,
+     "y": 27
+    },
+    {
+     "g": "other text",
+     "text": "Changing mode keeps",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 6
+    },
+    {
+     "g": "buttons",
+     "text": "Same notes",
+     "font_px": 12,
+     "cap_px": 8.4,
+     "y": 27
+    },
+    {
+     "g": "buttons",
+     "text": "Same tonic",
+     "font_px": 12,
+     "cap_px": 8.4,
+     "y": 27
+    },
+    {
+     "g": "other text",
+     "text": "Voicing",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 6
+    },
+    {
+     "g": "buttons",
+     "text": "Triad",
+     "font_px": 12,
+     "cap_px": 8.4,
+     "y": 27
+    },
+    {
+     "g": "buttons",
+     "text": "7th",
+     "font_px": 12,
+     "cap_px": 8.4,
+     "y": 27
+    },
+    {
+     "g": "buttons",
+     "text": "7th + tensions",
+     "font_px": 12,
+     "cap_px": 8.4,
+     "y": 27
+    },
+    {
+     "g": "wheel: mode names",
+     "text": "Lydian",
+     "font_px": 15.25,
+     "cap_px": 10.67,
+     "y": 164
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "maj7",
+     "font_px": 11.44,
+     "cap_px": 8.01,
+     "y": 202
+    },
+    {
+     "g": "wheel: mode names",
+     "text": "Ionian",
+     "font_px": 17.16,
+     "cap_px": 12.01,
+     "y": 131
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "maj7",
+     "font_px": 11.44,
+     "cap_px": 8.01,
+     "y": 175
+    },
+    {
+     "g": "wheel: mode names",
+     "text": "Mixolydian",
+     "font_px": 15.25,
+     "cap_px": 10.67,
+     "y": 164
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "7",
+     "font_px": 11.44,
+     "cap_px": 8.01,
+     "y": 202
+    },
+    {
+     "g": "wheel: mode names",
+     "text": "Dorian",
+     "font_px": 15.25,
+     "cap_px": 10.67,
+     "y": 254
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "–7",
+     "font_px": 11.44,
+     "cap_px": 8.01,
+     "y": 277
+    },
+    {
+     "g": "wheel: mode names",
+     "text": "Aeolian",
+     "font_px": 15.25,
+     "cap_px": 10.67,
+     "y": 376
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "–7",
+     "font_px": 11.44,
+     "cap_px": 8.01,
+     "y": 379
+    },
+    {
+     "g": "wheel: mode names",
+     "text": "Phrygian",
+     "font_px": 15.25,
+     "cap_px": 10.67,
+     "y": 498
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "–7",
+     "font_px": 11.44,
+     "cap_px": 8.01,
+     "y": 480
+    },
+    {
+     "g": "wheel: mode names",
+     "text": "Locrian",
+     "font_px": 15.25,
+     "cap_px": 10.67,
+     "y": 587
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "–7(♭5)",
+     "font_px": 11.44,
+     "cap_px": 8.01,
+     "y": 555
+    },
+    {
+     "g": "wheel: borrowed-from labels",
+     "text": "from Lydian",
+     "font_px": 10.48,
+     "cap_px": 7.34,
+     "y": 636
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "–7(♭5)",
+     "font_px": 11.44,
+     "cap_px": 8.01,
+     "y": 577
+    },
+    {
+     "g": "wheel: borrowed-from labels",
+     "text": "from Phrygian",
+     "font_px": 10.48,
+     "cap_px": 7.34,
+     "y": 602
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "maj7",
+     "font_px": 11.44,
+     "cap_px": 8.01,
+     "y": 550
+    },
+    {
+     "g": "wheel: borrowed-from labels",
+     "text": "from Aeolian",
+     "font_px": 10.48,
+     "cap_px": 7.34,
+     "y": 508
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "maj7",
+     "font_px": 11.44,
+     "cap_px": 8.01,
+     "y": 478
+    },
+    {
+     "g": "wheel: borrowed-from labels",
+     "text": "from Dorian",
+     "font_px": 10.48,
+     "cap_px": 7.34,
+     "y": 379
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "maj7",
+     "font_px": 11.44,
+     "cap_px": 8.01,
+     "y": 379
+    },
+    {
+     "g": "wheel: borrowed-from labels",
+     "text": "from Mixolydian",
+     "font_px": 10.48,
+     "cap_px": 7.34,
+     "y": 250
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "maj7",
+     "font_px": 11.44,
+     "cap_px": 8.01,
+     "y": 279
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "4",
+     "font_px": 20.97,
+     "cap_px": 14.68,
+     "y": 298
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "IV",
+     "font_px": 20.02,
+     "cap_px": 14.01,
+     "y": 229
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "1",
+     "font_px": 22.88,
+     "cap_px": 16.01,
+     "y": 285
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "I",
+     "font_px": 20.02,
+     "cap_px": 14.01,
+     "y": 207
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "5",
+     "font_px": 20.97,
+     "cap_px": 14.68,
+     "y": 298
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "V",
+     "font_px": 20.02,
+     "cap_px": 14.01,
+     "y": 229
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "2",
+     "font_px": 20.97,
+     "cap_px": 14.68,
+     "y": 330
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "II",
+     "font_px": 20.02,
+     "cap_px": 14.01,
+     "y": 290
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "6",
+     "font_px": 20.97,
+     "cap_px": 14.68,
+     "y": 373
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "VI",
+     "font_px": 20.02,
+     "cap_px": 14.01,
+     "y": 373
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "3",
+     "font_px": 20.97,
+     "cap_px": 14.68,
+     "y": 415
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "III",
+     "font_px": 20.02,
+     "cap_px": 14.01,
+     "y": 456
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "7",
+     "font_px": 20.97,
+     "cap_px": 14.68,
+     "y": 447
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "VII",
+     "font_px": 20.02,
+     "cap_px": 14.01,
+     "y": 517
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "♯4",
+     "font_px": 20.97,
+     "cap_px": 14.68,
+     "y": 458
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "♯IV",
+     "font_px": 20.02,
+     "cap_px": 14.01,
+     "y": 539
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "♭2",
+     "font_px": 20.97,
+     "cap_px": 14.68,
+     "y": 447
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "♭II",
+     "font_px": 20.02,
+     "cap_px": 14.01,
+     "y": 517
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "♭6",
+     "font_px": 20.97,
+     "cap_px": 14.68,
+     "y": 415
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "♭VI",
+     "font_px": 20.02,
+     "cap_px": 14.01,
+     "y": 456
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "♭3",
+     "font_px": 20.97,
+     "cap_px": 14.68,
+     "y": 373
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "♭III",
+     "font_px": 20.02,
+     "cap_px": 14.01,
+     "y": 373
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "♭7",
+     "font_px": 20.97,
+     "cap_px": 14.68,
+     "y": 330
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "♭VII",
+     "font_px": 20.02,
+     "cap_px": 14.01,
+     "y": 290
+    },
+    {
+     "g": "wheel: note names",
+     "text": "F",
+     "font_px": 25.73,
+     "cap_px": 18.01,
+     "y": 262
+    },
+    {
+     "g": "wheel: note names",
+     "text": "C",
+     "font_px": 25.73,
+     "cap_px": 18.01,
+     "y": 245
+    },
+    {
+     "g": "wheel: note names",
+     "text": "G",
+     "font_px": 25.73,
+     "cap_px": 18.01,
+     "y": 262
+    },
+    {
+     "g": "wheel: note names",
+     "text": "D",
+     "font_px": 25.73,
+     "cap_px": 18.01,
+     "y": 307
+    },
+    {
+     "g": "wheel: note names",
+     "text": "A",
+     "font_px": 25.73,
+     "cap_px": 18.01,
+     "y": 369
+    },
+    {
+     "g": "wheel: note names",
+     "text": "E",
+     "font_px": 25.73,
+     "cap_px": 18.01,
+     "y": 431
+    },
+    {
+     "g": "wheel: note names",
+     "text": "B",
+     "font_px": 25.73,
+     "cap_px": 18.01,
+     "y": 476
+    },
+    {
+     "g": "wheel: note names",
+     "text": "F♯",
+     "font_px": 25.73,
+     "cap_px": 18.01,
+     "y": 493
+    },
+    {
+     "g": "wheel: note names",
+     "text": "D♭",
+     "font_px": 25.73,
+     "cap_px": 18.01,
+     "y": 476
+    },
+    {
+     "g": "wheel: note names",
+     "text": "A♭",
+     "font_px": 25.73,
+     "cap_px": 18.01,
+     "y": 431
+    },
+    {
+     "g": "wheel: note names",
+     "text": "E♭",
+     "font_px": 25.73,
+     "cap_px": 18.01,
+     "y": 369
+    },
+    {
+     "g": "wheel: note names",
+     "text": "B♭",
+     "font_px": 25.73,
+     "cap_px": 18.01,
+     "y": 307
+    },
+    {
+     "g": "other text",
+     "text": "Key",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 694
+    },
+    {
+     "g": "buttons",
+     "text": "◀ ♭",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 691
+    },
+    {
+     "g": "buttons",
+     "text": "♯ ▶",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 691
+    },
+    {
+     "g": "other text",
+     "text": "Mode",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 694
+    },
+    {
+     "g": "buttons",
+     "text": "◀ brighter",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 691
+    },
+    {
+     "g": "buttons",
+     "text": "darker ▶",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 691
+    },
+    {
+     "g": "inspector: tonic and mode",
+     "text": "C",
+     "font_px": 54,
+     "cap_px": 37.8,
+     "y": 100
+    },
+    {
+     "g": "inspector: tonic and mode",
+     "text": "Ionian",
+     "font_px": 42,
+     "cap_px": 29.4,
+     "y": 110
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "bright, settled, resolve",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 166
+    },
+    {
+     "g": "inspector: bright-dark meter",
+     "text": "BRIGHT",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 214
+    },
+    {
+     "g": "inspector: bright-dark meter",
+     "text": "DARK",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 214
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "Scale",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 262
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "C",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 264
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "1",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 264
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "D",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 264
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "2",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 264
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "E",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 264
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "3",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 264
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "F",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 264
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "4",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 264
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "G",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 264
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "5",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 264
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "A",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 264
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "6",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 264
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "B",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 294
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "7",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 294
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "Compared to major",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 328
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "identical",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 328
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "Key signature",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 364
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "no sharps or flats, the ",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 364
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "C",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 396
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "One step brighter",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 430
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "4 → ♯4 (Lydian)",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 432
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "One step darker",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 466
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "7 → ♭7 (Mixolydian)",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 468
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "▸ Scale",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 514
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "▸ Tonic chord",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 514
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "Drone on C",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 514
+    },
+    {
+     "g": "chord: headings",
+     "text": "Selected chord",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 604
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "diatonic to C",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 607
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "Ionian",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 609
+    },
+    {
+     "g": "chord: big symbol",
+     "text": "Cmaj7",
+     "font_px": 45,
+     "cap_px": 31.5,
+     "y": 640
+    },
+    {
+     "g": "chord: big symbol",
+     "text": "Imaj7",
+     "font_px": 27,
+     "cap_px": 18.9,
+     "y": 653
+    },
+    {
+     "g": "chord: tones",
+     "text": "C",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 703
+    },
+    {
+     "g": "chord: tones",
+     "text": "1",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 733
+    },
+    {
+     "g": "chord: tones",
+     "text": "E",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 703
+    },
+    {
+     "g": "chord: tones",
+     "text": "3",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 733
+    },
+    {
+     "g": "chord: tones",
+     "text": "G",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 703
+    },
+    {
+     "g": "chord: tones",
+     "text": "5",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 733
+    },
+    {
+     "g": "chord: tones",
+     "text": "B",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 703
+    },
+    {
+     "g": "chord: tones",
+     "text": "7",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 733
+    },
+    {
+     "g": "chord: tones",
+     "text": "F",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 703
+    },
+    {
+     "g": "chord: tones",
+     "text": "11",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 733
+    },
+    {
+     "g": "chord: tones",
+     "text": "D",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 703
+    },
+    {
+     "g": "chord: tones",
+     "text": "9",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 733
+    },
+    {
+     "g": "chord: tones",
+     "text": "A",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 703
+    },
+    {
+     "g": "chord: tones",
+     "text": "13",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 733
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "Chord scale",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 786
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "C",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 788
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "Ionian",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 788
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "With tensions",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 822
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "Cmaj7(9, 13)",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 824
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "(Berklee)",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 824
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "Avoid",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 858
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "11",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 860
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "(F)",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 858
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "Classical name",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 894
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "tonic seventh, C major s",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 894
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "Chord",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 943
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "Scale",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 943
+    },
+    {
+     "g": "chord: staff",
+     "text": "𝄞",
+     "font_px": 49.87,
+     "cap_px": 34.91,
+     "y": 1034
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Scale tones",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1242
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Same tonic",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1239
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Same notes",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1239
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Every mode on C, bright ",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 1278
+    },
+    {
+     "g": "grids: column heads",
+     "text": "1",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1320
+    },
+    {
+     "g": "grids: column heads",
+     "text": "2",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1320
+    },
+    {
+     "g": "grids: column heads",
+     "text": "3",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1320
+    },
+    {
+     "g": "grids: column heads",
+     "text": "4",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1320
+    },
+    {
+     "g": "grids: column heads",
+     "text": "5",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1320
+    },
+    {
+     "g": "grids: column heads",
+     "text": "6",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1320
+    },
+    {
+     "g": "grids: column heads",
+     "text": "7",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1320
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1357
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Lydian",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1373
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1363
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1387
+    },
+    {
+     "g": "grids: cell names",
+     "text": "2",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1363
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1387
+    },
+    {
+     "g": "grids: cell names",
+     "text": "3",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1363
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1387
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♯4",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1363
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F♯",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1387
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1363
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1387
+    },
+    {
+     "g": "grids: cell names",
+     "text": "6",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1363
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1387
+    },
+    {
+     "g": "grids: cell names",
+     "text": "7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1363
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1387
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1413
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Ionian",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1429
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1420
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1444
+    },
+    {
+     "g": "grids: cell names",
+     "text": "2",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1420
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1444
+    },
+    {
+     "g": "grids: cell names",
+     "text": "3",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1420
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1444
+    },
+    {
+     "g": "grids: cell names",
+     "text": "4",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1420
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1444
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1420
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1444
+    },
+    {
+     "g": "grids: cell names",
+     "text": "6",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1420
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1444
+    },
+    {
+     "g": "grids: cell names",
+     "text": "7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1420
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1444
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1470
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Mixolydian",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1486
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1476
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1500
+    },
+    {
+     "g": "grids: cell names",
+     "text": "2",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1476
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1500
+    },
+    {
+     "g": "grids: cell names",
+     "text": "3",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1476
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1500
+    },
+    {
+     "g": "grids: cell names",
+     "text": "4",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1476
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1500
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1476
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1500
+    },
+    {
+     "g": "grids: cell names",
+     "text": "6",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1476
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1500
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1476
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1500
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1526
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Dorian",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1542
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1533
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1557
+    },
+    {
+     "g": "grids: cell names",
+     "text": "2",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1533
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1557
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭3",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1533
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E♭",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1557
+    },
+    {
+     "g": "grids: cell names",
+     "text": "4",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1533
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1557
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1533
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1557
+    },
+    {
+     "g": "grids: cell names",
+     "text": "6",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1533
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1557
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1533
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1557
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1583
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Aeolian",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1599
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1589
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1613
+    },
+    {
+     "g": "grids: cell names",
+     "text": "2",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1589
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1613
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭3",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1589
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E♭",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1613
+    },
+    {
+     "g": "grids: cell names",
+     "text": "4",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1589
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1613
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1589
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1613
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭6",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1589
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A♭",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1613
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1589
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1613
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1639
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Phrygian",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1655
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1646
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1670
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭2",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1646
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D♭",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1670
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭3",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1646
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E♭",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1670
+    },
+    {
+     "g": "grids: cell names",
+     "text": "4",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1646
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1670
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1646
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1670
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭6",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1646
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A♭",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1670
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1646
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1670
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1696
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Locrian",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1712
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1702
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1726
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭2",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1702
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D♭",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1726
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭3",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1702
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E♭",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1726
+    },
+    {
+     "g": "grids: cell names",
+     "text": "4",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1702
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1726
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭5",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1702
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G♭",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1726
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭6",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1702
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A♭",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1726
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1702
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1726
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Chord function",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1819
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Same tonic",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1816
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Same notes",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1816
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "The modal interchange ch",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 1855
+    },
+    {
+     "g": "grids: column heads",
+     "text": "I",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1897
+    },
+    {
+     "g": "grids: column heads",
+     "text": "II",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1897
+    },
+    {
+     "g": "grids: column heads",
+     "text": "III",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1897
+    },
+    {
+     "g": "grids: column heads",
+     "text": "IV",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1897
+    },
+    {
+     "g": "grids: column heads",
+     "text": "V",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1897
+    },
+    {
+     "g": "grids: column heads",
+     "text": "VI",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1897
+    },
+    {
+     "g": "grids: column heads",
+     "text": "VII",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 1897
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1933
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Lydian",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1949
+    },
+    {
+     "g": "grids: cell names",
+     "text": "Imaj7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1940
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "Cmaj7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1964
+    },
+    {
+     "g": "grids: cell names",
+     "text": "II7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1940
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1964
+    },
+    {
+     "g": "grids: cell names",
+     "text": "III–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1940
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1964
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♯IV–7(♭5)",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1940
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F♯–7(♭5)",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1964
+    },
+    {
+     "g": "grids: cell names",
+     "text": "Vmaj7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1940
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "Gmaj7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1964
+    },
+    {
+     "g": "grids: cell names",
+     "text": "VI–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1940
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1964
+    },
+    {
+     "g": "grids: cell names",
+     "text": "VII–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1940
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1964
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1990
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Ionian",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2006
+    },
+    {
+     "g": "grids: cell names",
+     "text": "Imaj7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1996
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "Cmaj7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2020
+    },
+    {
+     "g": "grids: cell names",
+     "text": "II–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1996
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2020
+    },
+    {
+     "g": "grids: cell names",
+     "text": "III–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1996
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2020
+    },
+    {
+     "g": "grids: cell names",
+     "text": "IVmaj7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1996
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "Fmaj7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2020
+    },
+    {
+     "g": "grids: cell names",
+     "text": "V7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1996
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2020
+    },
+    {
+     "g": "grids: cell names",
+     "text": "VI–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1996
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2020
+    },
+    {
+     "g": "grids: cell names",
+     "text": "VII–7(♭5)",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 1996
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B–7(♭5)",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2020
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2046
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Mixolydian",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2062
+    },
+    {
+     "g": "grids: cell names",
+     "text": "I7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2053
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2077
+    },
+    {
+     "g": "grids: cell names",
+     "text": "II–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2053
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2077
+    },
+    {
+     "g": "grids: cell names",
+     "text": "III–7(♭5)",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2053
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E–7(♭5)",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2077
+    },
+    {
+     "g": "grids: cell names",
+     "text": "IVmaj7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2053
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "Fmaj7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2077
+    },
+    {
+     "g": "grids: cell names",
+     "text": "V–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2053
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2077
+    },
+    {
+     "g": "grids: cell names",
+     "text": "VI–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2053
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2077
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭VIImaj7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2053
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭maj7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2077
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2103
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Dorian",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2119
+    },
+    {
+     "g": "grids: cell names",
+     "text": "I–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2109
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2133
+    },
+    {
+     "g": "grids: cell names",
+     "text": "II–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2109
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2133
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭IIImaj7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2109
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E♭maj7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2133
+    },
+    {
+     "g": "grids: cell names",
+     "text": "IV7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2109
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2133
+    },
+    {
+     "g": "grids: cell names",
+     "text": "V–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2109
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2133
+    },
+    {
+     "g": "grids: cell names",
+     "text": "VI–7(♭5)",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2109
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A–7(♭5)",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2133
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭VIImaj7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2109
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭maj7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2133
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2159
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Aeolian",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2175
+    },
+    {
+     "g": "grids: cell names",
+     "text": "I–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2166
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2190
+    },
+    {
+     "g": "grids: cell names",
+     "text": "II–7(♭5)",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2166
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D–7(♭5)",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2190
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭IIImaj7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2166
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E♭maj7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2190
+    },
+    {
+     "g": "grids: cell names",
+     "text": "IV–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2166
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2190
+    },
+    {
+     "g": "grids: cell names",
+     "text": "V–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2166
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2190
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭VImaj7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2166
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A♭maj7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2190
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭VII7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2166
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2190
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2216
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Phrygian",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2232
+    },
+    {
+     "g": "grids: cell names",
+     "text": "I–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2222
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2246
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭IImaj7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2222
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D♭maj7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2246
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭III7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2222
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E♭7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2246
+    },
+    {
+     "g": "grids: cell names",
+     "text": "IV–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2222
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2246
+    },
+    {
+     "g": "grids: cell names",
+     "text": "V–7(♭5)",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2222
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G–7(♭5)",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2246
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭VImaj7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2222
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A♭maj7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2246
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭VII–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2222
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2246
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2272
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Locrian",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2288
+    },
+    {
+     "g": "grids: cell names",
+     "text": "I–7(♭5)",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2279
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C–7(♭5)",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2303
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭IImaj7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2279
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D♭maj7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2303
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭III–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2279
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E♭–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2303
+    },
+    {
+     "g": "grids: cell names",
+     "text": "IV–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2279
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2303
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭Vmaj7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2279
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G♭maj7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2303
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭VI7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2279
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A♭7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2303
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭VII–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2279
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭–7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 2303
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Chord tones",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2391
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Each diatonic chord agai",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 2427
+    },
+    {
+     "g": "grids: column heads",
+     "text": "F",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2499
+    },
+    {
+     "g": "grids: column heads",
+     "text": "C",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2499
+    },
+    {
+     "g": "grids: column heads",
+     "text": "G",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2499
+    },
+    {
+     "g": "grids: column heads",
+     "text": "D",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2499
+    },
+    {
+     "g": "grids: column heads",
+     "text": "A",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2499
+    },
+    {
+     "g": "grids: column heads",
+     "text": "E",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2499
+    },
+    {
+     "g": "grids: column heads",
+     "text": "B",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2499
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Fmaj7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2536
+    },
+    {
+     "g": "grids: row heads",
+     "text": "IVmaj7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2542
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2536
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2536
+    },
+    {
+     "g": "grids: cell names",
+     "text": "9",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2536
+    },
+    {
+     "g": "grids: cell names",
+     "text": "13",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2536
+    },
+    {
+     "g": "grids: cell names",
+     "text": "3",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2536
+    },
+    {
+     "g": "grids: cell names",
+     "text": "7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2536
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♯11",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2536
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Cmaj7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2573
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Imaj7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2579
+    },
+    {
+     "g": "grids: cell names",
+     "text": "11",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2573
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2573
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2573
+    },
+    {
+     "g": "grids: cell names",
+     "text": "9",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2573
+    },
+    {
+     "g": "grids: cell names",
+     "text": "13",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2573
+    },
+    {
+     "g": "grids: cell names",
+     "text": "3",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2573
+    },
+    {
+     "g": "grids: cell names",
+     "text": "7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2573
+    },
+    {
+     "g": "grids: row heads",
+     "text": "G7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2610
+    },
+    {
+     "g": "grids: row heads",
+     "text": "V7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2616
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2610
+    },
+    {
+     "g": "grids: cell names",
+     "text": "11",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2610
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2610
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2610
+    },
+    {
+     "g": "grids: cell names",
+     "text": "9",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2610
+    },
+    {
+     "g": "grids: cell names",
+     "text": "13",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2610
+    },
+    {
+     "g": "grids: cell names",
+     "text": "3",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2610
+    },
+    {
+     "g": "grids: row heads",
+     "text": "D–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2647
+    },
+    {
+     "g": "grids: row heads",
+     "text": "II–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2653
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭3",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2647
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2647
+    },
+    {
+     "g": "grids: cell names",
+     "text": "11",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2647
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2647
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2647
+    },
+    {
+     "g": "grids: cell names",
+     "text": "9",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2647
+    },
+    {
+     "g": "grids: cell names",
+     "text": "13",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2647
+    },
+    {
+     "g": "grids: row heads",
+     "text": "A–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2684
+    },
+    {
+     "g": "grids: row heads",
+     "text": "VI–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2690
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭13",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2684
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭3",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2684
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2684
+    },
+    {
+     "g": "grids: cell names",
+     "text": "11",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2684
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2684
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2684
+    },
+    {
+     "g": "grids: cell names",
+     "text": "9",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2684
+    },
+    {
+     "g": "grids: row heads",
+     "text": "E–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2721
+    },
+    {
+     "g": "grids: row heads",
+     "text": "III–7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2727
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭9",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2721
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭13",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2721
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭3",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2721
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2721
+    },
+    {
+     "g": "grids: cell names",
+     "text": "11",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2721
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2721
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2721
+    },
+    {
+     "g": "grids: row heads",
+     "text": "B–7(♭5)",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2758
+    },
+    {
+     "g": "grids: row heads",
+     "text": "VII–7(♭5)",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2764
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭5",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2758
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭9",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2758
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭13",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2758
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭3",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2758
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2758
+    },
+    {
+     "g": "grids: cell names",
+     "text": "11",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2758
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2758
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "chord tone",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2807
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "available tension",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2807
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "avoid note",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2811
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "(half step above a chord",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2807
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Progressions",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2907
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "▸ Play",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2899
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Loop",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2899
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Tempo",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 2903
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "88",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 2903
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "+ Build from clicks",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2899
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Clear",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 2899
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Diatonic",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2963
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "I IV V I",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2961
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "II V I",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2961
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "I VI II V",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2961
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "I V VI IV",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2961
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Diatonic cycle 5",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 2961
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Borrowed",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3015
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Minor II V I",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3013
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "IV to minor IV",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3013
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Backdoor",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3013
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "♭VI ♭VII I",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3013
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Andalusian",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3013
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Mixolydian ♭VII",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3013
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Dorian vamp",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3013
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Phrygian ♭II",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3053
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Lydian II",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3053
+    },
+    {
+     "g": "progressions: slots",
+     "text": "Pick a progression above",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 3135
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Progressions are stored ",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 3213
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Under the hood: the line",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3335
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Every key is a 7-note wi",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 3380
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "TONIC RANGE C♭ – C♯",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 3419
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "G𝄫",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "D𝄫",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "A𝄫",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "E𝄫",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "B𝄫",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "F♭",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "C♭",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "♭5",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3467
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "G♭",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "♭2",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3467
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "D♭",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "♭6",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3467
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "A♭",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "♭3",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3467
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "E♭",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "♭7",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3467
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "B♭",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "4",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3467
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "F",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "1",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3467
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "C",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "1",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 3527
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "5",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3467
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "G",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "5",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 3527
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "2",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3467
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "D",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "(9)",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 3527
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "6",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3467
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "A",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "(13)",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 3527
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "3",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3467
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "E",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "3",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 3527
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "7",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3467
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "B",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "7",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 3527
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "♯4",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3467
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "F♯",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "C♯",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "G♯",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "D♯",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "A♯",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "E♯",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "B♯",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "F𝄪",
+     "font_px": 22.5,
+     "cap_px": 15.75,
+     "y": 3494
+    },
+    {
+     "g": "other text",
+     "text": "Guided moments",
+     "font_px": 16.5,
+     "cap_px": 11.55,
+     "y": 3625
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Short demonstrations to ",
+     "font_px": 19.5,
+     "cap_px": 13.65,
+     "y": 3661
+    },
+    {
+     "g": "buttons",
+     "text": "Bright to dark, one note",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 3703
+    },
+    {
+     "g": "buttons",
+     "text": "Same notes, new home",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 3703
+    },
+    {
+     "g": "buttons",
+     "text": "Around the cycle",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 3703
+    },
+    {
+     "g": "buttons",
+     "text": "Borrow one chord",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 3703
+    },
+    {
+     "g": "buttons",
+     "text": "Walk the keys",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 3755
+    },
+    {
+     "g": "keyboard help",
+     "text": "←",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3853
+    },
+    {
+     "g": "keyboard help",
+     "text": "→",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3853
+    },
+    {
+     "g": "keyboard help",
+     "text": "key by fifths",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3851
+    },
+    {
+     "g": "keyboard help",
+     "text": "↑",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3853
+    },
+    {
+     "g": "keyboard help",
+     "text": "↓",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3853
+    },
+    {
+     "g": "keyboard help",
+     "text": "brighter / darker",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3851
+    },
+    {
+     "g": "keyboard help",
+     "text": "1",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3853
+    },
+    {
+     "g": "keyboard help",
+     "text": "–",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3851
+    },
+    {
+     "g": "keyboard help",
+     "text": "7",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3853
+    },
+    {
+     "g": "keyboard help",
+     "text": "S",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3853
+    },
+    {
+     "g": "keyboard help",
+     "text": "scale",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3851
+    },
+    {
+     "g": "keyboard help",
+     "text": "D",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3853
+    },
+    {
+     "g": "keyboard help",
+     "text": "drone",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3851
+    },
+    {
+     "g": "keyboard help",
+     "text": "T",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3853
+    },
+    {
+     "g": "keyboard help",
+     "text": "same notes / same tonic",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3851
+    },
+    {
+     "g": "keyboard help",
+     "text": "N",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3853
+    },
+    {
+     "g": "keyboard help",
+     "text": "notation",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3851
+    },
+    {
+     "g": "keyboard help",
+     "text": "P",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3853
+    },
+    {
+     "g": "keyboard help",
+     "text": "ground",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3851
+    },
+    {
+     "g": "keyboard help",
+     "text": "R",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3853
+    },
+    {
+     "g": "keyboard help",
+     "text": "room view",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3851
+    },
+    {
+     "g": "keyboard help",
+     "text": "Space",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3877
+    },
+    {
+     "g": "keyboard help",
+     "text": "play progression",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 3875
+    },
+    {
+     "g": "title block",
+     "text": "Name",
+     "font_px": 9,
+     "cap_px": 6.3,
+     "y": 3913
+    },
+    {
+     "g": "title block",
+     "text": "CYCLE 5 EXPLORER",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 3909
+    },
+    {
+     "g": "title block",
+     "text": "Subtitle",
+     "font_px": 9,
+     "cap_px": 6.3,
+     "y": 3913
+    },
+    {
+     "g": "title block",
+     "text": "Decoder ring for harmony",
+     "font_px": 13,
+     "cap_px": 9.1,
+     "y": 3909
+    },
+    {
+     "g": "title block",
+     "text": "Number",
+     "font_px": 9,
+     "cap_px": 6.3,
+     "y": 3982
+    },
+    {
+     "g": "title block",
+     "text": "C5E-01",
+     "font_px": 13,
+     "cap_px": 9.1,
+     "y": 3978
+    },
+    {
+     "g": "title block",
+     "text": "Version",
+     "font_px": 9,
+     "cap_px": 6.3,
+     "y": 3982
+    },
+    {
+     "g": "title block",
+     "text": "0.3.0",
+     "font_px": 13,
+     "cap_px": 9.1,
+     "y": 3978
+    },
+    {
+     "g": "title block",
+     "text": "Status",
+     "font_px": 9,
+     "cap_px": 6.3,
+     "y": 3982
+    },
+    {
+     "g": "title block",
+     "text": "SKETCH · dialects unconf",
+     "font_px": 13,
+     "cap_px": 9.1,
+     "y": 3978
+    },
+    {
+     "g": "title block",
+     "text": "Drawn",
+     "font_px": 9,
+     "cap_px": 6.3,
+     "y": 3982
+    },
+    {
+     "g": "title block",
+     "text": "2026-10-28",
+     "font_px": 13,
+     "cap_px": 9.1,
+     "y": 3978
+    },
+    {
+     "g": "title block",
+     "text": "Source",
+     "font_px": 9,
+     "cap_px": 6.3,
+     "y": 4070
+    },
+    {
+     "g": "title block",
+     "text": "Illustrator board, 2026-",
+     "font_px": 13,
+     "cap_px": 9.1,
+     "y": 4066
+    },
+    {
+     "g": "title block",
+     "text": "Dress",
+     "font_px": 9,
+     "cap_px": 6.3,
+     "y": 4070
+    },
+    {
+     "g": "title block",
+     "text": "Drafting Table · Paper /",
+     "font_px": 13,
+     "cap_px": 9.1,
+     "y": 4066
+    }
+   ]
+  },
+  {
+   "screen": [
+    1920,
+    1080
+   ],
+   "doc_h": 5162,
+   "screens_tall": 4.78,
+   "shot": "room-1920x1080.png",
+   "frames": [
+    "room-1920x1080-frame1.png",
+    "room-1920x1080-frame2.png",
+    "room-1920x1080-frame3.png",
+    "room-1920x1080-frame4.png",
+    "room-1920x1080-frame5.png"
+   ],
+   "groups": {
+    "title": {
+     "min_cap_px": 12.6,
+     "smallest": "Cycle 5 Explorer",
+     "count": 1,
+     "arcmin_8H": 5,
+     "arcmin_6H": 6.7,
+     "band_8H": "strains"
+    },
+    "other text": {
+     "min_cap_px": 7.7,
+     "smallest": "Notation",
+     "count": 6,
+     "arcmin_8H": 3.1,
+     "arcmin_6H": 4.1,
+     "band_8H": "below 20/20"
+    },
+    "buttons": {
+     "min_cap_px": 8.4,
+     "smallest": "Berklee",
+     "count": 18,
+     "arcmin_8H": 3.3,
+     "arcmin_6H": 4.4,
+     "band_8H": "below 20/20"
+    },
+    "wheel: mode names": {
+     "min_cap_px": 16.97,
+     "smallest": "Lydian",
+     "count": 7,
+     "arcmin_8H": 6.7,
+     "arcmin_6H": 9,
+     "band_8H": "strains"
+    },
+    "wheel: chord qualities": {
+     "min_cap_px": 12.73,
+     "smallest": "maj7",
+     "count": 12,
+     "arcmin_8H": 5.1,
+     "arcmin_6H": 6.7,
+     "band_8H": "strains"
+    },
+    "wheel: borrowed-from labels": {
+     "min_cap_px": 11.67,
+     "smallest": "from Lydian",
+     "count": 5,
+     "arcmin_8H": 4.6,
+     "arcmin_6H": 6.2,
+     "band_8H": "below 20/20"
+    },
+    "wheel: degree numbers": {
+     "min_cap_px": 23.34,
+     "smallest": "4",
+     "count": 12,
+     "arcmin_8H": 9.3,
+     "arcmin_6H": 12.4,
+     "band_8H": "strains"
+    },
+    "wheel: Roman numerals": {
+     "min_cap_px": 22.28,
+     "smallest": "IV",
+     "count": 12,
+     "arcmin_8H": 8.9,
+     "arcmin_6H": 11.8,
+     "band_8H": "strains"
+    },
+    "wheel: note names": {
+     "min_cap_px": 28.65,
+     "smallest": "F",
+     "count": 12,
+     "arcmin_8H": 11.4,
+     "arcmin_6H": 15.2,
+     "band_8H": "reads"
+    },
+    "inspector: tonic and mode": {
+     "min_cap_px": 39.2,
+     "smallest": "Ionian",
+     "count": 2,
+     "arcmin_8H": 15.6,
+     "arcmin_6H": 20.7,
+     "band_8H": "reads"
+    },
+    "inspector: scale and facts": {
+     "min_cap_px": 16.8,
+     "smallest": "▸ Scale",
+     "count": 28,
+     "arcmin_8H": 6.7,
+     "arcmin_6H": 8.9,
+     "band_8H": "strains"
+    },
+    "inspector: bright-dark meter": {
+     "min_cap_px": 15.4,
+     "smallest": "BRIGHT",
+     "count": 2,
+     "arcmin_8H": 6.1,
+     "arcmin_6H": 8.2,
+     "band_8H": "strains"
+    },
+    "chord: headings": {
+     "min_cap_px": 15.4,
+     "smallest": "Selected chord",
+     "count": 1,
+     "arcmin_8H": 6.1,
+     "arcmin_6H": 8.2,
+     "band_8H": "strains"
+    },
+    "chord: dialects and tensions": {
+     "min_cap_px": 16.8,
+     "smallest": "Chord",
+     "count": 15,
+     "arcmin_8H": 6.7,
+     "arcmin_6H": 8.9,
+     "band_8H": "strains"
+    },
+    "chord: big symbol": {
+     "min_cap_px": 25.2,
+     "smallest": "Imaj7",
+     "count": 2,
+     "arcmin_8H": 10,
+     "arcmin_6H": 13.3,
+     "band_8H": "reads"
+    },
+    "chord: tones": {
+     "min_cap_px": 15.4,
+     "smallest": "1",
+     "count": 14,
+     "arcmin_8H": 6.1,
+     "arcmin_6H": 8.2,
+     "band_8H": "strains"
+    },
+    "chord: staff": {
+     "min_cap_px": 51.2,
+     "smallest": "𝄞",
+     "count": 1,
+     "arcmin_8H": 20.3,
+     "arcmin_6H": 27.1,
+     "band_8H": "comfortable"
+    },
+    "grids: notes and heads": {
+     "min_cap_px": 15.4,
+     "smallest": "Scale tones",
+     "count": 25,
+     "arcmin_8H": 6.1,
+     "arcmin_6H": 8.2,
+     "band_8H": "strains"
+    },
+    "grids: column heads": {
+     "min_cap_px": 15.4,
+     "smallest": "1",
+     "count": 21,
+     "arcmin_8H": 6.1,
+     "arcmin_6H": 8.2,
+     "band_8H": "strains"
+    },
+    "grids: row heads": {
+     "min_cap_px": 16.8,
+     "smallest": "C",
+     "count": 42,
+     "arcmin_8H": 6.7,
+     "arcmin_6H": 8.9,
+     "band_8H": "strains"
+    },
+    "grids: cell names": {
+     "min_cap_px": 16.8,
+     "smallest": "1",
+     "count": 147,
+     "arcmin_8H": 6.7,
+     "arcmin_6H": 8.9,
+     "band_8H": "strains"
+    },
+    "grids: cell small print": {
+     "min_cap_px": 14,
+     "smallest": "C",
+     "count": 98,
+     "arcmin_8H": 5.6,
+     "arcmin_6H": 7.4,
+     "band_8H": "strains"
+    },
+    "progressions: presets and controls": {
+     "min_cap_px": 15.4,
+     "smallest": "Diatonic",
+     "count": 16,
+     "arcmin_8H": 6.1,
+     "arcmin_6H": 8.2,
+     "band_8H": "strains"
+    },
+    "progressions: slots": {
+     "min_cap_px": 18.2,
+     "smallest": "Pick a progression above",
+     "count": 1,
+     "arcmin_8H": 7.2,
+     "arcmin_6H": 9.6,
+     "band_8H": "strains"
+    },
+    "line of fifths: degrees, chord tones, range": {
+     "min_cap_px": 14,
+     "smallest": "TONIC RANGE C♭ – C♯",
+     "count": 20,
+     "arcmin_8H": 5.6,
+     "arcmin_6H": 7.4,
+     "band_8H": "strains"
+    },
+    "line of fifths: names": {
+     "min_cap_px": 21,
+     "smallest": "G𝄫",
+     "count": 27,
+     "arcmin_8H": 8.3,
+     "arcmin_6H": 11.1,
+     "band_8H": "strains"
+    },
+    "keyboard help": {
+     "min_cap_px": 7.7,
+     "smallest": "←",
+     "count": 23,
+     "arcmin_8H": 3.1,
+     "arcmin_6H": 4.1,
+     "band_8H": "below 20/20"
+    },
+    "title block": {
+     "min_cap_px": 6.3,
+     "smallest": "Name",
+     "count": 16,
+     "arcmin_8H": 2.5,
+     "arcmin_6H": 3.3,
+     "band_8H": "below 20/20"
+    }
+   },
+   "rows": [
+    {
+     "g": "title",
+     "text": "Cycle 5 Explorer",
+     "font_px": 18,
+     "cap_px": 12.6,
+     "y": 30
+    },
+    {
+     "g": "other text",
+     "text": "Notation",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 6
+    },
+    {
+     "g": "buttons",
+     "text": "Berklee",
+     "font_px": 12,
+     "cap_px": 8.4,
+     "y": 27
+    },
+    {
+     "g": "buttons",
+     "text": "Jazz shorthand",
+     "font_px": 12,
+     "cap_px": 8.4,
+     "y": 27
+    },
+    {
+     "g": "buttons",
+     "text": "Lead sheet",
+     "font_px": 12,
+     "cap_px": 8.4,
+     "y": 27
+    },
+    {
+     "g": "buttons",
+     "text": "Classical",
+     "font_px": 12,
+     "cap_px": 8.4,
+     "y": 27
+    },
+    {
+     "g": "other text",
+     "text": "Changing mode keeps",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 6
+    },
+    {
+     "g": "buttons",
+     "text": "Same notes",
+     "font_px": 12,
+     "cap_px": 8.4,
+     "y": 27
+    },
+    {
+     "g": "buttons",
+     "text": "Same tonic",
+     "font_px": 12,
+     "cap_px": 8.4,
+     "y": 27
+    },
+    {
+     "g": "other text",
+     "text": "Voicing",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 6
+    },
+    {
+     "g": "buttons",
+     "text": "Triad",
+     "font_px": 12,
+     "cap_px": 8.4,
+     "y": 27
+    },
+    {
+     "g": "buttons",
+     "text": "7th",
+     "font_px": 12,
+     "cap_px": 8.4,
+     "y": 27
+    },
+    {
+     "g": "buttons",
+     "text": "7th + tensions",
+     "font_px": 12,
+     "cap_px": 8.4,
+     "y": 27
+    },
+    {
+     "g": "wheel: mode names",
+     "text": "Lydian",
+     "font_px": 24.25,
+     "cap_px": 16.97,
+     "y": 214
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "maj7",
+     "font_px": 18.19,
+     "cap_px": 12.73,
+     "y": 273
+    },
+    {
+     "g": "wheel: mode names",
+     "text": "Ionian",
+     "font_px": 27.28,
+     "cap_px": 19.1,
+     "y": 160
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "maj7",
+     "font_px": 18.19,
+     "cap_px": 12.73,
+     "y": 230
+    },
+    {
+     "g": "wheel: mode names",
+     "text": "Mixolydian",
+     "font_px": 24.25,
+     "cap_px": 16.97,
+     "y": 214
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "7",
+     "font_px": 18.19,
+     "cap_px": 12.73,
+     "y": 273
+    },
+    {
+     "g": "wheel: mode names",
+     "text": "Dorian",
+     "font_px": 24.25,
+     "cap_px": 16.97,
+     "y": 356
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "–7",
+     "font_px": 18.19,
+     "cap_px": 12.73,
+     "y": 392
+    },
+    {
+     "g": "wheel: mode names",
+     "text": "Aeolian",
+     "font_px": 24.25,
+     "cap_px": 16.97,
+     "y": 550
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "–7",
+     "font_px": 18.19,
+     "cap_px": 12.73,
+     "y": 554
+    },
+    {
+     "g": "wheel: mode names",
+     "text": "Phrygian",
+     "font_px": 24.25,
+     "cap_px": 16.97,
+     "y": 744
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "–7",
+     "font_px": 18.19,
+     "cap_px": 12.73,
+     "y": 716
+    },
+    {
+     "g": "wheel: mode names",
+     "text": "Locrian",
+     "font_px": 24.25,
+     "cap_px": 16.97,
+     "y": 886
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "–7(♭5)",
+     "font_px": 18.19,
+     "cap_px": 12.73,
+     "y": 835
+    },
+    {
+     "g": "wheel: borrowed-from labels",
+     "text": "from Lydian",
+     "font_px": 16.67,
+     "cap_px": 11.67,
+     "y": 964
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "–7(♭5)",
+     "font_px": 18.19,
+     "cap_px": 12.73,
+     "y": 869
+    },
+    {
+     "g": "wheel: borrowed-from labels",
+     "text": "from Phrygian",
+     "font_px": 16.67,
+     "cap_px": 11.67,
+     "y": 909
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "maj7",
+     "font_px": 18.19,
+     "cap_px": 12.73,
+     "y": 827
+    },
+    {
+     "g": "wheel: borrowed-from labels",
+     "text": "from Aeolian",
+     "font_px": 16.67,
+     "cap_px": 11.67,
+     "y": 760
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "maj7",
+     "font_px": 18.19,
+     "cap_px": 12.73,
+     "y": 712
+    },
+    {
+     "g": "wheel: borrowed-from labels",
+     "text": "from Dorian",
+     "font_px": 16.67,
+     "cap_px": 11.67,
+     "y": 555
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "maj7",
+     "font_px": 18.19,
+     "cap_px": 12.73,
+     "y": 554
+    },
+    {
+     "g": "wheel: borrowed-from labels",
+     "text": "from Mixolydian",
+     "font_px": 16.67,
+     "cap_px": 11.67,
+     "y": 350
+    },
+    {
+     "g": "wheel: chord qualities",
+     "text": "maj7",
+     "font_px": 18.19,
+     "cap_px": 12.73,
+     "y": 396
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "4",
+     "font_px": 33.34,
+     "cap_px": 23.34,
+     "y": 426
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "IV",
+     "font_px": 31.83,
+     "cap_px": 22.28,
+     "y": 317
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "1",
+     "font_px": 36.38,
+     "cap_px": 25.46,
+     "y": 406
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "I",
+     "font_px": 31.83,
+     "cap_px": 22.28,
+     "y": 281
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "5",
+     "font_px": 33.34,
+     "cap_px": 23.34,
+     "y": 426
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "V",
+     "font_px": 31.83,
+     "cap_px": 22.28,
+     "y": 317
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "2",
+     "font_px": 33.34,
+     "cap_px": 23.34,
+     "y": 476
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "II",
+     "font_px": 31.83,
+     "cap_px": 22.28,
+     "y": 413
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "6",
+     "font_px": 33.34,
+     "cap_px": 23.34,
+     "y": 544
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "VI",
+     "font_px": 31.83,
+     "cap_px": 22.28,
+     "y": 545
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "3",
+     "font_px": 33.34,
+     "cap_px": 23.34,
+     "y": 612
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "III",
+     "font_px": 31.83,
+     "cap_px": 22.28,
+     "y": 677
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "7",
+     "font_px": 33.34,
+     "cap_px": 23.34,
+     "y": 662
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "VII",
+     "font_px": 31.83,
+     "cap_px": 22.28,
+     "y": 773
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "♯4",
+     "font_px": 33.34,
+     "cap_px": 23.34,
+     "y": 680
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "♯IV",
+     "font_px": 31.83,
+     "cap_px": 22.28,
+     "y": 809
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "♭2",
+     "font_px": 33.34,
+     "cap_px": 23.34,
+     "y": 662
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "♭II",
+     "font_px": 31.83,
+     "cap_px": 22.28,
+     "y": 773
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "♭6",
+     "font_px": 33.34,
+     "cap_px": 23.34,
+     "y": 612
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "♭VI",
+     "font_px": 31.83,
+     "cap_px": 22.28,
+     "y": 677
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "♭3",
+     "font_px": 33.34,
+     "cap_px": 23.34,
+     "y": 544
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "♭III",
+     "font_px": 31.83,
+     "cap_px": 22.28,
+     "y": 545
+    },
+    {
+     "g": "wheel: degree numbers",
+     "text": "♭7",
+     "font_px": 33.34,
+     "cap_px": 23.34,
+     "y": 476
+    },
+    {
+     "g": "wheel: Roman numerals",
+     "text": "♭VII",
+     "font_px": 31.83,
+     "cap_px": 22.28,
+     "y": 413
+    },
+    {
+     "g": "wheel: note names",
+     "text": "F",
+     "font_px": 40.92,
+     "cap_px": 28.65,
+     "y": 368
+    },
+    {
+     "g": "wheel: note names",
+     "text": "C",
+     "font_px": 40.92,
+     "cap_px": 28.65,
+     "y": 342
+    },
+    {
+     "g": "wheel: note names",
+     "text": "G",
+     "font_px": 40.92,
+     "cap_px": 28.65,
+     "y": 368
+    },
+    {
+     "g": "wheel: note names",
+     "text": "D",
+     "font_px": 40.92,
+     "cap_px": 28.65,
+     "y": 440
+    },
+    {
+     "g": "wheel: note names",
+     "text": "A",
+     "font_px": 40.92,
+     "cap_px": 28.65,
+     "y": 539
+    },
+    {
+     "g": "wheel: note names",
+     "text": "E",
+     "font_px": 40.92,
+     "cap_px": 28.65,
+     "y": 638
+    },
+    {
+     "g": "wheel: note names",
+     "text": "B",
+     "font_px": 40.92,
+     "cap_px": 28.65,
+     "y": 710
+    },
+    {
+     "g": "wheel: note names",
+     "text": "F♯",
+     "font_px": 40.92,
+     "cap_px": 28.65,
+     "y": 736
+    },
+    {
+     "g": "wheel: note names",
+     "text": "D♭",
+     "font_px": 40.92,
+     "cap_px": 28.65,
+     "y": 710
+    },
+    {
+     "g": "wheel: note names",
+     "text": "A♭",
+     "font_px": 40.92,
+     "cap_px": 28.65,
+     "y": 638
+    },
+    {
+     "g": "wheel: note names",
+     "text": "E♭",
+     "font_px": 40.92,
+     "cap_px": 28.65,
+     "y": 539
+    },
+    {
+     "g": "wheel: note names",
+     "text": "B♭",
+     "font_px": 40.92,
+     "cap_px": 28.65,
+     "y": 440
+    },
+    {
+     "g": "other text",
+     "text": "Key",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1054
+    },
+    {
+     "g": "buttons",
+     "text": "◀ ♭",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1051
+    },
+    {
+     "g": "buttons",
+     "text": "♯ ▶",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1051
+    },
+    {
+     "g": "other text",
+     "text": "Mode",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1054
+    },
+    {
+     "g": "buttons",
+     "text": "◀ brighter",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1051
+    },
+    {
+     "g": "buttons",
+     "text": "darker ▶",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 1051
+    },
+    {
+     "g": "inspector: tonic and mode",
+     "text": "C",
+     "font_px": 72,
+     "cap_px": 50.4,
+     "y": 107
+    },
+    {
+     "g": "inspector: tonic and mode",
+     "text": "Ionian",
+     "font_px": 56,
+     "cap_px": 39.2,
+     "y": 120
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "bright, settled, resolve",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 195
+    },
+    {
+     "g": "inspector: bright-dark meter",
+     "text": "BRIGHT",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 259
+    },
+    {
+     "g": "inspector: bright-dark meter",
+     "text": "DARK",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 259
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "Scale",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 323
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "C",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 325
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "1",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 325
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "D",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 325
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "2",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 325
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "E",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 325
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "3",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 325
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "F",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 325
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "4",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 325
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "G",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 325
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "5",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 325
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "A",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 325
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "6",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 325
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "B",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 325
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "7",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 325
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "Compared to major",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 371
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "identical",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 371
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "Key signature",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 419
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "no sharps or flats, the ",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 419
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "C",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 421
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "One step brighter",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 507
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "4 → ♯4 (Lydian)",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 509
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "One step darker",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 555
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "7 → ♭7 (Mixolydian)",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 557
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "▸ Scale",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 619
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "▸ Tonic chord",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 619
+    },
+    {
+     "g": "inspector: scale and facts",
+     "text": "Drone on C",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 619
+    },
+    {
+     "g": "chord: headings",
+     "text": "Selected chord",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 741
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "diatonic to C",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 745
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "Ionian",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 747
+    },
+    {
+     "g": "chord: big symbol",
+     "text": "Cmaj7",
+     "font_px": 60,
+     "cap_px": 42,
+     "y": 789
+    },
+    {
+     "g": "chord: big symbol",
+     "text": "Imaj7",
+     "font_px": 36,
+     "cap_px": 25.2,
+     "y": 807
+    },
+    {
+     "g": "chord: tones",
+     "text": "C",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 873
+    },
+    {
+     "g": "chord: tones",
+     "text": "1",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 913
+    },
+    {
+     "g": "chord: tones",
+     "text": "E",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 873
+    },
+    {
+     "g": "chord: tones",
+     "text": "3",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 913
+    },
+    {
+     "g": "chord: tones",
+     "text": "G",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 873
+    },
+    {
+     "g": "chord: tones",
+     "text": "5",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 913
+    },
+    {
+     "g": "chord: tones",
+     "text": "B",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 873
+    },
+    {
+     "g": "chord: tones",
+     "text": "7",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 913
+    },
+    {
+     "g": "chord: tones",
+     "text": "F",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 873
+    },
+    {
+     "g": "chord: tones",
+     "text": "11",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 913
+    },
+    {
+     "g": "chord: tones",
+     "text": "D",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 873
+    },
+    {
+     "g": "chord: tones",
+     "text": "9",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 913
+    },
+    {
+     "g": "chord: tones",
+     "text": "A",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 873
+    },
+    {
+     "g": "chord: tones",
+     "text": "13",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 913
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "Chord scale",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 985
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "C",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 987
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "Ionian",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 987
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "With tensions",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 1033
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "Cmaj7(9, 13)",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 1035
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "(Berklee)",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 1035
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "Avoid",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 1081
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "11",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 1083
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "(F)",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 1081
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "Classical name",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 1129
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "tonic seventh, C major s",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 1129
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "Chord",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1195
+    },
+    {
+     "g": "chord: dialects and tensions",
+     "text": "Scale",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1195
+    },
+    {
+     "g": "chord: staff",
+     "text": "𝄞",
+     "font_px": 73.15,
+     "cap_px": 51.2,
+     "y": 1323
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Scale tones",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 1612
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Same tonic",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 1608
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Same notes",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 1608
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Every mode on C, bright ",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 1660
+    },
+    {
+     "g": "grids: column heads",
+     "text": "1",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 1716
+    },
+    {
+     "g": "grids: column heads",
+     "text": "2",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 1716
+    },
+    {
+     "g": "grids: column heads",
+     "text": "3",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 1716
+    },
+    {
+     "g": "grids: column heads",
+     "text": "4",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 1716
+    },
+    {
+     "g": "grids: column heads",
+     "text": "5",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 1716
+    },
+    {
+     "g": "grids: column heads",
+     "text": "6",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 1716
+    },
+    {
+     "g": "grids: column heads",
+     "text": "7",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 1716
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1765
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Lydian",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1787
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1774
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1806
+    },
+    {
+     "g": "grids: cell names",
+     "text": "2",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1774
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1806
+    },
+    {
+     "g": "grids: cell names",
+     "text": "3",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1774
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1806
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♯4",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1774
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F♯",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1806
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1774
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1806
+    },
+    {
+     "g": "grids: cell names",
+     "text": "6",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1774
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1806
+    },
+    {
+     "g": "grids: cell names",
+     "text": "7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1774
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1806
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1841
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Ionian",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1863
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1850
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1882
+    },
+    {
+     "g": "grids: cell names",
+     "text": "2",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1850
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1882
+    },
+    {
+     "g": "grids: cell names",
+     "text": "3",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1850
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1882
+    },
+    {
+     "g": "grids: cell names",
+     "text": "4",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1850
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1882
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1850
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1882
+    },
+    {
+     "g": "grids: cell names",
+     "text": "6",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1850
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1882
+    },
+    {
+     "g": "grids: cell names",
+     "text": "7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1850
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1882
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1917
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Mixolydian",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1939
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1926
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1958
+    },
+    {
+     "g": "grids: cell names",
+     "text": "2",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1926
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1958
+    },
+    {
+     "g": "grids: cell names",
+     "text": "3",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1926
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1958
+    },
+    {
+     "g": "grids: cell names",
+     "text": "4",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1926
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1958
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1926
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1958
+    },
+    {
+     "g": "grids: cell names",
+     "text": "6",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1926
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1958
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1926
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 1958
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 1993
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Dorian",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2015
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2002
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2034
+    },
+    {
+     "g": "grids: cell names",
+     "text": "2",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2002
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2034
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭3",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2002
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E♭",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2034
+    },
+    {
+     "g": "grids: cell names",
+     "text": "4",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2002
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2034
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2002
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2034
+    },
+    {
+     "g": "grids: cell names",
+     "text": "6",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2002
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2034
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2002
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2034
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2069
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Aeolian",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2091
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2078
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2110
+    },
+    {
+     "g": "grids: cell names",
+     "text": "2",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2078
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2110
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭3",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2078
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E♭",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2110
+    },
+    {
+     "g": "grids: cell names",
+     "text": "4",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2078
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2110
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2078
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2110
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭6",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2078
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A♭",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2110
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2078
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2110
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2145
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Phrygian",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2167
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2154
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2186
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭2",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2154
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D♭",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2186
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭3",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2154
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E♭",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2186
+    },
+    {
+     "g": "grids: cell names",
+     "text": "4",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2154
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2186
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2154
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2186
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭6",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2154
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A♭",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2186
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2154
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2186
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2221
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Locrian",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2243
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2230
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2262
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭2",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2230
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D♭",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2262
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭3",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2230
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E♭",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2262
+    },
+    {
+     "g": "grids: cell names",
+     "text": "4",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2230
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2262
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭5",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2230
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G♭",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2262
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭6",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2230
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A♭",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2262
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2230
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2262
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Chord function",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 2388
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Same tonic",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 2384
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Same notes",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 2384
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "The modal interchange ch",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 2436
+    },
+    {
+     "g": "grids: column heads",
+     "text": "I",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 2492
+    },
+    {
+     "g": "grids: column heads",
+     "text": "II",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 2492
+    },
+    {
+     "g": "grids: column heads",
+     "text": "III",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 2492
+    },
+    {
+     "g": "grids: column heads",
+     "text": "IV",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 2492
+    },
+    {
+     "g": "grids: column heads",
+     "text": "V",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 2492
+    },
+    {
+     "g": "grids: column heads",
+     "text": "VI",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 2492
+    },
+    {
+     "g": "grids: column heads",
+     "text": "VII",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 2492
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2541
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Lydian",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2563
+    },
+    {
+     "g": "grids: cell names",
+     "text": "Imaj7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2550
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "Cmaj7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2582
+    },
+    {
+     "g": "grids: cell names",
+     "text": "II7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2550
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2582
+    },
+    {
+     "g": "grids: cell names",
+     "text": "III–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2550
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2582
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♯IV–7(♭5)",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2550
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F♯–7(♭5)",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2582
+    },
+    {
+     "g": "grids: cell names",
+     "text": "Vmaj7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2550
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "Gmaj7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2582
+    },
+    {
+     "g": "grids: cell names",
+     "text": "VI–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2550
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2582
+    },
+    {
+     "g": "grids: cell names",
+     "text": "VII–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2550
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2582
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2617
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Ionian",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2639
+    },
+    {
+     "g": "grids: cell names",
+     "text": "Imaj7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2626
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "Cmaj7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2658
+    },
+    {
+     "g": "grids: cell names",
+     "text": "II–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2626
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2658
+    },
+    {
+     "g": "grids: cell names",
+     "text": "III–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2626
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2658
+    },
+    {
+     "g": "grids: cell names",
+     "text": "IVmaj7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2626
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "Fmaj7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2658
+    },
+    {
+     "g": "grids: cell names",
+     "text": "V7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2626
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2658
+    },
+    {
+     "g": "grids: cell names",
+     "text": "VI–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2626
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2658
+    },
+    {
+     "g": "grids: cell names",
+     "text": "VII–7(♭5)",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2626
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B–7(♭5)",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2658
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2693
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Mixolydian",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2715
+    },
+    {
+     "g": "grids: cell names",
+     "text": "I7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2702
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2734
+    },
+    {
+     "g": "grids: cell names",
+     "text": "II–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2702
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2734
+    },
+    {
+     "g": "grids: cell names",
+     "text": "III–7(♭5)",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2702
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E–7(♭5)",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2734
+    },
+    {
+     "g": "grids: cell names",
+     "text": "IVmaj7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2702
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "Fmaj7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2734
+    },
+    {
+     "g": "grids: cell names",
+     "text": "V–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2702
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2734
+    },
+    {
+     "g": "grids: cell names",
+     "text": "VI–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2702
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2734
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭VIImaj7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2702
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭maj7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2734
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2769
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Dorian",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2791
+    },
+    {
+     "g": "grids: cell names",
+     "text": "I–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2778
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2810
+    },
+    {
+     "g": "grids: cell names",
+     "text": "II–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2778
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2810
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭IIImaj7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2778
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E♭maj7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2810
+    },
+    {
+     "g": "grids: cell names",
+     "text": "IV7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2778
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2810
+    },
+    {
+     "g": "grids: cell names",
+     "text": "V–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2778
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2810
+    },
+    {
+     "g": "grids: cell names",
+     "text": "VI–7(♭5)",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2778
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A–7(♭5)",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2810
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭VIImaj7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2778
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭maj7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2810
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2845
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Aeolian",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2867
+    },
+    {
+     "g": "grids: cell names",
+     "text": "I–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2854
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2886
+    },
+    {
+     "g": "grids: cell names",
+     "text": "II–7(♭5)",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2854
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D–7(♭5)",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2886
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭IIImaj7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2854
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E♭maj7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2886
+    },
+    {
+     "g": "grids: cell names",
+     "text": "IV–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2854
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2886
+    },
+    {
+     "g": "grids: cell names",
+     "text": "V–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2854
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2886
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭VImaj7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2854
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A♭maj7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2886
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭VII7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2854
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2886
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2921
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Phrygian",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2943
+    },
+    {
+     "g": "grids: cell names",
+     "text": "I–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2930
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2962
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭IImaj7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2930
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D♭maj7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2962
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭III7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2930
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E♭7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2962
+    },
+    {
+     "g": "grids: cell names",
+     "text": "IV–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2930
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2962
+    },
+    {
+     "g": "grids: cell names",
+     "text": "V–7(♭5)",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2930
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G–7(♭5)",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2962
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭VImaj7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2930
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A♭maj7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2962
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭VII–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2930
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 2962
+    },
+    {
+     "g": "grids: row heads",
+     "text": "C",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 2997
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Locrian",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3019
+    },
+    {
+     "g": "grids: cell names",
+     "text": "I–7(♭5)",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3006
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "C–7(♭5)",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 3038
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭IImaj7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3006
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "D♭maj7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 3038
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭III–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3006
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "E♭–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 3038
+    },
+    {
+     "g": "grids: cell names",
+     "text": "IV–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3006
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "F–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 3038
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭Vmaj7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3006
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "G♭maj7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 3038
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭VI7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3006
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "A♭7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 3038
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭VII–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3006
+    },
+    {
+     "g": "grids: cell small print",
+     "text": "B♭–7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 3038
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Chord tones",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3158
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Each diatonic chord agai",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 3206
+    },
+    {
+     "g": "grids: column heads",
+     "text": "F",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3262
+    },
+    {
+     "g": "grids: column heads",
+     "text": "C",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3262
+    },
+    {
+     "g": "grids: column heads",
+     "text": "G",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3262
+    },
+    {
+     "g": "grids: column heads",
+     "text": "D",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3262
+    },
+    {
+     "g": "grids: column heads",
+     "text": "A",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3262
+    },
+    {
+     "g": "grids: column heads",
+     "text": "E",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3262
+    },
+    {
+     "g": "grids: column heads",
+     "text": "B",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3262
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Fmaj7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3311
+    },
+    {
+     "g": "grids: row heads",
+     "text": "IVmaj7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3320
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3311
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3311
+    },
+    {
+     "g": "grids: cell names",
+     "text": "9",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3311
+    },
+    {
+     "g": "grids: cell names",
+     "text": "13",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3311
+    },
+    {
+     "g": "grids: cell names",
+     "text": "3",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3311
+    },
+    {
+     "g": "grids: cell names",
+     "text": "7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3311
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♯11",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3311
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Cmaj7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3361
+    },
+    {
+     "g": "grids: row heads",
+     "text": "Imaj7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3370
+    },
+    {
+     "g": "grids: cell names",
+     "text": "11",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3361
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3361
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3361
+    },
+    {
+     "g": "grids: cell names",
+     "text": "9",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3361
+    },
+    {
+     "g": "grids: cell names",
+     "text": "13",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3361
+    },
+    {
+     "g": "grids: cell names",
+     "text": "3",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3361
+    },
+    {
+     "g": "grids: cell names",
+     "text": "7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3361
+    },
+    {
+     "g": "grids: row heads",
+     "text": "G7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3411
+    },
+    {
+     "g": "grids: row heads",
+     "text": "V7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3420
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3411
+    },
+    {
+     "g": "grids: cell names",
+     "text": "11",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3411
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3411
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3411
+    },
+    {
+     "g": "grids: cell names",
+     "text": "9",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3411
+    },
+    {
+     "g": "grids: cell names",
+     "text": "13",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3411
+    },
+    {
+     "g": "grids: cell names",
+     "text": "3",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3411
+    },
+    {
+     "g": "grids: row heads",
+     "text": "D–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3461
+    },
+    {
+     "g": "grids: row heads",
+     "text": "II–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3470
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭3",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3461
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3461
+    },
+    {
+     "g": "grids: cell names",
+     "text": "11",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3461
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3461
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3461
+    },
+    {
+     "g": "grids: cell names",
+     "text": "9",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3461
+    },
+    {
+     "g": "grids: cell names",
+     "text": "13",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3461
+    },
+    {
+     "g": "grids: row heads",
+     "text": "A–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3511
+    },
+    {
+     "g": "grids: row heads",
+     "text": "VI–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3520
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭13",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3511
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭3",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3511
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3511
+    },
+    {
+     "g": "grids: cell names",
+     "text": "11",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3511
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3511
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3511
+    },
+    {
+     "g": "grids: cell names",
+     "text": "9",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3511
+    },
+    {
+     "g": "grids: row heads",
+     "text": "E–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3561
+    },
+    {
+     "g": "grids: row heads",
+     "text": "III–7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3570
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭9",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3561
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭13",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3561
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭3",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3561
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3561
+    },
+    {
+     "g": "grids: cell names",
+     "text": "11",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3561
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3561
+    },
+    {
+     "g": "grids: cell names",
+     "text": "5",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3561
+    },
+    {
+     "g": "grids: row heads",
+     "text": "B–7(♭5)",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3611
+    },
+    {
+     "g": "grids: row heads",
+     "text": "VII–7(♭5)",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3620
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭5",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3611
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭9",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3611
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭13",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3611
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭3",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3611
+    },
+    {
+     "g": "grids: cell names",
+     "text": "♭7",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3611
+    },
+    {
+     "g": "grids: cell names",
+     "text": "11",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3611
+    },
+    {
+     "g": "grids: cell names",
+     "text": "1",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3611
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "chord tone",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3678
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "available tension",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3678
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "avoid note",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3683
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "(half step above a chord",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3678
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Progressions",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3806
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "▸ Play",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3794
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Loop",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3794
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Tempo",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 3799
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "88",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 3799
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "+ Build from clicks",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3794
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Clear",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 3794
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Diatonic",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3881
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "I IV V I",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3878
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "II V I",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3878
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "I VI II V",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3878
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "I V VI IV",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3878
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Diatonic cycle 5",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3878
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Borrowed",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3951
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Minor II V I",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3948
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "IV to minor IV",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3948
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Backdoor",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3948
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "♭VI ♭VII I",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3948
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Andalusian",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3948
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Mixolydian ♭VII",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3948
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Dorian vamp",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3948
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Phrygian ♭II",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 3948
+    },
+    {
+     "g": "progressions: presets and controls",
+     "text": "Lydian II",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 4002
+    },
+    {
+     "g": "progressions: slots",
+     "text": "Pick a progression above",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 4112
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Progressions are stored ",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 4216
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Under the hood: the line",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 4378
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Every key is a 7-note wi",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 4372
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "TONIC RANGE C♭ – C♯",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 4438
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "G𝄫",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "D𝄫",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "A𝄫",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "E𝄫",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "B𝄫",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "F♭",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "C♭",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "♭5",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 4502
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "G♭",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "♭2",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 4502
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "D♭",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "♭6",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 4502
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "A♭",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "♭3",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 4502
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "E♭",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "♭7",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 4502
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "B♭",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "4",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 4502
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "F",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "1",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 4502
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "C",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "1",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 4582
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "5",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 4502
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "G",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "5",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 4582
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "2",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 4502
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "D",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "(9)",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 4582
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "6",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 4502
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "A",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "(13)",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 4582
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "3",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 4502
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "E",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "3",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 4582
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "7",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 4502
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "B",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "7",
+     "font_px": 20,
+     "cap_px": 14,
+     "y": 4582
+    },
+    {
+     "g": "line of fifths: degrees, chord tones, range",
+     "text": "♯4",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 4502
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "F♯",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "C♯",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "G♯",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "D♯",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "A♯",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "E♯",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "B♯",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "line of fifths: names",
+     "text": "F𝄪",
+     "font_px": 30,
+     "cap_px": 21,
+     "y": 4538
+    },
+    {
+     "g": "other text",
+     "text": "Guided moments",
+     "font_px": 22,
+     "cap_px": 15.4,
+     "y": 4706
+    },
+    {
+     "g": "grids: notes and heads",
+     "text": "Short demonstrations to ",
+     "font_px": 26,
+     "cap_px": 18.2,
+     "y": 4754
+    },
+    {
+     "g": "buttons",
+     "text": "Bright to dark, one note",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 4810
+    },
+    {
+     "g": "buttons",
+     "text": "Same notes, new home",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 4810
+    },
+    {
+     "g": "buttons",
+     "text": "Around the cycle",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 4810
+    },
+    {
+     "g": "buttons",
+     "text": "Borrow one chord",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 4810
+    },
+    {
+     "g": "buttons",
+     "text": "Walk the keys",
+     "font_px": 24,
+     "cap_px": 16.8,
+     "y": 4810
+    },
+    {
+     "g": "keyboard help",
+     "text": "←",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5138
+    },
+    {
+     "g": "keyboard help",
+     "text": "→",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5138
+    },
+    {
+     "g": "keyboard help",
+     "text": "key by fifths",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5136
+    },
+    {
+     "g": "keyboard help",
+     "text": "↑",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5138
+    },
+    {
+     "g": "keyboard help",
+     "text": "↓",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5138
+    },
+    {
+     "g": "keyboard help",
+     "text": "brighter / darker",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5136
+    },
+    {
+     "g": "keyboard help",
+     "text": "1",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5138
+    },
+    {
+     "g": "keyboard help",
+     "text": "–",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5136
+    },
+    {
+     "g": "keyboard help",
+     "text": "7",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5138
+    },
+    {
+     "g": "keyboard help",
+     "text": "S",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5138
+    },
+    {
+     "g": "keyboard help",
+     "text": "scale",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5136
+    },
+    {
+     "g": "keyboard help",
+     "text": "D",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5138
+    },
+    {
+     "g": "keyboard help",
+     "text": "drone",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5136
+    },
+    {
+     "g": "keyboard help",
+     "text": "T",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5138
+    },
+    {
+     "g": "keyboard help",
+     "text": "same notes / same tonic",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5136
+    },
+    {
+     "g": "keyboard help",
+     "text": "N",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5138
+    },
+    {
+     "g": "keyboard help",
+     "text": "notation",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5136
+    },
+    {
+     "g": "keyboard help",
+     "text": "P",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5138
+    },
+    {
+     "g": "keyboard help",
+     "text": "ground",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5136
+    },
+    {
+     "g": "keyboard help",
+     "text": "R",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5138
+    },
+    {
+     "g": "keyboard help",
+     "text": "room view",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5136
+    },
+    {
+     "g": "keyboard help",
+     "text": "Space",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5138
+    },
+    {
+     "g": "keyboard help",
+     "text": "play progression",
+     "font_px": 11,
+     "cap_px": 7.7,
+     "y": 5136
+    },
+    {
+     "g": "title block",
+     "text": "Name",
+     "font_px": 9,
+     "cap_px": 6.3,
+     "y": 4933
+    },
+    {
+     "g": "title block",
+     "text": "CYCLE 5 EXPLORER",
+     "font_px": 15,
+     "cap_px": 10.5,
+     "y": 4929
+    },
+    {
+     "g": "title block",
+     "text": "Subtitle",
+     "font_px": 9,
+     "cap_px": 6.3,
+     "y": 4933
+    },
+    {
+     "g": "title block",
+     "text": "Decoder ring for harmony",
+     "font_px": 13,
+     "cap_px": 9.1,
+     "y": 4929
+    },
+    {
+     "g": "title block",
+     "text": "Number",
+     "font_px": 9,
+     "cap_px": 6.3,
+     "y": 5002
+    },
+    {
+     "g": "title block",
+     "text": "C5E-01",
+     "font_px": 13,
+     "cap_px": 9.1,
+     "y": 4998
+    },
+    {
+     "g": "title block",
+     "text": "Version",
+     "font_px": 9,
+     "cap_px": 6.3,
+     "y": 5002
+    },
+    {
+     "g": "title block",
+     "text": "0.3.0",
+     "font_px": 13,
+     "cap_px": 9.1,
+     "y": 4998
+    },
+    {
+     "g": "title block",
+     "text": "Status",
+     "font_px": 9,
+     "cap_px": 6.3,
+     "y": 5002
+    },
+    {
+     "g": "title block",
+     "text": "SKETCH · dialects unconf",
+     "font_px": 13,
+     "cap_px": 9.1,
+     "y": 4998
+    },
+    {
+     "g": "title block",
+     "text": "Drawn",
+     "font_px": 9,
+     "cap_px": 6.3,
+     "y": 5002
+    },
+    {
+     "g": "title block",
+     "text": "2026-10-28",
+     "font_px": 13,
+     "cap_px": 9.1,
+     "y": 4998
+    },
+    {
+     "g": "title block",
+     "text": "Source",
+     "font_px": 9,
+     "cap_px": 6.3,
+     "y": 5090
+    },
+    {
+     "g": "title block",
+     "text": "Illustrator board, 2026-",
+     "font_px": 13,
+     "cap_px": 9.1,
+     "y": 5086
+    },
+    {
+     "g": "title block",
+     "text": "Dress",
+     "font_px": 9,
+     "cap_px": 6.3,
+     "y": 5090
+    },
+    {
+     "g": "title block",
+     "text": "Drafting Table · Paper /",
+     "font_px": 13,
+     "cap_px": 9.1,
+     "y": 5086
+    }
+   ]
+  }
+ ]
+}

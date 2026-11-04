@@ -36,3 +36,13 @@ What Cycle 5 Explorer's steward cycles taught the page, and the changes to the h
 
 3. A grid inside an overflow-x box hides columns silently. Test it by comparing the scroll box's scrollWidth with its clientWidth across a width sweep, not by eye at one width. *(offered by the steward, cycle 3)*
 - run · 2026-11-03 · cycle 3 · taught item 3
+
+## From cycle 4 — 2026-11-03
+
+4. CSS zoom doesn't show up in getComputedStyle's font size, so a legibility probe has to multiply by el.currentCSSZoom or it undercounts every zoomed label. *(offered by the steward, cycle 4)*
+5. **Proposed for canon** · 2026-11-03 · [[Cycle 5 Explorer]] · § What is on the page, end of the paragraph that begins 'Five **guided moments** for class' · canon change owed *(proposed by the steward, cycle 4)*
+   Why: The page now has a mode a teacher needs to know about, and the measurement says honestly what it does and doesn't fix.
+   Path: `Projects/Cycle 5 Explorer.md`
+   > A **room view** for the projector (press R, or open with `?room`): the wheel sized to the screen's height and whole beside the inspector on one screen, with the type around it one and a half to two times larger. It was measured from the back row on 2026-11-04, where the wheel, the tonic and mode and the chord symbol read and the grids read only from the middle of the room.
+
+- run · 2026-11-03 · cycle 4 · taught item 4, proposed item 5 for canon
