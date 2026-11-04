@@ -55,7 +55,18 @@
           "near": "The grid holds still so the drift can be seen",
           "place": "band"
         }
-      ]
+      ],
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · opus · cloud batch 4",
+        "verdicts": [
+          {
+            "file": "Agnes Martin — rich — the grid holds still.html",
+            "verdict": "remake",
+            "why": "Walks up cleanly, both halves are scored, the rule is stated first, the guesser's 2.90% recomputes exactly, and no leak turned up. But the no-grid half keeps references the grid half lacks, and it adds no noise. In 87% of scatter fields a line comes within 30 px of the canvas border, where grid lines never get nearer than 46 px. Scatter neighbours come as close as 22 px, against the grid's 32. And every line stays horizontal on the pixel raster, against its own pinned chord: an observer that reads each line against its own chord, with no grid, calls 60 of 60 at 0.25 px in both halves. Remake: keep scatter lines at least 46 px from the border, with no neighbour gap under 32 px. Say in step 4 and in the result that the open half keeps the frame, the horizontal and the raster and adds no noise, so it tests the grid's spacing, edge and rules, not 'vanishes into noise'. Under no-clear-difference, replace 'The page claims more than that' with what the rule cannot see: a reader the grid helps by one doubling gets holds only 22–31% of the time."
+          }
+        ]
+      }
     }
   ]
 }
