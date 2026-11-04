@@ -6,9 +6,9 @@
 //   1. the inlined voice.js and compare.js are the workshop's own, byte for byte (sha256 against workshop/site/)
 //   2. the inlined card and vocabulary equal cards/house-bass.yaml and vocabulary.yaml (parsed with the app's js-yaml)
 //   3. the piece's engine, run again, gives the baked table: every verdict the same, every number within its grain
-//   4. both checks hold on both clips: the untouched sound rendered twice reads kept with every number unchanged; noise reads lost
-//   5. the blind trials' loudness match: every moved clip's RMS lands on the untouched clip's within 0.1 dB, and no peak passes 0 dBFS
-//   6. the chance figures the piece states: P(5 or 6 of 6 at even odds) = 7/64, both arms (7/64)^2
+//   4. both checks hold on both clips: the untouched sound rendered twice reads kept with every number unchanged; noise reads lost on meter A (meter B's count is printed and held to the baked one)
+//   5. the blind trials: no matched clip peaks at or past 0 dBFS (the RMS match itself is printed as an identity: the gain is computed from the RMS it is read against)
+//   6. the chance figures the piece states, printed as arithmetic (not a check): P(5 or 6 of 6 at even odds) = 7/64, both arms (7/64)^2
 //   7. the offer about playDemo: the site's Play the default, given this card, schedules eight notes 60 ms long, not four 121 ms long
 // Exits 1 on any failure. --bake writes the engine's table for the piece's BAKED constant (the maker's step, not a check).
 import fs from 'node:fs';
@@ -82,9 +82,9 @@ for (const cl of ['bar', 'held']) for (const k of ['A', 'B']){ const z = out.T[c
 const fsb = out.res.clips.bar.rows.fsusfull, fsh = out.res.clips.held.rows.fsusfull;
 console.log(`      the card's A/B, filter sustain → full: bar A [${fsb.A.join('; ')}] B [${fsb.B.join('; ')}] · held A [${fsh.A.join('; ')}] B [${fsh.B.join('; ')}]`);
 console.log(`      filter-sustain reading: bar ${out.res.clips.bar.baseFs} → ${fsb.fs} · held ${out.res.clips.held.baseFs} → ${fsh.fs}`);
-const mm = out.match; ok(mm.every(m => Math.abs(m.rms - m.ref) <= 0.1), 'blind trials: every moved clip matched to the untouched RMS within 0.1 dB (worst ' + Math.max(...mm.map(m => Math.abs(m.rms - m.ref))).toFixed(3) + ' dB)');
-ok(mm.every(m => m.peak < 0), 'blind trials: no matched clip peaks past 0 dBFS (highest ' + Math.max(...mm.map(m => m.peak)).toFixed(2) + ' dBFS; gains ' + mm.map(m => m.id + ' ' + m.gain_db.toFixed(1)).join(', ') + ' dB)');
-const C6 = (k) => [1, 6, 15, 20, 15, 6, 1][k]; const p56 = (C6(5) + C6(6)) / 64; ok(p56 === 7 / 64 && Math.abs(p56 * p56 - 0.01196) < 1e-4, `chance: 5 or 6 of 6 at even odds = ${p56.toFixed(4)} (7/64), both arms ${(p56 * p56).toFixed(4)}`);
+const mm = out.match; console.log('id    blind trials, an identity printed for the reader, not a check: the gain is computed from the same RMS it is then read against, so it lands on the untouched RMS by construction (worst ' + Math.max(...mm.map(m => Math.abs(m.rms - m.ref))).toFixed(3) + ' dB; only a re-trim at -50 dBFS can move it)');
+ok(mm.every(m => m.peak < 0), 'blind trials: no matched clip peaks past 0 dBFS (fails on any matched peak at or above 0 dBFS; a quiet move raised to match could clip) ; highest ' + Math.max(...mm.map(m => m.peak)).toFixed(2) + ' dBFS; gains ' + mm.map(m => m.id + ' ' + m.gain_db.toFixed(1)).join(', ') + ' dB)');
+const C6 = (k) => [1, 6, 15, 20, 15, 6, 1][k]; const p56 = (C6(5) + C6(6)) / 64; console.log(`id    chance, arithmetic printed for the reader, not a check: 5 or 6 of 6 at even odds = ${p56.toFixed(4)} (7/64), both arms ${(p56 * p56).toFixed(4)}`);
 const beat = 60 / card.render.tempo;
 console.log('      playDemo on this card schedules ' + demo.length + ' notes: ' + demo.map(d => (d.t / beat * 4).toFixed(0) + '/16 ' + Math.round(d.len * 1000) + ' ms').join(', '));
 ok(demo.length === 8 && demo.every(d => Math.abs(d.len - beat / 8) < 1e-6), `the offer holds: Play the default plays eight notes ${Math.round(beat / 8 * 1000)} ms long on the off-sixteenths; the card writes four, ${Math.round(beat / 4 * 1000)} ms long, on the off-eighths`);

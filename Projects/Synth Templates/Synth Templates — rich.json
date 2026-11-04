@@ -41,7 +41,7 @@
   {
    "section": "Synth Templates",
    "kind": "no-claim-edit",
-   "what": "Not a text edit; for the house-bass card's render spec and Plan move 4. The card's A/B ('raise the filter envelope's sustain to full: the pluck vanishes') is about what happens after the filter's decay, and the card's bar gives it 22 ms: notes a sixteenth long (121 ms) against a decay of 98.6 ms to its 95 % point. Measured, the sidecar sees the A/B on the bar only by 0.4 % past a 1 % grain (157 Hz against a taste span reaching 155 Hz); on a held note, clearly (158 against 125). A reference render that ends on one held note would let a learner hear the essential the card names first.",
+   "what": "Not a text edit; for the house-bass card's render spec and Plan move 4. The numbers hold: on the bar the A/B moves brightness 102.7 → 157.4 Hz, held 68.8 → 157.6 Hz. The A/B itself is plain on the bar, since at sustain full the filter never decays. What the bar cannot show is the difference between the A/B and the taste end of the filter decay: decay medium (0.575 s) never finishes inside a 121 ms note, so it reads 155.2 Hz on the bar against the A/B's 157.4, and only parts from it on a held note (100.2 against 157.6). A reference render that ends on one held note would let a learner hear why decay short is pinned.",
    "status": "open"
   },
   {
@@ -53,13 +53,19 @@
   {
    "section": "Synth Templates",
    "kind": "no-claim-edit",
-   "what": "Not a text edit; for Plan move 5, the comparison page (compare.js readings, buildReport). On the house bass its verdict cannot be trusted as a measure of lost. It reads the untouched held note's wave as 'triangle' and its resonance as 'high' (the card says square, moderate). Oscillator 1 swapped for noise reads 'triangle' from the sub under it, and on the card's bar the page calls that noise sound a match on 4 of 8 noise seeds. The reading meant for the card's A/B, the filter's sustain, calls the A/B a match on both clips ('falls 1.6 oct' against '1.2' on the bar, '1.7' against '0.6' held: low against half, adjacent). The amp-sustain reading sits on its own thresholds (crest 12.4 dB on the bar against 12, 7.3 held against 8), so taste moves flip it. Across 16 moves it agrees with the card's split on 8 (bar) and 10 (held). The four sidecar numbers do no better (9 and 10): they measure how far a knob moves the sound, not which way matters.",
+   "what": "Not a text edit; for Plan move 5, the comparison page (compare.js readings, buildReport). On the house bass its verdict cannot be trusted as a measure of lost. It reads the untouched held note's wave as 'triangle' and its resonance as 'high' (the card says square, moderate). Oscillator 1 swapped for noise reads 'triangle' from the sub under it, and on the card's bar the page calls that noise sound a match on 4 of 8 noise seeds. The reading meant for the card's A/B, the filter's sustain, calls the A/B a match on both clips ('falls 1.6 oct' against '1.2' on the bar, '1.7' against '0.6' held: low against half, adjacent). The amp-sustain reading sits on its own thresholds (crest 12.4 dB on the bar against 12, 7.3 held against 8), so taste moves flip it. Across 16 moves it agrees with the card's split on 8 (bar) and 10 (held). The four sidecar numbers do no better (9 and 10): they measure how far a knob moves the sound, not which way matters. The challenger re-ran it on the site's own playDemo pattern and found it worse there: nothing flags the A/B, noise passes as a match on 2 of 8 seeds, agreement 8 of 16.",
    "status": "open"
   },
   {
    "section": "Synth Templates",
    "kind": "no-claim-edit",
-   "what": "A question for Loudon, for the card: it pins square as essential ('change one and it stops being a house bass'), while its own lineage line, Generative Audio Devices' house_bass.pdl, is a saw (OSC:SAW -> FILT:IN), and the page calls that file the first house-bass recipe. The page's sentence ('the waveform') stands either way; the card's pin is the question. The saw move is in the blind trials: if his ear calls it still house bass, the essential may be 'a rich wave, filtered' (the card's own concept line) rather than square.",
+   "what": "A question for Loudon, for the card and the page: the card pins square as essential ('change one and it stops being a house bass'), and the page's own first paragraph says it too ('House Bass: mono, square, percussive filter envelope'), while the card's lineage line, Generative Audio Devices' house_bass.pdl, is a saw (OSC:SAW -> FILT:IN), the file the page calls the first house-bass recipe. The saw move is in the blind trials: if his ear calls it still house bass, the essential may be 'a rich wave, filtered' (the card's own concept line) rather than square.",
+   "status": "open"
+  },
+  {
+   "section": "Synth Templates",
+   "kind": "claim-change",
+   "what": "For Loudon: the page and its card disagree on resonance. The page's second paragraph lists 'resonance amount' among the taste settings ('The taste settings are what a player moves: cutoff, resonance amount, release length'); the card pins filter 1 resonance moderate as essential (cards/house-bass.yaml, essentials: 'the vowel in the \"ooh\"') and lists no resonance in taste. The piece follows the card and scores both resonance moves essential, one in the blind trials. Either the page's example list drops resonance amount, or the card moves it to taste. The meters cannot settle it: on the bar meter A calls moderate → none kept and moderate → high lost, meter B the reverse.",
    "status": "open"
   }
  ],
@@ -98,7 +104,7 @@
      "origin": "made",
      "by": "maker · claude-opus-5-5",
      "title": "Which knobs are which · the house bass split, two meters and an ear",
-     "caption": "**Tests the split.** It walks up: the house bass untouched; one taste knob alone (cutoff, dark to mid); one essential alone (the filter's sustain, the card's A/B); then every knob the voice models moved and judged by two of the project's meters, rules written first, on the card's bar and on a held note; then twelve blind trials, loudness-matched, scored on both arms. Measured: neither meter sees the split whole (agreement 9, 8, 10 and 10 of 16), and the comparison page fails its own noise control on the bar. That is a finding about the meters, not a verdict on the card: which knobs are structural is a teaching rule, and the trials put it to the ear. The engine and table are re-checked by 'Synth Templates — rich — check.mjs'.",
+     "caption": "**Tests the split.** It walks up: the house bass untouched; one taste knob alone (cutoff, dark to mid); one essential alone (the filter's sustain, the card's A/B); then every knob the voice models moved and judged by two meters with rules written first, on the card's bar and on a held note: meter A is this piece's rule over the project's four sidecar numbers (not a project meter; its taste misses happen by construction), meter B the project's own comparison verdict; then twelve blind trials, loudness-matched, scored on both arms. Where the page and the card disagree (resonance: taste on the page, essential on the card), the piece follows the card and says so. Measured: neither meter sees the split whole (9, 8, 10 and 10 of 16), the comparison page fails its own noise control on the bar, and on the card's bar the taste end of the filter decay sounds almost like the A/B. These are findings about the meters and the card, not a verdict on the page: which knobs are structural is a teaching rule, and the trials put it to the ear. Re-checked by 'Synth Templates — rich — check.mjs'.",
      "near": "The split is the lesson.",
      "place": "band",
      "height": 1500
@@ -128,5 +134,9 @@
    }
   }
  ],
- "left_out": "The record's gathered list also named workshop/site/index.html and workshop/picker.html. The site was tried and left out: it loads its sheets through site/sheets, a symlink to ../cards, which the piece origin does not serve, so on the face every card page would show a broken sheet (conform: file-missing). The picker is the Completeness Tracker for Plan move 2, not anything the opening section says. The record's second made piece, a signal-flow sheet in the house style, is the card's own sheet, gathered, not redrawn."
+ "left_out": "The record's gathered list also named workshop/site/index.html and workshop/picker.html. The site was tried and left out: it loads its sheets through site/sheets, a symlink to ../cards, which the piece origin does not serve, so on the face every card page would show a broken sheet (conform: file-missing). The picker is the Completeness Tracker for Plan move 2, not anything the opening section says. The record's second made piece, a signal-flow sheet in the house style, is the card's own sheet, gathered, not redrawn.",
+ "remade": {
+  "date": "2026-11-04",
+  "why": "challenger's remake: resonance disagreement named; step 3's mechanism corrected; meter A labelled as the maker's rule; check.mjs identities labelled"
+ }
 }
