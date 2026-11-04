@@ -4,7 +4,7 @@ A cold Fable reader, labels shown, checked palace quotes against palace files an
 
 ---
 
-Fact-check of the ten lensings in /private/tmp/claude-501/-Users-loudonstearns-Documents-The-Palace/29852af6-fcfc-4dff-8e09-d8cbcde3090f/scratchpad/lensings/. Palace claims checked against palace files; outside claims against the web; the two kept apart. Most serious first.
+Fact-check of the ten lensings in The Lens/proofs/2026-11-03-bold-mandate/readings/. Palace claims checked against palace files; outside claims against the web; the two kept apart. Most serious first.
 
 ## Problems
 
