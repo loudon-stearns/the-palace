@@ -32,6 +32,12 @@ links:
   - target: "[[Modes of Collaboration]]"
     type: connects-to
     label: multi-device-sync
+  - target: "[[Signal-Rate CV Architecture]]"
+    type: connects-to
+    label: time-as-signal
+  - target: "[[DSP Frameworks]]"
+    type: connects-to
+    label: framework-choice
 forward_vector: "I want to teach timecode all the way down — the eighty bits and their BCD, biphase mark and why only the time between flips counts, the sync word that tells a reader where, which way and how fast, drop-frame's skipped numbers, the frame every reader is late — until a student can make and read LTC in every form it takes, from a file to a gen~ device to a VST3 plugin and a standalone app, each held to the others sample for sample, and I want my rich face to be the room Loudon teaches it in, where a class can hear an encoder and a reader, slow them down, break them, and watch the bits fall out."
 ---
 
@@ -98,8 +104,8 @@ Timecode pretends to measure time and is in fact a counter. It counts frames, no
 
 ## Open questions
 
-- **JUCE or RNBO for the plugin?** ([[DSP Frameworks]]) RNBO exports the codebox to VST3 and AU and keeps it one copy; JUCE gives a reader with a UI and a standalone app from one codebase. Which teaches better, and which is the third copy the tests can hold?
-- **A plugin when the host stops.** Many hosts stop feeding audio to plugins with the transport stopped. How does a plugin reader listen, and a plugin writer send Locate, when the host goes quiet?
+- **JUCE or RNBO for the plugin?** ([[DSP Frameworks]]) RNBO exports to VST3 and AU, but its codebox is a port of the gen~ one, not the same file; JUCE gives a reader with a UI and a standalone app from one codebase. Which teaches better, and which is the third copy the tests can hold?
+- **A plugin when the host stops.** Some hosts suspend a plugin on a track with nothing to play once the transport stops. How does a plugin reader listen, and a plugin writer send Locate, when the host goes quiet?
 - **Resampling.** At 44.1 kHz a bit at 30 fps is 18.375 samples; at 48 kHz, 20. How much resampling and sample-rate mismatch can a reader take before short and long blur?
 - **Long runs at drop-frame.** The specification counts drop-frame right in its tests; has a 29.97 drop run been read against a hardware reader for over an hour?
 - **What shows mastery?** The room's challenge is a reader that passes hostile files. Is that the right bar, or does mastery also mean the student's encoder fools a hardware reader?
