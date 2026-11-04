@@ -45,13 +45,13 @@
       "section": "Now it flows around a character (Session 4, 2026-07-02)",
       "kind": "claim-change",
       "what": "As field.py writes it, the solve does not bend the field tangent to the body; the legs make it look so. The face rebuilds Session 4's flow-field.json to 5e-6 and measures it directly: at the air cells beside the body, the flow runs into the windward side at 4.24× the wind and out of the lee side at 9.68× (mean into the body 2.49×), where merely zeroing the inside gave 0.94× and 0.32×; the 22.4× 'corner speed spikes' are this, not voxelisation alone; and the central-difference divergence rises from 0.0075 to 0.107. Cause: field.py is collocated (2-cell central differences for the divergence and the gradient, the compact 5-point stencil for the Laplacian), and it leaves p = 0 inside the body and feeds that to the gradient while the matrix assumes no push across the body's edge. The challenger split the two: with p extended into the body to agree with the matrix, central differences give 0.70× windward and −0.69× lee (fastest 4.80×), still not tangent; kept on faces it is 0.054×. Kept on faces (same matrix, divergence and push taken on cell faces), the flow into the body is 0.054× windward and 0.057× lee, fastest 4.97×. In the renders the lines part and the dust piles because both legs read the body mask (flowlib.in_body; dust_sim.py is_solid): a line stops at the edge, and a dust grain that would land in the body is counted into the 'pile' and respawned, so the bright windward edge is the dust leg's rule (0.97 hits per 1,000 grain-steps as written, 0.28 on faces, the rest from its jitter). So 'the coupling adds a stage to the field author, not to each leg' is not what Session 4 built: each leg also reads the mask. On the face-kept field, legs that read only the arrows leave 0.03% of the dust inside the body (17.4% as written) and 2.7% of the speed-lines run into it (9.1%). Also 'shed a counter-rotating wake' is a pair placed by hand (the Session 4 report says so). Proposed: '…a single pressure-projection is meant to bend the field tangent to it; as first written it didn't (the push reached inside the body and drove the air into it), and the parting in the renders came from the legs reading the body mask. Kept on cell faces, the same solve parts the air and the legs need no mask. The wake is a placed counter-rotating pair.' The recipe carries the same words; see the next offer. Confirmed independently by the challenger with field.py's own scipy solve (4.241× / −9.675×).",
-      "status": "open"
+      "status": "taken"
     },
     {
       "section": "→ flow-field-spine recipe",
       "kind": "claim-change",
       "what": "Projects/BLUELINE/flow-field-spine.md § Obstacle (lines 39–51, read by the challenger) carries the same two claims as the page: that the projection makes the field tangent to the body, and that the wake is shed. As field.py builds it, neither holds (offer 3: 4.24× into the windward side, 9.68× out of the lee; the wake is a pair placed by hand at field.py lines 113–121). The recipe's step would need the solve kept on faces (or at least p extended into the body, which gives 0.70×) and the wake named as placed. Not this page's text: carried here so the round doesn't lose it.",
-      "status": "open"
+      "status": "taken"
     }
   ],
   "sections": [
@@ -128,7 +128,7 @@
           "near": "Session-3 field was character-blind"
         }
       ],
-      "made_against": "75f1bd42c27b",
+      "made_against": "5a4f931cbc65",
       "stamped": "2026-11-04",
       "challenge": {
         "date": "2026-11-03",
