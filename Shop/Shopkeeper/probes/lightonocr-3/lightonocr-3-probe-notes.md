@@ -55,7 +55,24 @@ disabled), not one flaky tool. I also pulled the demo's own showcase images stra
 repo (`examples/docs-table.png`, `examples/annual-report-table.png` — the vendor's own table/layout
 proof images), so whichever path finally works doesn't need a test image built first.
 
-**The honest recommendation.** Stop retrying this from the sandbox. Neither tool this session can
+**The honest recommendation (as of 2026-11-03).** Stop retrying this from the sandbox. Neither tool this session can
 drive it. The next real attempt needs one of: a mac session with a browser (drag the vendor's own
 `docs-table.png` into the live demo by hand) or a pasted HF token for the Inference API — both are
 roughly a five-minute job once either is available, and neither is available to me here.
+
+**2026-11-04 — the real wall, found by reading the model card instead of the Space.** I'd been treating
+this as a Space-API problem for three cycles running. It isn't. I read `lightonai/LightOnOCR-3-4B`'s own
+README straight off the Hub: there is no free serverless Inference API route for this model at all — the
+only documented ways to run it are `transformers>=5.5.4` loading the weights locally in bf16, or serving
+it yourself with vLLM. No Inference Providers entry, no `endpoints_compatible` free tier, nothing a
+token-only sandbox call can reach. The custom-front-end Space was never the actual obstacle — even a
+perfectly ordinary Gradio API on that Space would just be calling the same GPU-bound model behind it. I
+also checked the two older, plain-Gradio LightOnOCR demo Spaces (`LightOnOCR-2-1B-Demo`,
+`LightOnOCR-1B-Demo-zero`) hoping for a lighter free leg — the MCP connector returns 404 on both; they
+read as taken down or not currently running.
+
+**Verdict: this candidate needs a GPU, full stop — not a better probing tool.** Three cycles of trying a
+different sandbox angle (gradio_client, the MCP connector's invoke, a bare Inference API call) all failed
+for the same underlying reason, and no fourth sandbox angle will fix it. The only honest paths left are a
+mac GPU handoff, or dropping LightOnOCR-3 as this round's OCR candidate in favor of something the sandbox
+can actually run for free. I'm not spending a fifth cycle guessing which Loudon wants — that's the ask below.

@@ -15,34 +15,34 @@ forward_vector: "I am Shopkeeper's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T23:31:34.913Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T00:12:07.354Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** alive · **Stage:** — · **Steward:** cycle 4 · last ran 2026-11-03 (today)
+- **Status:** alive · **Stage:** — · **Steward:** cycle 5 · last ran 2026-11-04 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
-- **Waiting on you:** nothing
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-03 (today) — LightOnOCR-3 is a real apache-2.0 candidate for the Roster's missing OCR slot, but two separate tools in my sandbox both can't reach it — I'm recommending we stop retrying from here. (`shopkeeper-cycle-4-2026-11-03`)
-- **Last commit touching this page:** 2026-10-24 `a75350ec` — Weave — 2026-10-24 — 79 links added, 647 links pruned, 268 labels added, 13 entries promoted, 25 stages moved, 35 flags closed, 13 decisions carried, 6 Contexts opened, 2 pages composted, 8 faces added
+- **Last shipped:** 2026-11-04 (today) — LightOnOCR-3 isn't a probing problem — it's a real GPU requirement. Three cycles chasing the wrong wall. (`shopkeeper-cycle-5-2026-11-04`)
+- **Last commit touching this page:** 2026-11-03 `40cc4aa1` — edit(FLUX (Hugging Face)): the Shopkeeper's FLUX 3 staleness note lands as a dated gotcha, on Loudon's LAND-NOTE grant of 2026-10-18
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 4 · taught item 1
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 5 · taught item 2
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 1, from cycle 4 — 2026-11-03 — [[Shopkeeper — tuning]]
+- **Latest lesson:** item 2, from cycle 5 — 2026-11-03 — [[Shopkeeper — tuning]]
 
 ### Where this stands
 
-I'm the Shopkeeper — I stock Loudon's catalogue of creative tools (the Shop) and only bring him what I've actually tried. Since my last run (2026-10-18) the Roster still has no OCR tool at all — nothing reads a scanned page or a photo of a form back into structured text — and LightOnOCR-3 (lightonai, apache-2.0) has sat as the open candidate for that gap across three runs now, never actually tested, because its demo Space turned out to be a custom front-end with no standard API surface for my usual probing tool (gradio_client) to drive.
+I'm the Shopkeeper — I stock Loudon's catalogue of creative tools and only recommend what I've actually run. The Roster has had no OCR tool at all for a while now, and LightOnOCR-3 (lightonai, apache-2.0) has been the open candidate for that gap across four runs. Every prior cycle blamed its fancy demo Space for having no standard API surface my tools could drive.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** rough since cycle 1: I still have zero evidence of my own on whether LightOnOCR-3 actually delivers good layout grounding — but this is no longer an open-ended 'needs more tries' note. _(in 3 notes, the latest cycle 4)_
+- **rough since cycle 1:** I still have zero first-hand evidence of LightOnOCR-3's actual transcription quality — that was never resolved, and now it's clear it won't resolve from this sandbox at all. _(in 4 notes, the latest cycle 5)_
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `shopkeeper-ask-2026-11-04-ocr-direction` — directional_decision · posted 2026-11-04 · options: MAC-HANDOFF · FIND-FREE-ALT · DROP-OCR-GAP
 
 ### Answered, not yet consumed
 
@@ -63,6 +63,7 @@ d5 YES: Yes, add a dated gotcha note on Stable Audio 3 to [[Stable Audio Open]].
 
 ### Runs
 
+- 2026-11-03 — cycle 5 · taught item 2
 - 2026-11-03 — cycle 4 · taught item 1
 
 ### Owed
@@ -100,6 +101,30 @@ The Shop is yours to tend, not to write. Run the tools, keep the dossiers, and m
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shopkeeper-cycle-5-2026-11-04" -->
+### 2026-11-04 — cycle 5 — LightOnOCR-3 isn't a probing problem — it's a real GPU requirement. Three cycles chasing the wrong wall.
+> shipped · settled the recurring rough note · steward leans mac-handoff
+
+This cycle I stopped probing the Space and read the model's own Hub README instead. There is no free serverless Inference API for lightonai/LightOnOCR-3-4B at all — the only documented ways to run it are loading the weights locally with transformers>=5.5.4 in bf16, or serving it yourself with vLLM. No Inference Providers entry, no free hosted tier. The custom front-end on the demo Space was never the real obstacle — even an ordinary Gradio API there would just be calling the same GPU-bound model behind it. I also checked the two older plain-Gradio LightOnOCR demos (2-1B and 1B-Demo-zero) hoping for a lighter free leg — both now 404 on the connector, reading as taken down. Three cycles, three different sandbox angles (gradio_client, the MCP connector's invoke, a bare Inference API call), all blocked by the same underlying cause. A fourth sandbox angle won't fix it.
+
+**Artifacts:**
+- [the full probe trail, cycles 1-5, ending with this cycle's model-card read that settles the real cause.](Shop/Shopkeeper/probes/lightonocr-3/lightonocr-3-probe-notes.md)
+
+_Changed in the workshop:_ lightonocr-3-probe-notes — added the 2026-11-04 finding that pins the real cause (no free hosted inference route) and retires the Space-API framing of cycles 1-4
+
+_Left rough:_ I still have zero first-hand evidence of LightOnOCR-3's actual transcription quality — that was never resolved, and now it's clear it won't resolve from this sandbox at all. I'm not chasing a fifth sandbox angle; the open question is now a resourcing one, asked below.
+
+_Next moves named:_ If Loudon wants LightOnOCR-3 specifically: a mac GPU pass (or a pasted HF token against a paid Inference Endpoint) is the only honest path left. · If he'd rather not spend the handoff on it yet: I can sweep for a lighter OCR candidate that runs free in a Zero-GPU Gradio Space with a standard component API, so the gap gets filled without the GPU cost.
+<sub>`shopkeeper-cycle-5-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-15e7c7f1b5" -->
+### 2026-11-03 — cycle 5
+
+taught item 2
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="shopkeeper-cycle-4-2026-11-03" -->
 ### 2026-11-03 — cycle 4 — LightOnOCR-3 is a real apache-2.0 candidate for the Roster's missing OCR slot, but two separate tools in my sandbox both can't reach it — I'm recommending we stop retrying from here.
 > shipped · same wall confirmed a second way · steward leans mac-or-token-handoff

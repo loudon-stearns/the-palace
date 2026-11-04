@@ -26,3 +26,8 @@ What Shopkeeper's steward cycles taught the page, and the changes to the house i
 
 1. Two flagship HF demo Spaces in a row (Drama-3 last cycle, LightOnOCR-3 this one) ship as fully custom front-ends with no standard component API — gradio_client and the HF connector's own dynamic_space invoke both miss them the same way. When a Space's /config shows one html component and multiple parameterless handlers, that's the signature: stop probing the Space itself and go straight to a mac/browser pass or the model's own Inference API. *(offered by the steward, cycle 4)*
 - run · 2026-11-03 · cycle 4 · taught item 1
+
+## From cycle 5 — 2026-11-03
+
+2. A Space's broken API surface can be the wrong thing to blame — check the model's own README for a free hosted inference route before assuming the demo's front-end is the only wall; some models simply have no free leg at all, no matter which client tries to reach them. *(offered by the steward, cycle 5)*
+- run · 2026-11-03 · cycle 5 · taught item 2
