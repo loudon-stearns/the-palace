@@ -15,32 +15,33 @@ forward_vector: "I am Floquet Time-Modulated Loops's scroll — the one page tha
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T02:15:12.337Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T02:21:18.138Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 8 · last ran 2026-11-04 (today)
-- **Plan:** agreed 2026-09-26 (39 days ago) · 11 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 9 · last ran 2026-11-04 (today)
+- **Plan:** agreed 2026-09-26 (39 days ago) · 12 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — The surface filters have four proofs. Shall I start the fourth instrument next, working backward from a target sound? (`floquet-steward-019`)
-- **Last commit touching this project:** 2026-11-03 `2e29ffe8` — steward(Floquet Time-Modulated Loops): cycle 7 — SPINNING UP. HOME: [Floquet Time-Modulated Loops](obsidian://open?vault…
+- **Last shipped:** 2026-11-04 (today) — I solved a wavetable backward from a piano's stretched partials, and a sawtooth through it lands every partial where the design put it. (`floquet-steward-021`)
+- **Last commit touching this project:** 2026-11-03 `b9d2b766` — steward(Floquet Time-Modulated Loops): cycle 8 — SPINNING UP. HOME: [Floquet Time-Modulated Loops](obsidian://open?vault…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 8 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 8 · taught item 15, proposed item 16 for canon
+- **Runs:** 9 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 9 · taught item 17, proposed item 18 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 3 — items 6, 8, 16; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 16, from cycle 8 — 2026-11-03 — [[Floquet Time-Modulated Loops — tuning]]
+- **Proposed for canon:** 4 — items 6, 8, 16, 18; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 18, from cycle 9 — 2026-11-03 — [[Floquet Time-Modulated Loops — tuning]]
 
 ### Where this stands
 
-Floquet Time-Modulated Loops argues that the 'nothing changes over time' assumption under almost every audio loop is a choice, and it has five instruments on its plan. The first, a pumped resonator, is built and waits on Max, which is paused. The second, a string with its loudness and length pumped, has its browser proofs. The third is where the work is: it plays a wavetable surface from the 2D Torus library as a filter that changes over time, with one axis read as the filter and the other scanned. Last cycle the scan was tied to the input's pitch, which kept a plucked melody in tune but only sometimes held on speech. This cycle rebuilt the speech with a pitch known exactly and found why. M…
+Floquet Time-Modulated Loops argues that the 'nothing changes over time' assumption under almost every audio loop is a choice, and its plan has five instruments. The first, a pumped resonator, is built but waiting on Max, which is paused. The second, a string with its loudness and length pumped, and the third, which plays a 2D Torus wavetable surface as a filter that changes over time, both have browser and Python proofs. This cycle began the fourth: pick the sound you want and solve for the modulation that makes it. Because the third instrument's surface is its own frequency map, the solve turned out to be a lookup, not a search. One solved surface makes a piano-stretched G3 or a glockensp…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
 - **rough since cycle 1:** Its script parses, and the browser filter still matches the Python. _(in 3 notes, the latest cycle 8)_
-- **rough since cycle 2:** Nobody has heard it yet: not the play page, and not the reels. _(in 7 notes, the latest cycle 8)_
+- **rough since cycle 2:** Nobody has heard it yet: not the play page, and not the reels. _(in 8 notes, the latest cycle 9)_
+- **rough since cycle 3:** Also rough: target amplitudes copy the sawtooth, neighbouring-harmonic leakage is measured but not cancelled, the note range was measured upward only, and there's no browser version. _(in 2 notes, the latest cycle 9)_
 
 ### Open asks
 
@@ -57,6 +58,7 @@ _None._
 
 ### Runs
 
+- 2026-11-03 — cycle 9 · taught item 17, proposed item 18 for canon
 - 2026-11-03 — cycle 8 · taught item 15, proposed item 16 for canon
 - 2026-11-03 — cycle 7 · taught item 13, proposed item 14 for canon
 - 2026-11-03 — cycle 6 · taught item 11, proposed item 12 for canon
@@ -64,7 +66,7 @@ _None._
 - 2026-11-03 — cycle 4 · taught item 7, proposed item 8 for canon
 - 2026-11-03 — cycle 3 · taught item 5, proposed item 6 for canon
 - 2026-11-03 — cycle 2 · taught item 3, proposed item 4 for canon
-- 2026-11-03 — cycle 1 · taught item 1, proposed item 2 for canon
+- _…and 1 more in the trail below._
 
 ### Owed
 
@@ -77,6 +79,7 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 - **6.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 2 — Floquet Comb, a new paragraph after the first — Adds what the two-pump proof measured to the Stage 2 sketch, and corrects the tongue width to its two meanings.
 - **8.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Open Questions, the bullet 'Does the tanh saturation in Stage 1 distort the Strutt picture?', a new progressed line after the existing one — The question asked which saturation is the right sound; Loudon answered it, and the measured level law is the reason it teaches well.
 - **16.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 3 — Floquet Kernel (wavetable as filter), a new paragraph after the first — Item 14 left the voice case open; the known-pitch test shows when the locked scan can follow a live voice and when it can't, and that sets the codebox's pitch input.
+- **18.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 4 — Floquet Engineering instrument, a new paragraph after the first — The Stage 4 sketch calls the inverse problem thesis-scale; the first proof shows the tractable case and names where the hard part actually begins.
 
 <!-- scroll:now:end -->
 
@@ -105,6 +108,51 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="floquet-steward-021" -->
+### 2026-11-04 — cycle 9 — I solved a wavetable backward from a piano's stretched partials, and a sawtooth through it lands every partial where the design put it.
+> shipped · fourth instrument's first proof, Python · steward leans pitch-locked taps next
+
+The surface filters showed that a scanned surface's 2D spectrum is its map: a mode at tap-band m and row-rung n passes the band at m × 93.75 Hz and moves what it passes by n × the scan rate. Read backward, you pick an input harmonic for each target partial, take its band, round the move into rungs, and undo the band's gain. Add the modes up and you have a 256-row by 512-tap wavetable. With the scan locked at the pitch ÷ 32, a sawtooth at G3 comes out with all 24 piano partials (stretch constant 0.0004) exactly where the design put them. The only error is the rounding: 5.5 cents at worst at ÷32, and 1.4 cents at ÷128. That rounding is the instrument's nature. Every line sits on harmonics plus whole scan steps, so the 'inharmonic' piano is really a harmonic sound on the pitch ÷ 32, and a finer scan rounds less and repeats more slowly. The rungs also wrap: once the stretch passes half a harmonic, the next harmonic over feeds the partial. That is the Bloch twin again, folding into a Brillouin zone, this time in the design step. You asked about Hann. It is a cosine-shaped fade across the 512 taps, which trades wider bands for far less leakage. Here it cuts the stray power between partials from 1.15 % to 0.10 % on the piano and from 4 % to 0.4 % on the bar, at no extra cost in the mode bank. A solved surface is for one note: a semitone up, 4 % of the power is stray, because the bands are fixed in hertz.
+
+**Artifacts:**
+- [Target vs landed partials, the solved surface, and what Hann clears between the partials.](Projects/Floquet Time-Modulated Loops/inverse/inverse_figure.png)
+- [17 s: G3 through harmonic, piano and bar surfaces, then the piano surface a quarter-tone and a whole tone off its note.](Projects/Floquet Time-Modulated Loops/inverse/renders/reel_7_working_backward.wav)
+- [Piano-stretched G3 from a sawtooth, Hann window.](Projects/Floquet Time-Modulated Loops/inverse/renders/G3_piano.wav)
+- [The same without the window: compare for the Hann difference.](Projects/Floquet Time-Modulated Loops/inverse/renders/G3_piano_rect_window.wav)
+- [Glockenspiel-bar partials from a sawtooth.](Projects/Floquet Time-Modulated Loops/inverse/renders/G3_bar.wav)
+- [The check: a harmonic target gives back the sawtooth.](Projects/Floquet Time-Modulated Loops/inverse/renders/G3_harmonic.wav)
+- [The workshop note: method, tables, Hann explained, what's left.](Projects/Floquet Time-Modulated Loops/inverse/Working Backward — first proof.md)
+- [The solver and its measurements (about 7 s).](Projects/Floquet Time-Modulated Loops/inverse/inverse.py)
+- [Draws the figure.](Projects/Floquet Time-Modulated Loops/inverse/inverse_figure.py)
+- [Every number above.](Projects/Floquet Time-Modulated Loops/inverse/inverse_report.json)
+- [The solved piano surface, 256 × 512.](Projects/Floquet Time-Modulated Loops/inverse/surfaces/piano_G3_hann.npy)
+- [The solved bar surface.](Projects/Floquet Time-Modulated Loops/inverse/surfaces/bar_G3_hann.npy)
+- [The check surface.](Projects/Floquet Time-Modulated Loops/inverse/surfaces/harmonic_G3_hann.npy)
+
+_Piano at G3: finer scan, less rounding, slower repeat_
+| scan locked at | repeats every | biggest rung | worst cents | typical cents |
+| --- | --- | --- | --- | --- |
+| pitch ÷ 16 | 0.08 s | 7 | 8.6 | 3.2 |
+| pitch ÷ 32 | 0.16 s | 15 | 5.5 | 1.9 |
+| pitch ÷ 64 | 0.33 s | 30 | 3.1 | 1.1 |
+| pitch ÷ 128 | 0.65 s | 59 | 1.4 | 0.6 |
+
+_Changed in the workshop:_ Working Backward — first proof — New workshop note for the fourth instrument's first proof.
+_Proposed for canon:_ Floquet Time-Modulated Loops (§ Stages 2–5 — the development arc, ### Stage 4 — Floquet Engineering instrument, a new paragraph after the first) — The Stage 4 sketch calls the inverse problem thesis-scale; the first proof shows the tractable case and names where the hard part actually begins.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard it yet: not the play page, and not the reels. Hearing them is the one thing only you can do; I can't move it from here. Also rough: target amplitudes copy the sawtooth, neighbouring-harmonic leakage is measured but not cancelled, the note range was measured upward only, and there's no browser version.
+
+_Next moves named:_ Read the tap axis in pitch periods instead of samples, so one solved surface follows every note. That brings back the second instrument's string as the loop. · Add a small least-squares step to cancel the leakage from neighbouring harmonics, then try a target from Categorizing Inharmonicity that doesn't sit near harmonics, such as a Penrose-style cluster. · For the codebox, once Max work resumes: the third instrument's mode bank with a loaded surface and a pitch input; nothing new in the DSP.
+<sub>`floquet-steward-021` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-32ac8b2e93" -->
+### 2026-11-03 — cycle 9
+
+taught item 17, proposed item 18 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="floquet-steward-019" -->
 ### 2026-11-04 — cycle 8 — The surface filters have four proofs. Shall I start the fourth instrument next, working backward from a target sound?
 > still working · third instrument proven in Python and the browser · steward leans MOVE-ON
