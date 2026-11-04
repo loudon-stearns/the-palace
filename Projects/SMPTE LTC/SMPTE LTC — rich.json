@@ -1,0 +1,63 @@
+{
+  "title": "SMPTE LTC — rich",
+  "born": "2026-11-04",
+  "links": [
+    {
+      "target": "[[SMPTE LTC]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "every-piece-walks-up"
+    }
+  ],
+  "forward_vector": "I am the manifest of SMPTE LTC's rich face, its first round at Sketch tier: the teaching room's first two stops, Count and Bits, as one walk laid beside the fine points it tests, run on GoButton's own ltc.js, with the fingerprint of the words it was laid against; I grow by the room's next stops (wave, read, break it, build) until Loudon can teach a class LTC from me, and I never hold the entry's words.",
+  "entry": "SMPTE LTC",
+  "tier": "sketch",
+  "made": "2026-11-04",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "The fine points",
+      "made": "2026-11-04",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-04",
+        "by": "maker · claude-opus-5-5 · single-page run",
+        "round": "smpte-ltc-room-1"
+      },
+      "pieces": [
+        {
+          "file": "SMPTE LTC — rich — the teaching room.html",
+          "origin": "made",
+          "by": "the Maker · GoButton's ltc.js",
+          "title": "The teaching room · count, then bits",
+          "caption": "**The room's first two stops, as a walk of six steps that ends on a test.** It opens on a frame counter at 25 fps. It sets the six choices of rate beside the wall clock: jump an hour and 23.976 and 29.97 fall 3.6 s behind. It shows drop-frame skipping 00 and 01 as a minute turns, and not at the tenth, with a switch back to the plain count it fixes. Then one frame becomes eighty bits a student can flip: a BCD digit pushed past 9 stops being a time, and the polarity bit answers every user bit to keep the zeros even. It ends by searching an hour or a whole day of frames, every bit the time leaves free set to 1, for twelve 1s anywhere but the sync word. The engine is GoButton's tested ltc.js, copied whole beside the piece and pinned to its hash. The checks beside it run every step's number against this section: 108 numbers skipped an hour, 2.6 frames a day left over, an even count of zeros in every frame of a day, and, at all six rates over a whole day with every free bit set to 1, no run of 1s longer than 10 outside the sync word. Nothing sounds yet. The wave is the next stop.",
+          "near": "Eighty bits a frame",
+          "place": "band",
+          "height": 1100
+        }
+      ],
+      "made_against": "9e11caf7739c",
+      "stamped": "2026-11-04",
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "SMPTE LTC — rich — the teaching room.html",
+            "verdict": "keep",
+            "why": "Remade once, then kept. It tests the section rather than decorating it: drop-frame's skips and 108 an hour, the 3.6 s drift, BCD validity, the polarity bit's even zeros, and the sync word's uniqueness searched over a whole day at all six rates with every free bit set to 1 (longest elsewhere 10). It is faithful to the text and walks count → rates → drop-frame → word → flags → the sync test. The first round's five must-fixes were all fixed (a rate switch mid-search mislabelled the result; ahead was shown as behind; the worst case left the flags at 0; the caption claimed a check that did not exist; the readout broke past midnight), and every nice-to-have was taken. Checks 57/0, conform 0 errors."
+          }
+        ]
+      }
+    }
+  ]
+}
