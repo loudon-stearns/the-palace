@@ -62,8 +62,8 @@ _Nothing decided on the board yet._
 <!-- scroll:orders:start -->
 Decided with Loudon between June and July 2026, carried over from the locked scope in [[BLUELINE — Production Plan]], and confirmed by him as orders on 2026-09-25; not to be reopened without a reason:
 
-- **Fixed tempo.** Sync is exact arithmetic, ~~with beats falling on whole frames~~ *(superseded 2026-11-03 by Any tempo)*, never elastic alignment.
-- **Any tempo** (2026-11-03). Loudon: "we must be able to use any arbitrary tempo."
+- **Any tempo, synced exactly** (retitled from "Fixed tempo", 2026-11-04). Sync is exact arithmetic, ~~with beats falling on whole frames~~ *(superseded 2026-11-03 by Any tempo)*, never elastic alignment.
+- **Any tempo** (2026-11-03). Loudon: "we must be able to use any arbitrary tempo." **Tempo changes within a Set are included** (2026-11-04): "Our focus on set tempo was used to avoid the complexity, we can move past that now and bring in the full expressive capability of tempo changes." The record follows the Set's tempo map, its tempo changes and meter changes, not one tempo.
 - **Staged, not simulated.** Comic motion is camera, effects and pose, never simulated contact between figures. Relaxed on 2026-07-03: blending held poses along the flow is in scope as a bounded experiment.
 - **Humanoid only.** Animal motion is out of scope (2026-06-13).
 - **Every milestone ships.** Each rung is a usable tool, never a down payment on the next.
@@ -75,6 +75,45 @@ Decided with Loudon between June and July 2026, carried over from the locked sco
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="threads-2026-11-04" -->
+### 2026-11-04 — Off plan — Where the nine threads stand
+
+Moved here from the Production Plan when it was archived (2026-11-04), so the thread map and the proof map sit on the trail as a dated record. The states are as that page last held them, set between July and October 2026; none was re-checked on the move. Why the threads were cut as they were is in [[BLUELINE — Context]].
+
+| # | Thread | State | Canonical doc | Lives in |
+|---|---|---|---|---|
+| 1 | Clock & Sync (was Track III) | shipped, live-validated | [[BLUELINE — Board Record Schema]] | `proofs/track-III-clock`, `proofs/animatic` |
+| 2 | Board Record & Staging | partial: schema stable, Seam B the frontier | [[BLUELINE — Board Record Schema]] | `proofs/session-2-staging`, `seam-a-roundtrip`, `seam-b`, `staging-skeleton/` |
+| 3 | Figure & Pose (was Track IV) | mature: hands shipped, face next | [[Shop/Figure Rig]] | `proofs/blender-handdrawn`, `track-IV-bench`, `blender-gallery` |
+| 4 | Motion & Flow (was Track V), the priority | partial: proven in comic and effects, render-noise retired, unifying | [[BLUELINE — Motion and Flow]] | `proofs/session-3-flowfield`, `session-4-figure-flow`, `track-V-motion`, `track-VI-elemental-motion`, `cloud-i2v`, `embedded-motion`, `m3-warped-noise` |
+| 5 | Render Backend (was Track I) | operational | [[BLUELINE — Render Backend]] | `render-backend/`, `proofs/track-II-lora` (the ruler) |
+| 6 | Style & Identity (was Track II) | house style locked (`pen-flow`); identity via InstantID next | [[Steer the Generator]] | `proofs/style-lock`, `style-atlas`, `visual-language-console` |
+| 7 | Text & Lettering | rung 1 proven (material register, the Living Balloon) | [[BLUELINE — Text Layer]] | `proofs/text-layer`, `proofs/lyrics-layer` |
+| 8 | Line-Art Decomposition | validated (convert-first flat-cel) | [[Animate the Background]] | `proofs/blender-fire` |
+| 9 | The Page | seed (locked 2026-07-09) | [[BLUELINE — The Page]] | the compositor spec |
+
+**Every proof folder, placed**
+
+| Proof folder | Thread | State |
+|---|---|---|
+| `track-III-clock`, `animatic`, `m0-previz`, `m1-animatic`, `m2-motion-comic` | 1 Clock & Sync, and the comic players | proven |
+| `session-2-staging`, `seam-a-roundtrip`, `seam-b` | 2 Board Record & Staging | partial (Seam B open) |
+| `blender-handdrawn`, `track-IV-bench`, `blender-gallery` | 3 Figure & Pose | proven |
+| `session-3-flowfield`, `session-4-figure-flow`, `session-5-flow-3d`, `session-6-flow-gn-studio`, `session-7-aftermath`, `session-8-swing`, `session-9-three-swings`, `session-10-impact` | 4 Motion & Flow | proven |
+| `track-V-motion`, `m3-warped-noise` | 4 Motion & Flow | retired (render noise) |
+| `track-VI-elemental-motion`, `cloud-i2v`, `embedded-motion` | 4 Motion & Flow | partial |
+| `new-story` | 5 Render Backend (the six-shot proof) | proven |
+| `track-II-lora` | 5 Render Backend (the ruler); the retired character LoRA | partial |
+| `style-lock`, `style-atlas`, `visual-language-console` | 6 Style & Identity | proven |
+| `text-layer`, `lyrics-layer` | 7 Text & Lettering | proven |
+| `blender-fire` | 8 Line-Art Decomposition | proven |
+| `blueline-m1-m4-lesson.html` | a teaching artifact, not a thread | — |
+
+Not placed by the Production Plan, and newer than it: `session-11-outline` (the Aftermath Frame's guide experiment) and `2026-10-29-daily-page` (the morning's cut notes, timing and script).
+
+<sub>`threads-2026-11-04` · off plan · moved from the archived Production Plan on Loudon's yes, 2026-11-04</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-09-25T20-47-56-04-00" -->
 ### 2026-09-25 — Plan agreed: carried over from the Production Plan's horizon
 

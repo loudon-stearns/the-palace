@@ -34,6 +34,8 @@ links:
 
 # BLUELINE — Production Plan
 
+> **Archived 2026-11-04.** Why BLUELINE is shaped as it is now lives in [[BLUELINE — Context]]; where the threads stood and every proof placed is on [[BLUELINE — scroll]]'s trail (2026-11-04), and what comes next is the scroll's Plan.
+
 > **Read first.** This is BLUELINE's map: **what it is · its goals · where it stands · the
 > threads · every proof placed.** What comes next is the plan on [[BLUELINE — scroll]]. For depth, follow the links — the *conceptual stage map* is
 > [[BLUELINE — Production Pipeline]]; the *contracts* are [[BLUELINE — Render Backend]],

@@ -9,9 +9,6 @@ links:
   - target: "[[Adopt the Craft, Author the Seam]]"
     type: exemplifies
     label: founding-rationale
-  - target: "[[BLUELINE — Production Plan]]"
-    type: connects-to
-    label: tracks-map-onto-stages
   - target: "[[BLUELINE — Board Record Schema]]"
     type: connects-to
     label: the-spine
@@ -27,7 +24,7 @@ links:
 
 > **The re-founding (2026-06-17).** BLUELINE does not need an invented process — it needs the *established* one with a render-AI dropped in. The founding rationale is [[Adopt the Craft, Author the Seam]]: adopt a century of codified craft, author only the seams. This doc names every stage with the industry's own word, so we stop reinventing. It reframes the substrate-first tracks of [[BLUELINE — Production Plan]] as stages of a real pipeline; the tracks didn't change, their *names* did.
 
-> **This is the conceptual map; [[BLUELINE — Production Plan]] is the status and threads map; what comes next is the plan on [[BLUELINE — scroll]]; BLUELINE's current decisions are [[BLUELINE — The Page]], which holds wherever this doc reads otherwise.** Three subsystems
+> **This is the conceptual map; where each thread stands, every proof placed, and what comes next are on [[BLUELINE — scroll]]; why the threads were cut as they were is in [[BLUELINE — Context]]; BLUELINE's current decisions are [[BLUELINE — The Page]], which holds wherever this doc reads otherwise.** Three subsystems
 > that grew after this doc map onto its stages: **Text & Lettering** ([[BLUELINE — Text Layer]]) is the
 > overlay at stage 7 (words over art, never diffused); **Line-Art Decomposition**
 > ([[Animate the Background#The N-Layer Case (Line-Art Decomposition)|Animate the Background § The N-Layer Case]]) serves Seam A / compositing (convert flat-ink → flat-cel → layers);
@@ -83,7 +80,7 @@ Blender is the **layout DCC** at Stage 4 only: author camera + pose as geometry 
 
 ## The tracks already *are* the pipeline
 
-The substrate-first tracks of [[BLUELINE — Production Plan]] weren't lost — they're these stages without the industry's names:
+The substrate-first tracks BLUELINE began with ([[BLUELINE — Context]] § How the threads were chosen) weren't lost — they're these stages without the industry's names:
 
 | Track / proof | = stage |
 |---|---|
