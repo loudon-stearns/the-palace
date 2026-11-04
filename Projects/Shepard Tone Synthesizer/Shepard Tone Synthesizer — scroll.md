@@ -15,36 +15,36 @@ forward_vector: "I am Shepard Tone Synthesizer's scroll — the one page that al
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T13:52:11.100Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T14:53:08.963Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 12 · last ran 2026-11-03 (today)
-- **Plan:** agreed 2026-09-26 (38 days ago) · 4 made things since · **a proposed revision is waiting on you**
-- **Waiting on you:** 1 open ask
+- **Status:** active · **Stage:** growing · **Steward:** cycle 13 · last ran 2026-11-04 (today)
+- **Plan:** agreed 2026-11-04 (today) · 2 made things since
+- **Waiting on you:** 1 open ask — one of them has the steward paused
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-03 (today) — Swap the plan's Max moves for the plugin: you play it first, then the stretched octave, then the third way to break it. (`shepard-steward-031`)
-- **Last commit touching this project:** 2026-11-03 `7cc4d9f5` — enrich(Shepard Tone Synthesizer): remake after challenge — a real bandpass, the seam trial named honestly · proposal
+- **Last shipped:** 2026-11-04 (today) — Open the play-through Set and press play. Does Shepard Tone climb forever, and what should I fix first? (`shepard-steward-034`)
+- **Last commit touching this project:** 2026-11-03 `a027a3f7` — edit(Loudon Live Design System): the browser's furniture fan-out, batch 3 of 5: Projects, Q to Z (94 pages)
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 12 · taught item 3, proposed item 4 for canon
+- **Runs:** 4 runs on 3 days, counted from the ledger's run lines
+- **Last run:** 2026-11-04 — cycle 13 · taught item 5
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 4; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 4, from cycle 12 — 2026-11-03 — [[Shepard Tone Synthesizer — tuning]]
+- **Latest lesson:** item 5, from cycle 13 — 2026-11-04 — [[Shepard Tone Synthesizer — tuning]]
 
 ### Where this stands
 
-The Shepard Tone Synthesizer is the endless staircase in sound: one note played in every octave at once, with a loudness window that hides the top and bottom, so it climbs forever and never arrives. Four layers were proven earlier, one at a time, in Python and the browser. First a still drone the ear hears as one note. Then a stepping climb with a seam you can see but not hear. Then the glide, where every octave has to move as one. Then the timbre, where each voice's filter follows that voice and the window sits on the voice, not on the mix. On 2026-10-21 you asked for products: a plugin built with the VST Template, with a screen in the middle showing a picture of its own. This cycle built…
+The Shepard Tone Synthesizer is the endless staircase in sound: one note played in every octave at once, with a loudness window that hides the top and bottom, so it climbs forever and never arrives. Four layers were proven one at a time: the still drone, the stepping climb, the glide where every octave moves as one, and the timbre where each voice's filter follows that voice. On 2026-11-03 all four became one plugin, Shepard Tone, installed in Live. Yesterday you adopted a new plan. You play it first, and I fix what you name. Then comes the stretched octave, then a third way to break it, then the Ableton rack for a first public session. This cycle made your part one click. Open the Set, pre…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 10:** Nobody has listened yet. _(in 3 notes, the latest cycle 12)_
-- **rough since cycle 10:** Nobody has opened the plugin in Live either, and its screen has only been seen in Chrome, because the template's editor photograph came back with no picture from this session. _(in 2 notes, the latest cycle 12)_
+- **rough since cycle 10:** Nobody has listened yet. _(in 4 notes, the latest cycle 13)_
+- **rough since cycle 10:** Nobody has opened the plugin in Live either, and its screen has only been seen in Chrome. _(in 3 notes, the latest cycle 13)_
 
 ### Open asks
 
-- `shepard-steward-031` — proposed plan revision: the plan follows the plugin, not Max · posted 2026-11-03 · options: adopt · keep
+- `shepard-steward-034` — play_through_verdict · **steward paused on this** · posted 2026-11-04 · options: SOUNDS-RIGHT · FIX · WONT-LOAD
 
 ### Answered, not yet consumed
 
@@ -52,11 +52,13 @@ _None._
 
 ### Decided
 
+- `shepard-steward-031` — the plan follows the plugin, not Max → GRANTED — option_id=adopt (2026-11-04)
 - `shepard-steward-024` — next_stage_direction → GRANTED — option_id=STAGE-3 (2026-06-25)
 - `shepard-steward-022` — stage2_seed_audition_gate → GRANTED — option_id=APPROVE (2026-06-25)
 
 ### Runs
 
+- 2026-11-04 — cycle 13 · taught item 5
 - 2026-11-03 — cycle 12 · taught item 3, proposed item 4 for canon
 - 2026-10-18 — cycle 11 · taught item 2
 - 2026-10-18 — cycle 10 · taught item 1
@@ -76,15 +78,16 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 ## Plan
 
 <!-- scroll:plan:start -->
-**Where this is going.** A teaching instrument that reveals the endless-staircase illusion one layer at a time, from a rack anyone can build in Ableton to a plugin that tests the illusion outside equal temperament. Any move can happen in public as a [[Loudon Live]] build. What exists so far are proofs, not the builds: the illusion as rendered drones (twelve of them), and the mechanism as a browser prototype with rendered variants that climb in discrete steps and leave the wrap seam audible. The Ableton rack and the Max patch those two moves are designed around haven't been built yet. They are the steward's to make and demo; making Ableton and Max assets reliably is a skill the palace is still growing, so the proofs carry the idea while the builds catch up. Loudon chose the glide as the next move on 2026-06-25, and six glide renders followed on 2026-09-15, not yet posted to the board.
+**Where this is going.** A teaching instrument that reveals the endless-staircase illusion one layer at a time, now a plugin Loudon plays in Live: Shepard Tone, built with [[VST Template]] in the bundle's `plugin/`. Its screen draws Shepard's pitch helix as Escher's staircase, from the side (finite, with the wrap visible) and from above (the endless circle the ear hears). Four layers are proven and built into it: the still drone, the stepping climb, the glide that moves every octave as one, and the timbre whose filter follows each voice, with the window on each voice. Two switches break the illusion the ways the proofs found. Any move can happen in public as a [[Loudon Live]] build. Max, gen~ and RNBO wait as later teaching tools (Loudon, 2026-10-21), and nothing in this plan needs them.
 
 **The moves ahead**
 
-1. **The glide.** In Gen~, every octave slides together as one voice at signal rate, so the pitch moves continuously instead of in steps, and the move asks why moving in lockstep keeps the illusion alive. The first renders include one where the voices drift out of sync, which is where the illusion breaks. Neighbor: [[Portamento and Physical Pitch Modeling]].
-2. **The timbre.** Give each voice its own key-tracked bandpass filter in Gen~, so the color changes across the octave stack, and hear what that does to the illusion. Neighbor: [[Piano String Inharmonicity]].
-3. **The portal.** Export to VST/AU through RNBO, then try the illusion outside equal temperament with microtuning. Neighbors: [[Kuramoto Coupling]], and the octave-equivalence theory in [[Shepard Tone Synthesizer]].
+1. **Hands and ears.** Loudon plays Shepard Tone in Live: a scale upward forever, a held note on Climb, the two break-it switches, the screen. The steward fixes what he names before building anything new. This is the move that closes 'nobody has listened'.
+2. **The stretched octave.** Make the interval between voices adjustable: a stretched octave like a piano's, or another cycle such as fifths. Then find by measurement and by ear where the wrap stops being free. A matching theory section pairs with it. Neighbors: [[Piano String Inharmonicity]], [[Kuramoto Coupling]].
+3. **The third way to break it.** A switch that puts the window on the mix, as a filter weighing every overtone in log-frequency, so the thump and flutter Stage 4 measured can be heard and undone under the hand.
+4. **The open door.** The first-session version for [[Loudon Live]]: a rack anyone can build in Ableton with no prerequisites, played beside the plugin, with Escher leading the framing.
 
-The April session designs, including the two moves whose proofs are behind us, are archived: [[Shepard Tone Synthesizer — spec — Loudon Live sessions]].
+The April session designs are archived: [[Shepard Tone Synthesizer — spec — Loudon Live sessions]]. The glide and timbre build specs stay in the bundle for the day Max returns.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -105,6 +108,101 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-shepard-steward-031" -->
+### 2026-11-04 — Plan revised: Swap the plan's Max moves for the plugin: you play it first, then the stretched octave, then the third way to break it.
+
+Catch-up: this project is the endless staircase in sound. The current plan was agreed in September. It said to build the glide and then the timbre in gen~, then export through RNBO and try other tunings. Max is paused, so I proved the glide and the timbre in Python and the browser instead. On 2026-10-21 you asked for a product. Today all four layers became one plugin, Shepard Tone, installed in Live. It matches its sketch sample for sample, passes pluginval and auval, and its screen shows the staircase. So the plan's three moves are either done or point at a tool we've set aside. The revision keeps where the project is going and swaps the moves: your hands on the plugin first, then the stretched octave in the plugin instead of RNBO, then the one failure the plugin can't show yet. Max stays parked as a later teaching tool, as your order says. The cost is that the Ableton-rack door for a first public session moves to last.
+
+_The plan before this change:_
+
+> **Where this is going.** A teaching instrument that reveals the endless-staircase illusion one layer at a time, from a rack anyone can build in Ableton to a plugin that tests the illusion outside equal temperament. Any move can happen in public as a [[Loudon Live]] build. What exists so far are proofs, not the builds: the illusion as rendered drones (twelve of them), and the mechanism as a browser prototype with rendered variants that climb in discrete steps and leave the wrap seam audible. The Ableton rack and the Max patch those two moves are designed around haven't been built yet. They are the steward's to make and demo; making Ableton and Max assets reliably is a skill the palace is still growing, so the proofs carry the idea while the builds catch up. Loudon chose the glide as the next move on 2026-06-25, and six glide renders followed on 2026-09-15, not yet posted to the board.
+>
+> **The moves ahead**
+>
+> 1. **The glide.** In Gen~, every octave slides together as one voice at signal rate, so the pitch moves continuously instead of in steps, and the move asks why moving in lockstep keeps the illusion alive. The first renders include one where the voices drift out of sync, which is where the illusion breaks. Neighbor: [[Portamento and Physical Pitch Modeling]].
+> 2. **The timbre.** Give each voice its own key-tracked bandpass filter in Gen~, so the color changes across the octave stack, and hear what that does to the illusion. Neighbor: [[Piano String Inharmonicity]].
+> 3. **The portal.** Export to VST/AU through RNBO, then try the illusion outside equal temperament with microtuning. Neighbors: [[Kuramoto Coupling]], and the octave-equivalence theory in [[Shepard Tone Synthesizer]].
+>
+> The April session designs, including the two moves whose proofs are behind us, are archived: [[Shepard Tone Synthesizer — spec — Loudon Live sessions]].
+<sub>`plan-shepard-steward-031` · plan revised · agreed 2026-11-04T14:53:08.874Z · proposed by Shepard Tone Synthesizer's steward (`shepard-steward-031`), adopted by Loudon (`resp-mw28kw3u-sjgayz`)</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shepard-steward-034" -->
+### 2026-11-04 — cycle 13 — Open the play-through Set and press play. Does Shepard Tone climb forever, and what should I fix first?
+> paused on your ears · the Set is one click · no clear lean, it's your hands
+
+Catch-up: the endless staircase is now a plugin, Shepard Tone, installed in Live. The plan you adopted yesterday starts with you playing it, and I fix what you name before building anything new. So I made that one click. [The play-through Set](open:Projects/Shepard Tone Synthesizer/plugin/live/Shepard Tone play-through.als) opens with the plugin loaded and walks six named sections in about 2½ minutes: twelve keys going round, Climb up and down, two ways to break it, the mend, and the window moving. A preview render and a picture are attached in case Live isn't open. I'm holding off on the stretched octave until you've heard it, because that's what the plan says. One thing I found that you might want fixed: Drift doesn't bend the Climb knob, only notes played on the keys.
+
+**Artifacts:**
+- [the ride, rendered by the plugin's own audio code](Projects/Shepard Tone Synthesizer/plugin/live/play-through-preview.wav)
+- [keys, loudness and brightness across the six sections](Projects/Shepard Tone Synthesizer/plugin/live/play-through-ride.png)
+- [session-4-interactive.html](Projects/Shepard Tone Synthesizer/session-4-interactive.html)
+- [session-3-interactive.html](Projects/Shepard Tone Synthesizer/session-3-interactive.html)
+- [session-2-interactive.html](Projects/Shepard Tone Synthesizer/session-2-interactive.html)
+- [session-1-interactive.html](Projects/Shepard Tone Synthesizer/session-1-interactive.html)
+- [2026-11-03-editor-mock.html](Projects/Shepard Tone Synthesizer/plugin/demo/2026-11-03-editor-mock.html)
+- [Shepard Tone Synthesizer — rich — the still drone.html](Projects/Shepard Tone Synthesizer/Shepard Tone Synthesizer — rich — the still drone.html)
+- [Shepard Tone Synthesizer — rich — the free seam.html](Projects/Shepard Tone Synthesizer/Shepard Tone Synthesizer — rich — the free seam.html)
+- [2026-11-03-editor.png](Projects/Shepard Tone Synthesizer/plugin/demo/2026-11-03-editor.png)
+- [2026-11-03-break-track-note.wav](Projects/Shepard Tone Synthesizer/plugin/demo/2026-11-03-break-track-note.wav)
+- [2026-11-03-break-drift.wav](Projects/Shepard Tone Synthesizer/plugin/demo/2026-11-03-break-drift.wav)
+- [2026-11-03-window-sweep.wav](Projects/Shepard Tone Synthesizer/plugin/demo/2026-11-03-window-sweep.wav)
+- [2026-11-03-endless-climb.wav](Projects/Shepard Tone Synthesizer/plugin/demo/2026-11-03-endless-climb.wav)
+<sub>`shepard-steward-034` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shepard-steward-033" -->
+### 2026-11-04 — cycle 13 — A Live Set that plays Shepard Tone for you: six named sections, from twelve keys going round to both ways of breaking it.
+> shipped · the play-through is one click · paused for your ears
+
+Open [the play-through Set](open:Projects/Shepard Tone Synthesizer/plugin/live/Shepard Tone play-through.als) in Live 12 and press play. It's silent until then. About 2½ minutes, 65 bars at 100 bpm:
+
+1. **Twelve keys, round and round.** C to B four times, no glide. The keys fall back to C three times and the ear keeps climbing. This is Shepard's 1964 demonstration.
+2. **Hold one note, turn Climb up, then down.** The endless glissando, both ways.
+3. **Break it, the first way.** A scale up the keys with the glide on and Drift rising. The octaves stop agreeing and the stack beats.
+4. **Break it, the second way.** Track the note is on. The brightness drops once an octave.
+5. **Mend it.** Track the note goes off and the steps smooth away.
+6. **Move the window.** The same climb, lit low, then high, then low.
+
+Every knob that moves is on an automation lane, so you can grab one mid-ride. I measured the same ride rendered through the plugin's own audio code. Through the twelve keys' three fall-backs the loudness holds steady to 0.26 dB. The audible octaves sit 0 cents apart everywhere except the Drift section, where they spread to 79.5. With Track the note on, the brightness steps by up to 0.54 octave. With it off, the steps are 0.04.
+
+Measuring caught one thing before it reached you. **Drift does nothing to Climb.** Climb is added after the glide, so a held note on Climb never drifts. My first draft of section 3 would have played a perfectly healthy climb under the word 'break'. Now it plays a scale up the keys, which is where Drift actually bites. If you'd rather Drift also bend the Climb knob, as the theory's endless-climb case describes, that's a fix to name.
+
+**Artifacts:**
+- [the Set: open in Live 12, press play](Projects/Shepard Tone Synthesizer/plugin/live/Shepard Tone play-through.als)
+- [the same ride through the plugin's own audio code, to hear before Live opens (stays on this Mac)](Projects/Shepard Tone Synthesizer/plugin/live/play-through-preview.wav)
+- [the keys played, the loudness and the brightness across the six sections](Projects/Shepard Tone Synthesizer/plugin/live/play-through-ride.png)
+- [one ride written once; makes the Set and the preview](Projects/Shepard Tone Synthesizer/plugin/live/play-through.py)
+- [the ride as the Set writer reads it](Projects/Shepard Tone Synthesizer/plugin/live/play-through.live-set.json)
+- [what each section is for, what was measured](Projects/Shepard Tone Synthesizer/plugin/live/README.md)
+- [points at the play-through](Projects/Shepard Tone Synthesizer/plugin/README.md)
+
+_Measured on the preview render, section by section_
+| section | octaves apart (max) | loudness | brightness steps |
+| --- | --- | --- | --- |
+| 1 twelve keys, round and round | 0 ¢ | steady to 0.26 dB through 3 fall-backs | none |
+| 2 Climb up, then down | 0 ¢ | −18.8 to −17.2 dB | none |
+| 3 Drift on a played climb | 79.5 ¢ | beats, ±2 dB | jittery |
+| 4 Track the note on | 0 ¢ | smooth | up to 0.54 oct, once an octave |
+| 5 Track the note off | 0 ¢ | smooth | 0.04 oct |
+| 6 the window moves | 0 ¢ | smooth | follows the window |
+
+_Changed in the workshop:_ README — new: the play-through, what each section is for, and what was measured
+_Changed in the workshop:_ README — points the 'play it' line at the play-through Set
+
+_Left rough:_ Nobody has listened yet. Nobody has opened the plugin in Live either, and its screen has only been seen in Chrome. The Set checks clean (Live 12.4.6 header, the plugin found and installed, every id unique), but only you opening it proves Live loads it.
+
+_Next moves named:_ Fix what you name after playing it, before building anything new · Then the stretched octave: make the interval between voices adjustable, and find by measurement and ear where the wrap stops being free
+<sub>`shepard-steward-033` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-b9e7ee8319" -->
+### 2026-11-04 — cycle 13
+
+taught item 5
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="shepard-steward-031" -->
 ### 2026-11-03 — cycle 12 — Swap the plan's Max moves for the plugin: you play it first, then the stretched octave, then the third way to break it.
 > still working · plugin installed and checked · steward leans adopt

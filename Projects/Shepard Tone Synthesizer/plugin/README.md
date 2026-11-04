@@ -8,7 +8,7 @@ The endless staircase as a VST3/AU instrument for Live, built 2026-11-03 with [[
 - **Climb** adds an endless drift in semitones per second: the Risset glissando, under one knob.
 - **Break it**: **Drift** gives each voice its own glide time (Stage 3's failure). **Track the note** wires the cutoff from the played note folded into one octave (Stage 4's failure), so the brightness steps once an octave.
 
-Play it: Live → Settings → Plug-Ins → Rescan, then Plug-Ins → Loudon Live → Shepard Tone. Play a chromatic scale upward and keep going; or hold one note and turn Climb.
+Play it: Live → Settings → Plug-Ins → Rescan, then Plug-Ins → Loudon Live → Shepard Tone. Play a chromatic scale upward and keep going; or hold one note and turn Climb. Or open `live/Shepard Tone play-through.als` and press play: six sections that walk the instrument and both ways to break it (`live/README.md`).
 
 ## The screen
 
