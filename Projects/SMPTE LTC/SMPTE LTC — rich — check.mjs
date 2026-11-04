@@ -1,10 +1,10 @@
 // SMPTE LTC — rich — check.mjs
-// born: 2026-11-04 · checks [[SMPTE LTC]]' rich-face pieces: encoder, drop-frame, backward
-// forward_vector: I re-run, headless, every claim the three LTC pieces make, on the very engine they carry. I check that the
-// three pieces carry the same core; that a timecode survives its eighty bits; that the audio the encoder renders flips at every
+// born: 2026-11-04 · checks [[SMPTE LTC]]' rich-face pieces: encoder, backward (the drop-frame piece retired 2026-11-04; the teaching room's own checks hold drop-frame)
+// forward_vector: I re-run, headless, every claim the two LTC pieces make, on the very engine they carry. I check that the
+// two pieces carry the same core; that a timecode survives its eighty bits; that the audio the encoder renders flips at every
 // cell boundary and once more in the middle of exactly the 1s; that the page's three bit rates are what the encoder makes; that a
 // reader told nothing reads every frame back at all three rates and upside down, while the same bits with no clock read nothing;
-// that drop-frame labels a whole day without a fault and how far it sits from the wall clock; that the reader reads backward and
+// that the reader reads backward and
 // at fractional and shuttle speeds, fails where the sample rate can't hold a half cell, and that a forward-only reader reads
 // nothing backward; and what share of the sound's power sits in 500 Hz to 3 kHz. What anyone hears I cannot check.
 //
@@ -18,7 +18,7 @@ import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const PIECES = ['encoder', 'drop-frame', 'backward'];
+const PIECES = ['encoder', 'backward'];
 const cores = PIECES.map((p) => {
   const html = readFileSync(join(HERE, `SMPTE LTC — rich — ${p}.html`), 'utf8');
   const m = html.match(/<script id="ltc-core">([\s\S]*?)<\/script>/);
@@ -29,7 +29,7 @@ const cores = PIECES.map((p) => {
 let fails = 0;
 const check = (name, ok, detail) => { console.log(`${ok ? 'PASS' : 'FAIL'}  ${name}  (${detail})`); if (!ok) fails++; };
 
-check('the three pieces carry one core', cores.every((c) => c === cores[0]), `${cores[0].length} chars each`);
+check('the two pieces carry one core', cores.every((c) => c === cores[0]), `${cores[0].length} chars each`);
 const E = { Math, Float32Array, Float64Array, Uint8Array, Object, Array, String, Infinity };
 vm.createContext(E);
 vm.runInContext(cores[0] + '\nthis.LTC = LTC;', E);
@@ -104,28 +104,6 @@ for (const [rk, o] of [['24', {}], ['25', {}], ['29.97', {}], ['25', { flip: tru
   const tp = L.tape({ h: 1, m: 23, s: 45, f: 12 }, 50, '25'), y = L.play(L.tapeNRZ(tp), SR, Math.round(tp.dur * SR), (t) => t, { hp: 10, noise: 0.03, seed: 7 });
   const sc = L.score(L.read(y, SR), tp, 1);
   check('control: the same bits with no clock read nothing', sc.distinct === 0, `${sc.distinct} of 50 read`);
-}
-
-// ── Technical Architecture: drop-frame over a day ──────────────────────────
-{
-  const perDay = 107892 * 24, seen = new Uint8Array(24 * 3600 * 30); let dup = 0, forbidden = 0, back = 0;
-  for (let k = 0; k < perDay; k++) {
-    const tc = L.frameToLabel(k, 30, 'df'), key = ((tc.h * 60 + tc.m) * 60 + tc.s) * 30 + tc.f;
-    if (seen[key]) dup++; seen[key] = 1;
-    if (!L.labelValid(tc, 'df')) forbidden++;
-    if (L.labelToFrame(tc, 30, 'df') !== k) back++;
-  }
-  let unused = 0; for (let k = 0; k < seen.length; k++) if (!seen[k]) unused++;
-  check('drop-frame: a day of labels, no duplicate, no forbidden label, every label back to its frame', !dup && !forbidden && !back && unused === 2592,
-    `${perDay} frames; duplicates ${dup}, forbidden ${forbidden}, inverse faults ${back}, unused labels ${unused} (2592 expected)`);
-  const gap = (hours, mode) => { const k = Math.floor(hours * 3600 * FPS + 1e-9); return (L.labelIndex(k, 30, mode) - (mode === 'every' ? 2 : 0)) / 30 - k / FPS; };
-  const marks = [1, 2, 3, 4, 5, 6].map((j) => gap(j / 6, 'df'));
-  check('drop-frame: within one frame at each ten-minute mark of hour 1', marks.every((g) => Math.abs(g) < 1 / FPS), marks.map((g) => (g * 1000).toFixed(2)).join(', ') + ' ms');
-  let lo = Infinity, hi = -Infinity; for (let k = 0; k < 3600 * FPS; k++) { const g = (L.labelIndex(k, 30, 'df')) / 30 - k / FPS; lo = Math.min(lo, g); hi = Math.max(hi, g); }
-  const at24 = 86400 - perDay / FPS;
-  console.log(`      drop-frame, printed: at 1 h ${(gap(1, 'df') * 1000).toFixed(2)} ms; when the label reaches 24:00:00;00, ${(at24 * 1000).toFixed(2)} ms (${(at24 * FPS).toFixed(3)} frames) ahead; at wall-clock 24 h, ${(gap(24, 'df') * 1000).toFixed(2)} ms; wobble in hour 1 ${(lo * 1000).toFixed(1)} to ${(hi * 1000).toFixed(1)} ms`);
-  console.log(`      the page’s sentence read word for word (skip at every minute): ${(gap(1, 'every') * 1000).toFixed(1)} ms an hour ahead; no skipping: ${(gap(1, 'none')).toFixed(3)} s an hour`);
-  check('drop-frame: the every-minute reading over-corrects by about 0.4 s an hour', Math.abs(gap(1, 'every') - 0.4036) < 0.01, `${(gap(1, 'every') * 1000).toFixed(1)} ms`);
 }
 
 // ── Open Questions: backward and at speed ──────────────────────────────────

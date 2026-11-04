@@ -1,7 +1,7 @@
 // SMPTE LTC — rich — challenge-check.mjs · born 2026-11-04 · the challenger's own route on [[SMPTE LTC]]'s rich face; reads only.
-// forward_vector: I re-run the backward claim through a reversed and a resampled sample buffer, walk a drop-frame day with my own counter, and take the band share with my own FFT.
+// forward_vector: I re-run the backward claim through a reversed and a resampled sample buffer, and take the band share with my own FFT.
 //   node "Projects/SMPTE LTC/SMPTE LTC — rich — challenge-check.mjs"
-// challenger's own route: reverse the sample buffer, resample a 1x render (tape/DAW shuttle), independent drop-frame count
+// challenger's own route: reverse the sample buffer, resample a 1x render (tape/DAW shuttle); the independent drop-frame count went with the drop-frame piece, retired 2026-11-04
 import { readFileSync } from 'node:fs'; import vm from 'node:vm';
 const html = readFileSync(new URL('./SMPTE LTC — rich — backward.html', import.meta.url), 'utf8');
 const core = html.match(/<script id="ltc-core">([\s\S]*?)<\/script>/)[1];
@@ -30,14 +30,6 @@ for (const sp of [-16,-12,-10,-8,-6,-4,-2,-1,-0.5,-0.25,-0.1,0.1,0.5,2,4,6,8,10,
 }
 // time-scaled tape at the in-between speeds the maker skipped
 for (const sp of [-10,-6,6,10]) { const a=L.atSpeed(tp, sp); const z=L.play(tp,SR,Math.ceil(a.dur*SR),a.pos,{hp:10,noise:0.03,seed:11}); const sc=L.score(L.read(z,SR),tp,Math.sign(sp)); console.log(`time-scaled ${sp}x: ${sc.distinct}/50 wrong ${sc.wrong}`); }
-// 3. independent drop-frame: walk labels by the rule, no shared code
-let h=0,m=0,s2=0,f=0,n=0; const step=()=>{ f++; if(f===30){f=0;s2++; if(s2===60){s2=0;m++; if(m===60){m=0;h++;}}} if(s2===0&&f<2&&m%10!==0) f=2; };
-const FPS=30000/1001; let lo=1e9,hi=-1e9; const marks=[];
-while(h<24){ const lab=((h*60+m)*60+s2)/1+f/30, wall=n/FPS, g=lab-wall; if(n<107892){lo=Math.min(lo,g);hi=Math.max(hi,g);} if(f===0&&s2===0&&m%10===0) marks.push([h,m,g]); n++; step(); }
-console.log(`day: ${n} frames; label 24:00 reached at wall ${(n/FPS).toFixed(4)} s -> label ahead ${((86400-n/FPS)*1000).toFixed(2)} ms = ${((86400-n/FPS)*FPS).toFixed(3)} frames`);
-console.log(`ten-minute marks: first ${(marks[1][2]*1000).toFixed(3)} ms, 1h ${(marks[6][2]*1000).toFixed(3)} ms; hour-1 wobble ${(lo*1000).toFixed(1)} to ${(hi*1000).toFixed(1)} ms`);
-console.log(`labels 30*86400=${30*86400} minus 2*6*9*24=${2*6*9*24} = ${30*86400-2*6*9*24}`);
-console.log(`every-minute: per wall hour ${(((3600*FPS+120)/30-3600)*1000).toFixed(1)} ms ahead; per labelled hour ${((3600-(108000-120)/FPS)*1000).toFixed(1)} ms; rule per wall hour ${(((3600*FPS+108)/30-3600)*1000).toFixed(2)} ms`);
 // 4. band share by own route: unwindowed FFT of 2^18 samples (5.46 s), own code
 function fft(re, im){ const N=re.length; for(let i=1,j=0;i<N;i++){let bit=N>>1;for(;j&bit;bit>>=1)j^=bit;j^=bit;if(i<j){[re[i],re[j]]=[re[j],re[i]];[im[i],im[j]]=[im[j],im[i]];}}
   for(let len=2;len<=N;len<<=1){const a=-2*Math.PI/len;for(let i=0;i<N;i+=len)for(let k=0;k<len/2;k++){const c=Math.cos(a*k),s=Math.sin(a*k),xr=re[i+k+len/2]*c-im[i+k+len/2]*s,xi=re[i+k+len/2]*s+im[i+k+len/2]*c;re[i+k+len/2]=re[i+k]-xr;im[i+k+len/2]=im[i+k]-xi;re[i+k]+=xr;im[i+k]+=xi;}}}
