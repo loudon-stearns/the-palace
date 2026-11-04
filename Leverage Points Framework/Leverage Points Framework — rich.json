@@ -1,0 +1,70 @@
+{
+  "title": "Leverage Points Framework — rich",
+  "born": "2026-11-04",
+  "links": [
+    { "target": "[[Leverage Points Framework]]", "type": "connects-to", "label": "rich-face-of" },
+    { "target": "[[Enrichment]]", "type": "connects-to", "label": "made-by" },
+    { "target": "[[Progressive Staging]]", "type": "connects-to", "label": "the-test-is-the-last-step" },
+    { "target": "[[Donella Meadows]]", "type": "connects-to", "label": "the-bathtub-the-walk-starts-from" }
+  ],
+  "forward_vector": "I am the manifest of Leverage Points Framework's rich face, its first round, at Sketch tier, a proposal. One small stock-and-flow model of a creator's practice runs both pieces: one spends the same small effort at a parameter, a delay and the goal and scores it by a measure stated first; the other puts a fast signal beside a slow one and scores who steers, then tries the page's own temporal discipline. Both ran against the page in this model, and both show why. Every number is the model's. I grow when Loudon answers the offers, and I never hold the entry's words.",
+  "entry": "Leverage Points Framework",
+  "tier": "sketch",
+  "made": "2026-11-04",
+  "round": 1,
+  "grain": "The page's own ## grain. Two sections carry one piece each. The 12 Leverage Points is one ## with seven ### under it, so its one piece (on #9, Delays) carries one stamp and one all-or-nothing approval for all twelve points; it sits beside the #9–#7 paragraph. The opening section, Application Framework, Why the Platform Wants You at #12, The Meta-Leverage of This Framework and Cross-Domain Resonance carry none: the bundle had no proofs or media to gather, and no claim in them was one a piece could test without inventing the page's numbers. The sibling page's self-diagnostic (Projects/Meadows and an Artist's Career) was read as prior art and not gathered; it tallies a person's decisions and tests nothing here.",
+  "offers": [
+    {
+      "section": "Meadows' Core Insight",
+      "kind": "claim-change",
+      "what": "\"Same effort, three places\" tested \"small efforts create massive systemic change\" in a four-stock model of a creator who looks at views daily, with the rule written before the first run. It fails in this model. A 10% or 25% nudge of the goal did less than a nudge of a parameter in 64 of 64 draws of the model's constants, and moved the stocks less than twice the noise floor in 63 of 64. The goal acted as a switch, not a dial. While views kept even 1% of what the creator steers by, the daily noise decided every move. Taken out entirely, the stocks moved D = 2.46 (wellbeing +159%, community +157%, followers −81%), against D = 0.50 for the parameter pushed to the end of its range. These are the model's numbers, and the effort convention (a share of each knob's range) is the model's weakest joint. For Loudon: whether the opportunity line should say that a high lever's power comes from a change in kind, not a small push. The quote above it already leans that way: the higher the point, the more the system resists.",
+      "status": "open"
+    },
+    {
+      "section": "The 12 Leverage Points (Lowest to Highest)",
+      "kind": "claim-change",
+      "what": "#9, Delays. \"Who is steering\" reproduced the hijack the page names. A creator weighting views and the slow signal (community and wellbeing, 30 days late) equally, looking daily, decides as views would 99.9% of the time and as the slow signal would 50.3%, which is chance. Their slow composite ends at 54% of what steering by the slow signal alone reaches. The page's intervention did not lift it in this model. Weekly looks: still hijacked. Monthly looks pass the rule written beforehand, but only because the slow-alone reference overshoots and falls (1.90 to 0.73). The creator's own decisions still follow views 96.5% of the time, their K is unchanged (1.03 to 1.00), and the capture lifts in 0 of 64 draws. What freed the slow signal was taking views out of what the creator steers by (#6 hiding metrics, or #3): K 1.90, agreement with views at chance. For Loudon: whether the #9 paragraph should say temporal discipline works with the metric out of the loop beside it, not alone. \"No daily metric checking\" is the nearest phrase. Model's numbers.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Meadows' Core Insight",
+      "made_against": "4bca45921090",
+      "made": "2026-11-04",
+      "status": "proposal",
+      "proposed": { "date": "2026-11-04", "by": "maker · claude-opus-5-5 · proposal round · cloud batch 3", "round": "proposal-round-2026-11" },
+      "pieces": [
+        {
+          "file": "Leverage Points Framework — rich — same effort three places.html",
+          "origin": "made",
+          "by": "the Maker · model, sketch",
+          "title": "same effort, three places · a stock-and-flow test",
+          "caption": "**Does the same small effort move more at the goal than at a parameter?** Starts with one stock (Meadows' bathtub), then four, then a creator who steers by what they watch. Then the same 10% or 25% of each knob's range goes into a parameter (views per post), a delay (days between looks) and the goal (weight on community and wellbeing), scored by how far the four stocks move. The rule comes before the run. In this model the core insight fails: the parameter wins all 64 draws. After the verdict, the piece shows why: the goal is a switch the daily views hold shut. Every number is the model's. No sound.",
+          "near": "By intervening at high-leverage points",
+          "place": "band",
+          "height": 980
+        }
+      ]
+    },
+    {
+      "heading": "The 12 Leverage Points (Lowest to Highest)",
+      "made_against": "c6482569ce1c",
+      "made": "2026-11-04",
+      "status": "proposal",
+      "proposed": { "date": "2026-11-04", "by": "maker · claude-opus-5-5 · proposal round · cloud batch 3", "round": "proposal-round-2026-11" },
+      "pieces": [
+        {
+          "file": "Leverage Points Framework — rich — who is steering.html",
+          "origin": "made",
+          "by": "the Maker · model, sketch",
+          "title": "who is steering · #9 Delays, as a controller",
+          "caption": "**Does fast feedback capture the creator, and does temporal discipline free them?** Starts with a creator steering by one slow signal, then through a delay, then with noisy daily views beside it. A meter asks, for each decision, which signal it followed, and its chance level is 50%. The hijack rule comes before the first trial. The page's situation is hijacked (99.9% of decisions follow views, 50.3% the slow signal). Weekly and monthly looks are scored by the same rule: monthly passes by the letter, but the capture never lifts, and the piece says why. The same model as the core insight's piece. Every number is the model's. No sound.",
+          "near": "Delays (#9) expose the most dangerous trap",
+          "place": "band",
+          "height": 900
+        }
+      ]
+    }
+  ]
+}
