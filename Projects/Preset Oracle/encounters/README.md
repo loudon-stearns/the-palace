@@ -46,7 +46,7 @@ Once a few records exist, they are read together: which cards teach and which on
 
 ## Known gap
 
-The original 140-card queue isn't in the palace or on this Mac. The journal and the sheet deal from one deck, `../deck/Preset Oracle — deck draft.json`, poured into both by `../deck/tools/build-deck.mjs`. Neither page is edited by hand. They deal only cards cleared for students: the seven seed cards for now, then whatever Loudon keeps or mends at the vetting table. When the 140 turn up, they join the same file.
+The journal and the sheet deal from the oracle's own deck, `../deck/Preset Oracle — deck.json` (Loudon's 122 original cards, restored, and 48 new ones), poured into both by `../deck/tools/build-deck.mjs`. Neither page is edited by hand. Their three slots now carry each card's theme, technical guidance and hidden transmission; the full six-part card lives in the oracle itself, `../oracle/Preset Oracle — the oracle.html`.
 
 ## Records so far
 
