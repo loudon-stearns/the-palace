@@ -12,6 +12,9 @@
     A holds if worn-unreached ≥ 1.25 × even-unreached in ≥ 95 of 100 seeds; fails if worn ≤ even in > 5 seeds.
     B holds if the median seed's share of worn-unreached linked from a page the worn walker stood on is ≥ 0.80.
     Null: at α = 0, median ratio within 1.00 ± 0.05 and worn ahead in 30–70 seeds, or the engine is wrong.
+    A′ (added after the challenge, 2026-11-04, stated before its first run): the use values shuffled across entries,
+    200 seeded permutations; worn walker's median unreached over seeds 1–10 per shuffle and for real use. Holds if
+    real > shuffled in ≥ 190 of 200; otherwise the hiding is unevenness, not this palace's particular wear.
   Usage: node "Songlines/Songlines — rich — check-walkers.mjs" [--bake]   (exit 1 if the null fails)
 */
 import fs from 'node:fs';
@@ -36,6 +39,8 @@ console.log(`A α=1: even ${T.evenMed}, worn ${T.wornMed}, ratio ${T.ratioMed.to
 console.log(`   hops taken per seed (median of 3000): even ${T.hopsEvenMed}, worn ${T.hopsWornMed} — the worn walker does not miss more by stopping sooner`);
 console.log(`B α=1: share beside the path ${T.shareMed.toFixed(4)} (even walker's ${med(T.rows.map(r => r.shareEven)).toFixed(4)}) → ${T.verdictB}, and it does not separate the arms`);
 
+const X = Walk.shuffleTest(G);
+console.log(`A′ shuffled use: real ${X.real}, shuffled median ${X.shufMed} (range ${Math.min(...X.shuf)}–${Math.max(...X.shuf)}), real ahead in ${X.beaten}/200, shuffles ≥ real ${X.shuf.filter(x => x >= X.real).length} → ${X.verdict}`);
 const missE = new Array(N).fill(0), missW = missE.slice();
 for (let s = 1; s <= 100; s++) { const e = Walk.run(G, 'even', { seed: s }).visits, w = Walk.run(G, 'worn', { seed: s }).visits; for (const v of R) { if (!e[v]) missE[v]++; if (!w[v]) missW[v]++; } }
 const Rl = [...R], hid = Rl.filter(v => missW[v] >= 50 && missE[v] < 50), both = Rl.filter(v => missW[v] >= 50 && missE[v] >= 50), found = Rl.filter(v => missW[v] < 50);
@@ -43,11 +48,11 @@ console.log(`hidden by wear ${hid.length} (in-links med ${med(hid.map(v => din[v
 console.log(`hidden and linked straight from a door: ${hid.filter(v => G.doors.some(d => G.out[d].includes(v))).map(v => G.titles[v]).join('; ')}`);
 
 // beside the verdict, not part of it: the budget, and a second wear rule
-for (const W of [50, 200, 1000, 5000]) { const X = Walk.test(G, { W, seeds: 20 }); console.log(`  budget ${W} walks (20 seeds): even ${X.evenMed}, worn ${X.wornMed}, ratio ${X.ratioMed.toFixed(2)}`); }
-const X = Walk.test({ ...G, use: din }, {}); console.log(`  worn by in-links instead of use: even ${X.evenMed}, worn ${X.wornMed}, ratio ${X.ratioMed.toFixed(2)}, ${X.winsA}/100 → ${X.verdictA}`);
+for (const W of [50, 200, 1000, 5000]) { const Y = Walk.test(G, { W, seeds: 20 }); console.log(`  budget ${W} walks (20 seeds): even ${Y.evenMed}, worn ${Y.wornMed}, gap ${Y.wornMed - Y.evenMed} entries, ratio ${Y.ratioMed.toFixed(2)} — the worn count falls; the gap closes after 200`); }
+const Z2 = Walk.test({ ...G, use: din }, {}); console.log(`  worn by in-links instead of use: even ${Z2.evenMed}, worn ${Z2.wornMed}, ratio ${Z2.ratioMed.toFixed(2)}, ${Z2.winsA}/100 → ${Z2.verdictA}`);
 
 if (process.argv.includes('--bake')) {
-  const E = { even: T.evenMed, worn: T.wornMed, winsA: T.winsA, losses: T.losses, share: +T.shareMed.toFixed(4), nullRatio: +Z.ratioMed.toFixed(4), nullAhead: zAhead, hidden: hid.length };
+  const E = { even: T.evenMed, worn: T.wornMed, winsA: T.winsA, losses: T.losses, share: +T.shareMed.toFixed(4), nullRatio: +Z.ratioMed.toFixed(4), nullAhead: zAhead, hidden: hid.length, shufReal: X.real, shufMed: X.shufMed, shufBeaten: X.beaten };
   fs.writeFileSync(PIECE, src.replace(/\/\*EXPECT-BEGIN\*\/[\s\S]*?\/\*EXPECT-END\*\//, () => '/*EXPECT-BEGIN*/' + JSON.stringify(E) + '/*EXPECT-END*/'));
   console.log('baked into the piece:', JSON.stringify(E));
 }

@@ -36,7 +36,7 @@
           "origin": "made",
           "by": "the Maker · graph walk",
           "title": "two walkers from the same doors · the palace's own roads",
-          "caption": "**Does walking the worn paths hide the country beside them?** Two walkers on the palace's real body links (328 entries, 2,289 links, read at e8d199b2), from the seven pages every agent is born with: one picks any road evenly, one follows wear (each road weighted by its destination's 90-day use, from the 2026-11-03 Palace Map build). It walks up from one page's roads to one walk each, then many walks, then the test, whose rule is stated before it runs. A model of the claim on real roads and real use, not a record of any session.",
+          "caption": "**Does walking the worn paths hide the country beside them?** Two walkers on the palace's real body links (328 entries, 2,289 links, read at e8d199b2), from the seven pages every agent is born with: one picks any road evenly, one follows wear (each road weighted by its destination's 90-day use from the 2026-11-03 Palace Map build; use counts edits and links formed, not visits, and the weights stay fixed, so no track deepens as they walk). It walks up from one page's roads to one walk each, then many walks, then the test, whose rule is stated before it runs, with a shuffled-use control: uneven wear hides country, but this palace's own wear is not told apart from the same wear dealt at random. A model of the claim on real roads and real use, not a record of any session.",
           "near": "The palace has songlines",
           "place": "band",
           "height": 1500
@@ -59,14 +59,14 @@
   "offers": [
     {
       "section": "Cross-Domain Resonance",
-      "kind": "claim-change",
-      "what": "On the palace's own body-link graph (e8d199b2, a model of sessions, not a record), a walker that follows use leaves 117 of 293 reachable entries unvisited against chance's 58.5 (100 of 100 seeds), and walking longer widens the gap rather than closing it: 1.34× at 50 walks, 1.95× at 200, 3.93× at 5,000. The 70 entries wear hides are not thin or barely linked (median 1,212 words, 3.5 in-links), and seven sit one link from Palace Philosophies, a born-with page (The Drift, The Dichotomy of Control, The Four Virtues, The View From Above, Leibniz, Whitehead, Metaphor as Coupling Medium); The Palace Itself could say that singing the same tracks longer deepens them, and that the hidden country lies beside the pages every agent starts on.",
+      "kind": "no-claim-edit",
+      "what": "Bears out \"not because they're wrong or thin\": on the palace's body-link graph (e8d199b2, a model, not sessions), a walker weighted by use leaves 117 of 293 reachable entries unvisited against chance's 58.5 (100 of 100 seeds), and the 70 entries it hides are neither thin nor barely linked (median 1,212 words, 3.5 in-links); seven sit one link from Palace Philosophies, a born-with page (The Drift, The Dichotomy of Control, The Four Virtues, The View From Above, Leibniz, Whitehead, Metaphor as Coupling Medium). Carried honestly with its limit: the same use values shuffled across entries leave a median 99.5 unreached against real use's 118.5, real ahead in 186 of 200 shuffles (p ≈ 0.07 here, 0.15 on the challenger's engine), short of the stated 95% bar — so what is shown is that wear this uneven hides country whoever wears it, not that this palace's own tracks do, and nothing deepens with longer walking (the gap closes after 200 walks).",
       "status": "open"
     },
     {
       "section": "Cross-Domain Resonance",
-      "kind": "claim-change",
-      "what": "\"Geographically present\" depends on which map: 35 of 328 entries are on no body road from the born-with pages at all (23 have no body link into them), and 22 of those 35 are reachable on the Palace Map's frontmatter typed links. The paragraph's dormant entries are the 293 a body road does reach; the 35 are a second kind, present on the map and absent from the text a reader walks, and could be named as such.",
+      "kind": "no-claim-edit",
+      "what": "An addition: \"geographically present\" depends on which map. 35 of 328 entries are on no body road from the born-with pages at all (23 have no body link into them), and 22 of those 35 are reachable on the Palace Map's frontmatter typed links — present on the map, absent from the text a reader walks. The paragraph's dormant entries are the 293 a body road does reach.",
       "status": "open"
     }
   ]
