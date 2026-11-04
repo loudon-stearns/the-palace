@@ -1,0 +1,71 @@
+{
+  "title": "recipe-p3 — rich",
+  "born": "2026-11-04",
+  "links": [
+    {
+      "target": "[[recipe-p3]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Wallpaper Groups]]",
+      "type": "member-of",
+      "label": "bundle-entry"
+    },
+    {
+      "target": "[[recipe-pm]]",
+      "type": "connects-to",
+      "label": "the mirror the section says p3 lacks"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of the p3 recipe's rich face, its first round at Sketch tier: one made piece that cooks the recipe exactly as written, sets it beside the four steps alone and played backwards, and walks up to a count of the mirrors on every loop the Method can cook, with a null that shows the meter can read none, and a longer loop offered as a repair the note doesn't make; with the fingerprint of the words it was laid against and the offers it measured for the text. The page is a bundle note with no frontmatter, so I am keyed by its file name, recipe-p3. I never hold the recipe's words.",
+  "entry": "recipe-p3",
+  "tier": "sketch",
+  "made": "2026-11-04",
+  "round": 1,
+  "grain": "The page's own ## grain: six sections; one carries a piece (What you should hear). Method carries an offer only.",
+  "offers": [
+    {
+      "section": "What you should hear",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "\"Because p3 has rotation but no mirror … It simply turns\" (:24) fails on the recipe's own output. Every loop the Method can cook has a mirror, 10 of 10; cell 1 2 4, for one, gives 1 2 4 5 6 8 9 10 12, with mirrors through steps 1 & 7, 3 & 9 and 5 & 11. The same meter finds none on 708 of 924 six-hit 12-step loops. Four steps are too short: any two or three hits there are their own mirror, and the copies carry it into the loop. The same premise runs through :28 (\"no reflection to cancel the break\") and :32 (\"Reflection flattens; rotation propels\"). Three fixes for Loudon. (a) A longer loop, sectors of 8 on 24 steps, where 32 of 84 cells make the third-turn with no mirror; the piece plays 1 2 4 9 10 12 17 18 20. (b) A second voice, as recipe-p2's offer has it. (c) Keep 12 steps and say the loop has mirrors too, so whatever is felt as turning is not the absence of reflection. \"It feels like it's turning\" is the reader's to judge; no agent heard it."
+    },
+    {
+      "section": "Method",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "Step 3's \"rotationally symmetric\" is true on the clock. In time the third-turn is a slide of four steps, so the loop is the cell played three times, hit for hit (an identity, 10 of 10). Two cells, 1 3 and 2 4, repeat every 2 steps and make recipe-p6's pulse. Proposed after step 3: \"On the clock it turns; in time it is the four steps played three times.\""
+    }
+  ],
+  "sections": [
+    {
+      "heading": "What you should hear",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-04",
+        "by": "maker · claude-opus-5-5 · proposal round · cloud batch 2",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "recipe-p3 — rich — the turn and its mirror.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio",
+          "height": 1340,
+          "title": "the turn and its mirror · five steps",
+          "caption": "**Does p3 really have no mirror?** Write a cell in steps 1 to 4 and copy it by +4 and +8, as the Method says. On the clock each copy is a third of a turn; in time it is a slide, the cell played three times, the same sound as the four steps alone. Played backwards, the loop lands on itself. The test, last, with its rule set first: every loop the Method can cook has a mirror, 10 of 10, where the same meter finds none on 708 of 924 six-hit loops. Four steps are too short to hold a shape without one. Offered as a repair the note doesn't make: sectors of 8 on 24 steps, where 32 of 84 cells turn with no mirror. Checked in Node on the piece's own engine (workshop/rich-checks.mjs, all PASS); no agent can hear a mix, so how it sounds was not heard.",
+          "near": "The absence of reflection is key.",
+          "place": "band"
+        }
+      ],
+      "made_against": "1751b531b874",
+      "stamped": "2026-11-04"
+    }
+  ]
+}
