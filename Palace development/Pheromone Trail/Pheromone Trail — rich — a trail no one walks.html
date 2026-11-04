@@ -3,7 +3,7 @@
   title: Pheromone Trail — a trail no one walks
   born: 2026-11-04
   links: [[Pheromone Trail]] (connects-to · rich-face-piece) · listed in [[Pheromone Trail — rich.json]] · [[Progressive Staging]] (the walk up)
-  forward_vector: I am a trail whose source ran out, on the same colony engine: a trail alone first, then a settled colony, then the test of whether the colony gets free, with a no-evaporation null that shows a trail fades only if something makes it fade. I change only when the section I serve does.
+  forward_vector: I am a trail whose source ran out, on the same colony engine: a trail alone first, then a settled colony, then ants that mark a path just by walking it, then the test that scores the fade itself at two horizons stated first, with a null that must not read faded. I change only when the section I serve does.
 -->
 <html lang="en">
 <head>
@@ -67,7 +67,7 @@ td:first-child, th:first-child { text-align: left; }
 <div class="piece">
 <div class="kicker">Pheromone Trail · the same colony model · walks up to a test</div>
 <h1>Does a trail no one walks fade?</h1>
-<p>The section says trails that are never reinforced fade. In an ant colony that is chemistry; in the palace it is a count read from git. This piece runs the ant version on the same engine as the cluster piece above, and asks the part of the sentence that can fail: when a trail stops being reinforced, does the colony get free of it?</p>
+<p>The section says trails that are never reinforced fade. This piece runs that sentence on the same colony engine as the cluster piece above, and scores the fade itself: once a trail's source runs out, does its strength fall away, and by when? The answer turns on what counts as reinforcing. Four steps; the test is the last.</p>
 <ol class="rail"></ol>
 
 <section class="step" data-name="a trail alone">
@@ -80,7 +80,7 @@ td:first-child, th:first-child { text-align: left; }
 <div class="read"><span>tick <b id="r1t">0</b></span><span>trail τ <b id="r1tau">100</b></span><span>half gone at tick <b id="r1h">–</b></span><span>the formula says <b id="r1f">–</b></span></div>
 <div class="row"><label class="ctl">evaporation ρ per tick <output id="o1rho">0.010</output><input id="s1rho" type="range" min="0" max="0.05" step="0.001" value="0.01"></label>
 <button class="b go" id="b1">play</button><button class="b" id="b1r">reset</button></div>
-<p class="note">This step is the model's rule, not a test: a trail with nobody on it fades here because the code says so. Set ρ to zero and it never fades at all. Hold that; the test turns on it.</p>
+<p class="note">This step is the model's rule, not a test: a trail with nobody on it fades here because the code says so. Set ρ to zero and it never fades at all. Hold that: a trail fades here only while evaporation takes more than anything lays.</p>
 </section>
 
 <section class="step" data-name="a settled colony">
@@ -91,23 +91,36 @@ td:first-child, th:first-child { text-align: left; }
 <div class="read"><span>tick <b id="r2t">0</b></span><span class="k-a">trail A <b id="r2a">0</b></span><span class="k-b">trail B <b id="r2b">0</b></span><span class="k-a">A's share of choices, last 100 ticks <b id="r2s">–</b></span></div>
 <div class="row"><label class="ctl">evaporation ρ per tick <output id="o2rho">0.010</output><input id="s2rho" type="range" min="0" max="0.03" step="0.001" value="0.01"></label>
 <button class="b go" id="b2">play</button><button class="b" id="b2e">empty A</button><button class="b" id="b2r">reset</button></div>
-<p class="note">An ant that walks to an empty source comes home with nothing and lays nothing, so emptying A stops A's reinforcement at once, while ants keep walking it. Try it at ρ = 0 too, before the test does.</p>
+<p class="note">An ant that walks to an empty source comes home with nothing and lays nothing. Here an ant marks only when it brings food home, so emptying A stops A's reinforcement at once, though ants keep walking it for a while.</p>
+</section>
+
+<section class="step" data-name="walking marks too">
+<h2>When walking a path marks it</h2>
+<p>Change one thing: an ant now lays part of its mark on the way out, whether or not there is food at the end, and the rest only when it comes home with food. A trip that finds food still lays 1 in all, so the settled trail is as strong as before. But now an ant walking a dead path still marks it. Empty A and watch what the trail does.</p>
+<div class="eq"><div class="sym">each walk out: τ ← τ + q<sub>out</sub> &nbsp;&nbsp; each trip home with food: τ ← τ + q<sub>home</sub> &nbsp;&nbsp; q<sub>out</sub> + q<sub>home</sub> = 1</div>
+<div class="words">Part of the mark is laid just for walking the path, the rest only for success. Whether and how real ants split their marking is outside this piece; the split here is this model's setting.</div></div>
+<canvas id="c3"></canvas>
+<canvas id="p3"></canvas>
+<div class="read"><span>tick <b id="r3t">0</b></span><span class="k-a">trail A <b id="r3a">0</b></span><span class="k-b">trail B <b id="r3b">0</b></span><span class="k-a">A's share of choices, last 100 ticks <b id="r3s">–</b></span></div>
+<div class="row"><label class="ctl">laid on the way out, q<sub>out</sub> <output id="o3q">0.50</output><input id="s3q" type="range" min="0" max="0.9" step="0.05" value="0.5"></label>
+<button class="b go" id="b3">play</button><button class="b" id="b3e">empty A</button><button class="b" id="b3r">reset</button></div>
+<p class="note">Set q<sub>out</sub> to 0 and this is the last step again. Raise it and a dead trail that ants still walk keeps part of itself; whether it ever falls is the test.</p>
 </section>
 
 <section class="step" data-name="the test">
-<h2>The test: the source runs out</h2>
-<p>The settled colony from the last step, run 2000 ticks. At tick 2000 A's food is gone. Then 4000 more ticks. Two arms: the model's evaporation, ρ = 0.01, and a null with no evaporation at all, ρ = 0. Ten seeded runs each. The rules were written before the first run.</p>
+<h2>The test: does a dead trail fade, and by when?</h2>
+<p>The settled colony, run 2000 ticks with A strong, then A's food is gone. The trail on A is then followed for 40,000 ticks. Three ways of marking, and a null with A's food left in place. Twenty seeded runs each. The rules were written before the first run.</p>
 <div class="rules"><div class="kicker">the rules, stated first</div><ul>
-<li><b>Chance level:</b> an even split, 0.50 of choices on each path.</li>
-<li><b>The trail fades</b> if, after its source is gone, it falls below a tenth of its strength at that moment. At ρ = 0.01 this is the model's rule and cannot fail (a tenth by tick 230); it is reported, not scored.</li>
-<li><b>The colony gets free</b>, the part that can fail, if in ticks 3500 to 4000 after the source went the dead path takes at most 0.10 of choices, in at least 9 of 10 runs.</li>
-<li><b>The null:</b> at ρ = 0 the dead trail cannot fade. If that colony gets free anyway, by the same line, then fading is not what frees a colony, and the piece says so.</li>
-<li><b>Held fixed:</b> path lengths, colony size, n = 2, k = 20, the head start, the seeds. Only ρ changes between arms.</li></ul></div>
-<div class="row"><button class="b go" id="b3">run the 20 runs</button><span class="read" id="r3s"></span></div>
-<canvas id="v3"></canvas>
-<div id="t3"></div>
-<div class="verdict" id="vd3"></div>
-<p class="note">Whose numbers these are: this model's, at its rate. In the palace there is no evaporation in the page; the fading is a reading, how much an entry was used in git's last 90 days (<i>SCHEMA — Reference</i> § 3, use is computed, never kept), and the Spore Check is what acts on it. The null is the palace's case too: a trail nobody reads for its age stays exactly as strong as the day it was laid.</p>
+<li><b>Fades:</b> A's trail falls below a tenth of its strength at the moment its source went. Read at two horizons, both fixed before the run: 1,000 ticks after, and 40,000.</li>
+<li><b>At a horizon, the sentence holds</b> for an arm if at least 18 of 20 runs have faded; <b>fails</b> if at most 2 of 20; otherwise it is split.</li>
+<li><b>The arms:</b> marks only coming home with food (q<sub>out</sub> = 0); half going out (q<sub>out</sub> = 0.5); most going out (q<sub>out</sub> = 0.7). Pure evaporation predicts a tenth by tick 230, so an arm that has not faded by 1,000 is being held up by something.</li>
+<li><b>The null:</b> A's food left in place, marking only coming home. The same measure must not read <i>faded</i>; if 3 or more of 20 do, the measure is broken and the piece says so.</li>
+<li><b>Held fixed:</b> colony size, path lengths, n = 2, k = 20, ρ = 0.01, the head start, the seeds, and 1 laid per successful trip. Only where the mark is laid changes between arms.</li></ul></div>
+<div class="row"><button class="b go" id="b4">run the 80 runs</button><span class="read" id="r4s"></span></div>
+<canvas id="v4"></canvas>
+<div id="t4"></div>
+<div class="verdict" id="vd4"></div>
+<p class="note">Whose numbers these are: this model's, at its rate and its marking rule. They show what the sentence needs in a colony: a trail fades when nothing lays on it, and walking a path counts as laying if walking marks. In the palace, use is read from git, page edits, bundle edits and new links (<i>SCHEMA — Reference</i> § 3), and reading is not recorded there; this piece does not test the palace.</p>
 </section>
 <div class="nav"><button class="b" id="back">back</button><button class="b" id="next">next</button></div>
 <div class="foot">Loud'n Live</div>
@@ -117,7 +130,7 @@ td:first-child, th:first-child { text-align: left; }
 /*ENGINE-START*/
 function rng(seed){let a=seed>>>0;return function(){a=(a+0x6D2B79F5)>>>0;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
 function makeColony(o){
-  const c={t:0,rho:o.rho,k:o.k==null?20:o.k,n:o.n==null?2:o.n,q:o.q==null?1:o.q,eps:o.eps||0,
+  const c={t:0,rho:o.rho,k:o.k==null?20:o.k,n:o.n==null?2:o.n,q:o.q==null?1:o.q,qOut:o.qOut||0,eps:o.eps||0,
     paths:o.paths.map(p=>({len:p.len,food:p.food!==false,open:p.open!==false,tau:p.tau||0,choices:0,trips:0})),
     ants:[],rand:rng(o.seed==null?1:o.seed)};
   for(let i=0;i<o.ants;i++) c.ants.push({path:-1,pos:0,dir:0,carry:false,wait:Math.floor(c.rand()*(o.stagger==null?2*Math.max(...o.paths.map(p=>p.len))+1:o.stagger))});
@@ -138,7 +151,7 @@ function step(c){
     if(a.path<0){a.path=choose(c);a.pos=0;a.dir=1;a.carry=false;c.paths[a.path].choices++;continue;}
     const p=c.paths[a.path];
     a.pos+=a.dir;
-    if(a.dir===1&&a.pos>=p.len){a.dir=-1;a.carry=p.food;}
+    if(a.dir===1&&a.pos>=p.len){a.dir=-1;a.carry=p.food;if(c.qOut)p.tau+=c.qOut;}
     else if(a.dir===-1&&a.pos<=0){
       if(a.carry){p.tau+=c.q;p.trips++;}
       a.path=choose(c);a.pos=0;a.dir=1;a.carry=false;c.paths[a.path].choices++;
@@ -254,30 +267,48 @@ function share(a){let s=0;for(const v of a)s+=v;return a.map(v=>v/(s||1));}
   $('b2r').onclick=reset;
   ENTER[1]=()=>{if(!c)reset();else draw();}; LEAVE[1]=()=>{L.stop();$('b2').textContent='play';};
 })();
-// step 3 — the test
-const ARMS2=[{id:'rate',label:'ρ = 0.01, the model\'s rate',rho:0.01,color:COL.a},{id:'null',label:'ρ = 0, the null',rho:0,color:COL.dead}];
-function runArm2(arm,seed){
-  const c=makeColony({ants:100,rho:arm.rho,n:2,seed,paths:[{len:20,tau:60},{len:20,tau:10}]});
-  for(let i=0;i<2000;i++) step(c);
-  const at=c.paths[0].tau; c.paths[0].food=false;
-  let tenth=null,cross=null,last=c.paths.map(p=>p.choices);
-  for(let i=1;i<=3500;i++){step(c);if(tenth==null&&c.paths[0].tau<0.1*at)tenth=i;
-    if(i%100===0){const now=c.paths.map(p=>p.choices);if(cross==null&&now[1]-last[1]>now[0]-last[0])cross=i;last=now;}}
-  const w=choiceWindow(c,500);
-  return {at,tenth,cross,deadShare:w[0],end:c.paths[0].tau};
-}
-function judge2(res){const free=a=>res[a].filter(r=>r.deadShare<=0.10).length;return {rateFree:free('rate'),nullFree:free('null'),rateFaded:res.rate.filter(r=>r.tenth!=null).length,nullFaded:res.null.filter(r=>r.tenth!=null).length};}
+// step 3 — walking marks too
 (function(){
-  $('b3').onclick=()=>{const res={rate:[],null:[]},jobs=[];ARMS2.forEach(a=>{for(let s=1;s<=10;s++)jobs.push([a,s]);});let i=0;$('b3').disabled=true;
-    (function chunk(){const t0=performance.now();while(i<jobs.length&&performance.now()-t0<30){const [a,s]=jobs[i++];res[a.id].push(runArm2(a,s));}
-      $('r3s').textContent=i+' of '+jobs.length+' runs';if(i<jobs.length){setTimeout(chunk,0);return;}$('b3').disabled=false;
-      bars($('v3'),ARMS2.map(a=>({label:a.label,vals:res[a.id].map(r=>r.deadShare),color:a.color})),{lines:[{v:0.1,label:'free line',color:COL.a},{v:0.5,label:'chance',color:COL.fg3}]});
-      const J=judge2(res),mm=(a,f)=>{const v=res[a].map(f);return Math.min(...v).toFixed(f===undefined?0:2)+' – '+Math.max(...v).toFixed(2);};
-      const row=a=>{const r=res[a.id];const ten=r.map(x=>x.tenth),cr=r.map(x=>x.cross);
-        return '<tr><td>'+a.label+'</td><td>'+Math.min(...r.map(x=>x.at)).toFixed(0)+' – '+Math.max(...r.map(x=>x.at)).toFixed(0)+'</td><td>'+(ten.every(x=>x!=null)?Math.min(...ten)+' – '+Math.max(...ten):'never ('+ten.filter(x=>x==null).length+' of 10)')+'</td><td>'+(cr.every(x=>x!=null)?Math.min(...cr)+' – '+Math.max(...cr):'never ('+cr.filter(x=>x==null).length+' of 10)')+'</td><td>'+mm(a.id,x=>x.deadShare)+'</td><td>'+r.filter(x=>x.deadShare<=0.1).length+' / 10</td></tr>';};
-      $('t3').innerHTML='<table><tr><th>arm</th><th>dead trail when emptied</th><th>ticks to a tenth</th><th>ticks till most ants walk B</th><th>dead path\'s share, last 500</th><th>free</th></tr>'+ARMS2.map(row).join('')+'</table>';
-      $('vd3').textContent=(J.rateFree>=9?'Holds, in this model, at ρ = 0.01: the dead trail faded and the colony got free of it in '+J.rateFree+' of 10 runs. ':'Fails at ρ = 0.01: free in '+J.rateFree+' of 10. ')
-        +(J.nullFree<=1?'The null did not: with no evaporation the dead trail stayed at full strength and the colony kept walking it, free in '+J.nullFree+' of 10. A trail never reinforced fades only if something makes it fade.':'The null got free too ('+J.nullFree+' of 10), so fading is not what frees the colony here.');
+  let c,hist,L,last,shareA,emptied;
+  function reset(){const qo=+$('s3q').value;c=makeColony({ants:100,rho:0.01,seed:1,q:1-qo,qOut:qo,paths:[{len:20,tau:60},{len:20,tau:10}]});hist=[];last=[0,0];shareA=null;emptied=null;draw();}
+  function draw(){const top=Math.max(100,...hist.map(h=>Math.max(h[0],h[1])));drawColony($('c3'),c,{h:200,full:Math.max(100,c.paths[0].tau,c.paths[1].tau)});
+    plot($('p3'),[{data:hist.map(h=>h[0]),color:COL.a},{data:hist.map(h=>h[1]),color:COL.b}],{h:140,span:400,ymax:top*1.1,vlines:emptied==null?[]:[{i:Math.max(0,emptied-(c.t-hist.length*10)/10),label:'A emptied',color:COL.dead}],xlabel:'the last 4000 ticks · trails A and B'});
+    $('r3t').textContent=c.t;$('r3a').textContent=c.paths[0].tau.toFixed(1);$('r3b').textContent=c.paths[1].tau.toFixed(1);$('r3s').textContent=shareA==null?'–':shareA.toFixed(2);}
+  L=loop(()=>{for(let i=0;i<6;i++){step(c);if(c.t%10===0){hist.push([c.paths[0].tau,c.paths[1].tau]);if(hist.length>400)hist.shift();}
+    if(c.t%100===0){const now=c.paths.map(p=>p.choices);shareA=share([now[0]-last[0],now[1]-last[1]])[0];last=now;}}draw();});
+  $('s3q').oninput=()=>{$('o3q').textContent=(+$('s3q').value).toFixed(2);reset();};
+  $('b3').onclick=()=>{if(L.on){L.stop();$('b3').textContent='play';}else{L.start();$('b3').textContent='pause';}};
+  $('b3e').onclick=()=>{c.paths[0].food=false;emptied=c.t/10;draw();};
+  $('b3r').onclick=reset;
+  ENTER[2]=()=>{if(!c)reset();else draw();}; LEAVE[2]=()=>{L.stop();$('b3').textContent='play';};
+})();
+// step 4 — the test
+const H2=[1000,40000];
+const ARMS2=[{id:'home',label:'marks coming home · dead',qOut:0,kill:true,color:COL.a},{id:'half',label:'half going out · dead',qOut:0.5,kill:true,color:COL.b},{id:'most',label:'most going out · dead',qOut:0.7,kill:true,color:COL.dead},{id:'null',label:'null · source left',qOut:0,kill:false,color:COL.fg1}];
+function runArm2(arm,seed){
+  const c=makeColony({ants:100,rho:0.01,n:2,seed,q:1-arm.qOut,qOut:arm.qOut,paths:[{len:20,tau:60},{len:20,tau:10}]});
+  for(let i=0;i<2000;i++) step(c);
+  const at=c.paths[0].tau; if(arm.kill) c.paths[0].food=false;
+  let tenth=null;const at1={};
+  for(let i=1;i<=H2[1];i++){step(c);if(tenth==null&&c.paths[0].tau<0.1*at)tenth=i;if(i===H2[0])at1.short=c.paths[0].tau/at;}
+  return {at,tenth,short:at1.short,long:c.paths[0].tau/at};
+}
+function call2(n){return n>=18?'fades':n<=2?'does not fade':'split';}
+function judge2(res){const o={};ARMS2.forEach(a=>{const r=res[a.id];o[a.id]={f1:r.filter(x=>x.short<0.1).length,f40:r.filter(x=>x.long<0.1).length};o[a.id].c1=call2(o[a.id].f1);o[a.id].c40=call2(o[a.id].f40);});o.broken=o.null.f40>=3||o.null.f1>=3;return o;}
+(function(){
+  $('b4').onclick=()=>{const res={},jobs=[];ARMS2.forEach(a=>{res[a.id]=[];for(let s=1;s<=20;s++)jobs.push([a,s]);});let i=0;$('b4').disabled=true;
+    (function chunk(){const t0=performance.now();while(i<jobs.length&&performance.now()-t0<40){const [a,s]=jobs[i++];res[a.id].push(runArm2(a,s));}
+      $('r4s').textContent=i+' of '+jobs.length+' runs';if(i<jobs.length){setTimeout(chunk,0);return;}$('b4').disabled=false;
+      bars($('v4'),ARMS2.map(a=>({label:a.label,vals:res[a.id].map(r=>Math.min(1,r.short)),color:a.color})),{lines:[{v:0.1,label:'a tenth',color:COL.a}]});
+      const J=judge2(res);
+      const row=a=>{const r=res[a.id],ten=r.map(x=>x.tenth).filter(x=>x!=null).sort((x,y)=>x-y);
+        return '<tr><td>'+a.label+'</td><td>'+Math.min(...r.map(x=>x.short)).toFixed(3)+' – '+Math.max(...r.map(x=>x.short)).toFixed(3)+'</td><td>'+J[a.id].f1+' / 20 · '+J[a.id].c1+'</td><td>'+J[a.id].f40+' / 20 · '+J[a.id].c40+'</td><td>'+(ten.length?ten[0]+' – '+ten[ten.length-1]+(ten.length<20?' ('+(20-ten.length)+' never)':''):'never')+'</td></tr>';};
+      $('t4').innerHTML='<table><tr><th>arm</th><th>A ÷ its strength when the source went, at 1,000</th><th>faded by 1,000</th><th>faded by 40,000</th><th>ticks to a tenth</th></tr>'+ARMS2.map(row).join('')+'</table>';
+      $('vd4').textContent=(J.broken?'The null read faded in '+Math.max(J.null.f1,J.null.f40)+' of 20 runs: the measure is broken. ':'')
+        +'Marking only on success, the dead trail fades by 1,000 ticks in '+J.home.f1+' of 20 runs. '
+        +'With half the mark laid on the way out it '+(J.half.c1==='fades'?'fades by 1,000 too':'has faded in '+J.half.f1+' of 20 by 1,000')+', and in '+J.half.f40+' of 20 by 40,000. '
+        +'With most laid on the way out, '+J.most.f40+' of 20 have faded by 40,000. '
+        +(J.most.c40==='does not fade'?'In this model a trail never reinforced fades; a trail still walked, where walking marks, is being reinforced, and holds.':'');
       window.RESULT2={res,J};})();};
 })();
 show(0);

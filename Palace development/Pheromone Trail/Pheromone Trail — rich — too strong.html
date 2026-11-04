@@ -3,7 +3,7 @@
   title: Pheromone Trail — too strong
   born: 2026-11-04
   links: [[Pheromone Trail]] (connects-to · rich-face-piece) · listed in [[Pheromone Trail — rich.json]] · [[Progressive Staging]] (the walk up)
-  forward_vector: I am a colony worn onto a far source that meets a nearer one, on the same engine: one worn trail, a fresh choice, the worn colony, then a sweep of trail strength scored against rules stated first. I give the open question its number in the ant model and leave the palace's answer where the page puts it. I change only when the section I serve does.
+  forward_vector: I am a colony worn onto a far source that meets a nearer one, on the same engine: one worn trail, a fresh choice, the worn colony, then a sweep of trail strength read at a 40,000-tick horizon stated first, the off-trail arm scored by the same rules. I give the open question its number in the ant model and leave the palace's answer where the page puts it. I change only when the section I serve does.
 -->
 <html lang="en">
 <head>
@@ -106,19 +106,20 @@ td:first-child, th:first-child { text-align: left; }
 
 <section class="step" data-name="the test">
 <h2>The test: at what strength does the colony stop being able to leave?</h2>
-<p>The worn colony and the fresh one, side by side, at ten trail strengths set by q. Ten seeded runs each. Both arms are read in the same window: ticks 3500 to 4000 after the near source opened. The rules were written before the first run.</p>
+<p>The worn colony and the fresh one, side by side, at eight trail strengths set by q. Twenty seeded runs each. A worn colony may take a long time to leave, so it is given a long time: 40,000 ticks after the near source opens, fifty times the far round trip. The rules were written before the first run, and the run takes some seconds.</p>
 <div class="rules"><div class="kicker">the rules, stated first</div><ul>
 <li><b>Chance level:</b> an even split, 0.50 of choices on each source.</li>
-<li><b>A strength counts</b> only if the fresh colony finds the near source there: near share at least 0.50 in at least 9 of 10 runs. Below that, the trail is too faint to choose by, and the row is marked so.</li>
-<li><b>In a counted row</b>, the worn colony <b>leaves</b> if its near share is at least 0.50 in at least 9 of 10 runs; is <b>locked</b> if in at most 1 of 10; otherwise <b>split</b>.</li>
-<li><b>A trail cannot be too strong</b>, in this model, if every counted row reads <i>leaves</i>. <b>It can be</b> if any counted row reads <i>locked</i>; the answer is the weakest such trail.</li>
-<li><b>Held fixed:</b> colony size, distances, food, n = 2, k = 20, ρ = 0.01, the seeds. Only q, and so the trail's strength, changes along the rows; only the order the sources opened in changes between arms.</li>
-<li><b>A third column, not scored:</b> the worn colony with one ant in ten walking off-trail, choosing a source at random, the model's own chance cover.</li></ul></div>
+<li><b>A strength counts</b> only if a fresh colony finds the near source there: near share at least 0.50 in ticks 3500 to 4000, in at least 18 of 20 runs. Below that the trail is too faint to choose by, and the row is marked so.</li>
+<li><b>The horizon:</b> 40,000 ticks after the near source opens. A worn run <b>has left</b> if, in any 500-tick window before the horizon, the near source takes at least 0.50 of the choices.</li>
+<li><b>In a counted row</b>, the worn colony <b>leaves</b> if at least 18 of 20 runs have left by the horizon; is <b>locked</b> if at most 2 of 20; otherwise <b>split</b>.</li>
+<li><b>A trail cannot be too strong</b>, in this model at this horizon, if every counted row reads <i>leaves</i>. <b>It can be</b> if any counted row reads <i>locked</i>; the answer is the weakest such trail. Locked means not left by 40,000 ticks, not never.</li>
+<li><b>The off-trail arm</b>, scored by the same rules: the worn colony with one ant in ten choosing a source at random, the model's own chance cover.</li>
+<li><b>Held fixed:</b> colony size, distances, food, n = 2, k = 20, ρ = 0.01, the seeds. Only q, and so the trail's strength, changes along the rows.</li></ul></div>
 <div class="row"><button class="b go" id="b4">run the sweep</button><span class="read" id="r4s"></span></div>
 <canvas id="v4"></canvas>
 <div id="t4"></div>
 <div class="verdict" id="vd4"></div>
-<p class="note">Whose numbers these are: this model's, at its k, n, ρ and colony size; the lock line moves with k (doubling k to 40 moves it to about twice the trail, in the check that ships beside this piece). The palace's answer to the question stands where the page puts it, on <i>Swarm Weave</i>: a weave cuts the map once more with no axis at all. That is a cover cut across a map, not ants wandering off a path, and this model does not judge it. The echo worth keeping is <i>Kuramoto Coupling</i>'s: too little coupling and nothing cooperates, too much and one voice dominates.</p>
+<p class="note">Whose numbers these are: this model's, at its k, n, ρ, colony size and horizon. The column <i>left by 4,000</i> is there to show why the horizon is long: read that early, colonies that leave later look locked. The palace's answer to the question stands where the page puts it, on <i>Swarm Weave</i>: a weave cuts the map once more with no axis at all. That is a cover cut across a map, not ants wandering off a path, and this model does not judge it. The echo worth keeping is <i>Kuramoto Coupling</i>'s: too little coupling and nothing cooperates, too much and one voice dominates.</p>
 </section>
 <div class="nav"><button class="b" id="back">back</button><button class="b" id="next">next</button></div>
 <div class="foot">Loud'n Live</div>
@@ -128,7 +129,7 @@ td:first-child, th:first-child { text-align: left; }
 /*ENGINE-START*/
 function rng(seed){let a=seed>>>0;return function(){a=(a+0x6D2B79F5)>>>0;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
 function makeColony(o){
-  const c={t:0,rho:o.rho,k:o.k==null?20:o.k,n:o.n==null?2:o.n,q:o.q==null?1:o.q,eps:o.eps||0,
+  const c={t:0,rho:o.rho,k:o.k==null?20:o.k,n:o.n==null?2:o.n,q:o.q==null?1:o.q,qOut:o.qOut||0,eps:o.eps||0,
     paths:o.paths.map(p=>({len:p.len,food:p.food!==false,open:p.open!==false,tau:p.tau||0,choices:0,trips:0})),
     ants:[],rand:rng(o.seed==null?1:o.seed)};
   for(let i=0;i<o.ants;i++) c.ants.push({path:-1,pos:0,dir:0,carry:false,wait:Math.floor(c.rand()*(o.stagger==null?2*Math.max(...o.paths.map(p=>p.len))+1:o.stagger))});
@@ -149,7 +150,7 @@ function step(c){
     if(a.path<0){a.path=choose(c);a.pos=0;a.dir=1;a.carry=false;c.paths[a.path].choices++;continue;}
     const p=c.paths[a.path];
     a.pos+=a.dir;
-    if(a.dir===1&&a.pos>=p.len){a.dir=-1;a.carry=p.food;}
+    if(a.dir===1&&a.pos>=p.len){a.dir=-1;a.carry=p.food;if(c.qOut)p.tau+=c.qOut;}
     else if(a.dir===-1&&a.pos<=0){
       if(a.carry){p.tau+=c.q;p.trips++;}
       a.path=choose(c);a.pos=0;a.dir=1;a.carry=false;c.paths[a.path].choices++;
@@ -277,26 +278,32 @@ function sharesHist(c,state){const now=c.paths.map(p=>p.choices);const s=share(n
   ENTER[2]=()=>{if(!c)reset();else draw();}; LEAVE[2]=()=>{L.stop();$('b3').textContent='play';};
 })();
 // step 4 — the test
-const QS=[0.05,0.1,0.2,0.22,0.24,0.26,0.3,0.5,1,2];
+const QS=[0.1,0.2,0.24,0.26,0.3,0.4,0.5,1],HORIZON=40000,EARLY=4000;
 function runFresh(q,seed){const c=makeColony({ants:100,rho:0.01,q,n:2,seed,paths:[{len:FAR},{len:NEAR}]});choiceWindow(c,3500);return choiceWindow(c,500)[1];}
-function runWorn(q,seed,eps){const c=makeColony({ants:100,rho:0.01,q,n:2,seed,eps:eps||0,paths:[{len:FAR},{len:NEAR,open:false}]});for(let i=0;i<WEAR;i++)step(c);const tau=c.paths[0].tau;c.paths[1].open=true;choiceWindow(c,3500);return {tau,near:choiceWindow(c,500)[1]};}
-function judge3(rows){ // rows: {q,tau,fresh:[..],worn:[..],eps:[..]}
-  let firstLock=null,anyLeaves=false,counted=0;
-  rows.forEach(r=>{const f=r.fresh.filter(v=>v>=0.5).length,w=r.worn.filter(v=>v>=0.5).length;
-    r.counted=f>=9;r.freshWins=f;r.wornWins=w;r.call=!r.counted?'too faint to choose':w>=9?'leaves':w<=1?'locked':'split';
-    if(r.counted){counted++;if(r.call==='leaves')anyLeaves=true;if(r.call==='locked'&&firstLock==null)firstLock=r;}});
-  return {firstLock,anyLeaves,counted,tooStrong:firstLock!=null};
+function runWorn(q,seed,eps){const c=makeColony({ants:100,rho:0.01,q,n:2,seed,eps:eps||0,paths:[{len:FAR},{len:NEAR,open:false}]});for(let i=0;i<WEAR;i++)step(c);const tau=c.paths[0].tau;c.paths[1].open=true;
+  for(let t=500;t<=HORIZON;t+=500){if(choiceWindow(c,500)[1]>=0.5)return {tau,left:t};}return {tau,left:null};}
+function call3(n){return n>=18?'leaves':n<=2?'locked':'split';}
+function judge3(rows){
+  let firstLock=null,counted=0;
+  rows.forEach(r=>{r.freshWins=r.fresh.filter(v=>v>=0.5).length;r.counted=r.freshWins>=18;
+    r.byH=r.worn.filter(x=>x!=null&&x<=HORIZON).length;r.byE=r.worn.filter(x=>x!=null&&x<=EARLY).length;r.offH=r.off.filter(x=>x!=null&&x<=HORIZON).length;
+    const lt=r.worn.filter(x=>x!=null).sort((a,b)=>a-b);r.med=lt.length>=10?lt[Math.floor(lt.length/2)]:null;
+    r.call=r.counted?call3(r.byH):'too faint to choose';r.offCall=r.counted?call3(r.offH):'too faint to choose';
+    if(r.counted){counted++;if(r.call==='locked'&&!firstLock)firstLock=r;}});
+  return {firstLock,counted,tooStrong:!!firstLock,leaveRows:rows.filter(r=>r.call==='leaves'),offFreed:rows.filter(r=>r.counted&&r.call!=='leaves'&&r.offCall==='leaves')};
 }
 (function(){
-  $('b4').onclick=()=>{const rows=QS.map(q=>({q,tau:0,fresh:[],worn:[],eps:[]}));const jobs=[];rows.forEach(r=>{for(let s=1;s<=10;s++)jobs.push([r,s]);});let i=0;$('b4').disabled=true;
-    (function chunk(){const t0=performance.now();while(i<jobs.length&&performance.now()-t0<30){const [r,s]=jobs[i++];r.fresh.push(runFresh(r.q,s));const w=runWorn(r.q,s,0);r.worn.push(w.near);r.tau+=w.tau/10;r.eps.push(runWorn(r.q,s,0.1).near);}
+  $('b4').onclick=()=>{const rows=QS.map(q=>({q,tau:0,fresh:[],worn:[],off:[]}));const jobs=[];rows.forEach(r=>{for(let s=1;s<=20;s++)jobs.push([r,s]);});let i=0;$('b4').disabled=true;
+    (function chunk(){const t0=performance.now();while(i<jobs.length&&performance.now()-t0<40){const [r,s]=jobs[i++];r.fresh.push(runFresh(r.q,s));const w=runWorn(r.q,s,0);r.worn.push(w.left);r.tau+=w.tau/20;r.off.push(runWorn(r.q,s,0.1).left);}
       $('r4s').textContent=i+' of '+jobs.length+' seeds';if(i<jobs.length){setTimeout(chunk,0);return;}$('b4').disabled=false;
-      const J=judge3(rows),mean=a=>a.reduce((x,y)=>x+y,0)/a.length;
-      plot($('v4'),[{data:rows.map(r=>mean(r.fresh)),color:COL.b},{data:rows.map(r=>mean(r.worn)),color:COL.a},{data:rows.map(r=>mean(r.eps)),color:COL.fg3}],{h:170,ymax:1,span:rows.length,hlines:[{y:0.5,label:'even split'}],xlabel:'mean near share, row by row as the trail strengthens · violet fresh · amber worn · grey worn with off-trail ants'});
-      $('t4').innerHTML='<table><tr><th>laid per trip, q</th><th>worn trail at opening</th><th>÷ k</th><th>fresh finds near</th><th>worn reaches near</th><th>call</th><th>worn, 1 in 10 off-trail: mean near</th></tr>'+rows.map(r=>'<tr><td>'+r.q+'</td><td>'+r.tau.toFixed(1)+'</td><td>'+(r.tau/20).toFixed(2)+'</td><td>'+r.freshWins+' / 10 · '+mean(r.fresh).toFixed(2)+'</td><td>'+r.wornWins+' / 10 · '+mean(r.worn).toFixed(2)+'</td><td>'+r.call+'</td><td>'+mean(r.eps).toFixed(2)+'</td></tr>').join('')+'</table>';
-      const epsFree=rows.filter(r=>r.counted&&r.eps.filter(v=>v>=0.5).length>=9).length;
-      $('vd4').textContent=J.tooStrong?('Yes, in this model. From a worn trail of about '+J.firstLock.tau.toFixed(0)+' (about '+(J.firstLock.tau/20).toFixed(1)+' times k) the colony is locked: it reaches the nearer source in '+J.firstLock.wornWins+' of 10 runs, where a fresh colony finds it in '+J.firstLock.freshWins+'. '+(J.anyLeaves?'':'No counted row reads leaves: the strength that lets a colony tell the better source is the strength that holds it to the worn one. ')+(epsFree===0?'One ant in ten off the trail did not free it at any counted strength.':'One ant in ten off the trail freed it at '+epsFree+' counted strengths.'))
-        :'No, in this model: every counted row reads leaves.';
+      const J=judge3(rows);
+      plot($('v4'),[{data:rows.map(r=>r.freshWins/20),color:COL.b},{data:rows.map(r=>r.byH/20),color:COL.a},{data:rows.map(r=>r.offH/20),color:COL.fg3},{data:rows.map(r=>r.byE/20),color:COL.fg4}],{h:170,ymax:1,span:rows.length,hlines:[{y:0.9,label:'18 of 20'},{y:0.1,label:'2 of 20'}],xlabel:'share of runs, row by row as the trail strengthens · violet fresh finds near · amber worn left by 40,000 · grey off-trail by 40,000 · dim worn by 4,000'});
+      $('t4').innerHTML='<table><tr><th>q</th><th>worn trail</th><th>÷ k</th><th>fresh finds near</th><th>worn left by 4,000</th><th>worn left by 40,000</th><th>median tick left</th><th>call</th><th>off-trail left by 40,000</th><th>off-trail call</th></tr>'+rows.map(r=>'<tr><td>'+r.q+'</td><td>'+r.tau.toFixed(1)+'</td><td>'+(r.tau/20).toFixed(2)+'</td><td>'+r.freshWins+' / 20</td><td>'+r.byE+' / 20</td><td>'+r.byH+' / 20</td><td>'+(r.med==null?'–':r.med)+'</td><td>'+r.call+'</td><td>'+r.offH+' / 20</td><td>'+r.offCall+'</td></tr>').join('')+'</table>';
+      const L=J.leaveRows.filter(r=>r.counted);const top=L.length?L[L.length-1]:null;
+      $('vd4').textContent=J.tooStrong?('Yes, in this model at this horizon. From a worn trail of about '+J.firstLock.tau.toFixed(0)+' ('+(J.firstLock.tau/20).toFixed(1)+' times k) the colony is locked: '+J.firstLock.byH+' of 20 runs left by 40,000 ticks, where a fresh colony finds the near source in '+J.firstLock.freshWins+'. '
+        +(top?'Up to '+top.tau.toFixed(0)+' ('+(top.tau/20).toFixed(1)+' k) it leaves, in time: the median wait grows from '+L[0].med+' to '+top.med+' ticks. ':'')
+        +(J.offFreed.length?'One ant in ten off the trail turns '+J.offFreed.map(r=>(r.tau/20).toFixed(1)+' k').join(', ')+' to leaves; ':'One ant in ten off the trail turns no row to leaves, and ')
+        +(rows[rows.length-1].offCall==='locked'?'at the strongest trail, '+(rows[rows.length-1].tau/20).toFixed(1)+' k, it is locked too ('+rows[rows.length-1].offH+' of 20).':'at the strongest trail it reads '+rows[rows.length-1].offCall+'.')):'No, in this model at this horizon: every counted row reads leaves.';
       window.RESULT3={rows,J};})();};
 })();
 show(0);
