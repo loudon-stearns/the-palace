@@ -68,7 +68,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   -->
   <script type="application/json" id="vcv-registry">
 {
-  "version": "2.6",
+  "version": "2.7",
   "plugin": "Fundamental",
   "plugin_slug": "Fundamental",
   "vcv_rack_version": "2.x",
@@ -275,20 +275,20 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
     },
     "VCMIXER": {
       "slug": "VCMixer", "plugin": "Fundamental", "name": "VCA Mix", "hp": 10,
-      "description": "Four-channel mixer with per-channel level knobs AND CV inputs. Audio inputs start at index 5, not 0.",
-      "verification": "verified against src/VCMixer.cpp (2026-04-19)",
+      "description": "Four-channel mixer with per-channel level knobs AND CV inputs. Audio inputs are 1–4, level CVs 5–8.",
+      "verification": "verified against src/VCMixer.cpp at Fundamental v2.5.1 (tag v2.5.1, 962547d, the version on Loudon's Mac) and at 10dd016, 2026-11-04: InputIds are MIX_CV, CH_INPUTS 1–4, CV_INPUTS 5–8. The 2026-04-19 entry had audio and CV swapped",
       "poly": "carries voices — VCMixer.cpp: channels = max over CH inputs; MIX and CH outputs carry every voice (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "IN1", "default_output": "MIX",
       "inputs": [
         { "name": "MIX_CV", "type": "cv",    "index": 0, "description": "Master mix CV" },
-        { "name": "CV1",    "type": "cv",    "index": 1, "description": "Ch1 level CV" },
-        { "name": "CV2",    "type": "cv",    "index": 2, "description": "Ch2 level CV" },
-        { "name": "CV3",    "type": "cv",    "index": 3, "description": "Ch3 level CV" },
-        { "name": "CV4",    "type": "cv",    "index": 4, "description": "Ch4 level CV" },
-        { "name": "IN1",    "type": "audio", "index": 5, "description": "Ch1 audio (audio inputs start at 5!)" },
-        { "name": "IN2",    "type": "audio", "index": 6, "description": "Ch2 audio" },
-        { "name": "IN3",    "type": "audio", "index": 7, "description": "Ch3 audio" },
-        { "name": "IN4",    "type": "audio", "index": 8, "description": "Ch4 audio" }
+        { "name": "IN1",    "type": "audio", "index": 1, "description": "Ch1 audio" },
+        { "name": "IN2",    "type": "audio", "index": 2, "description": "Ch2 audio" },
+        { "name": "IN3",    "type": "audio", "index": 3, "description": "Ch3 audio" },
+        { "name": "IN4",    "type": "audio", "index": 4, "description": "Ch4 audio" },
+        { "name": "CV1",    "type": "cv",    "index": 5, "description": "Ch1 level CV" },
+        { "name": "CV2",    "type": "cv",    "index": 6, "description": "Ch2 level CV" },
+        { "name": "CV3",    "type": "cv",    "index": 7, "description": "Ch3 level CV" },
+        { "name": "CV4",    "type": "cv",    "index": 8, "description": "Ch4 level CV" }
       ],
       "outputs": [
         { "name": "MIX",  "type": "audio", "index": 0, "description": "Summed mix" },

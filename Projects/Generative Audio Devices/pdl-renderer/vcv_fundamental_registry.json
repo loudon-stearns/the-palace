@@ -1,5 +1,5 @@
 {
-  "version": "2.6",
+  "version": "2.7",
   "plugin": "Fundamental",
   "plugin_slug": "Fundamental",
   "vcv_rack_version": "2.x",
@@ -274,20 +274,20 @@
       "name": "VCA Mix",
       "hp": 10,
       "description": "Four-channel mixer with per-channel level knobs AND CV-controllable levels. Each channel has its own pre-mix output. Use this when you need real per-channel mixing.",
-      "verification": "verified against src/VCMixer.cpp (2026-04-19)",
+      "verification": "verified against src/VCMixer.cpp at Fundamental v2.5.1 (tag v2.5.1, 962547d, the version on Loudon's Mac) and at 10dd016, 2026-11-04: InputIds are MIX_CV, CH_INPUTS 1–4, CV_INPUTS 5–8. The 2026-04-19 entry had audio and CV swapped",
       "poly": "carries voices — VCMixer.cpp: channels = max over CH inputs; MIX and CH outputs carry every voice (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "IN1",
       "default_output": "MIX",
       "inputs": [
         { "name": "MIX_CV", "type": "cv",    "index": 0, "description": "CV control of master mix level" },
-        { "name": "CV1",    "type": "cv",    "index": 1, "description": "Channel 1 level CV" },
-        { "name": "CV2",    "type": "cv",    "index": 2, "description": "Channel 2 level CV" },
-        { "name": "CV3",    "type": "cv",    "index": 3, "description": "Channel 3 level CV" },
-        { "name": "CV4",    "type": "cv",    "index": 4, "description": "Channel 4 level CV" },
-        { "name": "IN1",    "type": "audio", "index": 5, "description": "Channel 1 audio input. NOTE: audio inputs start at index 5, not 0." },
-        { "name": "IN2",    "type": "audio", "index": 6, "description": "Channel 2 audio input" },
-        { "name": "IN3",    "type": "audio", "index": 7, "description": "Channel 3 audio input" },
-        { "name": "IN4",    "type": "audio", "index": 8, "description": "Channel 4 audio input" }
+        { "name": "IN1",    "type": "audio", "index": 1, "description": "Channel 1 audio input" },
+        { "name": "IN2",    "type": "audio", "index": 2, "description": "Channel 2 audio input" },
+        { "name": "IN3",    "type": "audio", "index": 3, "description": "Channel 3 audio input" },
+        { "name": "IN4",    "type": "audio", "index": 4, "description": "Channel 4 audio input" },
+        { "name": "CV1",    "type": "cv",    "index": 5, "description": "Channel 1 level CV" },
+        { "name": "CV2",    "type": "cv",    "index": 6, "description": "Channel 2 level CV" },
+        { "name": "CV3",    "type": "cv",    "index": 7, "description": "Channel 3 level CV" },
+        { "name": "CV4",    "type": "cv",    "index": 8, "description": "Channel 4 level CV" }
       ],
       "outputs": [
         { "name": "MIX",  "type": "audio", "index": 0, "description": "Summed mix output" },

@@ -5,6 +5,7 @@
 //   clang++ -std=c++17 -O2 -DPATCH_H='"patch.h"' host_render.cpp -o render && ./render out.wav
 #include "host_common.h"
 #include <cstdio>
+#include <vector>
 #include <cstdint>
 #include <cmath>
 

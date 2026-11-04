@@ -15,32 +15,32 @@ forward_vector: "I am Generative Audio Devices's scroll — the one page that al
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T13:34:57.606Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T13:40:52.731Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 4 · last ran 2026-11-04 (today)
-- **Plan:** agreed 2026-11-04 (today) · 1 made thing since
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 5 · last ran 2026-11-04 (today)
+- **Plan:** agreed 2026-11-04 (today) · 2 made things since
 - **Waiting on you:** nothing
-- **Ready to advance:** 1 answer filed since the steward last ran — a cycle will consume it
-- **Last shipped:** 2026-11-04 (today) — Knob settings are now decided once, in one shared resolver, and both the VCV and the Mac targets read from it. Nothing reads a .vcv any more. (`gad-steward-010`)
-- **Last commit touching this project:** 2026-11-04 `11fec17e` — steward(Generative Audio Devices): cycle 3 — SPINNING UP. HOME: [Generative Audio Devices](obsidian://open?vault=The…
+- **Ready to advance:** no unread answers
+- **Last shipped:** 2026-11-04 (today) — The house bass is now a VST3 and AU, built by VST Template's machinery, passing every check. It's installed on your Mac; Live just needs a rescan. (`gad-steward-012`)
+- **Last commit touching this project:** 2026-11-04 `84e4fa6b` — steward(Generative Audio Devices): cycle 4 — SPINNING UP. HOME: [Generative Audio Devices](obsidian://open?vault=The…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-04 — cycle 4 · taught item 8, proposed item 9 for canon
+- **Runs:** 5 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-04 — cycle 5 · taught item 10, proposed items 11, 12 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 4 — items 2, 4, 5, 9; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 9, from cycle 4 — 2026-11-04 — [[Generative Audio Devices — tuning]]
+- **Proposed for canon:** 5 — items 2, 4, 5, 11, 12; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 12, from cycle 5 — 2026-11-04 — [[Generative Audio Devices — tuning]]
 
 ### Where this stands
 
-Generative Audio Devices turns a plain description of a sound into an instrument. English goes in, a neutral patch language (PDL) sits in the middle, and a file comes out. VCV Rack has worked since May. Every patch opens on the QWERTY keyboard and the MacBook speakers, and the warm pad plays chords. Earlier today a second target arrived: the same PDL becomes C++ and a Mac app. Building it showed a crack, though. The knob settings (named regions like 'dark', the archetypes, the seeds) were worked out inside the VCV emitter, so the Mac target had to read its numbers back out of a finished Rack patch. This cycle fixed that. One resolver now decides every knob and the voice count, in PDL's own…
+Generative Audio Devices turns a plain description of a sound into an instrument. English goes in, a neutral patch language (PDL) sits in the middle, and a file comes out for each target. VCV Rack has worked since May, and earlier today the same PDL became a Mac app you play on the QWERTY keyboard. The next step in the plan was a plugin Live can load, and you asked me to coordinate with VST Template and Synth Templates rather than build alongside them. This cycle did both. The house bass, the patch you called alive in Rack, is now GAD House Bass, a VST3 and AU made by VST Template's own build and checks, playing the same engine as the Mac app. While making all of Synth Templates' 292 recipe…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
 - **rough since cycle 1:** The knob vocabulary still lives in the VCV vocabulary file, and I didn't open the renderer page in a browser after the change (Node ran the same code). _(in 2 notes, the latest cycle 4)_
-- **rough since cycle 2:** Nobody has heard the native renders or played the apps, and nobody has compared them by ear to their Rack twins. _(in 3 notes, the latest cycle 4)_
+- **rough since cycle 2:** Nobody has heard the native renders or played the apps, and nobody has compared them by ear to their Rack twins; _(in 4 notes, the latest cycle 5)_
 
 ### Open asks
 
@@ -48,7 +48,7 @@ _None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
-- `gad-steward-008` — GRANTED — option_id=adopt; notes: "adopt the plan, and coordinate with the VST template and the synth preset catalog projects, we are overlapping in our work and I want to make sure we are coordinated and sharing all the code we feel is appropriate." · answered 2026-11-04 — waiting for the next cycle
+_None._
 
 ### Decided
 
@@ -57,6 +57,7 @@ _None — nothing is waiting on you._
 
 ### Runs
 
+- 2026-11-04 — cycle 5 · taught item 10, proposed items 11, 12 for canon
 - 2026-11-04 — cycle 4 · taught item 8, proposed item 9 for canon
 - 2026-11-04 — cycle 3 · taught item 6, proposed item 7 for canon
 - 2026-10-26 — cycle 2 · taught item 3, proposed items 4, 5 for canon
@@ -73,7 +74,8 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 - **2.** 2026-10-26 · [[Generative Audio Devices]] · § Where it stands, the second paragraph (beginning 'Next, every emitted patch is quick to hear') — the paragraph describes as missing what this cycle built; the 'Device defaults' bullet under What still does NOT exist should go with it
 - **4.** 2026-10-26 · [[Generative Audio Devices]] · § What still does NOT exist, the bullet beginning '**Polyphony**' — the bullet calls polyphony unrepresented, and this cycle represented it in all three layers
 - **5.** 2026-10-26 · `Shop/VCV Patch Generator/VCV Patch Generator — spec — PDL generation prompt.md` · § PDL grammar, after the line '# archetype: name #seed=N' — fresh agents can't ask for chords until the prompt names the token, which is the T6 lesson that 'obey the registry' alone wasn't enough
-- **9.** 2026-11-04 · [[Generative Audio Devices]] · § What still does NOT exist, the bullet beginning '**T10**' — the earlier words said the native target borrows its numbers from the VCV emitter, and this cycle ended that
+- **11.** 2026-11-04 · [[Generative Audio Devices]] · § What still does NOT exist, the bullet beginning '**T10**' — the earlier words said no plugin existed; this cycle built one and brought in Synth Templates' cards
+- **12.** 2026-11-04 · [[Generative Audio Devices]] · § Current State — VCV Registry, the line beginning '**Fundamental (8):**' — the page lists the registry's catastrophic corrections, and this is one, affecting every Synth Templates card that mixes
 
 <!-- scroll:now:end -->
 
@@ -109,6 +111,70 @@ Written on Loudon's word at the revival, 2026-10-24, when he played the house ba
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="gad-steward-012" -->
+### 2026-11-04 — cycle 5 — The house bass is now a VST3 and AU, built by VST Template's machinery, passing every check. It's installed on your Mac; Live just needs a rescan.
+> shipped · plugin installed, all checks pass · nobody has played it in Live yet
+
+The plugin. A new script, native/emit_plugin.js, makes a plugin folder with VST Template's new-plugin.py, then fills it from a PDL file. It copies in the patch, the module kit and the voice engine the Mac app plays (unchanged), and adds a knob table that turns every knob of the patch into a host parameter, grouped by module, with the filter's FREQ and RES as the two large knobs, plus a Level. VST Template compares every plugin against a reference sketch. Here the reference is the same engine driven outside the plugin (reference/ref.cpp), so the exact check proves the plugin drives the patch the way the app does, and the plugin check proves the real audio callback, MIDI timing and knob smoothing keep it. Results: the engine matches the reference exactly (0 difference) on all three test phrases, and the plugin's loudness is within 0.13 dB on the cutoff sweep and within 0.000002 dB elsewhere. pluginval passes at strictness 5, auval passes, and the host check passes for the VST3 and the AU; turning the cutoff to 0.9 moves the brightness centroid from 201 Hz to 3222 Hz. To share the engine I made it allocate no memory while playing (the held-note list is now a fixed array, as in Simple Synth). That change touched every target, so I checked that all 17 existing renders came out byte-identical, and the native check still passes 109/109.
+
+The coordination with Synth Templates. Their 292 recipe cards each become a PDL file. Run through the Mac target, 195 built; the other 97 all needed one module this target didn't have, the four-channel VCV mixer (VCA Mix). Before porting it I read its source and found the parts list wrong: it said the audio inputs were sockets 5 to 8 and the level controls 1 to 4, and Rack's source (v2.5.1, the version on your Mac, and the current one) says the opposite. So every Rack file made with that mixer put audio into control sockets. None of my own patches use it. Their card house bass does. I fixed both copies of the list (on-disk file and the copy inside the renderer, now v2.7, with only that block changed), and all four renderer checks still pass. I added the mixer to the Mac kit from the same source lines, and now all 292 cards build there.
+
+**Artifacts:**
+- [the plugin's editor (the preview page VST Template renders, at 1180 × 680): every knob of the house bass, filter cutoff and resonance large](Projects/Generative Audio Devices/proofs/2026-11-04-plugin/GAD House Bass — editor.png)
+- [the real plugin playing the house-bass figure through its audio callback, MIDI in, as the check heard it](Projects/Generative Audio Devices/proofs/2026-11-04-plugin/GAD House Bass — plugin render.wav)
+- [PDL → a VST Template plugin folder](Projects/Generative Audio Devices/native/emit_plugin.js)
+- [the voice engine the app, the renderer and the plugin share, now allocation-free](Projects/Generative Audio Devices/native/host_common.h)
+- [includes its own <vector> now that the engine doesn't](Projects/Generative Audio Devices/native/host_render.cpp)
+- [same include fix](Projects/Generative Audio Devices/native/host_app.mm)
+- [adds VCMIXER from VCMixer.cpp:60-127](Projects/Generative Audio Devices/native/gad_kit.h)
+- [v0.2: VCMIXER in, only SEQ3 still missing](Projects/Generative Audio Devices/native/native_registry.json)
+- [v2.7: VCA Mix audio inputs 1–4, level CVs 5–8, checked against Rack's source](Projects/Generative Audio Devices/pdl-renderer/vcv_fundamental_registry.json)
+- [the embedded copy of the same fix](Projects/Generative Audio Devices/pdl-renderer/PDL Renderer.html)
+- [what the plugin is, how to regenerate it, how to find it in Live](Projects/Generative Audio Devices/plugin/House Bass/README.md)
+- [name, code Ghbs, host-check moves, window size](Projects/Generative Audio Devices/plugin/House Bass/plugin.json)
+- [VST Template's launcher](Projects/Generative Audio Devices/plugin/House Bass/plugin.sh)
+- [VST Template's build file](Projects/Generative Audio Devices/plugin/House Bass/CMakeLists.txt)
+- [keeps build/ and out/ out of git](Projects/Generative Audio Devices/plugin/House Bass/.gitignore)
+- [generated: the template's contract, filled from the patch](Projects/Generative Audio Devices/plugin/House Bass/src/Algorithm.h)
+- [generated: every knob as a host parameter](Projects/Generative Audio Devices/plugin/House Bass/src/knobs.h)
+- [generated by emit_native.js](Projects/Generative Audio Devices/plugin/House Bass/src/patch.h)
+- [copied from native/](Projects/Generative Audio Devices/plugin/House Bass/src/gad_kit.h)
+- [copied from native/](Projects/Generative Audio Devices/plugin/House Bass/src/host_common.h)
+- [the reference: the same engine outside the plugin](Projects/Generative Audio Devices/plugin/House Bass/reference/ref.cpp)
+- [drives ref.cpp for VST Template's verify](Projects/Generative Audio Devices/plugin/House Bass/reference/sketch.py)
+- [the three phrases the plugin must pass](Projects/Generative Audio Devices/plugin/House Bass/reference/paths.py)
+- [the source patch, copied beside its reference](Projects/Generative Audio Devices/plugin/House Bass/reference/house_bass.pdl)
+
+_GAD House Bass — VST Template's checks, final build_
+| check | result |
+| --- | --- |
+| engine = reference (figure, legato, cutoff sweep) | 0 difference, all three |
+| plugin loudness per 0.25 s | within 0.13 dB (tol 1.5) on the sweep, ~0 elsewhere |
+| code signature, strict | pass (VST3 and AU) |
+| pluginval, strictness 5 | SUCCESS |
+| auval | SUCCEEDED |
+| host check (VST3, AU) | PASSED, PASSED |
+| native targets, every PDL | 109/109; 17 renders byte-identical |
+| Synth Templates cards on the Mac target | 292/292 (was 195) |
+
+_Changed in the workshop:_ README — names emit_plugin.js, VCMIXER, the shared allocation-free engine, the first plugin and the 292 cards
+_Changed in the workshop:_ README — new: the first plugin's front door
+_Proposed for canon:_ Generative Audio Devices (§ What still does NOT exist, the bullet beginning '**T10**') — the earlier words said no plugin existed; this cycle built one and brought in Synth Templates' cards; owed in the tuning ledger until Loudon's review; it replaces item 9
+_Proposed for canon:_ Generative Audio Devices (§ Current State — VCV Registry, the line beginning '**Fundamental (8):**') — the page lists the registry's catastrophic corrections, and this is one, affecting every Synth Templates card that mixes; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard the native renders or played the apps, and nobody has compared them by ear to their Rack twins; nor has anyone played the plugin in Live. The editor picture is the preview page, because the real-window photograph failed, and the editor shows every knob, unplugged CV depths and the PUSH buttons included.
+
+_Next moves named:_ Trim the plugin's knobs to the ones a player moves (hide uncabled CV depths and the envelopes' PUSH), perhaps using Synth Templates' split between essential and taste settings · Make plugins for the other archetypes (pluck, warm pad with its six voices, kick) once you've played this one · Max stays paused; the Max moves wait for the patching standards
+<sub>`gad-steward-012` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-248147237e" -->
+### 2026-11-04 — cycle 5
+
+taught item 10, proposed items 11, 12 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-gad-steward-008" -->
 ### 2026-11-04 — Plan revised: Shall the plan's second target be your Mac (the app, built today, and then a VST for Live), with Max kept for after the standards?
 

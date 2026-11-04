@@ -61,9 +61,23 @@ What Generative Audio Devices's steward cycles taught the page, and the changes 
 ## From cycle 4 — 2026-11-04
 
 8. A refactor proves itself by changing nothing: save every emitted file before you move code, and diff them all after, before you trust any harness. *(offered by the steward, cycle 4)*
-9. **Proposed for canon** · 2026-11-04 · [[Generative Audio Devices]] · § What still does NOT exist, the bullet beginning '**T10**' · canon change owed *(proposed by the steward, cycle 4)*
+9. **Proposed for canon** · 2026-11-04 · [[Generative Audio Devices]] · § What still does NOT exist, the bullet beginning '**T10**' · superseded by item 11 *(proposed by the steward, cycle 4)*
    Why: the earlier words said the native target borrows its numbers from the VCV emitter, and this cycle ended that
    Path: `Projects/Generative Audio Devices.md`
    > - **A plugin.** The second target exists as of 2026-11-04. The native target turns the same PDL into C++ and a Mac app that plays on the QWERTY keyboard and the MacBook speakers (`native/`; 96/96, every PDL the project holds going through both targets, knob for knob). Both targets read their knobs and voice count from one resolver, `resolvePatch`, in PDL's own names. What's missing is a VST3 that Live can load, and Max, which waits for the patching standards. The knob vocabulary itself (names, ranges, regions) is still read from the VCV vocabulary file, because Rack's units are PDL's units today.
 
 - run · 2026-11-04 · cycle 4 · taught item 8, proposed item 9 for canon
+
+## From cycle 5 — 2026-11-04
+
+10. A registry entry marked verified can still be wrong: check a module's jack order against its source at the exact version installed (here Fundamental v2.5.1) before building a second target on it. *(offered by the steward, cycle 5)*
+11. **Proposed for canon** · 2026-11-04 · [[Generative Audio Devices]] · § What still does NOT exist, the bullet beginning '**T10**' · canon change owed *(proposed by the steward, cycle 5)*
+    Why: the earlier words said no plugin existed; this cycle built one and brought in Synth Templates' cards
+    Path: `Projects/Generative Audio Devices.md`
+    > - **More plugins, and Max.** The second target exists as of 2026-11-04. The native target turns the same PDL into C++, a Mac app that plays on the QWERTY keyboard and the MacBook speakers (`native/`), and a VST3/AU built by [[VST Template]]'s machinery (`native/emit_plugin.js`; the first is GAD House Bass, which passes pluginval at strictness 5, auval and the host check). Both targets read their knobs and voice count from one resolver, `resolvePatch`, and every one of [[Synth Templates]]' 292 card patches builds on it. What's missing: a plugin heard in Live, plugins for the other archetypes, and Max, which waits for the patching standards. The knob vocabulary itself is still read from the VCV vocabulary file, because Rack's units are PDL's units today.
+12. **Proposed for canon** · 2026-11-04 · [[Generative Audio Devices]] · § Current State — VCV Registry, the line beginning '**Fundamental (8):**' · canon change owed *(proposed by the steward, cycle 5)*
+    Why: the page lists the registry's catastrophic corrections, and this is one, affecting every Synth Templates card that mixes
+    Path: `Projects/Generative Audio Devices.md`
+    > VCA Mix (`VCMIXER`) takes audio on jacks 1–4 and level CV on 5–8 (MIX_CV is 0), as Fundamental v2.5.1's `VCMixer.cpp` declares; the entry before v2.7 had them swapped.
+
+- run · 2026-11-04 · cycle 5 · taught item 10, proposed items 11, 12 for canon

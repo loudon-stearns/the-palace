@@ -9,6 +9,7 @@
 #include <CoreAudio/CoreAudio.h>
 #include <atomic>
 #include <map>
+#include <vector>
 #include <string>
 #include "host_common.h"
 

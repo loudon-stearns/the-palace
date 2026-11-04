@@ -155,6 +155,36 @@ struct MIXER {
   void process(float) { float s = 0; for (float v : in) s += v; out[MIX] = s * p[LEVEL]; }
 };
 
+// VCMixer.cpp:60-127 (Fundamental v2.5.1 and 10dd016). Each channel: input ·
+// LVL² (up to +6 dB), times max(0, CV/10) when its CV is cabled (linear; the
+// module's exponential CV option is off by default and not built). Mix = sum ·
+// MIX_LVL, times max(0, MIX_CV/10) when cabled. A channel with nothing in it
+// adds nothing. Inputs in Rack's order: MIX_CV, IN1–4, CV1–4.
+struct VCMIXER {
+  enum { MIX_LVL, LVL1, LVL2, LVL3, LVL4, N_PARAMS };
+  enum { MIX_CV, IN1, IN2, IN3, IN4, CV1, CV2, CV3, CV4, N_INPUTS };
+  enum { MIX, OUT1, OUT2, OUT3, OUT4, N_OUTPUTS };
+  float p[N_PARAMS] = {1, 1, 1, 1, 1}, in[N_INPUTS] = {}, out[N_OUTPUTS] = {};
+  bool in1C = false, in2C = false, in3C = false, in4C = false;
+  bool cv1C = false, cv2C = false, cv3C = false, cv4C = false, mixCvC = false;
+  void process(float) {
+    const bool inC[4] = {in1C, in2C, in3C, in4C}, cvC[4] = {cv1C, cv2C, cv3C, cv4C};
+    float mix = 0.f;
+    for (int i = 0; i < 4; i++) {
+      float o = 0.f;
+      if (inC[i]) {
+        o = in[IN1 + i] * std::pow(p[LVL1 + i], 2.f);
+        if (cvC[i]) o *= std::max(0.f, in[CV1 + i] / 10.f);
+        mix += o;
+      }
+      out[OUT1 + i] = o;
+    }
+    mix *= p[MIX_LVL];
+    if (mixCvC) mix *= std::max(0.f, in[MIX_CV] / 10.f);
+    out[MIX] = mix;
+  }
+};
+
 // Rack core MIDI_CV.cpp:70-96 (v2): PITCH = (note − 60)/12 V, GATE = 10 V
 // while held, VELOCITY = vel/127 · 10 V. One per voice; the host sets it.
 struct KEYBOARD {
