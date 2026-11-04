@@ -1,0 +1,73 @@
+{
+  "title": "Dovetail Joint ↔ Counterpoint — rich",
+  "born": "2026-11-04",
+  "links": [
+    {
+      "target": "[[Dovetail Joint ↔ Counterpoint]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Dovetail Joint ↔ Counterpoint's rich face, its first round at Sketch tier: one made piece that walks up to a test of The Structural Identity's last row, remove one voice and the other is incomplete, with the fingerprint of the words it was laid against and the offers it found for the text. The nomination's second piece, a dovetail and a butt joint pulled each way, was left unmade: the page's joinery claims hold as written (Fine Woodworking: a dovetail is impossible to take apart in one direction and difficult in the other, and stays together without glue), so it would show, not test. I grow when the page is rewritten or a piece has something new to test; I never hold the entry's words.",
+  "entry": "Dovetail Joint ↔ Counterpoint",
+  "tier": "sketch",
+  "made": "2026-11-04",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The Technical Side",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "\"dissonances resolve on strong beats\" reads two ways. In the second species that Teaching the Resonance, Part 2 teaches (\"On strong beats, use consonances\"; \"Let dissonances resolve by step\"), a dissonance falls on a weak beat and passes by step into a consonance on the strong beat; read as dissonances placed on strong beats, it is fourth species (suspensions) and contradicts Part 2. The piece writes by Part 2: 84 lines, 2.95 passing dissonances a line, every one on a weak beat. Proposed: \"dissonances fall on weak beats and pass by step into a consonance on the strong beat\"."
+    },
+    {
+      "section": "The Structural Identity",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "\"Separating voices requires breaking harmony\" and \"Remove one voice → other voice incomplete\", counted as harmony, do not single out co-design. Parallel tenths name a narrower chord than the cantus alone on 100% of strong beats (arithmetic: any third or sixth does), the line written for the cantus on 72.3%, octave doubling on 0%. What sets the written line apart, over 84 pairs, is two facts together: it never contradicts the cantus's chords (0% of strong beats, against 19.2% for its own notes reordered (at least four strong beats moved) with leaps, range and contrary motion kept, and 19.6% for a line written by the same rules for another cantus), and the cantus can't give it back (at most 50% of its strong beats by sliding or mirroring the cantus, against 100% for parallel lines). Proposed for the last row: \"Remove one voice → the one left can't rebuild it\". Whether a listener hears the difference is untested: the piece's blind test has had no listener."
+    },
+    {
+      "section": "The Deeper Principle",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "\"contrary motion converts melodic tension into harmonic resolution\": with contrary and similar motion matched move for move, and the same notes on the same kinds of beat, a line reordered so it was not written for the cantus contradicts the cantus's chords on 19.2% of strong beats where the written line has 0% (84 pairs). Contrary motion keeps the voices independent; consonance on the strong beats is what makes them agree. Proposed: \"contrary motion keeps the two voices independent, and consonance on the strong beats locks them together\"."
+    },
+    {
+      "section": "The Deeper Principle",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "\"Counterpoint avoids: Parallel motion (voices moving together, not supporting)\": Fux forbids parallel fifths and octaves; parallel thirds and sixths are allowed in short runs. Measured on the same cantus: doubling at the octave narrows the chord on 0% of strong beats, so it is doubling, as Common Struggles says; parallel tenths narrow it on 100% and contradict on 0%, so they support fully. What they lack is independence: the cantus gives them back whole (100% by slide). Proposed: \"Parallel fifths and octaves (one voice doubling the other), and long runs of parallel thirds or sixths (one voice a copy of the other)\"."
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The Structural Identity",
+      "made": "2026-11-04",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-04",
+        "by": "maker · claude-opus-5-5 · proposal round · cloud batch 2, finished on the Mac",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Dovetail Joint ↔ Counterpoint — rich — remove one voice.html",
+          "origin": "made",
+          "by": "second-species engine · one additive tone",
+          "height": 1500,
+          "place": "band",
+          "near": "Remove one voice",
+          "title": "remove one voice · four steps",
+          "caption": "**The table's last row, played and counted.** A cantus alone, which names no chord; a line written for it by the page's own Part 2 rules, with either voice removable; the same cantus with four other partners, and two measures of what removal costs: the chord the pair names, and how much of the removed line the one left could rebuild. Parallel tenths name chords better than the written line does, so harmony alone doesn't mark co-design; what does is never contradicting the partner and not being rebuildable from it. Last, a blind test: a line written for this cantus against one written by the same rules for another, together and then apart, with the verdict rule fixed before the first trial."
+        }
+      ],
+      "made_against": "ee08882344a8",
+      "stamped": "2026-11-04"
+    }
+  ]
+}
