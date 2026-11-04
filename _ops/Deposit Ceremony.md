@@ -124,7 +124,7 @@ A command's exit code is not verification.
 
 **7. Land.** Commit through the palace committer, never a hand-rolled `git commit`, and give `--path` once per file. It commits only what you name. It waits its turn if another commit is in progress, and it refuses a commit with no `--path`, an unknown flag, a main checkout that is off main, or a merge left half done. The rules it keeps are [[How the Palace Commits]] § Rules at the trunk. Preview first: the subject must read `deposit(<id>):`. A deposit that is also a Schema Ceremony commits as `--kind schema` (the committer's kind for that rite, `src/lib/commit-spec.js`), with the deposit's map in the body. The committer writes no `Co-Authored-By` line itself; pass it as the last line of `--body`. Then land with the honest verify state: `verified` only if step 6's checks passed, otherwise `unverified` or `couldnt`, with the reason in the body.
 
-For canon held in a worktree, run the owner's committer with `PALACE_ROOT` pointed at the worktree (the worktree's own copy lacks `js-yaml`).
+For canon held in a worktree, run the owner's committer with `PALACE_ROOT` pointed at the worktree (the worktree's own copy lacks `js-yaml`). A `--dry-run` builds its message in a throwaway index and stages nothing. A move is committed by naming both paths, old and new; naming one side commits half the move.
 
 ```sh
 PALACE_ROOT="<owner>" node "<owner>/_ops/stigmergy/app/scripts/palace-commit.mjs" \
