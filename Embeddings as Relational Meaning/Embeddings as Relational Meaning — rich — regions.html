@@ -302,7 +302,7 @@ if (typeof module !== 'undefined') module.exports = Engine;
     bars($('s4fifth'), Engine.nearest(S, Engine.row(S, f), [f], 8).map(function (r) { return { w: r.w, v: r.cos, c: catOf[r.i] ? COL[catOf[r.i]] : null }; }));
     var c = function (x, y) { return fmt(Engine.cos(S, S.index.get(x), S.index.get(y))); };
     $('s4bn').innerHTML = 'bank · loan <b>' + c('bank', 'loan') + '</b> · bank · money <b>' + c('bank', 'money') + '</b> · bank · river <b>' + c('bank', 'river') + '</b> · bank · water <b>' + c('bank', 'water') + '</b>. One point, pulled toward the sense the text uses most. The river sense is in there too, only quieter.';
-    $('s4fn').innerHTML = '<i>fifth</i> the interval and <i>fifth</i> the place in a race share one point, and the race wins: its nearest words are ordinals. That bears on step 5.'; }
+    $('s4fn').innerHTML = '<i>fifth</i> the interval and <i>fifth</i> the place in a race share one point. Its nearest words are ordinals, but six of these eight (<i>second</i>, <i>third</i>, <i>fourth</i>, <i>sixth</i>, <i>seventh</i>, <i>ninth</i>) are interval names too, so this list can’t tell the two senses apart. Step 5 asks which one wins.'; }
 
   // step 5: the rules, stated before the first trial
   var L2 = data.sense, it = function (a) { return a.map(function (w) { return '<i>' + w + '</i>'; }).join(', '); };
