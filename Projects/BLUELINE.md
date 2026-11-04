@@ -119,4 +119,4 @@ Any tempo, tempo changes included, read from the Set and synced exactly, staged 
 
 ## Active Baton
 
-[[BLUELINE — baton]]: the reset — a Context, the scroll made true, the bundle moves, a record that works at any tempo, the six boards finished, and the Aftermath Frame's guide pick.
+[[BLUELINE — baton]]: the reset's remainder — the record on the Set's tempo map, the six boards finished and cut again, the Aftermath Frame's guide pick, and the lessons from Loudon's separate Set-parsing work.
