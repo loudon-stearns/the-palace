@@ -1,0 +1,369 @@
+<!doctype html>
+<!--
+  title: recipe-p6 — rich — the bell beside the spin
+  born: 2026-11-04
+  links: [[recipe-p6]] (connects-to · rich-face-piece, § What you should hear) · listed in [[recipe-p6 — rich.json]] · [[Wallpaper Groups]] (member-of · the bundle's entry; its world-music list gives the seven-stroke bell) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am the p6 recipe cooked as written and set beside the bell it names. I put one onset on a 12-step clock, copy it by +2 into everything the Method can make, show the mirrors those loops carry, play E(5,12) and the seven-stroke bell beside them, and last measure how near each bell sits to p6, with the rule, a null over every pattern its size, and the section's own break as a positive control. I change only when the recipe does.
+  engine: everything between ENGINE-START and ENGINE-END is pure and runs in Node too; it is byte for byte the engine of the pm and p3 recipe pieces. Projects/Wallpaper Groups/recipe-p6/workshop/rich-checks.mjs re-runs the claims on it. Sound is one synthesized wooden tone, scheduled ahead; no samples.
+  dress: Loudon Live house style, Graphite skin; system fonts only.
+-->
+<html lang="en">
+<head>
+<title>The bell beside the spin</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --cool:#7f9cff; --red:#e05a4a;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace; --sans:system-ui,-apple-system,'Segoe UI',sans-serif; --serif:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 16px; position: relative; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .rail button { border-radius: 0; margin-right: -1px; }
+  .rail button.here { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); margin: 4px 0 4px; }
+  .says { font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 78ch; margin: 0 0 14px; min-height: 4.8em; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; margin-bottom: 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 26px; align-items: end; margin-top: 6px; min-height: 40px; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seglabel { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 96px; }
+  button:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .rule { margin: 4px 0 14px; font-size: 13px; line-height: 1.55; color: var(--fg2); max-width: 84ch; border-left: 2px solid var(--fg4); padding-left: 10px; }
+  .rule b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 10px; font-size: 14px; line-height: 1.55; color: var(--amber); max-width: 82ch; min-height: 1.6em; }
+  .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 92ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 86ch; }
+  .gridrow { display: flex; gap: 3px; align-items: center; margin-bottom: 4px; }
+  .rowlab { flex: 0 0 52px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg3); }
+  .stepcell { flex: 1 1 0; min-width: 12px; max-width: 40px; height: 32px; padding: 0; border-radius: 2px; background: var(--e1); border: 1px solid var(--ring); font-size: 9.5px; letter-spacing: 0; color: var(--fg4); }
+  .stepcell:disabled { cursor: default; opacity: 1; }
+  .stepcell.on { background: var(--amber); border-color: var(--amber); color: #0a0a0f; }
+  .stepcell.derived { opacity: .55; }
+  .stepcell.gap { margin-left: 8px; }
+  .stepcell.gone { box-shadow: 0 0 0 2px var(--red) inset; }
+  .stepcell.head { outline: 1.5px solid var(--fg1); outline-offset: 1px; }
+  .numrow { display: flex; gap: 3px; margin: 0 0 2px; } .numrow span { flex: 1 1 0; min-width: 12px; max-width: 40px; text-align: center; font-family: var(--mono); font-size: 9.5px; color: var(--fg4); }
+  .numrow span.gap { margin-left: 8px; } .numrow .rowlab { visibility: hidden; }
+  .blank { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; color: var(--fg3); padding: 40px 0; text-align: center; }
+  .score { font-family: var(--mono); font-size: 12px; color: var(--fg2); line-height: 1.7; }
+  .score b { color: var(--fg1); font-weight: 500; }
+  @media (max-width: 680px) { .controls > div { min-width: 100%; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · Web Audio · sketch · a walk in five steps</div>
+  <h3 class="title">The bell beside the spin</h3>
+  <p class="sub">One onset on a twelve-step clock, copied by the Method into everything it can make. Then the mirrors those loops carry, and the bell the section names beside them. Last, a measure of how near the bell sits to p6. Sound starts only when you press play; changing step stops it.</p>
+  <div class="rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="stephead" id="stephead"></div>
+  <p class="says" id="says"></p>
+  <div class="rule" id="rule" style="display:none"></div>
+  <div class="panel"><div class="plabel"><span id="gridlabel">the loop</span><span>bright = written · dim = made by the turn · red ring = the hit the break takes out</span></div><div id="grid"></div></div>
+  <div class="panel"><div class="plabel"><span>the loop on the clock</span><span>step 1 at the top, clockwise · blue dashes = sectors · amber dashes = mirrors</span></div><canvas id="clock" style="height:290px"></canvas></div>
+  <div class="controls" id="controls"></div>
+  <div class="read" id="read"></div>
+  <div class="verdict" id="verdict"></div>
+  <div class="eqs" id="eqs" style="display:none"><div class="eq">distance = steps that differ</div><div class="words">(how near a pattern is to p6) is (the fewest steps you would add or take away to reach a loop the Method can cook): 1 3 5 7 9 11, 2 4 6 8 10 12, or all twelve. A sixth of a turn on the clock is a slide of two steps in time, so p6's loops repeat every two steps.</div></div>
+  <div class="nav"><button id="back">← back</button><button id="next">next step →</button></div>
+  <div class="hint">100 BPM, sixteenth-note steps, numbered 1 to 12. One wooden tone at one level for every stroke; the loops differ in how many strokes they have (5, 6, 7 or 12), so the denser ones are louder per bar. A quiet tick marks step 1 of every twelve only; the tick button turns it off.</div>
+</div>
+<script>
+/*ENGINE-START*/
+// Pure: no page, no sound. Byte for byte the same in the three recipe pieces (pm, p3, p6); each
+// bundle's workshop/rich-checks.mjs runs it in Node. Steps count from 0 inside and show from 1.
+// A loop is an array of 0/1, one per step, and wraps: the step after the last is the first.
+const mod = (a, n) => ((a % n) + n) % n;
+function loopOf(hits, N) { const r = new Array(N).fill(0); for (const i of hits) r[mod(i, N)] = 1; return r; }
+function hitsOf(r) { const h = []; r.forEach((v, i) => { if (v) h.push(i); }); return h; }
+function count(r) { return r.reduce((a, b) => a + b, 0); }
+function same(a, b) { return a.length === b.length && a.every((v, i) => v === b[i]); }
+function slide(r, k) { const N = r.length, o = new Array(N).fill(0); r.forEach((v, i) => { if (v) o[mod(i + k, N)] = 1; }); return o; }
+function reflect(r, c) { const N = r.length, o = new Array(N).fill(0); r.forEach((v, i) => { if (v) o[mod(c - i, N)] = 1; }); return o; }
+// the slides that land a loop on itself (on the clock, the turns), and the mirrors n → c − n that do
+function turns(r) { const out = []; for (let k = 1; k < r.length; k++) if (same(slide(r, k), r)) out.push(k); return out; }
+function period(r) { const t = turns(r); return t.length ? t[0] : r.length; }
+function mirrors(r) { const out = []; for (let c = 0; c < r.length; c++) if (same(reflect(r, c), r)) out.push(c); return out; }
+// a mirror on a loop has two ends, half a loop apart: on a step when c is even, on a seam when c is odd
+function endName(p, N) { if (Number.isInteger(p)) return `step ${p + 1}`; const lo = Math.floor(p); return `${lo + 1}|${mod(lo + 1, N) + 1}`; }
+function mirrorEnds(c, N) { return [c / 2, mod(c / 2 + N / 2, N)].sort((a, b) => a - b).map((p) => endName(p, N)); }
+function cook(cell, N, sector) { const h = []; for (let k = 0; k < N; k += sector) for (const i of cell) h.push(i + k); return loopOf(h, N); }
+function subsets(m, sizes) { const out = []; for (let b = 1; b < (1 << m); b++) { const h = []; for (let i = 0; i < m; i++) if ((b >> i) & 1) h.push(i); if (sizes.includes(h.length)) out.push(h); } return out; }
+function dist(a, b) { let d = 0; for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) d++; return d; }
+function nearest(r, list) { return Math.min(...list.map((x) => dist(r, x))); }
+function tiled(cell, len, N) { return loopOf(Array.from({ length: N }, (_, i) => i).filter((i) => cell.includes(i % len)), N); }
+
+// recipe-pm: 16 steps; the half is steps 1–8; the Method's mirror n → 17 − n is i → 15 − i here
+function pmHalves() { return subsets(8, [3, 4]); }
+function pmLoop(half) { return loopOf([...half, ...half.map((i) => 15 - i)], 16); }
+// the same half under recipe-p2's rule, n → n + 8: the comparison recipe-pm.md:25 names ("than p2")
+function repeatLoop(half) { return loopOf([...half, ...half.map((i) => i + 8)], 16); }
+// the break as written (recipe-pm.md:29): keep the hit, silence its reflection
+function pmBreaks(half) { const r = pmLoop(half); return half.map((i) => { const b = r.slice(); b[15 - i] = 0; return { silenced: 15 - i, r: b }; }); }
+
+// recipe-p3: 12 steps, sectors of 4, 2–3 hits in steps 1–4; and a longer loop offered as a repair
+function p3Cells() { return subsets(4, [2, 3]); }
+function p3Loop(cell) { return cook(cell, 12, 4); }
+function p3Cells24() { return subsets(8, [2, 3]); }
+function p3Loop24(cell) { return cook(cell, 24, 8); }
+
+// recipe-p6: 12 steps, sectors of 2, 1–2 hits in steps 1–2
+function p6Cells() { return subsets(2, [1, 2]); }
+function p6Loop(cell) { return cook(cell, 12, 2); }
+function p6Loops() { return p6Cells().map(p6Loop); }
+// the break as written (recipe-p6.md:31): one hit out of any sector but the first (steps 3–12)
+function p6Breaks() { const out = []; for (const r of p6Loops()) for (const i of hitsOf(r)) if (i >= 2) { const b = r.slice(); b[i] = 0; out.push(b); } return out; }
+const BELL5 = loopOf([0, 3, 5, 8, 10], 12);        // E(5,12) in Bjorklund's order, x..x.x..x.x.
+const BELL7 = loopOf([0, 2, 4, 5, 7, 9, 11], 12);  // Wallpaper Groups.md's own list, steps 1 3 5 6 8 10 12
+
+function tally() {
+  const H = pmHalves(), C = p3Cells(), C24 = p3Cells24(), P6 = p6Loops();
+  const all12 = (k) => subsets(12, [k]).map((h) => loopOf(h, 12));
+  const t = {};
+  t.pmHalves = H.length;
+  t.pmDiffers = H.filter((h) => !same(pmLoop(h), repeatLoop(h))).length;
+  t.pmPeriod16 = H.filter((h) => period(pmLoop(h)) === 16).length;
+  t.repeatPeriod8 = H.filter((h) => period(repeatLoop(h)) <= 8).length;
+  t.pmMirror89 = H.filter((h) => mirrors(pmLoop(h)).includes(15)).length;
+  const br = H.flatMap((h) => pmBreaks(h));
+  t.pmBreaks = br.length;
+  t.pmBreaksKeep89 = br.filter((b) => mirrors(b.r).includes(15)).length;
+  t.pmBreaksKeepAMirror = br.filter((b) => mirrors(b.r).length > 0).length;
+  t.p3Cells = C.length;
+  t.p3Period4 = C.filter((c) => period(p3Loop(c)) === 4).length;
+  t.p3Period2 = C.filter((c) => period(p3Loop(c)) === 2).length;
+  t.p3HasTurn4 = C.filter((c) => turns(p3Loop(c)).includes(4)).length;
+  t.p3SameAsCellThrice = C.filter((c) => same(p3Loop(c), tiled(c, 4, 12))).length;
+  t.p3WithMirror = C.filter((c) => mirrors(p3Loop(c)).length > 0).length;
+  t.null12NoMirror = {}; for (const k of [3, 6, 9]) { const A = all12(k); t.null12NoMirror[k] = [A.filter((r) => !mirrors(r).length).length, A.length]; }
+  t.p3Cells24 = C24.length;
+  t.p3Loop24NoMirror = C24.filter((c) => !mirrors(p3Loop24(c)).length).length;
+  t.p6Loops = P6.map((r) => ({ hits: hitsOf(r).map((i) => i + 1), count: count(r), period: period(r), mirrors: mirrors(r).length }));
+  t.maxMirrorsShortOfAllOrNone = Math.max(...[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].flatMap((k) => all12(k).map((r) => mirrors(r).length)));
+  const bell = (r) => ({ count: count(r), turns: turns(r).length, mirrors: mirrors(r).map((c) => mirrorEnds(c, 12).join(' and ')), nearestP6: nearest(r, P6) });
+  t.bell5 = bell(BELL5); t.bell7 = bell(BELL7);
+  const hist = (k) => { const h = {}; for (const r of all12(k)) { const d = nearest(r, P6); h[d] = (h[d] || 0) + 1; } return h; };
+  t.nearestNull5 = hist(5); t.nearestNull7 = hist(7);
+  const B = p6Breaks();
+  t.p6Breaks = B.length; t.p6BreaksWithMirror = B.filter((r) => mirrors(r).length > 0).length;
+  t.p6BreaksNearest = [...new Set(B.map((r) => nearest(r, P6)))];
+  t.p6BreaksTurns = B.filter((r) => turns(r).length > 0).length;
+  return t;
+}
+/*ENGINE-END*/
+
+// ── sound: nothing is made before a click ──
+// One wooden tone (a short sine with a click on its front), the same peak and envelope for every
+// hit in every loop, and no compressor, so nothing in the chain depends on how many hits play.
+// A quiet tick marks step 1 of each cycle only, so no beat grouping is imposed; it can be turned off.
+// 100 BPM, sixteenth-note steps (0.15 s).
+let AC = null, OUT = null, NOISE = null, timer = null, nextT = 0, pos = 0, playing = false, PROG = null, REPEAT = true, ONEND = null, TICKS = true;
+const STEP_S = 60 / 100 / 4, QUEUE = [];
+function audio() {
+  if (AC) return;
+  AC = new AudioContext(); OUT = AC.createGain(); OUT.gain.value = 0.5; OUT.connect(AC.destination);
+  NOISE = AC.createBuffer(1, Math.round(AC.sampleRate * 0.1), AC.sampleRate);
+  const d = NOISE.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+}
+function wood(t) {
+  const f = 740, o = AC.createOscillator(), g = AC.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(f * 1.25, t); o.frequency.exponentialRampToValueAtTime(f, t + 0.012);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.6, t + 0.002); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.14);
+  o.connect(g); g.connect(OUT); o.start(t); o.stop(t + 0.16);
+  const s = AC.createBufferSource(), bp = AC.createBiquadFilter(), gn = AC.createGain(); s.buffer = NOISE; bp.type = 'bandpass'; bp.frequency.value = 3000; bp.Q.value = 1.4;
+  gn.gain.setValueAtTime(0.0001, t); gn.gain.exponentialRampToValueAtTime(0.22, t + 0.001); gn.gain.exponentialRampToValueAtTime(0.0001, t + 0.018);
+  s.connect(bp); bp.connect(gn); gn.connect(OUT); s.start(t); s.stop(t + 0.03);
+}
+function tick(t) {
+  const s = AC.createBufferSource(), hp = AC.createBiquadFilter(), g = AC.createGain(); s.buffer = NOISE; hp.type = 'highpass'; hp.frequency.value = 7000;
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.07, t + 0.001); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.03);
+  s.connect(hp); hp.connect(g); g.connect(OUT); s.start(t); s.stop(t + 0.04);
+}
+// a program is a list of steps, { hit, tick, i } (i = the step shown, -1 for silence)
+function progOf(r, times) { const out = []; for (let k = 0; k < times; k++) r.forEach((v, i) => out.push({ hit: !!v, tick: i === 0, i })); return out; }
+function silence(n) { return Array.from({ length: n }, () => ({ hit: false, tick: false, i: -1 })); }
+function schedule() {
+  if (!playing || !AC) return;
+  while (nextT < AC.currentTime + 0.12) {
+    if (pos >= PROG.length) { if (!REPEAT) { const t = nextT; QUEUE.push({ t, end: true }); playing = false; clearInterval(timer); timer = null; return; } pos = 0; }
+    const e = PROG[pos]; if (e.hit) wood(nextT); if (e.tick && TICKS) tick(nextT);
+    QUEUE.push({ t: nextT, i: e.i }); nextT += STEP_S; pos++;
+  }
+}
+function play(prog, repeat, onEnd) {
+  audio(); if (AC.state !== 'running') AC.resume();
+  PROG = prog; REPEAT = repeat; ONEND = onEnd || null; playing = true; pos = 0; nextT = AC.currentTime + 0.06; QUEUE.length = 0;
+  clearInterval(timer); timer = setInterval(schedule, 25); schedule(); requestAnimationFrame(playhead);
+}
+function stop() { playing = false; clearInterval(timer); timer = null; QUEUE.length = 0; ONEND = null; onHead(-1); }
+function playhead() {
+  if (!AC) return;
+  let cur = null, ended = false;
+  while (QUEUE.length && QUEUE[0].t <= AC.currentTime) { const q = QUEUE.shift(); if (q.end) ended = true; else cur = q.i; }
+  if (cur !== null) onHead(cur);
+  if (ended) { onHead(-1); const f = ONEND; ONEND = null; if (f) f(); return; }
+  if (playing || QUEUE.length) requestAnimationFrame(playhead);
+}
+
+// ── drawing ──
+const $ = (id) => document.getElementById(id);
+const AMBER = '#e8b84a', COOL = '#7f9cff', RED = '#e05a4a', DIM = '#2a2a38', FG3 = '#8a8aa0', FG1 = '#e8e8f0';
+let HEAD = -1;
+function onHead(i) { HEAD = i; document.querySelectorAll('.stepcell').forEach((b) => b.classList.toggle('head', Number(b.dataset.i) === i)); if (typeof redraw === 'function') redraw(); }
+function sizeCanvas(cv) {
+  const dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+  if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+  const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); return { ctx, w, h };
+}
+// a row of step cells; opts: { label, gapEvery, editable(i), derived(i), gone(i), onClick(i) }
+function stepRow(el, r, opts = {}) {
+  const N = r.length, row = document.createElement('div'); row.className = 'gridrow';
+  row.innerHTML = `<span class="rowlab">${opts.label || ''}</span>`;
+  for (let i = 0; i < N; i++) {
+    const b = document.createElement('button'); b.className = 'stepcell'; b.dataset.i = i; b.textContent = i + 1;
+    if (opts.gapEvery && i > 0 && i % opts.gapEvery === 0) b.classList.add('gap');
+    if (r[i]) b.classList.add('on'); if (opts.derived && opts.derived(i) && r[i]) b.classList.add('derived'); if (opts.gone && opts.gone(i)) b.classList.add('gone');
+    if (i === HEAD) b.classList.add('head');
+    if (opts.editable && opts.editable(i)) b.onclick = () => opts.onClick(i); else b.disabled = true;
+    b.setAttribute('aria-label', `step ${i + 1}${r[i] ? ', hit' : ''}`); row.append(b);
+  }
+  el.append(row);
+}
+// the loop as a clock: step 1 at the top, clockwise. opts: { mirror: c, sectors: k, ghost: loop, ring: label }
+function clock(cv, r, opts = {}) {
+  const { ctx, w, h } = sizeCanvas(cv); ctx.clearRect(0, 0, w, h);
+  const N = r.length, cx = w / 2, cy = h / 2, R = Math.min(w, h) / 2 - 26, ang = (p) => -Math.PI / 2 + (2 * Math.PI * p) / N;
+  const at = (p, rr = R) => [cx + rr * Math.cos(ang(p)), cy + rr * Math.sin(ang(p))];
+  ctx.strokeStyle = DIM; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 2 * Math.PI); ctx.stroke();
+  if (opts.sectors) { ctx.strokeStyle = 'rgba(127,156,255,.35)'; ctx.setLineDash([3, 4]); for (let k = 0; k < N; k += opts.sectors) { const [x, y] = at(k - 0.5); ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(x, y); ctx.stroke(); } ctx.setLineDash([]); }
+  for (const c of opts.mirrors || []) { const [x1, y1] = at(c / 2, R + 16), [x2, y2] = at(c / 2 + N / 2, R + 16); ctx.strokeStyle = 'rgba(232,184,74,.6)'; ctx.setLineDash([6, 5]); ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); ctx.setLineDash([]); }
+  const hs = hitsOf(r); if (hs.length > 1) { ctx.strokeStyle = 'rgba(232,184,74,.25)'; ctx.beginPath(); hs.forEach((i, k) => { const [x, y] = at(i); k ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.closePath(); ctx.stroke(); }
+  for (let i = 0; i < N; i++) {
+    const [x, y] = at(i), on = !!r[i], ghost = opts.ghost && opts.ghost[i] && !on;
+    ctx.beginPath(); ctx.arc(x, y, on ? 7 : 3.2, 0, 2 * Math.PI);
+    ctx.fillStyle = on ? (opts.tint && opts.tint(i) ? COOL : AMBER) : ghost ? 'rgba(224,90,74,.0)' : DIM; ctx.fill();
+    if (ghost) { ctx.strokeStyle = RED; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(x, y, 7, 0, 2 * Math.PI); ctx.stroke(); ctx.lineWidth = 1; }
+    if (i === HEAD) { ctx.strokeStyle = FG1; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(x, y, 10.5, 0, 2 * Math.PI); ctx.stroke(); ctx.lineWidth = 1; }
+    const [tx, ty] = at(i, R + (N > 16 ? 13 : 15)); ctx.fillStyle = FG3; ctx.font = `${N > 16 ? 9 : 10}px ui-monospace, Menlo, monospace`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(String(i + 1), tx, ty);
+  }
+}
+function seg(label, items, get, set) {
+  const d = document.createElement('div'); d.innerHTML = `<span class="seglabel">${label}</span>`; const s = document.createElement('div'); s.className = 'seg';
+  for (const [v, t] of items) { const b = document.createElement('button'); b.textContent = t; if (get() === v) b.classList.add('on'); b.onclick = () => set(v); s.append(b); }
+  d.append(s); return d;
+}
+function rail(steps, cur, go) { const r = $('rail'); r.innerHTML = ''; steps.forEach((s, k) => { const b = document.createElement('button'); b.textContent = `${k + 1} · ${s.name}`; if (k + 1 === cur) b.classList.add('here'); b.onclick = () => go(k + 1); r.append(b); }); }
+const ones = (r) => hitsOf(r).map((i) => i + 1).join(' ');
+
+const STEPS = [
+  { name: 'one onset', says: 'A twelve-step cycle, drawn as a clock with step 1 at the top. One hit, in step 1: the first sector, steps 1 and 2, is the sixth you control.' },
+  { name: 'the sixth-turn', says: 'Step 2 of the Method: copy the sector five more times, each shifted by +2. On the clock each copy is a sixth of a turn; in time it is a slide of two steps, so the loop repeats every two. Step 1 allows one or two hits in steps 1 and 2, and that makes three loops in all: 1 3 5 7 9 11, 2 4 6 8 10 12, or all twelve. The first two are one pulse, a step apart.' },
+  { name: 'its mirrors', says: 'The section says no mirror settles p6. Draw the mirrors that land the loop on itself: the pulse has 6, all twelve has 12. No twelve-step loop short of all or nothing has more than 6, so the recipe\'s loops carry the most mirrors a pattern here can have.' },
+  { name: 'the bells beside', says: 'The section names the Ewe timeline E(5,12): five strokes, x..x.x..x.x. Beside it is the bell Wallpaper Groups lists, steps 1 3 5 6 8 10 12. That is seven strokes, E(7,12) turned. This piece doesn\'t settle which bell the section means; the test runs on both. Switch between them and the pulse.' },
+  { name: 'the test · near p6?', says: 'Does the bell approximate p6\'s rotational skeleton? Read the rule; it is fixed before the readings.' },
+];
+const S = { step: 1, cell: [0], bell: 'b5', arm: 'b5' };
+const BREAK = (() => { const r = p6Loop([0]); r[6] = 0; return r; })();   // the section's break: one hit out of sector 4 (step 7)
+const P6 = p6Loops();
+function rowNow() {
+  if (S.step === 1) return loopOf([0], 12);
+  if (S.step === 4) return S.bell === 'b5' ? BELL5 : S.bell === 'b7' ? BELL7 : p6Loop([0]);
+  if (S.step === 5) return S.arm === 'b5' ? BELL5 : S.arm === 'b7' ? BELL7 : BREAK;
+  return p6Loop(S.cell);
+}
+function redraw() {
+  const r = rowNow(), cooked = S.step === 2 || S.step === 3; $('grid').innerHTML = '';
+  stepRow($('grid'), r, { label: S.step >= 4 ? ({ b5: 'E(5,12)', b7: '7-stroke', pulse: 'pulse', brk: 'break' })[S.step === 4 ? S.bell : S.arm] : S.step === 1 ? 'onset' : 'loop', gapEvery: 2,
+    derived: (i) => cooked && i >= 2, editable: (i) => S.step === 2 && i < 2, onClick: toggle, gone: (i) => S.step === 5 && S.arm === 'brk' && i === 6 });
+  clock($('clock'), r, { sectors: S.step === 2 || S.step === 3 ? 2 : 0, mirrors: S.step === 3 || S.step === 5 ? mirrors(r) : [], ghost: S.step === 5 && S.arm === 'brk' ? p6Loop([0]) : null });
+}
+function toggle(i) { const h = S.cell.includes(i) ? S.cell.filter((x) => x !== i) : [...S.cell, i].sort(); if (!h.length) return; S.cell = h; stop(); refresh(); }
+const RULE = '<b>The rule, set before the readings.</b> The section says E(5,12) "approximates p6\'s rotational skeleton" (recipe-p6.md:25). Three meters, the same on every pattern: (a) the slides that land it on itself; p6 needs the slide of two. (b) The mirrors that land it on itself. (c) Its distance: how many steps you would change to reach the nearest loop the Method can cook. '
+  + '<b>It holds</b> if a bell sits nearer the p6 loops than most patterns with as many strokes. '
+  + '<b>The null:</b> over every 12-step pattern with five strokes the distance is 1 for 12, 3 for 180 and 5 for 600, of 792; 5 is the farthest any five- or seven-stroke pattern can sit. Seven strokes give the same split. '
+  + '<b>A meter check, not a control:</b> the section\'s own break, one hit out of the pulse, reads 1 by construction. It shows the meter reads near when it should; it cannot fail, and it tests nothing about the bell.';
+let TALLY = null;
+function line(name, r) { const m = mirrors(r); return `<span>${name}: strokes <b>${count(r)}</b> · slides that land it on itself <b>${turns(r).map((k) => '+' + k).join(' ') || 'none'}</b> · mirrors <b>${m.length ? m.map((c) => mirrorEnds(c, 12).join(' & ')).join(' · ') : 'none'}</b> · distance to p6 <b>${nearest(r, P6)}</b></span>`; }
+function readout() {
+  const r = rowNow(); let html = '';
+  if (S.step === 5) html = [line('E(5,12)', BELL5), line('seven-stroke bell', BELL7), line('the section\'s break', BREAK)].join('');
+  else {
+    const bits = [`hits <b>${ones(r)}</b>`, `strokes <b>${count(r)}</b>`];
+    if (S.step >= 2) bits.push(`repeats every <b>${period(r)}</b> steps`);
+    if (S.step >= 3) bits.push(`mirrors <b>${mirrors(r).length}</b>`);
+    html = bits.map((b) => `<span>${b}</span>`).join('');
+  }
+  $('read').innerHTML = html;
+}
+function verdictText() {
+  const t = TALLY;
+  return `Neither bell. No slide lands either one on itself: a six-fold copy makes 6 or 12 strokes, never 5 or 7. Each has exactly one mirror (E(5,12) through ${t.bell5.mirrors[0]}, the seven-stroke bell through ${t.bell7.mirrors[0]}). Each sits ${t.bell5.nearestP6} changes from the nearest p6 loop, the farthest any pattern its size can sit (${t.nearestNull5[5]} of 792 sit there). The break reads ${t.p6BreaksNearest.join(', ')}, a meter check: one hit out of a cooked loop is 1 away by construction. By the recipes' own grammar, the bell's one symmetry is the mirror the section says p6 refuses. The break has a mirror too, through its gap: ${t.p6BreaksWithMirror} of ${t.p6Breaks} breaks the section allows do.`;
+}
+function controls() {
+  const c = $('controls'); c.innerHTML = '';
+  const go = document.createElement('button'); go.className = 'go'; go.textContent = playing ? 'stop' : 'play';
+  go.onclick = () => { if (playing) stop(); else play(progOf(rowNow(), 1), true); controls(); }; c.append(go);
+  const swap = (fn) => (v) => { fn(v); const was = playing; refresh(); if (was) { play(progOf(rowNow(), 1), true); controls(); } };
+  if (S.step === 4) c.append(seg('play', [['b5', 'E(5,12)'], ['b7', 'the seven-stroke bell'], ['pulse', 'the pulse · p6']], () => S.bell, swap((v) => { S.bell = v; })));
+  if (S.step === 5) c.append(seg('show', [['b5', 'E(5,12)'], ['b7', 'the seven-stroke bell'], ['brk', 'the section\'s break']], () => S.arm, swap((v) => { S.arm = v; })));
+  const tk = document.createElement('button'); tk.textContent = TICKS ? 'tick on' : 'tick off'; tk.className = TICKS ? 'on' : ''; tk.onclick = () => { TICKS = !TICKS; controls(); }; c.append(tk);
+}
+function refresh() {
+  rail(STEPS, S.step, goStep); const st = STEPS[S.step - 1];
+  $('stephead').textContent = `step ${S.step} of ${STEPS.length} · ${st.name}`; $('says').textContent = st.says;
+  $('rule').style.display = S.step === 5 ? '' : 'none'; $('rule').innerHTML = RULE; $('eqs').style.display = S.step >= 2 ? '' : 'none';
+  if (S.step === 5 && !TALLY) TALLY = tally();
+  $('verdict').textContent = S.step === 5 ? verdictText() : '';
+  $('back').disabled = S.step === 1; $('next').disabled = S.step === STEPS.length;
+  redraw(); readout(); controls();
+}
+function goStep(n) { stop(); S.step = n; refresh(); }
+$('back').onclick = () => goStep(Math.max(1, S.step - 1)); $('next').onclick = () => goStep(Math.min(STEPS.length, S.step + 1));
+window.addEventListener('resize', () => redraw());
+refresh();
+</script>
+</body>
+</html>

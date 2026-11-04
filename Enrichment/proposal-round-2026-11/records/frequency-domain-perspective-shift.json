@@ -1,0 +1,25 @@
+{
+ "entry": "Frequency Domain ↔ Perspective Shift",
+ "path": "Cross-Domain Resonances/Frequency Domain ↔ Perspective Shift.md",
+ "type": "concept",
+ "stage": "mature",
+ "weight": 6,
+ "claim": "§ Teaching Notes: 'Neither view shows everything' — the waveform can't tell you the kick's 60 Hz, the spectrum can't tell you when the transient hit.",
+ "pieces": [
+  {
+   "section": "Teaching Notes",
+   "what": "One kick shown in the time view, then the spectrum, each with a question only the other view can answer; then the spectrogram as the third view",
+   "kind": "interactive",
+   "walks_up_from": "a single kick waveform"
+  },
+  {
+   "section": "The Coordinate System Metaphor",
+   "what": "A point dragged in Cartesian and polar at once; a circle is one number in polar",
+   "kind": "interactive",
+   "walks_up_from": "the point (3, 4)"
+  }
+ ],
+ "gathered": [],
+ "tier": "sketch",
+ "slice": 0
+}
