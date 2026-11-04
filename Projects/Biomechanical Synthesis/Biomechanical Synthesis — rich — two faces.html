@@ -3,7 +3,7 @@
   title: Biomechanical Synthesis — rich — two faces
   born: 2026-11-04
   links: [[Biomechanical Synthesis]] (connects-to · rich-face-piece) · listed in [[Biomechanical Synthesis — rich.json]] · checked by "Biomechanical Synthesis — rich — check.mjs"
-  forward_vector: I am one compressor with two faces, a plain meter and a body, proved the same arithmetic by a null, and a three-try test of whether the face changes what a hand sets. I do not test the page’s memory claim and say so. I play inside the entry’s rich face and stand alone opened directly; I change only when Visceral Pedagogy or item 4 of Eight Synthesizer Concepts does.
+  forward_vector: I am one compressor with two faces, a plain meter and a body, coded as one compressor and checked by a null, and a three-try test of whether the face changes what a hand sets. I do not test the page’s memory claim and say so. I play inside the entry’s rich face and stand alone opened directly; I change only when Visceral Pedagogy or item 4 of Eight Synthesizer Concepts does.
 -->
 <html lang="en">
 <head>
@@ -98,8 +98,8 @@
 
   <!-- step 3: the null -->
   <div id="vNull" class="panel">
-    <div class="plabel"><span>the null · plain output minus body output, on the current settings</span></div>
-    <div class="rule">The body face is written in its own variables, pressure in mmHg and a lumen in millimetres, not by calling the plain one. If it is the same compressor, subtracting one output from the other leaves nothing: the residual must be below <b>−120 dB</b> against the signal. Anything above that would mean the faces are two compressors. The control is a body whose wall moves in millimetres instead of in ratios of its width, the way a vessel drawn on screen most naturally moves; the null must <i>fail</i> it (above −60 dB on an engaged setting), or the null could not tell two compressors apart.</div>
+    <div class="plabel"><span>the null · plain output minus body output, on the current settings · a check of the code</span></div>
+    <div class="rule">The body face is written in its own variables, pressure in mmHg and a lumen in millimetres, not by calling the plain one. This checks the code, not the world: the body face is the same smoother rescaled into mmHg and millimetres, so if it was coded as the same compressor, subtracting one output from the other leaves nothing: the residual must be below <b>−120 dB</b> against the signal. Anything above that would mean the faces are two compressors. The control is a body whose wall moves in millimetres instead of in ratios of its width, the way a vessel drawn on screen most naturally moves; the null must <i>fail</i> it (above −60 dB on an engaged setting), or the null could not tell two compressors apart.</div>
     <button id="runNull">Run the null</button>
     <div class="read" id="nullRead"></div>
   </div>
@@ -113,18 +113,19 @@
   <!-- step 5: the test -->
   <div id="vTest" class="panel">
     <div class="plabel"><span>the test · three tries, one task</span><span id="testState"></span></div>
-    <div class="rule" id="ruleBox">
-      <b>The task, the same each time:</b> bring the kicks down so their deepest squeeze sits in the band (4 to 8 dB; a light says when it does), without the hiss between hits swelling and sinking. Press Done when it sounds right to you.
-      <br><b>The rule, before the first try.</b>
+    <div class="rule" id="taskBox">
+      <b>The task, the same each time:</b> bring the kicks down so their deepest squeeze sits in the band (4 to 8 dB; a light says when it does), without the hiss between hits swelling and sinking. Set it so it sounds right to you, then press Done. Three tries; every try starts from the same settings, and the numbers stay hidden until the end. What is being compared is shown after the third try, not before, so that knowing it can’t steer your hand.
+    </div>
+    <div class="rule hide" id="ruleBox">
+      <b>The rule, fixed in this piece’s code before anyone’s first try, shown now that you are done.</b>
       <ol>
-        <li>You take the task three times. A coin picks the order: plain, body, plain, or body, plain, body. Every try starts from the same settings; the numbers are hidden on both faces until you finish. The sliders have the same ranges, the same order and the same travel on both faces; only the words and the picture differ. The sound is the same compressor on the same loop, so loudness cannot differ between faces.</li>
-        <li>Your three settings become points (threshold straight, ratio, attack and release on a log scale, each range set to 0..1). If the two tries on the same face are the closest pair, the face moved your settings on this run.</li>
-        <li>If the face made no difference, any of the three pairs is equally likely to be closest: <b>chance is 1 in 3</b>. One run is not evidence; it is one reader's line for a pool.</li>
-        <li>Pooled: the face changes what readers set if the count of runs where the same-face pair was closest reaches 4 of 5, 7 of 10, 11 of 20 or 19 of 40 (each p ≤ 0.05 against 1 in 3). Both arms are counted apart, the runs whose repeated face was plain and those whose was the body, and each is held to the same table.</li>
-        <li>What this cannot rule on: memory, which is the page's claim; disgust, which this face doesn't try for; and a reader who knows the rule and sets two tries alike on purpose. Learning across tries pulls the first and third apart, which works <i>against</i> the face, not for it.</li>
+        <li>A coin you were not shown picked the order: plain, body, plain, or body, plain, body. Both faces had the same ranges, order, slider travel and start; only the words and the picture differ, and the sound is one compressor on one loop.</li>
+        <li><b>Within you.</b> Your three settings become points (threshold straight; ratio, attack and release on a log scale; each range 0..1). If your two tries on the same face are the closest pair, the face moved your settings on this run. If the face changes nothing, any pair is equally likely to be closest: <b>chance 1 in 3</b>. Pooled, the face moves what readers set if the count reaches 4 of 5, 7 of 10, 11 of 20 or 19 of 40 runs (each p ≤ 0.05 against 1 in 3), with the runs whose repeated face was plain and those whose was the body counted apart, each held to the same table. This half can be gamed by a reader who knows the rule before trying, which is why it was hidden.</li>
+        <li><b>Between readers, first tries only.</b> On try 1 nobody has seen the other face. Readers whose coin gave the body first are compared with readers whose coin gave the plain face first, on log attack and log release: difference of the two groups’ means, two-sided permutation p over 9999 shuffles. The face moved first tries if either p is under 0.025 (two measures, so 5% overall by chance). It needs 5 readers in each arm; both arms’ counts and medians are always shown. It is a small net: simulated, with 10 readers an arm it finds a body face that quadruples attack and release about half the time, with 20 an arm most of the time.</li>
+        <li>What this cannot rule on: memory, which is the page’s claim, and disgust, which this face doesn’t try for. Learning across tries pulls try 1 and try 3 apart, which works against the face in the first half; the second half uses first tries only.</li>
       </ol>
     </div>
-    <button class="go" id="begin">I have read the rule · begin</button>
+    <button class="go" id="begin">begin the three tries</button>
     <button id="done" class="hide">Done</button>
     <div class="read" id="testRead"></div>
     <div id="result" class="hide">
@@ -132,6 +133,12 @@
       <p id="resLine"></p>
       <p class="words">Your line for a pool (copy it to whoever is counting):</p>
       <textarea id="poolLine" rows="3" readonly></textarea>
+    </div>
+    <div class="panel" style="margin-top:12px">
+      <div class="plabel"><span>score a pool · paste readers’ lines, one per line</span></div>
+      <textarea id="poolIn" rows="4" placeholder="{&quot;piece&quot;:&quot;Biomechanical Synthesis — two faces&quot;, …}"></textarea>
+      <button id="poolGo" style="margin-top:8px">score it</button>
+      <div class="read" id="poolOut"></div>
     </div>
   </div>
 
@@ -216,15 +223,47 @@ var COMP = (function () {
     var d13 = dist(tries[0], tries[2]), d12 = dist(tries[0], tries[1]), d23 = dist(tries[1], tries[2]);
     return { same: d13, cross: [d12, d23], faceMoved: d13 < Math.min(d12, d23), samePair: order === 'ABA' ? 'plain' : 'body' };
   }
+  // THE RULE, fixed here before any reader's first try (2026-11-04) and shown to the reader only after the third:
+  //  (1) within a reader: the face moved your settings if your two same-face tries are the closest pair (chance 1 in 3).
+  //      Pooled: the face moves what readers set if that count reaches poolNeed(n) (binomial against 1/3, p <= 0.05);
+  //      the runs whose repeated face was plain and those whose was the body are counted and held to it apart.
+  //  (2) between readers, first tries only: a coin the reader is not shown picks the first face. On try 1, compare
+  //      log attack and log release, body-first against plain-first: difference of group means, two-sided permutation p
+  //      (9999 shuffles, seeded). The face moved first tries if either p < 0.025 (two measures; 5% overall by chance).
+  //      Needs 5 readers in each arm; fewer is "too few". Both arms' n and medians are always reported.
+  //  A reader who has not seen the rule cannot steer a first try toward it; (1) can be gamed once the rule is known.
+  function poolWithin(lines) {
+    var out = { n: lines.length, moved: 0, plain: { n: 0, moved: 0 }, body: { n: 0, moved: 0 } };
+    lines.forEach(function (l) { var arm = out[l.samePair]; arm.n++; if (l.faceMoved) { arm.moved++; out.moved++; } });
+    [out, out.plain, out.body].forEach(function (a) { a.need = poolNeed(a.n); a.verdict = a.n < 5 ? 'too few' : a.moved >= a.need ? 'the face moved settings' : 'not shown'; });
+    return out;
+  }
+  function median(a) { var b = a.slice().sort(function (x, y) { return x - y; }), m = b.length >> 1; return b.length ? (b.length % 2 ? b[m] : (b[m - 1] + b[m]) / 2) : NaN; }
+  function poolFirst(lines, shuffles, seed) {
+    shuffles = shuffles || 9999; var r = rng(seed || 20261104), A = { plain: [], body: [] };
+    lines.forEach(function (l) { var t = l.tries[0]; A[l.first].push([Math.log(t.attack), Math.log(t.release)]); });
+    var res = { plain: { n: A.plain.length, attack: median(A.plain.map(function (v) { return Math.exp(v[0]); })), release: median(A.plain.map(function (v) { return Math.exp(v[1]); })) },
+                body: { n: A.body.length, attack: median(A.body.map(function (v) { return Math.exp(v[0]); })), release: median(A.body.map(function (v) { return Math.exp(v[1]); })) } };
+    if (A.plain.length < 5 || A.body.length < 5) { res.verdict = 'too few'; return res; }
+    var all = A.body.concat(A.plain), nb = A.body.length, p = [];
+    for (var m = 0; m < 2; m++) {
+      var mean = function (arr, lo, hi) { var s = 0; for (var i = lo; i < hi; i++) s += arr[i][m]; return s / (hi - lo); };
+      var obs = Math.abs(mean(all, 0, nb) - mean(all, nb, all.length)), hit = 0, w = all.slice();
+      for (var k = 0; k < shuffles; k++) { for (var i = w.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)), x = w[i]; w[i] = w[j]; w[j] = x; } if (Math.abs(mean(w, 0, nb) - mean(w, nb, w.length)) >= obs - 1e-12) hit++; }
+      p.push((hit + 1) / (shuffles + 1));
+    }
+    res.pAttack = p[0]; res.pRelease = p[1]; res.verdict = (p[0] < 0.025 || p[1] < 0.025) ? 'the face moved first tries' : 'not shown';
+    return res;
+  }
   function binomTail(k, n, p) { var t = 0; for (var i = k; i <= n; i++) { var c = 1; for (var j = 0; j < i; j++) c = c * (n - j) / (j + 1); t += c * Math.pow(p, i) * Math.pow(1 - p, n - i); } return t; }
   function poolNeed(n) { for (var k = 0; k <= n; k++) if (binomTail(k, n, 1 / 3) <= 0.05) return k; return null; }
-  // Pressure beats the vessel feels: the line crossed from below after 30 ms under it. Read before the wall, so attack cannot move it.
+  // Pressure beats the vessel feels: the line crossed from below after 30 ms under it. Counted on the input, before the wall: attack cannot move it, by construction.
   function pulses(P, line, sr) { var n = 0, above = false, quiet = 0, gap = Math.round(0.03 * sr); for (var i = 0; i < P.length; i++) { if (P[i] > line) { if (!above && quiet > gap) n++; above = true; quiet = 0; } else { above = false; quiet++; } } return n; }
   // Step 1 takes time out: attack 1 ms, release 1 s, a steady tone at −12 dBFS; the deepest squeeze over its last 20 ms.
   var STILL = { attack: 1, release: 1000 };
   function settle(s, sr) { var x = tone(sr, 2, 220, Math.pow(10, -12 / 20)), gr = plain(x, { threshold: s.threshold, ratio: s.ratio, attack: STILL.attack, release: STILL.release }, sr).gr, m = 0;
     for (var i = gr.length - Math.round(0.02 * sr); i < gr.length; i++) m = Math.min(m, gr[i]); return m; }
-  return { settle: settle, STILL: STILL, pulses: pulses, rng: rng, BPM: BPM, BARS: BARS, loop: loop, tone: tone, RANGE: RANGE, START: START, plain: plain, body: body, toBody: toBody, fromBody: fromBody,
+  return { poolWithin: poolWithin, poolFirst: poolFirst, median: median, settle: settle, STILL: STILL, pulses: pulses, rng: rng, BPM: BPM, BARS: BARS, loop: loop, tone: tone, RANGE: RANGE, START: START, plain: plain, body: body, toBody: toBody, fromBody: fromBody,
            nullDb: nullDb, measure: measure, kicksAt: kicksAt, norm: norm, dist: dist, verdict: verdict, binomTail: binomTail, poolNeed: poolNeed, P0: P0, L0: L0, K: K, D0: D0 };
 })();
 </script>
@@ -374,20 +413,18 @@ var COMP = (function () {
     var n1 = C.nullDb(a, b), n2 = C.nullDb(C.plain(x, cs, SR).y, C.body(x, C.toBody(cs), SR, true).y), n3 = C.nullDb(a, C.body(x, C.toBody(s), SR, true).y);
     $('nullRead').innerHTML = 'on your settings, plain − body: <b class="' + (n1 < -120 ? 'pass' : 'fail') + '">' + n1.toFixed(1) + ' dB</b> (' + (n1 < -120 ? 'same arithmetic' : 'two compressors') + ')' +
       ' · the millimetre wall on your settings: <b>' + n3.toFixed(1) + ' dB</b> · the millimetre wall on an engaged setting (−20 dB, 4:1, 5 ms, 80 ms): <b class="' + (n2 > -60 ? 'pass' : 'fail') + '">' + n2.toFixed(1) + ' dB</b> (' + (n2 > -60 ? 'the null catches it' : 'the null missed it') + ')' +
-      '<br>The check run headless on 2026-11-04 got −282 to −320 dB on six settings, and the millimetre wall −19 to −31 dB on three engaged ones. A vessel that narrows the same way the meter falls has to move in ratios of its width; one that moves in millimetres is another compressor.';
+      '<br>The check run headless on 2026-11-04 got −282 to −320 dB on six settings. This checks the code: the body face is coded as the same compressor in other units. The millimetre wall, a different algebra, comes out −19 to −31 dB, so the subtraction would see a coding slip; it is not evidence about vessels.';
   });
   // ── step 4: the pulse ──
   function drawPulse() {
-    var x = signal(), dur = x.length / SR, rows = [5, 50, 200].map(function (atk) { var b = C.toBody(Object.assign({}, s, { attack: atk })), B = C.body(x, b, SR, false); return { atk: atk, bpm: C.pulses(B.P, b.line, SR) / dur * 60 }; });
-    $('pulseRead').innerHTML = rows.map(function (r) { return 'reflex ' + r.atk + ' ms: the vessel feels <b>' + r.bpm.toFixed(0) + '</b> pressure beats a minute; one beat per attack time would be <b>' + (60000 / r.atk).toFixed(0) + ' bpm</b>'; }).join('<br>') +
-      '<br>The beats the vessel feels are the loop’s own hits crossing the line. Attack never moves them; the systolic line does, but only at its ends (raise it over the snares and they drop out; drop it under the hiss and the vessel never lets go between beats). Item 4 of Eight Synthesizer Concepts says pulse rate = attack time; in a compressor the pulse is the signal coming in, and attack is how fast the wall answers it. Blood Compressor’s own Mapping puts attack on the baroreceptor reflex delay, and its rich face (the attack floor) walks that knob down to its 5 ms floor; this face follows Blood Compressor.';
+    $('pulseRead').innerHTML = 'In this engine, as in Blood Compressor, the pulse is the signal: the pressure is read from the loop coming in, before the wall, so attack cannot move it. That is <b>by construction</b>, not a finding; nothing here can show item 4 wrong. Item 4 makes a different design choice: pulse rate = attack time. Read as one beat per attack time, your attack of <b>' + s.attack.toFixed(0) + ' ms</b> would be <b>' + (60000 / s.attack).toFixed(0) + ' bpm</b>; the knob’s range, 1 to 200 ms, would be 60000 to 300 bpm. The instrument item 4 spawned chose otherwise: Blood Compressor’s Mapping makes the heartbeat the signal and attack the baroreceptor reflex delay, and its rich face (the attack floor) walks that knob down to its 5 ms floor. This face follows Blood Compressor.';
   }
   // ── step 5: the test ──
-  function showTestState() { $('testState').textContent = test.on ? ('try ' + (test.i + 1) + ' of 3 · ' + (test.seq[test.i] === 'plain' ? 'the plain face' : 'the body')) : ''; }
+  function showTestState() { $('testState').textContent = test.on ? ('try ' + (test.i + 1) + ' of 3') : ''; }
   $('begin').addEventListener('click', function () {
     test = { on: true, order: Math.random() < 0.5 ? 'ABA' : 'BAB', i: 0, tries: [] }; test.seq = test.order === 'ABA' ? ['plain', 'body', 'plain'] : ['body', 'plain', 'body'];
     $('begin').classList.add('hide'); $('done').classList.remove('hide'); $('result').classList.add('hide');
-    s = Object.assign({}, C.START); face = test.seq[0]; $('testRead').textContent = 'Order: ' + test.seq.join(', ') + '. Numbers come back when you finish.'; showTestState(); compute(); setFace(face);
+    s = Object.assign({}, C.START); face = test.seq[0]; $('testRead').textContent = 'Numbers and the rule come back when you finish.'; $('ruleBox').classList.add('hide'); $('taskBox').classList.remove('hide'); showTestState(); compute(); setFace(face);
   });
   $('done').addEventListener('click', function () {
     test.tries.push({ face: face, threshold: +s.threshold.toFixed(2), ratio: +s.ratio.toFixed(3), attack: +s.attack.toFixed(2), release: +s.release.toFixed(1), inBand: !!inBand(R.m) });
@@ -400,16 +437,26 @@ var COMP = (function () {
     $('resLine').innerHTML = 'Distance between the two ' + v.samePair + ' tries: <b class="num">' + v.same.toFixed(3) + '</b>; across faces: <b class="num">' + v.cross[0].toFixed(3) + '</b> and <b class="num">' + v.cross[1].toFixed(3) + '</b>. ' +
       (v.faceMoved ? 'The same-face pair was the closest: on this run, the face moved your settings.' : 'The same-face pair was not the closest: on this run, the face did not move your settings more than trying again did.') +
       ' Chance of the first answer when the face changes nothing: 1 in 3. One run is one line for the pool, not a verdict.';
-    $('poolLine').value = JSON.stringify({ piece: 'Biomechanical Synthesis — two faces', v: 1, date: new Date().toISOString().slice(0, 10), order: test.order, samePair: v.samePair, faceMoved: v.faceMoved, same: +v.same.toFixed(4), cross: v.cross.map(function (d) { return +d.toFixed(4); }), tries: test.tries });
+    $('ruleBox').classList.remove('hide'); $('testRead').textContent = 'The coin’s order: ' + test.seq.join(', ') + '.';
+    $('poolLine').value = JSON.stringify({ piece: 'Biomechanical Synthesis — two faces', v: 2, date: new Date().toISOString().slice(0, 10), order: test.order, first: test.seq[0], samePair: v.samePair, faceMoved: v.faceMoved, same: +v.same.toFixed(4), cross: v.cross.map(function (d) { return +d.toFixed(4); }), tries: test.tries });
     $('result').classList.remove('hide'); setFace('plain');
+  });
+  $('poolGo').addEventListener('click', function () {
+    var lines = $('poolIn').value.split(/\n+/).map(function (l) { try { return JSON.parse(l); } catch (e) { return null; } }).filter(function (l) { return l && l.tries && l.tries.length === 3 && l.first; });
+    var W = C.poolWithin(lines), F = C.poolFirst(lines);
+    var arm = function (a) { return a.moved + ' of ' + a.n + (a.need != null ? ' (needs ' + a.need + ')' : '') + ' · ' + a.verdict; };
+    $('poolOut').innerHTML = lines.length + ' lines read<br>within readers, all: <b>' + arm(W) + '</b> · repeated face plain: <b>' + arm(W.plain) + '</b> · repeated face body: <b>' + arm(W.body) + '</b>' +
+      '<br>first tries: plain-first n <b>' + F.plain.n + '</b>, median attack ' + (isNaN(F.plain.attack) ? '–' : F.plain.attack.toFixed(0) + ' ms') + ', release ' + (isNaN(F.plain.release) ? '–' : F.plain.release.toFixed(0) + ' ms') +
+      ' · body-first n <b>' + F.body.n + '</b>, median attack ' + (isNaN(F.body.attack) ? '–' : F.body.attack.toFixed(0) + ' ms') + ', release ' + (isNaN(F.body.release) ? '–' : F.body.release.toFixed(0) + ' ms') +
+      (F.pAttack != null ? ' · p attack <b>' + F.pAttack.toFixed(4) + '</b>, p release <b>' + F.pRelease.toFixed(4) + '</b>' : '') + ' · <b>' + F.verdict + '</b>';
   });
   // ── steps ──
   var STEPS = [
     { eye: 'step 1 of 5 · one tone, one line', title: 'A compressor is a line and a slope', say: 'One steady tone at −12 dBFS and a plain meter. Move the threshold under −12 and the tone is over the line; the ratio says how much of the overshoot is let through. Two numbers, no time yet.', v: ['v1'] },
     { eye: 'step 2 of 5 · time', title: 'The loop, and the two knobs about time', say: 'A drum loop made from sine and noise: kicks, snares, hats, and a quiet hiss underneath. Attack is how fast the squeeze arrives; release is how fast it lets go. Watch the hiss: a release that lets go in the gaps between kicks makes it swell and sink, which is pumping.', v: ['vLoop'] },
-    { eye: 'step 3 of 5 · the same compressor, as a body', title: 'Pressure is level, the vessel’s width is the gain', say: 'Switch the face. The loop is now blood pressure in mmHg (120 at −18 dBFS), the threshold is a systolic line, the ratio is how stiffly the wall answers, and the gain is the vessel’s width (6 mm at rest). The page’s own mapping, item 4 of Eight Synthesizer Concepts. Then prove the two faces are one compressor.', v: ['vLoop', 'vNull'], sw: true },
-    { eye: 'step 4 of 5 · the pulse', title: 'Item 4 says pulse rate is attack time', say: 'Here the two pages part. In this engine the pulse is what comes in, and attack is how fast the wall answers it.', v: ['vLoop', 'vPulse'], sw: true },
-    { eye: 'step 5 of 5 · the test', title: 'Does the face change what you set?', say: 'The same task, three times, on the face the coin gives you. Read the rule before you begin; it is the same rule that will be applied to you.', v: ['vLoop', 'vTest'], test: true }
+    { eye: 'step 3 of 5 · the same compressor, as a body', title: 'Pressure is level, the vessel’s width is the gain', say: 'Switch the face. The loop is now blood pressure in mmHg (120 at −18 dBFS), the threshold is a systolic line, the ratio is how stiffly the wall answers, and the gain is the vessel’s width (6 mm at rest). The page’s own mapping, item 4 of Eight Synthesizer Concepts. Then check the code: subtract one face’s output from the other.', v: ['vLoop', 'vNull'], sw: true },
+    { eye: 'step 4 of 5 · the pulse', title: 'Item 4 says pulse rate is attack time', say: 'Here the two pages make different choices. In this engine, as in Blood Compressor, the pulse is what comes in and attack is how fast the wall answers it.', v: ['vLoop', 'vPulse'], sw: true },
+    { eye: 'step 5 of 5 · the test', title: 'Does the face change what you set?', say: 'The same task, three times, on the face a coin gives you. What is compared is fixed in the code and shown after your third try.', v: ['vLoop', 'vTest'], test: true }
   ];
   STEPS.forEach(function (st, k) { var b = document.createElement('button'); b.textContent = (k + 1) + ' ' + st.eye.split('· ')[1]; b.addEventListener('click', function () { go(k); }); $('rail').appendChild(b); });
   function go(k) {

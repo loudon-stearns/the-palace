@@ -43,11 +43,10 @@ check('two faces: body units go back to plain units exactly (mmHg ↔ dB)', rt, 
 let curveErr = 0;
 for (const s of [{ threshold: -24, ratio: 4 }, { threshold: -18, ratio: 2 }, { threshold: -30, ratio: 20 }, { threshold: -12, ratio: 4 }]) curveErr = Math.max(curveErr, Math.abs(C.settle(s, SR) - (-Math.max(0, -12 - s.threshold) * (1 - 1 / s.ratio))));
 check('two faces, step 1: with time taken out, the engine’s settled squeeze is the equation’s to a tenth of a dB', curveErr < 0.1, `largest gap ${curveErr.toFixed(4)} dB`);
-const dur = x.length / SR, base = { threshold: -24, ratio: 4, release: 150 };
-const bpm = [5, 50, 200].map((a) => { const b = C.toBody({ ...base, attack: a }); return C.pulses(C.body(x, b, SR, false).P, b.line, SR) / dur * 60; });
-check('two faces, step 4: the pulse the vessel feels does not move with attack (5, 50, 200 ms)', bpm.every((v) => v === bpm[0]), bpm.map((v) => v.toFixed(0)).join(' / ') + ' a minute');
-const bpmLine = [-12, -4].map((t) => { const b = C.toBody({ ...base, threshold: t, attack: 10 }); return C.pulses(C.body(x, b, SR, false).P, b.line, SR) / dur * 60; });
-check('two faces, step 4: it does move when the systolic line passes the snares (−12 vs −4 dB), so the count is live', bpmLine[0] !== bpmLine[1], bpmLine.map((v) => v.toFixed(0)).join(' vs ') + ' a minute');
+const base = { threshold: -24, ratio: 4, release: 150 };
+const P5 = C.body(x, C.toBody({ ...base, attack: 5 }), SR, false).P, P200 = C.body(x, C.toBody({ ...base, attack: 200 }), SR, false).P;
+check('two faces, step 4: the pulse is read before the wall, so attack cannot move it — and the step says “by construction”, not a finding', P5.every((v, i) => v === P200[i]) && H1.includes('by construction') && !H1.includes('pressure beats a minute'), 'pressure series identical at attack 5 and 200 ms');
+check('two faces, step 3: the null is worded as a check of the code', H1.includes('This checks the code') && !/proved|prove the two faces/.test(H1), 'wording');
 // the rule's chance level, by simulation
 const r = C.rng(99), U = () => { const s = {}; for (const k in C.RANGE) { const [a, b] = C.RANGE[k]; s[k] = k === 'threshold' ? a + (b - a) * r() : a * Math.pow(b / a, r()); } return s; };
 const jitter = (s, sd) => { const o = { ...s }; for (const k in C.RANGE) { const [a, b] = C.RANGE[k], z = (r() + r() + r() - 1.5) * sd * 2; if (k === 'threshold') o[k] = Math.min(b, Math.max(a, o[k] + z * (b - a))); else o[k] = Math.min(b, Math.max(a, o[k] * Math.pow(b / a, z))); } return o; };
@@ -62,6 +61,20 @@ for (let i = 0; i < T; i++) {
 check('two faces, step 5: a reader the face does not move lands at 1 in 3', Math.abs(nNull / T - 1 / 3) < 0.01, (nNull / T).toFixed(4));
 check('two faces, step 5: a reader who learns across tries, face unmoved, lands under 1 in 3 (the drift works against the face)', nDrift / T < 1 / 3, (nDrift / T).toFixed(4));
 check('two faces, step 5: a reader the body moves (attack ×3) is found', nShift / T > 0.6, (nShift / T).toFixed(4));
+// the rule is hidden until after try 3: the task box carries no rule; the rule box starts hidden; the caption carries none
+{ const task = H1.slice(H1.indexOf('id="taskBox"'), H1.indexOf('id="ruleBox"')), ruleTag = H1.match(/<div class="rule[^"]*" id="ruleBox">/)[0];
+  const man = JSON.parse(readFileSync(join(HERE, 'Biomechanical Synthesis — rich.json'), 'utf8')), cap = man.sections.find((s) => s.heading === 'Visceral Pedagogy').pieces.find((p) => /two faces/.test(p.file)).caption;
+  check('two faces, step 5: the rule is not shown before the tries (task box, rule box hidden, caption)', !/closest|1 in 3|permutation/.test(task) && /hide/.test(ruleTag) && !/closest pair|1 in 3|permutation|0\.025/.test(cap), ruleTag); }
+// a copier, now: a reader who doesn't know the rule has no reason to copy try 1 on try 3; the between-reader half uses first tries only
+{ const rr = C.rng(31), mk = (first, shift) => { const s = U(); const t1 = first === 'body' ? { ...s, attack: Math.min(200, s.attack * shift), release: Math.min(1000, s.release * shift) } : s; return { first, samePair: first === 'plain' ? 'plain' : 'body', faceMoved: rr() < 1 / 3, tries: [t1, U(), U()] }; };
+  let fp = 0, pw = 0, pw20 = 0, S = 200;
+  for (let k = 0; k < S; k++) { const L0 = [], L1 = [], L2 = []; for (let i = 0; i < 20; i++) { const f = i % 2 ? 'body' : 'plain'; L0.push(mk(f, 1)); L1.push(mk(f, 4)); }
+    for (let i = 0; i < 40; i++) L2.push(mk(i % 2 ? 'body' : 'plain', 4));
+    if (C.poolFirst(L0, 999, 100 + k).verdict === 'the face moved first tries') fp++; if (C.poolFirst(L1, 999, 100 + k).verdict === 'the face moved first tries') pw++; if (C.poolFirst(L2, 999, 100 + k).verdict === 'the face moved first tries') pw20++; }
+  check('two faces, step 5: first tries, 10 readers an arm, face changing nothing: found at about 5% or less', fp / S <= 0.08, (fp / S).toFixed(3));
+  check('two faces, step 5: first tries, a body face quadrupling attack and release: found about half the time at 10 an arm, most of the time at 20 (as the rule says)', pw / S > 0.35 && pw / S < 0.65 && pw20 / S > 0.65, `${(pw / S).toFixed(3)} at 10, ${(pw20 / S).toFixed(3)} at 20`);
+  const few = C.poolFirst([mk('plain', 1), mk('body', 1)], 99, 1).verdict, W = C.poolWithin([{ samePair: 'plain', faceMoved: true }, { samePair: 'body', faceMoved: false }]);
+  check('two faces, step 5: too few readers says so, both arms counted apart', few === 'too few' && W.plain.n === 1 && W.body.n === 1 && W.verdict === 'too few', `${few}; within ${W.plain.moved}/${W.plain.n} plain, ${W.body.moved}/${W.body.n} body`); }
 const pool = [5, 10, 20, 40].map((n) => [n, C.poolNeed(n)]);
 const poolOk = pool.every(([n, k]) => C.binomTail(k, n, 1 / 3) <= 0.05 && C.binomTail(k - 1, n, 1 / 3) > 0.05) && pool.map(([n, k]) => `${k} of ${n}`).every((t) => H1.includes(t));
 check('two faces, step 5: the pool table the rule prints is the binomial’s', poolOk, pool.map(([n, k]) => `${k}/${n} p=${C.binomTail(k, n, 1 / 3).toFixed(4)}`).join(', '));
@@ -76,7 +89,7 @@ const A = N.sweep({ ...BASE, wmin: 0.18, wmax: 0.9 }), B = N.sweep({ ...BASE, wm
 console.log(`      drives under 1: S ${A.meanS.inh.toFixed(2)} / ${A.meanS.none.toFixed(2)} / ${A.meanS.drop.toFixed(2)} · H ${A.meanH.inh.toFixed(2)} / ${A.meanH.none.toFixed(2)} / ${A.meanH.drop.toFixed(2)} · T1 ${A.T1.up}/${A.T1.down}/${A.T1.ties} ${A.T1.verdict} · T2 ${A.T2.up}/${A.T2.down}/${A.T2.ties} ${A.T2.verdict}`);
 console.log(`      drives over 1:  S ${B.meanS.inh.toFixed(2)} / ${B.meanS.none.toFixed(2)} / ${B.meanS.drop.toFixed(2)} · H ${B.meanH.inh.toFixed(2)} / ${B.meanH.none.toFixed(2)} / ${B.meanH.drop.toFixed(2)} · T1 ${B.T1.up}/${B.T1.down}/${B.T1.ties} ${B.T1.verdict} · T2 ${B.T2.up}/${B.T2.down}/${B.T2.ties} ${B.T2.verdict}`);
 check('negative space, test: the chance-gap arm always has exactly the inhibited arm’s onsets, node by node', A.uncovered === 0 && B.uncovered === 0, `uncovered ${A.uncovered}, ${B.uncovered}`);
-check('negative space, test: drives under 1 — T1 is wrong, 199 of 200 fall (the number the piece prints)', A.T1.verdict === 'wrong' && A.T1.down === 199 && H2.includes('199 of 200'), `${A.T1.up} rise, ${A.T1.down} fall`);
+check('negative space, test: drives under 1 — T1 fails where the rhythm exists without inhibition, 199 of 200 fall (the number the piece prints)', A.T1.verdict === 'wrong' && A.T1.down === 199 && H2.includes('199 of 200') && H2.includes('T1 fails here') && !H2.includes('page is wrong'), `${A.T1.up} rise, ${A.T1.down} fall`);
 check('negative space, test: drives under 1 — T2 holds, the gaps are more regular than chance', A.T2.verdict === 'holds', `${A.T2.up} / ${A.T2.down} / ${A.T2.ties}`);
 check('negative space, test: drives over 1 — T1 and T2 hold', B.T1.verdict === 'holds' && B.T2.verdict === 'holds', `T1 ${B.T1.up}/${B.T1.down}, T2 ${B.T2.up}/${B.T2.down}`);
 // over 1, without inhibition every node fires on every trigger, so T1 can hardly fail there: say so, and check the claim the piece adds
