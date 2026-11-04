@@ -1,0 +1,109 @@
+{
+ "tag": "now",
+ "runs": [
+  {
+   "screen": "1280x720",
+   "room": false,
+   "states": 16,
+   "overlaps": 10,
+   "distinct": 6,
+   "sizes_arcmin_8H": {
+    "t-mode": 6.5,
+    "t-qual": 4.7,
+    "t-from": 4.3,
+    "t-deg": 7.7,
+    "t-func": 7.3,
+    "t-note": 9.5
+   },
+   "examples": [
+    "t-qual:\"maj7\" × t-func:\"♭VII\" (2×1px)",
+    "t-mode:\"Aeolian\" × t-qual:\"–7\" (4×15px)",
+    "t-qual:\"–7(♭5)\" × t-func:\"VII\" (4×1px)",
+    "t-from:\"from Mixolydian\" × t-qual:\"–7(♭5)\" (1×14px)",
+    "t-qual:\"maj7\" × t-func:\"♭III\" (2×1px)",
+    "t-mode:\"Aeolian\" × t-qual:\"m7\" (4×15px)"
+   ]
+  },
+  {
+   "screen": "1280x720",
+   "room": true,
+   "states": 16,
+   "overlaps": 20,
+   "distinct": 12,
+   "sizes_arcmin_8H": {
+    "t-mode": 6.4,
+    "t-qual": 4.8,
+    "t-from": 4.4,
+    "t-deg": 8.7,
+    "t-func": 8.4,
+    "t-note": 10.7
+   },
+   "examples": [
+    "t-qual:\"maj7\" × t-func:\"♭III\" (2×15px)",
+    "t-qual:\"maj7\" × t-func:\"♭VII\" (7×4px)",
+    "t-mode:\"Aeolian\" × t-qual:\"–7\" (4×15px)",
+    "t-qual:\"–7(♭5)\" × t-func:\"VII\" (9×4px)",
+    "t-qual:\"–7(♭5)\" × t-func:\"VI\" (3×4px)",
+    "t-from:\"from Mixolydian\" × t-qual:\"–7(♭5)\" (7×14px)",
+    "t-qual:\"–7(♭5)\" × t-func:\"III\" (4×15px)",
+    "t-qual:\"maj7\" × t-func:\"♭III\" (7×4px)",
+    "t-from:\"from Mixolydian\" × t-qual:\"maj7\" (2×14px)",
+    "t-qual:\"maj7\" × t-func:\"♭VII\" (2×15px)",
+    "t-mode:\"Aeolian\" × t-qual:\"m7\" (4×15px)",
+    "t-qual:\"m7♭5\" × t-func:\"VII\" (2×4px)"
+   ]
+  },
+  {
+   "screen": "1920x1080",
+   "room": false,
+   "states": 16,
+   "overlaps": 10,
+   "distinct": 6,
+   "sizes_arcmin_8H": {
+    "t-mode": 4.3,
+    "t-qual": 3.2,
+    "t-from": 2.9,
+    "t-deg": 5.2,
+    "t-func": 4.9,
+    "t-note": 6.3
+   },
+   "examples": [
+    "t-qual:\"maj7\" × t-func:\"♭VII\" (2×1px)",
+    "t-mode:\"Aeolian\" × t-qual:\"–7\" (4×15px)",
+    "t-qual:\"–7(♭5)\" × t-func:\"VII\" (4×1px)",
+    "t-from:\"from Mixolydian\" × t-qual:\"–7(♭5)\" (1×14px)",
+    "t-qual:\"maj7\" × t-func:\"♭III\" (2×1px)",
+    "t-mode:\"Aeolian\" × t-qual:\"m7\" (4×15px)"
+   ]
+  },
+  {
+   "screen": "1920x1080",
+   "room": true,
+   "states": 16,
+   "overlaps": 25,
+   "distinct": 15,
+   "sizes_arcmin_8H": {
+    "t-mode": 6.7,
+    "t-qual": 5.1,
+    "t-from": 4.6,
+    "t-deg": 9.3,
+    "t-func": 8.9,
+    "t-note": 11.4
+   },
+   "examples": [
+    "t-qual:\"maj7\" × t-func:\"♭VI\" (1×7px)",
+    "t-qual:\"maj7\" × t-func:\"♭III\" (4×24px)",
+    "t-qual:\"maj7\" × t-func:\"♭VII\" (11×7px)",
+    "t-mode:\"Aeolian\" × t-qual:\"–7\" (6×24px)",
+    "t-qual:\"–7(♭5)\" × t-func:\"VII\" (14×7px)",
+    "t-qual:\"maj7\" × t-func:\"♭II\" (1×7px)",
+    "t-qual:\"–7(♭5)\" × t-func:\"VI\" (4×7px)",
+    "t-from:\"from Mixolydian\" × t-qual:\"–7(♭5)\" (11×22px)",
+    "t-qual:\"–7(♭5)\" × t-func:\"III\" (7×24px)",
+    "t-qual:\"maj7\" × t-func:\"♭III\" (11×7px)",
+    "t-from:\"from Mixolydian\" × t-qual:\"maj7\" (3×22px)",
+    "t-qual:\"maj7\" × t-func:\"♭VII\" (4×24px)"
+   ]
+  }
+ ]
+}

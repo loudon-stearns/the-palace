@@ -46,3 +46,8 @@ What Cycle 5 Explorer's steward cycles taught the page, and the changes to the h
    > A **room view** for the projector (press R, or open with `?room`): the wheel sized to the screen's height and whole beside the inspector on one screen, with the type around it one and a half to two times larger. It was measured from the back row on 2026-11-04, where the wheel, the tonic and mode and the chord symbol read and the grids read only from the middle of the room.
 
 - run · 2026-11-03 · cycle 4 · taught item 4, proposed item 5 for canon
+
+## From cycle 5 — 2026-11-03
+
+6. Upright labels on a ring need depth of half the width times |sin θ| plus half the height times |cos θ|, so at 3 and 9 o'clock a stack along the radius runs out of room. Stacking a slot's labels as one block, which turns sideways there, fits them without shrinking the wheel. *(offered by the steward, cycle 5)*
+- run · 2026-11-03 · cycle 5 · taught item 6

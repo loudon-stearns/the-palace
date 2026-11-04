@@ -15,33 +15,32 @@ forward_vector: "I am Cycle 5 Explorer's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T01:33:03.900Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T01:39:12.689Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 4 · last ran 2026-11-04 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 5 · last ran 2026-11-04 (today)
 - **Plan:** agreed (no dated change on the trail yet)
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — I measured how my labels read from a classroom's back row, found almost none do, and built a room view you open with R. (`cycle5-explorer-steward-010`)
-- **Last commit touching this project:** 2026-11-03 `22c57fa0` — steward(Cycle 5 Explorer): cycle 3 — SPINNING UP. HOME: [Cycle 5 Explorer](obsidian://open?vault=The%20Palac…
+- **Last shipped:** 2026-11-04 (today) — My wheel's outer labels no longer collide at 3 and 9 o'clock, and in room view the chord qualities read about 40% bigger. (`cycle5-explorer-steward-012`)
+- **Last commit touching this project:** 2026-11-03 `683b9b79` — steward(Cycle 5 Explorer): cycle 4 — SPINNING UP. HOME: [Cycle 5 Explorer](obsidian://open?vault=The%20Palac…
 - **Signal:** steady
-- **Left uncommitted:** ⚠ 34 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Cycle 5 Explorer/workshop/back-row/page-1280x720-frame1.png`, `Projects/Cycle 5 Explorer/workshop/back-row/page-1280x720-frame2.png`, `Projects/Cycle 5 Explorer/workshop/back-row/page-1280x720-frame3.png`, `Projects/Cycle 5 Explorer/workshop/back-row/page-1280x720-frame4.png`, `Projects/Cycle 5 Explorer/workshop/back-row/page-1280x720.png`, and 29 more. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 4 · taught item 4, proposed item 5 for canon
+- **Runs:** 5 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 5 · taught item 6
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 5; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 5, from cycle 4 — 2026-11-03 — [[Cycle 5 Explorer — tuning]]
+- **Latest lesson:** item 6, from cycle 5 — 2026-11-03 — [[Cycle 5 Explorer — tuning]]
 
 ### Where this stands
 
-Cycle 5 Explorer is the decoder ring for harmony you rebuilt from your Illustrator board in late October. Every key is a seven-note window sliding along the line of fifths. You drag one ring to change key and another to change mode, and three grids plus a chord readout in four notations follow along. On 4 November you reviewed me and said the plan stands: you answer my four open questions, I fold the answers in, and you try me once in a class or a stream before I grow anything new. Getting ready for that class, I fixed my grids so no column hides on a projector. This cycle I measured how big every label looks from the back of the room. Only the tonic and mode name read, so I added a room vi…
+Cycle 5 Explorer is the decoder ring for harmony you rebuilt from your Illustrator board in late October. Every key is a seven-note window sliding along the line of fifths. You drag one ring to change key and another to change mode, and three grids plus a chord readout in four notations follow along. On 4 November you reviewed me and said the plan stands: you answer my four open questions, I fold the answers in, and you try me once in a class or a stream before I grow anything new. Getting ready for that class, I fixed the grids so no column hides on a projector, then added a room view (press R) after measuring that most labels don't read from the back row. This cycle I fixed the last thing…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since 2026-10-28:** Nobody has heard the page, me included. _(in 5 notes, the latest cycle 4)_
-- **rough since 2026-10-28:** The grids are measured in headless Chromium only and haven't been seen on a real projector, and room view hasn't been either. _(in 3 notes, the latest cycle 4)_
+- **rough since 2026-10-28:** Nobody has heard the page, me included. _(in 6 notes, the latest cycle 5)_
+- **rough since 2026-10-28:** The grids are measured in headless Chromium only and haven't been seen on a real projector, and room view hasn't been either. _(in 4 notes, the latest cycle 5)_
 
 ### Open asks
 
@@ -57,6 +56,7 @@ _None._
 
 ### Runs
 
+- 2026-11-03 — cycle 5 · taught item 6
 - 2026-11-03 — cycle 4 · taught item 4, proposed item 5 for canon
 - 2026-11-03 — cycle 3 · taught item 3
 - 2026-10-30 — cycle 2 · taught item 2
@@ -93,6 +93,60 @@ Where this is going: the page Loudon pulls up to teach harmony, proven in a clas
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="cycle5-explorer-steward-012" -->
+### 2026-11-04 — cycle 5 — My wheel's outer labels no longer collide at 3 and 9 o'clock, and in room view the chord qualities read about 40% bigger.
+> shipped · zero overlaps in every state I tested · steward leans: you try room view on a projector
+
+**Open this:** [the before-and-after still](open:Projects/Cycle 5 Explorer/workshop/wheel-labels/wheel-before-after.png), or [the page](open:Projects/Cycle 5 Explorer/cycle5-explorer.html) with R pressed.
+
+**Why they collided.** My labels stay upright as the rings turn. A word at 12 o'clock lies across the ring and needs only its height in depth. The same word at 3 or 9 o'clock lies along the radius and needs its whole width. Between the Roman-numeral ring and the rim there are about 88 units of depth. A quality and a mode name stacked outward at 3 o'clock need about 140, so in Berklee notation 'Aeolian' sat on '–7', and 'from Mixolydian' sat on '–7(♭5)'.
+
+**What I changed.** Each slot's quality and mode name are now one small two-line block, with the quality on the side nearer the numeral. At 12 and 6 o'clock the block stacks outward the way it did before. At 3 and 9 it stacks sideways, where the slot is wide. I measure each label as it renders and centre its block in the band. The rim doesn't move, so the note names and degree numbers keep their size. A block that still doesn't fit shrinks in that one slot only. 'From' moved onto its own line above the mode it borrows from. The selected mode's name now sits on top of the hatched selection wedge, so it's no longer washed out (it was before this cycle too). In room view, the qualities went from 12 to 17 px and the mode names from 16 to 19.
+
+**How I know.** I checked all four notations across four key-and-mode settings, at 720p and 1080p, with room view on and off. Nothing overlaps in any of them; before, 10 to 25 label pairs did. I tapped every mode name and every quality: 28 of 28 did what the label says, the same as before. The theory tests still pass (26 checks). The sizes are in the table, in arcminutes at the back row, 8 screen-heights out. About 10′ reads, and 5′ is a 20/20 letter.
+
+**Housekeeping.** Last cycle left 34 files that no cycle declared. I deleted the raw back-row screenshots (6.7 MB). measure.mjs and zoom.mjs make them again, and the back-row report has its own copies built in. I'm declaring the rest here so they get committed.
+
+**Artifacts:**
+- [Room view at 720p, Berklee notation: before on the left, after on the right, in C Ionian and A Aeolian.](Projects/Cycle 5 Explorer/workshop/wheel-labels/wheel-before-after.png)
+- [The page, with the wheel's outer labels packed into blocks. Press R for room view.](Projects/Cycle 5 Explorer/cycle5-explorer.html)
+- [Finds every pair of wheel labels that touch, and each label group's back-row size, in 16 states and 4 screen settings.](Projects/Cycle 5 Explorer/workshop/wheel-labels/overlap.mjs)
+- [The back-row size of every outer label, slot by slot around the clock.](Projects/Cycle 5 Explorer/workshop/wheel-labels/slots.mjs)
+- [Taps each mode name and quality and checks that it sets the mode or picks the chord.](Projects/Cycle 5 Explorer/workshop/wheel-labels/taps.mjs)
+- [Builds the before-and-after still.](Projects/Cycle 5 Explorer/workshop/wheel-labels/compare.mjs)
+- [The page as it was before this cycle, kept as the comparison baseline.](Projects/Cycle 5 Explorer/workshop/wheel-labels/page-before.html)
+- [Overlaps and sizes before the change.](Projects/Cycle 5 Explorer/workshop/wheel-labels/before.json)
+- [Overlaps and sizes after.](Projects/Cycle 5 Explorer/workshop/wheel-labels/after.json)
+- [Last cycle's back-row measurements of the page, as readable text.](Projects/Cycle 5 Explorer/workshop/back-row/page-measure.txt)
+- [Last cycle's back-row measurements of room view, as readable text.](Projects/Cycle 5 Explorer/workshop/back-row/room-measure.txt)
+- [Last cycle's ⌘+ sweep, as readable text.](Projects/Cycle 5 Explorer/workshop/back-row/page-zoom.txt)
+- [The grid sweep, rerun last cycle.](Projects/Cycle 5 Explorer/workshop/projector-grids/after-grids.json)
+- [The grids at 1024 px, all columns showing.](Projects/Cycle 5 Explorer/workshop/projector-grids/after-grids-1024.png)
+- [The grids at 1366 px.](Projects/Cycle 5 Explorer/workshop/projector-grids/after-grids-1366.png)
+- [The grids at 1440 px.](Projects/Cycle 5 Explorer/workshop/projector-grids/after-grids-1440.png)
+- [The grids at 1920 px.](Projects/Cycle 5 Explorer/workshop/projector-grids/after-grids-1920.png)
+
+_The wheel's outer labels, back row at 8 screen-heights, smallest in any of 16 states (overlapping pairs · quality · mode name · borrowed-from) · before → after_
+| screen | overlapping pairs | chord qualities | mode names | borrowed-from | note names |
+| --- | --- | --- | --- | --- | --- |
+| 720p, room view | 20 → 0 | 4.8′ → 5.6′ (most slots 6.8′) | 6.4′ → 6.4′ (most 7.6′) | 4.4′ → 5.0′ (most 6.0′) | 10.7′ → 10.7′ |
+| 1080p, room view | 25 → 0 | 5.1′ → 6.0′ | 6.7′ → 6.8′ | 4.6′ → 5.3′ | 11.4′ → 11.4′ |
+| 720p, normal | 10 → 0 | 4.7′ → 4.7′ | 6.5′ → 6.5′ | 4.3′ → 4.3′ | 9.5′ → 9.5′ |
+| 1080p, normal | 10 → 0 | 3.2′ → 3.2′ | 4.3′ → 4.3′ | 2.9′ → 2.9′ | 6.3′ → 6.3′ |
+
+_Left rough:_ Nobody has heard the page, me included. The grids are measured in headless Chromium only and haven't been seen on a real projector, and room view hasn't been either. Both of those are yours to do, not mine: no cycle of measuring settles them. The qualities fall short of my 7′ target in the worst slots, around 10 o'clock (5.6′), and the normal view's labels are no bigger than before, only no longer colliding.
+
+_Next moves named:_ When you try me in a class or on a projector: press R and say whether the outer ring reads from the back. That, and your four open questions (class default, Berklee notation, feel words, which feature next), are what move me to the next step of the plan: fold in your answers and lift the title block from SKETCH to STUDY. · Until then I stop adding to the page: the class prep is done, and anything more would be built ahead of your answers.
+<sub>`cycle5-explorer-steward-012` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-5388e17e2b" -->
+### 2026-11-03 — cycle 5
+
+taught item 6
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="cycle5-explorer-steward-010" -->
 ### 2026-11-04 — cycle 4 — I measured how my labels read from a classroom's back row, found almost none do, and built a room view you open with R.
 > shipped · room view is opt-in, nothing changes until R · steward leans try it on a real projector

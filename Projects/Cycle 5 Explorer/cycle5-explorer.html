@@ -220,6 +220,7 @@ text { dominant-baseline: central; text-anchor: middle; font-family: var(--font-
 .t-deg  { fill: var(--degree); font-size: 18px; font-weight: 600; }
 .out .t-func, .out.t-func { fill: var(--ink-3); }
 .t-from { fill: var(--mode); font-size: 10px; opacity: .8; }
+.t-mode.sel { font-size: 18px; font-weight: 600; text-decoration: underline; }
 .t-legend { font-size: 9px; letter-spacing: .18em; fill: var(--ink-2); font-weight: 500; }
 
 /* panels: a hairline is the card */
@@ -348,8 +349,8 @@ body.room { padding-block: 6px; }
 .room .stage { grid-template-columns: auto minmax(0, 1fr); min-height: calc(100vh - 70px); align-items: start; }
 .room .wheelbox { gap: 0; }
 .room #wheel { width: min(calc(100vh - 110px), 56vw); max-width: none; }
-.room .t-note { font-size: 27px; } .room .t-deg { font-size: 22px; } .room .t-mode { font-size: 16px; }
-.room .t-func { font-size: 21px; } .room .t-qual { font-size: 12px; } .room .t-from { font-size: 11px; opacity: 1; }
+.room .t-note { font-size: 27px; } .room .t-deg { font-size: 22px; } .room .t-mode { font-size: 19px; } .room .t-mode.sel { font-size: 21px; }
+.room .t-func { font-size: 21px; } .room .t-qual { font-size: 17px; } .room .t-from { font-size: 15px; opacity: 1; }
 .room .t-legend { display: none; }
 .room .stepper b, .room .stepper button { font-size: 15px; }
 .room .inspector { zoom: var(--room-zoom, 1.5); gap: var(--space-2); }
@@ -637,41 +638,72 @@ function arc(r1, r2, s0, s1) {
   const p = (r, a) => `${(r * Math.sin(a)).toFixed(2)} ${(-r * Math.cos(a)).toFixed(2)}`;
   return `M${p(r2, a0)} A${r2} ${r2} 0 ${large} 1 ${p(r2, a1)} L${p(r1, a1)} A${r1} ${r1} 0 ${large} 0 ${p(r1, a0)} Z`;
 }
+// The outer band is packed, not placed. Labels stay upright, so a word at 3 or 9 o'clock runs along the
+// radius and needs far more depth than the same word at 12. Stacking a slot's quality and mode name outward
+// along the radius ran out of depth there, so each slot's two labels are one small block, quality on the
+// side nearest the numeral: at 12 and 6 the block stacks outward, at 3 and 9 it stacks sideways, where the
+// slot is wide. I measure each block and centre it in the band between the rule and the rim. The rule sits
+// outside the widest numeral at any angle (the numerals rotate, so they get the worst case). The rim does not
+// move, so the rest of the wheel keeps its size; a block too deep for its slot shrinks there and nowhere else.
+const measurer = (() => { let svg; const cache = new Map();
+  return (cls, txt) => {
+    const key = document.body.classList.contains("room") + cls + txt; if (cache.has(key)) return cache.get(key);
+    if (!svg) { svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"); svg.setAttribute("aria-hidden", "true");
+      svg.style.cssText = "position:absolute;left:-9999px;top:0;width:10px;height:10px;overflow:hidden"; document.body.appendChild(svg); }
+    svg.innerHTML = `<text class="${cls}">${txt}</text>`; const b = svg.firstChild.getBBox(), r = { w: b.width, h: b.height };
+    if (b.width) cache.set(key, r); return r; };
+})();
+const fromLabel = name => `<tspan x="0" dy="-.55em">from</tspan><tspan x="0" dy="1.1em">${name}</tspan>`;
+function outerLabels(s) {
+  if (s <= 6) return { q: DIALECTS[S.dialect].suf[QUAL[s].id], m: MODES[s].name, mc: "t-mode" + (s === S.m ? " sel" : ""), qo: 1 };
+  const o = outside(s);
+  return { q: DIALECTS[S.dialect].suf[QUAL[o.d + o.src].id], m: fromLabel(MODES[o.src].name), mc: "t-from", qo: .55 };
+}
+let lastLay = null;
+function wheelLayout() {
+  const GAP = 4, depth = (w, h, s) => w / 2 * Math.abs(Math.sin(ang(s))) + h / 2 * Math.abs(Math.cos(ang(s)));
+  const widest = ["♭VII", "♯IV", "VII", "♭III"].map(t => measurer("t-func", t)).reduce((a, b) => a.w > b.w ? a : b);
+  let rule = 0; for (let s = 0; s < 12; s++) rule = Math.max(rule, R.func + depth(widest.w, widest.h, s));
+  rule = Math.max(rule + 3, R.func + 22);
+  const border = R.outer + 14, band = border - 6 - rule - GAP, r = rule + GAP + band / 2, slots = [];
+  for (let s = 0; s < 12; s++) {
+    const t = outerLabels(s), qb = measurer("t-qual", t.q), mb = measurer(t.mc, t.m);
+    const h = qb.h + 6 + mb.h, f = Math.min(1, band / (2 * depth(Math.max(qb.w, mb.w), h, s)));
+    const inward = Math.cos(ang(s)) >= 0 ? 1 : -1;      // +y is inward in the top half, outward in the bottom
+    slots.push({ ...t, f, qy: inward * (h / 2 - qb.h / 2), my: -inward * (h / 2 - mb.h / 2) });
+  }
+  return { r, rule, border, slots };
+}
 function renderWheel(degRot = 0, noteRot = 0, live = false) {
-  const sel = resolve(S.sel);
+  const sel = resolve(S.sel), lay = lastLay = wheelLayout();
   const selSlot = (() => { for (let s = 0; s < 12; s++) { const c = slotChord(s); if (c.d === sel.d && resolve(c).src === sel.src) return s; } return -1; })();
   let h = "";
   // board
   // Drafting Table: the sheet is paper, the two rings you can drag are slabs outlined in ink,
   // the five outside notes are a hatched region (hatch, don't tint), the hub is the one lit scope.
   h += `<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="var(--ground-200)"/><line x1="0" y1="0" x2="0" y2="6" stroke="var(--ink-3)" stroke-width="1"/></pattern></defs>`;
-  h += `<circle r="${R.outer + 14}" fill="var(--ground-000)" stroke="var(--ink)" stroke-width="2"/>`;
-  h += `<path d="${arc(R.func + 22, R.outer + 14, 6.5, 11.5)}" fill="url(#hatch)" opacity=".7"/>`;
+  h += `<circle r="${lay.border}" fill="var(--ground-000)" stroke="var(--ink)" stroke-width="2"/>`;
+  h += `<path d="${arc(lay.rule, lay.border, 6.5, 11.5)}" fill="url(#hatch)" opacity=".7"/>`;
   h += `<circle r="${R.note + 22}" fill="var(--slab-face)" stroke="var(--ink)" stroke-width="1.5"/>`;
   h += `<circle r="${R.deg + 20}" fill="none" stroke="var(--ink)" stroke-width="1"/>`;
-  [R.func + 22, R.qual + 22].forEach(r => h += `<circle r="${r}" fill="none" stroke="var(--rule)" stroke-width="1"/>`);
-  for (let s = 0; s < 12; s++) { const [x1, y1] = P(R.hub + 8, s + .5), [x2, y2] = P(R.outer + 14, s + .5); h += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="var(--rule-soft)"/>`; }
-  // fixed ring: modes + qualities (+ where outside notes are borrowed from)
-  h += `<g style="--rot:0deg">`;
-  for (let s = 0; s < 12; s++) {
-    if (s <= 6) {
-      h += up(R.mode, s, `<text class="t-mode" data-hit="mode" data-s="${s}" style="${s === S.m ? "font-weight:600;font-size:18px;text-decoration:underline" : ""}">${MODES[s].name}</text>`);
-      h += up(R.qual, s, `<text class="t-qual">${DIALECTS[S.dialect].suf[QUAL[s].id]}</text>`);
-    } else {
-      const o = outside(s);
-      h += up(R.mode + 14, s, `<text class="t-from">from ${MODES[o.src].name}</text>`);
-      h += up(R.qual - 6, s, `<text class="t-qual" opacity=".55">${DIALECTS[S.dialect].suf[QUAL[o.d + o.src].id]}</text>`);
-    }
-  }
-  h += `</g>`;
+  h += `<circle r="${lay.rule}" fill="none" stroke="var(--rule)" stroke-width="1"/>`;
+  for (let s = 0; s < 12; s++) { const [x1, y1] = P(R.hub + 8, s + .5), [x2, y2] = P(lay.border, s + .5); h += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="var(--rule-soft)"/>`; }
   // degree + function ring (rotates with the mode)
   h += `<g class="rotor" id="degRot">`;
-  h += `<path d="${arc(R.hub + 10, R.outer + 12, S.m - .5, S.m + .5)}" fill="url(#hatch)" opacity=".55" stroke="var(--ink)" stroke-width="1"/>`;
+  h += `<path d="${arc(R.hub + 10, lay.border - 2, S.m - .5, S.m + .5)}" fill="url(#hatch)" opacity=".55" stroke="var(--ink)" stroke-width="1"/>`;
   for (let s = 0; s < 12; s++) {
     const c = slotChord(s), outCls = s > 6 ? " out" : "", d = c.d;
     h += up(R.deg, s, `<text class="t-deg" opacity="${s > 6 ? .45 : 1}" style="${d === 0 ? "font-size:24px" : ""}">${SD(d)}</text>`);
     h += up(R.func, s, `<g class="${outCls.trim()}"><text class="t-func" data-hit="chord" data-s="${s}">${numeralOnly(c)}</text>${s === selSlot ? `<line x1="-16" x2="16" y1="15" y2="15" stroke="var(--accent)" stroke-width="2"/>` : ""}</g>`);
   }
+  h += `</g>`;
+  // fixed ring: modes + qualities (+ where outside notes are borrowed from), drawn over the hatched
+  // selection wedge so the selected mode's name stays at full strength
+  h += `<g style="--rot:0deg">`;
+  lay.slots.forEach((b, s) => {
+    const mHit = s <= 6 ? ` data-hit="mode" data-s="${s}"` : "";
+    h += up(lay.r, s, `<g${b.f < .999 ? ` style="transform:scale(${b.f.toFixed(3)})"` : ""}><text class="t-qual" data-hit="qual" y="${b.qy.toFixed(1)}"${b.qo < 1 ? ` opacity="${b.qo}"` : ""}>${b.q}</text><text class="${b.mc}" y="${b.my.toFixed(1)}"${mHit}>${b.m}</text></g>`);
+  });
   h += `</g>`;
   // note ring + chord shape (rotates with the key)
   h += `<g class="rotor" id="noteRot">`;
@@ -729,10 +761,11 @@ W.addEventListener("pointerdown", e => {
   stopTour(); const p = svgPoint(e), r = Math.hypot(...p);
   let ring = null;
   if (r > R.note - 22 && r < R.note + 22) ring = "note";
-  else if (r > R.hub + 8 && r < R.func + 22) ring = "deg";
-  else if (r >= R.func + 22 && r < R.outer + 14) ring = "fixed";
+  else if (r > R.hub + 8 && r < lastLay.rule) ring = "deg";
+  else if (r >= lastLay.rule && r < lastLay.border) ring = "fixed";
   if (!ring) return;
-  drag = { ring, last: angDeg(p), total: 0, applied: 0, p0: p, moved: false };
+  const hit = e.target.closest && e.target.closest("[data-hit]");
+  drag = { ring, last: angDeg(p), total: 0, applied: 0, p0: p, moved: false, hit: hit ? hit.dataset.hit : null };
   W.setPointerCapture(e.pointerId);
 });
 // The state commits every time the ring passes a slot, so spellings, grids and
@@ -769,7 +802,9 @@ W.addEventListener("pointerup", e => {
   if (!dr.moved) {  // a tap
     const s = mod(Math.round((angDeg(dr.p0) + 30) / 30), 12);
     if (dr.ring === "note") { playNote(slotNote(s)); return; }
-    if (dr.ring === "fixed" && s <= 6 && Math.hypot(...dr.p0) > R.mode - 24) { setMode(s); playScale(); return; }
+    // the outer band: a tap on the quality picks the chord, on the mode name or the band's outer half the mode
+    const onMode = dr.hit === "mode" || (dr.hit !== "qual" && Math.hypot(...dr.p0) > lastLay.r);
+    if (dr.ring === "fixed" && s <= 6 && onMode) { setMode(s); playScale(); return; }
     selectChord(slotChord(s)); return;
   }
   W.querySelectorAll(".rotor").forEach(g => { g.style.transition = ""; requestAnimationFrame(() => g.style.setProperty("--rot", "0deg")); });
@@ -1119,7 +1154,7 @@ document.addEventListener("keydown", e => {
   else if (k === "t" || k === "T") { S.keep = S.keep === "tonic" ? "notes" : "tonic"; renderHeader(); }
   else if (k === "n" || k === "N") { const ks = Object.keys(DIALECTS); S.dialect = ks[(ks.indexOf(S.dialect) + 1) % ks.length]; renderAll(); }
   else if (k === "p" || k === "P") setTheme(S.theme === "paper" ? "phosphor" : "paper");
-  else if (k === "r" || k === "R") document.body.classList.toggle("room");
+  else if (k === "r" || k === "R") { document.body.classList.toggle("room"); renderWheel(); }
   else if (k === " ") { stopTour(); playing ? stopProg() : startProg(); }
   else return;
   e.preventDefault();
