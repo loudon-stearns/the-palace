@@ -1,0 +1,464 @@
+<!doctype html>
+<!--
+  title: Threshold Conatus — rich — refractory preference
+  born: 2026-11-04
+  links: [[Threshold Conatus]] (connects-to · rich-face-piece) · [[Action Potential Oscillator]] (grew-from · the spike as a state the input can't touch) · [[Progressive Staging]] (exemplifies · a walk in steps) · listed in [[Threshold Conatus — rich.json]]
+  forward_vector: I am the section's refractory claim as a walk you can play: one threshold, then two
+    stimuli, then the absolute period, then the relative, then a whole train, and last the test. Does a
+    graduated recovery make the threshold choose which stimuli cross, and does the choosing go when the
+    recovery goes? I measure it in a model and say plainly what a model cannot reach: whether any of this
+    is a conatus. I change only when the section I serve does.
+  engine: a stimulus-driven threshold of this piece's own (ENGINE block below). The Action Potential
+    Oscillator's engine has no outside input, so it is not reused; its move is: the spike is a state the
+    input can't touch, and it ends below rest. Every crossing the page shows is read from the engine as it
+    runs the train, sample by sample. Checked headless by "Threshold Conatus — rich — checks.mjs", beside
+    this file. Silent: the piece makes no sound.
+  dress: Loudon Live house style, Graphite skin, system fallbacks for the house fonts (no font is fetched).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Threshold Conatus — refractory preference</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --v:#4aadff; --spike:#ff6b4a; --rec:#a64aff;
+    --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace; --sans:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif; --serif:'Cormorant Garamond','Iowan Old Style',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .tc-piece { padding: 22px 22px 20px; }
+  .tc-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .tc-kicker svg { width: 18px; height: 18px; }
+  .tc-title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .tc-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 16px; }
+  .tc-rail { display: flex; flex-wrap: wrap; gap: 0; margin: 0 0 14px; }
+  .tc-rail button { border-radius: 0; margin-right: -1px; }
+  .tc-rail button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.tc-go { color: var(--amber); border-color: var(--amberline); }
+  button.tc-on { color: var(--amber); border-color: var(--amberline); }
+  .tc-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .tc-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .tc-says { font-size: 14.5px; line-height: 1.62; color: var(--fg2); max-width: 80ch; margin: 0 0 12px; }
+  .tc-says b { color: var(--fg1); font-weight: 500; }
+  .tc-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 14px; }
+  @media (max-width: 720px) { .tc-grid { grid-template-columns: 1fr; } }
+  .tc-panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--bg); padding: 8px 10px; }
+  .tc-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .tc-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px 22px; align-items: end; margin-top: 14px; }
+  .tc-btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  label.tc-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.tc-sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .tc-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .tc-read b { color: var(--fg1); font-weight: 500; }
+  .tc-read .tc-flag { color: var(--amber); }
+  .tc-eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .tc-eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .tc-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 80ch; }
+  .tc-back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin-top: 10px; }
+  .tc-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .tc-key { display: flex; gap: 14px; flex-wrap: wrap; font-family: var(--mono); font-size: 10.5px; color: var(--fg3); margin-top: 6px; }
+  .tc-key i { display: inline-block; width: 14px; height: 2px; vertical-align: middle; margin-right: 5px; }
+  .tc-rule { font-size: 13.5px; line-height: 1.6; color: var(--fg2); max-width: 82ch; border-left: 2px solid var(--amberline); padding: 2px 0 2px 12px; margin: 0 0 12px; }
+  .tc-rule ol { margin: 4px 0 0 0; padding-left: 20px; }
+  .tc-rule li { margin: 3px 0; }
+  .tc-maps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 12px; }
+  @media (max-width: 720px) { .tc-maps { grid-template-columns: 1fr; } }
+  .tc-verdict { margin-top: 6px; font-family: var(--mono); font-size: 11.5px; color: var(--fg2); }
+  .tc-verdict b { color: var(--amber); font-weight: 500; }
+  .tc-checks { margin-top: 12px; font-family: var(--mono); font-size: 11px; line-height: 1.7; color: var(--fg3); }
+  .tc-checks b { color: var(--fg1); font-weight: 500; }
+  .tc-cannot { margin-top: 14px; font-size: 13.5px; line-height: 1.6; color: var(--fg2); max-width: 82ch; border-top: 1px solid var(--soft); padding-top: 12px; }
+  .tc-cannot b { color: var(--fg1); font-weight: 500; }
+  .tc-foot { margin-top: 16px; font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg4); }
+</style>
+</head>
+<body>
+<div class="tc-piece">
+  <div class="tc-kicker"><svg id="sigil" viewBox="0 0 18 18" aria-hidden="true"></svg><span>made · sketch · a walk in six steps · silent</span></div>
+  <h3 class="tc-title">Which stimuli does a threshold let through?</h3>
+  <p class="tc-sub">The section says the recovery after a spike, absolute and then relative, makes the threshold choose: it crosses only for stimuli that have earned it. Build that threshold one mechanism at a time, then take the recovery away and see whether the choosing goes with it. Every number here is this model's, not a neuron's.</p>
+  <div class="tc-rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="tc-step">
+    <div class="tc-stephead"><span id="stepname"></span><span id="stepof"></span></div>
+    <p class="tc-says" id="says"></p>
+    <div id="playArea">
+      <div class="tc-grid" id="topGrid">
+        <div class="tc-panel">
+          <div class="tc-plabel"><span id="traceLabel">membrane</span><span id="traceNote"></span></div>
+          <canvas id="trace" height="200"></canvas>
+          <div class="tc-key"><span><i style="background:#4aadff"></i>membrane</span><span><i style="background:#e8b84a"></i>threshold at rest</span><span><i style="background:#ff6b4a"></i>spike: input not felt</span><span><i style="background:#a64aff"></i>below rest</span></div>
+        </div>
+        <div class="tc-panel" id="barPanel">
+          <div class="tc-plabel"><span>the bar after a crossing</span><span>measured, 0 to 30 ms</span></div>
+          <canvas id="bar" height="200"></canvas>
+          <div class="tc-key"><span><i style="background:#e8b84a"></i>weakest stimulus that crosses</span><span><i style="background:#ff6b4a"></i>none crosses</span></div>
+        </div>
+      </div>
+      <div class="tc-panel" id="rasterPanel" style="margin-top:14px;display:none">
+        <div class="tc-plabel"><span>one train, four thresholds · 200 ms</span><span id="rasterNote"></span></div>
+        <canvas id="raster" height="340"></canvas>
+        <div class="tc-key"><span><i style="background:#e8b84a"></i>crossed</span><span><i style="background:#4a4a5a"></i>refused</span><span>stem height = strength · line = threshold at rest</span></div>
+      </div>
+      <div class="tc-controls" id="controls"></div>
+      <div class="tc-read" id="read"></div>
+    </div>
+    <div id="testArea" style="display:none">
+      <div class="tc-rule" id="rule"></div>
+      <div class="tc-btns"><button class="tc-go" id="runTest">run the paired train</button><span class="tc-read" id="testStatus" style="margin:0"></span></div>
+      <div class="tc-maps" id="maps"></div>
+      <div class="tc-checks" id="checks"></div>
+      <div class="tc-cannot" id="cannot" style="display:none"></div>
+    </div>
+    <div class="tc-eqs" id="eqs"></div>
+    <div class="tc-back" id="backline"></div>
+    <div class="tc-nav"><button id="prev">← back</button><button id="next">next step →</button></div>
+  </div>
+  <div class="tc-foot">Loud’n Live</div>
+</div>
+<script id="engine">
+/* ENGINE:START — one threshold, driven by stimuli. The model's constants are the model's, not a neuron's.
+   A stimulus is an instant kick of strength s, in units of the resting threshold, added to the membrane,
+   which leaks back to rest (0) with TAU_MS. Two switches. Absolute: for ABS_MS after a crossing the input
+   is not felt at all; the spike is a state no stimulus can touch. Relative: the spike ends below rest, at
+   AHP, and the membrane climbs back on its own leak. Both off: the membrane resets to rest the instant it
+   crosses. Shared by the page and the headless check; it touches nothing of the page. */
+const TC = { DT: 0.01, THETA: 1.0, TAU_MS: 3.0, ABS_MS: 2.0, AHP: -1.0 };
+function ThresholdEngine(abs, rel, c) {
+  c = c || TC;
+  const absN = Math.round(c.ABS_MS / c.DT), decay = Math.exp(-c.DT / c.TAU_MS);
+  let V = 0, left = 0;
+  function tick(kick) {                       // one sample; kick = the stimuli landing on it
+    if (left > 0) {                           // absolute: the input is not felt
+      left--; if (left === 0) V = rel ? c.AHP : 0;
+      return { crossed: false, inSpike: left > 0, V };
+    }
+    V += kick;
+    if (V >= c.THETA) {
+      if (abs) { left = absN; V = c.THETA; return { crossed: true, inSpike: true, V }; }
+      V = rel ? c.AHP : 0;
+      return { crossed: true, inSpike: false, V };
+    }
+    V *= decay;
+    return { crossed: false, inSpike: false, V };
+  }
+  return { tick };
+}
+// a train [{t (ms), s}] through one arm; returns a crossed flag per stimulus, and the trace if asked
+function runTrain(abs, rel, train, c, wantTrace) {
+  c = c || TC;
+  const e = ThresholdEngine(abs, rel, c), at = new Map();
+  train.forEach((st, i) => { const n = Math.round(st.t / c.DT); if (!at.has(n)) at.set(n, []); at.get(n).push(i); });
+  const end = Math.round((Math.max(...train.map(s => s.t)) + (wantTrace ? wantTrace.tail || 0 : 0)) / c.DT) + 2;
+  const crossed = new Array(train.length).fill(false), trace = wantTrace ? new Float32Array(end + 1) : null, spike = wantTrace ? new Uint8Array(end + 1) : null;
+  for (let n = 0; n <= end; n++) {
+    const idx = at.get(n); let kick = 0; if (idx) for (const i of idx) kick += train[i].s;
+    const r = e.tick(kick);
+    if (r.crossed && idx) for (const i of idx) crossed[i] = true;
+    if (trace) { trace[n] = r.V; spike[n] = r.inSpike || r.crossed ? 1 : 0; }
+  }
+  return wantTrace ? { crossed, trace, spike } : crossed;
+}
+// the paired train: a conditioning stimulus of strength COND, then a probe delta ms later of strength s; pairs GAP ms apart
+const GRID = { DELTAS: [0.5, 1, 1.5, 2.25, 2.5, 3, 4, 5, 6, 8, 10, 14, 20, 30],
+  STRENGTHS: [0.5, 0.9, 1.05, 1.1, 1.2, 1.35, 1.5, 1.75, 2, 2.5, 5, 10, 1000], COND: 3, GAP: 40 };
+function gridPairs() { const o = []; for (const d of GRID.DELTAS) for (const s of GRID.STRENGTHS) o.push({ d, s }); return o; }
+function pairedTrain(order, gap) {
+  gap = gap || GRID.GAP; const tr = [];
+  order.forEach((p, k) => { const t0 = 10 + k * gap; tr.push({ t: t0, s: GRID.COND, cond: true, p }); tr.push({ t: t0 + p.d, s: p.s, cond: false, p }); });
+  return tr;
+}
+function barsFrom(map) {
+  return GRID.DELTAS.map(d => {
+    const row = GRID.STRENGTHS.map(s => map[d + '|' + s]), k = row.indexOf(true);
+    const clean = k < 0 || (row.slice(k).every(v => v) && row.slice(0, k).every(v => !v));
+    return { d, bar: k < 0 ? Infinity : GRID.STRENGTHS[k], clean, row };
+  });
+}
+function scoreArm(abs, rel, order, gap) {
+  const tr = pairedTrain(order || gridPairs(), gap), x = runTrain(abs, rel, tr);
+  const map = {}; let condOk = 0, condN = 0;
+  tr.forEach((st, i) => { if (st.cond) { condN++; if (x[i]) condOk++; } else map[st.p.d + '|' + st.p.s] = x[i]; });
+  return { map, bars: barsFrom(map), condOk, condN, crossed: x.filter((v, i) => v && !tr[i].cond).length, probes: tr.length / 2 };
+}
+// the verdict rule, fixed before the first run; the page prints it from these words
+const RULE = [
+  'For each interval after a crossing, the bar is the weakest probe that crosses. The rest bar is the bar at 30 ms.',
+  'Not a structure: some row is not clean (a weaker probe crosses where a stronger one is refused), or the bar rises with time, or it never comes home to the rest bar. A jittered, state-blind threshold lands here.',
+  'None: one bar at every interval. The threshold is blind to its own recent crossing.',
+  'A gate: two bars only, refused at any strength and then the rest bar. Timing alone decides.',
+  'Graded, no floor: bars above the rest bar that fall with time, but even right after a crossing some strength gets through.',
+  'Graduated, the page\'s preference structure: at the shortest intervals no strength crosses, not even 1000 times the resting threshold; then at least two bars above the rest bar, falling with time; then home.'
+];
+function verdict(bars) {
+  const rest = bars[bars.length - 1].bar;
+  const levels = [...new Set(bars.map(b => b.bar))];
+  const raised = levels.filter(v => isFinite(v) && v > rest);
+  const monotone = bars.every((b, i) => i === 0 || b.bar <= bars[i - 1].bar);
+  const clean = bars.every(b => b.clean);
+  const home = rest === Math.min(...bars.map(b => b.bar));
+  const anyMag = bars[0].bar === Infinity;
+  let kind;
+  if (!clean || !monotone || !home) kind = 'not a structure';
+  else if (levels.length === 1) kind = 'none';
+  else if (raised.length === 0) kind = 'a gate';
+  else if (anyMag && raised.length >= 2) kind = 'graduated';
+  else kind = 'graded, no floor';
+  return { kind, rest, levels: levels.length, raised: raised.length, monotone, clean, home, anyMag };
+}
+/* ENGINE:END */
+</script>
+<script>
+(function sigil() { const s = document.getElementById('sigil'); let d = ''; for (let i = 0; i <= 160; i++) { const t = 2 * Math.PI * i / 160; d += (i ? 'L' : 'M') + (9 + 7.5 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 + 7.5 * Math.sin(2 * t)).toFixed(2); } s.innerHTML = '<path d="' + d + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
+const $ = id => document.getElementById(id);
+function el(tag, attrs, ...kids) { const e = document.createElement(tag); for (const k in attrs || {}) { if (k === 'on') for (const ev in attrs.on) e.addEventListener(ev, attrs.on[ev]); else e.setAttribute(k, attrs[k]); } for (const c of kids) e.append(c); return e; }
+const COL = { v: '#4aadff', amber: '#e8b84a', spike: '#ff6b4a', rec: '#a64aff', fg3: '#8a8aa0', fg4: '#4a4a5a', soft: 'rgba(255,255,255,.07)', fg1: '#e8e8f0' };
+const S = { step: 1, s1: 1.4, d: 4, s: 1.5, abs: false, rel: false, rate: 250, seed: 3 };
+const T0 = 5, WIN = 30, COND = GRID.COND;
+
+function fit(cv) { const r = window.devicePixelRatio || 1, w = cv.clientWidth || 600, h = +cv.getAttribute('height'); cv.width = Math.round(w * r); cv.height = Math.round(h * r); cv.style.height = h + 'px'; const g = cv.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); return { g, w, h }; }
+const fmt = v => v >= 100 ? v.toFixed(0) : v >= 10 ? v.toFixed(1) : v.toFixed(2);
+const sFromSlider = x => Math.pow(10, x);           // strength slider runs on a log scale, 0.3 to 1000
+// the bar after a crossing, measured: for each delay, bisect the weakest probe that crosses, by running the engine
+function measureBar(abs, rel) {
+  const out = [];
+  for (let d = 0.1; d <= WIN + 1e-9; d += 0.1) {
+    const cross = s => runTrain(abs, rel, [{ t: T0, s: COND }, { t: T0 + d, s }])[1];
+    if (!cross(1e4)) { out.push({ d, bar: Infinity }); continue; }
+    let lo = 0.3, hi = 1e4; for (let k = 0; k < 40; k++) { const m = Math.sqrt(lo * hi); if (cross(m)) hi = m; else lo = m; }
+    out.push({ d, bar: hi });
+  }
+  return out;
+}
+const barCache = {};
+function barFor(abs, rel) { const k = (+abs) + '' + (+rel); return barCache[k] || (barCache[k] = measureBar(abs, rel)); }
+
+function drawTrace(train, abs, rel) {
+  const { g, w, h } = fit($('trace')); const r = runTrain(abs, rel, train, TC, { tail: WIN });
+  const L = 46, R = w - 18, top = 10, bot = h - 22, vmax = 1.6, vmin = -1.2;
+  const y = v => top + (vmax - v) / (vmax - vmin) * (bot - top), x = t => L + t / WIN * (R - L);
+  g.fillStyle = '#0a0a0f'; g.fillRect(0, 0, w, h);
+  g.strokeStyle = COL.soft; g.lineWidth = 1; for (const v of [-1, 0, 1]) { g.beginPath(); g.moveTo(L, y(v)); g.lineTo(R, y(v)); g.stroke(); }
+  g.fillStyle = COL.fg3; g.font = '10px ' + getComputedStyle(document.body).getPropertyValue('--mono'); g.textAlign = 'right';
+  g.fillText('θ 1', L - 4, y(1) + 3); g.fillText('rest 0', L - 4, y(0) + 3); g.fillText('−1', L - 4, y(-1) + 3);
+  g.textAlign = 'center'; for (let t = 0; t <= WIN; t += 5) g.fillText(t + ' ms', x(t), h - 6);
+  g.strokeStyle = COL.amber; g.setLineDash([4, 3]); g.beginPath(); g.moveTo(L, y(1)); g.lineTo(R, y(1)); g.stroke(); g.setLineDash([]);
+  const N = Math.min(r.trace.length, Math.round(WIN / TC.DT));
+  // spike blocks (absolute) drawn as the spike, then the membrane
+  for (let n = 0; n < N; n++) if (r.spike[n]) { g.fillStyle = 'rgba(255,107,74,.22)'; g.fillRect(x(n * TC.DT), y(vmax), Math.max(1, (R - L) / N), y(vmin) - y(vmax)); }
+  g.lineWidth = 1.6; let prevBelow = null;
+  for (let n = 1; n < N; n++) {
+    const v0 = r.spike[n - 1] ? 1.5 : r.trace[n - 1], v1 = r.spike[n] ? 1.5 : r.trace[n];
+    g.strokeStyle = r.spike[n] ? COL.spike : (v1 < -1e-3 ? COL.rec : COL.v);
+    g.beginPath(); g.moveTo(x((n - 1) * TC.DT), y(v0)); g.lineTo(x(n * TC.DT), y(v1)); g.stroke();
+  }
+  // stimuli as stems on the time axis
+  train.forEach((st, i) => { const xx = x(st.t); g.strokeStyle = r.crossed[i] ? COL.amber : COL.fg3; g.lineWidth = 2; g.beginPath(); g.moveTo(xx, bot); g.lineTo(xx, bot - Math.min(40, 10 + 10 * Math.log10(1 + st.s) * 4)); g.stroke(); });
+  return r;
+}
+function drawBar(abs, rel, probe) {
+  const { g, w, h } = fit($('bar')); const B = barFor(abs, rel);
+  const L = 40, R = w - 18, top = 10, bot = h - 22, lmin = Math.log10(0.8), lmax = Math.log10(12);   // above 12x is drawn at the top edge
+  const y = s => top + (lmax - Math.log10(s)) / (lmax - lmin) * (bot - top), x = d => L + d / WIN * (R - L);
+  g.fillStyle = '#0a0a0f'; g.fillRect(0, 0, w, h);
+  g.font = '10px ' + getComputedStyle(document.body).getPropertyValue('--mono'); g.fillStyle = COL.fg3; g.textAlign = 'right';
+  for (const s of [1, 1.5, 2, 3, 5, 10]) { g.strokeStyle = COL.soft; g.beginPath(); g.moveTo(L, y(s)); g.lineTo(R, y(s)); g.stroke(); g.fillText(s + '×', L - 4, y(s) + 3); }
+  g.textAlign = 'center'; for (let t = 0; t <= WIN; t += 10) g.fillText(t + ' ms', x(t), h - 6);
+  g.lineWidth = 2;
+  for (let i = 1; i < B.length; i++) {
+    const a = B[i - 1], b = B[i];
+    if (!isFinite(b.bar)) { g.fillStyle = 'rgba(255,107,74,.30)'; g.fillRect(x(a.d), top, x(b.d) - x(a.d) + .5, bot - top); continue; }
+    if (!isFinite(a.bar)) continue;
+    g.strokeStyle = COL.amber; g.beginPath(); g.moveTo(x(a.d), y(Math.min(12, a.bar))); g.lineTo(x(b.d), y(Math.min(12, b.bar))); g.stroke();
+  }
+  if (probe) { const px = x(Math.min(WIN, probe.d)), py = y(Math.max(0.8, Math.min(12, probe.s))); g.beginPath(); g.arc(px, py, 5, 0, 2 * Math.PI);
+    if (probe.crossed) { g.fillStyle = COL.amber; g.fill(); } else { g.strokeStyle = COL.fg1; g.lineWidth = 1.5; g.stroke(); } }
+}
+function rng(seed) { return () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }; }
+function makeTrain(rate, seed) { const r = rng(seed * 7919 + 13), tr = []; let t = 2; while (true) { t += -Math.log(1 - r()) * 1000 / rate; if (t > 198) break; tr.push({ t: Math.round(t / TC.DT) * TC.DT, s: Math.pow(10, Math.log10(0.6) + r() * (Math.log10(3) - Math.log10(0.6))) }); } return tr; }
+const ARMS = [[false, false, 'no recovery'], [true, false, 'absolute only'], [false, true, 'relative only'], [true, true, 'absolute, then relative']];
+function drawRaster() {
+  const { g, w, h } = fit($('raster')); const tr = makeTrain(S.rate, S.seed), rowH = (h - 18) / 4, L = 18, R = w - 20, x = t => L + t / 200 * (R - L);
+  g.fillStyle = '#0a0a0f'; g.fillRect(0, 0, w, h); g.font = '10.5px ' + getComputedStyle(document.body).getPropertyValue('--mono');
+  const counts = [];
+  ARMS.forEach(([a, r, name], k) => {
+    const res = runTrain(a, r, tr), base = 10 + k * rowH + rowH - 12, sc = s => Math.min(rowH - 26, (rowH - 26) * Math.log10(1 + s * 3) / Math.log10(10));
+    const atRest = tr.map(st => st.s >= TC.THETA), refusedStrong = tr.filter((st, i) => atRest[i] && !res[i]).length, sumWeak = tr.filter((st, i) => !atRest[i] && res[i]).length;
+    counts.push({ name, crossed: res.filter(Boolean).length, refusedStrong, sumWeak });
+    g.fillStyle = COL.fg3; g.textAlign = 'left'; g.fillText(name + ' · ' + res.filter(Boolean).length + ' of ' + tr.length + ' cross · ' + refusedStrong + ' that would cross at rest refused', L, 10 + k * rowH + 10);
+    g.strokeStyle = COL.soft; g.beginPath(); g.moveTo(L, base); g.lineTo(R, base); g.stroke();
+    g.strokeStyle = 'rgba(232,184,74,.35)'; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(L, base - sc(1)); g.lineTo(R, base - sc(1)); g.stroke(); g.setLineDash([]);
+    tr.forEach((st, i) => { g.strokeStyle = res[i] ? COL.amber : COL.fg4; g.lineWidth = res[i] ? 2 : 1.5; g.beginPath(); g.moveTo(x(st.t), base); g.lineTo(x(st.t), base - sc(st.s)); g.stroke(); });
+  });
+  g.fillStyle = COL.fg3; g.textAlign = 'center'; for (let t = 0; t <= 200; t += 50) g.fillText(t + ' ms', x(t), h - 4);
+  $('rasterNote').textContent = tr.length + ' stimuli, strengths 0.6 to 3';
+  return { tr, counts };
+}
+
+const STEPS = [
+  { n: 1, name: 'a threshold', abs: false, rel: false, two: false,
+    says: '<b>One threshold, one stimulus, no memory.</b> The membrane rests at 0. A stimulus kicks it up by its strength, measured in units of the threshold. If the kick reaches 1, it crosses; if not, the membrane leaks back to rest. Here the only thing that decides is strength.',
+    eqs: [['V + s ≥ θ  →  cross', 'A stimulus of strength s crosses when it lifts the membrane V to the threshold θ. At rest V is 0 and θ is 1, so anything of strength 1 or more crosses.']] },
+  { n: 2, name: 'two stimuli, no recovery', abs: false, rel: false, two: true,
+    says: '<b>A crossing, then a second stimulus.</b> A strong first stimulus crosses at 5 ms. A second, the probe, follows after a delay you set. With no recovery the membrane is back at rest the instant it crosses, so the probe is judged exactly as if nothing had happened. On the right, the bar: for every delay, the weakest probe that still crosses, measured by running the model. It is flat.',
+    eqs: [['after a crossing:  V → 0', 'The membrane resets to rest at once. The threshold is blind to its own last crossing.']] },
+  { n: 3, name: 'the absolute period', abs: true, rel: false, two: true, toggle: 'abs',
+    says: '<b>The spike becomes a state.</b> Now, for 2 ms after a crossing, the input is not felt at all: the spike is running and nothing a stimulus does reaches it. Take the probe to 1000 times the threshold and put it inside those 2 ms: it is refused. After them, the bar is back at rest at once. This is a gate. It decides by timing alone.',
+    eqs: [['for 0 < t < t_abs:  input ignored    (t_abs = 2 ms, the model\'s)', 'For the absolute period after a crossing, no stimulus of any strength is felt. Then the membrane is at rest again.']] },
+  { n: 4, name: 'the relative period', abs: true, rel: true, two: true, toggle: 'rel',
+    says: '<b>The spike ends below rest.</b> When the absolute period ends, the membrane is left at −1, as far below rest as the threshold is above it, and climbs back on its own leak. A probe now has to make up the distance: early, only a strong one crosses; later, a weaker one will do. The bar falls with time. This is the section\'s graduated recovery, and here strength and timing trade against each other.',
+    eqs: [['V(t) = −e^(−(t − t_abs)/τ)    (τ = 3 ms, the model\'s)', 'After the absolute period the membrane starts at −1 and climbs back toward rest on its leak.'],
+          ['bar(t) = θ − V(t) = 1 + e^(−(t − t_abs)/τ)', 'The weakest probe that crosses is the threshold plus however far below rest the membrane still is. Above 12 times the threshold the plot draws the probe at its top edge.']] },
+  { n: 5, name: 'a whole train', abs: true, rel: true, raster: true,
+    says: '<b>The same train through four thresholds.</b> A random train of stimuli, strengths from 0.6 to 3, played through each version: no recovery, the absolute period alone, the relative period alone, and both. The same stimuli, but a different set gets through in each row. Watch the stimuli that are stronger than the threshold at rest and still refused. Set the rate; draw a new train.',
+    eqs: [['refused, though s ≥ θ', 'A stimulus that would cross a resting threshold but is refused because of the threshold\'s recent crossing. With no recovery there are none. One more state-dependence shows in every row and is not the recovery\'s: weak stimuli close together sum, and the second can cross.']] },
+  { n: 6, name: 'the test', test: true,
+    says: '<b>Take the recovery away and see whether the choosing goes.</b> One stated train, run through all four versions: 182 pairs, 40 ms apart. Each pair is a first stimulus of strength 3 (it crosses in every version), then a probe at one of 14 delays (0.5 to 30 ms) and one of 13 strengths (0.5 to 1000). Which probes cross is read from the model as it runs the whole train. The rule below is fixed before the run.',
+    eqs: [] }
+];
+
+function build() {
+  const st = STEPS[S.step - 1];
+  const rail = $('rail'); rail.innerHTML = '';
+  STEPS.forEach(t => rail.append(el('button', { 'aria-pressed': String(t.n === S.step), on: { click: () => goTo(t.n) } }, t.n + ' · ' + t.name)));
+  $('stepname').textContent = 'step ' + st.n + ' · ' + st.name; $('stepof').textContent = st.n + ' of ' + STEPS.length;
+  $('says').innerHTML = st.says;
+  $('prev').disabled = S.step === 1; $('next').disabled = S.step === STEPS.length;
+  $('playArea').style.display = st.test ? 'none' : ''; $('testArea').style.display = st.test ? '' : 'none';
+  $('topGrid').style.display = st.raster ? 'none' : ''; $('rasterPanel').style.display = st.raster ? '' : 'none';
+  $('barPanel').style.display = st.two ? '' : 'none';
+  $('topGrid').style.gridTemplateColumns = st.two ? '' : '1fr';
+  if (st.abs !== undefined) { S.abs = st.abs; S.rel = st.rel; }   // each step opens with its own mechanisms; its toggle takes you back one
+  const eqs = $('eqs'); eqs.innerHTML = ''; st.eqs.forEach(([sym, words]) => { eqs.append(el('div', { class: 'tc-eq' }, sym)); eqs.append(el('div', { class: 'tc-words' }, words)); });
+  const back = { 3: 'Turn the absolute period off and this is step 2 again.', 4: 'Turn the relative period off and this is step 3 again.' }[st.n] || '';
+  $('backline').textContent = back;
+  controls(st); if (st.test) buildTest(); render();
+}
+function slider(label, min, max, stepv, val, show, on) {
+  const b = el('b', {}, show(val)), inp = el('input', { type: 'range', min, max, step: stepv, value: val });
+  inp.addEventListener('input', () => { b.textContent = show(+inp.value); on(+inp.value); render(); });
+  return el('label', { class: 'tc-sl' }, label, ' ', b, inp);
+}
+function controls(st) {
+  const c = $('controls'); c.innerHTML = '';
+  if (st.test) return;
+  if (st.raster) {
+    c.append(slider('rate', 50, 1000, 10, S.rate, v => v + ' per second', v => S.rate = v));
+    c.append(el('div', { class: 'tc-btns' }, el('button', { on: { click: () => { S.seed++; render(); } } }, 'new train')));
+    return;
+  }
+  if (!st.two) { c.append(slider('strength', Math.log10(0.3), Math.log10(3), 0.001, Math.log10(S.s1), v => fmt(sFromSlider(v)) + '× threshold', v => S.s1 = sFromSlider(v))); return; }
+  c.append(slider('probe delay after the crossing', 0.2, 25, 0.05, S.d, v => v.toFixed(2) + ' ms', v => S.d = v));
+  c.append(slider('probe strength', Math.log10(0.3), 3, 0.001, Math.log10(S.s), v => fmt(sFromSlider(v)) + '× threshold', v => S.s = sFromSlider(v)));
+  if (st.toggle) {
+    const key = st.toggle, b = el('button', { class: S[key] ? 'tc-on' : '' }, (key === 'abs' ? 'absolute period' : 'relative period') + (S[key] ? ' · on' : ' · off'));
+    b.addEventListener('click', () => { S[key] = !S[key]; b.className = S[key] ? 'tc-on' : ''; b.textContent = (key === 'abs' ? 'absolute period' : 'relative period') + (S[key] ? ' · on' : ' · off'); render(); });
+    c.append(el('div', { class: 'tc-btns' }, b));
+  }
+}
+function render() {
+  const st = STEPS[S.step - 1], read = $('read'); read.innerHTML = '';
+  if (st.test) return;
+  if (st.raster) { const R = drawRaster(); return; }
+  if (!st.two) {
+    const r = drawTrace([{ t: T0, s: S.s1 }], false, false);
+    $('traceNote').textContent = 'one stimulus at 5 ms';
+    read.append(el('span', {}, 'strength ', el('b', {}, fmt(S.s1))), el('span', { class: r.crossed[0] ? 'tc-flag' : '' }, r.crossed[0] ? 'crosses' : 'refused: the membrane leaks back'));
+    return;
+  }
+  const train = [{ t: T0, s: COND }, { t: T0 + S.d, s: S.s }];
+  const r = drawTrace(train, S.abs, S.rel), B = barFor(S.abs, S.rel), near = B.reduce((a, b) => Math.abs(b.d - S.d) < Math.abs(a.d - S.d) ? b : a);
+  drawBar(S.abs, S.rel, { d: S.d, s: S.s, crossed: r.crossed[1] });
+  $('traceNote').textContent = 'first stimulus 3× at 5 ms · probe at ' + (T0 + S.d).toFixed(2) + ' ms';
+  read.append(el('span', {}, 'probe ', el('b', {}, fmt(S.s) + '×'), ' at ', el('b', {}, S.d.toFixed(2) + ' ms')),
+    el('span', { class: r.crossed[1] ? 'tc-flag' : '' }, r.crossed[1] ? 'crosses' : 'refused'),
+    el('span', {}, 'bar here ', el('b', {}, isFinite(near.bar) ? fmt(near.bar) + '×' : 'none crosses')));
+}
+
+// the test: the rule first, then the run
+function buildTest() {
+  const rule = $('rule'); rule.innerHTML = '';
+  rule.append(el('div', {}, 'The rule, fixed before the run. There is no chance level to beat: the model is deterministic, so the verdict is a classification of each version\'s pattern, and the controls below are what could make it fail.'));
+  const ol = el('ol', {}); RULE.forEach(t => ol.append(el('li', {}, t))); rule.append(ol);
+  rule.append(el('div', {}, 'What the section predicts: no recovery is none; the full recovery is graduated. What would count against it: the full recovery landing anywhere but graduated, or no recovery landing anywhere but none.'));
+  $('maps').innerHTML = ''; $('checks').innerHTML = ''; $('cannot').style.display = 'none'; $('testStatus').textContent = '';
+}
+function drawMap(cv, S2) {
+  const { g, w, h } = fit(cv); const D = GRID.DELTAS, Sx = GRID.STRENGTHS, L = 44, R = w - 6, top = 6, bot = h - 30;
+  const cw = (R - L) / D.length, ch = (bot - top) / Sx.length; g.fillStyle = '#0a0a0f'; g.fillRect(0, 0, w, h);
+  g.font = '9.5px ' + getComputedStyle(document.body).getPropertyValue('--mono');
+  Sx.forEach((s, j) => { const yy = bot - (j + 1) * ch; g.fillStyle = COL.fg3; g.textAlign = 'right'; g.fillText(s + '×', L - 4, yy + ch / 2 + 3);
+    D.forEach((d, i) => { const on = S2.map[d + '|' + s]; g.fillStyle = on ? COL.amber : '#1a1a28'; g.fillRect(L + i * cw + 1, yy + 1, cw - 2, ch - 2); }); });
+  g.textAlign = 'center'; g.fillStyle = COL.fg3; D.forEach((d, i) => { if (i % 2 === 0 || cw > 26) g.fillText(d, L + i * cw + cw / 2, bot + 12); });
+  g.fillText('probe delay after the crossing, ms', (L + R) / 2, h - 4);
+}
+function runTest() {
+  const maps = $('maps'); maps.innerHTML = ''; const results = [];
+  ARMS.forEach(([a, r, name]) => {
+    const S2 = scoreArm(a, r), v = verdict(S2.bars); results.push({ name, S2, v });
+    const cv = el('canvas', { height: '230' }), panel = el('div', { class: 'tc-panel' },
+      el('div', { class: 'tc-plabel' }, el('span', {}, name), el('span', {}, S2.crossed + ' of ' + S2.probes + ' probes cross')), cv,
+      el('div', { class: 'tc-verdict' }, 'verdict ', el('b', {}, v.kind), ' · ' + v.levels + ' bar' + (v.levels > 1 ? 's' : '') + ', ' + v.raised + ' above rest' + (v.anyMag ? ' · 1000× refused at 0.5 ms' : '')));
+    maps.append(panel); drawMap(cv, S2);
+  });
+  // the controls that could make it fail
+  const lines = [];
+  const condAll = results.every(x => x.S2.condOk === x.S2.condN);
+  lines.push(['first stimulus crossed in every pair, every version', condAll ? '182 of 182, all four' : 'NO: ' + results.map(x => x.S2.condOk).join(', ')]);
+  const shuf = (() => { const o = gridPairs(), r = rng(7); for (let i = o.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [o[i], o[j]] = [o[j], o[i]]; } return o; })();
+  const diffAt = gap => { let n = 0; ARMS.forEach(([a, r]) => { const A = scoreArm(a, r, gridPairs(), gap), B = scoreArm(a, r, shuf, gap); for (const k in A.map) if (A.map[k] !== B.map[k]) n++; }); return n; };
+  const d40 = diffAt(40), d12 = diffAt(12);
+  lines.push(['order null: the same pairs shuffled', d40 + ' cells change at 40 ms apart (0 means no pair leaks into the next) · the control: ' + d12 + ' change at 12 ms apart, where they do leak']);
+  let noiseG = 0, noiseNot = 0; for (let s = 1; s <= 500; s++) { const r = rng(s), map = {}; pairedTrain(gridPairs()).forEach(st => { if (!st.cond) map[st.p.d + '|' + st.p.s] = st.s >= 1 + 1.2 * r(); }); const k = verdict(barsFrom(map)).kind; if (k === 'graduated') noiseG++; if (k === 'not a structure') noiseNot++; }
+  lines.push(['noise control: 500 state-blind thresholds, jittered 1.0 to 2.2 per probe', noiseNot + ' of 500 called not a structure, ' + noiseG + ' called graduated (any above 0 and the rule is too loose)']);
+  const full = results[3].v.kind, none = results[0].v.kind;
+  lines.push(['against the section', (full === 'graduated' && none === 'none') ? 'holds in this model: the full recovery is graduated, and with it removed the choosing is gone' : 'fails in this model: full recovery ' + full + ', no recovery ' + none]);
+  lines.push(['what the four together add', 'the absolute period alone is ' + results[1].v.kind + ', the relative alone ' + results[2].v.kind + ': the choosing by strength is the relative period\'s; the absolute adds the floor no strength gets under']);
+  const ch = $('checks'); ch.innerHTML = ''; lines.forEach(([k, v]) => ch.append(el('div', {}, el('b', {}, k), ' · ' + v)));
+  const cn = $('cannot'); cn.style.display = ''; cn.innerHTML = '<b>What this can and cannot reach.</b> It shows that in this model a graduated recovery makes the threshold selective, crossing for a stimulus only as strong as its recent crossing demands, and that taking the recovery away takes the selectivity with it. It cannot show that the recovery is <i>for</i> this, nor that the selectivity is a drive, a conatus, of the threshold\'s own: those are readings of the pattern, not things a pattern can measure. Here the choosing is not something the recovery does besides recovering; it is the recovery, seen from the stimulus\'s side. And the numbers are the model\'s: a real neuron\'s relative period has two causes, sodium channels still shut and potassium channels still open, and this model carries only the second, as a membrane left below rest.';
+  $('testStatus').textContent = 'ran ' + (182 * 4) + ' pairs, plus the controls';
+}
+$('runTest').addEventListener('click', runTest);
+function goTo(n) { if (n !== S.step) { S.step = n; build(); } }
+$('prev').addEventListener('click', () => goTo(Math.max(1, S.step - 1)));
+$('next').addEventListener('click', () => goTo(Math.min(STEPS.length, S.step + 1)));
+let rz; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(render, 120); });
+build();
+</script>
+</body>
+</html>

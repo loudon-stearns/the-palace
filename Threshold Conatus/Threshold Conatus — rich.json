@@ -1,0 +1,65 @@
+{
+  "title": "Threshold Conatus — rich",
+  "born": "2026-11-04",
+  "links": [
+    {
+      "target": "[[Threshold Conatus]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "walk-built-by-the-method"
+    },
+    {
+      "target": "[[Action Potential Oscillator]]",
+      "type": "connects-to",
+      "label": "the-spike-as-a-state"
+    }
+  ],
+  "forward_vector": "I am the manifest of Threshold Conatus's rich face: one walk the Shop made for the section on the threshold's own conatus, building a threshold one mechanism at a time and ending on the test of whether a graduated recovery makes it choose, with the fingerprint of the words it was made against. The page's other sections are claims of a kind a model can't test, so they stay as text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Threshold Conatus",
+  "tier": "sketch",
+  "made": "2026-11-04",
+  "round": 1,
+  "grain": "The page's own ## grain. One section made; the rest are synthesis and dialogue claims (self-models, the trickster, homecoming or becoming) that no piece can test without claiming Loudon's reading for him.",
+  "offers": [
+    {
+      "section": "The Threshold's Own Conatus",
+      "kind": "no-claim-edit",
+      "what": "'During relative refractory, only suprathreshold stimuli recruit it' reads as a tautology, since any stimulus that fires is above the threshold of that moment. Proposed: 'only stimuli stronger than would fire it at rest recruit it, and the stronger, the sooner.' The piece shows that shape in a model: the weakest probe that crosses is 1.85x the resting threshold at 2.5 ms after a crossing, 1.37x at 5 ms, 1.07x at 10 ms, and none at any strength up to 1000x inside the first 2 ms. It also shows that the preference by strength belongs to the relative period alone; the absolute period alone is a gate, deciding by timing. 'Graduated' already says this, so no change is asked for that. The numbers are the model's (absolute 2 ms, below-rest depth equal to the threshold, recovery time constant 3 ms), not a neuron's.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The Threshold's Own Conatus",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-04",
+        "by": "maker · claude-opus-5-5 · proposal round · cloud batch 3",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-04",
+      "pieces": [
+        {
+          "file": "Threshold Conatus — rich — refractory preference.html",
+          "origin": "made",
+          "by": "Maker",
+          "height": 1000,
+          "title": "which stimuli does a threshold let through? · a walk in six steps",
+          "caption": "**Does the graduated recovery make the threshold choose, and does the choosing go when the recovery goes?** A threshold, then two stimuli, then the absolute period, then the relative period, then one train through four versions. The test comes last: a stated train of 182 paired stimuli, scored in every version against a rule fixed before the run, with the controls that could make it fail. In this model it holds: the full recovery is graduated, and with the recovery removed the bar is flat. It also shows the two halves apart. The absolute period alone is a gate. The relative period alone chooses by strength but has no floor. What it cannot reach, it says: whether any of this is a conatus. Silent; the numbers are the model's, not a neuron's.",
+          "near": "During absolute refractory"
+        }
+      ],
+      "made_against": "7c03ed192aa8",
+      "stamped": "2026-11-04"
+    }
+  ]
+}
