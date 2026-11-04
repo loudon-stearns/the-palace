@@ -72,7 +72,18 @@
         }
       ],
       "made_against": "9d52cfad2a74",
-      "stamped": "2026-11-04"
+      "stamped": "2026-11-04",
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5 · cloud batch 2",
+        "verdicts": [
+          {
+            "file": "Scale-Stratified Identity — rich — two scales.html",
+            "verdict": "remake",
+            "why": "The network half is a real test (rules from null statistics, a rate-matched control that fails 12/12), but the cell half cannot fail with the slow term off (bounds 0.149 mV, 1.18 ms) and fails at any slow term (0.01 mV a spike already does), which the piece does not say. Text-only fixes: say both halves, name which cell rule fails at which spike (recovery at 2, baseline at 3), add \"at this count\" to the shuffled verdict (r 0.39 by 10,000 spikes), rename \"same spikes\" to \"same kicks, at random times\" (network fires 6% fewer), and tie 173/200 to seed 7."
+          }
+        ]
+      }
     }
   ]
 }
