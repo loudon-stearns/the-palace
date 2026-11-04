@@ -1,0 +1,246 @@
+<!doctype html>
+<!--
+  title: Hyperdimensional Prism — rich — angle or object
+  born: 2026-11-03
+  links: [[Hyperdimensional Prism]] (connects-to · rich-face-piece) · listed in [[Hyperdimensional Prism — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am the visual identity's own trace, rebuilt. I start on one oscillator, walk up to the Lissajous figure and the four-dimensional curve it is a shadow of, and last ask the section's sentence whether a new frequency relationship is a new angle of light or a new object. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  engine: everything between ENGINE-START and ENGINE-END is pure and runs in Node too; it is byte for byte the engine in "Hyperdimensional Prism — rich — one object or four.html", and Hyperdimensional Prism/workshop/rich-checks.mjs re-runs the claims on it.
+  dress: Loudon Live house style, Graphite skin, fonts named but not fetched (the stack falls back). Sound on a click only: two sines, x in the left ear and y in the right, through a compressor; the kit hushes and caps it.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>A new angle, or a new object?</title>
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --cool:#7f9cff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; color-scheme: dark; }
+  .piece { padding: 22px 22px 16px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .rail button { border-radius: 0; margin-right: -1px; }
+  .rail button.here { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); margin: 4px 0 4px; }
+  .says { font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 78ch; margin: 0 0 14px; min-height: 4.8em; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 26px; align-items: end; margin-top: 16px; min-height: 40px; }
+  .ctl { min-width: 220px; flex: 1; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seglabel { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 10px; font-size: 14px; line-height: 1.6; color: var(--amber); max-width: 82ch; min-height: 1.6em; }
+  .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 92ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 86ch; }
+  table.score { border-collapse: collapse; font-family: var(--mono); font-size: 11px; color: var(--fg2); margin-top: 12px; }
+  table.score td, table.score th { border: 1px solid var(--soft); padding: 4px 9px; text-align: left; font-weight: 400; }
+  table.score th { color: var(--fg3); letter-spacing: .1em; text-transform: uppercase; font-size: 10px; }
+  .right { color: var(--amber); } .wrong { color: var(--fg3); }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 16px; display: flex; align-items: center; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · canvas · Web Audio · sketch · proposal</div>
+  <h3 class="title">A new angle, or a new object?</h3>
+  <p class="sub">The section says the Lissajous pattern changes with the frequency relationship of its oscillators, and that different angles of light give different projections. This rebuilds the trace from one oscillator, finds the four-dimensional curve the scope is drawing a shadow of, and last asks which changes are angles of light on that curve and which make a new curve.</p>
+  <div class="rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="stephead" id="stephead"></div>
+  <div class="says" id="says"></div>
+  <div class="panel"><div class="plabel"><span id="plabel"></span><span id="pright"></span></div><canvas id="cv"></canvas></div>
+  <div class="controls" id="controls"></div>
+  <div class="read" id="read"></div>
+  <div class="verdict" id="verdict"></div>
+  <div class="nav"><button id="listen">listen</button><button id="back">← back</button><button id="next">next step →</button></div>
+  <div class="hint">Sound starts only on listen: the scope’s x in your left ear at 220 Hz, its y in your right at 220 Hz times the ratio. Headphones keep the two ears apart. Changing step stops it.</div>
+  <div class="eqs">
+    <div class="eq">y = sin(bt + φ) = cos φ · sin bt + sin φ · cos bt</div>
+    <div class="words">In words: turning the phase only mixes two coordinates the curve already has, sin bt and cos bt. So the scope at any phase is one light on one fixed curve in four dimensions, (sin at, cos at, sin bt, cos bt). Changing a or b changes those coordinates themselves.</div>
+    <div class="eq">S = [ L₁ ; L₂ ; L₃ ; L₄ ] · X &nbsp;&nbsp;⇒&nbsp;&nbsp; rank S ≤ 4</div>
+    <div class="words">In words: four figures that are all shadows of that one four-dimensional curve, stacked, never need more than four directions. The count in step 5 is that rank, the same count the opening’s piece uses.</div>
+  </div>
+  <div class="foot"><svg width="16" height="16" viewBox="-1 -1 2 2"><path id="sig" fill="none" stroke="#e8b84a" stroke-width=".08"/></svg>Loud’n Live</div>
+</div>
+<script>
+// ENGINE-START
+const HP = (() => {
+  const TAU = Math.PI * 2;
+  function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function gauss(r) { let u = 0, v = 0; while (u === 0) u = r(); v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(TAU * v); }
+  // the hidden object: a closed curve in four dimensions, one sine per coordinate (a four-voice Lissajous)
+  const FREQS = [1, 2, 3, 5];
+  function object4(r) { return FREQS.map((f) => ({ f, amp: 0.6 + 0.6 * r(), ph: TAU * r() })); }
+  function sample(obj, N) { return obj.map((c) => { const row = new Float64Array(N); for (let n = 0; n < N; n++) row[n] = c.amp * Math.sin(c.f * TAU * n / N + c.ph); return row; }); }
+  // a light: two orthonormal rows in four dimensions
+  function light(r, dim = 4) { const rows = []; while (rows.length < 2) { let v = Array.from({ length: dim }, () => gauss(r)); for (const u of rows) { const d = v.reduce((s, x, i) => s + x * u[i], 0); v = v.map((x, i) => x - d * u[i]); } const nrm = Math.hypot(...v); if (nrm > 1e-6) rows.push(v.map((x) => x / nrm)); } return rows; }
+  function cast(L, X) { const N = X[0].length; return L.map((row) => { const out = new Float64Array(N); row.forEach((w, k) => { for (let n = 0; n < N; n++) out[n] += w * X[k][n]; }); return out; }); }
+  // the count: stack every shadow's rows, centre each, and ask how many directions they need
+  function singular(rows) {
+    const m = rows.length, N = rows[0].length;
+    const C = rows.map((r) => { let mu = 0; for (let n = 0; n < N; n++) mu += r[n]; mu /= N; const o = new Float64Array(N); for (let n = 0; n < N; n++) o[n] = r[n] - mu; return o; });
+    const G = Array.from({ length: m }, (_, i) => Array.from({ length: m }, (_, j) => { let s = 0; for (let n = 0; n < N; n++) s += C[i][n] * C[j][n]; return s; }));
+    for (let sweep = 0; sweep < 80; sweep++) { let off = 0; for (let p = 0; p < m; p++) for (let q = p + 1; q < m; q++) off += G[p][q] * G[p][q]; if (off < 1e-30) break;
+      for (let p = 0; p < m; p++) for (let q = p + 1; q < m; q++) { if (Math.abs(G[p][q]) < 1e-300) continue;
+        const th = (G[q][q] - G[p][p]) / (2 * G[p][q]); const t = Math.sign(th || 1) / (Math.abs(th) + Math.sqrt(th * th + 1)); const c = 1 / Math.sqrt(t * t + 1), s = t * c;
+        for (let k = 0; k < m; k++) { const a = G[k][p], b = G[k][q]; G[k][p] = c * a - s * b; G[k][q] = s * a + c * b; }
+        for (let k = 0; k < m; k++) { const a = G[p][k], b = G[q][k]; G[p][k] = c * a - s * b; G[q][k] = s * a + c * b; } } }
+    const ev = G.map((r, i) => Math.sqrt(Math.max(0, r[i]))).sort((a, b) => b - a); return ev.map((x) => x / (ev[0] || 1));
+  }
+  const TOL = 1e-5; // a direction counts when it carries more than this share of the largest
+  function count(sv) { return sv.filter((x) => x > TOL).length; }
+  // a trial: four shadows, cast from one object or from four
+  function trial(seed, kind, N = 240) {
+    const r = rng(seed); const objs = kind === 'one' ? [object4(r)] : [object4(r), object4(r), object4(r), object4(r)];
+    const shadows = []; for (let i = 0; i < 4; i++) shadows.push(cast(light(r), sample(objs[kind === 'one' ? 0 : i], N)));
+    // size each shadow alike, so size says nothing
+    for (const S of shadows) { let ss = 0; for (const row of S) for (const x of row) ss += x * x; const k = 1 / Math.sqrt(ss / N); for (const row of S) for (let n = 0; n < N; n++) row[n] *= k; }
+    return { kind, shadows };
+  }
+  // lose the links: inside each shadow, which point is which is shuffled; the four drawings are unchanged
+  function unlink(shadows, seed) { const r = rng(seed); return shadows.map((S) => { const N = S[0].length; const p = Array.from({ length: N }, (_, i) => i); for (let i = N - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [p[i], p[j]] = [p[j], p[i]]; } return S.map((row) => Float64Array.from(p, (k) => row[k])); }); }
+  // the count's verdict, for a hidden object allowed `cap` dimensions
+  function judge(shadows, cap = 4) { const sv = singular(shadows.flat()); const d = count(sv); return { sv, d, says: d <= cap ? 'one' : 'four' }; }
+  // the scope: x = sin(a t), y = sin(b t + phi)
+  function scope(a, b, phi, N = 720, turns = 1) { const x = new Float64Array(N), y = new Float64Array(N); for (let n = 0; n < N; n++) { const t = TAU * turns * n / N; x[n] = Math.sin(a * t); y[n] = Math.sin(b * t + phi); } return [x, y]; }
+  // the scope as a light on one four-dimensional curve (sin at, cos at, sin bt, cos bt)
+  function torusCurve(a, b, N = 720, turns = 1) { const X = [0, 1, 2, 3].map(() => new Float64Array(N)); for (let n = 0; n < N; n++) { const t = TAU * turns * n / N; X[0][n] = Math.sin(a * t); X[1][n] = Math.cos(a * t); X[2][n] = Math.sin(b * t); X[3][n] = Math.cos(b * t); } return X; }
+  function scopeLight(phi) { return [[1, 0, 0, 0], [0, 0, Math.cos(phi), Math.sin(phi)]]; }
+  function gcd(a, b) { return b ? gcd(b, a % b) : a; }
+  function closes(r, qmax = 50) { for (let q = 1; q <= qmax; q++) { const p = Math.round(r * q); if (p > 0 && Math.abs(r * q - p) < 1e-9 && gcd(p, q) === 1) return { p, q }; } return null; }
+  return { TAU, FREQS, rng, object4, sample, light, cast, singular, count, TOL, trial, unlink, judge, scope, torusCurve, scopeLight, closes, gcd };
+})();
+// ENGINE-END
+const $ = (id) => document.getElementById(id);
+(() => { let d = ''; for (let n = 0; n <= 200; n++) { const t = HP.TAU * n / 200; d += (n ? 'L' : 'M') + (0.8 * Math.sin(3 * t + 0.5)).toFixed(3) + ' ' + (0.8 * Math.sin(2 * t)).toFixed(3); } $('sig').setAttribute('d', d); })();
+const AMB = [232, 184, 74], COOL = [127, 156, 255];
+function hue(u) { const k = 0.5 - 0.5 * Math.cos(HP.TAU * u); return `rgb(${AMB.map((a, i) => Math.round(a + (COOL[i] - a) * k)).join(',')})`; }
+const cv = $('cv'), ctx = cv.getContext('2d');
+let W = 0, H = 0;
+function size(h) { const dpr = window.devicePixelRatio || 1; W = cv.clientWidth || 600; H = Math.round(h); cv.style.height = H + 'px'; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+function label(txt, x, y, col = '#8a8aa0', align = 'left') { ctx.fillStyle = col; ctx.font = '10.5px JetBrains Mono, ui-monospace, monospace'; ctx.textAlign = align; ctx.fillText(txt, x, y); ctx.textAlign = 'left'; }
+function drawXY(x, y, x0, y0, w, h, opt = {}) {
+  const sc = 0.44 * Math.min(w, h), cx = x0 + w / 2, cy = y0 + h / 2, n = x.length; ctx.lineWidth = opt.lw || 1.2;
+  if (opt.mono) { ctx.strokeStyle = opt.mono; ctx.beginPath(); for (let i = 0; i < n; i++) (i ? ctx.lineTo : ctx.moveTo).call(ctx, cx + sc * x[i], cy - sc * y[i]); ctx.stroke(); }
+  else for (let i = 0; i < n - 1; i++) { ctx.strokeStyle = hue(i / n); ctx.beginPath(); ctx.moveTo(cx + sc * x[i], cy - sc * y[i]); ctx.lineTo(cx + sc * x[i + 1], cy - sc * y[i + 1]); ctx.stroke(); }
+  if (opt.dot != null) { ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(cx + sc * opt.dot[0], cy - sc * opt.dot[1], 4, 0, HP.TAU); ctx.fill(); }
+}
+function box(x0, y0, w, h, name, on) { ctx.strokeStyle = on ? '#e8b84a' : '#22222e'; ctx.strokeRect(x0 + 3, y0 + 3, w - 6, h - 6); if (name) label(name, x0 + 10, y0 + 17, on ? '#e8b84a' : '#8a8aa0'); }
+
+// ---- sound: x left, y right, both sines; y's phase from a two-coefficient wave
+const A = { ctx: null, ox: null, oy: null, gx: null, gy: null, on: false };
+function wave(phi) { return A.ctx.createPeriodicWave(new Float32Array([0, Math.sin(phi)]), new Float32Array([0, Math.cos(phi)]), { disableNormalization: true }); }
+function soundStart() {
+  if (!A.ctx) A.ctx = new AudioContext(); const c = A.ctx; if (c.state === 'suspended') c.resume();
+  const m = c.createChannelMerger(2), comp = c.createDynamicsCompressor(), out = c.createGain(); out.gain.value = 0.8; comp.threshold.value = -18; m.connect(comp); comp.connect(out); out.connect(c.destination);
+  A.ox = c.createOscillator(); A.oy = c.createOscillator(); A.gx = c.createGain(); A.gy = c.createGain(); A.gx.gain.value = 0; A.gy.gain.value = 0;
+  A.ox.connect(A.gx); A.gx.connect(m, 0, 0); A.oy.connect(A.gy); A.gy.connect(m, 0, 1);
+  const t0 = c.currentTime + 0.05; A.ox.start(t0); A.oy.start(t0); A.on = true; A.out = out; soundSet(true); $('listen').textContent = 'stop'; $('listen').classList.add('on');
+}
+function soundStop() { if (!A.on) return; const c = A.ctx, t = c.currentTime; A.gx.gain.setTargetAtTime(0, t, 0.02); A.gy.gain.setTargetAtTime(0, t, 0.02); const ox = A.ox, oy = A.oy; ox.stop(t + 0.15); oy.stop(t + 0.15); A.on = false; $('listen').textContent = 'listen'; $('listen').classList.remove('on'); }
+function soundSet(fresh) {
+  if (!A.on) return; const c = A.ctx, t = c.currentTime, p = playing();
+  A.ox.frequency.setTargetAtTime(220 * p.a, t, fresh ? 0.001 : 0.03); A.oy.frequency.setTargetAtTime(220 * p.b, t, fresh ? 0.001 : 0.03); A.oy.setPeriodicWave(wave(p.phi)); A.ox.setPeriodicWave(wave(0));
+  A.gx.gain.setTargetAtTime(0.16, t, 0.03); A.gy.gain.setTargetAtTime(S.step === 1 ? 0 : 0.16, t, 0.03);
+}
+$('listen').onclick = () => (A.on ? soundStop() : soundStart());
+
+// ---- state
+const PRE = [['1:1', 1, 1], ['1:2', 1, 2], ['2:3', 2, 3], ['3:4', 3, 4], ['3:5', 3, 5]];
+const RATIOS_B = [[1, 2], [2, 3], [3, 4], [3, 5]];
+const S = { step: 1, r: 1.5, phi: 0.6, drift: false, alpha: 0.7, pre: 2, phases: [0.3, 1.4, 2.6, 4.4], pick: { row: 'A', i: 0 }, t: 0, anim: null };
+function playing() {
+  if (S.step === 5) { if (S.pick.row === 'A') { const [, a, b] = PRE[S.pre]; return { a: 1, b: b / a, phi: S.phases[S.pick.i] }; } const [a, b] = RATIOS_B[S.pick.i]; return { a: 1, b: b / a, phi: S.phi }; }
+  return { a: 1, b: S.r, phi: S.phi };
+}
+const STEPS = [
+  { name: 'one oscillator', says: 'One sine drives a dot back and forth along a line: x = sin(at). On a scope that is all one oscillator can draw. The line is already a shadow, of a point going round a circle seen edge-on, which the next steps will need.' },
+  { name: 'two at right angles', says: 'A second oscillator drives the dot up and down while the first drives it across: the Lissajous figure. The ratio of their frequencies sets the pattern. A whole-number ratio closes the curve after a few turns; a ratio that is no fraction of small numbers keeps going and fills the square.' },
+  { name: 'the phase', says: 'Hold the ratio and turn only the phase, the head start one oscillator has on the other. The figure seems to roll, as if a three-dimensional thing were turning in front of the light. Let it drift: that slow roll is what a scope shows when two tones are a hair out of tune.' },
+  { name: 'the curve behind the scope', says: 'The roll is not an illusion of depth. The figure is a shadow of one fixed curve in four dimensions, (sin at, cos at, sin bt, cos bt), which lies on a torus. The scope is one light on it, and the phase turns that light. Other lights on the same curve cast a circle, or shapes no scope draws.' },
+  { name: 'the test · angle or object', says: '' }
+];
+function slider(lbl, key, min, max, stepv, fmt, after) { const d = document.createElement('div'); d.className = 'ctl'; d.innerHTML = `<label class="sl">${lbl} · <b></b><input type="range" min="${min}" max="${max}" step="${stepv}"></label>`; const inp = d.querySelector('input'), b = d.querySelector('b'); inp.value = S[key]; b.textContent = fmt(S[key]); inp.oninput = () => { S[key] = +inp.value; b.textContent = fmt(S[key]); if (after) after(); soundSet(); draw(); }; d.sync = () => { inp.value = S[key]; b.textContent = fmt(S[key]); }; return d; }
+function seg(lbl, opts, get, set) { const d = document.createElement('div'); d.innerHTML = `<span class="seglabel">${lbl}</span>`; const g = document.createElement('div'); g.className = 'seg'; for (const [t, v] of opts) { const b = document.createElement('button'); b.textContent = t; if (get() === v) b.classList.add('on'); b.onclick = () => { set(v); [...g.children].forEach((c) => c.classList.toggle('on', c === b)); soundSet(); draw(); }; g.append(b); } d.append(g); return d; }
+const deg = (v) => Math.round(v * 180 / Math.PI) + '°';
+let rsl = null, psl = null;
+function controls() {
+  const c = $('controls'); c.innerHTML = ''; $('verdict').textContent = ''; $('read').innerHTML = '';
+  if (S.step === 2) { rsl = slider('ratio b : a', 'r', 0.25, 3, 0.001, (v) => v.toFixed(3)); c.append(rsl); c.append(seg('or a ratio', [...PRE.map(([n, a, b]) => [n, b / a]), ['√2', Math.SQRT2]], () => S.r, (v) => { S.r = v; rsl.sync(); })); }
+  if (S.step === 3 || S.step === 4) { psl = slider('phase φ', 'phi', 0, 6.283, 0.01, deg); c.append(psl); const d = document.createElement('button'); d.textContent = S.drift ? 'stop the drift' : 'let it drift'; d.className = S.drift ? 'on' : ''; d.onclick = () => { S.drift = !S.drift; controls(); }; c.append(d); }
+  if (S.step === 4) c.append(slider('turn the third light', 'alpha', 0, 1.571, 0.01, deg));
+  if (S.step === 5) {
+    c.append(seg('row A · the ratio', PRE.map(([n], i) => [n, i]), () => S.pre, (v) => { S.pre = v; }));
+    const nb = document.createElement('button'); nb.textContent = 'four new phases'; nb.onclick = () => { S.phases = S.phases.map(() => Math.random() * HP.TAU); soundSet(); draw(); }; c.append(nb);
+  }
+}
+function closesText(r) { const q = HP.closes(r); return q ? `closes after <b>${q.q}</b> turn${q.q > 1 ? 's' : ''} of x (a : b = ${q.q}:${q.p})` : 'has <b>not closed</b> in 50 turns of x'; }
+function rowsOf(list) { return list.flatMap(([a, b, p]) => HP.scope(a, b, p, 720)); }
+function rowA() { const [, a, b] = PRE[S.pre]; return S.phases.map((p) => [a, b, p]); }
+function rowB() { return RATIOS_B.map(([a, b]) => [a, b, S.phi]); }
+function draw() {
+  const st = S.step, n = 900;
+  if (st === 1) { size(Math.min(260, W * 0.4 || 240)); const u = Math.sin(HP.TAU * S.t); const cy = H / 2;
+    ctx.strokeStyle = '#4a4a5a'; ctx.beginPath(); ctx.moveTo(W * 0.1, cy); ctx.lineTo(W * 0.9, cy); ctx.stroke();
+    ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(W * 0.5 + 0.4 * W * u, cy, 5, 0, HP.TAU); ctx.fill(); label('x = sin(at)', 12, 18); $('plabel').textContent = 'one oscillator on the scope'; $('pright').textContent = ''; return; }
+  if (st === 2 || st === 3) { size(Math.min(420, Math.max(260, W * 0.55))); const turns = st === 2 ? (HP.closes(S.r) ? HP.closes(S.r).q : 50) : (HP.closes(S.r) ? HP.closes(S.r).q : 8); const [x, y] = HP.scope(1, S.r, S.phi, Math.min(20000, 600 * turns), turns);
+    drawXY(x, y, 0, 0, W, H, { mono: 'rgba(232,184,74,.85)' }); $('plabel').textContent = `x = sin(at), y = sin(bt + φ)`; $('pright').textContent = `b : a = ${S.r.toFixed(3)} · φ = ${deg(S.phi)}`;
+    $('read').innerHTML = `<span>${closesText(S.r)}</span>`; return; }
+  if (st === 4) { const cols = W > 620 ? 3 : 1, cw = W / cols, ch = Math.min(cw, 260); size(ch * (3 / cols) + 70);
+    const q = HP.closes(S.r), turns = q ? q.q : 8; const X = HP.torusCurve(1, S.r, n * turns, turns); const lights = [['the scope, φ = ' + deg(S.phi), HP.scopeLight(S.phi)], ['a light from (cos at, sin at)', [[0, 1, 0, 0], [1, 0, 0, 0]]], ['a light no scope has', [[Math.cos(S.alpha), 0, 0, Math.sin(S.alpha)], [0, 0, Math.cos(S.phi), Math.sin(S.phi)]]]];
+    // the four coordinates as time traces, a strip along the top
+    const names = ['sin at', 'cos at', 'sin bt', 'cos bt']; names.forEach((nm, k) => { const x0 = k * W / 4, w = W / 4 - 8; ctx.strokeStyle = '#4a4a5a'; ctx.beginPath(); const nn = X[k].length; for (let i = 0; i < nn; i++) { const xx = x0 + 4 + w * i / nn, yy = 34 - 18 * X[k][i]; i ? ctx.lineTo(xx, yy) : ctx.moveTo(xx, yy); } ctx.stroke(); label(nm, x0 + 4, 64); });
+    lights.forEach(([nm, L], i) => { const x0 = (i % cols) * cw, y0 = 70 + Math.floor(i / cols) * ch; box(x0, y0, cw, ch, nm, i === 0); const Sh = HP.cast(L, X); drawXY(Sh[0], Sh[1], x0 + 6, y0 + 16, cw - 12, ch - 22); label(L.map((r) => '[' + r.map((v) => v.toFixed(2)).join(' ') + ']').join(' '), x0 + 10, y0 + ch - 10, '#4a4a5a'); });
+    $('plabel').textContent = `one curve in four dimensions, b : a = ${S.r.toFixed(3)} · three lights`; $('pright').textContent = 'each light: two rows of four numbers'; return; }
+  if (st === 5) drawTest();
+}
+function drawTest() {
+  const cols = 4, cw = W / cols, ch = Math.min(cw, 190); size(ch * 2 + 40);
+  const A_ = rowA(), B_ = rowB();
+  [['A', A_], ['B', B_]].forEach(([row, list], r) => list.forEach(([a, b, p], i) => { const x0 = i * cw, y0 = 20 + r * (ch + 20); const [x, y] = HP.scope(a, b, p, 900); const on = S.pick.row === row && S.pick.i === i; box(x0, y0, cw, ch, `${row}${i + 1} · ${a}:${b} · ${deg(p)}`, on); drawXY(x, y, x0 + 6, y0 + 18, cw - 12, ch - 24, { mono: on ? '#e8b84a' : 'rgba(200,200,216,.7)' }); }));
+  label('row A · one ratio, four phases', 4, 12, '#c8c8d8'); label('row B · four ratios, one phase', 4, 32 + ch, '#c8c8d8');
+  const sa = HP.singular(rowsOf(A_)), sb = HP.singular(rowsOf(B_)), da = HP.count(sa), db = HP.count(sb);
+  $('plabel').textContent = 'click a figure to choose it; listen plays the one chosen'; $('pright').textContent = '';
+  $('read').innerHTML = `<span>row A needs <b>${da}</b> directions · the next <b>${(sa[da] || 0).toExponential(0)}</b> of the first</span><span>row B needs <b>${db}</b></span>`;
+  const sayA = `Row A needs ${da}, no more than four: one curve, four angles of light. That is an identity, sin(bt + φ) = cos φ · sin bt + sin φ · cos bt, shown here rather than tested; row A cannot fail.`;
+  const sayB = db <= 4 ? `Row B needs ${db}: one four-dimensional curve after all.` : `Row B needs ${db}. Held to the one four-dimensional curve a scope at one ratio draws, that is more than four, so no such curve casts them. But ${db} is under the 8 of four figures together, so one ${db}-dimensional object casts all four: they are all lights on the curve (sin kt, cos kt), k = 1 to 5.`;
+  $('verdict').textContent = `${sayA} ${sayB} The page says higher-dimensional, not four, so the cap is the reader’s choice, not the page’s: with it, a new ratio leaves the curve; without it, a new ratio is another angle on a bigger one. Listen across each row: the ear seems to agree, but no agent has heard it.`;
+}
+cv.addEventListener('click', (e) => { if (S.step !== 5) return; const r = cv.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top; const cw = W / 4, ch = Math.min(cw, 190); const i = Math.min(3, Math.floor(x / cw)); const row = y < 20 + ch + 10 ? 'A' : 'B'; S.pick = { row, i }; soundSet(); draw(); });
+function tick(ts) { S.t = (ts || 0) / 4000; if (S.drift && (S.step === 3 || S.step === 4)) { S.phi = (S.phi + 0.006) % HP.TAU; if (psl) psl.sync(); soundSet(); } draw(); S.anim = requestAnimationFrame(tick); }
+function goStep(n) {
+  n = Math.max(1, Math.min(STEPS.length, n)); S.step = n; const s = STEPS[n - 1]; soundStop();
+  $('stephead').textContent = `step ${n} of ${STEPS.length} · ${s.name}`;
+  $('says').textContent = n === 5 ? 'Row A keeps one ratio and gives four figures four phases. Row B keeps one phase and gives four ratios, as the section’s “frequency relationships” do. The rule, fixed before the count runs, with its cap stated: held to the one four-dimensional curve a scope at one ratio draws (step 4), a row whose four figures, stacked, need no more than four directions is four lights on that curve; one that needs more is not. The page itself sets no cap: it says higher-dimensional, and four figures together allow up to eight. Row A is an identity, shown; row B is the arm that can come out either way.' : s.says;
+  [...$('rail').children].forEach((b, i) => b.classList.toggle('here', i === n - 1));
+  $('back').disabled = n === 1; $('next').textContent = n === STEPS.length ? 'the last step' : 'next step →'; $('next').disabled = n === STEPS.length;
+  if (S.anim) cancelAnimationFrame(S.anim); S.anim = null; controls(); draw(); if (n === 1 || n === 3 || n === 4) S.anim = requestAnimationFrame(tick);
+}
+STEPS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.name; b.onclick = () => goStep(i + 1); $('rail').append(b); });
+$('back').onclick = () => goStep(S.step - 1); $('next').onclick = () => goStep(S.step + 1);
+let rw = 0; new ResizeObserver(() => { const w = cv.clientWidth; if (Math.abs(w - rw) > 2) { rw = w; draw(); } }).observe(cv.parentElement);
+goStep(1);
+</script>
+</body>
+</html>
