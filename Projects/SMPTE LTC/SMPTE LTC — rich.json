@@ -15,10 +15,10 @@
     {
       "target": "[[Progressive Staging]]",
       "type": "connects-to",
-      "label": "the-test-is-the-last-step"
+      "label": "every-piece-walks-up"
     }
   ],
-  "forward_vector": "I am the manifest of SMPTE LTC's rich face, its first round at Sketch tier, a proposal: in Technical Architecture, a walk from one biphase cell to a timecode read back from its own audio by a reader told nothing, and a walk from counting frames to a day of drop-frame labels; in Open Questions, LTC played with the spectrum of what is playing, then read backward and at speed. I grow when the Max implementation the page leans toward has renders or patches a piece can gather. I never hold the entry's words.",
+  "forward_vector": "I am the manifest of SMPTE LTC's rich face, its first round at Sketch tier, every section a proposal: in The fine points, the teaching room's first two stops, Count and Bits, on GoButton's ltc.js, and the cloud batch's walk that reads LTC backward and at speed; in Every form, the cloud batch's walk from one biphase cell to a reader told nothing; each with the fingerprint of the words it was laid against. The cloud batch's drop-frame piece is retired, its verdict kept. I grow by the room's next stops (wave, read, break it, build) until Loudon can teach a class LTC from me, and I never hold the entry's words.",
   "entry": "SMPTE LTC",
   "tier": "sketch",
   "made": "2026-11-04",
@@ -28,30 +28,118 @@
       "section": "Open Questions",
       "kind": "claim-change",
       "what": "Reverse playback: replace the guess '(Probably not — the biphase code assumes forward continuous time, but worth documenting the answer.)' with what the backward piece measured: yes. Played backward, a biphase mark stream is still a biphase mark stream (the bits arrive last first), and the sync word 0011 1111 1111 1101 is not a palindrome (backward it reads 1011 1111 1111 1100), so a reader can tell direction. A 1× recording with its samples reversed read 50 of 50 frames at 24, 25 and 29.97 fps, 0 wrong, direction right every time, through a 10 Hz high-pass with noise 30 dB down at 48 kHz; a forward-only reader read 0 backward. On speed: the reader read every frame at every speed tried from 0.1× to 6× either way through a plain linear resampler, and to 8× with ideal time-scaling; the limit is the sample rate and how the audio is resampled, not the code. One reader on synthetic tape; no hardware reader tested.",
-      "status": "open"
+      "status": "taken",
+      "note": "taken · paid by ca1101ef (2026-11-04), the page's rewrite on Loudon's word"
     },
     {
       "section": "Technical Architecture",
       "kind": "no-claim-edit",
       "what": "Drop-frame: the sentence leaves out the exception. Say the whole rule: 'skips frame numbers 00 and 01 at the start of every minute except minutes 00, 10, 20, 30, 40 and 50'. What the exception buys: skipping at every minute would be 120 labels an hour and run 403.6 ms an hour ahead of the clock; the real rule skips 108 and sits 3.6 ms an hour off at the ten-minute marks. The drop-frame piece walked all 2,589,408 frames of a day with 0 duplicate, 0 forbidden and 0 inverse faults; between marks the label swings from −60.0 to +63.5 ms, about two frames.",
-      "status": "open"
+      "status": "taken",
+      "note": "taken · paid by ca1101ef (2026-11-04), the page's rewrite on Loudon's word"
     },
     {
-      "section": "Open Questions",
+      "section": "Open questions",
       "kind": "claim-change",
       "what": "Drop-frame NTSC edge cases: the question can carry its arithmetic half, answered. Counted by the rule, the labels are exact over 24 hours (every label back to its own frame), and when the label reaches 24:00:00;00 it is 86.4 ms (2.59 frames) ahead of the wall clock, because 108 skips an hour do not quite match 30000/1001. Whether Loudon's Max patch counts this way is still his to test.",
-      "status": "open"
+      "status": "open",
+      "note": "Still open. Its number matches the teaching room's own: 86.4 ms is 2.589 frames, and the room's Count step shows the drift as about 2.6 frames a day."
     },
     {
       "section": "What SMPTE LTC Is",
       "kind": "no-claim-edit",
       "what": "Wording: 'peak detection yields the bit stream' is loose beside the page's own Technical Architecture ('The decoder detects phase transitions'). On LTC's flat-topped square the raw peaks carry no timing; what a reader times is the level's transitions (a peak detector on the differentiated signal is the same thing). Suggest 'detecting the level's transitions yields the bit stream'.",
-      "status": "open"
+      "status": "taken",
+      "note": "taken · paid by ca1101ef (2026-11-04), the page's rewrite on Loudon's word"
+    },
+    {
+      "section": "The fine points",
+      "kind": "claim-change",
+      "what": "A reader cannot tell rate and speed apart from the audio alone. A 25 fps tape played 1.2× fast reads as 30 (ltc.js's own decoder names it so, and so does the encoder piece's reader), and 24 slowed by 1000/1001 reads as 23.976. So 'its length tells the speed' (The fine points) and 'one reader reads every rate and says which it hears' (Every form) each hold only given the other: the speed if the rate is known, the rate if the tape runs at its own speed.",
+      "status": "open",
+      "note": "Goes home through the Deposit Ceremony's map on Loudon's word; the .md is not written in this run."
     }
   ],
   "sections": [
     {
-      "heading": "Technical Architecture",
+      "heading": "The fine points",
+      "made": "2026-11-04",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-04",
+        "by": "maker · claude-opus-5-5 · single-page run",
+        "round": "smpte-ltc-room-1"
+      },
+      "pieces": [
+        {
+          "file": "SMPTE LTC — rich — the teaching room.html",
+          "origin": "made",
+          "by": "the Maker · GoButton's ltc.js",
+          "title": "The teaching room · count, then bits",
+          "caption": "**The room's first two stops, as a walk of six steps that ends on a test.** It opens on a frame counter at 25 fps. It sets the six choices of rate beside the wall clock: jump an hour and 23.976 and 29.97 fall 3.6 s behind. It shows drop-frame skipping 00 and 01 as a minute turns, and not at the tenth, with a switch back to the plain count it fixes. Then one frame becomes eighty bits a student can flip: a BCD digit pushed past 9 stops being a time, and the polarity bit answers every user bit to keep the zeros even. It ends by searching an hour or a whole day of frames, every bit the time leaves free set to 1, for twelve 1s anywhere but the sync word. The engine is GoButton's tested ltc.js, copied whole beside the piece and pinned to its hash. The checks beside it run every step's number against this section: 108 numbers skipped an hour, 2.6 frames a day left over, an even count of zeros in every frame of a day, and, at all six rates over a whole day with every free bit set to 1, no run of 1s longer than 10 outside the sync word. Nothing sounds yet. The wave is the next stop.",
+          "near": "Eighty bits a frame",
+          "place": "band",
+          "height": 1100
+        },
+        {
+          "file": "SMPTE LTC — rich — backward.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · inline JS, no library",
+          "title": "Heard, and read backward · a walk in four steps",
+          "caption": "**Does LTC read backward and at any speed, as the page says the sync word lets it?** First the piece plays LTC at a level you choose with the spectrum of exactly what is playing: about 89% of its power sits between 500 Hz and 3 kHz (25 fps), in two lines at 1 and 2 kHz, which is why the page calls it a harsh buzz in a monitor mix; no agent heard it. Then the sync word forward and mirrored, which are different patterns; the tape played backward and at other speeds by ear; and last a reader that knows neither speed nor direction. A 1× recording with its samples reversed read all 50 frames at all six rates, right timecodes, direction right. With the tape time-scaled (an ideal anti-alias) it read all 50 at every speed tried from 0.1× to 8× either way; through a plain linear resampler of a 1× buffer, clean to ±6×, with −8× at 26 of 50. At 12× and 16× a half cell is one sample or less at 48 kHz, Nyquist: the limit, not judged. A forward-only reader read nothing backward: the direction lives in the sync word. And the sync words' spacing gave every speed to within 0.1 %, given the tape's rate; without the rate, a reader could not tell a fast 25 from a 30.\n\ncell = 1 ÷ (80 × fps × |speed|)\n\nthe length of a cell is one over the bit rate times the speed, whichever way the tape runs",
+          "near": "The sync word",
+          "place": "band",
+          "height": 1300,
+          "round": "proposal-round-2026-11 · cloud batch 4"
+        }
+      ],
+      "made_against": "9e11caf7739c",
+      "stamped": "2026-11-04",
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "SMPTE LTC — rich — the teaching room.html",
+            "verdict": "keep",
+            "why": "Remade once, then kept. It tests the section rather than decorating it: drop-frame's skips and 108 an hour, the 3.6 s drift, BCD validity, the polarity bit's even zeros, and the sync word's uniqueness searched over a whole day at all six rates with every free bit set to 1 (longest elsewhere 10). It is faithful to the text and walks count → rates → drop-frame → word → flags → the sync test. The first round's five must-fixes were all fixed (a rate switch mid-search mislabelled the result; ahead was shown as behind; the worst case left the flags at 0; the caption claimed a check that did not exist; the readout broke past midnight), and every nice-to-have was taken. Checks 57/0, conform 0 errors."
+          },
+          {
+            "file": "SMPTE LTC — rich — backward.html",
+            "verdict": "remake",
+            "why": "The yes holds: a reversed 1× sample buffer reads 50/50 at three rates. The edge does not. Speeds are time-scaled (ideal anti-alias); through a plain resampler the edge is ±6× (−8× 24/50, −12× 50/50), so the rule's 'must fail at ±12×, else reading something other than the audio' is false. Recast ±12/16× as the expected limit near Nyquist, add a reversed-buffer row, and name the time-scaling in the rule.",
+            "by": "challenger · opus · cloud batch 4",
+            "date": "2026-11-04",
+            "round": "cloud batch 4 · first challenge, before the page's rewrite (history)"
+          },
+          {
+            "file": "SMPTE LTC — rich — drop-frame.html",
+            "verdict": "retire",
+            "why": "the teaching room's step 3 teaches drop-frame; Loudon, 2026-11-04: 'Merge, drop theirs' DF'",
+            "by": "Loudon",
+            "date": "2026-11-04"
+          },
+          {
+            "file": "SMPTE LTC — rich — backward.html",
+            "verdict": "remake",
+            "why": "Must-fix: its framing argued with the old page (\"probably not\", the page's open questions), and \"its length tells the speed\" was untested.",
+            "by": "challenger · claude-opus-5-5",
+            "date": "2026-11-04",
+            "round": "second challenge, round 1, after the page's rewrite"
+          },
+          {
+            "file": "SMPTE LTC — rich — backward.html",
+            "verdict": "keep",
+            "why": "Every must-fix met: it rests on the page's current claim, step 1 leans on the monitor-mix buzz, the old-page lines are gone, six reversed rows, and a speed-read column judged to 0.1% (8.0001 down to 0.1000 either way); ten speeds each way; caption updated.",
+            "by": "challenger · claude-opus-5-5",
+            "date": "2026-11-04",
+            "round": "second challenge, round 2, on the remake"
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Every form",
       "status": "proposal",
       "proposed": {
         "date": "2026-11-04",
@@ -65,75 +153,43 @@
           "origin": "made",
           "by": "maker · claude-opus-5-5 · inline JS, no library",
           "title": "From one bit to a timecode read back · a walk in four steps",
-          "caption": "**Does the audio really carry its own clock?** Four steps: one biphase cell, where a 0 flips once and a 1 twice, so a run of 1s sounds an octave above a run of 0s (1 and 2 kHz at 25 fps); a timecode typed into its eighty bits, BCD digits, user bits, flags and the sync word; the waveform that word makes, with ten seconds of running timecode to play; and last, a reader told nothing, not the rate and not the polarity, reading fifty frames back from the audio through a 10 Hz high-pass and noise 30 dB down. It read 50 of 50 at 24, 25 and 29.97 fps and with the polarity flipped, and guessed the bit rate from the gaps alone (1918.8, 1999.9, 2396.0 bit/s). The control, the same bits as plain levels with no mid-cell flips, read 0; it is a weak control, since a biphase reader fails on plain levels almost by construction, so it shows where the clock lives more than it tests the reader. The render's edges are 40 µs, where SMPTE 12M asks 25 ± 5 µs; the reader does not depend on edge time. The encoder makes the page's three rates: 1920, 2000 and 2397.6024 bit/s.\n\nR = 80 × f_frame\n\n(bit rate) = eighty bits × (frames per second)",
-          "near": "Each video frame produces 80 bits",
+          "caption": "**Does the audio really carry its own clock?** Four steps: one biphase cell, where a 0 flips once and a 1 twice, so a run of 1s sounds an octave above a run of 0s (1 and 2 kHz at 25 fps); a timecode typed into its eighty bits, BCD digits, user bits, flags and the sync word; the waveform that word makes, with ten seconds of running timecode to play; and last, a reader told nothing, not the rate and not the polarity, reading fifty frames back from the audio through a 10 Hz high-pass and noise 30 dB down. It read 50 of 50 at all six rates and with the polarity flipped, guessed the bit rate from the gaps alone, and named each rate right from the spacing of its sync words and the drop-frame flag. It assumes the tape runs at its own speed: a 25 fps tape played 1.2× fast would be named 30. The control, the same bits as plain levels with no mid-cell flips, read 0; it is a weak control, since a biphase reader fails on plain levels almost by construction, so it shows where the clock lives more than it tests the reader. The render softens each edge over 40 µs, about 32 µs from 10 to 90 %, where the page asks about 25 µs; the reader does not depend on edge time. The encoder makes all four of the page's bit rates: 1920, 2000, 2400 and 2397.6024 bit/s.\n\nR = 80 × f_frame\n\n(bit rate) = eighty bits × (frames per second)",
+          "near": "The good reader measures the bit length as it goes",
           "place": "band",
-          "height": 1180
-        },
-        {
-          "file": "SMPTE LTC — rich — drop-frame.html",
-          "origin": "made",
-          "by": "maker · claude-opus-5-5 · inline JS, no library",
-          "title": "A counter that skips to stay honest · drop-frame in five steps",
-          "caption": "**What does drop-frame actually skip, and how close does it keep the clock?** Five steps, silent: thirty labels a second; the same count at 29.97, falling 3.6 s an hour behind; skipping 00 and 01 every minute, which over-corrects to 0.4 s an hour ahead; the exception at every tenth minute, 108 skips an hour; and last, all 2,589,408 frames of a day labelled and turned back, with no duplicate, no forbidden label and no fault. At the ten-minute marks the label drifts 3.6 ms an hour; when it reaches 24:00:00;00 it is 86.4 ms (2.59 frames) ahead of the wall clock; between them it swings by about two frames, by design.\n\n2 × (60 − 6) = 108\n\ntwo labels at each minute, except the six minutes ending in zero, is the 108 an hour needs",
-          "near": "Drop-frame NTSC (29.97) skips",
-          "place": "band",
-          "height": 1150
+          "height": 1180,
+          "round": "proposal-round-2026-11 · cloud batch 4"
         }
       ],
-      "made_against": "9fd3f82b1fef",
-      "stamped": "2026-11-04",
       "challenge": {
         "date": "2026-11-04",
-        "by": "challenger · opus · cloud batch 4",
+        "by": "challenger · claude-opus-5-5",
         "verdicts": [
           {
             "file": "SMPTE LTC — rich — encoder.html",
             "verdict": "keep",
-            "why": "A real test: a reader given only samples reads 50/50 at 24, 25, 29.97 fps and flipped, and the bit map matches SMPTE 12M as I recall it field for field (sync 0011 1111 1111 1101, polarity 27 / 59 at 25 fps). Note: the NRZ control is weak (a biphase reader fails NRZ almost by construction), and edges are 40 µs where 12M asks 25 ± 5 µs; neither changes a result."
+            "why": "A real test: a reader given only samples reads 50/50 at 24, 25, 29.97 fps and flipped, and the bit map matches SMPTE 12M as I recall it field for field (sync 0011 1111 1111 1101, polarity 27 / 59 at 25 fps). Note: the NRZ control is weak (a biphase reader fails NRZ almost by construction), and edges are 40 µs where 12M asks 25 ± 5 µs; neither changes a result.",
+            "round": "cloud batch 4 · first challenge, before the page's rewrite (history)"
           },
           {
-            "file": "SMPTE LTC — rich — drop-frame.html",
-            "verdict": "keep",
-            "why": "An independent walker reproduces 2,589,408 frames, +0.600 ms per ten-minute mark, +3.600 ms per hour, a −60.0 to +63.5 ms swing. Note: step 4 says 86.4 ms a day and the offer says 86.3. Both are right but measured at different marks (label 24:00:00;00 vs wall-clock 24 h): pick one and name the mark."
-          }
-        ]
-      }
-    },
-    {
-      "heading": "Open Questions",
-      "status": "proposal",
-      "proposed": {
-        "date": "2026-11-04",
-        "by": "maker · opus · proposal round · cloud batch 4",
-        "round": "proposal-round-2026-11"
-      },
-      "made": "2026-11-04",
-      "pieces": [
-        {
-          "file": "SMPTE LTC — rich — backward.html",
-          "origin": "made",
-          "by": "maker · claude-opus-5-5 · inline JS, no library",
-          "title": "Heard, and read backward · a walk in four steps",
-          "caption": "**Can you hear it, and can it be read backward?** The first is a question for your ears; no agent heard this. The piece plays LTC at a level you choose with the spectrum of exactly what is playing: about 89% of its power sits between 500 Hz and 3 kHz (25 fps), in two lines at 1 and 2 kHz. Then the sync word forward and mirrored, which are different patterns; the tape played backward and at other speeds by ear; and last a reader that knows neither speed nor direction. The page's own case first: a 1× recording with its samples reversed read all 50 frames at 24, 25 and 29.97 fps, right timecodes, direction right. With the tape time-scaled (an ideal anti-alias) it read all 50 at every speed tried from 0.1× to 8× either way; through a plain linear resampler of a 1× buffer, clean to ±6×, with −8× at 26 of 50. At 12× and 16× a half cell is one sample or less at 48 kHz, Nyquist: the limit, not judged. A forward-only reader read nothing backward: the direction lives in the sync word.\n\ncell = 1 ÷ (80 × fps × |speed|)\n\nthe length of a cell is one over the bit rate times the speed, whichever way the tape runs",
-          "near": "Reverse playback",
-          "place": "band",
-          "height": 1300
-        }
-      ],
-      "made_against": "8268c2be33d2",
-      "stamped": "2026-11-04",
-      "challenge": {
-        "date": "2026-11-04",
-        "by": "challenger · opus · cloud batch 4",
-        "verdicts": [
-          {
-            "file": "SMPTE LTC — rich — backward.html",
+            "file": "SMPTE LTC — rich — encoder.html",
             "verdict": "remake",
-            "why": "The yes holds: a reversed 1× sample buffer reads 50/50 at three rates. The edge does not. Speeds are time-scaled (ideal anti-alias); through a plain resampler the edge is ±6× (−8× 24/50, −12× 50/50), so the rule's 'must fail at ±12×, else reading something other than the audio' is false. Recast ±12/16× as the expected limit near Nyquist, add a reversed-buffer row, and name the time-scaling in the rule."
+            "why": "Must-fix: it never named the rate it hears, though the page says the good reader does; it read only three rates; and its text still said \"three rates\".",
+            "by": "challenger · claude-opus-5-5",
+            "date": "2026-11-04",
+            "round": "second challenge, round 1, after the page's rewrite"
+          },
+          {
+            "file": "SMPTE LTC — rich — encoder.html",
+            "verdict": "keep",
+            "why": "Every must-fix met: the rate is named from the sync words' spacing by ltc.js's 0.05% rule and a row passes only if the name is right; six rates, plus the flipped signal and the control; the stale \"three rates\" text is gone; the caption and the 32 µs edge are updated. A leftover, not blocking: :571 still says bit 27 \"at 24 and 29.97\" and \"all three rates\".",
+            "by": "challenger · claude-opus-5-5",
+            "date": "2026-11-04",
+            "round": "second challenge, round 2, on the remake"
           }
         ]
-      }
+      },
+      "made_against": "732162fd789c",
+      "stamped": "2026-11-04"
     }
   ]
 }

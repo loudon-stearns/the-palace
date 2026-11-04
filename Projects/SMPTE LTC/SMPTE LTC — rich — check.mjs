@@ -1,11 +1,11 @@
 // SMPTE LTC — rich — check.mjs
-// born: 2026-11-04 · checks [[SMPTE LTC]]' rich-face pieces: encoder, drop-frame, backward
-// forward_vector: I re-run, headless, every claim the three LTC pieces make, on the very engine they carry. I check that the
-// three pieces carry the same core; that a timecode survives its eighty bits; that the audio the encoder renders flips at every
-// cell boundary and once more in the middle of exactly the 1s; that the page's three bit rates are what the encoder makes; that a
-// reader told nothing reads every frame back at all three rates and upside down, while the same bits with no clock read nothing;
-// that drop-frame labels a whole day without a fault and how far it sits from the wall clock; that the reader reads backward and
-// at fractional and shuttle speeds, fails where the sample rate can't hold a half cell, and that a forward-only reader reads
+// born: 2026-11-04 · checks [[SMPTE LTC]]' rich-face pieces: encoder, backward (the drop-frame piece retired 2026-11-04; the teaching room's own checks hold drop-frame)
+// forward_vector: I re-run, headless, every claim the two LTC pieces make, on the very engine they carry. I check that the
+// two pieces carry the same core; that a timecode survives its eighty bits; that the audio the encoder renders flips at every
+// cell boundary and once more in the middle of exactly the 1s; that the page's four bit rates are what the encoder makes; that a
+// reader told nothing reads every frame back at all six rates and upside down and names each rate from its sync words, while the same bits with no clock read nothing;
+// that the reader reads backward and
+// at fractional and shuttle speeds, and reads the speed from the sync words' spacing, fails where the sample rate can't hold a half cell, and that a forward-only reader reads
 // nothing backward; and what share of the sound's power sits in 500 Hz to 3 kHz. What anyone hears I cannot check.
 //
 //   node "Projects/SMPTE LTC/SMPTE LTC — rich — check.mjs"
@@ -18,7 +18,7 @@ import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const PIECES = ['encoder', 'drop-frame', 'backward'];
+const PIECES = ['encoder', 'backward'];
 const cores = PIECES.map((p) => {
   const html = readFileSync(join(HERE, `SMPTE LTC — rich — ${p}.html`), 'utf8');
   const m = html.match(/<script id="ltc-core">([\s\S]*?)<\/script>/);
@@ -29,16 +29,16 @@ const cores = PIECES.map((p) => {
 let fails = 0;
 const check = (name, ok, detail) => { console.log(`${ok ? 'PASS' : 'FAIL'}  ${name}  (${detail})`); if (!ok) fails++; };
 
-check('the three pieces carry one core', cores.every((c) => c === cores[0]), `${cores[0].length} chars each`);
+check('the two pieces carry one core', cores.every((c) => c === cores[0]), `${cores[0].length} chars each`);
 const E = { Math, Float32Array, Float64Array, Uint8Array, Object, Array, String, Infinity };
 vm.createContext(E);
 vm.runInContext(cores[0] + '\nthis.LTC = LTC;', E);
 const L = E.LTC, SR = 48000, FPS = 30000 / 1001;
 
-// ── Technical Architecture: the word ───────────────────────────────────────
+// ── The fine points: the word ─────────────────────────────────────────────────
 let rnd = 1; const rand = () => ((rnd = (rnd * 1664525 + 1013904223) >>> 0) / 4294967296);
 let roundBad = 0, parityBad = 0, n = 0;
-for (const rk of ['24', '25', '29.97']) {
+for (const rk of ['23.976', '24', '25', '29.97 ndf', '29.97', '30']) {
   const nom = L.RATES[rk].nominal;
   for (let i = 0; i < 5000; i++) {
     const tc = { h: Math.floor(rand() * 24), m: Math.floor(rand() * 60), s: Math.floor(rand() * 60), f: Math.floor(rand() * nom) };
@@ -50,11 +50,11 @@ for (const rk of ['24', '25', '29.97']) {
     if (b.reduce((a, x) => a + x, 0) % 2) parityBad++;
   }
 }
-check('a timecode survives its 80 bits', roundBad === 0, `${n} random words at three rates, ${roundBad} wrong`);
+check('a timecode survives its 80 bits', roundBad === 0, `${n} random words at six rates, ${roundBad} wrong`);
 check('every word carries an even count of 1s (polarity bit)', parityBad === 0, `${parityBad} odd`);
 
 let longest = 0;
-for (const rk of ['24', '25', '29.97']) for (let h = 0; h < 24; h++) for (let m = 0; m < 60; m++) for (let s = 0; s < 60; s++) for (let f = 0; f < L.RATES[rk].nominal; f++) {
+for (const rk of ['23.976', '24', '25', '29.97 ndf', '29.97', '30']) for (let h = 0; h < 24; h++) for (let m = 0; m < 60; m++) for (let s = 0; s < 60; s++) for (let f = 0; f < L.RATES[rk].nominal; f++) {
   if (L.RATES[rk].df && !L.labelValid({ h, m, s, f }, 'df')) continue;
   const b = L.encode({ h, m, s, f }, rk, [15, 15, 15, 15, 15, 15, 15, 15]);
   const pb = L.polarityBit(L.RATES[rk].nominal);
@@ -62,10 +62,10 @@ for (const rk of ['24', '25', '29.97']) for (let h = 0; h < 24; h++) for (let m 
   b[pb] = 0; if (b.reduce((a, x) => a + x, 0) % 2) b[pb] = 1;
   let run = 0; for (let i = 0; i < 64; i++) { run = b[i] ? run + 1 : 0; if (run > longest) longest = run; }
 }
-check('the data can never hold the sync word’s twelve 1s', longest < 12, `every timecode of the day at three rates, every user bit and flag set: longest run of 1s in bits 0–63 is ${longest}`);
+check('the data can never hold the sync word’s twelve 1s', longest < 12, `every timecode of the day at six rates, every user bit and flag set: longest run of 1s in bits 0–63 is ${longest}`);
 
-// ── Technical Architecture: the rendered audio flips where the page says ──
-for (const rk of ['24', '25', '29.97']) {
+// ── The fine points: the rendered audio flips where the page says (biphase mark) ──
+for (const rk of ['23.976', '24', '25', '29.97 ndf', '29.97', '30']) {
   const tp = L.tape({ h: 1, m: 23, s: 45, f: 12 }, 20, rk), N = Math.round(tp.dur * SR);
   const y = L.play(tp, SR, N, (t) => t, {});
   const cell = tp.bitT, bad = { offGrid: 0, midOn0: 0, noMidOn1: 0, noBoundary: 0 };
@@ -86,19 +86,20 @@ for (const rk of ['24', '25', '29.97']) {
     `${zc.length} zero crossings in ${tp.bits.length} cells; off the half-cell grid ${bad.offGrid}, boundary missing ${bad.noBoundary}, 1 with no mid flip ${bad.noMidOn1}, 0 with a mid flip ${bad.midOn0}`);
 }
 
-const pageRates = { '24': 1920, '25': 2000, '29.97': 2397.6 };
+const pageRates = { '24': 1920, '25': 2000, '30': 2400, '29.97': 2397.6 };
 for (const rk of Object.keys(pageRates)) {
   const R = 80 * L.RATES[rk].fps;
   check(`${rk}: the page’s bit rate is the encoder’s`, Math.abs(R - pageRates[rk]) < 0.005, `encoder ${R.toFixed(4)}, page ${pageRates[rk]}`);
 }
 
-// ── Technical Architecture: a reader told nothing ──────────────────────────
-for (const [rk, o] of [['24', {}], ['25', {}], ['29.97', {}], ['25', { flip: true }]]) {
-  const start = rk === '29.97' ? { h: 1, m: 23, s: 45, f: 12 } : { h: 1, m: 23, s: 45, f: 12 };
+// ── Every form: a reader told nothing names the rate it hears ──────────────────────────
+for (const [rk, o] of [['23.976', {}], ['24', {}], ['25', {}], ['29.97 ndf', {}], ['29.97', {}], ['30', {}], ['25', { flip: true }]]) {
+  const start = { h: 1, m: 23, s: 45, f: 12 };
   const tp = L.tape(start, 50, rk), y = L.play(tp, SR, Math.round(tp.dur * SR), (t) => t, { hp: 10, noise: 0.03, seed: 7 });
   if (o.flip) for (let i = 0; i < y.length; i++) y[i] = -y[i];
   const rd = L.read(y, SR), sc = L.score(rd, tp, 1);
   check(`${rk}${o.flip ? ' flipped' : ''}: the reader reads every frame back`, sc.distinct === 50 && sc.wrong === 0, `${sc.distinct} of 50, ${sc.wrong} wrong, rate guessed ${(1 / rd.period).toFixed(1)}`);
+  check(`${rk}${o.flip ? ' flipped' : ''}: the reader names the rate from its sync words`, rd.rate === rk, `named "${rd.rate}" from ${rd.fps.toFixed(4)} fps, drop-frame ${rd.df}`);
 }
 {
   const tp = L.tape({ h: 1, m: 23, s: 45, f: 12 }, 50, '25'), y = L.play(L.tapeNRZ(tp), SR, Math.round(tp.dur * SR), (t) => t, { hp: 10, noise: 0.03, seed: 7 });
@@ -106,37 +107,16 @@ for (const [rk, o] of [['24', {}], ['25', {}], ['29.97', {}], ['25', { flip: tru
   check('control: the same bits with no clock read nothing', sc.distinct === 0, `${sc.distinct} of 50 read`);
 }
 
-// ── Technical Architecture: drop-frame over a day ──────────────────────────
-{
-  const perDay = 107892 * 24, seen = new Uint8Array(24 * 3600 * 30); let dup = 0, forbidden = 0, back = 0;
-  for (let k = 0; k < perDay; k++) {
-    const tc = L.frameToLabel(k, 30, 'df'), key = ((tc.h * 60 + tc.m) * 60 + tc.s) * 30 + tc.f;
-    if (seen[key]) dup++; seen[key] = 1;
-    if (!L.labelValid(tc, 'df')) forbidden++;
-    if (L.labelToFrame(tc, 30, 'df') !== k) back++;
-  }
-  let unused = 0; for (let k = 0; k < seen.length; k++) if (!seen[k]) unused++;
-  check('drop-frame: a day of labels, no duplicate, no forbidden label, every label back to its frame', !dup && !forbidden && !back && unused === 2592,
-    `${perDay} frames; duplicates ${dup}, forbidden ${forbidden}, inverse faults ${back}, unused labels ${unused} (2592 expected)`);
-  const gap = (hours, mode) => { const k = Math.floor(hours * 3600 * FPS + 1e-9); return (L.labelIndex(k, 30, mode) - (mode === 'every' ? 2 : 0)) / 30 - k / FPS; };
-  const marks = [1, 2, 3, 4, 5, 6].map((j) => gap(j / 6, 'df'));
-  check('drop-frame: within one frame at each ten-minute mark of hour 1', marks.every((g) => Math.abs(g) < 1 / FPS), marks.map((g) => (g * 1000).toFixed(2)).join(', ') + ' ms');
-  let lo = Infinity, hi = -Infinity; for (let k = 0; k < 3600 * FPS; k++) { const g = (L.labelIndex(k, 30, 'df')) / 30 - k / FPS; lo = Math.min(lo, g); hi = Math.max(hi, g); }
-  const at24 = 86400 - perDay / FPS;
-  console.log(`      drop-frame, printed: at 1 h ${(gap(1, 'df') * 1000).toFixed(2)} ms; when the label reaches 24:00:00;00, ${(at24 * 1000).toFixed(2)} ms (${(at24 * FPS).toFixed(3)} frames) ahead; at wall-clock 24 h, ${(gap(24, 'df') * 1000).toFixed(2)} ms; wobble in hour 1 ${(lo * 1000).toFixed(1)} to ${(hi * 1000).toFixed(1)} ms`);
-  console.log(`      the page’s sentence read word for word (skip at every minute): ${(gap(1, 'every') * 1000).toFixed(1)} ms an hour ahead; no skipping: ${(gap(1, 'none')).toFixed(3)} s an hour`);
-  check('drop-frame: the every-minute reading over-corrects by about 0.4 s an hour', Math.abs(gap(1, 'every') - 0.4036) < 0.01, `${(gap(1, 'every') * 1000).toFixed(1)} ms`);
-}
-
-// ── Open Questions: backward and at speed ──────────────────────────────────
+// ── The fine points: the sync word, backward and at speed ──────────────────────────────────
 {
   const START = { h: 10, m: 0, s: 0, f: 0 }, rows = [], PATH = { hp: 10, noise: 0.03, seed: 11 };
-  for (const rk of ['24', '25', '29.97']) {
+  for (const rk of ['23.976', '24', '25', '29.97 ndf', '29.97', '30']) {
     const tp = L.tape(START, 50, rk), y = L.play(tp, SR, Math.round(tp.dur * SR), (t) => t, {});
-    const sc = L.score(L.read(L.path(Float32Array.from(y).reverse(), SR, PATH), SR), tp, -1);
+    const rd = L.read(L.path(Float32Array.from(y).reverse(), SR, PATH), SR), sc = L.score(rd, tp, -1);
     check(`${rk}: a 1× recording with its samples reversed reads back`, sc.distinct === 50 && sc.wrong === 0 && sc.dirWrong === 0, `${sc.distinct}/50, wrong ${sc.wrong}, direction wrong ${sc.dirWrong}`);
+    check(`${rk}: reversed, the sync words still give the speed, −1×`, Math.abs(rd.fps / L.RATES[rk].fps - 1) < 0.001 && rd.frames[0].dir < 0, `${(rd.fps / L.RATES[rk].fps).toFixed(4)}×, read ${rd.frames[0].dir < 0 ? 'backward' : 'forward'}`);
   }
-  let ok = true; const edge = [], res = [];
+  let ok = true, spOk = true; const edge = [], res = [], sps = [];
   const tp1 = L.tape(START, 50, '25'), one = L.play(tp1, SR, Math.round(tp1.dur * SR), (t) => t, {});
   for (const s of [-16, -12, -8, -6, -4, -2, -1, -0.5, -0.25, -0.1, 0.1, 0.25, 0.5, 1, 2, 4, 6, 8, 12, 16]) {
     const tp = L.tape(START, 50, '25'), a = L.atSpeed(tp, s);
@@ -145,10 +125,13 @@ for (const [rk, o] of [['24', {}], ['25', {}], ['29.97', {}], ['25', { flip: tru
     const rs = L.score(L.read(L.path(L.resample(one, s), SR, PATH), SR), tp1, Math.sign(s));
     res.push(`${s}× ${rs.distinct}`);
     if (Math.abs(s) >= 12) { edge.push(`${s}× ${sc.distinct}/50`); continue; }
+    const sr = rd.fps / 25; sps.push(`${s}× → ${sr.toFixed(4)}`);
+    if (!(Math.abs(sr - Math.abs(s)) / Math.abs(s) < 0.001 && (rd.frames[0].dir > 0) === (s > 0))) spOk = false;
     if (!(sc.distinct === 50 && sc.wrong === 0 && sc.dirWrong === 0) || (s < 0 && fwdOnly !== 0)) ok = false;
     rows.push(`${s}×: ${sc.distinct}/50, wrong ${sc.wrong}, dir wrong ${sc.dirWrong}${s < 0 ? `, forward-only ${fwdOnly}` : ''}`);
   }
   check('time-scaled speeds: all 50 frames from 0.1× to 8× either way; forward-only reader none backward', ok, rows.join(' · '));
+  check('the length of the sync word tells the speed: spacing ÷ the 25 fps rate is the speed to 0.1 %, from 0.1× to 8× either way', spOk, sps.join(' · '));
   console.log(`      near Nyquist (12×, 16×; the limit, not judged): ${edge.join(', ')}`);
   console.log(`      same speeds through a plain linear resampler of a 1× buffer, frames of 50 (printed): ${res.join(', ')}`);
   const tp = L.tape(START, 50, '25'), v0 = 2, D = 4 * 0.9 * tp.dur / v0, pos = (t) => v0 * t - v0 * t * t / D;
@@ -157,8 +140,8 @@ for (const [rk, o] of [['24', {}], ['25', {}], ['29.97', {}], ['25', { flip: tru
   console.log(`      shuttle +2× → 0 → −2×, printed: ${fw} forward, ${bw} backward, of ${whole} frames that passed whole`);
 }
 
-// ── Open Questions: where the sound’s power sits ───────────────────────────
-for (const rk of ['24', '25', '29.97']) {
+// ── The fine points, level and edge: where the sound’s power sits ───────────────────────────
+for (const rk of ['23.976', '24', '25', '29.97 ndf', '29.97', '30']) {
   const tp = L.tape({ h: 14, m: 27, s: 3, f: 0 }, Math.round(6 * L.RATES[rk].fps), rk);
   const y = L.play(tp, SR, Math.round(tp.dur * SR), (t) => t, { hp: 10 }), sp = L.spectrum(y.subarray(SR / 2), SR, 16384);
   console.log(`      ${rk}: power below 500 Hz ${(100 * L.bandShare(sp, 0, 500)).toFixed(1)}%, 500 Hz–3 kHz ${(100 * L.bandShare(sp, 500, 3000)).toFixed(1)}%, above 3 kHz ${(100 * L.bandShare(sp, 3000, SR / 2)).toFixed(1)}%`);
