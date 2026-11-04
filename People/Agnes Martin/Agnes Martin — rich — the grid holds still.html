@@ -66,7 +66,7 @@
   .eq .sym { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
   .eq .words { color: var(--fg2); margin-top: 4px; }
   .fieldwrap { overflow-x: auto; margin: 8px 0 8px; }
-  canvas#field { display: block; width: 600px; height: 380px; background: var(--paper); border: 1px solid var(--border); border-radius: 1px; }
+  canvas#field { display: block; width: 600px; height: 460px; background: var(--paper); border: 1px solid var(--border); border-radius: 1px; }
   .controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin: 6px 0 10px; }
   .controls label { font-family: var(--mono); font-size: 11.5px; color: var(--fg3); display: flex; align-items: center; gap: 10px; user-select: none; }
   .controls input[type=range] { flex: none; width: 220px; }
@@ -119,6 +119,7 @@
   <section class="step">
     <h3>Take it away</h3>
     <p class="teach">The same ten lines, the same drift, line for line. The slider takes away only the grid: the even spacing, the shared left edge and the vertical rules fade toward a scatter of lines at uneven heights and offsets. The lines stay horizontal, the same length and the same weight, because a tilted line is drawn on different pixels, and that would change something other than the grid. Under the field the piece measures its own pixels, so you can see the drift is the same in both, by the number.</p>
+    <p class="teach"><b>What taking it away leaves.</b> The open half still has the field's straight border, the horizontal, the pixel rows every line runs along, and each line's own straight chord between its pinned ends; it adds no noise. In both halves no line comes nearer the border than 46 px, the nearest line is exactly as far from the border in the two halves of each field, and scattered lines are never closer together than the grid's 32 px. So the test asks a narrower question than the page: does the grid's order (even spacing, a shared edge, cross-rules) help you see the drift, when everything else stays? It cannot reach "vanishes into noise", because nothing here is noise.</p>
     <p class="back">Slide back to 100% to return to step 3.</p>
   </section>
   <section class="step">
@@ -126,8 +127,8 @@
     <div class="rule">
       <p><b>What you do.</b> 64 fields, one at a time. Each shows ten lines, held in the grid or scattered without it. On each field the lines are either all drifting, at one of four amplitudes (0.25, 0.5, 1 or 2 px root mean square), or all perfectly straight, chosen by a fair coin for that field alone. You answer straight or drifting (keys S and D work too). Take as long as you like. No answer is marked until the end. Please leave the zoom as it is: zooming magnifies the drift, and the piece notes it if it changes.</p>
       <p><b>Chance, before the first trial.</b> A guess is right half the time. Each half, grid and no grid, gets 8 fields at each amplitude, 32 in all, so a guesser scores about 16 of 32 in each. A half is above chance at 21 of 32 or more; a guesser gets there about 5.5% of the time.</p>
-      <p><b>The verdict rule, before the first trial.</b> The page's claim holds for you if, with the grid, you get at least 6 more of your 32 right than without it, and at least 21 of 32. It goes the other way if the half without the grid wins by the same rule. Anything closer is no clear difference. If neither half reaches 21, the drift was too faint to tell anything; if both reach 30, too easy to tell anything. The strong form, "the difference vanishes into noise", holds at these amplitudes only if the claim holds and you saw no amplitude at all without the grid (an amplitude counts as seen at 7 of its 8 right). Both halves are scored, and hits and false alarms are shown for each.</p>
-      <p><b>What the rule can and cannot see.</b> A reader guessing every field gets a verdict for the page <span id="pguess">about 2.9%</span> of the time. The page's claim is a strong one, and the test is sized for it: a model reader whom the grid helps by two doublings of amplitude gets "holds" about three times in four; one whom it helps by a single doubling, about one time in four, and otherwise "no clear difference"; one whom it does not help at all gets "holds" between 0.1% and 6%, depending on how sharp their eyes are. The numbers come from the check beside this piece, on this piece's own scoring code.</p>
+      <p><b>The verdict rule, before the first trial.</b> The page's claim holds for you if, with the grid, you get at least 6 more of your 32 right than without it, and at least 21 of 32. It goes the other way if the half without the grid wins by the same rule. Anything closer is no clear difference. If neither half reaches 21, the drift was too faint to tell anything; if both reach 30, too easy to tell anything. The page's strong form, "the difference vanishes into noise", is out of this test's reach: the open half keeps the frame, the horizontal and the pixel rows and adds no noise (step 4). The piece still marks it when the claim holds and you saw no amplitude at all without the grid (an amplitude counts as seen at 7 of its 8 right), but that says the grid's order mattered to you, not that noise swallowed the drift. Both halves are scored, and hits and false alarms are shown for each.</p>
+      <p><b>What the rule can and cannot see.</b> A reader guessing every field gets a verdict for the page <span id="pguess">about 2.9%</span> of the time. The page's claim is a strong one, and the test is sized for it: a model reader whom the grid helps by two doublings of amplitude gets "holds" roughly two times in three to three in four, depending on the reader model (63–69% on one, 75% on another); one whom it helps by a single doubling gets it only 22–31% of the time, and otherwise "no clear difference"; one whom it does not help at all gets "holds" at most about 6.5%, depending on how sharp their eyes are. The numbers come from the check beside this piece and the challenger's, both on this piece's own scoring code.</p>
     </div>
     <div class="btns" id="startbtns"><button id="start">Start the 64 fields</button></div>
     <div id="trial" hidden>
@@ -137,7 +138,7 @@
     <div id="result"></div>
   </section>
 
-  <div class="fieldwrap"><canvas id="field" width="600" height="380" aria-label="the field of lines"></canvas></div>
+  <div class="fieldwrap"><canvas id="field" width="600" height="460" aria-label="the field of lines"></canvas></div>
   <div class="controls" id="ctl">
     <label id="ctlA">drift a <input type="range" id="amp" min="0" max="16" step="1" value="8"><output id="ampv"></output></label>
     <label id="ctlR">grid <input type="range" id="reg" min="0" max="100" step="1" value="100"><output id="regv"></output></label>
@@ -154,10 +155,10 @@
 <script id="engine">
 // The engine: no page, no DOM. Agnes Martin — rich — check.mjs runs this block in Node.
 const AM = (() => {
-  const W = 600, H = 380;            // the field, in field px (1 field px = 1 CSS px at 100% zoom)
+  const W = 600, H = 460;            // the field, in field px (1 field px = 1 CSS px at 100% zoom)
   const N = 10, L = 480;             // ten lines, each 480 px long
-  const GX = 60, GY = 46, SPACING = 32, CELL = 48, OVER = 12; // the grid: left edge, first line, row spacing, rule spacing, rule overhang
-  const GAP = 22, SCX = [10, 110];   // the scatter: smallest gap between lines, range of left ends
+  const GX = 60, GY = 46, SPACING = 32, CELL = 48, OVER = 12; // the grid: left edge, first line (steps 1-2; in a field it moves, below), row spacing, rule spacing, rule overhang
+  const EDGE = 46, GAP = 32, SCX = [46, 74]; // both halves: no line nearer the border than EDGE px; scatter: no neighbours nearer than GAP px (the grid's own spacing), left ends in SCX
   const SMOOTH = 24;                 // the hand's drift is smoothed over a Gaussian of this sigma, field px
   const ALPHA = 0.62;                // ink of a fully covered pixel
   const WINDOW = 7;                  // the meter reads each line within this many px of its true height
@@ -198,15 +199,20 @@ const AM = (() => {
   // sub-pixel offset for every line of the field, so a straight line is not always pixel-crisp.
   function layout(seed, reg, sub) {
     const r = rng(hash(seed, 7777));
-    const room = (H - 32) - (N - 1) * GAP, u = [];
+    // The scatter: heights at least EDGE px from top and bottom, neighbours at least GAP px apart.
+    const room = (H - 2 * EDGE) - (N - 1) * GAP, u = [];
     for (let i = 0; i < N; i++) u.push(Math.floor(r() * (room + 1)));
     u.sort((p, q) => p - q);
-    const sy = u.map((v, i) => 16 + v + i * GAP);
+    const sy = u.map((v, i) => EDGE + v + i * GAP);
     const sx = []; for (let i = 0; i < N; i++) sx.push(SCX[0] + Math.floor(r() * (SCX[1] - SCX[0] + 1)));
+    // The grid: held still within the field, placed so its nearest line to the border is exactly as
+    // far from it as the scatter's nearest, field by field (top or bottom by a coin).
+    const e = Math.min(sy[0], H - sy[N - 1]), span = SPACING * (N - 1);
+    const gy = r() < 0.5 ? e : H - e - span;
     const lines = [];
-    for (let i = 0; i < N; i++) lines.push({ x0: reg * GX + (1 - reg) * sx[i], y: reg * (GY + SPACING * i) + (1 - reg) * sy[i] + sub });
+    for (let i = 0; i < N; i++) lines.push({ x0: reg * GX + (1 - reg) * sx[i], y: reg * (gy + SPACING * i) + (1 - reg) * sy[i] + sub });
     const xs = []; for (let k = 0; k <= L / CELL; k++) xs.push(GX + CELL * k);
-    return { lines, rules: { xs, y0: GY - OVER + sub, y1: GY + SPACING * (N - 1) + OVER + sub, alpha: reg } };
+    return { lines, rules: { xs, y0: gy - OVER + sub, y1: gy + SPACING * (N - 1) + OVER + sub, alpha: reg } };
   }
   function field(seed, reg, a, sub) {
     const f = layout(seed, reg, sub);
@@ -283,8 +289,8 @@ const AM = (() => {
   const Q = tail(PER, PASS); // a guesser "sees" one amplitude: 9/256
   function threshold(seen) { let j = LEVELS.length; for (let k = LEVELS.length - 1; k >= 0; k--) { if (seen[k]) j = k; else break; } return j; } // LEVELS.length = above the top
   function verdict(g, o, n, openTh) {
-    if (g >= n - 2 && o >= n - 2) return 'floor';
-    if (g < GATE && o < GATE) return 'ceiling';
+    if (g >= n - 2 && o >= n - 2) return 'too-easy';
+    if (g < GATE && o < GATE) return 'too-faint';
     if (g - o >= MARGIN && g >= GATE) return openTh >= LEVELS.length ? 'holds-strong' : 'holds';
     if (o - g >= MARGIN && o >= GATE) return 'reversed';
     return 'no-difference';
@@ -306,7 +312,7 @@ const AM = (() => {
     out.verdict = verdict(out.grid.right, out.open.right, out.grid.n, out.open.th);
     return out;
   }
-  return { W, H, N, L, GX, GY, SPACING, CELL, LEVELS, PER, PASS, MARGIN, GATE, ALPHA, SMOOTH, Q, hash, rng, shape, drift, layout, field, band, render, measure, threshold, verdict, guessHolds, score, tail };
+  return { W, H, N, L, GX, GY, SPACING, CELL, EDGE, GAP, LEVELS, PER, PASS, MARGIN, GATE, ALPHA, SMOOTH, Q, hash, rng, shape, drift, layout, field, band, render, measure, threshold, verdict, guessHolds, score, tail };
 })();
 </script>
 
@@ -348,11 +354,11 @@ function drawStep() {
   show('ctl', st <= 3); show('meter', st !== 4);
   if (st === 0) {
     const dev = AM.drift(S.seed, 0, a);
-    const f = { lines: [{ x0: AM.GX, y: 120, dev: null }, { x0: AM.GX, y: 200, dev }], rules: { xs: [], alpha: 0 } };
+    const f = { lines: [{ x0: AM.GX, y: 140, dev: null }, { x0: AM.GX, y: 220, dev }], rules: { xs: [], alpha: 0 } };
     const img = AM.render(f, dpr); paint(img);
-    label('true', 14, 124); label('by hand', 8, 204);
-    label('the hand’s drift × 20', AM.GX, 268);
-    trace(dev, AM.GX, 310, 20, '#e8651b', true);
+    label('true', 14, 144); label('by hand', 8, 224);
+    label('the hand’s drift × 20', AM.GX, 298);
+    trace(dev, AM.GX, 350, 20, '#e8651b', true);
     const m = AM.measure(f, img, dpr);
     let pk = 0; for (let x = 0; x <= AM.L; x++) pk = Math.max(pk, Math.abs(dev[x]));
     $('meter').textContent = 'drift asked: ' + fmt(a) + ' px rms, farthest ' + fmt(pk) + ' px from true\n'
@@ -360,7 +366,7 @@ function drawStep() {
       + 'ink per column: by hand ' + fmt(m[1].ink, 3) + ' · true ' + fmt(m[0].ink, 3) + ' (field px × ink); darkest pixel ' + fmt(m[1].peak, 3) + ' · ' + fmt(m[0].peak, 3);
   } else if (st === 1) {
     g.fillStyle = '#f7f1e3'; g.fillRect(0, 0, cv.width, cv.height);
-    for (let i = 0; i < AM.N; i++) trace(AM.shape(S.seed2, i), AM.GX, AM.GY + AM.SPACING * i, 12 * 1, '#3d2a18', true);
+    for (let i = 0; i < AM.N; i++) trace(AM.shape(S.seed2, i), AM.GX, AM.GY + 40 + AM.SPACING * i, 12, '#3d2a18', true);
     label('ten hands, each drift × 12 at a = 1 px rms', AM.GX, 22);
     $('meter').textContent = 'rule: random walk, 1 step per px · smoothed, sigma ' + AM.SMOOTH + ' px · pinned to 0 at both ends · scaled to rms 1 · seed ' + S.seed2;
   } else if (st === 2 || st === 3) {
@@ -424,10 +430,10 @@ function showResult() {
   const V = {
     'holds': 'The claim holds for you: ' + g + ' of ' + n + ' right with the grid, ' + o + ' without it.',
     'holds-strong': 'The claim holds for you, in its strong form at these amplitudes: ' + g + ' of ' + n + ' right with the grid, ' + o + ' without it, and without it you saw no amplitude at all, not even 2 px.',
-    'no-difference': 'No clear difference for you: ' + g + ' of ' + n + ' right with the grid, ' + o + ' without it. The page claims more than that.',
+    'no-difference': 'No clear difference for you: ' + g + ' of ' + n + ' right with the grid, ' + o + ' without it. That is not a verdict against the page: a reader the grid helps by one doubling of amplitude still lands here most of the time (it gets "holds" only 22–31%), so this rule sees a large help, not a small one.',
     'reversed': 'The claim fails for you, the other way round: ' + o + ' of ' + n + ' right without the grid, ' + g + ' with it.',
-    'floor': 'Too easy to tell anything: ' + g + ' and ' + o + ' of ' + n + ' right. The page is not shown wrong; this test cannot separate the two halves for your eyes.',
-    'ceiling': 'Too faint to tell anything: neither half reached 21 of ' + n + ' (' + g + ' with the grid, ' + o + ' without). The page is not shown wrong; this test cannot separate the two halves.',
+    'too-easy': 'Too easy to tell anything: ' + g + ' and ' + o + ' of ' + n + ' right. The page is not shown wrong; this test cannot separate the two halves for your eyes.',
+    'too-faint': 'Too faint to tell anything: neither half reached 21 of ' + n + ' (' + g + ' with the grid, ' + o + ' without). The page is not shown wrong; this test cannot separate the two halves.',
   }[sc.verdict];
   // The control: what the pixels held, over every field you saw.
   let worstA = 0, nullMax = 0, inkSd = 0, inkS = [], inkD = [], pkS = [], pkD = [];
@@ -435,7 +441,7 @@ function showResult() {
   const mean = (v) => v.length ? v.reduce((s, x) => s + x, 0) / v.length : NaN;
   $('result').innerHTML = '<p class="verdict">' + V + '</p>'
     + '<table class="res"><tr><th>half</th>' + L.map((a) => '<th>' + a + ' px</th>').join('') + '<th>right</th><th>hits</th><th>false alarms</th><th>seen from</th></tr>' + row('grid', 'with the grid') + row('open', 'without it') + '</table>'
-    + '<p class="note">● marks an amplitude seen: at least ' + AM.PASS + ' of ' + AM.PER + ' right, which a guesser reaches ' + fmt(100 * AM.Q, 1) + '% of the time; seen from is the smallest amplitude from which every larger one was seen too. Hits are drifting fields you called drifting; false alarms are straight fields you called drifting. A reader who believed the paragraph above and leaned toward "drifting" in the grid half would show it as more false alarms there. A guesser gets a verdict for the page ' + fmt(100 * AM.guessHolds(), 1) + '% of the time.'
+    + '<p class="note">● marks an amplitude seen: at least ' + AM.PASS + ' of ' + AM.PER + ' right, which a guesser reaches ' + fmt(100 * AM.Q, 1) + '% of the time; seen from is the smallest amplitude from which every larger one was seen too. Hits are drifting fields you called drifting; false alarms are straight fields you called drifting. A reader who believed the paragraph above and leaned toward "drifting" in the grid half would show it as more false alarms there. A guesser gets a verdict for the page ' + fmt(100 * AM.guessHolds(), 1) + '% of the time. The half without the grid kept the field\'s border, the horizontal and the pixel rows and added no noise, so this answers whether the grid\'s order helped you, not whether the drift vanishes into noise.'
     + (T.zoomMoved ? ' <b>The zoom changed during the test</b>, so some fields were magnified; read this result with that in mind.' : '') + ' Zoom at the start: ' + fmt(T.z0, 2) + ' device px per field px.</p>'
     + '<div class="meter">the control, read off the pixels of all ' + T.ctrl.length + ' fields you saw:\n'
     + 'drifting lines: worst gap between asked and drawn drift ' + fmt(100 * worstA, 2) + '% (a pass is under 3%)\n'

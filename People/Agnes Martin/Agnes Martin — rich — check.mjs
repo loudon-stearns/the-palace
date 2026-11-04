@@ -36,6 +36,25 @@ console.log('the grid holds still · engine, headless');
   ok(worst === 0, `same seed, grid and no grid: drift arrays identical, largest difference ${worst} px (40 seeds × 10 lines)`);
 }
 
+// 1b. The frame and the neighbours (the challenge, 2026-11-04): no line nearer the border than EDGE px
+// in either half, no scatter neighbours nearer than the grid's own spacing, over 2000 layouts.
+{
+  const st = { 1: { minEdge: 1e9, near30: 0, near60: 0, minGap: 1e9 }, 0: { minEdge: 1e9, near30: 0, near60: 0, minGap: 1e9 } };
+  const M = 2000;
+  for (let s = 0; s < M; s++) for (const reg of [1, 0]) {
+    const ys = AM.layout(s, reg, 0).lines.map((l) => l.y).sort((a, b) => a - b), t = st[reg];
+    const e = Math.min(ys[0], AM.H - ys[ys.length - 1]);
+    t.minEdge = Math.min(t.minEdge, e); if (e < 30) t.near30++; if (e < 60) t.near60++;
+    for (let i = 1; i < ys.length; i++) t.minGap = Math.min(t.minGap, ys[i] - ys[i - 1]);
+  }
+  for (const reg of [1, 0]) { const t = st[reg]; console.log(`  ${reg ? 'grid' : 'open'}: nearest line to border ${t.minEdge} px; fields with a line within 30 px ${f(100 * t.near30 / M, 1)}%, within 60 px ${f(100 * t.near60 / M, 1)}%; closest neighbours ${t.minGap} px`); }
+  ok(st[0].minEdge >= AM.EDGE && st[1].minEdge >= AM.EDGE, `no line nearer the border than ${AM.EDGE} px in either half`);
+  ok(st[0].minGap >= AM.SPACING, `no scatter neighbours nearer than the grid's ${AM.SPACING} px (closest ${st[0].minGap})`);
+  let worstE = 0;
+  for (let s = 0; s < M; s++) { const e = (reg) => { const ys = AM.layout(s, reg, 0).lines.map((l) => l.y); return Math.min(Math.min(...ys), AM.H - Math.max(...ys)); }; worstE = Math.max(worstE, Math.abs(e(1) - e(0))); }
+  ok(worstE === 0, `nearest line to the border, grid vs open, same field: largest difference ${worstE} px (pass: 0)`);
+}
+
 // 2. Read back off the pixels, in both halves, at dpr 1 and 2 and 1.25 (a zoomed screen).
 for (const dpr of [1, 1.25, 2]) {
   let worstA = 0, nullMax = 0, armDiff = 0, inkSdMax = 0, inkS = [], inkD = [], pkS = [], pkD = [], minCols = 1e9;

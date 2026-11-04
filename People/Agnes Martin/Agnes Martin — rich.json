@@ -28,7 +28,13 @@
     {
       "section": "How her mind moves",
       "kind": "no-claim-edit",
-      "what": "The sentence 'take it away and the difference vanishes into noise' is a claim about seeing, stated as fact in the narrator's voice; the intro frames the grid idea as 'her account of it', this paragraph does not. Offer: let the paragraph keep the claim as hers ('to her, the grid holds still so…') or say plainly that it is a perceptual claim a reader can test (the rich face's piece does). Making the piece also showed what 'take the grid away' has to mean to be testable: remove the even spacing, the shared edge and the cross-rules while the lines themselves stay the same; one clause could say so. No reader has taken the test yet, so nothing here says the claim is right or wrong.",
+      "what": "The sentence 'take it away and the difference vanishes into noise' is a claim about seeing, stated as fact in the narrator's voice; the intro frames the grid idea as 'her account of it', this paragraph does not. Offer: let the paragraph keep the claim as hers ('to her, the grid holds still so…') or say plainly that it is a perceptual claim a reader can test (the rich face's piece does). No reader has taken the test yet, so nothing here says the claim is right or wrong.",
+      "status": "open"
+    },
+    {
+      "section": "How her mind moves",
+      "kind": "claim-change",
+      "what": "Disputed by the challenge. The first making proposed one clause defining 'take the grid away' as removing the even spacing, the shared edge and the cross-rules while the lines stay the same. The challenger's numbers show that meaning keeps references and adds no noise, so it is not plainly what 'vanishes into noise' says: in 87.3% of the first scatter's fields (2,000 layouts) a line sat within 30 px of the canvas border where grid lines never came nearer than 46 px; scatter neighbours came as close as 22 px against the grid's 32 px; and an ideal observer reading each line against its own pinned chord, with no grid, calls 60 of 60 fields drifting at 0.25 px in both halves. The remade piece now matches the frame and the spacing, but the raster and each line's own chord remain. If the page defines removal at all, it has to say what noise replaces the grid; until a piece shows that, hold the clause.",
       "status": "open"
     }
   ],
@@ -51,7 +57,7 @@
           "by": "the Maker · its own pixels, its own scoring",
           "height": 1500,
           "title": "the grid holds still · a walk in five steps",
-          "caption": "**Can you see the hand drift?** One hand-ruled line beside a true one; the hand's drift stated as a rule (a smoothed random walk pinned at both ends, scaled to *a* px root mean square); ten lines held in a grid; the same ten, line for line, with the grid taken away; then 64 blind fields, straight or drifting by a fair coin, at four amplitudes, with the grid and without. Chance and the verdict rule are stated before the first field, both halves are scored, and the piece reads its own pixels to show the two halves differ only in the grid. All lines are original; nothing of hers is reproduced. The threshold that answers the page is the reader's.",
+          "caption": "**Can you see the hand drift?** One hand-ruled line beside a true one; the hand's drift stated as a rule (a smoothed random walk pinned at both ends, scaled to *a* px root mean square); ten lines held in a grid; the same ten, line for line, with the grid's order taken away (the open half keeps the field's border, the horizontal and the pixel rows, and adds no noise, so the test asks whether the grid's order helps, not whether the drift vanishes into noise); then 64 blind fields, straight or drifting by a fair coin, at four amplitudes, with the grid and without. Chance and the verdict rule are stated before the first field, both halves are scored, and the piece reads its own pixels to show the two halves differ only in the grid. All lines are original; nothing of hers is reproduced. The threshold that answers the page is the reader's.",
           "near": "The grid holds still so the drift can be seen",
           "place": "band"
         }
