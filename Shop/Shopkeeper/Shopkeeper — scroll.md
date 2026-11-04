@@ -15,35 +15,35 @@ forward_vector: "I am Shopkeeper's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T12:45:07.741Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T12:49:00.089Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** alive · **Stage:** — · **Steward:** cycle 10 · last ran 2026-11-04 (today)
+- **Status:** alive · **Stage:** — · **Steward:** cycle 11 · last ran 2026-11-04 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
-- **Waiting on you:** nothing
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — The LightOnOCR-3 Runpod pod is alive and serving — vLLM inside it hasn't answered yet. (`shopkeeper-cycle-10-2026-11-04`)
-- **Last commit touching this page:** 2026-11-04 `ae32967c` — steward(Shopkeeper): cycle 9 — The LightOnOCR-3 GPU pod is actually running now — I rented it and it's…
+- **Last shipped:** 2026-11-04 (today) — Killed the LightOnOCR-3 Runpod pod after 24 minutes of silence — it never answered a single request. (`shopkeeper-cycle-11-2026-11-04`)
+- **Last commit touching this page:** 2026-11-04 `b79a2d9b` — steward(Shopkeeper): cycle 10 — The LightOnOCR-3 Runpod pod is alive and serving — vLLM inside it hasn'…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 7 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-04 — cycle 10 · taught item 7
+- **Runs:** 8 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-04 — cycle 11 · taught item 8
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 7, from cycle 10 — 2026-11-04 — [[Shopkeeper — tuning]]
+- **Latest lesson:** item 8, from cycle 11 — 2026-11-04 — [[Shopkeeper — tuning]]
 
 ### Where this stands
 
-Nine cycles chasing LightOnOCR-3, an apache-2.0 OCR model, because the Shop's roster has zero OCR coverage. Every free sandbox route needed a GPU it doesn't have. You approved spending about a quarter on a Runpod GPU; the credential turned out to already be sitting in the Shop's own config, not missing as I'd wrongly reported two cycles ago. Last cycle I actually rented the pod.
+I'm Shopkeeper — I stock the Shop's tool roster. Eleven cycles ago I found LightOnOCR-3, a genuinely good apache-2.0 OCR model the Shop has zero coverage for, but every free route to it (the demo Space, the Inference API) turned out to need a GPU of its own. You approved renting one on Runpod for about a quarter. Last cycle the pod came up and looked healthy by its own status field, but the vLLM server inside it hadn't started answering yet — expected, within its normal boot window.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** Still zero first-hand transcription evidence after ten cycles — the pod exists and is reachable, but I have not yet gotten a single real answer out of the model itself. _(in 8 notes, the latest cycle 10)_
+- **rough since cycle 1:** Eleven cycles in, I still have zero first-hand transcription evidence from this model. _(in 9 notes, the latest cycle 11)_
 - **rough since cycle 8:** That's the one thing every remaining cycle of this run needs to close. _(in 3 notes, the latest cycle 10)_
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `shopkeeper-ask-2026-11-04-ocr-nextstep` — directional_decision · posted 2026-11-04 · options: MAC-DEBUG · DROP-FOR-NOW · RETRY-DIFFERENT-IMAGE
 
 ### Answered, not yet consumed
 
@@ -68,6 +68,7 @@ d5 YES: Yes, add a dated gotcha note on Stable Audio 3 to [[Stable Audio Open]].
 
 ### Runs
 
+- 2026-11-04 — cycle 11 · taught item 8
 - 2026-11-04 — cycle 10 · taught item 7
 - 2026-11-04 — cycle 9 · taught item 6
 - 2026-11-03 — cycle 8 · taught item 5
@@ -111,6 +112,30 @@ The Shop is yours to tend, not to write. Run the tools, keep the dossiers, and m
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shopkeeper-cycle-11-2026-11-04" -->
+### 2026-11-04 — cycle 11 — Killed the LightOnOCR-3 Runpod pod after 24 minutes of silence — it never answered a single request.
+> shipped · pod terminated, spend ~$0.09 · steward leans DROP-FOR-NOW
+
+This cycle I checked back. At 24 minutes uptime, every route I tried on the pod's public proxy — /v1/models, /, /health, /ping, /docs — still returned a flat 404, with zero change from the check nine minutes in. That's past the window I'd estimated for a normal boot, and this sandbox has no way to open a terminal or read the container's logs to find out *why* vLLM never bound its port — maybe a slow image pull, maybe a crash, maybe a bad flag in the start command. Rather than let an unexplained hang keep billing, I terminated the pod (DELETE confirmed 204). Total spend: about $0.09 of the $1 I was allowed.
+
+**Artifacts:**
+- [the full chase, cycles 4 through 11 — every wall and what each one actually was.](Shop/Shopkeeper/probes/lightonocr-3/lightonocr-3-probe-notes.md)
+
+_Changed in the workshop:_ lightonocr-3-probe-notes — logged cycle 11's finding that the pod never came up and recorded the termination
+
+_Left rough:_ Eleven cycles in, I still have zero first-hand transcription evidence from this model. The wall changed shape each time — no free API, no credentials, now 'no way to debug a paid pod once it's rented from a sandbox with no browser or terminal' — and I don't think a twelfth cycle of the same approach fixes that last one.
+
+_Next moves named:_ A mac/browser pass with the Runpod web console could watch the pod boot and read its actual logs — that's the one leg this sandbox can't walk. · Or treat LightOnOCR-3 as composted for now and look for an OCR candidate with a real free hosted inference route instead of one that needs self-serving.
+<sub>`shopkeeper-cycle-11-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-6ec7d10d07" -->
+### 2026-11-04 — cycle 11
+
+taught item 8
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="shopkeeper-cycle-10-2026-11-04" -->
 ### 2026-11-04 — cycle 10 — The LightOnOCR-3 Runpod pod is alive and serving — vLLM inside it hasn't answered yet.
 > still working · pod confirmed RUNNING, costing $0.22/hr · steward leans WAIT-ONE-MORE-CHECK

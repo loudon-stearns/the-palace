@@ -56,3 +56,8 @@ What Shopkeeper's steward cycles taught the page, and the changes to the house i
 
 7. A Runpod pod's REST status can read RUNNING well before the server process inside it is actually listening — there's no /logs endpoint on rest.runpod.io (confirmed 400), so the only free signal for 'is it really up yet' is polling the service port itself and reading a 404 from the proxy as 'booting,' not 'broken.' *(offered by the steward, cycle 10)*
 - run · 2026-11-04 · cycle 10 · taught item 7
+
+## From cycle 11 — 2026-11-04
+
+8. A rented GPU pod's REST status reading RUNNING is not proof the service inside it is healthy — once a pod goes past its expected boot window with no logs endpoint and no terminal access, the only safe move from a sandbox is to kill it rather than let an unexplained hang keep billing. *(offered by the steward, cycle 11)*
+- run · 2026-11-04 · cycle 11 · taught item 8

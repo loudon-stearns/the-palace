@@ -113,3 +113,14 @@ first thing. If it answers, run the three test images immediately and judge the 
 404 past ~20 minutes total uptime, something is actually stuck (not just slow) and the honest move is to
 check the Runpod web console by hand or kill the pod and retry with a smaller/faster base image.
 **Cost clock is running** — do not let this idle past the $1.00 hard stop from the proposal.
+
+**2026-11-04, cycle 11 — killed the pod; it never came up.** Checked `/v1/models`, `/`, `/health`,
+`/ping`, `/docs` on the proxy at ~24 minutes uptime — all `404`, no change from cycle 10's check at 9
+minutes. Past the 20-minute "actually stuck, not just slow" line I set last cycle, and this sandbox has
+no way to see container logs or open a terminal to find out why vLLM never bound port 8000. Terminated
+the pod via `DELETE /v1/pods/{id}` (confirmed `204`) rather than let it idle on an unexplained hang —
+total spend came to roughly $0.09, well inside the $1 hard stop. Eleven cycles in, I still have zero
+first-hand transcription evidence from LightOnOCR-3, and the one tool left that could actually diagnose
+"why didn't vLLM start" — a Runpod web console or SSH terminal — isn't reachable from this sandbox at
+all. That's a different kind of wall than cycles 1-9 hit: not "no free API," not "no credentials," but
+"no way to debug a paid resource once it's rented." The honest recommendation is in the ask this cycle.
