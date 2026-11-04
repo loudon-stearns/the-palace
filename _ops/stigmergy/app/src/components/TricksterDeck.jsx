@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { Banner } from './primitives.jsx';
 import { buildInbox } from '../lib/inbox.js';
 import { buildLeanGrants, buildCardGrant } from '../lib/trickster-grants.js';
 import { resolveKey, toggleSelection, selectionFor } from '../lib/trickster-keys.js';
 import { filterRequests, showCounts, projectsOf, isFiltering, SHOW_KINDS } from '../lib/trickster-filter.js';
+import { LEAVE_EVENT, stashInHistory, stashedInHistory } from '../lib/url-nav.js';
 import { postMessage } from '../adapters/blackboard.js';
 import { t } from '../lib/lexicon.js';
 import TricksterCard from './trickster/TricksterCard.jsx';
@@ -43,6 +44,9 @@ export function formatRun(result, name) {
 }
 
 const RUN_COLOR = { ok: 'var(--phosphor)', warn: 'var(--warn)', err: 'var(--error)' };
+
+// The history-state key the deck keeps its view under (see `restored`).
+const VIEW_KEY = 'trickster';
 
 // The receipt for a filed decision — what the card held the moment it vanished
 // (2026-10-13; Loudon: "the window just disappears, it would feel good to have
@@ -86,6 +90,12 @@ export default function TricksterDeck({
   loadError = null,
   onReload,
 }) {
+  // The view Back returns to (2026-11-04, Loudon: "when a card is open and I
+  // click on its entry then I come back ... still have the card open and the
+  // page scrolled"). On leave, the deck writes its view onto its own history
+  // entry; a Back onto that entry finds it there and starts from it. Entering
+  // by tab or `t` pushes a fresh entry with no view, so that stays collapsed.
+  const [restored] = useState(() => stashedInHistory(VIEW_KEY));
   const { pending_requests: all_requests } = buildInbox(messages);
   const total = all_requests.length;
   const countLabel = total === 1 ? t('trickster.deck.count.one') : t('trickster.deck.count.many');
@@ -95,9 +105,9 @@ export default function TricksterDeck({
   // see is what f files — a hidden card is never filed. Not persisted: a
   // forgotten filter must never hide an ask on the next visit. A project whose
   // last card was filed drops out of the picker, and its filter with it.
-  const [query, setQuery] = useState('');
-  const [show, setShow] = useState('all');
-  const [projectPick, setProjectPick] = useState('');
+  const [query, setQuery] = useState(() => (restored && restored.query) || '');
+  const [show, setShow] = useState(() => (restored && restored.show) || 'all');
+  const [projectPick, setProjectPick] = useState(() => (restored && restored.project) || '');
   const projects = projectsOf(all_requests);
   const project = projects.some((p) => p.name === projectPick) ? projectPick : '';
   const filters = { query, show, project };
@@ -146,8 +156,8 @@ export default function TricksterDeck({
   // or images — measured on 26 cards: 0 frames and ~5 MB folded against 29
   // live frames, 78 players and ~28 MB expanded. EXPAND holds for this visit
   // only; remembering it would make the next entry the slow one again.
-  const [compact, setCompact] = useState(true);
-  const [opened, setOpened] = useState({});
+  const [compact, setCompact] = useState(() => (restored ? restored.compact !== false : true));
+  const [opened, setOpened] = useState(() => (restored && restored.opened) || {});
   const toggleCompact = () => {
     setCompact((was) => !was);
     setOpened({});
@@ -258,6 +268,48 @@ export default function TricksterDeck({
     }
   }
 
+  // Save the view onto this deck's history entry the moment a jump or deck
+  // switch is about to push. The anchor is the card last clicked (the one
+  // whose page you opened) or, failing that, the top card on screen, kept
+  // with its distance from the top of the window.
+  const rootRef = useRef(null);
+  const lastClickedRef = useRef(null);
+  const viewRef = useRef({});
+  viewRef.current = { query, show, project, compact, opened };
+  useEffect(() => {
+    function onLeave() {
+      const root = rootRef.current;
+      if (!root) return;
+      const cards = [...root.querySelectorAll('[data-testid="trickster-card"]')];
+      const clicked = cards.find((c) => c.dataset.requestId === lastClickedRef.current);
+      const onScreen = (c) => { const r = c.getBoundingClientRect(); return r.bottom > 0 && r.top < window.innerHeight; };
+      const el = clicked && onScreen(clicked) ? clicked : cards.find(onScreen);
+      const anchor = el ? { id: el.dataset.requestId, top: Math.round(el.getBoundingClientRect().top) } : null;
+      stashInHistory(VIEW_KEY, { ...viewRef.current, anchor, scrollY: Math.round(window.scrollY) });
+    }
+    window.addEventListener(LEAVE_EVENT, onLeave);
+    return () => window.removeEventListener(LEAVE_EVENT, onLeave);
+  }, []);
+
+  // Back onto a saved view: once its anchor card is on the page, put it back
+  // where it sat, and focus it. Runs before paint, and again on the next frame
+  // in case the browser's own scroll restore lands after us. Done once.
+  const restoredScroll = useRef(false);
+  useLayoutEffect(() => {
+    if (restoredScroll.current || !restored || n === 0) return;
+    restoredScroll.current = true;
+    const place = () => {
+      const el = restored.anchor && rootRef.current
+        && rootRef.current.querySelector(`[data-testid="trickster-card"][data-request-id="${CSS.escape(restored.anchor.id)}"]`);
+      if (el) window.scrollBy(0, el.getBoundingClientRect().top - restored.anchor.top);
+      else if (typeof restored.scrollY === 'number') window.scrollTo(0, restored.scrollY);
+    };
+    place();
+    requestAnimationFrame(place);
+    const idx = restored.anchor ? pending_requests.findIndex((p) => p.request_id === restored.anchor.id) : -1;
+    if (idx >= 0) setFocusedIndex(idx);
+  });
+
   // Keyboard layer. A ref carries the latest list/focus/selection so the
   // listener stays stable (one add/remove for the deck's lifetime) without
   // going stale. resolveKey() is the pure key→action map (unit-tested); this
@@ -294,7 +346,14 @@ export default function TricksterDeck({
   }, []);
 
   return (
-    <div data-testid="trickster-deck">
+    <div
+      data-testid="trickster-deck"
+      ref={rootRef}
+      onClickCapture={(e) => {
+        const card = e.target && e.target.closest && e.target.closest('[data-testid="trickster-card"]');
+        if (card) lastClickedRef.current = card.dataset.requestId || null;
+      }}
+    >
       <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none', marginBottom: 10 }}>
         {loadState === 'ok' ? (
           <span data-testid="trickster-count">

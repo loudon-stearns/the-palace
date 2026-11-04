@@ -469,6 +469,7 @@ export function useDeckNavigation() {
       const currentSearch = window.location.search || '';
       if (nextSearch !== currentSearch) {
         const nextUrl = `${window.location.pathname}${nextSearch}${window.location.hash}`;
+        announceLeave();
         window.history.pushState({ deck: target }, '', nextUrl);
       }
     }
@@ -499,7 +500,31 @@ export function jumpToEntry(path) {
   const nextSearch = buildEntryJumpSearch(window.location.search, path);
   if (nextSearch !== (window.location.search || '')) {
     const nextUrl = `${window.location.pathname}${nextSearch}${window.location.hash}`;
+    announceLeave();
     window.history.pushState({ deck: 'STATE', entry: path }, '', nextUrl);
   }
   window.dispatchEvent(new PopStateEvent('popstate', { state: window.history.state }));
+}
+
+// Fired just before a deck switch or an entry jump pushes its step, while the
+// current history entry is still the one being left. A deck that wants Back to
+// bring it back as it was (TRICKSTER: open cards, filters, where the card sat)
+// writes its view onto that entry with replaceState here; a later push would
+// be too late, the entry would already be behind it.
+export const LEAVE_EVENT = 'nav:leave';
+export function announceLeave() {
+  if (typeof window !== 'undefined') window.dispatchEvent(new Event(LEAVE_EVENT));
+}
+
+// Merge a slice into the current history entry's state without a new step.
+export function stashInHistory(key, value) {
+  if (typeof window === 'undefined') return;
+  window.history.replaceState({ ...(window.history.state || {}), [key]: value }, '', window.location.href);
+}
+
+// Read a slice the current history entry carries (null when none).
+export function stashedInHistory(key) {
+  if (typeof window === 'undefined') return null;
+  const st = window.history.state;
+  return st && st[key] != null ? st[key] : null;
 }
