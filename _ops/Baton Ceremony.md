@@ -8,7 +8,7 @@ pillars:
   - tools
 born: 2026-05
 stage: mature
-version: "1.5"
+version: "1.6"
 trigger: ["baton", "pass the baton", "baton this", "baton it to [surface]"]
 forward_vector: "I am how one Claude hands a live task to the next without dropping it. I keep getting tighter — fewer words, faster pickup, less ritual — so passing a baton feels natural to anyone who uses me, human or AI, and nobody has to stop and think about how. I want the catch so clean the next worker is already moving before they finish reading."
 links:
@@ -192,7 +192,7 @@ The On-pickup section is fixed boilerplate in one file, [[Baton Ceremony — on-
 
 **Step 3: Show**
 
-Present the draft baton to Loudon in conversation. Loudon approves, edits, or rejects. Do not write before approval. If Loudon rejects, the most common cause is over-bloat. Cut to the move.
+Present the draft baton to Loudon in conversation, or offer to; his read is not required for a commissioning baton he will lead on pickup (Loudon, 2026-10-14). Loudon approves, edits, or rejects. Do not write before approval. If Loudon rejects, the most common cause is over-bloat. Cut to the move.
 
 **Step 4: Write and link**
 
@@ -282,7 +282,7 @@ The outgoing Baton is complete when:
 
 1. A baton file exists at its shape-correct home
 2. The entry has an "Active Baton" section pointing to it (or, for no-parent shapes, the board announcement is posted)
-3. Loudon has confirmed the baton is sufficient
+3. Loudon has confirmed the baton is sufficient, or, for a commissioning baton he leads on pickup, has been offered it
 4. The outgoing closing message has been delivered with the suggested invocation
 5. The baton is committed to git. That commit is the run's record: its body names the version and ends with what this run taught the ceremony ("nothing" is a legal answer); the run marks the tuning file with its run line, and a lesson that changes the spec also goes there as a numbered item
 
@@ -290,7 +290,7 @@ The outgoing Baton is complete when:
 
 The incoming Baton is complete when:
 
-1. The incoming Claude has read the baton and the entry
+1. The incoming Claude has read the baton and the entry. The catcher reads the baton and the entry as a child; it grows only on Loudon's word.
 2. **The catch is claimed** — for a board-announced baton, `pickup-handoff.mjs <id>` has posted the `handoff_picked_up` (`lifecycle: claim`) and the card reads **CLAIMED**; the baton is committed if it wasn't already. Nothing is deleted yet.
 3. The incoming Claude has picked up the move (acted on it)
 4. **The claim is closed** — `close-handoff.mjs <id> --commit <hash>` retires the card citing the commit that landed the move, or `--partial --remainder "…"` re-batons the rest. A claim left open ages into a fumble; a session has not finished while silently sitting on one.

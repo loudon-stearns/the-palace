@@ -11,7 +11,7 @@ forward_vector: "I am the one copy of the catcher's checklist that rides inside 
 <!-- THE canonical On-pickup footer. Two readers:
      · a Claude hand-authoring a baton (Baton Ceremony § Steps, Step 2)
      · _ops/closing-well/baton-executor.mjs, which reads this file at write time
-     Everything below the frontmatter is appended verbatim to the baton. Edit here,
+     Everything from the `## On pickup` heading down is appended verbatim to the baton; this note is not. Edit here,
      nowhere else — a second copy is how this drifted before (2026-07-07 → 2026-08-26). -->
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
