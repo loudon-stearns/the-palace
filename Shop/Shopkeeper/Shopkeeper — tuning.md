@@ -41,3 +41,8 @@ What Shopkeeper's steward cycles taught the page, and the changes to the house i
 
 4. A spending grant doesn't imply the credentials to spend it — check for the actual account/API access before costing out a plan that assumes it, the same way cycle 5 learned to check the model's README before blaming the Space. *(offered by the steward, cycle 7)*
 - run · 2026-11-03 · cycle 7 · taught item 4
+
+## From cycle 8 — 2026-11-03
+
+5. A cycle that can't find a credential should check the Shop's own established gitignored-config pattern (per-Specialist, in its bundle) before concluding none exists — the environment and a CLI binary aren't the only places a key lives here. *(offered by the steward, cycle 8)*
+- run · 2026-11-03 · cycle 8 · taught item 5
