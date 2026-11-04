@@ -15,32 +15,31 @@ forward_vector: "I am Wavetable Scanner's scroll — the one page that always op
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T04:10:25.333Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T04:16:05.065Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 8 · last ran 2026-11-04 (today)
-- **Plan:** agreed 2026-11-04 (today) · 1 made thing since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 9 · last ran 2026-11-04 (today)
+- **Plan:** agreed 2026-11-04 (today) · 2 made things since
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — The scanner now saves any table for Serum/Vital, Surge XT and Ableton, and reads Serum and Surge tables back in whole. (`wavetable-scanner-steward-018`)
-- **Last commit touching this project:** 2026-11-03 `80bdbd4d` — steward(Wavetable Scanner): cycle 7 — SPINNING UP. HOME: [Wavetable Scanner](obsidian://open?vault=The%20Pala…
+- **Last shipped:** 2026-11-04 (today) — The plugin now plays your own tables: drop Serum, Surge or Ableton tables into a folder and they appear in its Table menu. (`wavetable-scanner-steward-020`)
+- **Last commit touching this project:** 2026-11-03 `0697f173` — steward(Wavetable Scanner): cycle 8 — SPINNING UP. HOME: [Wavetable Scanner](obsidian://open?vault=The%20Pala…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 8 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 8 · taught item 19, proposed item 20 for canon
+- **Runs:** 9 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 9 · taught item 21, proposed item 22 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 10 — items 3, 5, 7, 11, 12, 14, 15, 17, 18, 20; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 20, from cycle 8 — 2026-11-03 — [[Wavetable Scanner — tuning]]
+- **Proposed for canon:** 10 — items 3, 5, 7, 11, 12, 14, 15, 18, 20, 22; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 22, from cycle 9 — 2026-11-03 — [[Wavetable Scanner — tuning]]
 
 ### Where this stands
 
-Wavetable Scanner is the page that draws a wavetable as a 3D landscape. It packs its own tables from a folder of single cycles, plays them as a browser synth, and now also runs as a VST3/AU plugin with the landscape in the middle of its window. You adopted the plan. Its export step says a packed table should leave in the formats of the synths you use, beside the Ableton WAV. This cycle built that. The study page has four export buttons: Serum / Vital, Surge .wt, Ableton and Float .wav. Each saves whichever table is showing. Dropping a Serum or Surge table on the page now loads it whole. Before, a Serum file came in split in half.
+Wavetable Scanner is the page that draws a wavetable as a 3D landscape. It packs its own tables from a folder of single cycles, plays them as a browser synth, saves them for Serum, Vital, Surge and Ableton, and runs as a VST3/AU plugin with the landscape in the middle of its window. The plan's plugin step said the plugin should load a packed table, and until now it only played three built-in ones. This cycle closed that gap. The plugin's Table menu now ends in eight folder slots, read from ~/Music/Wavetable Scanner/Tables. I've put two of the study page's exports there for you to try.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** Nobody has heard these: the exports haven't been loaded in Serum, Vital, Surge or Live, and the plugin hasn't been opened in Live or played from a keyboard. _(in 8 notes, the latest cycle 8)_
-- **rough since cycle 1:** Safari.app itself, a real Finder drag onto the stage, and phone touch haven't been tried. _(in 4 notes, the latest cycle 4)_
+- **rough since cycle 1:** Nobody has heard these: the exports haven't been loaded in Serum, Vital, Surge or Live, and the plugin hasn't been opened in Live or played from a keyboard. _(in 9 notes, the latest cycle 9)_
 
 ### Open asks
 
@@ -58,6 +57,7 @@ _None._
 
 ### Runs
 
+- 2026-11-03 — cycle 9 · taught item 21, proposed item 22 for canon
 - 2026-11-03 — cycle 8 · taught item 19, proposed item 20 for canon
 - 2026-11-03 — cycle 7 · taught item 16, proposed items 17, 18 for canon
 - 2026-11-03 — cycle 6 · taught item 13, proposed items 14, 15 for canon
@@ -65,7 +65,7 @@ _None._
 - 2026-11-03 — cycle 4 · taught item 8, proposed item 9 for canon
 - 2026-11-03 — cycle 3 · taught item 6, proposed item 7 for canon
 - 2026-11-03 — cycle 2 · taught item 4, proposed item 5 for canon
-- 2026-11-03 — cycle 1 · taught item 1, proposed items 2, 3 for canon
+- _…and 1 more in the trail below._
 
 ### Owed
 
@@ -82,9 +82,9 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 - **12.** 2026-11-03 · `Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md` · a new gotcha at the end, after the cursor-plane one — the next wavetable tool would ship a plain crossfade, and no level meter catches this
 - **14.** 2026-11-03 · [[Wavetable Scanner]] · frontmatter links, after the Generative Wavetable Libraries link — four Synth Templates cards now play on this synth from their own words; the link is real and in use
 - **15.** 2026-11-03 · [[Synth Templates]] · § Neighbours, at the end of the paragraph — the catalog should know where its wavetable cards actually sound, and the missing table: field is the one gap the bridge exposed
-- **17.** 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 2 — the synth' — the plugin step of the plan is built and checked; the page should say the scanner now lives in a DAW too
 - **18.** 2026-11-03 · [[VST Template]] · Processor::handleMidi, after the note branches — every instrument made from the template drops the mod wheel, pitch bend and sustain; the Wavetable Scanner plugin needs CC1 on Position, and the fix belongs in the shared machinery, not one plugin
 - **20.** 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 3 — the plugin' — the export step of the plan is built and checked; the page should say the scanner's tables now reach Serum, Vital, Surge and Live
+- **22.** 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 2 — the synth' — the plugin now loads your own tables, so the earlier proposal's 'loading your own table is still to come' is no longer true
 
 <!-- scroll:now:end -->
 
@@ -112,6 +112,55 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="wavetable-scanner-steward-020" -->
+### 2026-11-04 — cycle 9 — The plugin now plays your own tables: drop Serum, Surge or Ableton tables into a folder and they appear in its Table menu.
+> shipped · all plugin checks pass again · steward leans the mod wheel next
+
+The folder slots read the files the study page's export buttons save: Serum/Vital CLM WAVs (resampled from their frame size to 1024 in the spectrum), Surge .wt files and plain 1024-sample WAVs. Each file goes through the same spectral morph and per-octave band-limiting as the built-in tables. That happens once, when the host prepares the plugin, never on the audio thread, and every instance shares the result. The first eight files by name fill the slots, so a number at the front of a name picks its slot. In Live, switch the device off and on after adding a file. An empty slot plays the fm chain, and the picture says so. A filled slot is drawn as level ground with the scan still moving across it, because the editor can't hand the picture the file's frames yet.
+
+The check (tools/folder_check.py) loads the built-in tables' own frames from a float WAV and a Surge .wt, and they play bit for bit the same as the built-ins, through both the engine and the real processBlock. The Serum export plays within −141 dB of the Surge export of the same table. The 16-bit Ableton export lands at RMS −64 dB, with one tenth of a second at −52 dB peak where 16-bit rounding tips a phase lock on a quiet harmonic. A single 600-sample cycle is skipped. The five reference passages, pluginval, auval and the host check all pass again.
+
+I passed over a file chooser: that needs a hook in the VST Template's editor code, which is that project's, not mine.
+
+**Artifacts:**
+- [a filled folder slot: level ground, the scan line at 0.42.](Projects/Wavetable Scanner/plugin/shot-picture-folder-filled.png)
+- [an empty slot says so and draws the fm chain it plays.](Projects/Wavetable Scanner/plugin/shot-picture-folder-empty.png)
+- [the built-in fm chain, for comparison.](Projects/Wavetable Scanner/plugin/shot-picture-builtin-fm.png)
+- [the folder reader: the study page's readers and resampler, ported, with a shared cache.](Projects/Wavetable Scanner/plugin/src/UserTables.h)
+- [eight folder slots on the Table menu, and a probe that tells the picture which kind is playing.](Projects/Wavetable Scanner/plugin/src/Algorithm.h)
+- [the picture's folder-slot drawing.](Projects/Wavetable Scanner/plugin/ui/visualizer.src.js)
+- [the same, with the tables baked in.](Projects/Wavetable Scanner/plugin/ui/visualizer.js)
+- [regenerated by make_tables.py; unchanged frames.](Projects/Wavetable Scanner/plugin/src/Tables.h)
+- [the six-file folder check.](Projects/Wavetable Scanner/plugin/tools/folder_check.py)
+- [its numbers.](Projects/Wavetable Scanner/plugin/tools/folder_check.json)
+- [takes the three pictures in Chrome.](Projects/Wavetable Scanner/plugin/tools/folder_shots.mjs)
+- [a section on the folder slots: where, what they read, when they reload, what the check says.](Projects/Wavetable Scanner/plugin/README.md)
+
+_folder slot against the same frames played another way_
+| file in the folder | played against | difference |
+| --- | --- | --- |
+| built-in fm chain's frames, float WAV | built-in fm chain | bit for bit |
+| built-in cello's frames, Surge .wt | built-in cello | bit for bit |
+| study page's Serum export (2048-sample frames) | its Surge export | −141 dB peak |
+| study page's Ableton export (16-bit) | its Surge export | RMS −64 dB · peak −52 dB |
+| one 600-sample cycle | — | skipped; slot plays the fm chain |
+
+_Changed in the workshop:_ README — the folder slots: where they live, what they read, when they reload, the check's numbers, and what's still missing
+_Proposed for canon:_ Wavetable Scanner (§ Tiers, a new subsection after 'Study round 2 — the synth') — the plugin now loads your own tables, so the earlier proposal's 'loading your own table is still to come' is no longer true; owed in the tuning ledger until Loudon's review; it replaces item 17
+
+_Left rough:_ Nobody has heard these: the exports haven't been loaded in Serum, Vital, Surge or Live, and the plugin hasn't been opened in Live or played from a keyboard. A slot saves as its number, not its file name, so renaming files changes what a saved set plays.
+
+_Next moves named:_ The mod wheel on Position inside this plugin, without waiting on the template: read CC1 in my own Algorithm through whatever the template already passes, or keep MIDI-mapping it in Live until the template's hook lands · The plan's last step: a rendered demo scan through the plugin, a per-table CPU and draw budget, and Loudon Live chrome
+<sub>`wavetable-scanner-steward-020` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-0c312d9373" -->
+### 2026-11-03 — cycle 9
+
+taught item 21, proposed item 22 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-wavetable-scanner-steward-014" -->
 ### 2026-11-03 — Plan agreed: You called the plan good, but no button was clicked, so it never became the plan. Adopt it now, with your notes added?
 

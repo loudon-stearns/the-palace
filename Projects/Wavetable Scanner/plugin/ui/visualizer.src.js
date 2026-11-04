@@ -17,7 +17,11 @@
 //
 // Contract with the editor (VST Template machinery/ui/editor.html, § the CRT's picture):
 //   WavetableScannerView.mount(el, hooks)          hooks { get, set, begin, end } by parameter id
-//   WavetableScannerView.frame(probes, params, dt) probes: [position, voices]; params by id
+//   WavetableScannerView.frame(probes, params, dt) probes: [position, voices, folder]; params by id
+//
+// Table 3 to 10 are the folder slots (src/UserTables.h). The picture doesn't have their
+// frames, so a filled slot is drawn as level ground with the scan still moving across it,
+// and an empty slot draws the fm chain, which is what it plays.
 const WavetableScannerView = (() => {
   const TABLES = %%TABLES%%;
   const PTS = 128, MAXRIDGES = 56;
@@ -29,7 +33,8 @@ const WavetableScannerView = (() => {
     return { label: t.label, frames: t.frames, data: f };
   });
   let el = null, cv = null, g = null, hooks = null, W = 0, H = 0, dpr = 1;
-  let tab = 0, pos = 0, voices = 0, dragging = false;
+  let tab = 0, pos = 0, voices = 0, folder = 0, dragging = false;
+  const FLAT = { label: "", frames: 24, data: new Float32Array(24 * PTS) };
 
   // the camera: depth d in 0..1 (front to back), x in 0..1, amplitude y in −1..1
   function project(x, d, y) {
@@ -59,7 +64,12 @@ const WavetableScannerView = (() => {
 
   function draw() {
     if (!g || !W) return;
-    const t = decoded[tab] || decoded[0];
+    let t = decoded[tab] || decoded[0], label = t.label.toUpperCase() + ` · ${t.frames} FRAMES`;
+    if (tab >= decoded.length) {
+      const slot = `FOLDER ${tab - decoded.length + 1}`;
+      if (folder < 0) { t = decoded[2]; label = `${slot} · EMPTY · PLAYING THE FM CHAIN`; }
+      else { t = FLAT; label = `${slot} · YOUR TABLE · ITS SHAPE ISN'T DRAWN HERE YET`; }
+    }
     g.setTransform(dpr, 0, 0, dpr, 0, 0);
     g.clearRect(0, 0, W, H);
     const n = Math.min(MAXRIDGES, t.frames), cut = pos;
@@ -90,9 +100,9 @@ const WavetableScannerView = (() => {
     // the readout
     const fr = cut * (t.frames - 1);
     g.font = "11px ui-monospace, Menlo, monospace"; g.fillStyle = rgba(PHOS, 0.85); g.textBaseline = "top";
-    g.fillText(`${t.label.toUpperCase()} · ${t.frames} FRAMES`, 12, 10);
+    g.fillText(label, 12, 10);
     g.textBaseline = "bottom";
-    g.fillText(`POSITION ${cut.toFixed(3)} · FRAME ${fr.toFixed(1)} · ${voices} ${voices === 1 ? "VOICE" : "VOICES"}`, 12, H - 10);
+    g.fillText(`POSITION ${cut.toFixed(3)} · ${t === FLAT ? "" : `FRAME ${fr.toFixed(1)} · `} ${voices} ${voices === 1 ? "VOICE" : "VOICES"}`, 12, H - 10);
     g.textAlign = "right"; g.textBaseline = "top"; g.fillStyle = rgba(PHOS, 0.45);
     g.fillText("DRAG UP AND DOWN TO SCAN", W - 12, 10);
     g.textAlign = "left";
@@ -133,7 +143,8 @@ const WavetableScannerView = (() => {
 
   function frame(probes, params) {
     params = params || {};
-    tab = Math.max(0, Math.min(decoded.length - 1, Math.round(params.table || 0)));
+    tab = Math.max(0, Math.min(decoded.length + 7, Math.round(params.table || 0)));
+    folder = Math.round((probes && probes[2]) || 0);
     voices = Math.round((probes && probes[1]) || 0);
     if (!dragging) {
       const p = probes && Number.isFinite(probes[0]) && voices > 0 ? probes[0] : params.position;

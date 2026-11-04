@@ -42,7 +42,7 @@ namespace algo
     // (fast 0.0154, medium 0.575, short 0.0986, instant 0.00488 s).
     inline constexpr ParamSpec kParams[kNumParams] = {
         //  id                name               unit   min      max      default  taper          smooth choices                         auto  group           hero
-        { "table",          "Table",           "",    0.0,     2.0,     2.0,     Taper::Choice, 0.0,  "classics|cello|fm chain",       true, "Table" },
+        { "table",          "Table",           "",    0.0,     10.0,    2.0,     Taper::Choice, 0.0,  "classics|cello|fm chain|folder 1|folder 2|folder 3|folder 4|folder 5|folder 6|folder 7|folder 8", true, "Table" },
         { "position",       "Position",        "",    0.0,     1.0,     0.0,     Taper::Linear, 20.0, "",                              true, "Table",        true },
         { "lfo_wave",       "LFO shape",       "",    0.0,     1.0,     0.0,     Taper::Choice, 0.0,  "sine|triangle",                 true, "Scan" },
         { "lfo_rate",       "LFO rate",        "Hz",  0.01,    20.0,    0.2,     Taper::Log,    20.0, "",                              true, "Scan" },
@@ -76,9 +76,10 @@ namespace algo
     inline constexpr int kInputs  = 0;
     inline constexpr int kOutputs = 2;
     // position: where the scan is (the last sounding voice's, else the knob's with the LFO);
-    // voices: how many sound. The picture reads both.
-    inline constexpr const char* kProbes[] = { "position", "voices" };
-    inline constexpr int kNumProbes = 2;
+    // voices: how many sound; folder: 0 for a built-in table, 1 for a folder slot that holds
+    // a table, -1 for an empty one (it plays the fm chain). The picture reads all three.
+    inline constexpr const char* kProbes[] = { "position", "voices", "folder" };
+    inline constexpr int kNumProbes = 3;
 
     // ── 3. The tables: morphed and band-limited once, shared by every instance ──
     inline constexpr int kFrame = 1024, kLevels = 10, kMaxV = 8, kMaxU = 7, kCtrl = 16;
@@ -253,7 +254,12 @@ namespace algo
         }();
         return t;
     }
+}
 
+#include "UserTables.h"   // the eight folder slots: Table 3 to 10
+
+namespace algo
+{
     // ── 4. State and the per-sample update ─────────────────────────────────────
     inline double coef (double T, double sr) { return 1 - std::exp (-3 / (std::max (T, 0.0005) * sr)); }   // tau = T/3
 
@@ -298,8 +304,19 @@ namespace algo
         double lfoBase = 0, lfo2Base = 0, lfoPh = 0, lfo2Ph = 0;
         std::array<double, kMaxU> det {}, panL {}, panR {};
         double probes[kNumProbes] {};
+        std::array<UserTable, kSlots> user {};   // filled in prepare, read in step
+        double folder = 0;
 
-        void prepare (double sampleRate) { sr = sampleRate; tables(); }
+        void prepare (double sampleRate) { sr = sampleRate; tables(); user = loadUserTables(); }
+
+        // Table 0-2 built in, 3-10 the folder's slots; an empty slot plays the fm chain
+        const WTable* pick (double t)
+        {
+            const int i = std::clamp ((int) t, 0, wtdata::kNumTables + kSlots - 1);
+            if (i < wtdata::kNumTables) { folder = 0; return &tables()[(size_t) i]; }
+            if (const auto& u = user[(size_t) (i - wtdata::kNumTables)]; u.table) { folder = 1; return u.table.get(); }
+            folder = -1; return &tables()[2];
+        }
 
         void reset (const double* v)
         {
@@ -307,7 +324,7 @@ namespace algo
             numStack = 0; clock = 0; ctr = 0; seed = 1;
             lfoBase = lfo2Base = lfoPh = lfo2Ph = 0; lfoInc = lfo2Inc = 0;
             mode = (int) v[Mode]; glide = v[Glide];
-            tab = &tables()[(size_t) std::clamp ((int) v[Table], 0, wtdata::kNumTables - 1)];
+            tab = pick (v[Table]);
         }
 
         double rand() { seed = seed * 1664525u + 1013904223u; return seed / 4294967296.0; }
@@ -418,7 +435,7 @@ namespace algo
             {
                 if (ctr > 0) { lfoBase = std::fmod (lfoBase + lfoInc * kCtrl, 1.0); lfo2Base = std::fmod (lfo2Base + lfo2Inc * kCtrl, 1.0); }
                 lfoPh = lfoBase; lfo2Ph = lfo2Base;
-                tab = &tables()[(size_t) std::clamp ((int) v[Table], 0, wtdata::kNumTables - 1)];
+                tab = pick (v[Table]);
                 U = std::max (1, std::min (kMaxU, (int) v[Unison] + 1));
                 const double uNorm = 1 / std::sqrt ((double) U);
                 glideK = v[Glide] > 0 ? coef (v[Glide], sr) : 1;
@@ -469,7 +486,7 @@ namespace algo
 
             out[0] = (float) std::tanh ((double) outL);
             out[1] = (float) std::tanh ((double) outR);
-            probes[0] = lastPos; probes[1] = sounding;
+            probes[0] = lastPos; probes[1] = sounding; probes[2] = folder;
         }
     };
 }

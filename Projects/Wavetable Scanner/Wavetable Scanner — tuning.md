@@ -107,7 +107,7 @@ What Wavetable Scanner's steward cycles taught the page, and the changes to the 
 ## From cycle 7 — 2026-11-03
 
 16. When the reference engine works in blocks, check the port against it in blocks of its control step, put every test move on those marks, and round t·SR to a whole sample before you quantize, or a ramp lands one sample early at some block edges and the sample-for-sample check fails on the test, not the code. *(offered by the steward, cycle 7)*
-17. **Proposed for canon** · 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 2 — the synth' · canon change owed *(proposed by the steward, cycle 7)*
+17. **Proposed for canon** · 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 2 — the synth' · superseded by item 22 *(proposed by the steward, cycle 7)*
     Why: the plugin step of the plan is built and checked; the page should say the scanner now lives in a DAW too
     Path: `Projects/Wavetable Scanner.md`
     > #### Study round 3 — the plugin (2026-11-04)
@@ -133,3 +133,15 @@ What Wavetable Scanner's steward cycles taught the page, and the changes to the 
     > The study page saves the table that's showing for Serum and Vital (CLM WAV, 2048-sample frames made from the spectrum), Surge XT (`.wt`, float32) and Ableton (16-bit WAV, 1024-sample frames), and reads all three back in (`packer/formats.js`). The CLM writer rebuilds Serum's factory `Basic Shapes.wav` byte for byte, and in Chrome, Firefox and WebKit the page's downloads match the node export. A table longer than a format holds is thinned evenly, ends kept. No synth has loaded the files yet.
 
 - run · 2026-11-03 · cycle 8 · taught item 19, proposed item 20 for canon
+
+## From cycle 9 — 2026-11-03
+
+21. Check a file reader against the same frames written another way, never against a sibling table that shares a name: the study page's FM chain export isn't the plugin's built-in FM chain, and comparing them reported a 3 dB 'error' that was really two different tables. *(offered by the steward, cycle 9)*
+22. **Proposed for canon** · 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 2 — the synth' · canon change owed *(proposed by the steward, cycle 9)*
+    Why: the plugin now loads your own tables, so the earlier proposal's 'loading your own table is still to come' is no longer true
+    Path: `Projects/Wavetable Scanner.md`
+    > #### Study round 3 — the plugin (2026-11-04)
+    >
+    > `plugin/` is the synth as a VST3 and AU, made with the [[VST Template]] (code Wtsc). `Algorithm.h` ports `wt-synth.js` line for line, and runs the page's spectral morph and per-octave band-limiting on its tables at load. It is checked against the browser synth's own engine, run in Node in 16-sample blocks. Four of five passages match bit for bit, and the fifth to 3.6e-8 of peak. It passes pluginval at strictness 5, auval, and the host check. The centre of its window is the scanner's landscape, which follows the plugin's own Position; dragging on it moves the knob. Besides three built-in tables, the Table menu has eight folder slots, read from `~/Music/Wavetable Scanner/Tables`. They take the study page's Serum, Surge and Ableton exports, and a table's own frames load bit for bit. The mod wheel and a file chooser are still to come. Nobody has played it in Live yet.
+
+- run · 2026-11-03 · cycle 9 · taught item 21, proposed item 22 for canon

@@ -1,0 +1,116 @@
+{
+ "ok": true,
+ "folder": "(a temporary folder)",
+ "rows": [
+  {
+   "mode": "engine",
+   "file": "a_fm_float.wav",
+   "slot": "folder 1",
+   "against": "built-in fm chain",
+   "want": "bit for bit",
+   "max_diff": 0.0,
+   "diff_db_re_peak": "exact",
+   "rms_diff_db": "exact",
+   "folder_probe": 1
+  },
+  {
+   "mode": "engine",
+   "file": "b_cello.wt",
+   "slot": "folder 2",
+   "against": "built-in cello",
+   "want": "bit for bit",
+   "max_diff": 0.0,
+   "diff_db_re_peak": "exact",
+   "rms_diff_db": "exact",
+   "folder_probe": 1
+  },
+  {
+   "mode": "engine",
+   "file": "c_fm_ableton.wav",
+   "slot": "folder 3",
+   "against": "folder 5 (e_fm.wt)",
+   "want": "close",
+   "max_diff": 0.0017071478068828583,
+   "diff_db_re_peak": -51.5,
+   "rms_diff_db": -64.4,
+   "folder_probe": 1
+  },
+  {
+   "mode": "engine",
+   "file": "d_fm_serum.wav",
+   "slot": "folder 4",
+   "against": "folder 5 (e_fm.wt)",
+   "want": "close",
+   "max_diff": 5.960464477539063e-08,
+   "diff_db_re_peak": -140.7,
+   "rms_diff_db": -151.8,
+   "folder_probe": 1
+  },
+  {
+   "mode": "engine",
+   "file": "f_not_a_table.wav (skipped)",
+   "slot": "folder 6",
+   "against": "built-in fm chain",
+   "want": "empty slot plays the fm chain",
+   "max_diff": 0.0,
+   "diff_db_re_peak": "exact",
+   "rms_diff_db": "exact",
+   "folder_probe": -1
+  },
+  {
+   "mode": "plugin",
+   "file": "a_fm_float.wav",
+   "slot": "folder 1",
+   "against": "built-in fm chain",
+   "want": "bit for bit",
+   "max_diff": 0.0,
+   "diff_db_re_peak": "exact",
+   "rms_diff_db": "exact",
+   "folder_probe": 1
+  },
+  {
+   "mode": "plugin",
+   "file": "b_cello.wt",
+   "slot": "folder 2",
+   "against": "built-in cello",
+   "want": "bit for bit",
+   "max_diff": 0.0,
+   "diff_db_re_peak": "exact",
+   "rms_diff_db": "exact",
+   "folder_probe": 1
+  },
+  {
+   "mode": "plugin",
+   "file": "c_fm_ableton.wav",
+   "slot": "folder 3",
+   "against": "folder 5 (e_fm.wt)",
+   "want": "close",
+   "max_diff": 0.0017164088785648346,
+   "diff_db_re_peak": -51.5,
+   "rms_diff_db": -64.7,
+   "folder_probe": 1
+  },
+  {
+   "mode": "plugin",
+   "file": "d_fm_serum.wav",
+   "slot": "folder 4",
+   "against": "folder 5 (e_fm.wt)",
+   "want": "close",
+   "max_diff": 5.960464477539063e-08,
+   "diff_db_re_peak": -140.7,
+   "rms_diff_db": -151.8,
+   "folder_probe": 1
+  },
+  {
+   "mode": "plugin",
+   "file": "f_not_a_table.wav (skipped)",
+   "slot": "folder 6",
+   "against": "built-in fm chain",
+   "want": "empty slot plays the fm chain",
+   "max_diff": 0.0,
+   "diff_db_re_peak": "exact",
+   "rms_diff_db": "exact",
+   "folder_probe": -1
+  }
+ ]
+}
