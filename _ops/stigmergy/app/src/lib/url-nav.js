@@ -408,6 +408,7 @@ export function useScrollNavigation() {
       const currentSearch = window.location.search || '';
       if (nextSearch !== currentSearch) {
         const nextUrl = `${window.location.pathname}${nextSearch}${window.location.hash}`;
+        if (target) announceLeave();
         window.history.pushState({ scroll: target }, '', nextUrl);
       }
     }

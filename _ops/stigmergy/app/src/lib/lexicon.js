@@ -93,6 +93,18 @@ const DICT = {
   'trickster.deck.collapse':            '[C] COLLAPSE',
   'trickster.deck.expand':              '[C] EXPAND',
   'trickster.card.open':                '▸ open',
+
+  // The project's Plan + Standing Orders inside ▸more (2026-11-04), read from
+  // its scroll only while the fold is open.
+  'trickster.card.more.standing':       '▸ more -- the steward\'s why, the plan, the standing orders',
+  'trickster.card.standing.plan':       'the plan',
+  'trickster.card.standing.orders':     'standing orders',
+  'trickster.card.standing.loading':    'reading the scroll…',
+  'trickster.card.standing.noscroll':   'no scroll for this asker -- no plan or standing orders to show',
+  'trickster.card.standing.error':      'could not read the scroll',
+  'trickster.card.standing.noplan':     'no plan agreed yet.',
+  'trickster.card.standing.noorders':   'none yet.',
+  'trickster.card.standing.open':       'open the scroll to change them',
   'trickster.card.fold':                '▴ fold',
 
   // Inline assets (Phase 3) — audition strip + embed chrome. Titles/blurbs

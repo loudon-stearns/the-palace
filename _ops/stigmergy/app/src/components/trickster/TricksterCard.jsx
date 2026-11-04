@@ -13,6 +13,7 @@ import { assetsFor } from '../../lib/trickster-assets.js';
 import AuditionStrip from './AuditionStrip.jsx';
 import Schematic from './schematics/index.jsx';
 import ArtifactSlot from '../ArtifactSlot.jsx';
+import ProjectStanding from './ProjectStanding.jsx';
 
 // Re-exported for unit tests that import the builder from the card module.
 export { buildCardGrant };
@@ -57,6 +58,9 @@ export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focus
   const [sending, setSending] = useState(false);
   const [running, setRunning] = useState(false);
   const [errors, setErrors] = useState([]);
+  // Whether ▸more is open — the Plan + Standing Orders inside it mount (and
+  // read the scroll) only then.
+  const [moreOpen, setMoreOpen] = useState(false);
 
   // The project (@from) is the title of the palace entry the steward inhabits.
   // Resolve it so the name carries the same [OBS]/[BUN] links as a name in
@@ -371,16 +375,26 @@ export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focus
             "context above the question" rule it belongs up here with the
             orientation. Renders only when the rationale isn't already standing
             in as the orientation line. */}
-        {moreRationale ? (
-          <details data-testid="card-more-fold" style={{ margin: '0 0 10px' }}>
-            <summary style={foldSummary}>{t('trickster.card.more')}</summary>
-            <div style={{
-              color: 'var(--phosphor)', textShadow: 'var(--glow)',
-              fontFamily: 'var(--font-mono)', fontSize: 12, lineHeight: 1.4,
-              margin: '6px 0', whiteSpace: 'pre-wrap',
-            }}>
-              <Linkify text={moreRationale} />
-            </div>
+        {/* It also carries the project's Plan and Standing Orders (2026-11-04)
+            whenever the asker is a page with a scroll — read only while the
+            fold is open, so a closed fold costs nothing. */}
+        {(moreRationale || nameResolved) ? (
+          <details
+            data-testid="card-more-fold"
+            style={{ margin: '0 0 10px' }}
+            onToggle={(e) => setMoreOpen(e.currentTarget.open)}
+          >
+            <summary style={foldSummary}>{nameResolved ? t('trickster.card.more.standing') : t('trickster.card.more')}</summary>
+            {moreRationale ? (
+              <div style={{
+                color: 'var(--phosphor)', textShadow: 'var(--glow)',
+                fontFamily: 'var(--font-mono)', fontSize: 12, lineHeight: 1.4,
+                margin: '6px 0', whiteSpace: 'pre-wrap',
+              }}>
+                <Linkify text={moreRationale} />
+              </div>
+            ) : null}
+            {moreOpen && nameResolved ? <ProjectStanding home={item.from} /> : null}
           </details>
         ) : null}
 
