@@ -18,18 +18,19 @@ Every cable carries volts, as in Rack: 1 V per octave, 10 V gates, ±5 V audio. 
 |---|---|
 | `native_registry.json` | This target's vocabulary: the PDL modules it can build, their ports and knobs by PDL's own names, and the source lines each follows. SEQ3 and VCMIXER aren't in it yet; a patch that uses them is refused by name. |
 | `gad_kit.h` | One C++ struct per module: VCO, VCF, ADSR, VCA, LFO, MIXER, and the keyboard. |
-| `emit_native.js` | PDL → `patch.h`. Reads the graph with the renderer's `parsePDL`. It takes the knob values `emitVcvJson` resolved, because regions, archetypes and seeds are resolved there today. |
+| `emit_native.js` | PDL → `patch.h`. Reads the graph, every knob's value and the voice count from the renderer's `resolvePatch`, the resolver both targets share (since 2026-11-04, cycle 4). It never reads a `.vcv`. |
 | `host_common.h` | The voice engine both hosts share. One voice plays the last held note, as Rack's MIDI-CV does. With several voices, notes take turns, and the count comes from the PDL's `# voices`. |
 | `host_render.cpp` | Plays a short phrase (a bass figure, or two chords if the patch has voices) and writes a WAV. Prints peak, rms, non-finite samples and the pitch of the held note. |
 | `host_app.mm` | The Mac app: Rack's QWERTY map (Z = C4, Q = C5, `` ` `` and `1` shift octaves) and the MacBook speakers, falling back to the system output. `--probe` names the output it would use without playing anything. |
 | `build_app.sh` | `./build_app.sh <file.pdl> "<Name>"` builds `build/<Name>.app` and `build/<Name>.wav`. |
-| `verify_native.js` | Puts every PDL the project holds through both targets. `--apps` also builds each one as an app. |
+| `verify_native.js` | Puts every PDL the project holds through both targets, and checks that every knob the `.vcv` carries is the value the C++ gets. `--apps` also builds each one as an app. |
 
 ## Checking it still works
 
 ```sh
 cd "Projects/Generative Audio Devices/native"
-node verify_native.js          # 83/83 on 2026-11-04
+node verify_native.js          # 96/96 on 2026-11-04 (cycle 4)
+node verify_native.js --apps   # 109/109: also builds each patch as an app, about 30 s
 ```
 
 `build/` is a scratch folder and is not kept in git. Four built apps and their WAVs are in `../proofs/2026-11-04-native/`.

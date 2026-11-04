@@ -15,46 +15,49 @@ forward_vector: "I am Generative Audio Devices's scroll — the one page that al
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T13:26:52.016Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T13:34:57.606Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 3 · last ran 2026-11-04 (today)
-- **Plan:** agreed 2026-10-29 (6 days ago) · 2 made things since · **a proposed revision is waiting on you**
-- **Waiting on you:** 1 open ask
-- **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — Shall the plan's second target be your Mac (the app, built today, and then a VST for Live), with Max kept for after the standards? (`gad-steward-008`)
-- **Last commit touching this project:** 2026-11-03 `3a6c437a` — edit(Loudon Live Design System): the browser's furniture fan-out, batch 2 of 5: Projects, D to P (98 pages)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 4 · last ran 2026-11-04 (today)
+- **Plan:** agreed 2026-11-04 (today) · 1 made thing since
+- **Waiting on you:** nothing
+- **Ready to advance:** 1 answer filed since the steward last ran — a cycle will consume it
+- **Last shipped:** 2026-11-04 (today) — Knob settings are now decided once, in one shared resolver, and both the VCV and the Mac targets read from it. Nothing reads a .vcv any more. (`gad-steward-010`)
+- **Last commit touching this project:** 2026-11-04 `11fec17e` — steward(Generative Audio Devices): cycle 3 — SPINNING UP. HOME: [Generative Audio Devices](obsidian://open?vault=The…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-04 — cycle 3 · taught item 6, proposed item 7 for canon
+- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-04 — cycle 4 · taught item 8, proposed item 9 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 4 — items 2, 4, 5, 7; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 7, from cycle 3 — 2026-11-04 — [[Generative Audio Devices — tuning]]
+- **Proposed for canon:** 4 — items 2, 4, 5, 9; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 9, from cycle 4 — 2026-11-04 — [[Generative Audio Devices — tuning]]
 
 ### Where this stands
 
-Generative Audio Devices turns a plain description of a sound into an instrument. English goes in, a neutral patch language (PDL) sits in the middle, and a file comes out. Until today the only way out was VCV Rack. That has worked since May, and you called the house bass alive on 2026-10-24. Since then every patch opens on the QWERTY keyboard and the MacBook speakers, and the warm pad plays six-note chords. The real test of the idea was always a second target: if the middle language is truly neutral, a new target should need only a new vocabulary and a new emitter. On the plan card you said not Pure Data but a VST or a full Mac app. This cycle built the Mac app. The same PDL becomes C++, an…
+Generative Audio Devices turns a plain description of a sound into an instrument. English goes in, a neutral patch language (PDL) sits in the middle, and a file comes out. VCV Rack has worked since May. Every patch opens on the QWERTY keyboard and the MacBook speakers, and the warm pad plays chords. Earlier today a second target arrived: the same PDL becomes C++ and a Mac app. Building it showed a crack, though. The knob settings (named regions like 'dark', the archetypes, the seeds) were worked out inside the VCV emitter, so the Mac target had to read its numbers back out of a finished Rack patch. This cycle fixed that. One resolver now decides every knob and the voice count, in PDL's own…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 2:** Nobody has heard the native renders or played the apps, and nobody has compared them by ear to their Rack twins. _(in 2 notes, the latest cycle 3)_
+- **rough since cycle 1:** The knob vocabulary still lives in the VCV vocabulary file, and I didn't open the renderer page in a browser after the change (Node ran the same code). _(in 2 notes, the latest cycle 4)_
+- **rough since cycle 2:** Nobody has heard the native renders or played the apps, and nobody has compared them by ear to their Rack twins. _(in 3 notes, the latest cycle 4)_
 
 ### Open asks
 
-- `gad-steward-008` — proposed plan revision: second target: a Mac app, then a VST · posted 2026-11-04 · options: adopt · keep
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
-_None._
+- `gad-steward-008` — GRANTED — option_id=adopt; notes: "adopt the plan, and coordinate with the VST template and the synth preset catalog projects, we are overlapping in our work and I want to make sure we are coordinated and sharing all the code we feel is appropriate." · answered 2026-11-04 — waiting for the next cycle
 
 ### Decided
 
+- `gad-steward-008` — second target: a Mac app, then a VST → GRANTED — option_id=adopt; notes: "adopt the plan, and coordinate with the VST template and the synth preset catalog projects, we are overlapping in our work and I want to make sure we are coordinated and sharing all the code we feel is appropriate." (2026-11-04)
 - `gad-steward-003` — plan after the revival → GRANTED — (no option_id); notes: "don't move to Pure Data, move to VST or full MAC app." (2026-11-04)
 
 ### Runs
 
+- 2026-11-04 — cycle 4 · taught item 8, proposed item 9 for canon
 - 2026-11-04 — cycle 3 · taught item 6, proposed item 7 for canon
 - 2026-10-26 — cycle 2 · taught item 3, proposed items 4, 5 for canon
 - 2026-10-26 — cycle 1 · taught item 1, proposed item 2 for canon
@@ -70,21 +73,23 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 - **2.** 2026-10-26 · [[Generative Audio Devices]] · § Where it stands, the second paragraph (beginning 'Next, every emitted patch is quick to hear') — the paragraph describes as missing what this cycle built; the 'Device defaults' bullet under What still does NOT exist should go with it
 - **4.** 2026-10-26 · [[Generative Audio Devices]] · § What still does NOT exist, the bullet beginning '**Polyphony**' — the bullet calls polyphony unrepresented, and this cycle represented it in all three layers
 - **5.** 2026-10-26 · `Shop/VCV Patch Generator/VCV Patch Generator — spec — PDL generation prompt.md` · § PDL grammar, after the line '# archetype: name #seed=N' — fresh agents can't ask for chords until the prompt names the token, which is the T6 lesson that 'obey the registry' alone wasn't enough
-- **7.** 2026-11-04 · [[Generative Audio Devices]] · § What still does NOT exist, the bullet beginning '**T10**' — the bullet says no second target exists, and this cycle built one
+- **9.** 2026-11-04 · [[Generative Audio Devices]] · § What still does NOT exist, the bullet beginning '**T10**' — the earlier words said the native target borrows its numbers from the VCV emitter, and this cycle ended that
 
 <!-- scroll:now:end -->
 
 ## Plan
 
 <!-- scroll:plan:start -->
-**Where this is going.** A pipeline that turns a plain description of a sound into a loadable instrument for any modular or DSP environment: English in, a target-neutral patch language (PDL) in the middle, and one verified vocabulary per target on the way out. VCV Rack is the first target, and the whole chain has worked there since May 2026. Loudon's ear met it on 2026-10-24, when he called the house bass alive. From here every patch should be as quick to hear as that one, then play more than one note at a time, then prove the pipeline is target-neutral on a second environment.
+**Where this is going.** A pipeline that turns a plain description of a sound into a playable instrument for any modular or DSP environment. English goes in, a target-neutral patch language (PDL) sits in the middle, and each target has one verified vocabulary on the way out. VCV Rack is the first target, and the whole chain has worked there since May 2026. Loudon's ear met it on 2026-10-24, when he called the house bass alive. From here every patch should be as quick to hear as that one, then play more than one note at a time, then prove the pipeline is target-neutral on Loudon's own Mac: first as an app, then as a plugin Live loads.
 
 **The moves ahead**
 
 1. **Make every patch quick to hear.** Every emitted patch opens on the computer keyboard and the MacBook speakers, with each modulator on the row under the module it moves (the Standing Orders). Built 2026-10-26: thirteen patches in `proofs/2026-10-26-ready-to-play/`, checked by `verify_standing_orders.js`. It passes when Loudon opens one in Rack, presses a key, and hears it without touching a menu.
 2. **Hear the archetypes in Rack.** Loudon plays a few of the ready patches and says whether the archetypes sound usable and the layout fits his hands. What he hears steers the archetype library.
-3. **Play chords.** Represent polyphony: the voice count lives in the MIDI module's settings, and the Fundamental modules carry many voices down one cable. Decide whether it is said in PDL, in the archetype or in both. It passes when the warm pad plays a chord from the QWERTY keyboard. Built 2026-10-26: the warm pad plays six voices from the QWERTY keyboard; not yet heard.
-4. **Prove it on a second target: Max** (Loudon, 2026-10-29: Max, not Pure Data; building Max patching skills is useful to the palace). It gets its own vocabulary file and emitter, not a new architecture, and passes when the same PDL that makes a VCV patch makes a working Max patch. Max work is paused until there are Max patching standards, so for now this move makes no `.maxpat`, gen~ or RNBO work: it builds the Max vocabulary from patches Max itself saved, the way Rack's came from Rack's own re-save, and writes down what the emitter will need, so the build is quick once the standards exist. No Pure Data.
+3. **Play chords.** The voice count is said in PDL (`# voices: N`) or in the archetype, and the MIDI module carries it. It passes when the warm pad plays a chord from the QWERTY keyboard. Built 2026-10-26: six voices; not yet heard.
+4. **Prove it on a second target: Loudon's Mac** (Loudon, 2026-11-04: "move to VST or full MAC app"). The same PDL that makes a VCV patch makes C++ from one module kit, whose curves are read from VCV Fundamental's source. First as a Mac app on the QWERTY keyboard and the MacBook speakers. Built 2026-11-04: `native/`, four apps in `proofs/2026-11-04-native/`, 83/83 with every PDL going through both targets. That part passes when Loudon plays one and it feels like its Rack twin. Then the same patch code goes inside a VST3 plugin, and that passes when a generated instrument plays on a MIDI track in Live.
+5. **Make knob settings target-neutral.** Regions, archetypes and seeds are worked out inside the VCV emitter today, and the native target borrows the numbers. Move that into a step of its own, so a third target costs only a vocabulary and an emitter.
+6. **Max, after the patching standards** (Loudon, 2026-10-29: Max, not Pure Data). Until the standards exist, this makes no `.maxpat`, gen~ or RNBO work. It builds the Max vocabulary from patches Max itself saved and writes down what the emitter will need. No Pure Data.
 
 Side moves, whenever there is a spare hour: a search box in the renderer that lights up modules by feel words (it passes when 'bright' lights the oscillator and filter, 'breathing' the LFO and envelope, and 'kick' lights nothing yet), and a page of its own for the PDL grammar. Deferred and not allowed to hold anything up: recounting the oscillator and filter parameters against Rack's source, since patches Rack re-saves carry more parameter slots than the vocabulary lists.
 <!-- scroll:plan:end -->
@@ -104,6 +109,70 @@ Written on Loudon's word at the revival, 2026-10-24, when he played the house ba
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-gad-steward-008" -->
+### 2026-11-04 — Plan revised: Shall the plan's second target be your Mac (the app, built today, and then a VST for Live), with Max kept for after the standards?
+
+Generative Audio Devices turns a description of a sound into an instrument. VCV Rack was its first target. The plan's last move is proving the patch language works on a second target. That move still names Max, which is paused until there are Max patching standards. On the plan card you wrote "move to VST or full MAC app". Today I built the Mac app: the same PDL becomes C++ and a small app on the QWERTY keyboard and the MacBook speakers, 83/83 through both targets. This revision writes your words into the plan. First, play the app. Then put the same patch code inside a VST3 that Live loads. I've added one move the build taught me: knob settings are still worked out inside the Rack emitter, and lifting them out is what makes a third target cheap. Max stays, after the standards. Until you answer, I keep building toward the plugin. Adopting it costs nothing that's already built.
+
+Loudon: "adopt the plan, and coordinate with the VST template and the synth preset catalog projects, we are overlapping in our work and I want to make sure we are coordinated and sharing all the code we feel is appropriate."
+
+_The plan before this change:_
+
+> **Where this is going.** A pipeline that turns a plain description of a sound into a loadable instrument for any modular or DSP environment: English in, a target-neutral patch language (PDL) in the middle, and one verified vocabulary per target on the way out. VCV Rack is the first target, and the whole chain has worked there since May 2026. Loudon's ear met it on 2026-10-24, when he called the house bass alive. From here every patch should be as quick to hear as that one, then play more than one note at a time, then prove the pipeline is target-neutral on a second environment.
+>
+> **The moves ahead**
+>
+> 1. **Make every patch quick to hear.** Every emitted patch opens on the computer keyboard and the MacBook speakers, with each modulator on the row under the module it moves (the Standing Orders). Built 2026-10-26: thirteen patches in `proofs/2026-10-26-ready-to-play/`, checked by `verify_standing_orders.js`. It passes when Loudon opens one in Rack, presses a key, and hears it without touching a menu.
+> 2. **Hear the archetypes in Rack.** Loudon plays a few of the ready patches and says whether the archetypes sound usable and the layout fits his hands. What he hears steers the archetype library.
+> 3. **Play chords.** Represent polyphony: the voice count lives in the MIDI module's settings, and the Fundamental modules carry many voices down one cable. Decide whether it is said in PDL, in the archetype or in both. It passes when the warm pad plays a chord from the QWERTY keyboard. Built 2026-10-26: the warm pad plays six voices from the QWERTY keyboard; not yet heard.
+> 4. **Prove it on a second target: Max** (Loudon, 2026-10-29: Max, not Pure Data; building Max patching skills is useful to the palace). It gets its own vocabulary file and emitter, not a new architecture, and passes when the same PDL that makes a VCV patch makes a working Max patch. Max work is paused until there are Max patching standards, so for now this move makes no `.maxpat`, gen~ or RNBO work: it builds the Max vocabulary from patches Max itself saved, the way Rack's came from Rack's own re-save, and writes down what the emitter will need, so the build is quick once the standards exist. No Pure Data.
+>
+> Side moves, whenever there is a spare hour: a search box in the renderer that lights up modules by feel words (it passes when 'bright' lights the oscillator and filter, 'breathing' the LFO and envelope, and 'kick' lights nothing yet), and a page of its own for the PDL grammar. Deferred and not allowed to hold anything up: recounting the oscillator and filter parameters against Rack's source, since patches Rack re-saves carry more parameter slots than the vocabulary lists.
+<sub>`plan-gad-steward-008` · plan revised · agreed 2026-11-04T13:39:16.910Z · proposed by Generative Audio Devices's steward (`gad-steward-008`), adopted by Loudon (`resp-mw25xwdq-r0wk0c`)</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="gad-steward-010" -->
+### 2026-11-04 — cycle 4 — Knob settings are now decided once, in one shared resolver, and both the VCV and the Mac targets read from it. Nothing reads a .vcv any more.
+> shipped · 96/96, every VCV patch byte-identical · steward leans the VST next, once the plan is adopted
+
+What changed: a new `resolvePatch` in `PDL Renderer.html` takes the PDL and returns the graph, every knob of every module (an explicit `*` line beats the archetype, and the archetype beats the default), and the voice count. It says nothing about module ids, param indices or file formats. `emitVcvJson` now only maps those names onto Rack's indices. `emit_native.js` reads `resolvePatch` directly, no longer calls the VCV emitter, and clamps the voice count to what its own keyboard holds (now recorded in `native_registry.json`, 1 to 16). How I know nothing broke: I saved every output before touching anything, and all fifteen PDLs (the house bass, three recipes, nine T6 candidates, two edge cases with bad regions and too many voices) came out byte-identical as .vcv, with identical C++ headers. The one difference is on purpose: when the Mac target clamps a voice count, it now says so in its own words and no longer repeats Rack's warning. `verify_native.js` gained a check that every knob the .vcv carries is the value the C++ gets (32 of 32 on the kick, all agree everywhere). I also fixed its `--apps` flag, which had been quietly building nothing. The older checks all pass: 21, 36, 141 and 20, plus the T6 oracle 3/3.
+
+**Artifacts:**
+- [now holds resolvePatch, the knob resolver every target shares; emitVcvJson only maps names to Rack's indices](Projects/Generative Audio Devices/pdl-renderer/PDL Renderer.html)
+- [reads resolvePatch directly and never reads a .vcv](Projects/Generative Audio Devices/native/emit_native.js)
+- [the Mac target's keyboard now says how many voices it carries (1 to 16)](Projects/Generative Audio Devices/native/native_registry.json)
+- [checks the two targets agree knob for knob; --apps builds the apps again](Projects/Generative Audio Devices/native/verify_native.js)
+- [the native target's front door, updated](Projects/Generative Audio Devices/native/README.md)
+- [names resolvePatch](Projects/Generative Audio Devices/pdl-renderer/README.md)
+
+_Checks after the resolver moved, 2026-11-04_
+| check | result |
+| --- | --- |
+| 15 PDLs, .vcv before vs after | byte-identical |
+| 15 PDLs, C++ header before vs after | identical |
+| verify_native.js | 96/96 |
+| verify_native.js --apps (13 apps built) | 109/109 |
+| verify_standing_orders.js | 141/141 |
+| verify_t7b.js · t7a_phase2 · polyphony | 36/36 · 21/21 · 20/20 |
+| T6 oracle, three fresh-agent runs | 3/3 PASS |
+
+_Changed in the workshop:_ README — emit_native.js no longer borrows from the VCV emitter; new check counts
+_Changed in the workshop:_ README — says where knob settings are now decided, so the next target starts there
+_Proposed for canon:_ Generative Audio Devices (§ What still does NOT exist, the bullet beginning '**T10**') — the earlier words said the native target borrows its numbers from the VCV emitter, and this cycle ended that; owed in the tuning ledger until Loudon's review; it replaces item 7
+
+_Left rough:_ Nobody has heard the native renders or played the apps, and nobody has compared them by ear to their Rack twins. The knob vocabulary still lives in the VCV vocabulary file, and I didn't open the renderer page in a browser after the change (Node ran the same code).
+
+_Next moves named:_ If the plan card is adopted: a plugin Live can load, built from the same patch.h, probably an Audio Unit first because macOS ships everything it needs and auval can check it · The side move from the plan: a search box in the renderer that lights up modules by feel words ('bright' lights the oscillator and filter, 'breathing' the LFO and envelope) · Move the knob vocabulary (names, ranges, regions) into its own neutral file, so a Max vocabulary can be added without copying Rack's
+<sub>`gad-steward-010` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-c7cece9d99" -->
+### 2026-11-04 — cycle 4
+
+taught item 8, proposed item 9 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="gad-steward-008" -->
 ### 2026-11-04 — cycle 3 — Shall the plan's second target be your Mac (the app, built today, and then a VST for Live), with Max kept for after the standards?
 > still working · Mac app built, not heard · steward leans adopt

@@ -1008,101 +1008,18 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       return { params: out, warnings };
     }
 
-    function emitVcvJson(pdlText) {
-      const { connections, instanceTypes, params: pdlParams, archetypes: pdlArchetypes, voices: pdlVoices, warnings } = parsePDL(pdlText);
-
-      // Only registered instances become VCV modules.
-      const registeredIds = Object.keys(instanceTypes).filter(id => REGISTRY[instanceTypes[id]]);
-
-      // Assign sequential integer IDs starting at 1.
-      const moduleId = {};
-      registeredIds.forEach((id, i) => { moduleId[id] = i + 1; });
-
-      // T7d — layout intelligence (2026-05-29, audition-driven). Two rows that
-      // match the hand-layout Loudon's refinements converged on:
-      //   row 0 = the signal path, left→right in topological order: the MIDI
-      //           controller hard-left, audio modules in signal order, the audio
-      //           sink rightmost.
-      //   row 1 = modulators (envelopes, LFOs, sequencers) BELOW the audio path.
-      // This is layout intelligence, a sibling to parameter intelligence: it
-      // changes how the patch is arranged on the rack, not what it sounds like.
-      // Touches only `positions`; no param/archetype/registry logic.
-      //
-      // A module's row comes from its registry shape, not a hardcoded list:
-      //   controller = zero inputs (MIDI_CV);  audio = has an audio-typed output
-      //   (VCO/VCF/VCA/mixers, and AUDIO_8 the sink);  modulator = everything else
-      //   (ADSR/LFO/SEQ3). Column order is topological depth along registered
-      //   cables (longest path from a source), so VCO→VCF→VCA→OUT falls out
-      //   left-to-right and the controller (depth 0) pins left.
-      const moduleClass = (modType) => {
-        const m = REGISTRY[modType];
-        if (!m) return "audio";
-        if ((m.inputs || []).length === 0) return "controller";
-        if ((m.outputs || []).some(p => p.type === "audio")) return "audio";
-        return "modulator";
-      };
-
-      const depth = {};
-      {
-        const parents = {};
-        for (const id of registeredIds) parents[id] = [];
-        for (const c of connections) {
-          if (instanceTypes[c.from] && instanceTypes[c.to] && c.from !== c.to && parents[c.to]) parents[c.to].push(c.from);
-        }
-        const computing = {};
-        const compute = (id) => {
-          if (depth[id] != null) return depth[id];
-          if (computing[id]) return 0; // cycle guard (e.g. FM feedback)
-          computing[id] = true;
-          let d = 0;
-          for (const p of (parents[id] || [])) d = Math.max(d, compute(p) + 1);
-          computing[id] = false;
-          return (depth[id] = d);
-        };
-        for (const id of registeredIds) compute(id);
-      }
-
-      const orderIndex = Object.fromEntries(registeredIds.map((id, i) => [id, i]));
-      const row0 = [], row1 = [];
-      for (const id of registeredIds) (moduleClass(instanceTypes[id]) === "modulator" ? row1 : row0).push(id);
-      // Row 0: controller hard-left (tiebreak), then by topological depth, then
-      // by declaration order.
-      const ctrlRank = (id) => moduleClass(instanceTypes[id]) === "controller" ? -1 : 0;
-      row0.sort((a, b) => ctrlRank(a) - ctrlRank(b) || depth[a] - depth[b] || orderIndex[a] - orderIndex[b]);
-
-      const positions = {};
-      let x0 = 0;
-      for (const id of row0) { positions[id] = [x0, 0]; x0 += (REGISTRY[instanceTypes[id]].hp || 1); }
-
-      // Row 1 (Standing Orders, 2026-10-24): every modulator sits right under
-      // the main module it modulates. Its target is the first row-0 module its
-      // output is cabled into, in PDL line order; a modulator that only feeds
-      // another modulator (an LFO into an envelope's CV) inherits that one's
-      // target. Modulators are packed left-aligned under their target and pushed
-      // right only as far as needed so none overlap (Rack shoves overlapping
-      // modules on load). A modulator that reaches no row-0 module goes after
-      // the rest, in declaration order.
-      const row0Set = new Set(row0);
-      const targetOf = {};
-      const findTarget = (id, seen) => {
-        if (targetOf[id] !== undefined) return targetOf[id];
-        if (seen.has(id)) return null;
-        seen.add(id);
-        const outs = connections.filter(c => c.from === id && instanceTypes[c.to] && c.to !== id);
-        let t = null;
-        for (const c of outs) if (row0Set.has(c.to)) { t = c.to; break; }
-        if (t == null) for (const c of outs) if (!row0Set.has(c.to)) { t = findTarget(c.to, seen); if (t != null) break; }
-        return (targetOf[id] = t);
-      };
-      for (const id of row1) findTarget(id, new Set());
-      const anchorX = (id) => targetOf[id] != null ? positions[targetOf[id]][0] : Infinity;
-      row1.sort((a, b) => anchorX(a) - anchorX(b) || orderIndex[a] - orderIndex[b]);
-      let x1 = 0;
-      for (const id of row1) {
-        const x = Math.max(x1, Number.isFinite(anchorX(id)) ? anchorX(id) : x1);
-        positions[id] = [x, 1];
-        x1 = x + (REGISTRY[instanceTypes[id]].hp || 1);
-      }
+    // ─── Knob resolver (target-neutral, 2026-11-04) ───────────────────────────────
+    // What every knob of every module is set to, and how many voices play, said
+    // in PDL's own terms: instance → { canonical param name → value }. No module
+    // ids, no param indices, no target file format. Every target's emitter reads
+    // this; emitVcvJson maps it onto Rack's param indices, emit_native.js onto
+    // C++ struct fields. Precedence: explicit `*` line > archetype > registry
+    // default, so every registered param has a value.
+    // The knob vocabulary (names, ranges, regions, defaults) is still read from
+    // the VCV vocabulary file, because Rack's units are the PDL's units today.
+    function resolvePatch(pdlText) {
+      const parsed = parsePDL(pdlText);
+      const { connections, instanceTypes, params: pdlParams, archetypes: pdlArchetypes, voices: pdlVoices, warnings } = parsed;
 
       // T7a phase 2 — resolve PDL `*` entries into per-instance
       // { paramName → numeric value } maps. Each entry is `Name = Value`.
@@ -1208,6 +1125,127 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
         }
       }
 
+      // Every registered param gets a value: resolved, else the registry default.
+      const knobs = {};
+      for (const id of Object.keys(instanceTypes)) {
+        const mod = REGISTRY[instanceTypes[id]];
+        if (!mod) continue;
+        const pvals = resolvedParams[id] || {};
+        knobs[id] = {};
+        for (const p of (mod.params || [])) {
+          knobs[id][p.name] = Object.prototype.hasOwnProperty.call(pvals, p.name) ? pvals[p.name] : (p.default ?? 0);
+        }
+      }
+
+      // Polyphony (archetypes v0.3). Precedence mirrors params:
+      // `# voices: N` in the PDL > the last archetype that names `voices` > none.
+      let voiceCount = null, voiceLine = null;
+      for (const a of (pdlArchetypes || [])) {
+        const v = ARCHETYPES[a.name] && ARCHETYPES[a.name].voices;
+        if (Number.isInteger(v)) { voiceCount = v; voiceLine = a.lineNumber; }
+      }
+      if (pdlVoices) { voiceCount = pdlVoices.n; voiceLine = pdlVoices.lineNumber; }
+      const voices = voiceCount != null ? { n: voiceCount, lineNumber: voiceLine } : null;
+
+      return { ...parsed, knobs, voices, warnings };
+    }
+
+    function emitVcvJson(pdlText) {
+      const { connections, instanceTypes, knobs, voices, warnings } = resolvePatch(pdlText);
+
+      // Only registered instances become VCV modules.
+      const registeredIds = Object.keys(instanceTypes).filter(id => REGISTRY[instanceTypes[id]]);
+
+      // Assign sequential integer IDs starting at 1.
+      const moduleId = {};
+      registeredIds.forEach((id, i) => { moduleId[id] = i + 1; });
+
+      // T7d — layout intelligence (2026-05-29, audition-driven). Two rows that
+      // match the hand-layout Loudon's refinements converged on:
+      //   row 0 = the signal path, left→right in topological order: the MIDI
+      //           controller hard-left, audio modules in signal order, the audio
+      //           sink rightmost.
+      //   row 1 = modulators (envelopes, LFOs, sequencers) BELOW the audio path.
+      // This is layout intelligence, a sibling to parameter intelligence: it
+      // changes how the patch is arranged on the rack, not what it sounds like.
+      // Touches only `positions`; no param/archetype/registry logic.
+      //
+      // A module's row comes from its registry shape, not a hardcoded list:
+      //   controller = zero inputs (MIDI_CV);  audio = has an audio-typed output
+      //   (VCO/VCF/VCA/mixers, and AUDIO_8 the sink);  modulator = everything else
+      //   (ADSR/LFO/SEQ3). Column order is topological depth along registered
+      //   cables (longest path from a source), so VCO→VCF→VCA→OUT falls out
+      //   left-to-right and the controller (depth 0) pins left.
+      const moduleClass = (modType) => {
+        const m = REGISTRY[modType];
+        if (!m) return "audio";
+        if ((m.inputs || []).length === 0) return "controller";
+        if ((m.outputs || []).some(p => p.type === "audio")) return "audio";
+        return "modulator";
+      };
+
+      const depth = {};
+      {
+        const parents = {};
+        for (const id of registeredIds) parents[id] = [];
+        for (const c of connections) {
+          if (instanceTypes[c.from] && instanceTypes[c.to] && c.from !== c.to && parents[c.to]) parents[c.to].push(c.from);
+        }
+        const computing = {};
+        const compute = (id) => {
+          if (depth[id] != null) return depth[id];
+          if (computing[id]) return 0; // cycle guard (e.g. FM feedback)
+          computing[id] = true;
+          let d = 0;
+          for (const p of (parents[id] || [])) d = Math.max(d, compute(p) + 1);
+          computing[id] = false;
+          return (depth[id] = d);
+        };
+        for (const id of registeredIds) compute(id);
+      }
+
+      const orderIndex = Object.fromEntries(registeredIds.map((id, i) => [id, i]));
+      const row0 = [], row1 = [];
+      for (const id of registeredIds) (moduleClass(instanceTypes[id]) === "modulator" ? row1 : row0).push(id);
+      // Row 0: controller hard-left (tiebreak), then by topological depth, then
+      // by declaration order.
+      const ctrlRank = (id) => moduleClass(instanceTypes[id]) === "controller" ? -1 : 0;
+      row0.sort((a, b) => ctrlRank(a) - ctrlRank(b) || depth[a] - depth[b] || orderIndex[a] - orderIndex[b]);
+
+      const positions = {};
+      let x0 = 0;
+      for (const id of row0) { positions[id] = [x0, 0]; x0 += (REGISTRY[instanceTypes[id]].hp || 1); }
+
+      // Row 1 (Standing Orders, 2026-10-24): every modulator sits right under
+      // the main module it modulates. Its target is the first row-0 module its
+      // output is cabled into, in PDL line order; a modulator that only feeds
+      // another modulator (an LFO into an envelope's CV) inherits that one's
+      // target. Modulators are packed left-aligned under their target and pushed
+      // right only as far as needed so none overlap (Rack shoves overlapping
+      // modules on load). A modulator that reaches no row-0 module goes after
+      // the rest, in declaration order.
+      const row0Set = new Set(row0);
+      const targetOf = {};
+      const findTarget = (id, seen) => {
+        if (targetOf[id] !== undefined) return targetOf[id];
+        if (seen.has(id)) return null;
+        seen.add(id);
+        const outs = connections.filter(c => c.from === id && instanceTypes[c.to] && c.to !== id);
+        let t = null;
+        for (const c of outs) if (row0Set.has(c.to)) { t = c.to; break; }
+        if (t == null) for (const c of outs) if (!row0Set.has(c.to)) { t = findTarget(c.to, seen); if (t != null) break; }
+        return (targetOf[id] = t);
+      };
+      for (const id of row1) findTarget(id, new Set());
+      const anchorX = (id) => targetOf[id] != null ? positions[targetOf[id]][0] : Infinity;
+      row1.sort((a, b) => anchorX(a) - anchorX(b) || orderIndex[a] - orderIndex[b]);
+      let x1 = 0;
+      for (const id of row1) {
+        const x = Math.max(x1, Number.isFinite(anchorX(id)) ? anchorX(id) : x1);
+        positions[id] = [x, 1];
+        x1 = x + (REGISTRY[instanceTypes[id]].hp || 1);
+      }
+
       // Build modules array. Each module's plugin comes from its registry
       // entry's `plugin` field (v2.2+); falls back to the top-level PLUGIN_SLUG
       // for legacy entries that predate per-module plugins. Fundamental and Core
@@ -1221,25 +1259,19 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       // the .vcv file. Registry-default fallback is strictly more correct
       // than zero (e.g. VCO SYNC_MODE defaults to 1, LFO OFFSET defaults to 1).
       //
-      // T7a phase 2 (2026-05-26) — `pvals` may now have been populated from
-      // a named region (`CUTOFF = dark` → 0.275) rather than a literal. The
-      // downstream emission shape doesn't change; the resolution step above
-      // is where the new behavior lives.
+      // T7a phase 2 (2026-05-26) — a knob may have come from a named region
+      // (`CUTOFF = dark` → 0.275) rather than a literal. Since 2026-11-04 all
+      // of that lives in resolvePatch; this step only maps names to indices.
       const modulesOut = registeredIds.map(id => {
         const modType = instanceTypes[id];
         const mod     = REGISTRY[modType];
-        const pvals   = resolvedParams[id] || {};
+        const kv      = knobs[id];
         return {
           id: moduleId[id],
           plugin: mod.plugin || PLUGIN_SLUG,
           version: REGISTRY_DATA.vcv_rack_version || "2.0.0",
           model: mod.slug,
-          params: (mod.params || []).map(p => ({
-            id: p.index,
-            value: Object.prototype.hasOwnProperty.call(pvals, p.name)
-              ? pvals[p.name]
-              : (p.default ?? 0),
-          })),
+          params: (mod.params || []).map(p => ({ id: p.index, value: kv[p.name] })),
           leftModuleId: -1,
           rightModuleId: -1,
           // Device settings (registry v2.5): MIDI_CV and AUDIO_8 carry a
@@ -1288,16 +1320,10 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
         });
       }
 
-      // Polyphony (registry v2.6, archetypes v0.3). Precedence mirrors params:
-      // `# voices: N` in the PDL > the last archetype that names `voices` > 1.
-      // The count lands in whichever module's registry entry carries a
+      // Polyphony (registry v2.6). resolvePatch decided the count; here it
+      // lands in whichever module's registry entry carries a
       // `voices` field (VCV: MIDI_CV's data.channels), clamped to its range.
-      let voiceCount = null, voiceLine = null;
-      for (const a of (pdlArchetypes || [])) {
-        const v = ARCHETYPES[a.name] && ARCHETYPES[a.name].voices;
-        if (Number.isInteger(v)) { voiceCount = v; voiceLine = a.lineNumber; }
-      }
-      if (pdlVoices) { voiceCount = pdlVoices.n; voiceLine = pdlVoices.lineNumber; }
+      const voiceCount = voices ? voices.n : null, voiceLine = voices ? voices.lineNumber : null;
       if (voiceCount != null) {
         const carriers = modulesOut.filter(m => {
           const id = registeredIds.find(r => moduleId[r] === m.id);

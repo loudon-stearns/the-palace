@@ -16,7 +16,7 @@ forward_vector: "I am the front door of the PDL Renderer's code folder — what 
 
 # PDL Renderer
 
-A self-contained React-in-browser page (`PDL Renderer.html`) — open it in any browser, no build step. It parses **PDL** (Patch Description Language): `@INSTANCE = ModuleType` declarations, connection lines, and `* INSTANCE: PARAM = value` parameter lines. It draws the resulting signal graph and emits a VCV Rack `.vcv` patch through `emitVcvJson`. Routing and defaults resolve against the VCV Fundamental registry, and a patch can name a synth archetype whose parameter cloud lands on the topology it already has.
+A self-contained React-in-browser page (`PDL Renderer.html`) — open it in any browser, no build step. It parses **PDL** (Patch Description Language): `@INSTANCE = ModuleType` declarations, connection lines, and `* INSTANCE: PARAM = value` parameter lines. It draws the resulting signal graph and emits a VCV Rack `.vcv` patch through `emitVcvJson`. What every knob is set to, and how many voices play, is decided once in `resolvePatch` (explicit `*` line > archetype > registry default), in PDL's own names; `emitVcvJson` and the native target's `emit_native.js` both read it. Routing and defaults resolve against the VCV Fundamental registry, and a patch can name a synth archetype whose parameter cloud lands on the topology it already has.
 
 The project's development log — the T-task roadmap, the registry's version history, what each phase verified — lives on [[Generative Audio Devices]]. Deepen it there.
 

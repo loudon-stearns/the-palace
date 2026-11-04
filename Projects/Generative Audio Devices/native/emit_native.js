@@ -5,10 +5,10 @@
 // host_render.cpp turns into a WAV and host_app.mm into a Mac app you play
 // from the QWERTY keyboard through the MacBook speakers.
 //
-// Reads the graph with the renderer's own parsePDL, and the knob values from
-// the renderer's emitVcvJson: regions, archetypes and seeds are resolved there
-// today, so this target borrows the resolved numbers by name rather than
-// re-resolving them. Routing comes from native_registry.json alone.
+// Reads the graph, the knob values and the voice count from the renderer's
+// resolvePatch, the target-neutral resolver every emitter shares (regions,
+// archetypes, seeds and `# voices` are decided there once). Nothing here reads
+// a .vcv. Routing comes from native_registry.json alone.
 //
 // Usage:  node emit_native.js <file.pdl> [--out <file.h>] [--name "Title"]
 // Exits 1, writing nothing, if the PDL uses a module this target can't build.
@@ -27,7 +27,7 @@ function loadRenderer() {
   const bs = html.indexOf('<script type="text/babel">'); const body = html.indexOf(">", bs) + 1;
   const code = html.slice(body, html.indexOf("// ─── Port Map", body));
   const doc = { getElementById: (id) => ({ textContent: id === "vcv-registry" ? regText : id === "archetypes" ? archText : "{}" }) };
-  const api = new Function("document", "React", code + "\n return { emitVcvJson, parsePDL };")(doc, { useState: () => [undefined, () => {}] });
+  const api = new Function("document", "React", code + "\n return { emitVcvJson, resolvePatch };")(doc, { useState: () => [undefined, () => {}] });
   return { ...api, VCV: JSON.parse(regText).modules };
 }
 
@@ -40,28 +40,23 @@ const enumOf = (mod, dir, name) => {
 
 function emitNative(pdlText, { name = "PDL patch", source = "" } = {}) {
   const R = loadRenderer();
-  const g = R.parsePDL(pdlText);
-  const vcv = R.emitVcvJson(pdlText);
+  const g = R.resolvePatch(pdlText);
   const problems = [], notes = [];
   const types = g.instanceTypes;
 
   for (const [id, t] of Object.entries(types)) if (!NATIVE.modules[t]) problems.push(`${id} is a ${t}, which this target can't build yet`);
   if (problems.length) return { problems };
 
-  // Knob values as the renderer resolved them (explicit > archetype > default).
-  const ids = Object.keys(types).filter(id => R.VCV[types[id]]);
-  const knobs = {};
-  ids.forEach((id, i) => {
-    const m = vcv.patch.modules.find(x => x.id === i + 1), reg = R.VCV[types[id]];
-    knobs[id] = {};
-    for (const p of m.params || []) { const spec = (reg.params || []).find(s => s.index === p.id); if (spec) knobs[id][spec.name] = p.value; }
-  });
-  const midi = vcv.patch.modules.find(m => m.model === "MIDIToCVInterface");
-  const voices = midi && midi.data && midi.data.channels || 1;
-
+  // Knob values in PDL's own names (explicit > archetype > default).
+  const ids = Object.keys(types).filter(id => g.knobs[id]);
+  const knobs = g.knobs;
   const kb = ids.filter(id => NATIVE.modules[types[id]].role === "keyboard");
   const spk = ids.filter(id => NATIVE.modules[types[id]].role === "speakers");
   const dsp = ids.filter(id => !NATIVE.modules[types[id]].role);
+  // Voices are carried by the keyboard, clamped to what this target's keyboard holds.
+  const vs = kb.length && NATIVE.modules[types[kb[0]]].voices;
+  const voices = g.voices && vs ? Math.max(vs.min, Math.min(vs.max, g.voices.n)) : 1;
+  if (g.voices && vs && voices !== g.voices.n) notes.push(`the keyboard here carries ${vs.min}–${vs.max} voices; ${g.voices.n} clamped to ${voices}`);
   if (!spk.length) problems.push("nothing reaches the speakers (no OUT)");
   if (problems.length) return { problems };
 
@@ -113,10 +108,10 @@ function emitNative(pdlText, { name = "PDL patch", source = "" } = {}) {
     L.push(`    ${side} = ${srcs.length ? `(${srcs.join(" + ")}) / 10.f` : "0.f"};`);
   }
   L.push(`  }`, `};`, `} // namespace patch`, ``);
-  return { header: L.join("\n"), voices, order, notes, warnings: vcv.warnings };
+  return { header: L.join("\n"), voices, order, notes, warnings: g.warnings };
 }
 
-module.exports = { emitNative };
+module.exports = { emitNative, loadRenderer };
 
 if (require.main === module) {
   const args = process.argv.slice(2);

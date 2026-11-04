@@ -11,7 +11,8 @@
 
 const fs = require("fs"), path = require("path"), { execFileSync } = require("child_process");
 const HERE = __dirname, ROOT = path.resolve(HERE, "..", "..", ".."), SHOP = path.join(ROOT, "Shop", "VCV Patch Generator");
-const { emitNative } = require("./emit_native.js");
+const { emitNative, loadRenderer } = require("./emit_native.js");
+const R = loadRenderer();
 const apps = process.argv.includes("--apps");
 
 const sources = [{ name: "house_bass", pdl: fs.readFileSync(path.join(HERE, "..", "pdl-renderer", "house_bass.pdl"), "utf8") }];
@@ -31,7 +32,16 @@ for (const s of sources) {
   console.log(s.name);
   const r = emitNative(s.pdl, { name: s.name, source: s.name + ".pdl" });
   if (!check(!r.problems, "emits C++" + (r.problems ? ": " + r.problems.join("; ") : ""))) continue;
-  check(r.warnings.length === 0, `the same PDL emits a .vcv with 0 warnings (got ${r.warnings.length})`);
+  const vcv = R.emitVcvJson(s.pdl);
+  check(vcv.warnings.length === 0, `the same PDL emits a .vcv with 0 warnings (got ${vcv.warnings.length})`);
+  // One resolver, two targets: every knob the .vcv carries is the knob the C++ gets.
+  const g = R.resolvePatch(s.pdl), ids = Object.keys(g.knobs);
+  let agree = 0, total = 0;
+  ids.forEach((id, i) => {
+    const m = vcv.patch.modules.find(x => x.id === i + 1), reg = R.VCV[g.instanceTypes[id]];
+    for (const p of m.params) { const spec = reg.params.find(q => q.index === p.id); total++; if (g.knobs[id][spec.name] === p.value) agree++; }
+  });
+  check(total > 0 && agree === total, `both targets read the same ${total} knob values from one resolver (${agree}/${total} agree)`);
   const dir = path.join(W, s.name); fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, "patch.h"), r.header);
   for (const f of ["gad_kit.h", "host_common.h"]) fs.copyFileSync(path.join(HERE, f), path.join(dir, f));
@@ -49,7 +59,7 @@ for (const s of sources) {
   }
   if (/warm_pad|warm-pad/.test(s.name) && !/drone/.test(s.name)) check(r.voices === 6, `plays ${r.voices} voices (the warm pad asks for 6)`);
   rows.push([s.name, String(r.voices), db(m.peak), db(m.rms), m.voices === 1 ? m.first_note_hz.toFixed(1) : "chord"]);
-  if (apps) execFileSync(path.join(HERE, "build_app.sh"), [path.join(dir, "..", "..", "..", "x.pdl").replace(/x\.pdl$/, ""), s.name].slice(0, 0).concat([]), { stdio: "ignore" });
+  if (apps) { const f = path.join(dir, s.name + ".pdl"); fs.writeFileSync(f, s.pdl); execFileSync(path.join(HERE, "build_app.sh"), [f, s.name], { stdio: "ignore" }); check(fs.existsSync(path.join(B, s.name + ".app", "Contents", "MacOS", "patch")), "builds as a Mac app"); }
 }
 
 // A module this target can't build is refused by name, and nothing is written.
