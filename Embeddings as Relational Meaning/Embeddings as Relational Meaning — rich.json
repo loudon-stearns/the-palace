@@ -1,0 +1,109 @@
+{
+  "title": "Embeddings as Relational Meaning — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Embeddings as Relational Meaning]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "each-piece-walks-up"
+    }
+  ],
+  "forward_vector": "I am the manifest of Embeddings as Relational Meaning’s rich face, its first round, a Study and still a proposal: two walks on real GloVe vectors that each start from one idea and end on a test of the page’s own claim (does a direction carry a relation, beyond what nearness alone gives; are categories regions, and is the page’s musical-interval region about intervals). I lean where the page leans: demonstrations that make the relational claim testable. I grow when the page is enriched again; I never hold the entry’s words.",
+  "entry": "Embeddings as Relational Meaning",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "grain": "The page’s own ## grain: the opening (the H1 section) and The Geometry of Meaning each carry one piece. Origin, Cross-Pillar Connections and Open Questions carry none: nothing there a piece could test without forcing it.",
+  "offers": [
+    {
+      "section": "Embeddings as Relational Meaning",
+      "kind": "no-claim-edit",
+      "what": "Name the convention and the source in the parenthesis: “king − man + woman ≈ queen” is read with the three input words set aside, which is the analogy literature’s standard practice. With them allowed, the nearest word is king itself (GloVe 100-d: king 0.836, queen 0.770). The example is word2vec’s (Mikolov et al. 2013), a static embedding, while the paragraph opens “In large language models”. The claim itself holds: across 3,448 analogy quads the page doesn’t state, b − a + c lands on d first 84.3% of the time, against 44.4% for a reader who only looks near c (80.6% against 35.8% over the 100,000 most frequent words). Offer: “(king − man + woman ≈ queen, with the three input words set aside — word2vec’s example)”.",
+      "status": "open"
+    },
+    {
+      "section": "The Geometry of Meaning",
+      "kind": "claim-change",
+      "what": "An addition, not a correction. The second paragraph’s point, that one word needs different places in different contexts, already holds inside the first paragraph’s own example. In GloVe 100-d the six interval names that are also ordinals (third, fourth, fifth, sixth, seventh, ninth) all sit nearer plain ordinals that name no interval (first, twentieth, thirtieth, fortieth, hundredth: 0.50 to 0.58) than the interval names that aren’t ordinals (unison, semitone, tone, tritone, octave, interval: 0.21 to 0.27). The control arm (those six names plus chord, pitch and melody) lands on the interval side 9 of 9. The regions themselves are real: 35 of 36 by leave-one-out, against 14 of 36 shuffled, with chance at 12. Offer: one sentence in the second paragraph saying that a static embedding gives fifth the interval and fifth the place in a race one point, and the race’s sense wins, so the “musical intervals” region is partly a region of ordinals.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Embeddings as Relational Meaning",
+      "made_against": "0f4259787ab4",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round · cloud",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5 · cloud",
+        "verdicts": [
+          {
+            "file": "Embeddings as Relational Meaning — rich — directions.html",
+            "verdict": "keep",
+            "why": "A real test: the arrow beats the c-alone leak reader 84.3% to 44.4% on 3,448 quads with the page’s 228 dropped, and my float64 recompute from the raw vectors gets the same counts, 80.6% to 35.8% over 100,000 words; a b + c reader that ignores a gets 37.6%, so c alone is the right arm to beat. Notes: the shuffled arm is a floor, not a fair control (real vectors re-dealt to other words also give 0 to 1 of 3,448), so say the decision rests on c alone; the pool is 3,145 words and chance 1 in 3,142, not the account’s 3,146 and 3,143."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Embeddings as Relational Meaning — rich — directions.html",
+          "origin": "made",
+          "by": "the Maker · plain JS on inlined GloVe vectors",
+          "height": 740,
+          "title": "directions · a walk in five steps",
+          "caption": "**Does a direction carry a relation?** Two words and the angle between them, a word’s neighbours, a relation as an arrow, the page’s own sum (shown, not scored), and last a test on 3,448 word2vec analogy quads the page never states: does b − a + c land on d more often than a reader who only looks near c? Chance, the rule and both controls are stated before the run. Real vectors: 3,145 words of the npm package wink-embeddings-sg-100d 1.1.0 (MIT, GRAYPE Systems), derived from Stanford GloVe pre-trained vectors (PDDL 1.0), inlined. GloVe’s numbers: static, 100 dimensions, not a transformer’s. Quads: questions-words.txt (Mikolov et al. 2013, Apache 2.0).",
+          "near": "This is the computational instantiation"
+        }
+      ]
+    },
+    {
+      "heading": "The Geometry of Meaning",
+      "made_against": "d0f4aaa31b10",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round · cloud",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5 · cloud",
+        "verdicts": [
+          {
+            "file": "Embeddings as Relational Meaning — rich — regions.html",
+            "verdict": "remake",
+            "why": "Both questions are tests and recompute exactly (35 of 36; ordinals 0.50–0.58 against interval names 0.21–0.27), and question two’s post-look rule is disclosed and robust: 99.92% of 232,848 other choices of the two centres give the same verdict. Remake one sentence: step 4 says fifth’s “nearest words are ordinals”, but six of those eight (second, third, fourth, sixth, seventh, ninth) are interval names too, so the list cannot tell the senses apart and states step 5’s answer before step 5 tests it; say the list can’t decide and leave the verdict to step 5."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Embeddings as Relational Meaning — rich — regions.html",
+          "origin": "made",
+          "by": "the Maker · plain JS on inlined GloVe vectors, PCA by power iteration",
+          "height": 800,
+          "title": "regions · a walk in five steps",
+          "caption": "**Are categories regions, and what is in them?** The section’s three categories, twelve words each: one axis, then a map, then a walk between regions with the real words that live along it, then one point for “bank” and one for “fifth”, and last the test. The regions are real. The interval region is partly a region of ordinals, which is the bank problem inside the section’s own example. Real vectors: 3,145 words of the npm package wink-embeddings-sg-100d 1.1.0 (MIT, GRAYPE Systems), derived from Stanford GloVe pre-trained vectors (PDDL 1.0), inlined. GloVe’s numbers: static, 100 dimensions, not a transformer’s.",
+          "near": "Context-dependent embeddings (transformers) go further"
+        }
+      ]
+    }
+  ]
+}
