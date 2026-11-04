@@ -1,0 +1,440 @@
+<!doctype html>
+<!--
+  title: Spinoza Conatus — rich — five voices coupled
+  born: 2026-11-03
+  links: [[Spinoza Conatus]] (connects-to · rich-face-piece) · [[Kuramoto Coupling]] (connects-to · the-model-it-runs) · listed in [[Spinoza Conatus — rich.json]]
+  forward_vector: I am the Kuramoto mirror run as a test. Five voices, each with a pitch of its own, walk from one voice alone to a crowd that locks, lets go, and is coupled too hard, symmetric and then with one voice as an anchor. I measure what the mirror sentence says: whether coupling destroys a voice's own pitch, whether it amplifies or overrides it, and whether too much coupling lets one voice dominate.
+  sound: nothing plays until a Play button is clicked; the AudioContext is made on that click. Changing step stops the sound. No audio context of any kind exists before the first click on the piece.
+  check: Spinoza Conatus/Spinoza Conatus — rich — check.mjs runs this page's core in Node at audio rate and reads the test's numbers back.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Five voices, coupled · the Kuramoto mirror as a test</title>
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --info:#4a8fff; --indigo:#6366F1; --warn:#ff9b4a;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --display:'Anton','Bebas Neue',Impact,'Arial Narrow',sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto}
+  canvas#stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:11ch}
+  .rowb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.go{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:8px 18px;cursor:pointer}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter .src{color:var(--fg-3);font-size:11px;letter-spacing:.08em}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:12px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px;font-family:var(--sans)}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  .rule{margin:14px 0 0;padding:12px 16px;border:1px solid var(--border);border-radius:4px;font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .rule .eyebrow{display:block;margin-bottom:4px}
+  table{width:100%;border-collapse:collapse;margin-top:14px;font-family:var(--mono);font-size:12px;color:var(--fg-2)}
+  th{font-weight:400;text-align:left;color:var(--fg-3);font-size:10px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--border);padding:6px 6px}
+  td{border-bottom:1px solid var(--border-soft);padding:5px 6px;vertical-align:top}
+  td.ok{color:var(--accent)} td.no{color:var(--warn)}
+  .tablewrap{overflow-x:auto}
+  .reading{font-family:var(--serif);font-size:17px;color:var(--fg-2);margin-top:14px;max-width:70ch}
+  .reading p{margin:0 0 10px}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  [hidden]{display:none !important}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:100px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Spinoza Conatus · the Kuramoto mirror · five steps</div>
+  <h1>Five voices, coupled</h1>
+  <p class="lead">The mirror says each oscillator’s conatus is its natural frequency, and that coupling “doesn’t destroy conatus; it harmonizes” it, so that each voice is “amplified, not overridden.” That is an analogy, and an analogy can’t be proved. What can be checked is whether it holds inside the model it names. Five voices near 220 Hz, each with a pitch of its own. The palace’s picture of coupling comes first, as its own Kuramoto page draws it: too little and nothing cooperates, too much and one voice dominates. The last step measures both. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Hear</span><span id="hearHint" style="font-family:var(--sans);font-size:13px;color:var(--fg-3)"></span><button class="play" id="play">Play</button></div>
+    <canvas id="stage"></canvas>
+    <div id="voiceRow" class="rowb" hidden><span class="eyebrow">which voice</span><span id="voices"></span></div>
+    <div id="armRow" class="rowb" hidden><span class="eyebrow">coupling</span>
+      <button class="ghost small" data-arm="sym" aria-pressed="true">Even · every voice pulls and listens alike</button>
+      <button class="ghost small" data-arm="anchor" aria-pressed="false">E as anchor · listens to no one, pulls 4×</button>
+    </div>
+    <div id="kRow" class="ctl" hidden><label for="k">coupling, K</label><input id="k" type="range" min="0" max="1" step="0.001" value="0"><span class="v" id="kv"></span></div>
+    <div id="letRow" class="rowb" hidden><button class="ghost small" id="letgo">Let go · K to 0</button><button class="ghost small" id="couple">Couple again · K at twice the lock</button></div>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+
+    <div id="testBox" hidden>
+      <div class="rule"><span class="eyebrow">Said before the run</span>
+        The model is deterministic, so there is no chance level.
+        <br><br><b>This section’s sentence: “amplified, not overridden.”</b> <b>Overridden</b>: while the crowd is locked, a voice’s sounding pitch is more than 0.1 Hz from its own. This follows from “locked”: every voice sounds the crowd’s pitch, so any voice whose own pitch isn’t the crowd’s is overridden; the rule can’t fail once the crowd locks. <b>Amplified</b>: a level rises by more than 1 dB from apart to locked at twice the lock. Per voice it can’t: each voice’s amplitude is fixed in this model (GAIN/5), so only the sum of the five can show it.
+        <br><br><b>The Kuramoto page’s line, carried here because the mirror cites that model: “K too high → one oscillator dominates.”</b> <b>One voice dominates</b>: the crowd locks, and its pitch lands within 0.1 Hz of one voice’s own pitch while the others move to it. <b>Sameness</b>: the crowd locks and its phases bunch to within 5° of each other (standard spread). The even arm is that line as drawn: <b>the line fails</b> if at twenty times its lock point no voice dominates. The anchor arm is the control: E stops listening (K_receive = 0) and pulls four times as hard (K_send = 4), the Kuramoto page’s own recipe for an anchor. If the rule doesn’t read domination there, the rule is broken, not the line.
+        <br><br>One thing this test can’t do. In the even arm the locked pitch is the plain average of the five, by algebra: each pair’s pulls are equal and opposite, so they cancel in the sum. The run shows that; it couldn’t come out otherwise. What could have come out otherwise is the line’s picture of it.
+      </div>
+      <div class="rowb"><button class="go" id="runTest">Run the test</button><span class="eyebrow" id="testState"></span></div>
+      <div class="tablewrap"><table id="testTable" hidden>
+        <thead><tr><th>coupling</th><th>K</th><th>locked</th><th>crowd’s pitch</th><th>nearest own pitch</th><th>one dominates</th><th>phase spread</th><th>togetherness r</th><th>most moved</th></tr></thead>
+        <tbody id="testBody"></tbody>
+      </table></div>
+      <div class="reading" id="reading" hidden></div>
+    </div>
+  </div>
+  <div class="try" id="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><b>LOUD’N LIVE</b> · Spinoza Conatus · five voices coupled · Sketch, 2026-11-03</footer>
+</main>
+
+<!-- The core: plain functions shared by the picture, the sound (the worklet runs this same text), the test and the headless check. -->
+<script id="kura-core">
+var KURA = (function(){
+  var TAU = 2 * Math.PI, F0 = 220, GAIN = 0.22;
+  var NAT = [-4, -3, 1, 2, 6];                    // each voice's own pitch, in Hz above or below 220
+  var NAMES = ['A', 'B', 'C', 'D', 'E'];
+  var KC_HZ = 7.85, KC_ANCHOR_HZ = 9.32;           // measured lock points (the check re-measures them)
+  function make(){ return { th: [0.0, 1.9, 3.1, 4.4, 5.6], K: 0, recv: [1,1,1,1,1], send: [1,1,1,1,1], on: [1,1,1,1,1], t: 0 }; }
+  // dθᵢ/dt = 2π·natᵢ + (K/N)·recvᵢ·Σⱼ sendⱼ·sin(θⱼ − θᵢ), in a frame turning at 220 Hz. K is in rad/s.
+  function deriv(s, th, out){
+    var n = 0, i, j; for (i = 0; i < 5; i++) n += s.on[i];
+    for (i = 0; i < 5; i++){
+      if (!s.on[i]){ out[i] = 0; continue; }
+      var c = 0;
+      for (j = 0; j < 5; j++) if (s.on[j] && j !== i) c += s.send[j] * Math.sin(th[j] - th[i]);
+      out[i] = TAU * NAT[i] + (n ? s.K * s.recv[i] * c / n : 0);
+    }
+    return out;
+  }
+  var k1 = [0,0,0,0,0], k2 = [0,0,0,0,0], k3 = [0,0,0,0,0], k4 = [0,0,0,0,0], tmp = [0,0,0,0,0];
+  function step(s, dt){                               // fourth-order Runge–Kutta
+    var th = s.th, i;
+    deriv(s, th, k1);
+    for (i = 0; i < 5; i++) tmp[i] = th[i] + 0.5 * dt * k1[i]; deriv(s, tmp, k2);
+    for (i = 0; i < 5; i++) tmp[i] = th[i] + 0.5 * dt * k2[i]; deriv(s, tmp, k3);
+    for (i = 0; i < 5; i++) tmp[i] = th[i] + dt * k3[i]; deriv(s, tmp, k4);
+    for (i = 0; i < 5; i++) th[i] += dt / 6 * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]);
+    s.t += dt;
+  }
+  function order(s){
+    var x = 0, y = 0, n = 0;
+    for (var i = 0; i < 5; i++) if (s.on[i]){ x += Math.cos(s.th[i]); y += Math.sin(s.th[i]); n++; }
+    return { r: n ? Math.hypot(x, y) / n : 0, psi: Math.atan2(y, x) };
+  }
+  // one output sample: the voices summed on a 220 Hz carrier, the sound the worklet plays
+  function sample(s, carrier){
+    var y = 0; for (var i = 0; i < 5; i++) if (s.on[i]) y += Math.sin(carrier + s.th[i]);
+    return GAIN * y / 5;
+  }
+  function config(cfg){
+    var s = make(); s.K = cfg.K || 0;
+    if (cfg.recv) s.recv = cfg.recv.slice(); if (cfg.send) s.send = cfg.send.slice(); if (cfg.on) s.on = cfg.on.slice(); if (cfg.th) s.th = cfg.th.slice();
+    return s;
+  }
+  // settle, then measure each voice's running pitch over a window, the crowd's togetherness, and each phase lead
+  function measure(cfg){
+    var s = config(cfg), dt = cfg.dt || 1 / 1000, settle = cfg.settle || 20, win = cfg.win || 10, i;
+    for (i = 0; i < settle / dt; i++) step(s, dt);
+    var th0 = s.th.slice(), rsum = 0, nn = 0, lead = [0,0,0,0,0];
+    for (i = 0; i < win / dt; i++){ step(s, dt); if (i % 10 === 0){ rsum += order(s).r; nn++; } }
+    var run = s.th.map(function(v, j){ return (v - th0[j]) / (TAU * win); });
+    var o = order(s);
+    for (i = 0; i < 5; i++){ var d = s.th[i] - o.psi; lead[i] = Math.atan2(Math.sin(d), Math.cos(d)) * 180 / Math.PI; }
+    var act = []; for (i = 0; i < 5; i++) if (s.on[i]) act.push(i);
+    var fr = act.map(function(j){ return run[j]; });
+    var locked = Math.max.apply(null, fr) - Math.min.apply(null, fr) < 0.01;
+    var omega = fr.reduce(function(a, b){ return a + b; }, 0) / fr.length;
+    var near = act.map(function(j){ return Math.abs(omega - NAT[j]); });
+    var nearest = Math.min.apply(null, near), who = act[near.indexOf(nearest)];
+    var ls = act.map(function(j){ return lead[j]; }), lm = ls.reduce(function(a, b){ return a + b; }, 0) / ls.length;
+    var spread = Math.sqrt(ls.reduce(function(a, b){ return a + (b - lm) * (b - lm); }, 0) / ls.length);
+    var moved = act.map(function(j){ return Math.abs(run[j] - NAT[j]); });
+    return { run: run, locked: locked, omega: omega, r: rsum / nn, lead: lead, spread: spread, nearest: nearest, who: who,
+             moved: moved, mostMoved: Math.max.apply(null, moved), dominates: locked && nearest < 0.1, same: locked && spread < 5 };
+  }
+  function kc(cfg){                                     // the smallest K that locks, by halving
+    var lo = 0, hi = 400;
+    for (var i = 0; i < 16; i++){ var mid = (lo + hi) / 2, c = {}; for (var k in cfg) c[k] = cfg[k]; c.K = mid; if (measure(c).locked) hi = mid; else lo = mid; }
+    return hi;
+  }
+  // the level the listener gets, from the phases: the played sum's mean square over one carrier cycle is
+  // (GAIN/5)²·|Σ e^{iθⱼ}|²/2, averaged here over 4 s after 10 s of settling. The check compares it with the sum sampled at 48 kHz.
+  function playedRms(cfg){
+    var s = config(cfg), dt = 1 / 1000, i, j, sum = 0, n = 0;
+    for (i = 0; i < 10 / dt; i++) step(s, dt);
+    for (i = 0; i < 4 / dt; i++){ step(s, dt); var x = 0, y = 0; for (j = 0; j < 5; j++) if (s.on[j]){ x += Math.cos(s.th[j]); y += Math.sin(s.th[j]); }
+      sum += (GAIN / 5) * (GAIN / 5) * (x * x + y * y) / 2; n++; }
+    return Math.sqrt(sum / n);
+  }
+  // the same level, sampled as the worklet plays it (slow: the check's cross-check, not the page's)
+  function playedRmsSampled(cfg, sr){
+    sr = sr || 48000; var s = config(cfg), dt = 1 / sr, c = 0, i, sum = 0, n = 0;
+    for (i = 0; i < 10 / (1 / 1000); i++) step(s, 1 / 1000);
+    for (i = 0; i < 4 * sr; i++){ step(s, dt); c += TAU * F0 * dt; if (c > TAU) c -= TAU; var y = sample(s, c); sum += y * y; n++; }
+    return Math.sqrt(sum / n);
+  }
+  var ANCHOR = { recv: [1,1,1,1,0], send: [1,1,1,1,4] };
+  // the test's rows: both arms, five couplings each, measured through the same step the sound uses
+  function test(){
+    var rows = [], arms = [ ['even', {}, KC_HZ], ['E as anchor', ANCHOR, KC_ANCHOR_HZ] ];
+    arms.forEach(function(a){
+      [0.5, 1.05, 2, 5, 20].forEach(function(m){
+        var cfg = { K: TAU * a[2] * m }; for (var k in a[1]) cfg[k] = a[1][k];
+        var r = measure(cfg); r.arm = a[0]; r.mult = m; r.Khz = a[2] * m; rows.push(r);
+      });
+    });
+    return rows;
+  }
+  return { TAU: TAU, F0: F0, GAIN: GAIN, NAT: NAT, NAMES: NAMES, KC_HZ: KC_HZ, KC_ANCHOR_HZ: KC_ANCHOR_HZ, ANCHOR: ANCHOR,
+           make: make, deriv: deriv, step: step, order: order, sample: sample, measure: measure, kc: kc, playedRms: playedRms, playedRmsSampled: playedRmsSampled, test: test };
+})();
+if (typeof module !== 'undefined') module.exports = KURA;
+</script>
+
+<script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+  var COLS = ['#6366F1', '#4a8fff', '#c8c8d8', '#8a8aa0', '#e8b84a'];
+  var KMAX = { 2: 3 * KURA.KC_HZ, 3: 3 * KURA.KC_HZ, 4: 22 * KURA.KC_ANCHOR_HZ };
+  var STEPS = [
+    { short: 'one voice', title: 'One voice, keeping its own time', hint: 'one sine; pick which',
+      say: 'One voice alone, uncoupled. It runs at its own pitch and nothing moves it. This is what the mirror calls a voice’s conatus: the rhythm it would keep if nothing touched it. Each of the five has its own, from 216 to 226 Hz.',
+      eq1: ['dθ/dt = 2π·f', 'its phase turns at its own pitch, f, and nothing else'], eq2: ['', ''],
+      tryText: 'Play, and pick each voice in turn. E is the highest, 226 Hz; A the lowest, 216 Hz. The trace on the right is each voice’s sounding pitch.' },
+    { short: 'five, apart', title: 'Five voices, no coupling', hint: 'five sines, summed',
+      say: 'All five at once, still uncoupled. Each keeps its own pitch, and together they beat: the sum swells and falls as their phases drift past each other. On the circle they whirl, each at its own speed. This is the first half of the palace’s picture: too little coupling, and nothing cooperates.',
+      eq1: ['r = |(1/N)·Σ e^{iθⱼ}|', 'togetherness: 1 when every phase points the same way, near 0 when they scatter'], eq2: ['', ''],
+      tryText: 'Listen to the beating. Watch r: it wanders, and stays well below 1.' },
+    { short: 'couple them', title: 'Couple them, and find the lock', hint: 'the crowd, with K',
+      say: 'Now each voice listens to the others and is pulled toward them, by K. Turn K up slowly. Below a threshold the voices bend toward each other and still slip; past it, at about 7.85 Hz here, all five lock onto one pitch and the fan on the circle freezes. The sum stops beating and gets louder.',
+      eq1: ['dθᵢ/dt = 2π·fᵢ + (K/N)·Σⱼ sin(θⱼ − θᵢ)', 'each voice turns at its own pitch, plus a pull toward every other voice, stronger the further apart they are in phase'],
+      eq2: ['locked: every voice sounds Ω, the crowd’s pitch', 'one pitch for all five'],
+      tryText: 'Bring K from 0 up past the lock and stop at about twice it. Read the crowd’s pitch, and how far each voice was moved to reach it.' },
+    { short: 'uncouple', title: 'Let go', hint: 'the crowd, let go',
+      say: 'Lock them, then let go. Each voice goes straight back to its own pitch. This is “coupling doesn’t destroy conatus,” and in this model it holds. It holds by construction, though: a voice’s own pitch is a fixed number in the equation, and no coupling ever touches it. The model can show this sentence; it can’t test it.',
+      eq1: ['K = 0  ⇒  dθᵢ/dt = 2π·fᵢ', 'with no coupling, each voice is back to its own equation'], eq2: ['', ''],
+      tryText: 'Couple at twice the lock, wait for the fan to freeze, then let go. Read each voice’s pitch against its own.' },
+    { short: 'the test', title: 'Too much coupling: who dominates?', hint: 'the crowd, pushed hard', test: true,
+      say: 'The second half of the palace’s picture, in the Kuramoto page’s words: “K too high → one oscillator dominates, the rest follow.” Push the even crowd far past its lock and see whose pitch it takes. Then make E an anchor, as the Kuramoto page’s stubbornness section describes, and push again. The test runs both arms at five couplings each, and reads this section’s own sentence at twice the lock.',
+      eq1: ['dθᵢ/dt = 2π·fᵢ + (K/N)·K_receive,ᵢ·Σⱼ K_send,ⱼ·sin(θⱼ − θᵢ)', 'the same pull, scaled by how much voice i listens and how hard voice j pulls'],
+      eq2: ['even: Ω = (1/N)·Σ fᵢ      anchor: Ω = f_E', 'an even crowd locks at the average; a crowd with an anchor locks at the anchor’s pitch'],
+      tryText: 'Even coupling, K all the way up: hear the pitch stay where it was at the lock. Switch to the anchor and hear the crowd climb to E.' }
+  ];
+
+  var live = KURA.make(), freq = KURA.NAT.slice(), dbuf = [0,0,0,0,0];
+  var hist = []; var step = 0, kNorm = 0, solo = 4, arm = 'sym', playing = false;
+  var ctx = null, node = null, gain = null, analyser = null, abuf = null, rmsDb = null;
+
+  function kMaxHz(){ return KMAX[step] || 0; }
+  function setK(hz){ live.K = KURA.TAU * hz; send({ K: live.K }); }
+  function applyStep(){
+    var s = STEPS[step];
+    live.on = step === 0 ? [0,0,0,0,0].map(function(_, i){ return i === solo ? 1 : 0; }) : [1,1,1,1,1];
+    var a = step === 4 && arm === 'anchor';
+    live.recv = a ? KURA.ANCHOR.recv.slice() : [1,1,1,1,1]; live.send = a ? KURA.ANCHOR.send.slice() : [1,1,1,1,1];
+    var hz = step >= 2 ? kNorm * kMaxHz() : 0; live.K = KURA.TAU * hz;
+    send({ K: live.K, on: live.on, recv: live.recv, send: live.send });
+    $('kv').textContent = hz.toFixed(2) + ' Hz';
+  }
+  function send(m){ if (node) node.port.postMessage(m); }
+
+  var rail = $('rail');
+  STEPS.forEach(function(s, i){ var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short; b.addEventListener('click', function(){ go(i); }); rail.appendChild(b); });
+  NAMES_BTN();
+  function NAMES_BTN(){
+    var box = $('voices');
+    KURA.NAMES.forEach(function(n, i){
+      var b = document.createElement('button'); b.className = 'ghost small'; b.textContent = n + ' · ' + (KURA.F0 + KURA.NAT[i]) + ' Hz';
+      b.setAttribute('aria-pressed', i === solo ? 'true' : 'false');
+      b.addEventListener('click', function(){ solo = i; Array.prototype.forEach.call(box.children, function(c, j){ c.setAttribute('aria-pressed', j === i ? 'true' : 'false'); }); applyStep(); });
+      box.appendChild(b);
+    });
+  }
+  function go(i){
+    if (playing) stop();
+    step = i; var s = STEPS[i];
+    Array.prototype.forEach.call(rail.children, function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    $('stepEyebrow').textContent = 'Step ' + (i + 1) + ' of ' + STEPS.length + (s.test ? ' · the test' : '');
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say; $('hearHint').textContent = s.hint;
+    $('eq1').textContent = s.eq1[0]; $('eq1w').textContent = s.eq1[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('tryText').textContent = s.tryText;
+    $('voiceRow').hidden = i !== 0; $('kRow').hidden = i < 2; $('letRow').hidden = i !== 3; $('armRow').hidden = i !== 4; $('testBox').hidden = i !== 4;
+    $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
+    kNorm = 0; $('k').value = 0; if (i !== 4){ arm = 'sym'; pressArm(); }
+    hist = []; applyStep();
+  }
+  $('back').addEventListener('click', function(){ if (step > 0) go(step - 1); });
+  $('next').addEventListener('click', function(){ if (step < STEPS.length - 1) go(step + 1); });
+  $('k').addEventListener('input', function(){ kNorm = +this.value; applyStep(); });
+  $('letgo').addEventListener('click', function(){ kNorm = 0; $('k').value = 0; applyStep(); });
+  $('couple').addEventListener('click', function(){ kNorm = 2 * KURA.KC_HZ / kMaxHz(); $('k').value = kNorm; applyStep(); });
+  function pressArm(){ Array.prototype.forEach.call(document.querySelectorAll('[data-arm]'), function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-arm') === arm ? 'true' : 'false'); }); }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-arm]'), function(b){ b.addEventListener('click', function(){ arm = b.getAttribute('data-arm'); pressArm(); applyStep(); }); });
+
+  // ---------- sound: the same core text, run per sample in a worklet ----------
+  var PROC = '\nclass KuraProc extends AudioWorkletProcessor {\n' +
+    '  constructor(){ super(); this.s = KURA.make(); this.c = 0; this.f = KURA.NAT.slice(); this.d = [0,0,0,0,0]; this.n = 0;\n' +
+    '    var self = this; this.port.onmessage = function(e){ var m = e.data, s = self.s; if (m.K != null) s.K = m.K; if (m.on) s.on = m.on.slice(); if (m.recv) s.recv = m.recv.slice(); if (m.send) s.send = m.send.slice(); if (m.th) s.th = m.th.slice(); if (m.f) self.f = m.f.slice(); }; }\n' +
+    '  process(inputs, outputs){ var out = outputs[0], L = out[0], R = out[1], s = this.s, dt = 1 / sampleRate, a = Math.exp(-dt / 0.08), j;\n' +
+    '    for (var i = 0; i < L.length; i++){ KURA.deriv(s, s.th, this.d); for (j = 0; j < 5; j++) this.f[j] = a * this.f[j] + (1 - a) * this.d[j] / KURA.TAU;\n' +
+    '      KURA.step(s, dt); this.c += KURA.TAU * KURA.F0 * dt; if (this.c > KURA.TAU) this.c -= KURA.TAU; var y = KURA.sample(s, this.c); L[i] = y; if (R) R[i] = y; }\n' +
+    '    if (++this.n % 12 === 0) this.port.postMessage({ th: s.th.slice(), f: this.f.slice() });\n' +
+    '    return true; } }\nregisterProcessor("kura-proc", KuraProc);\n';
+  function start(){
+    if (!ctx){
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      var src = document.getElementById('kura-core').textContent + PROC;
+      var url = URL.createObjectURL(new Blob([src], { type: 'application/javascript' }));
+      return ctx.audioWorklet.addModule(url).then(function(){ start(); });
+    }
+    ctx.resume();
+    node = new AudioWorkletNode(ctx, 'kura-proc', { numberOfInputs: 0, outputChannelCount: [2] });
+    node.port.onmessage = function(e){ if (!playing) return; live.th = e.data.th; freq = e.data.f; };
+    node.port.postMessage({ th: live.th, f: freq, K: live.K, on: live.on, recv: live.recv, send: live.send });
+    gain = ctx.createGain(); gain.gain.value = 1;
+    // a limiter after the worklet, as a guard only: the loudest the five can sum to is 0.22 (−13 dBFS), under its threshold
+    var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 20; comp.attack.value = 0.003; comp.release.value = 0.1;
+    analyser = ctx.createAnalyser(); analyser.fftSize = 4096; abuf = new Float32Array(analyser.fftSize);
+    node.connect(gain); gain.connect(comp); comp.connect(analyser); analyser.connect(ctx.destination);
+    playing = true; $('play').textContent = 'Stop';
+  }
+  function stop(){
+    playing = false; $('play').textContent = 'Play'; rmsDb = null;
+    if (node){ try { node.disconnect(); } catch (x) {} node.port.onmessage = null; node = null; }
+  }
+  $('play').addEventListener('click', function(){ if (playing) stop(); else start(); });
+
+  // ---------- the test ----------
+  $('runTest').addEventListener('click', function(){
+    $('testState').textContent = 'running both arms, 30 s of model time each, at 1 ms steps…';
+    setTimeout(function(){
+      var rows = KURA.test(), body = $('testBody'); body.innerHTML = '';
+      rows.forEach(function(r){
+        var tr = document.createElement('tr');
+        var cells = [r.arm, r.Khz.toFixed(1) + ' Hz (' + r.mult + '× lock)', r.locked ? 'yes' : 'no',
+          r.locked ? (KURA.F0 + r.omega).toFixed(2) + ' Hz' : '—',
+          r.locked ? KURA.NAMES[r.who] + ', ' + r.nearest.toFixed(2) + ' Hz off' : '—',
+          r.locked ? (r.dominates ? 'yes, ' + KURA.NAMES[r.who] : 'no') : '—',
+          r.locked ? r.spread.toFixed(1) + '°' + (r.same ? ' · same' : '') : 'slipping',
+          r.r.toFixed(3), r.mostMoved.toFixed(2) + ' Hz'];
+        cells.forEach(function(t, j){ var td = document.createElement('td'); td.textContent = t;
+          if (j === 5 && r.locked){ td.className = r.dominates ? 'no' : 'ok'; } tr.appendChild(td); });
+        body.appendChild(tr);
+      });
+      $('testTable').hidden = false;
+      var even20 = rows[4], anc20 = rows[9], even105 = rows[1], even2 = rows[2];
+      var pictureFails = even20.locked && !even20.dominates, controlWorks = anc20.dominates;
+      var quiet = KURA.playedRms({ K: 0 }), loud = KURA.playedRms({ K: KURA.TAU * 2 * KURA.KC_HZ });
+      var gainDb = 20 * Math.log10(loud / quiet);
+      var over = even2.run.filter(function(f, i){ return Math.abs(f - KURA.NAT[i]) > 0.1; }).length;
+      $('testState').textContent = (controlWorks ? 'the control reads domination' : 'the control failed: the rule is broken') + ' · ' + (pictureFails ? 'the even crowd: no voice dominates at 20× its lock' : 'the even crowd: one voice dominates');
+      var lv = even2.lead.map(function(v, i){ return KURA.NAMES[i] + ' ' + (v >= 0 ? '+' : '') + v.toFixed(1) + '°'; }).join(', ');
+      var rd = $('reading'); rd.hidden = false; rd.innerHTML = '';
+      [ 'Too little coupling, nothing cooperates: that half of the palace’s picture holds. Below the lock each voice keeps close to its own pitch and r stays low.',
+        'Too much: in the even crowd no voice dominates at any coupling. Its pitch stays on the average of the five, ' + (KURA.F0 + even20.omega).toFixed(2) + ' Hz, the same at twenty times the lock as at the lock, and ' + even20.nearest.toFixed(2) + ' Hz from the nearest voice’s own. What grows instead is sameness: the phases bunch from ' + even105.spread.toFixed(1) + '° just past the lock to ' + even20.spread.toFixed(1) + '° at twenty times it. One voice dominates only when the coupling is uneven: with E as the anchor the crowd locks on E’s own ' + (KURA.F0 + anc20.omega).toFixed(2) + ' Hz, and the others move up to ' + anc20.mostMoved.toFixed(2) + ' Hz to get there. So “too much → one dominates” belongs to the stubbornness section’s case, not to K. Turned up evenly, too much coupling makes everyone the same.',
+        'Now the mirror’s sentence. “Coupling doesn’t destroy conatus”: let go, and every voice is back on its own pitch, by construction. “Harmonizes multiple conatus into collective coherence”: r goes from about 0.37 apart to ' + even2.r.toFixed(2) + ' at twice the lock. “Amplified, not overridden”, by the rules said before the run. Overridden: ' + over + ' of 5 voices sound more than 0.1 Hz from their own at twice the lock, as “locked” entails; the even crowd moves A by ' + Math.abs(even2.run[0] - KURA.NAT[0]).toFixed(2) + ' Hz and E by ' + Math.abs(even2.run[4] - KURA.NAT[4]).toFixed(2) + ' Hz. While coupled, each voice’s sounding pitch is overridden. What the lock keeps of a voice’s own pitch is where it stands in the fan: at twice the lock the leads are ' + lv + ', in the same order as the voices’ own pitches, and they shrink as K grows. Amplified, per voice: no, and it couldn’t be; each voice’s amplitude is fixed. Amplified, the sum: yes, the sum the worklet plays is ' + gainDb.toFixed(2) + ' dB louder at twice the lock than apart (RMS of the played sum, from the voices’ phases over 4 s after 10 s of settling; sampled at 48 kHz the same sum agrees to within 0.1 dB, and Play reads it off the output live).',
+        'So, inside the model it names: no voice is amplified, only the whole; each voice’s nature survives the coupling, as its place in the fan and as the pitch it returns to; and each voice’s expressed pitch is overridden while it is coupled. This is the piece’s reading, offered to the page as words for Loudon to take or leave: coupling doesn’t destroy conatus, it holds it, and amplifies the whole.' ]
+        .forEach(function(t){ var p = document.createElement('p'); p.textContent = t; rd.appendChild(p); });
+    }, 30);
+  });
+
+  // ---------- the picture ----------
+  var cv = $('stage'), css = getComputedStyle(document.documentElement);
+  var ACC = css.getPropertyValue('--accent').trim() || '#e8b84a', FG3 = css.getPropertyValue('--fg-3').trim() || '#8a8aa0', FG4 = css.getPropertyValue('--fg-4').trim() || '#4a4a5a';
+  var lastT = 0, acc = 0, rsm = 0;
+  function frame(now){
+    var dt = lastT ? Math.min(0.1, (now - lastT) / 1000) : 0; lastT = now;
+    if (!playing){
+      acc += dt; var h = 1 / 2000, a = Math.exp(-h / 0.08);
+      while (acc >= h){ KURA.deriv(live, live.th, dbuf); for (var j = 0; j < 5; j++) freq[j] = a * freq[j] + (1 - a) * dbuf[j] / KURA.TAU; KURA.step(live, h); acc -= h; }
+    } else acc = 0;
+    var o = KURA.order(live); rsm = rsm + (o.r - rsm) * Math.min(1, dt * 4);
+    hist.push(freq.slice()); if (hist.length > 480) hist.shift();
+    if (playing && analyser){ analyser.getFloatTimeDomainData(abuf); var ss = 0; for (var i = 0; i < abuf.length; i++) ss += abuf[i] * abuf[i]; var rr = Math.sqrt(ss / abuf.length); rmsDb = rr > 1e-7 ? 20 * Math.log10(rr) : -140; }
+    draw(o); meter(o);
+    requestAnimationFrame(frame);
+  }
+  function draw(o){
+    var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1, cssH = Math.round(Math.max(220, Math.min(300, r.width * 0.32)));
+    if (cv.style.height !== cssH + 'px') cv.style.height = cssH + 'px';
+    var W = Math.round(r.width * d), Hh = Math.round(cssH * d);
+    if (!W || !Hh) return;
+    if (cv.width !== W || cv.height !== Hh){ cv.width = W; cv.height = Hh; }
+    var g = cv.getContext('2d'); g.clearRect(0, 0, W, Hh);
+    var p = 14 * d, S = Math.min(Hh - 2 * p, W * 0.34), cx = p + S / 2, cy = Hh / 2, R = S / 2 - 18 * d;
+    g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.fillStyle = FG4; g.textAlign = 'left';
+    g.fillText('PHASES · AGAINST THE CROWD', p, p + 4 * d);
+    g.strokeStyle = 'rgba(255,255,255,0.10)'; g.lineWidth = d; g.beginPath(); g.arc(cx, cy, R, 0, 2 * Math.PI); g.stroke();
+    for (var i = 0; i < 5; i++){
+      if (!live.on[i]) continue;
+      var ang = live.th[i] - o.psi, x = cx + R * Math.cos(ang), y = cy - R * Math.sin(ang);
+      g.strokeStyle = COLS[i]; g.globalAlpha = 0.35; g.beginPath(); g.moveTo(cx, cy); g.lineTo(x, y); g.stroke(); g.globalAlpha = 1;
+      g.fillStyle = COLS[i]; g.beginPath(); g.arc(x, y, 6 * d, 0, 2 * Math.PI); g.fill();
+      g.fillStyle = '#0a0a0f'; g.textAlign = 'center'; g.fillText(KURA.NAMES[i], x, y + 3.5 * d);
+    }
+    g.strokeStyle = ACC; g.lineWidth = 2 * d; g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + R * o.r, cy); g.stroke();
+    g.fillStyle = FG3; g.textAlign = 'left'; g.fillText('r = ' + o.r.toFixed(2), p, Hh - p);
+    // pitch traces
+    var ox = p + S + 18 * d, ow = W - p - ox, top = p + 12 * d, hh = Hh - 2 * p - 22 * d, LO = -6, HI = 8;
+    function Y(f){ return top + hh * (1 - (Math.max(LO, Math.min(HI, f)) - LO) / (HI - LO)); }
+    g.fillStyle = FG4; g.fillText('SOUNDING PITCH · LAST 8 S', ox, p + 4 * d);
+    for (i = 0; i < 5; i++){ if (!live.on[i]) continue; g.strokeStyle = COLS[i]; g.globalAlpha = 0.35; g.setLineDash([3 * d, 4 * d]); g.beginPath(); g.moveTo(ox, Y(KURA.NAT[i])); g.lineTo(ox + ow, Y(KURA.NAT[i])); g.stroke(); g.setLineDash([]); g.globalAlpha = 1;
+      g.fillStyle = COLS[i]; g.textAlign = 'right'; g.fillText(KURA.NAMES[i] + ' ' + (KURA.F0 + KURA.NAT[i]), ox + ow, Y(KURA.NAT[i]) - 3 * d); }
+    var n = hist.length;
+    for (i = 0; i < 5; i++){
+      if (!live.on[i]) continue; g.strokeStyle = COLS[i]; g.lineWidth = 1.8 * d; g.beginPath();
+      for (var k = 0; k < n; k++){ var xx = ox + ow * (k + 480 - n) / 479, yy = Y(hist[k][i]); if (k) g.lineTo(xx, yy); else g.moveTo(xx, yy); }
+      g.stroke();
+    }
+    g.fillStyle = FG4; g.textAlign = 'left'; g.fillText('214 Hz', ox, top + hh + 14 * d); g.fillText('228 Hz', ox, top + 12 * d);
+  }
+  function meter(o){
+    var on = []; for (var i = 0; i < 5; i++) if (live.on[i]) on.push(i);
+    var fs = on.map(function(i){ return freq[i]; }), lockedNow = on.length > 1 && Math.max.apply(null, fs) - Math.min.apply(null, fs) < 0.05;
+    var lines = [];
+    lines.push(on.map(function(i){ return KURA.NAMES[i] + ' <b>' + (KURA.F0 + freq[i]).toFixed(2) + '</b> (own ' + (KURA.F0 + KURA.NAT[i]) + ')'; }).join(' · '));
+    if (on.length > 1) lines.push('togetherness r ' + rsm.toFixed(2) + ' · ' + (lockedNow ? '<b>locked</b> at ' + (KURA.F0 + fs.reduce(function(a, b){ return a + b; }, 0) / fs.length).toFixed(2) + ' Hz' : 'not locked'));
+    if (step >= 2) lines.push('<span class="src">lock begins at K ≈ ' + (step === 4 && arm === 'anchor' ? KURA.KC_ANCHOR_HZ : KURA.KC_HZ).toFixed(2) + ' Hz (measured, ' + (step === 4 && arm === 'anchor' ? 'anchor' : 'even') + ' coupling)</span>');
+    lines.push('<span class="src">' + (playing ? 'pitches from the worklet making the sound' + (rmsDb != null ? ' · the sum, read off the output: ' + rmsDb.toFixed(1) + ' dBFS RMS' : '') : 'pitches from the same model running silently here; press Play to hear it and read them from the worklet making the sound') + '</span>');
+    $('meter').innerHTML = lines.join('<br>');
+  }
+  go(0);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
