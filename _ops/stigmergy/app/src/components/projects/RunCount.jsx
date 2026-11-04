@@ -6,7 +6,9 @@ import React from 'react';
 // lane as `max_cycles`; the run still ends early on a blocking ask, a stall, a
 // session request or a usage limit (steward-lane.js nextRunStep), and the
 // manifest's max_iterations on disk is never touched. The count starts at the
-// manifest's own cap, so an untouched click does what it did before.
+// manifest's own cap, so an untouched click does what it did before. It sits
+// beside ADVANCE on a scroll and in a PROJECTS row's confirm step (Loudon,
+// 2026-11-03: "as the Confirm option opens I can set a max").
 
 export const RUN_COUNT_MAX = 5;
 
@@ -40,19 +42,21 @@ function Chip({ label, testid, off, onClick }) {
   );
 }
 
-export default function RunCount({ value, onChange, disabled = false }) {
+// `testId` names the control for tests: the scroll's is `scroll-run-count`,
+// a PROJECTS row's `steward-run-count-<slug>`; the chips take `-less` / `-more`.
+export default function RunCount({ value, onChange, disabled = false, testId = 'scroll-run-count' }) {
   const n = clampRunCount(value);
   return (
     <span
-      data-testid="scroll-run-count"
+      data-testid={testId}
       data-count={n}
       title={`cycles per advance, 1 to ${RUN_COUNT_MAX} -- the run still stops early on a blocking ask, a stall or a usage limit`}
       style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11, color: 'var(--phosphor-dim)', textShadow: 'none', letterSpacing: '.04em', textTransform: 'uppercase' }}
     >
       <span>cycles</span>
-      <Chip label="-" testid="scroll-run-count-less" off={disabled || n <= 1} onClick={() => onChange(clampRunCount(n - 1))} />
-      <span data-testid="scroll-run-count-value" style={{ color: 'var(--phosphor-white)', textShadow: 'var(--glow)', minWidth: '1ch', textAlign: 'center', fontSize: 13 }}>{n}</span>
-      <Chip label="+" testid="scroll-run-count-more" off={disabled || n >= RUN_COUNT_MAX} onClick={() => onChange(clampRunCount(n + 1))} />
+      <Chip label="-" testid={`${testId}-less`} off={disabled || n <= 1} onClick={() => onChange(clampRunCount(n - 1))} />
+      <span data-testid={`${testId}-value`} style={{ color: 'var(--phosphor-white)', textShadow: 'var(--glow)', minWidth: '1ch', textAlign: 'center', fontSize: 13 }}>{n}</span>
+      <Chip label="+" testid={`${testId}-more`} off={disabled || n >= RUN_COUNT_MAX} onClick={() => onChange(clampRunCount(n + 1))} />
     </span>
   );
 }

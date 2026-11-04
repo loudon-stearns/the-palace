@@ -9,6 +9,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import RunCount, { RUN_COUNT_MAX, clampRunCount, defaultRunCount } from '../../src/components/projects/RunCount.jsx';
 import { advanceFeedback, runEndedFeedback } from '../../src/components/projects/steward-feedback.js';
 import { advanceSteward } from '../../src/adapters/stewards.js';
+import { ProjectRow } from '../../src/components/projects/ProjectsDeck.jsx';
 
 describe('clampRunCount / defaultRunCount', () => {
   it('holds 1..RUN_COUNT_MAX and reads anything unreadable as 1', () => {
@@ -44,6 +45,14 @@ describe('RunCount', () => {
     const off = renderToStaticMarkup(React.createElement(RunCount, { value: 3, onChange: () => {}, disabled: true }));
     expect(off).toMatch(/data-testid="scroll-run-count-less"[^>]*aria-disabled="true"/);
     expect(off).toMatch(/data-testid="scroll-run-count-more"[^>]*aria-disabled="true"/);
+  });
+
+  it('takes a testid of its own for a PROJECTS row', () => {
+    const html = renderToStaticMarkup(React.createElement(RunCount, { value: 2, onChange: () => {}, testId: 'steward-run-count-shopkeeper' }));
+    expect(html).toContain('data-testid="steward-run-count-shopkeeper"');
+    expect(html).toContain('data-testid="steward-run-count-shopkeeper-less"');
+    expect(html).toContain('data-testid="steward-run-count-shopkeeper-more"');
+    expect(html).not.toContain('scroll-run-count');
   });
 
   it('never renders a value outside the range', () => {
@@ -101,5 +110,29 @@ describe('the words: advancing, and how the last run ended', () => {
 
   it('an unknown reason comes through in plain words rather than vanishing', () => {
     expect(runEndedFeedback('Shopkeeper', { ok: true, name: 'Shopkeeper', cycle_n: 1, run: { cap: 3, position: 1, stopped_because: 'clock: 61 of 60 min' } }).text).toContain('stopped early: clock: 61 of 60 min');
+  });
+});
+
+describe("a PROJECTS row's confirm step carries the count (every stewarded row, Loudon 2026-11-03)", () => {
+  const row = { home: 'Shopkeeper', stewarded: true, run_cap: 1, stage: null, iteration: 4 };
+  const props = { row, onOpen: () => {}, onAdvance: () => {}, canAdvance: true, onConfirm: () => {}, onCancel: () => {}, busy: false };
+
+  it('shows the control beside CONFIRM while confirming, at the count the deck holds', () => {
+    const html = renderToStaticMarkup(React.createElement(ProjectRow, { ...props, confirming: true, runCount: 3, onRunCount: () => {} }));
+    expect(html).toContain('data-testid="steward-run-count-shopkeeper"');
+    expect(html).toContain('data-count="3"');
+    expect(html).toContain('data-testid="steward-confirm-shopkeeper"');
+    expect(html).not.toContain('run up to');
+  });
+
+  it("falls back to the row's manifest cap when the deck holds no count", () => {
+    const html = renderToStaticMarkup(React.createElement(ProjectRow, { ...props, confirming: true, runCount: null }));
+    expect(html).toContain('data-count="1"');
+  });
+
+  it('hides the control when the row is not confirming', () => {
+    const html = renderToStaticMarkup(React.createElement(ProjectRow, { ...props, confirming: false }));
+    expect(html).not.toContain('steward-run-count-');
+    expect(html).toContain('data-testid="steward-advance-shopkeeper"');
   });
 });

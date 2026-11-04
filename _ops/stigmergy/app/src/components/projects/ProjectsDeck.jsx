@@ -7,6 +7,7 @@ import { slug, StatusDot, RunningTag, QueuedTag } from './status.jsx';
 import { usePalaceRef } from '../../lib/palace-ref.jsx';
 import ScheduleStrip from '../stewards/ScheduleStrip.jsx';
 import { advanceFeedback, enchantFeedback } from './steward-feedback.js';
+import RunCount, { defaultRunCount } from './RunCount.jsx';
 
 // The PROJECTS deck — every project on one screen, and one click into any of
 // them. Replaces the STEWARDS roster (2026-09-23): the roster showed stewards
@@ -22,8 +23,11 @@ import { advanceFeedback, enchantFeedback } from './steward-feedback.js';
 //             (ScrollHost), not this deck, because any page may keep a scroll
 //             and the entry reader's face switch opens the same view from STATE.
 //
-// Advancing fires a RUN (up to the manifest's max_iterations cycles) through
-// the same lane as before; the row shows "running k/N" while it is live.
+// Advancing fires a RUN through the same lane as before; the row shows
+// "running k/N" while it is live. The confirm step carries the cycle count
+// (RunCount, 2026-11-03): it opens at the manifest's max_iterations and Loudon
+// sets the cap for that advance there, 1 to 5; the manifest on disk is never
+// edited, and the run still ends early on a blocking ask, a stall or a limit.
 // Advancing while a cycle is live QUEUES the row behind it (2026-10-13): one
 // lane, click order; the row shows "queued #n" with an unqueue control.
 //
@@ -111,7 +115,7 @@ function GroupHeading({ children, n }) {
   );
 }
 
-export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, confirming, onConfirm, onCancel, busy, onEnchant, confirmingEnchant, onConfirmEnchant, onDequeue }) {
+export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, confirming, onConfirm, onCancel, busy, onEnchant, confirmingEnchant, onConfirmEnchant, onDequeue, runCount, onRunCount }) {
   const sid = slug(row.home);
   const dim = { color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, whiteSpace: 'nowrap' };
   return (
@@ -148,8 +152,9 @@ export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, co
       <span style={{ display: 'flex', gap: 6, justifyContent: 'flex-end' }}>
         {row.stewarded ? (confirming ? (
           <>
-            <span style={{ color: 'var(--warn)', textShadow: 'var(--glow)', fontSize: 11 }}>run up to {row.run_cap} cycles?</span>
-            <span data-testid={`steward-confirm-${sid}`}><Button tone="primary" disabled={busy} onClick={() => onConfirm(row.home)}>confirm</Button></span>
+            <span style={{ color: 'var(--warn)', textShadow: 'var(--glow)', fontSize: 11 }}>run</span>
+            <RunCount value={runCount ?? defaultRunCount(row)} onChange={onRunCount || (() => {})} disabled={busy} testId={`steward-run-count-${sid}`} />
+            <span data-testid={`steward-confirm-${sid}`}><Button tone="primary" disabled={busy} onClick={() => onConfirm(row.home, runCount ?? defaultRunCount(row))}>confirm</Button></span>
             <Button tone="default" disabled={busy} onClick={onCancel}>cancel</Button>
           </>
         ) : (
@@ -173,6 +178,10 @@ export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, co
 export default function ProjectsDeck({ onOpenScroll }) {
   const [data, setData] = useState(null);
   const [pending, setPending] = useState(null);
+  // The cycle count in the open confirm step: reset to the row's manifest cap
+  // each time a confirm opens, then whatever Loudon sets before he confirms.
+  const [runCount, setRunCount] = useState(1);
+  const openConfirm = (row) => { setPending(row.home); setRunCount(defaultRunCount(row)); };
   const [feedback, setFeedback] = useState(null);
   const [busy, setBusy] = useState(false);
   const palace = usePalaceRef();
@@ -198,9 +207,9 @@ export default function ProjectsDeck({ onOpenScroll }) {
   const running = !!worker.running;
   const readyRows = readyToAdvance(rows);
 
-  async function doAdvance(name) {
+  async function doAdvance(name, count) {
     setBusy(true); setFeedback(null); setPending(null);
-    setFeedback(advanceFeedback(name, await advanceSteward(name)));
+    setFeedback(advanceFeedback(name, await advanceSteward(name, { maxCycles: count })));
     setBusy(false); refresh();
   }
 
@@ -238,10 +247,12 @@ export default function ProjectsDeck({ onOpenScroll }) {
       row={row}
       onOpen={onOpenScroll}
       onOpenEntry={openEntry}
-      onAdvance={(n) => setPending(n)}
+      onAdvance={() => openConfirm(row)}
       canAdvance={row.stewarded && !row.running && !row.queued && !busy}
       confirming={pending === row.home}
       onConfirm={doAdvance}
+      runCount={pending === row.home ? runCount : null}
+      onRunCount={setRunCount}
       onCancel={() => setPending(null)}
       busy={busy}
       onDequeue={doDequeue}
@@ -310,10 +321,12 @@ export default function ProjectsDeck({ onOpenScroll }) {
                   row={row}
                   onOpen={onOpenScroll}
                   onOpenEntry={openEntry}
-                  onAdvance={(n) => setPending(n)}
+                  onAdvance={() => openConfirm(row)}
                   canAdvance={row.stewarded && !row.running && !row.queued && !busy}
                   confirming={pending === row.home}
                   onConfirm={doAdvance}
+                  runCount={pending === row.home ? runCount : null}
+                  onRunCount={setRunCount}
                   onCancel={() => setPending(null)}
                   busy={busy}
                   onDequeue={doDequeue}
