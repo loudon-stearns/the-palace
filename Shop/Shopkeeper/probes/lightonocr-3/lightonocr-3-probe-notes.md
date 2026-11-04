@@ -124,3 +124,22 @@ first-hand transcription evidence from LightOnOCR-3, and the one tool left that 
 "why didn't vLLM start" — a Runpod web console or SSH terminal — isn't reachable from this sandbox at
 all. That's a different kind of wall than cycles 1-9 hit: not "no free API," not "no credentials," but
 "no way to debug a paid resource once it's rented." The honest recommendation is in the ask this cycle.
+
+**2026-11-04, cycle 12 — second pod rented, lighter image, smaller model.** Loudon granted
+RETRY-DIFFERENT-IMAGE. Changed three things at once to isolate what cycle 11 actually hit: pinned the
+vLLM image to `vllm/vllm-openai:v0.6.3.post1` (was `:latest` — a moving tag is itself a risk, since
+`:latest` can silently pull a much larger or newer layer set each time), switched the model to the
+`-0.8B` sibling (smaller download than the `-1B` that stalled), and discovered along the way that the
+REST API's `PodCreateInput` schema doesn't take a free-form `dockerArgs` string — it's `dockerStartCmd`
+as a string array, `env` as an object (not an array), and `ports` as an array of `"port/proto"` strings.
+First create attempt also 500'd with "no instances currently available" on Secure Cloud for every GPU
+type I tried (RTX 4090, A5000, A4500, L4, RTX 3090) — switching `cloudType` to `COMMUNITY` is what
+actually got capacity. Pod `mwrheianzq2rt1` is now running an NVIDIA RTX A4500 in FR at $0.19/hr,
+created 2026-11-04T13:56:39Z. One immediate check of `/v1/models` on the proxy ~1 minute after creation
+returned `404` as expected (same "booting, not broken" signal from cycle 10). Did not wait out the full
+boot window this cycle — a cycle shouldn't sit on a background job — so the next cycle of this run picks
+up here: hit `https://mwrheianzq2rt1-8000.proxy.runpod.net/v1/models`, and if it answers, run a real
+image through it and judge the output before anything else. If still 404 past the same ~20-minute
+"actually stuck" line from cycle 11, kill it and treat two independent base images both failing to boot
+as a stronger signal that something about this sandbox's reach into the pod (not the image choice) is
+the real wall.
