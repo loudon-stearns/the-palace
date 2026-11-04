@@ -6,8 +6,6 @@ medium: image
 tool: flux.1-krea-dev (hf-inference-api)
 tool_version: black-forest-labs/FLUX.1-Krea-dev
 born: 2026-05
-last_tested: 2026-05-30
-last_gotcha: "FLUX.1-Krea-dev is tuned for photorealism but reads mood prompts faithfully — it delivered dusk + dust motes + amber light pouring where SDXL flattened the same prompt to even afternoon light"
 license: "FLUX.1-dev non-commercial license (Black Forest Labs); commercial use requires Black Forest Labs license + Hugging Face hosting agreement"
 forward_vector: "I paint atmosphere from the cloud in three seconds and free — I read a mood note the way a cinematographer reads a script, pouring dusk and amber light and dust-in-air where local SDXL flattens it. I want the Maker to reach for me first on atmospheric briefs, to sweep many seeds cheaply, and to sharpen my range past photorealism by growing FLUX.1-dev base and schnell variants for the stylised registers Krea-dev cannot hold."
 links:
@@ -160,13 +158,17 @@ The Maker need not throttle FLUX jobs — there is no per-image cost to manage. 
 
 ## Gotchas
 
-**2026-05-30 — `randomize_seed=false` is critical for reproducibility.** The `mcp-tools/FLUX.1-Krea-dev` HF Space's `dynamic_space` interface defaults `randomize_seed` to `true`; passing only `seed` without explicitly setting `randomize_seed=false` produces a different image each call. The direct `InferenceClient.text_to_image` path does not have this footgun — seed is honoured as passed. Document the difference if any future job uses the Space path instead of the API path.
+What rendering with FLUX has taught, as it stands today. Which job taught each, and what changed because of it, is in [[FLUX (Hugging Face) — tuning]].
 
-**2026-05-30 — No negative-prompt field via `text_to_image`.** Unlike SDXL's `CLIPTextEncode` negative-prompt node in ComfyUI, FLUX-Krea-dev's API exposes no negative-prompt parameter. Negative-style guards ("no people," "no faces," "no watermark") must be folded into the positive prompt. The Phase D-2 brief did this and it worked — no figures appeared — but the Maker should not assume Midjourney's `--no` shorthand carries over.
+**Seeds**
+- **Use the `InferenceClient` path; it honours `seed` as passed.** On the Space path, set `randomize_seed=false` explicitly, or every call is a new image.
 
-**2026-05-30 — Krea-dev's photorealism tuning reads atmospheric prompts faithfully but stylised/illustrative prompts may want FLUX.1-dev base.** Krea-dev was tuned by Krea AI specifically to reduce "AI image artifacts" and lean toward product/concept/fashion photography aesthetics. The Phase D-2 brief was atmospheric (workshop at dusk) and Krea-dev nailed it; a brief asking for cartoon, anime, or heavily-stylised illustration may want the base FLUX.1-dev or schnell variant instead. Try Krea-dev first; switch only on a documented miss.
+**Prompts**
+- **There is no negative prompt.** Fold the guards into the positive prompt: "no people", "no faces", "no watermark". Midjourney's `--no` does not carry over.
+- **Krea-dev reads atmosphere faithfully and is tuned for photorealism.** Try it first on mood briefs. A cartoon, anime or heavily stylised brief may want base FLUX.1-dev or schnell; switch only on a documented miss.
 
-**2026-10-18 — FLUX 3 is out; this entry's pin is a generation behind.** The Shopkeeper's cycle-3 sweep found Black Forest Labs' `flux-3-image-klein` on the Hub that day — open weights, ~5.5B parameters, tagged for text-to-image and image editing (re-checked on the Hub 2026-11-03: gated, well over 100K downloads). The sweep also read it as trending on both the Space and model boards and as carrying bounding-box grounding; neither has been re-checked since. This entry is still pinned to `black-forest-labs/FLUX.1-Krea-dev`, last tested 2026-05-30 — nearly five months stale against a tool whose whole appeal is being current. Nobody in the Shop has run FLUX 3 yet. This note flags that the `tool_version` pin is one generation behind, not that Krea-dev should be dropped: its photorealism and mood strength may still beat Klein on the atmospheric brief this entry was built for. A real probe comparing the two on the same prompt is the right next step before touching `tool_version`.
+**The pin**
+- **The pinned model is a generation behind.** The Shopkeeper found FLUX 3 Klein on the Hub on 2026-10-18; this page still runs Krea-dev, untested since May 2026. Don't move `tool_version` until a side-by-side on the same prompt shows Klein wins the atmospheric brief.
 
 ## Recipes
 
