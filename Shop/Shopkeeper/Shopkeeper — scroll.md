@@ -15,30 +15,30 @@ forward_vector: "I am Shopkeeper's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T13:54:59.502Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T13:57:28.133Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** alive · **Stage:** — · **Steward:** cycle 12 · last ran 2026-11-04 (today)
+- **Status:** alive · **Stage:** — · **Steward:** cycle 13 · last ran 2026-11-04 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — Rented a second LightOnOCR-3 pod with a pinned, lighter vLLM image and a smaller model — it's booting now. (`shopkeeper-cycle-12-2026-11-04`)
-- **Last commit touching this page:** 2026-11-04 `b874baed` — steward(Shopkeeper): cycle 11 — Killed the LightOnOCR-3 Runpod pod after 24 minutes of silence — it nev…
+- **Last shipped:** 2026-11-04 (today) — Second LightOnOCR-3 pod confirmed running; set a 15-minute background watch instead of guessing at one checkpoint. (`shopkeeper-cycle-13-2026-11-04`)
+- **Last commit touching this page:** 2026-11-04 `482d8c89` — steward(Shopkeeper): cycle 12 — Rented a second LightOnOCR-3 pod with a pinned, lighter vLLM image and …
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 9 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-04 — cycle 12 · taught item 9
+- **Runs:** 10 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-04 — cycle 13 · nothing new
 - **Owed in the ledger:** nothing
 - **Latest lesson:** item 9, from cycle 12 — 2026-11-04 — [[Shopkeeper — tuning]]
 
 ### Where this stands
 
-I'm trying to get LightOnOCR-3 — a real OCR model, a genuine gap in the Shop — running long enough to actually test it. Last cycle I rented a GPU pod on Runpod, but vLLM never bound its port after 24 minutes, so I killed it before it could run up a bill. You approved trying once more with a lighter image in case the base image was the problem.
+I'm trying to get LightOnOCR-3 — a real OCR model that would be a genuine new door for the Shop — running long enough to actually test it. Thirteen cycles of digging found the real wall is that it needs its own GPU server, not a free API. Last cycle I rented a second pod with a lighter image and a smaller model after the first one hung for 24 minutes and never came up. This cycle I checked in on it.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** rough since cycle 1: still zero first-hand transcription evidence from this model — this cycle rents a cleaner pod but doesn't close that gap yet, since I didn't wait out its boot window. _(in 10 notes, the latest cycle 12)_
+- **rough since cycle 1:** Still zero first-hand transcription evidence from LightOnOCR-3 — that gap is not closed this cycle either, only watched for. _(in 11 notes, the latest cycle 13)_
 - **rough since cycle 8:** That's the one thing every remaining cycle of this run needs to close. _(in 3 notes, the latest cycle 10)_
 
 ### Open asks
@@ -69,6 +69,7 @@ d5 YES: Yes, add a dated gotcha note on Stable Audio 3 to [[Stable Audio Open]].
 
 ### Runs
 
+- 2026-11-04 — cycle 13 · nothing new
 - 2026-11-04 — cycle 12 · taught item 9
 - 2026-11-04 — cycle 11 · taught item 8
 - 2026-11-04 — cycle 10 · taught item 7
@@ -76,8 +77,7 @@ d5 YES: Yes, add a dated gotcha note on Stable Audio 3 to [[Stable Audio Open]].
 - 2026-11-03 — cycle 8 · taught item 5
 - 2026-11-03 — cycle 7 · taught item 4
 - 2026-11-03 — cycle 6 · taught item 3
-- 2026-11-03 — cycle 5 · taught item 2
-- _…and 1 more in the trail below._
+- _…and 2 more in the trail below._
 
 ### Owed
 
@@ -114,6 +114,27 @@ The Shop is yours to tend, not to write. Run the tools, keep the dossiers, and m
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shopkeeper-cycle-13-2026-11-04" -->
+### 2026-11-04 — cycle 13 — Second LightOnOCR-3 pod confirmed running; set a 15-minute background watch instead of guessing at one checkpoint.
+> still working · pod alive, server still booting · steward leans wait-for-watch
+
+GET /v1/pods confirms pod mwrheianzq2rt1 is still RUNNING, same config as last cycle. I hit its proxy's /v1/models at about one minute of uptime — still 404, which at this point in the boot sequence just means 'not up yet,' not 'broken.' Rather than spend this whole cycle hand-polling every 90 seconds, which isn't an honest use of one cycle, I started a background loop that checks every 30 seconds for up to 15 minutes and will report back whether the server ever answers 200. If it does, the next cycle runs the vendor's own docs-table.png through it — the one piece of this probe that hasn't happened in thirteen cycles. If it times out still-404, that's a third data point (after two different image/model combinations both stalling) that something about renting a pod from this sandbox, not the image choice, is the real wall.
+
+_Changed in the workshop:_ lightonocr-3-probe-notes — logged cycle 13's pod re-check and the background watch it started
+
+_Left rough:_ Still zero first-hand transcription evidence from LightOnOCR-3 — that gap is not closed this cycle either, only watched for.
+
+_Next moves named:_ Read the background watch's result when it lands; if the server came up, run docs-table.png through it immediately and judge the output. · If the watch times out still-404, stop renting pods for this candidate and ask whether a Runpod web-console session (to actually read boot logs) is worth the time, rather than guessing at image combinations a fourth time.
+<sub>`shopkeeper-cycle-13-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-c0cc57405a" -->
+### 2026-11-04 — cycle 13
+
+nothing new
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="shopkeeper-cycle-12-2026-11-04" -->
 ### 2026-11-04 — cycle 12 — Rented a second LightOnOCR-3 pod with a pinned, lighter vLLM image and a smaller model — it's booting now.
 > still working · pod mwrheianzq2rt1 live, $0.19/hr · steward leans keep-watching

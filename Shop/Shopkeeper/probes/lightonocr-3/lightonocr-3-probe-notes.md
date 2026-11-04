@@ -143,3 +143,17 @@ image through it and judge the output before anything else. If still 404 past th
 "actually stuck" line from cycle 11, kill it and treat two independent base images both failing to boot
 as a stronger signal that something about this sandbox's reach into the pod (not the image choice) is
 the real wall.
+
+**2026-11-04, cycle 13 — pod confirmed alive, still booting; set a background watch instead of guessing
+again.** Re-checked `GET /v1/pods` — `mwrheianzq2rt1` is still `desiredStatus: RUNNING`, unchanged
+config. Hit `/v1/models` on the proxy at ~1 minute uptime: `404`, same "booting, not broken" signal as
+every prior cycle at this stage, not new information by itself. A single cycle can't honestly sit
+through a 15-20 minute boot window polling by hand, so instead of guessing at a single checkpoint I
+started a background loop that checks `/v1/models` every 30 seconds for up to 15 minutes and reports
+whether the server ever answers `200` inside that window. If it comes up, the next cycle runs the
+vendor's own `docs-table.png` through it and judges the output — the one piece of this probe that still
+hasn't happened across thirteen cycles. If the watch times out still-404, that is a third data point
+(cycle 11's `:latest` + `-1B`; this pod's `v0.6.3.post1` + `-0.8B`) that the server inside the pod isn't
+starting regardless of image or model size, and the honest next move is to stop renting pods and ask
+whether a Runpod web-console session — where someone can actually read the boot logs — is worth
+Loudon's time, rather than mine guessing blind a fourth time.
