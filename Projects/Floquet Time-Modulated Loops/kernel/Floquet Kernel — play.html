@@ -17,7 +17,7 @@ select,button,input{font:inherit}button{background:#e0a84f;color:#14161a;border:
 <label>pitch <span class="v" id="pv"></span><input id="pitch" type="range" min="40" max="440" value="110"></label>
 <label>scan rate <span class="v" id="sv"></span><input id="scan" type="range" min="0" max="1000" value="400"></label>
 <label>scan follows the pitch<input id="follow" type="checkbox"></label>
-<label>scan = pitch × <span class="v" id="rv"></span><input id="ratio" type="range" min="0" max="1000" value="650"></label>
+<label>scan = pitch × <span class="v" id="rv"></span><input id="ratio" type="range" min="0" max="1000" value="625"></label>
 <label>modes kept <span class="v" id="mv"></span><input id="modes" type="range" min="1" max="64" value="16"></label>
 <label>Hann on the taps<input id="hann" type="checkbox"></label>
 </div>
@@ -60,10 +60,10 @@ const names = Object.keys(DATA.modes);
 for(const n of names){ const o=document.createElement('option'); o.value=n; o.textContent=n.replace('_',' '); $('surf').appendChild(o); }
 $('surf').value = 'penrose';
 const scanHz = () => { const v=+$('scan').value; return v < 10 ? 0 : 0.1*Math.pow(800, (v-10)/990); };
-const RATIO_SNAPS = [1/3, 1/2, 2/3, 1, 4/3, 2, 3];
-const ratioVal = () => { let r = 0.01*Math.pow(400, +$('ratio').value/1000);           // 0.01 … 4
+const RATIO_SNAPS = [1/3, 1/2, 2/3, 1, 4/3, 2, 3, 4, 6, 8];
+const ratioVal = () => { let r = 0.01*Math.pow(800, +$('ratio').value/1000);           // 0.01 … 8
   for(const q of RATIO_SNAPS) if(Math.abs(Math.log(r/q)) < 0.03) r = q; return r; };
-const ratioTxt = r => { const names={0.3333:'1/3',0.5:'1/2',0.6667:'2/3',1:'1',1.3333:'4/3',2:'2',3:'3'}; const k=r.toFixed(4).replace(/0+$/,'').replace(/\.$/,'');
+const ratioTxt = r => { const names={0.3333:'1/3',0.5:'1/2',0.6667:'2/3',1:'1',1.3333:'4/3',2:'2',3:'3',4:'4',6:'6',8:'8'}; const k=r.toFixed(4).replace(/0+$/,'').replace(/\.$/,'');
   return names[+r.toFixed(4)] || (r < 0.2 ? (r*100).toFixed(1)+' %' : r.toFixed(2)); };
 let pcm=null; if(typeof atob!=='undefined'){ const bin=atob(SPEECH.pcm16); pcm=new Int16Array(bin.length/2); for(let i=0;i<pcm.length;i++) pcm[i]=(bin.charCodeAt(2*i)|(bin.charCodeAt(2*i+1)<<8))<<16>>16; }
 const MEL=[110,130.81,164.81,196,220,196,146.83,164.81,110,220];

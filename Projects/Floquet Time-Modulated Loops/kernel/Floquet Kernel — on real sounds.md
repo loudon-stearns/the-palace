@@ -5,6 +5,8 @@ born: 2026-11-04
 
 # Floquet Kernel — on real sounds (2026-11-04, cycle 7)
 
+> Corrected by [[Floquet Kernel — on a voice|the next proof]]: the voice numbers below come from a measure that blurs a gliding pitch (Penrose locked on a voice reads 0.89, not 0.23, with the pitch measured properly), and a pitch error is multiplied by how many harmonics the scan moves a partial, not tripled on Knot Shadow.
+
 Loudon heard about the [[Floquet Kernel — mode bank|mode bank]] and said three things: render Knot Shadow as a pitch shifter on a real phrase; try a scan rate kept relative to the pitch, both whole-number ratios and small percentages; and since this is a filter that can go over any sound, feed it more kinds of sound, spoken words among them. This proof does all three. Rebuild: `/usr/local/bin/python3 kernel/phrase.py` (about ten seconds). Numbers are in `kernel/phrase_report.json`.
 
 ## Yes, it goes over any sound

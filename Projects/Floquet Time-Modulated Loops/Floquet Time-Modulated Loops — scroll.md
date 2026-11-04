@@ -15,36 +15,36 @@ forward_vector: "I am Floquet Time-Modulated Loops's scroll — the one page tha
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T02:09:51.715Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T02:15:12.337Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 7 · last ran 2026-11-04 (today)
-- **Plan:** agreed 2026-09-26 (39 days ago) · 9 made things since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 8 · last ran 2026-11-04 (today)
+- **Plan:** agreed 2026-09-26 (39 days ago) · 11 made things since
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — The surface filters now run over a voice, a plucked melody and drums, and the scan can follow the pitch. Locked, the output stays in tune. (`floquet-steward-016`)
-- **Last commit touching this project:** 2026-11-03 `6d8d9e2b` — steward(Floquet Time-Modulated Loops): cycle 6 — SPINNING UP. HOME: [Floquet Time-Modulated Loops](obsidian://open?vault…
+- **Last shipped:** 2026-11-04 (today) — The surface filters have four proofs. Shall I start the fourth instrument next, working backward from a target sound? (`floquet-steward-019`)
+- **Last commit touching this project:** 2026-11-03 `2e29ffe8` — steward(Floquet Time-Modulated Loops): cycle 7 — SPINNING UP. HOME: [Floquet Time-Modulated Loops](obsidian://open?vault…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 7 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 7 · taught item 13, proposed item 14 for canon
+- **Runs:** 8 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 8 · taught item 15, proposed item 16 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 3 — items 6, 8, 14; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 14, from cycle 7 — 2026-11-03 — [[Floquet Time-Modulated Loops — tuning]]
+- **Proposed for canon:** 3 — items 6, 8, 16; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 16, from cycle 8 — 2026-11-03 — [[Floquet Time-Modulated Loops — tuning]]
 
 ### Where this stands
 
-Floquet Time-Modulated Loops argues that the 'nothing changes over time' assumption under almost every audio loop is a choice. Its plan has five instruments. The first, a pumped resonator, is built and waits on Max, which is paused. The second, a string with its loudness and length pumped, has its browser proofs. The third is where the work is now: it plays a wavetable surface from the 2D Torus library as a filter that changes over time. One axis of the surface is the filter, and the other is scanned. Last cycle it was rebuilt as a cheap bank of band-passes and frequency shifts. You answered that it sounds worth pursuing, asked for Knot Shadow on a real phrase, a scan kept relative to the p…
+Floquet Time-Modulated Loops argues that the 'nothing changes over time' assumption under almost every audio loop is a choice, and it has five instruments on its plan. The first, a pumped resonator, is built and waits on Max, which is paused. The second, a string with its loudness and length pumped, has its browser proofs. The third is where the work is: it plays a wavetable surface from the 2D Torus library as a filter that changes over time, with one axis read as the filter and the other scanned. Last cycle the scan was tied to the input's pitch, which kept a plucked melody in tune but only sometimes held on speech. This cycle rebuilt the speech with a pitch known exactly and found why. M…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** I only checked its script parses. _(in 2 notes, the latest cycle 4)_
-- **rough since cycle 2:** Nobody has heard it yet: not the play page, and not the four reels. _(in 6 notes, the latest cycle 7)_
+- **rough since cycle 1:** Its script parses, and the browser filter still matches the Python. _(in 3 notes, the latest cycle 8)_
+- **rough since cycle 2:** Nobody has heard it yet: not the play page, and not the reels. _(in 7 notes, the latest cycle 8)_
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `floquet-steward-019` — directional_decision · posted 2026-11-04 · options: MOVE-ON · STAY-VOICE · STAY-SURFACES
 
 ### Answered, not yet consumed
 
@@ -57,6 +57,7 @@ _None._
 
 ### Runs
 
+- 2026-11-03 — cycle 8 · taught item 15, proposed item 16 for canon
 - 2026-11-03 — cycle 7 · taught item 13, proposed item 14 for canon
 - 2026-11-03 — cycle 6 · taught item 11, proposed item 12 for canon
 - 2026-11-03 — cycle 5 · taught item 9, proposed item 10 for canon
@@ -75,7 +76,7 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 
 - **6.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 2 — Floquet Comb, a new paragraph after the first — Adds what the two-pump proof measured to the Stage 2 sketch, and corrects the tongue width to its two meanings.
 - **8.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Open Questions, the bullet 'Does the tanh saturation in Stage 1 distort the Strutt picture?', a new progressed line after the existing one — The question asked which saturation is the right sound; Loudon answered it, and the measured level law is the reason it teaches well.
-- **14.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 3 — Floquet Kernel (wavetable as filter), a new paragraph after the first — Item 12 called Knot Shadow a pitch shifter; on a voice that holds only with the scan locked to the pitch, and the locked scan is the finding that makes the filter playable.
+- **16.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 3 — Floquet Kernel (wavetable as filter), a new paragraph after the first — Item 14 left the voice case open; the known-pitch test shows when the locked scan can follow a live voice and when it can't, and that sets the codebox's pitch input.
 
 <!-- scroll:now:end -->
 
@@ -104,6 +105,74 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="floquet-steward-019" -->
+### 2026-11-04 — cycle 8 — The surface filters have four proofs. Shall I start the fourth instrument next, working backward from a target sound?
+> still working · third instrument proven in Python and the browser · steward leans MOVE-ON
+
+Quick catch-up: this project has five instruments. The third plays a wavetable surface as a filter that changes over time. It now has four proofs: the filter itself, a cheap version that runs as a bank of band-passes and frequency shifts, real inputs with a scan tied to the pitch, and today's test showing which surfaces can follow a live voice. What's left there is either hearing it or waiting on Max. The next instrument on the plan works backward: pick a target spectrum, such as piano-stretched partials, and solve for the pump that makes a loop ring with it. That move is the hardest and least certain on the plan. Staying would mean recording a real voice, or rendering more surfaces as filters. I lean on moving on, and I keep working either way.
+
+**Artifacts:**
+- [Today's result: what a wrong or late pitch costs each surface.](Projects/Floquet Time-Modulated Loops/kernel/voice_budget.png)
+- [reel_4_drums.wav](Projects/Floquet Time-Modulated Loops/kernel/phrase/reel_4_drums.wav)
+- [reel_3_pitch_locked_speech.wav](Projects/Floquet Time-Modulated Loops/kernel/phrase/reel_3_pitch_locked_speech.wav)
+- [reel_2_pitch_locked_melody.wav](Projects/Floquet Time-Modulated Loops/kernel/phrase/reel_2_pitch_locked_melody.wav)
+- [reel_1_knot_shadow_speech.wav](Projects/Floquet Time-Modulated Loops/kernel/phrase/reel_1_knot_shadow_speech.wav)
+- [drum_loop.wav](Projects/Floquet Time-Modulated Loops/kernel/inputs/drum_loop.wav)
+- [pluck_melody.wav](Projects/Floquet Time-Modulated Loops/kernel/inputs/pluck_melody.wav)
+- [speech_flo.wav](Projects/Floquet Time-Modulated Loops/kernel/inputs/speech_flo.wav)
+- [speech_daniel.wav](Projects/Floquet Time-Modulated Loops/kernel/inputs/speech_daniel.wav)
+<sub>`floquet-steward-019` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="floquet-steward-018" -->
+### 2026-11-04 — cycle 8 — I tested whether the pitch tracker breaks the pitch-locked scan on a voice. Mostly it was my measure, and only Penrose needs a near-perfect tracker.
+> shipped · third instrument's fourth proof · steward leans move on to working backward from a target sound
+
+I wanted to know why the pitch-locked scan seemed to slip on a voice, and last cycle I blamed the pitch tracker without testing it. To test it, I rebuilt Daniel's and Flo's phrases by laying each voice's spectral envelope over a buzz whose pitch I set. The sentence and the formants are the same, but now the pitch is known exactly ([the note](obsidian://open?vault=The%20Palace&file=Projects/Floquet%20Time-Modulated%20Loops/kernel/Floquet%20Kernel%20%E2%80%94%20on%20a%20voice.md)).
+
+Three things came out. First, my old score blurred a gliding pitch across 170 ms frames. Scored in time warped to follow the pitch, Penrose locked at 2× reads 0.89 on the voice where the old score said 0.17. Second, a pitch error is multiplied by how many harmonics the scan moves a partial, so each surface has its own budget. Theta (2 harmonics) and Knot Shadow at 1/3 (1 to 3) lose only a few points at 1 % off or 20 ms late, and the plain tracker from last cycle is fine for them. Penrose (12 and 20 harmonics) drops from 0.89 to 0.50 at half a percent off and to 0.05 at 1 %, and loses a third at 10 ms late. Locked Penrose is for a synth voice, where the note gives the pitch. Third, Flo's low score on Knot Shadow at 1/3 isn't an error. That setting moves every harmonic down one place, and her fundamental, the main thing the filter passes, lands at 0 Hz. It wants a low voice.
+
+You asked for large whole-number ratios. Theta stays in tune at 1 through 8× on both the melody and the voice. Penrose holds on the melody but starts to slip on a gliding voice from 4× up. The play page's ratio slider now runs to 8 and snaps to 4, 6 and 8.
+
+To hear it: [the error-budget reel](open:Projects/Floquet Time-Modulated Loops/kernel/voice/reel_5_tracker_error_budget.wav). From 44.8 s it plays Penrose with the true pitch, then 0.5 % sharp, then 10 ms late.
+
+**Artifacts:**
+- [What a wrong or late pitch costs each surface: Theta and Knot Shadow barely notice, and Penrose falls off a cliff.](Projects/Floquet Time-Modulated Loops/kernel/voice_budget.png)
+- [63 s: Daniel as say made him, rebuilt, then three surfaces with true, sharp, late and tracked pitch.](Projects/Floquet Time-Modulated Loops/kernel/voice/reel_5_tracker_error_budget.wav)
+- [The melody through Theta locked at 1, 2, 3, 4, 6 and 8 × pitch, then the rebuilt Daniel at 1, 3 and 8.](Projects/Floquet Time-Modulated Loops/kernel/voice/reel_6_big_whole_ratios.wav)
+- [Daniel rebuilt over a buzz with a known pitch.](Projects/Floquet Time-Modulated Loops/kernel/inputs/speech_daniel_known_pitch.wav)
+- [Flo rebuilt over a buzz with a known pitch.](Projects/Floquet Time-Modulated Loops/kernel/inputs/speech_flo_known_pitch.wav)
+- [The workshop note: method, tables, the Flo case, big ratios, what the codebox needs.](Projects/Floquet Time-Modulated Loops/kernel/Floquet Kernel — on a voice.md)
+- [The proof: known-pitch resynthesis, the pitch-warped measure, the error budget, the reels.](Projects/Floquet Time-Modulated Loops/kernel/voice.py)
+- [Draws the error-budget chart.](Projects/Floquet Time-Modulated Loops/kernel/voice_figure.py)
+- [Every number in this post.](Projects/Floquet Time-Modulated Loops/kernel/voice_report.json)
+- [The play page; the ratio now reaches 8 and snaps to 4, 6 and 8.](Projects/Floquet Time-Modulated Loops/kernel/Floquet Kernel — play.html)
+- [Last cycle's note, with a correction line at the top.](Projects/Floquet Time-Modulated Loops/kernel/Floquet Kernel — on real sounds.md)
+
+_Daniel rebuilt with a known pitch: share of voiced energy on harmonics, locked scan_
+| surface, lock | true pitch | 1 % sharp | 2 % sharp | 10 ms late | 40 ms late | last cycle's tracker |
+| --- | --- | --- | --- | --- | --- | --- |
+| Theta, 2× (moves 2) | 0.91 | 0.89 | 0.85 | 0.90 | 0.83 | 0.90 |
+| Knot Shadow, 1/3 (moves 1–3) | 0.86 | 0.85 | 0.79 | 0.86 | 0.82 | 0.87 |
+| Penrose, 2× (moves 12 and 20) | 0.89 | 0.05 | 0.01 | 0.61 | 0.28 | 0.56 |
+
+_Changed in the workshop:_ Floquet Kernel — on a voice — New workshop note for the third instrument's fourth proof: the tracker test.
+_Changed in the workshop:_ Floquet Kernel — on real sounds — Added a correction line: its voice numbers came from a smearing measure, and the 'tripled' claim was wrong.
+_Proposed for canon:_ Floquet Time-Modulated Loops (§ Stages 2–5 — the development arc, ### Stage 3 — Floquet Kernel (wavetable as filter), a new paragraph after the first) — Item 14 left the voice case open; the known-pitch test shows when the locked scan can follow a live voice and when it can't, and that sets the codebox's pitch input.; owed in the tuning ledger until Loudon's review; it replaces item 14
+
+_Left rough:_ Nobody has heard it yet: not the play page, and not the reels. Only Loudon can do that part. The rebuilt voice is robotic by design, a real recorded voice is still missing, and I couldn't re-run the play page in headless Chrome. Its script parses, and the browser filter still matches the Python.
+
+_Next moves named:_ Begin the fourth instrument: pick one target spectrum from Categorizing Inharmonicity (piano-stretched partials first) and solve offline in Python for the pump that makes the gentle resonator or the pumped string ring with it. · For the codebox, when the Max pause lifts: the pitch-locked scan needs a pitch input, and a tracker within 1 % and 20 ms is enough for Theta and Knot Shadow. Penrose locked takes its pitch from the note, not a tracker. · If a real recorded voice turns up, run voice.py's measures over it unchanged.
+<sub>`floquet-steward-018` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-b3a0737c7c" -->
+### 2026-11-03 — cycle 8
+
+taught item 15, proposed item 16 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="floquet-steward-016" -->
 ### 2026-11-04 — cycle 7 — The surface filters now run over a voice, a plucked melody and drums, and the scan can follow the pitch. Locked, the output stays in tune.
 > shipped · four listening reels and a play page with speech · steward leans locked scan as the default mode
