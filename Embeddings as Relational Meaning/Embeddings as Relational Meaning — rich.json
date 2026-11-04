@@ -49,6 +49,17 @@
         "by": "maker · claude-opus-5-5 · proposal round · cloud",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5 · cloud",
+        "verdicts": [
+          {
+            "file": "Embeddings as Relational Meaning — rich — directions.html",
+            "verdict": "keep",
+            "why": "A real test: the arrow beats the c-alone leak reader 84.3% to 44.4% on 3,448 quads with the page’s 228 dropped, and my float64 recompute from the raw vectors gets the same counts, 80.6% to 35.8% over 100,000 words; a b + c reader that ignores a gets 37.6%, so c alone is the right arm to beat. Notes: the shuffled arm is a floor, not a fair control (real vectors re-dealt to other words also give 0 to 1 of 3,448), so say the decision rests on c alone; the pool is 3,145 words and chance 1 in 3,142, not the account’s 3,146 and 3,143."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Embeddings as Relational Meaning — rich — directions.html",
@@ -70,6 +81,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round · cloud",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5 · cloud",
+        "verdicts": [
+          {
+            "file": "Embeddings as Relational Meaning — rich — regions.html",
+            "verdict": "remake",
+            "why": "Both questions are tests and recompute exactly (35 of 36; ordinals 0.50–0.58 against interval names 0.21–0.27), and question two’s post-look rule is disclosed and robust: 99.92% of 232,848 other choices of the two centres give the same verdict. Remake one sentence: step 4 says fifth’s “nearest words are ordinals”, but six of those eight (second, third, fourth, sixth, seventh, ninth) are interval names too, so the list cannot tell the senses apart and states step 5’s answer before step 5 tests it; say the list can’t decide and leave the verdict to step 5."
+          }
+        ]
       },
       "pieces": [
         {
