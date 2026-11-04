@@ -1,0 +1,68 @@
+{
+ "chrome": {
+  "version": "156.0.8078.80",
+  "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+  "audio": {
+   "state": "running",
+   "worklet": true,
+   "rate": 44100
+  },
+  "pack_ms_wall": 264,
+  "packed": "122 files — 122 cycles packed · 3 families: warm-full 62, bright-full 44, glassy-full 16",
+  "export_matches_node": true,
+  "hover_cursor": "grab",
+  "pos_after_drag_to_0.8": 0.8,
+  "pos_after_drag_to_0.35": 0.35,
+  "slider_follows": "0.35",
+  "camera_still_during_drag": true,
+  "orbit_moves_camera": true,
+  "orbit_leaves_position": true,
+  "pos_after_drag_from_new_angle_to_0_9": 0.91,
+  "drop_walker_files": 254,
+  "page_errors": []
+ },
+ "firefox": {
+  "version": "148.0.2",
+  "webgl": "WebGL 2.0",
+  "audio": {
+   "state": "running",
+   "worklet": true,
+   "rate": 44100
+  },
+  "pack_ms_wall": 241,
+  "packed": "122 files — 122 cycles packed · 3 families: warm-full 62, bright-full 44, glassy-full 16",
+  "export_matches_node": true,
+  "hover_cursor": "grab",
+  "pos_after_drag_to_0.8": 0.802,
+  "pos_after_drag_to_0.35": 0.355,
+  "slider_follows": "0.355",
+  "camera_still_during_drag": true,
+  "orbit_moves_camera": true,
+  "orbit_leaves_position": true,
+  "pos_after_drag_from_new_angle_to_0_9": 0.917,
+  "drop_walker_files": 254,
+  "page_errors": []
+ },
+ "webkit": {
+  "version": "26.4",
+  "webgl": "WebGL 2.0",
+  "audio": {
+   "state": "running",
+   "worklet": true,
+   "rate": 44100
+  },
+  "pack_ms_wall": 250,
+  "packed": "122 files — 122 cycles packed · 3 families: warm-full 62, bright-full 44, glassy-full 16",
+  "export_matches_node": true,
+  "hover_cursor": "grab",
+  "pos_after_drag_to_0.8": 0.801,
+  "pos_after_drag_to_0.35": 0.345,
+  "slider_follows": "0.345",
+  "camera_still_during_drag": true,
+  "orbit_moves_camera": true,
+  "orbit_leaves_position": true,
+  "pos_after_drag_from_new_angle_to_0_9": 0.894,
+  "drop_walker_files": 254,
+  "page_errors": []
+ }
+}

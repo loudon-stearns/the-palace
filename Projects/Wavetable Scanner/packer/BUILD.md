@@ -11,6 +11,27 @@
 5. Try **Smooth along Position**: *Blur 1 frame* is the fix for the sweep buzz from Generative Wavetable Libraries. Sweep Position fast with it off, then on.
 6. **Download packed .wav** saves a 32-bit float table. Drop it on Ableton Wavetable's oscillator display.
 
+## Drag the cursor, and three browsers (cycle 3, 2026-11-04)
+
+**The cursor plane was turned the wrong way.** In the Sketch it was rotated a quarter turn, so it ran lengthwise through the middle of the table and slid forward and back without ever marking where the scan was (look at `shot-fmsynth-chain-mid.png` from cycle 2: the dark sheet runs along the table). The Study page drops the rotation. The plane is now a cross-section at the scan position, with an outline so it reads against a dense table.
+
+**You can drag it.** Point at the plane and the cursor turns to a hand; press and carry it along the table to set Position. Press anywhere else and the scene orbits as before. If the LFO sweep is running, grabbing the plane stops it. The press is caught on the stage before OrbitControls sees it. While you drag, the pointer is tracked on whichever surface along the frame axis faces the camera more (the floor, or a wall), so it follows from any angle. Touch goes through the same pointer events, but nobody has tried it on a phone.
+
+`study_check.mjs` drives the page in Chrome 156, Firefox 148 and WebKit 26.4 (Safari's engine, through Playwright; not Safari.app itself). It engages audio, packs the 122 FM cycles, exports, drags the plane, orbits, and drags again from the new angle. It also walks a mocked folder drop: 250 files handed out 100 at a time, as Chrome does, plus a nested folder. `study_check.json` has the numbers.
+
+| | Chrome | Firefox | WebKit |
+|---|---|---|---|
+| audio engages, worklet runs | yes, 44.1 kHz | yes | yes |
+| pack 122 cycles | 264 ms | 241 ms | 250 ms |
+| download equals the node packer, byte for byte | yes | yes | yes |
+| drag to 0.8, then 0.35 | 0.800, 0.350 | 0.802, 0.355 | 0.801, 0.345 |
+| orbit turns the camera, leaves Position alone | yes | yes | yes |
+| drag again after orbiting, to 0.9 | 0.910 | 0.917 | 0.894 |
+| folder walker finds all 254 entries | yes | yes | yes |
+| page errors | none | none | none |
+
+The drag lands within about 0.01 of where the pointer is, which is a frame or so on a 122-frame table.
+
 ## The family chain (cycle 2, 2026-11-04)
 
 On 2026-10-14 Loudon picked the family chain as the order for Generative Wavetable Libraries, and asked about a buzz in it; on 2026-10-28 that project traced the buzz to big jumps between neighbouring frames and blurred it away. `packer.js` now does both, ported from `akwf-scale-up-fmsynth/scale_up.py` and `loop-smoothing/smooth_tables.py`:
@@ -56,4 +77,4 @@ Against the Python: the organ folder splits into the same three families (round 
 
 ## Not yet
 
-Nobody has heard these. The page hasn't been tried in Safari or Firefox. Folder drag-and-drop goes through `webkitGetAsEntry`, and only the picker path was driven in the check. Tables are capped at 256 frames, and a bigger folder is thinned evenly along the order. The tilted chain (each family's walk pulled toward dull-to-bright, GWL's pick for organs) isn't ported. The family chain hasn't been heard in this page either.
+Nobody has heard these. Firefox and WebKit pass the drive, but Safari.app itself and a real Finder drag onto the stage haven't been tried; the walker was checked on a mocked drop. Phone touch is untried. Tables are capped at 256 frames, and a bigger folder is thinned evenly along the order. The tilted chain (each family's walk pulled toward dull-to-bright, GWL's pick for organs) isn't ported. The family chain hasn't been heard in this page either.

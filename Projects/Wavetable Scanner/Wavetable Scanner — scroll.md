@@ -15,33 +15,34 @@ forward_vector: "I am Wavetable Scanner's scroll — the one page that always op
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T00:04:14.483Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T00:08:17.720Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 2 · last ran 2026-11-04 (today)
+- **Status:** active · **Stage:** growing · **Steward:** cycle 3 · last ran 2026-11-04 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — The scanner now packs folders in the family-chain order you picked, with a switch to blur away the sweep buzz. Three-way listening files are ready. (`wavetable-scanner-steward-004`)
-- **Last commit touching this project:** 2026-11-03 `73b0f5d3` — steward(Wavetable Scanner): cycle 1 — The scanner packs its own tables now: drop a folder of single-cycle WAV…
+- **Last shipped:** 2026-11-04 (today) — You can now grab the glowing cursor in the 3D scene and drag it through the table. The page passes Chrome, Firefox and Safari's engine. (`wavetable-scanner-steward-006`)
+- **Last commit touching this project:** 2026-11-03 `2482773b` — steward(Wavetable Scanner): cycle 2 — SPINNING UP. HOME: [Wavetable Scanner](obsidian://open?vault=The%20Pala…
 - **Signal:** steady
-- **Left uncommitted:** ⚠ 14 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Wavetable Scanner/packer/chain/cello_centroid.json`, `Projects/Wavetable Scanner/packer/chain/cello_chain.json`, `Projects/Wavetable Scanner/packer/chain/cello_chain_smooth.json`, `Projects/Wavetable Scanner/packer/chain/eorgan_centroid.json`, `Projects/Wavetable Scanner/packer/chain/eorgan_chain.json`, and 9 more. Look, then commit or clear them.
+- **Left uncommitted:** ⚠ 3 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Wavetable Scanner/packer/shot-fmsynth-bright-end.png`, `Projects/Wavetable Scanner/packer/shot-fmsynth-dull-end.png`, `Projects/Wavetable Scanner/packer/shot-fmsynth-file-order.png`. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 2 · taught item 4, proposed item 5 for canon
+- **Runs:** 3 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 3 · taught item 6, proposed item 7 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 2 — items 3, 5; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 5, from cycle 2 — 2026-11-03 — [[Wavetable Scanner — tuning]]
+- **Proposed for canon:** 3 — items 3, 5, 7; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 7, from cycle 3 — 2026-11-03 — [[Wavetable Scanner — tuning]]
 
 ### Where this stands
 
-Wavetable Scanner is the browser page that draws a wavetable as a 3D landscape and lets you sweep Position to hear the frames morph. Last cycle the page learned to pack its own tables: drop in a folder of single-cycle WAVs and it resamples, sorts and plays them, with no Python needed. This cycle it learned to pack them the way you chose for Generative Wavetable Libraries on 2026-10-14. That's the family chain: similar cycles grouped into families, darkest family first, each family walked smoothly, and every frame rotated to line up with its neighbour. The chain is now the default order. Centroid and file order are one click away. A new switch blurs each frame gently into its neighbours. Tha…
+Wavetable Scanner is the browser page that draws a wavetable as a 3D landscape of ridges and lets you sweep Position to hear the frames morph. Over the last two cycles it learned to pack its own tables: drop in a folder of single-cycle WAVs and it sorts them into the family chain you chose for Generative Wavetable Libraries, with centroid and file order one click away and an optional blur that takes out the sweep buzz. This cycle took the next step on the plan I proposed, finishing the Study tier. The glowing cursor plane in the 3D scene is now a handle: point at it, press, and carry it along the table to set Position, while a press anywhere else still orbits. While building that I found th…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** Nobody has heard these. _(in 2 notes, the latest cycle 2)_
-- **rough since cycle 1:** The page hasn't been tried in Safari or Firefox, and folder drag-and-drop hasn't been driven, only the picker. _(in 2 notes, the latest cycle 2)_
+- **rough since cycle 1:** Nobody has heard these. _(in 3 notes, the latest cycle 3)_
+- **rough since cycle 1:** Firefox and WebKit pass the drive, but Safari.app itself, a real Finder drag onto the stage, and phone touch haven't been tried. _(in 3 notes, the latest cycle 3)_
+- **rough since cycle 2:** Three old screenshots from cycle 1 (shot-fmsynth-bright-end, -dull-end, -file-order) were deleted when cycle 2 re-ran its check, and that deletion isn't committed yet. _(in 2 notes, the latest cycle 3)_
 
 ### Open asks
 
@@ -57,6 +58,7 @@ _Nothing decided on the board yet._
 
 ### Runs
 
+- 2026-11-03 — cycle 3 · taught item 6, proposed item 7 for canon
 - 2026-11-03 — cycle 2 · taught item 4, proposed item 5 for canon
 - 2026-11-03 — cycle 1 · taught item 1, proposed items 2, 3 for canon
 
@@ -70,6 +72,7 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 
 - **3.** 2026-11-03 · `Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md` · a new gotcha at the end — a trap the next browser wavetable tool would fall into silently; it belongs beside the other build gotchas
 - **5.** 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Sketch round 2 — Drone default fix' — the Study tier's reach, porting the packer to JS, now exists, and it packs in the order Loudon chose
+- **7.** 2026-11-03 · `Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md` · a new gotcha at the end, after the decodeAudioData one — a silent visual bug that headless checks miss; the next Three.js scanner would copy it
 
 <!-- scroll:now:end -->
 
@@ -88,6 +91,79 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="wavetable-scanner-steward-006" -->
+### 2026-11-04 — cycle 3 — You can now grab the glowing cursor in the 3D scene and drag it through the table. The page passes Chrome, Firefox and Safari's engine.
+> shipped · drag works in three browsers · still unheard · steward leans the Finder drop and your ears next
+
+The bug first. The Sketch rotated the cursor plane 90°, so instead of a cross-section at the scan position it was a sheet running lengthwise through the middle of the table. You can see it in cycle 2's screenshot as the dark slab along the ridges. It slid back and forth but never showed you which frame you were on. Every headless check passed, because none of them looked. The Study page drops the rotation and adds an outline. The plane now sits across the table where the sound is, and it brightens while you hover or drag.
+
+The drag. A press that lands on the plane is caught on the stage before the orbit controls see it, so the camera holds still while you carry the plane. The pointer is tracked on whichever surface along the frame axis faces the camera more, the floor or a wall, so the drag follows your hand from any angle. Grabbing the plane stops the LFO sweep if it is running. The Position slider follows the drag.
+
+The check. `study_check.mjs` drives the page with a real mouse in all three engines. In each one it engages audio, packs the 122 FM cycles, exports the table and compares it byte for byte with the node packer, drags the plane to 0.8 and back to 0.35, orbits from off the plane, then drags again from the new angle. It also walks a mocked folder drop: 250 files handed out 100 at a time, the way Chrome hands them out, plus a nested folder. The table is below. I've also started the Study tier's test plan, `tests/test-plan.md`. It lists the four scripted checks, with their last results, and six checks only a person can do.
+
+Also committed this cycle: the 14 listening files and JSONs from last cycle's family-chain work. They were made but never declared, so nothing had committed them.
+
+**Artifacts:**
+- [the Study page: drag the glowing plane to scan; the plane now sits across the table where the sound is.](Projects/Wavetable Scanner/wavetable_scanner_study.html)
+- [mid-drag in WebKit (Safari's engine): the plane is now a lit cross-section at Position 0.35.](Projects/Wavetable Scanner/packer/shot-drag-webkit.png)
+- [the same moment in Firefox.](Projects/Wavetable Scanner/packer/shot-drag-firefox.png)
+- [the same moment in Chrome.](Projects/Wavetable Scanner/packer/shot-drag-chrome.png)
+- [drives the page in three browsers: audio, pack, export, drag, orbit, folder walker.](Projects/Wavetable Scanner/packer/study_check.mjs)
+- [the numbers from that drive.](Projects/Wavetable Scanner/packer/study_check.json)
+- [the build now fixes the plane's rotation and adds the drag.](Projects/Wavetable Scanner/packer/build_page.py)
+- [the Study tier's test plan: four scripted checks, six by hand.](Projects/Wavetable Scanner/tests/test-plan.md)
+- [the cello demo table's notes, regenerated by the build.](Projects/Wavetable Scanner/packer/demo_cello.json)
+- [cycle 2's photograph of the page opening on the cello demo.](Projects/Wavetable Scanner/packer/shot-demo-cello.png)
+- [cycle 2's listening file: FM folder, centroid, then family chain, then chain blurred.](Projects/Wavetable Scanner/packer/chain/fmsynth_ABC_centroid_chain_smoothed.wav)
+- [the same three-way sweep for the organ folder.](Projects/Wavetable Scanner/packer/chain/eorgan_ABC_centroid_chain_smoothed.wav)
+- [cycle 2 pack notes, FM centroid.](Projects/Wavetable Scanner/packer/chain/fmsynth_centroid.json)
+- [cycle 2 pack notes, FM chain.](Projects/Wavetable Scanner/packer/chain/fmsynth_chain.json)
+- [cycle 2 pack notes, FM chain blurred.](Projects/Wavetable Scanner/packer/chain/fmsynth_chain_smooth.json)
+- [cycle 2 pack notes, organ centroid.](Projects/Wavetable Scanner/packer/chain/eorgan_centroid.json)
+- [cycle 2 pack notes, organ chain.](Projects/Wavetable Scanner/packer/chain/eorgan_chain.json)
+- [cycle 2 pack notes, organ chain blurred.](Projects/Wavetable Scanner/packer/chain/eorgan_chain_smooth.json)
+- [cycle 2 pack notes, cello centroid.](Projects/Wavetable Scanner/packer/chain/cello_centroid.json)
+- [cycle 2 pack notes, cello chain.](Projects/Wavetable Scanner/packer/chain/cello_chain.json)
+- [cycle 2 pack notes, cello chain blurred.](Projects/Wavetable Scanner/packer/chain/cello_chain_smooth.json)
+- [FM table, centroid order.](Projects/Wavetable Scanner/packer/chain/fmsynth_centroid.wav)
+- [FM table, family chain.](Projects/Wavetable Scanner/packer/chain/fmsynth_chain.wav)
+- [FM table, family chain blurred.](Projects/Wavetable Scanner/packer/chain/fmsynth_chain_smooth.wav)
+- [organ table, centroid order.](Projects/Wavetable Scanner/packer/chain/eorgan_centroid.wav)
+- [organ table, family chain.](Projects/Wavetable Scanner/packer/chain/eorgan_chain.wav)
+- [organ table, family chain blurred.](Projects/Wavetable Scanner/packer/chain/eorgan_chain_smooth.wav)
+- [cello table, centroid order.](Projects/Wavetable Scanner/packer/chain/cello_centroid.wav)
+- [cello table, family chain.](Projects/Wavetable Scanner/packer/chain/cello_chain.wav)
+- [cello table, family chain blurred.](Projects/Wavetable Scanner/packer/chain/cello_chain_smooth.wav)
+
+_study_check.mjs · AKWF_fmsynth, 122 cycles · 2026-11-04_
+|  | Chrome 156 | Firefox 148 | WebKit 26.4 |
+| --- | --- | --- | --- |
+| audio engages, worklet runs | yes | yes | yes |
+| pack 122 cycles | 264 ms | 241 ms | 250 ms |
+| export equals node packer | byte for byte | byte for byte | byte for byte |
+| drag to 0.8, then 0.35 | 0.800, 0.350 | 0.802, 0.355 | 0.801, 0.345 |
+| orbit turns camera, Position untouched | yes | yes | yes |
+| drag after orbiting, to 0.9 | 0.910 | 0.917 | 0.894 |
+| folder walker finds 254 entries | yes | yes | yes |
+| page errors | none | none | none |
+
+_Changed in the workshop:_ BUILD — adds the drag, the plane fix and the three-browser table; the 'not yet' line now says what's still untried
+_Changed in the workshop:_ test-plan — new: the test-plan stub the Study tier names, scripted checks and by-hand checks
+_Proposed for canon:_ Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md (a new gotcha at the end, after the decodeAudioData one) — a silent visual bug that headless checks miss; the next Three.js scanner would copy it; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard these. Firefox and WebKit pass the drive, but Safari.app itself, a real Finder drag onto the stage, and phone touch haven't been tried. Three old screenshots from cycle 1 (shot-fmsynth-bright-end, -dull-end, -file-order) were deleted when cycle 2 re-ran its check, and that deletion isn't committed yet.
+
+_Next moves named:_ Export for the synths you use: Serum/Vital-style WAV with the frame size marked, and Surge .wt, beside the Ableton WAV (the plan's next step after Study) · When you have ten minutes: the six by-hand checks in tests/test-plan.md, starting with listening to the drag and the three-way sweep files
+<sub>`wavetable-scanner-steward-006` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-6e4512936c" -->
+### 2026-11-03 — cycle 3
+
+taught item 6, proposed item 7 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="wavetable-scanner-steward-004" -->
 ### 2026-11-04 — cycle 2 — The scanner now packs folders in the family-chain order you picked, with a switch to blur away the sweep buzz. Three-way listening files are ready.
 > shipped · family chain is the default order, blur off until heard · steward leans blur 1 once you've listened

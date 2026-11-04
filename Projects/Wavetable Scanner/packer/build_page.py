@@ -195,5 +195,68 @@ rep("function selectTable(idx){\n  state.tableIdx = idx;", "function selectTable
 rep("window.__wavetable = { state, tableData, palaceTokens, VIZ, FRAME_LEN };",
     "window.__wavetable = { state, tableData, palaceTokens, VIZ, FRAME_LEN, packState, handleFiles, setOrder, setSmooth };")
 
+# 7. the cursor plane: a cross-section at the scan position, and a handle you can drag.
+# The Sketch rotated it a quarter turn, so it ran lengthwise through the middle of the
+# table and never marked the scan. Unrotated, it spans the sample axis (X) and sits at z.
+rep("  VIZ.cursorPlane = new THREE.Mesh(planeGeom, planeMat);\n  VIZ.cursorPlane.rotation.y = Math.PI / 2;       // facing along Z\n  VIZ.scene.add(VIZ.cursorPlane);",
+    "  VIZ.cursorPlane = new THREE.Mesh(planeGeom, planeMat);\n  VIZ.scene.add(VIZ.cursorPlane);\n  // Its outline, so the cross-section reads against a dense table.\n  VIZ.cursorEdge = new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints([\n    new THREE.Vector3(-3.1, -1.3, 0), new THREE.Vector3(3.1, -1.3, 0), new THREE.Vector3(3.1, 1.3, 0), new THREE.Vector3(-3.1, 1.3, 0)]),\n    new THREE.LineBasicMaterial({ color: t.accent, transparent: true, opacity: 0.5 }));\n  VIZ.cursorPlane.add(VIZ.cursorEdge);\n  initCursorDrag();")
+rep("  VIZ.cursorPlane.position.z = z;\n  VIZ.cursorPlane.position.x = 0;",
+    "  VIZ.cursorPlane.position.z = z;\n  VIZ.cursorPlane.position.x = 0;\n  const lit = VIZ.drag.active || VIZ.drag.hover;\n  VIZ.cursorPlane.material.opacity = lit ? 0.22 : 0.10;\n  VIZ.cursorEdge.material.opacity = lit ? 0.95 : 0.5;")
+rep("function onResize(){", r"""/* Drag the cursor plane along the frame axis to set Position. A press that lands
+ * on the plane (or within a quarter-unit of it) grabs it; any other press orbits.
+ * The press is caught on the stage before OrbitControls sees it. While dragging,
+ * the pointer ray is met with whichever of two planes holding the frame axis
+ * (the floor y = grab height, or the wall x = grab x) faces the camera more,
+ * so the drag tracks from any orbit angle. */
+function initCursorDrag(){
+  const c = VIZ.canvas, ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+  VIZ.drag = { active: false, hover: false, surface: null, id: null };
+  const aim = e => { const r = c.getBoundingClientRect();
+    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, VIZ.camera); };
+  const onPlane = () => {
+    const F = tableData[state.tableIdx].frames; if (F < 2) return null;
+    const z = VIZ.cursorPlane.position.z, p = new THREE.Vector3();
+    if (!ray.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 0, 1), -z), p)) return null;
+    if (Math.abs(p.x) > 3.4 || Math.abs(p.y) > 1.5) {
+      // Seen nearly edge-on: accept a press on the floor or wall within reach of the plane.
+      const q = new THREE.Vector3();
+      for (const pl of [new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), new THREE.Plane(new THREE.Vector3(1, 0, 0), 0)])
+        if (ray.ray.intersectPlane(pl, q) && Math.abs(q.z - z) < 0.25 && Math.abs(q.x) < 3.4 && Math.abs(q.y) < 1.5) return q.clone();
+      return null;
+    }
+    return p;
+  };
+  const posAt = () => {
+    const p = new THREE.Vector3();
+    if (!ray.ray.intersectPlane(VIZ.drag.surface, p)) return null;
+    return Math.max(0, Math.min(1, (p.z + 2) / 4));
+  };
+  const setPos = v => { const el = $('cPos'); el.value = v.toFixed(3); el.dispatchEvent(new Event('input')); };
+  c.parentElement.addEventListener('pointerdown', e => {
+    if (e.target !== c || e.button > 0) return;
+    aim(e); const hit = onPlane(); if (!hit) return;
+    e.stopPropagation(); e.preventDefault();
+    if (state.lfoRate > 0) { const l = $('cLfo'); l.value = 0; l.dispatchEvent(new Event('input')); }
+    const d = ray.ray.direction;
+    VIZ.drag.surface = Math.abs(d.y) >= Math.abs(d.x)
+      ? new THREE.Plane(new THREE.Vector3(0, 1, 0), -hit.y) : new THREE.Plane(new THREE.Vector3(1, 0, 0), -hit.x);
+    VIZ.drag.active = true; VIZ.drag.id = e.pointerId;
+    c.setPointerCapture(e.pointerId); c.style.cursor = 'grabbing';
+  }, true);
+  c.addEventListener('pointermove', e => {
+    aim(e);
+    if (VIZ.drag.active && e.pointerId === VIZ.drag.id){ const v = posAt(); if (v !== null) setPos(v); return; }
+    VIZ.drag.hover = !!onPlane(); c.style.cursor = VIZ.drag.hover ? 'grab' : '';
+  });
+  const end = e => { if (!VIZ.drag.active || e.pointerId !== VIZ.drag.id) return;
+    VIZ.drag.active = false; c.releasePointerCapture(e.pointerId); c.style.cursor = VIZ.drag.hover ? 'grab' : ''; };
+  c.addEventListener('pointerup', end); c.addEventListener('pointercancel', end);
+  c.style.touchAction = 'none';
+}
+
+function onResize(){""")
+rep("Play a note and scan the cursor across the ridges", "Play a note and drag the glowing cursor across the ridges")
+
 (BUNDLE / "wavetable_scanner_study.html").write_text(src)
 print("wrote", BUNDLE / "wavetable_scanner_study.html", len(src), "bytes")

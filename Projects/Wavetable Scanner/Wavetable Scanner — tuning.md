@@ -49,3 +49,13 @@ What Wavetable Scanner's steward cycles taught the page, and the changes to the 
    > `wavetable_scanner_study.html` packs a folder of single-cycle WAVs in the browser (`packer/packer.js`): its own WAV reader, a spectral resample to 1024 samples, the magnitude-weighted centroid, and normalising together to 0.99. Three orders: the **family chain** by default (the order chosen for [[Generative Wavetable Libraries]] on 2026-10-14: k-means families over the loudness-free log spectrum, darkest first, each walked smoothly, frames rotated into line), dull to bright, or the folder's own order. An optional one-frame Gaussian along Position takes the sweep buzz down 11 to 15 dB. Centroid packs match `pack_wavetable.py` to −59 dB or better below the 250th harmonic. The chain matches the Python's scores (FM: 13 big jumps against 14), and the organ folder splits into the same three families. Chrome only, not yet heard.
 
 - run · 2026-11-03 · cycle 2 · taught item 4, proposed item 5 for canon
+
+## From cycle 3 — 2026-11-03
+
+6. Look at a screenshot before trusting 3D geometry code: the Sketch's cursor plane passed every headless check while turned a quarter turn the wrong way, and only the picture showed it. *(offered by the steward, cycle 3)*
+7. **Proposed for canon** · 2026-11-03 · `Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md` · a new gotcha at the end, after the decodeAudioData one · canon change owed *(proposed by the steward, cycle 3)*
+   Why: a silent visual bug that headless checks miss; the next Three.js scanner would copy it
+   Path: `Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md`
+   > **The cursor plane was turned the wrong way (2026-11-04).** The Sketch rotated its `PlaneGeometry` a quarter turn about Y, which lays it along the frame axis instead of across it. It slid with Position but ran lengthwise through the table and never marked the scan. Every headless check passed; a screenshot caught it. A cross-section at z needs no rotation: PlaneGeometry already spans X and Y.
+
+- run · 2026-11-03 · cycle 3 · taught item 6, proposed item 7 for canon
