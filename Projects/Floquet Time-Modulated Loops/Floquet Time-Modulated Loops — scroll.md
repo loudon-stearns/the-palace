@@ -15,35 +15,36 @@ forward_vector: "I am Floquet Time-Modulated Loops's scroll — the one page tha
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T23:44:18.616Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T01:17:03.160Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 3 · last ran 2026-11-03 (today)
-- **Plan:** agreed 2026-09-26 (38 days ago) · 4 made things since
-- **Waiting on you:** 1 open ask
+- **Status:** active · **Stage:** growing · **Steward:** cycle 4 · last ran 2026-11-04 (today)
+- **Plan:** agreed 2026-09-26 (38 days ago) · 5 made things since
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-03 (today) — I put both pumps on the string: the loudness pump keeps it ringing, the length pump adds partials between its harmonics, and a live spectrum shows it. (`floquet-steward-007`)
-- **Last commit touching this project:** 2026-11-03 `7d188c81` — steward(Floquet Time-Modulated Loops): cycle 2 — SPINNING UP. HOME: [Floquet Time-Modulated Loops](obsidian://open?vault…
+- **Last shipped:** 2026-11-04 (today) — I built the resonator your way. Its damping grows with its energy, so its loudness follows the pump, and inside the tongue its pitch follows the pump too. (`floquet-steward-009`)
+- **Last commit touching this project:** 2026-11-03 `5710c7e9` — steward(Floquet Time-Modulated Loops): cycle 3 — SPINNING UP. HOME: [Floquet Time-Modulated Loops](obsidian://open?vault…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 3 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 3 · taught item 5, proposed item 6 for canon
+- **Runs:** 4 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 4 · taught item 7, proposed item 8 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 2 — items 2, 6; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 6, from cycle 3 — 2026-11-03 — [[Floquet Time-Modulated Loops — tuning]]
+- **Proposed for canon:** 2 — items 6, 8; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 8, from cycle 4 — 2026-11-03 — [[Floquet Time-Modulated Loops — tuning]]
 
 ### Where this stands
 
-Floquet Time-Modulated Loops argues that the 'nothing changes over time' assumption under almost every audio loop is a choice. The first instrument, a resonator that cracks into ringing when its tuning is pumped, is built and checked offline, and still waits on your call about how it stops growing. The next step on the plan is a pumped comb: a plucked-string loop whose loudness and length each breathe at their own rate, with a spectrum view beside the audio carrying the lesson. Max is paused, so last cycle carried it in Python. This cycle put both pumps on together and built that spectrum view as a page you can play.
+Floquet Time-Modulated Loops argues that the 'nothing changes over time' assumption under almost every audio loop is a choice. The first instrument is a 220 Hz resonator whose tuning is pumped. Below a threshold it's quiet; past it, the noise cracks into a ring. You chose how it stops growing: damping that rises with the ring's energy, instead of the build's clip and tanh. Max is paused, so this cycle built that version in Node and the browser. It measured it, rendered four listening files, and made a page you can play. The codebox is untouched; a note lists what it will need.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 2:** Nobody has heard it yet; _(in 2 notes, the latest cycle 3)_
+- **rough since cycle 1:** I only checked its script parses. _(in 2 notes, the latest cycle 4)_
+- **rough since cycle 2:** Nobody has heard it yet, and the play page hasn't been opened in a browser; _(in 3 notes, the latest cycle 4)_
 
 ### Open asks
 
-- `floquet-steward-003` — directional_decision · posted 2026-11-03 · options: GENTLE · BUILD · STIFF · DAMPING-OTHER
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -51,10 +52,11 @@ _None._
 
 ### Decided
 
-_Nothing decided on the board yet._
+- `floquet-steward-003` — directional_decision → GRANTED — option_id=GENTLE (2026-11-04)
 
 ### Runs
 
+- 2026-11-03 — cycle 4 · taught item 7, proposed item 8 for canon
 - 2026-11-03 — cycle 3 · taught item 5, proposed item 6 for canon
 - 2026-11-03 — cycle 2 · taught item 3, proposed item 4 for canon
 - 2026-11-03 — cycle 1 · taught item 1, proposed item 2 for canon
@@ -67,8 +69,8 @@ _Nothing owed._
 
 _Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
 
-- **2.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Open Questions, the bullet 'Does the tanh saturation in Stage 1 distort the Strutt picture?', a new progressed line after the existing one — The open question asked whether a different saturation is the right sound; now there is a measured, audible answer to choose from.
 - **6.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 2 — Floquet Comb, a new paragraph after the first — Adds what the two-pump proof measured to the Stage 2 sketch, and corrects the tongue width to its two meanings.
+- **8.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Open Questions, the bullet 'Does the tanh saturation in Stage 1 distort the Strutt picture?', a new progressed line after the existing one — The question asked which saturation is the right sound; Loudon answered it, and the measured level law is the reason it teaches well.
 
 <!-- scroll:now:end -->
 
@@ -97,6 +99,62 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="floquet-steward-009" -->
+### 2026-11-04 — cycle 4 — Off plan — I built the resonator your way. Its damping grows with its energy, so its loudness follows the pump, and inside the tongue its pitch follows the pump too.
+> shipped · gentle resonator built and measured · steward leans back to the pumped comb
+
+_Off plan. Offered as proof of a different direction; the plan stands unless Loudon agrees to change it._
+
+One line changes. Each sample, the ring's energy raises the damping, and nothing is clipped. What it does, measured:
+
+- **The level follows the pump.** On the tongue's centre line it settles at the law below, within 3% from q 0.06 to 1.
+- **The crack is still there.** The floor is at −45 dBFS and the ring cracks at q ≈ 0.075 on a 12 s sweep, then climbs to −12 dBFS. That's 34 dB of contrast.
+- **The pitch belongs to the pump.** Hold q at 0.3 and glide the pump rate. The ring's pitch follows half the pump to 0.1 Hz, from 190 up to 247 Hz, while the resonator stays tuned to 220.
+- **It keeps itself alive.** Cut the noise mid-ring and it holds at −13.4 dB.
+- **The ladder is clean.** The 660 Hz rung sits at −35, −26 and −21 dB under the fundamental at q 0.15, 0.4 and 0.8, with no clip overtones on top of it.
+
+One surprise: the tongue leans. Off centre, past q ≈ 0.3, it's louder toward low pump rates and quieter toward high ones than the simple law says. It leans more at 55 Hz than at 220, so it's the Mathieu tongue's own bend, not the integrator.
+
+The play page puts the map in your hand. Click to move, and a meter shows the measured level next to the law's, and the pitch next to half the pump.
+
+**Artifacts:**
+- [the gentle resonator, live: click the map, hear the crack, watch the pitch follow the pump.](Projects/Floquet Time-Modulated Loops/gentle/Gentle Resonator — play.html)
+- [measured loudness over pump ratio × depth (the tongue, heard as level), and the centred law.](Projects/Floquet Time-Modulated Loops/gentle/gentle_map.png)
+- [q 0 → 0.6 over 12 s: silence, the crack, then the level climbing with the pump.](Projects/Floquet Time-Modulated Loops/gentle/gentle_a_crack_and_climb.wav)
+- [q 0.3, pump rate glides 1.6 → 2.4: the pitch rides the pump while the level swells and fades.](Projects/Floquet Time-Modulated Loops/gentle/gentle_b_tongue_walk.wav)
+- [q 0.15, 0.4, 0.8 held: three levels, one pitch.](Projects/Floquet Time-Modulated Loops/gentle/gentle_c_three_depths.wav)
+- [noise cut at 2 s; the ring keeps itself alive.](Projects/Floquet Time-Modulated Loops/gentle/gentle_d_noise_cut.wav)
+- [the reference: the tick, the measurements and the renders.](Projects/Floquet Time-Modulated Loops/gentle/gentle_resonator.mjs)
+- [draws the map.](Projects/Floquet Time-Modulated Loops/gentle/gentle_figure.py)
+- [every number above.](Projects/Floquet Time-Modulated Loops/gentle/gentle_report.json)
+- [the measured map grid.](Projects/Floquet Time-Modulated Loops/gentle/gentle_map.json)
+- [what was measured, and the codebox changes for when Max reopens.](Projects/Floquet Time-Modulated Loops/gentle/Gentle Resonator — what the codebox needs.md)
+
+_centred level law · measured vs predicted ring energy_
+| q | measured E | law E |
+| --- | --- | --- |
+| 0.06 | 0.012 | 0.011 |
+| 0.1 | 0.052 | 0.053 |
+| 0.3 | 0.262 | 0.263 |
+| 0.5 | 0.469 | 0.474 |
+| 1.0 | 0.972 | 1.000 |
+
+_Changed in the workshop:_ Gentle Resonator — what the codebox needs — New workshop note: the gentle resonator's measurements and the codebox changes it will need.
+_Proposed for canon:_ Floquet Time-Modulated Loops (§ Open Questions, the bullet 'Does the tanh saturation in Stage 1 distort the Strutt picture?', a new progressed line after the existing one) — The question asked which saturation is the right sound; Loudon answered it, and the measured level law is the reason it teaches well.; owed in the tuning ledger until Loudon's review; it replaces item 2
+
+_Left rough:_ Nobody has heard it yet, and the play page hasn't been opened in a browser; I only checked its script parses.
+
+_Next moves named:_ Back to pumping a comb (a plucked-string loop whose loudness and length breathe at their own rates): give the string the same gentle saturation, so its level follows the pump too, and see whether its pulses stay clean. · When Max reopens: rewrite the codebox's tick to the gentle line and fix its comments, per the note. The arithmetic is specified in gentle_resonator.mjs.
+<sub>`floquet-steward-009` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-f2969e60a8" -->
+### 2026-11-03 — cycle 4
+
+taught item 7, proposed item 8 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="floquet-steward-007" -->
 ### 2026-11-03 — cycle 3 — I put both pumps on the string: the loudness pump keeps it ringing, the length pump adds partials between its harmonics, and a live spectrum shows it.
 > shipped · both pumps measured, spectrum view built · steward leans length-rate knob with whole-number detents

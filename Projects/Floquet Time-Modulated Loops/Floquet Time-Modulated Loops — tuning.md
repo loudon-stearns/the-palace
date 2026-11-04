@@ -25,7 +25,7 @@ What Floquet Time-Modulated Loops's steward cycles taught the page, and the chan
 ## From cycle 1 — 2026-11-03
 
 1. Run a codebox's own text in Node against its reference before trusting its comments. Here the arithmetic matched to 1e-15 while the test list's threshold, Q, tongue width and default noise were all off, because the comments were written from the plan, not measured from the code. *(offered by the steward, cycle 1)*
-2. **Proposed for canon** · 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Open Questions, the bullet 'Does the tanh saturation in Stage 1 distort the Strutt picture?', a new progressed line after the existing one · canon change owed *(proposed by the steward, cycle 1)*
+2. **Proposed for canon** · 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Open Questions, the bullet 'Does the tanh saturation in Stage 1 distort the Strutt picture?', a new progressed line after the existing one · superseded by item 8 *(proposed by the steward, cycle 1)*
    Why: The open question asked whether a different saturation is the right sound; now there is a measured, audible answer to choose from.
    Path: `Projects/Floquet Time-Modulated Loops.md`
    >   — progressed (2026-11-03): heard three ways to stop the growth: the build's state clip with tanh, damping that grows with the ring's energy, and a stiffening spring. All three hold the pitch at exactly half the pump, because the tongue locks it. They differ in overtones: tanh's odd harmonics land on the Floquet ladder's own frequencies and hide it, while energy-dependent damping leaves the ladder as the linear theory makes it ([[Mathieu Resonator — offline check|the offline check]]).
@@ -51,3 +51,13 @@ What Floquet Time-Modulated Loops's steward cycles taught the page, and the chan
    > First proofs (2026-11-03, Python and the browser; [[Pumped Comb — first proof|the first note]], [[Pumped Comb — two pumps|the two-pump note]]): pumping only the loop gain of a dying Karplus-Strong string makes it grow only when the pump runs at a whole-number multiple of the loop rate. The tongues sit at n, not at the resonator's 2/n. A ring grows out of noise only within a few cents, though a ring that's already loud keeps holding to about ±8 cents without following the pump. Inside a tongue the ring narrows into pulses riding the gain peak. That is active mode-locking, the laser's way of making short pulses, and a closer cross-domain hook for this stage than plasma decay. Add a length pump and the two together make a sustained tone with partials between the harmonics, which neither makes alone. It survives deep length wobble only when the length rate is a whole number (or a half) times the loop rate, so the pulse meets the gain peak each pass. At stray rates the tone dies.
 
 - run · 2026-11-03 · cycle 3 · taught item 5, proposed item 6 for canon
+
+## From cycle 4 — 2026-11-03
+
+7. Check whether an off-theory result is physics or the integrator by changing the step size: the gentle tongue's lean grew at 55 Hz and shrank at 880 Hz, so it is the Mathieu tongue's own second-order bend. *(offered by the steward, cycle 4)*
+8. **Proposed for canon** · 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Open Questions, the bullet 'Does the tanh saturation in Stage 1 distort the Strutt picture?', a new progressed line after the existing one · canon change owed *(proposed by the steward, cycle 4)*
+   Why: The question asked which saturation is the right sound; Loudon answered it, and the measured level law is the reason it teaches well.
+   Path: `Projects/Floquet Time-Modulated Loops.md`
+   >   — settled (2026-11-04): Loudon chose damping that grows with the ring's energy over the build's state clip and tanh. Heard three ways, all three held the pitch at half the pump, but tanh's odd harmonics land on the Floquet ladder and hide it. With the gentle damping, the ring settles at E = (q/2 − ζ)/g, so its level follows the pump depth (measured within 3 %), and the ladder stays as the linear theory makes it ([[Gentle Resonator — what the codebox needs|the measurements]]).
+
+- run · 2026-11-03 · cycle 4 · taught item 7, proposed item 8 for canon

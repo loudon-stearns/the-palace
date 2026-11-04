@@ -1,0 +1,104 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Gentle Mathieu Resonator</title>
+<style>
+:root{--bg:#14161a;--fg:#e8e4dc;--dim:#a9a59c;--line:#55524c;--ok:#7fc4a0;--hot:#e0a040;--mod:#b08ad8}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 -apple-system,system-ui,sans-serif;padding:14px}
+h1{font-size:16px;margin:0 0 4px} p{margin:4px 0 10px;color:var(--dim);max-width:62em}
+.row{display:flex;gap:14px;flex-wrap:wrap}
+canvas{background:#0e1013;border:1px solid var(--line);border-radius:6px}
+.ctl{display:grid;grid-template-columns:9em 1fr 5.5em;gap:6px 10px;align-items:center;min-width:330px;flex:1}
+input[type=range]{width:100%} .v{font-variant-numeric:tabular-nums;text-align:right}
+button{background:#22252b;color:var(--fg);border:1px solid var(--line);border-radius:5px;padding:6px 12px;cursor:pointer;margin-right:6px}
+button.on{border-color:var(--ok);color:var(--ok)}
+.meter{font-variant-numeric:tabular-nums;color:var(--dim);margin-top:8px}
+.meter b{color:var(--fg)}
+</style></head><body>
+<h1>The Mathieu resonator, gentle version: damping that grows with the ring's energy</h1>
+<p>A 220 Hz resonator whose tuning is pumped. Below the tongue it's quiet. Cross into it and the noise cracks into a ring, and the ring settles where the extra damping uses up what the pump puts in, so the loudness tracks the pump depth. Click anywhere on the map to move there. Inside the tongue the pitch is half the pump rate, not the resonator's own 220.</p>
+<div class="row">
+ <canvas id="map" width="420" height="300" title="click to move"></canvas>
+ <canvas id="phase" width="300" height="300"></canvas>
+ <div class="ctl">
+  <span>pump depth q</span><input id="q" type="range" min="0" max="1" step="0.005" value="0.0"><span class="v" id="qv"></span>
+  <span>pump ÷ resonator</span><input id="r" type="range" min="1.5" max="2.5" step="0.005" value="2"><span class="v" id="rv"></span>
+  <span>resonator freq</span><input id="f" type="range" min="55" max="880" step="1" value="220"><span class="v" id="fv"></span>
+  <span>noise</span><input id="n" type="range" min="-7" max="-3" step="0.1" value="-5"><span class="v" id="nv"></span>
+  <span>damping ζ</span><input id="z" type="range" min="0.005" max="0.08" step="0.005" value="0.025"><span class="v" id="zv"></span>
+  <span>saturation g</span><input id="g" type="range" min="0.1" max="2" step="0.025" value="0.475"><span class="v" id="gv"></span>
+  <span></span><div><button id="go">▶ start sound</button><button id="cut">cut the noise</button><button id="sweep">sweep q 0 → 0.6</button></div><span></span>
+  <div class="meter" style="grid-column:1/4" id="meter"></div>
+ </div>
+</div>
+<script>
+const $=id=>document.getElementById(id), TWO_PI=2*Math.PI;
+const S={q:0,r:2,f:220,noise:1e-5,z:0.025,g:0.475,gain:0.5};
+let SR=48000, x=0, v=0, phi=0, cut=false, sweepT=-1, Eacc=0, Ek=0, zc=0, lastx=0, zcT=0, pitch=0, trail=[];
+function tick(){
+  const w0=TWO_PI*S.f/SR, a=w0*w0, q=S.q*a;
+  phi+=S.r*w0; if(phi>=TWO_PI) phi-=TWO_PI;
+  const coeff=a-2*q*Math.cos(phi), E=x*x+(v/w0)**2;
+  const zeta=Math.min(S.z+S.g*E,0.45/w0);
+  const nz=cut?0:S.noise*(w0*w0/((TWO_PI*220/SR)**2))*(Math.random()*2-1);
+  v=v+(-coeff*x-2*zeta*w0*v+nz); x=x+v;
+  Eacc+=E; Ek++; zcT++; if(lastx<0&&x>=0){zc++;} lastx=x;
+  return S.gain*x;
+}
+function theoryE(q,r){const e=r/2-1,s=(q/2)**2-e*e; return s<=0?0:Math.max(0,(Math.sqrt(s)-S.z)/S.g);}
+// map
+const M=$('map'), mc=M.getContext('2d'), P=$('phase'), pc=P.getContext('2d');
+const rx=r=>(r-1.5)/1.0*M.width, qy=q=>M.height-q*M.height;
+let mapImg=null;
+function drawMapBase(){
+  const img=mc.createImageData(M.width,M.height);
+  for(let j=0;j<M.height;j++)for(let i=0;i<M.width;i++){
+    const r=1.5+i/M.width, q=(M.height-j)/M.height, E=theoryE(q,r), k=(j*M.width+i)*4;
+    const t=E>0?Math.min(1,(10*Math.log10(E)+40)/40):0;
+    img.data[k]=20+t*230; img.data[k+1]=16+t*t*200; img.data[k+2]=30+(1-t)*40*(E>0?1:0.3)+t*60; img.data[k+3]=255;}
+  mapImg=img;
+}
+function drawMap(){
+  mc.putImageData(mapImg,0,0);
+  mc.fillStyle='#a9a59c'; mc.font='11px system-ui';
+  mc.fillText('pump ÷ resonator  1.5 … 2.5',6,M.height-6); mc.fillText('q 1',6,12);
+  const X=rx(S.r), Y=qy(S.q); mc.strokeStyle='#fff'; mc.lineWidth=1.5; mc.beginPath(); mc.arc(X,Y,6,0,TWO_PI); mc.stroke();
+}
+M.addEventListener('pointerdown',e=>{const b=M.getBoundingClientRect(); S.r=1.5+(e.clientX-b.left)/b.width; S.q=Math.max(0,Math.min(1,1-(e.clientY-b.top)/b.height)); sync();});
+function drawPhase(){
+  pc.fillStyle='rgba(14,16,19,0.25)'; pc.fillRect(0,0,P.width,P.height);
+  pc.strokeStyle='#7fc4a0'; pc.beginPath();
+  const w0=TWO_PI*S.f/SR, sc=P.width*0.42/1.2;
+  trail.forEach(([a,b],i)=>{const X=P.width/2+a*sc, Y=P.height/2-b*sc; i?pc.lineTo(X,Y):pc.moveTo(X,Y);}); pc.stroke();
+  pc.fillStyle='#a9a59c'; pc.font='11px system-ui'; pc.fillText('phase space: x across, v/ω₀ up',6,P.height-6);
+}
+// controls
+const fmt={q:v=>v.toFixed(3),r:v=>v.toFixed(3),f:v=>v.toFixed(0)+' Hz',n:v=>'1e'+v.toFixed(1),z:v=>v.toFixed(3),g:v=>v.toFixed(3)};
+function sync(){ $('q').value=S.q; $('r').value=S.r; for(const k of ['q','r','f','n','z','g']) $(k+'v').textContent=fmt[k](+$(k).value); }
+for(const k of ['q','r','f','n','z','g']) $(k).addEventListener('input',()=>{const val=+$(k).value; if(k==='n')S.noise=10**val; else if(k==='z'){S.z=val;drawMapBase();} else if(k==='g'){S.g=val;drawMapBase();} else S[k]=val; sync();});
+$('cut').onclick=()=>{cut=!cut; $('cut').classList.toggle('on',cut); $('cut').textContent=cut?'noise is cut — restore':'cut the noise';};
+$('sweep').onclick=()=>{sweepT=0;};
+// audio
+let ctx=null;
+$('go').onclick=async()=>{
+  if(ctx){ if(ctx.state==='running'){await ctx.suspend(); $('go').textContent='▶ start sound'; $('go').classList.remove('on');} else {await ctx.resume(); $('go').textContent='■ stop sound'; $('go').classList.add('on');} return; }
+  ctx=new AudioContext(); SR=ctx.sampleRate;
+  const node=ctx.createScriptProcessor(1024,0,1);
+  node.onaudioprocess=e=>{const o=e.outputBuffer.getChannelData(0);
+    for(let i=0;i<o.length;i++){ if(sweepT>=0){S.q=0.6*sweepT/(12*SR); sweepT++; if(sweepT>12*SR) sweepT=-1;} o[i]=Math.max(-1,Math.min(1,tick())); }
+    trail.push([x,v/(TWO_PI*S.f/SR)]); if(trail.length>60) trail.shift(); };
+  node.connect(ctx.destination); $('go').textContent='■ stop sound'; $('go').classList.add('on');
+};
+function frame(){
+  drawMap(); drawPhase();
+  if(Ek>0){ const E=Eacc/Ek, secs=zcT/SR; if(secs>0.25){pitch=zc/secs; zc=0; zcT=0;}
+    const th=theoryE(S.q,S.r);
+    $('meter').innerHTML=`ring energy <b>${E.toFixed(3)}</b> · the law predicts <b>${th.toFixed(3)}</b> ${th===0?'(outside the tongue: just filtered noise)':''}<br>pitch <b>${pitch.toFixed(1)} Hz</b> · half the pump <b>${(S.r*S.f/2).toFixed(1)} Hz</b> · resonator <b>${S.f.toFixed(0)} Hz</b>`;
+    Eacc=0; Ek=0; }
+  if(sweepT>=0) sync();
+  requestAnimationFrame(frame);
+}
+drawMapBase(); sync(); frame();
+</script>
+<details style="margin-top:14px;color:var(--dim)"><summary>the equations</summary>
+<p>per sample: E = x² + (v/ω₀)² · ζ_eff = ζ + g·E · v ← v + (−(a − 2q·a·cos φ)·x − 2ζ_eff·ω₀·v + noise) · x ← x + v</p>
+<p>where it settles: E = (√((q/2)² − (r/2 − 1)²) − ζ) / g, zero outside the tongue. The map's colour is this law; the meter shows what the resonator is actually doing. The law is first-order: past q ≈ 0.3 the real tongue leans toward low pump ratios, louder on the left edge and quieter on the right than the colours say.</p></details>
+</body></html>

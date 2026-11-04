@@ -1,0 +1,189 @@
+{
+ "level_law": [
+  {
+   "q": 0.03,
+   "E_measured": 0.0043,
+   "E_theory": 0
+  },
+  {
+   "q": 0.06,
+   "E_measured": 0.0121,
+   "E_theory": 0.0105
+  },
+  {
+   "q": 0.1,
+   "E_measured": 0.0521,
+   "E_theory": 0.0526
+  },
+  {
+   "q": 0.2,
+   "E_measured": 0.1575,
+   "E_theory": 0.1579
+  },
+  {
+   "q": 0.3,
+   "E_measured": 0.2619,
+   "E_theory": 0.2632
+  },
+  {
+   "q": 0.5,
+   "E_measured": 0.4685,
+   "E_theory": 0.4737
+  },
+  {
+   "q": 0.8,
+   "E_measured": 0.7728,
+   "E_theory": 0.7895
+  },
+  {
+   "q": 1,
+   "E_measured": 0.9717,
+   "E_theory": 1
+  }
+ ],
+ "map": {
+  "cells_inside": 615,
+  "worst_rel_error_vs_law": 0.828
+ },
+ "crack": {
+  "floor_dB": -45.4,
+  "crack_q": 0.075,
+  "top_dB": -11.6,
+  "contrast_dB": 33.8,
+  "gain": 1.796348004270122
+ },
+ "walk": [
+  {
+   "ratio": 1.671,
+   "pitch_Hz": 194.2,
+   "half_pump_Hz": 183.9,
+   "level_dB": -26.4
+  },
+  {
+   "ratio": 1.729,
+   "pitch_Hz": 190.1,
+   "half_pump_Hz": 190.1,
+   "level_dB": -18.3
+  },
+  {
+   "ratio": 1.786,
+   "pitch_Hz": 196.4,
+   "half_pump_Hz": 196.4,
+   "level_dB": -15.7
+  },
+  {
+   "ratio": 1.843,
+   "pitch_Hz": 202.7,
+   "half_pump_Hz": 202.7,
+   "level_dB": -14.9
+  },
+  {
+   "ratio": 1.9,
+   "pitch_Hz": 209,
+   "half_pump_Hz": 209,
+   "level_dB": -14.7
+  },
+  {
+   "ratio": 1.957,
+   "pitch_Hz": 215.3,
+   "half_pump_Hz": 215.3,
+   "level_dB": -14.7
+  },
+  {
+   "ratio": 2.014,
+   "pitch_Hz": 221.6,
+   "half_pump_Hz": 221.6,
+   "level_dB": -14.9
+  },
+  {
+   "ratio": 2.071,
+   "pitch_Hz": 227.8,
+   "half_pump_Hz": 227.9,
+   "level_dB": -15.4
+  },
+  {
+   "ratio": 2.129,
+   "pitch_Hz": 234.1,
+   "half_pump_Hz": 234.1,
+   "level_dB": -16
+  },
+  {
+   "ratio": 2.186,
+   "pitch_Hz": 240.4,
+   "half_pump_Hz": 240.4,
+   "level_dB": -17.1
+  },
+  {
+   "ratio": 2.243,
+   "pitch_Hz": 246.7,
+   "half_pump_Hz": 246.7,
+   "level_dB": -19.6
+  },
+  {
+   "ratio": 2.3,
+   "pitch_Hz": 247.7,
+   "half_pump_Hz": 253,
+   "level_dB": -26.7
+  },
+  {
+   "ratio": 2.357,
+   "pitch_Hz": 233,
+   "half_pump_Hz": 259.3,
+   "level_dB": -33.3
+  }
+ ],
+ "depths": [
+  {
+   "q": 0.15,
+   "level_dB": -18.9,
+   "ladder_660_dB": -34.5,
+   "ladder_1100_dB": -74
+  },
+  {
+   "q": 0.4,
+   "level_dB": -13.4,
+   "ladder_660_dB": -26.3,
+   "ladder_1100_dB": -56.8
+  },
+  {
+   "q": 0.8,
+   "level_dB": -10.3,
+   "ladder_660_dB": -21.1,
+   "ladder_1100_dB": -46.6
+  }
+ ],
+ "kill": {
+  "before_dB": -13.4,
+  "last_second_dB": -13.4
+ },
+ "safety": [
+  {
+   "q": 1,
+   "ratio": 2,
+   "freq": 220,
+   "nonfinite": 0,
+   "peak": 1.164
+  },
+  {
+   "q": 1,
+   "ratio": 1.5,
+   "freq": 220,
+   "nonfinite": 0,
+   "peak": 1.405
+  },
+  {
+   "q": 1,
+   "ratio": 2,
+   "freq": 4000,
+   "nonfinite": 0,
+   "peak": 0.487
+  },
+  {
+   "q": 1,
+   "ratio": 2,
+   "freq": 20,
+   "nonfinite": 0,
+   "peak": 5.016
+  }
+ ]
+}
