@@ -48,10 +48,11 @@ while ((await js(`document.getElementById("c-name").textContent`)) === "—" && 
 const drawn = await js(`document.getElementById("c-name").textContent`);
 check("a card is drawn by clicking", drawn !== "—", `${drawn} (after ${tries} click${tries > 1 ? "s" : ""})`);
 
-// Draw through the whole deck: seven distinct cards before any repeat.
+// Draw through the whole deck: every dealt card before any repeat.
+const deckSize = await js(`DECK.length`);
 const seen = new Set([drawn]);
-for (let k = 0; k < 40 && seen.size < 7; k++) { await click("#draw"); seen.add(await js(`document.getElementById("c-name").textContent`)); }
-check("the seed deck deals all seven", seen.size === 7, `${seen.size} distinct`);
+for (let k = 0; k < deckSize * 6 + 10 && seen.size < deckSize; k++) { await click("#draw"); seen.add(await js(`document.getElementById("c-name").textContent`)); }
+check(`the deck deals all ${deckSize} cards`, seen.size === deckSize, `${seen.size} distinct`);
 
 // Or the card from the oracle itself.
 await click("#ownToggle");

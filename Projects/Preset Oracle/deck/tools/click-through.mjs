@@ -85,6 +85,7 @@ await click(`.glyph[data-id="${await js(`Object.keys(V).find(k => V[k].verdict =
 check("the mended words come back when it's drawn again", (await js(`document.getElementById('c-constraint').textContent`)) === "Two oscillators, and only one may move");
 
 const out = await js(`exportText()`);
+writeFileSync(join(here, "handback-sample.txt"), out + "\n"); // fed to test-fold.mjs
 check("hand-back counts the verdicts", out.includes("3 of 47 vetted · 1 kept · 1 mended · 1 struck"), out.split("\n")[2]);
 check("hand-back carries the mend", out.includes("constraint → Two oscillators, and only one may move") && out.includes(mendName));
 check("hand-back carries the strike and its reason", out.includes(strikeName) && out.includes("note: too close to another card"));

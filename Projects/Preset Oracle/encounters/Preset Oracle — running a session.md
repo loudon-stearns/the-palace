@@ -11,7 +11,7 @@
 
 ## The hour
 
-**Deal (5 min).** Hand out the sheets face down. Turn them over together. Read one card aloud, any one. Say the only rule: *the oracle does not judge whether you are right, only whether you made something.* With seven cards and a full class, some students share a card. Seat those students apart. The pairs are what you'll compare afterwards.
+**Deal (5 min).** Hand out the sheets face down. Turn them over together. Read one card aloud, any one. Say the only rule: *the oracle does not judge whether you are right, only whether you made something.* With a small deck and a full class, some students share a card. Seat those students apart. The pairs are what you'll compare afterwards.
 
 **Make (30–40 min).** Students write the time they started. Don't teach and don't hint. If a student asks what Parmenides meant, ask them what they think he meant, and have them write that down under *Your reading*. That answer is what the session is for. Walk the room and listen for the moment someone stops adjusting. When they commit, they write the time and record one phrase.
 

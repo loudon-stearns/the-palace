@@ -79,7 +79,7 @@
     <label><b>Stylistic direction</b></label><input id="o-direction">
     <button id="useOwn">use this card</button>
   </div>
-  <p class="note">This journal carries a small seed deck built from the challenges named on the Preset Oracle page. The full oracle holds 140; if you drew there, type your card in.</p>
+  <p class="note">This journal deals only the cards cleared for students, <span id="deckCount">a few</span> so far, drawn from the challenges the Preset Oracle page names. The full oracle held 140; if you drew there, type your card in.</p>
 
   <div class="step">ii · make</div>
   <div class="card">
@@ -129,25 +129,12 @@
 </main>
 
 <script>
-// Seed deck: assembled from the challenges named on the Preset Oracle page and its glassblower proof.
-// The original 140-card queue is not in the palace; this is a stand-in, labelled as such on the page.
-const DECK = [
-  { name: "Parmenides Dying Alone in a Warehouse", anchor: "Parmenides — being does not change; becoming is illusion",
-    constraint: "Use feedback routing only, no filter envelopes", direction: "Industrial machinery becoming sentient" },
-  { name: "The Pleasure Boat Upside Down", anchor: "Barthes — the pleasure of the text, the obtuse meaning",
-    constraint: "All oscillators must frequency-modulate each other", direction: "Broken music box in an infinite stairwell" },
-  { name: "Bioluminescence in Broken Glass", anchor: "Merleau-Ponty — perception is the body's grip on the world",
-    constraint: "Modulate everything via chaos", direction: "The sound of light bending around a black hole" },
-  { name: "Conatus in a Locked Room", anchor: "Spinoza — each thing strives to persevere in its being",
-    constraint: "Use feedback routing only, no filter envelopes", direction: "Something alive that will not stop pushing at the walls" },
-  { name: "The Dwelling Under the Bridge", anchor: "Heidegger — dwelling, and what a made thing reveals",
-    constraint: "Modulate everything via chaos", direction: "Industrial machinery becoming sentient" },
-  { name: "Difference Without a Copy", anchor: "Deleuze — repetition that never repeats the same",
-    constraint: "All oscillators must frequency-modulate each other", direction: "Broken music box in an infinite stairwell" },
-  { name: "A Glassblower Remembering an Argument with Their Teacher", anchor: "Whether glass remembers being a liquid — two answers, both true",
-    constraint: "One timbre heavy enough to be molten; you have until the gather cools", direction: "Present labour and an absent voice, twenty years gone" },
-];
+// The cards Loudon has cleared for students, poured in from deck/Preset Oracle — deck draft.json
+// by deck/tools/build-deck.mjs. Edit the JSON and rebuild; never edit the cards here.
+const DECK_FILE = (/*DECK*/{"version":"draft-1","cards":[{"id":"spinoza-1","name":"Conatus in a Locked Room","anchor":"Spinoza — each thing strives to persevere in its being","constraint":"Feedback routing only; no filter envelopes","direction":"Something alive that will not stop pushing at the walls"},{"id":"parmenides-1","name":"Parmenides Dying Alone in a Warehouse","anchor":"Parmenides — being does not change; becoming is illusion","constraint":"Feedback routing only; no filter envelopes","direction":"Industrial machinery becoming sentient"},{"id":"merleau-ponty-1","name":"Bioluminescence in Broken Glass","anchor":"Merleau-Ponty — perception is the body's grip on the world","constraint":"Modulate everything via chaos (random, sample-and-hold, or feedback)","direction":"The sound of light bending around a black hole"},{"id":"heidegger-1","name":"The Dwelling Under the Bridge","anchor":"Heidegger — the bridge gathers the land around it; to build is to dwell","constraint":"Modulate everything via chaos","direction":"Industrial machinery becoming sentient"},{"id":"barthes-1","name":"The Pleasure Boat Upside Down","anchor":"Barthes — the pleasure of the text, and the obtuse meaning that won't settle","constraint":"All oscillators must frequency-modulate each other","direction":"A broken music box in an infinite stairwell"},{"id":"deleuze-1","name":"Difference Without a Copy","anchor":"Deleuze — repetition that never repeats the same","constraint":"All oscillators must frequency-modulate each other","direction":"A broken music box in an infinite stairwell"},{"id":"glassblower","name":"A Glassblower Remembering an Argument with Their Teacher","anchor":"Whether glass remembers being a liquid — two answers, both true","constraint":"One timbre heavy enough to be molten; you have until the gather cools","direction":"Present labour and an absent voice, twenty years gone"}]}/*/DECK*/);
+const DECK = DECK_FILE.cards;
 
+document.getElementById("deckCount").textContent = DECK.length;
 let order = [], pos = 0, card = null;
 function shuffle() { // Fisher–Yates, no repeats until the deck is spent
   order = DECK.map((_, i) => i);
@@ -163,7 +150,7 @@ document.getElementById("draw").onclick = (e) => {
   if (reluctant && Math.random() < 0.3) { reluctant = false; e.target.textContent = "ask again"; return; }
   reluctant = true; e.target.textContent = "draw a card";
   if (pos >= order.length) shuffle();
-  show({ ...DECK[order[pos++]], source: "seed deck" });
+  show({ ...DECK[order[pos++]], source: "the deck, " + DECK_FILE.version });
 };
 document.getElementById("ownToggle").onclick = () => {
   const o = document.getElementById("own"); o.style.display = o.style.display === "block" ? "none" : "block";

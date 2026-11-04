@@ -15,31 +15,31 @@ forward_vector: "I am Preset Oracle's scroll — the one page that always opens 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T01:00:41.156Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T01:10:31.804Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** complete · **Stage:** mature · **Steward:** cycle 4 · last ran 2026-11-04 (today)
+- **Status:** complete · **Stage:** mature · **Steward:** cycle 5 · last ran 2026-11-04 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — 47 oracle cards are waiting at the vetting table. Will you keep, mend or strike them, and paste the hand-back here? (`preset-oracle-010`)
-- **Last commit touching this project:** 2026-11-03 `41c3e2b7` — steward(Preset Oracle): cycle 3 — SPINNING UP. HOME: [Preset Oracle](obsidian://open?vault=The%20Palace&f…
+- **Last shipped:** 2026-11-04 (today) — Your verdicts now flow straight to students: one deck file feeds all three pages, and pasting your hand-back folds it in, tested end to end. (`preset-oracle-012`)
+- **Last commit touching this project:** 2026-11-03 `461b9862` — steward(Preset Oracle): cycle 4 — SPINNING UP. HOME: [Preset Oracle](obsidian://open?vault=The%20Palace&f…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 4 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 4 · taught item 4
+- **Runs:** 5 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 5 · taught item 5
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 3; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 4, from cycle 4 — 2026-11-03 — [[Preset Oracle — tuning]]
+- **Latest lesson:** item 5, from cycle 5 — 2026-11-03 — [[Preset Oracle — tuning]]
 
 ### Where this stands
 
-Preset Oracle deals synth-preset challenges: a card with an evocative name, a philosophical anchor, a technical constraint and a stylistic direction, which a student answers with a synthesizer. The original 140 cards are lost. The journal and the classroom sheets I built over the last three cycles only carried a seven-card stand-in. You asked me to draft a fuller deck for you to vet before any student sees it, and to make the interface really creative. So this cycle I wrote 47 cards and built the table where you vet them.
+Preset Oracle deals synth-preset challenges. Each card has a name, a philosophical anchor, a technical constraint and a stylistic direction, and a student answers it with a synthesizer. The original 140 cards are lost. Last cycle I drafted 47 replacements and built a vetting table where you keep, mend or strike them. They still wait for you. This cycle I built the path from your verdicts to the students' hands. Before, the journal and the classroom sheet each carried a hand-copied seven-card deck. Now one deck file feeds all three pages. When you paste back the table's hand-back, one command deals what you kept, takes in your mended words, and retires what you struck, along with your reason.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** No real encounter has been recorded yet. _(in 4 notes, the latest cycle 4)_
+- **rough since cycle 1:** No real encounter has been recorded yet. _(in 5 notes, the latest cycle 5)_
 - **rough since cycle 1:** The sheet and the journal each carry their own copy of the seed deck, kept the same by hand. _(in 2 notes, the latest cycle 3)_
 - **rough since cycle 1:** The journal's record path is now tested headlessly, but no one has clicked through the journal in a browser. _(in 2 notes, the latest cycle 2)_
 
@@ -57,6 +57,7 @@ _None._
 
 ### Runs
 
+- 2026-11-03 — cycle 5 · taught item 5
 - 2026-11-03 — cycle 4 · taught item 4
 - 2026-11-03 — cycle 3 · proposed item 3 for canon
 - 2026-11-03 — cycle 2 · taught item 2
@@ -89,6 +90,58 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="preset-oracle-012" -->
+### 2026-11-04 — cycle 5 — Your verdicts now flow straight to students: one deck file feeds all three pages, and pasting your hand-back folds it in, tested end to end.
+> shipped · 47 cards still wait for your verdicts · steward leans VET when you have the time
+
+What changed. The deck lives once, in deck/Preset Oracle — deck draft.json, and build-deck.mjs pours it into all three pages. The vetting table gets every card, backs included. The journal and the encounter sheet get only cards marked as cleared for students, and only their faces, so the teacher's note on the back never reaches a student. Today the cleared cards are the same seven seed cards as before.
+
+The new fold-verdicts.mjs reads the hand-back you copy from the vetting table. Kept cards get dealt as they are. Mended cards take your words, remember what they said before, and get dealt. Struck cards move to a separate struck list with your reason, so they are never dealt and never drafted again. A partial hand-back is fine: the rest keep waiting. It can also do a dry run that writes nothing. It refuses, and writes nothing, if the hand-back names a card the deck doesn't hold.
+
+How I know it works. The new test-fold.mjs copies the bundle somewhere throwaway. It folds the hand-back the vetting table's own browser test produced (one kept, one mended, one struck) and rebuilds. Then it deals every card through the copied journal in headless Chrome. It passed 16/16 three runs in a row. On the real pages, the vetting table still passes 18/18, the journal 15/15, and the sheet renders with its card count read from the deck. The journal's record now names which deck version a card came from.
+
+**Artifacts:**
+- [folds your pasted hand-back into the deck, then rebuilds the pages](Projects/Preset Oracle/deck/tools/fold-verdicts.mjs)
+- [the whole path from verdict to journal, run on a throwaway copy: 16/16](Projects/Preset Oracle/deck/tools/test-fold.mjs)
+- [one deck, two audiences: every card to the vetting table, only cleared faces to the students](Projects/Preset Oracle/deck/tools/build-deck.mjs)
+- [a real hand-back written by the vetting table's own click-through, used as the test input](Projects/Preset Oracle/deck/tools/handback-sample.txt)
+- [the deck, with the seven seed cards marked as cleared for students](Projects/Preset Oracle/deck/Preset Oracle — deck draft.json)
+- [rebuilt from the deck file](Projects/Preset Oracle/deck/Preset Oracle — vetting table.html)
+- [no longer carries its own deck; deals from the shared file and says how many cards it holds](Projects/Preset Oracle/encounters/Preset Oracle — encounter journal.html)
+- [same: the hand-kept copy is gone](Projects/Preset Oracle/encounters/Preset Oracle — encounter sheet.html)
+- [the journal's browser test now counts whatever deck it holds](Projects/Preset Oracle/encounters/tools/click-through.mjs)
+- [now writes the hand-back it produces to a file for the fold test](Projects/Preset Oracle/deck/tools/click-through.mjs)
+- [the classroom sheet as it renders now, dealt from the shared deck](Projects/Preset Oracle/encounters/tools/encounter-sheet-page1.png)
+- [the journal after this cycle's browser run](Projects/Preset Oracle/encounters/tools/click-through.png)
+- [vetting table, re-shot by its click-through](Projects/Preset Oracle/deck/tools/vetting-table-empty.png)
+- [a mended card with its seam, re-shot](Projects/Preset Oracle/deck/tools/vetting-table-mended.png)
+- [the hand-back panel, re-shot](Projects/Preset Oracle/deck/tools/vetting-table-handback.png)
+
+_Tests run this cycle_
+| test | what it drives | result |
+| --- | --- | --- |
+| test-fold.mjs | fold a real hand-back on a copy, rebuild, deal through the journal in Chrome | 16/16, three runs |
+| deck click-through | vetting table: draw, flip, keep, mend, strike, hand-back | 18/18 |
+| encounters click-through | journal on the real deck: deal every card, clock, consent, record | 15/15 |
+| sheet render | classroom sheet in headless Chrome | renders; reads 7 cards from the deck |
+
+_Changed in the workshop:_ README — names the fold and test tools and how a hand-back gets folded in
+_Changed in the workshop:_ README — the journal and the sheet now deal from the shared deck; no more hand-kept copies
+_Changed in the workshop:_ Preset Oracle — running a session — dropped 'seven cards', since the deck size now changes as you vet
+
+_Left rough:_ No real encounter has been recorded yet. The seven seed cards that students see now use the draft's slightly reworded faces (for example, Merleau-Ponty's constraint now names three kinds of chaos), and you haven't vetted those words either.
+
+_Next moves named:_ When the hand-back arrives: save it to a file, run fold-verdicts.mjs with --dry-run, show you the summary, then fold it for real · Once enough cards are dealt for a class, print a fresh set of encounter sheets from the vetted deck · Make the student-facing journal as playful as the vetting table, per your note about creative interfaces
+<sub>`preset-oracle-012` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-5c4567c80e" -->
+### 2026-11-03 — cycle 5
+
+taught item 5
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="preset-oracle-010" -->
 ### 2026-11-04 — cycle 4 — 47 oracle cards are waiting at the vetting table. Will you keep, mend or strike them, and paste the hand-back here?
 > still working · deck drafted, not vetted · steward leans VET

@@ -38,11 +38,11 @@ Once a few records exist, they are read together: which cards teach and which on
 
 ## Tests
 
-`tools/click-through.mjs` drives the journal in real headless Chrome with mouse clicks: draws (asking twice when the oracle refuses), deals all seven cards, takes a typed-in card, runs and commits the clock, refuses to write before consent, and checks the record for each consent choice. Run it with `node tools/click-through.mjs` after any change to the journal. 15/15 passed on 2026-11-03.
+`tools/click-through.mjs` drives the journal in real headless Chrome with mouse clicks: draws (asking twice when the oracle refuses), deals every card in the deck, takes a typed-in card, runs and commits the clock, refuses to write before consent, and checks the record for each consent choice. Run it with `node tools/click-through.mjs` after any change to the journal. 15/15 passed on 2026-11-03.
 
 ## Known gap
 
-The original 140-card queue isn't in the palace or on this Mac. The journal and the sheet carry the same seven-card seed deck (kept in step by hand) built from the challenges the page names, and says so on its face. When the 140 turn up, they replace the seed deck.
+The original 140-card queue isn't in the palace or on this Mac. The journal and the sheet deal from one deck, `../deck/Preset Oracle — deck draft.json`, poured into both by `../deck/tools/build-deck.mjs`. Neither page is edited by hand. They deal only cards cleared for students: the seven seed cards for now, then whatever Loudon keeps or mends at the vetting table. When the 140 turn up, they join the same file.
 
 ## Records so far
 

@@ -49,3 +49,8 @@ What Preset Oracle's steward cycles taught the page, and the changes to the hous
 
 4. The oracle hesitates once per sitting, and that can land on any draw, not just the first, so any script that drives these pages has to check that a new card was dealt rather than count clicks. *(offered by the steward, cycle 4)*
 - run · 2026-11-03 · cycle 4 · taught item 4
+
+## From cycle 5 — 2026-11-03
+
+5. Keep the deck in one file and pour it into each page by audience, so the only gate between a drafted card and a student is a field Loudon's verdict sets, never a page someone has to remember to edit. *(offered by the steward, cycle 5)*
+- run · 2026-11-03 · cycle 5 · taught item 5

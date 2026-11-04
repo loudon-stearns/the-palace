@@ -1,8 +1,8 @@
 {
-  "about": "Draft deck for the Preset Oracle, written 2026-11-04 by the page's steward from the thinkers and films the page names. Not vetted: no student sees a card until Loudon has kept or mended it at the vetting table. 'why' is the back of the card, for the teacher only: what the card is built to make a maker meet.",
+  "about": "Cards with \"dealt\": true reach students (the journal and the encounter sheet); the rest wait for Loudon at the vetting table, and tools/fold-verdicts.mjs deals what he keeps or mends. Draft deck for the Preset Oracle, written 2026-11-04 by the page's steward from the thinkers and films the page names. Not vetted: no student sees a card until Loudon has kept or mended it at the vetting table. 'why' is the back of the card, for the teacher only: what the card is built to make a maker meet.",
   "version": "draft-1",
   "cards": [
-    { "id": "spinoza-1", "pool": "philosophy", "thinker": "Spinoza", "name": "Conatus in a Locked Room",
+    { "id": "spinoza-1", "dealt": true, "pool": "philosophy", "thinker": "Spinoza", "name": "Conatus in a Locked Room",
       "anchor": "Spinoza — each thing strives to persevere in its being",
       "constraint": "Feedback routing only; no filter envelopes",
       "direction": "Something alive that will not stop pushing at the walls",
@@ -28,7 +28,7 @@
       "direction": "A workshop where glass is being made to see",
       "why": "Geometric order as feeling. Polyrhythm out of whole-number ratios, the way the Ethics builds from definitions." },
 
-    { "id": "parmenides-1", "pool": "philosophy", "thinker": "Parmenides", "name": "Parmenides Dying Alone in a Warehouse",
+    { "id": "parmenides-1", "dealt": true, "pool": "philosophy", "thinker": "Parmenides", "name": "Parmenides Dying Alone in a Warehouse",
       "anchor": "Parmenides — being does not change; becoming is illusion",
       "constraint": "Feedback routing only; no filter envelopes",
       "direction": "Industrial machinery becoming sentient",
@@ -54,7 +54,7 @@
       "direction": "A sound with no room around it",
       "why": "Takes away the space students hide in. Whatever is round about the sound has to be inside it." },
 
-    { "id": "merleau-ponty-1", "pool": "philosophy", "thinker": "Merleau-Ponty", "name": "Bioluminescence in Broken Glass",
+    { "id": "merleau-ponty-1", "dealt": true, "pool": "philosophy", "thinker": "Merleau-Ponty", "name": "Bioluminescence in Broken Glass",
       "anchor": "Merleau-Ponty — perception is the body's grip on the world",
       "constraint": "Modulate everything via chaos (random, sample-and-hold, or feedback)",
       "direction": "The sound of light bending around a black hole",
@@ -80,7 +80,7 @@
       "direction": "A piano someone has taken the strings out of",
       "why": "Discovers what in a patch is not the oscillator: resonance, noise, sub, feedback. The miss is built in." },
 
-    { "id": "heidegger-1", "pool": "philosophy", "thinker": "Heidegger", "name": "The Dwelling Under the Bridge",
+    { "id": "heidegger-1", "dealt": true, "pool": "philosophy", "thinker": "Heidegger", "name": "The Dwelling Under the Bridge",
       "anchor": "Heidegger — the bridge gathers the land around it; to build is to dwell",
       "constraint": "Modulate everything via chaos",
       "direction": "Industrial machinery becoming sentient",
@@ -106,7 +106,7 @@
       "direction": "Morning light arriving through trees",
       "why": "One gesture, committed. Revealing as a single long move rather than a wobble." },
 
-    { "id": "barthes-1", "pool": "philosophy", "thinker": "Barthes", "name": "The Pleasure Boat Upside Down",
+    { "id": "barthes-1", "dealt": true, "pool": "philosophy", "thinker": "Barthes", "name": "The Pleasure Boat Upside Down",
       "anchor": "Barthes — the pleasure of the text, and the obtuse meaning that won't settle",
       "constraint": "All oscillators must frequency-modulate each other",
       "direction": "A broken music box in an infinite stairwell",
@@ -132,7 +132,7 @@
       "direction": "A wrestler weeping on cue",
       "why": "Excess under control. Where exaggeration still reads." },
 
-    { "id": "deleuze-1", "pool": "philosophy", "thinker": "Deleuze", "name": "Difference Without a Copy",
+    { "id": "deleuze-1", "dealt": true, "pool": "philosophy", "thinker": "Deleuze", "name": "Difference Without a Copy",
       "anchor": "Deleuze — repetition that never repeats the same",
       "constraint": "All oscillators must frequency-modulate each other",
       "direction": "A broken music box in an infinite stairwell",
@@ -239,7 +239,7 @@
       "direction": "Something waiting behind the diner",
       "why": "Same material, two worlds. The maker learns which parameters carry warmth." },
 
-    { "id": "glassblower", "pool": "proof", "thinker": "The glassblower proof", "name": "A Glassblower Remembering an Argument with Their Teacher",
+    { "id": "glassblower", "dealt": true, "pool": "proof", "thinker": "The glassblower proof", "name": "A Glassblower Remembering an Argument with Their Teacher",
       "anchor": "Whether glass remembers being a liquid — two answers, both true",
       "constraint": "One timbre heavy enough to be molten; you have until the gather cools",
       "direction": "Present labour and an absent voice, twenty years gone",
