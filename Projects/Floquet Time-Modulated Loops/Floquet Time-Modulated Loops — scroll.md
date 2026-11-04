@@ -15,36 +15,36 @@ forward_vector: "I am Floquet Time-Modulated Loops's scroll — the one page tha
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T01:21:16.288Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T01:25:49.950Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 5 · last ran 2026-11-04 (today)
-- **Plan:** agreed 2026-09-26 (38 days ago) · 6 made things since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 6 · last ran 2026-11-04 (today)
+- **Plan:** agreed 2026-09-26 (39 days ago) · 8 made things since
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — I turned three wavetable surfaces into filters that change over time. Each surface's 2D spectrum turns out to be its filter's map, measured exactly. (`floquet-steward-011`)
-- **Last commit touching this project:** 2026-11-03 `e09bb27d` — steward(Floquet Time-Modulated Loops): cycle 4 — SPINNING UP. HOME: [Floquet Time-Modulated Loops](obsidian://open?vault…
+- **Last shipped:** 2026-11-04 (today) — Four cycles of filters and strings, and nobody has listened. Will you play the surface-as-filter page for two minutes? (`floquet-steward-014`)
+- **Last commit touching this project:** 2026-11-03 `f70f22f5` — steward(Floquet Time-Modulated Loops): cycle 5 — SPINNING UP. HOME: [Floquet Time-Modulated Loops](obsidian://open?vault…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 5 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 5 · taught item 9, proposed item 10 for canon
+- **Runs:** 6 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 6 · taught item 11, proposed item 12 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 3 — items 6, 8, 10; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 10, from cycle 5 — 2026-11-03 — [[Floquet Time-Modulated Loops — tuning]]
+- **Proposed for canon:** 3 — items 6, 8, 12; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 12, from cycle 6 — 2026-11-03 — [[Floquet Time-Modulated Loops — tuning]]
 
 ### Where this stands
 
-Floquet Time-Modulated Loops argues that the 'nothing changes over time' assumption under almost every audio loop is a choice. The plan has five instruments. The first, a pumped resonator, is built and waits on Max, which is paused, and on your ears. The second, a string with its loudness and length pumped, has its browser proofs. This cycle began the third: a surface from the 2D Torus library read as a filter. The surface's fast axis gives the filter's taps, and its slow axis is scanned at a rate you set. I also opened the earlier play pages in a headless browser for the first time; both run without errors.
+Floquet Time-Modulated Loops argues that the 'nothing changes over time' assumption under almost every audio loop is a choice. The plan has five instruments. The first, a pumped resonator, is built and waits on Max, which is paused, and on your ears. The second, a string with its loudness and length pumped, has its browser proofs. The third reads a wavetable surface from the 2D Torus library as a filter that changes over time. Last cycle measured it in Python. This cycle rebuilt it as a small bank of band-passes, each followed by a frequency shift, so it runs live. Here you can play it in the browser, and the eventual codebox can afford it.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
 - **rough since cycle 1:** I only checked its script parses. _(in 2 notes, the latest cycle 4)_
-- **rough since cycle 2:** Nobody has heard it yet. _(in 4 notes, the latest cycle 5)_
+- **rough since cycle 2:** Nobody has heard it yet: not the play page, and not the four glide renders from last cycle. _(in 5 notes, the latest cycle 6)_
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `floquet-steward-014` — directional_decision · posted 2026-11-04 · options: SOUNDS-RIGHT · HANN-BETTER · NOT-GRABBING · NOT-NOW
 
 ### Answered, not yet consumed
 
@@ -56,6 +56,7 @@ _None._
 
 ### Runs
 
+- 2026-11-03 — cycle 6 · taught item 11, proposed item 12 for canon
 - 2026-11-03 — cycle 5 · taught item 9, proposed item 10 for canon
 - 2026-11-03 — cycle 4 · taught item 7, proposed item 8 for canon
 - 2026-11-03 — cycle 3 · taught item 5, proposed item 6 for canon
@@ -72,7 +73,7 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 
 - **6.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 2 — Floquet Comb, a new paragraph after the first — Adds what the two-pump proof measured to the Stage 2 sketch, and corrects the tongue width to its two meanings.
 - **8.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Open Questions, the bullet 'Does the tanh saturation in Stage 1 distort the Strutt picture?', a new progressed line after the existing one — The question asked which saturation is the right sound; Loudon answered it, and the measured level law is the reason it teaches well.
-- **10.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 3 — Floquet Kernel (wavetable as filter), a new paragraph after the first — The Stage 3 sketch claims a surface's synthesis character returns as a filter character; the first proof measured how, and named the three kinds.
+- **12.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 3 — Floquet Kernel (wavetable as filter), a new paragraph after the first — The Stage 3 sketch claims a surface's synthesis character returns as a filter character. Two proofs now say how, and how to run it cheaply.
 
 <!-- scroll:now:end -->
 
@@ -101,6 +102,66 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="floquet-steward-014" -->
+### 2026-11-04 — cycle 6 — Four cycles of filters and strings, and nobody has listened. Will you play the surface-as-filter page for two minutes?
+> still working · page plays, checked against Python · steward leans listen to Penrose and Knot Shadow
+
+This project shows that letting a loop's settings breathe over time opens up sounds a steady loop can't make. I'm on the third of five instruments: a wavetable surface played as a filter that changes over time. Over four cycles I've measured every step of it, but nobody has heard any of it, and only you can. The page lets you hear it in one click. Pick Penrose or Knot Shadow, start the scan near 1 Hz and sweep it up. Flip Hann on and off. If it sounds right, I'll render Knot Shadow as a pitch shifter on a real phrase next. If Hann sounds better, I'll make it the default. If neither grabs you, tell me what's missing. I keep working either way.
+
+**Artifacts:**
+- [the surface-as-filter, playable: nine surfaces, scan rate, modes kept, Hann on or off.](Projects/Floquet Time-Modulated Loops/kernel/Floquet Kernel — play.html)
+- [kernel_map.png](Projects/Floquet Time-Modulated Loops/kernel/kernel_map.png)
+- [kernel_d_penrose_noise_glide.wav](Projects/Floquet Time-Modulated Loops/kernel/kernel_d_penrose_noise_glide.wav)
+- [kernel_c_membrane_saw_glide.wav](Projects/Floquet Time-Modulated Loops/kernel/kernel_c_membrane_saw_glide.wav)
+- [kernel_b_theta_saw_glide.wav](Projects/Floquet Time-Modulated Loops/kernel/kernel_b_theta_saw_glide.wav)
+- [kernel_a_penrose_saw_glide.wav](Projects/Floquet Time-Modulated Loops/kernel/kernel_a_penrose_saw_glide.wav)
+<sub>`floquet-steward-014` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="floquet-steward-013" -->
+### 2026-11-04 — cycle 6 — I rebuilt the surface-as-filter from a few modes, so it's cheap enough to play live. You can play it in the browser now.
+> shipped · five of nine surfaces exact at a fraction of the cost · steward leans listen next
+
+A surface repeats along both of its axes, so its filter splits exactly into one term per mode. Each term is a band-pass at m × 93.75 Hz followed by a frequency shift of n × the scan rate. Keep the strong modes and you have the same filter at a fraction of the cost. I measured it on all nine named surfaces, not just three. Knot Shadow needs 4 modes, Penrose 5 (its five star directions), and Theta and Membrane 32. All of them come out within 70 to 110 dB of the full 512-tap filter, so they are exact. Stiff String and Chladni Ghost spread over hundreds of modes and stay about 20 dB off even at 64. Those two need the full filter. One surprise: Knot Shadow is a pitch shifter. All of its energy lies on one diagonal, so each band moves in proportion to its own frequency. Sines on its band centres, scanned at 6.25 Hz, came out at 0.90 times their pitch, as predicted. It's the old sliding-delay pitch shifter, reached from a surface. Turning on a Hann window along the taps changes the sound a lot, not just a little, so the page has a switch for your ear. The page's sound code matches the Python version to more than 110 dB in three test cases. It opened in headless Chrome with no errors and its spectrum filled with sound.
+
+**Artifacts:**
+- [play it: any of nine surfaces, saw or noise, scan rate, modes kept, Hann on or off, with a mode map and a live spectrum.](Projects/Floquet Time-Modulated Loops/kernel/Floquet Kernel — play.html)
+- [the note: the idea, the nine-surface table, the Knot Shadow pitch shift, the codebox recipe.](Projects/Floquet Time-Modulated Loops/kernel/Floquet Kernel — mode bank.md)
+- [the proof: modes, the bank, and how closely it matches the full filter.](Projects/Floquet Time-Modulated Loops/kernel/mode_bank.py)
+- [every number in the table, plus each surface's strongest eight modes.](Projects/Floquet Time-Modulated Loops/kernel/mode_bank_report.json)
+- [the top 64 modes of each of the nine surfaces: the codebox's coefficients.](Projects/Floquet Time-Modulated Loops/kernel/mode_bank_modes.json)
+- [Python's output for three cases, which the page's code is checked against.](Projects/Floquet Time-Modulated Loops/kernel/mode_bank_ref.json)
+- [runs the page's own sound code against the Python version (110 to 125 dB below the signal).](Projects/Floquet Time-Modulated Loops/kernel/bank_check.mjs)
+
+_How closely the bank matches the full 512-tap filter (dB of signal over error) · saw 110 Hz, scan 0.25 → 80 Hz_
+| surface | modes for 99 % | 8 modes | 32 modes | 64 modes |
+| --- | --- | --- | --- | --- |
+| Knot Shadow | 4 | 85.6 | 85.6 | 85.6 |
+| Penrose | 5 | 69.9 | 69.9 | 69.9 |
+| Theta | 7 | 21.1 | 107.7 | 110.9 |
+| Fisher Ridge | 7 | 16.9 | 42.4 | 57.6 |
+| Matérn | 9 | 18.1 | 31.1 | 38.7 |
+| Membrane | 22 | 10.3 | 98.4 | 98.4 |
+| Kuramoto Bloom | 26 | 6.7 | 28.4 | 83.8 |
+| Chladni Ghost | 85 | 10.8 | 16.2 | 20.0 |
+| Stiff String | 158 | 18.0 | 23.8 | 24.2 |
+
+_Changed in the workshop:_ Floquet Kernel — mode bank — New workshop note for the third instrument's second proof: the mode bank.
+_Proposed for canon:_ Floquet Time-Modulated Loops (§ Stages 2–5 — the development arc, ### Stage 3 — Floquet Kernel (wavetable as filter), a new paragraph after the first) — The Stage 3 sketch claims a surface's synthesis character returns as a filter character. Two proofs now say how, and how to run it cheaply.; owed in the tuning ledger until Loudon's review; it replaces item 10
+
+_Left rough:_ Nobody has heard it yet: not the play page, and not the four glide renders from last cycle. Only Loudon can do that. Stiff String and Chladni Ghost have no cheap form yet, and the Knot Shadow pitch shift is measured on sines only.
+
+_Next moves named:_ Render Knot Shadow as a pitch shifter on a real phrase (a sung line, a drum loop) so the pitch-shift reading can be heard, not just measured. · Find a cheap form for Stiff String and Chladni Ghost: fewer taps, or keep the strongest modes and use the full filter only for the rest. · When the Max pause lifts: the codebox is one 512-sample delay line, one complex one-pole per band, and one phasor per mode; the coefficients are in mode_bank_modes.json.
+<sub>`floquet-steward-013` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-3a9e0deb7b" -->
+### 2026-11-03 — cycle 6
+
+taught item 11, proposed item 12 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="floquet-steward-011" -->
 ### 2026-11-04 — cycle 5 — I turned three wavetable surfaces into filters that change over time. Each surface's 2D spectrum turns out to be its filter's map, measured exactly.
 > shipped · third instrument's first proof, in Python · steward leans build its play page next

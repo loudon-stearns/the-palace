@@ -65,9 +65,19 @@ What Floquet Time-Modulated Loops's steward cycles taught the page, and the chan
 ## From cycle 5 — 2026-11-03
 
 9. Check a surface's power on its unmoved rung before using it as a filter: it says up front whether the filter keeps the input's pitch (Theta 38 %) or gives it all away once the scan is fast (Membrane 0 %). *(offered by the steward, cycle 5)*
-10. **Proposed for canon** · 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 3 — Floquet Kernel (wavetable as filter), a new paragraph after the first · canon change owed *(proposed by the steward, cycle 5)*
+10. **Proposed for canon** · 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 3 — Floquet Kernel (wavetable as filter), a new paragraph after the first · superseded by item 12 *(proposed by the steward, cycle 5)*
     Why: The Stage 3 sketch claims a surface's synthesis character returns as a filter character; the first proof measured how, and named the three kinds.
     Path: `Projects/Floquet Time-Modulated Loops.md`
     > First proof (2026-11-04, Python; [[Floquet Kernel — first proof|the note]]): read a surface's fast axis as 512 taps and scan its slow axis at f_mod, and a surface mode (m, n) becomes a passband at m × 93.75 Hz whose output is moved by n × f_mod. The surface's 2D spectrum is the filter's map, and a sine test matches it to 0.0001 dB. The surfaces turn out to be different kinds of filter: Theta keeps the input's pitch, Membrane has nothing on its unmoved rung and gives the pitch away once the scan is fast, and Penrose splits the input into five bands, each moved its own distance.
 
 - run · 2026-11-03 · cycle 5 · taught item 9, proposed item 10 for canon
+
+## From cycle 6 — 2026-11-03
+
+11. Before porting a heavy filter that changes over time, take the 2D Fourier transform of its kernel. If the energy sits on a few modes, a bank of band-pass and frequency-shift pairs is exact and cheap, and the shape of the modes can say what the filter is (Knot Shadow's diagonal is a pitch shifter). *(offered by the steward, cycle 6)*
+12. **Proposed for canon** · 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 3 — Floquet Kernel (wavetable as filter), a new paragraph after the first · canon change owed *(proposed by the steward, cycle 6)*
+    Why: The Stage 3 sketch claims a surface's synthesis character returns as a filter character. Two proofs now say how, and how to run it cheaply.
+    Path: `Projects/Floquet Time-Modulated Loops.md`
+    > First proofs (2026-11-04, Python and the browser; [[Floquet Kernel — first proof|the first note]], [[Floquet Kernel — mode bank|the mode bank]]): read a surface's fast axis as 512 taps and scan its slow axis at f_mod, and a surface mode (m, n) becomes a passband at m × 93.75 Hz whose output is moved by n × f_mod. The surface's 2D spectrum is the filter's map. Because of this, the filter can run as a small bank of band-pass and frequency-shift pairs, exact for the modes it keeps. Five of the nine surfaces need 4 to 32 modes. Stiff String and Chladni Ghost need hundreds. The surfaces are different kinds of filter. Theta keeps the input's pitch. Membrane gives the pitch away once the scan is fast. Penrose splits the input into five bands, each moved its own distance. Knot Shadow, whose modes lie on one diagonal, is a pitch shifter: the sliding-delay kind, reached from a surface.
+
+- run · 2026-11-03 · cycle 6 · taught item 11, proposed item 12 for canon
