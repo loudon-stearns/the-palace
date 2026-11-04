@@ -73,6 +73,31 @@ label {user-select: none; -webkit-user-select: none;}
   footer{font-family:"Manrope",sans-serif;font-size:10px;letter-spacing:2px;
     color:var(--dim);text-transform:uppercase;margin-top:56px;text-align:center}
 </style>
+<style data-transport="_ops/loudon-live/design-system/transport.css 2026-11-03">
+/* The house's player: inlined from _ops/loudon-live/design-system/transport.css on 2026-11-03 (_ops/furniture-fanout/transport.py), in the furniture layer, on the page's own tokens. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: #12121a; --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--ink, #e8e8f0); --fx-fg-2: #c8c8d8; --fx-fg-3: var(--dim, #8a8aa0); --fx-fg-4: #4a4a5a; --fx-fg-on-accent: #0a0a0f; --fx-border: var(--rule, #4a4a5e); --fx-border-soft: rgba(255,255,255,0.06); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: #e8b84a; --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: rgba(232,184,74,0.50); --fx-danger: #ff2a2a; --fx-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace; --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+.tp { display: flex; align-items: center; gap: var(--fx-s-3); min-height: 28px; margin: var(--fx-s-2) 0; font-family: var(--fx-mono); font-size: var(--fx-t-meta); line-height: 1; color: var(--fx-fg-2); }
+.tp__btn { appearance: none; -webkit-appearance: none; flex: none; width: 30px; height: 24px; padding: 0 0 1px; font: inherit; font-size: 14px; line-height: 1; color: var(--fx-fg-1); background: var(--fx-bg-elev-1); border: 1px solid var(--fx-border); border-radius: var(--fx-r-sm); cursor: pointer; transition: border-color var(--fx-t-fast) var(--fx-ease), color var(--fx-t-fast) var(--fx-ease); }
+.tp__btn:hover { border-color: var(--fx-border-hover); }
+.tp__btn:focus-visible { outline: 1px solid var(--fx-accent); outline-offset: 2px; }
+.tp[data-state="playing"] .tp__btn { color: var(--fx-accent); border-color: var(--fx-accent); }
+.tp__track { position: relative; flex: 1 1 120px; min-width: 80px; height: 14px; cursor: ew-resize; touch-action: none; }
+.tp__track::before { content: ""; position: absolute; left: 0; right: 0; top: 6px; height: 2px; background: var(--fx-border); }
+.tp__played { position: absolute; left: 0; top: 6px; height: 2px; width: 0; background: var(--fx-fg-3); }
+.tp[data-state="playing"] .tp__played { background: var(--fx-accent); }
+.tp__head { position: absolute; top: 1px; left: 0; width: 8px; height: 12px; margin-left: -4px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); box-sizing: border-box; }
+.tp[data-state="playing"] .tp__head { background: var(--fx-accent); }
+.tp__track:focus-visible { outline: 1px solid var(--fx-accent); outline-offset: 2px; }
+.tp__time { flex: none; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--fx-fg-3); }
+.tp__now { color: var(--fx-fg-1); }
+.tp[data-state="hold"] .tp__dur { color: var(--fx-danger); }
+.tp[data-state="hold"] .tp__track { opacity: .4; cursor: default; }
+.tp__name { flex: none; max-width: 40%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--fx-fg-3); }
+@media (prefers-reduced-motion: reduce) { .tp__btn { transition: none; }
+}
+}
+</style>
 </head>
 <body>
 <div class="frame">
@@ -253,5 +278,117 @@ bow on the same string, G3 up to E4.</p>
 <footer>Loudon Live · Autodidact Polymaths</footer>
 
 </div>
+<script data-transport="_ops/loudon-live/design-system/transport.js 2026-11-03">
+/* The house's player: inlined from _ops/loudon-live/design-system/transport.js on 2026-11-03 (_ops/furniture-fanout/transport.py). It replaces every <audio controls> above with a ▸ ■ button, a hairline scrub and the time said twice. */
+/* Palace Transport — a play/stop button with a hairline scrub, so a page never shows the OS audio player.
+   Loudon Live edition (2026-11-03). Plain script, no framework: load it after the page's audio, or anywhere with
+   data-auto="off" and call PalaceTransport.all() or .mount(audio) yourself.
+
+   What it does to an <audio controls>: hides the native player, keeps the element (it still plays), and draws
+   beside it a ▸ button, a hairline track with a square head, and the time said twice (now / duration). ■ stops
+   and rewinds; drag or click the track to scrub; arrows step a second (Shift: five), Home and End jump; one
+   player at a time (starting one stops the others). A file that will not load shows the HOLD word instead of a
+   duration. Styles: transport.css, in the skin's tokens. Opt a player out with data-transport="off"; name one
+   with data-label. Nothing here touches the sound. */
+(function (root) {
+  var CFG = { prefix: 'tp', hold: 'no file', solo: true };
+  var P = CFG.prefix, live = [];
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function fmt(t) { if (!isFinite(t) || t < 0) return '–:––'; var m = Math.floor(t / 60), s = Math.floor(t % 60); return m + ':' + (s < 10 ? '0' : '') + s; }
+
+  function mount(audio, opts) {
+    if (!audio || audio.__tp) return audio && audio.__tp;
+    opts = opts || {};
+    var wrap = el('div', P), btn = el('button', P + '__btn', '▸'), track = el('div', P + '__track'),
+        played = el('div', P + '__played'), head = el('div', P + '__head'), time = el('span', P + '__time'),
+        now = el('span', P + '__now', '0:00'), sep = el('span', P + '__sep', ' / '), dur = el('span', P + '__dur', fmt(NaN));
+    btn.type = 'button'; btn.setAttribute('aria-label', 'Play');
+    track.setAttribute('role', 'slider'); track.tabIndex = 0; track.setAttribute('aria-label', 'Position');
+    track.setAttribute('aria-valuemin', '0'); track.setAttribute('aria-valuemax', '100'); track.setAttribute('aria-valuenow', '0');
+    track.appendChild(played); track.appendChild(head);
+    time.appendChild(now); time.appendChild(sep); time.appendChild(dur);
+    wrap.appendChild(btn); wrap.appendChild(track); wrap.appendChild(time);
+    var name = opts.label || audio.getAttribute('data-label');
+    if (name) wrap.appendChild(el('span', P + '__name', name));
+    wrap.setAttribute('data-state', 'stopped');
+    audio.controls = false; audio.setAttribute('data-transport', 'mounted'); audio.style.display = 'none';
+    audio.parentNode.insertBefore(wrap, audio.nextSibling);
+
+    var pendingSeek = null, raf = null, dragging = false;
+    function ratio() { var d = audio.duration; return (isFinite(d) && d > 0) ? Math.min(1, audio.currentTime / d) : 0; }
+    function draw() {
+      if (wrap.getAttribute('data-state') === 'hold') return;
+      var r = ratio();
+      played.style.width = (r * 100) + '%'; head.style.left = (r * 100) + '%';
+      now.textContent = fmt(audio.currentTime); dur.textContent = fmt(audio.duration);
+      track.setAttribute('aria-valuenow', String(Math.round(r * 100)));
+      track.setAttribute('aria-valuetext', fmt(audio.currentTime) + ' of ' + fmt(audio.duration));
+    }
+    function state(s) {
+      wrap.setAttribute('data-state', s);
+      btn.textContent = s === 'playing' ? '■' : '▸';
+      btn.setAttribute('aria-label', s === 'playing' ? 'Stop' : 'Play');
+      if (raf) { cancelAnimationFrame(raf); raf = null; }
+      if (s === 'playing') (function tick() { draw(); raf = requestAnimationFrame(tick); })();
+    }
+    function hold() { state('hold'); now.textContent = ''; sep.textContent = ''; dur.textContent = CFG.hold; }
+    function stop() { audio.pause(); try { audio.currentTime = 0; } catch (e) {} state('stopped'); draw(); }
+    function play() {
+      if (CFG.solo) live.forEach(function (o) { if (o !== api && o.el.getAttribute('data-state') === 'playing') o.stop(); });
+      var p = audio.play(); if (p && p.catch) p.catch(function () { hold(); });
+    }
+    function seekRatio(f) {
+      f = Math.min(1, Math.max(0, f)); var d = audio.duration;
+      if (isFinite(d) && d > 0) { audio.currentTime = f * d; draw(); }
+      else { pendingSeek = f; if (audio.preload === 'none') audio.preload = 'metadata'; audio.load(); }
+    }
+    function seekAt(x) { var r = track.getBoundingClientRect(); if (r.width > 0) seekRatio((x - r.left) / r.width); }
+
+    btn.addEventListener('click', function () { wrap.getAttribute('data-state') === 'playing' ? stop() : play(); });
+    audio.addEventListener('play', function () { state('playing'); });
+    audio.addEventListener('pause', function () { if (wrap.getAttribute('data-state') === 'playing') { state('stopped'); draw(); } });
+    audio.addEventListener('ended', stop);
+    audio.addEventListener('timeupdate', function () { if (!raf) draw(); });
+    audio.addEventListener('durationchange', draw);
+    audio.addEventListener('loadedmetadata', function () { if (pendingSeek != null) { var f = pendingSeek; pendingSeek = null; seekRatio(f); } draw(); });
+    audio.addEventListener('error', hold);
+    track.addEventListener('pointerdown', function (e) { dragging = true; try { track.setPointerCapture(e.pointerId); } catch (x) {} seekAt(e.clientX); e.preventDefault(); });
+    track.addEventListener('pointermove', function (e) { if (dragging) seekAt(e.clientX); });
+    track.addEventListener('pointerup', function () { dragging = false; });
+    track.addEventListener('pointercancel', function () { dragging = false; });
+    track.addEventListener('keydown', function (e) {
+      var d = audio.duration, step = e.shiftKey ? 5 : 1, handled = true;
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') audio.currentTime = Math.max(0, audio.currentTime - step);
+      else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') audio.currentTime = isFinite(d) ? Math.min(d, audio.currentTime + step) : audio.currentTime + step;
+      else if (e.key === 'Home') audio.currentTime = 0;
+      else if (e.key === 'End' && isFinite(d)) audio.currentTime = d;
+      else if (e.key === ' ' || e.key === 'Enter') btn.click();
+      else handled = false;
+      if (handled) { e.preventDefault(); draw(); }
+    });
+
+    var api = { el: wrap, audio: audio, play: play, stop: stop, draw: draw };
+    audio.__tp = api; live.push(api); draw();
+    if (audio.error) hold();
+    return api;
+  }
+
+  function all(scope) {
+    var list = (scope || document).querySelectorAll('audio[controls]:not([data-transport])'), out = [];
+    for (var i = 0; i < list.length; i++) out.push(mount(list[i]));
+    return out;
+  }
+
+  var T = { mount: mount, all: all, config: CFG, live: live, version: '2026-11-03' };
+  root.PalaceTransport = T;
+  if (root.DT && typeof root.DT === 'object') { root.DT.transport = mount; root.DT.transportAll = all; }
+  var me = document.currentScript;
+  if (!(me && me.getAttribute('data-auto') === 'off')) {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { all(); });
+    else all();
+  }
+})(window);
+
+</script>
 </body>
 </html>
