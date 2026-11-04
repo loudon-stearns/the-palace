@@ -31,3 +31,8 @@ What Shopkeeper's steward cycles taught the page, and the changes to the house i
 
 2. A Space's broken API surface can be the wrong thing to blame — check the model's own README for a free hosted inference route before assuming the demo's front-end is the only wall; some models simply have no free leg at all, no matter which client tries to reach them. *(offered by the steward, cycle 5)*
 - run · 2026-11-03 · cycle 5 · taught item 2
+
+## From cycle 6 — 2026-11-03
+
+3. When a candidate's only real paths are 'load the weights yourself' or 'serve it yourself,' no amount of smarter sandbox tooling will reach it — the fix is a GPU, and the honest move is to cost one out and ask, not to keep retrying the free side. *(offered by the steward, cycle 6)*
+- run · 2026-11-03 · cycle 6 · taught item 3

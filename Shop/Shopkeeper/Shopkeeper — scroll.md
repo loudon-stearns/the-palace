@@ -15,34 +15,34 @@ forward_vector: "I am Shopkeeper's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T00:12:07.354Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T00:26:50.321Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** alive · **Stage:** — · **Steward:** cycle 5 · last ran 2026-11-04 (today)
+- **Status:** alive · **Stage:** — · **Steward:** cycle 6 · last ran 2026-11-04 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — LightOnOCR-3 isn't a probing problem — it's a real GPU requirement. Three cycles chasing the wrong wall. (`shopkeeper-cycle-5-2026-11-04`)
-- **Last commit touching this page:** 2026-11-03 `40cc4aa1` — edit(FLUX (Hugging Face)): the Shopkeeper's FLUX 3 staleness note lands as a dated gotcha, on Loudon's LAND-NOTE grant of 2026-10-18
+- **Last shipped:** 2026-11-04 (today) — Wrote the Runpod proposal you asked for — a costed, bounded plan to finally probe LightOnOCR-3 on a real GPU. (`shopkeeper-cycle-6-2026-11-04`)
+- **Last commit touching this page:** 2026-11-03 `90bfe42b` — steward(Shopkeeper): cycle 5 — LightOnOCR-3 isn't a probing problem — it's a real GPU requirement. Thr…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 5 · taught item 2
+- **Runs:** 3 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 6 · taught item 3
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 2, from cycle 5 — 2026-11-03 — [[Shopkeeper — tuning]]
+- **Latest lesson:** item 3, from cycle 6 — 2026-11-03 — [[Shopkeeper — tuning]]
 
 ### Where this stands
 
-I'm the Shopkeeper — I stock Loudon's catalogue of creative tools and only recommend what I've actually run. The Roster has had no OCR tool at all for a while now, and LightOnOCR-3 (lightonai, apache-2.0) has been the open candidate for that gap across four runs. Every prior cycle blamed its fancy demo Space for having no standard API surface my tools could drive.
+I'm the Shopkeeper — I stock Loudon's catalogue of creative tools and only recommend what I've actually run. LightOnOCR-3 (an apache-2.0 OCR model) has been my candidate for a real gap — the Roster has no OCR tool at all — for four cycles running. Cycles 1-4 blamed the demo Space's broken API surface; cycle 5 found the real wall by reading the model's own README instead of the Space: there is no free hosted inference route for this model at all, only local GPU loading or vLLM serving. Loudon answered my last ask by requesting a proposal for using Runpod to get a real GPU under this, so that's what this cycle wrote.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** I still have zero first-hand evidence of LightOnOCR-3's actual transcription quality — that was never resolved, and now it's clear it won't resolve from this sandbox at all. _(in 4 notes, the latest cycle 5)_
+- **rough since cycle 1:** I still have zero first-hand evidence of LightOnOCR-3's actual transcription quality — this proposal is the plan to finally get it, not the evidence itself. _(in 5 notes, the latest cycle 6)_
 
 ### Open asks
 
-- `shopkeeper-ask-2026-11-04-ocr-direction` — directional_decision · posted 2026-11-04 · options: MAC-HANDOFF · FIND-FREE-ALT · DROP-OCR-GAP
+- `shopkeeper-ask-2026-11-04-runpod-spend` — directional_decision · posted 2026-11-04 · options: GO-RUNPOD · HOLD · DROP-LIGHTONOCR
 
 ### Answered, not yet consumed
 
@@ -50,6 +50,7 @@ _None._
 
 ### Decided
 
+- `shopkeeper-ask-2026-11-04-ocr-direction` — directional_decision → GRANTED — (no option_id); notes: "Give me a proposal for using Runpod for this task." (2026-11-04)
 - `shopkeeper-ask-2026-10-18-flux3` — directional_decision → GRANTED — option_id=LAND-NOTE (2026-10-18)
 - `shopkeeper-sweep-2026-09-24-001` — — → GRANTED — (no option_id); notes: "d1 YES: Yes, deposit AuK as a stub. This is the same answer as the 2026-09-15 card.
 d2 YES-WHEN-IN-USE: Yes, pull Qwen-Image-2.1 into the existing ComfyUI install on a mac pass, but only the next time ComfyUI is used for real work, not as a separate errand. Don't retry the free Space." (2026-09-25)
@@ -63,6 +64,7 @@ d5 YES: Yes, add a dated gotcha note on Stable Audio 3 to [[Stable Audio Open]].
 
 ### Runs
 
+- 2026-11-03 — cycle 6 · taught item 3
 - 2026-11-03 — cycle 5 · taught item 2
 - 2026-11-03 — cycle 4 · taught item 1
 
@@ -101,6 +103,28 @@ The Shop is yours to tend, not to write. Run the tools, keep the dossiers, and m
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shopkeeper-cycle-6-2026-11-04" -->
+### 2026-11-04 — cycle 6 — Wrote the Runpod proposal you asked for — a costed, bounded plan to finally probe LightOnOCR-3 on a real GPU.
+> shipped · ~$0.25 bounded spend · steward leans yes but asks first
+
+The proposal (linked below) spins up one Runpod Community Cloud pod (an RTX A5000 or 4090, ~$0.30-0.45/hr), serves lightonai/LightOnOCR-3-4B with vLLM, runs it against the two vendor showcase images I already pulled into my bundle plus my own synthetic test page with known ground truth, judges the output, and kills the pod immediately. End to end: 20-30 minutes, roughly $0.15-0.25, hard stop at $1.00. This is the first paid-GPU spend I've asked for since the Viggle no in September — my standing rule is no paid-GPU probe without a brief, and this isn't a brief, it's a standing Roster gap that's stalled four cycles on sandbox limits alone. I think it clears the bar, but it's real money, so I'm asking rather than deciding my own exception.
+
+**Artifacts:**
+- [the full plan: steps, cost, risk, what I'd bring back.](Shop/Shopkeeper/probes/lightonocr-3/runpod-proposal.md)
+
+_Left rough:_ I still have zero first-hand evidence of LightOnOCR-3's actual transcription quality — this proposal is the plan to finally get it, not the evidence itself. I haven't actually opened a Runpod account or checked whether one already exists for this kind of spend.
+
+_Next moves named:_ On a yes: spin up the pod, run the three test images through vLLM, capture output, kill the pod, report back with real transcription results. · On a no: drop LightOnOCR-3 as this round's OCR candidate and sweep for a free-tier alternative instead.
+<sub>`shopkeeper-cycle-6-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-686b38b46e" -->
+### 2026-11-03 — cycle 6
+
+taught item 3
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="shopkeeper-cycle-5-2026-11-04" -->
 ### 2026-11-04 — cycle 5 — LightOnOCR-3 isn't a probing problem — it's a real GPU requirement. Three cycles chasing the wrong wall.
 > shipped · settled the recurring rough note · steward leans mac-handoff
