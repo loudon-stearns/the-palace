@@ -1,0 +1,602 @@
+<!doctype html>
+<!--
+  title: Tone.js — rich — sixty pushes
+  born: 2026-11-04
+  links: [[Tone.js]] (connects-to · rich-face-piece) · listed in [[Tone.js — rich.json]] · tests the second Gotcha (2026-05-26) · drives the same pair as [[Kuramoto Coupling]]'s audio explorer
+  forward_vector: I am the Gotcha's claim put under plain Web Audio — two sines coupled the page's way, sixty frequency pushes a second, beside the same equation run per sample — walked up from two sines beating to a measured test and a blind listen. I change when the Gotcha does; my numbers are Chromium's Web Audio, not Tone's.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tone.js — sixty pushes a second</title>
+<meta name="theme-color" content="#0a0a0f">
+<meta name="piece:needs" content="">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --A:#6366F1; --B:#F59E0B; --warn:#ff9b4a;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace; --sans:system-ui,-apple-system,'Segoe UI',sans-serif; --serif:Georgia,'Times New Roman',serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 400; }
+  .piece { padding: 22px 22px 24px; max-width: 1000px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 26px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 4px 0 16px; border-bottom: 1px solid var(--soft); }
+  .rail button { border: 0; border-bottom: 2px solid transparent; background: none; color: var(--fg3); font-family: var(--mono); font-size: 11px; letter-spacing: .08em; padding: 8px 12px; cursor: pointer; }
+  .rail button.on { color: var(--amber); border-bottom-color: var(--amber); }
+  .rail button:hover { color: var(--fg1); }
+  .step { display: none; } .step.on { display: block; }
+  .step h4 { font-family: var(--serif); font-weight: 400; font-size: 20px; color: var(--fg1); margin: 0 0 6px; }
+  .step p { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 12px; }
+  .stage { display: grid; grid-template-columns: minmax(180px, 240px) 1fr; gap: 18px; align-items: start; margin: 10px 0 6px; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px 24px; align-items: end; margin-top: 12px; }
+  button.b { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button.b:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.b.on, button.b.go { color: var(--amber); border-color: var(--amberline); }
+  button.b:disabled { opacity: .45; cursor: default; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button.b + button.b { border-left: 0; }
+  .btns { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 2px; background: var(--border); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 1px; background: var(--fg1); cursor: ew-resize; }
+  input[type=range]::-moz-range-thumb { width: 11px; height: 11px; border: 0; border-radius: 1px; background: var(--fg1); cursor: ew-resize; }
+  input[type=range]:hover::-webkit-slider-thumb { background: var(--amber); }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; } .state { color: var(--amber); }
+  .eq { font-family: var(--serif); font-size: 18px; color: var(--fg1); margin-top: 8px; }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg3); margin: 2px 0 10px; max-width: 76ch; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin-top: 10px; line-height: 1.55; max-width: 90ch; }
+  .nav { display: flex; justify-content: space-between; margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  table.t { border-collapse: collapse; width: 100%; font-family: var(--mono); font-size: 11.5px; margin: 8px 0 4px; }
+  table.t th { text-align: left; font-weight: 500; color: var(--fg3); letter-spacing: .06em; border-bottom: 1px solid var(--border); padding: 5px 8px 5px 0; }
+  table.t td { border-bottom: 1px solid var(--soft); padding: 5px 8px 5px 0; vertical-align: top; color: var(--fg2); }
+  table.t td.n { color: var(--fg1); white-space: nowrap; }
+  .pass { color: #9fd49a; } .fail { color: var(--warn); } .note { color: var(--fg3); }
+  .rule { border-left: 2px solid var(--amberline); padding: 6px 12px; margin: 8px 0 12px; font-size: 13px; line-height: 1.55; max-width: 80ch; }
+  .sw-A { color: var(--A); } .sw-B { color: var(--B); }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 18px; }
+  @media (max-width: 680px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · plain Web Audio, no Tone · sketch · proposal</div>
+  <h3 class="title">Sixty pushes a second: enough to hear the lock?</h3>
+  <p class="sub">The Gotcha says two sines coupled by Kuramoto's equation can be driven from the animation frame: step the equation about sixty times a second, push both frequencies with <code>setValueAtTime</code>, and you hear the beating slow and stop, with no per-sample worklet. Tone can't load here, so this walks the claim under Tone, in plain Web Audio: the page's method beside the same equation run once per sample. Five steps; the test is the fourth, and the fifth is for your ears.</p>
+
+  <nav class="rail" id="rail">
+    <button data-s="0" class="on">1 · two sines</button>
+    <button data-s="1">2 · couple them</button>
+    <button data-s="2">3 · two ways to drive it</button>
+    <button data-s="3">4 · the test, measured</button>
+    <button data-s="4">5 · blind, by ear</button>
+  </nav>
+
+  <div id="live-stage" class="stage">
+    <div class="panel">
+      <div class="plabel"><span>phase gap</span><span>θ<sub>B</sub> − θ<sub>A</sub></span></div>
+      <canvas id="circle"></canvas>
+    </div>
+    <div class="panel">
+      <div class="plabel"><span>the sum's swell, last four seconds</span><span id="env-label">silent</span></div>
+      <canvas id="env"></canvas>
+    </div>
+  </div>
+
+  <section class="step on" data-step="0">
+    <h4>Two sines, no coupling</h4>
+    <p>Two sine tones, <span class="sw-A">A</span> at 220 Hz and <span class="sw-B">B</span> a little above it. Added together they swell and fade: the beat, as many times a second as they are hertz apart. Nothing pulls them together yet, so the gap between their phases just turns, steadily.</p>
+    <div class="controls">
+      <div class="btns"><button class="b go" data-play="free">▸ play</button></div>
+      <label class="sl"><span class="sw-B">f<sub>B</sub></span> = <b class="fB-val"></b><input class="fB" type="range" min="221" max="232.5" step="0.5"></label>
+    </div>
+    <div class="read"><span>Δf = <b class="df-val"></b></span><span>the sum swells and fades <b class="dfn-val"></b> times a second</span></div>
+  </section>
+
+  <section class="step" data-step="1">
+    <h4>Couple them, the page's way</h4>
+    <div class="eq">dθ<sub>A</sub>/dt = 2π · ( f<sub>A</sub> + K · sin(θ<sub>B</sub> − θ<sub>A</sub>) )  ,  dθ<sub>B</sub>/dt = 2π · ( f<sub>B</sub> + K · sin(θ<sub>A</sub> − θ<sub>B</sub>) )</div>
+    <div class="words">(how fast each tone's phase turns) = 2π × ( its own frequency + coupling strength × sin(how far the other is ahead of it) ) — each tone speeds up when the other is ahead and slows when it is behind. K is in hertz, as in the shipped explorer.</div>
+    <div class="eq">K<sub>c</sub> = |f<sub>B</sub> − f<sub>A</sub>| ⁄ 2  ,  beat = √( Δf² − (2K)² )  below it, and none above</div>
+    <div class="words">(the coupling that locks them) = half the gap between their frequencies; below it they still beat, but slower, at the square root of (gap squared − (twice the coupling) squared); at and above it they share one frequency and the beat stops.</div>
+    <p>Driven as the Gotcha says: once per animation frame the page steps the equation and pushes both frequencies with <code>setValueAtTime</code>. Raise K slowly from zero and listen for the beat to slow down on the way to K<sub>c</sub>, and stop past it.</p>
+    <div class="controls">
+      <div class="btns"><button class="b go" data-play="push">▸ play</button></div>
+      <label class="sl">coupling K = <b class="K-val"></b><input class="K" type="range" min="0" max="6" step="0.01"></label>
+      <label class="sl"><span class="sw-B">f<sub>B</sub></span> = <b class="fB-val"></b><input class="fB" type="range" min="221" max="232.5" step="0.5"></label>
+    </div>
+    <div class="read"><span>K<sub>c</sub> = <b class="Kc-val"></b></span><span>beat predicted = <b class="pred-val"></b></span><span>beat in the model = <b class="meas-val">—</b></span><span class="state state-val">silent until you play</span></div>
+  </section>
+
+  <section class="step" data-step="2">
+    <h4>Two ways to drive it</h4>
+    <p><code>setValueAtTime</code> does not draw a curve at the sample rate. It holds each value until the next push: a staircase at the frame rate. Web Audio renders that staircase sample by sample, and the oscillator turns it into a phase with no jumps. The other way runs the equation itself once per sample, in an AudioWorklet, and the two tones really pull on each other. Switch between them at the same K; switching starts both tones again from the same phase.</p>
+    <div class="panel" style="margin:10px 0">
+      <div class="plabel"><span>f<sub>A</sub> over a quarter second — per sample (line) and pushed (steps)</span><span id="stair-label"></span></div>
+      <canvas id="stair"></canvas>
+    </div>
+    <div class="controls">
+      <div class="btns"><button class="b go" data-play="drive">▸ play</button>
+        <span class="seg" id="drive"><button class="b on" data-r="0">per sample</button><button class="b" data-r="60">60 pushes/s</button><button class="b" data-r="30">30</button><button class="b" data-r="20">20</button></span></div>
+      <label class="sl">coupling K = <b class="K-val"></b><input class="K" type="range" min="0" max="6" step="0.01"></label>
+      <label class="sl"><span class="sw-B">f<sub>B</sub></span> = <b class="fB-val"></b><input class="fB" type="range" min="221" max="232.5" step="0.5"></label>
+    </div>
+    <div class="read"><span>K<sub>c</sub> = <b class="Kc-val"></b></span><span>beat predicted = <b class="pred-val"></b></span><span>beat measured = <b class="meas-val">—</b></span><span class="state state-val">silent until you play</span></div>
+    <div class="hint">Try: K = 6, then 30 pushes a second. Past K · cos φ* ≈ rate ⁄ 2π the frame step is too coarse for the coupling, and the lock shudders at half the push rate. At 60 pushes that edge is K ≈ 9.6 Hz, past this slider; at 30 it is 4.9, at 20 it is 3.4. A browser saving power can hold a page to 30 frames a second, and the shipped explorer lets its step grow to 1/20 s before it clamps.</div>
+  </section>
+
+  <section class="step" data-step="3">
+    <h4>The test, measured</h4>
+    <p>Both ways rendered offline (<code>OfflineAudioContext</code>, 48 kHz), where a push every 1/60 s lands exactly on schedule — the page's method at its best. Each tone is rendered on its own channel and the phase gap read from the rendered samples; the played sum goes through the shipped explorer's chain (both tones into one gain at −22 dB) for levels and spectra. Same start phase, same length, same chain in both arms.</p>
+    <div class="rule"><b>The rule, set before the recorded run.</b> The claim holds in its own situation (Δf = 2 Hz, K from 0 to 6, 60 pushes a second) if rows 1 to 5 pass: the null beats at exactly Δf; the pushed pair's beat rates fall within 1% of the per-sample pair's; both lock at the same K, on a grid of 0.01 Hz, and that K is K<sub>c</sub>; both locks are steady; and the staircase's sidebands sit below −40 dB. Rows 6 to 10 test the Gotcha's <i>reason</i> and <i>condition</i>, and say where the claim stops. Row 7 is the control that shows the meter can see a failure: the Euler step predicts the wobble before any render. A <i>fail</i> in rows 6, 9 and 10 marks a place where the pushed pair stops matching the coupled one.</div>
+    <div class="btns"><button class="b go" id="rerun">render it again here</button><span class="hint" id="rerun-msg" style="margin:0">takes a minute; the numbers below are from the recorded run</span></div>
+    <table class="t" id="tbl"><thead><tr><th>#</th><th>what</th><th>rule</th><th>per sample</th><th>pushed</th><th>verdict</th></tr></thead><tbody></tbody></table>
+    <div class="hint">Whose numbers: Chromium's Web Audio (headless, the playwright build), a plain <code>OscillatorNode</code> and an <code>AudioWorklet</code>, run by this page's own code — not Tone's. Tone's <code>frequency</code> is a signal that ends on a native AudioParam, and <code>setValueAtTime</code> means the same held step there; that is from Tone's design, not from running it. The pushed arm copies the shipped explorer's tick in its order: the phases step by the last frame's gap, then the frequencies they give are pushed and held.</div>
+    <h4 style="margin-top:16px">What the numbers can say about “feel”</h4>
+    <p>“Enough to feel the locking” is a claim about a listener. No number here hears anything. What the numbers can say is narrower and still useful: in the Gotcha's own situation the pushed pair hands a listener the same cue the per-sample pair does — the same beat rate, to a thousandth of a hertz, and a lock at the same K — and adds a staircase whose traces sit about 73 dB under the tones. So whatever an ear feels with the coupled pair, it is offered the same thing by the pushed one. Where the numbers part — a slow frame rate, a big gap between the tones, a stalled frame — “feel” is not a number at all, and step 5 hands it back to you.</p>
+  </section>
+
+  <section class="step" data-step="4">
+    <h4>Listen blind</h4>
+    <p>Two clips per trial, X and Y, eight seconds each: the tones start 2 Hz apart and K rises from 0 to 1.5 Hz over five seconds, so you hear drift, the slowing, and the lock. One clip is the per-sample pair, the other the pushed pair, in random order. Pick the per-sample one.</p>
+    <div class="rule"><b>The rule, before the first trial.</b> Four trials a round. Guessing gets each right half the time, so 4 of 4 by chance happens 1 time in 16 (6.25%). Only 4 of 4 counts as hearing a difference; anything less says nothing either way. Run the <b>control</b> round too: there the push rate is 20 a second and K rises to 5, where the numbers say the pushed lock shudders. If you can't pick the control, a miss on the main round doesn't tell us much. Both clips in a trial are matched in loudness over their whole length (what is left of the difference is printed), have the same start, the same length and the same 20 ms fades.</div>
+    <div class="btns">
+      <span class="seg" id="round"><button class="b on" data-round="main">main · 60 pushes/s</button><button class="b" data-round="control">control · 20 pushes/s</button></span>
+      <button class="b go" id="ab-new">▸ start the round</button>
+    </div>
+    <div class="btns" style="margin-top:12px">
+      <button class="b" id="play-x" disabled>▸ X</button><button class="b" id="play-y" disabled>▸ Y</button>
+      <button class="b" id="pick-x" disabled>X is per sample</button><button class="b" id="pick-y" disabled>Y is per sample</button>
+    </div>
+    <div class="read"><span>trial <b id="ab-trial">—</b></span><span>score <b id="ab-score">—</b></span><span id="ab-match"></span><span class="state" id="ab-verdict"></span></div>
+  </section>
+
+  <div class="nav"><button class="b" id="back">◂ back</button><button class="b" id="next">next ▸</button></div>
+  <div class="hint">No agent can hear these. The renders, the measurements and the rule were checked headless; whether the lock is felt is yours to say.</div>
+  <div class="foot">Loud’n Live</div>
+</div>
+<script>
+'use strict';
+// ---- engine: shared by the piece and its headless check ----
+const ENGINE = (() => {
+  const SR = 48000, TAU = 2 * Math.PI;
+  const WORKLET_SRC = `
+class KuramotoPair extends AudioWorkletProcessor {
+  constructor(o) { super(); const p = (o && o.processorOptions) || {};
+    this.fA = p.fA ?? 220; this.fB = p.fB ?? 222; this.K = p.K ?? 0; this.ramp = p.ramp || 0; this.i = 0; this.tA = 0; this.tB = 0; this.n = 0; this.adv = 0; this.span = 0;
+    this.port.onmessage = (e) => { const d = e.data; for (const k of ['fA','fB','K']) if (d[k] !== undefined) this[k] = d[k]; }; }
+  process(_in, outs) {
+    const o = outs[0], a = o[0], b = o[1] || o[0], dt = 1 / sampleRate, TAU = 2 * Math.PI;
+    for (let n = 0; n < a.length; n++) {
+      a[n] = Math.sin(this.tA); b[n] = Math.sin(this.tB);
+      const K = this.ramp ? this.K * Math.min(1, this.i++ / (sampleRate * this.ramp)) : this.K;
+      const s = Math.sin(this.tB - this.tA);
+      const fa = this.fA + K * s, fb = this.fB - K * s;
+      this.tA += TAU * fa * dt; if (this.tA >= TAU) this.tA -= TAU;
+      this.tB += TAU * fb * dt; if (this.tB >= TAU) this.tB -= TAU;
+      this.adv += (fb - fa) * dt;
+    }
+    this.span += a.length;
+    if (this.span >= 2048) { this.port.postMessage({ dphi: this.tB - this.tA, adv: this.adv, secs: this.span / sampleRate }); this.adv = 0; this.span = 0; }
+    return true;
+  }
+}
+registerProcessor('kuramoto-pair', KuramotoPair);`;
+
+  // The page's method, as the shipped explorer does it: integrate on a frame clock, push the instantaneous
+  // frequencies with setValueAtTime, the value held until the next push.
+  function modelStep(st, o, dt, K = o.K) {
+    const s = Math.sin(st.tB - st.tA);
+    const fa = o.fA + K * s, fb = o.fB - K * s;
+    st.tA = (st.tA + TAU * fa * dt) % TAU; st.tB = (st.tB + TAU * fb * dt) % TAU;
+    return [fa, fb];
+  }
+
+  function mulberry(a) { return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+  async function render(o) {
+    // o: { arm: 'push'|'worklet', fA, fB, K, T, rate, stallAt, stall, gainDb }
+    const len = Math.round(o.T * SR);
+    const ctx = new OfflineAudioContext({ numberOfChannels: 3, length: len, sampleRate: SR });
+    const merge = ctx.createChannelMerger(3);
+    merge.connect(ctx.destination);
+    const sum = ctx.createGain(); sum.gain.value = Math.pow(10, (o.gainDb ?? -22) / 20); // the explorer's chain: both into one gain at −22 dB
+    sum.connect(merge, 0, 2);
+    if (o.arm === 'worklet') {
+      const url = URL.createObjectURL(new Blob([WORKLET_SRC], { type: 'application/javascript' }));
+      await ctx.audioWorklet.addModule(url);
+      const node = new AudioWorkletNode(ctx, 'kuramoto-pair', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2], processorOptions: { fA: o.fA, fB: o.fB, K: o.K, ramp: o.ramp || 0 } });
+      const split = ctx.createChannelSplitter(2); node.connect(split);
+      split.connect(merge, 0, 0); split.connect(merge, 1, 1); split.connect(sum, 0); split.connect(sum, 1);
+    } else {
+      const A = ctx.createOscillator(), B = ctx.createOscillator();
+      A.frequency.value = o.fA; B.frequency.value = o.fB;
+      A.connect(merge, 0, 0); B.connect(merge, 0, 1); A.connect(sum); B.connect(sum);
+      // The explorer's tick, in its order: dt is the wall-clock gap since the last frame (clamped at 0.05 s);
+      // the instantaneous frequencies come from the phases as they stand; the phases advance by them over dt;
+      // the same frequencies are pushed now and held until the next push. With jitter the frame lands up to
+      // ±jitter off its slot, and the push at the next 128-sample render quantum.
+      const st = { tA: 0, tB: 0 }, rnd = mulberry(o.seed || 1), Q = 128 / SR;
+      let n = 0, w = 0, wPrev = 0, extra = 0, stalled = false;
+      while (w < o.T) {
+        const dt = Math.min(0.05, w - wPrev); wPrev = w;
+        const K = o.ramp ? o.K * Math.min(1, w / o.ramp) : o.K;
+        const [fa, fb] = modelStep(st, o, dt, K);
+        const at = o.jitter ? Math.ceil(w / Q) * Q : w;
+        A.frequency.setValueAtTime(fa, at); B.frequency.setValueAtTime(fb, at);
+        n++;
+        if (o.stallAt != null && !stalled && w >= o.stallAt) { stalled = true; extra += o.stall - 1 / o.rate; }
+        w = n / o.rate + extra + (o.jitter ? (rnd() * 2 - 1) * o.jitter : 0);
+      }
+      A.start(0); B.start(0);
+    }
+    const buf = await ctx.startRendering();
+    return [buf.getChannelData(0), buf.getChannelData(1), buf.getChannelData(2)];
+  }
+
+  // Complex demodulation at f0, two boxcars one period of f0 long (nulls the 2·f0 image), decimated to 1 kHz.
+  function demod(x, f0) {
+    const L = Math.round(SR / f0), N = x.length, D = 48;
+    let re = new Float64Array(N), im = new Float64Array(N);
+    for (let n = 0; n < N; n++) { const p = TAU * f0 * n / SR; re[n] = x[n] * Math.cos(p); im[n] = -x[n] * Math.sin(p); }
+    const box = (a) => { const out = new Float64Array(N); let acc = 0; for (let n = 0; n < N; n++) { acc += a[n]; if (n >= L) acc -= a[n - L]; out[n] = acc / L; } return out; };
+    re = box(box(re)); im = box(box(im));
+    const M = Math.floor(N / D), zr = new Float64Array(M), zi = new Float64Array(M);
+    for (let m = 0; m < M; m++) { zr[m] = re[m * D]; zi[m] = im[m * D]; }
+    return { zr, zi, fs: SR / D, delay: L / SR }; // two boxcars delay by L samples in total
+  }
+
+  function analyse(chA, chB, o, win) {
+    const f0 = (o.fA + o.fB) / 2, a = demod(chA, f0), b = demod(chB, f0), fs = a.fs;
+    const M = a.zr.length, dphi = new Float64Array(M);
+    let prev = 0, unwrap = 0;
+    for (let m = 0; m < M; m++) {
+      const r = b.zr[m] * a.zr[m] + b.zi[m] * a.zi[m], i = b.zi[m] * a.zr[m] - b.zr[m] * a.zi[m];
+      let p = Math.atan2(i, r);
+      if (m) { let d = p - prev; if (d > Math.PI) unwrap -= TAU; else if (d < -Math.PI) unwrap += TAU; }
+      prev = p; dphi[m] = p + unwrap;
+    }
+    const i0 = Math.round(win[0] * fs), i1 = Math.min(M - 1, Math.round(win[1] * fs) - Math.round(0.02 * fs));
+    // Beat rate over whole beats where there are two or more (the Adler beat dwells near the bottleneck, so a
+    // window cut mid-beat misreads it); otherwise the net phase travel over the window.
+    let beat = (dphi[i1] - dphi[i0]) / (TAU * (i1 - i0) / fs), first = -1, last = -1, cyc = 0;
+    for (let m = i0 + 1, c0 = Math.floor(dphi[i0] / TAU); m <= i1; m++) { const c = Math.floor(dphi[m] / TAU); if (c !== c0) { if (first < 0) first = m; else { last = m; cyc += Math.sign(c - c0); } c0 = c; } }
+    if (last > first && first >= 0 && Math.abs(cyc) >= 1) beat = cyc / ((last - first) / fs);
+    let cr = 0, ci = 0, fmin = Infinity, fmax = -Infinity, n = 0;
+    for (let m = i0; m <= i1; m++) { cr += Math.cos(dphi[m]); ci += Math.sin(dphi[m]); n++;
+      if (m > i0) { const f = (dphi[m] - dphi[m - 1]) * fs / TAU; if (f < fmin) fmin = f; if (f > fmax) fmax = f; } }
+    const R = Math.hypot(cr, ci) / n;
+    const spread = R > 0 ? Math.sqrt(-2 * Math.log(Math.min(1, R))) : Infinity;
+    let mean = Math.atan2(ci, cr);
+    return { beat, R, spread, dfMin: fmin, dfMax: fmax, phi: mean, dphi, fs };
+  }
+
+  // Adler: below K_c the pair beats at √(Δf² − (2K)²); above, it locks at sin φ* = Δf / 2K.
+  const theory = (fA, fB, K) => { const df = fB - fA; return Math.abs(2 * K) >= Math.abs(df) ? { beat: 0, phi: Math.asin(df / (2 * K)) } : { beat: Math.sign(df) * Math.sqrt(df * df - 4 * K * K), phi: null }; };
+
+  function fft(re, im) { const n = re.length; for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+    for (let len = 2; len <= n; len <<= 1) { const ang = -TAU / len, wr = Math.cos(ang), wi = Math.sin(ang);
+      for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let k = 0; k < len / 2; k++) { const ur = re[i + k], ui = im[i + k], vr = re[i + k + len / 2] * cr - im[i + k + len / 2] * ci, vi = re[i + k + len / 2] * ci + im[i + k + len / 2] * cr;
+        re[i + k] = ur + vr; im[i + k] = ui + vi; re[i + k + len / 2] = ur - vr; im[i + k + len / 2] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } } }
+
+  // Power spectrum (dB re the strongest bin) of the last 2^18 samples (5.46 s), Hann window.
+  function spectrum(x) { const N = 1 << 18, off = x.length - N, re = new Float64Array(N), im = new Float64Array(N);
+    for (let n = 0; n < N; n++) re[n] = x[off + n] * (0.5 - 0.5 * Math.cos(TAU * n / (N - 1)));
+    fft(re, im); const P = new Float64Array(N / 2); let pk = 0; for (let k = 0; k < N / 2; k++) { P[k] = re[k] * re[k] + im[k] * im[k]; if (P[k] > pk) pk = P[k]; }
+    return { P, pk, df: SR / N }; }
+  // Energy in a band, dB re the total energy within ±20 Hz of the carriers.
+  function bandDb(S, lo, hi, cLo, cHi) { let e = 0, c = 0; for (let k = Math.ceil(lo / S.df); k <= hi / S.df; k++) e += S.P[k]; for (let k = Math.ceil(cLo / S.df); k <= cHi / S.df; k++) c += S.P[k]; return 10 * Math.log10(e / c + 1e-30); }
+
+  return { SR, TAU, WORKLET_SRC, render, demod, analyse, theory, spectrum, bandDb, modelStep };
+})();
+if (typeof window !== 'undefined') window.ENGINE = ENGINE;
+// ---- the battery: the test of step 4, run by the piece and by its headless check alike ----
+const BATTERY = (() => {
+  const E = ENGINE, TAU = 2 * Math.PI;
+  const arm = (c, a) => ({ ...c, arm: a === 'ws' ? 'worklet' : 'push', rate: a === 'ws' ? 0 : a });
+  const meas = async (c, a, win) => { const o = arm(c, a), [x, y, s] = await E.render(o); return { r: E.analyse(x, y, o, win), s, x }; };
+  const f3 = (v) => (Math.abs(v) < 5e-4 ? 0 : v).toFixed(3), f1 = (v) => v.toFixed(1), f2 = (v) => v.toFixed(2);
+  // Beat read from the played sum alone: the swell's dips (Hilbert-free: demodulate the sum at the mid frequency).
+  function sumBeat(s, c, win) {
+    const d = E.demod(s, (c.fA + c.fB) / 2), fs = d.fs, i0 = Math.round(win[0] * fs), i1 = Math.round(win[1] * fs) - 20;
+    let mx = 0; for (let m = i0; m < i1; m++) mx = Math.max(mx, Math.hypot(d.zr[m], d.zi[m]));
+    let low = false, first = -1, last = -1, n = 0;
+    for (let m = i0; m < i1; m++) { const a = Math.hypot(d.zr[m], d.zi[m]) / mx;
+      if (!low && a < 0.3) { low = true; if (first < 0) first = m; last = m; n++; } else if (low && a > 0.7) low = false; }
+    return n >= 2 ? (n - 1) / ((last - first) / fs) : 0;
+  }
+  const level = (s, t0) => { let e = 0; const i0 = Math.round(t0 * E.SR); for (let n = i0; n < s.length; n++) e += s[n] * s[n]; return 10 * Math.log10(e / (s.length - i0)); };
+
+  async function run(tell = () => {}) {
+    const rows = [], base = { fA: 220, fB: 222, T: 16 }, W = [8, 16];
+    const row = (r) => { rows.push(r); tell(rows.length); };
+
+    { const a = await meas({ ...base, K: 0 }, 'ws', W), b = await meas({ ...base, K: 0 }, 60, W);
+      row({ id: 1, what: 'null: K = 0, beat (Hz)', rule: '|beat − 2| < 0.005, both', ws: f3(a.r.beat), push: f3(b.r.beat), pass: Math.abs(a.r.beat - 2) < 0.005 && Math.abs(b.r.beat - 2) < 0.005 }); }
+
+    { let ok = true; const ws = [], pu = [], th = [], sb = [];
+      for (const K of [0.5, 0.9, 0.99]) { const c = { ...base, K }, a = await meas(c, 'ws', W), b = await meas(c, 60, W), t = E.theory(220, 222, K).beat, sbt = sumBeat(b.s, c, W);
+        ws.push(f3(a.r.beat)); pu.push(f3(b.r.beat)); th.push(f3(t)); sb.push(f3(sbt));
+        ok = ok && Math.abs(b.r.beat - a.r.beat) / a.r.beat < 0.01 && Math.abs(a.r.beat - t) / t < 0.01 && Math.abs(sbt - b.r.beat) / b.r.beat < 0.02; }
+      row({ id: 2, what: `beat below K_c at K = 0.5, 0.9, 0.99 (Hz); Adler predicts ${th.join(' · ')}`, rule: 'pushed within 1% of per sample; per sample within 1% of Adler; the played sum\'s dips agree within 2%', ws: ws.join(' · '), push: pu.join(' · ') + `  (from the sum: ${sb.join(' · ')})`, pass: ok }); }
+
+    { const sweep = async (a) => { for (let i = 0; i <= 10; i++) { const K = 0.95 + i * 0.01, m = await meas({ ...base, K }, a, W); if (Math.abs(m.r.beat) < 0.125) return K; } return NaN; };
+      const a = await sweep('ws'), b = await sweep(60);
+      row({ id: 3, what: 'K at which they lock, 0.95 → 1.05 by 0.01 (Hz); K_c = 1.00', rule: 'locked: under one beat in 8 s; same K both, and = K_c', ws: f2(a), push: f2(b), pass: Math.abs(a - b) < 1e-6 && Math.abs(a - 1) < 1e-6 }); }
+
+    { const c = { ...base, K: 1.5 }, a = await meas(c, 'ws', W), b = await meas(c, 60, W);
+      row({ id: 4, what: 'lock at K = 1.5: phase spread (rad) · gap φ (rad); φ* = asin(Δf ⁄ 2K) = 0.730', rule: 'spread < 0.01 rad, both', ws: `${b.r && a.r.spread.toFixed(4)} · ${f3(a.r.phi)}`, push: `${b.r.spread.toFixed(4)} · ${f3(b.r.phi)}`, pass: a.r.spread < 0.01 && b.r.spread < 0.01, note: 'the pushed gap sits 2π · Δf ⁄ 60 = 0.209 rad off φ*: the explorer steps its phases by the last frame before it pushes, so the tones run a frame behind its model' }); }
+
+    const side = async (c) => { const out = {}; for (const a of ['ws', 60]) { const o = arm({ ...c, T: 12 }, a), [, , s] = await E.render(o), S = E.spectrum(s), f0 = (c.fA + c.fB) / 2;
+      out[a] = Math.max(E.bandDb(S, f0 + 45, f0 + 75, f0 - 20, f0 + 20), E.bandDb(S, f0 - 75, f0 - 45, f0 - 20, f0 + 20)); } return out; };
+    { const r = await side({ fA: 220, fB: 222, K: 0.9 });
+      row({ id: 5, what: 'the staircase: energy 60 ± 15 Hz from the tones, dB re the tones (Δf 2, K 0.9, drifting)', rule: 'pushed below −40 dB', ws: f1(r.ws), push: f1(r[60]), pass: r[60] < -40 }); }
+    { const r = await side({ fA: 220, fB: 232.5, K: 6 });
+      row({ id: 6, what: 'the staircase at the slider\'s hardest drift (Δf 12.5, K 6)', rule: 'pushed below −40 dB', ws: f1(r.ws), push: f1(r[60]), pass: r[60] < -40, note: 'per sample has its own −52 dB here: the Adler beat is not a sine' }); }
+
+    { const sw = {}; for (const a of ['ws', 60, 30, 20]) { const m = await meas({ fA: 220, fB: 222, K: 6, T: 10 }, a, [5, 10]); sw[a] = m.r.dfMax - m.r.dfMin; }
+      row({ id: 7, what: 'control: K = 6, Δf 2 — swing of the frequency gap once locked (Hz), at 60 · 30 · 20 pushes/s', rule: 'predicted before running, from the Euler step: steady at 60, shuddering at 30 and 20 (swing > 1 Hz)', ws: f2(sw.ws), push: `${f2(sw[60])} · ${f2(sw[30])} · ${f2(sw[20])}`, pass: sw.ws < 0.05 && sw[60] < 0.05 && sw[30] > 1 && sw[20] > 1 }); }
+
+    { const on = {}, pred = {}; for (const rate of [60, 30, 20]) { pred[rate] = Math.sqrt((rate / TAU) ** 2 + 1); const k0 = Math.floor((pred[rate] - 0.5) * 10) / 10; on[rate] = NaN;
+        for (let i = 0; i <= 10; i++) { const K = k0 + i * 0.1, m = await meas({ fA: 220, fB: 222, K, T: 10 }, rate, [5, 10]); if (m.r.dfMax - m.r.dfMin > 1) { on[rate] = K; break; } } }
+      row({ id: 8, what: 'where the lock starts to shudder (K, Hz) at 60 · 30 · 20 pushes/s; predicted K · cos φ* = rate ⁄ 2π: ' + [60, 30, 20].map((r) => f2(pred[r])).join(' · '), rule: 'onset within 0.15 Hz of the prediction (0.1 grid)', ws: 'never (it has no step)', push: [60, 30, 20].map((r) => f1(on[r])).join(' · '), pass: [60, 30, 20].every((r) => Math.abs(on[r] - pred[r]) <= 0.15) }); }
+
+    { const c = { fA: 120, fB: 220, K: 6, T: 12 }, out = {};
+      for (const a of ['ws', 60]) { const o = arm(c, a), [x] = await E.render(o), S = E.spectrum(x); out[a] = Math.max(E.bandDb(S, 99, 101, 119, 121), E.bandDb(S, 139, 141, 119, 121)); }
+      row({ id: 9, what: 'the condition: tones 100 Hz apart (both inside the explorer\'s 120–320 Hz sliders), K = 6 — tone A alone, its line 20 Hz off, dB re A', rule: 'the pushed tone within 6 dB of the per-sample one', ws: f1(out.ws), push: f1(out[60]), pass: Math.abs(out[60] - out.ws) <= 6, note: '100 Hz of gap turns 1.67 times a frame; sampled at 60 it reads as 20 Hz, and the push writes a 20 Hz wobble the coupled pair never makes' }); }
+
+    { const c = { fA: 220, fB: 222, K: 1.5, ramp: 6, T: 16 }, wl = await meas(c, 'ws', [10, 16]), L0 = level(wl.s, 10);
+      const p = await meas(c, 60, [10, 16]), lv = [];
+      for (const seed of [1, 2, 3, 4, 5]) { const m = await meas({ ...c, jitter: 0.001, seed }, 60, [10, 16]); lv.push(level(m.s, 10) - L0); }
+      const st = []; for (const S of [0.06, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5]) { const m = await meas({ ...c, stallAt: 2, stall: S }, 60, [10, 16]); st.push(level(m.s, 10) - L0); }
+      const rng = (a) => `${f1(Math.min(...a))} to ${f1(Math.max(...a))}`;
+      row({ id: 10, what: 'open loop: K rises 0 → 1.5 in 6 s; the locked sum\'s level, dB re per sample — on schedule · ±1 ms frame jitter, pushes on render quanta (5 runs) · one stalled frame of 60–500 ms at t = 2 s (8 runs)', rule: 'within 1 dB of per sample in every run', ws: '0.0 (gap ' + f3(wl.r.phi) + ' rad)', push: `${f1(level(p.s, 10) - L0)} · ${rng(lv)} · ${rng(st)}`, pass: [level(p.s, 10) - L0, ...lv, ...st].every((v) => Math.abs(v) <= 1), note: 'every run still locks (no beat); the two pushed tones are not coupled to each other, so a frame the model misses shifts their gap for good, and the locked chord comes out quieter' }); }
+    return rows;
+  }
+  return { run, sumBeat };
+})();
+if (typeof window !== 'undefined') window.BATTERY = BATTERY;
+const BAKED = {"date":"2026-11-04","where":"headless Chromium (playwright), OfflineAudioContext 48 kHz","rows":[{"id":1,"what":"null: K = 0, beat (Hz)","rule":"|beat − 2| < 0.005, both","ws":"2.000","push":"2.000","pass":true},{"id":2,"what":"beat below K_c at K = 0.5, 0.9, 0.99 (Hz); Adler predicts 1.732 · 0.872 · 0.282","rule":"pushed within 1% of per sample; per sample within 1% of Adler; the played sum's dips agree within 2%","ws":"1.732 · 0.872 · 0.282","push":"1.733 · 0.873 · 0.282  (from the sum: 1.733 · 0.872 · 0.282)","pass":true},{"id":3,"what":"K at which they lock, 0.95 → 1.05 by 0.01 (Hz); K_c = 1.00","rule":"locked: under one beat in 8 s; same K both, and = K_c","ws":"1.00","push":"1.00","pass":true},{"id":4,"what":"lock at K = 1.5: phase spread (rad) · gap φ (rad); φ* = asin(Δf ⁄ 2K) = 0.730","rule":"spread < 0.01 rad, both","ws":"0.0000 · 0.730","push":"0.0000 · 0.939","pass":true,"note":"the pushed gap sits 2π · Δf ⁄ 60 = 0.209 rad off φ*: the explorer steps its phases by the last frame before it pushes, so the tones run a frame behind its model"},{"id":5,"what":"the staircase: energy 60 ± 15 Hz from the tones, dB re the tones (Δf 2, K 0.9, drifting)","rule":"pushed below −40 dB","ws":"-140.1","push":"-72.5","pass":true},{"id":6,"what":"the staircase at the slider's hardest drift (Δf 12.5, K 6)","rule":"pushed below −40 dB","ws":"-51.9","push":"-35.8","pass":false,"note":"per sample has its own −52 dB here: the Adler beat is not a sine"},{"id":7,"what":"control: K = 6, Δf 2 — swing of the frequency gap once locked (Hz), at 60 · 30 · 20 pushes/s","rule":"predicted before running, from the Euler step: steady at 60, shuddering at 30 and 20 (swing > 1 Hz)","ws":"0.00","push":"0.00 · 19.46 · 24.23","pass":true},{"id":8,"what":"where the lock starts to shudder (K, Hz) at 60 · 30 · 20 pushes/s; predicted K · cos φ* = rate ⁄ 2π: 9.60 · 4.88 · 3.34","rule":"onset within 0.15 Hz of the prediction (0.1 grid)","ws":"never (it has no step)","push":"9.6 · 4.9 · 3.4","pass":true},{"id":9,"what":"the condition: tones 100 Hz apart (both inside the explorer's 120–320 Hz sliders), K = 6 — tone A alone, its line 20 Hz off, dB re A","rule":"the pushed tone within 6 dB of the per-sample one","ws":"-124.4","push":"-19.2","pass":false,"note":"100 Hz of gap turns 1.67 times a frame; sampled at 60 it reads as 20 Hz, and the push writes a 20 Hz wobble the coupled pair never makes"},{"id":10,"what":"open loop: K rises 0 → 1.5 in 6 s; the locked sum's level, dB re per sample — on schedule · ±1 ms frame jitter, pushes on render quanta (5 runs) · one stalled frame of 60–500 ms at t = 2 s (8 runs)","rule":"within 1 dB of per sample in every run","ws":"0.0 (gap 0.730 rad)","push":"-0.4 · -0.5 to -0.4 · -16.1 to -0.1","pass":false,"note":"every run still locks (no beat); the two pushed tones are not coupled to each other, so a frame the model misses shifts their gap for good, and the locked chord comes out quieter"}]}; // BAKED: written by the check, --bake
+// ---- the walk ----
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const TAU = 2 * Math.PI, F_A = 220;
+const S = { fB: 222, K: 0, rate: 0, step: 0 };
+const kc = () => Math.abs(S.fB - F_A) / 2;
+const predBeat = () => { const d = S.fB - F_A; return 2 * S.K >= Math.abs(d) ? 0 : Math.sqrt(d * d - 4 * S.K * S.K); };
+
+function readouts() {
+  $$('.fB').forEach((e) => (e.value = S.fB)); $$('.K').forEach((e) => (e.value = S.K));
+  $$('.fB-val').forEach((e) => (e.textContent = S.fB.toFixed(1) + ' Hz'));
+  $$('.df-val').forEach((e) => (e.textContent = Math.abs(S.fB - F_A).toFixed(1) + ' Hz'));
+  $$('.dfn-val').forEach((e) => (e.textContent = Math.abs(S.fB - F_A).toFixed(1)));
+  $$('.K-val').forEach((e) => (e.textContent = S.K.toFixed(2) + ' Hz'));
+  $$('.Kc-val').forEach((e) => (e.textContent = kc().toFixed(2) + ' Hz'));
+  $$('.pred-val').forEach((e) => (e.textContent = predBeat().toFixed(2) + ' a second'));
+  $$('#drive [data-r]').forEach((b) => b.classList.toggle('on', +b.dataset.r === S.rate));
+  drawStair();
+}
+$$('.fB').forEach((e) => (e.oninput = () => { S.fB = +e.value; readouts(); tellWorklet(); }));
+$$('.K').forEach((e) => (e.oninput = () => { S.K = +e.value; readouts(); tellWorklet(); }));
+$$('#drive [data-r]').forEach((b) => (b.onclick = () => { S.rate = +b.dataset.r; readouts(); if (live && live.mode !== 'free') start('drive'); }));
+
+// ---- live sound: nothing is made before a click ----
+let ac = null, out = null, live = null, workletReady = null;
+async function ensure() {
+  if (!ac) { ac = new AudioContext(); out = ac.createGain(); out.gain.value = Math.pow(10, -22 / 20); out.connect(ac.destination);
+    const url = URL.createObjectURL(new Blob([ENGINE.WORKLET_SRC], { type: 'application/javascript' }));
+    workletReady = ac.audioWorklet.addModule(url); }
+  await ac.resume();
+}
+function stop() {
+  if (!live) return;
+  const l = live; live = null;
+  try { l.g.gain.setTargetAtTime(0, ac.currentTime, 0.015); } catch {}
+  setTimeout(() => { for (const n of l.nodes) { try { n.stop && n.stop(); } catch {} try { n.disconnect(); } catch {} } }, 120);
+  $$('[data-play]').forEach((b) => (b.textContent = '▸ play'));
+  $$('.state-val').forEach((e) => (e.textContent = 'silent'));
+  $('#env-label').textContent = 'silent';
+}
+function tellWorklet() { if (live && live.node) live.node.port.postMessage({ fA: F_A, fB: S.fB, K: S.K }); }
+async function start(which) {
+  await ensure(); stop();
+  const mode = which === 'free' ? 'free' : which === 'push' ? 'push' : S.rate ? 'push' : 'worklet';
+  const rate = which === 'push' ? 60 : S.rate || 60;
+  const g = ac.createGain(); g.gain.setValueAtTime(0, ac.currentTime); g.gain.linearRampToValueAtTime(1, ac.currentTime + 0.03); g.connect(out);
+  const l = { mode, rate, which, g, nodes: [g], tA: 0, tB: 0, last: null, t0: ac.currentTime, hist: [] };
+  if (mode === 'worklet') {
+    await workletReady;
+    const node = new AudioWorkletNode(ac, 'kuramoto-pair', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2], processorOptions: { fA: F_A, fB: S.fB, K: S.K } });
+    const split = ac.createChannelSplitter(2); node.connect(split); split.connect(g, 0); split.connect(g, 1); // both tones into one gain, as the explorer sums them
+    node.port.onmessage = (e) => { if (live === l) { l.dphi = e.data.dphi; l.hist.push([ac.currentTime, e.data.adv, e.data.secs]); } };
+    l.node = node; l.nodes.push(node, split);
+  } else {
+    const A = ac.createOscillator(), B = ac.createOscillator();
+    A.frequency.value = F_A; B.frequency.value = S.fB; A.connect(g); B.connect(g); A.start(); B.start();
+    l.A = A; l.B = B; l.nodes.push(A, B);
+  }
+  live = l;
+  $$(`[data-play="${which}"]`).forEach((b) => (b.textContent = '❚❚ stop'));
+}
+$$('[data-play]').forEach((b) => (b.onclick = () => (live && live.which === b.dataset.play ? stop() : start(b.dataset.play))));
+
+// The page's tick, as the shipped explorer runs it: dt since the last frame (clamped at 0.05 s), frequencies
+// from the phases as they stand, phases stepped by them, the same frequencies pushed now and held.
+function pushTick(nowMs) {
+  const l = live; if (!l || l.mode !== 'push') return;
+  const w = nowMs / 1000;
+  if (l.last != null && w - l.last < 1 / l.rate - 0.004) return;
+  const dt = l.last == null ? 0 : Math.min(0.05, w - l.last); l.last = w;
+  const K = l.which === 'free' ? 0 : S.K, s = Math.sin(l.tB - l.tA), fa = F_A + K * s, fb = S.fB - K * s;
+  l.tA = (l.tA + TAU * fa * dt) % TAU; l.tB = (l.tB + TAU * fb * dt) % TAU;
+  l.A.frequency.setValueAtTime(fa, ac.currentTime); l.B.frequency.setValueAtTime(fb, ac.currentTime);
+  l.dphi = l.tB - l.tA; l.hist.push([ac.currentTime, (fb - fa) * dt, dt]);
+}
+function measuredBeat(l) {
+  const now = ac.currentTime; while (l.hist.length && l.hist[0][0] < now - 2) l.hist.shift();
+  let a = 0, t = 0; for (const [, x, y] of l.hist) { a += x; t += y; } return t > 0.5 ? a / t : null;
+}
+
+// ---- drawing ----
+function fit(c, h) { const w = c.clientWidth, d = devicePixelRatio || 1, H = h || w;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); c.style.height = H + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H }; }
+const envTrail = [];
+function draw(nowMs) {
+  requestAnimationFrame(draw);
+  pushTick(nowMs);
+  let phi = null;
+  if (live) {
+    if (live.mode === 'free' || live.which === 'free') phi = TAU * (S.fB - F_A) * (ac.currentTime - live.t0);
+    else if (live.dphi != null) phi = live.dphi;
+    if (phi != null) { envTrail.push([nowMs, Math.abs(Math.cos(phi / 2))]); }
+    const mb = live.which === 'free' ? Math.abs(S.fB - F_A) : measuredBeat(live);
+    const st = live.which === 'free' ? 'free — no coupling' : S.K < kc() ? 'drift' : mb != null && Math.abs(mb) < 0.05 ? 'lock' : 'pulling in';
+    $$('.meas-val').forEach((e) => (e.textContent = mb == null ? '…' : Math.abs(mb).toFixed(2) + ' a second'));
+    $$('.state-val').forEach((e) => (e.textContent = st));
+    $('#env-label').textContent = live.mode === 'worklet' ? 'per sample' : live.which === 'free' ? 'free' : `${live.rate} pushes/s`;
+  }
+  while (envTrail.length && envTrail[0][0] < nowMs - 4000) envTrail.shift();
+  { const { g, w } = fit($('#circle')); const cx = w / 2, cy = w / 2, r = w * 0.38;
+    g.clearRect(0, 0, w, w); g.strokeStyle = '#22222e'; g.lineWidth = 1.5; g.beginPath(); g.arc(cx, cy, r, 0, 7); g.stroke();
+    g.fillStyle = '#4a4a5a'; g.font = '10px ui-monospace, Menlo, monospace'; g.textAlign = 'center'; g.fillText('in phase', cx, cy - r - 6);
+    if (phi != null) { const a = phi - Math.PI / 2; g.strokeStyle = 'rgba(232,184,74,.5)'; g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + r * Math.cos(a), cy + r * Math.sin(a)); g.stroke();
+      g.fillStyle = '#e8b84a'; g.beginPath(); g.arc(cx + r * Math.cos(a), cy + r * Math.sin(a), 5, 0, 7); g.fill(); } }
+  { const { g, w, h } = fit($('#env'), 150); g.clearRect(0, 0, w, h);
+    g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(0, h - 12); g.lineTo(w, h - 12); g.stroke();
+    g.strokeStyle = '#e8e8f0'; g.lineWidth = 1.4; g.beginPath();
+    envTrail.forEach(([t, v], i) => { const x = w - ((nowMs - t) / 4000) * w, y = h - 12 - v * (h - 24); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke();
+    g.fillStyle = '#4a4a5a'; g.font = '10px ui-monospace, Menlo, monospace'; g.textAlign = 'left'; g.fillText('−4 s', 4, h - 1); g.textAlign = 'right'; g.fillText('now', w - 4, h - 1); }
+}
+
+// f_A over a quarter second: the equation per sample (fine steps) against the pushes (held steps)
+function drawStair() {
+  const c = $('#stair'); if (!c || !c.clientWidth) return;
+  const { g, w, h } = fit(c, 170), rate = S.rate || 60, T = 0.25;
+  const sim = (dtStep, hold) => { let tA = 0, tB = 0, t = 0, pts = []; // start a quarter beat in, where the pull changes fastest
+    const d0 = S.fB - F_A; tB = Math.PI * 0.25 * Math.sign(d0 || 1);
+    while (t <= T + 1e-9) { const s = Math.sin(tB - tA), fa = F_A + S.K * s, fb = S.fB - S.K * s; pts.push([t, fa]); tA += TAU * fa * dtStep; tB += TAU * fb * dtStep; t += dtStep; }
+    return pts; };
+  const fine = sim(1 / 4000), steps = sim(1 / rate);
+  let lo = Infinity, hi = -Infinity; for (const [, f] of fine.concat(steps)) { lo = Math.min(lo, f); hi = Math.max(hi, f); }
+  if (hi - lo < 0.02) { lo -= 0.05; hi += 0.05; }
+  const X = (t) => 10 + (t / T) * (w - 20), Y = (f) => h - 16 - ((f - lo) / (hi - lo)) * (h - 32);
+  g.clearRect(0, 0, w, h);
+  g.strokeStyle = '#6366F1'; g.lineWidth = 1.5; g.beginPath(); steps.forEach(([t, f], i) => { if (i) g.lineTo(X(t), Y(steps[i - 1][1])); i ? g.lineTo(X(t), Y(f)) : g.moveTo(X(t), Y(f)); }); g.lineTo(X(T), Y(steps[steps.length - 1][1])); g.stroke();
+  g.strokeStyle = '#e8e8f0'; g.lineWidth = 1; g.beginPath(); fine.forEach(([t, f], i) => (i ? g.lineTo(X(t), Y(f)) : g.moveTo(X(t), Y(f)))); g.stroke();
+  g.fillStyle = '#8a8aa0'; g.font = '10px ui-monospace, Menlo, monospace'; g.textAlign = 'left';
+  g.fillText(hi.toFixed(2) + ' Hz', 12, 12); g.fillText(lo.toFixed(2) + ' Hz', 12, h - 3);
+  $('#stair-label').textContent = S.K === 0 ? 'K = 0: nothing to push but the tone itself' : `${rate} steps a second · held between`;
+}
+
+// ---- the walk: one step at a time, changing step stops the sound ----
+function go(i) {
+  S.step = Math.max(0, Math.min(4, i)); stop(); abStop();
+  $$('.step').forEach((s) => s.classList.toggle('on', +s.dataset.step === S.step));
+  $$('#rail [data-s]').forEach((b) => b.classList.toggle('on', +b.dataset.s === S.step));
+  $('#live-stage').style.display = S.step <= 2 ? '' : 'none';
+  $('#back').disabled = S.step === 0; $('#next').disabled = S.step === 4;
+  readouts();
+}
+$$('#rail [data-s]').forEach((b) => (b.onclick = () => go(+b.dataset.s)));
+$('#back').onclick = () => go(S.step - 1); $('#next').onclick = () => go(S.step + 1);
+
+// ---- step 4: the table ----
+function table(rows, here) {
+  const tb = $('#tbl tbody'); tb.innerHTML = '';
+  for (const r of rows) {
+    const h = here && here.find((x) => x.id === r.id);
+    const tr = document.createElement('tr');
+    const cell = (txt, cls) => { const td = document.createElement('td'); if (cls) td.className = cls; td.textContent = txt; tr.appendChild(td); return td; };
+    cell(String(r.id), 'n'); const w = cell(r.what); if (r.note) { const n = document.createElement('div'); n.className = 'note'; n.textContent = r.note; w.appendChild(n); }
+    cell(r.rule, 'note');
+    cell(r.ws + (h ? `\nhere: ${h.ws}` : ''), 'n').style.whiteSpace = 'pre-line';
+    cell(r.push + (h ? `\nhere: ${h.push}` : ''), 'n').style.whiteSpace = 'pre-line';
+    const v = cell(r.pass ? 'pass' : 'fail', r.pass ? 'pass' : 'fail');
+    if (h) v.textContent += h.pass === r.pass ? ' · same here' : ` · here: ${h.pass ? 'pass' : 'fail'}`;
+    tb.appendChild(tr);
+  }
+}
+$('#rerun').onclick = async () => {
+  const b = $('#rerun'); b.disabled = true;
+  try { const here = await BATTERY.run((n) => ($('#rerun-msg').textContent = `rendering… ${n} of 10 rows`)); table(BAKED.rows, here); $('#rerun-msg').textContent = 'done: the “here” lines are your browser’s'; }
+  catch (e) { $('#rerun-msg').textContent = 'could not render here: ' + e.message; }
+  b.disabled = false;
+};
+
+// ---- step 5: blind A/B ----
+const AB = { round: 'main', trial: 0, score: 0, bufs: null, perX: false, src: null };
+$$('#round [data-round]').forEach((b) => (b.onclick = () => { AB.round = b.dataset.round; $$('#round [data-round]').forEach((x) => x.classList.toggle('on', x === b)); abReset(); }));
+function abReset() { abStop(); AB.trial = 0; AB.score = 0; AB.bufs = null; ['#play-x', '#play-y', '#pick-x', '#pick-y'].forEach((s) => ($(s).disabled = true)); $('#ab-trial').textContent = '—'; $('#ab-score').textContent = '—'; $('#ab-verdict').textContent = ''; $('#ab-match').textContent = ''; }
+function abStop() { if (AB.src) { try { AB.src.stop(); } catch {} AB.src = null; } }
+async function clips() {
+  const c = AB.round === 'main' ? { fA: 220, fB: 222, K: 1.5, ramp: 5, T: 8, rate: 60 } : { fA: 220, fB: 222, K: 5, ramp: 5, T: 8, rate: 20 };
+  const [, , ws] = await ENGINE.render({ ...c, arm: 'worklet' }), [, , pu] = await ENGINE.render({ ...c, arm: 'push' });
+  const rms = (x) => Math.sqrt(x.reduce((a, v) => a + v * v, 0) / x.length), k = rms(ws) / rms(pu), pk = new Float32Array(pu.length);
+  for (let n = 0; n < pu.length; n++) pk[n] = pu[n] * k;
+  const fade = (x) => { const F = Math.round(0.02 * ENGINE.SR); for (let n = 0; n < F; n++) { x[n] *= n / F; x[x.length - 1 - n] *= n / F; } return x; };
+  // residual: the locked part's level after matching the whole
+  const part = (x, a, z) => 20 * Math.log10(rms(x.subarray(a * ENGINE.SR, z * ENGINE.SR)));
+  return { ws: fade(Float32Array.from(ws)), pu: fade(pk), gain: 20 * Math.log10(k), drift: part(pk, 0, 4) - part(ws, 0, 4), lock: part(pk, 6, 8) - part(ws, 6, 8) };
+}
+async function abTrial() {
+  AB.trial++; AB.perX = Math.random() < 0.5;
+  $('#ab-trial').textContent = `${AB.trial} of 4`; ['#play-x', '#play-y', '#pick-x', '#pick-y'].forEach((s) => ($(s).disabled = false));
+}
+$('#ab-new').onclick = async () => {
+  abReset(); $('#ab-new').disabled = true; $('#ab-trial').textContent = 'rendering…';
+  await ensure(); AB.bufs = await clips(); $('#ab-new').disabled = false;
+  $('#ab-match').textContent = `matched by ${AB.bufs.gain >= 0 ? '+' : ''}${AB.bufs.gain.toFixed(2)} dB over the whole clip; left over: ${AB.bufs.drift.toFixed(2)} dB in the first four seconds, ${AB.bufs.lock.toFixed(2)} dB in the lock`;
+  $('#ab-score').textContent = '0 of 0'; abTrial();
+};
+function play(which) {
+  stop(); abStop(); if (!AB.bufs) return;
+  const data = (which === 'x') === AB.perX ? AB.bufs.ws : AB.bufs.pu;
+  const b = ac.createBuffer(1, data.length, ENGINE.SR); b.copyToChannel(data, 0);
+  const s = ac.createBufferSource(); s.buffer = b; s.connect(ac.destination); s.start(); AB.src = s;
+}
+$('#play-x').onclick = () => play('x'); $('#play-y').onclick = () => play('y');
+function pick(which) {
+  abStop(); if ((which === 'x') === AB.perX) AB.score++;
+  $('#ab-score').textContent = `${AB.score} of ${AB.trial}`;
+  if (AB.trial >= 4) { ['#play-x', '#play-y', '#pick-x', '#pick-y'].forEach((s) => ($(s).disabled = true));
+    $('#ab-verdict').textContent = AB.score === 4 ? 'four of four: you heard a difference (by chance, 1 in 16)' : `${AB.score} of 4: no evidence either way that you can tell them apart`; }
+  else abTrial();
+}
+$('#pick-x').onclick = () => pick('x'); $('#pick-y').onclick = () => pick('y');
+
+table(BAKED.rows); go(0); requestAnimationFrame(draw);
+</script>
+</body>
+</html>
