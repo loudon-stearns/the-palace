@@ -73,7 +73,19 @@ const DICT = {
   'trickster.quickbar.summary':         'the leans —',
   'trickster.quickbar.remainder.one':   'more needs your call',
   'trickster.quickbar.remainder.many':  'more need your call',
-  'trickster.deck.keyhint':             'j / k move · 1-9 pick · enter files the pick · space files the lean · f files all · c collapses',
+  'trickster.deck.keyhint':             'j / k move · 1-9 pick · enter files the pick · space files the lean · f files all · c collapses · / searches',
+
+  // Search + filter (2026-11-04, Loudon: "add a search and filter function at
+  // the top"). Narrows the cards, the keys and FILE ALL together.
+  'trickster.filter.placeholder':       'search -- project, ask, state, option',
+  'trickster.filter.show.all':          'all',
+  'trickster.filter.show.waiting':      'waiting on you',
+  'trickster.filter.show.call':         'needs your call',
+  'trickster.filter.show.session':      'wants a session',
+  'trickster.filter.project.any':       'every project',
+  'trickster.filter.of':                'of',
+  'trickster.filter.none':              'nothing matches',
+  'trickster.filter.clear':             'clear',
 
   // Collapsed view (2026-11-04, Loudon: "collapse each project down to just
   // the ask and a description of the project state"). An option, not the
@@ -81,6 +93,18 @@ const DICT = {
   'trickster.deck.collapse':            '[C] COLLAPSE',
   'trickster.deck.expand':              '[C] EXPAND',
   'trickster.card.open':                '▸ open',
+
+  // The project's Plan + Standing Orders inside ▸more (2026-11-04), read from
+  // its scroll only while the fold is open.
+  'trickster.card.more.standing':       '▸ more -- the steward\'s why, the plan, the standing orders',
+  'trickster.card.standing.plan':       'the plan',
+  'trickster.card.standing.orders':     'standing orders',
+  'trickster.card.standing.loading':    'reading the scroll…',
+  'trickster.card.standing.noscroll':   'no scroll for this asker -- no plan or standing orders to show',
+  'trickster.card.standing.error':      'could not read the scroll',
+  'trickster.card.standing.noplan':     'no plan agreed yet.',
+  'trickster.card.standing.noorders':   'none yet.',
+  'trickster.card.standing.open':       'open the scroll to change them',
   'trickster.card.fold':                '▴ fold',
 
   // Inline assets (Phase 3) — audition strip + embed chrome. Titles/blurbs

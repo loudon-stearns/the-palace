@@ -107,6 +107,3 @@ The manifest's sections all read *in step* under `fingerprint.mjs`; every made p
 
 *The version and what each run taught the ceremony: [[Enrichment — tuning]]. The first rich face: [[Kuramoto Coupling]].*
 
-## Active Baton
-
-[[Enrichment — baton — cloud phase 2026-11]] — drafted 2026-11-04

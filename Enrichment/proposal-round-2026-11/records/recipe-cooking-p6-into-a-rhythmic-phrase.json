@@ -1,0 +1,27 @@
+{
+ "entry": "Recipe — Cooking p6 into a rhythmic phrase",
+ "path": "Projects/Wallpaper Groups/recipe-p6.md",
+ "type": "none (bundle note, no frontmatter)",
+ "stage": "none",
+ "weight": 6,
+ "claim": "§ What you should hear: p6 \"spins\" and the Ewe bell E(5,12) \"approximates p6's rotational skeleton\"; § What this teaches: the spine p1 -> p2 -> p3 -> p6 doubles 'groove intensity' at each step. The recipe's +2 shift makes a 2-step loop, and E(5,12) has five onsets, which no 6-fold shift can produce.",
+ "pieces": [
+  {
+   "section": "What this teaches",
+   "what": "Plays the rotation spine p1, p2, p3, p6 from one cell in sequence, with each output's true period shown, testing whether intensity rises or the loop just shortens",
+   "kind": "interactive",
+   "walks_up_from": "one cell in a 12-step cycle"
+  },
+  {
+   "section": "What you should hear",
+   "what": "The Ewe bell pattern E(5,12) beside the p6 recipe's output, overlaid on a 12-step circle, testing the 'approximates p6' claim by eye and ear",
+   "kind": "interactive",
+   "walks_up_from": "the 12-step circle with one onset"
+  }
+ ],
+ "gathered": [
+  "Projects/Wallpaper Groups/proofs/2026-05-04-animated-explorer-v2.html"
+ ],
+ "tier": "sketch",
+ "slice": 5
+}

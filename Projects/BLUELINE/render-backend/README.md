@@ -1,3 +1,13 @@
+---
+title: "README"
+born: 2026-06-14
+links:
+  - target: "[[BLUELINE — Render Backend]]"
+    type: connects-to
+    label: "code-of"
+forward_vector: "I am the front door of BLUELINE's render-backend code, Loudon's animatic-to-render proposal of 2026-06-14: the two-tier ComfyUI pipeline that reads one board record at two fidelities, its repository layout and its test ladder. How it folds into BLUELINE is on BLUELINE — Render Backend; I change when the runner does."
+---
+
 # Animatic → Render Pipeline
 
 A two-tier ComfyUI pipeline for turning authored storyboard control into a consistent
@@ -25,7 +35,7 @@ Piece tier is pure execution, so it is the only stage you pay FLUX prices for.
 
 ```
 animatic-pipeline/
-  PLAN.md                 ← this file
+  README.md               ← this file (was PLAN.md)
   board_template.txt      ← the data: BIBLE + one record per board (both tiers)
   runner.py               ← batch runner: parse template → patch workflow → queue → download
   graph_spec.md           ← build sheets for both ComfyUI graphs + the node-title contract

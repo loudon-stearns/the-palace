@@ -54,7 +54,7 @@ const CONTENT_TYPES = {
   '.html': 'text/html; charset=utf-8', '.htm': 'text/html; charset=utf-8',
   '.css': 'text/css', '.js': 'application/javascript',
   '.md': 'text/markdown; charset=utf-8', '.txt': 'text/plain; charset=utf-8',
-  '.json': 'application/json',
+  '.json': 'application/json', '.pdf': 'application/pdf',
 };
 
 export function contentTypeFor(absPath) {

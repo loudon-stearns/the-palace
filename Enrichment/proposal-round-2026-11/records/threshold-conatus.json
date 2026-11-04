@@ -1,0 +1,20 @@
+{
+ "entry": "Threshold Conatus",
+ "path": "Threshold Conatus.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 6,
+ "claim": "§ The Threshold's Own Conatus: the refractory period after an action potential is 'functional specification', not recovery cost — during absolute refractory no stimulus of any magnitude fires the cell, during relative refractory only suprathreshold stimuli recruit it — and 'this graduated recovery creates a preference structure: the threshold will cross for stimuli that have earned the crossing in relation to its current state.'",
+ "pieces": [
+  {
+   "section": "The Threshold's Own Conatus",
+   "what": "A spiking threshold with an absolute and a relative refractory period, driven by a train of stimuli whose strengths and timings the reader sets and sees. The walk: one threshold with no refractory period (every suprathreshold stimulus crosses); then the absolute period (the same train, some crossings refused by timing alone); then the relative period (crossings refused by strength-at-this-moment). The test last: the claim is that the preference is the refractory structure's, so the piece removes it and shows the preference vanish — the same train, scored by which stimuli cross, with and without the structure. The verdict rule (what pattern of crossings counts as a 'preference structure', and what would count as none) is stated before the first run. Both arms scored; the model's time constants named as the model's, not a neuron's.",
+   "kind": "interactive",
+   "walks_up_from": "one threshold, one stimulus, no memory"
+  }
+ ],
+ "gathered": [],
+ "tier": "sketch",
+ "note": "Weight-6 board line of the 2026-11-03 round. Prior art, read before building: Projects/Action Potential Oscillator — rich — four stages.html (a landed proposal piece that builds a neuron a mechanism at a time, including the recovery) and Projects/Action Potential Oscillator/neuron_oscillator.html; the page's § The Threshold's Own Conatus cites the Stage 6 dialogue with that oscillator. The claim is a claim about structure (what the refractory period IS for), so ask what kind of claim it is before testing: the piece can test that a graduated recovery yields a selective crossing pattern and that removing it removes the pattern; it cannot test 'conatus'. The paragraph under the section states the answer in words (absolute, then relative) — a leak surface if the piece is framed as a guess. No baton on the page; no board notes.",
+ "slice": "cloud-3"
+}

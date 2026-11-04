@@ -408,6 +408,7 @@ export function useScrollNavigation() {
       const currentSearch = window.location.search || '';
       if (nextSearch !== currentSearch) {
         const nextUrl = `${window.location.pathname}${nextSearch}${window.location.hash}`;
+        if (target) announceLeave();
         window.history.pushState({ scroll: target }, '', nextUrl);
       }
     }
@@ -469,6 +470,7 @@ export function useDeckNavigation() {
       const currentSearch = window.location.search || '';
       if (nextSearch !== currentSearch) {
         const nextUrl = `${window.location.pathname}${nextSearch}${window.location.hash}`;
+        announceLeave();
         window.history.pushState({ deck: target }, '', nextUrl);
       }
     }
@@ -476,4 +478,54 @@ export function useDeckNavigation() {
   }, []);
 
   return { deck, navigateDeck };
+}
+
+// A cross-deck jump to an entry (a project name on a TRICKSTER card, a page
+// link on a scroll) as ONE history step. It used to be two or three: the deck
+// switch pushed `?deck=STATE`, then STATE's open pushed `&entry=` (and an open
+// scroll pushed its own close first), so the first Back landed on STATE's bare
+// list instead of the card you clicked from (2026-11-04, Loudon: "the back
+// button takes us to the wrong location"). Now the scroll close, the deck and
+// the entry land in one URL; Back steps straight to where you were.
+export function buildEntryJumpSearch(searchString, path) {
+  const s = buildDeckSearch(buildScrollSearch(searchString, null), 'STATE');
+  return buildEntrySearch(s, { path, edit: false });
+}
+
+// Push the jump, then tell every URL-mirroring hook to re-read the URL. Each
+// hook's popstate listener only parses the URL back into its state, so one
+// synthetic popstate syncs the deck, the scroll and an already-mounted STATE
+// together; a STATE that mounts fresh reads the entry from the URL itself.
+export function jumpToEntry(path) {
+  if (!path || typeof window === 'undefined') return;
+  const nextSearch = buildEntryJumpSearch(window.location.search, path);
+  if (nextSearch !== (window.location.search || '')) {
+    const nextUrl = `${window.location.pathname}${nextSearch}${window.location.hash}`;
+    announceLeave();
+    window.history.pushState({ deck: 'STATE', entry: path }, '', nextUrl);
+  }
+  window.dispatchEvent(new PopStateEvent('popstate', { state: window.history.state }));
+}
+
+// Fired just before a deck switch or an entry jump pushes its step, while the
+// current history entry is still the one being left. A deck that wants Back to
+// bring it back as it was (TRICKSTER: open cards, filters, where the card sat)
+// writes its view onto that entry with replaceState here; a later push would
+// be too late, the entry would already be behind it.
+export const LEAVE_EVENT = 'nav:leave';
+export function announceLeave() {
+  if (typeof window !== 'undefined') window.dispatchEvent(new Event(LEAVE_EVENT));
+}
+
+// Merge a slice into the current history entry's state without a new step.
+export function stashInHistory(key, value) {
+  if (typeof window === 'undefined') return;
+  window.history.replaceState({ ...(window.history.state || {}), [key]: value }, '', window.location.href);
+}
+
+// Read a slice the current history entry carries (null when none).
+export function stashedInHistory(key) {
+  if (typeof window === 'undefined') return null;
+  const st = window.history.state;
+  return st && st[key] != null ? st[key] : null;
 }

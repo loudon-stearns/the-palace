@@ -1,0 +1,652 @@
+<!doctype html>
+<!--
+  title: SMPTE LTC — rich — encoder
+  born: 2026-11-04
+  links: [[SMPTE LTC]] (connects-to · rich-face-piece) · listed in [[SMPTE LTC — rich.json]] · its engine is re-run by "SMPTE LTC — rich — check.mjs"
+  forward_vector: I am the walk from one bit to a timecode you can hear and read back. One cell of biphase mark code, a 0 and a 1; then a timecode packed into its eighty bits; then the waveform those bits make, played at the page's three rates; and last a reader that is told nothing, not the rate and not the polarity, reading the audio back to timecodes, beside a control that carries the same bits with no clock in them and must fail. I change only when the section I serve does.
+  sound: nothing plays until a play button is clicked; the AudioContext is made on that click. Changing step stops the sound.
+  check: SMPTE LTC/SMPTE LTC — rich — check.mjs runs this page's core (the script with id ltc-core) in Node.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>SMPTE LTC · from one bit to a timecode read back</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --phos:#00ff66; --info:#4a8fff; --warn:#e8651b; --bad:#ff2a2a;
+    --serif:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif; --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --display:Impact,'Haettenschweiler','Arial Narrow Bold',sans-serif; --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.65;padding:26px 16px 32px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:40px;line-height:1.05;margin:6px 0 10px;letter-spacing:.01em}
+  h2{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.1;margin:4px 0 8px;letter-spacing:.02em}
+  p.lead{font-size:18px;color:var(--fg-2);margin:0 0 18px;max-width:68ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:70ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .panel[hidden],.view[hidden]{display:none}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .legend{font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5;margin-top:10px}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2)}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .row label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .row input[type=text],.row select{font-family:var(--mono);font-size:15px;color:var(--fg-1);background:var(--bg-elev-2);border:1px solid var(--border);border-radius:2px;padding:6px 9px}
+  .row input[type=range]{flex:1;min-width:160px}
+  .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);white-space:nowrap;min-width:9ch}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 18px;cursor:pointer}
+  button.play[aria-pressed="true"]{background:var(--fg-1)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter i{color:var(--warn);font-style:normal}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .rule{margin:0 0 12px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .rule .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2);width:100%}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:5px 12px 5px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.t th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  .ok{color:var(--phos)} .no{color:var(--bad)} .dim{color:var(--fg-4)}
+  .verdict{font-family:var(--sans);font-size:15px;color:var(--fg-1);margin-top:12px;line-height:1.6}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .bits{display:grid;grid-template-columns:repeat(16,1fr);gap:2px;font-family:var(--mono);font-size:12px;margin-top:10px}
+  .bits div{text-align:center;padding:5px 0 3px;border-radius:1px;color:#0a0a0f;cursor:default;line-height:1.2}
+  .bits div small{display:block;font-size:8px;opacity:.6}
+  .fields{font-family:var(--mono);font-size:12px;color:var(--fg-3);margin-top:10px;columns:2 260px;line-height:1.7}
+  .fields span.sw{display:inline-block;width:9px;height:9px;margin-right:6px;border-radius:1px;vertical-align:0}
+  .fields b{color:var(--fg-1);font-weight:400}
+  footer{margin-top:24px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:22px}.bits{grid-template-columns:repeat(8,1fr)}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">SMPTE LTC · biphase mark code · four steps</div>
+  <h1>Time, written as a square wave</h1>
+  <p class="lead">A timecode becomes eighty bits, the bits become flips of a level, and the flips are audio. Four steps: one bit; one word of eighty; the waveform the word makes; and last, a reader that is told nothing reading the audio back. Nothing plays until you press a play button.</p>
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <div class="eyebrow" id="stepEyebrow"></div>
+  <h2 id="stepTitle"></h2>
+  <p class="say" id="stepSay"></p>
+
+  <section class="panel view" data-step="0">
+    <canvas id="cellCv"></canvas>
+    <div class="legend"><b>Eight cells</b> · click a cell to flip its bit. Dotted lines are cell boundaries; the level flips at every one, and once more in the middle of a 1.</div>
+    <div class="row">
+      <label for="rate0">rate</label>
+      <select id="rate0"><option value="24">24 fps</option><option value="25" selected>25 fps</option><option value="29.97">29.97 fps</option></select>
+      <button class="ghost" id="p0z">play a run of 0s</button>
+      <button class="ghost" id="p0o">play a run of 1s</button>
+      <button class="ghost" id="p0c">play these eight, looped</button>
+      <button class="ghost" id="p0s">stop</button>
+    </div>
+    <div class="meter" id="m0"></div>
+  </section>
+
+  <section class="panel view" data-step="1">
+    <div class="row">
+      <label for="tc1">timecode</label><input type="text" id="tc1" value="01:23:45:12" size="12" spellcheck="false">
+      <label for="rate1">rate</label>
+      <select id="rate1"><option value="24">24 fps</option><option value="25" selected>25 fps</option><option value="29.97">29.97 fps drop-frame</option></select>
+      <label for="ub1">user bits</label><input type="text" id="ub1" value="00000000" size="9" spellcheck="false">
+    </div>
+    <div class="bits" id="bits1"></div>
+    <div class="fields" id="fields1"></div>
+    <div class="meter" id="m1"></div>
+  </section>
+
+  <section class="panel view" data-step="2">
+    <canvas id="waveCv"></canvas>
+    <div class="legend"><b>One word</b> · the eighty bits of the timecode in step 2 as the level they make, sync word at the right. Above each cell, its bit.</div>
+    <div class="row">
+      <button class="play" id="p2">play ten seconds from this timecode</button>
+      <label for="lv2">level</label><input type="range" id="lv2" min="-40" max="-10" step="1" value="-20"><span class="v" id="lv2v"></span>
+    </div>
+    <div class="meter" id="m2"></div>
+  </section>
+
+  <section class="panel view" data-step="3">
+    <div class="rule"><span class="eyebrow">The rule, before the run</span>
+      Fifty frames from step 2's timecode are encoded at each rate and played through a plain audio path: a 10 Hz high-pass, as a coupling capacitor would, and noise 30 dB under the peak. The reader is told nothing: not the rate, not the polarity, not where a cell starts. It times the gaps between zero crossings and keeps its own guess of the bit period.
+      <b>Pass:</b> at every rate, and with the polarity flipped, all 50 frames come back with their own timecodes, no wrong reads, and the bits in order. <b>Fail:</b> any frame missing or any wrong read.
+      <b>The control:</b> the same bits sent as plain levels, high for 1 and low for 0, with no clock in them, through the same reader. It must read nothing. If it read the frames too, this test would say nothing about self-clocking. It is a weak control: a reader built for biphase fails on plain levels almost by construction, so it shows where the clock lives more than it tests the reader.
+      Chance: a reader guessing bits would need 80 right in a row for one frame; it would read none.</div>
+    <div class="row"><button class="play" id="run3">run the reader</button><span class="hint dim" id="h3"></span></div>
+    <table class="t" id="tab3"></table>
+    <div class="verdict" id="v3"></div>
+  </section>
+
+  <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+  <footer><b>LOUD’N LIVE</b> · SMPTE LTC rich face · field layout as SMPTE 12M is commonly tabulated, unchecked against the standard here</footer>
+</main>
+<script id="ltc-core">
+// LTC core: encoder, renderer, reader, drop-frame counter. Shared verbatim by the SMPTE LTC pieces.
+var LTC = (function(){
+  var SYNC = [0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1];           // bits 64..79, in the order they are sent
+  var SYNC_REV = SYNC.slice().reverse();                    // what a reader meets when the tape runs backward
+  var RATES = {
+    '24':    { fps: 24,            nominal: 24, df: false, label: '24 fps' },
+    '25':    { fps: 25,            nominal: 25, df: false, label: '25 fps' },
+    '29.97': { fps: 30000 / 1001,  nominal: 30, df: true,  label: '29.97 fps drop-frame' }
+  };
+  // Where each field sits, LSB first. From SMPTE 12M as commonly tabulated (unchecked against the standard here).
+  var FIELDS = [
+    ['frame units', 0, 4], ['user 1', 4, 4], ['frame tens', 8, 2], ['drop-frame flag', 10, 1], ['colour-frame flag', 11, 1],
+    ['user 2', 12, 4], ['second units', 16, 4], ['user 3', 20, 4], ['second tens', 24, 3], ['flag 27', 27, 1],
+    ['user 4', 28, 4], ['minute units', 32, 4], ['user 5', 36, 4], ['minute tens', 40, 3], ['flag 43', 43, 1],
+    ['user 6', 44, 4], ['hour units', 48, 4], ['user 7', 52, 4], ['hour tens', 56, 2], ['flag 58', 58, 1], ['flag 59', 59, 1],
+    ['user 8', 60, 4], ['sync word', 64, 16]
+  ];
+  function polarityBit(nominal){ return nominal === 25 ? 59 : 27; }
+  function put(b, at, n, v){ for (var i = 0; i < n; i++) b[at + i] = (v >> i) & 1; }
+  function get(b, at, n){ var v = 0; for (var i = 0; i < n; i++) v |= b[at + i] << i; return v; }
+
+  // one timecode -> its 80 bits
+  function encode(tc, rateKey, user){
+    var r = RATES[rateKey], b = new Array(80).fill(0);
+    put(b, 0, 4, tc.f % 10);  put(b, 8, 2, Math.floor(tc.f / 10));
+    put(b, 16, 4, tc.s % 10); put(b, 24, 3, Math.floor(tc.s / 10));
+    put(b, 32, 4, tc.m % 10); put(b, 40, 3, Math.floor(tc.m / 10));
+    put(b, 48, 4, tc.h % 10); put(b, 56, 2, Math.floor(tc.h / 10));
+    b[10] = r.df ? 1 : 0;
+    var u = user || [0,0,0,0,0,0,0,0], ub = [4, 12, 20, 28, 36, 44, 52, 60];
+    for (var i = 0; i < 8; i++) put(b, ub[i], 4, u[i] & 15);
+    for (i = 0; i < 16; i++) b[64 + i] = SYNC[i];
+    var ones = 0; for (i = 0; i < 80; i++) ones += b[i];
+    if (ones % 2) b[polarityBit(r.nominal)] = 1;            // every word carries an even number of zeros (and of ones)
+    return b;
+  }
+  // 80 bits -> timecode, or null if the word is not a valid one
+  function decodeWord(b, rateHint){
+    for (var i = 0; i < 16; i++) if (b[64 + i] !== SYNC[i]) return null;
+    var fu = get(b, 0, 4), ft = get(b, 8, 2), su = get(b, 16, 4), st = get(b, 24, 3), mu = get(b, 32, 4), mt = get(b, 40, 3), hu = get(b, 48, 4), ht = get(b, 56, 2);
+    if (fu > 9 || su > 9 || mu > 9 || hu > 9 || st > 5 || mt > 5) return null;
+    var tc = { h: ht * 10 + hu, m: mt * 10 + mu, s: st * 10 + su, f: ft * 10 + fu, df: !!b[10] };
+    if (tc.h > 23 || tc.f > 29) return null;
+    var ones = 0; for (i = 0; i < 80; i++) ones += b[i];
+    if (ones % 2) return null;
+    return tc;
+  }
+  function fmt(tc){ function p(n){ return (n < 10 ? '0' : '') + n; } return p(tc.h) + ':' + p(tc.m) + ':' + p(tc.s) + (tc.df ? ';' : ':') + p(tc.f); }
+
+  // ---- drop-frame counting at 29.97: labels 00 and 01 are skipped at each minute, except minutes 00, 10, 20, 30, 40, 50
+  // mode: 'df' (the rule), 'every' (skip at every minute, no exception), 'none' (count 30 per second, skip nothing)
+  // the frame's place in a plain count of labels (no wrap): the frame number plus every label skipped before it
+  function labelIndex(n, nominal, mode){
+    if (mode !== 'df' && mode !== 'every') return n;
+    var perMin = nominal * 60 - 2, per10 = mode === 'df' ? perMin * 10 + 2 : perMin * 10;
+    var d = Math.floor(n / per10), r = n % per10;
+    if (mode === 'df') return n + 18 * d + (r > 1 ? 2 * Math.floor((r - 2) / perMin) : 0);
+    return n + 20 * d + 2 * Math.floor(r / perMin) + 2;      // every minute, the first included, starts at 02
+  }
+  function frameToLabel(n, nominal, mode){
+    var fps = nominal, k = labelIndex(n, nominal, mode);
+    return { h: Math.floor(k / (fps * 3600)) % 24, m: Math.floor(k / (fps * 60)) % 60, s: Math.floor(k / fps) % 60, f: k % fps, df: mode !== 'none' };
+  }
+  function labelToFrame(tc, nominal, mode){
+    var fps = nominal, totalMin = tc.h * 60 + tc.m;
+    var raw = ((tc.h * 3600 + tc.m * 60 + tc.s) * fps) + tc.f;
+    if (mode === 'df') return raw - 2 * (totalMin - Math.floor(totalMin / 10));
+    if (mode === 'every') return raw - 2 * (totalMin + 1);
+    return raw;
+  }
+  function labelValid(tc, mode){
+    if (mode === 'df') return !(tc.s === 0 && tc.f < 2 && tc.m % 10 !== 0);
+    if (mode === 'every') return !(tc.s === 0 && tc.f < 2);
+    return true;
+  }
+
+  // ---- the tape: a run of frames as biphase mark transitions (times in seconds, tape time)
+  // Every bit starts with a transition; a 1 has a second one at mid-cell; a 0 has none.
+  // One frame of lead-in and one of lead-out ride along unscored: a word needs the edge before its first bit and after its last.
+  function tape(startTc, nFrames, rateKey, user){
+    var r = RATES[rateKey], bitT = 1 / (80 * r.fps), mode = r.df ? 'df' : 'none';
+    var n0 = labelToFrame(startTc, r.nominal, mode) - 1, times = [], bits = [], labels = [];
+    nFrames += 2;
+    for (var k = 0; k < nFrames; k++){
+      var tc = frameToLabel(n0 + k, r.nominal, mode), w = encode(tc, rateKey, user);
+      labels.push(fmt(tc));
+      for (var i = 0; i < 80; i++){
+        var t0 = (k * 80 + i) * bitT;
+        times.push(t0); if (w[i]) times.push(t0 + bitT / 2);
+        bits.push(w[i]);
+      }
+    }
+    return { times: times, bits: bits, labels: labels, scored: labels.slice(1, -1), bitT: bitT, dur: nFrames * 80 * bitT, rate: rateKey, nFrames: nFrames - 2 };
+  }
+  // NRZ control: the same bits as plain levels (high for 1, low for 0): no clock in it
+  function tapeNRZ(tp){
+    var times = [], prev = 0;
+    for (var i = 0; i < tp.bits.length; i++){ if (tp.bits[i] !== prev){ times.push(i * tp.bitT); prev = tp.bits[i]; } }
+    return { times: times, bits: tp.bits, labels: tp.labels, scored: tp.scored, bitT: tp.bitT, dur: tp.dur, rate: tp.rate, nFrames: tp.nFrames, startLevel: -1 };
+  }
+  // the level of the tape integrated from 0 to x (tape seconds); level starts at -1 (or tp.startLevel) and flips at each transition
+  function integrator(tp){
+    var T = tp.times, L0 = tp.startLevel || -1, cum = new Float64Array(T.length + 1), lev = L0, prevT = 0;
+    // before T[0] the level is L0; between T[i] and T[i+1] it is L0 * (-1)^(i+1)
+    cum[0] = 0;
+    for (var i = 0; i < T.length; i++){ cum[i + 1] = cum[i] + lev * (T[i] - prevT); prevT = T[i]; lev = -lev; }
+    function find(x){ var lo = 0, hi = T.length; while (lo < hi){ var mid = (lo + hi) >> 1; if (T[mid] <= x) lo = mid + 1; else hi = mid; } return lo; }
+    return function(x){
+      if (x <= 0) return L0 * x;
+      var k = find(x), base = cum[k], tk = k ? T[k - 1] : 0, lv = (k % 2 ? -L0 : L0);
+      return base + lv * (x - tk);
+    };
+  }
+  // play the tape: pos(t) gives the playhead in tape seconds for real time t; each sample is the tape's level averaged over
+  // the stretch of tape that passed under the head during that sample, never narrower than the edge time (rise, tape seconds).
+  function play(tp, sr, nSamples, pos, opt){
+    opt = opt || {};
+    var I = integrator(tp), y = new Float32Array(nSamples), rise = opt.rise == null ? 40e-6 : opt.rise;
+    for (var n = 0; n < nSamples; n++){
+      var a = pos((n - 0.5) / sr), b = pos((n + 0.5) / sr);
+      if (a > b){ var t = a; a = b; b = t; }
+      if (b - a < rise){ var c = (a + b) / 2; a = c - rise / 2; b = c + rise / 2; }
+      a = Math.max(0, Math.min(tp.dur, a)); b = Math.max(0, Math.min(tp.dur, b));
+      y[n] = b > a ? (I(b) - I(a)) / (b - a) : 0;
+    }
+    return path(y, sr, opt);
+  }
+  // the audio path: AC coupling (one-pole high-pass at hp Hz) and a little noise, applied in place
+  function path(y, sr, opt){
+    var n;
+    if (opt.hp){
+      var R = Math.exp(-2 * Math.PI * opt.hp / sr), xp = 0, yp = 0;
+      for (n = 0; n < y.length; n++){ var x = y[n]; yp = x - xp + R * yp; xp = x; y[n] = yp; }
+    }
+    if (opt.noise){
+      var s = opt.seed || 12345;
+      for (n = 0; n < y.length; n++){
+        s = (s * 1664525 + 1013904223) >>> 0; var u1 = (s + 1) / 4294967297;
+        s = (s * 1664525 + 1013904223) >>> 0; var u2 = (s + 1) / 4294967297;
+        y[n] += opt.noise * Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+      }
+    }
+    return y;
+  }
+  // a plain varispeed: read an already-sampled buffer at `speed` by linear interpolation, backward when speed < 0 (no anti-alias filter)
+  function resample(y, speed){
+    var a = Math.abs(speed), n = Math.floor((y.length - 1) / a), o = new Float32Array(n);
+    for (var i = 0; i < n; i++){ var p = i * a; if (speed < 0) p = (y.length - 1) - p; var k = Math.floor(p), f = p - k; o[i] = y[k] * (1 - f) + y[Math.min(k + 1, y.length - 1)] * f; }
+    return o;
+  }
+  function atSpeed(tp, speed){                     // constant speed; negative runs the tape backward from its end
+    var dur = tp.dur / Math.abs(speed);
+    return { dur: dur, pos: speed > 0 ? function(t){ return t * speed; } : function(t){ return tp.dur + t * speed; } };
+  }
+
+  // ---- the reader: knows nothing of the rate or the direction. It finds zero crossings, times the gaps between them,
+  // and keeps its own estimate of the bit period from those gaps alone.
+  function read(y, sr){
+    var n, peak = 0, state = 0, lastZ = 0, edges = [];
+    for (n = 0; n < Math.min(y.length, 256); n++) peak = Math.max(peak, Math.abs(y[n]));
+    for (n = 1; n < y.length; n++){
+      var a = Math.abs(y[n]); peak = Math.max(a, peak * 0.9995);
+      if ((y[n - 1] < 0) !== (y[n] < 0)) lastZ = (n - 1) + y[n - 1] / (y[n - 1] - y[n]);   // where it crossed zero
+      var h = 0.15 * peak;
+      if (state <= 0 && y[n] > h){ if (state) edges.push(lastZ / sr); state = 1; }
+      else if (state >= 0 && y[n] < -h){ if (state) edges.push(lastZ / sr); state = -1; }
+    }
+    // bits from gaps. The bit period P is the reader's own guess, made from the gaps it has seen and nothing else:
+    // the longest gaps in a stretch are whole cells (a 0), the shortest half cells (half a 1).
+    var gaps = [], i;
+    for (i = 1; i < edges.length; i++) gaps.push(edges[i] - edges[i - 1]);
+    function guess(at){                              // lock: the 90th-percentile gap of the next 40 is a whole cell
+      var w = gaps.slice(at, at + 40).sort(function(p, q){ return p - q; });
+      return w.length ? w[Math.floor(w.length * 0.9)] : 0;
+    }
+    var P = guess(0), bits = [], bitTimes = [], half = false, periods = [], locks = 1;
+    for (i = 0; i < gaps.length; i++){
+      var d = gaps[i];
+      if (d > 1.6 * P || d < 0.3 * P){              // a gap that fits no cell: lost. Guess again from here on.
+        bits.push(-1); bitTimes.push(edges[i + 1]); half = false; locks++;
+        var g = guess(i + 1); if (g > 0) P = g; continue;
+      }
+      if (d > 0.75 * P){                            // a whole cell: a 0. A lone half before it means we were out of step.
+        half = false; bits.push(0); bitTimes.push(edges[i + 1]); P += 0.15 * (d - P);
+      } else {                                      // half a cell; two make a 1
+        P += 0.15 * (2 * d - P);
+        if (!half) half = true; else { bits.push(1); bitTimes.push(edges[i + 1]); half = false; }
+      }
+      periods.push(P);
+    }
+    // frames: a forward sync word closes a word; a reversed one opens a word read backward
+    var frames = [], reg = [];
+    for (i = 0; i < bits.length; i++){
+      if (bits[i] < 0){ reg = []; continue; }
+      reg.push(bits[i]); if (reg.length > 80) reg.shift();
+      if (reg.length < 80) continue;
+      var k, fw = true, bw = true;
+      for (k = 0; k < 16; k++){ if (reg[64 + k] !== SYNC[k]) fw = false; if (reg[k] !== SYNC_REV[k]) bw = false; }
+      var word = null, dir = 0;
+      if (fw){ word = reg.slice(); dir = 1; }
+      else if (bw){ word = reg.slice().reverse(); dir = -1; }
+      if (!word) continue;
+      var tc = decodeWord(word);
+      if (tc) frames.push({ tc: tc, label: fmt(tc), dir: dir, t: bitTimes[i] });
+    }
+    return { edges: edges.length, bits: bits, frames: frames, period: P, periods: periods, locks: locks };
+  }
+
+  // score a read against the tape that was played: how many of the frames that passed whole were read, how many reads were wrong
+  function score(rd, tp, expectDir){
+    var known = {}, scored = {}, seen = {}, wrong = 0, dirWrong = 0;
+    tp.labels.forEach(function(l){ known[l] = 1; }); tp.scored.forEach(function(l){ scored[l] = 1; });
+    rd.frames.forEach(function(f){ if (!known[f.label]) wrong++; else if (scored[f.label]) seen[f.label] = 1; if (expectDir && f.dir !== expectDir) dirWrong++; });
+    var got = Object.keys(seen).length;
+    return { read: rd.frames.length, distinct: got, of: tp.nFrames, wrong: wrong, dirWrong: dirWrong };
+  }
+
+  // power spectrum of a buffer (Hann window, radix-2), returned as dB per bin
+  function spectrum(y, sr, N){
+    N = N || 16384; var re = new Float64Array(N), im = new Float64Array(N), i, j, k;
+    for (i = 0; i < N; i++) re[i] = (y[i] || 0) * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / (N - 1)));
+    for (i = 1, j = 0; i < N; i++){ var bit = N >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j){ var t = re[i]; re[i] = re[j]; re[j] = t; } }
+    for (var len = 2; len <= N; len <<= 1){
+      var ang = -2 * Math.PI / len, wr = Math.cos(ang), wi = Math.sin(ang);
+      for (i = 0; i < N; i += len){ var cr = 1, ci = 0;
+        for (k = 0; k < len / 2; k++){
+          var ur = re[i + k], ui = im[i + k], vr = re[i + k + len / 2] * cr - im[i + k + len / 2] * ci, vi = re[i + k + len / 2] * ci + im[i + k + len / 2] * cr;
+          re[i + k] = ur + vr; im[i + k] = ui + vi; re[i + k + len / 2] = ur - vr; im[i + k + len / 2] = ui - vi;
+          var nr = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = nr; } } }
+    var P = new Float64Array(N / 2);
+    for (i = 0; i < N / 2; i++) P[i] = re[i] * re[i] + im[i] * im[i];
+    return { power: P, binHz: sr / N };
+  }
+  function bandShare(sp, lo, hi){
+    var tot = 0, band = 0;
+    for (var i = 1; i < sp.power.length; i++){ var f = i * sp.binHz; tot += sp.power[i]; if (f >= lo && f < hi) band += sp.power[i]; }
+    return band / tot;
+  }
+
+  return { SYNC: SYNC, SYNC_REV: SYNC_REV, RATES: RATES, FIELDS: FIELDS, polarityBit: polarityBit, encode: encode, decodeWord: decodeWord, fmt: fmt,
+           frameToLabel: frameToLabel, labelIndex: labelIndex, labelToFrame: labelToFrame, labelValid: labelValid,
+           tape: tape, tapeNRZ: tapeNRZ, play: play, path: path, resample: resample, atSpeed: atSpeed, read: read, score: score, spectrum: spectrum, bandShare: bandShare };
+})();
+</script>
+<script id="ltc-walk">
+// The walk: one step on screen at a time; Back and Next; the rail stays open so a reader can jump. Changing step stops the sound.
+function makeWalk(steps, show){
+  var rail = document.getElementById('rail'), cur = 0;
+  steps.forEach(function(s, i){
+    var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short;
+    b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
+  });
+  function go(i){
+    if (typeof Snd !== 'undefined') Snd.stop(); cur = i; var s = steps[i];
+    Array.prototype.forEach.call(rail.children, function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    document.getElementById('stepEyebrow').textContent = 'Step ' + (i + 1) + ' of ' + steps.length + (i === steps.length - 1 ? ' · the test' : '');
+    document.getElementById('stepTitle').textContent = s.title;
+    document.getElementById('stepSay').textContent = s.say;
+    document.getElementById('eq1').textContent = s.eq[0]; document.getElementById('eq1w').textContent = s.eq[1];
+    Array.prototype.forEach.call(document.querySelectorAll('.view'), function(v){ v.hidden = v.getAttribute('data-step') !== String(i); });
+    document.getElementById('back').disabled = i === 0; document.getElementById('next').disabled = i === steps.length - 1;
+    show(i);
+  }
+  document.getElementById('back').addEventListener('click', function(){ if (cur > 0) go(cur - 1); });
+  document.getElementById('next').addEventListener('click', function(){ if (cur < steps.length - 1) go(cur + 1); });
+  return { go: go, cur: function(){ return cur; } };
+}
+function $(id){ return document.getElementById(id); }
+function fitCanvas(cv, h){
+  var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1, W = Math.max(200, Math.round(r.width * d)), H = Math.round(h * d);
+  cv.style.height = h + 'px'; if (cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; }
+  return { g: cv.getContext('2d'), W: W, H: H, d: d };
+}
+var MONO = getComputedStyle(document.documentElement).getPropertyValue('--mono') || 'monospace';
+// Sound: the context is made on the first click; one source at a time; level in dBFS of the square's peak.
+var Snd = (function(){
+  var ctx = null, gain = null, src = null, onEnd = null;
+  function ensure(){
+    if (!ctx){ ctx = new (window.AudioContext || window.webkitAudioContext)(); gain = ctx.createGain(); gain.connect(ctx.destination); }
+    if (ctx.state === 'suspended') ctx.resume();
+    return ctx;
+  }
+  function play(render, db, loop, ended){
+    stop(); var c = ensure(), y = render(c.sampleRate);
+    var b = c.createBuffer(1, y.length, c.sampleRate); b.copyToChannel(y, 0);
+    src = c.createBufferSource(); src.buffer = b; src.loop = !!loop;
+    gain.gain.setValueAtTime(Math.pow(10, db / 20), c.currentTime);
+    src.connect(gain); onEnd = ended || null;
+    var me = src; src.onended = function(){ if (src === me){ src = null; if (onEnd) onEnd(); } };
+    src.start(); return y;
+  }
+  function level(db){ if (gain && ctx) gain.gain.setTargetAtTime(Math.pow(10, db / 20), ctx.currentTime, 0.02); }
+  function stop(){ if (src){ var s = src; src = null; try { s.stop(); } catch (e) {} s.disconnect(); if (onEnd){ var f = onEnd; onEnd = null; f(); } } }
+  return { play: play, stop: stop, level: level, playing: function(){ return !!src; } };
+})();
+</script>
+<script>
+(function(){
+  var COL = { 'frame': '#e8b84a', 'second': '#d9a03a', 'minute': '#c9883a', 'hour': '#b8703a', 'user': '#4a5a8a', 'flag': '#8a8aa0', 'sync': '#00ff66' };
+  function fieldKind(name){ return /user/.test(name) ? 'user' : /sync/.test(name) ? 'sync' : /flag/.test(name) ? 'flag' : name.split(' ')[0]; }
+  function fieldAt(i){ for (var k = 0; k < LTC.FIELDS.length; k++){ var f = LTC.FIELDS[k]; if (i >= f[1] && i < f[1] + f[2]) return f; } }
+  function parseTc(s, rk){
+    var m = String(s).trim().match(/^(\d{1,2})[:;.](\d{1,2})[:;.](\d{1,2})[:;.](\d{1,2})$/); if (!m) return null;
+    var tc = { h: +m[1], m: +m[2], s: +m[3], f: +m[4] }, r = LTC.RATES[rk];
+    if (tc.h > 23 || tc.m > 59 || tc.s > 59 || tc.f >= r.nominal) return null;
+    if (r.df && !LTC.labelValid(tc, 'df')) tc.f = 2;            // a drop-frame label that does not exist moves to the next one that does
+    return tc;
+  }
+  function parseUb(s){ var h = String(s).replace(/[^0-9a-fA-F]/g, '').padEnd(8, '0').slice(0, 8); return h.split('').map(function(c){ return parseInt(c, 16); }); }
+
+  // ---------- step 1: cells ----------
+  var cells = [0, 1, 0, 0, 1, 1, 0, 1];
+  var cellCv = $('cellCv');
+  function drawCells(){
+    var c = fitCanvas(cellCv, 170), g = c.g, d = c.d, W = c.W, H = c.H, n = cells.length, x0 = 12 * d, cw = (W - 24 * d) / n;
+    g.clearRect(0, 0, W, H); g.font = (12 * d) + 'px ' + MONO;
+    var lev = -1, yHi = 52 * d, yLo = H - 30 * d, y = function(l){ return l > 0 ? yHi : yLo; };
+    g.strokeStyle = 'rgba(255,255,255,0.10)'; g.setLineDash([2 * d, 4 * d]);
+    for (var i = 0; i <= n; i++){ g.beginPath(); g.moveTo(x0 + i * cw, 30 * d); g.lineTo(x0 + i * cw, H - 12 * d); g.stroke(); }
+    g.setLineDash([]); g.strokeStyle = '#00ff66'; g.lineWidth = 2 * d; g.beginPath(); g.moveTo(x0, y(lev));
+    for (i = 0; i < n; i++){
+      var xa = x0 + i * cw; lev = -lev; g.lineTo(xa, y(-lev)); g.lineTo(xa, y(lev));
+      if (cells[i]){ var xm = xa + cw / 2; g.lineTo(xm, y(lev)); lev = -lev; g.lineTo(xm, y(lev)); }
+      g.lineTo(xa + cw, y(lev));
+    }
+    g.stroke(); g.lineWidth = 1;
+    for (i = 0; i < n; i++){ g.fillStyle = cells[i] ? '#e8b84a' : '#c8c8d8'; g.fillText(String(cells[i]), x0 + i * cw + cw / 2 - 4 * d, 20 * d); }
+  }
+  cellCv.addEventListener('click', function(e){
+    var r = cellCv.getBoundingClientRect(), i = Math.floor((e.clientX - r.left - 12) / ((r.width - 24) / cells.length));
+    if (i >= 0 && i < cells.length){ cells[i] ^= 1; drawCells(); if (Snd.playing() && looping === 'c') playCells(); }
+  });
+  var looping = null;
+  function rateBits(rk){ return 80 * LTC.RATES[rk].fps; }
+  function bitsTape(bits, rk){                     // a bare run of bits as a tape, no words
+    var bitT = 1 / rateBits(rk), times = [];
+    for (var i = 0; i < bits.length; i++){ times.push(i * bitT); if (bits[i]) times.push((i + 0.5) * bitT); }
+    return { times: times, bits: bits, bitT: bitT, dur: bits.length * bitT };
+  }
+  function playBits(pattern, rk, tag){
+    looping = tag;
+    var reps = Math.ceil(rateBits(rk) * 0.5 / pattern.length) * 2, run = []; for (var i = 0; i < reps; i++) run = run.concat(pattern);
+    // an even number of flips per loop keeps the seam clean
+    Snd.play(function(sr){ var tp = bitsTape(run, rk); return LTC.play(tp, sr, Math.round(tp.dur * sr), function(t){ return t; }); }, -20, true, function(){ looping = null; });
+  }
+  function playCells(){ playBits(cells.length % 2 || cells.reduce(function(a, b){ return a + b; }, 0) % 2 ? cells.concat(cells) : cells, $('rate0').value, 'c'); }
+  $('p0z').addEventListener('click', function(){ playBits([0, 0], $('rate0').value, 'z'); });
+  $('p0o').addEventListener('click', function(){ playBits([1, 1], $('rate0').value, 'o'); });
+  $('p0c').addEventListener('click', playCells);
+  $('p0s').addEventListener('click', function(){ Snd.stop(); });
+  function meter0(){
+    var rk = $('rate0').value, R = rateBits(rk);
+    $('m0').innerHTML = 'bit rate <b>' + R.toFixed(R % 1 ? 4 : 0) + '</b> bit/s · a run of 0s flips every ' + (1000 / R).toFixed(3) + ' ms: a square at <b>' + (R / 2).toFixed(1) + ' Hz</b> · a run of 1s flips twice as often: <b>' + R.toFixed(1) + ' Hz</b>, the octave above. Played at −20 dBFS.';
+  }
+  $('rate0').addEventListener('change', function(){ meter0(); if (Snd.playing()) Snd.stop(); });
+
+  // ---------- step 2: the word ----------
+  function word(){
+    var rk = $('rate1').value, tc = parseTc($('tc1').value, rk);
+    return { rk: rk, tc: tc, ub: parseUb($('ub1').value), bits: tc ? LTC.encode(tc, rk, parseUb($('ub1').value)) : null };
+  }
+  function showWord(){
+    var w = word(), box = $('bits1'), html = '';
+    if (!w.bits){ box.innerHTML = ''; $('fields1').innerHTML = ''; $('m1').innerHTML = '<i>Type a timecode as hh:mm:ss:ff, frames under ' + LTC.RATES[w.rk].nominal + '.</i>'; return; }
+    var pb = LTC.polarityBit(LTC.RATES[w.rk].nominal);
+    for (var i = 0; i < 80; i++){
+      var f = fieldAt(i), k = fieldKind(f[0]), name = f[0] + (i === pb ? ' (polarity correction)' : '');
+      html += '<div title="bit ' + i + ' · ' + name + '" style="background:' + COL[k] + (k === 'user' ? ';color:#e8e8f0' : '') + '">' + w.bits[i] + '<small>' + i + '</small></div>';
+    }
+    box.innerHTML = html;
+    var lines = [];
+    LTC.FIELDS.forEach(function(f){
+      var v = 0, s = ''; for (var j = 0; j < f[2]; j++){ v |= w.bits[f[1] + j] << j; s += w.bits[f[1] + j]; }
+      var k = fieldKind(f[0]), nm = f[0] === 'flag ' + pb ? 'flag ' + pb + ' · polarity' : f[0];
+      lines.push('<div><span class="sw" style="background:' + COL[k] + '"></span>' + nm + ' · bits ' + f[1] + (f[2] > 1 ? '–' + (f[1] + f[2] - 1) : '') + ' · <b>' + s + '</b>' + (k !== 'sync' && k !== 'flag' ? ' = ' + v : '') + '</div>');
+    });
+    $('fields1').innerHTML = lines.join('');
+    var ones = w.bits.reduce(function(a, b){ return a + b; }, 0);
+    $('m1').innerHTML = 'the word for <b>' + LTC.fmt(w.tc) + '</b> · each digit in binary-coded decimal, least significant bit first · ' + ones + ' ones, ' + (80 - ones) + ' zeros: even, because bit ' + pb + ' is set when it needs to be (bit 59 at 25 fps, bit 27 at 24 and 29.97) · the sync word ' + LTC.SYNC.join('') + ' closes every word; its twelve 1s in a row cannot turn up in the data, where the longest run is ten even with every user bit and flag set (checked over every timecode of the day at all three rates).';
+    drawWave();
+  }
+  ['tc1', 'rate1', 'ub1'].forEach(function(id){ $(id).addEventListener('input', showWord); $(id).addEventListener('change', showWord); });
+
+  // ---------- step 3: the waveform ----------
+  var waveCv = $('waveCv');
+  function drawWave(){
+    var w = word(); if (!waveCv.getBoundingClientRect().width) return;
+    var c = fitCanvas(waveCv, 190), g = c.g, d = c.d, W = c.W, H = c.H; g.clearRect(0, 0, W, H);
+    if (!w.bits) return;
+    var x0 = 8 * d, cw = (W - 16 * d) / 80, yHi = 40 * d, yLo = H - 22 * d, lev = -1, y = function(l){ return l > 0 ? yHi : yLo; };
+    g.fillStyle = 'rgba(0,255,102,0.06)'; g.fillRect(x0 + 64 * cw, 26 * d, 16 * cw, H - 40 * d);
+    g.strokeStyle = '#00ff66'; g.lineWidth = 1.5 * d; g.beginPath(); g.moveTo(x0, y(lev));
+    for (var i = 0; i < 80; i++){
+      var xa = x0 + i * cw; lev = -lev; g.lineTo(xa, y(-lev)); g.lineTo(xa, y(lev));
+      if (w.bits[i]){ lev = -lev; g.lineTo(xa + cw / 2, y(-lev)); g.lineTo(xa + cw / 2, y(lev)); }
+      g.lineTo(xa + cw, y(lev));
+    }
+    g.stroke();
+    g.font = (Math.max(8, Math.min(11, cw / d * 0.9)) * d) + 'px ' + MONO;
+    for (i = 0; i < 80; i++){ g.fillStyle = w.bits[i] ? '#e8b84a' : '#4a4a5a'; g.fillText(String(w.bits[i]), x0 + i * cw + cw * 0.25, 18 * d); }
+    var R = 80 * LTC.RATES[w.rk].fps;
+    $('m2').innerHTML = 'one word is 80 bits; at ' + LTC.RATES[w.rk].label + ' that is 80 × ' + (w.rk === '29.97' ? '30000/1001' : w.rk) + ' = <b>' + (Math.round(R * 10000) / 10000) + ' bit/s</b> · the page says 1920, 2000 and 2397.6; the encoder makes 1920, 2000 and 2397.6024 · one word lasts ' + (1000 / LTC.RATES[w.rk].fps).toFixed(3) + ' ms';
+  }
+  var lv = $('lv2'); function lvShow(){ $('lv2v').textContent = lv.value + ' dBFS'; } lv.addEventListener('input', function(){ lvShow(); Snd.level(+lv.value); }); lvShow();
+  $('p2').addEventListener('click', function(){
+    if (Snd.playing()){ Snd.stop(); return; }
+    var w = word(); if (!w.tc) return;
+    var fps = LTC.RATES[w.rk].fps, n = Math.round(10 * fps), tp = LTC.tape(w.tc, n, w.rk, w.ub);
+    $('p2').setAttribute('aria-pressed', 'true'); $('p2').textContent = 'stop';
+    Snd.play(function(sr){ return LTC.play(tp, sr, Math.round(tp.dur * sr), function(t){ return t; }); }, +lv.value, false,
+      function(){ $('p2').removeAttribute('aria-pressed'); $('p2').textContent = 'play ten seconds from this timecode'; });
+  });
+
+  // ---------- step 4: the test ----------
+  function bitsInOrder(rd, tp){
+    // the longest stretch the reader read without losing lock, against the bits that were sent
+    var runs = [], cur = []; rd.bits.forEach(function(b){ if (b < 0){ if (cur.length) runs.push(cur); cur = []; } else cur.push(b); }); if (cur.length) runs.push(cur);
+    runs.sort(function(a, b){ return b.length - a.length; }); var r = runs[0] || [];
+    var sent = tp.bits.join(''), got = r.slice(4).join('');   // the first few cells settle the reader's step
+    return { n: got.length, ok: got.length > 0 && sent.indexOf(got) >= 0 };
+  }
+  function runOne(rk, start, ub, opts){
+    var SR = 48000, tp = LTC.tape(start, 50, rk, ub), src = opts.nrz ? LTC.tapeNRZ(tp) : tp;
+    var y = LTC.play(src, SR, Math.round(tp.dur * SR), function(t){ return t; }, { hp: 10, noise: 0.03, seed: 7 });
+    if (opts.flip) for (var i = 0; i < y.length; i++) y[i] = -y[i];
+    var rd = LTC.read(y, SR), sc = LTC.score(rd, tp, 1), bo = bitsInOrder(rd, tp);
+    return { tp: tp, rd: rd, sc: sc, bo: bo };
+  }
+  $('run3').addEventListener('click', function(){
+    var w = word(), start = w.tc || { h: 1, m: 23, s: 45, f: 12 }, rows = [], pass = true, ctl;
+    $('h3').textContent = 'reading…';
+    setTimeout(function(){
+      var html = '<tr><th>what was played</th><th>reader’s bit-rate guess</th><th>frames read</th><th>wrong reads</th><th>bits in order</th><th></th></tr>';
+      [['24', {}], ['25', {}], ['29.97', {}], [w.rk, { flip: true }], [w.rk, { nrz: true }]].forEach(function(c){
+        var rk = c[0], o = c[1], st = parseTc(LTC.fmt(start), rk) || { h: 1, m: 0, s: 0, f: 2 }, r = runOne(rk, st, w.ub, o);
+        var good = r.sc.distinct === 50 && r.sc.wrong === 0 && r.bo.ok;
+        var name = LTC.RATES[rk].label + (o.flip ? ', polarity flipped' : '') + (o.nrz ? ' · the control: same bits, no clock' : '');
+        if (!o.nrz) pass = pass && good; else ctl = r;
+        html += '<tr><td>' + name + '</td><td>' + (r.rd.period ? (1 / r.rd.period).toFixed(1) : '—') + ' (sent ' + (80 * LTC.RATES[rk].fps).toFixed(1) + ')</td><td>' + r.sc.distinct + ' of 50</td><td>' + r.sc.wrong + '</td><td>' + (r.bo.ok ? r.bo.n + ' match' : 'no') + '</td><td class="' + ((o.nrz ? r.sc.distinct === 0 : good) ? 'ok' : 'no') + '">' + (o.nrz ? (r.sc.distinct === 0 ? 'reads nothing, as expected' : 'READ: the test is void') : (good ? 'pass' : 'FAIL')) + '</td></tr>';
+      });
+      $('tab3').innerHTML = html; $('h3').textContent = 'starting at ' + LTC.fmt(start) + ', user bits ' + $('ub1').value;
+      var ctlOk = ctl.sc.distinct === 0;
+      $('v3').innerHTML = (pass && ctlOk)
+        ? 'Pass. The audio carried its own clock: a reader that knew nothing found the bit period in the gaps between flips, at all three rates and upside down, and read every frame back. The same bits without the mid-cell flips read nothing. This is the page’s claim, run: every boundary flips, a 1 flips once more, and the flips carry both the timing and the data.'
+        : (pass ? 'The biphase rows passed, but the control read frames too, so this run cannot credit the clock in the code.' : 'Fail. At least one row lost a frame or read a wrong one; the table says which.');
+    }, 30);
+  });
+
+  var STEPS = [
+    { short: 'One bit', title: 'A 0 flips once; a 1 flips twice',
+      say: 'Biphase mark code cuts time into equal cells, one bit each. The level flips at the start of every cell, whatever the bit. A 1 flips again in the middle; a 0 does not. So the stream never sits still for longer than one cell, and the gaps between flips come in only two sizes: a whole cell, which is a 0, and half a cell, two of which make a 1. Play a run of each: the 1s sound an octave above the 0s.',
+      eq: ['R = 80 × f_frame ;  f(000…) = R / 2 ;  f(111…) = R', 'bit rate = eighty bits × frames per second; a run of zeros is a square wave at half the bit rate; a run of ones, at the bit rate'] },
+    { short: 'Eighty bits', title: 'One frame, one word',
+      say: 'Every frame of video gets one word of eighty bits. Hours, minutes, seconds and frames are written digit by digit in binary-coded decimal, each digit least significant bit first. Between the digits sit eight groups of four user bits, free for anything, and a few flags. The last sixteen bits are the sync word, the same in every frame. Type a timecode; hover a bit to see what it is.',
+      eq: ['word = [ BCD time digits + 32 user bits + flags ] + sync 0011 1111 1111 1101', 'each word is the time in decimal digits, thirty-two free bits and a few flags, closed by the same sixteen-bit sync word'] },
+    { short: 'The waveform', title: 'The word as a level that flips',
+      say: 'Here is that word as it goes down the cable: the level flipping at every cell and again in the middle of every 1. The green band is the sync word. Press play to hear ten seconds of timecode running from what you typed. The bit rate is eighty times the frame rate, so the three rates the page names come out of the encoder exactly, the third one to four decimals.',
+      eq: ['24 × 80 = 1920 ;  25 × 80 = 2000 ;  (30000/1001) × 80 = 2397.6024', 'film, PAL and NTSC: twenty-four, twenty-five and 29.97 frames a second, eighty bits each'] },
+    { short: 'Read it back', title: 'The test: a reader that is told nothing',
+      say: 'If the flips carry their own clock, a reader should need nothing but the audio. This one is given none of what made it: not the rate, not the polarity, not where a cell starts. It times the gaps between zero crossings, calls the long ones 0 and pairs the short ones into 1s, and keeps adjusting its own guess of the cell length from what it hears. The rule is above the button; it was written before the first run.',
+      eq: ['gap ≈ T → 0 ;  gap ≈ T/2, twice → 1 ;  T ← T + 0.15 (gap’ − T)', 'a whole-cell gap is a 0; two half-cell gaps are a 1; after each gap the reader nudges its guess of the cell length toward what it just measured'] }
+  ];
+  var walk = makeWalk(STEPS, function(i){
+    if (i === 0){ drawCells(); meter0(); }
+    if (i === 1) showWord();
+    if (i === 2){ showWord(); drawWave(); }
+  });
+  window.addEventListener('resize', function(){ var i = walk.cur(); if (i === 0) drawCells(); if (i === 2) drawWave(); });
+  walk.go(0);
+})();
+</script>
+</body>
+</html>

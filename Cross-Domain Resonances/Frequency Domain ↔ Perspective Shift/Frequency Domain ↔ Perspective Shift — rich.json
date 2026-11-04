@@ -1,0 +1,88 @@
+{
+  "title": "Frequency Domain ↔ Perspective Shift — rich",
+  "born": "2026-11-04",
+  "links": [
+    {
+      "target": "[[Frequency Domain ↔ Perspective Shift]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    },
+    {
+      "target": "[[Frequency-Time Duality]]",
+      "type": "connects-to",
+      "label": "sibling-face-not-remade"
+    }
+  ],
+  "forward_vector": "I am the manifest of Frequency Domain ↔ Perspective Shift's rich face, its first round at Sketch tier, a proposal: one walk in Teaching Notes, up from a single synthesized kick to a blind test of 'neither view shows everything', with stated procedures run on the same samples beside the reader, and the fingerprint of the words it was laid against. Teaching Notes is one ## with three ###, so its one piece gets one stamp and one approval. The Cartesian and polar point the nomination suggested for The Coordinate System Metaphor was dropped: its numbers hold ((3, 4) is (5, 53.13°)) and a dragged point would show them without testing anything. Frequency-Time Duality's face walks the delay-time axis and is linked, not remade. What the procedures found waits below as offers. I never hold the entry's words.",
+  "entry": "Frequency Domain ↔ Perspective Shift",
+  "tier": "sketch",
+  "made": "2026-11-04",
+  "round": 1,
+  "offers": [
+    {
+      "section": "Teaching Notes",
+      "kind": "no-claim-edit",
+      "what": "Demoted from claim-change by the challenger: the page's sentence is about a student glancing at a DAW waveform, no human has run that arm, and the 25 of 25 is on this piece's own clean-sine kick family. 'Answer: Can't tell from waveform' is true of a glance, not of the samples: a stated procedure (rising zero crossings 150–400 ms after the onset, f = 1 ÷ mean period) reads all 25 test kicks (50–70 Hz, onsets 0–400 ms) to within 0.032 Hz; at 60 Hz one cycle is 16.7 ms. The same procedure reads 5 of 25 with a 2% noise floor and 5 of 25 with an 80 ms pitch glide (the challenger's runs), while the spectrum peak stays 25 of 25. The lesson line stands, read as 'shows plainly'. Proposed, as a clarification: 'Answer: Not at a glance. Zoom into the tail and count: one cycle every 16.7 ms is 60 Hz.'",
+      "status": "open"
+    },
+    {
+      "section": "Teaching Notes",
+      "kind": "no-claim-edit",
+      "what": "'Answer: Can't tell from spectrum' holds strictly for one spectrum of the whole clip: across five onsets its magnitudes agree to 2.7 × 10⁻⁹ dB (rounding), and a template-matching procedure on them scores exactly chance (5 of 25). The controls that should fail do: 60 Hz against 65 Hz differ by 23.1 dB, and with the clip cut at 450 ms the onsets part by 51.8 dB and the same procedure reads 25 of 25. It does not hold for a DAW analyzer as it runs: that is a running short-window FFT, and a 125 ms frame tracks every onset (31, 125, 219, 313, 438 ms, the challenger's run). The when is in the phase one whole-clip spectrum's picture leaves out. Proposed: 'Answer: Can't tell from one spectrum of the whole clip. It shows each frequency's size; the when is in the phase it leaves out. (A running analyzer, watched as it plays, shows when.)'",
+      "status": "open"
+    },
+    {
+      "section": "The Technical Side",
+      "kind": "no-claim-edit",
+      "what": "A clarification, confirmed by the challenger: the page's own verbs, 'shows' against 'contain', already draw this line. 'No information is lost' is true of the transform and not of the frequency view a DAW draws, which keeps the magnitude only: rebuilt from the magnitude alone, all five onsets give one identical pulse at time zero (differences 2.3 × 10⁻¹³). The piece's rebuild with phase (7.6 × 10⁻¹³) is a floating-point round trip that cannot fail; it illustrates losslessness, it does not test it. The Structural Identity's row 'Both views contain same information' has the same edge. Proposed, after 'no information is lost': 'in the transform itself, which keeps each frequency's phase as well as its size; the analyzer's picture keeps only the size, and the timing goes with the phase.'",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Teaching Notes",
+      "made_against": "fef02ecc0fc5",
+      "made": "2026-11-04",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-04",
+        "by": "maker · claude-opus-5-5 · proposal round · cloud batch 2",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Frequency Domain ↔ Perspective Shift — rich — one kick, two views.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio and canvas, inline",
+          "title": "One kick, two views · the demonstration, built and tested",
+          "caption": "**Does each view really fail the other's question?** Six steps on one kick made in the page: a sine falling from 180 Hz to its fundamental, a click, a 500 ms gate. It is drawn as a waveform and as a magnitude spectrum from the same samples. The waveform gives the onset. The spectrum gives the fundamental, and it does not move when the kick does (to 3 × 10⁻⁹ dB, as long as the whole kick is inside the clip). Step 4 rebuilds the kick from its spectrum. With the phase it comes back exactly (a floating-point round trip, which cannot fail); from the magnitude alone, every onset gives the same pulse at time zero. Step 5 is the spectrogram, which answers both questions at a price set by its window. The last step is the test: 24 silent trials in four arms, chance 1 in 5, 4 of 6 to pass, stated before the first trial and scored beside stated procedures run on the same samples. The procedures find the spectrum half strict and the waveform half a matter of the glance: on this clean-sine kick, counting the cycles in the tail reads the fundamental to 0.04 Hz (with a 2% noise floor or an 80 ms glide the count reads 5 of 25, while the spectrum peak still reads 25 of 25).\n\n|X(f)| of x(t − t₀) = |X(f)| of x(t)\n\n(how much of each frequency there is) does not depend on (when the kick starts)",
+          "near": "Neither view shows everything",
+          "place": "band",
+          "height": 1650
+        }
+      ],
+      "stamped": "2026-11-04",
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5 · cloud batch 2",
+        "verdicts": [
+          {
+            "file": "Frequency Domain ↔ Perspective Shift — rich — one kick, two views.html",
+            "verdict": "remake",
+            "why": "A fair, leak-free blind test that walks up, but its '0.04 Hz, every time' for counting cycles holds only for its own clean-sine kick (a 2% noise floor drops the same procedure to 5 of 25 while the spectrum stays 25 of 25): scope it to this kick, and stop labelling a ≤2 score on a 'can't' arm 'as the notes say' (a guesser lands there 90.1% of the time)."
+          }
+        ]
+      }
+    }
+  ]
+}

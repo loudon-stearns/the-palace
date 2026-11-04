@@ -13,6 +13,10 @@ import { assetsFor } from '../../lib/trickster-assets.js';
 import AuditionStrip from './AuditionStrip.jsx';
 import Schematic from './schematics/index.jsx';
 import ArtifactSlot from '../ArtifactSlot.jsx';
+import ProjectStanding from './ProjectStanding.jsx';
+import EntryBody from '../state/EntryBody.jsx';
+
+const EMPTY_INDEX = new Map();
 
 // Re-exported for unit tests that import the builder from the card module.
 export { buildCardGrant };
@@ -57,6 +61,9 @@ export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focus
   const [sending, setSending] = useState(false);
   const [running, setRunning] = useState(false);
   const [errors, setErrors] = useState([]);
+  // Whether ▸more is open — the Plan + Standing Orders inside it mount (and
+  // read the scroll) only then.
+  const [moreOpen, setMoreOpen] = useState(false);
 
   // The project (@from) is the title of the palace entry the steward inhabits.
   // Resolve it so the name carries the same [OBS]/[BUN] links as a name in
@@ -201,6 +208,8 @@ export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focus
       >
         <Box tone="single" pad>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
+            {/* open sits at the left edge, where the eye starts each row. */}
+            <span data-testid="card-open" style={foldSummary}>{t('trickster.card.open')}</span>
             <span
               data-testid="card-from"
               onClick={nameResolved ? (e) => { e.stopPropagation(); palace.openEntryInState?.(fromRef.path); } : undefined}
@@ -226,7 +235,6 @@ export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focus
                   textTransform: 'uppercase', letterSpacing: '.06em',
                 }}>{t('trickster.card.session.badge')}</span>
               ) : null}
-              <span style={foldSummary}>{t('trickster.card.open')}</span>
             </span>
           </div>
           {orientation ? (
@@ -268,6 +276,17 @@ export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focus
           display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap',
           marginBottom: orientation ? 4 : 8,
         }}>
+          {/* Opened from the collapsed view — fold it back, from the same left
+              edge where its open sat. */}
+          {onToggleOpen ? (
+            <span
+              data-testid="card-fold"
+              role="button" tabIndex={0}
+              onClick={() => onToggleOpen(false)}
+              onKeyDown={(e) => { if (e.key === 'Enter') { e.stopPropagation(); onToggleOpen(false); } }}
+              style={{ ...foldSummary, cursor: 'pointer' }}
+            >{t('trickster.card.fold')}</span>
+          ) : null}
           <span
             data-testid="card-from"
             onClick={nameResolved ? () => palace.openEntryInState?.(fromRef.path) : undefined}
@@ -322,15 +341,6 @@ export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focus
                   }}
                 >{t('trickster.card.launch')}</button>
               ) : null}
-              {/* Opened from the collapsed view — fold it back into the list. */}
-              {onToggleOpen ? (
-                <span
-                  data-testid="card-fold"
-                  role="button" tabIndex={0}
-                  onClick={() => onToggleOpen(false)}
-                  style={{ ...foldSummary, cursor: 'pointer' }}
-                >{t('trickster.card.fold')}</span>
-              ) : null}
             </span>
           ) : null}
         </div>
@@ -368,16 +378,26 @@ export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focus
             "context above the question" rule it belongs up here with the
             orientation. Renders only when the rationale isn't already standing
             in as the orientation line. */}
-        {moreRationale ? (
-          <details data-testid="card-more-fold" style={{ margin: '0 0 10px' }}>
-            <summary style={foldSummary}>{t('trickster.card.more')}</summary>
-            <div style={{
-              color: 'var(--phosphor)', textShadow: 'var(--glow)',
-              fontFamily: 'var(--font-mono)', fontSize: 12, lineHeight: 1.4,
-              margin: '6px 0', whiteSpace: 'pre-wrap',
-            }}>
-              <Linkify text={moreRationale} />
-            </div>
+        {/* It also carries the project's Plan and Standing Orders (2026-11-04)
+            whenever the asker is a page with a scroll — read only while the
+            fold is open, so a closed fold costs nothing. */}
+        {(moreRationale || nameResolved) ? (
+          <details
+            data-testid="card-more-fold"
+            style={{ margin: '0 0 10px' }}
+            onToggle={(e) => setMoreOpen(e.currentTarget.open)}
+          >
+            <summary style={foldSummary}>{nameResolved ? t('trickster.card.more.standing') : t('trickster.card.more')}</summary>
+            {moreRationale ? (
+              <div style={{
+                color: 'var(--phosphor)', textShadow: 'var(--glow)',
+                fontFamily: 'var(--font-mono)', fontSize: 12, lineHeight: 1.4,
+                margin: '6px 0', whiteSpace: 'pre-wrap',
+              }}>
+                <Linkify text={moreRationale} />
+              </div>
+            ) : null}
+            {moreOpen && nameResolved ? <ProjectStanding home={item.from} /> : null}
           </details>
         ) : null}
 
@@ -387,12 +407,12 @@ export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focus
         {item.proposed_plan ? (
           <details data-testid="card-proposed-plan" open style={{ margin: '0 0 10px' }}>
             <summary style={foldSummary}>the proposed plan — what “adopt” makes the plan</summary>
+            {/* Rendered as the scroll renders its Plan zone (bold, lists,
+                [[links]]), since an adopted proposal becomes exactly that. */}
             <div style={{
-              color: 'var(--phosphor)', textShadow: 'var(--glow)',
-              fontFamily: 'var(--font-mono)', fontSize: 12, lineHeight: 1.4,
-              margin: '6px 0', whiteSpace: 'pre-wrap', borderLeft: '2px solid var(--phosphor-dim)', paddingLeft: 8,
+              fontSize: 12, margin: '6px 0', borderLeft: '2px solid var(--phosphor-dim)', paddingLeft: 8,
             }}>
-              <Linkify text={item.proposed_plan} />
+              <EntryBody body={item.proposed_plan} index={EMPTY_INDEX} refIndex={palace?.refIndex || null} onNavigate={palace?.openEntryInState || null} />
             </div>
           </details>
         ) : null}

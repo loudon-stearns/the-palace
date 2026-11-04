@@ -104,6 +104,6 @@ follow-up — a low-denoise img2img pass to *fuse* the composite into one cohere
 - New proof bundle `proofs/session-4-figure-flow/` (this file + `field.py` + `legs/` + `renders/` + `inputs/`).
 - [[The Flow Field is the Spine]]: add the character-aware result; the "two lifetimes / the arrow becomes the
   wind" section now has a concrete first proof of the body disturbing the field. Stage `sprout → growing`.
-- [[flow-field-spine]] workflow doc: add a **§ obstacle** step (mask → projection → wake) as the field-author
+- `flow-field-spine` workflow doc (folded 2026-11-04 into [[The Flow Field is the Spine]] § The recipe): add a **§ obstacle** step (mask → projection → wake) as the field-author
   stage that precedes the three legs.
 - Candidate next Shop Specialist only if this recurs: a `field-around-a-body` builder. Not yet — one shot.

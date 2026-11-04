@@ -60,12 +60,6 @@ links:
   - target: "[[Adopt the Craft, Author the Seam]]"
     type: emerged-from
     label: re-founding-principle
-  - target: "[[Graphic Storytelling]]"
-    type: emerged-from
-    label: speaks-comics-first
-  - target: "[[BLUELINE — Production Plan]]"
-    type: connects-to
-    label: the-map
   - target: "[[BLUELINE — Motion and Flow]]"
     type: spawned
     label: unified-motion-subsystem
@@ -84,6 +78,9 @@ links:
   - target: "[[Christopher Alexander]]"
     type: contradicts
     label: fabrication-vs-unfolding
+  - target: "[[Capability-first prototyping]]"
+    type: exemplifies
+    label: prove-then-optimize
 tags: [project, blueline, music-video, generative, pipeline, sprout]
 ---
 
@@ -118,8 +115,8 @@ The stages, named with the industry's own words, are mapped in [[BLUELINE — Pr
 
 ## Scope
 
-Fixed tempo, staged not simulated, humanoid only, every rung ships, live is the last rung. The orders and their dates are on the scroll.
+Any tempo, tempo changes included, read from the Set and synced exactly, staged not simulated, humanoid only, every rung ships, live is the last rung. The orders and their dates are on the scroll.
 
 ## Active Baton
 
-[[BLUELINE — baton]]: the reset — a Context, the scroll made true, the bundle moves, a record that works at any tempo, the six boards finished, and the Aftermath Frame's guide pick.
+[[BLUELINE — baton]]: the reset's remainder — the record on the Set's tempo map, the six boards finished and cut again, the Aftermath Frame's guide pick, and the lessons from Loudon's separate Set-parsing work.

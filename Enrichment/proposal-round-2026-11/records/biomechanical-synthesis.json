@@ -1,0 +1,29 @@
+{
+ "entry": "Biomechanical Synthesis",
+ "path": "Projects/Biomechanical Synthesis.md",
+ "type": "concept",
+ "stage": "mature",
+ "weight": 6,
+ "claim": "Visceral Pedagogy: 'You'll never forget how a compressor works after pumping blood through arteries' — the grotesque is mandatory pedagogy; and The Neural Network Synthesis Paradigm: inhibition makes rhythm as negative space.",
+ "pieces": [
+  {
+   "section": "Visceral Pedagogy",
+   "what": "One compressor, two faces: a plain gain-reduction meter with threshold/ratio/attack/release, and the same arithmetic as a heart and arteries (pressure = amplitude, vessel diameter = gain reduction, pulse rate = attack), on the same signal. A stated test of whether the metaphor changes what a user sets — a task given twice, the settings compared, chance level and rule first; the pedagogy claim itself is a memory claim no piece can test, and the piece says so.",
+   "kind": "interactive",
+   "walks_up_from": "the plain meter alone on a steady tone"
+  },
+  {
+   "section": "The Neural Network Synthesis Paradigm",
+   "what": "A small inhibitory network: a steady trigger drives a few nodes, inhibitory links suppress competitors, and a rhythm appears in the gaps; the test removes the inhibition and measures what the rhythm loses (inter-onset interval entropy, syncopation against the trigger grid), so 'rhythm as negative space' can fail.",
+   "kind": "interactive",
+   "walks_up_from": "one neuron firing on every trigger"
+  }
+ ],
+ "gathered": [
+  "proofs/2026-05-04-eight-instrument-hub.svg"
+ ],
+ "tier": "sketch",
+ "slice": 3,
+ "batch": "cloud batch 4",
+ "note": "Blood Compressor's own rich face landed 2026-11-03 (Projects/Blood Compressor/Blood Compressor — rich.json: attack floor, the stressed body); point at it, do not remake the attack lesson or the vessel."
+}

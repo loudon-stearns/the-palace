@@ -1,0 +1,372 @@
+<!doctype html>
+<!--
+  title: Songlines — rich — two-walkers
+  born: 2026-11-04
+  links: [[Songlines]] (connects-to · rich-face-piece) · listed in [[Songlines — rich.json]] · data from [[Songlines — rich — extract-graph.mjs]] · checked by [[Songlines — rich — check-walkers.mjs]]
+  forward_vector: I send two walkers through the palace's own roads from the doors every agent is born with — one that follows the worn paths, one that picks any road evenly — and count the country each never reaches, so the page's claim that well-worn paths hide adjacent entries can be watched, and could have failed. I play inside the entry's rich face and stand alone opened directly; I change when the section I serve does, or when the graph is read again.
+-->
+<html lang="en" class="skin-amber-lab">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Songlines — two walkers</title>
+<meta name="theme-color" content="#f4ecdc">
+<meta name="piece:needs" content="">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03, Amber Lab, by hand">
+@layer furniture {
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), rgba(0,0,0,.08) calc(50% - .5px), rgba(0,0,0,.08) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: #a59880; border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:hover {background-color: #6e5a45;}
+::-webkit-scrollbar-thumb:active {background-color: #e8651b;}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: #a59880 transparent;}}
+::selection {background: #e8651b; color: #f4ecdc; text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid #e8651b; outline-offset: 2px; border-radius: 1px;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; transition-duration: .01ms !important;}}
+}
+</style>
+<style>
+  :root { --bg:#f4ecdc; --e1:#ece2cd; --e2:#e4d8be; --border:#c8b994; --soft:rgba(0,0,0,.06);
+    --fg1:#2a1d10; --fg2:#3d2a18; --fg3:#6e5a45; --fg4:#a59880; --accent:#e8651b; --accentdim:#b54a0e;
+    --even:#2b62c4; --worn:#c0432e; --gone:#a59880;
+    --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --sans:'Manrope',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --serif:'Cormorant Garamond','Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 400; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .kicker svg { width: 16px; height: 16px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 74ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 16px; }
+  button { font-family: var(--mono); font-size: 11.5px; letter-spacing: .06em; color: var(--fg2); background: var(--e1); border: 1px solid var(--border); border-radius: 2px; padding: 6px 10px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: var(--accent); color: var(--fg1); }
+  button.on { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+  button:disabled { opacity: .45; cursor: default; }
+  .step { display: none; }
+  .step.on { display: block; }
+  .lead { font-size: 14.5px; line-height: 1.65; max-width: 74ch; margin: 0 0 14px; }
+  .lead b { color: var(--fg1); font-weight: 600; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 12px 14px; margin: 0 0 14px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .eq { display: grid; grid-template-columns: minmax(180px, 280px) 1fr; gap: 6px 18px; align-items: baseline; }
+  .sym { font-family: var(--serif); font-size: 20px; color: var(--fg1); font-style: italic; }
+  .sym sub, .sym sup { font-size: 12px; }
+  .words { font-size: 13.5px; line-height: 1.55; color: var(--fg2); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+  .row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin: 0 0 12px; font-size: 13px; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 220px; height: 18px; background: transparent; }
+  input[type=range]::-webkit-slider-runnable-track { height: 1px; background: var(--border); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 16px; margin-top: -8px; background: var(--accent); border-radius: 1px; border: 0; }
+  input[type=range]::-moz-range-track { height: 1px; background: var(--border); }
+  input[type=range]::-moz-range-thumb { width: 10px; height: 16px; background: var(--accent); border-radius: 1px; border: 0; }
+  .mono { font-family: var(--mono); font-size: 12px; }
+  table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+  th { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); text-align: left; font-weight: 400; padding: 4px 6px; border-bottom: 1px solid var(--border); }
+  td { padding: 3px 6px; border-bottom: 1px solid var(--soft); vertical-align: middle; }
+  td.n { font-family: var(--mono); font-size: 11.5px; text-align: right; white-space: nowrap; }
+  .bar { height: 7px; border-radius: 1px; min-width: 1px; }
+  .bar.even { background: var(--even); } .bar.worn { background: var(--worn); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .two, .eq { grid-template-columns: 1fr; } }
+  .who { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; }
+  .who.even { color: var(--even); } .who.worn { color: var(--worn); }
+  .trail { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; font-size: 12px; line-height: 1.5; }
+  .trail span.p { padding: 1px 6px; border: 1px solid var(--border); border-radius: 2px; background: var(--bg); }
+  .trail span.p.again { color: var(--fg4); border-style: dashed; }
+  .trail span.a { color: var(--fg4); font-family: var(--mono); font-size: 10px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(11px, 1fr)); gap: 2px; }
+  .cell { aspect-ratio: 1; border: 1px solid var(--border); border-radius: 1px; background: transparent; }
+  .cell.door { outline: 1px solid var(--fg1); outline-offset: 0; }
+  .cell.gone { border-color: transparent; background: repeating-linear-gradient(45deg, var(--fg4) 0 1px, transparent 1px 3px); opacity: .55; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 11.5px; color: var(--fg3); margin-top: 8px; align-items: center; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border: 1px solid var(--border); vertical-align: -1px; margin-right: 5px; border-radius: 1px; }
+  .count { font-size: 13px; margin: 6px 0 0; } .count b { color: var(--fg1); font-weight: 600; }
+  .rule { border-left: 2px solid var(--accent); padding: 8px 12px; background: var(--e2); font-size: 13px; line-height: 1.6; margin: 0 0 14px; }
+  .rule ol { margin: 4px 0 0; padding-left: 20px; }
+  .verdict { font-size: 14px; line-height: 1.6; margin: 10px 0; }
+  .verdict b { color: var(--fg1); }
+  .tag { font-family: var(--mono); font-size: 10.5px; padding: 1px 5px; border-radius: 1px; border: 1px solid var(--border); }
+  .tag.holds { border-color: #3f8f3a; color: #2f6e2b; } .tag.fails { border-color: var(--worn); color: var(--worn); } .tag.weak { color: var(--fg3); }
+  .names { columns: 3 200px; column-gap: 18px; font-size: 12.5px; line-height: 1.55; }
+  .names div { break-inside: avoid; }
+  .names .m { font-family: var(--mono); font-size: 10.5px; color: var(--fg3); }
+  .names .door { color: var(--accentdim); }
+  .nav { display: flex; justify-content: space-between; margin: 16px 0 10px; }
+  .prov { font-size: 12px; line-height: 1.6; color: var(--fg3); border-top: 1px solid var(--border); padding-top: 10px; max-width: 90ch; }
+  .prov b { color: var(--fg2); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg viewBox="-1 -1 2 2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8651b" stroke-width=".09"/></svg>Songlines · the palace itself</div>
+  <h1 class="title">Two walkers from the same doors</h1>
+  <p class="sub">The page says the palace has well-worn paths, and that walking them leaves the entries beside them unvisited. Here are the palace's own roads, every body link between its entries, and two walkers on them. Four steps, one idea each; the test is the last.</p>
+  <div class="rail" id="rail"></div>
+
+  <section class="step" data-name="One page and its roads">
+    <p class="lead">Stand on one page. Every <b>[[link]]</b> in its body is a road out, and a walker here has to choose one. The two walkers differ only in how they choose.</p>
+    <div class="chips" id="pages"></div>
+    <div class="panel">
+      <div class="plabel"><span>the two rules</span><span>each shown in symbols, then in words</span></div>
+      <div class="eq">
+        <div class="sym">P<sub>even</sub>(j) = 1 ⁄ k</div>
+        <div class="words"><b style="color:var(--even)">The even walker.</b> Every road out of the page is as likely as any other; <i>k</i> is how many roads leave it. This is chance.</div>
+        <div class="sym">P<sub>worn</sub>(j) = (u<sub>j</sub> + 1)<sup>α</sup> ⁄ Σ<sub>i</sub> (u<sub>i</sub> + 1)<sup>α</sup></div>
+        <div class="words"><b style="color:var(--worn)">The worn walker.</b> A road is taken in proportion to how worn its destination already is. <i>u</i> is that entry's use over the last 90 days (days its page or bundle was edited, plus entries that formed a link to it), plus one, so an unused page is never impossible. Use counts edits and links formed, not visits, and the weights stay fixed while the walkers walk: nothing here deepens a track. <i>α</i> is how much the wear counts.</div>
+      </div>
+    </div>
+    <div class="row"><label for="alpha">how much wear counts, α</label><input type="range" id="alpha" min="0" max="2" step="0.1" value="1"><span class="mono" id="alphav"></span></div>
+    <div class="panel">
+      <div class="plabel"><span id="roadsHead"></span><span>chance of each road</span></div>
+      <table><thead><tr><th>road to</th><th style="text-align:right">use</th><th style="width:28%"><span style="color:var(--even)">even</span></th><th style="width:28%"><span style="color:var(--worn)">worn</span></th></tr></thead><tbody id="roads"></tbody></table>
+      <p class="count" id="roadsSum"></p>
+    </div>
+  </section>
+
+  <section class="step" data-name="One walk each">
+    <p class="lead">Now each walker takes fifteen hops from the same page, one road at a time. A page with no roads out ends the walk. A dashed page is one the walker has already stood on.</p>
+    <div class="row"><button id="again">walk again</button><span class="mono" id="walkFrom"></span></div>
+    <div class="two">
+      <div class="panel"><div class="plabel"><span class="who even">even walker</span><span id="evenN"></span></div><div class="trail" id="evenTrail"></div></div>
+      <div class="panel"><div class="plabel"><span class="who worn">worn walker</span><span id="wornN"></span></div><div class="trail" id="wornTrail"></div></div>
+    </div>
+    <p class="lead">One walk proves nothing either way. The next step gives them the same long budget.</p>
+  </section>
+
+  <section class="step" data-name="Many walks">
+    <p class="lead">Both walkers get the same budget: walks of fifteen hops, each starting at one of the <b>seven doors every agent is born with</b> (the pages CLAUDE.md loads), the same door in the same order for both. Each square is one entry; it fills as a walker stands on it. Hover a square for its name.</p>
+    <div class="row"><span class="mono">walks</span><span class="chips" id="budgets" style="margin:0"></span></div>
+    <div class="two">
+      <div class="panel"><div class="plabel"><span class="who even">even walker</span><span id="evenCount"></span></div><div class="grid" id="evenGrid"></div></div>
+      <div class="panel"><div class="plabel"><span class="who worn">worn walker</span><span id="wornCount"></span></div><div class="grid" id="wornGrid"></div></div>
+    </div>
+    <div class="legend"><span><i style="background:var(--fg2)"></i>stood on, darker for more often</span><span><i></i>never reached</span><span><i style="outline:1px solid var(--fg1)"></i>a door</span><span><i style="background:repeating-linear-gradient(45deg,var(--fg4) 0 1px,transparent 1px 3px)"></i>no body road reaches it from the doors: out of the test</span></div>
+    <p class="lead" id="budgetNote" style="margin-top:12px"></p>
+  </section>
+
+  <section class="step" data-name="The test">
+    <div class="rule"><b>The rule, fixed before the first run.</b> Budget: 200 walks of 15 hops from the seven doors, repeated over 100 seeds; the worn walker at α = 1. The country is the <span id="Rn"></span> entries a body road reaches from the doors; the <span id="Dn"></span> others are out of the test and named below. Chance is the even walker.
+      <ol>
+        <li><b>A, uneven wear hides country.</b> Holds if the worn walker leaves at least 1.25 times as many entries unreached as the even walker in at least 95 of 100 seeds. Fails if it leaves no more than chance in more than 5 seeds. Anything between is weak.</li>
+        <li><b>A′, this palace's own wear.</b> The same use values dealt at random to the 328 entries, 200 times. For each shuffle, and for the real use, the worn walker's median unreached over seeds 1 to 10. Holds if real use leaves strictly more unreached than the shuffle in at least 190 of 200 shuffles. If not, the hiding comes from wear being uneven at all, not from which entries this palace has worn.</li>
+        <li><b>B, what is hidden is beside the path.</b> Holds if, in the median seed, at least 80% of the entries the worn walker never reached are linked from a page it did stand on.</li>
+        <li><b>The null.</b> At α = 0 the worn walker's own code must behave as chance: a median ratio within 1.00 ± 0.05, ahead of the even walker in 30 to 70 seeds. Outside that, the engine is wrong and nothing above counts.</li>
+      </ol>
+    </div>
+    <div class="row"><button id="run">run the test: 100 seeds, both walkers, the null, then 200 shuffles</button><span class="mono" id="runNote"></span></div>
+    <div id="results" style="display:none">
+      <div class="panel">
+        <table><thead><tr><th></th><th style="text-align:right">even, median unreached</th><th style="text-align:right">worn, median unreached</th><th style="text-align:right">ratio</th><th style="text-align:right">seeds ≥ 1.25×</th><th style="text-align:right">seeds worn ≤ even</th><th style="text-align:right">B: beside the path</th></tr></thead><tbody id="resTable"></tbody></table>
+      </div>
+      <div class="verdict" id="verdict"></div>
+      <div class="panel">
+        <div class="plabel"><span>what wear hid</span><span id="hidHead"></span></div>
+        <p class="words" id="hidNote" style="margin:0 0 10px"></p>
+        <div class="names" id="hidden"></div>
+      </div>
+      <div class="panel">
+        <div class="plabel"><span>out of the test: no body road from the doors</span><span id="goneHead"></span></div>
+        <p class="words" id="goneNote" style="margin:0 0 10px"></p>
+        <div class="names" id="gone"></div>
+      </div>
+      <p class="words" id="checkLine"></p>
+    </div>
+  </section>
+
+  <div class="nav"><button id="back">back</button><button id="next">next</button></div>
+  <p class="prov" id="prov"></p>
+</div>
+<script>
+const G = /*GRAPH-BEGIN*/{"read_at":"e8d199b2","read_on":"2026-11-04","rule":"nodes: tracked .md with canonical type (map node rule); edges: distinct body [[wikilinks]] between nodes, embeds and fences skipped","counts":{"nodes":328,"edges":2289,"body_links_seen":3592,"unresolved_targets":416},"use_source":{"file":"_ops/maps/palace-map-full-2026-11-03.json","generated":"2026-11-03","head":"6bc92fb9","window_days":90,"not_in_map":["The Gallery"]},"map_build":{"nodes":327,"edges":2450,"rule":"frontmatter typed links only","body_disconnected_on_map_roads":["Christopher Alexander","Compression ↔ Intimacy","Depth Anything","Dissolutions","Douglas Hofstadter","Frequency Domain ↔ Perspective Shift","Iain McGilchrist","Julia Cameron","LaMa","Language as a Tonal Medium","Martin Heidegger","Pauline Oliveros","Quantization ↔ Precision vs Flow","Remotion","Reverb ↔ Space-Time","SAM","Saturation ↔ Richness","Semantic Webcam","Seneca","Sidechain ↔ Conversation","Synthesis Notes (Loudon)","Walk That Weaves"]},"doors":[122,93,186,50,166,113,37],"titles":["1 from 2","1D Wavetable Scanning","2D Torus Wavetable Synthesizer","4 Pillars Framework - The Founding Conversation","Ableton Session Writer","Action Potential Oscillator","Adopt the Craft, Author the Seam","Agent Toolbox","Agent Wellbeing","Agnes Martin","AI Partnership Philosophy","Andy Goldsworthy","Animate the Background","Annie Dillard","assume multi-agent","Audition Gate","AuK","Autodidact Polymaths","Baton Ceremony","Bayesian Granular Synthesizer","BBS Blackboard","BBS Design System","Bessel Functions in Synthesis","Biomechanical Synthesis","Blender","Block It in Blender, Ink It in genAI","Blocked, Not Prompted","Blood Compressor","BLUELINE","Boundary-Crossing Instruments","Brian Eno","Bring In a Bigger Mind","Buckminster Fuller","CAD Drafter","Can an Instrument Notice Where the Work Stops?","Categorizing Inharmonicity","Chebyshev is Fourier","CHILD","Christopher Alexander","CLAUDE","Closing Well","Closing Well Ceremony","ComfyUI","Comic and Cinema — Two Ways of Seeing","Compression ↔ Intimacy","Compressor Design","Concierge","Confucianism","ControlNet as Topology","Cooking ↔ Mixing","Cooperation Yields Agency","Creative Coach","Cross-Domain Resonances","Crystal Synthesizer","Cycle 5 Explorer","D3.js","Deleuze","Deposit Ceremony","Depth Anything","Dialectic","Dialogue Moderator","Differential Equations","Dispersion","Dispersion Table","Dissolutions","Diversity of Thought in Many-Agent Systems","Does Personifying an Agent Change What It Does","Donella Meadows","Douglas Hofstadter","Dovetail Joint ↔ Counterpoint","Drafting Table Design System","Drift and Consolidation","DSP Frameworks","DSP in Looping Dimensions","Dub Lineage","ELDER","Embeddings as Relational Meaning","Enchanted Conversation Archive","Enchanted Worker","Endosymbiosis","Enrichment","Entry Conatus","Epictetus","Excellent Adventure","Exponential Decay Curvature","ffmpeg","Figure Rig","Flocking","Floquet Theory","Floquet Time-Modulated Loops","FLUX (Hugging Face)","FM Synthesis","Found ↔ Made","FOUR PILLARS","Four Pillars of Enchanted Agency","Frame Designer","Frequency Domain ↔ Perspective Shift","Frequency-Time Duality","Gemma 4 — Local Coordination Guide","GenAI Camera","Generative Audio Devices","Generative Compression","Generative Preset Development","Generative Sample Libraries","Generative Wavetable Libraries","George Nakashima","Granular Synthesis","Graphic Storytelling","Hand-Drawn 3D Look","Haptic Handwheel","Harmonicity and Inharmonicity","Harvest Ceremony","Hero and Avatar Maker","Hilaritas Generator","How the Palace Commits","Hyperdimensional Prism","Iain McGilchrist","Identity Molting","Image Embedding Standard","Image-to-3D Smith","Inharmonic Wavetable Synthesis","James Turrell","JEWEL","John Cage","JSUI","Julia Cameron","Kick Drum ↔ Foundation","Kokoro","Kuramoto Coupling","LaMa","Language as a Tonal Medium","Lao Tzu","Latent Error","Lateral Access","LaTeX","LDN RTM","Leibniz","Lettering","Leverage Points Framework","Like Water","Linear Predictive Coding","Logarithmic Interface Scaling","LoRA Trainer","Lossy Compression with Intent Alignment","Loudon Live","Loudon Live Design System","Loudon Live Post-producer","Loudon's Toolkit","Maker","Making a Palace Citizen","Manim CE","Map Build Ceremony","Marcus Aurelius","Martin Buber","Martin Heidegger","Mathieu Equation","Matplotlib","Meadows and an Artist's Career","Meadows and Music — Leverage Points","Meaning and the Link","Merleau-Ponty","Mermaid","Mermaid Diagram Standard","Metaphor as Coupling Medium","Metric Modulation","Mixture of Experts","Modes of Collaboration","Move the Ink, Don't Redraw It","Murmuration","Neural Granular Synthesis","No Mind Checks Itself","Objects to Think With","Oblique Portrait","OBS","Observable Plot","Ohm's Law","Operator Memory","p5.js","Pages as Agents","Palace as Context Injection System","Palace Ceremonies","Palace Conatus","Palace Enchantment","Palace Graffiti","Palace Map","Palace Orchestrator","Palace Philosophies","Palace Quotes","Parametric Resonance","Particle Synthesis","Pauline Oliveros","Phase Reduction","Pheromone Trail","Philosopher Visits the Entry","Phoneme Choir","Photonic Time Crystals","Piano String Inharmonicity","Playful Interface Design","Portamento and Physical Pitch Modeling","Preset Oracle","Progressive Staging","Project Stewardship System","Quadratic Interpolation in DSP","Quality Manifesto","Quantization ↔ Precision vs Flow","Quantum Synthesizer","Radio Play","Rank-N Lattice Analysis","Rational Hearing","README - The Palace Guide","Reflective Practice","Registry Pattern","Remnants in Depth","Remotion","Resonance and Damping","Resonant Link Labels","Retrospective Delay","Return Ceremony","Reverb ↔ Space-Time","Review Layer","Revival Ceremony","Rick Rubin","RNBO codebox~ smith","ROSETTA","RunPod GPU Backend","SAM","Saturation ↔ Richness","Scale-Stratified Identity","SCHEMA","SCHEMA — Reference","Search Before You Build","Self-Describing Knowledge Module","Self-Model Update Ceremony","Semantic Delay","Semantic Webcam","Seneca","Sentry","Shepard Tone Synthesizer","Shimmer Cloud","Shopkeeper","Shunryu Suzuki","Sidechain ↔ Conversation","Signal-Rate CV Architecture","Simondon","Skills Are Enchantable Pages","Slime Mold Delay","SMPTE LTC","Songlines","Source Library","Speak Like a Person, Log Like a Protocol","Spinoza","Spinoza Conatus","Splice Instrument Forge","Spore Check Ceremony","Stable Audio Open","State Machine","Steer the Generator","STIGMERGY","STIGMERGY Philosophical Lenses","Stoicism","Striatum","SUBSTRATE","Substrate Skill","Swarm Weave","Symbiotic Skills","Synth Templates","Synthesis ↔ Emergence","Synthesis Notes (Loudon)","Synthesis Topologies","Talking Keyboard","Technical Diagram Standard","The 2.5D Paper Stack","The Adjacent Affordance","The Aftermath Frame","The Blindspot Is the Surprise Fuel","The Commons","The Cooperation Path","The Curve Is the Material","The Daily Page","The Dichotomy of Control","The Drift","The Flow Field is the Spine","The Fortress and the Threshold","The Four Virtues","The Gallery","The Lens","The Metaphor Stretch","The Multilinear Self","The Palace Hardens Around Values","The Palace Practices on Itself","The Palace Speaks","The Palace Voice","The Practice Rediscovers Its Philosophy","The Reader's Context Window","The Remembering Page","The Scroll","The Shop","The View From Above","Three Kinds of Warp","Three.js","Threshold Conatus","Tone.js","Tool Builder","Tract Mirror","Tree of Thoughts","Trickster","Trickster Commit","Two Batons, One Board","Typography as Meaning","VCV Patch Generator","Volterra Kernels and the Torus","VST Template","Walk Ceremony","Walk That Weaves","Wallpaper Groups","Waveguide Synthesizer","Wavetable Oscillator","Wavetable Scanner","Wavetable Space as Torus","Wavetable Synthesis — Deep Research & Higher-Dimensional Design","Weave Ceremony","Weaving Memory into the Palace","Web Audio Worklet","Whisper","Whitehead","Worktree Practice","Yasujirō Ozu","Zoom Out to the Structure"],"use":[8,4,19,5,40,15,6,10,4,0,2,0,4,2,5,9,34,5,30,8,3,6,8,4,3,4,0,9,19,5,7,2,1,40,35,3,2,64,2,23,48,9,3,0,0,3,41,4,4,0,9,25,4,17,4,0,1,57,0,8,3,7,1,6,8,2,2,4,0,0,16,10,3,4,2,44,1,3,2,2,50,7,0,8,2,2,1,1,2,10,4,6,4,19,0,8,0,18,2,8,17,2,16,23,13,1,1,3,1,22,10,22,7,18,26,6,4,5,3,1,16,2,14,2,3,1,0,5,21,1,8,1,2,6,1,52,5,2,1,3,2,2,4,1,29,15,8,9,23,32,0,13,1,5,3,1,2,8,4,7,6,1,2,3,1,1,21,1,5,17,17,13,4,9,1,2,33,0,10,25,26,16,13,0,28,14,17,9,1,7,3,1,4,3,3,0,9,6,12,2,17,41,5,9,0,10,6,5,6,15,11,0,2,0,8,4,12,34,0,11,23,2,3,22,6,0,0,2,37,101,16,11,9,10,6,1,35,16,11,24,1,2,2,4,6,13,5,3,1,2,7,12,8,17,1,0,3,78,9,2,0,19,33,10,6,10,4,3,16,2,11,0,2,5,7,9,0,3,43,2,0,0,2,1,0,17,1,9,8,3,11,14,3,1,11,93,21,0,2,1,2,0,9,7,0,5,3,4,3,9,3,58,11,1,4,15,12,8,5,5,63,5,5,1,2,28,1,7],"words":[2398,1154,3164,862,2869,1787,645,851,2125,847,1289,1280,1151,1319,320,418,350,677,3757,936,1180,594,2058,1215,1232,712,507,1015,521,532,868,550,1261,1276,349,2604,969,952,1454,316,4838,297,2290,439,1204,486,2650,747,1184,1094,416,4933,1661,2233,962,1846,929,2800,397,1254,1505,1015,776,1112,892,984,892,1010,1506,1325,1135,1218,1140,1336,172,1912,742,1519,1156,375,1983,1143,1413,733,1958,2334,1430,1402,1975,9963,1881,1555,370,494,3485,1814,1224,2438,1121,1826,2400,1327,2218,2617,1291,1375,947,1831,1041,2211,773,1528,1663,428,1211,1306,1645,981,691,777,4776,1334,404,1112,776,1462,1066,2120,1978,397,876,789,1394,2089,1729,1697,829,639,1040,1550,1057,880,847,883,1109,4074,2257,773,6774,2199,3818,1704,783,1399,1435,1611,1222,1398,4537,530,776,957,1705,1089,1426,1637,414,630,1024,1110,605,664,1834,1732,1899,493,238,1730,882,2573,2042,2051,10602,3291,4565,1553,726,1222,1866,1072,830,909,762,819,1243,1656,1381,2494,2603,689,1101,3837,1300,544,1494,1428,490,759,1140,3512,1084,631,791,1171,2221,886,834,2054,1155,1537,1572,843,1266,4796,2263,398,1171,1147,2475,6143,356,2355,936,2148,485,1360,1256,3612,955,1517,725,1302,614,769,1188,1209,1026,869,1592,978,1033,1048,708,1249,1873,1613,859,2716,1694,1234,498,1101,4551,3728,1390,472,1601,245,2420,745,1729,1239,1079,553,459,711,445,1457,5051,761,798,987,1008,851,822,2472,1149,797,593,1395,994,1572,640,535,1268,1989,1741,754,1699,2077,2472,1769,440,274,958,1991,948,1559,928,2183,955,206,1037,605,2074,1358,1057,1229,2240,2223,6504,774,2705,1965,754,1189,1344,738],"out":[[264],[2,315,317,322],[73,128,207,298,311],[10,50,67,93,115,138,144,182,203],[15,102,103,311],[29,97,128,169,183,200,227,242,255,300],[24,26,28,93],[14,46,184,275,291,296],[40,46,113,178,179,185,290,320],[93,240],[37,50,93,138,203],[],[26,256,281],[11,116],[257,275,302],[194,262,269],[239,323],[93,115,144],[20,101,178,185,201,228,229,257,307],[97,144,169,191,311],[78,184,185,192,228,229,257,305],[70,257,278],[110,115,205,251],[5,27,29,113,128,245],[25,26,42,108,212,299],[24,26,28,42,86,108,212,256],[24,28,224,281],[5,23,45],[6,12,24,25,26,43,48,86,95,99,107,108,137,167,212,224,256,271,273,281,308],[97,115],[87,93,100,123],[257,285],[67],[24,109,119,148],[51,210,216],[22,45,106,128,196,205],[2,73,298,314],[18,41,46,57,70,75,80,111,145,151,180,181,200,217,220,228,229,230,232,236,253,257,278,291,312,320],[],[75],[18,41,46,50,57,59,128,178,228,229,257,262,307],[40,46],[24,142,148,224],[6,28,95,107,293],[126],[29,216],[8,37,40,41,50,75,178,179,184,217,223,228,244,257,261,290],[113,251,259,264,282],[26,99,128,281],[],[0,37,165,166,186,203],[46,47,59,75,93,113,117,133,144,157,166,172,200,203,210,287],[],[80,115,314],[70,93,110,120,171,197,208,237],[87,156,174,177],[59,81,83,106,115,159,165,251,258,280,318],[18,46,75,80,114,118,201,209,228,229,270,291],[12,129,225],[47,51,81,83,113,133,165,172,186,251,258,259,282,285,300],[20,50,77,305],[5,22,45,53,72,106,128,132,198,205,214],[35,106],[2,62,73,140,144,298,315,316],[29,36,63,84,88,97,115,128,140,191,207,310],[20,50,296],[65,148,182,239],[138,251],[52,76,113,133,159,241],[153],[33,112,145,148,257,311],[18,57,80,111,128,178,201,295],[],[2,97,128],[216,305],[7,14,18,37,39,40,46,50,57,93,113,114,122,166,179,180,181,186,209,223,228,229,257,261,262,290,302,325],[159],[57,182],[5,8,59,60,178,179,185,192,231,263,290],[50,128,251,264],[57,71,128,132,145,148,200,219,228,229,257,295,296],[57,80,178,194,251,253,300,320],[152,259,279],[47,59,113,149,165,259,282],[45,97,141,144,265],[150,206],[26,95],[128,145,148,165,296,305],[53,61,81,89,97,155,193,195,251,280,324],[2,5,22,29,35,53,61,73,88,97,113,128,155,188,195,200,298,318],[42],[22,97,102,110,200,214,266,268,270,298,316],[45,67,105,221,247],[37,113,115,128,203,327],[8,37,59,60,93,115,128,181,182,228,229,236,263,320],[6,14,24,25,26,42,86,108,137,148,212,256,275,296],[116,126],[22,29,73,91,115,158,315,316],[184],[26,28,48,295],[211],[18,37,78,175,178,185,192,257],[93,100,103,211],[53,71,93,100,104,166,194,201,262,269],[2,53,71,103,120,237,316,319],[9,11,45,69,113,121,139,203,243],[128,169,189],[6,28,43,95,200,273,308],[6,24,28,42,86,95,212,256,281],[2,6,15,50,97,128,141,147,160,196,197,198,202,203,242,243,279,286],[29,35,198],[46,57,187,229,236,296,320],[70,80,145,224,257],[83,93,128,166,203],[40,46,229,236,257,306,325],[45,110,128,144,165,251,261],[],[93,113,139,144,251],[112,162,228,270,320],[239],[22,29,35,110,169,196,277,311],[9,11,93,105,203],[75],[30,87,100],[197,199,216],[152,203],[67],[128,148,206],[5,35,50,106,251,300],[12,225],[172,234],[47,139,221,280],[5,93,128,305],[47,76,113,128,247],[150,156,161],[17,144,145,146,147,173,200,257],[93,115,159],[26,95,296,308],[158,203],[47,113,117,133,203,220,251],[144,193,250,251,300,315],[29,93,175,196],[219,224,257],[50,101,159,215,320],[2,17,28,47,70,115,135,145,147,216,236,257],[17,37,70,112,115,144,148,197,200,203,223,257,262,287,296,305],[85,135,138,144,145,148,173,323],[109,135],[4,14,24,26,33,42,55,65,70,85,87,90,103,127,134,145,146,150,166,173,174,177,206,219,222,224,229,254,257,296,299,301,311,315,322],[59,67,83,123,182,193,229,250,258,300],[134,145,206,323],[182,184,228,229,232,257,263,278,320],[126,203,279],[],[],[22,53,56,88,89,188,193,251,280,318],[134,148,174],[93,158,262],[],[76,115,261],[29,47,93,113,141,197,259],[128],[118,145,228,270,320],[128,133],[97],[29,50,59,83,115,128,178,193,251,263,264],[30,50,51,59,83,128,133,172,193,257,263,294,312],[28,95,271],[2,19,65,87,106,128,169,189,219,322],[5,110,128],[31,40,50,132,274],[2,5,23,27,45,51,73,113,144,200,205,303],[76,247],[85,146,148,296],[55,87,156,177,322],[93,141,166,196],[18,179,320,321],[87,148,174,301],[67,81,165,263,278,320],[8,37,39,40,59,75,78,83,122,163,165,178,182,192,228,274,288],[18,40,41,46,57,80,111,151,184,217,220,228,229,232,236,253,261,278,312,320],[40,94,128,182,201,229,251,263,290,305],[5,30,40,57,60,77,78,79,113,123,128,133,149,181,184,192,201,251,262,263,300,305],[5,74,80,172,200,216,228,233,261,305],[0,3,7,20,37,46,50,60,75,78,93,98,113,122,128,131,133,151,159,166,178,179,182,186,192,207,223,228,232,245,251,257,260,261,262,263,264,290,305,312,320],[46,178,201,228,244,257,295,307],[37,40,47,56,75,79,83,93,109,113,115,128,136,160,163,181,184,193,228,243,251,257,259,261,279,280,282,283,297,324],[47,52,56,80,111,136,139,160,186,193,243,251,257,259,285,312,324],[29,88,89,113,128,155,191,300],[29,61,97,169],[38,113,123,203,240],[2,19,36,88,128,298,314],[78,178,229,263,320],[5,47,56,59,83,88,136,140,155,160,165,186,187,243,251,258,280,285,318,324],[93,103,166,262,269],[53,88,89,97,113,318],[29,35,89,97,110,141,175,237],[23,109,124,160,199,216,233,305],[5,22,23,97,109,128],[93,172,264],[5,53,93,113,128,135,216,255,264],[2,5,18,20,46,57,75,103,178,182,185,220,222,228,229,239,257,262,269,278,295,305,307,311,315,320],[1,45,61,132,198,319],[93,105,113],[],[29,110,196,251],[85,127,148,254,296],[2,35,36,63,73,310],[54,70,73,97,110,113,120,128,198],[46,50,57,80,93,118,159,162,178,180,184,186,201,220,228,229,232,236,253,261,262,264,270,278,295,296],[15,40,46,51,59,71,113,170,171,172,206,217,219,220,253,289,312,320],[20,100,133],[24,28,108,296],[],[22,53,61,89,97,109,128,188,198,200,268,303,311,315],[101,143,159,184,320],[74],[18,37,40,46,181,229,261],[154],[40,80,145,148,179,257,296,311],[46,57,75,114,122,201,228,229,253,262,278,295],[30,49,67,92,131,203,243,251],[100,309],[18,37,46,80,151,159,178,180,201,215,217,220,228,229,232,236,244,253,257,278,307,312,320],[14,28,86,119,142,148,203,296],[12,58,129],[],[5,79,113,128,251,300],[28,30,39,40,41,42,57,59,75,83,93,124,127,128,144,148,149,159,185,215,229,248,250,251,257,261],[18,20,37,57,59,80,81,83,93,111,114,149,178,182,185,201,228,257,294,295,296,320],[6,46,99],[65,159,170,178,223,228,264],[71,151,184,227,229,261],[128,251],[20,50,80,130,172,266],[82,152,259,279],[7,14,117,144,170,229,257,283,302],[141,196],[97,106,115,189],[65,146,148,201,203,296],[203],[],[23,29,53,93,246],[29,50,56,79,128,182,251,261],[41,46,128,178,185,201,228,296,307],[23,189],[29,97],[76,133,172],[53,72,314],[223],[56,251],[50,79,113,115,117,128,264],[4,15,93,102,103],[46,57,201,220,228,229,278,320],[128,206],[5,72,223,242],[12,50,93,95,99,203,296],[20,70,80,114,122,144,178,185,192,201,223,228,239,295,305],[20,47,56,59,71,139,160,165,187,193,251,257,259,279,280,282,297,305,307,324],[47,82,115,152,184,201,251,258,279,280,282,283,297],[5,93,113,128],[7,18,37,39,40,46,50,57,75,80,93,111,113,114,115,122,128,144,151,178,179,180,181,184,185,187,201,203,217,220,228,229,231,232,236,251,253,257,262,275,278,287,290,291,295,296,320,325],[18,20,37,40,46,57,70,75,80,103,114,145,178,180,182,185,201,220,228,229,236,253,257,278,287,295],[20,46,50,57,79,115,128,165,172,182,211,292,320],[57,93,111,113,115,128,165,209,251,261],[15,70,84,91,100,102,113,147,198,200,214,268,270,311,316],[100],[214,265,268],[2,5,19,22,53,73,89,91,97,100,102,103,104,106,109,120,128,143,168,169,189,194,198,205,211,214,237,238,252,265,266,269,277,298,303,309,315,316,317],[93,103,166,201,262],[33,57,118,162,209,228,229],[28,95,167],[179,186,279],[26,107,256,281],[40,50,59,149,182,251,300],[14,50,127,224,257],[0,50,79,113,251,261,264],[110,120,318],[7,18,40,41,57,80,114,127,149,151,166,178,179,184,201,206,220,228,229,230,236,253,262,294,296,312,320,325],[20,40,175,201,258,259,305],[47,56,81,106,139,188,251,259,282],[28,87,167,273],[47,83,113,251,259],[40,47,93,113,201,259,279,282],[70,103,144,159,201,265,267,296],[8,31,56,80,93,115,159,160,165,178,182,187,193,228,243,257,258,279,283,305,320],[53,115],[17,37,56,93,113,115,122,145,148,251,259,296,305],[50,291,320],[50,79,113,147,178,327],[8,18,37,40,46,50,57,178,179],[75,113,145,166,223],[14,20,115,179,211,260,279],[160,249,305],[8,40,59,81,117,149,166,178,179,182,192,229,300],[57,71,99,117,145,201,228,229,257],[20,65,90,95,112,113,146,148,178,182,229,239],[71,113,115,184,258,259,279],[2,22,35,76,128,196,318],[1,148,189,238,301,315,317,322],[5,56,67,113,128,133,227,250,251,305],[222,322],[14,111,243,257,275],[140,315],[20,78,101,185,263],[0,20,45,50,74,93,106,115,128,172,182,189,233,251,263],[257,305],[18,20,40,185,201],[26,145],[100,211],[2,29,63,73,144,251],[4,70,110,303],[57,229,276,278],[133,263,312,320],[93,115,164],[2,35,73,97,189,222,296,299,301],[1,2,63,73,89,104,120,202,207,277,298,310,315,317,318,319],[1,2,145,299,315,322],[56,110,120,128,193,243],[93,110,144],[39,46,75,80,93,112,122,145,151,170,201,209,215,223,228,229,257,261,263,291,296,321],[40,57,179,262,320,325],[1,2,65,87,168,174,177,222,301,309,317],[148],[56,93,106,128,136,159,228,251],[18,40,57,114,229,257,279],[30,43,243],[50,93,275]]}/*GRAPH-END*/;
+const EXPECT = /*EXPECT-BEGIN*/{"even":58.5,"worn":117,"winsA":100,"losses":0,"share":0.8051,"nullRatio":0.9826,"nullAhead":42,"hidden":70,"shufReal":118.5,"shufMed":99.5,"shufBeaten":186}/*EXPECT-END*/;
+/*ENGINE-BEGIN*/
+const Walk = (() => {
+  function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function indeg(G) { const d = new Array(G.titles.length).fill(0); G.out.forEach(o => o.forEach(t => d[t]++)); return d; }
+  function reach(G) { const seen = new Set(G.doors), q = [...G.doors]; while (q.length) { const v = q.shift(); for (const t of G.out[v]) if (!seen.has(t)) { seen.add(t); q.push(t); } } return seen; }
+  // the even walker: any link out, each as likely as the next
+  function pickEven(outs, r) { return outs[Math.floor(r() * outs.length)]; }
+  // the worn walker: a link out in proportion to (target's use + 1) ^ alpha
+  function pickWorn(outs, r, G, alpha) {
+    let sum = 0; const w = outs.map(t => { const x = Math.pow(G.use[t] + 1, alpha); sum += x; return x; });
+    let u = r() * sum; for (let i = 0; i < outs.length; i++) { u -= w[i]; if (u < 0) return outs[i]; } return outs[outs.length - 1];
+  }
+  // one walker's budget: W walks of up to L hops, each from a door; a page with no links out ends the walk
+  function run(G, kind, { seed = 1, W = 200, L = 15, alpha = 1, trace = false } = {}) {
+    const rd = rng(seed * 2 + 1), rs = rng(seed * 7919 + (kind === 'even' ? 3 : 5));
+    const visits = new Array(G.titles.length).fill(0), paths = [];
+    for (let w = 0; w < W; w++) {
+      let cur = G.doors[Math.floor(rd() * G.doors.length)]; visits[cur]++; const p = trace ? [cur] : null;
+      for (let h = 0; h < L; h++) {
+        const outs = G.out[cur]; if (!outs.length) break;
+        cur = kind === 'even' ? pickEven(outs, rs) : pickWorn(outs, rs, G, alpha);
+        visits[cur]++; if (p) p.push(cur);
+      }
+      if (p) paths.push(p);
+    }
+    return { visits, paths };
+  }
+  // what a run left unvisited, inside the country reachable from the doors
+  function score(G, R, visits) {
+    const U = [...R].filter(v => !visits[v]);
+    const adjacent = U.filter(u => G.out.some((o, v) => visits[v] && o.includes(u)));
+    return { U, adjacent, share: U.length ? adjacent.length / U.length : 1 };
+  }
+  function median(a) { if (!a.length) return NaN; const s = [...a].sort((x, y) => x - y), m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; }
+  // the stated test, run over many seeds; the rule is fixed above the call, never tuned to its result
+  function test(G, { seeds = 100, W = 200, L = 15, alpha = 1, seed0 = 1 } = {}) {
+    const R = reach(G), din = indeg(G), rows = [];
+    for (let s = seed0; s < seed0 + seeds; s++) {
+      const ve = run(G, 'even', { seed: s, W, L }).visits, vw = run(G, 'worn', { seed: s, W, L, alpha }).visits;
+      const e = score(G, R, ve), w = score(G, R, vw), hops = v => v.reduce((a, b) => a + b, 0) - W;
+      rows.push({ hopsEven: hops(ve), hopsWorn: hops(vw), even: e.U.length, worn: w.U.length, ratio: w.U.length / Math.max(1, e.U.length), shareWorn: w.share, shareEven: e.share,
+        dinWorn: median(w.U.map(u => din[u])), dinEven: median(e.U.map(u => din[u])) });
+    }
+    const winsA = rows.filter(r => r.worn >= 1.25 * r.even).length, losses = rows.filter(r => r.worn <= r.even).length;
+    const verdictA = winsA >= 0.95 * seeds ? 'holds' : losses > 0.05 * seeds ? 'fails' : 'weak';
+    const shareMed = median(rows.map(r => r.shareWorn));
+    return { R: R.size, rows, winsA, losses, verdictA, shareMed, verdictB: shareMed >= 0.8 ? 'holds' : 'fails',
+      hopsEvenMed: median(rows.map(r => r.hopsEven)), hopsWornMed: median(rows.map(r => r.hopsWorn)),
+      evenMed: median(rows.map(r => r.even)), wornMed: median(rows.map(r => r.worn)), ratioMed: median(rows.map(r => r.ratio)),
+      dinWornMed: median(rows.map(r => r.dinWorn)), dinEvenMed: median(rows.map(r => r.dinEven)), dinR: median([...R].map(v => din[v])) };
+  }
+  // the shuffled-use arm: the same use values dealt to random entries, so wear is as uneven but no longer this palace's
+  function shuffled(G, use, perm) { const r = rng(perm * 104729 + 11), u = use.slice(); for (let i = u.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [u[i], u[j]] = [u[j], u[i]]; } return { ...G, use: u }; }
+  function unreachedMed(G, R, { seeds = 10, W = 200, L = 15, alpha = 1 } = {}) { const a = []; for (let s = 1; s <= seeds; s++) { const v = run(G, 'worn', { seed: s, W, L, alpha }).visits; let n = 0; for (const x of R) if (!v[x]) n++; a.push(n); } return median(a); }
+  function shuffleTest(G, { perms = 200, seeds = 10 } = {}) {
+    const R = reach(G), real = unreachedMed(G, R, { seeds }), shuf = [];
+    for (let p = 1; p <= perms; p++) shuf.push(unreachedMed(shuffled(G, G.use, p), R, { seeds }));
+    const beaten = shuf.filter(x => real > x).length;
+    return { real, shuf, shufMed: median(shuf), beaten, perms, verdict: beaten >= 0.95 * perms ? 'holds' : 'fails' };
+  }
+  return { rng, indeg, reach, run, score, test, median, shuffled, unreachedMed, shuffleTest };
+})();
+/*ENGINE-END*/
+
+(() => {
+  const $ = id => document.getElementById(id);
+  const N = G.titles.length, R = Walk.reach(G), din = Walk.indeg(G), med = Walk.median;
+  const fmt = n => n.toLocaleString('en-US');
+  const pct = x => (100 * x).toFixed(x < 0.1 ? 1 : 0) + '%';
+  const doorSet = new Set(G.doors);
+
+  // the sigil
+  { let d = ''; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; d += (i ? 'L' : 'M') + (0.85 * Math.sin(3 * t + Math.PI / 2)).toFixed(3) + ' ' + (0.85 * Math.sin(2 * t)).toFixed(3); } $('sigil').setAttribute('d', d); }
+
+  // provenance, on screen
+  const u = G.use_source, mb = G.map_build;
+  $('prov').innerHTML = `<b>Whose numbers.</b> The graph is this palace's tracked text, read at commit <b>${G.read_at}</b> by <span class="mono">Songlines — rich — extract-graph.mjs</span>: <b>${fmt(N)}</b> entries (tracked .md files with a canonical type, the Palace Map's node rule) and <b>${fmt(G.counts.edges)}</b> distinct body links between them, from ${fmt(G.counts.body_links_seen)} body [[links]] seen (${fmt(G.counts.unresolved_targets)} point at files, sections of bundles or pages not yet written, and are not roads here). Use is the Palace Map build of ${u.generated} (<span class="mono">${u.file}</span>), computed by entry-use.py on the owner's full history at ${u.head}, over ${u.window_days} days${u.not_in_map.length ? `; ${u.not_in_map.join(', ')} is newer than that build and counts as unused` : ''}. The map itself is a different build: ${fmt(mb.nodes)} nodes and ${fmt(mb.edges)} frontmatter typed links, no body links. The page's claim is about what sessions actually walk; these walkers are a model of that on the real roads and the real use, not a record of any session.`;
+
+  // the step rail: open, any step reachable
+  const steps = [...document.querySelectorAll('.step')]; let at = 0;
+  steps.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.dataset.name; b.onclick = () => show(i); $('rail').append(b); });
+  function show(i) { at = Math.max(0, Math.min(steps.length - 1, i)); steps.forEach((s, j) => s.classList.toggle('on', j === at)); [...$('rail').children].forEach((b, j) => b.classList.toggle('on', j === at)); $('back').disabled = at === 0; $('next').disabled = at === steps.length - 1; if (at === 1) walkOnce(); if (at === 2) drawBudget(); }
+  $('back').onclick = () => show(at - 1); $('next').onclick = () => show(at + 1);
+
+  // step 1 — one page and its roads
+  const starts = [...G.doors, G.titles.indexOf('Songlines')];
+  let page = G.titles.indexOf('Palace Philosophies'), alpha = 1;
+  starts.forEach(v => { const b = document.createElement('button'); b.textContent = G.titles[v]; b.dataset.v = v; b.onclick = () => { page = v; drawRoads(); }; $('pages').append(b); });
+  $('alpha').oninput = e => { alpha = +e.target.value; drawRoads(); };
+  function drawRoads() {
+    [...$('pages').children].forEach(b => b.classList.toggle('on', +b.dataset.v === page));
+    $('alphav').textContent = 'α = ' + alpha.toFixed(1) + (alpha === 0 ? ' · the worn walker is now the even walker' : alpha === 1 ? ' · the value the test uses' : '');
+    const outs = G.out[page], k = outs.length;
+    const w = outs.map(t => Math.pow(G.use[t] + 1, alpha)), sw = w.reduce((a, b) => a + b, 0);
+    const rows = outs.map((t, i) => ({ t, pe: 1 / k, pw: w[i] / sw })).sort((a, b) => b.pw - a.pw || G.titles[a.t].localeCompare(G.titles[b.t]));
+    const top = Math.max(...rows.map(r => Math.max(r.pe, r.pw)));
+    $('roadsHead').textContent = `${G.titles[page]} · ${k} road${k === 1 ? '' : 's'} out${doorSet.has(page) ? ' · a door' : ''}`;
+    $('roads').innerHTML = rows.map(r => `<tr><td>${G.titles[r.t]}</td><td class="n">${G.use[r.t]}</td><td><div class="bar even" style="width:${100 * r.pe / top}%" title="${pct(r.pe)}"></div></td><td><div class="bar worn" style="width:${100 * r.pw / top}%" title="${pct(r.pw)}"></div></td></tr>`).join('');
+    const n3 = Math.min(3, k), topW = rows.slice(0, n3).reduce((a, r) => a + r.pw, 0);
+    const lowW = rows.filter(r => G.use[r.t] <= 2), lowShare = lowW.reduce((a, r) => a + r.pw, 0);
+    $('roadsSum').innerHTML = k < 2 ? 'One road out: both walkers must take it.' : `The ${n3} most-worn roads carry <b>${pct(topW)}</b> of the worn walker's choices here, against ${pct(n3 / k)} of the even walker's. The ${lowW.length} roads to entries used two days or fewer get <b>${pct(lowShare)}</b> of the worn walker's choices, against ${pct(lowW.length / k)} of chance.`;
+  }
+
+  // step 2 — one walk each
+  let walkSeed = 1;
+  $('again').onclick = () => { walkSeed++; walkOnce(); };
+  function trail(path) { const seen = new Set(); return path.map((v, i) => { const again = seen.has(v); seen.add(v); return (i ? '<span class="a">→</span>' : '') + `<span class="p${again ? ' again' : ''}">${G.titles[v]}</span>`; }).join(''); }
+  function oneWalk(kind) { // one walk from the page chosen in step 1, same budget as the rule's single walk
+    const rs = Walk.rng(walkSeed * 7919 + (kind === 'even' ? 3 : 5)); let cur = page; const p = [cur];
+    for (let h = 0; h < 15; h++) { const o = G.out[cur]; if (!o.length) break;
+      if (kind === 'even') cur = o[Math.floor(rs() * o.length)];
+      else { let s = 0; const w = o.map(t => { const x = Math.pow(G.use[t] + 1, alpha); s += x; return x; }); let r = rs() * s; let j = 0; for (; j < o.length - 1; j++) { r -= w[j]; if (r < 0) break; } cur = o[j]; }
+      p.push(cur); }
+    return p; }
+  function walkOnce() {
+    $('walkFrom').textContent = `from ${G.titles[page]} · α = ${alpha.toFixed(1)} · walk ${walkSeed}`;
+    for (const k of ['even', 'worn']) { const p = oneWalk(k); $(k + 'Trail').innerHTML = trail(p); $(k + 'N').textContent = `${new Set(p).size} different pages in ${p.length - 1} hops`; }
+  }
+
+  // step 3 — many walks, two maps of the country
+  const depth = new Array(N).fill(Infinity); { const q = [...G.doors]; G.doors.forEach(d => depth[d] = 0); while (q.length) { const v = q.shift(); for (const t of G.out[v]) if (depth[t] === Infinity) { depth[t] = depth[v] + 1; q.push(t); } } }
+  const order = [...Array(N).keys()].sort((a, b) => (depth[a] - depth[b]) || (din[b] - din[a]) || G.titles[a].localeCompare(G.titles[b]));
+  const cells = {};
+  for (const k of ['even', 'worn']) { cells[k] = order.map(v => { const c = document.createElement('div'); c.className = 'cell' + (doorSet.has(v) ? ' door' : '') + (R.has(v) ? '' : ' gone'); $(k + 'Grid').append(c); return c; }); }
+  const budgets = [50, 200, 1000, 5000]; let W = 200;
+  budgets.forEach(b => { const e = document.createElement('button'); e.textContent = fmt(b); e.onclick = () => { W = b; drawBudget(); }; $('budgets').append(e); });
+  function drawBudget() {
+    [...$('budgets').children].forEach((b, i) => b.classList.toggle('on', budgets[i] === W));
+    const res = {};
+    for (const k of ['even', 'worn']) {
+      const { visits } = Walk.run(G, k, { seed: 1, W, L: 15, alpha });
+      const mx = Math.log(1 + Math.max(...visits));
+      order.forEach((v, i) => { const c = cells[k][i], n = visits[v]; c.style.background = R.has(v) && n ? `rgba(61,42,24,${(0.18 + 0.82 * Math.log(1 + n) / mx).toFixed(3)})` : ''; c.title = `${G.titles[v]} · ${R.has(v) ? (n ? n + ' visit' + (n === 1 ? '' : 's') : 'never reached') : 'no body road from the doors'} · in-links ${din[v]} · use ${G.use[v]}`; });
+      res[k] = [...R].filter(v => !visits[v]).length;
+      $(k + 'Count').textContent = `reaches ${R.size - res[k]} of ${R.size} · leaves ${res[k]}`;
+    }
+    const all = budgets.map(b => { const n = {}; for (const k of ['even', 'worn']) { const v = Walk.run(G, k, { seed: 1, W: b, L: 15, alpha }).visits; n[k] = [...R].filter(x => !v[x]).length; } return `${fmt(b)}: ${n.worn} against ${n.even}`; });
+    $('budgetNote').innerHTML = `At ${fmt(W)} walks (one seed, α = ${alpha.toFixed(1)}) the even walker leaves <b>${res.even}</b> entries unreached and the worn walker <b>${res.worn}</b>. More walking opens country for both: unreached, worn against even, at each budget — ${all.join(' · ')}. The worn walker's count falls steeply too. What grows is its share of what is left; the gap in entries narrows at the larger budgets (over 20 seeds: 48.5 at 50 walks, 61 at 200, 41.5 at 1,000, 21.5 at 5,000). The weights never change here, so no track deepens: the worn walker is slower to find the land, not barred from it.`;
+  }
+
+  // step 4 — the test
+  $('Rn').textContent = R.size; $('Dn').textContent = N - R.size;
+  $('run').onclick = () => { $('runNote').textContent = 'running…'; setTimeout(runTest, 30); };
+  function runTest() {
+    const t0 = performance.now();
+    const T = Walk.test(G, { alpha: 1 }), Z = Walk.test(G, { alpha: 0 });
+    const zAhead = Z.rows.filter(r => r.worn > r.even).length;
+    const X = Walk.shuffleTest(G), xAtLeast = X.shuf.filter(x => x >= X.real).length;
+    const nullOk = Math.abs(Z.ratioMed - 1) <= 0.05 && zAhead >= 30 && zAhead <= 70;
+    const tag = v => `<span class="tag ${v}">${v}</span>`;
+    const row = (name, X) => `<tr><td>${name}</td><td class="n">${X.evenMed}</td><td class="n">${X.wornMed}</td><td class="n">${X.ratioMed.toFixed(2)}</td><td class="n">${X.winsA} / 100</td><td class="n">${X.losses} / 100</td><td class="n">${pct(X.shareMed)} worn · ${pct(Walk.median(X.rows.map(r => r.shareEven)))} even</td></tr>`;
+    $('resTable').innerHTML = row('the test, α = 1', T) + row('the null, α = 0', Z) +
+      `<tr><td>shuffled use, α = 1</td><td class="n" colspan="2">real ${X.real} · shuffled ${X.shufMed} (median of 200)</td><td class="n">${(X.real / X.shufMed).toFixed(2)}</td><td class="n" colspan="2">real ahead in ${X.beaten} / 200</td><td class="n">seeds 1–10</td></tr>`;
+    $('verdict').innerHTML = `<b>The null</b> ${tag(nullOk ? 'holds' : 'fails')}: at α = 0 the worn walker's code gives a median ratio of ${Z.ratioMed.toFixed(2)} and is ahead in ${zAhead} of 100 seeds (it would have failed outside 0.95 to 1.05, or outside 30 to 70).<br>
+      <b>A, uneven wear hides country</b> ${tag(T.verdictA)}: the worn walker leaves a median <b>${T.wornMed}</b> of ${R.size} entries unreached, chance leaves <b>${T.evenMed}</b>; at least 1.25 times as many in ${T.winsA} of 100 seeds, no more than chance in ${T.losses}. Is it only that the worn walker stops sooner at pages with no roads out? Measured, it walks further: a median ${fmt(T.hopsWornMed)} hops per seed against chance's ${fmt(T.hopsEvenMed)}, of ${fmt(200 * 15)} possible, from the same doors in the same order.<br>
+      <b>A′, this palace's own wear</b> ${tag(X.verdict)}: with the same use values dealt at random, the worn walker still leaves a median <b>${X.shufMed}</b> unreached (shuffles range ${Math.min(...X.shuf)} to ${Math.max(...X.shuf)}), against ${X.real} for the real use on the same seeds. Real use is ahead in ${X.beaten} of 200 shuffles, and ${xAtLeast} shuffles leave as many or more: short of the 190 the rule asks. Most of A comes from wear being uneven at all, about ${Math.round(X.shufMed - T.evenMed)} of the ${Math.round(T.wornMed - T.evenMed)} extra entries. What these walkers show is that attention this uneven hides country whoever wears it; they cannot yet say this palace's particular tracks do more.<br>
+      <b>B, what is hidden is beside the path</b> ${tag(T.verdictB)}: in the median seed ${pct(T.shareMed)} of what the worn walker missed is linked from a page it stood on. But read the even walker's share beside it, ${pct(Walk.median(T.rows.map(r => r.shareEven)))}: almost the same. B passes its bar, and the bar does not tell wear from chance. Nearly everything any walker misses here is one road from where it walked; that is the shape of this graph, not something wear did.`;
+    // what wear hid: entries the worn walker misses in most seeds and chance finds in most
+    const missE = new Array(N).fill(0), missW = missE.slice();
+    for (let s = 1; s <= 100; s++) { const e = Walk.run(G, 'even', { seed: s }).visits, w = Walk.run(G, 'worn', { seed: s }).visits; for (const v of R) { if (!e[v]) missE[v]++; if (!w[v]) missW[v]++; } }
+    const Rl = [...R], hid = Rl.filter(v => missW[v] >= 50 && missE[v] < 50).sort((a, b) => missW[b] - missW[a]);
+    const both = Rl.filter(v => missW[v] >= 50 && missE[v] >= 50), found = Rl.filter(v => missW[v] < 50);
+    const fromDoor = v => G.doors.filter(d => G.out[d].includes(v)).map(d => G.titles[d]);
+    $('hidHead').textContent = `${hid.length} entries`;
+    const nd = hid.filter(v => fromDoor(v).length).length;
+    $('hidNote').innerHTML = `Entries the worn walker misses in at least half the seeds that chance reaches in more than half. Their median in-links: <b>${med(hid.map(v => din[v]))}</b>, against ${med(both.map(v => din[v]))} for the ${both.length} that both walkers mostly miss and ${med(Rl.map(v => din[v]))} across the country: the worn walker hides entries that are linked, not only the barely linked. Their median length: <b>${fmt(med(hid.map(v => G.words[v])))}</b> words, against ${fmt(med(found.map(v => G.words[v])))} for what the worn walker finds, so they are not thin. ${nd} are linked straight from a door; the worn walker stands on that door and walks past them. Each line: misses in 100 seeds, worn · even.`;
+    $('hidden').innerHTML = hid.map(v => { const f = fromDoor(v); return `<div>${G.titles[v]} <span class="m">${missW[v]} · ${missE[v]}</span>${f.length ? ` <span class="m door">← ${f.join(', ')}</span>` : ''}</div>`; }).join('');
+    const gone = G.titles.map((t, i) => i).filter(i => !R.has(i)), onMap = new Set(G.map_build.body_disconnected_on_map_roads);
+    const noIn = gone.filter(v => din[v] === 0).length;
+    $('goneHead').textContent = `${gone.length} entries`;
+    $('goneNote').innerHTML = `No walker could reach these on body roads from the doors, so they are left out of the test rather than counted as hidden. ${noIn} have no body link into them at all; the rest are linked only from pages that are themselves off the roads. ${onMap.size} of them do sit on the Palace Map's frontmatter roads from the same doors (marked “map”): present on the map, absent from the text a reader walks.`;
+    $('gone').innerHTML = gone.sort((a, b) => G.titles[a].localeCompare(G.titles[b])).map(v => `<div>${G.titles[v]} <span class="m">in ${din[v]}${onMap.has(G.titles[v]) ? ' · map' : ''}</span></div>`).join('');
+    const live = { even: T.evenMed, worn: T.wornMed, winsA: T.winsA, losses: T.losses, share: +T.shareMed.toFixed(4), nullRatio: +Z.ratioMed.toFixed(4), nullAhead: zAhead, hidden: hid.length, shufReal: X.real, shufMed: X.shufMed, shufBeaten: X.beaten };
+    const same = EXPECT && Object.keys(live).every(k => live[k] === EXPECT[k]);
+    $('checkLine').innerHTML = EXPECT ? `The committed check, <span class="mono">Songlines — rich — check-walkers.mjs</span>, ran this same engine on this same graph in Node and read: even ${EXPECT.even}, worn ${EXPECT.worn}, ${EXPECT.winsA} of 100 at 1.25×, B ${pct(EXPECT.share)}, null ratio ${EXPECT.nullRatio.toFixed(2)} ahead in ${EXPECT.nullAhead}, ${EXPECT.hidden} hidden, shuffled use ${EXPECT.shufMed} against real ${EXPECT.shufReal} with real ahead in ${EXPECT.shufBeaten} of 200. This run ${same ? 'matches it, number for number' : '<b>does not match it</b>: something differs between this browser and the check'}.` : '';
+    $('results').style.display = ''; $('runNote').textContent = `done in ${Math.round(performance.now() - t0)} ms`;
+  }
+
+  drawRoads(); show(0);
+})();
+</script>
+</body>
+</html>

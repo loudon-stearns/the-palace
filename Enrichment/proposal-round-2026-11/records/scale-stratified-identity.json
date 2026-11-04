@@ -1,0 +1,25 @@
+{
+ "entry": "Scale-Stratified Identity",
+ "path": "Scale-Stratified Identity.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 6,
+ "claim": "§ The Finding: after each spike the cell returns to baseline (\"no\" change at the mechanism level) while spike-timing plasticity rewires the network (\"yes, completely\"). Two answers at two scales, shown at once.",
+ "pieces": [
+  {
+   "section": "The Finding",
+   "what": "A neuron fires repeatedly; one panel shows its membrane returning to the same rest each time, the other shows the synaptic weights around it drifting under STDP, testing 'same at one scale, changed at another'",
+   "kind": "interactive",
+   "walks_up_from": "one spike and its recovery"
+  },
+  {
+   "section": "Instances Across the Palace",
+   "what": "A Kuramoto population where each oscillator keeps its natural frequency while the group locks, as the second instance",
+   "kind": "interactive",
+   "walks_up_from": "two oscillators, uncoupled"
+  }
+ ],
+ "gathered": [],
+ "tier": "sketch",
+ "slice": 5
+}

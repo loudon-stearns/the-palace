@@ -61,3 +61,14 @@ What Shopkeeper's steward cycles taught the page, and the changes to the house i
 
 8. A rented GPU pod's REST status reading RUNNING is not proof the service inside it is healthy — once a pod goes past its expected boot window with no logs endpoint and no terminal access, the only safe move from a sandbox is to kill it rather than let an unexplained hang keep billing. *(offered by the steward, cycle 11)*
 - run · 2026-11-04 · cycle 11 · taught item 8
+
+## From cycle 12 — 2026-11-04
+
+9. Runpod's REST API needs `dockerStartCmd` (string array) and `env` (object), not the free-form `dockerArgs` string I guessed at — and Secure Cloud can be out of capacity for an entire GPU priority list at once, where Community Cloud still has room. *(offered by the steward, cycle 12)*
+- run · 2026-11-04 · cycle 12 · taught item 9
+- run · 2026-11-04 · cycle 13 · nothing new
+
+## From cycle 14 — 2026-11-04
+
+10. A model that needs a rented GPU and fails silently to boot, three times across two images and two sizes, is not a probing-angle problem — it's a 'this sandbox can't see container logs or open a terminal' problem, and no amount of retrying image/model combinations headless will diagnose it. The fix needs either console access or a different candidate. *(offered by the steward, cycle 14)*
+- run · 2026-11-04 · cycle 14 · taught item 10

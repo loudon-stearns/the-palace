@@ -41,3 +41,8 @@ What Shepard Tone Synthesizer's steward cycles taught the page. The orchestrator
    > **The plugin (2026-11-03).** All four stages now play in Live as one instrument, Shepard Tone (VST3 and AU, built with [[VST Template]], in the bundle's `plugin/`). It runs one glide on pitch before the stack, ten voices from C0 to C10, the window on each voice, and each voice's filter following that voice. A Climb knob turns it into the endless glissando. Two switches break it on purpose, the way Stages 3 and 4 found it breaks: Drift gives each octave its own glide time, and Track the note takes the cutoff from the played note. Its screen draws Shepard's helix as a staircase and tilts between the side view, which is finite and shows the wrap, and the view from above, which is Escher's endless circle and the one the ear hears.
 
 - run · 2026-11-03 · cycle 12 · taught item 3, proposed item 4 for canon
+
+## From cycle 13 — 2026-11-04
+
+5. Measure every break-it demo on the plugin's own render before showing it: Drift spreads only the glide toward the keys and Climb is added after it, so a held note on Climb never drifts, and a ride drawn from the theory alone would have played a healthy climb under the word 'break'. *(offered by the steward, cycle 13)*
+- run · 2026-11-04 · cycle 13 · taught item 5

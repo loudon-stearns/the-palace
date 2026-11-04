@@ -15,13 +15,16 @@ forward_vector: "I am BLUELINE's scroll — the one page that always opens on wh
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-25T20:47:56-04:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T09:56:39-05:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** none — this project has no permanent steward yet
-- **Plan:** agreed 2026-09-25 (today) · 0 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 0 · last ran —
+- **Plan:** agreed 2026-11-04 (today) · 0 made things since
 - **Waiting on you:** nothing
-- **Last shipped:** 2026-06-21 (96 days ago) — result (`blueline-m37-m4-result-2026-06-19`)
-- **Last commit touching this project:** 2026-09-24 `8972a53d` — Weave — 2026-09-24 — 49 links, 9 contradictions, 12 let go, 17 stages, 1 hub, 25 citizens linked
+- **Ready to advance:** no unread answers
+- **Last shipped:** 2026-06-21 (136 days ago) — result (`blueline-m37-m4-result-2026-06-19`)
+- **Last commit touching this project:** 2026-11-04 `7cc04682` — handoff(BLUELINE): the reset baton carries only its remainder: the tempo map, the six boards, the guide pick, the Set-parsing lessons
+- **Signal:** steady
+- **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
@@ -30,6 +33,10 @@ forward_vector: "I am BLUELINE's scroll — the one page that always opens on wh
 ### Open asks
 
 _None — nothing is waiting on you._
+
+### Answered, not yet consumed
+
+_None._
 
 ### Decided
 
@@ -40,7 +47,7 @@ _Nothing decided on the board yet._
 ## Plan
 
 <!-- scroll:plan:start -->
-**Where this is going.** BLUELINE is an instrument for bold, comic-staged music-video action: storyboard, animatic, motion, impact, a cut locked to the beat, and at the end the page performed live, every frame a function of the song. [[BLUELINE — Production Plan]] maps what is proven, thread by thread, and every proof. These moves are that page's horizon of 2026-07-03, in its order: six ready to build, four big lifts, then one call for Loudon. The work has not kept to the order. After the field went 3D around the posed figure, most of the effort ran ahead to the aftermath frame, part of putting the field on the clock: a swing solver, real impact damage, and a reusable impact tool (2026-07-03 and 04). Full-song production begins once a pair of boards survives the motion test, the six boards share one finish, and a cut with sound exists.
+**Where this is going.** BLUELINE is an instrument for bold, comic-staged music-video action: storyboard, animatic, motion, impact, a cut locked to the beat, and at the end the page performed live, every frame a function of the song. Where each thread stood, and every proof, is the trail's entry of 2026-11-04, and why the threads were cut as they were is in [[BLUELINE — Context]]. These moves are the archived Production Plan's horizon of 2026-07-03, in its order: seven ready to build, four big lifts, then one call for Loudon. The work has not kept to the order. After the field went 3D around the posed figure, most of the effort ran ahead to the aftermath frame, part of putting the field on the clock: a swing solver, real impact damage, and a reusable impact tool (2026-07-03 and 04). Full-song production begins once a pair of boards survives the motion test, the six boards share one finish, and the cut follows the Set's own clock.
 
 **The moves ahead**
 
@@ -48,13 +55,14 @@ _Nothing decided on the board yet._
 2. **Give the figure a face and a pose library.** The 70-point face map, so expression reaches the render, and a catalogue to dial a pose from. See [[Shop/Figure Rig]].
 3. **Bake identity in at generation.** An InstantID face slot, so one face holds across panels; a face pasted onto finished ink never works. See [[Steer the Generator]].
 4. **Carry lettering into dialogue.** Balloons already anchor to a speaker's mouth in the 3D scene; next come the other two ways of placing them, flat after the render and a hybrid chosen by voice. See [[BLUELINE — Text Layer]].
-5. **Level the six boards and cut them to the song.** One finish across the six story boards, and a shareable cut with the audio laid in. See [[Frame Designer]].
-6. **Let a pose move along the wind.** Blend two held poses, a coil and a leap, along the flow's line of action. Loudon opened this on 2026-07-03 as a bounded experiment; figures still never simulate contact. See [[BLUELINE — Motion and Flow]].
-7. **Put the field on the clock.** A field that changes with each beat, so dust blows through the shot and speed lines shift on the accent. Its dramatic form, the aftermath frame, is well along, and BLUELINE's open baton holds its next step: a guide line that leads the frame, then one consistent gen-AI frame (quote any paid pod first). See [[The Aftermath Frame]].
-8. **Put more than one figure in a panel.** Climb from figures apart, to light contact, to interlocked, to a crowd. See [[Shop/Figure Rig]].
-9. **Turn exact blocking into exact pose keypoints, and words into staging.** The one seam in the board record with real research left, and a staging AI that turns a sentence into a staging spec. See [[BLUELINE — Production Pipeline]].
-10. **Move finished renders to serverless.** The high-quality tier graduates from rented pods for its spiky batches. See [[BLUELINE — Render Backend]].
-11. **Decide whether the style console's atlas resumes.** The first atlas was parked on 2026-07-03 because one style word reshuffled the whole picture; resuming means pinning the composition so only the style moves. See [[Graphic Storytelling — source — console-vocabulary]].
+5. **Put the record on the Set's tempo map.** Read every tempo change and meter change from the Set, and place each cut at the nearest frame of its absolute time, so nothing drifts. Loudon, 2026-11-04: tempo changes are in. See [[BLUELINE — Board Record Schema]].
+6. **Level the six boards, then cut them to the song again.** One finish across the six story boards. A cut with sound exists: Loudon picked the one on the Set's own grid on 2026-10-29, and it stays on the Mac that made it while the song is unreleased. See [[Frame Designer]].
+7. **Let a pose move along the wind.** Blend two held poses, a coil and a leap, along the flow's line of action. Loudon opened this on 2026-07-03 as a bounded experiment; figures still never simulate contact. See [[BLUELINE — Motion and Flow]].
+8. **Put the field on the clock.** A field that changes with each beat, so dust blows through the shot and speed lines shift on the accent. Its dramatic form, the aftermath frame, is well along, and BLUELINE's open baton holds its next step: a guide line that leads the frame, then one consistent gen-AI frame (quote any paid pod first). See [[The Aftermath Frame]].
+9. **Put more than one figure in a panel.** Climb from figures apart, to light contact, to interlocked, to a crowd. See [[Shop/Figure Rig]].
+10. **Turn exact blocking into exact pose keypoints, and words into staging.** The one seam in the board record with real research left, and a staging AI that turns a sentence into a staging spec. See [[BLUELINE — Production Pipeline]].
+11. **Move finished renders to serverless.** The high-quality tier graduates from rented pods for its spiky batches. See [[BLUELINE — Render Backend]].
+12. **Decide whether the style console's atlas resumes.** The first atlas was parked on 2026-07-03 because one style word reshuffled the whole picture; resuming means pinning the composition so only the style moves. See [[Graphic Storytelling — source — console-vocabulary]].
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -62,8 +70,8 @@ _Nothing decided on the board yet._
 <!-- scroll:orders:start -->
 Decided with Loudon between June and July 2026, carried over from the locked scope in [[BLUELINE — Production Plan]], and confirmed by him as orders on 2026-09-25; not to be reopened without a reason:
 
-- **Fixed tempo.** Sync is exact arithmetic, ~~with beats falling on whole frames~~ *(superseded 2026-11-03 by Any tempo)*, never elastic alignment.
-- **Any tempo** (2026-11-03). Loudon: "we must be able to use any arbitrary tempo."
+- **Any tempo, synced exactly** (retitled from "Fixed tempo", 2026-11-04). Sync is exact arithmetic, ~~with beats falling on whole frames~~ *(superseded 2026-11-03 by Any tempo)*, never elastic alignment.
+- **Any tempo** (2026-11-03). Loudon: "we must be able to use any arbitrary tempo." **Tempo changes within a Set are included** (2026-11-04): "Our focus on set tempo was used to avoid the complexity, we can move past that now and bring in the full expressive capability of tempo changes." The record follows the Set's tempo map, its tempo changes and meter changes, not one tempo.
 - **Staged, not simulated.** Comic motion is camera, effects and pose, never simulated contact between figures. Relaxed on 2026-07-03: blending held poses along the flow is in scope as a bounded experiment.
 - **Humanoid only.** Animal motion is out of scope (2026-06-13).
 - **Every milestone ships.** Each rung is a usable tool, never a down payment on the next.
@@ -75,6 +83,121 @@ Decided with Loudon between June and July 2026, carried over from the locked sco
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-2026-11-04T09-56-39-05-00" -->
+### 2026-11-04 — Plan revised
+
+The count follows the new tempo-map move: seven ready to build (Loudon, 2026-11-04: "fix the loose ends").
+
+_The plan before this change:_
+
+> **Where this is going.** BLUELINE is an instrument for bold, comic-staged music-video action: storyboard, animatic, motion, impact, a cut locked to the beat, and at the end the page performed live, every frame a function of the song. Where each thread stood, and every proof, is the trail's entry of 2026-11-04, and why the threads were cut as they were is in [[BLUELINE — Context]]. These moves are the archived Production Plan's horizon of 2026-07-03, in its order: six ready to build, four big lifts, then one call for Loudon. The work has not kept to the order. After the field went 3D around the posed figure, most of the effort ran ahead to the aftermath frame, part of putting the field on the clock: a swing solver, real impact damage, and a reusable impact tool (2026-07-03 and 04). Full-song production begins once a pair of boards survives the motion test, the six boards share one finish, and the cut follows the Set's own clock.
+>
+> **The moves ahead**
+>
+> 1. **Make the field follow the figure.** The field already parts around the posed rig in an interactive Blender studio. Still open: ink spatter that follows the wind, an img2img pass that fuses field and figure into one drawing, the streamline register, and a wake that forms by itself. See [[BLUELINE — Motion and Flow]].
+> 2. **Give the figure a face and a pose library.** The 70-point face map, so expression reaches the render, and a catalogue to dial a pose from. See [[Shop/Figure Rig]].
+> 3. **Bake identity in at generation.** An InstantID face slot, so one face holds across panels; a face pasted onto finished ink never works. See [[Steer the Generator]].
+> 4. **Carry lettering into dialogue.** Balloons already anchor to a speaker's mouth in the 3D scene; next come the other two ways of placing them, flat after the render and a hybrid chosen by voice. See [[BLUELINE — Text Layer]].
+> 5. **Put the record on the Set's tempo map.** Read every tempo change and meter change from the Set, and place each cut at the nearest frame of its absolute time, so nothing drifts. Loudon, 2026-11-04: tempo changes are in. See [[BLUELINE — Board Record Schema]].
+> 6. **Level the six boards, then cut them to the song again.** One finish across the six story boards. A cut with sound exists: Loudon picked the one on the Set's own grid on 2026-10-29, and it stays on the Mac that made it while the song is unreleased. See [[Frame Designer]].
+> 7. **Let a pose move along the wind.** Blend two held poses, a coil and a leap, along the flow's line of action. Loudon opened this on 2026-07-03 as a bounded experiment; figures still never simulate contact. See [[BLUELINE — Motion and Flow]].
+> 8. **Put the field on the clock.** A field that changes with each beat, so dust blows through the shot and speed lines shift on the accent. Its dramatic form, the aftermath frame, is well along, and BLUELINE's open baton holds its next step: a guide line that leads the frame, then one consistent gen-AI frame (quote any paid pod first). See [[The Aftermath Frame]].
+> 9. **Put more than one figure in a panel.** Climb from figures apart, to light contact, to interlocked, to a crowd. See [[Shop/Figure Rig]].
+> 10. **Turn exact blocking into exact pose keypoints, and words into staging.** The one seam in the board record with real research left, and a staging AI that turns a sentence into a staging spec. See [[BLUELINE — Production Pipeline]].
+> 11. **Move finished renders to serverless.** The high-quality tier graduates from rented pods for its spiky batches. See [[BLUELINE — Render Backend]].
+> 12. **Decide whether the style console's atlas resumes.** The first atlas was parked on 2026-07-03 because one style word reshuffled the whole picture; resuming means pinning the composition so only the style moves. See [[Graphic Storytelling — source — console-vocabulary]].
+<sub>`plan-2026-11-04T09-56-39-05-00` · plan revised · agreed 2026-11-04T09:56:39-05:00 · Loudon</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="plan-2026-11-04T09-07-50-05-00" -->
+### 2026-11-04 — Plan revised
+
+The reset: the cut exists, and the record moves to the Set's tempo map (Loudon's yes, 2026-11-04).
+
+_The plan before this change:_
+
+> **Where this is going.** BLUELINE is an instrument for bold, comic-staged music-video action: storyboard, animatic, motion, impact, a cut locked to the beat, and at the end the page performed live, every frame a function of the song. Where each thread stood, and every proof, is the trail's entry of 2026-11-04, and why the threads were cut as they were is in [[BLUELINE — Context]]. These moves are the archived Production Plan's horizon of 2026-07-03, in its order: six ready to build, four big lifts, then one call for Loudon. The work has not kept to the order. After the field went 3D around the posed figure, most of the effort ran ahead to the aftermath frame, part of putting the field on the clock: a swing solver, real impact damage, and a reusable impact tool (2026-07-03 and 04). Full-song production begins once a pair of boards survives the motion test, the six boards share one finish, and a cut with sound exists.
+>
+> **The moves ahead**
+>
+> 1. **Make the field follow the figure.** The field already parts around the posed rig in an interactive Blender studio. Still open: ink spatter that follows the wind, an img2img pass that fuses field and figure into one drawing, the streamline register, and a wake that forms by itself. See [[BLUELINE — Motion and Flow]].
+> 2. **Give the figure a face and a pose library.** The 70-point face map, so expression reaches the render, and a catalogue to dial a pose from. See [[Shop/Figure Rig]].
+> 3. **Bake identity in at generation.** An InstantID face slot, so one face holds across panels; a face pasted onto finished ink never works. See [[Steer the Generator]].
+> 4. **Carry lettering into dialogue.** Balloons already anchor to a speaker's mouth in the 3D scene; next come the other two ways of placing them, flat after the render and a hybrid chosen by voice. See [[BLUELINE — Text Layer]].
+> 5. **Level the six boards and cut them to the song.** One finish across the six story boards, and a shareable cut with the audio laid in. See [[Frame Designer]].
+> 6. **Let a pose move along the wind.** Blend two held poses, a coil and a leap, along the flow's line of action. Loudon opened this on 2026-07-03 as a bounded experiment; figures still never simulate contact. See [[BLUELINE — Motion and Flow]].
+> 7. **Put the field on the clock.** A field that changes with each beat, so dust blows through the shot and speed lines shift on the accent. Its dramatic form, the aftermath frame, is well along, and BLUELINE's open baton holds its next step: a guide line that leads the frame, then one consistent gen-AI frame (quote any paid pod first). See [[The Aftermath Frame]].
+> 8. **Put more than one figure in a panel.** Climb from figures apart, to light contact, to interlocked, to a crowd. See [[Shop/Figure Rig]].
+> 9. **Turn exact blocking into exact pose keypoints, and words into staging.** The one seam in the board record with real research left, and a staging AI that turns a sentence into a staging spec. See [[BLUELINE — Production Pipeline]].
+> 10. **Move finished renders to serverless.** The high-quality tier graduates from rented pods for its spiky batches. See [[BLUELINE — Render Backend]].
+> 11. **Decide whether the style console's atlas resumes.** The first atlas was parked on 2026-07-03 because one style word reshuffled the whole picture; resuming means pinning the composition so only the style moves. See [[Graphic Storytelling — source — console-vocabulary]].
+<sub>`plan-2026-11-04T09-07-50-05-00` · plan revised · agreed 2026-11-04T09:07:50-05:00 · Loudon</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="plan-2026-11-04T08-51-09-05-00" -->
+### 2026-11-04 — Plan revised
+
+The Production Plan is archived; its threads are on the trail and its reasoning in the Context (Loudon's yes, 2026-11-04).
+
+_The plan before this change:_
+
+> **Where this is going.** BLUELINE is an instrument for bold, comic-staged music-video action: storyboard, animatic, motion, impact, a cut locked to the beat, and at the end the page performed live, every frame a function of the song. [[BLUELINE — Production Plan]] maps what is proven, thread by thread, and every proof. These moves are that page's horizon of 2026-07-03, in its order: six ready to build, four big lifts, then one call for Loudon. The work has not kept to the order. After the field went 3D around the posed figure, most of the effort ran ahead to the aftermath frame, part of putting the field on the clock: a swing solver, real impact damage, and a reusable impact tool (2026-07-03 and 04). Full-song production begins once a pair of boards survives the motion test, the six boards share one finish, and a cut with sound exists.
+>
+> **The moves ahead**
+>
+> 1. **Make the field follow the figure.** The field already parts around the posed rig in an interactive Blender studio. Still open: ink spatter that follows the wind, an img2img pass that fuses field and figure into one drawing, the streamline register, and a wake that forms by itself. See [[BLUELINE — Motion and Flow]].
+> 2. **Give the figure a face and a pose library.** The 70-point face map, so expression reaches the render, and a catalogue to dial a pose from. See [[Shop/Figure Rig]].
+> 3. **Bake identity in at generation.** An InstantID face slot, so one face holds across panels; a face pasted onto finished ink never works. See [[Steer the Generator]].
+> 4. **Carry lettering into dialogue.** Balloons already anchor to a speaker's mouth in the 3D scene; next come the other two ways of placing them, flat after the render and a hybrid chosen by voice. See [[BLUELINE — Text Layer]].
+> 5. **Level the six boards and cut them to the song.** One finish across the six story boards, and a shareable cut with the audio laid in. See [[Frame Designer]].
+> 6. **Let a pose move along the wind.** Blend two held poses, a coil and a leap, along the flow's line of action. Loudon opened this on 2026-07-03 as a bounded experiment; figures still never simulate contact. See [[BLUELINE — Motion and Flow]].
+> 7. **Put the field on the clock.** A field that changes with each beat, so dust blows through the shot and speed lines shift on the accent. Its dramatic form, the aftermath frame, is well along, and BLUELINE's open baton holds its next step: a guide line that leads the frame, then one consistent gen-AI frame (quote any paid pod first). See [[The Aftermath Frame]].
+> 8. **Put more than one figure in a panel.** Climb from figures apart, to light contact, to interlocked, to a crowd. See [[Shop/Figure Rig]].
+> 9. **Turn exact blocking into exact pose keypoints, and words into staging.** The one seam in the board record with real research left, and a staging AI that turns a sentence into a staging spec. See [[BLUELINE — Production Pipeline]].
+> 10. **Move finished renders to serverless.** The high-quality tier graduates from rented pods for its spiky batches. See [[BLUELINE — Render Backend]].
+> 11. **Decide whether the style console's atlas resumes.** The first atlas was parked on 2026-07-03 because one style word reshuffled the whole picture; resuming means pinning the composition so only the style moves. See [[Graphic Storytelling — source — console-vocabulary]].
+<sub>`plan-2026-11-04T08-51-09-05-00` · plan revised · agreed 2026-11-04T08:51:09-05:00 · Loudon</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="threads-2026-11-04" -->
+### 2026-11-04 — Off plan — Where the nine threads stand
+
+Moved here from the Production Plan when it was archived (2026-11-04), so the thread map and the proof map sit on the trail as a dated record. The states are as that page last held them, set between July and October 2026; none was re-checked on the move. Why the threads were cut as they were is in [[BLUELINE — Context]].
+
+| # | Thread | State | Canonical doc | Lives in |
+|---|---|---|---|---|
+| 1 | Clock & Sync (was Track III) | shipped, live-validated | [[BLUELINE — Board Record Schema]] | `proofs/track-III-clock`, `proofs/animatic` |
+| 2 | Board Record & Staging | partial: schema stable, Seam B the frontier | [[BLUELINE — Board Record Schema]] | `proofs/session-2-staging`, `seam-a-roundtrip`, `seam-b`, `staging-skeleton/` |
+| 3 | Figure & Pose (was Track IV) | mature: hands shipped, face next | [[Shop/Figure Rig]] | `proofs/blender-handdrawn`, `track-IV-bench`, `blender-gallery` |
+| 4 | Motion & Flow (was Track V), the priority | partial: proven in comic and effects, render-noise retired, unifying | [[BLUELINE — Motion and Flow]] | `proofs/session-3-flowfield`, `session-4-figure-flow`, `track-V-motion`, `track-VI-elemental-motion`, `cloud-i2v`, `embedded-motion`, `m3-warped-noise` |
+| 5 | Render Backend (was Track I) | operational | [[BLUELINE — Render Backend]] | `render-backend/`, `proofs/track-II-lora` (the ruler) |
+| 6 | Style & Identity (was Track II) | house style locked (`pen-flow`); identity via InstantID next | [[Steer the Generator]] | `proofs/style-lock`, `style-atlas`, `visual-language-console` |
+| 7 | Text & Lettering | rung 1 proven (material register, the Living Balloon) | [[BLUELINE — Text Layer]] | `proofs/text-layer`, `proofs/lyrics-layer` |
+| 8 | Line-Art Decomposition | validated (convert-first flat-cel) | [[Animate the Background]] | `proofs/blender-fire` |
+| 9 | The Page | seed (locked 2026-07-09) | [[BLUELINE — The Page]] | the compositor spec |
+
+**Every proof folder, placed**
+
+| Proof folder | Thread | State |
+|---|---|---|
+| `track-III-clock`, `animatic`, `m0-previz`, `m1-animatic`, `m2-motion-comic` | 1 Clock & Sync, and the comic players | proven |
+| `session-2-staging`, `seam-a-roundtrip`, `seam-b` | 2 Board Record & Staging | partial (Seam B open) |
+| `blender-handdrawn`, `track-IV-bench`, `blender-gallery` | 3 Figure & Pose | proven |
+| `session-3-flowfield`, `session-4-figure-flow`, `session-5-flow-3d`, `session-6-flow-gn-studio`, `session-7-aftermath`, `session-8-swing`, `session-9-three-swings`, `session-10-impact` | 4 Motion & Flow | proven |
+| `track-V-motion`, `m3-warped-noise` | 4 Motion & Flow | retired (render noise) |
+| `track-VI-elemental-motion`, `cloud-i2v`, `embedded-motion` | 4 Motion & Flow | partial |
+| `new-story` | 5 Render Backend (the six-shot proof) | proven |
+| `track-II-lora` | 5 Render Backend (the ruler); the retired character LoRA | partial |
+| `style-lock`, `style-atlas`, `visual-language-console` | 6 Style & Identity | proven |
+| `text-layer`, `lyrics-layer` | 7 Text & Lettering | proven |
+| `blender-fire` | 8 Line-Art Decomposition | proven |
+| `blueline-m1-m4-lesson.html` | a teaching artifact, not a thread | — |
+
+Not placed by the Production Plan, and newer than it: `session-11-outline` (the Aftermath Frame's guide experiment) and `2026-10-29-daily-page` (the morning's cut notes, timing and script).
+
+<sub>`threads-2026-11-04` · off plan · moved from the archived Production Plan on Loudon's yes, 2026-11-04</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-09-25T20-47-56-04-00" -->
 ### 2026-09-25 — Plan agreed: carried over from the Production Plan's horizon
 

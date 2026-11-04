@@ -62,4 +62,4 @@ huggingface-cli download comfyanonymous/flux_text_encoders \
 ```
 
 Once these are on the volume, build the two graphs per `graph_spec.md`, export them to
-`graphs/`, and run the test ladder in `PLAN.md`.
+`graphs/`, and run the test ladder in `README.md`.

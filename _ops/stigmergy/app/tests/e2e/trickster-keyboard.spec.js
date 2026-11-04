@@ -74,6 +74,9 @@ async function gotoDeckWithInjected(page) {
   writeFileSync(PERSISTENT_BB, boardSnapshot + sep + JSON.stringify(INJECTED) + '\n', 'utf8');
   await page.goto('/?deck=TRICKSTER');
   await expect(page.getByTestId('trickster-deck')).toBeVisible({ timeout: 15_000 });
+  // The deck is entered collapsed (2026-11-04); these specs read the full card.
+  await page.getByTestId('trickster-compact-toggle').click();
+  await expect(page.getByTestId('trickster-compact-toggle')).toHaveAttribute('data-compact', 'false');
   const card = page.locator(`[data-testid="trickster-card"][data-request-id="${REQ_ID}"]`);
   await expect(card).toBeVisible({ timeout: 10_000 });
   // The far-future ts puts it at index 0, which the deck focuses by default.

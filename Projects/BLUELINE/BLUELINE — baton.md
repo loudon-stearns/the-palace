@@ -5,31 +5,30 @@ links:
   - target: "[[BLUELINE]]"
     type: connects-to
     label: baton-for
-forward_vector: "I carry BLUELINE's reset, commissioned at the Daily Page of 2026-10-29: the bundle brought to current standards, a record that works at any tempo, the six boards finished, and the Aftermath Frame's open pick, waiting to be caught and deleted once the moves land."
+forward_vector: "I carry the remainder of BLUELINE's reset: the board record on the Set's tempo map, the six boards finished and cut again, the Aftermath Frame's guide pick, and what Loudon's separate Set-parsing work can teach; I wait to be caught, and am deleted once the last of it lands."
 ---
 
-# Baton: BLUELINE — the reset, after the Daily Page of 2026-10-29
+# Baton: BLUELINE — the reset's remainder
 
 ## Move
-Bring BLUELINE's bundle up to the standard its new face set, and make its record work at any tempo. BLUELINE woke again at the Daily Page of 2026-10-29, with Loudon's thesis back: build a song and tell a story in frames alongside it. The vector and the body were landed that morning; this baton carries the rest. It replaces the July Aftermath Frame baton: the pause that held that move is over, so its pick is item 7 here.
+Finish BLUELINE's reset. Four things are left: put the board record on the Set's tempo map, give the six boards one finish and cut them to the song again, make the Aftermath Frame's guide pick, and learn from Loudon's separate Set-parsing work, which is the tempo map's source. The bundle, the scroll, the Context and the link pairs were done on 2026-11-04.
 
 ## Why this move matters
-The face now says BLUELINE is a workflow and a hub, a page that connects the works that grew from it and watches what they need. Its bundle still says otherwise: no Context, a Production Plan whose name collides with the scroll's Plan, a scroll that doesn't know it woke, and a record that assumes 120 BPM. Loudon, 2026-11-03: "we must be able to use any arbitrary tempo." That is now a Standing Order on the scroll.
+BLUELINE tells a story in frames alongside a song, and the Set's own clock places every panel. Loudon, 2026-11-04: "Our focus on set tempo was used to avoid the complexity, we can move past that now and bring in the full expressive capability of tempo changes." Until the record reads a Set's tempo map, it still assumes one tempo (120 BPM, 12 frames a beat), and every cut made from it inherits that.
 
 ## Current state
-- `Projects/BLUELINE.md`: new vector and hub-shaped body (2026-10-29, landed at the close).
-- `BLUELINE — scroll.md`: Standing Orders carry **Any tempo** (2026-11-03); the old "beats falling on whole frames" is marked superseded, not deleted. Now and Plan are untouched.
-- The morning's cut: `proofs/2026-10-29-daily-page/` holds the notes, a board-by-beat timing table for both cuts, and `make_cuts.py` (the song is an argument). The cuts themselves stay on the Mac that made them, because the song is unreleased. Loudon picked cut 1, the Set's own 127 grid; cut 2, the record's 120, lands about a second early.
-- The standards read behind the items below is the Concierge's checklist of 2026-10-29, relayed in the sit; its citations are in the morning's commit body.
+As of 2026-11-04, landed on main:
+- `Projects/BLUELINE.md`: a hub-shaped body; the Scope line reads "Any tempo, tempo changes included" (`59deaa22`).
+- [[BLUELINE — Context]] holds why the page is shaped as it is; the Production Plan is in `Archive/`, and its thread and proof maps are a dated trail entry on the scroll (`793a4f91`, `59deaa22`).
+- The scroll: Now no longer reads as paused (`e40fa50b`). The Plan has a new move 5, put the record on the Set's tempo map, before move 6, level the six boards and cut again (`db48fe7d`). Its opening still says "six ready to build", which the new move makes seven; that wording waits on Loudon. Standing Orders: "Any tempo, synced exactly", tempo changes within a Set included (2026-11-04).
+- The bundle: Specialists and Seams archived, `render-backend/README.md` (was `PLAN.md`), `flow-field-spine.md` folded into [[The Flow Field is the Spine]] (`e525be9c`, `41d2d8a7`); that page's Session 4 claim corrected (`6acb87e2`). The two face folders already meet the standard.
+- Link pairs: BLUELINE's `emerged-from` link to Graphic Storytelling cut; Frame Designer and Hand-Drawn 3D Look keep both (`59deaa22`).
+- The cut of 2026-10-29: `proofs/2026-10-29-daily-page/` holds the notes, a board-by-beat timing table and `make_cuts.py`, which places cuts at a single tempo. The cuts themselves stay on the Mac that made them, because the song is unreleased. Loudon picked cut 1, on the Set's own grid.
 
-## Next move — the items, roughly in order
-1. **A Context, grown from the Production Plan.** `BLUELINE — Context.md`: why the page is shaped as it is. Take the Plan's origin rationale (§7), what Specialists and Seams settled, the dated reframe asides cut from the body on 2026-10-29, and the "two AIs, opposite risk profiles" section the body dropped (the body before the 2026-10-29 edit: `git log -p -- Projects/BLUELINE.md`). Then decide what is left of the Production Plan: status belongs to the scroll's Now, proofs placed to the scroll's trail. Its name should stop colliding with the Plan.
-2. **The scroll made true to "awake".** Now's on-disk copy dates from 2026-09-25 and Now does not read the baton; regenerate it and check it no longer reads as paused. The Plan's moves predate the reset; any change to them is a `plan_revision` on Loudon's yes.
-3. **The bundle moves.** `BLUELINE — Specialists and Seams.md` to `Archive/` (it calls itself folded). `flow-field-spine.md` renamed to `BLUELINE — sketch — flow-field-spine.md`, or folded into [[The Flow Field is the Spine]]. The hero/icon folders `BLUELINE — Render Backend/` and `BLUELINE — Text Layer/` (a bundle folder pairs with an entry; decide whether either wants to be one — Text Layer is 30 KB). `render-backend/PLAN.md` renamed, so it isn't read as a second Plan. Each move names both sides to the committer.
-4. **The Board Record Schema, tempo-arbitrary.** `BLUELINE — Board Record Schema.md` assumes 120 BPM and 12 frames a beat. Make the record take the Set's tempo, and place each cut at the nearest frame of its absolute time (beat × 60 / BPM, rounded once), as `make_cuts.py` does, so nothing accumulates drift. Not edited on 2026-10-29 by Loudon's word; this is where it goes.
-5. **The shared finish over the six boards.** The woken page asked for one finish across the six boards and a cut with sound (plan move 5). The morning made the cut with the boards as they were; the finish is still owed.
-6. **The link pairs, once [[Graphic Storytelling]]'s revision lands.** Three pairs carry links both ways: Graphic Storytelling (`enables` in, `emerged-from` out), [[Frame Designer]] and [[Hand-Drawn 3D Look]]. Keep a reciprocal only where the lineage is direct (one link per pair, the Weave's Step 3d).
-7. **The Aftermath Frame's guide pick.** His full-size pick among the seven frames on `proofs/session-11-outline/out/guide/contact_sheet.png` (or a solid-black fill, untested); set the default to it and re-run `--plates 1`; update the memory note `feedback_blueline_aftermath_debris.md` ("gw 0.14"); give `side` a camera off the swing plane; only then the gen-AI pass, per [[BLUELINE — Render Backend]] and [[Steer the Generator]]. **A RunPod run costs money: a quote and Loudon's yes before any pod.** The tool's state:
+## Next move — the remainder, roughly in order
+1. **The Board Record Schema, on the Set's tempo map.** `BLUELINE — Board Record Schema.md` assumes 120 BPM and 12 frames a beat. Make the record read the Set's full tempo map, its tempo changes and its meter changes, not one tempo. Place each cut at the nearest frame of its absolute time, rounded once, so nothing accumulates drift; with a tempo map, absolute time is the sum over the tempo segments before the beat, not beat × 60 / BPM. `make_cuts.py` does the single-tempo case. Item 4 is its source. This is plan move 5.
+2. **The shared finish over the six boards.** One finish across the six boards, then the cut again, on the tempo map once item 1 holds. The cut of 2026-10-29 was made with the boards as they were. This is plan move 6.
+3. **The Aftermath Frame's guide pick.** His full-size pick among the seven frames on `proofs/session-11-outline/out/guide/contact_sheet.png` (or a solid-black fill, untested); set the default to it and re-run `--plates 1`; update the memory note `feedback_blueline_aftermath_debris.md` ("gw 0.14"); give `side` a camera off the swing plane; only then the gen-AI pass, per [[BLUELINE — Render Backend]] and [[Steer the Generator]]. **A RunPod run costs money: a quote and Loudon's yes before any pod.** The tool's state:
 
 **2026-10-13 — the guide experiment, landed unjudged** (`3ac92372`, `93abb7af`, merged in `4277dfdb`). Loudon
 set BLUELINE aside before making a pick.
@@ -50,11 +49,11 @@ set BLUELINE aside before making a pick.
 - Blender 5.1.2 confirmed at both install paths. Nothing touched a GPU pod or a gen-AI model.
 - **Not yet:** a pick, so no new default · `side` with a usable camera · any gen-AI pass.
 
-8. **The look at Loudon's separate Ableton-session parsing work (private; tools and techniques only).** In a session of its own, read how it parses a Set and what it learns from one, and bring only the tools, concepts and techniques here — Loudon: "the tools and concepts and techniques developed there absolutely can be applied here." No detail of that work goes into any page or commit. It is the natural source for item 4's tempo reading.
+4. **The look at Loudon's separate Ableton-session parsing work (private; tools and techniques only).** In a session of its own, read how it parses a Set and what it learns from one, and bring only the tools, concepts and techniques here — Loudon: "the tools and concepts and techniques developed there absolutely can be applied here." No detail of that work goes into any page or commit. It is the natural source for item 1's tempo map, and now central to it (Loudon, 2026-11-04).
 
 When a pod script next runs, move it onto the resolver, `_ops/commons/runpod_config.py`, which knows where the RunPod key lives and falls back to the primary checkout. Eleven BLUELINE readers still find the key their own way: the ten pod and serverless orchestrators under `Projects/BLUELINE/proofs/` and `render-backend/serverless_runner.py`. Each points at the right path today, and each can only be proven with a live pod, so move it when it runs, not before. (Folded in from the Palace To-Do at its retirement, on Loudon's call of 2026-10-25.)
 
-## Tried and rejected (the Aftermath Frame, item 7 — don't re-walk)
+## Tried and rejected (the Aftermath Frame, item 3 — don't re-walk)
 - **Vertical 5-line speed fan** → replaced by ONE arc-following swoosh (reads as the swing, not as streaks).
 - **Sampling the guide arc by `u`** → bunched near windup (the `u^2.5` accel); use **angle-uniform**
   `guide_dir(a)` — the guide shows the PATH, not the speed profile.
@@ -68,17 +67,17 @@ When a pod script next runs, move it onto the resolver, `_ops/commons/runpod_con
 ## Calibrations
 - **"Hub" is the everyday sense.** A page that connects to many works, supports them by connecting them logically, and observes and responds to their needs. `type` stays `project`.
 - **A vector is the lean; the Plan is the route; Standing Orders are the fences.** Don't put a plan in the vector.
-- **The Set sets the clock.** Read tempo and sections from the Set, never from a number in a record.
+- **The Set sets the clock.** Read tempo and sections from the Set, never from a number in a record. Its tempo changes and meter changes too (Loudon, 2026-11-04).
 - **Loudon steers by looking and listening.** Show a range full-size, or play it, let him pick, then build around the pick.
 - **Unreleased music stays off the palace.** The repo is public: no song audio, no private paths or addresses in a tracked file.
 
 ## Load these files first
 1. `Projects/BLUELINE.md` and `Projects/BLUELINE/BLUELINE — scroll.md`.
-2. `Projects/BLUELINE/BLUELINE — Production Plan.md` — the seed of the Context.
+2. `Projects/BLUELINE/BLUELINE — Context.md` — why the page is shaped as it is (the Production Plan is archived in `Archive/`).
 3. `Projects/BLUELINE/proofs/2026-10-29-daily-page/` — the cut notes, timing and script.
-4. `Projects/BLUELINE/BLUELINE — Board Record Schema.md` — item 4.
+4. `Projects/BLUELINE/BLUELINE — Board Record Schema.md` — item 1.
 5. `SCHEMA — Reference.md` §8 — the bundle kinds and names.
-6. For item 7: `proofs/session-11-outline/impact_tool.py` and `The Aftermath Frame.md`.
+6. For item 3: `proofs/session-11-outline/impact_tool.py` and `The Aftermath Frame.md`.
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the

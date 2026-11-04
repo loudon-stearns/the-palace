@@ -5,61 +5,81 @@ links:
   - target: "[[SMPTE LTC]]"
     type: connects-to
     label: challenge-of
-forward_vector: "I am the challenger's reading of SMPTE LTC's first teaching-room piece, with its numbers re-run against GoButton's ltc.js and its edge cases pushed, so Loudon can see which parts held and fix the few that didn't before it lands."
+forward_vector: "I am the challenger's reading of SMPTE LTC's proposed rich face, piece by piece and offer by offer, with the numbers re-run by a second route, so Loudon can take or leave each one knowing which parts held when someone else pushed on them."
 ---
 
-# Challenge: SMPTE LTC's rich face, round 1 (2026-11-04)
+# Challenge — SMPTE LTC's rich face, proposal round 2026-11, cloud batch 4
 
-I read the entry as it stands in the worktree (`Projects/SMPTE LTC.md`, mainly § The fine points), the manifest, the piece, the pinned `ltc.js` and the checks. I didn't make any of them. I ran conform and the checks, then loaded the piece's `<script id="engine">` on top of the pinned `ltc.js` in Node and probed the edges myself (script kept at the session scratchpad, `probe.mjs` / `probe2.mjs`).
+Read against `Projects/SMPTE LTC.md` as it stands in the worktree, the manifest, all three pieces' source, `SMPTE LTC — rich — check.mjs`, and the maker's commit body (c2468b25). I didn't make any of this. Verdicts: **2 keep, 1 remake, 0 retire.**
 
-**Verdict: 1 piece, remake.** It's a light remake. The design is right and the core claims hold. But in states a class will reach, the piece shows two wrong numbers and makes one wrong claim, and its caption promises a check that the checks don't make. These are five small fixes, none of them structural. Then it comes back for a second verdict.
+## The pieces
 
-## Runs
+### Technical Architecture · `SMPTE LTC — rich — encoder.html` (made) — **keep**
 
-- **conform** (`node _ops/rich-face/conform.mjs "SMPTE LTC"`): 0 errors, 2 warnings. Both warnings are `file-local`, because the piece and `ltc.js` are untracked. That's expected for an uncommitted worktree and clears when they're committed. The browser pass at 760 and 1130 px ran clean.
-- **checks** (`SMPTE LTC — rich — checks.mjs`): 51 passed, 0 failed. The pinned body matches sha256 `40efd97c…`, and GoButton's original is still the same file.
+1. **Test or decoration?** A test. The last step hands a reader `read(y, sr)` (the samples and the sample rate, nothing else: no rate, no polarity, no cell phase) fifty frames through a 10 Hz high-pass with noise 30 dB down. If the page's "self-clocking" claim were wrong, that reader would come back empty. It reads 50/50 at 24, 25 and 29.97 fps and with the polarity flipped. It guesses 1918.8, 1999.9 and 2396.0 bit/s from the gaps. The check script also confirms that the rendered audio flips at every cell boundary and mid-cell on exactly the 1s (0 faults at all three rates). The NRZ control (0/50) is weak: a biphase reader fails on NRZ almost by construction. It does show the claim the page makes, though, that the clock lives in the flips. That's a note, not a remake.
+2. **Faithful?** Yes. The bit rates are the page's own: 80 × fps gives 1920, 2000 and 2397.6024. I checked the bit map (`FIELDS`, `encode`) against SMPTE 12M from my own memory, which is a second recollection and not the standard. It agrees field for field:
+   - frame units 0–3, frame tens 8–9, drop-frame flag 10, colour-frame flag 11
+   - seconds 16–19 and 24–26, minutes 32–35 and 40–42, hours 48–51 and 56–57
+   - user bits in the eight nibbles at 4, 12, 20, 28, 36, 44, 52 and 60
+   - sync word 64–79 = 0011 1111 1111 1101, sent in that order
+   - the polarity bit at 27, or 59 at 25 fps, set so the word holds an even count. With 80 bits, an even count of 1s means an even count of 0s, which is what the standard asks for.
 
-## What I verified independently
+   I found no discrepancy. Two small things a reader with the standard might raise: the render's edges are 40 µs, where 12M asks 25 ± 5 µs, and bits 43 and 58 are left at 0. Neither changes a result.
+3. **Walks up?** Yes: one cell, then eighty bits, then the waveform, then the test, which comes last.
 
-- **Drop-frame across boundaries.** I tried 00:00:59;29 → 00:01:00;02, 00:09:59;29 → 00:10:00;00, 00:59:59;29 → 01:00:00;00, 01:00:59;29 → 01:01:00;02, 00:19:59;29 → 00:20:00;00, and 23:59:59;29 → 00:00:00;00. All are right. Every frame of a drop-frame day round-trips through `toFrames`/`fromFrames`, and no skipped number ever appears. 108 numbers are skipped an hour, 1080 in ten hours.
-- **Behind the wall.** Without rounding, 23.976 and 29.97 fall 3.5964 s behind in an hour. The piece shows 3.625 s and 3.600 s at the hour mark, because it rounds down to the frame, and it says so. A drop-frame day comes out at 2.589 frames, or 86.4 ms.
-- **`setFrame` → `frameAt`** round-trips at all six rates, sampled across a whole day.
-- **The sync search** over a whole day at all six rates. With user bits all 1, the longest run outside the sync word is 9, and 7 at 25 fps. With user bits 0 it's 4. That run starts at bit 79 and crosses into the next frame, so the search really does read across frame boundaries. The sync word turns up exactly once per frame. Chunked and whole give the same answer. A day at 30 fps takes 7.9 s in Node, so "about 20 s" in a browser is plausible.
-- **Technically sound:** BCD LSB-first, the field widths (4/2/4/3/4/3/4/2), polarity at bit 27 and bit 59 at 25 fps, even zeros ⇔ an even count of flips, the sync word and its reverse, and "twelve 1s then 01 forward, then 00 in reverse".
+### Technical Architecture · `SMPTE LTC — rich — drop-frame.html` (made) — **keep**
 
-## The three questions
+1. **Test or decoration?** A test. It labels every frame of a day by the rule, turns each label back into a frame, and checks it against the forbidden set. If the rule were the sentence read as "every minute", it would fail by 0.40 s at one hour, against a one-frame (33.4 ms) bar. The rule is stated before the walk.
+2. **Faithful?** Yes. It names the sentence's missing half ("the half of the rule the sentence leaves out") and doesn't call the page wrong. My own counter (`challenge-check.mjs`, no shared code) walked 2,589,408 frames. That is 30 × 86,400 = 2,592,000 labels, less 2 × 54 × 24 = 2,592 skipped. The ten-minute mark sits +0.600 ms, the hour +3.600 ms, and the hour-1 swing runs −60.0 to +63.5 ms. All match.
 
-1. **Test or decoration?** It's a test. Every step's number comes out of GoButton's own counting and framing code, and the last step actually runs the sync word's claim across a day of frames, where it could fail and doesn't. Step 4's flipped digits come back "not a time", and step 5's polarity bit answers each user-bit click. Both are live checks, not pictures.
-2. **Faithful?** Mostly. It stays inside Count and Bits, as the manifest says, and it adds nothing the section doesn't hold. The exceptions are below.
-3. **Walks up?** Yes. It goes count, then rates, then drop-frame, then bits, then flags, then the sync test. One idea per step. Step 3 has a control back to plain 29.97, the rail stays open, the piece is silent, and nothing runs until a click. One concept is borrowed early: step 5 explains polarity through biphase flips, which the next stop (Wave) is meant to teach.
+   **Note:** step 4 says "86.4 ms a day", the caption "2.59 frames", and the offer "86.3 ms". Both day numbers are right, but they are measured at different marks:
+   - at the label's 24:00:00;00 the clock reads 86,399.9136 s, so the label is 86.4 ms ahead (2.589 frames);
+   - at wall-clock 24 h the label is 86.3 ms ahead.
 
-## Must-fix
+   Pick one, name the mark, and use it everywhere. The sign is settled: the label runs ahead.
+3. **Walks up?** Yes, in five silent steps: count, fall behind, over-correct, the exception, then the day.
 
-1. **A rate switched mid-search mislabels the result.** The test piece, lines 320–324: the rate chips stay live while a search runs. `runSearch` keeps the old rate (line 523), but `drawSync` decodes the "first at" frame and the hour/day text with the new `R()` (lines 513, 517), and the done line names `S.rate` (line 538). `renderControls` also re-renders the search buttons as enabled and drops the progress text, because `btn` and `st` now point at detached nodes. **Fix:** store `acc.rate = S.rate` and `acc.user` and render from those, or ignore the rate and user-bit chips (and disable them) while `S.searching`.
-2. **A negative "behind" is shown as behind.** Line 412–415: the drop-frame count runs up to 1.9 frames *ahead* of the wall at some minute turns. The first one is 00:06:00;02, at −0.040 s. `late` tests `Math.abs(b)`, so the red label reads "−0.040 s behind the wall". You reach it in step 3 at × 60, and in step 2 (which opens at × 60) by choosing 29.97 drop. **Fix:** when `b < 0`, say "ahead of the wall". Add one teach sentence to step 3 as well (line 293). Within a minute, drop-frame falls up to about 2.7 frames behind (0.076 s, which shows in red at the step's own opening jump to 00:00:59;20), and the skip pulls it back. That is the mechanism, and right now it looks like a contradiction of "keeps up".
-3. **"The worst case" isn't the worst case.** Lines 303 and 345. It sets the user bits to 1 but leaves the colour-frame flag and the binary-group flags at 0. With those at 1 as well, 29.97 drop reaches a run of **10** at 00:00:07;20 (bits 9–18: frame tens, the drop-frame flag, the colour-frame flag, user bits, seconds units 7). 25 fps (with bit 10 also set) reaches 10 too. It's still under 12, so the claim holds. **Fix:** either set bits 11, 43 and 58, and the binary-group flag at 27 or 59, to 1 in the worst-case search (a stronger test that still passes), or rename the button "every user bit 1".
-4. **The caption promises a check the checks don't make.** In the manifest (line 42) the caption says the checks find "no run of 1s longer than 9 outside the sync word". `checks.mjs` lines 111–113 assert only `< 12`. 9 is true (and it's 7 at 25 fps), but it isn't held. **Fix:** assert `ones.longest <= 9`, or reword the caption to "fewer than twelve; the longest is 9".
-5. **A wrapped day reads as a day behind.** Line 233 together with the "+ 1 hour" buttons (lines 328, 333). After 24 presses at 24, 25 or 30 fps, the count goes round midnight and the label reads "86,400.000 s behind the wall". At 29.97 drop it reads 86,399.9. At 23.976, a 25th press gives 86,489.9. **Fix:** compare against the wall modulo one day of frames (`Ltc.dayFrames(rate) / rate.fps` seconds), and add a note: "the count has gone round midnight".
+### Open Questions · `SMPTE LTC — rich — backward.html` (made) — **remake**
 
-## Nice-to-have
+1. **Test or decoration?** A real test of the page's guess. I rebuilt the page's own situation: render a 1× tape, **reverse the sample buffer** (the decoder untouched), then high-pass it and add noise after the reversal. The reader read 50/50 at 24, 25 and 29.97 fps, 0 wrong, direction right every time. So the refutation stands. The control holds too: the forward-only reader read 0 on every backward row, and a palindromic sync word breaks the check, per the maker. The test can fail.
+2. **Faithful?** Its central finding is faithful. Its speed edge is not. Speeds are rendered by time-scaling the tape: each sample is the tape averaged over the stretch under the head, which is an ideal anti-alias filter. That isn't the chain a tape machine or a DAW shuttle uses; they resample a buffer. Through a 1× buffer resampled by linear interpolation:
+   - 50/50 at every speed from ±0.1× to ±6×
+   - −8×: 24/50; −10×: 0/50; +8× and +10×: 50/50
+   - −12×: 50/50; +12× and ±16×: 0
 
-- **The bits-step rate switch doesn't keep the time named.** Line 323: going from 30 to 29.97 drop at 00:01:00:00 lands silently on 00:00:59;28 (two frames back), because 00:01:00;00 doesn't exist there. Land on the next real number, 00:01:00;02, and say why. That's drop-frame taught again.
-- **The readout doesn't catch skipped drop-frame numbers.** Line 487: a flipped word that reads 00:01:00;00 at 29.97 drop passes as a time. Add the `tc.s === 0 && tc.f < 2 && tc.m % 10` test (the same rule as `ltc.js`'s `badTime`).
-- **Bit labels at 25 fps.** Line 205: bit 10 is called "the drop-frame flag" at every rate. At 25 fps it's unused (EBU has no drop-frame). Line 208: bit 58 is labelled "reserved". As I remember it, SMPTE 12M-1 now calls bit 58 binary-group flag 1, but I haven't checked that against the standard. Check it before you change the label.
-- **Step 2's wording** (line 289): "six standard rates … four count as fast as they say" counts 29.97 drop as a rate, though it is 29.97 counted another way. Say "five rates, and one of them counted two ways". The entry's own "six frame rates" has the same looseness.
-- **The checks don't test the display logic.** Lines 116–122 hold a re-typed copy of `runSearch`'s chunk loop, so a change to the piece's loop at lines 520–541 wouldn't fail. Move the chunk accumulator into `<script id="engine">`, and add a check on the sign and threshold of `behind`. That check would have caught must-fix 2.
-- **Line 443** hard-codes `S.step === 3` for digit-clickable cells. Use a step flag (`digits: true`) like `users`.
-- **Step 5's biphase explanation** borrows the next stop. Mark it as a preview ("you'll see why at the wave"), or leave it. It's honest either way.
+   So the shortcut changes the edge, not the yes. The panel's rule says that if ±12× passed, "the reader would be reading something other than the audio". That's false. At 12× a half cell is exactly one sample (2 kHz × 12 = 24 kHz, Nyquist at 48 kHz). That makes decoding marginal, not impossible, and one of my buffers read every frame there. The "fails, as it must" tag repeats the error.
+3. **Walks up?** Yes: hear it, the sync word both ways, speeds by ear, then the test.
 
-## Second verdict, after the remake (2026-11-04): **keep**
+"Can you hear LTC?" is handled honestly. The step plays only on a click, with the AudioContext made on that click and the default level −24 dBFS. It shows the spectrum of the buffer actually playing and claims nothing about hearing. My own FFT gives 88.8% of power in 500 Hz–3 kHz at 25 fps, against the maker's 88.7% (90.1% at 24 fps, 85.7% at 29.97 fps). One sentence, "a filter that removed it would remove that band of the mix", is spectral and true, and leans only lightly on the page's "should it be filtered?".
 
-I re-ran everything on the remade files. **conform:** 0 errors, and the same 2 untracked-file warnings as before. **checks:** 57 passed, 0 failed. Then I probed the new engine block in Node myself (`probe3.mjs`).
+**The remake, exactly:**
+1. Recast the ±12×/±16× rows from "must fail" to "the expected limit, near Nyquist". Count them as neither a pass nor a fail, and delete "would be reading something other than the audio" and "as it must".
+2. Add the page's own case as a row: a 1× render with its sample buffer reversed, which reads 50/50.
+3. Say in the rule that speeds are time-scaled (ideal anti-alias). State that through a plain resampler the clean edge here was ±6×, not ±8×.
 
-- **Must-fix 1, done.** A result now carries `rateKey`, `span` and `ones`, and `drawSync` renders from those (line 535). Every chip and the user-bit toggles return early while `S.searching` (lines 328, 366–367), so nothing re-renders mid-search. The done line's `S.rate` (line 558) is now safe, because the rate can't change during a search.
-- **Must-fix 2, done.** `behindWords` reads "ahead" when b < 0, and the value is shown as an absolute number (line 436). Step 3's teach text now names the drift. The new check samples at mid-frame and gets −1.40 to +2.30 frames. The running display keeps the wall continuous, so it reaches about −1.9 to +2.7 (from my first probe). "A little over two" and "a frame or so" still fit. This is a nice-to-have only: sample the check at frame edges if you want it to hold the extremes too.
-- **Must-fix 3, done.** `freeFlags` is 11, 43, 58, plus whichever binary-group flag isn't the polarity bit. Bit 10 stays 0 at 25 fps, which is right for EBU, so 25 fps peaks at 9, not the 10 I had. 29.97 drop reaches 10. The polarity bit still keeps the zeros even with the flags set: I sampled all six rates and found 0 odd frames.
-- **Must-fix 4, done.** The caption says ≤ 10, and the checks assert `<= 10`.
-- **Must-fix 5, done.** `rounds` and `behind` agree across midnight. I checked 24, 25, 48, 49 and 100 h at all six rates: 0.000 at the integer rates, 3.6 s an hour at the fractional ones, and drop-frame 2 frames ahead per day, which matches `dayResidual`. The readout names the wrap.
-- **Nice-to-haves.** All are in, and I verified them: the drop-frame landing (line 344), the skipped-number readout (line 507), the 25 fps and bit 58 labels, step 2's wording, and the `digits` flag. I tested `searchChunk` against the whole search at chunk sizes 1, 7, 997 and 40000, with flags on, at 29.97 drop. It matched the whole search exactly on `longest`, on `where` and on the sync count.
+That's one round of work.
 
-Nothing must-fix remains. It's ready to land as a proposal.
+## Checks run
+
+- `conform.mjs "SMPTE LTC"`: 3 pieces, errors 0, warnings 0, browser pass at 760 and 1130 px.
+- `fingerprint.mjs`: Technical Architecture 9fd3f82b1fef and Open Questions 8268c2be33d2, both in step.
+- Face served with rich-server and loaded headless in Chromium. I scrolled through it and clicked each piece's last step and run. All three verdicts read "Pass" or "Backward reads". The console showed only the server's Permissions-Policy 'bluetooth' warning, three times, and no piece errors. All pieces are fully inline: no CDN, no external fetch.
+- The maker's `check.mjs`: all PASS, and every number in the commit body reproduced.
+- My `SMPTE LTC — rich — challenge-check.mjs`: the reversed buffer, the resampled speeds, an independent drop-frame walker, and the band share by my own FFT. Numbers are above.
+- Not checked: whether a hidden page hushes, which I didn't drive. Nobody, me included, heard any of this sound. There are no blind listening trials on this face, so there was no leak to probe.
+
+## The offers
+
+1. **Open Questions · claim-change: reverse playback is "yes".** **Confirmed**, with an amendment. Kind and home are right. My reversed-buffer read was 50/50 at three rates, 0 wrong, direction right. Amend the wording: drop "as it must" and the hard ±8× / ±12× edge. Say instead "read at every speed tried from 0.1× to 6× either way through a plain resampler (to 8× with ideal time-scaling); the limit is the sample rate and how the audio is resampled, not the code." Keep "no hardware reader tested."
+2. **Technical Architecture · no-claim-edit: name the tenth-minute exception.** **Confirmed**, kind right. The numbers:
+   - 403.6 ms ahead per wall-clock hour for every-minute skipping (404.0 per labelled hour)
+   - 3.60 ms per hour for the real rule
+   - a swing of −60.0 to +63.5 ms between marks
+
+   The page's sentence is incomplete, not literally wrong: "at minute boundaries" never says *every* minute. Lead with "the sentence leaves out the exception". The 403.6 ms figure can stay as what the exception buys, not as a misreading charged to the page.
+3. **Open Questions · no-claim-edit: the long-run arithmetic answered.** The numbers are confirmed, but **relabel it claim-change**. It adds a measured answer the page doesn't hold, which is a new claim, not a restated definition. Fix the number to match the piece: "86.4 ms (2.59 frames) ahead when the label reaches 24:00:00;00" (86.3 ms is the figure at wall-clock 24 h). Keep "whether the Max patch counts this way is untested."
+4. **What SMPTE LTC Is · no-claim-edit: "peak detection".** **Confirmed as a wording edit**, kind right, but I dispute the framing. It isn't a contradiction. On LTC's flat-topped square, the peaks of the raw signal carry no timing. A reader that peak-detects the *differentiated* signal is detecting transitions. So "peak detection" is a loose word for the same reader, not a second reader. Present it as "loose", not "disagrees". Drop the polarity-flip sentence as evidence: a derivative-|peak| reader is just as indifferent to polarity, so it can't tell the two apart.
+
+## The face as a whole
+
+It makes the idea felt. Time becomes eighty flips, and a reader that knows nothing pulls the clock back out of them. A counter skips names to stay honest, and the face shows exactly how much honesty that buys. It is a test-heavy face, not a busy one: every piece ends on something that could have come out the other way, and one of them overturns the page's own guess. That refutation survived my rebuild of the page's situation. What needs tightening is the edge of the backward table, where a rendering convenience is presented as a law. The yes is solid. The "must fail" is not.

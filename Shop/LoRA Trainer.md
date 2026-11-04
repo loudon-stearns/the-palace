@@ -11,7 +11,7 @@ links:
   - target: "[[The Shop]]"
     type: member-of
     label: roster-member
-  - target: "[[BLUELINE — Production Plan]]"
+  - target: "[[BLUELINE]]"
     type: connects-to
     label: track-II-trainer
   - target: "[[Capability-first prototyping]]"
@@ -85,5 +85,5 @@ Before declaring a LoRA done: (1) it loaded in the renderer without a key-format
 ## Forward Vectors
 
 - **Grow a dataset-shaping front half** — the lesson is that inputs, not steps, decide the outcome. A `r4ng3r` rebuild (visible faces, varied conditions) is the first test of whether the pipeline delivers once the dataset is right.
-- **Answer the SDXL→FLUX base-swap question** ([[BLUELINE — Production Plan]] Track II #5) — it died unanswered because both LoRAs failed on the *same* bad dataset; re-run it on a good one.
+- **Answer the SDXL→FLUX base-swap question** (BLUELINE's Track II, item 5, in the archived [[BLUELINE — Production Plan]]) — it died unanswered because both LoRAs failed on the *same* bad dataset; re-run it on a good one.
 - **Earn or shed the second tool.** If the Study tier (kohya/SDXL) never beats the Piece tier (FLUX) on a fair dataset, collapse to one tool and retire the comparison.

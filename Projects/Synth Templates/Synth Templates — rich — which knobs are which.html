@@ -1,0 +1,852 @@
+<!doctype html>
+<!--
+title: Synth Templates — rich — which knobs are which
+born: 2026-11-04
+links:
+  - target: "[[Synth Templates]]"
+    type: connects-to
+    label: rich-face-piece
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: walks-up-to-its-test
+  - target: "[[Audition Gate]]"
+    type: connects-to
+    label: compared-by-ear
+forward_vector: "I am the house-bass card's split put to two meters and an ear: the project's own voice playing the project's own card, one taste knob, then one essential knob, then every knob on the card moved and measured by the project's four sidecar numbers and its comparison page's verdict, each rule written down before the first measurement, then twelve blind trials asking whether it is still house bass. I change when the card, the vocabulary or the voice does, and when Loudon's ear answers the trials."
+status: "proposal, Enrichment's proposal round 2026-11, cloud batch 2; not yet heard by Loudon"
+built-from: "Projects/Synth Templates/workshop at main 5bc2c13a: site/voice.js (sha256 c855c2beb8615162a3eaaa20da436fbdbed5803f7050f992a1da6dd1f21256c7) and site/compare.js (sha256 020c902aac4bf3b8d7bc2c50a12a24421d8ed36944db442f5bdec9bc92ae4a5a) inlined byte for byte below; cards/house-bass.yaml and vocabulary.yaml (draft 0.6) inlined as JSON. Synth Templates — rich — check.mjs re-checks all of it."
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Which knobs are which — the house bass</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: var(--e2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+code, pre, samp {font-family: var(--fx-mono);}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+pre {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --teal:#3fd6c0; --warn:#ff9b4a; --ok:#7fd49a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace; --sans:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif; --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 18px; max-width: 1180px; }
+  .kicker, .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); }
+  .kicker { margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 80ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 16px; border-bottom: 1px solid var(--soft); }
+  .rail button { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: none; color: var(--fg3); background: none; border: 0; border-bottom: 2px solid transparent; border-radius: 0; padding: 8px 12px 7px; cursor: pointer; transition: color 220ms var(--ease); }
+  .rail button:hover { color: var(--fg1); }
+  .rail button[aria-current=step] { color: var(--amber); border-bottom-color: var(--amber); }
+  .rail button .n { color: var(--fg4); margin-right: 6px; }
+  .rail button[aria-current=step] .n { color: var(--amber); }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 300; color: var(--fg1); margin: 4px 0 8px; }
+  .say { font-size: 14px; line-height: 1.65; color: var(--fg2); max-width: 82ch; margin: 0 0 14px; }
+  .say b { color: var(--fg1); font-weight: 500; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 12px 14px; margin-bottom: 12px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); user-select: none; -webkit-user-select: none; touch-action: none; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button.down { color: var(--amber); border-color: var(--amber); }
+  button[aria-pressed=true] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.10); }
+  button:disabled { opacity: .4; cursor: default; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); }
+  .knob { display: grid; grid-template-columns: 230px 1fr 120px; gap: 6px 14px; align-items: center; margin: 6px 0 10px; }
+  .knob .lab { font-family: var(--mono); font-size: 11px; color: var(--fg2); letter-spacing: .03em; line-height: 1.4; }
+  .knob .lab small { display: block; color: var(--fg3); }
+  .knob .val { font-family: var(--mono); font-size: 12px; color: var(--amber); text-align: right; }
+  .tag { display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; padding: 1px 6px; border-radius: 1px; border: 1px solid var(--border); color: var(--fg3); margin-right: 6px; }
+  .tag.t { color: var(--amber); border-color: var(--amberline); }
+  .tag.e { color: var(--fg1); border-color: var(--fg3); }
+  .read { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px 22px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--fg3); line-height: 1.5; }
+  .read b { color: var(--fg1); font-weight: 500; display: block; font-size: 13px; }
+  .read .d { color: var(--amber); }
+  .rule { border-left: 2px solid var(--amberline); padding: 4px 0 4px 14px; margin: 0 0 14px; font-size: 13.5px; line-height: 1.6; max-width: 86ch; }
+  .rule b { color: var(--fg1); font-weight: 500; }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); margin: 4px 0 2px; }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 84ch; }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 10.5px; margin-top: 8px; width: 100%; }
+  table.meas th, table.meas td { text-align: left; padding: 4px 7px; border-bottom: 1px solid var(--soft); vertical-align: top; }
+  table.meas th { color: var(--fg3); font-weight: 400; letter-spacing: .05em; }
+  table.meas td { color: var(--fg2); }
+  table.meas td.k { color: var(--ok); }
+  table.meas td.l { color: var(--warn); }
+  table.meas td.x { color: var(--fg1); }
+  table.meas td small { display: block; color: var(--fg3); }
+  table.meas tr.sep td { border-bottom: 1px solid var(--border); }
+  .verdict { font-family: var(--serif); font-size: 20px; color: var(--fg1); margin: 14px 0 8px; line-height: 1.4; max-width: 86ch; }
+  .verdict .note { font-family: var(--sans); font-size: 13px; color: var(--fg2); }
+  .verdict b { color: var(--amber); font-weight: 400; }
+  .note { font-size: 12.5px; line-height: 1.6; color: var(--fg3); max-width: 86ch; margin: 10px 0 0; }
+  .trial { font-family: var(--serif); font-size: 22px; color: var(--fg1); margin: 6px 0 10px; }
+  .score { font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--fg2); white-space: pre-wrap; background: var(--bg); border: 1px solid var(--soft); padding: 10px 12px; margin-top: 10px; user-select: text; }
+  .walk { display: flex; justify-content: space-between; margin-top: 18px; }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot .mark { display: inline-flex; align-items: center; gap: 8px; color: var(--fg3); letter-spacing: .12em; text-transform: none; }
+  .foot .mark i { font-family: var(--serif); color: var(--amber); font-weight: 300; }
+  @media (max-width: 720px) { .knob { grid-template-columns: 1fr; } .knob .val { text-align: left; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">Synth Templates · the house bass card · the split</div>
+  <h1 class="title">Which knobs are which</h1>
+  <p class="sub">The card says some settings make the house bass a house bass and the rest are yours to move. This piece plays the card on the project's own voice (the site's <code>voice.js</code>, the vocabulary's numbers, its compressor), lets you move one knob of each kind, then moves every knob on the card and asks two meters (a rule of this piece's over the project's four sidecar numbers, and the project's own comparison verdict), and then your ear, whether the sound is still that sound. The rules are written before the measurements.</p>
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <section class="step" data-title="The house bass, untouched">
+    <h3>1 · The house bass, untouched</h3>
+    <p class="say">One square oscillator and a sine an octave under it, through a 24 dB low-pass with moderate resonance. The filter envelope opens instantly and shuts in a short decay with <b>no sustain</b>; the amp envelope holds. The card's bar is four off-beat eighths at 124 bpm on C2, each a sixteenth long. Press <b>the bar</b> to hear it as the card writes it; press and hold <b>hold a note</b> to hear one note for as long as you hold it. The listening cue on the card: "every note opens and shuts in the first instant: 'ooh', not 'aah'. The body stays under it as long as the key is held."</p>
+    <div class="panel">
+      <div class="bar"><button class="go" data-play="bar" data-stage="s1">the bar</button><button class="go" data-hold="s1">hold a note</button><button data-stop>stop</button><span class="hint" data-msg="s1"></span></div>
+      <div class="read" data-read="s1"></div>
+      <p class="note">The four numbers are the project's feature sidecar, by <code>render-features.py</code>'s definitions as <code>compare.js</code> ports them: <b>level</b> is the RMS over the sounding region (dBFS), <b>brightness</b> the power-weighted spectral centroid over it, <b>rise</b> the time from the onset to the first point within 6 dB of the peak (5 ms RMS envelope), <b>tail</b> the time from the last note-off to 40 dB under the loudest point after it. Measured on this voice offline, compressor on, as the site's own Render ours does. For a bass the centroid sits low (about 100 Hz here): the fundamental and the sub carry most of the power.</p>
+    </div>
+  </section>
+
+  <section class="step" data-title="A taste knob" hidden>
+    <h3>2 · A taste knob alone: cutoff</h3>
+    <p class="say">The card lists the cutoff as taste, <b>dark – mid</b>, default dark. The vocabulary makes dark 300 Hz and mid 1200 Hz. Move it across the whole range and play. The sound gets brighter; the card's claim is that it is still a house bass. Nothing else moves.</p>
+    <div class="panel">
+      <div class="knob"><div class="lab"><span class="tag t">taste</span>Filter 1 · cutoff frequency<small>dark 300 Hz – mid 1200 Hz</small></div><input type="range" min="0" max="1" step="0.001" value="0" data-knob="cutoff"><div class="val" data-val="cutoff"></div></div>
+      <div class="bar"><button class="go" data-play="bar" data-stage="s2">the bar</button><button class="go" data-hold="s2">hold a note</button><button data-stop>stop</button><span class="hint" data-msg="s2"></span></div>
+      <div class="read" data-read="s2"></div>
+      <p class="note">Numbers are measured when you let go of the slider, beside the untouched sound's (in amber, the change).</p>
+    </div>
+  </section>
+
+  <section class="step" data-title="An essential knob" hidden>
+    <h3>3 · An essential knob alone: filter-envelope sustain</h3>
+    <p class="say">The card pins the filter envelope's sustain at <b>zero</b>, "the pluck lives in the filter, not the amp", and its A/B is this knob: "raise the filter envelope's sustain to full: the pluck vanishes and it becomes a plain square bass." Cutoff is back at dark. Move the sustain from zero to full and play the bar, then hold a note.</p>
+    <div class="panel">
+      <div class="knob"><div class="lab"><span class="tag e">essential</span>Filter envelope · sustain level<small>zero – full (the card pins zero)</small></div><input type="range" min="0" max="1" step="0.01" value="0" data-knob="fsus"><div class="val" data-val="fsus"></div></div>
+      <div class="bar"><button class="go" data-play="bar" data-stage="s3">the bar</button><button class="go" data-hold="s3">hold a note</button><button data-stop>stop</button><span class="hint" data-msg="s3"></span></div>
+      <div class="read" data-read="s3"></div>
+      <p class="note">What the numbers say: with the sustain at full the filter never decays at all, it stays open for the whole note, so the A/B is plain on the bar too (brightness 102.7 Hz untouched, 157.4 Hz at full). What blurs it on the bar is a taste move: the filter decay at the far end of its taste range, <i>medium</i>, 0.575 s, never finishes inside a 121 ms note, so it also leaves the filter nearly open (155.2 Hz). On a held note the decay has time to finish and the two part. Step 4 measures all three.</p>
+    </div>
+  </section>
+
+  <section class="step" data-title="Every knob, two meters" hidden>
+    <h3>4 · Every knob on the card, two meters, rules first</h3>
+    <p class="say">Every knob the voice models is moved, one at a time: each <b>taste</b> knob to the far end of its own range on the card, each <b>essential</b> to a value a player could set. The card predicts the taste moves keep the sound and the essential moves lose it. One disagreement first: the page's opening lists <b>resonance amount</b> as taste, while the card pins filter 1's resonance at moderate as essential ("the vowel in the 'ooh'"). This piece follows the card: both resonance moves are scored essential, and one of them is a blind trial in step 5. Two meters judge, on two clips: <b>the bar</b> as the card writes it, and <b>one held note</b> (0.8 s), the situation the card's cue names.</p>
+    <div class="rule"><b>Meter A, this piece's rule over the project's four sidecar numbers.</b> Not a meter the project has: the features are the project's, the rule is mine. The taste region of a feature is the span the untouched sound and the taste moves cover, widened by the feature's grain (level 0.1 dB, brightness 1 %, rise and tail 5 ms, the envelope's hop).
+      <div class="eq">lost(m) ⇔ ∃ f ∈ {level, brightness, rise, tail} : f(m) ∉ [ min<sub>T</sub> f − g<sub>f</sub> , max<sub>T</sub> f + g<sub>f</sub> ]</div>
+      <div class="words">In words: a move is lost if it takes any of the four numbers outside the range the card's own taste knobs reach. A taste move is judged against the region of the other taste moves, so the taste arm can fail too, and it fails by construction whenever one taste knob is the only one to push a feature to an extreme: the four taste misses below (decay to medium on brightness, sub off on rise, sub at equal on level and brightness, release on tail) are all of that kind. The card's split holds on this meter when every taste move is kept and every essential move lost.</div>
+      <b>Meter B, the project's own: the comparison page's verdict.</b> The site's Compare yours grades only the card's essentials, each read from the sound in the card's own words (<code>compare.js</code> <code>readings</code>), and calls a reading a match when it is the same word or the next one on its ladder (<code>adjacent</code>; the three-word ladders ask for the same word). Here "yours" is the moved sound and "ours" the untouched one. A move is lost if any graded essential stops matching.
+      <div class="words">Two checks on each meter. The untouched sound rendered a second time must read kept, every number unchanged, or the renders are not repeatable and the table means nothing (the voice's noise source is seeded so they are). Oscillator 1 swapped for noise, under eight noise seeds, must read lost every time, or that meter can call a sound with no square in it a match and its column is not a measure of lost.</div>
+    </div>
+    <div class="panel">
+      <div class="bar"><button class="go" data-measure>measure again here</button><span class="hint" data-msg="s4">The table below was measured headless on 2026-11-04 by this piece's own engine; measuring again re-renders all 36 sounds here (a few seconds).</span></div>
+      <div data-table></div>
+      <div class="verdict" data-verdict></div>
+      <p class="note">Not moved, and why: the card's drive (the voice has no filter drive) and glide (one repeated note on a mono voice never slides), on the taste side; mono against poly (the bar's notes never overlap, so the voice count cannot show) on the essential side. The comparison page has no reading for the filter type; meter B sees the band-pass move only through what it does to other readings. What this table can and cannot say: it asks whether the project's meters see the split the card draws. It does not decide which knobs are structural. That is a teaching rule, and the ear is its judge.</p>
+    </div>
+  </section>
+
+  <section class="step" data-title="Your ear, blind" hidden>
+    <h3>5 · Your ear, blind: is it still house bass?</h3>
+    <p class="say">Twelve trials, in an order shuffled for you. Each plays the untouched house bass, then one moved sound: six taste moves and six essential, the knob never named. Answer <b>still house bass</b> or <b>not house bass</b>. The clip is the card's bar followed by one note held 0.8 s.</p>
+    <div class="rule"><b>Before the first trial.</b> Every moved sound is matched in loudness to the untouched one: scaled by one gain so its RMS over the sounding region (the sidecar's level) equals the untouched clip's, then both are played at the same output gain. Every clip has the same length and the same notes. Scored on both arms: the taste arm counts "still" answers on the six taste trials, the essential arm counts "not" answers on the six essential trials. <b>Rule:</b> an arm agrees with the card at 5 or 6 of 6, contradicts it at 0 or 1, and cannot say at 2 to 4. <b>Chance:</b> someone answering at random agrees on one arm with probability 7/64 (11 %), on both 1.2 %; someone who gives the same answer every time agrees on one arm and contradicts the other. Two of the twelve moves were heard by name in steps 2 and 3 (cutoff to mid, filter sustain to full); the score is also shown without them.</div>
+    <div class="panel">
+      <div class="bar"><button class="go" data-begin>begin twelve trials</button><span class="hint" data-msg="s5"></span></div>
+      <div data-trialbox hidden>
+        <div class="trial" data-trialno></div>
+        <div class="bar"><button class="go" data-tplay="ref">untouched</button><button class="go" data-tplay="move">this one</button><button data-stop>stop</button></div>
+        <div class="bar"><button data-ans="still" disabled>still house bass</button><button data-ans="not" disabled>not house bass</button><span class="hint">answers open once you have heard this one</span></div>
+      </div>
+      <div data-result></div>
+    </div>
+  </section>
+
+  <div class="walk"><button id="back">back</button><button id="next">next</button></div>
+  <div class="foot"><span>Synth Templates · rich · which knobs are which · sketch · proposal · 2026-11-04</span><span class="mark"><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>Loud’n <i>Live</i></span></div>
+</div>
+
+<script>
+// Synth Templates — the reference voice. GENERATED by build-site.py from the voice inside it; edit build-site.py, never this file.
+// Vanilla Web Audio: it interprets a card's graph with the vocabulary's numbers. The page loads it with <script src="voice.js">;
+// render-refs.mjs imports the same file in Node and hands it an OfflineAudioContext (useContext) so the reference WAVs are this voice, not a copy.
+(() => {   // one scope: a classic script's top-level let/const would collide with the page's own (VOCAB did, 2026-11-03)
+let VOCAB = {};                 // the live vocabulary; the page hands its (browser-tuned) copy in with setVocab
+function setVocab(v){ VOCAB = v; }
+function word(table, w, fallback){ if (w === undefined || w === null) return fallback; if (typeof w === 'number') return w; const v = VOCAB[table]?.[String(w).trim()]; if (v === undefined || v === null) { console.warn(`vocabulary: no ${table} word "${w}", using ${fallback}`); return fallback; } return v; }
+function noteToHz(n){ return 440 * Math.pow(2, (n - 69) / 12); }
+function nameToMidi(s){ const m = String(s).match(/^([A-Ga-g])([#b]?)(-?\d)$/); if (!m) return 60; let n = {c:0,d:2,e:4,f:5,g:7,a:9,b:11}[m[1].toLowerCase()]; if (m[2]==='#') n++; if (m[2]==='b') n--; return n + 12 * (parseInt(m[3]) + 1); }
+
+// ---------- the reference voice ----------
+let ctx = null, master = null, fxOut = null, fxCardId = null, offline = false;
+const state = { get ctx(){ return ctx; }, get master(){ return master; } };
+let voices = new Map();   // id → voice
+let monoVoice = null, heldMono = [];
+// useContext: adopt a context the caller made (Node's OfflineAudioContext for the reference renders); the page lets audio() make a live one
+// opts.compressor === false bypasses the master compressor: node-web-audio-api 2.2.0's DynamicsCompressor runs away on fast onsets (a 1.6 ms step → gain 4e5, then NaN), so the offline render has to go without it
+function useContext(ac, isOffline, opts){ ctx = ac; offline = !!isOffline; fxOut = null; fxCardId = null; voices = new Map(); monoVoice = null; heldMono = []; master = ctx.createGain(); master.gain.value = 0.5; if (opts?.compressor === false){ master.connect(ctx.destination); return ctx; } const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; master.connect(comp); comp.connect(ctx.destination); return ctx; }
+function audio(){ if (!ctx) useContext(new (globalThis.AudioContext || globalThis.webkitAudioContext)(), false); if (!offline && ctx.state === 'suspended') ctx.resume(); return ctx; }
+
+function fxChain(c){
+  // built once per card: the fx block's chain, in order, feeding master
+  if (fxCardId === c.id && fxOut) return fxOut;
+  if (fxOut) { try { fxOut.disconnect(); } catch(e){} }
+  const ac = audio(); let input = ac.createGain(); let node = input;
+  const chain = c.graph.blocks.fx?.chain || [];
+  const tasteDefault = (block, param) => (c.taste||[]).find(t => t.block===block && t.param===param)?.default;
+  for (const fx of chain){
+    if (fx === 'chorus'){
+      const wet = ac.createGain(); wet.gain.value = 0.5; const dry = ac.createGain(); dry.gain.value = 0.8;
+      const merger = ac.createGain(); node.connect(dry); dry.connect(merger);
+      [[0.012, 0.6, -0.6], [0.018, 0.75, 0.6], [0.025, 0.5, 0]].forEach(([t, rate, pan]) => {
+        const d = ac.createDelay(0.1); d.delayTime.value = t; const lfo = ac.createOscillator(); lfo.frequency.value = rate; const g = ac.createGain(); g.gain.value = 0.003; lfo.connect(g); g.connect(d.delayTime); lfo.start();
+        const p = ac.createStereoPanner(); p.pan.value = pan; node.connect(d); d.connect(p); p.connect(wet); });
+      wet.connect(merger); node = merger;
+    } else if (fx === 'reverb'){
+      const size = word('reverb', tasteDefault('fx','reverb') || 'large', 2.5);
+      const conv = ac.createConvolver(); const len = Math.floor(ac.sampleRate * size); const ir = ac.createBuffer(2, len, ac.sampleRate);
+      for (let ch = 0; ch < 2; ch++){ const d = ir.getChannelData(ch); for (let i = 0; i < len; i++) d[i] = (Math.random()*2-1) * Math.pow(1 - i/len, 2.2); }
+      conv.buffer = ir; const wet = ac.createGain(); wet.gain.value = 0.35; const dry = ac.createGain(); dry.gain.value = 0.9; const merger = ac.createGain();
+      node.connect(dry); dry.connect(merger); node.connect(conv); conv.connect(wet); wet.connect(merger); node = merger;
+    } else if (['saturation','drive','distortion','overdrive'].includes(fx)){
+      const amt = word('drive', tasteDefault('fx','drive') || 'light', 0.25); const ws = ac.createWaveShaper(); const n = 1024, curve = new Float32Array(n); const k = 1 + amt * 20;
+      for (let i = 0; i < n; i++){ const x = i / (n-1) * 2 - 1; curve[i] = Math.tanh(k * x) / Math.tanh(k); } ws.curve = curve; ws.oversample = '2x';
+      const pre = ac.createGain(); pre.gain.value = 1 + amt * 2; const post = ac.createGain(); post.gain.value = 0.7; node.connect(pre); pre.connect(ws); ws.connect(post); node = post;
+    } else if (fx === 'delay' || fx === 'echo'){
+      const d = ac.createDelay(2); d.delayTime.value = 60 / (c.render?.tempo || 120) * 0.75; const fb = ac.createGain(); fb.gain.value = 0.35; const wet = ac.createGain(); wet.gain.value = 0.3; const merger = ac.createGain();
+      node.connect(merger); node.connect(d); d.connect(fb); fb.connect(d); d.connect(wet); wet.connect(merger); node = merger;
+    }
+  }
+  node.connect(master); fxOut = input; fxCardId = c.id; return input;
+}
+
+function makeOsc(ac, b, hz, t){
+  // one source block → {node (output gain), oscs[], gainParam}; unison fans out detuned copies
+  const out = ac.createGain(); const wave = b.wave || 'saw'; const oscs = [];
+  const n = Math.max(1, parseInt(b.unison) || 1); const spread = word('detune', b.detune, n > 1 ? 30 : 0);
+  if (wave === 'noise'){
+    const len = ac.sampleRate * 2, buf = ac.createBuffer(1, len, ac.sampleRate), d = buf.getChannelData(0); for (let i = 0; i < len; i++) d[i] = Math.random()*2-1;
+    const src = ac.createBufferSource(); src.buffer = buf; src.loop = true; src.connect(out); src.start(t); oscs.push(src); return { node: out, oscs, freqParams: [] };
+  }
+  const type = { saw: 'sawtooth', square: 'square', pulse: 'square', triangle: 'triangle', sine: 'sine' }[wave] || 'sawtooth';
+  const freqParams = [];
+  for (let i = 0; i < n; i++){
+    const o = ac.createOscillator(); o.type = type; o.frequency.value = hz * Math.pow(2, (b.octave || 0));
+    const cents = n > 1 ? (i / (n-1) - 0.5) * spread : 0; o.detune.value = cents;
+    const g = ac.createGain(); g.gain.value = 1 / Math.sqrt(n); const p = ac.createStereoPanner(); p.pan.value = n > 1 ? (i / (n-1) - 0.5) * 1.4 : 0;
+    o.connect(g); g.connect(p); p.connect(out); o.start(t); oscs.push(o); freqParams.push(o);
+  }
+  return { node: out, oscs, freqParams };
+}
+
+function envTimes(shape){ const a = word('time', shape?.a, 0.01), d = word('time', shape?.d, 0.3), s = word('level', shape?.s, 0.7); let r = shape?.r === 'same as decay' ? d : word('time', shape?.r, 0.2); return { a, d, s, r }; }
+// The standard envelope curve is the Minimoog contour generator's RC shape (Loudon, 2026-11-02): every stage is an exponential
+// approach to its target, and a stage's time is the time to reach 95% of the way (tau = T/3). Filter frequency keeps its
+// exponential-in-Hz ramps (linear in pitch) since that is what the ear hears as a straight sweep.
+function applyEnv(param, t, env, peak, base, exp){
+  const lo = exp ? Math.max(base, 1e-3) : base;
+  param.__env = { t0: t, env, peak, lo, exp };   // remembered so an offline render can compute the value a release starts from (see releaseEnv)
+  param.cancelScheduledValues(t); param.setValueAtTime(lo, t);
+  if (exp) { param.exponentialRampToValueAtTime(Math.max(peak, 1e-3), t + env.a); param.exponentialRampToValueAtTime(Math.max(lo + (peak - lo) * env.s, 1e-3), t + env.a + env.d); }
+  else { param.setTargetAtTime(peak, t, Math.max(env.a, 0.0015) / 3); param.setTargetAtTime(lo + (peak - lo) * env.s, t + env.a, Math.max(env.d, 0.0015) / 3); }
+}
+// envValueAt: where applyEnv's curve stands at time t, in closed form (the Moog stages are RC approaches; the filter's are exponential ramps)
+function envValueAt(r, t){ const { t0, env, peak, lo, exp } = r; const a = Math.max(env.a, 0.0015), d = Math.max(env.d, 0.0015); const sus = exp ? Math.max(lo + (peak - lo) * env.s, 1e-3) : lo + (peak - lo) * env.s; const pk = exp ? Math.max(peak, 1e-3) : peak; const dt = t - t0;
+  if (dt <= 0) return lo;
+  if (exp){ if (dt < env.a) return lo * Math.pow(pk / lo, dt / env.a); if (dt < env.a + env.d) return pk * Math.pow(sus / pk, (dt - env.a) / env.d); return sus; }
+  const v1 = pk + (lo - pk) * Math.exp(-Math.min(dt, env.a) / (a / 3)); if (dt < env.a) return v1;
+  return sus + (v1 - sus) * Math.exp(-(dt - env.a) / (d / 3)); }
+function releaseEnv(param, t, env, base, exp){
+  const tc = Math.max(env.r, 0.02) / 3; const target = exp ? Math.max(base, 1e-3) : base;
+  if (offline && param.__env){ param.cancelScheduledValues(t); param.setValueAtTime(envValueAt(param.__env, t), t); param.setTargetAtTime(target, t, tc); return; }   // node-web-audio-api 2.2.0: setTargetAtTime after cancelAndHoldAtTime blows up when the held stage had a short time constant
+  param.cancelAndHoldAtTime ? param.cancelAndHoldAtTime(t) : param.cancelScheduledValues(t); param.setTargetAtTime(target, t, tc); }
+
+function noteOn(c, midi, vel, id, when){
+  const ac = audio(); const t = when ?? ac.currentTime; const B = c.graph.blocks; const mods = c.graph.modulation || [];
+  const velScale = (vel || 100) / 100;
+  const mono = /mono/.test(c.mode);
+  const legato = /legato/.test(c.mode) && monoVoice && heldMono.length > 0;
+  if (mono && monoVoice && !legato){ voiceOff(monoVoice, t); monoVoice = null; }
+  if (mono && legato){
+    // slide: retune the running voice, no new envelopes
+    const glide = word('glide', B.osc1?.glide === 'legato' ? ((c.taste||[]).find(x=>x.block==='osc1'&&x.param==='glide')?.default || 'short') : B.osc1?.glide, 0.06);
+    for (const [slot, src] of Object.entries(monoVoice.sources)) for (const o of src.freqParams){ const hz = noteToHz(midi) * Math.pow(2, B[slot].octave || 0) * (src.ratio || 1); o.frequency.cancelScheduledValues(t); o.frequency.setValueAtTime(o.frequency.value, t); o.frequency.exponentialRampToValueAtTime(hz, t + Math.max(glide, 0.005)); }
+    heldMono.push(id); monoVoice.ids.push(id); return;
+  }
+  const v = { ids: [id], sources: {}, nodes: [], envs: [], t0: t };
+  const hz = noteToHz(midi);
+  const fx = fxChain(c);
+  // sources
+  const sourceSlots = ['osc1','osc2','sub','noise'].filter(s => B[s]);
+  const audioEdges = c.graph.audio;
+  const feedsOsc = {}; audioEdges.forEach(e => { if (e.length === 3) feedsOsc[e[0]] = { to: e[1], jack: e[2] }; });
+  for (const s of sourceSlots){
+    const b = B[s]; let ratio = 1; if (b.ratio) { const m = String(b.ratio).split(':'); if (m.length === 2) ratio = parseFloat(m[0]) / parseFloat(m[1]); }
+    const src = makeOsc(ac, b, hz * ratio, t); src.ratio = ratio; v.sources[s] = src; v.nodes.push(src.node);
+  }
+  // mixer levels (taste default or essential 'level' for that source), FM routing
+  const levelWord = s => (c.essentials||[]).find(e=>e.block===s&&e.param==='level')?.value ?? (c.taste||[]).find(e=>e.block===s&&e.param==='level')?.default ?? B[s].level ?? 'full';
+  const mix = ac.createGain(); v.mixNode = mix;
+  for (const s of sourceSlots){
+    const src = v.sources[s];
+    if (feedsOsc[s]){                       // modulator oscillator → carrier frequency (FM) or sync (approximated as FM)
+      const tgt = v.sources[feedsOsc[s].to]; const idx = word('fm_index', B[s].level || 'half', 3); const g = ac.createGain(); g.gain.value = idx * hz * src.ratio; src.node.connect(g); tgt.freqParams.forEach(o => g.connect(o.frequency)); src.indexGain = g; src.indexBase = g.gain.value;
+    } else { src.node.gain.value = word('level', levelWord(s), 1); src.node.connect(mix); }
+  }
+  // filters
+  let node = mix; const filters = [];
+  for (const fs of ['filter1','filter2']){
+    const f = B[fs]; if (!f) continue;
+    const cutoffWord = (c.essentials||[]).find(e=>e.block===fs&&e.param==='cutoff')?.value ?? (c.taste||[]).find(e=>e.block===fs&&e.param==='cutoff')?.default ?? 'mid';
+    const base = word('cutoff', cutoffWord, 1200) * Math.pow(2, (midi - 60) / 12 * 0.5);   // half keytracking (ASSUMED)
+    const Q = word('resonance', f.resonance || 'none', 0.7); const poles = Math.max(1, Math.round((f.slope || 24) / 12));
+    const stages = [];
+    for (let i = 0; i < poles; i++){ const bq = ac.createBiquadFilter(); bq.type = { lowpass:'lowpass', highpass:'highpass', bandpass:'bandpass', notch:'notch' }[f.type] || 'lowpass'; bq.frequency.value = base; bq.Q.value = i === 0 ? Q : 0.7; node.connect(bq); node = bq; stages.push(bq); }
+    filters.push({ slot: fs, stages, base }); v.nodes.push(...stages);
+  }
+  // amp
+  const amp = ac.createGain(); amp.gain.value = 0; node.connect(amp); const pan = ac.createStereoPanner(); amp.connect(pan); pan.connect(fx); v.amp = amp; v.pan = pan; v.nodes.push(amp, pan);
+  const ampLevel = word('level', B.amp?.level || 'full', 0.8) * (0.4 + 0.6 * velScale) * polyGain();
+  // envelopes and LFOs by route
+  const envOf = slot => envTimes(B[slot]?.shape);
+  let ampEnv = null;
+  for (const m of mods){
+    const [tgt, param] = m.to.split('.'); const src = m.from; const amt = m.amount;
+    if (src === 'aenv' && tgt === 'amp'){ ampEnv = envOf('aenv'); applyEnv(amp.gain, t, ampEnv, ampLevel, 0, false); v.envs.push({ param: amp.gain, env: ampEnv, base: 0, exp: false }); }
+    else if (src === 'fenv' && /^filter/.test(tgt)){
+      const f = filters.find(x => x.slot === tgt); if (!f) continue; const env = envOf('fenv');
+      let oct = word('amount', amt || 'moderate', 2);
+      const accent = mods.find(x => x.from === 'vel' && x.to === 'fenv.amount'); if (accent) oct += word('amount', accent.amount || 'accent', 1.5) * (velScale - 0.7);
+      const peak = Math.min(f.base * Math.pow(2, oct), 18000);
+      f.stages.forEach(bq => { applyEnv(bq.frequency, t, env, peak, f.base, true); v.envs.push({ param: bq.frequency, env, base: f.base, exp: true }); });
+    }
+    else if (src === 'menv' && /^osc/.test(tgt) && param === 'pitch'){
+      const env = envOf('menv'); const cents = word('pitch_amount', amt || 'about an octave', 1200); const s = v.sources[tgt]; if (!s) continue;
+      s.freqParams.forEach(o => { o.detune.cancelScheduledValues(t); o.detune.setValueAtTime(o.detune.value + cents, t); o.detune.linearRampToValueAtTime(o.detune.value, t + env.a + env.d); });
+    }
+    else if (src === 'menv' && /^osc/.test(tgt) && param === 'level'){
+      const s = v.sources[tgt]; if (!s || !s.indexGain) continue; const env = envOf('menv'); let depth = word('amount', amt || 'moderate', 2) / 3.5;
+      const velRoute = mods.find(x => x.from === 'vel' && x.to === 'menv.amount'); if (velRoute) depth *= (0.5 + velScale * 0.7);
+      applyEnv(s.indexGain.gain, t, env, s.indexBase * (1 + depth * 2), s.indexBase * 0.3, false); v.envs.push({ param: s.indexGain.gain, env, base: s.indexBase * 0.3, exp: false });
+    }
+    else if (/^lfo/.test(src)){
+      const L = B[src]; if (!L) continue; const lfo = ac.createOscillator(); lfo.type = { triangle:'triangle', sine:'sine', square:'square', saw:'sawtooth' }[L.wave] || 'triangle';
+      lfo.frequency.value = word('rate', L.rate || 'slow', 0.3); const g = ac.createGain(); lfo.connect(g); lfo.start(t); v.nodes.push(lfo, g);
+      const depthWord = (c.taste||[]).find(x => x.block === src && x.param === 'depth')?.default || amt || 'little'; const depth = word('amount', depthWord, 0.5) / 5;
+      if (/^filter/.test(tgt)){ const f = filters.find(x => x.slot === tgt); if (f){ g.gain.value = depth * 1200; f.stages.forEach(bq => g.connect(bq.detune)); } }
+      else if (tgt === 'amp' && param === 'pan'){ g.gain.value = depth * 1.5; g.connect(pan.pan); }
+      else if (tgt === 'amp'){ g.gain.value = depth * 0.5; g.connect(amp.gain); }
+      else if (/^osc/.test(tgt)){ g.gain.value = depth * 100; v.sources[tgt]?.freqParams.forEach(o => g.connect(o.detune)); }
+    }
+  }
+  if (!ampEnv){ ampEnv = { a: 0.005, d: 0.1, s: 1, r: 0.1 }; applyEnv(amp.gain, t, ampEnv, ampLevel, 0, false); v.envs.push({ param: amp.gain, env: ampEnv, base: 0, exp: false }); }
+  v.ampEnv = ampEnv; v.oneShot = !!(B.aenv?.one_shot);
+  voices.set(id, v); if (mono){ monoVoice = v; heldMono = [id]; }
+  if (v.oneShot){ const end = t + ampEnv.a + ampEnv.d + 0.05; voiceOff(v, end, true); if (mono){ monoVoice = null; heldMono = []; } }
+  return v;
+}
+function voiceOff(v, t, already){
+  const ac = ctx; for (const e of v.envs) releaseEnv(e.param, t, e.env, e.base, e.exp);
+  const end = t + Math.max(v.ampEnv.r, 0.05) * 2 + 0.1;   // the target curve needs ~6 time constants (2 × release) to reach silence
+  for (const s of Object.values(v.sources)) for (const o of s.oscs) { try { o.stop(end); } catch(e){} }
+  if (!offline) setTimeout(() => { for (const n of v.nodes) { try { n.disconnect(); } catch(e){} } }, (end - ac.currentTime) * 1000 + 200);
+  for (const id of v.ids) voices.delete(id);
+}
+function noteOff(id, when){
+  const v = voices.get(id); if (!v) return; const ac = audio(); const t = when ?? ac.currentTime;
+  if (v === monoVoice){ heldMono = heldMono.filter(x => x !== id); if (heldMono.length) return; monoVoice = null; }
+  if (v.oneShot) return; voiceOff(v, t);
+}
+function stopVoices(){ if (!ctx) return; const t = ctx.currentTime; for (const v of new Set(voices.values())) voiceOff(v, t); monoVoice = null; heldMono = []; }
+// playDemo: the card's render pattern on the voice; returns the schedule {t0, lastOff} so an offline render knows where the last key lifts
+// Chords are scaled by voice count so a seven-note pad does not clip where one note sits right (2026-11-03, the sanity pass).
+let polyN = 0;                       // set by playDemo while it schedules a chord; otherwise the live held count stands in
+function polyGain(){ return 1 / Math.sqrt(Math.max(1, polyN || (voices.size + 1))); }
+
+// The render spec read as the card wrote it (2026-11-03, Loudon: "Yes, fix both"). The pattern is prose, so this reads cues, not grammar:
+// the note unit (sixteenths, eighths, quarters, half, whole), bars, "held N bars / N seconds", "twice", "the last held", "left to ring",
+// "arpeggio / up / down", "tied / slide", "staccato / a 16th long", "rest". length_s bounds the whole: a hold with no stated length
+// fills length_s less the release tail; a sequence with no stated bars fills as many bars as length_s allows.
+function readPattern(c){
+  const r = c.render || {}; const bpm = r.tempo || 120; const beat = 60 / bpm; const txt = String(r.pattern || '').toLowerCase();
+  const env = envTimes(c.graph.blocks.aenv?.shape); const tail = Math.max(env.r * 1.5, 0.3);
+  const length = r.length_s || 4; const bar = 4 * beat;
+  const num = w => ({ a: 1, an: 1, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, ten: 10, sixteen: 16 })[w] ?? parseFloat(w);
+  let unit = null;
+  if (/1\/32|thirty-second/.test(txt)) unit = beat / 8; else if (/sixteenth|16th/.test(txt)) unit = beat / 4; else if (/eighth|8th/.test(txt)) unit = beat / 2;
+  else if (/quarter note|quarter-note|quarters\b|quarter notes/.test(txt)) unit = beat; else if (/half note/.test(txt)) unit = 2 * beat; else if (/whole note/.test(txt)) unit = 4 * beat;
+  let bars = null; const mb = txt.match(/(\w+) bars?\b/); if (mb && !/held (\w+) bars?/.test(txt.slice(Math.max(0, mb.index - 5), mb.index + mb[0].length)) && Number.isFinite(num(mb[1]))) bars = num(mb[1]);
+  let hold = null; const mh = txt.match(/held (?:for )?(\w+) (bars?|beats?|seconds?)/); if (mh && Number.isFinite(num(mh[1]))) hold = num(mh[1]) * ({ bar: bar, bars: bar, beat: beat, beats: beat, second: 1, seconds: 1 })[mh[2]];
+  if (hold === null && /held a bar|held one bar/.test(txt)) hold = bar;
+  if (hold === null && /held/.test(txt) && !unit) hold = Math.max(beat, length - tail);
+  return { bpm, beat, bar, unit, bars, hold, tail, length, txt, env,
+    twice: /twice|two passes|then hard|soft, then/.test(txt), lastHeld: /last (note |one )?(held|left to ring|left ringing|rings)|left to ring|tail to silence/.test(txt),
+    arp: /arpegg|up and down|upward|up then down|run up|strum|one note per/.test(txt), down: /and down|then down/.test(txt),
+    staccato: /staccato|a 16th long|each a 16th|detached|short notes/.test(txt), fullLength: /full length|legato|held most/.test(txt), rests: /rest|off-beat|offbeat/.test(txt), slide: /tied|slide/.test(txt),
+    fourOnFloor: /four on the floor/.test(txt) };
+}
+function playDemo(c){
+  const ac = audio(); const r = c.render || {}; const P = readPattern(c); const { beat, bar, tail, length } = P; const t0 = ac.currentTime + 0.05;
+  const notes = (Array.isArray(r.note) ? r.note : [r.note || 'C3']).map(nameToMidi);
+  const vels = Array.isArray(r.velocity) ? r.velocity : [r.velocity || 100];
+  const mono = /mono/.test(c.mode); const drum = c.family === 'Drums and Percussion'; let lastOff = t0; let k = 0;
+  const on = (n, v, t, off) => { const id = 'd' + (k++); noteOn(c, n, v, id, t); noteOff(id, off); lastOff = Math.max(lastOff, off); return id; };
+  const bars = P.bars ?? Math.max(1, Math.round((length - tail) / bar));
+  if (!mono && notes.length > 1 && !P.arp && !P.unit){        // a chord, held
+    const passes = P.twice || vels.length > notes.length ? 2 : 1;
+    const hold = P.hold ?? Math.max(beat, (length - tail) / passes - (passes > 1 ? beat * 0.25 : 0));
+    polyN = notes.length;
+    for (let p = 0; p < passes; p++){ const t = t0 + p * (hold + beat * 0.25); notes.forEach((n, i) => on(n, vels[p * notes.length + i] ?? vels[p] ?? vels[0], t, t + hold)); }
+    polyN = 0;
+  } else if (notes.length === 1 && (P.hold !== null || (!P.unit && !drum && !P.fourOnFloor))){   // one note, held
+    const hold = P.hold ?? Math.max(beat, length - tail); on(notes[0], vels[0], t0, t0 + hold);
+  } else if (notes.length === 1 || drum){                       // one note (or a drum) as hits
+    const unit = P.unit || (P.fourOnFloor ? beat : drum ? beat : beat / 2); const n = Math.round(bars * bar / unit);
+    const gate = P.staccato ? unit * 0.5 : P.fullLength ? unit * 0.95 : Math.min(unit * 0.5, beat * 0.5);
+    for (let i = 0; i < n; i++){ if (P.rests && i % 2 === 0 && !drum) continue; const t = t0 + i * unit; const last = i === n - 1; on(notes[i % notes.length], vels[i % vels.length], t, last && P.lastHeld ? t + Math.max(bar, gate) : t + gate); }
+  } else if (!mono && (P.arp || P.unit)){                       // a chord played as a line: arpeggio, or notes in sequence
+    const unit = P.unit || beat / 4; let seq = notes.slice(); if (P.down) seq = seq.concat(notes.slice(0, -1).reverse()); const n = Math.round(bars * bar / unit);
+    const gate = P.staccato ? unit * 0.5 : unit * 0.9;
+    for (let i = 0; i < n; i++){ const t = t0 + i * unit; const last = i === n - 1; on(seq[i % seq.length], vels[i % vels.length], t, last && P.lastHeld ? t + bar : t + gate); }
+  } else {                                                      // a mono line: the notes in order, one per unit; a tied note slides
+    const unit = P.unit || beat / 2; let prev = null; let prevId = null; const count = notes.length;
+    const gateOf = (t, i) => (i === count - 1 && P.lastHeld) ? t + bar : P.staccato ? t + unit * 0.5 : t + unit * 0.95;
+    notes.forEach((n, i) => { const t = t0 + i * unit; const tied = P.slide && i > 0 && (i === 2 || i === 4);
+      if (!tied) { if (prevId) noteOff(prevId, t - 0.01); prevId = 'd' + (k++); noteOn(c, n, vels[i % vels.length], prevId, t); prev = n; lastOff = Math.max(lastOff, gateOf(t, i)); }
+      else { const v = voices.get(prevId); if (v){ const glide = word('glide', (c.taste||[]).find(x=>x.block==='osc1'&&x.param==='glide')?.default || 'short', 0.06); for (const [slot, s] of Object.entries(v.sources)) for (const o of s.freqParams){ const hz = noteToHz(n) * Math.pow(2, c.graph.blocks[slot].octave || 0) * (s.ratio || 1); o.frequency.cancelScheduledValues(t); o.frequency.setValueAtTime(o.frequency.value, t); o.frequency.exponentialRampToValueAtTime(hz, t + Math.max(glide, 0.005)); } } lastOff = Math.max(lastOff, gateOf(t, i)); } });
+    if (prevId) noteOff(prevId, lastOff);
+  }
+  return { t0, lastOff };
+}
+
+const SynthVoice = { setVocab, useContext, audio, state, word, noteToHz, nameToMidi, fxChain, makeOsc, envTimes, applyEnv, releaseEnv, envValueAt, noteOn, noteOff, voiceOff, stopVoices, playDemo, voices: () => voices };
+globalThis.SynthVoice = SynthVoice;
+})();
+</script>
+<script>
+// Synth Templates — the comparison analyser. GENERATED by build-site.py from the block inside it; edit build-site.py, never this file.
+// A port of render-features.py's features, same definitions, so the browser measures the reference it renders itself and a learner's
+// recording the same way (Plan move 5; compared by feature and by ear, never by null test). The page loads it with <script src="compare.js">;
+// a Node test can import the same file and read globalThis.SynthCompare. Plain functions, no DOM except drawSpectrogram.
+(() => {
+const db = x => 20 * Math.log10(Math.max(x, 1e-9));
+const pow2floor = n => { let p = 64; while (p * 2 <= n) p *= 2; return p; };
+
+// ---------- radix-2 FFT, in place on two Float64Arrays ----------
+function fft(re, im){
+  const n = re.length;
+  for (let i = 1, j = 0; i < n; i++){ let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j){ let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+  for (let len = 2; len <= n; len <<= 1){ const ang = -2 * Math.PI / len; const wr = Math.cos(ang), wi = Math.sin(ang);
+    for (let i = 0; i < n; i += len){ let cr = 1, ci = 0; for (let k = 0; k < len / 2; k++){ const a = i + k, b = a + len / 2; const tr = re[b] * cr - im[b] * ci, ti = re[b] * ci + im[b] * cr; re[b] = re[a] - tr; im[b] = im[a] - ti; re[a] += tr; im[a] += ti; const ncr = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = ncr; } } }
+}
+function hann(n){ const w = new Float64Array(n); for (let i = 0; i < n; i++) w[i] = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / n); return w; }   // periodic, as scipy's get_window
+// stft frames as scipy.signal.stft makes them: nperseg/2 zeros on both ends (boundary='zeros'), the tail padded to a whole hop (padded=True),
+// each frame windowed and scaled by 1/sum(window); cb(k, mag, pow) per frame, mag and pow one-sided (n/2+1 bins)
+function stft(x, nfft, hop, cb){
+  const w = hann(nfft); let wsum = 0; for (let i = 0; i < nfft; i++) wsum += w[i];
+  const half = nfft >> 1; const padded = x.length + nfft; const extra = (hop - ((padded - nfft) % hop)) % hop; const total = padded + extra;
+  const nframes = Math.floor((total - nfft) / hop) + 1; const re = new Float64Array(nfft), im = new Float64Array(nfft); const nb = half + 1;
+  const mag = new Float64Array(nb), pw = new Float64Array(nb);
+  for (let k = 0; k < nframes; k++){ const start = k * hop - half;
+    for (let i = 0; i < nfft; i++){ const s = start + i; re[i] = (s >= 0 && s < x.length ? x[s] : 0) * w[i]; im[i] = 0; }
+    fft(re, im); for (let b = 0; b < nb; b++){ const m = Math.hypot(re[b], im[b]) / wsum; mag[b] = m; pw[b] = m * m; }
+    cb(k, mag, pw); }
+  return nframes;
+}
+
+// ---------- trim: cut everything before the first sample above `dbfs` (-50 by default), so timing does not depend on when the key was pressed; grain = the envelope hop, floor(sr * 0.005) ----------
+function trimLead(ch, dbfs, grain){ const th = Math.pow(10, (dbfs ?? -50) / 20); let first = -1;
+  for (let i = 0; i < ch[0].length && first < 0; i++) for (const c of ch) if (Math.abs(c[i]) > th){ first = i; break; }
+  if (first < 0) return { ch, trimmed: 0, silent: true };
+  if (grain > 1) first -= first % grain;   // snap to the 5 ms envelope grid, so the windows fall where an untrimmed analysis would put them
+  return { ch: ch.map(c => c.subarray(first)), trimmed: first, silent: false }; }
+
+// ---------- the features of render-features.py, same definitions ----------
+// ch: array of Float32Array channels (1 or 2), sr: sample rate, lastOff: last note-off in seconds from the start of ch
+function envelope(mono, sr, win){ const h = Math.max(1, Math.floor(sr * (win || 0.005))); const n = Math.floor(mono.length / h); const env = new Float64Array(n);
+  for (let i = 0; i < n; i++){ let s = 0; const a = i * h; for (let j = a; j < a + h; j++) s += mono[j] * mono[j]; env[i] = Math.sqrt(s / h); } return { env, hop: h }; }
+function analyse(ch, sr, lastOff){
+  const L = ch[0], R = ch[1] || ch[0]; const N = L.length; const mono = new Float64Array(N);
+  let peak = 0; for (let i = 0; i < N; i++){ mono[i] = (L[i] + R[i]) / 2; const a = Math.abs(L[i]), b = Math.abs(R[i]); if (a > peak) peak = a; if (b > peak) peak = b; }
+  const { env, hop } = envelope(mono, sr); const envdb = new Float64Array(env.length); for (let i = 0; i < env.length; i++) envdb[i] = 20 * Math.log10(env[i] + 1e-9);
+  let first = -1, last = -1; for (let i = 0; i < envdb.length; i++) if (envdb[i] > -60){ if (first < 0) first = i; last = i; }
+  const F = { peak_dbfs: +db(peak).toFixed(2), rms_dbfs: -180, crest_db: 0, centroid_hz: 0, rise_s: null, tail_s: null, width: 0, lr_corr: 1, duration_s: 0, onset_s: null, sr, hop, envdb, lastOff, track: [], spec: null, silent: true };
+  if (peak < 1e-6 || first < 0) return F;
+  F.silent = false;
+  const t_on = first * hop / sr, t_end = (last + 1) * hop / sr; const s0 = Math.floor(t_on * sr), s1 = Math.floor(t_end * sr);
+  let ss = 0, cnt = 0; for (let i = s0; i < s1; i++){ ss += L[i] * L[i] + R[i] * R[i]; cnt += 2; } const rms = Math.sqrt(ss / Math.max(cnt, 1));
+  const pk_db = db(peak); let ipk = 0; for (let i = 1; i < envdb.length; i++) if (envdb[i] > envdb[ipk]) ipk = i;
+  let irise = ipk; for (let i = 0; i < envdb.length; i++) if (envdb[i] >= pk_db - 6){ irise = i; break; }
+  const rise = Math.max(irise * hop / sr - t_on, 0);
+  const off = lastOff ?? t_end; const i0 = Math.max(0, Math.floor(off * sr / hop)); let ref = -Infinity; for (let i = i0; i < envdb.length; i++) if (envdb[i] > ref) ref = envdb[i]; if (ref === -Infinity) ref = pk_db;
+  let tail = t_end - off; for (let i = i0; i < envdb.length; i++) if (envdb[i] < ref - 40){ tail = (i - i0) * hop / sr; break; }
+  let sm = 0, sS = 0, mL = 0, mR = 0; for (let i = 0; i < N; i++){ mL += L[i]; mR += R[i]; } mL /= N; mR /= N;
+  let cLL = 0, cRR = 0, cLR = 0; for (let i = 0; i < N; i++){ const m = (L[i] + R[i]) / 2, s = (L[i] - R[i]) / 2; sm += m * m; sS += s * s; const dl = L[i] - mL, dr = R[i] - mR; cLL += dl * dl; cRR += dr * dr; cLR += dl * dr; }
+  const width = Math.sqrt(sS / N) / (Math.sqrt(sm / N) + 1e-9); const corr = cLL > 0 && cRR > 0 ? cLR / Math.sqrt(cLL * cRR) : 1;
+  // spectral centroid over the sounding region, and a per-frame brightness track for the filter-envelope readings
+  const segm = mono.subarray(s0, s1); const nps = pow2floor(Math.min(2048, Math.max(64, segm.length))); const fhop = nps - Math.floor(nps * 3 / 4); const binHz = sr / nps;
+  let num = 0, den = 0; const track = [];
+  stft(segm, nps, fhop, (k, mag, pw) => { let n = 0, d = 0; for (let b = 0; b < pw.length; b++){ n += b * binHz * pw[b]; d += pw[b]; } num += n; den += d; track.push({ t: t_on + k * fhop / sr, hz: d > 0 ? n / d : 0, db: 10 * Math.log10(d + 1e-12) }); });
+  const cent = num / (den + 1e-12);
+  // an averaged long-window spectrum over the sounding region, for the wave and resonance readings
+  const nbig = Math.min(16384, pow2floor(Math.max(64, segm.length))); const P = new Float64Array(nbig / 2 + 1); let nf = 0;
+  stft(segm, nbig, nbig >> 1, (k, mag, pw) => { for (let b = 0; b < P.length; b++) P[b] += pw[b]; nf++; }); for (let b = 0; b < P.length; b++) P[b] /= Math.max(nf, 1);
+  Object.assign(F, { rms_dbfs: +db(rms).toFixed(2), crest_db: +(pk_db - db(rms)).toFixed(2), centroid_hz: +cent.toFixed(1), rise_s: +rise.toFixed(4), tail_s: +tail.toFixed(3), width: +width.toFixed(3), lr_corr: +corr.toFixed(3), duration_s: +(t_end - t_on).toFixed(3), onset_s: +t_on.toFixed(3), t_on, t_end, pk_db, ipk, track, spec: { P, binHz: sr / nbig } });
+  return F;
+}
+
+// ---------- readings: the numbers turned toward the card's words ----------
+// the measured times go straight to the nearest time word by log distance (rise to -6 dB for attack, tail to -40 dB for release, peak to -6 dB for decay);
+// an RC-curve correction (the 95 % point) was tried and read the cards worse: the filter, the beating of a unison stack and the compressor all move those points,
+// and the verdict compares ours with yours under the same reading, so no factor is applied
+function wordsOf(table, skip){ return Object.keys(table || {}).filter(w => typeof table[w] === 'number' && table[w] > 0 && !(skip || []).includes(w)); }
+function nearestLog(v, table, skip){ let best = null, bd = Infinity; for (const w of wordsOf(table, skip)){ const d = Math.abs(Math.log(Math.max(v, 1e-4)) - Math.log(table[w])); if (d < bd){ bd = d; best = w; } } return best; }
+const TIME_SKIP = ['gated', 'same as decay'];
+function harmonics(spec){   // f0 from the strongest low peak, then the odd/even power split and the richness above the fundamental
+  const { P, binHz } = spec; const lo = Math.max(1, Math.floor(30 / binHz)), hi = Math.min(P.length - 2, Math.ceil(1000 / binHz)); let ib = -1, pb = 0;
+  for (let b = lo; b <= hi; b++) if (P[b] > P[b - 1] && P[b] >= P[b + 1] && P[b] > pb){ pb = P[b]; ib = b; }
+  if (ib < 0 || pb <= 0) return null;
+  const peakNear = f => { const a = Math.max(1, Math.floor(f * 0.96 / binHz)), z = Math.min(P.length - 1, Math.ceil(f * 1.04 / binHz)); let m = 0; for (let b = a; b <= z; b++) if (P[b] > m) m = P[b]; return m; };
+  let f0 = ib * binHz; for (const div of [2, 3]) if (f0 / div >= 30 && peakNear(f0 / div) >= 0.5 * pb){ f0 = f0 / div; break; }   // a subharmonic at least half as strong is the fundamental; a sub oscillator under it is not
+  const H = []; for (let k = 1; k <= 16; k++){ if (k * f0 > binHz * (P.length - 2)) break; H.push(peakNear(k * f0)); }
+  let odd = 0, even = 0, above = 0; H.forEach((p, i) => { const k = i + 1; if (k % 2) odd += p; else even += p; if (k >= 3) above += p; });
+  return { f0: +f0.toFixed(1), evenOdd: odd > 0 ? even / odd : 0, rich: H[0] > 0 ? above / H[0] : 0 };
+}
+function waveWord(h){ if (!h) return null; if (h.rich < 0.006) return 'sine'; if (h.rich < 0.06) return 'triangle'; if (h.evenOdd < 0.15) return 'square'; return 'saw'; }
+const WAVE_ORDER = ['sine', 'triangle', 'square', 'pulse', 'saw'];
+function resonanceDb(spec, f0){   // the harmonic envelope in sixth-octave bands, each band at least a fundamental wide; the prominence of a band over the bands within an octave of it
+  const { P, binHz } = spec; const fs = [], lv = []; const halfW = f => Math.max(f * (Math.pow(2, 1 / 12) - 1), (f0 || 60) * 0.6);
+  for (let f = 80; f <= 12000; f *= Math.pow(2, 1 / 6)){ const a = Math.max(1, Math.floor((f - halfW(f)) / binHz)), z = Math.min(P.length - 1, Math.ceil((f + halfW(f)) / binHz)); let m = 0; for (let b = a; b <= z; b++) if (P[b] > m) m = P[b]; fs.push(f); lv.push(10 * Math.log10(m + 1e-12)); }
+  let best = 0, at = 0; for (let i = 0; i < fs.length; i++){ if (fs[i] < 150 || fs[i] > 8000) continue; let s = 0, n = 0; for (let j = Math.max(0, i - 6); j <= Math.min(fs.length - 1, i + 6); j++){ if (Math.abs(j - i) <= 1) continue; s += lv[j]; n++; } const prom = n ? lv[i] - s / n : 0; if (prom > best){ best = prom; at = fs[i]; } }
+  return { db: +best.toFixed(1), hz: +at.toFixed(0) };
+}
+function resonanceWord(d){ return d > 9 ? 'high' : d >= 4 ? 'moderate' : 'none'; }
+function widthWord(w){ return w < 0.15 ? 'narrow' : w > 0.4 ? 'wide' : 'some'; }
+const WIDTH_ORDER = ['narrow', 'some', 'wide'];
+function crestWord(c){ return c > 12 ? 'percussive' : c < 8 ? 'sustaining' : 'between'; }
+const CREST_ORDER = ['sustaining', 'between', 'percussive'];
+const BRIGHT_ORDER = ['zero', 'low', 'half', 'held', 'full'];
+function brightFallWord(oct){ return oct >= 2 ? 'zero' : oct >= 1 ? 'low' : oct >= 0.5 ? 'half' : oct >= 0.2 ? 'held' : 'full'; }
+const fmtS = v => v === null || v === undefined || !isFinite(v) ? '—' : v < 0.1 ? Math.round(v * 1000) + ' ms' : v.toFixed(2) + ' s';
+const fmtHz = v => v >= 1000 ? (v / 1000).toFixed(2) + ' kHz' : Math.round(v) + ' Hz';
+// readings(F, vocab) → { amp: {attack, decay, sustain, release}, filter: {attack, decay, sustain, cutoff, resonance}, osc: {wave, width} }, each { word, order, text }
+function readings(F, vocab){
+  if (!F || F.silent) return null; const T = vocab.time || {}, C = vocab.cutoff || {}; const tOrder = wordsOf(T, TIME_SKIP), cOrder = wordsOf(C);
+  const R = { amp: {}, filter: {}, osc: {} };
+  R.amp.attack = { word: nearestLog(F.rise_s, T, TIME_SKIP), order: tOrder, text: 'rise to -6 dB in ' + fmtS(F.rise_s) };
+  R.amp.release = { word: nearestLog(F.tail_s, T, TIME_SKIP), order: tOrder, text: 'tail to -40 dB in ' + fmtS(F.tail_s) };
+  let idec = -1; const iOff = Math.floor(F.lastOff * F.sr / F.hop); for (let i = F.ipk + 1; i < Math.min(F.envdb.length, iOff); i++) if (F.envdb[i] <= F.pk_db - 6){ idec = i; break; }
+  if (idec > 0){ const dT = (idec - F.ipk) * F.hop / F.sr; R.amp.decay = { word: nearestLog(dT, T, TIME_SKIP), order: tOrder, text: 'peak to -6 dB in ' + fmtS(dT) }; }
+  else R.amp.decay = { word: 'held', order: ['held'], text: 'never falls 6 dB below its peak before the last note-off: the sustain hides the decay' };
+  R.amp.sustain = { word: crestWord(F.crest_db), order: CREST_ORDER, text: 'crest ' + F.crest_db.toFixed(1) + ' dB' };
+  // the filter envelope, read from the brightness track: onset to the brightest frame, then halfway (in octaves) to the darkest frame before the last note-off
+  const fr = F.track.filter(p => p.t < F.lastOff && p.db > -100); const top = fr.reduce((m, p) => p.db > m ? p.db : m, -Infinity);
+  let endFirst = fr.length, seen = false; for (let i = 0; i < fr.length; i++){ if (fr[i].db > top - 10) seen = true; if (seen && fr[i].db < top - 30){ endFirst = i; break; } }
+  const live = fr.slice(0, endFirst).filter(p => p.db > top - 40 && p.hz > 0);   // the first note (or the whole hold), so a repeated pattern reads its first envelope
+  if (live.length > 2){ let ip = 0; for (let i = 1; i < live.length; i++) if (live[i].hz > live[ip].hz) ip = i; let fl = live[ip].hz; for (let i = ip; i < live.length; i++) if (live[i].hz < fl) fl = live[i].hz;
+    const pkHz = live[ip].hz, fall = Math.log2(pkHz / Math.max(fl, 1)); const half = Math.sqrt(pkHz * Math.max(fl, 1)); let ih = -1; for (let i = ip; i < live.length; i++) if (live[i].hz <= half){ ih = i; break; }
+    const aF = live[ip].t - F.t_on; R.filter.attack = { word: nearestLog(aF, T, TIME_SKIP), order: tOrder, text: 'brightest ' + fmtS(aF) + ' after the onset' };
+    if (fall >= 0.3 && ih > 0){ const dF = (live[ih].t - live[ip].t) * 2; R.filter.decay = { word: nearestLog(dF, T, TIME_SKIP), order: tOrder, text: 'halfway down in ' + fmtS(live[ih].t - live[ip].t) + ', so ' + fmtS(dF) + ' for the fall (the filter ramp is exponential in Hz)' }; }
+    else R.filter.decay = { word: 'held', order: ['held'], text: 'the brightness falls under a third of an octave: no decay to read' };
+    R.filter.sustain = { word: brightFallWord(fall), order: BRIGHT_ORDER, text: 'brightness falls ' + fall.toFixed(1) + ' oct from ' + fmtHz(pkHz) + ' to ' + fmtHz(fl) }; }
+  R.filter.cutoff = { word: nearestLog(F.centroid_hz, C), order: cOrder, text: 'centroid ' + fmtHz(F.centroid_hz) };
+  const h = F.spec ? harmonics(F.spec) : null; const res = F.spec ? resonanceDb(F.spec, h?.f0) : { db: 0, hz: 0 };
+  R.filter.resonance = { word: resonanceWord(res.db), order: ['none', 'moderate', 'high'], text: 'peak ' + res.db + ' dB over its octave at ' + fmtHz(res.hz) };
+  R.osc.wave = { word: waveWord(h), order: WAVE_ORDER, text: h ? 'f0 ' + fmtHz(h.f0) + ', even/odd ' + h.evenOdd.toFixed(2) + ', above the fundamental ' + h.rich.toFixed(2) : 'no fundamental found' };
+  R.osc.width = { word: widthWord(F.width), order: WIDTH_ORDER, text: 'width ' + F.width.toFixed(2) + ', L/R correlation ' + F.lr_corr.toFixed(2) };
+  return R;
+}
+// adjacent: same word or next to it in the scale's order; the three-step scales (width, crest, resonance) ask for the same word
+function adjacent(a, b, order){ if (!a || !b) return false; if (a === b) return true; if (order.length <= 3) return false; const i = order.indexOf(a), j = order.indexOf(b); return i >= 0 && j >= 0 && Math.abs(i - j) <= 1; }
+
+// ---------- spectrogram: 2048-point frames, hop 512, dB columns like render-features.py's PNG ----------
+function spectrogram(mono, sr){ const nfft = 2048, hop = 512; const cols = []; stft(mono, nfft, hop, (k, mag) => { const c = new Float32Array(mag.length); for (let b = 0; b < mag.length; b++) c[b] = 20 * Math.log10(mag[b] + 1e-7); cols.push(c); }); return { cols, binHz: sr / nfft, hop, sr, seconds: mono.length / sr }; }
+// drawSpectrogram(canvas, spec, {lastOff, ink, ground, accent}): log-frequency axis 40 Hz to 16 kHz, -90..-10 dB as ink on ground
+function drawSpectrogram(canvas, spec, o){
+  const W = canvas.width, H = canvas.height; const g = canvas.getContext('2d'); const ink = o?.ink || [26, 25, 22], ground = o?.ground || [240, 238, 229];
+  const padL = 44, padB = 18; const w = W - padL - 6, h = H - padB - 6; const fLo = 40, fHi = 16000, span = Math.log(fHi / fLo);
+  g.fillStyle = `rgb(${ground.join(',')})`; g.fillRect(0, 0, W, H);
+  const n = spec.cols.length; if (n){ const img = g.createImageData(n, h); const d = img.data;
+    for (let y = 0; y < h; y++){ const hi = fLo * Math.exp(span * (1 - y / h)), lo = fLo * Math.exp(span * (1 - (y + 1) / h)); const b0 = Math.max(0, Math.floor(lo / spec.binHz)), b1 = Math.max(b0, Math.min(spec.cols[0].length - 1, Math.ceil(hi / spec.binHz)));
+      for (let x = 0; x < n; x++){ const c = spec.cols[x]; let m = -200; for (let b = b0; b <= b1; b++) if (c[b] > m) m = c[b]; const t = Math.min(1, Math.max(0, (m + 90) / 80)); const i = (y * n + x) * 4; d[i] = ground[0] + (ink[0] - ground[0]) * t; d[i + 1] = ground[1] + (ink[1] - ground[1]) * t; d[i + 2] = ground[2] + (ink[2] - ground[2]) * t; d[i + 3] = 255; } }
+    const off = typeof OffscreenCanvas !== 'undefined' ? new OffscreenCanvas(n, h) : Object.assign(document.createElement('canvas'), { width: n, height: h }); off.getContext('2d').putImageData(img, 0, 0); g.imageSmoothingEnabled = true; g.drawImage(off, 0, 0, n, h, padL, 6, w, h); }
+  g.strokeStyle = 'rgb(106,104,98)'; g.fillStyle = 'rgb(106,104,98)'; g.font = '10px monospace'; g.textAlign = 'right'; g.lineWidth = 1;
+  for (const f of [100, 1000, 10000]){ const y = 6 + h * (1 - Math.log(f / fLo) / span); g.beginPath(); g.moveTo(padL - 4, y); g.lineTo(padL, y); g.stroke(); g.fillText(f >= 1000 ? (f / 1000) + 'k' : f, padL - 6, y + 3); }
+  g.textAlign = 'center'; const secs = spec.seconds; for (let s = 0; s <= secs; s++){ const x = padL + w * s / secs; g.beginPath(); g.moveTo(x, 6 + h); g.lineTo(x, 6 + h + 4); g.stroke(); g.fillText(s + 's', x, H - 4); }
+  if (o?.lastOff !== undefined && o.lastOff <= secs){ const x = padL + w * o.lastOff / secs; g.strokeStyle = o.accent || 'rgb(200,38,26)'; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(x, 6); g.lineTo(x, 6 + h); g.stroke(); g.setLineDash([]); }
+  g.strokeStyle = 'rgb(184,176,154)'; g.strokeRect(padL + 0.5, 6.5, w - 1, h - 1);
+}
+
+globalThis.SynthCompare = { fft, hann, stft, trimLead, envelope, analyse, readings, adjacent, harmonics, waveWord, resonanceDb, resonanceWord, widthWord, crestWord, nearestLog, wordsOf, spectrogram, drawSpectrogram, TIME_SKIP, fmtS, fmtHz };
+})();
+</script>
+<script>
+// ---- inputs: the project's card and vocabulary at main 5bc2c13a, as JSON (cards/house-bass.yaml, vocabulary.yaml draft 0.6) ----
+const CARD = {"schema": "synth-template-card/0.2", "id": "house-bass", "name": "House Bass", "family": "Bass", "tier": 1, "mode": "mono", "classics": "classic Chicago / French house", "status": "drafted", "lineage": ["Generative Audio Devices/pdl-renderer/house_bass.pdl (2026-04-20): saw → resonant LPF with filter-env pluck → VCA"], "concepts": ["Subtractive: rich wave then filter", "Envelope → filter cutoff (bite; auto-wah with long attack)"], "graph": {"blocks": {"osc1": {"kind": "oscillator", "wave": "square", "pw": 0.5, "octave": 0}, "sub": {"kind": "oscillator", "wave": "sine", "octave": -1, "note": "one octave under osc1"}, "mix": {"kind": "mixer"}, "filter1": {"kind": "filter", "type": "lowpass", "slope": 24, "resonance": "moderate"}, "amp": {"kind": "amplifier", "level": "under unity"}, "fenv": {"kind": "envelope", "role": "filter", "shape": {"a": "instant", "d": "short", "s": "zero", "r": "short"}, "category": "percussive"}, "aenv": {"kind": "envelope", "role": "amp", "shape": {"a": "fast", "d": "medium", "s": "held", "r": "short"}, "category": "sustaining"}}, "audio": [["osc1", "mix"], ["sub", "mix"], ["mix", "filter1"], ["filter1", "amp"], ["amp", "out"]], "modulation": [{"from": "fenv", "to": "filter1.cutoff", "amount": "generous", "essential": true}, {"from": "aenv", "to": "amp.level", "essential": true}, {"from": "key", "to": "osc1.pitch", "essential": true}, {"from": "key", "to": "sub.pitch", "essential": true}, {"from": "key", "to": "fenv.gate", "essential": true}, {"from": "key", "to": "aenv.gate", "essential": true}, {"from": "vel", "to": "fenv.amount", "amount": "some", "essential": false}]}, "essentials": [{"block": "osc1", "param": "wave", "value": "square", "why": "hollow odd-harmonic body; the filter shapes it without going thin"}, {"block": "filter1", "param": "type", "value": "lowpass 24 dB", "why": "steep enough that the pluck is a clear open-and-close"}, {"block": "filter1", "param": "resonance", "value": "moderate", "why": "the vowel in the 'ooh'"}, {"block": "fenv", "param": "attack", "value": "instant"}, {"block": "fenv", "param": "decay", "value": "short", "why": "the pluck"}, {"block": "fenv", "param": "sustain", "value": "zero", "why": "the pluck lives in the filter, not the amp"}, {"block": "aenv", "param": "attack", "value": "fast", "why": "tight but not a click"}, {"block": "aenv", "param": "sustain", "value": "held", "why": "the note holds under the closed filter; the body stays"}, {"block": "mode", "param": "voices", "value": "mono", "why": "one bass line; no note overlaps"}], "taste": [{"block": "filter1", "param": "cutoff", "range": "dark – mid", "default": "dark"}, {"block": "fenv", "param": "amount", "range": "moderate – generous", "default": "generous"}, {"block": "fenv", "param": "decay", "range": "short – medium", "default": "short"}, {"block": "sub", "param": "level", "range": "off – equal to osc1", "default": "half"}, {"block": "aenv", "param": "decay", "range": "medium – long", "default": "medium"}, {"block": "aenv", "param": "release", "range": "short – medium", "default": "short", "why": "staccato eighths must not smear"}, {"block": "filter1", "param": "drive", "range": "none – light", "default": "none"}, {"block": "osc1", "param": "glide", "range": "none – short", "default": "none"}], "listening": {"cue": "Every note opens and shuts in the first instant: 'ooh', not 'aah'. The body stays under it as long as the key is held.", "ab": "Raise the filter envelope's sustain to full: the pluck vanishes and it becomes a plain square bass. Put it back to zero and the 'ooh' returns."}, "render": {"tempo": 124, "note": "C2", "velocity": 100, "pattern": "offbeat eighths, one bar: rest C2 rest C2 rest C2 rest C2, each a 16th long", "length_s": 2.0}, "mappings": {}};
+const VOCAB = {"time": {"instant": 0.00488, "fast": 0.0154, "short": 0.0986, "medium": 0.575, "slow": 1.41, "long": 3.16, "very slow": 4.18, "very long": 5, "gated": 0.05, "same as decay": null}, "time_linear": {"instant": 0.00112, "fast": 0.01, "short": 0.0661, "medium": 0.35, "slow": 0.9, "long": 1.6, "very slow": 2.5, "very long": 4.4, "gated": 0.05, "same as decay": null}, "level": {"zero": 0.0, "off": 0.0, "little": 0.2, "quarter": 0.25, "low": 0.3, "half": 0.5, "held": 0.7, "under unity": 0.8, "headroom": 0.8, "equal": 1.0, "equal to osc1": 1.0, "full": 1.0, "unity": 1.0}, "cutoff": {"dark": 300, "mid": 1200, "bright": 5000, "open": 12000}, "resonance": {"none": 0.7, "clean": 0.7, "little": 1.5, "moderate": 4, "high": 10, "self-oscillating": 25}, "amount": {"none": 0, "little": 0.5, "some": 1, "moderate": 2, "generous": 3.5, "full": 5, "accent": 1.5}, "pitch_amount": {"a fifth": 700, "about an octave": 1200, "two octaves": 2400}, "detune": {"none": 0, "slight": 7, "narrow": 12, "wide": 30, "very wide": 50}, "rate": {"very slow": 0.1, "slow": 0.3, "medium": 4.5, "fast": 7, "very fast": 12}, "glide": {"none": 0, "short": 0.06, "medium": 0.15, "long": 0.4}, "drive": {"none": 0, "light": 0.25, "heavy": 0.7}, "fm_index": {"little": 1, "half": 3, "full": 6}, "reverb": {"small": 0.8, "large": 2.5, "huge": 5}};
+// ---- baked: step 4's table as this engine measured it headless (Chromium, 48 kHz, compressor on), 2026-11-04 ----
+const BAKED = {"clips":{"bar":{"base":{"level":-16.73,"bright":102.7,"rise":0.025,"tail":0.15},"rows":{"cutoff":{"feat":{"level":-17.27,"bright":149.7,"rise":0.025,"tail":0.145},"A":[],"B":[],"same":false,"fs":"brightness falls 1.1 oct from 223 Hz to 106 Hz"},"famount":{"feat":{"level":-16.56,"bright":91.3,"rise":0.025,"tail":0.15},"A":[],"B":[],"same":false,"fs":"brightness falls 1.2 oct from 143 Hz to 61 Hz"},"fdecay":{"feat":{"level":-17.37,"bright":155.2,"rise":0.025,"tail":0.15},"A":["brightness 155 outside 82–150"],"B":[],"same":false,"fs":"brightness falls 1.2 oct from 192 Hz to 81 Hz"},"suboff":{"feat":{"level":-17.19,"bright":113.1,"rise":0.015,"tail":0.15},"A":["rise 15 ms outside 25 ms–25 ms"],"B":["aenv sustain: percussive → between"],"same":false,"fs":"brightness falls 1.3 oct from 174 Hz to 69 Hz"},"subeq":{"feat":{"level":-15.47,"bright":82.2,"rise":0.025,"tail":0.145},"A":["level -15.5 outside -17.4–-16.3","brightness 82 outside 90–155"],"B":["osc1 wave: square → saw","filter1 resonance: moderate → high"],"same":false,"fs":"brightness falls 1.4 oct from 146 Hz to 54 Hz"},"adecay":{"feat":{"level":-16.28,"bright":100.8,"rise":0.025,"tail":0.15},"A":[],"B":[],"same":false,"fs":"brightness falls 1.6 oct from 182 Hz to 61 Hz"},"arel":{"feat":{"level":-16.78,"bright":89.8,"rise":0.025,"tail":0.73},"A":["tail 730 ms outside 145 ms–150 ms"],"B":["fenv attack: fast → slow"],"same":false,"fs":"brightness falls 2.0 oct from 248 Hz to 61 Hz"},"fsusfull":{"feat":{"level":-17.38,"bright":157.4,"rise":0.025,"tail":0.15},"A":["brightness 157 outside 82–155"],"B":["filter1 resonance: moderate → high"],"same":false,"fs":"brightness falls 1.2 oct from 192 Hz to 84 Hz"},"fsushalf":{"feat":{"level":-17.31,"bright":146.8,"rise":0.025,"tail":0.15},"A":[],"B":[],"same":false,"fs":"brightness falls 1.2 oct from 189 Hz to 80 Hz"},"saw":{"feat":{"level":-20.16,"bright":109.3,"rise":0.12,"tail":0.09},"A":["level -20.2 outside -17.4–-15.5","rise 120 ms outside 15 ms–25 ms","tail 90 ms outside 145 ms–730 ms"],"B":["osc1 wave: square → saw"],"same":false,"fs":"brightness falls 1.6 oct from 211 Hz to 70 Hz"},"resnone":{"feat":{"level":-17.04,"bright":91.7,"rise":0.025,"tail":0.15},"A":[],"B":["aenv sustain: percussive → between"],"same":false,"fs":"brightness falls 1.4 oct from 156 Hz to 60 Hz"},"reshigh":{"feat":{"level":-16.16,"bright":131.4,"rise":0.095,"tail":0.15},"A":["rise 95 ms outside 15 ms–25 ms"],"B":[],"same":false,"fs":"brightness falls 2.0 oct from 252 Hz to 63 Hz"},"bandpass":{"feat":{"level":-34.13,"bright":334.4,"rise":0.095,"tail":0.155},"A":["level -34.1 outside -17.4–-15.5","brightness 334 outside 82–155","rise 95 ms outside 15 ms–25 ms"],"B":["filter1 resonance: moderate → none"],"same":false,"fs":"brightness falls 3.4 oct from 1.67 kHz to 157 Hz"},"fatt":{"feat":{"level":-17.03,"bright":124.8,"rise":0.025,"tail":0.15},"A":[],"B":[],"same":false,"fs":"brightness falls 1.2 oct from 186 Hz to 80 Hz"},"aatt":{"feat":{"level":-24.79,"bright":79.4,"rise":0.085,"tail":0.15},"A":["level -24.8 outside -17.4–-15.5","brightness 79 outside 82–155","rise 85 ms outside 15 ms–25 ms"],"B":[],"same":false,"fs":"brightness falls 1.7 oct from 200 Hz to 62 Hz"},"asus":{"feat":{"level":-18.49,"bright":112.2,"rise":0.025,"tail":0.15},"A":["level -18.5 outside -17.4–-15.5"],"B":[],"same":false,"fs":"brightness falls 1.6 oct from 182 Hz to 61 Hz"},"null":{"feat":{"level":-16.73,"bright":102.7,"rise":0.025,"tail":0.15},"A":[],"B":[],"same":true,"fs":"brightness falls 1.6 oct from 182 Hz to 61 Hz"},"noise":{"feat":{"level":-23.91,"bright":210.6,"rise":1.49,"tail":0.135},"A":["level -23.9 outside -17.4–-15.5","brightness 211 outside 82–155","rise 1490 ms outside 15 ms–25 ms","tail 135 ms outside 145 ms–730 ms"],"B":["aenv attack: fast → slow"],"same":false,"fs":"brightness falls 4.7 oct from 723 Hz to 28 Hz"}},"noise":{"seeds":8,"A":8,"B":4,"wave":["triangle","triangle","triangle","triangle","triangle","triangle","triangle","triangle"]},"baseFs":"brightness falls 1.6 oct from 182 Hz to 61 Hz"},"held":{"base":{"level":-13.36,"bright":68.8,"rise":0.035,"tail":0.14},"rows":{"cutoff":{"feat":{"level":-14.22,"bright":125.1,"rise":0.055,"tail":0.14},"A":["brightness 125 outside 58–100"],"B":["aenv sustain: sustaining → between"],"same":false,"fs":"brightness falls 1.2 oct from 250 Hz to 107 Hz"},"famount":{"feat":{"level":-13.34,"bright":67.6,"rise":0.025,"tail":0.14},"A":[],"B":[],"same":false,"fs":"brightness falls 1.3 oct from 155 Hz to 61 Hz"},"fdecay":{"feat":{"level":-13.81,"bright":100.2,"rise":0.055,"tail":0.14},"A":[],"B":["aenv sustain: sustaining → between"],"same":false,"fs":"brightness falls 1.8 oct from 209 Hz to 61 Hz"},"suboff":{"feat":{"level":-13.89,"bright":74.2,"rise":0.06,"tail":0.145},"A":[],"B":[],"same":false,"fs":"brightness falls 1.3 oct from 174 Hz to 69 Hz"},"subeq":{"feat":{"level":-12.12,"bright":58.4,"rise":0.025,"tail":0.135},"A":["brightness 58 outside 68–125"],"B":[],"same":false,"fs":"brightness falls 1.7 oct from 169 Hz to 54 Hz"},"adecay":{"feat":{"level":-12.19,"bright":67.9,"rise":0.055,"tail":0.14},"A":[],"B":[],"same":false,"fs":"brightness falls 1.7 oct from 201 Hz to 61 Hz"},"arel":{"feat":{"level":-15.86,"bright":68.4,"rise":0.035,"tail":0.725},"A":["level -15.9 outside -14.2–-12.1","tail 725 ms outside 135 ms–145 ms"],"B":["aenv sustain: sustaining → between"],"same":false,"fs":"brightness falls 1.7 oct from 201 Hz to 61 Hz"},"fsusfull":{"feat":{"level":-14.49,"bright":157.6,"rise":0.055,"tail":0.145},"A":["brightness 158 outside 58–125"],"B":["aenv sustain: sustaining → between"],"same":false,"fs":"brightness falls 0.6 oct from 210 Hz to 135 Hz"},"fsushalf":{"feat":{"level":-14.38,"bright":141.3,"rise":0.055,"tail":0.145},"A":["brightness 141 outside 58–125"],"B":["aenv sustain: sustaining → between"],"same":false,"fs":"brightness falls 0.8 oct from 208 Hz to 122 Hz"},"saw":{"feat":{"level":-16.62,"bright":79,"rise":0.055,"tail":0.08},"A":["level -16.6 outside -15.9–-12.1","tail 80 ms outside 135 ms–725 ms"],"B":["osc1 wave: triangle → saw","filter1 resonance: high → moderate","aenv sustain: sustaining → between"],"same":false,"fs":"brightness falls 1.7 oct from 232 Hz to 70 Hz"},"resnone":{"feat":{"level":-13.78,"bright":66.2,"rise":0.025,"tail":0.14},"A":[],"B":[],"same":false,"fs":"brightness falls 1.5 oct from 172 Hz to 60 Hz"},"reshigh":{"feat":{"level":-13,"bright":74.8,"rise":0.055,"tail":0.14},"A":[],"B":["aenv sustain: sustaining → between"],"same":false,"fs":"brightness falls 2.2 oct from 280 Hz to 63 Hz"},"bandpass":{"feat":{"level":-31.73,"bright":188.5,"rise":0.095,"tail":0.145},"A":["level -31.7 outside -15.9–-12.1","brightness 189 outside 58–125","rise 95 ms outside 25 ms–60 ms"],"B":["aenv sustain: sustaining → between"],"same":false,"fs":"brightness falls 3.4 oct from 1.73 kHz to 159 Hz"},"fatt":{"feat":{"level":-13.46,"bright":75.9,"rise":0.025,"tail":0.14},"A":[],"B":[],"same":false,"fs":"brightness falls 1.6 oct from 190 Hz to 61 Hz"},"aatt":{"feat":{"level":-13.02,"bright":64.6,"rise":0.18,"tail":0.14},"A":["rise 180 ms outside 25 ms–60 ms"],"B":[],"same":false,"fs":"brightness falls 1.9 oct from 221 Hz to 61 Hz"},"asus":{"feat":{"level":-21.21,"bright":88.8,"rise":0.025,"tail":0.14},"A":["level -21.2 outside -15.9–-12.1"],"B":["filter1 resonance: high → moderate","aenv sustain: sustaining → percussive"],"same":false,"fs":"brightness falls 1.7 oct from 201 Hz to 61 Hz"},"null":{"feat":{"level":-13.36,"bright":68.8,"rise":0.035,"tail":0.14},"A":[],"B":[],"same":true,"fs":"brightness falls 1.7 oct from 201 Hz to 61 Hz"},"noise":{"feat":{"level":-21.83,"bright":62.4,"rise":0.065,"tail":0.14},"A":["level -21.8 outside -15.9–-12.1"],"B":["filter1 resonance: high → moderate","aenv sustain: sustaining → between"],"same":false,"fs":"brightness falls 4.7 oct from 756 Hz to 29 Hz"}},"noise":{"seeds":8,"A":8,"B":8,"wave":["triangle","triangle","triangle","triangle","triangle","triangle","triangle","triangle"]},"baseFs":"brightness falls 1.7 oct from 201 Hz to 61 Hz"}}};
+
+const V = SynthVoice, C = SynthCompare; V.setVocab(VOCAB);
+const SR = 48000, clone = o => JSON.parse(JSON.stringify(o));
+const BEAT = 60 / CARD.render.tempo, NOTE = V.nameToMidi(CARD.render.note), VEL = CARD.render.velocity;
+const tasteOf = (c, b, p) => c.taste.find(t => t.block === b && t.param === p);
+
+// ---- the moves: taste to the far end of the card's own range; essentials to a value a player could set ----
+const MOVES = [
+  { id: 'cutoff',  kind: 'taste', label: 'Filter 1 cutoff frequency: dark → mid', set: c => { tasteOf(c, 'filter1', 'cutoff').default = 'mid'; } },
+  { id: 'famount', kind: 'taste', label: 'Filter envelope amount: generous → moderate', set: c => { c.graph.modulation.find(m => m.from === 'fenv').amount = 'moderate'; } },
+  { id: 'fdecay',  kind: 'taste', label: 'Filter envelope decay time: short → medium', set: c => { c.graph.blocks.fenv.shape.d = 'medium'; } },
+  { id: 'suboff',  kind: 'taste', label: 'Sub oscillator level: half → off', set: c => { tasteOf(c, 'sub', 'level').default = 'off'; } },
+  { id: 'subeq',   kind: 'taste', label: 'Sub oscillator level: half → equal to oscillator 1', set: c => { tasteOf(c, 'sub', 'level').default = 'equal to osc1'; } },
+  { id: 'adecay',  kind: 'taste', label: 'Amplitude envelope decay time: medium → long', set: c => { c.graph.blocks.aenv.shape.d = 'long'; } },
+  { id: 'arel',    kind: 'taste', label: 'Amplitude envelope release time: short → medium', set: c => { c.graph.blocks.aenv.shape.r = 'medium'; } },
+  { id: 'fsusfull', kind: 'essential', label: 'Filter envelope sustain level: zero → full (the card’s A/B)', set: c => { c.graph.blocks.fenv.shape.s = 'full'; } },
+  { id: 'fsushalf', kind: 'essential', label: 'Filter envelope sustain level: zero → half', set: c => { c.graph.blocks.fenv.shape.s = 'half'; } },
+  { id: 'saw',     kind: 'essential', label: 'Oscillator 1 wave: square → saw', set: c => { c.graph.blocks.osc1.wave = 'saw'; } },
+  { id: 'resnone', kind: 'essential', label: 'Filter 1 resonance: moderate → none', set: c => { c.graph.blocks.filter1.resonance = 'none'; } },
+  { id: 'reshigh', kind: 'essential', label: 'Filter 1 resonance: moderate → high', set: c => { c.graph.blocks.filter1.resonance = 'high'; } },
+  { id: 'bandpass', kind: 'essential', label: 'Filter 1 type: low-pass → band-pass', set: c => { c.graph.blocks.filter1.type = 'bandpass'; } },
+  { id: 'fatt',    kind: 'essential', label: 'Filter envelope attack time: instant → short', set: c => { c.graph.blocks.fenv.shape.a = 'short'; } },
+  { id: 'aatt',    kind: 'essential', label: 'Amplitude envelope attack time: fast → medium', set: c => { c.graph.blocks.aenv.shape.a = 'medium'; } },
+  { id: 'asus',    kind: 'essential', label: 'Amplitude envelope sustain level: held → zero', set: c => { c.graph.blocks.aenv.shape.s = 'zero'; } },
+];
+const CHECKS = [
+  { id: 'null',  kind: 'check', want: 'kept', label: 'Nothing moved, rendered again', set: c => {} },
+  { id: 'noise', kind: 'check', want: 'lost', label: 'Oscillator 1 wave: square → noise', set: c => { c.graph.blocks.osc1.wave = 'noise'; } },
+];
+const variant = m => { const c = clone(CARD); m.set(c); return c; };
+
+// ---- the clips, scheduled on the voice; returns the last note-off ----
+function schedule(c, clip, t0){
+  const on = (id, t, len) => { V.noteOn(c, NOTE, VEL, id, t); V.noteOff(id, t + len); return t + len; };
+  let last = t0;
+  if (clip === 'bar' || clip === 'trial') for (let k = 0; k < 4; k++) last = on('b' + k, t0 + k * BEAT + BEAT / 2, BEAT / 4);   // rest C2 rest C2 rest C2 rest C2, each a 16th long
+  if (clip === 'held') last = on('h', t0, 0.8);
+  if (clip === 'trial') last = on('h', t0 + 4 * BEAT, 0.8);
+  return last;
+}
+const CLIP_S = { bar: 4, held: 3, trial: 5 };
+
+// ---- one offline render, the site's way: the voice on an OfflineAudioContext, compressor on, then handed back to the live context ----
+let live = null;
+function liveCtx(){ if (!live){ live = new (window.AudioContext || window.webkitAudioContext)(); V.useContext(live, false); } if (live.state === 'suspended') live.resume(); return live; }
+// the voice's noise source draws on Math.random; a seeded stand-in during scheduling makes every render repeatable
+function seeded(seed){ let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+async function render(c, clip, seed){
+  V.stopVoices(); const keepRandom = Math.random; Math.random = seeded(seed || 1);
+  const off = new OfflineAudioContext(2, Math.ceil(SR * CLIP_S[clip]), SR); let lastOff, pending;
+  const old = V.state.master;
+  try { V.useContext(off, true); lastOff = schedule(c, clip, 0.05); pending = off.startRendering(); }
+  finally { Math.random = keepRandom; if (live) { V.useContext(live, false); if (old) setTimeout(() => { try { old.disconnect(); } catch(e){} }, 8000); } }
+  const buf = await pending; const ch = [buf.getChannelData(0), buf.getChannelData(1)];
+  const tr = C.trimLead(ch, -50, Math.floor(SR * 0.005)); const lo = lastOff - tr.trimmed / SR;
+  const F = C.analyse(tr.ch, SR, lo); const R = C.readings(F, VOCAB);
+  return { buf, F, R, feat: { level: F.rms_dbfs, bright: F.centroid_hz, rise: F.rise_s, tail: F.tail_s } };
+}
+
+// ---- meter A: the sidecar's taste region ----
+const FEATS = [['level', 'level', 'dBFS'], ['bright', 'brightness', 'Hz'], ['rise', 'rise', 's'], ['tail', 'tail', 's']];
+const grain = (f, v) => f === 'level' ? 0.1 : f === 'bright' ? Math.abs(v) * 0.01 : 0.005;
+function meterA(feat, pool){
+  const out = [];
+  for (const [f, name] of FEATS){ const vals = pool.map(p => p[f]); const lo = Math.min(...vals), hi = Math.max(...vals);
+    const v = feat[f]; if (v < lo - grain(f, lo) || v > hi + grain(f, hi)) out.push(name + ' ' + fmtF(f, v) + ' outside ' + fmtF(f, lo) + '–' + fmtF(f, hi)); }
+  return out;
+}
+// ---- meter B: the comparison page's verdict (build-site.py buildReport: GRADED params, readingFor, adjacent) ----
+const GRADED = ['attack', 'release', 'decay', 'sustain', 'cutoff', 'resonance', 'wave', 'unison', 'detune'];
+function readingFor(e, R){ const b = e.block, p = e.param; if (b === 'aenv') return R.amp[p] || null; if (b === 'fenv') return R.filter[p] || null; if (/^filter/.test(b)) return R.filter[p] || null; if (/^(osc|sub)/.test(b)){ if (p === 'wave') return R.osc.wave; if (p === 'unison' || p === 'detune') return R.osc.width; } return null; }
+function meterB(Rours, Ryours){
+  const out = [];
+  for (const e of CARD.essentials.filter(e => GRADED.includes(e.param))){ const ro = readingFor(e, Rours), ry = readingFor(e, Ryours); if (!ro || !ry) continue;
+    if (!C.adjacent(ro.word, ry.word, ro.order)) out.push(e.block + ' ' + e.param + ': ' + ro.word + ' → ' + ry.word); }
+  return out;
+}
+function fmtF(f, v){ if (v === null || v === undefined) return '—'; if (f === 'level') return v.toFixed(1); if (f === 'bright') return Math.round(v) + ''; return Math.round(v * 1000) + ' ms'; }
+
+// ---- the whole table: 2 clips × (untouched + 16 moves + 2 checks) ----
+async function measureAll(progress){
+  const res = { clips: {} };
+  for (const clip of ['bar', 'held']){
+    const base = await render(clone(CARD), clip); const rows = {};
+    for (const m of [...MOVES, ...CHECKS]){ const r = await render(variant(m), clip); rows[m.id] = { feat: r.feat, R: r.R }; if (progress) progress(clip, m.id); }
+    const noiseSeeds = []; for (let sd = 2; sd <= 8; sd++){ const r = await render(variant(CHECKS[1]), clip, sd); noiseSeeds.push(r); if (progress) progress(clip, 'noise ' + sd); }
+    const tastePool = id => [base.feat, ...MOVES.filter(m => m.kind === 'taste' && m.id !== id).map(m => rows[m.id].feat)];
+    const out = { base: base.feat, rows: {} };
+    for (const m of [...MOVES, ...CHECKS]){ const r = rows[m.id];
+      const a = meterA(r.feat, tastePool(m.id)); const b = meterB(base.R, r.R);
+      const same = FEATS.every(([f]) => r.feat[f] === base.feat[f]);
+      out.rows[m.id] = { feat: r.feat, A: a, B: b, same, fs: readingFor(CARD.essentials.find(e => e.block === 'fenv' && e.param === 'sustain'), r.R)?.text }; }
+    const pool = tastePool(null); out.noise = { seeds: 1 + noiseSeeds.length, A: [rows.noise, ...noiseSeeds].filter(r => meterA(r.feat, pool).length > 0).length, B: [rows.noise, ...noiseSeeds].filter(r => meterB(base.R, r.R).length > 0).length, wave: [rows.noise, ...noiseSeeds].map(r => r.R.osc.wave.word) };
+    out.baseFs = readingFor(CARD.essentials.find(e => e.block === 'fenv' && e.param === 'sustain'), base.R)?.text;
+    res.clips[clip] = out;
+  }
+  return res;
+}
+function tally(res){
+  const t = {};
+  for (const clip of ['bar', 'held']){ const rows = res.clips[clip].rows; const z = { A: { agree: 0, taste: [0, 0], ess: [0, 0] }, B: { agree: 0, taste: [0, 0], ess: [0, 0] } };
+    for (const m of MOVES) for (const k of ['A', 'B']){ const lost = rows[m.id][k].length > 0; const arm = m.kind === 'taste' ? z[k].taste : z[k].ess; arm[1]++; const ok = m.kind === 'taste' ? !lost : lost; if (ok){ arm[0]++; z[k].agree++; } }
+    const nz = res.clips[clip].noise; z.checks = { nullA: rows.null.A.length === 0 && rows.null.same, nullB: rows.null.B.length === 0, noiseA: nz.A === nz.seeds, noiseB: nz.B === nz.seeds, noise: nz };
+    t[clip] = z; }
+  return t;
+}
+
+// ---- drawing step 4 ----
+function cell(list, kind){ const lost = list.length > 0; const ok = kind === 'check' ? null : (kind === 'taste' ? !lost : lost); return `<td class="${lost ? 'l' : 'k'}">${lost ? 'lost' : 'kept'}${ok === false ? ' ✕' : ''}<small>${list.join('; ') || ''}</small></td>`; }
+function drawTable(res, when){
+  const T = tally(res); const n = MOVES.length, nt = MOVES.filter(m => m.kind === 'taste').length, ne = n - nt;
+  let h = `<table class="meas"><tr><th>move</th><th>the card says</th><th>bar · meter A</th><th>bar · meter B</th><th>held · meter A</th><th>held · meter B</th></tr>`;
+  const b = res.clips.bar.base, hb = res.clips.held.base;
+  h += `<tr class="sep"><td class="x">untouched</td><td></td><td colspan="2"><small>level ${fmtF('level', b.level)} · brightness ${fmtF('bright', b.bright)} Hz · rise ${fmtF('rise', b.rise)} · tail ${fmtF('tail', b.tail)}</small></td><td colspan="2"><small>level ${fmtF('level', hb.level)} · brightness ${fmtF('bright', hb.bright)} Hz · rise ${fmtF('rise', hb.rise)} · tail ${fmtF('tail', hb.tail)}</small></td></tr>`;
+  for (const m of [...MOVES, ...CHECKS]){ const ra = res.clips.bar.rows[m.id], rh = res.clips.held.rows[m.id];
+    const says = m.kind === 'check' ? `check: must read ${m.want}` : m.kind === 'taste' ? '<span class="tag t">taste</span>kept' : '<span class="tag e">essential</span>lost';
+    h += `<tr${m.id === 'asus' ? ' class="sep"' : ''}><td class="x">${m.label}</td><td>${says}</td>${cell(ra.A, m.kind)}${cell(ra.B, m.kind)}${cell(rh.A, m.kind)}${cell(rh.B, m.kind)}</tr>`; }
+  h += `<tr><td class="x">agreement with the card</td><td>${n} moves</td>` + ['bar', 'held'].map(cl => ['A', 'B'].map(k => `<td class="x">${T[cl][k].agree} of ${n}<small>taste kept ${T[cl][k].taste[0]}/${nt} · essential lost ${T[cl][k].ess[0]}/${ne}</small></td>`).join('')).join('') + `</tr></table>`;
+  document.querySelector('[data-table]').innerHTML = h;
+  const ck = T.bar.checks, hk = T.held.checks;
+  const fsBar = res.clips.bar.rows.fsusfull, fsHeld = res.clips.held.rows.fsusfull;
+  const seen = []; for (const cl of ['bar', 'held']) for (const k of ['A', 'B']) if (T[cl][k].agree === n) seen.push('meter ' + k + ' on the ' + (cl === 'bar' ? 'bar' : 'held note'));
+  const head = seen.length ? 'The card\'s split is seen whole by ' + seen.join(' and ') + '. ' : 'Neither meter sees the card\'s split whole, on either clip. ';
+  const counts = 'On the bar, meter A agrees with the card on <b>' + T.bar.A.agree + '</b> of ' + n + ' moves and meter B on <b>' + T.bar.B.agree + '</b>; on the held note, A on <b>' + T.held.A.agree + '</b> and B on <b>' + T.held.B.agree + '</b>. ';
+  const fsWord = list => list.some(x => /^fenv sustain/.test(x));
+  const ab = 'The card\'s own A/B, filter sustain to full: meter A ' + (fsBar.A.length ? 'sees it on the bar (' + fsBar.A.join('; ') + ')' : 'misses it on the bar') + ' and ' + (fsHeld.A.length ? 'on the held note (' + fsHeld.A.join('; ') + ')' : 'misses it on the held note') + '. Meter B\'s reading for that very knob, the filter\'s sustain, ' + (fsWord(fsBar.B) || fsWord(fsHeld.B) ? 'flags it' : 'calls it a match on both clips') + ': "' + res.clips.bar.baseFs + '" untouched against "' + fsBar.fs + '" moved on the bar, "' + res.clips.held.baseFs + '" against "' + fsHeld.fs + '" held' + ((fsBar.B.length || fsHeld.B.length) && !(fsWord(fsBar.B) || fsWord(fsHeld.B)) ? '; where B calls the move lost it is by another reading (' + [...fsBar.B, ...fsHeld.B].join('; ') + ')' : '') + '. ';
+  const fd = res.clips.bar.rows.fdecay.feat, fsf = fsBar.feat;
+  const twin = 'On the bar, the taste move filter decay to medium measures level ' + fmtF('level', fd.level) + ', brightness ' + fmtF('bright', fd.bright) + ' Hz, rise ' + fmtF('rise', fd.rise) + ', tail ' + fmtF('tail', fd.tail) + '; the A/B measures ' + fmtF('level', fsf.level) + ', ' + fmtF('bright', fsf.bright) + ' Hz, ' + fmtF('rise', fsf.rise) + ', ' + fmtF('tail', fsf.tail) + ': a decay longer than a sixteenth never finishes inside the note, so on the card\'s own bar the far end of a taste range and the essential move nearly meet. Held, they part (' + fmtF('bright', res.clips.held.rows.fdecay.feat.bright) + ' Hz against ' + fmtF('bright', fsHeld.feat.bright) + ' Hz). ';
+  const ckLine = ['bar', 'held'].map(cl => { const k = T[cl].checks; return (cl === 'bar' ? 'On the bar' : 'Held') + ', the untouched sound rendered again reads kept on ' + (k.nullA && k.nullB ? 'both meters, every number unchanged' : (k.nullA ? 'A only' : k.nullB ? 'B only' : 'neither')) + '; noise in place of the square (' + k.noise.seeds + ' noise seeds) reads lost on meter A ' + k.noise.A + ' of ' + k.noise.seeds + ' and on meter B ' + k.noise.B + ' of ' + k.noise.seeds + (k.noise.wave.every(w => w !== 'saw' && w !== 'square') ? ' (B reads the noise as a "' + [...new Set(k.noise.wave)].join('/') + '" wave, from the sub under it)' : '') + '.'; }).join(' ');
+  const blindB = !(ck.noiseB && hk.noiseB), blindA = !(ck.noiseA && hk.noiseA), nullBad = !(ck.nullA && ck.nullB && hk.nullA && hk.nullB);
+  document.querySelector('[data-verdict]').innerHTML = (nullBad ? '<b>The repeat check failed</b>: the renders are not repeatable, so the table means nothing. ' : '') + head + counts + '<p class="note">' + ab + twin + '</p><p class="note">' + ckLine + (blindB ? ' So meter B fails its own control: it can call a sound with no square in it a match, and its column is not a measure of lost.' : '') + (blindA ? ' Meter A fails its control.' : '') + ' ' + when + '.</p>';
+}
+
+// ---- live playing: press to start, lift to end (the site's standing order) ----
+const knobs = { cutoff: 0, fsus: 0 };
+const cutHz = x => 300 * Math.pow(4, x);   // dark 300 Hz to mid 1200 Hz, even in pitch
+function stageCard(stage){ const c = clone(CARD); if (stage === 's2') tasteOf(c, 'filter1', 'cutoff').default = cutHz(knobs.cutoff); if (stage === 's3') c.graph.blocks.fenv.shape.s = knobs.fsus; return c; }
+let held = null, timers = [];
+function stopAll(){ timers.forEach(clearTimeout); timers = []; if (live) V.stopVoices(); held = null; stopBufs(); document.querySelectorAll('button.down').forEach(b => b.classList.remove('down')); }
+function pressable(el, down, up){
+  el.addEventListener('pointerdown', e => { if (e.button !== 0) return; e.preventDefault(); el.setPointerCapture?.(e.pointerId); el.classList.add('down'); el.__pressed = true; down(); });
+  const lift = () => { if (!el.__pressed) return; el.__pressed = false; el.classList.remove('down'); up && up(); };
+  el.addEventListener('pointerup', lift); el.addEventListener('pointercancel', lift); el.addEventListener('lostpointercapture', lift);
+  el.addEventListener('click', e => { if (e.detail === 0){ down(); if (up) timers.push(setTimeout(up, 800)); } });   // a keyboard-driven click has no press: it still sounds
+}
+document.querySelectorAll('[data-play="bar"]').forEach(b => pressable(b, () => { stopAll(); const ac = liveCtx(); schedule(stageCard(b.dataset.stage), 'bar', ac.currentTime + 0.05); }, null));
+document.querySelectorAll('[data-hold]').forEach(b => pressable(b, () => { stopAll(); const ac = liveCtx(); held = 'live' + Math.random(); V.noteOn(stageCard(b.dataset.hold), NOTE, VEL, held, ac.currentTime + 0.01); }, () => { if (held && live){ V.noteOff(held, live.currentTime); held = null; } }));
+document.querySelectorAll('[data-stop]').forEach(b => b.addEventListener('click', stopAll));
+
+// ---- the readings beside steps 1–3 ----
+let baseBar = null, baseHeld = null;
+function readHTML(bar, heldR, ref){
+  const one = (label, r, rr) => FEATS.map(([f, name, u]) => { const v = r.feat[f], d = rr ? v - rr.feat[f] : null;
+    const dd = rr ? (f === 'bright' ? ' <span class="d">' + (d >= 0 ? '+' : '') + Math.log2(v / rr.feat[f]).toFixed(2) + ' oct</span>' : ' <span class="d">' + (d >= 0 ? '+' : '') + (f === 'level' ? d.toFixed(1) + ' dB' : Math.round(d * 1000) + ' ms') + '</span>') : '';
+    return `<div>${label} · ${name}<b>${fmtF(f, v)}${f === 'level' ? ' dBFS' : f === 'bright' ? ' Hz' : ''}${dd}</b></div>`; }).join('');
+  return one('bar', bar, ref && ref[0]) + one('held', heldR, ref && ref[1]);
+}
+async function readStage(stage){
+  const msg = document.querySelector(`[data-msg="${stage}"]`); msg.textContent = 'measuring…';
+  const c = stageCard(stage); const a = await render(c, 'bar'), h = await render(c, 'held');
+  if (!baseBar){ baseBar = stage === 's1' ? a : await render(clone(CARD), 'bar'); baseHeld = stage === 's1' ? h : await render(clone(CARD), 'held'); }
+  document.querySelector(`[data-read="${stage}"]`).innerHTML = readHTML(a, h, stage === 's1' ? null : [baseBar, baseHeld]);
+  msg.textContent = '';
+}
+function showKnob(k){ document.querySelector(`[data-val="${k}"]`).textContent = k === 'cutoff' ? Math.round(cutHz(knobs.cutoff)) + ' Hz' + (knobs.cutoff === 0 ? ' · dark' : knobs.cutoff === 1 ? ' · mid' : '') : knobs.fsus.toFixed(2) + (knobs.fsus === 0 ? ' · zero' : knobs.fsus === 1 ? ' · full' : ''); }
+document.querySelectorAll('[data-knob]').forEach(r => { const k = r.dataset.knob; showKnob(k);
+  r.addEventListener('input', () => { knobs[k] = +r.value; showKnob(k); });
+  r.addEventListener('change', () => { if (!held) readStage(k === 'cutoff' ? 's2' : 's3'); }); });
+// the baked first readings, so a frame that never renders still shows numbers
+function bakedRead(stage){ const b = BAKED.clips.bar.base, h = BAKED.clips.held.base; const r = x => ({ feat: x });
+  document.querySelector(`[data-read="${stage}"]`).innerHTML = readHTML(r(b), r(h), stage === 's1' ? null : [r(b), r(h)]); }
+if (BAKED) ['s1', 's2', 's3'].forEach(bakedRead);
+
+// ---- step 4 ----
+if (BAKED) drawTable(BAKED, 'Measured headless 2026-11-04 by this engine');
+document.querySelector('[data-measure]').addEventListener('click', async () => {
+  stopAll(); liveCtx(); const msg = document.querySelector('[data-msg="s4"]'); let k = 0; const total = 2 * (MOVES.length + CHECKS.length);
+  const res = await measureAll(() => { msg.textContent = 'rendering ' + (++k) + ' of ' + total + '…'; });
+  const same = !!BAKED && JSON.stringify(tally(res)) === JSON.stringify(tally(BAKED));
+  drawTable(res, 'Measured again here, ' + new Date().toISOString().slice(0, 16).replace('T', ' ') + (same ? '; every verdict matches the baked table' : '; the verdicts differ from the baked table'));
+  msg.textContent = '';
+});
+
+// ---- step 5: the blind trials ----
+const TRIAL_MOVES = ['cutoff', 'famount', 'fdecay', 'subeq', 'adecay', 'arel', 'fsusfull', 'saw', 'resnone', 'fatt', 'aatt', 'asus'];
+const TAUGHT = ['cutoff', 'fsusfull'];
+let T5 = null, bufs = [];
+function stopBufs(){ bufs.forEach(s => { try { s.stop(); } catch(e){} }); bufs = []; }
+function playBuf(buf, gain){ stopAll(); const ac = liveCtx(); const s = ac.createBufferSource(); s.buffer = buf; const g = ac.createGain(); g.gain.value = gain * 0.8; s.connect(g); g.connect(ac.destination); s.start(); bufs.push(s); }
+const box = document.querySelector('[data-trialbox]'), res5 = document.querySelector('[data-result]'), msg5 = document.querySelector('[data-msg="s5"]');
+document.querySelector('[data-begin]').addEventListener('click', async () => {
+  stopAll(); liveCtx(); res5.innerHTML = ''; msg5.textContent = 'rendering thirteen clips…';
+  const ref = await render(clone(CARD), 'trial'); const order = TRIAL_MOVES.slice();
+  for (let i = order.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
+  const trials = [];
+  for (const id of order){ const m = MOVES.find(x => x.id === id); const r = await render(variant(m), 'trial'); const gain = Math.pow(10, (ref.F.rms_dbfs - r.F.rms_dbfs) / 20); trials.push({ id, kind: m.kind, label: m.label, buf: r.buf, gain, peak: r.F.peak_dbfs + 20 * Math.log10(gain), ans: null }); }
+  T5 = { ref, trials, at: 0, heard: false }; msg5.textContent = ''; box.hidden = false; showTrial();
+});
+function showTrial(){ const t = T5.trials[T5.at]; document.querySelector('[data-trialno]').textContent = 'Trial ' + (T5.at + 1) + ' of ' + T5.trials.length; T5.heard = false; document.querySelectorAll('[data-ans]').forEach(b => b.disabled = true); }
+document.querySelectorAll('[data-tplay]').forEach(b => pressable(b, () => { if (!T5) return; const t = T5.trials[T5.at];
+  if (b.dataset.tplay === 'ref') playBuf(T5.ref.buf, 1); else { playBuf(t.buf, t.gain); T5.heard = true; document.querySelectorAll('[data-ans]').forEach(x => x.disabled = false); } }, null));
+document.querySelectorAll('[data-ans]').forEach(b => b.addEventListener('click', () => { if (!T5 || !T5.heard) return; stopAll(); T5.trials[T5.at].ans = b.dataset.ans; T5.at++; if (T5.at < T5.trials.length) showTrial(); else finish(); }));
+function armWord(k, n){ return n === 6 ? (k >= 5 ? 'agrees with the card' : k <= 1 ? 'contradicts the card' : 'cannot say') : 'no verdict on a set of ' + n; }
+function finish(){
+  box.hidden = true; const tr = T5.trials;
+  const arm = (kind, want, skip) => { const s = tr.filter(t => t.kind === kind && !(skip && TAUGHT.includes(t.id))); return [s.filter(t => t.ans === want).length, s.length]; };
+  const [ts, tn] = arm('taste', 'still'), [es, en] = arm('essential', 'not'), [ts2, tn2] = arm('taste', 'still', true), [es2, en2] = arm('essential', 'not', true);
+  const lines = ['Synth Templates · which knobs are which · blind trials · ' + new Date().toISOString().slice(0, 16).replace('T', ' '),
+    'taste arm: "still" on ' + ts + ' of ' + tn + ' — ' + armWord(ts, tn), 'essential arm: "not" on ' + es + ' of ' + en + ' — ' + armWord(es, en),
+    'without the two heard in steps 2 and 3: taste ' + ts2 + ' of ' + tn2 + ', essential ' + es2 + ' of ' + en2, '',
+    ...tr.map((t, i) => (i + 1 + '.').padEnd(4) + (t.kind === 'taste' ? 'taste      ' : 'essential  ') + (t.ans === 'still' ? 'still  ' : 'not    ') + t.label + '  (gain ' + (20 * Math.log10(t.gain)).toFixed(1) + ' dB)')];
+  res5.innerHTML = `<div class="verdict">Taste arm <b>${ts} of ${tn}</b> still house bass, ${armWord(ts, tn)}. Essential arm <b>${es} of ${en}</b> not house bass, ${armWord(es, en)}.</div><p class="note">Each line names the move, its arm and your answer. A move the card calls essential that you heard as still house bass, or a taste move you heard as not, is the offer: it says where the card's split and an ear part. Copy the block below into a note on this section.</p><div class="score">${lines.join('\n')}</div>`;
+}
+
+// ---- the walk ----
+const steps = [...document.querySelectorAll('.step')], rail = document.querySelector('.rail'); let at = 0;
+steps.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = '<span class="n">' + (i + 1) + '</span>' + s.dataset.title; b.addEventListener('click', () => show(i)); rail.appendChild(b); });
+function show(i){ stopAll(); at = Math.max(0, Math.min(steps.length - 1, i)); steps.forEach((s, k) => { s.hidden = k !== at; }); rail.querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === at ? 'step' : 'false')); document.getElementById('back').disabled = at === 0; document.getElementById('next').disabled = at === steps.length - 1; }
+document.getElementById('back').addEventListener('click', () => show(at - 1));
+document.getElementById('next').addEventListener('click', () => show(at + 1));
+show(0);
+// the sigil: a 3:2 Lissajous
+(() => { let d = ''; for (let i = 0; i <= 200; i++){ const t = i / 200 * Math.PI * 2; d += (i ? 'L' : 'M') + (9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ' ' + (9 * Math.sin(2 * t)).toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+window.STPiece = { measureAll, tally, render, MOVES, CHECKS, BAKED, CARD, VOCAB };
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+ "entry": "Tone.js",
+ "path": "Shop/Tone.js.md",
+ "type": "specialist",
+ "stage": "alive (status)",
+ "weight": 6,
+ "claim": "Gotchas (2026-05-26): Tone.Oscillator + setValueAtTime pushed at UI rate (~60 Hz) 'is enough to feel Kuramoto locking on two audio-rate sines' — no per-sample worklet needed, because Web Audio renders the automation at audio rate.",
+ "pieces": [
+  {
+   "section": "Gotchas",
+   "what": "The claim under Tone, tested with plain Web Audio (Tone cannot load here): two OscillatorNodes coupled by frequency automation pushed at 60 Hz against an AudioWorklet integrating the same Kuramoto equation per sample; the lock measured in rendered output (OfflineAudioContext): beat rate, instantaneous frequency difference and phase spread as K crosses K_c = |Δf|/2, both arms. Does 'feel' survive as a number?",
+   "kind": "interactive",
+   "walks_up_from": "two sines beating at |Δf|"
+  },
+  {
+   "section": "Recipes",
+   "what": "The explorer's HUD rebuilt without Tone: drift / pulling in / lock as K crosses K_c, with the beating audible on a click; the shipped Tone explorer gathered beside it for the reader whose browser can load the CDN.",
+   "kind": "interactive",
+   "walks_up_from": "K = 0, pure beating"
+  }
+ ],
+ "gathered": [
+  "Kuramoto Coupling/two-oscillators-coupling-explorer-audio.html"
+ ],
+ "tier": "sketch",
+ "slice": 6,
+ "batch": "cloud batch 4"
+}
