@@ -1,0 +1,306 @@
+<!doctype html>
+<!--
+  title: Pheromone Trail — too strong
+  born: 2026-11-04
+  links: [[Pheromone Trail]] (connects-to · rich-face-piece) · listed in [[Pheromone Trail — rich.json]] · [[Progressive Staging]] (the walk up)
+  forward_vector: I am a colony worn onto a far source that meets a nearer one, on the same engine: one worn trail, a fresh choice, the worn colony, then a sweep of trail strength scored against rules stated first. I give the open question its number in the ant model and leave the palace's answer where the page puts it. I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<meta name="piece:size" content="flow">
+<meta name="theme-color" content="#0a0a0f">
+<title>Pheromone Trail — too strong</title>
+<style>
+:root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+  --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#8b8df5; --dead:#ff6a4a;
+  --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace; --sans:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif; --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+::selection { background: var(--amber); color: #0a0a0f; }
+:focus { outline: none; } :focus-visible { outline: 1px solid var(--amber); outline-offset: 2px; }
+.piece { padding: 22px 22px 20px; }
+.kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+h1 { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+h2 { font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+p { font-size: 14.5px; line-height: 1.62; max-width: 76ch; margin: 0 0 12px; }
+.rail { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 18px; padding: 0; list-style: none; }
+.rail button { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); background: transparent; border: 1px solid var(--soft); border-radius: 2px; padding: 6px 10px; cursor: pointer; }
+.rail button[aria-current="step"] { color: var(--amber); border-color: var(--amberline); }
+.rail button:hover { color: var(--fg1); }
+.nav { display: flex; gap: 10px; margin-top: 16px; }
+button.b { font-family: var(--mono); font-size: 12px; color: var(--fg1); background: var(--e2); border: 1px solid var(--border); border-radius: 2px; padding: 7px 14px; cursor: pointer; }
+button.b:hover { border-color: var(--amberline); }
+button.b.go { color: #0a0a0f; background: var(--amber); border-color: var(--amber); }
+button.b:disabled { opacity: .4; cursor: default; }
+.eq { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 10px 14px; margin: 10px 0 14px; max-width: 76ch; }
+.eq .sym { font-family: var(--mono); font-size: 14px; color: var(--fg1); margin-bottom: 4px; }
+.eq .words { font-size: 13.5px; color: var(--fg2); line-height: 1.55; }
+.rules { border-left: 2px solid var(--amber); padding: 8px 14px; margin: 10px 0 14px; max-width: 80ch; background: var(--e1); }
+.rules .kicker { color: var(--amber); }
+.rules li { font-size: 13.5px; line-height: 1.55; margin: 3px 0; }
+.rules ul { margin: 4px 0; padding-left: 18px; }
+canvas { display: block; width: 100%; background: var(--e1); border: 1px solid var(--soft); border-radius: 2px; }
+.row { display: flex; flex-wrap: wrap; gap: 18px 26px; align-items: end; margin: 12px 0; }
+label.ctl { display: flex; flex-direction: column; gap: 4px; font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .06em; min-width: 180px; }
+label.ctl output { color: var(--fg1); }
+input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 18px; background: transparent; }
+input[type=range]::-webkit-slider-runnable-track { height: 1px; background: var(--border); }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; margin-top: -6px; background: var(--amber); border-radius: 1px; border: 0; }
+input[type=range]::-moz-range-track { height: 1px; background: var(--border); }
+input[type=range]::-moz-range-thumb { width: 12px; height: 12px; background: var(--amber); border-radius: 1px; border: 0; }
+.read { font-family: var(--mono); font-size: 12px; color: var(--fg2); display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 8px 0; }
+.read b { color: var(--fg1); font-weight: 500; }
+table { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 10px 0; }
+th, td { border-bottom: 1px solid var(--soft); padding: 5px 10px; text-align: right; color: var(--fg2); }
+th { color: var(--fg3); font-weight: 400; text-align: right; }
+td:first-child, th:first-child { text-align: left; }
+.verdict { font-family: var(--serif); font-size: 19px; color: var(--fg1); margin: 10px 0; max-width: 76ch; line-height: 1.4; }
+.note { font-size: 12.5px; color: var(--fg3); max-width: 80ch; line-height: 1.55; }
+.k-a { color: var(--amber); } .k-b { color: var(--indigo); } .k-d { color: var(--dead); }
+.foot { margin-top: 22px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; color: var(--fg4); text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="piece">
+<div class="kicker">Pheromone Trail · the same colony model · walks up to a test</div>
+<h1>Can a trail be too strong?</h1>
+<p>The open question: can a deeply worn path foreclose lateral exploration, because workers always follow the same route? The page already records the palace's answer, on <i>Swarm Weave</i> § The oblique lens. This piece does not re-answer it for the palace. It gives the question a number in the ant model the page borrows: a colony worn onto one source, a better one opened later, and the trail strength at which the colony can no longer leave.</p>
+<ol class="rail"></ol>
+
+<section class="step" data-name="one worn trail">
+<h2>A colony on one source, nothing else on the table</h2>
+<p>A hundred ants, one source 40 units away. They wear a trail. How strong it gets is set by how much each trip lays, q, against the model's evaporation, ρ = 0.01. Move q and watch where the trail settles.</p>
+<div class="eq"><div class="sym">settled trail ≈ q · (ants ÷ round trip) ÷ ρ = q · (100 ÷ 80) ÷ 0.01 = 125 q</div>
+<div class="words">The trail settles where what evaporates each tick equals what is laid: the ants' trips per tick times q. A round trip is 80 ticks here, 40 out and 40 back, so a hundred ants make 1.25 trips a tick, and the trail settles near 125 q, wobbling a few percent as trips come home.</div></div>
+<canvas id="c1"></canvas>
+<div class="read"><span>tick <b id="r1t">0</b></span><span>trail <b id="r1tau">0</b></span><span>trail ÷ k (k = 20) <b id="r1k">0</b></span></div>
+<div class="row"><label class="ctl">laid per trip, q <output id="o1q">1.00</output><input id="s1q" type="range" min="0.05" max="2" step="0.01" value="1"></label>
+<button class="b go" id="b1">play</button><button class="b" id="b1r">reset</button></div>
+<p class="note">k = 20 is the trail it takes before a trail matters to an ant (the choice rule from the cluster piece). Keep an eye on trail ÷ k: the test turns on it.</p>
+</section>
+
+<section class="step" data-name="a fresh choice">
+<h2>A fresh colony, two sources at once</h2>
+<p>Before asking whether a worn colony can leave, check that this colony can find the better source at all. Two sources open from the start, both bare: the far one at 40 units and a near one at 15. Same food at both; the only difference is distance.</p>
+<canvas id="c2"></canvas>
+<canvas id="p2"></canvas>
+<div class="read"><span>tick <b id="r2t">0</b></span><span class="k-a">far share, last 100 ticks <b id="r2f">–</b></span><span class="k-b">near share <b id="r2n">–</b></span></div>
+<div class="row"><label class="ctl">laid per trip, q <output id="o2q">1.00</output><input id="s2q" type="range" min="0.05" max="2" step="0.01" value="1"></label>
+<button class="b go" id="b2">play</button><button class="b" id="b2r">again, another seed</button></div>
+<p class="note">An ant on the near path gets home every 30 ticks, one on the far path every 80, so the near path is reinforced more often per ant, and the loop from the cluster piece does the rest. Drop q to 0.1 and the trails never pass k: choices stay close to a coin toss and the colony can't tell the near source is better.</p>
+</section>
+
+<section class="step" data-name="the worn colony">
+<h2>The worn colony meets a better source</h2>
+<p>Now the order changes. Only the far source is open for 2000 ticks, long enough for its trail to settle. Then the near source opens, bare. Same colony, same rule, same food. Play, and see whether the ants come over.</p>
+<canvas id="c3"></canvas>
+<canvas id="p3"></canvas>
+<div class="read"><span>tick <b id="r3t">0</b></span><span class="k-a">far trail <b id="r3a">0</b></span><span class="k-b">near trail <b id="r3b">0</b></span><span class="k-b">near share, last 100 ticks <b id="r3s">–</b></span></div>
+<div class="row"><label class="ctl">laid per trip, q <output id="o3q">1.00</output><input id="s3q" type="range" min="0.05" max="2" step="0.01" value="1"></label>
+<button class="b go" id="b3">play</button><button class="b" id="b3r">reset</button></div>
+<p class="note">Outside the palace, this is the shape of the double-bridge experiments of Goss, Aron, Deneubourg and Pasteels (Naturwissenschaften, 1989), where a shorter branch offered after the longer one had been in use is the classic case of a colony that does not switch. Their numbers are not checked here; this model's are.</p>
+</section>
+
+<section class="step" data-name="the test">
+<h2>The test: at what strength does the colony stop being able to leave?</h2>
+<p>The worn colony and the fresh one, side by side, at ten trail strengths set by q. Ten seeded runs each. Both arms are read in the same window: ticks 3500 to 4000 after the near source opened. The rules were written before the first run.</p>
+<div class="rules"><div class="kicker">the rules, stated first</div><ul>
+<li><b>Chance level:</b> an even split, 0.50 of choices on each source.</li>
+<li><b>A strength counts</b> only if the fresh colony finds the near source there: near share at least 0.50 in at least 9 of 10 runs. Below that, the trail is too faint to choose by, and the row is marked so.</li>
+<li><b>In a counted row</b>, the worn colony <b>leaves</b> if its near share is at least 0.50 in at least 9 of 10 runs; is <b>locked</b> if in at most 1 of 10; otherwise <b>split</b>.</li>
+<li><b>A trail cannot be too strong</b>, in this model, if every counted row reads <i>leaves</i>. <b>It can be</b> if any counted row reads <i>locked</i>; the answer is the weakest such trail.</li>
+<li><b>Held fixed:</b> colony size, distances, food, n = 2, k = 20, ρ = 0.01, the seeds. Only q, and so the trail's strength, changes along the rows; only the order the sources opened in changes between arms.</li>
+<li><b>A third column, not scored:</b> the worn colony with one ant in ten walking off-trail, choosing a source at random, the model's own chance cover.</li></ul></div>
+<div class="row"><button class="b go" id="b4">run the sweep</button><span class="read" id="r4s"></span></div>
+<canvas id="v4"></canvas>
+<div id="t4"></div>
+<div class="verdict" id="vd4"></div>
+<p class="note">Whose numbers these are: this model's, at its k, n, ρ and colony size; the lock line moves with k (doubling k to 40 moves it to about twice the trail, in the check that ships beside this piece). The palace's answer to the question stands where the page puts it, on <i>Swarm Weave</i>: a weave cuts the map once more with no axis at all. That is a cover cut across a map, not ants wandering off a path, and this model does not judge it. The echo worth keeping is <i>Kuramoto Coupling</i>'s: too little coupling and nothing cooperates, too much and one voice dominates.</p>
+</section>
+<div class="nav"><button class="b" id="back">back</button><button class="b" id="next">next</button></div>
+<div class="foot">Loud'n Live</div>
+</div>
+
+<script>
+/*ENGINE-START*/
+function rng(seed){let a=seed>>>0;return function(){a=(a+0x6D2B79F5)>>>0;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
+function makeColony(o){
+  const c={t:0,rho:o.rho,k:o.k==null?20:o.k,n:o.n==null?2:o.n,q:o.q==null?1:o.q,eps:o.eps||0,
+    paths:o.paths.map(p=>({len:p.len,food:p.food!==false,open:p.open!==false,tau:p.tau||0,choices:0,trips:0})),
+    ants:[],rand:rng(o.seed==null?1:o.seed)};
+  for(let i=0;i<o.ants;i++) c.ants.push({path:-1,pos:0,dir:0,carry:false,wait:Math.floor(c.rand()*(o.stagger==null?2*Math.max(...o.paths.map(p=>p.len))+1:o.stagger))});
+  return c;
+}
+function weights(c){return c.paths.map(p=>p.open?Math.pow(c.k+p.tau,c.n):0);}
+function choose(c){
+  const open=[];for(let i=0;i<c.paths.length;i++) if(c.paths[i].open) open.push(i);
+  if(c.eps>0&&c.rand()<c.eps) return open[Math.floor(c.rand()*open.length)];
+  const w=weights(c);let s=0;for(const i of open) s+=w[i];let r=c.rand()*s;
+  for(const i of open){r-=w[i];if(r<=0)return i;}
+  return open[open.length-1];
+}
+function step(c){
+  for(const p of c.paths) p.tau*=(1-c.rho);
+  for(const a of c.ants){
+    if(a.wait>0){a.wait--;continue;}
+    if(a.path<0){a.path=choose(c);a.pos=0;a.dir=1;a.carry=false;c.paths[a.path].choices++;continue;}
+    const p=c.paths[a.path];
+    a.pos+=a.dir;
+    if(a.dir===1&&a.pos>=p.len){a.dir=-1;a.carry=p.food;}
+    else if(a.dir===-1&&a.pos<=0){
+      if(a.carry){p.tau+=c.q;p.trips++;}
+      a.path=choose(c);a.pos=0;a.dir=1;a.carry=false;c.paths[a.path].choices++;
+    }
+  }
+  c.t++;
+}
+function choiceWindow(c,ticks){
+  const before=c.paths.map(p=>p.choices);
+  for(let i=0;i<ticks;i++) step(c);
+  const d=c.paths.map((p,i)=>p.choices-before[i]);let s=0;for(const x of d) s+=x;
+  return d.map(x=>x/(s||1));
+}
+/*ENGINE-END*/
+// ---- the walk: one step at a time, Back and Next, the step list open ----
+const STEPS=[...document.querySelectorAll('section.step')];
+const ENTER={}, LEAVE={};
+let CUR=0;
+function show(i){
+  if(LEAVE[CUR]) LEAVE[CUR]();
+  CUR=Math.max(0,Math.min(STEPS.length-1,i));
+  STEPS.forEach((s,j)=>{s.hidden=j!==CUR;});
+  document.querySelectorAll('.rail button').forEach((b,j)=>b.setAttribute('aria-current',j===CUR?'step':'false'));
+  const back=document.getElementById('back'),next=document.getElementById('next');
+  back.disabled=CUR===0; next.disabled=CUR===STEPS.length-1;
+  if(ENTER[CUR]) ENTER[CUR]();
+}
+(function(){
+  const rail=document.querySelector('.rail');
+  STEPS.forEach((s,j)=>{const b=document.createElement('button');b.textContent=(j+1)+' · '+s.dataset.name;b.onclick=()=>show(j);rail.appendChild(b);});
+  document.getElementById('back').onclick=()=>show(CUR-1);
+  document.getElementById('next').onclick=()=>show(CUR+1);
+})();
+// ---- drawing ----
+const COL={a:'#e8b84a',b:'#8b8df5',dead:'#ff6a4a',fg3:'#8a8aa0',fg4:'#4a4a5a',fg1:'#e8e8f0',soft:'rgba(255,255,255,.06)',grid:'rgba(255,255,255,.08)'};
+function fit(cv,h){const d=window.devicePixelRatio||1,w=cv.clientWidth||600;if(cv.width!==Math.round(w*d)||cv.height!==Math.round(h*d)){cv.width=Math.round(w*d);cv.height=Math.round(h*d);cv.style.height=h+'px';}const x=cv.getContext('2d');x.setTransform(d,0,0,d,0,0);return {x,w,h};}
+function pathGeom(c,i,w,h){ // nest at left; path i as a bend to its source; drawn length grows with len
+  const n=c.paths.length, maxLen=Math.max(...c.paths.map(p=>p.len));
+  const x0=46,y0=h/2, x1=x0+(w-110)*c.paths[i].len/maxLen;
+  const y1=n===1?h/2:(h*0.18+(h*0.64)*i/(n-1));
+  const cx=(x0+x1)/2, cy=n===1?h/2-40:(y1<h/2? y1-34 : y1>h/2? y1+34 : y1);
+  return {x0,y0,x1,y1,cx,cy};
+}
+function pt(g,s){const u=1-s;return [u*u*g.x0+2*u*s*g.cx+s*s*g.x1,u*u*g.y0+2*u*s*g.cy+s*s*g.y1];}
+function drawColony(cv,c,o){
+  o=o||{};const {x,w,h}=fit(cv,o.h||240);x.clearRect(0,0,w,h);
+  const full=o.full||100, cols=o.cols||[COL.a,COL.b];
+  c.paths.forEach((p,i)=>{const g=pathGeom(c,i,w,h);
+    const s=Math.min(1,p.tau/full);
+    x.beginPath();x.moveTo(g.x0,g.y0);x.quadraticCurveTo(g.cx,g.cy,g.x1,g.y1);
+    x.strokeStyle=COL.fg4;x.lineWidth=1;x.setLineDash(p.open?[]:[3,4]);x.stroke();x.setLineDash([]);
+    if(p.open&&s>0.002){x.beginPath();x.moveTo(g.x0,g.y0);x.quadraticCurveTo(g.cx,g.cy,g.x1,g.y1);x.strokeStyle=cols[i%cols.length];x.globalAlpha=0.15+0.75*s;x.lineWidth=1+11*s;x.stroke();x.globalAlpha=1;}
+    x.beginPath();x.arc(g.x1,g.y1,9,0,7);
+    if(p.open&&p.food){x.fillStyle=cols[i%cols.length];x.fill();}else{x.strokeStyle=p.open?COL.dead:COL.fg4;x.lineWidth=1.2;x.stroke();}
+    x.fillStyle=COL.fg3;x.font='11px '+getComputedStyle(document.body).getPropertyValue('--mono');
+    x.fillText((o.names?o.names[i]:String.fromCharCode(65+i))+(p.open?'':' · closed')+(p.open&&!p.food?' · empty':''),g.x1+14,g.y1+4);
+  });
+  x.beginPath();x.arc(46,h/2,12,0,7);x.fillStyle='#22222e';x.fill();x.strokeStyle=COL.fg3;x.lineWidth=1;x.stroke();
+  x.fillStyle=COL.fg3;x.fillText('nest',20,h/2+28);
+  for(const a of c.ants){if(a.path<0||a.wait>0)continue;const g=pathGeom(c,a.path,w,h);const [px,py]=pt(g,Math.max(0,Math.min(1,a.pos/c.paths[a.path].len)));
+    x.beginPath();x.arc(px,py,a.carry?2.6:1.9,0,7);x.fillStyle=a.carry?COL.fg1:COL.fg3;x.fill();}
+}
+function plot(cv,series,o){
+  o=o||{};const {x,w,h}=fit(cv,o.h||150);x.clearRect(0,0,w,h);
+  const L=40,R=10,T=10,B=22,pw=w-L-R,ph=h-T-B;
+  const n=Math.max(1,...series.map(s=>s.data.length));const ymax=o.ymax||Math.max(1e-9,...series.flatMap(s=>s.data))*1.1;
+  x.strokeStyle=COL.grid;x.lineWidth=1;x.fillStyle=COL.fg3;x.font='10px '+getComputedStyle(document.body).getPropertyValue('--mono');
+  for(let k=0;k<=4;k++){const y=T+ph-ph*k/4;x.beginPath();x.moveTo(L,y);x.lineTo(L+pw,y);x.stroke();x.fillText((ymax*k/4).toFixed(ymax<2?2:0),2,y+3);}
+  (o.hlines||[]).forEach(hl=>{const y=T+ph-ph*hl.y/ymax;x.setLineDash([4,4]);x.strokeStyle=hl.color||COL.fg3;x.beginPath();x.moveTo(L,y);x.lineTo(L+pw,y);x.stroke();x.setLineDash([]);x.fillStyle=hl.color||COL.fg3;x.fillText(hl.label||'',L+pw-x.measureText(hl.label||'').width-4,y-4);});
+  (o.vlines||[]).forEach(vl=>{const xx=L+pw*vl.i/(o.span||n);x.setLineDash([2,4]);x.strokeStyle=vl.color||COL.fg3;x.beginPath();x.moveTo(xx,T);x.lineTo(xx,T+ph);x.stroke();x.setLineDash([]);x.fillStyle=vl.color||COL.fg3;x.fillText(vl.label||'',xx+4,T+10);});
+  series.forEach(s=>{x.beginPath();s.data.forEach((v,i)=>{const xx=L+pw*i/((o.span||n)-1||1),yy=T+ph-ph*Math.min(v,ymax)/ymax;i?x.lineTo(xx,yy):x.moveTo(xx,yy);});x.strokeStyle=s.color;x.lineWidth=1.4;x.stroke();});
+  x.fillStyle=COL.fg3;x.fillText(o.xlabel||'ticks',L,h-6);
+}
+function bars(cv,arms,o){ // each arm: {label, vals:[0..1], color}
+  o=o||{};const {x,w,h}=fit(cv,o.h||60+arms.length*44);x.clearRect(0,0,w,h);
+  const L=200,R=14,rowH=44,T=16;x.font='11px '+getComputedStyle(document.body).getPropertyValue('--mono');
+  const X=v=>L+(w-L-R)*v;
+  [0,0.5,1].forEach(v=>{x.fillStyle=COL.fg3;x.fillText(v.toFixed(1),X(v)-8,T-4);});
+  (o.lines||[]).forEach(l=>{x.setLineDash([3,4]);x.strokeStyle=l.color;x.beginPath();x.moveTo(X(l.v),T);x.lineTo(X(l.v),T+rowH*arms.length);x.stroke();x.setLineDash([]);x.fillStyle=l.color;x.fillText(l.label,X(l.v)+4,T+rowH*arms.length+12);});
+  arms.forEach((a,r)=>{const y=T+r*rowH+rowH/2;x.fillStyle=COL.fg1;x.fillText(a.label,4,y+4);
+    x.strokeStyle=COL.grid;x.beginPath();x.moveTo(X(0),y);x.lineTo(X(1),y);x.stroke();
+    a.vals.forEach((v,j)=>{x.beginPath();x.arc(X(v),y+((j%5)-2)*4,2.6,0,7);x.fillStyle=a.color;x.globalAlpha=.85;x.fill();x.globalAlpha=1;});});
+}
+function loop(fn){let id=0,on=false;function f(){if(!on)return;fn();id=requestAnimationFrame(f);}return {start(){if(on)return;on=true;id=requestAnimationFrame(f);},stop(){on=false;cancelAnimationFrame(id);},get on(){return on;}};}
+function $(id){return document.getElementById(id);}
+function share(a){let s=0;for(const v of a)s+=v;return a.map(v=>v/(s||1));}
+
+const FAR=40,NEAR=15,WEAR=2000;
+function sharesHist(c,state){const now=c.paths.map(p=>p.choices);const s=share(now.map((v,i)=>v-state.last[i]));state.last=now;return s;}
+// step 1
+(function(){
+  let c,L;
+  function reset(){c=makeColony({ants:100,rho:0.01,q:+$('s1q').value,seed:1,paths:[{len:FAR}]});draw();}
+  function draw(){drawColony($('c1'),c,{h:150,full:180,names:['far source']});$('r1t').textContent=c.t;$('r1tau').textContent=c.paths[0].tau.toFixed(1);$('r1k').textContent=(c.paths[0].tau/c.k).toFixed(2);}
+  L=loop(()=>{for(let i=0;i<6;i++)step(c);draw();});
+  $('s1q').oninput=()=>{$('o1q').textContent=(+$('s1q').value).toFixed(2);c.q=+$('s1q').value;};
+  $('b1').onclick=()=>{if(L.on){L.stop();$('b1').textContent='play';}else{L.start();$('b1').textContent='pause';}};
+  $('b1r').onclick=reset;
+  ENTER[0]=()=>{if(!c)reset();else draw();}; LEAVE[0]=()=>{L.stop();$('b1').textContent='play';};
+})();
+// step 2
+(function(){
+  let c,L,hist,st,seed=1;
+  function reset(){c=makeColony({ants:100,rho:0.01,q:+$('s2q').value,seed,paths:[{len:FAR},{len:NEAR}]});hist=[];st={last:[0,0]};draw();}
+  function draw(){drawColony($('c2'),c,{h:200,full:Math.max(60,c.paths[0].tau,c.paths[1].tau),names:['far','near']});
+    plot($('p2'),[{data:hist.map(h=>h[0]),color:COL.a},{data:hist.map(h=>h[1]),color:COL.b}],{h:120,ymax:1,span:40,hlines:[{y:0.5,label:'even split'}],xlabel:'share of choices, 100-tick windows'});
+    $('r2t').textContent=c.t;const h=hist[hist.length-1];$('r2f').textContent=h?h[0].toFixed(2):'–';$('r2n').textContent=h?h[1].toFixed(2):'–';}
+  L=loop(()=>{for(let i=0;i<6;i++){step(c);if(c.t%100===0){hist.push(sharesHist(c,st));if(hist.length>40)hist.shift();}}draw();});
+  $('s2q').oninput=()=>{$('o2q').textContent=(+$('s2q').value).toFixed(2);reset();};
+  $('b2').onclick=()=>{if(L.on){L.stop();$('b2').textContent='play';}else{L.start();$('b2').textContent='pause';}};
+  $('b2r').onclick=()=>{seed++;reset();};
+  ENTER[1]=()=>{if(!c)reset();else draw();}; LEAVE[1]=()=>{L.stop();$('b2').textContent='play';};
+})();
+// step 3
+(function(){
+  let c,L,hist,st;
+  function reset(){c=makeColony({ants:100,rho:0.01,q:+$('s3q').value,seed:1,paths:[{len:FAR},{len:NEAR,open:false}]});for(let i=0;i<WEAR;i++)step(c);c.paths[1].open=true;c.t=0;hist=[];st={last:c.paths.map(p=>p.choices)};draw();}
+  function draw(){drawColony($('c3'),c,{h:200,full:Math.max(60,c.paths[0].tau,c.paths[1].tau),names:['far','near']});
+    plot($('p3'),[{data:hist.map(h=>h[0]),color:COL.a},{data:hist.map(h=>h[1]),color:COL.b}],{h:120,ymax:1,span:40,hlines:[{y:0.5,label:'even split'}],xlabel:'share of choices since the near source opened, 100-tick windows'});
+    $('r3t').textContent=c.t+' since it opened';$('r3a').textContent=c.paths[0].tau.toFixed(1);$('r3b').textContent=c.paths[1].tau.toFixed(1);const h=hist[hist.length-1];$('r3s').textContent=h?h[1].toFixed(2):'–';}
+  L=loop(()=>{for(let i=0;i<6;i++){step(c);if(c.t%100===0){hist.push(sharesHist(c,st));if(hist.length>40)hist.shift();}}draw();});
+  $('s3q').oninput=()=>{$('o3q').textContent=(+$('s3q').value).toFixed(2);reset();};
+  $('b3').onclick=()=>{if(L.on){L.stop();$('b3').textContent='play';}else{L.start();$('b3').textContent='pause';}};
+  $('b3r').onclick=reset;
+  ENTER[2]=()=>{if(!c)reset();else draw();}; LEAVE[2]=()=>{L.stop();$('b3').textContent='play';};
+})();
+// step 4 — the test
+const QS=[0.05,0.1,0.2,0.22,0.24,0.26,0.3,0.5,1,2];
+function runFresh(q,seed){const c=makeColony({ants:100,rho:0.01,q,n:2,seed,paths:[{len:FAR},{len:NEAR}]});choiceWindow(c,3500);return choiceWindow(c,500)[1];}
+function runWorn(q,seed,eps){const c=makeColony({ants:100,rho:0.01,q,n:2,seed,eps:eps||0,paths:[{len:FAR},{len:NEAR,open:false}]});for(let i=0;i<WEAR;i++)step(c);const tau=c.paths[0].tau;c.paths[1].open=true;choiceWindow(c,3500);return {tau,near:choiceWindow(c,500)[1]};}
+function judge3(rows){ // rows: {q,tau,fresh:[..],worn:[..],eps:[..]}
+  let firstLock=null,anyLeaves=false,counted=0;
+  rows.forEach(r=>{const f=r.fresh.filter(v=>v>=0.5).length,w=r.worn.filter(v=>v>=0.5).length;
+    r.counted=f>=9;r.freshWins=f;r.wornWins=w;r.call=!r.counted?'too faint to choose':w>=9?'leaves':w<=1?'locked':'split';
+    if(r.counted){counted++;if(r.call==='leaves')anyLeaves=true;if(r.call==='locked'&&firstLock==null)firstLock=r;}});
+  return {firstLock,anyLeaves,counted,tooStrong:firstLock!=null};
+}
+(function(){
+  $('b4').onclick=()=>{const rows=QS.map(q=>({q,tau:0,fresh:[],worn:[],eps:[]}));const jobs=[];rows.forEach(r=>{for(let s=1;s<=10;s++)jobs.push([r,s]);});let i=0;$('b4').disabled=true;
+    (function chunk(){const t0=performance.now();while(i<jobs.length&&performance.now()-t0<30){const [r,s]=jobs[i++];r.fresh.push(runFresh(r.q,s));const w=runWorn(r.q,s,0);r.worn.push(w.near);r.tau+=w.tau/10;r.eps.push(runWorn(r.q,s,0.1).near);}
+      $('r4s').textContent=i+' of '+jobs.length+' seeds';if(i<jobs.length){setTimeout(chunk,0);return;}$('b4').disabled=false;
+      const J=judge3(rows),mean=a=>a.reduce((x,y)=>x+y,0)/a.length;
+      plot($('v4'),[{data:rows.map(r=>mean(r.fresh)),color:COL.b},{data:rows.map(r=>mean(r.worn)),color:COL.a},{data:rows.map(r=>mean(r.eps)),color:COL.fg3}],{h:170,ymax:1,span:rows.length,hlines:[{y:0.5,label:'even split'}],xlabel:'mean near share, row by row as the trail strengthens · violet fresh · amber worn · grey worn with off-trail ants'});
+      $('t4').innerHTML='<table><tr><th>laid per trip, q</th><th>worn trail at opening</th><th>÷ k</th><th>fresh finds near</th><th>worn reaches near</th><th>call</th><th>worn, 1 in 10 off-trail: mean near</th></tr>'+rows.map(r=>'<tr><td>'+r.q+'</td><td>'+r.tau.toFixed(1)+'</td><td>'+(r.tau/20).toFixed(2)+'</td><td>'+r.freshWins+' / 10 · '+mean(r.fresh).toFixed(2)+'</td><td>'+r.wornWins+' / 10 · '+mean(r.worn).toFixed(2)+'</td><td>'+r.call+'</td><td>'+mean(r.eps).toFixed(2)+'</td></tr>').join('')+'</table>';
+      const epsFree=rows.filter(r=>r.counted&&r.eps.filter(v=>v>=0.5).length>=9).length;
+      $('vd4').textContent=J.tooStrong?('Yes, in this model. From a worn trail of about '+J.firstLock.tau.toFixed(0)+' (about '+(J.firstLock.tau/20).toFixed(1)+' times k) the colony is locked: it reaches the nearer source in '+J.firstLock.wornWins+' of 10 runs, where a fresh colony finds it in '+J.firstLock.freshWins+'. '+(J.anyLeaves?'':'No counted row reads leaves: the strength that lets a colony tell the better source is the strength that holds it to the worn one. ')+(epsFree===0?'One ant in ten off the trail did not free it at any counted strength.':'One ant in ten off the trail freed it at '+epsFree+' counted strengths.'))
+        :'No, in this model: every counted row reads leaves.';
+      window.RESULT3={rows,J};})();};
+})();
+show(0);
+
+</script>
+</body>
+</html>

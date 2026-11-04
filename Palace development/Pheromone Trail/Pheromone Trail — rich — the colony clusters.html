@@ -1,0 +1,319 @@
+<!doctype html>
+<!--
+  title: Pheromone Trail — the colony clusters
+  born: 2026-11-04
+  links: [[Pheromone Trail]] (connects-to · rich-face-piece) · listed in [[Pheromone Trail — rich.json]] · [[Progressive Staging]] (the walk up)
+  forward_vector: I am an ant colony on two paths, walked up from one ant on one path: deposit, then the choice, then the loop, then a strong trail against a weak one, scored by rules written before the first run. I test the sentence that swarm workers cluster on strong trails and neglect weak ones, in the mechanism the page borrows, and I say what my numbers cannot say about the palace's workers. I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<meta name="piece:size" content="flow">
+<meta name="theme-color" content="#0a0a0f">
+<title>Pheromone Trail — the colony clusters</title>
+<style>
+:root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+  --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#8b8df5; --dead:#ff6a4a;
+  --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace; --sans:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif; --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+::selection { background: var(--amber); color: #0a0a0f; }
+:focus { outline: none; } :focus-visible { outline: 1px solid var(--amber); outline-offset: 2px; }
+.piece { padding: 22px 22px 20px; }
+.kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+h1 { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+h2 { font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+p { font-size: 14.5px; line-height: 1.62; max-width: 76ch; margin: 0 0 12px; }
+.rail { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 18px; padding: 0; list-style: none; }
+.rail button { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); background: transparent; border: 1px solid var(--soft); border-radius: 2px; padding: 6px 10px; cursor: pointer; }
+.rail button[aria-current="step"] { color: var(--amber); border-color: var(--amberline); }
+.rail button:hover { color: var(--fg1); }
+.nav { display: flex; gap: 10px; margin-top: 16px; }
+button.b { font-family: var(--mono); font-size: 12px; color: var(--fg1); background: var(--e2); border: 1px solid var(--border); border-radius: 2px; padding: 7px 14px; cursor: pointer; }
+button.b:hover { border-color: var(--amberline); }
+button.b.go { color: #0a0a0f; background: var(--amber); border-color: var(--amber); }
+button.b:disabled { opacity: .4; cursor: default; }
+.eq { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 10px 14px; margin: 10px 0 14px; max-width: 76ch; }
+.eq .sym { font-family: var(--mono); font-size: 14px; color: var(--fg1); margin-bottom: 4px; }
+.eq .words { font-size: 13.5px; color: var(--fg2); line-height: 1.55; }
+.rules { border-left: 2px solid var(--amber); padding: 8px 14px; margin: 10px 0 14px; max-width: 80ch; background: var(--e1); }
+.rules .kicker { color: var(--amber); }
+.rules li { font-size: 13.5px; line-height: 1.55; margin: 3px 0; }
+.rules ul { margin: 4px 0; padding-left: 18px; }
+canvas { display: block; width: 100%; background: var(--e1); border: 1px solid var(--soft); border-radius: 2px; }
+.row { display: flex; flex-wrap: wrap; gap: 18px 26px; align-items: end; margin: 12px 0; }
+label.ctl { display: flex; flex-direction: column; gap: 4px; font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .06em; min-width: 180px; }
+label.ctl output { color: var(--fg1); }
+input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 18px; background: transparent; }
+input[type=range]::-webkit-slider-runnable-track { height: 1px; background: var(--border); }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; margin-top: -6px; background: var(--amber); border-radius: 1px; border: 0; }
+input[type=range]::-moz-range-track { height: 1px; background: var(--border); }
+input[type=range]::-moz-range-thumb { width: 12px; height: 12px; background: var(--amber); border-radius: 1px; border: 0; }
+.read { font-family: var(--mono); font-size: 12px; color: var(--fg2); display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 8px 0; }
+.read b { color: var(--fg1); font-weight: 500; }
+table { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 10px 0; }
+th, td { border-bottom: 1px solid var(--soft); padding: 5px 10px; text-align: right; color: var(--fg2); }
+th { color: var(--fg3); font-weight: 400; text-align: right; }
+td:first-child, th:first-child { text-align: left; }
+.verdict { font-family: var(--serif); font-size: 19px; color: var(--fg1); margin: 10px 0; max-width: 76ch; line-height: 1.4; }
+.note { font-size: 12.5px; color: var(--fg3); max-width: 80ch; line-height: 1.55; }
+.k-a { color: var(--amber); } .k-b { color: var(--indigo); } .k-d { color: var(--dead); }
+.foot { margin-top: 22px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; color: var(--fg4); text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="piece">
+<div class="kicker">Pheromone Trail · a colony model · walks up to a test</div>
+<h1>Do workers cluster on the strong trail?</h1>
+<p>The section says swarm workers will cluster around strong trails and neglect weak ones. That sentence is about the palace's workers; this piece cannot watch them. What it can build is the mechanism the page borrows, ants on trails, and ask under what rule the sentence comes true. Four steps, one idea each. The test is the last.</p>
+<ol class="rail"></ol>
+
+<section class="step" data-name="one ant">
+<h2>One ant, one path</h2>
+<p>A nest on the left, food on the right, one ant. Each time it brings food home it lays a mark on the path it walked. Every tick, the mark loses a small fraction of itself. Watch the sawtooth: a jump when the ant gets home, a slow sag while it is away.</p>
+<div class="eq"><div class="sym">every tick: τ ← τ · (1 − ρ) &nbsp;&nbsp; each trip home with food: τ ← τ + q</div>
+<div class="words">Each tick the trail keeps all but a fraction ρ of itself. Each ant that comes home carrying food adds q to the path it took. Here q = 1, and ρ is this model's evaporation rate, chosen here, not measured from any ant.</div></div>
+<canvas id="c1"></canvas>
+<div class="read"><span>tick <b id="r1t">0</b></span><span>trail τ <b id="r1tau">0</b></span><span>trips <b id="r1n">0</b></span><span>where the peak settles, q ÷ (1 − (1 − ρ)<sup>40</sup>) <b id="r1eq">–</b></span></div>
+<canvas id="p1"></canvas>
+<div class="row"><label class="ctl">evaporation ρ per tick <output id="o1rho">0.010</output><input id="s1rho" type="range" min="0.001" max="0.05" step="0.001" value="0.01"></label>
+<button class="b go" id="b1">play</button><button class="b" id="b1r">reset</button></div>
+<p class="note">The path is 20 units long and the ant walks one unit a tick, so it gets home every 40 ticks. The peak settles where what the trail loses in 40 ticks equals what one trip adds. Raise ρ and the trail stays faint; that is all a trail is here, a deposit racing a leak.</p>
+</section>
+
+<section class="step" data-name="the choice">
+<h2>How an ant picks a path</h2>
+<p>Two paths now, the same length, food on both. The trails are held still: nobody lays anything in this step. An ant at the nest picks by the trail alone.</p>
+<div class="eq"><div class="sym">P(A) = (k + τ<sub>A</sub>)<sup>n</sup> ÷ [ (k + τ<sub>A</sub>)<sup>n</sup> + (k + τ<sub>B</sub>)<sup>n</sup> ]</div>
+<div class="words">The chance an ant takes path A is its trail plus a constant k, raised to a power n, over the same for both paths. k = 20 is how much trail it takes before a trail matters at all. n says how hard an ant leans: at n = 1 it follows in proportion to the trail; at n = 2 it leans harder toward the stronger one. The form follows the choice rule Deneubourg and colleagues fitted to Argentine ants (outside the palace); k and n here are this model's settings.</div></div>
+<canvas id="p2"></canvas>
+<div class="row"><label class="ctl">trail on A, τ<sub>A</sub> <output id="o2a">60</output><input id="s2a" type="range" min="0" max="200" step="1" value="60"></label>
+<label class="ctl">trail on B, τ<sub>B</sub> <output id="o2b">10</output><input id="s2b" type="range" min="0" max="200" step="1" value="10"></label></div>
+<div class="read"><span>n = 1: P(A) <b id="r2n1">–</b></span><span>n = 2: P(A) <b id="r2n2">–</b></span></div>
+<div class="row"><button class="b go" id="b2">send 1000 ants, n = 2</button><button class="b" id="b2b">send 1000 ants, n = 1</button><span class="read" id="r2s"></span></div>
+<p class="note">The amber curve is n = 2, the violet n = 1, both as τ<sub>A</sub> runs from 0 to 200 with τ<sub>B</sub> where you set it. Nothing has happened yet that could make a cluster: one choice is one choice. The cluster, if there is one, needs the next step.</p>
+</section>
+
+<section class="step" data-name="feedback">
+<h2>A few ants, two paths, and the loop closed</h2>
+<p>Now the ants lay trail again, and the trail steers the ants. Both paths start bare and equal. Whichever path a few more ants happen to take gets a little more trail, which draws a few more ants. Change how many ants there are and watch whether that loop catches.</p>
+<canvas id="c3"></canvas>
+<canvas id="p3"></canvas>
+<div class="read"><span>tick <b id="r3t">0</b></span><span class="k-a">share of choices on A, last 100 ticks <b id="r3a">–</b></span><span class="k-b">on B <b id="r3b">–</b></span><span>trail A <b id="r3ta">0</b> · B <b id="r3tb">0</b></span></div>
+<div class="row"><label class="ctl">ants <output id="o3n">40</output><input id="s3n" type="range" min="5" max="100" step="5" value="40"></label>
+<button class="b go" id="b3">play</button><button class="b" id="b3r">again, another seed</button></div>
+<p class="note">At ten ants the trails stay under k, so every choice is close to a coin toss and the shares wander around a half. At forty, one path takes nearly everything, and which one is chance. That is worth holding before the test: in this model the cluster is the loop's doing, not the trail's.</p>
+</section>
+
+<section class="step" data-name="the test">
+<h2>The test: a strong trail and a weak one</h2>
+<p>A hundred ants, two paths of the same length, food on both. The only difference: path A starts with a strong trail (τ = 60), path B with a weak one (τ = 10). Then the colony runs on its own for 2000 ticks, at the model's ρ = 0.01. The rules were written before the first run.</p>
+<div class="rules"><div class="kicker">the rules, stated first</div><ul>
+<li><b>Chance level:</b> an even split, 0.50 of choices on each path.</li>
+<li><b>The window:</b> every choice an ant makes at the nest in ticks 1500 to 2000.</li>
+<li><b>Cluster holds</b> if the strong trail takes at least 0.80 of the window's choices in at least 18 of 20 seeded runs. <b>Neglect holds</b> if the weak trail takes at most 0.20 in those runs. With two paths the two shares add to one, so both arms are scored but they are one number seen from each side; the arms that can disagree are the two controls below.</li>
+<li><b>Fails</b> if fewer than 18 of 20 runs meet the line.</li>
+<li><b>Control, equal start</b> (τ = 10 on both): the same colony with nothing to cluster around. If it clusters too, the cluster is the loop's, and the head start only picks the side. Chance for which side: 10 of 20.</li>
+<li><b>Control, proportional following</b> (n = 1, same head start): the same colony, ants that follow a trail only in proportion to it. Same rule.</li>
+<li><b>Confounds held fixed:</b> path length, food, colony size, ρ, the seeds. Only the starting trail and n change between arms.</li></ul></div>
+<div class="row"><button class="b go" id="b4">run the 60 runs</button><span class="read" id="r4s"></span></div>
+<canvas id="v4"></canvas>
+<div id="t4"></div>
+<div class="verdict" id="vd4"></div>
+<p class="note" id="n4">Whose numbers these are: this model's, at its k, n, ρ and colony size, run by the same code that draws every step above. They say what ants following this rule do. They do not say how the palace's workers, who read pages rather than smell paths, follow a strong neighbourhood; that would take a run of real workers.</p>
+</section>
+<div class="nav"><button class="b" id="back">back</button><button class="b" id="next">next</button></div>
+<div class="foot">Loud'n Live</div>
+</div>
+
+<script>
+/*ENGINE-START*/
+function rng(seed){let a=seed>>>0;return function(){a=(a+0x6D2B79F5)>>>0;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
+function makeColony(o){
+  const c={t:0,rho:o.rho,k:o.k==null?20:o.k,n:o.n==null?2:o.n,q:o.q==null?1:o.q,eps:o.eps||0,
+    paths:o.paths.map(p=>({len:p.len,food:p.food!==false,open:p.open!==false,tau:p.tau||0,choices:0,trips:0})),
+    ants:[],rand:rng(o.seed==null?1:o.seed)};
+  for(let i=0;i<o.ants;i++) c.ants.push({path:-1,pos:0,dir:0,carry:false,wait:Math.floor(c.rand()*(o.stagger==null?2*Math.max(...o.paths.map(p=>p.len))+1:o.stagger))});
+  return c;
+}
+function weights(c){return c.paths.map(p=>p.open?Math.pow(c.k+p.tau,c.n):0);}
+function choose(c){
+  const open=[];for(let i=0;i<c.paths.length;i++) if(c.paths[i].open) open.push(i);
+  if(c.eps>0&&c.rand()<c.eps) return open[Math.floor(c.rand()*open.length)];
+  const w=weights(c);let s=0;for(const i of open) s+=w[i];let r=c.rand()*s;
+  for(const i of open){r-=w[i];if(r<=0)return i;}
+  return open[open.length-1];
+}
+function step(c){
+  for(const p of c.paths) p.tau*=(1-c.rho);
+  for(const a of c.ants){
+    if(a.wait>0){a.wait--;continue;}
+    if(a.path<0){a.path=choose(c);a.pos=0;a.dir=1;a.carry=false;c.paths[a.path].choices++;continue;}
+    const p=c.paths[a.path];
+    a.pos+=a.dir;
+    if(a.dir===1&&a.pos>=p.len){a.dir=-1;a.carry=p.food;}
+    else if(a.dir===-1&&a.pos<=0){
+      if(a.carry){p.tau+=c.q;p.trips++;}
+      a.path=choose(c);a.pos=0;a.dir=1;a.carry=false;c.paths[a.path].choices++;
+    }
+  }
+  c.t++;
+}
+function choiceWindow(c,ticks){
+  const before=c.paths.map(p=>p.choices);
+  for(let i=0;i<ticks;i++) step(c);
+  const d=c.paths.map((p,i)=>p.choices-before[i]);let s=0;for(const x of d) s+=x;
+  return d.map(x=>x/(s||1));
+}
+/*ENGINE-END*/
+// ---- the walk: one step at a time, Back and Next, the step list open ----
+const STEPS=[...document.querySelectorAll('section.step')];
+const ENTER={}, LEAVE={};
+let CUR=0;
+function show(i){
+  if(LEAVE[CUR]) LEAVE[CUR]();
+  CUR=Math.max(0,Math.min(STEPS.length-1,i));
+  STEPS.forEach((s,j)=>{s.hidden=j!==CUR;});
+  document.querySelectorAll('.rail button').forEach((b,j)=>b.setAttribute('aria-current',j===CUR?'step':'false'));
+  const back=document.getElementById('back'),next=document.getElementById('next');
+  back.disabled=CUR===0; next.disabled=CUR===STEPS.length-1;
+  if(ENTER[CUR]) ENTER[CUR]();
+}
+(function(){
+  const rail=document.querySelector('.rail');
+  STEPS.forEach((s,j)=>{const b=document.createElement('button');b.textContent=(j+1)+' · '+s.dataset.name;b.onclick=()=>show(j);rail.appendChild(b);});
+  document.getElementById('back').onclick=()=>show(CUR-1);
+  document.getElementById('next').onclick=()=>show(CUR+1);
+})();
+// ---- drawing ----
+const COL={a:'#e8b84a',b:'#8b8df5',dead:'#ff6a4a',fg3:'#8a8aa0',fg4:'#4a4a5a',fg1:'#e8e8f0',soft:'rgba(255,255,255,.06)',grid:'rgba(255,255,255,.08)'};
+function fit(cv,h){const d=window.devicePixelRatio||1,w=cv.clientWidth||600;if(cv.width!==Math.round(w*d)||cv.height!==Math.round(h*d)){cv.width=Math.round(w*d);cv.height=Math.round(h*d);cv.style.height=h+'px';}const x=cv.getContext('2d');x.setTransform(d,0,0,d,0,0);return {x,w,h};}
+function pathGeom(c,i,w,h){ // nest at left; path i as a bend to its source; drawn length grows with len
+  const n=c.paths.length, maxLen=Math.max(...c.paths.map(p=>p.len));
+  const x0=46,y0=h/2, x1=x0+(w-110)*c.paths[i].len/maxLen;
+  const y1=n===1?h/2:(h*0.18+(h*0.64)*i/(n-1));
+  const cx=(x0+x1)/2, cy=n===1?h/2-40:(y1<h/2? y1-34 : y1>h/2? y1+34 : y1);
+  return {x0,y0,x1,y1,cx,cy};
+}
+function pt(g,s){const u=1-s;return [u*u*g.x0+2*u*s*g.cx+s*s*g.x1,u*u*g.y0+2*u*s*g.cy+s*s*g.y1];}
+function drawColony(cv,c,o){
+  o=o||{};const {x,w,h}=fit(cv,o.h||240);x.clearRect(0,0,w,h);
+  const full=o.full||100, cols=o.cols||[COL.a,COL.b];
+  c.paths.forEach((p,i)=>{const g=pathGeom(c,i,w,h);
+    const s=Math.min(1,p.tau/full);
+    x.beginPath();x.moveTo(g.x0,g.y0);x.quadraticCurveTo(g.cx,g.cy,g.x1,g.y1);
+    x.strokeStyle=COL.fg4;x.lineWidth=1;x.setLineDash(p.open?[]:[3,4]);x.stroke();x.setLineDash([]);
+    if(p.open&&s>0.002){x.beginPath();x.moveTo(g.x0,g.y0);x.quadraticCurveTo(g.cx,g.cy,g.x1,g.y1);x.strokeStyle=cols[i%cols.length];x.globalAlpha=0.15+0.75*s;x.lineWidth=1+11*s;x.stroke();x.globalAlpha=1;}
+    x.beginPath();x.arc(g.x1,g.y1,9,0,7);
+    if(p.open&&p.food){x.fillStyle=cols[i%cols.length];x.fill();}else{x.strokeStyle=p.open?COL.dead:COL.fg4;x.lineWidth=1.2;x.stroke();}
+    x.fillStyle=COL.fg3;x.font='11px '+getComputedStyle(document.body).getPropertyValue('--mono');
+    x.fillText((o.names?o.names[i]:String.fromCharCode(65+i))+(p.open?'':' · closed')+(p.open&&!p.food?' · empty':''),g.x1+14,g.y1+4);
+  });
+  x.beginPath();x.arc(46,h/2,12,0,7);x.fillStyle='#22222e';x.fill();x.strokeStyle=COL.fg3;x.lineWidth=1;x.stroke();
+  x.fillStyle=COL.fg3;x.fillText('nest',20,h/2+28);
+  for(const a of c.ants){if(a.path<0||a.wait>0)continue;const g=pathGeom(c,a.path,w,h);const [px,py]=pt(g,Math.max(0,Math.min(1,a.pos/c.paths[a.path].len)));
+    x.beginPath();x.arc(px,py,a.carry?2.6:1.9,0,7);x.fillStyle=a.carry?COL.fg1:COL.fg3;x.fill();}
+}
+function plot(cv,series,o){
+  o=o||{};const {x,w,h}=fit(cv,o.h||150);x.clearRect(0,0,w,h);
+  const L=40,R=10,T=10,B=22,pw=w-L-R,ph=h-T-B;
+  const n=Math.max(1,...series.map(s=>s.data.length));const ymax=o.ymax||Math.max(1e-9,...series.flatMap(s=>s.data))*1.1;
+  x.strokeStyle=COL.grid;x.lineWidth=1;x.fillStyle=COL.fg3;x.font='10px '+getComputedStyle(document.body).getPropertyValue('--mono');
+  for(let k=0;k<=4;k++){const y=T+ph-ph*k/4;x.beginPath();x.moveTo(L,y);x.lineTo(L+pw,y);x.stroke();x.fillText((ymax*k/4).toFixed(ymax<2?2:0),2,y+3);}
+  (o.hlines||[]).forEach(hl=>{const y=T+ph-ph*hl.y/ymax;x.setLineDash([4,4]);x.strokeStyle=hl.color||COL.fg3;x.beginPath();x.moveTo(L,y);x.lineTo(L+pw,y);x.stroke();x.setLineDash([]);x.fillStyle=hl.color||COL.fg3;x.fillText(hl.label||'',L+pw-x.measureText(hl.label||'').width-4,y-4);});
+  (o.vlines||[]).forEach(vl=>{const xx=L+pw*vl.i/(o.span||n);x.setLineDash([2,4]);x.strokeStyle=vl.color||COL.fg3;x.beginPath();x.moveTo(xx,T);x.lineTo(xx,T+ph);x.stroke();x.setLineDash([]);x.fillStyle=vl.color||COL.fg3;x.fillText(vl.label||'',xx+4,T+10);});
+  series.forEach(s=>{x.beginPath();s.data.forEach((v,i)=>{const xx=L+pw*i/((o.span||n)-1||1),yy=T+ph-ph*Math.min(v,ymax)/ymax;i?x.lineTo(xx,yy):x.moveTo(xx,yy);});x.strokeStyle=s.color;x.lineWidth=1.4;x.stroke();});
+  x.fillStyle=COL.fg3;x.fillText(o.xlabel||'ticks',L,h-6);
+}
+function bars(cv,arms,o){ // each arm: {label, vals:[0..1], color}
+  o=o||{};const {x,w,h}=fit(cv,o.h||60+arms.length*44);x.clearRect(0,0,w,h);
+  const L=200,R=14,rowH=44,T=16;x.font='11px '+getComputedStyle(document.body).getPropertyValue('--mono');
+  const X=v=>L+(w-L-R)*v;
+  [0,0.5,1].forEach(v=>{x.fillStyle=COL.fg3;x.fillText(v.toFixed(1),X(v)-8,T-4);});
+  (o.lines||[]).forEach(l=>{x.setLineDash([3,4]);x.strokeStyle=l.color;x.beginPath();x.moveTo(X(l.v),T);x.lineTo(X(l.v),T+rowH*arms.length);x.stroke();x.setLineDash([]);x.fillStyle=l.color;x.fillText(l.label,X(l.v)+4,T+rowH*arms.length+12);});
+  arms.forEach((a,r)=>{const y=T+r*rowH+rowH/2;x.fillStyle=COL.fg1;x.fillText(a.label,4,y+4);
+    x.strokeStyle=COL.grid;x.beginPath();x.moveTo(X(0),y);x.lineTo(X(1),y);x.stroke();
+    a.vals.forEach((v,j)=>{x.beginPath();x.arc(X(v),y+((j%5)-2)*4,2.6,0,7);x.fillStyle=a.color;x.globalAlpha=.85;x.fill();x.globalAlpha=1;});});
+}
+function loop(fn){let id=0,on=false;function f(){if(!on)return;fn();id=requestAnimationFrame(f);}return {start(){if(on)return;on=true;id=requestAnimationFrame(f);},stop(){on=false;cancelAnimationFrame(id);},get on(){return on;}};}
+function $(id){return document.getElementById(id);}
+function share(a){let s=0;for(const v of a)s+=v;return a.map(v=>v/(s||1));}
+
+// step 1 — one ant
+(function(){
+  let c, hist=[], L;
+  function reset(){c=makeColony({ants:1,rho:+$('s1rho').value,stagger:0,paths:[{len:20}]});hist=[];draw();}
+  function draw(){drawColony($('c1'),c,{h:150,full:4});plot($('p1'),[{data:hist,color:COL.a}],{h:130,span:800,ymax:Math.max(4,...hist)*1.1,xlabel:'the last 800 ticks · trail τ'});
+    $('r1t').textContent=c.t;$('r1tau').textContent=c.paths[0].tau.toFixed(2);$('r1n').textContent=c.paths[0].trips;
+    const r=c.rho;$('r1eq').textContent=(1/(1-Math.pow(1-r,40))).toFixed(2);}
+  L=loop(()=>{for(let i=0;i<2;i++){step(c);hist.push(c.paths[0].tau);if(hist.length>800)hist.shift();}draw();});
+  $('s1rho').oninput=()=>{$('o1rho').textContent=(+$('s1rho').value).toFixed(3);c.rho=+$('s1rho').value;draw();};
+  $('b1').onclick=()=>{if(L.on){L.stop();$('b1').textContent='play';}else{L.start();$('b1').textContent='pause';}};
+  $('b1r').onclick=()=>{reset();};
+  ENTER[0]=()=>{if(!c)reset();else draw();}; LEAVE[0]=()=>{L.stop();$('b1').textContent='play';};
+})();
+// step 2 — the choice
+(function(){
+  const K=20;
+  function P(a,b,n){const wa=Math.pow(K+a,n),wb=Math.pow(K+b,n);return wa/(wa+wb);}
+  function draw(){const a=+$('s2a').value,b=+$('s2b').value;$('o2a').textContent=a;$('o2b').textContent=b;
+    const d1=[],d2=[];for(let t=0;t<=200;t+=2){d1.push(P(t,b,1));d2.push(P(t,b,2));}
+    plot($('p2'),[{data:d1,color:COL.b},{data:d2,color:COL.a}],{h:170,ymax:1,hlines:[{y:0.5,label:'even split'}],vlines:[{i:a/2,label:'τA'}],span:101,xlabel:'τA from 0 to 200 · chance an ant takes A'});
+    $('r2n1').textContent=P(a,b,1).toFixed(3);$('r2n2').textContent=P(a,b,2).toFixed(3);}
+  function send(n){const c=makeColony({ants:0,rho:0,n,k:K,seed:7,paths:[{len:20,tau:+$('s2a').value},{len:20,tau:+$('s2b').value}]});let A=0;for(let i=0;i<1000;i++) if(choose(c)===0)A++;
+    $('r2s').textContent='n = '+n+': '+A+' took A, '+(1000-A)+' took B';}
+  $('s2a').oninput=draw;$('s2b').oninput=draw;$('b2').onclick=()=>send(2);$('b2b').onclick=()=>send(1);
+  ENTER[1]=draw;
+})();
+// step 3 — feedback
+(function(){
+  let c,hist=[],L,seed=1,last=[0,0];
+  function reset(){c=makeColony({ants:+$('s3n').value,rho:0.01,seed,paths:[{len:20},{len:20}]});hist=[];last=[0,0];draw();}
+  function draw(){const full=Math.max(30,c.ants.length*0.25/0.01);drawColony($('c3'),c,{h:200,full});
+    plot($('p3'),[{data:hist.map(h=>h[0]),color:COL.a},{data:hist.map(h=>h[1]),color:COL.b}],{h:130,ymax:1,span:30,hlines:[{y:0.5,label:'even split'}],xlabel:'share of choices, in 100-tick windows'});
+    $('r3t').textContent=c.t;$('r3ta').textContent=c.paths[0].tau.toFixed(1);$('r3tb').textContent=c.paths[1].tau.toFixed(1);
+    const h=hist[hist.length-1];$('r3a').textContent=h?h[0].toFixed(2):'–';$('r3b').textContent=h?h[1].toFixed(2):'–';}
+  L=loop(()=>{for(let i=0;i<4;i++){step(c);if(c.t%100===0){const now=c.paths.map(p=>p.choices);hist.push(share([now[0]-last[0],now[1]-last[1]]));last=now;if(hist.length>30)hist.shift();}}draw();});
+  $('s3n').oninput=()=>{$('o3n').textContent=$('s3n').value;reset();};
+  $('b3').onclick=()=>{if(L.on){L.stop();$('b3').textContent='play';}else{L.start();$('b3').textContent='pause';}};
+  $('b3r').onclick=()=>{seed++;reset();};
+  ENTER[2]=()=>{if(!c)reset();else draw();}; LEAVE[2]=()=>{L.stop();$('b3').textContent='play';};
+})();
+// step 4 — the test
+const ARMS1=[
+  {id:'strong',label:'A strong, B weak · n = 2',tau:[60,10],n:2,color:COL.a},
+  {id:'equal',label:'equal start · n = 2',tau:[10,10],n:2,color:COL.fg1},
+  {id:'prop',label:'A strong, B weak · n = 1',tau:[60,10],n:1,color:COL.b}];
+function runArm1(arm,seed){const c=makeColony({ants:100,rho:0.01,n:arm.n,seed,paths:[{len:20,tau:arm.tau[0]},{len:20,tau:arm.tau[1]}]});choiceWindow(c,1500);return choiceWindow(c,500);}
+function judge1(res){ // res[arm.id] = array of [shareA, shareB]
+  const s=res.strong,e=res.equal,p=res.prop;
+  const clus=s.filter(r=>r[0]>=0.8).length, negl=s.filter(r=>r[1]<=0.2).length;
+  const eqClus=e.filter(r=>Math.max(r[0],r[1])>=0.8).length, eqA=e.filter(r=>r[0]>r[1]).length;
+  const pClus=p.filter(r=>r[0]>=0.8).length;
+  return {clus,negl,eqClus,eqA,pClus,pass:clus>=18&&negl>=18};
+}
+(function(){
+  $('b4').onclick=()=>{const res={};let i=0;$('b4').disabled=true;
+    const jobs=[];ARMS1.forEach(a=>{res[a.id]=[];for(let s=1;s<=20;s++)jobs.push([a,s]);});
+    (function chunk(){const t0=performance.now();while(i<jobs.length&&performance.now()-t0<30){const [a,s]=jobs[i++];res[a.id].push(runArm1(a,s));}
+      $('r4s').textContent=i+' of '+jobs.length+' runs';
+      if(i<jobs.length){setTimeout(chunk,0);return;}
+      $('b4').disabled=false;
+      bars($('v4'),ARMS1.map(a=>({label:a.label,vals:res[a.id].map(r=>r[0]),color:a.color})),{lines:[{v:0.5,label:'chance',color:COL.fg3},{v:0.8,label:'cluster line',color:COL.a}]});
+      const J=judge1(res),f=a=>{const v=res[a.id].map(r=>r[0]);return [Math.min(...v),Math.max(...v)];};
+      const rows=ARMS1.map(a=>{const [lo,hi]=f(a);const n8=res[a.id].filter(r=>r[0]>=0.8).length,n2=res[a.id].filter(r=>r[1]<=0.2).length;return '<tr><td>'+a.label+'</td><td>'+lo.toFixed(2)+' – '+hi.toFixed(2)+'</td><td>'+n8+' / 20</td><td>'+n2+' / 20</td></tr>';}).join('');
+      $('t4').innerHTML='<table><tr><th>arm</th><th>A\'s share, lowest – highest</th><th>A ≥ 0.80</th><th>B ≤ 0.20</th></tr>'+rows+'</table><div class="read">equal start: a cluster on either side in <b>'+J.eqClus+' / 20</b>, A the side in <b>'+J.eqA+' / 20</b> (chance 10)</div>';
+      $('vd4').textContent=(J.pass?'Holds, in this model, at n = 2: the strong trail took the colony in '+J.clus+' of 20 runs, and the weak one was left in '+J.negl+'. ':'Fails at n = 2: '+J.clus+' of 20. ')
+        +(J.pClus<=2?'It does not hold when ants follow in proportion (n = 1): '+J.pClus+' of 20 clustered, and the head start washed out. ':'At n = 1, '+J.pClus+' of 20 clustered. ')
+        +(J.eqClus>=18?'And with no head start the colony still clustered in '+J.eqClus+' of 20: the loop makes the cluster, the strong trail only decides where.':'');
+      window.RESULT1={res,J};
+    })();
+  };
+})();
+show(0);
+
+</script>
+</body>
+</html>

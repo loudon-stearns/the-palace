@@ -1,0 +1,115 @@
+{
+  "title": "Pheromone Trail — rich",
+  "born": "2026-11-04",
+  "links": [
+    {
+      "target": "[[Pheromone Trail]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    }
+  ],
+  "forward_vector": "I am the manifest of Pheromone Trail's rich face, its first round at Sketch tier, a proposal: one ant-colony engine with deposit and evaporation, carried byte for byte by three made pieces, each walked up from one ant or one trail to a test with its rules written first — the cluster sentence under Connection to Pages as Agents, the fade sentence under The Inverse, and the too-strong question under Open Questions. I grow when real Weave runs give the page evidence the model can't. I never hold the entry's words.",
+  "entry": "Pheromone Trail",
+  "tier": "sketch",
+  "made": "2026-11-04",
+  "round": 1,
+  "note": "Every number on this face is the colony model's, at its own settings (k = 20, n = 2 unless an arm says otherwise, ρ = 0.01, 100 ants), not a measurement of ants or of the palace's workers. The engine check beside the pieces (Pheromone Trail — rich — engine check.mjs) re-runs every test on the engine pulled from the pieces' own HTML, and with --browser presses each piece's run button headless and compares. No piece makes sound.",
+  "offers": [
+    {
+      "section": "Connection to Pages as Agents",
+      "kind": "claim-change",
+      "what": "The colony piece found a condition the sentence 'Swarm workers will cluster around strong trails and neglect weak ones' leaves out. In the model, workers who lean toward a stronger trail more than in proportion (n = 2) clustered on it in 20 of 20 runs (share 0.99–1.00) and left the weak one; workers who follow in proportion (n = 1), same head start, clustered in 0 of 20 (strong share 0.45–0.61), the head start washed out; and with no head start at all the n = 2 colony still clustered in 20 of 20, on a side picked by chance. So the cluster is made by the feedback loop and the strong trail only picks where. If Loudon wants it, the sentence could carry the condition: workers cluster when they favour a strong trail more than its strength alone would earn. These are the model's numbers; how the palace's workers follow a neighbourhood is untested.",
+      "status": "open"
+    },
+    {
+      "section": "Open Questions",
+      "kind": "claim-change",
+      "what": "The too-strong question could carry the ant model's number beside its Swarm Weave answer, without changing that answer. In the model, a colony worn onto a far source was locked off a nearer, bare source once the worn trail reached about 1.6 times k (worn trail 32.7 at k = 20; 62.8 at k = 40): it reached the near source in at most 1 of 10 runs where a fresh colony found it in 10 of 10, and at the model's default strength it was still at 0.01 near share 20 000 ticks later. No strength let the colony both find the better source and leave the worn one, and one ant in ten walking off-trail freed it at none. Model's numbers only; it does not judge the oblique lens, which is a cover cut across a map, not ants leaving a path.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Connection to Pages as Agents",
+      "made_against": "e5fb936e6929",
+      "made": "2026-11-04",
+      "stamped": "2026-11-04",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-04",
+        "by": "maker · claude-opus-5-5 · proposal round · cloud batch 3",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Pheromone Trail — rich — the colony clusters.html",
+          "origin": "made",
+          "by": "the Maker · claude-opus-5-5 · inline canvas, no library",
+          "title": "Do workers cluster on the strong trail? · an ant colony, walked up",
+          "caption": "**The mechanism the page borrows, built and scored.** One ant on one path first, laying a trail that leaks; then how an ant picks between two trails; then a few ants with the loop closed; then the test, with its rules written before the first run: a hundred ants, a strong trail (τ = 60) against a weak one (τ = 10), chance at an even split, cluster if the strong trail takes at least 0.80 of the choices in 18 of 20 runs. It does, 20 of 20, and the weak trail is left. Two controls can disagree, and one does: ants that follow only in proportion to the trail never cluster (0 of 20), and a colony with no head start clusters anyway (20 of 20, on a side picked by chance). The model's numbers, not the palace workers'.",
+          "near": "Swarm workers will cluster around strong trails",
+          "place": "band",
+          "height": 1150
+        }
+      ]
+    },
+    {
+      "heading": "The Inverse: Trail Decay",
+      "made_against": "468b6dddee11",
+      "made": "2026-11-04",
+      "stamped": "2026-11-04",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-04",
+        "by": "maker · claude-opus-5-5 · proposal round · cloud batch 3",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Pheromone Trail — rich — a trail no one walks.html",
+          "origin": "made",
+          "by": "the Maker · claude-opus-5-5 · inline canvas, no library",
+          "title": "Does a trail no one walks fade? · the same colony, its source gone",
+          "caption": "**The part of the sentence that can fail.** A trail alone fades because the model's rule says so (half gone in 69 ticks at ρ = 0.01; shown, not scored). What can fail is whether a colony gets free of a trail once its source runs out. With the model's evaporation it does, 10 of 10 runs, the dead path down to 0.00–0.01 of choices. The null, no evaporation, never does: the dead trail stays at full strength and the colony keeps walking it, 0 of 10. A trail never reinforced fades only if something makes it fade; in the palace that is the 90-day use read from git and the Spore Check, as the section says.",
+          "near": "Trails that are never reinforced fade",
+          "place": "band",
+          "height": 1100
+        }
+      ]
+    },
+    {
+      "heading": "Open Questions",
+      "made_against": "834f878637b1",
+      "made": "2026-11-04",
+      "stamped": "2026-11-04",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-04",
+        "by": "maker · claude-opus-5-5 · proposal round · cloud batch 3",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Pheromone Trail — rich — too strong.html",
+          "origin": "made",
+          "by": "the Maker · claude-opus-5-5 · inline canvas, no library",
+          "title": "Can a trail be too strong? · a worn colony meets a nearer source",
+          "caption": "**The question given a number in the ant model; the palace's answer stays on Swarm Weave.** One worn trail first; then a fresh colony that finds a nearer source; then a colony worn onto the far source for 2000 ticks before the near one opens. The test sweeps the trail's strength with its rules stated first: a strength counts only where a fresh colony finds the near source, and there the worn colony leaves, splits or is locked. From a worn trail of about 1.6 times the choice constant k it is locked, and no counted strength lets it leave: the strength that lets a colony tell the better source is the strength that holds it to the worn one. Outside the palace, Goss, Aron, Deneubourg and Pasteels (1989) is the classic double-bridge case; its numbers are not checked here.",
+          "near": "a deeply worn path that forecloses lateral exploration",
+          "place": "band",
+          "height": 1200
+        }
+      ]
+    }
+  ]
+}
