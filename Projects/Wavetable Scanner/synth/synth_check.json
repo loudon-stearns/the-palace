@@ -1,0 +1,65 @@
+{
+ "chrome": {
+  "errors": [],
+  "sampleRate": 44100,
+  "silence_rms": 0,
+  "page_key_rms": 0.2106,
+  "computer_keys_sounding": [
+   60,
+   64,
+   67
+  ],
+  "computer_keys_rms": 0.3323,
+  "pos_wheel_0": 0,
+  "pos_wheel_127": 1,
+  "pos_wheel_64": 0.504,
+  "cc74_cutoff_hz": 176,
+  "midi_rms": 0.0593,
+  "after_release_sounding": 0,
+  "fm_table_rms": 0.1034,
+  "packed_label": "Packed — 40 cycles, family chain, blur 1",
+  "packed_rms": 0.1217
+ },
+ "firefox": {
+  "errors": [],
+  "sampleRate": 44100,
+  "silence_rms": 0,
+  "page_key_rms": 0.2104,
+  "computer_keys_sounding": [
+   60,
+   64,
+   67
+  ],
+  "computer_keys_rms": 0.3323,
+  "pos_wheel_0": 0,
+  "pos_wheel_127": 1,
+  "pos_wheel_64": 0.504,
+  "cc74_cutoff_hz": 176,
+  "midi_rms": 0.0596,
+  "after_release_sounding": 0,
+  "fm_table_rms": 0.1032,
+  "packed_label": "Packed — 40 cycles, family chain, blur 1",
+  "packed_rms": 0.1217
+ },
+ "webkit": {
+  "errors": [],
+  "sampleRate": 44100,
+  "silence_rms": 0,
+  "page_key_rms": 0.2085,
+  "computer_keys_sounding": [
+   60,
+   64,
+   67
+  ],
+  "computer_keys_rms": 0.3327,
+  "pos_wheel_0": 0,
+  "pos_wheel_127": 1,
+  "pos_wheel_64": 0.504,
+  "cc74_cutoff_hz": 176,
+  "midi_rms": 0.0577,
+  "after_release_sounding": 0,
+  "fm_table_rms": 0.1034,
+  "packed_label": "Packed — 40 cycles, family chain, blur 1",
+  "packed_rms": 0.1217
+ }
+}

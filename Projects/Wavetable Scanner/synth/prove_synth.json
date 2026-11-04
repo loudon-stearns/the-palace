@@ -1,0 +1,68 @@
+{
+ "aliasing": {
+  "note": "C7 (2093 Hz) saw at 48 kHz, energy off the harmonics relative to on them, dB",
+  "band-limited": -57,
+  "raw table": -14.6
+ },
+ "envelope": {
+  "instant": {
+   "T": 0.00488,
+   "reached95_at": 0.00487
+  },
+  "fast": {
+   "T": 0.0154,
+   "reached95_at": 0.0154
+  },
+  "short": {
+   "T": 0.0986,
+   "reached95_at": 0.09848
+  },
+  "medium": {
+   "T": 0.575,
+   "reached95_at": 0.57419
+  },
+  "slow": {
+   "T": 1.41,
+   "reached95_at": 1.408
+  }
+ },
+ "cost": {
+  "voices": 8,
+  "unison": 7,
+  "audio_s": 10,
+  "cpu_s": 0.88,
+  "realtime_x": 11.4,
+  "frames": 122
+ },
+ "demos": [
+  {
+   "file": "demo_cello.wav",
+   "frames": 19,
+   "peak_dbfs": -2.5,
+   "patch": {
+    "unison": 3,
+    "detune": 9,
+    "cutoff": 3500,
+    "reso": 0.25,
+    "envToCutoff": 1.5,
+    "aA": 0.0986,
+    "aR": 0.575,
+    "mD": 0.575
+   }
+  },
+  {
+   "file": "demo_fmsynth_chain.wav",
+   "frames": 122,
+   "peak_dbfs": -1.1,
+   "patch": {
+    "unison": 5,
+    "detune": 14,
+    "cutoff": 9000,
+    "reso": 0.2,
+    "envToCutoff": 0,
+    "aA": 0.0154,
+    "aR": 1.41
+   }
+  }
+ ]
+}

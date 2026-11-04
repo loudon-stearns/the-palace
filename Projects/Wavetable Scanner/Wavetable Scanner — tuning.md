@@ -59,3 +59,15 @@ What Wavetable Scanner's steward cycles taught the page, and the changes to the 
    > **The cursor plane was turned the wrong way (2026-11-04).** The Sketch rotated its `PlaneGeometry` a quarter turn about Y, which lays it along the frame axis instead of across it. It slid with Position but ran lengthwise through the table and never marked the scan. Every headless check passed; a screenshot caught it. A cross-section at z needs no rotation: PlaneGeometry already spans X and Y.
 
 - run · 2026-11-03 · cycle 3 · taught item 6, proposed item 7 for canon
+
+## From cycle 4 — 2026-11-03
+
+8. Write the DSP as one plain class with a per-sample render and stringify it into the AudioWorklet: the same code then runs in Node for proofs and ports straight to the VST Template's Algorithm.h. *(offered by the steward, cycle 4)*
+9. **Proposed for canon** · 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 1 — the packer moves into the page' · canon change owed *(proposed by the steward, cycle 4)*
+   Why: Loudon's 2026-11-04 note put a MIDI synth ahead of the exports; the entry should record that it exists and how it is built
+   Path: `Projects/Wavetable Scanner.md`
+   > #### Study round 2 — the synth (2026-11-04)
+   >
+   > `wavetable_synth.html` plays the scanner's tables as an instrument: Web MIDI from any input, the computer keys, or the page's keys. It has eight voices with up to seven unison copies each, a 12 dB lowpass, two envelopes on the Synth Templates Moog curve, an LFO, and the mod wheel on Position. Every frame is band-limited per octave, which takes aliasing at C7 from −15 to −57 dB. The engine (`synth/wt-synth.js`) is one plain class that both the AudioWorklet and Node run, shaped for the [[VST Template]]'s `Algorithm.h`. It passes in Chrome, Firefox and WebKit; no real keyboard has played it yet.
+
+- run · 2026-11-03 · cycle 4 · taught item 8, proposed item 9 for canon
