@@ -6,9 +6,6 @@ links:
   - target: "[[BLUELINE]]"
     type: connects-to
     label: motion-subsystem-of
-  - target: "[[BLUELINE — Production Plan]]"
-    type: connects-to
-    label: thread-4-of
   - target: "[[The Flow Field is the Spine]]"
     type: exemplifies
     label: the-field-is-the-geometry
@@ -28,7 +25,7 @@ links:
 
 # BLUELINE — Motion and Flow
 
-> **Thread 4 of the [[BLUELINE — Production Plan]], and its priority frontier.** Motion was the most
+> **Thread 4 of [[BLUELINE]]'s nine, and its priority frontier** (where the threads stand is on [[BLUELINE — scroll]]). Motion was the most
 > fragmented part of BLUELINE — **seven sub-threads** pulled separately, four of which never
 > cross-referenced. This doc is their single home: what each proved, what got retired, and the one
 > coupling worth building next. It **absorbs** the older `flow-field-spine.md` workflow doc (which

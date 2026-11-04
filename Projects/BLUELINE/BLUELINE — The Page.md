@@ -6,9 +6,6 @@ links:
   - target: "[[BLUELINE]]"
     type: connects-to
     label: page-subsystem-of
-  - target: "[[BLUELINE — Production Plan]]"
-    type: connects-to
-    label: the-final-stage
   - target: "[[BLUELINE — Production Pipeline]]"
     type: connects-to
     label: reframes-stage-7
