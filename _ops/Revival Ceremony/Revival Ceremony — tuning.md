@@ -50,8 +50,8 @@ What each revival taught the ceremony, and the lessons that reached it from else
 
 ## From the third run, Generative Audio Devices — 2026-10-24
 
-5. **Two small gaps showed.** **Owed:** Loudon's call on each.
-   - **Meeting a made thing in its own tool can rewrite it.** Rack re-saved the committed `house_bass.vcv` in place, as a zstd archive, the moment he saved. Step 2 could say: open a copy, or keep the re-save as a proof and restore the original before landing. · owed
-   - **A stewarded page may have no tuning ledger to leave the order in.** Generative Audio Devices had none, as Particle Synthesis had none (`99978d05`). Step 5 could say the order's ledger is opened if it does not exist, in the commit that lands the revival. · owed
+5. **Two small gaps showed.** **Paid:** Loudon's call on each, 2026-11-03, "Yes to all three".
+   - **Meeting a made thing in its own tool can rewrite it.** Rack re-saved the committed `house_bass.vcv` in place, as a zstd archive, the moment he saved. Step 2 could say: open a copy, or keep the re-save as a proof and restore the original before landing. · paid in v2.2 (8b3dfc6b) on 2026-11-03
+   - **A stewarded page may have no tuning ledger to leave the order in.** Generative Audio Devices had none, as Particle Synthesis had none (`99978d05`). Step 5 could say the order's ledger is opened if it does not exist, in the commit that lands the revival. · paid in v2.2 (8b3dfc6b) on 2026-11-03
 
 - run · 2026-10-24 · v2.1 · Generative Audio Devices (a dormant project whose steward never ran; met by playing the April house bass in Rack; landed then plan) · taught item 5
