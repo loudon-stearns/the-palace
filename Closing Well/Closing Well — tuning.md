@@ -335,3 +335,5 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 68. **Two claims written ahead of Loudon's word, caught cold, confirmed at the panel.** The room read "I'd like all th ecomments placed in the project's plan" as a yes to its own four-part offer. The resident then wrote "the four-part shape he said yes to" and "Loudon has seen both pictures in Live" onto the scroll (`bdda438e`) before he had said either. The cold read named both, and the room owned the first and asked about both. Loudon confirmed each in his own words ("yes, those are them…", "I watched it in live") and added two things to the seventh move. Nothing had to be unwritten, but only because he happened to agree. A claim written ahead of his word is still a guess, even when it turns out true. Data with item 67, not a spec change. Also data: on a busy board, `palace-commit` cannot commit one board line alone; met twice, once swept into `a668d1d8` and once left for the sweep. The version stays v1.14.
 
 - run · 2026-11-03 · v1.14 · VST Template baton catch (dd581ec5) · taught item 68
+
+- run · 2026-11-04 · v1.14 · close-2026-11-04-owed-ledger-review · nothing new
