@@ -353,3 +353,29 @@ describe('buildCardGrant — message building', () => {
     expect(() => buildCardGrant(ITEM, {})).toThrow();
   });
 });
+
+describe('TricksterCard — collapsed view', () => {
+  it('folds to who · state · the ask, and nothing else', () => {
+    const html = render({ compact: true, onToggleOpen: () => {} });
+    expect(html).toContain('data-compact="true"');
+    expect(html).toContain(ITEM.from);
+    expect(html).toContain(ITEM.ground);
+    expect(html).toContain(ITEM.headline);
+    expect(html).toContain(t('trickster.card.open'));
+    expect(html).not.toContain('data-testid="card-options"');
+    expect(html).not.toContain('data-testid="card-notes"');
+    expect(html).not.toContain('data-testid="card-details-fold"');
+  });
+
+  it('a card opened from the collapsed view offers a fold back', () => {
+    const html = render({ compact: false, onToggleOpen: () => {} });
+    expect(html).toContain('data-testid="card-fold"');
+    expect(html).toContain('data-testid="card-options"');
+  });
+
+  it('the full card is unchanged when the deck is not collapsed', () => {
+    const html = render();
+    expect(html).not.toContain('data-compact');
+    expect(html).not.toContain('data-testid="card-fold"');
+  });
+});

@@ -43,6 +43,12 @@ export function formatRun(result, name) {
 
 const RUN_COLOR = { ok: 'var(--phosphor)', warn: 'var(--warn)', err: 'var(--error)' };
 
+// The collapsed view is remembered per browser — a viewing convenience, so a
+// blocked or private-mode store just means the deck opens expanded.
+const COMPACT_KEY = 'trickster.compact';
+const readCompact = () => { try { return localStorage.getItem(COMPACT_KEY) === '1'; } catch { return false; } };
+const writeCompact = (on) => { try { localStorage.setItem(COMPACT_KEY, on ? '1' : '0'); } catch { /* private mode */ } };
+
 // The receipt for a filed decision — what the card held the moment it vanished
 // (2026-10-13; Loudon: "the window just disappears, it would feel good to have
 // a confirmation of what was submitted"). Pure, so it is unit-testable.
@@ -115,6 +121,23 @@ export default function TricksterDeck({
   const [selections, setSelections] = useState({});
   const selectOption = (requestId, optionId) =>
     setSelections((prev) => toggleSelection(prev, requestId, optionId));
+
+  // Collapsed view (2026-11-04, Loudon): every card folds to who · state · the
+  // ask, so a long deck scrolls to the one ask he wants. Clicking a folded card
+  // opens just that one; `opened` holds those request_ids and is cleared when
+  // the whole deck flips, so EXPAND → COLLAPSE always lands fully folded.
+  const [compact, setCompact] = useState(readCompact);
+  const [opened, setOpened] = useState({});
+  const toggleCompact = () => {
+    setCompact((was) => { writeCompact(!was); return !was; });
+    setOpened({});
+  };
+  const setCardOpen = (requestId, open) =>
+    setOpened((prev) => {
+      const next = { ...prev };
+      if (open) next[requestId] = true; else delete next[requestId];
+      return next;
+    });
 
   // The card whose "open interactive" modal is open. A trickster launch drives
   // the ASKING steward (item.from) to RESOLVE this specific decision in a
@@ -220,7 +243,7 @@ export default function TricksterDeck({
   // going stale. resolveKey() is the pure key→action map (unit-tested); this
   // handler only owns the side effects.
   const kbRef = useRef({});
-  kbRef.current = { pending_requests, focused, filingAll, selections, fileItems, fileSelected, selectOption };
+  kbRef.current = { pending_requests, focused, filingAll, selections, fileItems, fileSelected, selectOption, toggleCompact, setCardOpen };
   useEffect(() => {
     function onKey(e) {
       // Don't hijack typing in the freeform note field.
@@ -239,7 +262,9 @@ export default function TricksterDeck({
         case 'focus-prev': setFocusedIndex((i) => Math.max(i - 1, 0)); break;
         case 'file-lean': st.fileItems([action.item]); break;
         case 'file-all': st.fileItems(st.pending_requests); break;
-        case 'select': st.selectOption(action.requestId, action.optionId); break;
+        // A pick on a folded card opens it, so the chosen option is never hidden.
+        case 'select': st.selectOption(action.requestId, action.optionId); st.setCardOpen(action.requestId, true); break;
+        case 'toggle-compact': st.toggleCompact(); break;
         case 'file-pick': st.fileSelected(action.item); break;
       }
     }
@@ -261,6 +286,23 @@ export default function TricksterDeck({
               border: '1px solid var(--phosphor-dim)', padding: '0 6px', fontSize: 11,
             }}
           >[R] RELOAD</span>
+        ) : null}
+        {n > 0 ? (
+          <span
+            data-testid="trickster-compact-toggle"
+            data-compact={compact ? 'true' : 'false'}
+            role="button" tabIndex={0}
+            onClick={toggleCompact}
+            onKeyDown={(e) => { if (e.key === 'Enter') { e.stopPropagation(); toggleCompact(); } }}
+            title={compact ? 'show every card in full' : 'fold every card to who · state · the ask'}
+            style={{
+              marginLeft: 12, cursor: 'pointer',
+              color: compact ? 'var(--bg)' : 'var(--phosphor)',
+              background: compact ? 'var(--phosphor)' : 'transparent',
+              textShadow: compact ? 'none' : 'var(--glow)',
+              border: '1px solid var(--phosphor-dim)', padding: '0 6px', fontSize: 11,
+            }}
+          >{compact ? t('trickster.deck.expand') : t('trickster.deck.collapse')}</span>
         ) : null}
       </div>
 
@@ -344,6 +386,8 @@ export default function TricksterDeck({
               selectedId={selections[p.request_id] ?? null}
               onSelectOption={(optId) => selectOption(p.request_id, optId)}
               onLaunch={openLaunch}
+              compact={compact && !opened[p.request_id]}
+              onToggleOpen={compact ? (open) => setCardOpen(p.request_id, open) : undefined}
             />
           ))}
         </>

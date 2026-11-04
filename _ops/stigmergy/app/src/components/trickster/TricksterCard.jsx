@@ -52,7 +52,7 @@ export { buildCardGrant };
 // one source of truth. `selectedId` is the deck's pick for this card;
 // `onSelectOption(optionId)` reports a click up for the deck to toggle. `notes`
 // stays local — the freeform note is a per-card, mouse-only field.
-export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focused = false, selectedId = null, onSelectOption, onLaunch }) {
+export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focused = false, selectedId = null, onSelectOption, onLaunch, compact = false, onToggleOpen }) {
   const [notes, setNotes] = useState('');
   const [sending, setSending] = useState(false);
   const [running, setRunning] = useState(false);
@@ -180,6 +180,76 @@ export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focus
 
   const nameResolved = fromRef && fromRef.path;
 
+  // Collapsed view — who · state · the ask, and nothing else, so a long deck
+  // scrolls to the ask Loudon wants. The whole card is one click target that
+  // opens it in full; the project name still opens STATE. Only the deck's
+  // COLLAPSE sets this, so the full card below stays the default.
+  if (compact) {
+    return (
+      <div
+        data-testid="trickster-card"
+        data-request-id={item.request_id}
+        data-focused={focused ? 'true' : 'false'}
+        data-compact="true"
+        onClick={() => onToggleOpen && onToggleOpen(true)}
+        title="open this card in full"
+        style={{
+          margin: '4px 0', cursor: 'pointer',
+          outline: focused ? '2px solid var(--phosphor-white)' : 'none',
+          outlineOffset: 2,
+        }}
+      >
+        <Box tone="single" pad>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
+            <span
+              data-testid="card-from"
+              onClick={nameResolved ? (e) => { e.stopPropagation(); palace.openEntryInState?.(fromRef.path); } : undefined}
+              title={nameResolved ? `open ${item.from} in STATE` : undefined}
+              style={{
+                color: nameResolved ? 'var(--link)' : 'var(--phosphor-white)',
+                textShadow: 'var(--glow)',
+                fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600,
+              }}
+            >{item.from || '--'}</span>
+            <span style={{ marginLeft: 'auto', display: 'flex', alignItems: 'baseline', gap: 10 }}>
+              {item.blocking ? (
+                <span data-testid="card-waiting" style={{
+                  color: 'var(--warn)', textShadow: 'var(--glow)',
+                  fontFamily: 'var(--font-mono)', fontSize: 11,
+                }}>{t('trickster.card.waiting')}</span>
+              ) : null}
+              {wantsSession ? (
+                <span data-testid="card-session-badge" style={{
+                  color: 'var(--link)', textShadow: 'var(--glow)',
+                  border: '1px solid var(--link)', padding: '0 5px',
+                  fontFamily: 'var(--font-mono)', fontSize: 10,
+                  textTransform: 'uppercase', letterSpacing: '.06em',
+                }}>{t('trickster.card.session.badge')}</span>
+              ) : null}
+              <span style={foldSummary}>{t('trickster.card.open')}</span>
+            </span>
+          </div>
+          {orientation ? (
+            <div data-testid="card-orientation" title={orientation} style={{
+              margin: '2px 0 0',
+              fontFamily: 'var(--font-mono)', fontSize: 12, lineHeight: 1.4,
+              color: 'var(--phosphor-dim)', textShadow: 'none',
+              display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden',
+            }}>{orientation}</div>
+          ) : null}
+          {(item.headline || item.resource) ? (
+            <div data-testid="card-headline" style={{
+              margin: '4px 0 2px',
+              fontFamily: 'var(--font-mono)',
+              fontSize: 15, lineHeight: 1.35, color: 'var(--phosphor-white)',
+              textShadow: 'var(--glow)',
+            }}>{item.headline || item.resource}</div>
+          ) : null}
+        </Box>
+      </div>
+    );
+  }
+
   return (
     <div
       data-testid="trickster-card"
@@ -215,7 +285,7 @@ export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focus
             vault={palace?.vault}
             size={9}
           />
-          {(item.blocking || onLaunch || wantsSession) ? (
+          {(item.blocking || onLaunch || wantsSession || onToggleOpen) ? (
             <span style={{ marginLeft: 'auto', display: 'flex', alignItems: 'baseline', gap: 10 }}>
               {item.blocking ? (
                 <span data-testid="card-waiting" style={{
@@ -251,6 +321,15 @@ export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focus
                     textTransform: 'uppercase', letterSpacing: '.06em',
                   }}
                 >{t('trickster.card.launch')}</button>
+              ) : null}
+              {/* Opened from the collapsed view — fold it back into the list. */}
+              {onToggleOpen ? (
+                <span
+                  data-testid="card-fold"
+                  role="button" tabIndex={0}
+                  onClick={() => onToggleOpen(false)}
+                  style={{ ...foldSummary, cursor: 'pointer' }}
+                >{t('trickster.card.fold')}</span>
               ) : null}
             </span>
           ) : null}

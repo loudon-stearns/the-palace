@@ -73,7 +73,15 @@ const DICT = {
   'trickster.quickbar.summary':         'the leans —',
   'trickster.quickbar.remainder.one':   'more needs your call',
   'trickster.quickbar.remainder.many':  'more need your call',
-  'trickster.deck.keyhint':             'j / k move · 1-9 pick · enter files the pick · space files the lean · f files all',
+  'trickster.deck.keyhint':             'j / k move · 1-9 pick · enter files the pick · space files the lean · f files all · c collapses',
+
+  // Collapsed view (2026-11-04, Loudon: "collapse each project down to just
+  // the ask and a description of the project state"). An option, not the
+  // default — the full card stays the deck as he likes it.
+  'trickster.deck.collapse':            '[C] COLLAPSE',
+  'trickster.deck.expand':              '[C] EXPAND',
+  'trickster.card.open':                '▸ open',
+  'trickster.card.fold':                '▴ fold',
 
   // Inline assets (Phase 3) — audition strip + embed chrome. Titles/blurbs
   // themselves come from the asset registry (they're per-project data); these
