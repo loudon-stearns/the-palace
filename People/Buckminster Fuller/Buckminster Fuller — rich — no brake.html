@@ -133,6 +133,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
     <b>One: efficiency is not a brake.</b> It holds if, at every speed, the stock runs out at some rebound below 100%, where use is still falling. It is wrong if any speed keeps the stock alive at every rebound below 100%: then efficiency alone outruns the ceiling, and only a true backfire could empty it.
     <b>Two: a balancing loop is the missing part.</b> It holds if, at every speed, the braked world's line sits above 100%, so the brake keeps the stock where efficiency alone lets it go, even through a backfire. It is wrong at any speed where that line is at or below 100%.
     Where total use stops falling is not a test: it is 100% by what a rebound is, and the sheet prints it only to show its arithmetic agrees.
+    <b>How it can fail.</b> Half one cannot fail by its arithmetic alone: whenever use starts above what regrows, flat use empties a finite stock, so given enough cycles the line always sits below 100% (98.08% at start use 1.3, stock 100, over 100,000 cycles). On this sheet it fails for one of two reasons the verdict names: the start use is at or below regrowth, so only a backfire could empty the stock; or the 300-cycle horizon is too short for a shallow overdraw on a big stock (start 1.05, stock 30: 101.6% at 2% a cycle). Half two fails when the overdraw is deeper than this brake can hold (start above about 1.35, stock 10).
   </div>
 
   <div class="panel">
@@ -235,7 +236,7 @@ var RB = (function(){
       eq:['R(effective) = R × S ÷ S0','(the share taken back) = (the rebound) × (how full the stock is)'] },
     { key:'test', eyebrow:'Step 5 of 5 · the test', title:'Is efficiency a brake?',
       say:'Sweep the efficiency gain from 1% to 50% a cycle and find, for each, the smallest rebound at which the stock runs out, with and without the balancing loop. The rule above was written before the first run.',
-      tryText:'Run it at the start, then set the use at the start to 1.0 or below and run again: the first half should fail. Then raise the use toward 2 and watch the second half fail too, because this brake is not strong enough for a deep overdraw.',
+      tryText:'Run it at the start. Then set the start use to 1.0 and run again: half one fails because nothing is overdrawn. Set it to 1.05 and the stock to 30: half one fails again, but only because 300 cycles is too short to empty so big a stock that slowly. Then raise the use toward 2 and watch half two fail, because this brake is not strong enough for a deep overdraw.',
       eq:['collapse line = the smallest R for which S reaches 0 within 300 cycles','(where the page’s doubt bites) = the least rebound that empties the stock, read for each efficiency speed'] }
   ];
 
@@ -303,11 +304,12 @@ var RB = (function(){
     var o = opts(), r2 = result.rows[1], v = '';
     v += '<b>Half one, efficiency is not a brake: '+(result.one ? 'holds' : 'fails')+'.</b> ';
     v += result.one ? 'At every speed the stock runs out at a rebound below 100%, while use is still falling. At 2% a cycle the band runs from '+pct(r2.free)+' to 100%: use falls the whole way and the stock still empties. Faster efficiency narrows the band and never closes it.'
-                    : 'At some speed the stock survives every rebound below 100%: efficiency alone outruns this ceiling unless the rebound is a true backfire. With the start use at or below what regrows, that is what the model must say.';
+                    : (o.U0 <= 1 ? 'At some speed the stock survives every rebound below 100%. The start use is at or below what regrows, so nothing is overdrawn and only a true backfire could empty the stock: here the page\u2019s doubt has no ceiling to bite on.'
+                                 : 'At some speed the stock survives every rebound below 100% within the 300 cycles. That is the horizon, not the page: the start use is above what regrows, and flat use above regrowth empties any finite stock given enough cycles (at start 1.3 and stock 100, the line is 98.08% over 100,000 cycles). A shallow overdraw on a big stock simply takes longer than this sheet runs.');
     v += '<br><b>Half two, a balancing loop is the missing part: '+(result.two ? 'holds' : 'fails')+'.</b> ';
     v += result.two ? 'At every speed the braked world\u2019s stock holds past a rebound of 100% (up to '+pct(r2.braked)+' at 2% a cycle): the brake carries it where efficiency alone lets the stock go.'
                     : 'At some speed even the braked world runs out at a rebound at or below 100%: this brake is not enough for an overdraw this deep, at this stock.';
-    v += '<br>Start use '+o.U0.toFixed(2)+', stock '+o.S0+', 300 cycles. The use-stops-falling column reads 100% because that is what a rebound of 100% means; it checks the arithmetic, not the page. These are this model’s numbers, and the first half rests on the world starting above what regrows.';
+    v += '<br>Start use '+o.U0.toFixed(2)+', stock '+o.S0+', 300 cycles. The use-stops-falling column reads 100% because that is what a rebound of 100% means; it checks the arithmetic, not the page. These are this model’s numbers. Half one rests on the world starting above what regrows and on a long enough run; half two on this one brake.';
     $('verdict').innerHTML = v;
   }
 

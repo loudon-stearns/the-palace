@@ -129,7 +129,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   </section>
 
   <div class="rule" id="rule" hidden><span class="eyebrow">The rule, stated before the run</span>
-    Both arms make the same 20° turn. The autopilot steers the <b>tab arm</b>: it moves only the tab, and the water swings the rudder. The <b>direct arm</b> moves the rudder itself, along the exact path that gives the ship the same push, so heading and time match by construction. Effort is the torque the hand's gear supplies, summed over the 90-second run, <i>E</i> = ∫|<i>Q</i>| d<i>t</i>, because holding a loaded rudder costs effort even when nothing moves. Leverage <i>L</i> = <i>E</i> direct ÷ <i>E</i> tab. <b><i>L</i> ≤ 1 means no leverage, and so does a tab arm that never settles within 0.5° of 20° inside the 90 seconds.</b> Either one is the page wrong at this placement, in this model; <i>L</i> &gt; 1 with the turn made is the page right. Nothing is guessed here, so there is no chance level. The delay is read off the same run: the tab arm's settling time minus that of a direct arm steered by the same autopilot through the same gear speed. One null first: the matched arm's arithmetic, run on the direct arm's own path, must give back the direct arm's own effort within 1%.
+    Both arms make the same 20° turn. The autopilot steers the <b>tab arm</b>: it moves only the tab, and the water swings the rudder. The <b>direct arm</b> moves the rudder itself, along the exact path that gives the ship the same push, so heading and time match by construction. Effort is the torque the hand's gear supplies, summed over the 90-second run, <i>E</i> = ∫|<i>Q</i>| d<i>t</i>, because holding a loaded rudder costs effort even when nothing moves. Leverage <i>L</i> = <i>E</i> direct ÷ <i>E</i> tab. <b><i>L</i> ≤ 1 means no leverage, and so does a tab arm that never settles within 0.5° of 20° inside the 90 seconds.</b> Either one is the page wrong at this placement, in this model; <i>L</i> &gt; 1 with the turn made is the page right. Nothing is guessed here, so there is no chance level. The delay is read off the same run: the tab arm's settling time minus that of a direct arm steered by the same autopilot through the same gear speed. One null first: the matched arm's arithmetic, run on the direct arm's own path, must give back the direct arm's own effort within 1%. <b>How it can fail.</b> Slide the tab forward of 0.90 m and the turn is not made, for three different reasons the verdict names: the tab runs out of its 30° travel (0.60 to 0.90 m), its leverage is truly at or below 1 (0.44 to 0.60 m), or its own side force outpushes the rudder and the ship turns the wrong way (forward of 0.44 m). And know what <i>L</i> is before you read it: it equals the steady leverage the model's lever arms set (step 4), so this run tests the delay, not the leverage.
   </div>
 
   <div class="panel">
@@ -280,11 +280,11 @@ var TT = (function(){
       eq:['J · d²δ/dt² = −b · dδ/dt − cr · δ + cτ · τ,   Qhand = e · τ','(the rudder’s swing) = −(drag) − (the flow pulling it to centre) + (the tab pushing it out); the hand feels only the tab’s pull about its own hinge'] },
     { key:'place', eyebrow:'Step 4 of 5 · one concept: well placed', title:'Where the tab sits',
       say:'The same tab, slid along the rudder. Its push turns the rudder about the stock, but the hand feels it only about the tab’s own hinge, so the farther aft it sits, the longer its lever. The tab’s push also points against the rudder’s, though, and near the stock it can outpush the rudder it turns.',
-      tryText:'Slide the hinge from the trailing edge toward the stock and watch the steady leverage fall through 1. Most of this number is lever arms the model sets; step 5 adds what a real turn costs on top.',
+      tryText:'Slide the hinge from the trailing edge toward the stock. The steady leverage falls through 1 at 0.60 m and to 0 at 0.44 m; forward of that the tab outpushes its rudder and the ship would turn the wrong way. This number is set by the model\u2019s lever arms and side forces, not found: step 5\u2019s turn reproduces it to within half a percent (0.08% at the trailing edge) and adds only the delay.',
       eq:['Lsteady = (cτ ÷ e) × (1 − side × cr ÷ cτ)','(leverage at rest) = (the tab’s lever about the stock ÷ its lever about its own hinge) × (the share of the rudder’s push the tab leaves standing)'] },
     { key:'test', eyebrow:'Step 5 of 5 · the test', title:'The same turn, two ways',
       say:'The autopilot makes a 20° turn, once moving only the tab and once moving the rudder itself, and the hand’s effort is compared. The rule above was written before the first run.',
-      tryText:'Run it at the trailing edge, then slide the hinge forward and run again. Find where the turn stops being made, and where L falls through 1.',
+      tryText:'Run it at the trailing edge, then at 0.80 m, 0.50 m and 0.30 m. Each fails for a different reason, and the verdict names which: the tab\u2019s travel, the leverage itself, or a turn the wrong way.',
       eq:['L = Edirect ÷ Etab,   E = ∫ |Q| dt over 90 s','(leverage) = (torque-time the hand spends moving the rudder) ÷ (torque-time it spends moving the tab), for the same heading at every moment'] }
   ];
 
@@ -405,14 +405,17 @@ var TT = (function(){
       '<tr><td>settles within 0.5° of 20°</td><td>'+s(r.sF)+' (same autopilot, rudder moved directly)</td><td>'+s(r.sT)+'</td></tr>';
     $('results').hidden = false;
     var v = '<b>Null:</b> the matched arithmetic on the direct arm’s own path reads '+(r.nullRel*100).toFixed(2)+'% off its own effort'+(Math.abs(r.nullRel)<0.01?' (inside 1%: the matched arm is measured right).':' <i>(outside 1%: do not trust L below).</i>')+'<br>';
-    v += '<b>Leverage L = '+r.L.toFixed(2)+'</b> (peak torque ratio '+r.Lpk.toFixed(2)+'), with the tab hinge '+r.P.xh.toFixed(2)+' m aft of the stock. ';
-    if (!r.made) v += 'The tab arm never settles on 20° (it ends at '+r.final.toFixed(1)+'°). <b>By the rule, no leverage here: the page is wrong at this placement, in this model.</b>';
-    else if (r.L<=1) v += '<b>By the rule, L ≤ 1: no leverage. The page is wrong at this placement, in this model.</b>';
-    else v += '<b>By the rule, the page is right here, in this model:</b> the same turn, in the same time, for 1/'+r.L.toFixed(1)+' of the hand’s effort. ';
+    var st = TT.steady(r.P), gap = Math.abs(r.L-st.L);
+    if (st.keep > 0) v += '<b>Leverage L = '+r.L.toFixed(3)+'</b> (peak torque ratio '+r.Lpk.toFixed(2)+'), with the tab hinge '+r.P.xh.toFixed(2)+' m aft of the stock. The steady leverage step 4 prints for this placement is '+st.L.toFixed(3)+': the model\u2019s lever arms set L, and the turn only reproduces it (gap '+gap.toFixed(3)+'). What the run adds is the delay, not the leverage.<br>';
+    else v += 'With the tab hinge '+r.P.xh.toFixed(2)+' m aft of the stock, the steady leverage step 4 prints is '+st.L.toFixed(3)+', at or below zero: the tab sends the ship the wrong way. L reads '+r.L.toFixed(3)+' here, but it is measured on a reversed turn and compares nothing.<br>';
+    if (st.keep <= 0) v += '<b>By the rule, a fail, and it is not leverage dropping through 1: the turn reverses.</b> Forward of 0.44 m the tab\u2019s own side force outpushes the rudder it turns, and the ship ends at '+r.final.toFixed(1)+'\u00b0, the wrong way.';
+    else if (r.L <= 1) v += '<b>By the rule, a fail: L \u2264 1, no leverage.</b> Between 0.44 and 0.60 m the tab cancels so much of the rudder\u2019s push that holding the tab costs the hand as much as holding the rudder would. The turn ends at '+r.final.toFixed(1)+'\u00b0.';
+    else if (!r.made) v += '<b>By the rule, a fail, and it is the tab\u2019s travel, not its lever.</b> L is still above 1, but the tab hits its 30\u00b0 stop before the rudder reaches the angle the turn needs, and the ship ends at '+r.final.toFixed(1)+'\u00b0. Given 60\u00b0 of travel, 0.80 m ends at 19.57\u00b0 and passes.';
+    else v += '<b>By the rule, the page is right here, in this model:</b> the same turn, in the same time, for 1/'+r.L.toFixed(1)+' of the hand\u2019s effort. ';
     if (r.made){
-      v += '<br><b>The delay it costs:</b> '+r.delay.toFixed(1)+' s later to settle than the rudder moved directly. Of that, '+r.counter.toFixed(1)+' s is the tab’s own push working against its rudder (rerun with that push not charged to the ship) and '+r.swingGear.toFixed(1)+' s is the rudder waiting for the water to swing it.';
+      v += '<br><b>The delay it costs:</b> '+r.delay.toFixed(1)+' s later to settle than the rudder moved directly. Of that, '+r.counter.toFixed(1)+' s is the tab\u2019s own push working against its rudder (rerun with that push not charged to the ship) and '+r.swingGear.toFixed(1)+' s is the rudder waiting for the water to swing it.';
     }
-    v += '<br>Most of L is the lever arms this model sets; what the run adds is the cost of a real turn. And the force is not gone: the flow supplies the rudder’s torque, from the ship’s way through the water.';
+    v += '<br>The force is not gone: the flow supplies the rudder\u2019s torque, from the ship\u2019s way through the water.';
     $('verdict').innerHTML = v;
   }
 

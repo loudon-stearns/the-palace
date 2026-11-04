@@ -49,10 +49,20 @@ check('the delay is positive and splits into its two parts', r.delay > 0 && Math
 { const rows = []; let firstMade = null, firstL = null;
   for (let x = 0; x <= 1.6001; x += 0.05) { const t = TT.test({ xh: +x.toFixed(2) }); rows.push(t); if (firstMade === null && t.pass) firstMade = x; }
   const t03 = TT.test({ xh: 0.3 });
-  check('the test can fail: at 0.30 m from the stock the rule says no leverage', !t03.pass, `L ${t03.L.toFixed(2)}, made ${t03.made}, ends at ${t03.final.toFixed(1)}°`);
+  check('the test can fail: at 0.30 m from the stock the rule gives a fail', !t03.pass, `L ${t03.L.toFixed(2)}, made ${t03.made}, ends at ${t03.final.toFixed(1)}°`);
   check('the verdict turns over somewhere along the rudder', firstMade !== null && firstMade > 0, `the page is right from ${firstMade.toFixed(2)} m aft of the stock (rudder chord 2 m)`);
   const sweep = rows.filter((_, i) => i % 4 === 0).map(t => `${t.P.xh.toFixed(2)}m:L${t.L.toFixed(2)}${t.made ? '' : '·not made'}`).join('  ');
   console.log('      sweep: ' + sweep); }
+// what L is: the steady leverage the lever arms set, at every placement (the run adds the delay, not L)
+{ let worst = 0; for (let x = 0.6; x <= 1.6001; x += 0.1) { const t = TT.test({ xh: +x.toFixed(2) }), s = TT.steady(t.P); worst = Math.max(worst, Math.abs(t.L - s.L) / s.L); }
+  check('L equals the steady lever-arm leverage within 0.5% at every placement from 0.60 to 1.60 m', worst < 0.005, `worst gap ${(worst * 100).toFixed(3)}% (at 0.60 m, where L is near 1); 7.256 against 7.250 at the trailing edge`); }
+// the three ways forward of 0.90 m fails, as the verdict names them
+{ const a = TT.test({ xh: 0.8 }), b = TT.test({ xh: 0.5 }), c = TT.test({ xh: 0.3 });
+  const P = TT.params({ xh: 0.8 }); P.tmax = 60 * D; const w = TT.run(P, 'tab', 20 * D), wf = w.psi[w.psi.length - 1] / D;
+  check('0.80 m: travel-limited, L above 1, and 60° of travel passes', !a.made && a.L > 1 && Math.abs(wf - 19.57) < 0.01 && isFinite(TT.settle(w, 20 * D, 0.5 * D)), `L ${a.L.toFixed(2)}, ends ${a.final.toFixed(2)}°; with 60°: ${wf.toFixed(2)}°`);
+  check('0.50 m: L at or below 1', b.L <= 1 && TT.steady(b.P).keep > 0, `L ${b.L.toFixed(3)}`);
+  check('0.30 m: the turn reverses (tab outpushes the rudder)', TT.steady(c.P).keep < 0 && c.final < 0, `ends ${c.final.toFixed(2)}°`);
+  const P44 = TT.params({ xh: 0.44 }); check('reversal begins at 0.44 m', Math.abs(TT.steady(P44).keep) < 1e-9, `share left ${TT.steady(P44).keep.toExponential(1)}`); }
 // the swing's time against speed, as step 3 says
 { const a = TT.swing(TT.params({ U: 6 })), b = TT.swing(TT.params({ U: 3 })), c = TT.swing(TT.params({ U: 1 }));
   check('step 3: the rudder swings slower as the ship slows', a < b && b < c && Math.abs(b / a - 2) < 0.05, `90% of the swing in ${a.toFixed(3)} s at 6 m/s, ${b.toFixed(3)} at 3, ${c.toFixed(3)} at 1`); }
@@ -78,5 +88,9 @@ check('half two holds in the page\'s situation', t.two, `braked lines ${t.rows.m
 { let lo = 1, hi = 3; for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (RB.test({ ...base, U0: m }).two) lo = m; else hi = m; }
   console.log(`      half two holds up to a start use of ${lo.toFixed(3)} (stock 10, all six speeds)`); }
 
+{ const h = RB.collapseAt({ U0: 1.05, S0: 30, g: 0.02, H: 300 }), l = RB.collapseAt({ U0: 1.3, S0: 100, g: 0.02, H: 100000 }), s30 = RB.collapseAt({ U0: 1.3, S0: 30, g: 0.02, H: 300 });
+  check('half one\'s horizon failure: start 1.05, stock 30, 300 cycles reads above 100%', h > 1 && Math.abs(h - 1.016) < 0.001, `${(h * 100).toFixed(1)}%`);
+  check('given enough cycles half one holds: start 1.3, stock 100, 100,000 cycles', Math.abs(l - 0.9808) < 0.0005, `${(l * 100).toFixed(2)}%`);
+  check('offer 1\'s stock dependence: 81% at stock 10, 93.6% at stock 30', Math.abs(s30 - 0.936) < 0.001, `${(s30 * 100).toFixed(1)}% at stock 30`); }
 console.log(fails ? `${fails} FAIL` : 'all PASS');
 process.exit(fails ? 1 : 0);

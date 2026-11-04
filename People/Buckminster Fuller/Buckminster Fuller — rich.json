@@ -2,10 +2,26 @@
   "title": "Buckminster Fuller — rich",
   "born": "2026-11-04",
   "links": [
-    { "target": "[[Buckminster Fuller]]", "type": "connects-to", "label": "rich-face-of" },
-    { "target": "[[Enrichment]]", "type": "connects-to", "label": "made-by" },
-    { "target": "[[Progressive Staging]]", "type": "connects-to", "label": "the-test-is-the-last-step" },
-    { "target": "[[Donella Meadows]]", "type": "connects-to", "label": "the-loop-language" }
+    {
+      "target": "[[Buckminster Fuller]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    },
+    {
+      "target": "[[Donella Meadows]]",
+      "type": "connects-to",
+      "label": "the-loop-language"
+    }
   ],
   "forward_vector": "I am the manifest of Buckminster Fuller's rich face, its first round at Sketch tier, a proposal. A person page, so nothing of his is reproduced here, only models: in The life that shaped the thought, a model ship that walks up to measuring the trimtab's leverage and the delay it costs; in Where he can't see, a doing-more-with-less model that walks up to whether efficiency is a brake and whether a balancing loop is the missing part. Each section is the page's own ## grain, one piece each. Every number is the models'. I grow when another section earns a piece that tests it; I never hold the entry's words.",
   "entry": "Buckminster Fuller",
@@ -16,13 +32,13 @@
     {
       "section": "Where he can't see",
       "kind": "no-claim-edit",
-      "what": "The sentence calls any reinvested efficiency 'the Jevons paradox'; strictly that names a rebound past 100%, where total use rises. Suggest '(the rebound effect, and at its extreme the Jevons paradox)'. The piece shows the page's doubt bites before Jevons: in its model (start use 1.3 times what regrows, stock 10, 2% efficiency a cycle) the stock runs out from a rebound of 81% while use is still falling, and no efficiency speed from 1% to 50% a cycle closes that band (its edge reaches 98.9%). The model's numbers, not the world's.",
+      "what": "The sentence calls any reinvested efficiency 'the Jevons paradox'; strictly that names a rebound past 100% (backfire), where total use rises. Suggest '(the rebound effect, and at its extreme the Jevons paradox)'. The piece shows the page's doubt bites before Jevons: in its model, starting at 1.3 times what regrows with 2% efficiency a cycle, the stock runs out while use is still falling from a rebound of 81% with a stock of 10, or 93.6% with a stock of 30. The edge depends on the stock and the horizon, but it stays below 100% whenever use starts above regrowth. The model's numbers, not the world's. Confirmed by the challenger.",
       "status": "open"
     },
     {
       "section": "Voice",
       "kind": "no-claim-edit",
-      "what": "The closing voice says 'trimtab the whole ship with a rudder the size of my hand'. In the trimtab the hand-sized part is the tab on the rudder's trailing edge, not the rudder; the piece's model has the hand move only the tab. If the line means the tab, 'with a tab the size of my hand' says so; if 'rudder' is meant as a rudder for the rudder, leave it. A voice line, so this one is Loudon's taste.",
+      "what": "The closing voice says 'trimtab the whole ship with a rudder the size of my hand'. In the trimtab the hand-sized part is the tab; 'with a tab the size of my hand' would say so. But 'a rudder for the rudder' is a fair reading, and the piece's own title, and the challenger leans toward leaving the line as a deliberate figure. Loudon's taste.",
       "status": "open"
     }
   ],
@@ -32,40 +48,68 @@
       "made_against": "cbe2be1d7fe9",
       "made": "2026-11-04",
       "status": "proposal",
-      "proposed": { "date": "2026-11-04", "by": "maker · claude-opus-5-5 · proposal round · cloud batch 3", "round": "proposal-round-2026-11" },
+      "proposed": {
+        "date": "2026-11-04",
+        "by": "maker · claude-opus-5-5 · proposal round · cloud batch 3",
+        "round": "proposal-round-2026-11"
+      },
       "pieces": [
         {
           "file": "Buckminster Fuller — rich — trimtab.html",
           "origin": "made",
           "by": "maker · claude-opus-5-5 · a model ship, inline canvas",
           "title": "A rudder for the rudder · the trimtab, tested",
-          "caption": "**Does a small tab really steer the ship, and what does it cost?** A model ship in five steps: the hull alone; a rudder held against the flow, which costs torque even standing still; a tab that lets the water swing the rudder; where on the rudder the tab must sit; and last the same 20° turn made two ways, the hand's effort compared by a measure and a rule stated before the run. With the tab at the trailing edge the hand spends a seventh of the torque-time for the same heading at every moment (L = 7.26; no leverage would be L ≤ 1), and the turn settles 12.3 s later, 12.0 s of it because the tab's own push works against its rudder. The force isn't gone: the flow supplies it. Slide the tab toward the stock and the verdict turns: forward of 0.90 m on the 2 m rudder the turn isn't made, and at 0.30 m L is 0.88. Every number is this model's, an invented ship, not a measured one, and nothing of Fuller's. It makes no sound.\n\nL = E_direct ÷ E_tab,  E = ∫|Q| dt\n\n(leverage) = (torque-time the hand spends moving the rudder) ÷ (torque-time it spends moving the tab)",
+          "caption": "**Does a small tab really steer the ship, and what does it cost?** A model ship in five steps: the hull alone; a rudder held against the flow, which costs torque even standing still; a tab that lets the water swing the rudder; where on the rudder the tab must sit; and last the same 20° turn made two ways, the hand's effort compared by a measure and a rule stated before the run. Read L for what it is: it equals the steady leverage the model's lever arms set (7.256 against 7.250 at the trailing edge), so the turn adds the delay, not the leverage. That delay is 12.3 s, 12.0 s of it the tab's own push working against its rudder. The force isn't gone: the flow supplies it. How it can fail: forward of 0.90 m on the 2 m rudder the turn isn't made, for three named reasons. From 0.60 to 0.90 m the tab runs out of its 30° travel (with 60°, 0.80 m ends at 19.57° and passes); from 0.44 to 0.60 m L is truly at or below 1; forward of 0.44 m the tab outpushes its rudder and the turn reverses (−8.7° at 0.30 m). Every number is this model's, an invented ship, not a measured one, and nothing of Fuller's. It makes no sound.\n\nL = E_direct ÷ E_tab,  E = ∫|Q| dt\n\n(leverage) = (torque-time the hand spends moving the rudder) ÷ (torque-time it spends moving the tab)",
           "near": "one well-placed mechanical intervention rather than more force",
           "place": "band",
           "height": 1500
         }
       ],
-      "challenge": { "date": "2026-11-04", "by": "challenger · claude-opus-5-5 · cloud batch 3", "verdicts": [ { "file": "Buckminster Fuller — rich — trimtab.html", "verdict": "remake", "why": "The test is sound (matched arm inside the direct arm's limits, effort read at the driven joint in both, null can fail: a 2% hold-term error reads 1.62%), but the words say more than the run: L equals the lever-arm ratio within 0.1% at every hinge, so the run adds the delay, not L; and forward of 0.90 m the failures are a 30° tab-travel limit (0.60–0.90 m) and a reversed turn (forward of 0.44 m; 0.30 m ends at −8.7°), not leverage falling through 1. Fix the caption, step 4 and the verdict; add check lines for 0.44 m and 0.60 m." } ] }
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5 · cloud batch 3",
+        "verdicts": [
+          {
+            "file": "Buckminster Fuller — rich — trimtab.html",
+            "verdict": "remake",
+            "why": "The test is sound (matched arm inside the direct arm's limits, effort read at the driven joint in both, null can fail: a 2% hold-term error reads 1.62%), but the words say more than the run: L equals the lever-arm ratio within 0.1% at every hinge, so the run adds the delay, not L; and forward of 0.90 m the failures are a 30° tab-travel limit (0.60–0.90 m) and a reversed turn (forward of 0.44 m; 0.30 m ends at −8.7°), not leverage falling through 1. Fix the caption, step 4 and the verdict; add check lines for 0.44 m and 0.60 m."
+          }
+        ]
+      }
     },
     {
       "heading": "Where he can't see",
       "made_against": "ddc2e827c13a",
       "made": "2026-11-04",
       "status": "proposal",
-      "proposed": { "date": "2026-11-04", "by": "maker · claude-opus-5-5 · proposal round · cloud batch 3", "round": "proposal-round-2026-11" },
+      "proposed": {
+        "date": "2026-11-04",
+        "by": "maker · claude-opus-5-5 · proposal round · cloud batch 3",
+        "round": "proposal-round-2026-11"
+      },
       "pieces": [
         {
           "file": "Buckminster Fuller — rich — no brake.html",
           "origin": "made",
           "by": "maker · claude-opus-5-5 · a stock-and-flow model, inline canvas",
           "title": "Doing more with less, and no brake",
-          "caption": "**Is doing more with less a brake?** One stock that regrows, one use, and an efficiency that rises every cycle, in five steps: overdraw; the gain banked; the gain spent, a share of it taken back as more use (the rebound); a balancing loop that takes back less as the stock runs low; and last a sweep with its rule written first. Where use stops falling, 100%, is arithmetic, and the piece says so. The finding is the band below it: starting at 1.3 times what regrows, the stock runs out from a rebound of 81% at 2% efficiency a cycle while use is still falling, and no speed from 1% to 50% closes the band. The balancing loop lifts the line past 100% at every speed (160% at 2%). Each half can fail, and the piece shows where: start at or below regrowth and the first half fails; start above about 1.35 and this brake isn't enough. Every number is this model's, not the world's and not Fuller's. It makes no sound.\n\nU(next) = U − (1 − R) × U × g ÷ (1 + g)\n\n(use next cycle) = (use now) − (the share of the saving not taken back) × (the saving)",
+          "caption": "**Is doing more with less a brake?** One stock that regrows, one use, and an efficiency that rises every cycle, in five steps: overdraw; the gain banked; the gain spent, a share of it taken back as more use (the rebound); a balancing loop that takes back less as the stock runs low; and last a sweep with its rule written first. Where use stops falling, 100%, is arithmetic, and the piece says so. The finding is the band below it: starting at 1.3 times what regrows, with a stock of 10, the stock runs out from a rebound of 81% at 2% efficiency a cycle while use is still falling (93.6% with a stock of 30), and no speed from 1% to 50% closes the band. The balancing loop lifts the line past 100% at every speed (160% at 2%). How it can fail: half one must hold whenever use starts above regrowth, given enough cycles (98.08% at stock 100 over 100,000 cycles), so on the sheet it fails only when nothing is overdrawn or when 300 cycles is too short for a shallow overdraw on a big stock (start 1.05, stock 30: 101.6%); half two fails when the overdraw is deeper than this brake can hold (start above about 1.35). Every number is this model's, not the world's and not Fuller's. It makes no sound.\n\nU(next) = U − (1 − R) × U × g ÷ (1 + g)\n\n(use next cycle) = (use now) − (the share of the saving not taken back) × (the saving)",
           "near": "A systems modeler names the missing part exactly",
           "place": "band",
           "height": 1450
         }
       ],
-      "challenge": { "date": "2026-11-04", "by": "challenger · claude-opus-5-5 · cloud batch 3", "verdicts": [ { "file": "Buckminster Fuller — rich — no brake.html", "verdict": "remake", "why": "Numbers reproduce by a second route (81.1%, 160.3%), but half one holds by construction whenever use starts above regrowth on a long enough horizon (100,000 cycles: 98.08% at stock 100), so the sweep measures the band's width in 300 cycles; and the sheet's own sliders fail half one with the overdraw still there (start 1.05, stock 30: 101.6% at 2%), a horizon effect the failure text blames on a start at or below regrowth. Say both in the rule, caption and failure text, and add them to check.mjs." } ] }
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5 · cloud batch 3",
+        "verdicts": [
+          {
+            "file": "Buckminster Fuller — rich — no brake.html",
+            "verdict": "remake",
+            "why": "Numbers reproduce by a second route (81.1%, 160.3%), but half one holds by construction whenever use starts above regrowth on a long enough horizon (100,000 cycles: 98.08% at stock 100), so the sweep measures the band's width in 300 cycles; and the sheet's own sliders fail half one with the overdraw still there (start 1.05, stock 30: 101.6% at 2%), a horizon effect the failure text blames on a start at or below regrowth. Say both in the rule, caption and failure text, and add them to check.mjs."
+          }
+        ]
+      }
     }
   ]
 }
