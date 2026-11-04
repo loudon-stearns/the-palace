@@ -1,0 +1,507 @@
+<!doctype html>
+<!--
+  title: The Dichotomy of Control — rich — the hand on the platter
+  born: 2026-11-03
+  links: [[The Dichotomy of Control]] (connects-to · rich-face-piece) · listed in [[The Dichotomy of Control — rich.json]] · serves § The Palace / Technical Face
+  forward_vector: I am the walk from a turntable platter with nobody watching its speed to the page's own sentence about actuation authority, run against the platter. First the platter alone, then a controller that pushes back, then the belt's lag and the sensor's noise that every real loop has, then a memory of a steady drag, then a rub that comes round once a turn and a model of it, then a hand heavier than the motor can hold, and last a table of runs scored by rules stated before it. I test the claim; I don't decorate it. I change only when the section I serve does.
+  sound: two sine tones on a click, 440 Hz for 33 1/3 and the platter at 440 times its speed, so a sag is a beat and wow is a beat that comes and goes once a turn. Plays the window shown, in real time, 18 to 30 seconds.
+  check: The Dichotomy of Control/The Dichotomy of Control — rich — check.mjs runs this page's core in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host -->
+<meta name="piece:needs" content="">
+<title>The hand on the platter · authority, disturbance and the grip</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10);
+    --info:#4a8fff; --warn:#e8651b;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  canvas#plot{width:100%;height:340px;display:block}
+  .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 22px;margin-top:12px}
+  .ctl[hidden]{display:none}
+  .ctl label{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--fg-3);letter-spacing:.06em}
+  .ctl label b{color:var(--fg-1);font-weight:400}
+  input[type=range]{width:100%;accent-color:var(--accent)}
+  .seg{display:inline-flex;border:1px solid var(--border);border-radius:4px;overflow:hidden}
+  .seg button{font-family:var(--sans);font-size:13px;color:var(--fg-3);background:transparent;border:0;padding:7px 12px;cursor:pointer}
+  .seg button[aria-pressed="true"]{color:var(--fg-1);background:var(--bg-elev-2)}
+  .rowb{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.play{font-family:var(--sans);font-size:14px;color:var(--bg);background:var(--accent);border:1px solid var(--accent);border-radius:4px;padding:8px 16px;cursor:pointer;box-shadow:0 0 18px rgba(232,184,74,.25)}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter i{color:var(--info);font-style:normal}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  blockquote.page{margin:0 0 14px;padding:10px 16px;border-left:2px solid var(--fg-4);font-style:italic;color:var(--fg-2);max-width:68ch}
+  blockquote.page[hidden]{display:none}
+  .rules{font-family:var(--sans);font-size:14px;color:var(--fg-2);margin:0 0 14px;padding:0 0 0 18px;max-width:72ch}
+  .rules[hidden]{display:none}
+  .tablewrap{overflow-x:auto}
+  table.runs{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--fg-2);width:100%}
+  table.runs[hidden]{display:none}
+  table.runs td,table.runs th{border-bottom:1px solid var(--border-soft);padding:6px 12px 6px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.runs th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.runs tr.group td{color:var(--fg-3);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding-top:14px}
+  table.runs tr.pick{cursor:pointer}
+  table.runs tr.pick:hover td{color:var(--fg-1)}
+  table.runs tr.on td{color:var(--fg-1);background:var(--bg-elev-2)}
+  table.runs b{color:var(--accent);font-weight:400}
+  table.runs i{color:var(--warn);font-style:normal}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;gap:10px;align-items:center}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}canvas#plot{height:270px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">The Dichotomy of Control · the technical face · seven steps</div>
+  <h1>The hand on the platter</h1>
+  <p class="lead">A turntable: a platter, a motor that turns it through a belt, a sensor that reads its speed, and a hand that is not the motor’s to command. Seven steps, one new thing in each, and last the page’s own sentence about actuation authority put against the platter. The platter is a model with round numbers; its percentages are its own, not a real turntable’s.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+  <blockquote class="page" id="quote" hidden></blockquote>
+  <ol class="rules" id="rules" hidden></ol>
+
+  <div class="panel">
+    <canvas id="plot" role="img" aria-label="The platter's speed over time against 33 1/3, with the motor's share and what drags on the platter below"></canvas>
+    <div class="controls">
+      <div class="ctl" id="cPlant"><label>the platter</label>
+        <div class="seg" role="group" aria-label="The platter"><button id="ideal" aria-pressed="false">ideal</button><button id="real" aria-pressed="true">belt lag and sensor noise</button></div></div>
+      <div class="ctl" id="cManual"><label for="manual">motor, set by hand <b id="manualV"></b></label><input id="manual" type="range" min="0" max="1" step="0.01" value="0.4"></div>
+      <div class="ctl" id="cKp"><label for="kp">Kp · push per unit of error <b id="kpV"></b></label><input id="kp" type="range" min="0" max="30" step="0.5" value="5"></div>
+      <div class="ctl" id="cKi"><label for="ki">Ki · memory, per second <b id="kiV"></b></label><input id="ki" type="range" min="0" max="10" step="0.25" value="2"></div>
+      <div class="ctl" id="cKr"><label for="kr">Kr · the once-a-turn model <b id="krV"></b></label><input id="kr" type="range" min="0" max="10" step="0.25" value="0"></div>
+      <div class="ctl" id="cFr"><label for="fr">the model tuned to <b id="frV"></b></label><input id="fr" type="range" min="0.30" max="0.80" step="0.002" value="0.556"></div>
+      <div class="ctl" id="cGrip"><label>the memory, at the motor’s limit</label>
+        <div class="seg" role="group" aria-label="The memory at the motor's limit"><button id="wind" aria-pressed="true">keeps winding</button><button id="letgo" aria-pressed="false">lets go</button></div></div>
+    </div>
+    <div class="rowb">
+      <button class="play" id="hear">Hear it</button>
+      <span class="hint" id="hearHint">Two tones: 440 Hz for 33⅓, and the platter at 440 times its speed. When they beat, the platter is off. The window shown, in real time.</span>
+    </div>
+    <div class="meter" id="meter"></div>
+    <div class="tablewrap"><table class="runs" id="runs" hidden><thead><tr><th>run</th><th>measured</th><th>by the rule stated above</th></tr></thead><tbody></tbody></table></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+  <div class="try" id="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg><span><b>LOUD’N LIVE</b> · The Dichotomy of Control · the hand on the platter · Sketch, 2026-11-03</span></footer>
+</main>
+
+<!-- The core. Plain functions, shared by the page and the headless check. Time in seconds; speed w is 1 at
+     33 1/3 rpm; torques are shares of the motor's full torque. The platter: J dw/dt = tau - B*w - d. With the
+     belt and the sensor, the push tau follows the motor's share u over TM seconds, the sensor s follows w over
+     TS seconds, and the controller hears s plus a reading error held for each 1 ms reading. Ideal: tau = u and
+     the controller hears w exactly. The motor gives from 0 to 1, never more. -->
+<script id="dc-core">
+var DC = { J: 0.8, B: 0.4, UMAX: 1, TM: 0.15, TS: 0.05, SIGMA: 0.01, READ: 0.001, DT: 0.0002, FREV: 5 / 9, EVERY: 0.01, SEED: 7 };
+// a small seeded generator, so the same settings always hear the same sensor
+function rng(seed){ var s = seed >>> 0; return function(){ s = (s + 0x6D2B79F5) >>> 0; var t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function gauss(r){ var u = 1 - r(), v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+// One run. o: { tend, manual (a fixed motor share, or null), kp, ki, kr, fr (the model's tuning, Hz), lag,
+//   noise, hand, handOn, handOff, rub (the once-a-turn drag's peak), letGo, seed }
+function simulate(o){
+  var c = DC, dt = c.DT, n = Math.round(o.tend / dt), every = Math.round(c.EVERY / dt), hold = Math.round(c.READ / dt);
+  var w = 1, tq = c.B, s = 1, I = c.B, x1 = 0, x2 = 0, nz = 0, r = rng(o.seed == null ? c.SEED : o.seed);
+  var wr = 2 * Math.PI * (o.fr == null ? c.FREV : o.fr);
+  var out = { t: [], w: [], u: [], dem: [], d: [] };
+  for (var k = 0; k <= n; k++){
+    var t = k * dt;
+    var d = ((t >= o.handOn && t < o.handOff) ? o.hand : 0) + (o.rub ? o.rub * (1 + Math.sin(2 * Math.PI * c.FREV * t)) / 2 : 0);
+    if (o.noise && k % hold === 0) nz = c.SIGMA * gauss(r);
+    var y = (o.lag ? s : w) + (o.noise ? nz : 0), e = 1 - y, dem;
+    if (o.manual != null) dem = o.manual;
+    else dem = (o.ki ? I : c.B) + o.kp * e + (o.kr ? o.kr * x2 : 0);
+    var u = Math.max(0, Math.min(c.UMAX, dem));
+    // pinned: the motor is at a stop and the error asks for more the same way
+    var pinned = (dem > c.UMAX && e > 0) || (dem < 0 && e < 0);
+    if (o.manual == null && !(o.letGo && pinned)){
+      if (o.ki) I += o.ki * e * dt;
+      if (o.kr){ x2 += dt * (e - wr * wr * x1); x1 += dt * x2; }
+    }
+    if (k % every === 0){ out.t.push(t); out.w.push(w); out.u.push(u); out.dem.push(dem); out.d.push(d); }
+    var tqn = o.lag ? tq + dt * (u - tq) / c.TM : u;
+    var wn = w + dt * ((o.lag ? tq : u) - c.B * w - d) / c.J;
+    s += dt * (w - s) / c.TS;
+    tq = tqn; w = wn;
+  }
+  return out;
+}
+function slice(tr, key, a, b){ var v = []; for (var i = 0; i < tr.t.length; i++) if (tr.t[i] >= a - 1e-9 && tr.t[i] < b - 1e-9) v.push(tr[key][i]); return v; }
+// Over [a, b): the mean speed and its sag below 33 1/3, its swing, the once-a-turn part (wow, as a peak),
+// what is left (jitter, rms), and how much the motor moves (effort, rms about its mean).
+function measure(tr, a, b){
+  var c = DC, sum = 0, m = 0, re = 0, im = 0, ss = 0, lo = Infinity, hi = -Infinity, i, t;
+  for (i = 0; i < tr.t.length; i++){ t = tr.t[i]; if (t < a - 1e-9 || t >= b - 1e-9) continue;
+    var x = tr.w[i]; sum += x; m++; lo = Math.min(lo, x); hi = Math.max(hi, x);
+    re += x * Math.cos(2 * Math.PI * c.FREV * t); im += x * Math.sin(2 * Math.PI * c.FREV * t); }
+  var mean = sum / m, wow = 2 * Math.sqrt(re * re + im * im) / m;
+  for (i = 0; i < tr.t.length; i++){ t = tr.t[i]; if (t >= a - 1e-9 && t < b - 1e-9) ss += (tr.w[i] - mean) * (tr.w[i] - mean); }
+  var rms = Math.sqrt(ss / m), u = slice(tr, 'u', a, b), um = 0, uv = 0;
+  for (i = 0; i < u.length; i++) um += u[i] / u.length;
+  for (i = 0; i < u.length; i++) uv += (u[i] - um) * (u[i] - um) / u.length;
+  return { mean: mean, sag: 1 - mean, lo: lo, hi: hi, p2p: hi - lo, wow: wow, rms: rms, jitter: Math.sqrt(Math.max(0, rms * rms - wow * wow / 2)), effort: Math.sqrt(uv), umean: um };
+}
+// After the hand lifts at tOff: the highest speed reached, above 33 1/3
+function overshoot(tr, tOff){ var w = slice(tr, 'w', tOff, Infinity), hi = -Infinity; for (var i = 0; i < w.length; i++) hi = Math.max(hi, w[i]); return Math.max(0, hi - 1); }
+function speedAt(tr, t){ var i = 0; while (i < tr.t.length - 1 && tr.t[i] < t - 1e-9) i++; return tr.w[Math.max(0, i - 1)]; }
+function peakDemand(tr){ var hi = -Infinity; for (var i = 0; i < tr.dem.length; i++) hi = Math.max(hi, tr.dem[i]); return hi; }
+// P alone on the ideal platter: how far a steady drag d pulls it down
+function pSag(kp, d){ return d / (DC.B + kp); }
+// The runs the test lays side by side, and how each is run and measured
+DC.RUNS = [
+  { group: 'noise · a steady finger, P alone, belt lag and sensor noise', key: 'n1', name: 'Kp 1', kind: 'noise', kp: 1 },
+  { key: 'n5', name: 'Kp 5', kind: 'noise', kp: 5 },
+  { key: 'n20', name: 'Kp 20', kind: 'noise', kp: 20 },
+  { group: 'the rub once a turn · 60 s, measured over the last ten turns', key: 'modest', name: 'a modest loop · Kp 5, Ki 2', kind: 'rub', kp: 5, ki: 2, kr: 0 },
+  { key: 'fight', name: 'fight it · Kp 20, Ki 8', kind: 'rub', kp: 20, ki: 8, kr: 0 },
+  { key: 'model', name: 'model it · Kp 5, Ki 2, Kr 3 at once a turn', kind: 'rub', kp: 5, ki: 2, kr: 3 },
+  { key: 'wrong', name: 'a model of the wrong rub · Kr 3 at 0.40 Hz', kind: 'rub', kp: 5, ki: 2, kr: 3, fr: 0.4 },
+  { key: 'idealFight', name: 'fight it, ideal platter · Kp 20, Ki 8', kind: 'rub', kp: 20, ki: 8, kr: 0, ideal: true },
+  { key: 'idealHard', name: 'fight harder, ideal platter · Kp 100, Ki 40', kind: 'rub', kp: 100, ki: 40, kr: 0, ideal: true },
+  { key: 'idealModel', name: 'model it, ideal platter · Kp 5, Ki 2, Kr 3', kind: 'rub', kp: 5, ki: 2, kr: 3, ideal: true },
+  { group: 'a hand the motor can’t hold · 0.9 from 4 s to 14 s', key: 'h5w', name: 'Kp 5, Ki 2 · keeps winding', kind: 'heavy', kp: 5, ki: 2, letGo: false },
+  { key: 'h5g', name: 'Kp 5, Ki 2 · lets go', kind: 'heavy', kp: 5, ki: 2, letGo: true },
+  { key: 'h20w', name: 'Kp 20, Ki 8 · keeps winding', kind: 'heavy', kp: 20, ki: 8, letGo: false },
+  { key: 'h20g', name: 'Kp 20, Ki 8 · lets go', kind: 'heavy', kp: 20, ki: 8, letGo: true }
+];
+// how each kind is run
+function noiseOpts(kp, ki, real){ return { tend: 20, kp: kp, ki: ki || 0, lag: real, noise: real, hand: 0.2, handOn: 4, handOff: 1e9 }; }
+function rubOpts(kp, ki, kr, fr, real){ return { tend: 60, kp: kp, ki: ki, kr: kr, fr: fr, lag: real, noise: real, rub: 0.1, hand: 0, handOn: 1e9, handOff: 1e9 }; }
+function heavyOpts(kp, ki, letGo, real){ return { tend: 30, kp: kp, ki: ki, letGo: letGo, lag: real, noise: real, hand: 0.9, handOn: 4, handOff: 14 }; }
+function runOpts(run){
+  if (run.kind === 'noise') return noiseOpts(run.kp, 0, true);
+  if (run.kind === 'rub') return rubOpts(run.kp, run.ki, run.kr, run.fr, !run.ideal);
+  return heavyOpts(run.kp, run.ki, run.letGo, true);
+}
+// what each kind reports
+function report(run, tr){
+  if (run.kind === 'noise') return measure(tr, 10, 20);
+  if (run.kind === 'rub') return measure(tr, 42, 60);
+  return { end: speedAt(tr, 14), over: overshoot(tr, 14), ask: peakDemand(tr) };
+}
+// The rules, stated before any run. Each can fail.
+// 1 · fighting loses: the fight row ends with more wow than the model row. Jitter is reported beside it, not scored.
+// 2a · effort beyond reach buys nothing: four times the gain ends the press less than one point (0.01) faster.
+// 2b · the grip costs: the memory that keeps winding overshoots more, after the hand lifts, than the one that lets go.
+// 3 · noise is rejected like a disturbance only if more gain leaves less jitter.
+function verdicts(R){
+  var v = {};
+  v.fight = R.fight.wow > R.model.wow;
+  v.idealFight = R.idealHard.wow > R.idealModel.wow;
+  v.idealFree = R.idealHard.jitter <= R.idealModel.jitter + 1e-6;
+  v.wrongWorse = R.wrong.wow > R.modest.wow;
+  v.reach = Math.abs(R.h20w.end - R.h5w.end) < 0.01 && Math.abs(R.h20g.end - R.h5g.end) < 0.01;
+  v.grip = R.h5w.over > R.h5g.over && R.h20w.over > R.h20g.over;
+  v.noise = R.n20.rms < R.n5.rms && R.n5.rms < R.n1.rms;
+  return v;
+}
+</script>
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var ACC = '#e8b84a', FG1 = '#e8e8f0', FG3 = '#8a8aa0', FG4 = '#4a4a5a', INFO = '#4a8fff', WARN = '#e8651b';
+  function pc(x, n){ return (x * 100).toFixed(n == null ? 2 : n) + '%'; }
+
+  var STEPS = [
+    { title: 'The platter alone', short: 'Alone', ctl: ['cManual'], kind: 'manual', ta: 0, tb: 20,
+      say: 'A platter, a motor that drives it through a belt, and nothing yet watching the speed. You set the motor by hand. At 0.4 of its full torque it holds 33⅓ against the bearing’s friction. At second 4 a finger rests on the platter’s edge and drags, and the platter slows to half speed; at second 14 it lifts. The motor is yours to set. The finger is not.',
+      eq1: ['J · dω/dt = τ − b·ω − d', '(the platter’s weight to turn) × (how fast its speed changes) = (the motor’s push) − (the bearing’s friction) − (the finger’s drag)'],
+      eq2: ['at rest:  ω = (u − d) ÷ b = (0.4 − 0.2) ÷ 0.4 = 50%', '(where it settles) = (what the motor gives − what the finger takes) ÷ (the friction)'],
+      tryText: 'Set the motor to 0.6. With the finger on, the platter holds 33⅓; before the finger lands and after it lifts, the same setting runs fast, toward 150%. A hand on the dial answers one finger, and only while it knows the finger is there.' },
+    { title: 'A controller that pushes back', short: 'Push back', ctl: ['cKp'], kind: 'noise', real: false, ta: 0, tb: 20, ma: 10, mb: 20, kpMax: 30,
+      say: 'Now the motor listens to the speed. Its share is 0.4 plus Kp times how far below 33⅓ the platter runs. This platter is ideal: the belt passes the push at once, and the sensor reads the speed exactly. The finger still slows it, but less, and the harder the controller pushes back, the less. Here fighting harder simply works.',
+      eq1: ['u = 0.4 + Kp · e,   e = 1 − ω', '(the motor’s share) = 0.4 + Kp × (how far below 33⅓ it runs)'],
+      eq2: ['sag = d ÷ (b + Kp) = 0.2 ÷ (0.4 + Kp)', '(how far the finger pulls it down) = (the drag) ÷ (the friction + Kp): smaller as Kp grows, never zero'],
+      tryText: 'Kp 5 sags 3.70%; Kp 20 sags 0.98%; Kp 30 sags 0.66%. In this platter nothing stops you turning Kp higher still. Keep that in mind for the next step.' },
+    { title: 'The belt and the sensor', short: 'Lag and noise', ctl: ['cPlant', 'cKp'], kind: 'noise', real: true, ta: 0, tb: 20, ma: 10, mb: 20, kpMax: 30,
+      say: 'A real platter has two more things in it, and neither is a drag the controller can push against. The belt is late: the motor’s push reaches the platter over 0.15 s. The sensor is noisy: each reading is off by about 1% at random, a thousand readings a second. A controller that pushes hard against every error now pushes hard against the sensor’s mistakes too, and shakes the platter with them. Past Kp 23.5 the belt’s lateness turns its pushes into a swing that never dies. The noise is not in the platter at all, only in what the controller hears.',
+      eq1: ['0.15 · dτ/dt = u − τ      0.05 · ds/dt = ω − s      y = s + noise', 'the belt’s push τ follows the motor over 0.15 s; the sensor s follows the platter over 0.05 s; the controller hears s plus a reading error'],
+      eq2: ['0.006s³ + 0.163s² + 0.88s + 0.4 + Kp = 0   →   the edge at Kp ≈ 23.5', 'the loop’s own equation: past Kp 23.5 the belt’s lateness makes it swing forever'],
+      tryText: 'Kp 1: jitter 0.020%. Kp 5: sag 3.70%, jitter 0.064%. Kp 20: sag 0.98%, jitter 0.34%, five times the shake. Kp 24 is past the edge. Then switch to the ideal platter at Kp 20: the shake is gone. The gain that beat the finger is the gain that lets the noise in.' },
+    { title: 'A memory of the drag', short: 'Memory', ctl: ['cPlant', 'cKp', 'cKi'], kind: 'noise', real: true, ki: true, ta: 0, tb: 20, ma: 10, mb: 20, kpMax: 30,
+      say: 'Instead of pushing harder, remember. The I term adds up the error over time; while the finger drags, the sum grows until the motor gives exactly what the finger takes. It is a model of a steady drag. It doesn’t need to know a finger is there, only that whatever is there holds still. With it a modest Kp is enough, and the sag goes.',
+      eq1: ['u = Kp·e + Ki·∫e dt', '(the motor’s share) = Kp × (the error now) + Ki × (all the error so far)'],
+      eq2: ['at rest:  e = 0,  so  Ki·∫e = b + d = 0.4 + 0.2 = 0.6', 'back on 33⅓, the memory carries the whole push: the friction’s 0.4 and the finger’s 0.2'],
+      tryText: 'Kp 5 with Ki 2: sag 0.08%, jitter 0.11%, a third of what Kp 20 shook in step 3 to get its sag under 1%. Set Ki to 0 and you are back in step 3.' },
+    { title: 'The rub that comes round once a turn', short: 'Once a turn', ctl: ['cPlant', 'cKp', 'cKi', 'cKr', 'cFr'], kind: 'rub', real: true, ki: true, kr: true, ta: 0, tb: 60, ma: 42, mb: 60, kpMax: 30,
+      say: 'A different drag now: a rub on the platter’s edge, a warp the stylus climbs, once every turn, 0.556 times a second. It comes and goes, so a memory of a steady drag can’t hold it, and the speed wobbles once a turn. That is wow, a turntable’s oldest fault. You can fight it, turning Kp and Ki up. Or you can give the controller a model of it: a term that rings at once a turn, driven by the error, and so learns the rub’s size and timing; the first seconds with it on are that learning. Measured over the last ten turns, the shaded part.',
+      eq1: ['m̈ + ω₀²·m = e,   term = Kr·ṁ,   ω₀ = 2π × 0.556 Hz', 'the model is an oscillator tuned to once a turn, driven by the error; it builds up exactly the push the rub needs'],
+      eq2: ['wow = 0.05 × |P ÷ (1 + loop)| at once a turn; with the model the loop is endless there, so wow → 0', '(the wobble left) = (the rub’s swing) × (how little the loop answers at that one frequency)'],
+      tryText: 'Kp 5, Ki 2: wow 1.43%. Fight it at Kp 20, Ki 8: wow 0.34%, and the jitter climbs to about 0.35–0.4% (0.26–0.50% across noise seeds). Back at Kp 5, Ki 2, set Kr to 3: wow 0.02%, which is the sensor’s floor. Then slide the model’s tuning to 0.40 Hz: 1.70%, worse than no model at all.' },
+    { title: 'A hand the motor can’t hold', short: 'Beyond reach', ctl: ['cPlant', 'cKp', 'cKi', 'cGrip'], kind: 'heavy', real: true, ki: true, ta: 0, tb: 30, kpMax: 30,
+      say: 'A heavy hand now, 0.9 of the motor’s full torque, for ten seconds. Holding 33⅓ against it and the friction needs 1.3; the motor has 1.0. Part of this hand is within the motor’s reach and part is not. The controller asks for more anyway (the dashed line, far off the top of the strip), and the motor gives its 1.0 and no more. Whatever Kp you set, the platter heads for the same floor, 25%. Meanwhile the memory keeps adding up an error it can do nothing about, and when the hand lifts, the motor is still pushing all it has. Letting the memory hold still while the motor is at its limit (anti-windup, in the trade) is the release.',
+      eq1: ['pinned:  u = 1,   ω → (1 − 0.9) ÷ 0.4 = 25%', 'at its limit the motor gives all it has, and the platter settles where that meets the hand, whatever the controller asks'],
+      eq2: ['let go:  hold ∫e dt still while u is at its limit and e asks for more', 'the memory stops adding while the motor can’t do what it asks'],
+      tryText: 'Kp 5, Ki 2, keeps winding: it asks for 16.9, ends the press at 25.4%, and overshoots 129% when the hand lifts, about 76 rpm. Let it go: 6.4%. Kp 20 asks for 65.5, four times as much, and ends the press at 25.4% too.' },
+    { title: 'The test: the page’s sentence', short: 'The test', ctl: [], kind: 'test', test: true, ta: 0, tb: 60,
+      say: 'The page’s sentence, put against fourteen runs of this platter. The rules come first, before any run, and each can fail. Then the runs, each scored by its rule. Click a run to see it above and hear it.',
+      eq1: ['disturbance: what pushes the platter and the motor can push back on', 'the finger, the rub, the hand: rejected by a model of it (memory for a steady one, a once-a-turn model for the rub), not by more gain'],
+      eq2: ['measured: more gain lets in more of the sensor’s noise; the belt’s lag sets the edge at Kp 23.5', 'the page counts noise and the plant’s dynamics as disturbance. That noise is met by not acting on it is this piece’s offer to the page, not the page’s word'],
+      tryText: 'Load the fight row, then the model row, and hear each. Then the two Kp 5 heavy-hand rows: the same press, a grip held and a grip released.' }
+  ];
+
+  var Q = '“A controller can only command its actuators; everything else — load, noise, the plant’s own dynamics, the future reference — is <em>disturbance</em>. A good controller spends effort only where it has authority and models the rest as disturbance to <em>reject</em>, not to fight.” · the page, § The Palace / Technical Face';
+  var RULES = [
+    '<b>Model, not fight.</b> The page holds if the fight row (Kp 20, Ki 8) ends with more wow than the model row (Kp 5, Ki 2, Kr 3). If fighting gets as low, the page fails here. Jitter is shown beside it, not scored. The same rule is run on the ideal platter, which has no sensor noise, so there its jitter is nil by construction.',
+    '<b>Effort beyond reach buys nothing.</b> The page holds if four times the gain ends the heavy press less than one point (1% of 33⅓) faster. This one is near true by construction once the motor is pinned; the next one is the real test.',
+    '<b>The grip costs.</b> The page holds if the memory that keeps winding overshoots more, after the hand lifts, than the one that lets go, at both gains.',
+    '<b>Is noise a disturbance?</b> A disturbance is rejected better by more gain. Noise passes that only if jitter falls as Kp rises from 1 to 5 to 20.'
+  ];
+
+  var step = 0, real = true, letGo = false, trace = null, picked = -1, results = null;
+
+  var rail = $('rail');
+  STEPS.forEach(function(s, i){ var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short; b.addEventListener('click', function(){ go(i); }); rail.appendChild(b); });
+
+  function num(id){ return parseFloat($(id).value); }
+  function cur(){
+    var s = STEPS[step];
+    if (s.test) return picked >= 0 ? DC.RUNS[picked] : null;
+    return s;
+  }
+  function opts(){
+    var s = STEPS[step];
+    if (s.test){ var run = DC.RUNS[picked]; return runOpts(run); }
+    if (s.kind === 'manual') return { tend: 20, manual: num('manual'), hand: 0.2, handOn: 4, handOff: 14 };
+    if (s.kind === 'noise') return noiseOpts(num('kp'), s.ki ? num('ki') : 0, real);
+    if (s.kind === 'rub') return rubOpts(num('kp'), num('ki'), num('kr'), num('fr'), real);
+    return heavyOpts(num('kp'), num('ki'), letGo, real);
+  }
+  function kindNow(){ var s = STEPS[step]; return s.test ? DC.RUNS[picked].kind : s.kind; }
+  function setReal(v){ real = v; $('ideal').setAttribute('aria-pressed', String(!v)); $('real').setAttribute('aria-pressed', String(v)); }
+  function setGrip(v){ letGo = v; $('wind').setAttribute('aria-pressed', String(!v)); $('letgo').setAttribute('aria-pressed', String(v)); }
+  function labels(){
+    $('manualV').textContent = num('manual').toFixed(2); $('kpV').textContent = num('kp').toFixed(1);
+    $('kiV').textContent = num('ki').toFixed(2); $('krV').textContent = num('kr').toFixed(2); $('frV').textContent = num('fr').toFixed(3) + ' Hz';
+  }
+  function win(){
+    var s = STEPS[step];
+    if (!s.test) return { ta: s.ta, tb: s.tb, ma: s.ma, mb: s.mb };
+    var k = DC.RUNS[picked].kind;
+    return k === 'rub' ? { ta: 0, tb: 60, ma: 42, mb: 60 } : k === 'heavy' ? { ta: 0, tb: 30 } : { ta: 0, tb: 20, ma: 10, mb: 20 };
+  }
+  function recompute(){ labels(); trace = simulate(opts()); meter(); draw(); }
+
+  // ---------- the plot ----------
+  var cv = $('plot');
+  function draw(){
+    var r = cv.getBoundingClientRect(), dp = window.devicePixelRatio || 1, W = Math.round(r.width * dp), H = Math.round(r.height * dp);
+    if (!W || !H || !trace) return;
+    if (cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; }
+    var g = cv.getContext('2d'); g.clearRect(0, 0, W, H);
+    var wv = win(), d = dp;
+    var L = 48 * d, Rm = 12 * d, Tp = 10 * d, strip = 62 * d, gap = 28 * d, Bm = 22 * d;
+    var y0 = Tp, y1 = H - Bm - strip - gap, s0 = H - Bm - strip, s1 = H - Bm;
+    // the speed range: everything shown, 33 1/3 always in view, at least a point either side
+    var lo = 1, hi = 1, i;
+    for (i = 0; i < trace.t.length; i++) if (trace.t[i] >= wv.ta && trace.t[i] <= wv.tb){ lo = Math.min(lo, trace.w[i]); hi = Math.max(hi, trace.w[i]); }
+    lo = Math.min(lo, 0.99); hi = Math.max(hi, 1.01); var pad = (hi - lo) * 0.08; lo -= pad; hi += pad;
+    var X = function(t){ return L + (t - wv.ta) / (wv.tb - wv.ta) * (W - L - Rm); };
+    var Y = function(w){ return y1 - (w - lo) / (hi - lo) * (y1 - y0); };
+    var Ys = function(u){ return s1 - Math.max(0, Math.min(1, u)) * (s1 - s0); };
+    g.font = (10 * d) + 'px JetBrains Mono, monospace';
+    // grid, in percent of 33 1/3, at a round step
+    var span = (hi - lo) * 100, stepP = [0.25, 0.5, 1, 2, 5, 10, 25, 50].filter(function(x){ return span / x <= 7; })[0] || 100;
+    g.strokeStyle = 'rgba(255,255,255,0.05)'; g.lineWidth = d; g.fillStyle = FG4; g.textAlign = 'right'; g.textBaseline = 'middle';
+    for (var p = Math.ceil(lo * 100 / stepP) * stepP; p <= hi * 100; p += stepP){ g.beginPath(); g.moveTo(L, Y(p / 100)); g.lineTo(W - Rm, Y(p / 100)); g.stroke(); g.fillText((+p.toFixed(2)) + '%', L - 6 * d, Y(p / 100)); }
+    g.textAlign = 'center'; g.textBaseline = 'top';
+    var tStep = (wv.tb - wv.ta) > 30 ? 10 : 5;
+    for (var t = wv.ta; t <= wv.tb; t += tStep) g.fillText(t + (t === wv.tb ? ' s' : ''), X(t) - (t === wv.tb ? 8 * d : 0), s1 + 6 * d);
+    // where the measuring happens
+    if (wv.ma != null){ g.fillStyle = 'rgba(255,255,255,0.025)'; g.fillRect(X(wv.ma), y0, X(wv.mb) - X(wv.ma), y1 - y0); g.fillStyle = FG4; g.fillText('measured here', (X(wv.ma) + X(wv.mb)) / 2, y0 + 2 * d); }
+    // 33 1/3
+    g.strokeStyle = ACC; g.setLineDash([6 * d, 5 * d]); g.lineWidth = 1.2 * d; g.beginPath(); g.moveTo(L, Y(1)); g.lineTo(W - Rm, Y(1)); g.stroke(); g.setLineDash([]);
+    g.fillStyle = ACC; g.textAlign = 'left'; g.textBaseline = 'bottom'; g.fillText('33⅓', L + 6 * d, Y(1) - 3 * d);
+    // the platter
+    g.save(); g.beginPath(); g.rect(L, y0, W - L - Rm, y1 - y0); g.clip();
+    g.strokeStyle = FG1; g.lineWidth = 1.4 * d; g.beginPath();
+    var first = true;
+    for (i = 0; i < trace.t.length; i++){ if (trace.t[i] < wv.ta || trace.t[i] > wv.tb) continue; var x = X(trace.t[i]), y = Y(trace.w[i]); if (first){ g.moveTo(x, y); first = false; } else g.lineTo(x, y); }
+    g.stroke(); g.restore();
+    // the strip: what drags (not the motor's) and what the motor gives (and what it was asked for)
+    g.fillStyle = '#12121a'; g.fillRect(L, s0, W - L - Rm, s1 - s0); g.strokeStyle = 'rgba(255,255,255,0.08)'; g.strokeRect(L, s0, W - L - Rm, s1 - s0);
+    g.fillStyle = FG4; g.textAlign = 'right'; g.textBaseline = 'middle'; g.fillText('1', L - 6 * d, s0 + 4 * d); g.fillText('0', L - 6 * d, s1 - 4 * d);
+    g.fillStyle = 'rgba(232,101,27,0.28)'; g.beginPath(); g.moveTo(X(wv.ta), s1);
+    for (i = 0; i < trace.t.length; i++){ if (trace.t[i] < wv.ta || trace.t[i] > wv.tb) continue; g.lineTo(X(trace.t[i]), Ys(trace.d[i])); }
+    g.lineTo(X(wv.tb), s1); g.closePath(); g.fill();
+    g.strokeStyle = FG3; g.lineWidth = 1.2 * d; g.beginPath(); first = true;
+    for (i = 0; i < trace.t.length; i++){ if (trace.t[i] < wv.ta || trace.t[i] > wv.tb) continue; x = X(trace.t[i]); y = Ys(trace.u[i]); if (first){ g.moveTo(x, y); first = false; } else g.lineTo(x, y); }
+    g.stroke();
+    var ask = peakDemand(trace);
+    if (kindNow() === 'heavy' && ask > 1.02){
+      g.save(); g.beginPath(); g.rect(L, s0 - gap + 4 * d, W - L - Rm, s1 - s0 + gap - 4 * d); g.clip();
+      g.strokeStyle = ACC; g.setLineDash([3 * d, 3 * d]); g.lineWidth = d; g.beginPath(); first = true;
+      for (i = 0; i < trace.t.length; i++){ if (trace.t[i] < wv.ta || trace.t[i] > wv.tb) continue; x = X(trace.t[i]); y = s1 - Math.min(1.35, Math.max(0, trace.dem[i])) * (s1 - s0); if (first){ g.moveTo(x, y); first = false; } else g.lineTo(x, y); }
+      g.stroke(); g.setLineDash([]); g.restore();
+      g.fillStyle = ACC; g.textAlign = 'right'; g.textBaseline = 'bottom'; g.fillText('asked for up to ' + ask.toFixed(1) + ' · the motor has 1', W - Rm, s0 - 4 * d);
+    }
+    g.textAlign = 'left'; g.textBaseline = 'bottom'; g.fillStyle = FG3; g.fillText('motor’s share', L, s0 - 4 * d);
+    g.fillStyle = WARN; g.fillText('what drags (not the motor’s)', L + 104 * d, s0 - 4 * d);
+    // the cursor while it plays
+    if (play){ var tc = play.a + playPos() * (play.b - play.a); g.strokeStyle = ACC; g.lineWidth = d; g.beginPath(); g.moveTo(X(tc), y0); g.lineTo(X(tc), s1); g.stroke(); }
+  }
+
+  // ---------- the meter ----------
+  function meter(){
+    var s = STEPS[step], k = kindNow(), h = [], m, wv = win();
+    if (k === 'manual'){
+      var mm = num('manual');
+      h.push('motor at <b>' + mm.toFixed(2) + '</b> → at rest it would turn at <b>' + pc(mm / DC.B, 0) + '</b> of 33⅓ with no finger, <b>' + pc(Math.max(0, mm - 0.2) / DC.B, 0) + '</b> with the finger');
+      h.push('just before the finger lifts, at 14 s: <b>' + pc(speedAt(trace, 14), 1) + '</b>');
+    } else if (k === 'noise'){
+      m = measure(trace, 10, 20);
+      h.push('10 to 20 s, the finger on: sag <b>' + pc(m.sag) + '</b> · jitter <b>' + pc(m.rms, 3) + '</b> · swing ' + pc(m.p2p) + ' · the motor moves ' + m.effort.toFixed(3));
+      if (!s.ki || num('ki') === 0) h.push('P alone, ideal platter, the sum says sag <i>' + pc(pSag(s.test ? DC.RUNS[picked].kp : num('kp'), 0.2)) + '</i>' + (real || s.test ? ' (the real platter adds the shake, and past Kp 23.5 a swing)' : ''));
+    } else if (k === 'rub'){
+      m = measure(trace, 42, 60);
+      h.push('the last ten turns: wow <b>' + pc(m.wow, 3) + '</b> · jitter <b>' + pc(m.jitter, 3) + '</b> · the motor moves <b>' + m.effort.toFixed(3) + '</b>');
+      h.push('the sensor’s floor: the same measure on a loop with no rub at all reads about <i>0.021%</i> wow');
+    } else {
+      var rp = report({ kind: 'heavy' }, trace);
+      h.push('asked for up to <b>' + rp.ask.toFixed(1) + '</b>, the motor has 1 · at the end of the press <b>' + pc(rp.end, 1) + '</b> (the floor is 25%)');
+      h.push('after the hand lifts, overshoot <b>' + pc(rp.over, 1) + '</b>' + (rp.over > 0.5 ? ', about ' + Math.round(100 / 3 * (1 + rp.over)) + ' rpm' : ''));
+    }
+    $('meter').innerHTML = h.join('<br>');
+  }
+
+  // ---------- the test ----------
+  function runAll(){
+    if (results) return results;
+    var R = {};
+    DC.RUNS.forEach(function(run){ R[run.key] = report(run, simulate(runOpts(run))); });
+    results = { R: R, v: verdicts(R) };
+    return results;
+  }
+  function cell(run, x){
+    if (run.kind === 'noise') return 'sag ' + pc(x.sag) + ' · jitter <b>' + pc(x.rms, 3) + '</b>';
+    if (run.kind === 'rub') return 'wow <b>' + pc(x.wow, 3) + '</b> · jitter ' + pc(x.jitter, 3) + ' · motor ' + x.effort.toFixed(3);
+    return 'asks ' + x.ask.toFixed(1) + ' · press ends ' + pc(x.end, 1) + ' · overshoot <b>' + pc(x.over, 1) + '</b>';
+  }
+  function verdictFor(run, v){
+    var yes = function(b, a, n){ return b ? '<b>' + a + '</b>' : '<i>' + n + '</i>'; };
+    if (run.key === 'n20') return 'rule 4: ' + yes(!v.noise, 'jitter rises with gain: noise is not rejected', 'jitter falls with gain');
+    if (run.key === 'fight') return 'rule 1: ' + yes(v.fight, 'the model wins', 'fighting matches the model');
+    if (run.key === 'wrong') return v.wrongWorse ? 'a model of the wrong rub: <i>worse than none</i>' : 'a model of the wrong rub: no worse than none';
+    if (run.key === 'idealModel') return 'rule 1, ideal: ' + yes(v.idealFight, 'the model still wins on wow', 'fighting matches the model') + (v.idealFree ? ' · no jitter either way, by construction: the ideal platter has no noise' : '');
+    if (run.key === 'h20w') return 'rule 2a: ' + yes(v.reach, 'four times the gain buys under a point', 'more gain bought speed');
+    if (run.key === 'h5g') return 'rule 2b: ' + yes(v.grip, 'the grip costs', 'the grip is free');
+    return '';
+  }
+  function table(){
+    var res = runAll(), tb = $('runs').querySelector('tbody'); tb.innerHTML = '';
+    DC.RUNS.forEach(function(run, i){
+      if (run.group){ var gr = document.createElement('tr'); gr.className = 'group'; gr.innerHTML = '<td colspan="3">' + run.group + '</td>'; tb.appendChild(gr); }
+      var tr = document.createElement('tr'); tr.className = 'pick' + (i === picked ? ' on' : ''); tr.tabIndex = 0;
+      tr.innerHTML = '<td>' + run.name + '</td><td>' + cell(run, res.R[run.key]) + '</td><td>' + verdictFor(run, res.v) + '</td>';
+      var load = function(){ stopSound(); picked = i; table(); recompute(); };
+      tr.addEventListener('click', load); tr.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); load(); } });
+      tb.appendChild(tr);
+    });
+  }
+
+  // ---------- the sound: 33 1/3 and the platter, side by side ----------
+  var ac = null, play = null;
+  function platterHz(w){ return 440 * Math.max(0.2, Math.min(2.6, w)); }
+  function playPos(){ return play ? Math.min(1, (ac.currentTime - play.t0) / (play.b - play.a)) : 0; }
+  function stopSound(){
+    if (!play) return; var p = play; play = null; $('hear').textContent = 'Hear it';
+    var now = ac.currentTime; [p.g1, p.g2].forEach(function(g){ g.gain.cancelScheduledValues(now); g.gain.setTargetAtTime(0, now, 0.03); });
+    p.o1.stop(now + 0.2); p.o2.stop(now + 0.2); draw();
+  }
+  function startSound(){
+    if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)();
+    ac.resume(); stopSound();
+    var wv = win(), a = wv.ma != null && wv.tb - wv.ta > 30 ? wv.ma : wv.ta, b = wv.ma != null && wv.tb - wv.ta > 30 ? wv.mb : wv.tb;
+    var comp = ac.createDynamicsCompressor(); comp.connect(ac.destination);
+    var o1 = ac.createOscillator(), o2 = ac.createOscillator(), g1 = ac.createGain(), g2 = ac.createGain();
+    o1.type = 'sine'; o2.type = 'sine'; o1.frequency.value = 440; o2.frequency.value = platterHz(speedAt(trace, a));
+    g1.gain.value = 0; g2.gain.value = 0;
+    o1.connect(g1); o2.connect(g2); g1.connect(comp); g2.connect(comp);
+    var now = ac.currentTime; g1.gain.setTargetAtTime(0.1, now, 0.05); g2.gain.setTargetAtTime(0.1, now, 0.05);
+    o1.start(now); o2.start(now);
+    play = { o1: o1, o2: o2, g1: g1, g2: g2, t0: now, a: a, b: b }; $('hear').textContent = 'Stop';
+  }
+  $('hear').addEventListener('click', function(){ if (play) stopSound(); else startSound(); });
+  function tickSound(){
+    if (!play) return;
+    var u = playPos(), t = play.a + u * (play.b - play.a);
+    play.o2.frequency.setTargetAtTime(platterHz(speedAt(trace, t)), ac.currentTime, 0.01);
+    if (u >= 1) stopSound(); else draw();
+  }
+
+  // ---------- the walk ----------
+  function go(i){
+    stopSound();
+    step = i; var s = STEPS[i];
+    Array.prototype.forEach.call(rail.children, function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    $('stepEyebrow').textContent = 'Step ' + (i + 1) + ' of ' + STEPS.length + (s.test ? ' · the test' : '');
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say;
+    $('eq1').textContent = s.eq1[0]; $('eq1w').textContent = s.eq1[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('tryText').textContent = s.tryText;
+    ['cPlant', 'cManual', 'cKp', 'cKi', 'cKr', 'cFr', 'cGrip'].forEach(function(id){ $(id).hidden = s.ctl.indexOf(id) < 0; });
+    if (s.kpMax) $('kp').max = s.kpMax;
+    // each step opens on its own example
+    var start = [ { manual: 0.4 }, { kp: 5 }, { kp: 5 }, { kp: 5, ki: 2 }, { kp: 5, ki: 2, kr: 0, fr: 0.556 }, { kp: 5, ki: 2 }, {} ][i];
+    ['manual', 'kp', 'ki', 'kr', 'fr'].forEach(function(id){ if (start[id] != null) $(id).value = start[id]; });
+    setReal(s.real !== false); setGrip(false);
+    picked = s.test ? DC.RUNS.map(function(r){ return r.key; }).indexOf('fight') : -1;
+    $('quote').hidden = !(i === 2 || s.test); $('quote').innerHTML = Q;
+    $('rules').hidden = !s.test; $('rules').innerHTML = RULES.map(function(r){ return '<li>' + r + '</li>'; }).join('');
+    $('runs').hidden = !s.test; if (s.test) table();
+    $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
+    recompute();
+  }
+  ['manual', 'kp', 'ki', 'kr', 'fr'].forEach(function(id){ $(id).addEventListener('input', recompute); });
+  $('ideal').addEventListener('click', function(){ setReal(false); recompute(); });
+  $('real').addEventListener('click', function(){ setReal(true); recompute(); });
+  $('wind').addEventListener('click', function(){ setGrip(false); recompute(); });
+  $('letgo').addEventListener('click', function(){ setGrip(true); recompute(); });
+  $('back').addEventListener('click', function(){ if (step > 0) go(step - 1); });
+  $('next').addEventListener('click', function(){ if (step < STEPS.length - 1) go(step + 1); });
+  window.addEventListener('resize', draw);
+  (function loop(){ requestAnimationFrame(loop); tickSound(); })();
+  (function(){ var dd = ''; for (var i = 0; i <= 200; i++){ var a = i / 200 * 2 * Math.PI; dd += (i ? 'L' : 'M') + (9 * Math.sin(3 * a + 0.5)).toFixed(2) + ' ' + (9 * Math.sin(2 * a)).toFixed(2); } $('sigil').setAttribute('d', dd); })();
+  go(0);
+})();
+</script>
+</body>
+</html>

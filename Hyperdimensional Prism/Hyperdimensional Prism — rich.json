@@ -1,0 +1,114 @@
+{
+  "title": "Hyperdimensional Prism — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Hyperdimensional Prism]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Hyperdimensional Prism's rich face: what the proposal round made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Hyperdimensional Prism",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "note": "Two pieces, one engine (byte for byte the same in both; workshop/rich-checks.mjs re-runs every claim). The page's own ## grain is used. Kaleidoscope, Crystal, and Wallpaper has no piece: Wallpaper Groups' face already builds every group from one tile, and whether four 'canonical symmetries' can be a group is settled by the group axioms, so a piece there would illustrate a theorem rather than test the page.",
+  "sections": [
+    {
+      "heading": "Hyperdimensional Prism",
+      "made_against": "3ad0de298047",
+      "made": "2026-11-03",
+      "stamped": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round · cloud",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Hyperdimensional Prism — rich — one object or four.html",
+          "origin": "made",
+          "by": "the Maker · canvas",
+          "height": 1400,
+          "title": "one object or four · canvas",
+          "caption": "**Can four views of one thing be told from four things?** A cube's shadow; a flat square that casts the same one; a curve in four dimensions and its shadow; four shadows of it at once; the count of directions the stacked shadows need. Then the test: ten sets, five of each kind, chance 5 of 10 and the rule (9 or more) stated first, both kinds scored apart, your eye against the count. Then lose the links between shadows, or let the hidden object grow, and watch the verdict go.",
+          "near": "Just as a three-dimensional object casts",
+          "place": "band"
+        }
+      ],
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5 · cloud",
+        "verdicts": [
+          {
+            "file": "Hyperdimensional Prism — rich — one object or four.html",
+            "verdict": "remake",
+            "why": "Walks up well and the lost-links and grown-object steps are a real finding, but the step-6 verdict says the opening’s claim \"passes\" when what passed is the count on curves built to be one object (rank at most 4 by algebra); say it was told apart on these curves. Add that the count needs straight shadows: one object with each shadow bent through tanh reads as four in 200 of 200."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The Visual Identity",
+      "made_against": "e19a318691d5",
+      "made": "2026-11-03",
+      "stamped": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round · cloud",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Hyperdimensional Prism — rich — angle or object.html",
+          "origin": "made",
+          "by": "the Maker · canvas · Web Audio",
+          "height": 1400,
+          "title": "angle or object · canvas, Web Audio",
+          "caption": "**Is a new frequency relationship a new angle of light?** One oscillator; two at right angles, where a whole-number ratio closes the curve; the phase, which makes the figure roll; the four-dimensional curve the scope is a shadow of. Then the count, with its cap stated: four phases at one ratio stay on one four-dimensional curve (an identity, shown); four ratios need seven directions (five at phase 0), more than one scope's curve holds but under the eight of four figures, so one seven-dimensional curve casts them all. Listen plays x in the left ear and y in the right.",
+          "near": "The pattern changes depending on the frequency relationships",
+          "place": "band"
+        }
+      ],
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5 · cloud",
+        "verdicts": [
+          {
+            "file": "Hyperdimensional Prism — rich — angle or object.html",
+            "verdict": "remake",
+            "why": "Row A cannot fail (at most 3 by identity) and row B fails only against a four-dimension cap the page never sets; by the opening piece’s own rule row B’s 7 is under 8, so one seven-dimensional curve, (sin kt, cos kt) for k = 1 to 5, casts all four. State the cap, drop the line calling the page wrong for ratio, call row A an identity, and caption \"seven (five at phase 0)\"."
+          }
+        ]
+      }
+    }
+  ],
+  "offers": [
+    {
+      "section": "The Visual Identity",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "With a cap the page doesn't set. Held to the one four-dimensional curve a scope at one ratio draws, four phases stay on it (at most 3 directions, an identity) and four ratios (1:2, 2:3, 3:4, 3:5) leave it (7 directions at random phases, 5 at 0 and π). The page says higher-dimensional, not four, and without the cap all four ratios are lights on one seven-dimensional curve, (sin kt, cos kt), k = 1 to 5. So the sentence is not wrong; it can say which kind of change is which. Proposed, after the sentence: \"Turning the phase turns the light on one fixed curve; changing the ratio moves to a different curve, and only a larger object holds them all.\""
+    },
+    {
+      "section": "Open Questions",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "The third question (\"Could the visual identity literally show a higher-dimensional object being projected?\"): at any phase, the scope's x = sin(at), y = sin(bt + φ) is a linear shadow of the curve (sin at, cos at, sin bt, cos bt), on a torus in four dimensions, and φ turns the light (1.8e-15; a trig identity, shown, not tested). It doesn't answer the question: any flat curve (x, y) is trivially a shadow of (x, y, x², y²), as the challenger noted. A gloss for the Context or under the question: \"the slow roll of a slightly detuned scope figure is the light turning on one curve in four dimensions.\""
+    },
+    {
+      "section": "Open Questions",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The first question (a projection from n dimensions to four-dimensional pillar-space) meets three conditions on the one-object-or-four piece. With the links between shadows kept, the shadows straight, and the hidden object held to four dimensions, the count told one object from four in 1000 of 1000 sets of each kind. Shuffle which point is which inside each shadow, and every set reads as four (1000 of 1000). Bend each shadow of one object through tanh and it reads as four (200 of 200). Let the object have eight dimensions, and every set reads as one (1000 of 1000). So \"four projections of one thing\" can fail only when the projection is linear, the matches between views are given, and the thing has fewer dimensions than its views together. With one number per pillar, four pillars are four numbers, and that is always a projection of something. Proposed, under the question: \"A precise version needs a linear projection, has to say which point in one pillar is which in another, and must keep the hidden thing smaller than its four views together; otherwise every four things are one.\""
+    }
+  ]
+}
