@@ -73,6 +73,17 @@
         "by": "maker · opus · proposal round · cloud batch 4",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · opus · cloud batch 4",
+        "verdicts": [
+          {
+            "file": "Tone.js — rich — sixty pushes.html",
+            "verdict": "remake",
+            "why": "Caption only. Every number reproduces by a second route (numpy phase accumulators, my own meters), the blind A/B is sound, and the walk climbs. But the caption calls the page's reason wrong when it is only incomplete: a held step applied per sample is rendering at audio rate. It also lists the shudder (9.6 Hz at 60 pushes, past the 6 Hz slider) as a failure without its frame rate. Rewrite it to say the reason is incomplete, the shudder applies at 30 pushes/s or fewer, the alias sits where nothing can lock, and the stall is modelled, not timed."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Tone.js — rich — sixty pushes.html",
@@ -95,6 +106,17 @@
         "date": "2026-11-04",
         "by": "maker · opus · proposal round · cloud batch 4",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · opus · cloud batch 4",
+        "verdicts": [
+          {
+            "file": "/Kuramoto Coupling/two-oscillators-coupling-explorer-audio.html",
+            "verdict": "keep",
+            "why": "The Recipe's own shipped output, so a reader can run the Recipe's smoke test by ear. Its conform errors are the CDN being blocked in this cloud. The caption is honest about the note's K/2π."
+          }
+        ]
       },
       "pieces": [
         {
