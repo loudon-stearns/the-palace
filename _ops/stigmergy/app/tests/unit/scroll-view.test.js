@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { parseMakingSections, liftArtifacts, palacePathOf, ageOf, rowSignal, groupProjects, readyToAdvance, cardSpec, messageForSection, decisionFor } from '../../src/lib/scroll-view.js';
+import { parseMakingSections, liftArtifacts, palacePathOf, ageOf, rowSignal, groupProjects, endedWord, endedBand, rowEnded, readyToAdvance, cardSpec, messageForSection, decisionFor } from '../../src/lib/scroll-view.js';
 import { sortProjects, projectSortKey } from '../../server/projects.js';
 
 const MAKING = [
@@ -218,5 +218,33 @@ describe('readyToAdvance — the deck reads the heartbeat\'s stage floor', () =>
     ];
     expect(readyToAdvance(rows).map((r) => r.home)).toEqual(['Unstaged']);
     expect(readyToAdvance(undefined)).toEqual([]);
+  });
+});
+
+describe('a page that has ended — finished, archived, composting', () => {
+  const done = { home: 'Phoneme Choir', stewarded: false, status: 'complete', stage: 'fruiting' };
+  test('groupProjects puts it in its own finished group, not among the stewardless', () => {
+    const g = groupProjects([done, { home: 'Bare', stewarded: false }]);
+    expect(g.finished.map((r) => r.home)).toEqual(['Phoneme Choir']);
+    expect(g.untended.map((r) => r.home)).toEqual(['Bare']);
+  });
+  test('an open ask on a finished page still needs you first', () => {
+    expect(groupProjects([{ ...done, open_asks: 1 }]).needs_you).toHaveLength(1);
+  });
+  test("rowEnded is the refusal's own rule, on the row", () => {
+    expect(rowEnded(done)).toMatchObject({ how: 'complete' });
+    expect(rowEnded({ home: 'Live', status: 'active', stage: 'fruiting' })).toBe(null);
+  });
+  test('rowSignal reads it by its word', () => {
+    expect(rowSignal(done)).toEqual({ text: 'finished', tone: 'dim' });
+    expect(rowSignal({ ...done, status: 'active', stage: 'composting' }).text).toBe('composting');
+    expect(rowSignal({ ...done, status: 'archived' }).text).toBe('archived');
+  });
+  test('endedWord and endedBand say which field ended it', () => {
+    expect(endedWord(null)).toBe(null);
+    expect(endedWord({ how: 'archived' })).toBe('archived');
+    expect(endedBand(rowEnded(done))).toMatchObject({ word: 'finished', field: 'status: complete' });
+    expect(endedBand({ how: 'composting' })).toMatchObject({ word: 'composting', field: 'stage: composting' });
+    expect(endedBand(rowEnded(done)).text).toMatch(/takes no steward/);
   });
 });

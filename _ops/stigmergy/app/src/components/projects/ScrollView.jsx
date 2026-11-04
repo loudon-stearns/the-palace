@@ -3,7 +3,7 @@ import FaceSwitch from '../FaceSwitch.jsx';
 import { orderFaces, nextFace, richHref } from '../../lib/faces.js';
 import { Box, Button } from '../primitives.jsx';
 import { fetchScroll, saveStandingOrders, savePlan } from '../../adapters/projects.js';
-import { parseMakingSections, cardSpec } from '../../lib/scroll-view.js';
+import { parseMakingSections, cardSpec, endedBand, rowEnded } from '../../lib/scroll-view.js';
 import { buildInbox } from '../../lib/inbox.js';
 import EntryBody from '../state/EntryBody.jsx';
 import TricksterCard from '../trickster/TricksterCard.jsx';
@@ -191,6 +191,8 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
   }
 
   const fbColor = { ok: 'var(--phosphor)', warn: 'var(--warn)', err: 'var(--error)', dim: 'var(--phosphor-dim)' };
+  // Finished, archived or composting — it takes no steward (see the band below).
+  const ended = isLedgerRow ? null : rowEnded(row);
 
   return (
     <div data-testid="scroll-view" data-home={home} style={{ position: 'relative', zIndex: 1 }}>
@@ -216,7 +218,7 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
             {row.queued || running ? null : <RunCount value={count} onChange={setRunCount} disabled={!canAdvance} />}
             <span data-testid="scroll-advance"><Button tone="primary" disabled={!canAdvance} onClick={() => onAdvance && onAdvance(count)}>{row.queued ? `queued #${row.queued}` : `advance · ${count} cycle${count === 1 ? '' : 's'}`}</Button></span>
           </>
-        ) : row && onEnchant ? (confirmEnchant ? (
+        ) : row && onEnchant && !ended ? (confirmEnchant ? (
           <>
             <span style={{ color: 'var(--warn)', textShadow: 'var(--glow)', fontSize: 11 }}>give {home} a steward?</span>
             <span data-testid="scroll-enchant-confirm"><Button tone="primary" disabled={!canEnchant} onClick={() => { setConfirmEnchant(false); onEnchant(); }}>confirm</Button></span>
@@ -225,9 +227,36 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
         ) : (
           <span data-testid="scroll-enchant"><Button tone="primary" disabled={!canEnchant} onClick={() => setConfirmEnchant(true)}>add a steward</Button></span>
         )) : null}
-        {scroll ? <a href={`/api/open?path=${encodeURIComponent(scroll.path)}`} style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, textDecoration: 'none', borderBottom: '1px dashed currentColor' }} title={scroll.path}>{scroll.exists ? 'open the file' : (isCeremony ? 'not on disk yet — scroll.js --ceremonies writes it' : isLedgerRow ? 'not on disk yet — a save, or scroll.js --home, writes it' : 'not on disk yet — first cycle or save creates it')}</a> : null}
+        {scroll ? <a href={`/api/open?path=${encodeURIComponent(scroll.path)}`} style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, textDecoration: 'none', borderBottom: '1px dashed currentColor' }} title={scroll.path}>{scroll.exists ? 'open the file' : (isCeremony ? 'not on disk yet — scroll.js --ceremonies writes it' : isLedgerRow ? 'not on disk yet — a save, or scroll.js --home, writes it' : ended ? 'not on disk yet — a save creates it' : 'not on disk yet — first cycle or save creates it')}</a> : null}
         <FaceSwitch faces={scrollFaces} current="scroll" onSelect={selectFace} />
       </div>
+      {/* A page that has ended says so, where the steward button would be
+          (2026-11-04). rowEnded() is the same pageEnded() rule that
+          refuses it a steward. Reopening stays Loudon's own edit, on the entry. */}
+      {ended ? (() => {
+        const band = endedBand(ended);
+        return (
+          <div data-testid="scroll-ended" data-ended={band.word} style={{
+            border: '1px solid var(--phosphor-dim)', borderLeft: '3px double var(--phosphor)',
+            padding: '6px 10px', margin: '0 0 10px', fontSize: 12, lineHeight: 1.5,
+            background: 'var(--phosphor-deep)',
+          }}>
+            <span style={{ color: 'var(--phosphor-white)', textShadow: 'var(--glow)', textTransform: 'uppercase', letterSpacing: '.08em', fontWeight: 600 }}>{band.word}</span>
+            <span style={{ color: 'var(--phosphor-dim)', textShadow: 'none' }}> -- {band.field}. </span>
+            <span style={{ color: 'var(--phosphor)', textShadow: 'var(--glow)' }}>{band.text}</span>
+            {row.path && onNavigate ? (
+              <>{' '}<span
+                data-testid="scroll-ended-reopen"
+                role="button" tabIndex={0}
+                onClick={() => onNavigate(row.path)}
+                onKeyDown={(e) => { if (e.key === 'Enter') { e.stopPropagation(); onNavigate(row.path); } }}
+                title={`open ${row.path} -- change its ${band.field.split(':')[0]} to reopen it`}
+                style={{ color: 'var(--phosphor-dim)', textShadow: 'none', cursor: 'pointer', textDecoration: 'underline' }}
+              >open the entry to reopen it</span></>
+            ) : null}
+          </div>
+        );
+      })() : null}
       {watching ? <WatchPane home={home} running={running} onClose={() => setWatching(false)} /> : null}
       {feedback ? <div style={{ color: fbColor[feedback.tone], textShadow: feedback.tone === 'dim' ? 'none' : 'var(--glow)', fontSize: 12, marginBottom: 8 }}>{feedback.text}</div> : null}
       {lastRun ? <div data-testid="scroll-last-run" style={{ color: fbColor[lastRun.tone], textShadow: lastRun.tone === 'dim' ? 'none' : 'var(--glow)', fontSize: 11, marginBottom: 8 }}>{lastRun.text}</div> : null}

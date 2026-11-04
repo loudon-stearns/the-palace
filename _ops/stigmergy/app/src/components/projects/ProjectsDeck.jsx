@@ -3,7 +3,7 @@ import { Box, Button } from '../primitives.jsx';
 import { healthColor } from '../../lib/format.js';
 import { fetchProjects, enchantProject } from '../../adapters/projects.js';
 import { advanceSteward, advanceAllStewards, dequeueSteward } from '../../adapters/stewards.js';
-import { ageOf, rowSignal, groupProjects, readyToAdvance } from '../../lib/scroll-view.js';
+import { ageOf, rowSignal, groupProjects, readyToAdvance, endedWord, rowEnded } from '../../lib/scroll-view.js';
 import { slug, StatusDot, RunningTag, QueuedTag } from './status.jsx';
 import { usePalaceRef } from '../../lib/palace-ref.jsx';
 import ScheduleStrip from '../stewards/ScheduleStrip.jsx';
@@ -177,7 +177,11 @@ export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, co
           row.queued && onDequeue
             ? <span data-testid={`steward-unqueue-${sid}`}><Button tone="default" disabled={busy} onClick={() => onDequeue(row.home)}>unqueue</Button></span>
             : <span data-testid={`steward-advance-${sid}`}><Button tone="default" disabled={!canAdvance} onClick={() => onAdvance(row.home)}>{row.running ? 'running' : 'advance'}</Button></span>
-        )) : (confirmingEnchant ? (
+        )) : rowEnded(row) ? (
+          // A finished page takes no steward, so it offers none; the signal
+          // column already says which way it ended.
+          <span data-testid={`project-ended-${sid}`} data-ended={endedWord(rowEnded(row))} title={`takes no steward: ${rowEnded(row).sentence}`} style={dim}>—</span>
+        ) : (confirmingEnchant ? (
           <>
             <span style={{ color: 'var(--warn)', textShadow: 'var(--glow)', fontSize: 11 }}>give {row.home} a steward?</span>
             <span data-testid={`project-enchant-confirm-${sid}`}><Button tone="primary" disabled={busy} onClick={() => onConfirmEnchant(row.home)}>confirm</Button></span>
@@ -295,7 +299,7 @@ export default function ProjectsDeck({ onOpenScroll }) {
   return (
     <div data-testid="projects-screen" style={{ width: '100%' }}>
       <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none', marginBottom: 10, fontSize: 13 }}>
-        {rows.length} projects &middot; {groups.needs_you.length} need you &middot; {readyRows.length} ready to advance &middot; {groups.stuck.length} stalled &middot; {groups.untended.length} without a steward{ceremonies.length ? <> &middot; {ceremonies.length} ceremonies</> : null}{pages.length ? <> &middot; {pages.length} other page{pages.length === 1 ? '' : 's'} with a ledger</> : null}.
+        {rows.length} projects &middot; {groups.needs_you.length} need you &middot; {readyRows.length} ready to advance &middot; {groups.stuck.length} stalled &middot; {groups.untended.length} without a steward{groups.finished.length ? <> &middot; {groups.finished.length} finished</> : null}{ceremonies.length ? <> &middot; {ceremonies.length} ceremonies</> : null}{pages.length ? <> &middot; {pages.length} other page{pages.length === 1 ? '' : 's'} with a ledger</> : null}.
         {data?.stubbed ? <span style={{ color: 'var(--warn)', textShadow: 'var(--glow)', marginLeft: 10 }}>&middot; stub worker (no live cycle)</span> : null}
       </div>
 
@@ -337,6 +341,10 @@ export default function ProjectsDeck({ onOpenScroll }) {
             {renderGroup('tended', groups.tended)}
             <GroupHeading n={groups.untended.length}>no steward</GroupHeading>
             {renderGroup('untended', groups.untended)}
+            {groups.finished.length ? <>
+              <GroupHeading n={groups.finished.length}>finished</GroupHeading>
+              {renderGroup('finished', groups.finished)}
+            </> : null}
           </div>
         )}
       </Box>
