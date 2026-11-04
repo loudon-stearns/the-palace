@@ -24,7 +24,7 @@ links:
 
 ![[BLUELINE — Render Backend — hero.png]]
 
-> Source material: the **AnimaticPlanProposal** (Loudon, 2026-06-14), now living at `Projects/BLUELINE/render-backend/` (`PLAN.md`, `runner.py`, `graph_spec.md`, `models_manifest.md`, `board_template.txt`). This doc records how it folds into BLUELINE and the **three changes** the palace's existing RunPod work forces.
+> Source material: the **AnimaticPlanProposal** (Loudon, 2026-06-14), now living at `Projects/BLUELINE/render-backend/` (`README.md`, once `PLAN.md`; `runner.py`, `graph_spec.md`, `models_manifest.md`, `board_template.txt`). This doc records how it folds into BLUELINE and the **three changes** the palace's existing RunPod work forces.
 
 ## The thesis (and why it's already ours)
 

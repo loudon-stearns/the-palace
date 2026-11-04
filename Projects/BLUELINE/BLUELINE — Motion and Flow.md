@@ -28,7 +28,7 @@ links:
 > **Thread 4 of [[BLUELINE]]'s nine, and its priority frontier** (where the threads stand is on [[BLUELINE — scroll]]). Motion was the most
 > fragmented part of BLUELINE — **seven sub-threads** pulled separately, four of which never
 > cross-referenced. This doc is their single home: what each proved, what got retired, and the one
-> coupling worth building next. It **absorbs** the older `flow-field-spine.md` workflow doc (which
+> coupling worth building next. It **absorbs** the older `flow-field-spine.md` workflow doc, whose recipe now lives in [[The Flow Field is the Spine]] § The recipe (the doc
 > predated the character-aware field *and* the elemental-motion bench).
 
 ## The one principle (earned four times)
@@ -117,8 +117,8 @@ concrete wins:**
 
 ### Edge 2 · field → clock (the big lift)
 Make the field a **function of the song playhead** — a time-varying field that evolves per beat, so
-dust actually blows through the shot and speed-lines shift on the accent (flow-field-spine's named
-"next escalation"). This is the seam that joins Motion & Flow to **Clock & Sync (Track III)**: the
+dust actually blows through the shot and speed-lines shift on the accent (the flow-field recipe's named
+"next escalation", [[The Flow Field is the Spine]] § Open). This is the seam that joins Motion & Flow to **Clock & Sync (Track III)**: the
 same `(bar,beat)→frame` law that drives the animatic drives the field's evolution. The substrate is
 already here — Track VI's `warp.py` (periodic displacement) + `fields.py:from_flow` — so a
 beat-phased field is a wiring job, not a research risk. Pairs with [[Move the Ink, Don't Redraw It]].
