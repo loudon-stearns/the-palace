@@ -67,3 +67,8 @@ What Shopkeeper's steward cycles taught the page, and the changes to the house i
 9. Runpod's REST API needs `dockerStartCmd` (string array) and `env` (object), not the free-form `dockerArgs` string I guessed at — and Secure Cloud can be out of capacity for an entire GPU priority list at once, where Community Cloud still has room. *(offered by the steward, cycle 12)*
 - run · 2026-11-04 · cycle 12 · taught item 9
 - run · 2026-11-04 · cycle 13 · nothing new
+
+## From cycle 14 — 2026-11-04
+
+10. A model that needs a rented GPU and fails silently to boot, three times across two images and two sizes, is not a probing-angle problem — it's a 'this sandbox can't see container logs or open a terminal' problem, and no amount of retrying image/model combinations headless will diagnose it. The fix needs either console access or a different candidate. *(offered by the steward, cycle 14)*
+- run · 2026-11-04 · cycle 14 · taught item 10

@@ -15,35 +15,35 @@ forward_vector: "I am Shopkeeper's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T13:57:28.133Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T13:58:55.265Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** alive · **Stage:** — · **Steward:** cycle 13 · last ran 2026-11-04 (today)
+- **Status:** alive · **Stage:** — · **Steward:** cycle 14 · last ran 2026-11-04 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
-- **Waiting on you:** nothing
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — Second LightOnOCR-3 pod confirmed running; set a 15-minute background watch instead of guessing at one checkpoint. (`shopkeeper-cycle-13-2026-11-04`)
-- **Last commit touching this page:** 2026-11-04 `482d8c89` — steward(Shopkeeper): cycle 12 — Rented a second LightOnOCR-3 pod with a pinned, lighter vLLM image and …
+- **Last shipped:** 2026-11-04 (today) — Third pod, same wall — vLLM never bound its port; I killed it and I'm done guessing blind. (`shopkeeper-cycle-14-2026-11-04`)
+- **Last commit touching this page:** 2026-11-04 `27d74f1d` — steward(Shopkeeper): cycle 13 — Second LightOnOCR-3 pod confirmed running; set a 15-minute background w…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 10 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-04 — cycle 13 · nothing new
+- **Runs:** 11 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-04 — cycle 14 · taught item 10
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 9, from cycle 12 — 2026-11-04 — [[Shopkeeper — tuning]]
+- **Latest lesson:** item 10, from cycle 14 — 2026-11-04 — [[Shopkeeper — tuning]]
 
 ### Where this stands
 
-I'm trying to get LightOnOCR-3 — a real OCR model that would be a genuine new door for the Shop — running long enough to actually test it. Thirteen cycles of digging found the real wall is that it needs its own GPU server, not a free API. Last cycle I rented a second pod with a lighter image and a smaller model after the first one hung for 24 minutes and never came up. This cycle I checked in on it.
+I've been trying to get LightOnOCR-3 — a real document-OCR model that would be a genuine new door for the Shop — running long enough to actually feed it a page and see what comes out. Fourteen cycles in, the model has no free hosted API; it has to run on a rented GPU. I've now rented three pods across cycles 9-14, varying the Docker image and model size each time, and every one has failed to actually start the inference server inside its boot window.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** Still zero first-hand transcription evidence from LightOnOCR-3 — that gap is not closed this cycle either, only watched for. _(in 11 notes, the latest cycle 13)_
+- **rough since cycle 1:** Still zero first-hand transcription evidence from LightOnOCR-3 at any size, and now a well-established pattern rather than a fluke: three rentals, two images, two model sizes, same silent failure to bind the port. _(in 12 notes, the latest cycle 14)_
 - **rough since cycle 8:** That's the one thing every remaining cycle of this run needs to close. _(in 3 notes, the latest cycle 10)_
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `shopkeeper-ask-2026-11-04-ocr-console-or-drop` — directional_decision · posted 2026-11-04 · options: OPEN-CONSOLE · DROP-LIGHTONOCR · ONE-MORE-BLIND-TRY
 
 ### Answered, not yet consumed
 
@@ -69,6 +69,7 @@ d5 YES: Yes, add a dated gotcha note on Stable Audio 3 to [[Stable Audio Open]].
 
 ### Runs
 
+- 2026-11-04 — cycle 14 · taught item 10
 - 2026-11-04 — cycle 13 · nothing new
 - 2026-11-04 — cycle 12 · taught item 9
 - 2026-11-04 — cycle 11 · taught item 8
@@ -76,8 +77,7 @@ d5 YES: Yes, add a dated gotcha note on Stable Audio 3 to [[Stable Audio Open]].
 - 2026-11-04 — cycle 9 · taught item 6
 - 2026-11-03 — cycle 8 · taught item 5
 - 2026-11-03 — cycle 7 · taught item 4
-- 2026-11-03 — cycle 6 · taught item 3
-- _…and 2 more in the trail below._
+- _…and 3 more in the trail below._
 
 ### Owed
 
@@ -114,6 +114,30 @@ The Shop is yours to tend, not to write. Run the tools, keep the dossiers, and m
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shopkeeper-cycle-14-2026-11-04" -->
+### 2026-11-04 — cycle 14 — Third pod, same wall — vLLM never bound its port; I killed it and I'm done guessing blind.
+> shipped · pod terminated, ~5 cents spent · steward leans ask-for-console-or-drop
+
+This cycle checked on the pod from cycle 12/13 (`vllm/vllm-openai:v0.6.3.post1`, `LightOnOCR-0.8B`, RTX A4500). At ~2.5 minutes uptime the proxy returned one `502`, then five more checks over the next 100 seconds all came back `404` — a flicker, not a server coming up. That's now three independent attempts (a `:latest` image with the 1B model in cycle 11; this pinned image with the 0.8B model across cycles 12-14) that all failed the same way: the proxy is reachable, but nothing is ever listening on port 8000. I terminated the pod (confirmed `204`) rather than let it idle. Total spend across all three rentals this run: a few cents, nowhere near the $1 ceiling I set myself.
+
+**Artifacts:**
+- [the full probe log — all 14 cycles, including this one's third-failure writeup](Shop/Shopkeeper/probes/lightonocr-3/lightonocr-3-probe-notes.md)
+
+_Changed in the workshop:_ lightonocr-3-probe-notes — logged cycle 14's third-failure finding (502-then-404 flicker) and the pod termination
+
+_Left rough:_ Still zero first-hand transcription evidence from LightOnOCR-3 at any size, and now a well-established pattern rather than a fluke: three rentals, two images, two model sizes, same silent failure to bind the port. I genuinely cannot see why from here — no logs endpoint, no terminal access from this sandbox.
+
+_Next moves named:_ If Loudon wants to keep chasing this: have the mac leg (or Loudon himself) open the Runpod web console on the next rental and read the actual container boot log — that's the one diagnostic this sandbox can't reach. · Otherwise, drop LightOnOCR-3 as this round's OCR candidate and let the Shop's OCR gap wait for a tool with an actual free API leg.
+<sub>`shopkeeper-cycle-14-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-e8075c0bd9" -->
+### 2026-11-04 — cycle 14
+
+taught item 10
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="shopkeeper-cycle-13-2026-11-04" -->
 ### 2026-11-04 — cycle 13 — Second LightOnOCR-3 pod confirmed running; set a 15-minute background watch instead of guessing at one checkpoint.
 > still working · pod alive, server still booting · steward leans wait-for-watch

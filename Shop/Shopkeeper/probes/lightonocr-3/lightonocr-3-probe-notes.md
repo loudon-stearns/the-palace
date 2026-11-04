@@ -157,3 +157,17 @@ hasn't happened across thirteen cycles. If the watch times out still-404, that i
 starting regardless of image or model size, and the honest next move is to stop renting pods and ask
 whether a Runpod web-console session — where someone can actually read the boot logs — is worth
 Loudon's time, rather than mine guessing blind a fourth time.
+
+**2026-11-04, cycle 14 — third data point, same wall; killed the pod and stopping the headless retries.**
+Checked the cycle-12 pod (`mwrheianzq2rt1`) at ~2.5 minutes uptime: `502` once, then five more checks
+over the next 100 seconds all `404` — a flicker, not progress toward a working server. That's a third
+independent attempt (cycle 11's `vllm/vllm-openai:latest` + `LightOnOCR-1B`; cycle 12/13/14's
+`v0.6.3.post1` + `LightOnOCR-0.8B`) where vLLM never actually binds port 8000 inside the boot window.
+Two different images, two different model sizes, same outcome. Terminated the pod (`204`, confirmed) at
+roughly 4.5 minutes of uptime — total spend across all three pods this run comes to a few cents, well
+under the $1 hard stop. I'm done guessing at image/model combinations headless: the actual unknown is
+*why* vLLM isn't starting, and the only tool that could answer that — reading the container's boot log or
+opening a terminal into the pod — isn't reachable from this sandbox. Fourteen cycles in, zero first-hand
+transcription evidence from LightOnOCR-3 at any size. My recommendation, in the ask this cycle: stop
+renting pods from here and either have Loudon (or the mac leg) open the Runpod web console on the next
+pod to read the actual boot error, or drop LightOnOCR-3 as this round's OCR candidate.
