@@ -161,3 +161,9 @@ describe('resolveKey — c collapses the deck', () => {
     expect(resolveKey('C', { list: LIST, focused: 1, selections: {} })).toEqual({ type: 'toggle-compact' });
   });
 });
+
+describe('resolveKey — / jumps to the search', () => {
+  it('/ focuses the search box', () => {
+    expect(resolveKey('/', { list: LIST, focused: 0, selections: {} })).toEqual({ type: 'focus-search' });
+  });
+});

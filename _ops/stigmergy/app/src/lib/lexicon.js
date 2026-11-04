@@ -73,7 +73,19 @@ const DICT = {
   'trickster.quickbar.summary':         'the leans —',
   'trickster.quickbar.remainder.one':   'more needs your call',
   'trickster.quickbar.remainder.many':  'more need your call',
-  'trickster.deck.keyhint':             'j / k move · 1-9 pick · enter files the pick · space files the lean · f files all · c collapses',
+  'trickster.deck.keyhint':             'j / k move · 1-9 pick · enter files the pick · space files the lean · f files all · c collapses · / searches',
+
+  // Search + filter (2026-11-04, Loudon: "add a search and filter function at
+  // the top"). Narrows the cards, the keys and FILE ALL together.
+  'trickster.filter.placeholder':       'search -- project, ask, state, option',
+  'trickster.filter.show.all':          'all',
+  'trickster.filter.show.waiting':      'waiting on you',
+  'trickster.filter.show.call':         'needs your call',
+  'trickster.filter.show.session':      'wants a session',
+  'trickster.filter.project.any':       'every project',
+  'trickster.filter.of':                'of',
+  'trickster.filter.none':              'nothing matches',
+  'trickster.filter.clear':             'clear',
 
   // Collapsed view (2026-11-04, Loudon: "collapse each project down to just
   // the ask and a description of the project state"). An option, not the
