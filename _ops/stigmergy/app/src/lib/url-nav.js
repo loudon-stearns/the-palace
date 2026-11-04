@@ -477,3 +477,29 @@ export function useDeckNavigation() {
 
   return { deck, navigateDeck };
 }
+
+// A cross-deck jump to an entry (a project name on a TRICKSTER card, a page
+// link on a scroll) as ONE history step. It used to be two or three: the deck
+// switch pushed `?deck=STATE`, then STATE's open pushed `&entry=` (and an open
+// scroll pushed its own close first), so the first Back landed on STATE's bare
+// list instead of the card you clicked from (2026-11-04, Loudon: "the back
+// button takes us to the wrong location"). Now the scroll close, the deck and
+// the entry land in one URL; Back steps straight to where you were.
+export function buildEntryJumpSearch(searchString, path) {
+  const s = buildDeckSearch(buildScrollSearch(searchString, null), 'STATE');
+  return buildEntrySearch(s, { path, edit: false });
+}
+
+// Push the jump, then tell every URL-mirroring hook to re-read the URL. Each
+// hook's popstate listener only parses the URL back into its state, so one
+// synthetic popstate syncs the deck, the scroll and an already-mounted STATE
+// together; a STATE that mounts fresh reads the entry from the URL itself.
+export function jumpToEntry(path) {
+  if (!path || typeof window === 'undefined') return;
+  const nextSearch = buildEntryJumpSearch(window.location.search, path);
+  if (nextSearch !== (window.location.search || '')) {
+    const nextUrl = `${window.location.pathname}${nextSearch}${window.location.hash}`;
+    window.history.pushState({ deck: 'STATE', entry: path }, '', nextUrl);
+  }
+  window.dispatchEvent(new PopStateEvent('popstate', { state: window.history.state }));
+}

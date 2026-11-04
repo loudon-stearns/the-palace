@@ -6,6 +6,7 @@ import {
   parseTreeTargetFromUrl, buildTreeTargetSearch,
   deckFromSearch, buildDeckSearch,
   parseScrollFromUrl, buildScrollSearch,
+  buildEntryJumpSearch,
 } from '../../src/lib/url-nav.js';
 
 describe('parseEntryFromUrl', () => {
@@ -238,5 +239,23 @@ describe('parseScrollFromUrl / buildScrollSearch', () => {
     expect(buildScrollSearch('?deck=PROJECTS&project=BLUELINE', 'BLUELINE'))
       .toBe('?deck=PROJECTS&scroll=BLUELINE');
     expect(buildScrollSearch('?project=BLUELINE', null)).toBe('');
+  });
+});
+
+describe('buildEntryJumpSearch — a cross-deck jump is one history step', () => {
+  it('sets the deck and the entry together from TRICKSTER', () => {
+    expect(buildEntryJumpSearch('?deck=TRICKSTER', 'Projects/Rational Hearing.md'))
+      .toBe('?deck=STATE&entry=Projects%2FRational+Hearing.md');
+  });
+  it('closes an open scroll in the same step', () => {
+    const s = buildEntryJumpSearch('?deck=PROJECTS&scroll=Murmuration', 'Murmuration.md');
+    expect(parseScrollFromUrl(s)).toBe(null);
+    expect(deckFromSearch(s)).toBe('STATE');
+    expect(parseEntryFromUrl(s)).toEqual({ path: 'Murmuration.md', edit: false });
+  });
+  it('drops a stale edit flag and keeps unrelated params', () => {
+    const s = buildEntryJumpSearch('?deck=STATE&entry=A.md&edit=1&lens=tree', 'B.md');
+    expect(parseEntryFromUrl(s)).toEqual({ path: 'B.md', edit: false });
+    expect(new URLSearchParams(s).get('lens')).toBe('tree');
   });
 });

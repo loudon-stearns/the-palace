@@ -201,6 +201,8 @@ export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focus
       >
         <Box tone="single" pad>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
+            {/* open sits at the left edge, where the eye starts each row. */}
+            <span data-testid="card-open" style={foldSummary}>{t('trickster.card.open')}</span>
             <span
               data-testid="card-from"
               onClick={nameResolved ? (e) => { e.stopPropagation(); palace.openEntryInState?.(fromRef.path); } : undefined}
@@ -226,7 +228,6 @@ export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focus
                   textTransform: 'uppercase', letterSpacing: '.06em',
                 }}>{t('trickster.card.session.badge')}</span>
               ) : null}
-              <span style={foldSummary}>{t('trickster.card.open')}</span>
             </span>
           </div>
           {orientation ? (
@@ -268,6 +269,17 @@ export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focus
           display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap',
           marginBottom: orientation ? 4 : 8,
         }}>
+          {/* Opened from the collapsed view — fold it back, from the same left
+              edge where its open sat. */}
+          {onToggleOpen ? (
+            <span
+              data-testid="card-fold"
+              role="button" tabIndex={0}
+              onClick={() => onToggleOpen(false)}
+              onKeyDown={(e) => { if (e.key === 'Enter') { e.stopPropagation(); onToggleOpen(false); } }}
+              style={{ ...foldSummary, cursor: 'pointer' }}
+            >{t('trickster.card.fold')}</span>
+          ) : null}
           <span
             data-testid="card-from"
             onClick={nameResolved ? () => palace.openEntryInState?.(fromRef.path) : undefined}
@@ -321,15 +333,6 @@ export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focus
                     textTransform: 'uppercase', letterSpacing: '.06em',
                   }}
                 >{t('trickster.card.launch')}</button>
-              ) : null}
-              {/* Opened from the collapsed view — fold it back into the list. */}
-              {onToggleOpen ? (
-                <span
-                  data-testid="card-fold"
-                  role="button" tabIndex={0}
-                  onClick={() => onToggleOpen(false)}
-                  style={{ ...foldSummary, cursor: 'pointer' }}
-                >{t('trickster.card.fold')}</span>
               ) : null}
             </span>
           ) : null}

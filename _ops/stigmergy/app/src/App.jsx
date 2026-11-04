@@ -20,7 +20,7 @@ import { buildInbox, pendingTricksterCount } from './lib/inbox.js';
 import { BOARDS } from './lib/format.js';
 import { DEMO_MESSAGES } from './lib/demo-data.js';
 import { validateAll } from './lib/schema.js';
-import { useDeckNavigation, useScrollNavigation, parseScrollFromUrl, parseEntryFromUrl } from './lib/url-nav.js';
+import { useDeckNavigation, useScrollNavigation, parseScrollFromUrl, parseEntryFromUrl, jumpToEntry } from './lib/url-nav.js';
 
 // Demo mode from the ?demo= query param:
 //   '1'     → demo data PREPENDED onto live palace data (the default showcase)
@@ -94,11 +94,16 @@ export default function App() {
   // StateDeck reports a jump as used, so remounting STATE later (back from a
   // scroll, or from another deck) never re-opens an old jump's entry.
   const onJumpHandled = useCallback(() => setJumpTarget(null), []);
+  // One history step, not two: jumpToEntry writes the deck, the entry and an
+  // open scroll's close into a single URL and resyncs every URL hook, so Back
+  // returns to the card you clicked from. The jump target stays as STATE's
+  // signal for an already-mounted reader; its open finds the URL already set
+  // and pushes nothing more.
   const openEntryInState = useCallback((path) => {
     if (!path) return;
+    jumpToEntry(path);
     jumpNonce.current += 1;
     setJumpTarget({ path, nonce: jumpNonce.current });
-    setDeck('STATE');
   }, []);
 
   const [messages, setMessages] = useState([]);

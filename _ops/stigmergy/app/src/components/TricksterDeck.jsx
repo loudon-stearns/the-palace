@@ -44,12 +44,6 @@ export function formatRun(result, name) {
 
 const RUN_COLOR = { ok: 'var(--phosphor)', warn: 'var(--warn)', err: 'var(--error)' };
 
-// The collapsed view is remembered per browser — a viewing convenience, so a
-// blocked or private-mode store just means the deck opens expanded.
-const COMPACT_KEY = 'trickster.compact';
-const readCompact = () => { try { return localStorage.getItem(COMPACT_KEY) === '1'; } catch { return false; } };
-const writeCompact = (on) => { try { localStorage.setItem(COMPACT_KEY, on ? '1' : '0'); } catch { /* private mode */ } };
-
 // The receipt for a filed decision — what the card held the moment it vanished
 // (2026-10-13; Loudon: "the window just disappears, it would feel good to have
 // a confirmation of what was submitted"). Pure, so it is unit-testable.
@@ -146,10 +140,16 @@ export default function TricksterDeck({
   // ask, so a long deck scrolls to the one ask he wants. Clicking a folded card
   // opens just that one; `opened` holds those request_ids and is cleared when
   // the whole deck flips, so EXPAND → COLLAPSE always lands fully folded.
-  const [compact, setCompact] = useState(readCompact);
+  //
+  // Collapsed is how the deck is entered, every time (2026-11-04, Loudon: "so
+  // it loads fast by default"). A folded card mounts none of its pieces, audio
+  // or images — measured on 26 cards: 0 frames and ~5 MB folded against 29
+  // live frames, 78 players and ~28 MB expanded. EXPAND holds for this visit
+  // only; remembering it would make the next entry the slow one again.
+  const [compact, setCompact] = useState(true);
   const [opened, setOpened] = useState({});
   const toggleCompact = () => {
-    setCompact((was) => { writeCompact(!was); return !was; });
+    setCompact((was) => !was);
     setOpened({});
   };
   const setCardOpen = (requestId, open) =>
