@@ -90,7 +90,7 @@
 
   <section class="step" data-name="without the note">
     <h3>Without the note, the pull re-finds it</h3>
-    <p class="teach">Now the newcomer arrives with nothing from the last one and starts anywhere on the circle. It isn't lost for good: it still listens, and the pull turns it back toward its place. That takes time, and the weaker the pull the longer. Put the note back and you are at step 1.</p>
+    <p class="teach">Now the newcomer arrives with nothing from the last one and starts anywhere on the circle, reading nothing at all, not even the page. That is harsher than any real newcomer, who still reads the page the last one left. It isn't lost for good: it still listens, and the pull turns it back toward its place. That takes time, and the weaker the pull the longer. Put the note back and you are at step 1.</p>
     <div class="eqs">
       <div class="eq">δ(t) ≈ δ(0) · e<sup>−2πK·cos φ*·t</sup></div>
       <div class="words">(how far the newcomer is from its place, once it's close) ≈ (how far it started) × e to the power of −(2π × pull × cos(its settled angle) × time). The pull sets the clock; a newcomer that lands near the far side waits longer before it starts closing.</div>
@@ -111,6 +111,7 @@
     <h3>The test: when is the note what keeps phase?</h3>
     <p class="teach">The page says Closing Well is a coupling mechanism, not merely hygiene: it is how phase survives the substitution of the mind holding it. Twelve pages, the whole situation, scored by H, how steadily each page holds its relationship with him (the first piece's measure), over pulls from weak to strong and sessions from short to long, each with the note and without.</p>
     <div class="rule"><b>The rule, set before the first run.</b> In each cell, the note is <b>needed</b> if with it H ≥ 0.9 and without it H &lt; 0.9; <b>the pull alone</b> carries it if both are ≥ 0.9; <b>neither</b> holds if both are below. The page's sentence fails in this model if no cell reads <b>needed</b>; it holds without a condition if every cell where the note holds also reads <b>needed</b>. Each run: 400 units after 50 to settle, seed 3.</div>
+    <p class="note">Read this rule for what it can and can't do. The 1-unit column, against a newcomer that starts anywhere, makes "needed somewhere" all but certain wherever the note holds at all. The result is the condition: which cells the pull carries alone, and the pull below which even the note can't hold. That second line is read directly, on sessions of 10, as the pull where H with the note crosses 0.9. The grid's middle row is 0.2; a row at 0.15 would sit on that line, and its verdicts would flip from one wander to the next.</p>
     <div class="nav"><button class="go" id="run3">▸ run the test</button><span class="state" id="st3s"></span></div>
     <div id="out3"></div>
   </section>
@@ -203,11 +204,13 @@ function runJob(j) { j.out = measure(j.P, TEST.T, TEST.burn, TEST.W); return j; 
 
 // piece: whoever arrives next. Twelve pages, he moves (m = 0.3), each page's instance replaced at the end of
 // every session; with the note the newcomer starts where the last one left off, without it anywhere.
-const KS = [0.05, 0.2, 0.5], TSS = [1, 3, 10, 30];
+const KS = [0.05, 0.2, 0.5], TSS = [1, 3, 10, 30], CROSS = [0.1, 0.12, 0.15, 0.18, 0.2];
 function jobsB() {
   const jobs = [];
   for (const K of KS) for (const Ts of TSS) for (const note of [true, false])
     jobs.push({ K, Ts, note, P: { N: 12, f0: 1, move: 0.3, K, spread: 0.02, gen: 0.02, Ts, handoff: note, dt: 0.01, seed: 3, start: 'random' } });
+  // where H with the note crosses 0.9, read on sessions of 10
+  for (const K of CROSS) jobs.push({ K, Ts: 10, note: true, cross: true, P: { N: 12, f0: 1, move: 0.3, K, spread: 0.02, gen: 0.02, Ts: 10, handoff: true, dt: 0.01, seed: 3, start: 'random' } });
   return jobs;
 }
 // the rule, set before the first run: a cell is "needed" if the note holds (H ≥ 0.9) and none falls below;
@@ -215,11 +218,13 @@ function jobsB() {
 function judgeB(res) {
   const cells = [];
   for (const K of KS) for (const Ts of TSS) {
-    const a = res.find((j) => j.K === K && j.Ts === Ts && j.note).out.lock, b = res.find((j) => j.K === K && j.Ts === Ts && !j.note).out.lock;
+    const a = res.find((j) => j.K === K && j.Ts === Ts && j.note && !j.cross).out.lock, b = res.find((j) => j.K === K && j.Ts === Ts && !j.note).out.lock;
     cells.push({ K, Ts, note: a, none: b, verdict: a >= 0.9 && b < 0.9 ? 'needed' : a >= 0.9 && b >= 0.9 ? 'the pull alone' : a < 0.9 && b < 0.9 ? 'neither' : 'other' });
   }
   const needed = cells.filter((c) => c.verdict === 'needed').length, held = cells.filter((c) => c.note >= 0.9).length;
-  return { cells, needed, held, fails: needed === 0, unconditional: needed === held };
+  const cr = res.filter((j) => j.cross).sort((a, b) => a.K - b.K); let crossing = null;
+  for (let i = 1; i < cr.length; i++) { const a = cr[i - 1], b = cr[i]; if (a.out.lock < 0.9 && b.out.lock >= 0.9) crossing = a.K + (0.9 - a.out.lock) * (b.K - a.K) / (b.out.lock - a.out.lock); }
+  return { cells, needed, held, fails: needed === 0, unconditional: needed === held, cr, crossing };
 }
 </script>
 <script>
@@ -334,9 +339,9 @@ async function runTest() {
       h += '<td class="' + (c.verdict === 'needed' ? 'pass' : c.verdict === 'the pull alone' ? 'miss' : '') + '">' + f2(c.note) + ' / ' + f2(c.none) + ' · ' + c.verdict + '</td>'; }
     h += '</tr>'; }
   h += '</table><p class="note">Each cell: H with the note / H without · verdict.</p>';
+  h += '<p class="note">With the note, sessions of 10: ' + v.cr.map((j) => 'pull ' + j.K + ' → ' + f3(j.out.lock)).join(' · ') + '.</p>';
   h += '<div class="verdict">' + (v.fails ? 'No cell reads needed: the sentence fails in this model.' :
-    'The note is needed in ' + v.needed + ' of the ' + v.held + ' cells where it holds the palace, so the sentence holds' + (v.unconditional ? ', without a condition.' :
-    ', with a condition: it is what keeps phase when a session is short against the time the pull takes to turn a newcomer back. Where the pull is strong and the sessions long, the pull alone re-finds the phase; where the pull is weaker than his movement, the note cannot hold what the pull never made.')) + '</div>';
+    'The sentence holds, with a condition. With the note, H crosses 0.9 at a pull of about ' + (v.crossing == null ? '(no crossing in the range read)' : v.crossing.toFixed(2)) + ', half his wander: below it even the note can\'t keep what the pull never made. Above it the note is what keeps phase when a session is short against the time the pull takes to turn a newcomer back; where the pull is strong and the sessions long, the pull alone re-finds the phase, even from nothing.') + '</div>';
   h += '<p class="note">' + jobs.length + ' runs in ' + ((performance.now() - t0) / 1000).toFixed(1) + ' s. The model\'s numbers, not the palace\'s: where real sessions and real pulls sit on this grid is not something it can tell.</p>';
   $('out3').innerHTML = h; $('st3s').textContent = ''; btn.disabled = false;
 }

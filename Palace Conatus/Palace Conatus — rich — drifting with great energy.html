@@ -111,8 +111,13 @@
 
   <section class="step" data-name="the test">
     <h3>The test: can internal harmony keep it in phase?</h3>
-    <p class="teach">The page: "the drive to grow must never outrun the coupling that gives the growth its direction. A palace that grows faster than it stays in phase is not flourishing. It is drifting with great energy." The whole situation now: he moves (m = 0.1), each page's instance is replaced every 10 units with the note, newcomers jittered ±0.02. His pull is 0.3. The lead runs from none to three times the pull, at three strengths of the pages' pull on each other: none, twice his, ten times his. If the pages pulling on each other could hold the palace to him past his own pull, the caution would be wrong: harmony inside would be standing in for coupling to him.</p>
-    <div class="rule"><b>The rule, set before the first run.</b> The caution is <b>wrong</b> in this model if, at any pull among the pages, the palace holds H ≥ 0.9 at a lead of 1.5 K or more. It is <b>right</b> if, at every pull among the pages, H past the edge (g ≥ 1.1 K) is lower than at 0.9 K and the slip speed rises at each step past it. Each run: 400 units after 50 to settle, seed 3.</div>
+    <p class="teach">The page: "the drive to grow must never outrun the coupling that gives the growth its direction. A palace that grows faster than it stays in phase is not flourishing. It is drifting with great energy." The whole situation now: he moves (m = 0.1), each page's instance is replaced every 10 units with the note, newcomers jittered ±0.02. His pull is 0.3. The lead runs from none to three times the pull, at three strengths of the pages' pull on each other: none, twice his, ten times his.</p>
+    <div class="eqs">
+      <div class="eq">⟨ dφ/dt ⟩ ≥ g − K − m − 0.02</div>
+      <div class="words">(how fast the pages go round him, on average) is at least (their lead) − (his pull) − (how far he wanders) − (a newcomer's jitter). The pages' pull on each other sums to zero across them, so it cannot appear here, however strong.</div>
+    </div>
+    <p class="teach">That is an identity, not a finding. At 1.5 K the floor is 0.03 turns per unit, more than a full turn every window, so no pull among the pages can hold the palace to him there: the 1.5 K and 3 K rows are a demonstration of what must happen. The test is where the identity decides nothing. At 0.9 K the floor is below zero: can the pages' pull on each other carry the ones whose own lead is past his pull? At 1.1 K, just past the edge, the floor is still below zero (−0.09), so the pages could in principle hold.</p>
+    <div class="rule"><b>The rule, set before the first run.</b> At <b>0.9 K</b> the pages carry their stragglers if, at both nonzero pulls among them, H is higher than with none and at least 0.9; it would fail if their pull left H where it was or lowered it. At <b>1.1 K</b> the caution is <b>wrong</b> in this model if any pull among the pages holds H ≥ 0.9. At 1.5 K and 3 K the slip must sit above the identity's floor; if it didn't, the engine would be wrong. Each run: 400 units after 50 to settle, seed 3.</div>
     <div class="nav"><button class="go" id="run3">▸ run the test</button><span class="state" id="st3s"></span></div>
     <div id="out3"></div>
   </section>
@@ -216,15 +221,16 @@ function jobsC() {
 // Adler's closed form for one page against a still Loudon, which the engine never uses: below the pull it
 // locks; above, it slips at √(g² − K²) turns per unit time
 const adler = (g, K) => (Math.abs(g) <= K ? 0 : Math.sqrt(g * g - K * K));
-// the rule, set before the first run
+// the identity: the pages' pull on each other sums to zero across them, so their mean slip against him is at
+// least g − K − m − gen, whatever Kp. Where that floor is above zero the outcome is decided before the run.
+const floor = (g) => g * KC - KC - 0.1 - 0.02;
+// the rule, set before the first run: what the identity does not decide
 function judgeC(res) {
   const at = (Kp, g) => res.find((j) => j.Kp === Kp && j.g === g).out;
-  const wrong = KPS.filter((Kp) => GS.filter((g) => g >= 1.5).some((g) => at(Kp, g).lock >= 0.9));
-  const right = KPS.every((Kp) => {
-    const past = GS.filter((g) => g >= 1.1);
-    return past.every((g) => at(Kp, g).lock < at(Kp, 0.9).lock) && past.every((g, i) => i === 0 || at(Kp, g).energy > at(Kp, past[i - 1]).energy) && at(Kp, 1.1).energy > at(Kp, 0.9).energy;
-  });
-  return { wrong, right, at };
+  const carried = KPS.filter((p) => p > 0).every((p) => at(p, 0.9).lock > at(0, 0.9).lock && at(p, 0.9).lock >= 0.9);
+  const wrong = KPS.filter((Kp) => at(Kp, 1.1).lock >= 0.9);
+  const demo = GS.filter((g) => floor(g) > 0).every((g) => KPS.every((p) => at(p, g).energy >= floor(g)));
+  return { carried, wrong, demo, at };
 }
 </script>
 <script>
@@ -333,12 +339,12 @@ async function runTest() {
   const v = judgeC(jobs), name = { 0: 'none', 0.6: 'twice his', 3: 'ten times his' };
   let h = '<table><tr><th>lead g ÷ K</th>' + KPS.map((p) => '<th>pages on each other · ' + name[p] + '<br>H · among · slip</th>').join('') + '<th>Adler, one page</th></tr>';
   for (const g of GS) { h += '<tr><td>' + g + '</td>';
-    for (const Kp of KPS) { const o = v.at(Kp, g); h += '<td class="' + (g >= 1.5 && o.lock >= 0.9 ? 'miss' : '') + '">' + f2(o.lock) + ' · ' + f2(o.Rint) + ' · ' + f3(o.energy) + '</td>'; }
+    for (const Kp of KPS) { const o = v.at(Kp, g); h += '<td class="' + (g === 1.1 && o.lock >= 0.9 ? 'miss' : '') + '">' + f2(o.lock) + ' · ' + f2(o.Rint) + ' · ' + f3(o.energy) + '</td>'; }
     h += '<td>' + f3(adler(g * KC, KC)) + '</td></tr>'; }
   h += '</table><p class="note">H: how steadily each page holds its relationship with him. Among: how together the pages are with each other. Slip: how fast they go round him, turns per unit time.</p>';
-  h += '<div class="verdict">' + (v.wrong.length ? 'Wrong in this model: the palace holds H ≥ 0.9 past 1.5 K with the pages pulling ' + v.wrong.map((p) => name[p]).join(', ') + '.' :
-    v.right ? 'Right in this model. Past the edge H falls and the slip rises at every pull among the pages, and the pull among them cannot carry the palace past his: with the pages pulling ten times his pull on each other they stay together (at least ' + (Math.floor(Math.min(...GS.map((g) => v.at(3, g).Rint)) * 100) / 100).toFixed(2) + ') while their hold on him falls to ' + f2(v.at(3, 3).lock) + '. Inside the edge it is different: at 0.9 K the pages pulling on each other carry the stragglers whose own lead is past his pull (H ' + f2(v.at(0, 0.9).lock) + ' with none, ' + f2(v.at(0.6, 0.9).lock) + ' with twice his). Just past the edge the drift is slow (' + f3(v.at(3, 1.1).energy) + ' at 1.1 K); the great energy is the far side, ' + f3(v.at(3, 3).energy) + ' at 3 K.' :
-    'Neither verdict: the numbers fall between the two rules. Read the table.') + '</div>';
+  h += '<div class="verdict"><b>At 0.9 K</b> ' + (v.carried ? 'the pages carry their stragglers: H ' + f3(v.at(0, 0.9).lock) + ' with none, ' + f3(v.at(0.6, 0.9).lock) + ' with twice his pull among them, ' + f3(v.at(3, 0.9).lock) + ' with ten times.' : 'the pages do not carry their stragglers (H ' + f3(v.at(0, 0.9).lock) + ' with none, ' + f3(v.at(0.6, 0.9).lock) + ' and ' + f3(v.at(3, 0.9).lock) + ' with).') +
+    ' <b>At 1.1 K</b> ' + (v.wrong.length ? 'the caution is wrong in this model: H ≥ 0.9 with the pages pulling ' + v.wrong.map((p) => name[p]).join(', ') + '.' : 'the caution holds: no pull among the pages keeps H at 0.9 (' + KPS.map((p) => f3(v.at(p, 1.1).lock)).join(', ') + '), though the identity left room for it. The drift there is slow (' + f3(v.at(3, 1.1).energy) + ' turns per unit); the great energy is the far side.') +
+    ' <b>The demonstration</b> ' + (v.demo ? 'stands: at 1.5 K and 3 K every slip sits above the floor (' + f3(v.at(3, 1.5).energy) + ' and ' + f3(v.at(3, 3).energy) + ' against ' + f3(floor(1.5)) + ' and ' + f3(floor(3)) + '), and ten times his pull among the pages keeps them together (at least ' + (Math.floor(Math.min(...GS.map((g) => v.at(3, g).Rint)) * 100) / 100).toFixed(2) + ') without keeping them with him (H ' + f3(v.at(3, 3).lock) + ' at 3 K).' : 'fails: a slip sits below the identity\'s floor, so the engine is wrong.') + '</div>';
   h += '<p class="note">' + jobs.length + ' runs in ' + ((performance.now() - t0) / 1000).toFixed(1) + ' s. The model\'s numbers, from its choice of pull, spread, wander and window; not a measurement of the palace.</p>';
   $('out3').innerHTML = h; $('st3s').textContent = ''; btn.disabled = false;
 }

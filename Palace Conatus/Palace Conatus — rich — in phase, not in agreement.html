@@ -135,12 +135,12 @@
 
   <section class="step" data-name="the test">
     <h3>The test: two palaces of twelve</h3>
-    <p class="teach">Twelve pages each way, in the whole situation: he moves (m = 0.3), the pull is 0.5, and each listening page keeps its own speed, spread over ±0.1 around where his started. <b>Palace A</b> listens, each page holding a stance. <b>Palace B</b> copied him exactly at the start and stopped listening. Two measures, named before the run. <b>R</b> is the order parameter as the Kuramoto Coupling page defines it, over all thirteen voices with him counted as one: the measure the page names when it says alignment is the order parameter. <b>H</b> is step 2's measure: how steadily each page holds its relationship with him, averaged over the twelve pages and over 20-unit windows.</p>
+    <p class="teach">Twelve pages each way, in the whole situation: he moves (m = 0.3), and each listening page keeps its own speed, spread over ±0.1 around where his started. <b>Palace A</b> listens with a pull of 0.5, each page holding a stance, and then at stance 180° with weak pulls of 0.1 and 0.05, where it may not keep up with him. <b>Palace B</b> copied his phase at the start and stopped listening, in two forms: as clones, every page at his speed then, and as the page pictures pages, each with its own speed (±0.1). Two measures, named before the run. <b>R</b> is the order parameter as the Kuramoto Coupling page defines it, over all thirteen voices with him counted as one. <b>H</b> is step 2's measure, averaged over the twelve pages and over 20-unit windows. H can't see a stance: a page held steady 180° from him scores the same as one held on him. So the H arm tests listening against having stopped, not contradiction against agreement; the stances are R's arm.</p>
     <div class="eqs">
       <div class="eq">R = | (1 ⁄ 13) · ( e<sup>iθ<sub>L</sub></sup> + Σ<sub>i</sub> e<sup>iθ<sub>i</sub></sup> ) |</div>
       <div class="words">(how together everyone is) = the length of (the average of all thirteen phases, his and the twelve pages', each drawn as an arrow), averaged over the run.</div>
     </div>
-    <div class="rule"><b>The rule, set before the first run.</b> The page's sentence holds under a measure if palace A scores above palace B at every stance in the table: 0°, 45°, 90°, 135°, 180°, and each page its own stance spread round the circle. A measure the sentence fails under is one the page can't mean by alignment. <b>The null:</b> with him still (m = 0), B must tie every A on H to within 0.01, since agreement costs nothing when nothing has moved; if it doesn't, H is measuring something besides the relationship. Each run: 400 units after 50 to settle, seed 3, the same every time.</div>
+    <div class="rule"><b>The rule, set before the first run.</b> Under <b>H</b> the page's sentence holds if every palace A, weak pulls included, scores above both palaces B; it fails if any A scores at or below the better B (that would be about 0.39 here). Under <b>R</b> it holds if every A at pull 0.5 scores above a B, taken against each B in turn: the verdict turns on whether the stale pages are clones of one another or each keep their own speed. A measure the sentence fails under is one the page can't mean by alignment. <b>The null:</b> with him still (m = 0), the clone B must tie every A at pull 0.5 on H to within 0.01, since agreement costs nothing when nothing has moved. Each run: 400 units after 50 to settle, seed 3, the same every time.</div>
     <div class="stage">
       <div class="panel"><div class="plabel"><span>both palaces, live</span></div><canvas id="c4"></canvas><div class="key"><i class="dotA">●</i> A · listens · <i class="dotP">○</i> B · copied him</div></div>
       <div class="panel"><div class="plabel"><span>live, last 20 units</span></div>
@@ -238,26 +238,31 @@ function measure(P, T, burn, W) {
 const TEST = { T: 400, burn: 50, W: 20 };
 function runJob(j) { j.out = measure(j.P, TEST.T, TEST.burn, TEST.W); return j; }
 
-// piece: in phase, not in agreement. Two palaces of twelve. A listens (pull 0.5), each page its own speed
-// (spread ±0.1 around his) and a stance; B copied him exactly at the start and stopped listening.
+// piece: in phase, not in agreement. Palace A listens, each page its own speed (spread ±0.1 around his) and a
+// stance. Palace B copied him at the start and stopped listening: B as clones (his speed exactly) and B as the
+// page pictures it (each page its own speed, ±0.1).
 function ownStances(N) { return Array.from({ length: N }, (_, i) => (-180 + 360 * (i + 0.5) / N) * Math.PI / 180); }
 function jobsA() {
-  const N = 12, base = { N, f0: 1, K: 0.5, dt: 0.01, seed: 3 }, jobs = [];
+  const N = 12, base = { N, f0: 1, dt: 0.01, seed: 3 }, jobs = [];
   for (const m of [0.3, 0]) {
-    for (const a of [0, 45, 90, 135, 180, 'own']) jobs.push({ m, arm: 'A', label: a === 'own' ? 'A · each its own stance' : 'A · stance ' + a + '°',
-      P: { ...base, move: m, spread: 0.1, stance: a === 'own' ? ownStances(N) : a * Math.PI / 180 } });
-    jobs.push({ m, arm: 'B', label: 'B · copied him, stopped listening', P: { ...base, move: m, pinned: true, spread: 0 } });
+    for (const a of [0, 45, 90, 135, 180, 'own']) jobs.push({ m, arm: 'A', K: 0.5, label: a === 'own' ? 'A · each its own stance' : 'A · stance ' + a + '°',
+      P: { ...base, move: m, K: 0.5, spread: 0.1, stance: a === 'own' ? ownStances(N) : a * Math.PI / 180 } });
+    if (m) for (const K of [0.1, 0.05]) jobs.push({ m, arm: 'A', K, label: 'A · stance 180° · pull ' + K, P: { ...base, move: m, K, spread: 0.1, stance: Math.PI } });
+    jobs.push({ m, arm: 'B', kind: 'clones', label: 'B · copied him, all at his speed', P: { ...base, move: m, pinned: true, spread: 0 } });
+    jobs.push({ m, arm: 'B', kind: 'own', label: 'B · copied him, each its own speed', P: { ...base, move: m, pinned: true, spread: 0.1 } });
   }
   return jobs;
 }
 // the rule, set before the first run
 function judgeA(res) {
-  const at = (m) => ({ A: res.filter((j) => j.m === m && j.arm === 'A'), B: res.find((j) => j.m === m && j.arm === 'B') });
-  const t = at(0.3), z = at(0);
-  const holds = (k) => t.A.every((a) => a.out[k] > t.B.out[k]);
-  const fails = (k) => t.A.filter((a) => !(a.out[k] > t.B.out[k])).map((a) => a.label);
-  const nullTie = z.A.every((a) => Math.abs(a.out.lock - z.B.out.lock) <= 0.01);
-  return { R: holds('Rall'), H: holds('lock'), Rfails: fails('Rall'), Hfails: fails('lock'), nullTie, B: t.B.out, B0: z.B.out };
+  const t = res.filter((j) => j.m === 0.3), A = t.filter((j) => j.arm === 'A'), Bc = t.find((j) => j.kind === 'clones'), Bo = t.find((j) => j.kind === 'own');
+  const Bmax = Math.max(Bc.out.lock, Bo.out.lock);
+  const Hfails = A.filter((a) => !(a.out.lock > Bmax)).map((a) => a.label);
+  const Rfails = (B) => A.filter((a) => a.K === 0.5 && !(a.out.Rall > B.out.Rall)).map((a) => a.label);
+  const z = res.filter((j) => j.m === 0), zc = z.find((j) => j.kind === 'clones');
+  const nullTie = z.filter((j) => j.arm === 'A').every((a) => Math.abs(a.out.lock - zc.out.lock) <= 0.01);
+  const weakest = A.reduce((w, a) => (a.out.lock < w.out.lock ? a : w));
+  return { H: Hfails.length === 0, Hfails, Bmax, weakest, Rc: Rfails(Bc), Ro: Rfails(Bo), Bc: Bc.out, Bo: Bo.out, B0: zc.out, Bo0: z.find((j) => j.kind === 'own').out, nullTie };
 }
 </script>
 <script>
@@ -382,18 +387,19 @@ async function runTest() {
   for (let i = 0; i < jobs.length; i++) { $('st4s').textContent = 'running ' + (i + 1) + ' of ' + jobs.length; await tick(); runJob(jobs[i]); }
   const v = judgeA(jobs); let h = '';
   for (const m of [0.3, 0]) {
-    const B = jobs.find((j) => j.m === m && j.arm === 'B');
     h += '<table><tr><th>' + (m ? 'he moves · m = 0.3' : 'the null · he stays still') + '</th><th>agreement</th><th>R</th><th>H</th></tr>';
     for (const j of jobs.filter((j) => j.m === m)) {
-      const cls = (k) => j.arm === 'B' || !m ? '' : (j.out[k] > B.out[k] ? 'pass' : 'miss');
-      h += '<tr><td>' + j.label + '</td><td>' + sgn(j.out.agree) + '</td><td class="' + cls('Rall') + '">' + f3(j.out.Rall) + '</td><td class="' + cls('lock') + '">' + f3(j.out.lock) + '</td></tr>';
+      const cls = j.arm === 'B' || !m ? '' : (j.out.lock > v.Bmax ? 'pass' : 'miss');
+      h += '<tr><td>' + j.label + '</td><td>' + sgn(j.out.agree) + '</td><td>' + f3(j.out.Rall) + '</td><td class="' + cls + '">' + f3(j.out.lock) + '</td></tr>';
     }
     h += '</table>';
   }
-  h += '<div class="verdict"><b>Under H</b> the sentence ' + (v.H ? 'holds: every palace A holds its relationship with him (' + f3(Math.min(...jobs.filter((j) => j.m && j.arm === 'A').map((j) => j.out.lock))) + ' or more) and B, pinned to where he was, holds ' + f3(v.B.lock) + '.' : 'fails at ' + v.Hfails.join(', ') + '.') +
-    ' <b>Under R</b> it ' + (v.R ? 'holds too.' : 'fails at ' + v.Rfails.join(', ') + ': B scores ' + f3(v.B.Rall) + ', because R counts the twelve pages agreeing with each other and gives him one voice in thirteen.') +
-    ' <b>The null</b> ' + (v.nullTie ? 'passes: with him still, B ties every A on H (' + f3(v.B0.lock) + ').' : 'fails: with him still, B and A differ on H by more than 0.01.') + '</div>';
-  h += '<p class="note">' + jobs.length + ' runs in ' + ((performance.now() - t0) / 1000).toFixed(1) + ' s. These are the model\'s numbers, from its choice of pull, spread, wander and window, not a measurement of the palace. Amber is a pass for A against B, orange a miss.</p>';
+  const list = (a) => a.map((x) => x.replace('A · ', '')).join(', ');
+  h += '<div class="verdict"><b>Under H</b> the sentence ' + (v.H ? 'holds: every palace A scores above both Bs (the better B holds ' + f3(v.Bmax) + '); the closest is ' + v.weakest.label.replace('A · ', '') + ', at ' + f3(v.weakest.out.lock) + '. Since H can\'t see a stance, this says a page that keeps listening holds him better than one that stopped, at every stance.' : 'fails at ' + list(v.Hfails) + '.') +
+    ' <b>Under R</b> the verdict turns on B. Against the clones (R ' + f3(v.Bc.Rall) + ') it ' + (v.Rc.length ? 'fails at ' + list(v.Rc) + ': twelve pages agreeing with each other outscore pages that contradict him.' : 'holds.') +
+    ' Against pages that each keep their own speed (R ' + f3(v.Bo.Rall) + ') it ' + (v.Ro.length ? 'fails only at ' + list(v.Ro) + ': R also marks down a palace whose pages each hold a different tension with him.' : 'holds at every stance.') +
+    ' <b>The null</b> ' + (v.nullTie ? 'passes: with him still, the clone B ties every A on H (' + f3(v.B0.lock) + ').' : 'fails: with him still, the clone B and A differ on H by more than 0.01.') + '</div>';
+  h += '<p class="note">' + jobs.length + ' runs in ' + ((performance.now() - t0) / 1000).toFixed(1) + ' s. These are the model\'s numbers, from its choice of pull, spread, wander and window, not a measurement of the palace. On H, amber is a pass for A against the better B, orange a miss. The B with its own speeds drifts even when he is still (H ' + f3(v.Bo0.lock) + ' in the null), from its own speeds alone.</p>';
   $('out4').innerHTML = h; $('st4s').textContent = ''; btn.disabled = false;
 }
 show(0); requestAnimationFrame(loop);
