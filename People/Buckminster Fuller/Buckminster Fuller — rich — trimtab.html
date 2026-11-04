@@ -1,0 +1,455 @@
+<!doctype html>
+<!--
+  title: Buckminster Fuller — rich — trimtab
+  born: 2026-11-04
+  links: [[Buckminster Fuller]] (connects-to · rich-face-piece) · listed in [[Buckminster Fuller — rich.json]] · serves § The life that shaped the thought
+  forward_vector: I am the walk up to the trimtab and its test. A model ship: first the hull alone, then a rudder held against the flow, then a tab that lets the water swing the rudder, then where on the rudder the tab must sit, and last the same 20° turn made two ways, with the hand's effort compared by a measure stated before the run and the delay the tab costs read off the same run. Every number is the model's. Nothing of Fuller's is reproduced. I change only when the section I serve does.
+  sound: none. This piece makes no sound.
+  check: People/Buckminster Fuller/Buckminster Fuller — rich — check.mjs runs this page's engine in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>A rudder for the rudder · the trimtab, tested</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --warn:#e8651b;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,'Times New Roman',serif; --sans:'Manrope',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,'Arial Narrow Bold','Helvetica Neue Condensed',sans-serif; --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  .eyebrow svg{vertical-align:-3px;margin-right:8px}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  canvas.stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl[hidden]{display:none}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:11ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter i{color:var(--warn);font-style:normal}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .rule{margin:0 0 14px;padding:12px 16px;border:1px solid var(--accent-line);border-radius:4px;font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .rule[hidden]{display:none}
+  .rule .eyebrow{color:var(--accent);display:block;margin-bottom:4px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .rowb[hidden]{display:none}
+  button.go{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.go:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:left;font-weight:400}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  .verdict{margin-top:12px;font-family:var(--sans);font-size:15px;color:var(--fg-1);line-height:1.6}
+  .verdict b{color:var(--accent);font-weight:500}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:100px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow"><svg id="sigil" width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"></svg>Buckminster Fuller · the trimtab · five steps</div>
+  <h1>A rudder for the rudder</h1>
+  <p class="lead">The page says the whole of him is one well-placed intervention rather than more force, and that is the trimtab. Here is a ship to try it on: a heavy hull, a rudder the water loads, and a small tab on the rudder's trailing edge. Five steps, one thing to see in each; the last measures the leverage and the delay it costs. Every number on this sheet is this model's, not a real ship's and not Fuller's. Nothing here makes a sound.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="rule" id="rule" hidden><span class="eyebrow">The rule, stated before the run</span>
+    Both arms make the same 20° turn. The autopilot steers the <b>tab arm</b>: it moves only the tab, and the water swings the rudder. The <b>direct arm</b> moves the rudder itself, along the exact path that gives the ship the same push, so heading and time match by construction. Effort is the torque the hand's gear supplies, summed over the 90-second run, <i>E</i> = ∫|<i>Q</i>| d<i>t</i>, because holding a loaded rudder costs effort even when nothing moves. Leverage <i>L</i> = <i>E</i> direct ÷ <i>E</i> tab. <b><i>L</i> ≤ 1 means no leverage, and so does a tab arm that never settles within 0.5° of 20° inside the 90 seconds.</b> Either one is the page wrong at this placement, in this model; <i>L</i> &gt; 1 with the turn made is the page right. Nothing is guessed here, so there is no chance level. The delay is read off the same run: the tab arm's settling time minus that of a direct arm steered by the same autopilot through the same gear speed. One null first: the matched arm's arithmetic, run on the direct arm's own path, must give back the direct arm's own effort within 1%.
+  </div>
+
+  <div class="panel">
+    <canvas class="stage" id="stage"></canvas>
+    <div class="legend" id="legend"></div>
+
+    <div class="rowb" id="nudgeRow" hidden><button class="go" id="nudge">Nudge the bow</button><button class="ghost" id="reset">Back on course</button></div>
+    <div class="ctl" id="ctlRud" hidden><label for="rud">rudder, held</label><input id="rud" type="range" min="0" max="15" step="0.5" value="0"><span class="v" id="rudv"></span></div>
+    <div class="ctl" id="ctlTab" hidden><label for="tab">tab, held</label><input id="tab" type="range" min="0" max="30" step="0.5" value="0"><span class="v" id="tabv"></span></div>
+    <div class="ctl" id="ctlSpd" hidden><label for="spd">ship speed</label><input id="spd" type="range" min="0.5" max="8" step="0.1" value="6"><span class="v" id="spdv"></span></div>
+    <div class="ctl" id="ctlPos" hidden><label for="pos">tab hinge, aft of stock</label><input id="pos" type="range" min="0" max="1.6" step="0.05" value="1.6"><span class="v" id="posv"></span></div>
+    <div class="rowb" id="runRow" hidden><button class="go" id="run">Run the turn</button><span class="hint" id="runHint">At 6 m/s. Move the tab hinge and run again to find where the page stops being right.</span></div>
+
+    <div class="meter" id="meter"></div>
+    <table class="marks" id="results" hidden><thead><tr><th></th><th>direct arm</th><th>tab arm</th></tr></thead><tbody></tbody></table>
+    <div class="verdict" id="verdict"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+  <div class="try" id="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><b>LOUD’N LIVE</b> · Buckminster Fuller · the trimtab · Sketch, 2026-11-04</footer>
+</main>
+
+<!-- The engine. Plain functions, shared by the picture and the headless check. -->
+<script id="tt-core">
+var TT = (function(){
+  var D2R = Math.PI/180;
+  // The model's ship. Every number here is a choice made for this sheet, not a measurement.
+  function params(o){
+    o = o || {};
+    var U = o.U != null ? o.U : 6;            // speed through the water, m/s
+    var q = 0.5*1025*U*U;                     // dynamic pressure, Pa
+    var cR = 2, SR = 6, a = 3;                // rudder chord m, area m^2, lift per radian
+    var xcp = 0.3*cR;                         // where the flow's push on the rudder acts, aft of its stock
+    var ct = o.ct != null ? o.ct : 0.4;       // tab chord, m
+    var St = ct*3;                            // tab area, span 3 m
+    var xh = o.xh != null ? o.xh : cR - ct;   // tab hinge, aft of the rudder stock
+    var kt = 0.4;                             // the tab's own push acts this far back along its chord
+    var YR = q*SR*a, Yt = q*St*a;             // side force per radian, rudder and tab
+    var Ul = Math.max(U, 0.05);
+    return { U:U, q:q, cR:cR, SR:SR, xcp:xcp, ct:ct, St:St, xh:xh, kt:kt,
+      cr: YR*xcp,                 // the flow's moment pulling the rudder to centre, per radian of rudder
+      br: YR*xcp*0.75*cR/Ul,      // the water's drag on the rudder swinging
+      Jr: 4000,                   // rudder and the water it carries, kg m^2
+      ctau: Yt*(xh + kt*ct),      // the tab's moment about the rudder stock, per radian of tab
+      e: Yt*kt*ct,                // the tab's moment about its own hinge: what the hand feels
+      bt: Yt*kt*ct*0.75*ct/Ul, Jt: 5,
+      side: Yt/YR,                // the tab's side force, which points against the rudder's
+      T: 12, K: 0.08*U/6,         // the hull: yaw time constant s, turn-rate gain per radian
+      Kp: 1.6, Kd: 14, dmax: 15*D2R, tmax: 30*D2R, gear: 20*D2R, Kdel: 3,
+      dt: 0.002, Tw: o.Tw || 90, sample: 0.05 };
+  }
+  function clamp(x,m){ return x>m?m:(x<-m?-m:x); }
+  function toward(cur,tgt,step){ return cur + clamp(tgt-cur, step); }
+  // One run of the 20° turn. arm 'tab': the autopilot moves the tab, the rudder floats on its stock.
+  // arm 'fast': the same autopilot moves the rudder directly, through the same gear speed.
+  // opts.noCounter: the tab's own side force is not charged to the ship (to split the delay).
+  function run(P, arm, set, opts){
+    opts = opts || {};
+    var n = Math.round(P.Tw/P.dt), ev = Math.max(1, Math.round(P.sample/P.dt));
+    var psi=0, r=0, d=0, dv=0, tau=0, tv=0, E=0, Qpk=0;
+    var out = {t:[], psi:[], d:[], tau:[], Q:[], net:[]};
+    for (var i=0;i<n;i++){
+      var dcmd = clamp(P.Kp*(set-psi) - P.Kd*r, P.dmax), Q;
+      if (arm==='tab'){
+        var tcmd = clamp(P.cr*dcmd/P.ctau + P.Kdel*(dcmd-d), P.tmax);
+        var tn = toward(tau, tcmd, P.gear*P.dt), tvn = (tn-tau)/P.dt, ta = (tvn-tv)/P.dt;
+        tau = tn; tv = tvn;
+        dv += ((-P.br*dv - P.cr*d + P.ctau*tau)/P.Jr)*P.dt; d += dv*P.dt;
+        Q = P.Jt*ta + P.bt*tv + P.e*tau;
+      } else {
+        var dn = toward(d, dcmd, P.gear*P.dt), dvn = (dn-d)/P.dt, da = (dvn-dv)/P.dt;
+        d = dn; dv = dvn;
+        Q = P.Jr*da + P.br*dv + P.cr*d;
+      }
+      var net = d - (opts.noCounter ? 0 : P.side*tau);
+      r += ((P.K*net - r)/P.T)*P.dt; psi += r*P.dt;
+      E += Math.abs(Q)*P.dt; if (Math.abs(Q)>Qpk) Qpk = Math.abs(Q);
+      if (i%ev===0){ out.t.push(i*P.dt); out.psi.push(psi); out.d.push(d); out.tau.push(tau); out.Q.push(Q); out.net.push(net); }
+    }
+    out.E = E; out.Qpk = Qpk; return out;
+  }
+  // The matched direct arm: the rudder moved directly along the path of net push the tab arm made,
+  // so the ship's heading is the tab arm's, step for step. Read the torque that path needs.
+  function matched(P, path){
+    var t = path.t, x = path.net, n = t.length, h = t[1]-t[0], E = 0, Qpk = 0, Q = [];
+    for (var i=0;i<n;i++){
+      var im = Math.max(0,i-1), ip = Math.min(n-1,i+1);
+      var v = (x[ip]-x[im])/((ip-im)*h), acc = (i>0 && i<n-1) ? (x[ip]-2*x[i]+x[im])/(h*h) : 0;
+      var q = P.Jr*acc + P.br*v + P.cr*x[i];
+      Q.push(q); E += Math.abs(q)*h; if (Math.abs(q)>Qpk) Qpk = Math.abs(q);
+    }
+    return {E:E, Qpk:Qpk, Q:Q};
+  }
+  function settle(rn, set, tol){
+    for (var i=rn.psi.length-1;i>=0;i--) if (Math.abs(rn.psi[i]-set)>tol) return (i+1<rn.t.length) ? rn.t[i+1] : Infinity;
+    return 0;
+  }
+  // Steady state: the tab held still, the rudder at rest where the flow on it balances the tab.
+  function steady(P){
+    var lever = P.ctau/P.e, keep = 1 - P.side*P.cr/P.ctau;
+    return {lever:lever, keep:keep, L:lever*keep};
+  }
+  // How long the floating rudder takes to reach 90% of where a held tab sends it.
+  function swing(P){
+    var d=0, dv=0, tau=10*D2R, h=0.0005, t=0, fin=P.ctau*tau/P.cr;
+    while (d < 0.9*fin && t < 60){ dv += ((-P.br*dv - P.cr*d + P.ctau*tau)/P.Jr)*h; d += dv*h; t += h; }
+    return t;
+  }
+  function test(o){
+    var P = params(o), set = 20*D2R, tol = 0.5*D2R;
+    var tab = run(P,'tab',set), fast = run(P,'fast',set), noC = run(P,'tab',set,{noCounter:true});
+    var m = matched(P, tab);
+    var nul = matched(P, {t:fast.t, net:fast.d});
+    var sT = settle(tab,set,tol), sF = settle(fast,set,tol), sN = settle(noC,set,tol);
+    var made = isFinite(sT);
+    return { P:P, tab:tab, fast:fast, m:m, Edir:m.E, Etab:tab.E, L:m.E/tab.E, Lpk:m.Qpk/tab.Qpk,
+      made:made, sT:sT, sF:sF, sN:sN, delay:sT-sF, counter:sT-sN, swingGear:sN-sF,
+      nullRel:(nul.E-fast.E)/fast.E, final:tab.psi[tab.psi.length-1]/D2R,
+      pass: made && m.E/tab.E > 1 };
+  }
+  return {params:params, run:run, matched:matched, settle:settle, steady:steady, swing:swing, test:test, D2R:D2R, clamp:clamp, toward:toward};
+})();
+</script>
+
+<script id="tt-ui">
+(function(){
+  var D = TT.D2R, $ = function(id){ return document.getElementById(id); };
+  // the sigil: a 3:2 Lissajous
+  (function(){ var s='', i; for (i=0;i<=240;i++){ var t=i/240*2*Math.PI; s += (i?'L':'M') + (8*Math.sin(3*t+Math.PI/2)).toFixed(2)+' '+(8*Math.sin(2*t)).toFixed(2); }
+    $('sigil').innerHTML = '<path d="'+s+'" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
+
+  var STEPS = [
+    { key:'hull', eyebrow:'Step 1 of 5 · one concept: the hull', title:'The hull alone',
+      say:'A ship with no rudder at all. The hull is heavy to turn and the water drags on any turn, so a push turns it and then it stops turning. Nudge the bow and watch the heading move and then hold at a new course.',
+      tryText:'Nudge it twice. The turn rate takes about 12 seconds to die away (the model’s yaw time constant), and the heading keeps what it gained. Time here runs three times fast.',
+      eq:['T · dr/dt + r = K · δnet,   dψ/dt = r','(how fast the turn rate changes) × (12 s) + (turn rate) = (gain) × (the side push on the stern); the heading gathers up the turn rate'] },
+    { key:'direct', eyebrow:'Step 2 of 5 · one concept: the loaded rudder', title:'Hold the rudder',
+      say:'Now a rudder, 2 m of chord on a stock at its front edge, and a hand that holds it directly. Put it over and the ship keeps turning while you hold it. The water pushes the rudder back toward centre the whole time, so holding it costs a torque that does not stop.',
+      tryText:'Set 10° and wait for the rudder to stop moving. The torque does not fall: holding still against the flow is the work. That is why the test sums torque over time rather than work.',
+      eq:['Q = J · d²δ/dt² + b · dδ/dt + cr · δ','(torque the hand gives) = (the rudder’s weight to swing) + (the water’s drag on the swing) + (the flow pulling it back to centre)'] },
+    { key:'tab', eyebrow:'Step 3 of 5 · one concept: the flow does the turning', title:'Let the water swing it',
+      say:'Let go of the rudder: it now turns freely on its stock. On its trailing edge sits a tab, 0.4 m of chord. Turn the tab one way and the water striking it pushes the rudder’s trailing edge the other way; the rudder swings until the flow on it balances the tab. The hand holds only the tab.',
+      tryText:'Hold the tab at 25° and compare its torque with step 2’s at the same rudder angle. Then slow the ship: the swing gets slower, and at a crawl the tab barely moves anything. The force that turns the rudder is the water’s, borrowed from the ship’s way through it.',
+      eq:['J · d²δ/dt² = −b · dδ/dt − cr · δ + cτ · τ,   Qhand = e · τ','(the rudder’s swing) = −(drag) − (the flow pulling it to centre) + (the tab pushing it out); the hand feels only the tab’s pull about its own hinge'] },
+    { key:'place', eyebrow:'Step 4 of 5 · one concept: well placed', title:'Where the tab sits',
+      say:'The same tab, slid along the rudder. Its push turns the rudder about the stock, but the hand feels it only about the tab’s own hinge, so the farther aft it sits, the longer its lever. The tab’s push also points against the rudder’s, though, and near the stock it can outpush the rudder it turns.',
+      tryText:'Slide the hinge from the trailing edge toward the stock and watch the steady leverage fall through 1. Most of this number is lever arms the model sets; step 5 adds what a real turn costs on top.',
+      eq:['Lsteady = (cτ ÷ e) × (1 − side × cr ÷ cτ)','(leverage at rest) = (the tab’s lever about the stock ÷ its lever about its own hinge) × (the share of the rudder’s push the tab leaves standing)'] },
+    { key:'test', eyebrow:'Step 5 of 5 · the test', title:'The same turn, two ways',
+      say:'The autopilot makes a 20° turn, once moving only the tab and once moving the rudder itself, and the hand’s effort is compared. The rule above was written before the first run.',
+      tryText:'Run it at the trailing edge, then slide the hinge forward and run again. Find where the turn stops being made, and where L falls through 1.',
+      eq:['L = Edirect ÷ Etab,   E = ∫ |Q| dt over 90 s','(leverage) = (torque-time the hand spends moving the rudder) ÷ (torque-time it spends moving the tab), for the same heading at every moment'] }
+  ];
+
+  var cv = $('stage'), g = cv.getContext('2d'), W = 900, H = 400, DPR = Math.max(1, window.devicePixelRatio || 1);
+  function fit(){ var w = cv.clientWidth || 900; DPR = Math.max(1, window.devicePixelRatio||1); cv.width = Math.round(w*DPR); cv.height = Math.round(w*H/W*DPR); cv.style.height = Math.round(w*H/W)+'px'; }
+  var step = 0, P = TT.params({}), S = {psi:0, r:0, d:0, dv:0, tau:0, tv:0, Q:0, t:0}, trace = [], result = null, replayT = 0, last = 0;
+
+  function resetSim(){ S = {psi:0, r:0, d:0, dv:0, tau:0, tv:0, Q:0, t:0}; trace = []; }
+  function readP(){ P = TT.params({U:+$('spd').value, xh:+$('pos').value}); }
+
+  function simLive(h){
+    var key = STEPS[step].key, n = Math.round(h/P.dt);
+    for (var i=0;i<n;i++){
+      if (key==='hull'){ S.d=0; S.dv=0; S.tau=0; S.Q=0; }
+      else if (key==='direct'){
+        var dn = TT.toward(S.d, (+$('rud').value)*D, P.gear*P.dt), dvn = (dn-S.d)/P.dt, da = (dvn-S.dv)/P.dt;
+        S.d = dn; S.dv = dvn; S.tau = 0; S.Q = P.Jr*da + P.br*S.dv + P.cr*S.d;
+      } else {
+        var tn = TT.toward(S.tau, (+$('tab').value)*D, P.gear*P.dt), tvn = (tn-S.tau)/P.dt, ta = (tvn-S.tv)/P.dt;
+        S.tau = tn; S.tv = tvn;
+        S.dv += ((-P.br*S.dv - P.cr*S.d + P.ctau*S.tau)/P.Jr)*P.dt; S.d += S.dv*P.dt;
+        S.Q = P.Jt*ta + P.bt*S.tv + P.e*S.tau;
+      }
+      var net = S.d - P.side*S.tau;
+      S.r += ((P.K*net - S.r)/P.T)*P.dt; S.psi += S.r*P.dt; S.t += P.dt;
+    }
+    trace.push([S.t, S.psi]); while (trace.length && trace[0][0] < S.t-90) trace.shift();
+  }
+
+  function kNm(x){ return (x/1000).toFixed(x<10000?2:1)+' kN·m'; }
+  function deg(x){ return (x/D).toFixed(1)+'°'; }
+  function wrap(a){ a = a % 360; return a<0?a+360:a; }
+
+  function meter(){
+    var key = STEPS[step].key, m = $('meter');
+    if (key==='hull') m.innerHTML = 'heading <b>'+wrap(S.psi/D).toFixed(1)+'°</b> · turn rate <b>'+(S.r/D).toFixed(2)+'°/s</b>';
+    else if (key==='direct') m.innerHTML = 'rudder <b>'+deg(S.d)+'</b> · torque the hand gives <b>'+kNm(Math.abs(S.Q))+'</b> · turn rate <b>'+(S.r/D).toFixed(2)+'°/s</b>';
+    else if (key==='tab'){
+      var hold = P.cr*Math.abs(S.d);
+      m.innerHTML = 'tab <b>'+deg(S.tau)+'</b> → rudder swung to <b>'+deg(S.d)+'</b> · torque on the tab <b>'+kNm(Math.abs(S.Q))+'</b> · holding that rudder directly would take <b>'+kNm(hold)+'</b><br>'+
+        'the rudder reaches 90% of its swing in <b>'+TT.swing(P).toFixed(2)+' s</b> at '+P.U.toFixed(1)+' m/s';
+    } else if (key==='place'){
+      var s = TT.steady(P);
+      m.innerHTML = 'tab hinge <b>'+P.xh.toFixed(2)+' m</b> aft of the stock · lever ratio <b>'+s.lever.toFixed(2)+'</b> · share of the rudder’s push left standing <b>'+(s.keep*100).toFixed(0)+'%</b><br>'+
+        'steady leverage <b>'+s.L.toFixed(2)+'</b> '+(s.L>1?'':'<i>≤ 1: the tab costs the hand more than the rudder would</i>')+(s.keep<0?' <i>· the tab outpushes its rudder: the ship turns the wrong way</i>':'');
+    }
+  }
+
+  function draw(){
+    var w = cv.width, h = cv.height, k = w/W; g.setTransform(1,0,0,1,0,0); g.clearRect(0,0,w,h); g.setTransform(k,0,0,k,0,0);
+    var key = STEPS[step].key, psi, d, tau, tr, tr2 = null, tt;
+    if (key==='test' && result){
+      var R = result.tab, i = Math.min(R.t.length-1, Math.floor(replayT/P.sample));
+      psi = R.psi[i]; d = R.d[i]; tau = R.tau[i]; tt = R.t[i];
+      tr = R.t.slice(0,i+1).map(function(t,j){ return [t, R.psi[j]]; });
+      tr2 = result.fast.t.slice(0,i+1).map(function(t,j){ return [t, result.fast.psi[j]]; });
+    } else { psi = S.psi; d = S.d; tau = S.tau; tr = trace; tt = S.t; }
+    // the ship, top-down
+    g.save(); g.translate(250,160);
+    g.strokeStyle = 'rgba(255,255,255,0.06)'; g.lineWidth = 1; g.beginPath(); g.arc(0,0,130,0,2*Math.PI); g.stroke();
+    if (key==='test'){ g.strokeStyle = '#7a6030'; g.beginPath(); g.moveTo(0,0); g.lineTo(140*Math.sin(20*D), -140*Math.cos(20*D)); g.stroke();
+      g.fillStyle = '#8a8aa0'; g.font = '11px ui-monospace, Menlo, monospace'; g.fillText('20°', 140*Math.sin(20*D)+4, -140*Math.cos(20*D)); }
+    g.fillStyle = '#8a8aa0'; g.font = '11px ui-monospace, Menlo, monospace'; g.fillText('0°', -6, -136);
+    g.rotate(psi);
+    g.strokeStyle = '#c8c8d8'; g.lineWidth = 1.5; g.beginPath();
+    g.moveTo(0,-110); g.bezierCurveTo(26,-70,26,60,20,96); g.lineTo(-20,96); g.bezierCurveTo(-26,60,-26,-70,0,-110); g.stroke();
+    if (key!=='hull'){ g.save(); g.translate(0,98); g.rotate(-d); g.strokeStyle = '#e8b84a'; g.lineWidth = 2; g.beginPath(); g.moveTo(0,0); g.lineTo(0,18); g.stroke(); g.restore(); }
+    g.restore();
+    g.fillStyle = '#8a8aa0'; g.font = '11px ui-monospace, Menlo, monospace';
+    g.fillText('HEADING '+wrap(psi/D).toFixed(1)+'°', 20, 24);
+    // the rudder, close up, seen from above with the ship's stern pointing down the sheet
+    var sx = 680, sy = 40, sc = 95;
+    g.fillStyle = '#8a8aa0'; g.fillText(key==='hull' ? 'NO RUDDER YET' : 'THE RUDDER, CLOSE UP', 560, 24);
+    if (key!=='hull'){
+      g.strokeStyle = 'rgba(74,143,255,0.35)'; g.lineWidth = 1;
+      for (var f=-2; f<=2; f++){ g.beginPath(); g.moveTo(sx+f*40, sy+10); g.lineTo(sx+f*40, sy+230); g.stroke(); }
+      g.fillStyle = 'rgba(74,143,255,0.6)'; g.fillText('flow ↓', sx+92, sy+226);
+      var ux = -Math.sin(-d), uy = Math.cos(-d);
+      var ex = sx + ux*P.cR*sc, ey = sy + uy*P.cR*sc;
+      g.strokeStyle = '#e8b84a'; g.lineWidth = 6; g.lineCap = 'round'; g.beginPath(); g.moveTo(sx,sy); g.lineTo(ex,ey); g.stroke();
+      g.fillStyle = '#e8e8f0'; g.beginPath(); g.arc(sx,sy,5,0,2*Math.PI); g.fill();
+      g.fillStyle = '#8a8aa0'; g.fillText('stock', sx+10, sy+4);
+      if (key!=='direct'){
+        var hx = sx + ux*P.xh*sc, hy = sy + uy*P.xh*sc, ta = -d + tau;  // the tab deflects the other way to the rudder it sends
+        var tx = hx - Math.sin(ta)*P.ct*sc, ty = hy + Math.cos(ta)*P.ct*sc;
+        g.strokeStyle = '#4a8fff'; g.lineWidth = 4; g.beginPath(); g.moveTo(hx,hy); g.lineTo(tx,ty); g.stroke();
+        g.fillStyle = '#e8e8f0'; g.beginPath(); g.arc(hx,hy,3,0,2*Math.PI); g.fill();
+        g.fillStyle = '#4a8fff'; g.fillText('tab', tx+8, ty);
+      }
+      g.lineCap = 'butt';
+    }
+    // the heading trace
+    var x0 = 40, x1 = 880, y0 = 300, y1 = 388, span = 90;
+    g.strokeStyle = 'rgba(255,255,255,0.08)'; g.lineWidth = 1; g.strokeRect(x0, y0, x1-x0, y1-y0);
+    g.fillStyle = '#8a8aa0'; g.fillText('HEADING OVER THE LAST 90 S  (0° TO 25°)', x0, y0-8);
+    var tEnd = Math.max(span, tt), tBeg = tEnd - span;
+    function plot(pts, col, wd){ if (!pts || pts.length<2) return; g.strokeStyle = col; g.lineWidth = wd; g.beginPath();
+      for (var j=0;j<pts.length;j++){ var X = x0 + (pts[j][0]-tBeg)/span*(x1-x0), Y = y1 - Math.max(0,Math.min(25, pts[j][1]/D))/25*(y1-y0); if (j) g.lineTo(X,Y); else g.moveTo(X,Y); } g.stroke(); }
+    if (key==='test'){ var Y20 = y1 - 20/25*(y1-y0); g.strokeStyle = '#7a6030'; g.setLineDash([4,4]); g.beginPath(); g.moveTo(x0,Y20); g.lineTo(x1,Y20); g.stroke(); g.setLineDash([]); }
+    plot(tr2, '#8a8aa0', 1.2); plot(tr, '#e8b84a', 1.8);
+  }
+
+  function legend(){
+    var key = STEPS[step].key, L = $('legend');
+    var items = [['ship','top-down, bow up at 0°; time runs three times fast']];
+    if (key!=='hull') items.push(['rudder','amber; the water flows down the sheet past it']);
+    if (key==='tab'||key==='place'||key==='test') items.push(['tab','blue; it deflects the opposite way to the rudder it sends']);
+    if (key==='test') items.push(['traces','amber: the tab arm; grey: the same autopilot moving the rudder itself']);
+    L.innerHTML = items.map(function(x){ return '<div><b>'+x[0]+'</b>'+x[1]+'</div>'; }).join('');
+  }
+
+  function showResult(){
+    var r = result, tb = $('results').querySelector('tbody');
+    function s(x){ return isFinite(x) ? x.toFixed(1)+' s' : 'never, in 90 s'; }
+    tb.innerHTML =
+      '<tr><td>effort, ∫|Q|dt</td><td>'+(r.Edir/1000).toFixed(0)+' kN·m·s</td><td>'+(r.Etab/1000).toFixed(1)+' kN·m·s</td></tr>'+
+      '<tr><td>peak torque</td><td>'+(r.m.Qpk/1000).toFixed(1)+' kN·m</td><td>'+(r.tab.Qpk/1000).toFixed(2)+' kN·m</td></tr>'+
+      '<tr><td>settles within 0.5° of 20°</td><td>'+s(r.sF)+' (same autopilot, rudder moved directly)</td><td>'+s(r.sT)+'</td></tr>';
+    $('results').hidden = false;
+    var v = '<b>Null:</b> the matched arithmetic on the direct arm’s own path reads '+(r.nullRel*100).toFixed(2)+'% off its own effort'+(Math.abs(r.nullRel)<0.01?' (inside 1%: the matched arm is measured right).':' <i>(outside 1%: do not trust L below).</i>')+'<br>';
+    v += '<b>Leverage L = '+r.L.toFixed(2)+'</b> (peak torque ratio '+r.Lpk.toFixed(2)+'), with the tab hinge '+r.P.xh.toFixed(2)+' m aft of the stock. ';
+    if (!r.made) v += 'The tab arm never settles on 20° (it ends at '+r.final.toFixed(1)+'°). <b>By the rule, no leverage here: the page is wrong at this placement, in this model.</b>';
+    else if (r.L<=1) v += '<b>By the rule, L ≤ 1: no leverage. The page is wrong at this placement, in this model.</b>';
+    else v += '<b>By the rule, the page is right here, in this model:</b> the same turn, in the same time, for 1/'+r.L.toFixed(1)+' of the hand’s effort. ';
+    if (r.made){
+      v += '<br><b>The delay it costs:</b> '+r.delay.toFixed(1)+' s later to settle than the rudder moved directly. Of that, '+r.counter.toFixed(1)+' s is the tab’s own push working against its rudder (rerun with that push not charged to the ship) and '+r.swingGear.toFixed(1)+' s is the rudder waiting for the water to swing it.';
+    }
+    v += '<br>Most of L is the lever arms this model sets; what the run adds is the cost of a real turn. And the force is not gone: the flow supplies the rudder’s torque, from the ship’s way through the water.';
+    $('verdict').innerHTML = v;
+  }
+
+  function show(){
+    var st = STEPS[step], key = st.key;
+    $('stepEyebrow').textContent = st.eyebrow; $('stepTitle').textContent = st.title; $('stepSay').textContent = st.say; $('tryText').textContent = st.tryText;
+    $('eq1').textContent = st.eq[0]; $('eq1w').textContent = st.eq[1]; $('eq2').textContent = ''; $('eq2w').textContent = '';
+    $('nudgeRow').hidden = key!=='hull'; $('ctlRud').hidden = key!=='direct'; $('ctlTab').hidden = !(key==='tab'||key==='place');
+    $('ctlSpd').hidden = key!=='tab'; $('ctlPos').hidden = !(key==='place'||key==='test'); $('runRow').hidden = key!=='test'; $('rule').hidden = key!=='test';
+    $('results').hidden = true; $('verdict').innerHTML = ''; $('meter').innerHTML = '';
+    if (key!=='tab') $('spd').value = 6;
+    if (key==='tab') $('pos').value = 1.6;
+    result = null; readP(); resetSim(); label(); legend();
+    [].forEach.call($('rail').children, function(b,i){ b.setAttribute('aria-current', i===step ? 'step' : 'false'); });
+    $('back').disabled = step===0; $('next').disabled = step===STEPS.length-1;
+  }
+  function label(){
+    $('rudv').textContent = (+$('rud').value).toFixed(1)+'°'; $('tabv').textContent = (+$('tab').value).toFixed(1)+'°';
+    $('spdv').textContent = (+$('spd').value).toFixed(1)+' m/s'; $('posv').textContent = (+$('pos').value).toFixed(2)+' m';
+  }
+
+  STEPS.forEach(function(s,i){ var b = document.createElement('button'); b.textContent = (i+1)+' · '+s.title; b.onclick = function(){ step = i; show(); }; $('rail').appendChild(b); });
+  $('back').onclick = function(){ if (step>0){ step--; show(); } };
+  $('next').onclick = function(){ if (step<STEPS.length-1){ step++; show(); } };
+  $('nudge').onclick = function(){ S.r += 0.6*D; };
+  $('reset').onclick = function(){ resetSim(); };
+  ['rud','tab','spd','pos'].forEach(function(id){ $(id).oninput = function(){ label(); readP(); if (STEPS[step].key==='test'){ result = null; $('results').hidden = true; $('verdict').innerHTML = ''; } }; });
+  $('run').onclick = function(){ readP(); result = TT.test({xh:+$('pos').value}); replayT = 0; showResult(); };
+
+  function frame(ts){
+    var h = last ? Math.min(0.05, (ts-last)/1000) : 0; last = ts;
+    if (STEPS[step].key==='test'){ if (result) replayT = Math.min(P.Tw, replayT + 3*h); }
+    else { simLive(3*h); meter(); }
+    draw(); requestAnimationFrame(frame);
+  }
+  window.addEventListener('resize', fit); fit(); show(); requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

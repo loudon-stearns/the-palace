@@ -1,0 +1,346 @@
+<!doctype html>
+<!--
+  title: Buckminster Fuller — rich — no brake
+  born: 2026-11-04
+  links: [[Buckminster Fuller]] (connects-to · rich-face-piece) · listed in [[Buckminster Fuller — rich.json]] · serves § Where he can't see · the loop language is [[Donella Meadows]]'
+  forward_vector: I am the walk up to the page's doubt about doing more with less. One stock that regrows, drawn down by a use; then efficiency that rises every cycle, its saving banked; then the saving spent, a share of it taken back as more use; then a balancing loop that takes back less as the stock runs low; and last a test, with its rule written first, of whether efficiency alone is a brake and whether the balancing loop is the missing part. Every number is the model's. Nothing of Fuller's is reproduced. I change only when the section I serve does.
+  sound: none. This piece makes no sound.
+  check: People/Buckminster Fuller/Buckminster Fuller — rich — check.mjs runs this page's engine in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>No brake · doing more with less, tested</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --warn:#e8651b;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,'Times New Roman',serif; --sans:'Manrope',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,'Arial Narrow Bold','Helvetica Neue Condensed',sans-serif; --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  .eyebrow svg{vertical-align:-3px;margin-right:8px}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  canvas.stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl[hidden]{display:none}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:11ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter i{color:var(--warn);font-style:normal}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .rule{margin:0 0 14px;padding:12px 16px;border:1px solid var(--accent-line);border-radius:4px;font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .rule[hidden]{display:none}
+  .rule .eyebrow{color:var(--accent);display:block;margin-bottom:4px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .rowb[hidden]{display:none}
+  button.go{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.go:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:left;font-weight:400}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  .verdict{margin-top:12px;font-family:var(--sans);font-size:15px;color:var(--fg-1);line-height:1.6}
+  .verdict b{color:var(--accent);font-weight:500}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:100px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow"><svg id="sigil" width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"></svg>Buckminster Fuller · where he can’t see · five steps</div>
+  <h1>Doing more with less, and no brake</h1>
+  <p class="lead">The page says "do more with less" has no brake: the efficiency he wins gets reinvested into more use, not banked as slack, and nothing in the story pulls the other way. Here is a world small enough to try that on: one stock that regrows, one use that draws it down, and an efficiency that rises every cycle. Five steps, one thing to see in each; the last is a test whose rule is written before it runs. Every number on this sheet is this model's, not the world's and not Fuller's. Nothing here makes a sound.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="rule" id="rule" hidden><span class="eyebrow">The rule, stated before the run</span>
+    Nothing is guessed here, so there is no chance level. The run sweeps the efficiency speed from 1% to 50% a cycle, over 300 cycles, and finds for each the smallest rebound at which the stock runs out. The page's doubt has two halves, and each can fail.
+    <b>One: efficiency is not a brake.</b> It holds if, at every speed, the stock runs out at some rebound below 100%, where use is still falling. It is wrong if any speed keeps the stock alive at every rebound below 100%: then efficiency alone outruns the ceiling, and only a true backfire could empty it.
+    <b>Two: a balancing loop is the missing part.</b> It holds if, at every speed, the braked world's line sits above 100%, so the brake keeps the stock where efficiency alone lets it go, even through a backfire. It is wrong at any speed where that line is at or below 100%.
+    Where total use stops falling is not a test: it is 100% by what a rebound is, and the sheet prints it only to show its arithmetic agrees.
+  </div>
+
+  <div class="panel">
+    <canvas class="stage" id="stage"></canvas>
+    <div class="legend" id="legend"></div>
+
+    <div class="ctl" id="ctlU0" hidden><label for="u0">use at the start</label><input id="u0" type="range" min="0.5" max="2" step="0.05" value="1.3"><span class="v" id="u0v"></span></div>
+    <div class="ctl" id="ctlS0" hidden><label for="s0">stock at the start</label><input id="s0" type="range" min="2" max="40" step="1" value="10"><span class="v" id="s0v"></span></div>
+    <div class="ctl" id="ctlG" hidden><label for="gg">efficiency gain</label><input id="gg" type="range" min="0.5" max="10" step="0.5" value="2"><span class="v" id="ggv"></span></div>
+    <div class="ctl" id="ctlR" hidden><label for="rr">rebound</label><input id="rr" type="range" min="0" max="150" step="1" value="60"><span class="v" id="rrv"></span></div>
+    <div class="rowb" id="brakeRow" hidden><span class="eyebrow">balancing loop</span>
+      <button class="ghost" data-brake="0" aria-pressed="true">None</button>
+      <button class="ghost" data-brake="1" aria-pressed="false">On: less is taken back as the stock runs low</button>
+    </div>
+    <div class="rowb" id="runRow" hidden><button class="go" id="run">Run the sweep</button><span class="hint">Move the start use and the stock and run again; the rule says what each change should do.</span></div>
+
+    <div class="meter" id="meter"></div>
+    <table class="marks" id="results" hidden><thead><tr><th>efficiency gain</th><th>stock runs out from, no brake</th><th>use stops falling at</th><th>stock runs out from, braked</th></tr></thead><tbody></tbody></table>
+    <div class="verdict" id="verdict"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+  </div>
+  <div class="try" id="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><b>LOUD’N LIVE</b> · Buckminster Fuller · no brake · Sketch, 2026-11-04</footer>
+</main>
+
+<!-- The engine. Plain functions, shared by the picture and the headless check. -->
+<script id="rb-core">
+var RB = (function(){
+  // One stock S that regrows Y a cycle, never past where it started; one use U that draws it.
+  // Efficiency, the service each unit of the resource gives, rises by g a cycle.
+  // Banked (R = 0): the service stays where it was, so use falls by the whole saving.
+  // Spent: a share R of each cycle's saving comes back as more service, so more use.
+  // Brake, a balancing loop: the share taken back shrinks with the stock, R x S / S0.
+  function run(o){
+    var g=o.g, R=o.R||0, Y=(o.Y!=null?o.Y:1), U=o.U0, S=o.S0, S0=o.S0, H=o.H||300, brake=!!o.brake;
+    var Us=[U], Ss=[S], out=-1, lowest=S, below=-1;
+    for (var t=1;t<=H;t++){
+      var Reff = brake ? R*S/S0 : R;
+      var saving = U*(1 - 1/(1+g));
+      U = U - (1-Reff)*saving;
+      S = Math.min(S0, S + Y - U);
+      if (S<=0){ S=0; if (out<0) out=t; }
+      if (S<lowest) lowest=S;
+      if (below<0 && U<Y) below=t;
+      Us.push(U); Ss.push(S);
+    }
+    return {U:Us, S:Ss, out:out, lowest:lowest, below:below};
+  }
+  function copy(o,k,v){ var x={}, p; for (p in o) x[p]=o[p]; x[k]=v; return x; }
+  // the smallest rebound at which the stock runs out inside the horizon; -0.5 means even banking fails, Infinity none to 300%
+  function collapseAt(o){
+    var lo=-0.5, hi=3.0, f=function(R){ return run(copy(o,'R',R)).out>0; };
+    if (f(lo)) return lo; if (!f(hi)) return Infinity;
+    for (var i=0;i<50;i++){ var m=(lo+hi)/2; if (f(m)) hi=m; else lo=m; }
+    return hi;
+  }
+  // the rebound at which use after the horizon is no lower than at the start
+  function flatAt(o){
+    var lo=0, hi=3, f=function(R){ var r=run(copy(copy(o,'R',R),'S0',1e12)); return r.U[r.U.length-1] >= r.U[0]; };
+    for (var i=0;i<50;i++){ var m=(lo+hi)/2; if (f(m)) hi=m; else lo=m; }
+    return hi;
+  }
+  var SPEEDS = [0.01, 0.02, 0.05, 0.10, 0.20, 0.50];
+  function test(o){
+    var rows = SPEEDS.map(function(g){ var b=copy(o,'g',g);
+      return { g:g, free:collapseAt(b), flat:flatAt(b), braked:collapseAt(copy(b,'brake',true)) }; });
+    var one = rows.every(function(r){ return r.free < 1; });
+    var two = rows.every(function(r){ return r.braked > 1; });
+    return { rows:rows, one:one, two:two };
+  }
+  return {run:run, collapseAt:collapseAt, flatAt:flatAt, test:test, SPEEDS:SPEEDS};
+})();
+</script>
+
+<script id="rb-ui">
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  (function(){ var s='', i; for (i=0;i<=240;i++){ var t=i/240*2*Math.PI; s += (i?'L':'M') + (8*Math.sin(3*t+Math.PI/2)).toFixed(2)+' '+(8*Math.sin(2*t)).toFixed(2); }
+    $('sigil').innerHTML = '<path d="'+s+'" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
+
+  var STEPS = [
+    { key:'stock', eyebrow:'Step 1 of 5 · one concept: overdraw', title:'One stock',
+      say:'A stock of something the world uses, ten cycles’ worth of what it regrows. Each cycle it regrows one unit and loses whatever is used. Use more than regrows and the stock falls by the difference, every cycle, until it is gone.',
+      tryText:'At a use of 1.3 the stock is gone at cycle 34. Set the use to 1.0 or below and it never runs out. That line, use equal to regrowth, is the ceiling this sheet means.',
+      eq:['S(next) = min(S0, S + Y − U)','(stock next cycle) = (stock now) + (what regrows) − (what is used), never more than it started with'] },
+    { key:'banked', eyebrow:'Step 2 of 5 · one concept: efficiency, banked', title:'Do more with less, and keep the change',
+      say:'Now efficiency rises every cycle: each unit of the resource does a little more. Hold the service where it was and the use falls by the whole saving. This is ephemeralization banked as slack: the same life for less resource.',
+      tryText:'At 2% a cycle the use falls below what regrows at cycle 14, and the stock dips to about 8 and refills. Drop the gain to 0.5% and it sinks to about 2.6 before it turns. Then raise the start use to 1.8: now the stock runs out even banked, at cycle 24. Banking is slack, not a guarantee.',
+      eq:['U(next) = U ÷ (1 + g)','(use next cycle) = (use now) ÷ (one plus the efficiency gain): the same service for less resource'] },
+    { key:'spent', eyebrow:'Step 3 of 5 · one concept: the rebound', title:'Spend the change',
+      say:'Now a share of each cycle’s saving comes back as more service, because cheaper service gets used more. That share is the rebound. The faint lines are the banked world from step 2; the bright ones spend.',
+      tryText:'At 100% the use is flat: the whole saving comes back. That is not a finding; it is what a rebound of 100% means. Past it, the use rises, and that is the Jevons paradox proper. Now find the rebound below 100% where the stock first runs out.',
+      eq:['U(next) = U − (1 − R) × U × g ÷ (1 + g)','(use next cycle) = (use now) − (the share of the saving not taken back) × (the saving)'] },
+    { key:'brake', eyebrow:'Step 4 of 5 · one concept: a balancing loop', title:'A brake',
+      say:'Add the loop the page says his story lacks: the lower the stock, the less of the saving is taken back, as a price might rise when something runs short. Efficiency still rises every cycle; only the rebound now answers to the stock.',
+      tryText:'Set the rebound to 90% and switch the loop on and off. Then push the rebound past 100% and find where even the braked world runs out. This brake is one choice of balancing loop, and a weak one; others would put the line elsewhere.',
+      eq:['R(effective) = R × S ÷ S0','(the share taken back) = (the rebound) × (how full the stock is)'] },
+    { key:'test', eyebrow:'Step 5 of 5 · the test', title:'Is efficiency a brake?',
+      say:'Sweep the efficiency gain from 1% to 50% a cycle and find, for each, the smallest rebound at which the stock runs out, with and without the balancing loop. The rule above was written before the first run.',
+      tryText:'Run it at the start, then set the use at the start to 1.0 or below and run again: the first half should fail. Then raise the use toward 2 and watch the second half fail too, because this brake is not strong enough for a deep overdraw.',
+      eq:['collapse line = the smallest R for which S reaches 0 within 300 cycles','(where the page’s doubt bites) = the least rebound that empties the stock, read for each efficiency speed'] }
+  ];
+
+  var cv = $('stage'), c = cv.getContext('2d'), W = 900, H = 380, step = 0, brake = false, result = null;
+  function fit(){ var w = cv.clientWidth || 900, d = Math.max(1, window.devicePixelRatio||1); cv.width = Math.round(w*d); cv.height = Math.round(w*H/W*d); cv.style.height = Math.round(w*H/W)+'px'; draw(); }
+  function opts(){ return { U0:+$('u0').value, S0:+$('s0').value, g:(+$('gg').value)/100, R:(+$('rr').value)/100, H:300 }; }
+
+  function panel(x0,y0,x1,y1,title){ c.strokeStyle='rgba(255,255,255,0.08)'; c.lineWidth=1; c.strokeRect(x0,y0,x1-x0,y1-y0); c.fillStyle='#8a8aa0'; c.font='11px ui-monospace, Menlo, monospace'; c.fillText(title,x0,y0-8); }
+  function line(arr, x0,y0,x1,y1, max, col, wd){ c.strokeStyle=col; c.lineWidth=wd; c.beginPath();
+    for (var i=0;i<arr.length;i++){ var X=x0+i/(arr.length-1)*(x1-x0), Y=y1-Math.max(0,Math.min(max,arr[i]))/max*(y1-y0); if (i) c.lineTo(X,Y); else c.moveTo(X,Y); } c.stroke(); }
+
+  function draw(){
+    var w = cv.width, k = w/W; c.setTransform(1,0,0,1,0,0); c.clearRect(0,0,cv.width,cv.height); c.setTransform(k,0,0,k,0,0);
+    var key = STEPS[step].key, o = opts();
+    if (key==='test'){ drawBar(); return; }
+    var x0=40, x1=880;
+    var a, b = null;
+    if (key==='stock') a = RB.run({U0:o.U0, S0:o.S0, g:0, R:0, H:300});
+    else if (key==='banked') a = RB.run({U0:o.U0, S0:o.S0, g:o.g, R:0, H:300});
+    else if (key==='spent'){ b = RB.run({U0:o.U0, S0:o.S0, g:o.g, R:0, H:300}); a = RB.run(o); }
+    else { b = RB.run(o); a = RB.run({U0:o.U0, S0:o.S0, g:o.g, R:o.R, H:300, brake:brake}); if (!brake) b = null; }
+    panel(x0,30,x1,170,'STOCK, 0 TO '+o.S0+', OVER 300 CYCLES');
+    if (b) line(b.S,x0,30,x1,170,o.S0,'rgba(232,184,74,0.3)',1.2);
+    line(a.S,x0,30,x1,170,o.S0,'#e8b84a',1.8);
+    panel(x0,210,x1,360,'USE, 0 TO 2.5, AGAINST WHAT REGROWS (THE DASHED LINE AT 1)');
+    var Y1 = 360 - 1/2.5*150; c.strokeStyle='#4a8fff'; c.setLineDash([4,4]); c.beginPath(); c.moveTo(x0,Y1); c.lineTo(x1,Y1); c.stroke(); c.setLineDash([]);
+    if (b) line(b.U,x0,210,x1,360,2.5,'rgba(200,200,216,0.3)',1.2);
+    line(a.U,x0,210,x1,360,2.5,'#c8c8d8',1.8);
+    if (a.out>0){ var X = x0 + a.out/300*(x1-x0); c.strokeStyle='#e8651b'; c.beginPath(); c.moveTo(X,30); c.lineTo(X,170); c.stroke(); c.fillStyle='#e8651b'; c.fillText('runs out', Math.min(X+4, x1-60), 46); }
+    meter(a, b, o, key);
+  }
+
+  function drawBar(){
+    var x0=60, x1=860, max=2.5, X=function(R){ return x0 + Math.max(0,Math.min(max,R))/max*(x1-x0); };
+    c.fillStyle='#8a8aa0'; c.font='11px ui-monospace, Menlo, monospace';
+    c.fillText('REBOUND, 0% TO 250%: WHERE THE STOCK FIRST RUNS OUT, FOR EACH EFFICIENCY SPEED', x0, 24);
+    c.strokeStyle='#4a8fff'; c.setLineDash([4,4]); c.beginPath(); c.moveTo(X(1),40); c.lineTo(X(1),330); c.stroke(); c.setLineDash([]);
+    c.fillStyle='#4a8fff'; c.fillText('100%: use stops falling', X(1)+6, 346);
+    for (var p=0;p<=250;p+=50){ c.fillStyle='#8a8aa0'; c.fillText(p+'%', X(p/100)-10, 368); }
+    if (!result){ c.fillStyle='#8a8aa0'; c.font='14px system-ui, sans-serif'; c.fillText('Run the sweep to place the lines.', x0, 190); return; }
+    result.rows.forEach(function(r,i){
+      var y = 60 + i*44;
+      c.fillStyle='#8a8aa0'; c.font='11px ui-monospace, Menlo, monospace'; c.fillText((r.g*100).toFixed(0)+'%/cycle', 0, y+4);
+      c.strokeStyle='rgba(255,255,255,0.08)'; c.beginPath(); c.moveTo(x0,y); c.lineTo(x1,y); c.stroke();
+      function mark(R,col,lab){ if (!isFinite(R)) { c.fillStyle=col; c.fillText(lab+' beyond 300%', x1-150, y-6); return; } var xx=X(R); c.fillStyle=col; c.beginPath(); c.arc(xx,y,5,0,2*Math.PI); c.fill(); c.fillText(lab, lab==='no brake' ? xx-62 : xx+8, y-9); }
+      mark(r.free,'#e8651b','no brake'); mark(r.braked,'#e8b84a','braked');
+    });
+  }
+
+  function meter(a, b, o, key){
+    var m = $('meter'), s = '';
+    var outTxt = function(r){ return r.out>0 ? '<i>runs out at cycle '+r.out+'</i>' : 'never runs out in 300 cycles (lowest '+r.lowest.toFixed(2)+')'; };
+    if (key==='stock') s = 'use '+o.U0.toFixed(2)+' against regrowth 1.00 · stock '+outTxt(a);
+    else if (key==='banked') s = 'use after 300 cycles <b>'+a.U[300].toFixed(3)+'</b> · below regrowth from cycle <b>'+(a.below<0?'never':a.below)+'</b> · stock '+outTxt(a);
+    else if (key==='spent') s = 'rebound <b>'+(o.R*100).toFixed(0)+'%</b> · use after 300 cycles <b>'+a.U[300].toFixed(3)+'</b> (it started at '+o.U0.toFixed(2)+', '+(a.U[300]<o.U0-1e-9?'falling':(a.U[300]>o.U0+1e-9?'<i>rising</i>':'flat'))+') · spent: stock '+outTxt(a)+'<br>banked, for comparison: stock '+outTxt(b);
+    else s = 'rebound <b>'+(o.R*100).toFixed(0)+'%</b> · balancing loop <b>'+(brake?'on':'none')+'</b> · stock '+outTxt(a)+(b?'<br>the same world with no loop: stock '+outTxt(b):'');
+    m.innerHTML = s;
+  }
+
+  function pct(R){ return R<=-0.5 ? 'even banked' : (isFinite(R) ? (R*100).toFixed(1)+'%' : 'none up to 300%'); }
+  function showResult(){
+    var tb = $('results').querySelector('tbody');
+    tb.innerHTML = result.rows.map(function(r){ return '<tr><td>'+(r.g*100).toFixed(0)+'% a cycle</td><td><b>'+pct(r.free)+'</b></td><td>'+pct(r.flat)+'</td><td><b>'+pct(r.braked)+'</b></td></tr>'; }).join('');
+    $('results').hidden = false;
+    var o = opts(), r2 = result.rows[1], v = '';
+    v += '<b>Half one, efficiency is not a brake: '+(result.one ? 'holds' : 'fails')+'.</b> ';
+    v += result.one ? 'At every speed the stock runs out at a rebound below 100%, while use is still falling. At 2% a cycle the band runs from '+pct(r2.free)+' to 100%: use falls the whole way and the stock still empties. Faster efficiency narrows the band and never closes it.'
+                    : 'At some speed the stock survives every rebound below 100%: efficiency alone outruns this ceiling unless the rebound is a true backfire. With the start use at or below what regrows, that is what the model must say.';
+    v += '<br><b>Half two, a balancing loop is the missing part: '+(result.two ? 'holds' : 'fails')+'.</b> ';
+    v += result.two ? 'At every speed the braked world\u2019s stock holds past a rebound of 100% (up to '+pct(r2.braked)+' at 2% a cycle): the brake carries it where efficiency alone lets the stock go.'
+                    : 'At some speed even the braked world runs out at a rebound at or below 100%: this brake is not enough for an overdraw this deep, at this stock.';
+    v += '<br>Start use '+o.U0.toFixed(2)+', stock '+o.S0+', 300 cycles. The use-stops-falling column reads 100% because that is what a rebound of 100% means; it checks the arithmetic, not the page. These are this model’s numbers, and the first half rests on the world starting above what regrows.';
+    $('verdict').innerHTML = v;
+  }
+
+  function show(){
+    var st = STEPS[step], key = st.key;
+    $('stepEyebrow').textContent = st.eyebrow; $('stepTitle').textContent = st.title; $('stepSay').textContent = st.say; $('tryText').textContent = st.tryText;
+    $('eq1').textContent = st.eq[0]; $('eq1w').textContent = st.eq[1];
+    $('ctlU0').hidden = !(key==='stock'||key==='banked'||key==='test'); $('ctlS0').hidden = key!=='test'; $('ctlG').hidden = !(key==='banked'||key==='spent'||key==='brake');
+    $('ctlR').hidden = !(key==='spent'||key==='brake'); $('brakeRow').hidden = key!=='brake'; $('runRow').hidden = key!=='test'; $('rule').hidden = key!=='test';
+    $('results').hidden = true; $('verdict').innerHTML = ''; $('meter').innerHTML = ''; result = null;
+    if (key==='brake' && +$('rr').value===60) $('rr').value = 90;
+    [].forEach.call($('rail').children, function(b,i){ b.setAttribute('aria-current', i===step ? 'step' : 'false'); });
+    $('back').disabled = step===0; $('next').disabled = step===STEPS.length-1;
+    label(); legend(); draw();
+  }
+  function legend(){
+    var key = STEPS[step].key, items;
+    if (key==='test') items = [['orange','where the stock first runs out with no brake'],['amber','where it first runs out with the balancing loop on'],['blue','100%: the rebound at which use stops falling']];
+    else { items = [['amber','the stock'],['grey','the use'],['blue','what regrows each cycle']];
+      if (key==='spent') items.push(['faint','the banked world, for comparison']); if (key==='brake') items.push(['faint','with the loop on, the same world with none']); }
+    $('legend').innerHTML = items.map(function(x){ return '<div><b>'+x[0]+'</b>'+x[1]+'</div>'; }).join('');
+  }
+  function label(){ $('u0v').textContent = (+$('u0').value).toFixed(2); $('s0v').textContent = $('s0').value; $('ggv').textContent = (+$('gg').value).toFixed(1)+'% a cycle'; $('rrv').textContent = $('rr').value+'%'; }
+
+  STEPS.forEach(function(s,i){ var b = document.createElement('button'); b.textContent = (i+1)+' · '+s.title; b.onclick = function(){ step = i; show(); }; $('rail').appendChild(b); });
+  $('back').onclick = function(){ if (step>0){ step--; show(); } };
+  $('next').onclick = function(){ if (step<STEPS.length-1){ step++; show(); } };
+  ['u0','s0','gg','rr'].forEach(function(id){ $(id).oninput = function(){ label(); if (STEPS[step].key==='test'){ result = null; $('results').hidden = true; $('verdict').innerHTML = ''; } draw(); }; });
+  [].forEach.call(document.querySelectorAll('[data-brake]'), function(b){ b.onclick = function(){ brake = b.getAttribute('data-brake')==='1';
+    [].forEach.call(document.querySelectorAll('[data-brake]'), function(x){ x.setAttribute('aria-pressed', x===b ? 'true' : 'false'); }); draw(); }; });
+  $('run').onclick = function(){ var o = opts(); result = RB.test({U0:o.U0, S0:o.S0, H:300}); showResult(); draw(); };
+  window.addEventListener('resize', fit); show(); fit();
+})();
+</script>
+</body>
+</html>
