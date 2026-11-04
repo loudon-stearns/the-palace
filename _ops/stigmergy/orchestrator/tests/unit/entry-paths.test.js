@@ -1,5 +1,5 @@
 import { describe, test, expect, afterEach } from 'vitest';
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, renameSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { findEntryFile, resolveBundleDir, EXCLUDE_DIRS } from '../../src/entry-paths.js';
@@ -27,6 +27,35 @@ describe('findEntryFile', () => {
     writeFileSync(path.join(root, '.git', 'Hidden.md'), '# nope');
     expect(EXCLUDE_DIRS.has('.git')).toBe(true);
     expect(findEntryFile(root, 'Hidden')).toBeNull();
+  });
+
+  // The lookup is served from an index (one walk per root); these pin that the
+  // index never answers differently from a fresh walk.
+  test('finds an entry created after a lookup missed it', () => {
+    root = mkdtempSync(path.join(tmpdir(), 'palace-ep-'));
+    expect(findEntryFile(root, 'Late')).toBeNull();
+    writeFileSync(path.join(root, 'Late.md'), '# late');
+    expect(findEntryFile(root, 'Late')).toBe(path.join(root, 'Late.md'));
+  });
+
+  test('follows an entry that moved after it was found', () => {
+    root = mkdtempSync(path.join(tmpdir(), 'palace-ep-'));
+    const before = path.join(root, 'Mover.md');
+    writeFileSync(before, '# mover');
+    expect(findEntryFile(root, 'Mover')).toBe(before);
+    mkdirSync(path.join(root, 'Projects'), { recursive: true });
+    const after = path.join(root, 'Projects', 'Mover.md');
+    renameSync(before, after);
+    expect(findEntryFile(root, 'Mover')).toBe(after);
+  });
+
+  test('returns null once a found entry is deleted', () => {
+    root = mkdtempSync(path.join(tmpdir(), 'palace-ep-'));
+    const file = path.join(root, 'Gone.md');
+    writeFileSync(file, '# gone');
+    expect(findEntryFile(root, 'Gone')).toBe(file);
+    rmSync(file);
+    expect(findEntryFile(root, 'Gone')).toBeNull();
   });
 });
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { Box, Button } from '../primitives.jsx';
 import { healthColor } from '../../lib/format.js';
 import { fetchProjects, enchantProject } from '../../adapters/projects.js';
@@ -203,10 +203,24 @@ export default function ProjectsDeck({ onOpenScroll }) {
   const palace = usePalaceRef();
   const openEntry = palace?.openEntryInState || null;
 
+  // One request in flight at a time. The interval fired every 3 s whether or
+  // not the last answer had come back, so a slow server got slower requests
+  // stacked on it (2026-11-03: twelve in flight, 12-15 s each, the dev server
+  // pegged). A refresh asked for mid-flight — an advance's, say — runs once
+  // the current one lands, so it still sees fresh state.
+  const inFlight = useRef(false);
+  const again = useRef(false);
   const refresh = useCallback(async () => {
-    const r = await fetchProjects();
-    if (r.ok) setData(r);
-    else setData((prev) => prev ?? { projects: [], worker: {}, error: r.error });
+    if (inFlight.current) { again.current = true; return; }
+    inFlight.current = true;
+    try {
+      do {
+        again.current = false;
+        const r = await fetchProjects();
+        if (r.ok) setData(r);
+        else setData((prev) => prev ?? { projects: [], worker: {}, error: r.error });
+      } while (again.current);
+    } finally { inFlight.current = false; }
   }, []);
 
   useEffect(() => {

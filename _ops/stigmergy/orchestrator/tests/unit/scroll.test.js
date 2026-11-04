@@ -1,5 +1,5 @@
 import { describe, test, expect, afterEach } from 'vitest';
-import { mkdtempSync, mkdirSync, writeFileSync, existsSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, existsSync, rmSync, utimesSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { listProjectEntries, scrollAll } from '../../src/scroll.js';
@@ -32,6 +32,20 @@ describe('scrollAll', () => {
     const e = Object.fromEntries(listProjectEntries(root).map((p) => [p.title, p]));
     expect(e['Compost Blank']).toMatchObject({ status: null, stage: 'composting' });
     expect(e['Compost Active']).toMatchObject({ status: 'active', stage: 'composting' });
+  });
+
+  // Each file's answer is kept until its mtime or size changes; an edited page
+  // must be read again, never served from what it said before.
+  test('listProjectEntries reads a page again once it changes', () => {
+    palace();
+    const file = path.join(root, 'Projects', 'Blank.md');
+    expect(listProjectEntries(root).find((p) => p.title === 'Blank')).toMatchObject({ stage: 'sprout' });
+    writeFileSync(file, '---\ntype: project\nstage: growing\n---\n# Blank, grown');
+    utimesSync(file, new Date(), new Date(Date.now() + 5000));
+    expect(listProjectEntries(root).find((p) => p.title === 'Blank')).toMatchObject({ stage: 'growing' });
+    writeFileSync(file, '---\ntype: practice\n---\n# Blank, no longer a project at all');
+    utimesSync(file, new Date(), new Date(Date.now() + 10000));
+    expect(listProjectEntries(root).find((p) => p.title === 'Blank')).toBeUndefined();
   });
 
   test('--all skips stage composting whatever the status, keeps dormant stewarded projects', () => {
