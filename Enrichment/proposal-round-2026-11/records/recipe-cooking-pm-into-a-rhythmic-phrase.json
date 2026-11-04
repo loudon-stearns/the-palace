@@ -1,0 +1,27 @@
+{
+ "entry": "Recipe — Cooking pm into a rhythmic phrase",
+ "path": "Projects/Wallpaper Groups/recipe-pm.md",
+ "type": "none (bundle note, no frontmatter)",
+ "stage": "none",
+ "weight": 6,
+ "claim": "§ What you should hear: \"pm sounds still ... There is no momentum. The mirror cancels it.\" The mirror map n -> 17 - n is a true time reflection, so this is the recipe whose audible claim is cleanest to test.",
+ "pieces": [
+  {
+   "section": "What you should hear",
+   "what": "Writes a half-phrase, mirrors it at n -> 17 - n, and plays it against the same half under translation, letting the reader hear whether the mirror stills the phrase",
+   "kind": "interactive",
+   "walks_up_from": "three hits in steps 1-8"
+  },
+  {
+   "section": "Where to break it",
+   "what": "Silences one mirror hit and plays before and after, testing 'the phrase suddenly lurches'",
+   "kind": "audio",
+   "walks_up_from": "the full mirrored phrase"
+  }
+ ],
+ "gathered": [
+  "Projects/Wallpaper Groups/proofs/2026-05-04-animated-explorer-v2.html"
+ ],
+ "tier": "sketch",
+ "slice": 5
+}
