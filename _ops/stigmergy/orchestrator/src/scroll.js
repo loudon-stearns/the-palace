@@ -17,7 +17,7 @@
 // complete / archived / composting projects are skipped unless named with
 // --home (or the walk runs with --include-inactive).
 
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { resolve, join, relative } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { materializeScroll, writePlan } from './scroll-file.js';
@@ -27,6 +27,33 @@ import { EXCLUDE_DIRS } from './entry-paths.js';
 import { readRegistry } from './registry.js';
 
 const PALACE_ROOT_DEFAULT = resolve(fileURLToPath(new URL('.', import.meta.url)), '../../../..');
+
+// What each .md file said, kept until its mtime or size changes. The PROJECTS
+// deck lists projects on every 3 s poll, and reading and YAML-parsing every
+// page in the palace each time was most of a poll's cost (2026-11-03).
+const projectFacts = new Map();
+
+/** A file's project record, or null when it is not a `type: project` page. */
+function projectFact(palaceRoot, file, name) {
+  let st;
+  try { st = statSync(file); } catch { return null; }
+  const stamp = `${st.mtimeMs}:${st.size}`;
+  const hit = projectFacts.get(file);
+  if (hit && hit.stamp === stamp) return hit.fact;
+  let fact = null;
+  try {
+    const text = readFileSync(file, 'utf8');
+    if (text.startsWith('---')) {
+      const fm = parseFrontmatter(text);
+      if (fm.type === 'project') {
+        const title = typeof fm.title === 'string' && fm.title ? fm.title : name.replace(/\.md$/, '');
+        fact = { title, file: relative(palaceRoot, file), status: typeof fm.status === 'string' ? fm.status : null, stage: typeof fm.stage === 'string' ? fm.stage : null };
+      }
+    }
+  } catch { return null; }
+  projectFacts.set(file, { stamp, fact });
+  return fact;
+}
 
 /** Every `type: project` entry in the palace: { title, file, status, stage }. */
 export function listProjectEntries(palaceRoot) {
@@ -39,14 +66,8 @@ export function listProjectEntries(palaceRoot) {
     for (const e of ents) {
       if (e.isDirectory()) { if (!EXCLUDE_DIRS.has(e.name)) stack.push(join(dir, e.name)); continue; }
       if (!e.name.endsWith('.md') || e.isSymbolicLink()) continue;
-      const file = join(dir, e.name);
-      let text;
-      try { text = readFileSync(file, 'utf8'); } catch { continue; }
-      if (!text.startsWith('---')) continue;
-      const fm = parseFrontmatter(text);
-      if (fm.type !== 'project') continue;
-      const title = typeof fm.title === 'string' && fm.title ? fm.title : e.name.replace(/\.md$/, '');
-      out.push({ title, file: relative(palaceRoot, file), status: typeof fm.status === 'string' ? fm.status : null, stage: typeof fm.stage === 'string' ? fm.stage : null });
+      const fact = projectFact(palaceRoot, join(dir, e.name), e.name);
+      if (fact) out.push({ ...fact });
     }
   }
   return out.sort((a, b) => a.title.localeCompare(b.title));

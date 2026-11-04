@@ -9,23 +9,23 @@
 // (build-cycle-prompt.js re-exports it for back-compat) so the scroll
 // materializer and the prompt builder resolve paths the same way.
 
-import { readdirSync } from 'node:fs';
+import { readdirSync, existsSync } from 'node:fs';
 import { join, dirname, basename } from 'node:path';
 
 // System dirs that never hold knowledge entries (Substrate Skill § Directory Structure).
 export const EXCLUDE_DIRS = new Set(['.git', '.claude', '.obsidian', 'node_modules', '_tools', '.venvs']);
 
-/**
- * Locate a palace entry file by title (Obsidian-style flat namespace): walk the
- * tree for `<title>.md`, skipping system directories. Returns the absolute path
- * or null. Iterative DFS — no recursion, no symlink following.
- *
- * @param {string} palaceRoot
- * @param {string} title — the entry title, no extension
- * @returns {string|null}
- */
-export function findEntryFile(palaceRoot, title) {
-  const target = `${title}.md`;
+// One index per palace root: every `<name>.md` → the path a walk meets first.
+// A walk of the whole palace is ~5,300 folders (2026-11-03), and the PROJECTS
+// deck asked for 47 of them on every 3 s poll — enough to peg the dev server
+// and starve the steward lane's reap (a finished Wavetable Scanner cycle was
+// lost to the restart). Now one walk builds the index; a hit is trusted only
+// while its file still exists, and a miss or a stale hit walks again, so a new
+// or moved entry is found the moment it is asked for, as before.
+const indexes = new Map();
+
+function buildIndex(palaceRoot) {
+  const index = new Map();
   const stack = [palaceRoot];
   while (stack.length) {
     const dir = stack.pop();
@@ -34,12 +34,31 @@ export function findEntryFile(palaceRoot, title) {
     for (const e of entries) {
       if (e.isDirectory()) {
         if (!EXCLUDE_DIRS.has(e.name)) stack.push(join(dir, e.name));
-      } else if (e.name === target) {
-        return join(dir, e.name);
+      } else if (e.name.endsWith('.md') && !index.has(e.name)) {
+        index.set(e.name, join(dir, e.name));
       }
     }
   }
-  return null;
+  indexes.set(palaceRoot, index);
+  return index;
+}
+
+/**
+ * Locate a palace entry file by title (Obsidian-style flat namespace): the
+ * first `<title>.md` an iterative DFS of the tree meets, skipping system
+ * directories and following no symlinks. Returns the absolute path or null.
+ * Served from the root's index (above); the answer is the one a fresh walk
+ * would give.
+ *
+ * @param {string} palaceRoot
+ * @param {string} title — the entry title, no extension
+ * @returns {string|null}
+ */
+export function findEntryFile(palaceRoot, title) {
+  const target = `${title}.md`;
+  const hit = indexes.get(palaceRoot)?.get(target);
+  if (hit && existsSync(hit)) return hit;
+  return buildIndex(palaceRoot).get(target) ?? null;
 }
 
 /**
