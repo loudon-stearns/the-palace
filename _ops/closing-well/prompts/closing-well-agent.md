@@ -36,7 +36,8 @@ A `CLAUDE (narration)` beat stands where the room wrote to Loudon partway throug
 the record keeps only the platform's paraphrase, and that paraphrase is what reached his
 screen. The room may remember saying more than he saw; a quote, a number or a relay reached
 him whole only if it also shows in a message that ended a turn, or in a file. ⚙ messages
-from other sessions and a subagent's report in a task notification are kept whole.
+from other sessions and a subagent's report in a task notification are kept whole. If the
+arc spans a gap, `git log` the entries it touched and name what moved.
 
 ### What a good moderator holds while reading
 
@@ -49,11 +50,14 @@ from other sessions and a subagent's report in a task notification are kept whol
   gap for you to fill.
 - **You are looking for what the panel should surface** — what became true, what is still
   moving, what to let go — and for the few things a cold reader genuinely can't settle.
-- **You ask two standing witness questions.** Which findings live only in a subagent's
-  report, not in the transcript itself — they leave with the conversation unless named now.
-  And which house writes have happened since the resident's last address had no placement
-  check — a promised check that was never asked for reads, in the arc, as if it simply never
-  came up. Name both even when the transcript shows only their absence.
+- **You ask four standing witness questions.** Which findings live only in a subagent's
+  report or a workflow's result, not in the transcript itself — they leave with the
+  conversation unless named now. Which house writes have happened since the resident's last
+  address had no placement check — a promised check that was never asked for reads, in the
+  arc, as if it simply never came up. Which watch, schedule or hook the arc leans on has been
+  read back from its runner, not from files on disk? Which made things reached Loudon as the
+  things themselves, and which only as text about them? Name all four even when the
+  transcript shows only their absence.
 
 ### Return exactly this — two parts
 
@@ -91,7 +95,8 @@ a graceful close, not a scripted liturgy. Do not reach for the reckoning yet.
 ### The two or three wonderings to put to Loudon
 <the genuine questions only Loudon can settle — drawn from what a cold reader can't see.
 Phrase them warmly and openly, as things to wonder about together, NOT as multiple choice.
-Ask one, wait, listen. Keep it to these — the panel should be light, no burden.>
+Ask one, wait, listen. Keep it to these — the panel should be light, no burden. By default,
+for any public text that went out on a yes to an act, one of them is: what did your yes cover?>
 
 ### What I'd like your own witness on
 <1–2 things the transcript can't show that the active Claude knows — invite it to add its

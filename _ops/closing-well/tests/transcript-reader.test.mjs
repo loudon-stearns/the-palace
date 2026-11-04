@@ -318,3 +318,31 @@ test('a subagent\'s report in a task notification is kept whole, so a hand-back 
   assert.equal(reports, 2, 'both Concierge reports in the fixture were checked');
   assert.match(text, /^ {2}· ⚙ task-notification: Background command "Tighten the baton claim; check forward-vector endings" failed with exit code 144$/m, 'a background command, which carries no report, stays one short line');
 });
+
+// Two kinds of text the cold read lost: the brief that launched a session (an sdk-origin
+// note, tuning item 45) and what the room told a peer (an outgoing SendMessage, item 51).
+// Both are kept whole now, as an incoming peer message is (item 39).
+const LONG = 'Wave 2 task: ' + 'read the floor files and the injection sites, then '.repeat(12) + 'END-OF-BRIEF';
+
+test('an sdk-origin note (the brief that launched the session) is kept whole, not cut at 240', () => {
+  const text = variant('sdk-note', recs => [
+    { type: 'user', uuid: 'sdk-note-1', timestamp: '2026-10-16T12:00:00.000Z', turnOrigin: 'sdk',
+      message: { role: 'user', content: LONG } },
+    ...recs,
+  ]);
+  assert.ok(LONG.length > 240, 'the note is longer than the old cut');
+  assert.ok(text.includes('END-OF-BRIEF'), 'the end of the brief reaches the arc');
+  assert.ok(!humanBeats(text).some(b => b.text.includes('END-OF-BRIEF')), 'and it is a ⚙ line, not HUMAN');
+});
+
+test('an outgoing SendMessage is kept whole, as an incoming peer message is', () => {
+  const said = 'The faces claim moved the scroll local; ' + 'here is the whole reason, at length, '.repeat(10) + 'END-OF-MESSAGE';
+  const text = variant('send-message', recs => [
+    ...recs,
+    { type: 'assistant', uuid: 'send-1', timestamp: '2026-10-16T12:01:00.000Z',
+      message: { model: 'claude-opus-5-5', id: 'msg_send1', type: 'message', role: 'assistant',
+        content: [{ type: 'tool_use', id: 'toolu_send1', name: 'SendMessage', input: { to: 'peer-session', message: said } }] } },
+  ]);
+  assert.ok(said.length > 160, 'the message is longer than a tool call\'s one-line cut');
+  assert.ok(text.includes('END-OF-MESSAGE'), 'the end of the message reaches the arc');
+});

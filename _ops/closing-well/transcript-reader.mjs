@@ -232,7 +232,9 @@ function machineLine(kind, text) {
     const from = /from-name="([^"]*)"/.exec(peer[1]);
     return oneLine(`${from ? `"${from[1]}" — ` : ''}${peer[2]}`, Infinity);
   }
-  if (kind === 'peer') return oneLine(text, Infinity);
+  // An sdk-origin note is the brief that launched the session: kept whole, as a peer's is
+  // (tuning item 45).
+  if (kind === 'peer' || kind === 'sdk') return oneLine(text, Infinity);
   return oneLine(text, 240);
 }
 
@@ -426,7 +428,11 @@ function distill(file, opts) {
         } else if (b.type === 'tool_use') {
           toolCalls++;
           calls.set(b.id, { name: b.name, input: b.input });
-          const text = `${b.name}(${summarizeToolInput(b.name, b.input)})`;
+          // What the room tells a peer is kept whole, as an incoming peer message is
+          // (tuning item 51); every other call collapses to one line.
+          const text = b.name === 'SendMessage'
+            ? `SendMessage(${oneLine(JSON.stringify(b.input), Infinity)})`
+            : `${b.name}(${summarizeToolInput(b.name, b.input)})`;
           beats.push({ role: 'call', text, spine: isSpineCall(b.name, text), ts });
         }
       }
