@@ -65,7 +65,7 @@ The Walk is not a Weave. The Weave reads all entries and produces a topology rep
 
 The Walk is not a Deposit. If the walk surfaces a new idea that deserves a palace entry, note it and flag it for Harvest/Deposit. Don't build mid-walk.
 
-The Walk is not a task. It has no output requirement beyond a named surprise. Some walks produce no file changes at all and are still complete.
+The Walk is not a task. It has no output requirement beyond naming what it turned up. Some walks produce no file changes at all and are still complete.
 
 ## The Songline
 
