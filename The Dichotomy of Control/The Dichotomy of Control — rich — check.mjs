@@ -104,14 +104,26 @@ console.log('— the hand on the platter');
   check('with the model tuned to once a turn, the loop is endless there and the wow is nil, on the real platter run clean and on the ideal one', mc < 0.00002 && mi < 0.00002, `${pc(mc, 4)}, ${pc(mi, 4)}`);
   const fl = E.measure(E.simulate({ ...E.rubOpts(5, 2, 3, undefined, true), rub: 0 }), 42, 60).wow;
   check('the sensor’s floor on the wow measure, no rub at all: 0.021%', pc(fl) === '0.021%', pc(fl));
-  check('the printed rows: modest 1.43%, fight 0.34% with jitter 0.41%, model 0.02%, the wrong model 1.70%',
-    pc(R.modest.wow, 2) === '1.43%' && pc(R.fight.wow, 2) === '0.34%' && pc(R.fight.jitter, 2) === '0.41%' && pc(R.model.wow, 2) === '0.02%' && pc(R.wrong.wow, 2) === '1.70%',
+  check('the printed rows: modest 1.43%, fight 0.34%, model 0.02%, the wrong model 1.70%',
+    pc(R.modest.wow, 2) === '1.43%' && pc(R.fight.wow, 2) === '0.34%' && pc(R.model.wow, 2) === '0.02%' && pc(R.wrong.wow, 2) === '1.70%',
     `${pc(R.modest.wow)}, ${pc(R.fight.wow)} / ${pc(R.fight.jitter)}, ${pc(R.model.wow)}, ${pc(R.wrong.wow)}`);
   check('the model’s wow is the floor, not a result below it', Math.abs(R.model.wow - fl) < 0.0001, `${pc(R.model.wow)} vs floor ${pc(fl)}`);
   check('the model at about the same motor movement as the modest loop, the fight at three times it', near(R.model.effort / R.modest.effort, 0.91, 0.05) && R.fight.effort / R.model.effort > 3, `motor ${R.modest.effort.toFixed(3)}, ${R.model.effort.toFixed(3)}, ${R.fight.effort.toFixed(3)}`);
   check('ideal platter: fighting harder costs no jitter, and Kp 100 brings wow to 0.05%', R.idealHard.jitter < 1e-5 && pc(R.idealHard.wow, 2) === '0.05%', `${pc(R.idealHard.wow)}, jitter ${R.idealHard.jitter.toExponential(1)}`);
-  const sweep = [0.4, 0.5, 0.53, 0.58, 0.6, 0.7, 1].map((fr) => E.measure(E.simulate({ ...E.rubOpts(5, 2, 3, fr, true), noise: false }), 42, 60).wow);
-  check('mistuned, the model buys little or makes it worse: below 0.53 Hz and at 1 Hz it is worse than none', sweep[0] > R.modest.wow && sweep[1] < R.modest.wow && sweep[6] > R.modest.wow, sweep.map((x) => pc(x, 2)).join(', '));
+  // the fight's jitter is one seed's; across eight it spreads, and the page prints the spread
+  {
+    const fightRun = DC.RUNS.find((r) => r.key === 'fight'), save = DC.SEED, js = [];
+    for (const seed of [1, 2, 3, 4, 5, 6, 7, 8]){ DC.SEED = seed; js.push(E.report(fightRun, E.simulate(E.runOpts(fightRun))).jitter); }
+    DC.SEED = save; const lo = Math.min(...js), hi = Math.max(...js), mean = js.reduce((a, b) => a + b) / js.length;
+    check('the fight’s jitter over eight seeds lies inside the printed 0.26–0.50%, centred near 0.35–0.4%', pc(lo, 2) >= '0.26%' && pc(hi, 2) <= '0.50%' && mean >= 0.0035 && mean <= 0.0040 && html.includes('0.26–0.50%'), `${pc(lo, 2)}–${pc(hi, 2)}, mean ${pc(mean)}`);
+  }
+  // the tuning slider stays where the loop is stable: by the frequency response, a stable loop's clean run matches it
+  const frMax = parseFloat(html.match(/id="fr"[^>]*max="([\d.]+)"/)[1]);
+  let worstFr = 0;
+  for (let fr = 0.30; fr <= frMax + 1e-9; fr += 0.05){ const run = { kp: 5, ki: 2, kr: 3, fr, lag: true }; const sim = E.measure(E.simulate({ ...E.rubOpts(5, 2, 3, fr, true), noise: false, tend: 90 }), 72, 90).wow, f = 0.05 * dragToSpeed(w0, run); worstFr = Math.max(worstFr, Math.abs(sim / f - 1)); }
+  check(`the tuning slider stops at ${frMax} Hz, below the loop's edge (0.848 Hz), and every tuning on it is a stable loop the frequency response predicts`, frMax < 0.848 && worstFr < 0.02, `worst gap ${(worstFr * 100).toFixed(2)}%`);
+  const sweep = [0.4, 0.5, 0.53, 0.58, 0.6, 0.7].map((fr) => E.measure(E.simulate({ ...E.rubOpts(5, 2, 3, fr, true), noise: false }), 42, 60).wow);
+  check('mistuned, the model buys less the further off it is, and at 0.40 Hz it is worse than none', sweep[0] > R.modest.wow && sweep.slice(1).every((x) => x < R.modest.wow), sweep.map((x) => pc(x, 2)).join(', '));
 }
 // step 6: the hand beyond reach
 {
@@ -155,7 +167,7 @@ console.log('— the hand on the platter');
   check('halving the time step moves no printed wow by more than 0.01 points, no overshoot by more than 0.1', moved < 0.0001, `largest move ${moved.toExponential(1)}`);
 }
 // the page
-const missing = ['3.70%', '0.98%', '0.66%', '23.5', '0.020%', '0.064%', '0.34%', '1.43%', '0.41%', '0.02%', '1.70%', '0.40 Hz', '16.9', '25.4%', '129%', '76 rpm', '6.4%', '65.5', '0.08%', '0.11%', '25%', '0.021%'].filter((s) => !html.includes(s));
+const missing = ['3.70%', '0.98%', '0.66%', '23.5', '0.020%', '0.064%', '0.34%', '1.43%', '0.26–0.50%', '0.02%', '1.70%', '0.40 Hz', '16.9', '25.4%', '129%', '76 rpm', '6.4%', '65.5', '0.08%', '0.11%', '25%', '0.021%'].filter((s) => !html.includes(s));
 check('the page says fourteen runs and lists fourteen', html.includes('fourteen runs') && DC.RUNS.length === 14, `${DC.RUNS.length} runs`);
 check('the page prints the numbers measured here', missing.length === 0, missing.length ? `missing ${missing.join(', ')}` : 'all present');
 check('the page leaves the hush to the kit', !/rich:hush|visibilitychange/.test(html), 'no hush handler of its own');
