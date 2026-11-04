@@ -15,18 +15,21 @@ forward_vector: "I am Sentry's scroll — the one page that opens on which versi
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-24T02:22:13.335Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T16:10:08.234Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Version:** v1.7 · the spec last changed 2026-10-23 (`c5aafdeb`) — edit(Sentry): v1.7 — a finding in public history is closed only on a live read of GitHub made that day
-- **Runs since the change:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-24 — public-surface gate of 12a53da1, 13 raised, held locally · nothing new (under v1.7)
+- **Runs since the change:** 4 runs on 4 days, counted from the ledger's run lines
+- **Last run:** 2026-11-04 — public-surface gate of 1436e03d, 137 raised, held locally · nothing new (under v1.7)
 - **Owed in the ledger:** 1 — item 4; the next run's tail read picks it up first
-- **Latest lesson:** item 18, from the closing of that finding — 2026-10-23 — [[Sentry — tuning]]
+- **Latest lesson:** item 19, from the second Splice rewrite — 2026-10-29 — [[Sentry — tuning]]
 
 ### Runs since v1.7
 
+- 2026-11-04 — public-surface gate of 1436e03d, 137 raised, held locally · nothing new
+- 2026-10-29 — push gate of ea0885bf (9aed3a7a after the rewrite), 22 raised (AWS access-key ids inside presigned Splice S3 URLs in Projects/Splice Instrument Forge/workshop/move-2-sampler/manifest.json and move-7-shells/proof/lofi-kit/manifest.json, the Forge steward's cycles 1 and 2 of 2026-10-26), push refused · taught item 19
+- 2026-10-25 — push gate of 18530015, 38 raised (AWS access-key ids inside presigned Splice S3 URLs in Projects/Splice Instrument Forge/workshop/ask-melodic-techno/manifest*.json, three Forge commits of 2026-10-24), push refused · nothing new
 - 2026-10-24 — public-surface gate of 12a53da1, 13 raised, held locally · nothing new
 
 ### Owed
@@ -50,6 +53,27 @@ _Loudon's standing direction for this ceremony — never regenerated. It holds u
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="run-e2905a0c11" -->
+### 2026-11-04 — public-surface gate of 1436e03d, 137 raised, held locally
+
+nothing new
+<sub>a run under v1.7 · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-1aa75d6d29" -->
+### 2026-10-29 — push gate of ea0885bf (9aed3a7a after the rewrite), 22 raised (AWS access-key ids inside presigned Splice S3 URLs in Projects/Splice Instrument Forge/workshop/move-2-sampler/manifest.json and move-7-shells/proof/lofi-kit/manifest.json, the Forge steward's cycles 1 and 2 of 2026-10-26), push refused
+
+taught item 19
+<sub>a run under v1.7 · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-4f8b2308c3" -->
+### 2026-10-25 — push gate of 18530015, 38 raised (AWS access-key ids inside presigned Splice S3 URLs in Projects/Splice Instrument Forge/workshop/ask-melodic-techno/manifest*.json, three Forge commits of 2026-10-24), push refused
+
+nothing new
+<sub>a run under v1.7 · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="run-24c0f851cd" -->
 ### 2026-10-24 — public-surface gate of 12a53da1, 13 raised, held locally
 
