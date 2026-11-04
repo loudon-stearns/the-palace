@@ -379,3 +379,14 @@ describe('TricksterCard — collapsed view', () => {
     expect(html).not.toContain('data-testid="card-fold"');
   });
 });
+
+describe('TricksterCard — the proposed plan renders as markdown', () => {
+  it('shows bold and lists, not the raw markup', () => {
+    const html = render({ item: { ...ITEM, proposed_plan: '**Where this is going.** A plugin.\n\n1. **Hands and ears.** Play it.\n2. Ship it.' } });
+    expect(html).toContain('data-testid="card-proposed-plan"');
+    expect(html).not.toContain('**Where this is going.**');
+    expect(html).toContain('Where this is going.');
+    expect(html).toMatch(/<strong[^>]*>(<span>)?Where this is going\.(<\/span>)?<\/strong>/);
+    expect(html).toMatch(/<ol[\s>]/);
+  });
+});

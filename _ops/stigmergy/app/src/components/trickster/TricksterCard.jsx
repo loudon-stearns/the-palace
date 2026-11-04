@@ -14,6 +14,9 @@ import AuditionStrip from './AuditionStrip.jsx';
 import Schematic from './schematics/index.jsx';
 import ArtifactSlot from '../ArtifactSlot.jsx';
 import ProjectStanding from './ProjectStanding.jsx';
+import EntryBody from '../state/EntryBody.jsx';
+
+const EMPTY_INDEX = new Map();
 
 // Re-exported for unit tests that import the builder from the card module.
 export { buildCardGrant };
@@ -404,12 +407,12 @@ export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focus
         {item.proposed_plan ? (
           <details data-testid="card-proposed-plan" open style={{ margin: '0 0 10px' }}>
             <summary style={foldSummary}>the proposed plan — what “adopt” makes the plan</summary>
+            {/* Rendered as the scroll renders its Plan zone (bold, lists,
+                [[links]]), since an adopted proposal becomes exactly that. */}
             <div style={{
-              color: 'var(--phosphor)', textShadow: 'var(--glow)',
-              fontFamily: 'var(--font-mono)', fontSize: 12, lineHeight: 1.4,
-              margin: '6px 0', whiteSpace: 'pre-wrap', borderLeft: '2px solid var(--phosphor-dim)', paddingLeft: 8,
+              fontSize: 12, margin: '6px 0', borderLeft: '2px solid var(--phosphor-dim)', paddingLeft: 8,
             }}>
-              <Linkify text={item.proposed_plan} />
+              <EntryBody body={item.proposed_plan} index={EMPTY_INDEX} refIndex={palace?.refIndex || null} onNavigate={palace?.openEntryInState || null} />
             </div>
           </details>
         ) : null}
