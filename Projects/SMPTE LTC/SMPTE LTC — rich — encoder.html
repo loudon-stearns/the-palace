@@ -165,7 +165,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
     <div class="rule"><span class="eyebrow">The rule, before the run</span>
       Fifty frames from step 2's timecode are encoded at each rate and played through a plain audio path: a 10 Hz high-pass, as a coupling capacitor would, and noise 30 dB under the peak. The reader is told nothing: not the rate, not the polarity, not where a cell starts. It times the gaps between zero crossings and keeps its own guess of the bit period.
       <b>Pass:</b> at every rate, and with the polarity flipped, all 50 frames come back with their own timecodes, no wrong reads, and the bits in order. <b>Fail:</b> any frame missing or any wrong read.
-      <b>The control:</b> the same bits sent as plain levels, high for 1 and low for 0, with no clock in them, through the same reader. It must read nothing. If it read the frames too, this test would say nothing about self-clocking.
+      <b>The control:</b> the same bits sent as plain levels, high for 1 and low for 0, with no clock in them, through the same reader. It must read nothing. If it read the frames too, this test would say nothing about self-clocking. It is a weak control: a reader built for biphase fails on plain levels almost by construction, so it shows where the clock lives more than it tests the reader.
       Chance: a reader guessing bits would need 80 right in a row for one frame; it would read none.</div>
     <div class="row"><button class="play" id="run3">run the reader</button><span class="hint dim" id="h3"></span></div>
     <table class="t" id="tab3"></table>
@@ -302,20 +302,30 @@ var LTC = (function(){
       a = Math.max(0, Math.min(tp.dur, a)); b = Math.max(0, Math.min(tp.dur, b));
       y[n] = b > a ? (I(b) - I(a)) / (b - a) : 0;
     }
-    // the audio path: AC coupling (one-pole high-pass at hp Hz) and a little noise
+    return path(y, sr, opt);
+  }
+  // the audio path: AC coupling (one-pole high-pass at hp Hz) and a little noise, applied in place
+  function path(y, sr, opt){
+    var n;
     if (opt.hp){
       var R = Math.exp(-2 * Math.PI * opt.hp / sr), xp = 0, yp = 0;
-      for (n = 0; n < nSamples; n++){ var x = y[n]; yp = x - xp + R * yp; xp = x; y[n] = yp; }
+      for (n = 0; n < y.length; n++){ var x = y[n]; yp = x - xp + R * yp; xp = x; y[n] = yp; }
     }
     if (opt.noise){
       var s = opt.seed || 12345;
-      for (n = 0; n < nSamples; n++){
+      for (n = 0; n < y.length; n++){
         s = (s * 1664525 + 1013904223) >>> 0; var u1 = (s + 1) / 4294967297;
         s = (s * 1664525 + 1013904223) >>> 0; var u2 = (s + 1) / 4294967297;
         y[n] += opt.noise * Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
       }
     }
     return y;
+  }
+  // a plain varispeed: read an already-sampled buffer at `speed` by linear interpolation, backward when speed < 0 (no anti-alias filter)
+  function resample(y, speed){
+    var a = Math.abs(speed), n = Math.floor((y.length - 1) / a), o = new Float32Array(n);
+    for (var i = 0; i < n; i++){ var p = i * a; if (speed < 0) p = (y.length - 1) - p; var k = Math.floor(p), f = p - k; o[i] = y[k] * (1 - f) + y[Math.min(k + 1, y.length - 1)] * f; }
+    return o;
   }
   function atSpeed(tp, speed){                     // constant speed; negative runs the tape backward from its end
     var dur = tp.dur / Math.abs(speed);
@@ -408,7 +418,7 @@ var LTC = (function(){
 
   return { SYNC: SYNC, SYNC_REV: SYNC_REV, RATES: RATES, FIELDS: FIELDS, polarityBit: polarityBit, encode: encode, decodeWord: decodeWord, fmt: fmt,
            frameToLabel: frameToLabel, labelIndex: labelIndex, labelToFrame: labelToFrame, labelValid: labelValid,
-           tape: tape, tapeNRZ: tapeNRZ, play: play, atSpeed: atSpeed, read: read, score: score, spectrum: spectrum, bandShare: bandShare };
+           tape: tape, tapeNRZ: tapeNRZ, play: play, path: path, resample: resample, atSpeed: atSpeed, read: read, score: score, spectrum: spectrum, bandShare: bandShare };
 })();
 </script>
 <script id="ltc-walk">
@@ -605,7 +615,7 @@ var Snd = (function(){
         var good = r.sc.distinct === 50 && r.sc.wrong === 0 && r.bo.ok;
         var name = LTC.RATES[rk].label + (o.flip ? ', polarity flipped' : '') + (o.nrz ? ' · the control: same bits, no clock' : '');
         if (!o.nrz) pass = pass && good; else ctl = r;
-        html += '<tr><td>' + name + '</td><td>' + (r.rd.period ? (1 / r.rd.period).toFixed(1) : '—') + ' (sent ' + (80 * LTC.RATES[rk].fps).toFixed(1) + ')</td><td>' + r.sc.distinct + ' of 50</td><td>' + r.sc.wrong + '</td><td>' + (r.bo.ok ? r.bo.n + ' match' : 'no') + '</td><td class="' + ((o.nrz ? r.sc.distinct === 0 : good) ? 'ok' : 'no') + '">' + (o.nrz ? (r.sc.distinct === 0 ? 'fails, as it must' : 'READ: the test is void') : (good ? 'pass' : 'FAIL')) + '</td></tr>';
+        html += '<tr><td>' + name + '</td><td>' + (r.rd.period ? (1 / r.rd.period).toFixed(1) : '—') + ' (sent ' + (80 * LTC.RATES[rk].fps).toFixed(1) + ')</td><td>' + r.sc.distinct + ' of 50</td><td>' + r.sc.wrong + '</td><td>' + (r.bo.ok ? r.bo.n + ' match' : 'no') + '</td><td class="' + ((o.nrz ? r.sc.distinct === 0 : good) ? 'ok' : 'no') + '">' + (o.nrz ? (r.sc.distinct === 0 ? 'reads nothing, as expected' : 'READ: the test is void') : (good ? 'pass' : 'FAIL')) + '</td></tr>';
       });
       $('tab3').innerHTML = html; $('h3').textContent = 'starting at ' + LTC.fmt(start) + ', user bits ' + $('ub1').value;
       var ctlOk = ctl.sc.distinct === 0;

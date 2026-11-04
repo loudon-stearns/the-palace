@@ -274,20 +274,30 @@ var LTC = (function(){
       a = Math.max(0, Math.min(tp.dur, a)); b = Math.max(0, Math.min(tp.dur, b));
       y[n] = b > a ? (I(b) - I(a)) / (b - a) : 0;
     }
-    // the audio path: AC coupling (one-pole high-pass at hp Hz) and a little noise
+    return path(y, sr, opt);
+  }
+  // the audio path: AC coupling (one-pole high-pass at hp Hz) and a little noise, applied in place
+  function path(y, sr, opt){
+    var n;
     if (opt.hp){
       var R = Math.exp(-2 * Math.PI * opt.hp / sr), xp = 0, yp = 0;
-      for (n = 0; n < nSamples; n++){ var x = y[n]; yp = x - xp + R * yp; xp = x; y[n] = yp; }
+      for (n = 0; n < y.length; n++){ var x = y[n]; yp = x - xp + R * yp; xp = x; y[n] = yp; }
     }
     if (opt.noise){
       var s = opt.seed || 12345;
-      for (n = 0; n < nSamples; n++){
+      for (n = 0; n < y.length; n++){
         s = (s * 1664525 + 1013904223) >>> 0; var u1 = (s + 1) / 4294967297;
         s = (s * 1664525 + 1013904223) >>> 0; var u2 = (s + 1) / 4294967297;
         y[n] += opt.noise * Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
       }
     }
     return y;
+  }
+  // a plain varispeed: read an already-sampled buffer at `speed` by linear interpolation, backward when speed < 0 (no anti-alias filter)
+  function resample(y, speed){
+    var a = Math.abs(speed), n = Math.floor((y.length - 1) / a), o = new Float32Array(n);
+    for (var i = 0; i < n; i++){ var p = i * a; if (speed < 0) p = (y.length - 1) - p; var k = Math.floor(p), f = p - k; o[i] = y[k] * (1 - f) + y[Math.min(k + 1, y.length - 1)] * f; }
+    return o;
   }
   function atSpeed(tp, speed){                     // constant speed; negative runs the tape backward from its end
     var dur = tp.dur / Math.abs(speed);
@@ -380,7 +390,7 @@ var LTC = (function(){
 
   return { SYNC: SYNC, SYNC_REV: SYNC_REV, RATES: RATES, FIELDS: FIELDS, polarityBit: polarityBit, encode: encode, decodeWord: decodeWord, fmt: fmt,
            frameToLabel: frameToLabel, labelIndex: labelIndex, labelToFrame: labelToFrame, labelValid: labelValid,
-           tape: tape, tapeNRZ: tapeNRZ, play: play, atSpeed: atSpeed, read: read, score: score, spectrum: spectrum, bandShare: bandShare };
+           tape: tape, tapeNRZ: tapeNRZ, play: play, path: path, resample: resample, atSpeed: atSpeed, read: read, score: score, spectrum: spectrum, bandShare: bandShare };
 })();
 </script>
 <script id="ltc-walk">
@@ -462,7 +472,7 @@ var MONO = getComputedStyle(document.documentElement).getPropertyValue('--mono')
   }
   var draw1 = stepView(1, ['none'], { k: 1, u: 's' }, '108,000 labels an hour against 107,892.1 frames that really pass: about 108 frames, 3.6 s, behind every hour.');
   var draw2 = stepView(2, ['none', 'every'], { k: 1, u: 's' }, 'Two labels a minute is 120 an hour, twelve more than the 108 needed: now the label runs ahead, about 0.4 s an hour. This is the page’s sentence read word for word, “skips frame-number counts at minute boundaries”, and it over-corrects.');
-  var draw3 = stepView(3, ['df'], { k: 1000, u: 'ms' }, 'Skip at 54 minutes of every 60: 108 labels an hour. At each ten-minute mark the label is back on the clock, plus 0.6 ms per mark, 3.6 ms an hour, 86.4 ms a day, because 29.97 is itself a rounding of 30000/1001. Between the marks it wobbles: every minute the label falls about 60 ms behind the clock, and each skip jumps it 66.7 ms ahead, so inside every ten minutes it swings from about −60 ms (the end of the minute with no skip) to about +63 ms (just after the ninth skip), two frames either way. The rule trades a small wobble for no drift. Around the seams: 00:00:59;29 → 00:01:00;02 · 00:09:59;29 → 00:10:00;00.');
+  var draw3 = stepView(3, ['df'], { k: 1000, u: 'ms' }, 'Skip at 54 minutes of every 60: 108 labels an hour. At each ten-minute mark the label is back on the clock, plus 0.6 ms per mark, 3.6 ms an hour, 86.4 ms by the time the label reaches 24:00:00;00, because 29.97 is itself a rounding of 30000/1001. Between the marks it wobbles: every minute the label falls about 60 ms behind the clock, and each skip jumps it 66.7 ms ahead, so inside every ten minutes it swings from about −60 ms (the end of the minute with no skip) to about +63 ms (just after the ninth skip), two frames either way. The rule trades a small wobble for no drift. Around the seams: 00:00:59;29 → 00:01:00;02 · 00:09:59;29 → 00:10:00;00.');
 
   // step 1: a counter at the true rate
   var t0 = null, raf = 0;
@@ -488,7 +498,7 @@ var MONO = getComputedStyle(document.documentElement).getPropertyValue('--mono')
       var unused = 0; for (var k = 0; k < seen.length; k++) if (!seen[k]) unused++;
       var ms = performance.now() - t, oneFrame = 1 / FPS, marks = [], marksOk = true;
       for (var j = 1; j <= 6; j++){ var gm = gap(j / 6, 'df'); marks.push((gm * 1000).toFixed(1)); if (Math.abs(gm) >= oneFrame) marksOk = false; }
-      var g1 = gap(1, 'df'), g10 = gap(10, 'df'), g24 = gap(24, 'df'), w1 = rangeOver('df', 0, 1), w24 = rangeOver('df', 23, 24);
+      var atLabel = function(h){ return h * 3600 - LTC.labelToFrame({ h: h % 24, m: 0, s: 0, f: 0 }, 30, 'df') / FPS - (h === 24 ? 0 : 0); }, g10 = atLabel(10), g24 = 86400 - (107892 * 24) / FPS, g1 = gap(1, 'df'), w1 = rangeOver('df', 0, 1), w24 = rangeOver('df', 23, 24);
       var pass = dup === 0 && forbidden === 0 && back === 0 && marksOk;
       $('tab4').innerHTML = '<tr><th>check</th><th>count</th><th></th></tr>' +
         '<tr><td>frames walked</td><td>' + perDay.toLocaleString('en') + '</td><td class="dim">107,892 an hour × 24</td></tr>' +
@@ -497,11 +507,11 @@ var MONO = getComputedStyle(document.documentElement).getPropertyValue('--mono')
         '<tr><td>labels that do not go back to their frame</td><td>' + back + '</td><td class="' + (back ? 'no' : 'ok') + '">' + (back ? 'FAIL' : 'pass') + '</td></tr>' +
         '<tr><td>labels never used</td><td>' + unused.toLocaleString('en') + '</td><td class="dim">' + (unused === 2592 ? '2 × 54 × 24 = 2,592, the skipped ones exactly' : 'expected 2,592') + '</td></tr>' +
         '<tr><td>label minus clock at the six ten-minute marks of hour 1</td><td>' + marks.join(', ') + ' ms</td><td class="' + (marksOk ? 'ok' : 'no') + '">' + (marksOk ? 'each within one frame' : 'FAIL') + '</td></tr>' +
-        '<tr><td>at the 10 h and 24 h marks</td><td>' + (g10 * 1000).toFixed(1) + ' ms · ' + (g24 * 1000).toFixed(1) + ' ms</td><td class="dim">' + (g10 * FPS).toFixed(2) + ' and ' + (g24 * FPS).toFixed(2) + ' frames</td></tr>' +
+        '<tr><td>when the label reaches 10:00:00;00 and 24:00:00;00</td><td>' + (g10 * 1000).toFixed(1) + ' ms · ' + (g24 * 1000).toFixed(1) + ' ms</td><td class="dim">' + (g10 * FPS).toFixed(2) + ' and ' + (g24 * FPS).toFixed(2) + ' frames</td></tr>' +
         '<tr><td>wobble between marks, hour 1 · hour 24</td><td>' + (w1[0] * 1000).toFixed(1) + ' to ' + (w1[1] * 1000).toFixed(1) + ' ms · ' + (w24[0] * 1000).toFixed(1) + ' to ' + (w24[1] * 1000).toFixed(1) + ' ms</td><td class="dim">printed, not judged</td></tr>';
       $('h4').textContent = 'walked in ' + Math.round(ms) + ' ms';
       $('v4').innerHTML = pass
-        ? 'Pass. Every label in the day is used once or skipped by the rule, and each goes back to its own frame: the counting is exact. What is left is the clock. At the ten-minute marks the label drifts 3.6 ms an hour, so a 24-hour run ends ' + (g24 * FPS).toFixed(1) + ' frames ahead of the wall clock; between the marks it wobbles by up to two frames, by design. That answers the arithmetic half of the page’s long-run question; whether Loudon’s Max patch counts this way is not tested here.'
+        ? 'Pass. Every label in the day is used once or skipped by the rule, and each goes back to its own frame: the counting is exact. What is left is the clock. At the ten-minute marks the label drifts 3.6 ms an hour, so when the label reaches 24:00:00;00 it is ' + (g24 * 1000).toFixed(1) + ' ms (' + (g24 * FPS).toFixed(2) + ' frames) ahead of the wall clock; between the marks it wobbles by up to two frames, by design. That answers the arithmetic half of the page’s long-run question; whether Loudon’s Max patch counts this way is not tested here.'
         : 'Fail: the table says where.';
     }, 30);
   });

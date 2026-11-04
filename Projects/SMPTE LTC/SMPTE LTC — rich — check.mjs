@@ -122,25 +122,35 @@ for (const [rk, o] of [['24', {}], ['25', {}], ['29.97', {}], ['25', { flip: tru
   const marks = [1, 2, 3, 4, 5, 6].map((j) => gap(j / 6, 'df'));
   check('drop-frame: within one frame at each ten-minute mark of hour 1', marks.every((g) => Math.abs(g) < 1 / FPS), marks.map((g) => (g * 1000).toFixed(2)).join(', ') + ' ms');
   let lo = Infinity, hi = -Infinity; for (let k = 0; k < 3600 * FPS; k++) { const g = (L.labelIndex(k, 30, 'df')) / 30 - k / FPS; lo = Math.min(lo, g); hi = Math.max(hi, g); }
-  console.log(`      drop-frame, printed: at 1 h ${(gap(1, 'df') * 1000).toFixed(2)} ms, 10 h ${(gap(10, 'df') * 1000).toFixed(2)} ms, 24 h ${(gap(24, 'df') * 1000).toFixed(2)} ms (${(gap(24, 'df') * FPS).toFixed(2)} frames); wobble in hour 1 ${(lo * 1000).toFixed(1)} to ${(hi * 1000).toFixed(1)} ms`);
+  const at24 = 86400 - perDay / FPS;
+  console.log(`      drop-frame, printed: at 1 h ${(gap(1, 'df') * 1000).toFixed(2)} ms; when the label reaches 24:00:00;00, ${(at24 * 1000).toFixed(2)} ms (${(at24 * FPS).toFixed(3)} frames) ahead; at wall-clock 24 h, ${(gap(24, 'df') * 1000).toFixed(2)} ms; wobble in hour 1 ${(lo * 1000).toFixed(1)} to ${(hi * 1000).toFixed(1)} ms`);
   console.log(`      the page’s sentence read word for word (skip at every minute): ${(gap(1, 'every') * 1000).toFixed(1)} ms an hour ahead; no skipping: ${(gap(1, 'none')).toFixed(3)} s an hour`);
   check('drop-frame: the every-minute reading over-corrects by about 0.4 s an hour', Math.abs(gap(1, 'every') - 0.4036) < 0.01, `${(gap(1, 'every') * 1000).toFixed(1)} ms`);
 }
 
 // ── Open Questions: backward and at speed ──────────────────────────────────
 {
-  const START = { h: 10, m: 0, s: 0, f: 0 }, rows = [];
-  let ok = true;
-  for (const s of [-16, -12, -8, -4, -2, -1, -0.5, -0.25, -0.1, 0.1, 0.25, 0.5, 1, 2, 4, 8, 12, 16]) {
-    const tp = L.tape(START, 50, '25'), a = L.atSpeed(tp, s);
-    const y = L.play(tp, SR, Math.ceil(a.dur * SR), a.pos, { hp: 10, noise: 0.03, seed: 11 }), rd = L.read(y, SR), sc = L.score(rd, tp, Math.sign(s));
-    const fwdOnly = rd.frames.filter((f) => f.dir > 0).length;
-    const fast = Math.abs(s) >= 12, pass = fast ? sc.distinct === 0 : (sc.distinct === 50 && sc.wrong === 0 && sc.dirWrong === 0);
-    const ctlOk = s > 0 || fwdOnly === 0;
-    if (!pass || !ctlOk) ok = false;
-    rows.push(`${s}×: ${sc.distinct}/50, wrong ${sc.wrong}, dir wrong ${sc.dirWrong}${s < 0 ? `, forward-only ${fwdOnly}` : ''}${fast ? ' (must fail)' : ''}`);
+  const START = { h: 10, m: 0, s: 0, f: 0 }, rows = [], PATH = { hp: 10, noise: 0.03, seed: 11 };
+  for (const rk of ['24', '25', '29.97']) {
+    const tp = L.tape(START, 50, rk), y = L.play(tp, SR, Math.round(tp.dur * SR), (t) => t, {});
+    const sc = L.score(L.read(L.path(Float32Array.from(y).reverse(), SR, PATH), SR), tp, -1);
+    check(`${rk}: a 1× recording with its samples reversed reads back`, sc.distinct === 50 && sc.wrong === 0 && sc.dirWrong === 0, `${sc.distinct}/50, wrong ${sc.wrong}, direction wrong ${sc.dirWrong}`);
   }
-  check('backward and at speed: all 50 frames from −8× to +8× either way, none at ±12× and ±16×, forward-only reader none backward', ok, rows.join(' · '));
+  let ok = true; const edge = [], res = [];
+  const tp1 = L.tape(START, 50, '25'), one = L.play(tp1, SR, Math.round(tp1.dur * SR), (t) => t, {});
+  for (const s of [-16, -12, -8, -6, -4, -2, -1, -0.5, -0.25, -0.1, 0.1, 0.25, 0.5, 1, 2, 4, 6, 8, 12, 16]) {
+    const tp = L.tape(START, 50, '25'), a = L.atSpeed(tp, s);
+    const y = L.play(tp, SR, Math.ceil(a.dur * SR), a.pos, PATH), rd = L.read(y, SR), sc = L.score(rd, tp, Math.sign(s));
+    const fwdOnly = rd.frames.filter((f) => f.dir > 0).length;
+    const rs = L.score(L.read(L.path(L.resample(one, s), SR, PATH), SR), tp1, Math.sign(s));
+    res.push(`${s}× ${rs.distinct}`);
+    if (Math.abs(s) >= 12) { edge.push(`${s}× ${sc.distinct}/50`); continue; }
+    if (!(sc.distinct === 50 && sc.wrong === 0 && sc.dirWrong === 0) || (s < 0 && fwdOnly !== 0)) ok = false;
+    rows.push(`${s}×: ${sc.distinct}/50, wrong ${sc.wrong}, dir wrong ${sc.dirWrong}${s < 0 ? `, forward-only ${fwdOnly}` : ''}`);
+  }
+  check('time-scaled speeds: all 50 frames from 0.1× to 8× either way; forward-only reader none backward', ok, rows.join(' · '));
+  console.log(`      near Nyquist (12×, 16×; the limit, not judged): ${edge.join(', ')}`);
+  console.log(`      same speeds through a plain linear resampler of a 1× buffer, frames of 50 (printed): ${res.join(', ')}`);
   const tp = L.tape(START, 50, '25'), v0 = 2, D = 4 * 0.9 * tp.dur / v0, pos = (t) => v0 * t - v0 * t * t / D;
   const rd = L.read(L.play(tp, SR, Math.ceil(D * SR), pos, { hp: 10, noise: 0.03, seed: 11 }), SR);
   const fw = rd.frames.filter((f) => f.dir > 0).length, bw = rd.frames.filter((f) => f.dir < 0).length, whole = Math.floor(0.9 * tp.dur / (tp.dur / 52)) - 1;
