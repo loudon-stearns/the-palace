@@ -106,7 +106,3 @@ Several palace citizens are quietly performing this craft. It `enables` [[BLUELI
 ---
 
 *The full research canon this page grew from (Toth's staging rules, the letterer's rules in detail, the Sin City and Stewart color notes, the sources and their verification status) and why the page was reshaped on 2026-10-29 live in [[Graphic Storytelling — Context]].*
-
-## Active Baton
-
-[[Graphic Storytelling — baton]] — drafted 2026-10-29
