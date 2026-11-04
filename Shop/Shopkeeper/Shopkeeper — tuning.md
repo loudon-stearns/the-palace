@@ -51,3 +51,8 @@ What Shopkeeper's steward cycles taught the page, and the changes to the house i
 
 6. Runpod's REST API 403s with Cloudflare error 1010 under Python's default urllib User-Agent — it needs a browser-style User-Agent header to pass; this applies to any future Specialist or probe calling rest.runpod.io directly, not just this one. *(offered by the steward, cycle 9)*
 - run · 2026-11-04 · cycle 9 · taught item 6
+
+## From cycle 10 — 2026-11-04
+
+7. A Runpod pod's REST status can read RUNNING well before the server process inside it is actually listening — there's no /logs endpoint on rest.runpod.io (confirmed 400), so the only free signal for 'is it really up yet' is polling the service port itself and reading a 404 from the proxy as 'booting,' not 'broken.' *(offered by the steward, cycle 10)*
+- run · 2026-11-04 · cycle 10 · taught item 7

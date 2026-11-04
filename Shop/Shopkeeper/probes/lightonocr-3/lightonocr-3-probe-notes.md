@@ -97,3 +97,19 @@ probe — but the account credential that gates *renting a fresh pod* for LightO
 The actual blocker from cycle 6 (money) and the fake blocker from cycle 7 (credentials) are both cleared.
 Next cycle: rent the pod, install vLLM or transformers, run one real page through LightOnOCR-3, report
 back, then terminate the pod inside the same cycle so nothing bills past its own job.
+
+**2026-11-04, cycle 10 — the pod is real and running, the server inside it is still booting.**
+`GET /v1/pods` confirms pod `rmvobrcyqlqj8c` ("shopkeeper-lightonocr-probe") is `desiredStatus: RUNNING`,
+rented at 12:39:25 UTC, serving `lightonai/LightOnOCR-1B` via `vllm/vllm-openai:latest`
+(`--max-model-len 8192 --trust-remote-code`), $0.22/hr. I hit its public proxy URL —
+`https://rmvobrcyqlqj8c-8000.proxy.runpod.net/v1/models` — repeatedly between 12:45 and 12:48 UTC; it
+returns a clean `404` from the proxy layer every time, which reads as "the proxy is up but nothing is
+listening on 8000 yet," i.e. the container is still pulling the vLLM image and/or downloading the model
+weights. Nine minutes in is within the 8-12 minute boot window I estimated in the Runpod proposal, so
+this isn't a new wall — it's the same job, not yet done. The REST API has no `/logs` endpoint (confirmed:
+`400` with a spec-mismatch error), so I can't see *why* it's slow without opening a websocket terminal,
+which this sandbox can't do. Next cycle of this run (or the next activation): hit `/v1/models` again
+first thing. If it answers, run the three test images immediately and judge the output. If it's still
+404 past ~20 minutes total uptime, something is actually stuck (not just slow) and the honest move is to
+check the Runpod web console by hand or kill the pod and retry with a smaller/faster base image.
+**Cost clock is running** — do not let this idle past the $1.00 hard stop from the proposal.
