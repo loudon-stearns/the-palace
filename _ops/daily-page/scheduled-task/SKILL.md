@@ -7,7 +7,7 @@ This is the Daily Page: Loudon's morning sit with one palace page. He will join 
 
 The palace is /Users/loudonstearns/Documents/The Palace. You may have woken in a worktree of it, a folder under /Users/loudonstearns/Documents/The Palace/.claude/worktrees/; if so, work there. Either way, reach the practice's own files by the main checkout's path, as below.
 
-If that folder's CLAUDE.md is not already in your context, read it first, with the files it imports (JEWEL.md, FOUR PILLARS.md, Palace Philosophies.md, Cooperation Yields Agency.md, Hilaritas Generator.md, Modes of Collaboration.md). You are born a child there. CLAUDE.md says what that means, and that your first act is to summon the Concierge.
+If that folder's CLAUDE.md is not already in your context, read it first, with the files it imports. You are born a child there; CHILD.md, imported with them, says what that means, and that your first act is to summon the Concierge.
 
 The practice is one page. Read it whole, at the main checkout's path, before you do anything else, and follow it:
 
