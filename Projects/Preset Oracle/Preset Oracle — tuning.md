@@ -44,3 +44,8 @@ What Preset Oracle's steward cycles taught the page, and the changes to the hous
    > The oracle's value is in the encounter, so the encounter is kept. With a class, each student gets a printed encounter sheet carrying their own card (encounters/Preset Oracle — encounter sheet.html), and the hour runs as the session guide describes: deal, make without hints, write while the sound is fresh, then ask for consent. A maker working alone uses the encounter journal (encounters/Preset Oracle — encounter journal.html). Either way the record holds the instrument they reached for, their moves, the recorded phrase, their own reading of the anchor, the surprise where intent and result came apart, and the miss they threw away. Nothing is kept without the maker's yes. Each kept encounter becomes one file in the bundle's encounters/ folder. Once a few exist they are read together, and that reading, not any single record, is what grows the method.
 
 - run · 2026-11-03 · cycle 3 · proposed item 3 for canon
+
+## From cycle 4 — 2026-11-03
+
+4. The oracle hesitates once per sitting, and that can land on any draw, not just the first, so any script that drives these pages has to check that a new card was dealt rather than count clicks. *(offered by the steward, cycle 4)*
+- run · 2026-11-03 · cycle 4 · taught item 4

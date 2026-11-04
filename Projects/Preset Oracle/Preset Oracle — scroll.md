@@ -15,37 +15,37 @@ forward_vector: "I am Preset Oracle's scroll — the one page that always opens 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T23:55:58.697Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T01:00:41.156Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** complete · **Stage:** mature · **Steward:** cycle 3 · last ran 2026-11-03 (today)
+- **Status:** complete · **Stage:** mature · **Steward:** cycle 4 · last ran 2026-11-04 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-03 (today) — A whole class can now meet the oracle: printable encounter sheets, a one-hour session guide, and the journal finally clicked through in a real browser. (`preset-oracle-007`)
-- **Last commit touching this project:** 2026-11-03 `bf625963` — steward(Preset Oracle): cycle 2 — SPINNING UP. HOME: [Preset Oracle](obsidian://open?vault=The%20Palace&f…
+- **Last shipped:** 2026-11-04 (today) — 47 oracle cards are waiting at the vetting table. Will you keep, mend or strike them, and paste the hand-back here? (`preset-oracle-010`)
+- **Last commit touching this project:** 2026-11-03 `41c3e2b7` — steward(Preset Oracle): cycle 3 — SPINNING UP. HOME: [Preset Oracle](obsidian://open?vault=The%20Palace&f…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 3 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 3 · proposed item 3 for canon
+- **Runs:** 4 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 4 · taught item 4
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 3; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 3, from cycle 3 — 2026-11-03 — [[Preset Oracle — tuning]]
+- **Latest lesson:** item 4, from cycle 4 — 2026-11-03 — [[Preset Oracle — tuning]]
 
 ### Where this stands
 
-Preset Oracle is a synth-preset challenger. It deals a card with an evocative name, a philosophical anchor, a technical constraint and a stylistic direction, and the student answers with a synthesizer. The oracle itself is finished. What I'm growing now is a record of what happens when someone meets a card, so the oracle can become a documented teaching method. Over the first two cycles I built an encounter journal that writes those records, with consent asked first, and took one card myself to test the form. This cycle I made what a teacher needs to run it with a whole room: printable sheets, one card per student, and a guide to the hour. I also clicked the journal through in real Chrome f…
+Preset Oracle deals synth-preset challenges: a card with an evocative name, a philosophical anchor, a technical constraint and a stylistic direction, which a student answers with a synthesizer. The original 140 cards are lost. The journal and the classroom sheets I built over the last three cycles only carried a seven-card stand-in. You asked me to draft a fuller deck for you to vet before any student sees it, and to make the interface really creative. So this cycle I wrote 47 cards and built the table where you vet them.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** No real encounter has been recorded yet. _(in 3 notes, the latest cycle 3)_
+- **rough since cycle 1:** No real encounter has been recorded yet. _(in 4 notes, the latest cycle 4)_
 - **rough since cycle 1:** The sheet and the journal each carry their own copy of the seed deck, kept the same by hand. _(in 2 notes, the latest cycle 3)_
 - **rough since cycle 1:** The journal's record path is now tested headlessly, but no one has clicked through the journal in a browser. _(in 2 notes, the latest cycle 2)_
 
 ### Open asks
 
-- `preset-oracle-003` — directional_decision · posted 2026-11-03 · options: POINT · WRITE-DECK · SEED-FOR-NOW
+- `preset-oracle-010` — directional_decision · posted 2026-11-04 · options: VET · KEEP-ALL · REDRAFT
 
 ### Answered, not yet consumed
 
@@ -53,10 +53,11 @@ _None._
 
 ### Decided
 
-_Nothing decided on the board yet._
+- `preset-oracle-003` — directional_decision → GRANTED — option_id=WRITE-DECK; notes: "also the interface needs to be really creative, check with playful interface design." (2026-11-04)
 
 ### Runs
 
+- 2026-11-03 — cycle 4 · taught item 4
 - 2026-11-03 — cycle 3 · proposed item 3 for canon
 - 2026-11-03 — cycle 2 · taught item 2
 - 2026-11-03 — cycle 1 · proposed item 1 for canon
@@ -88,6 +89,56 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="preset-oracle-010" -->
+### 2026-11-04 — cycle 4 — 47 oracle cards are waiting at the vetting table. Will you keep, mend or strike them, and paste the hand-back here?
+> still working · deck drafted, not vetted · steward leans VET
+
+Preset Oracle deals synth-preset challenges, and the original 140 cards are lost. You asked me to draft a fuller deck for you to vet before students see it, and to make the interface creative. The deck is 47 cards from the page's six thinkers and eight films, and it sits on a wheel at the vetting table. Draw a card and turn it over to read what it's for. Then keep it, mend its words on the card, or strike it. Copy the hand-back at the foot of the page and paste it into the note, before you close the page, because the table keeps nothing. Half a deck is a fine reply. If the draft is wrong as a whole, say so and I'll write another. Either way I keep working: next I'll play a few cards myself to test the constraints.
+
+**Artifacts:**
+- [the vetting table: draw, turn over, keep, mend or strike](Projects/Preset Oracle/deck/Preset Oracle — vetting table.html)
+- [encounter-sheets-sample.pdf](Projects/Preset Oracle/encounters/tools/encounter-sheets-sample.pdf)
+- [encounter-sheet-page1.png](Projects/Preset Oracle/encounters/tools/encounter-sheet-page1.png)
+- [Preset Oracle — encounter sheet.html](Projects/Preset Oracle/encounters/Preset Oracle — encounter sheet.html)
+- [click-through.png](Projects/Preset Oracle/encounters/tools/click-through.png)
+<sub>`preset-oracle-010` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="preset-oracle-009" -->
+### 2026-11-04 — cycle 4 — A 47-card deck is drafted from the page's thinkers and films, and it waits for you at a vetting table where cards are kept, mended or burned.
+> shipped · deck drafted, not vetted · steward leans you vet it in one sitting
+
+The deck has five cards each for Spinoza, Parmenides, Merleau-Ponty, Heidegger, Barthes and Deleuze, and two each for The Matrix, Bill & Ted, Lebowski, Fight Club, Inception, Memento, Arrival and Mulholland Drive. It also holds the glassblower card, and the seven seed cards are among the 47. Every card has a back, for the teacher only, saying what it is built to make a maker meet. Three examples: Being-Toward-Death makes the release the most designed part of the sound. Phantom Limb has you turn off the main oscillator and keep playing what is left. The Dude Abides allows no modulation faster than once every five seconds, as the counterweight to conatus.
+
+The table follows Playful Interface Design's rule that every reaction has to mean something. The deck is laid out as a wheel, one arc per thinker or film, so you can see which arcs you have finished. Cards you haven't judged yet flicker. Kept cards hold still in gold. Mended cards carry a gold seam at the corner, and you mend by editing the words right on the card. Struck cards go to ash but stay on the wheel. Before a card goes to ash, the oracle tells you what it was for, so you never strike blind. Click a card to turn it over and read its back. The keys are N to draw, F to turn over, K to keep, M to mend and S to strike. Once per sitting the oracle hesitates and wants asking twice, like the journal does. The hand-back at the foot of the page is what you paste into a reply.
+
+The deck now lives in one JSON file, and a build script pours it into the pages that deal from it. For now that is only the table. The journal and the sheet keep their seed cards until your verdicts are in.
+
+**Artifacts:**
+- [the vetting table: draw, turn over, keep, mend or strike. Copy the hand-back before you close it.](Projects/Preset Oracle/deck/Preset Oracle — vetting table.html)
+- [the 47 cards, each with its back, in one file](Projects/Preset Oracle/deck/Preset Oracle — deck draft.json)
+- [a mid-vetting screenshot: one card kept in gold on the wheel, one mended](Projects/Preset Oracle/deck/tools/vetting-table-mended.png)
+- [the hand-back text after one keep, one mend and one strike](Projects/Preset Oracle/deck/tools/vetting-table-handback.png)
+- [the table before any draw](Projects/Preset Oracle/deck/tools/vetting-table-empty.png)
+- [pours the one deck file into the pages, and refuses a card missing a field](Projects/Preset Oracle/deck/tools/build-deck.mjs)
+- [headless Chrome click test, 18/18 passed eight runs in a row](Projects/Preset Oracle/deck/tools/click-through.mjs)
+- [what is in the deck folder and what happens after you vet](Projects/Preset Oracle/deck/README.md)
+
+_Changed in the workshop:_ README — new workshop note: what the deck folder holds and how the verdicts come back
+
+_Left rough:_ No real encounter has been recorded yet. The table forgets everything when you close it, so you have to copy the hand-back. I haven't played any of the 47 cards, so none of the constraints are tested against a real 40 minutes.
+
+_Next moves named:_ Fold your verdicts into the deck file, then point the journal and the encounter sheet at it so the seven-card stand-in is gone · Play a handful of the new cards myself in Python, the way I did Parmenides, to catch any constraint that can't be met in 40 minutes
+<sub>`preset-oracle-009` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-75bc3f5712" -->
+### 2026-11-03 — cycle 4
+
+taught item 4
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="preset-oracle-007" -->
 ### 2026-11-03 — cycle 3 — A whole class can now meet the oracle: printable encounter sheets, a one-hour session guide, and the journal finally clicked through in a real browser.
 > shipped · ready for a first class session · steward leans you run one
