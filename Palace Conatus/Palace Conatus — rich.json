@@ -54,7 +54,23 @@
           "near": "So alignment is not a state the palace reaches and holds"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5 · cloud",
+        "verdicts": [
+          {
+            "file": "Palace Conatus — rich — in phase, not in agreement.html",
+            "verdict": "remake",
+            "why": "Neither arm can come out against the maker: H can't see stance and A locks by construction at pull 0.5 (A at 180° still 0.950 at K 0.2, 0.500 at 0.05 against B's 0.385), and R's failure rests on B's twelve pages being clones — give B the own speeds the page pictures (±0.1) and its R is 0.186, below every single-stance A (0.842 at 180°), failing only against each-its-own (0.141). Add that B arm and a weak-pull row (K 0.05, 0.1), say on screen that H tests listening vs stopped, and rewrite the caption's 'Under R it fails'."
+          },
+          {
+            "file": "Palace Conatus — rich — whoever arrives next.html",
+            "verdict": "remake",
+            "why": "The 0.15 → 0.2 move did not buy the verdict (on seed 3 the 0.15 grid reads 5 needed of 7 held, same 'holds with a condition'; 0.15 clears 0.9 on seeds 1, 2, 5, 7 at 0.911–0.985) but '5 of 8' is a count of chosen rows and the move is disclosed only in the commit: report where H with the note crosses 0.9 (pull ≈ 0.15) instead, and say on screen that the no-note newcomer starts anywhere, reading nothing, not even the page, and that the 1-unit column makes 'needed somewhere' near-certain."
+          }
+        ]
+      }
     },
     {
       "heading": "The Approval Loop and the Edge of Autopoiesis",
@@ -73,7 +89,18 @@
           "near": "So the conatus has a built-in caution"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5 · cloud",
+        "verdicts": [
+          {
+            "file": "Palace Conatus — rich — drifting with great energy.html",
+            "verdict": "remake",
+            "why": "The falsifier cannot be met: the pages' pull on each other sums to zero across them, so their mean slip against him is at least g − K − m (0.05 turns per unit at 1.5 K) whatever Kp — an identity, not a finding (Adler confirmed by my own RK4, 0.336 vs 0.335). State the identity, call the 1.5 K row a demonstration, and put the test weight on what could have failed: the 0.9 K stragglers (H 0.924 → 0.999 with Kp) and the 1.1 K row."
+          }
+        ]
+      }
     }
   ]
 }
