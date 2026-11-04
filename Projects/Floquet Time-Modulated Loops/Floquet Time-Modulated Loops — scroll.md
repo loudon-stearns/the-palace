@@ -15,36 +15,36 @@ forward_vector: "I am Floquet Time-Modulated Loops's scroll — the one page tha
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T01:25:49.950Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T02:09:51.715Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 6 · last ran 2026-11-04 (today)
-- **Plan:** agreed 2026-09-26 (39 days ago) · 8 made things since
-- **Waiting on you:** 1 open ask
+- **Status:** active · **Stage:** growing · **Steward:** cycle 7 · last ran 2026-11-04 (today)
+- **Plan:** agreed 2026-09-26 (39 days ago) · 9 made things since
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — Four cycles of filters and strings, and nobody has listened. Will you play the surface-as-filter page for two minutes? (`floquet-steward-014`)
-- **Last commit touching this project:** 2026-11-03 `f70f22f5` — steward(Floquet Time-Modulated Loops): cycle 5 — SPINNING UP. HOME: [Floquet Time-Modulated Loops](obsidian://open?vault…
+- **Last shipped:** 2026-11-04 (today) — The surface filters now run over a voice, a plucked melody and drums, and the scan can follow the pitch. Locked, the output stays in tune. (`floquet-steward-016`)
+- **Last commit touching this project:** 2026-11-03 `6d8d9e2b` — steward(Floquet Time-Modulated Loops): cycle 6 — SPINNING UP. HOME: [Floquet Time-Modulated Loops](obsidian://open?vault…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 6 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 6 · taught item 11, proposed item 12 for canon
+- **Runs:** 7 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 7 · taught item 13, proposed item 14 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 3 — items 6, 8, 12; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 12, from cycle 6 — 2026-11-03 — [[Floquet Time-Modulated Loops — tuning]]
+- **Proposed for canon:** 3 — items 6, 8, 14; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 14, from cycle 7 — 2026-11-03 — [[Floquet Time-Modulated Loops — tuning]]
 
 ### Where this stands
 
-Floquet Time-Modulated Loops argues that the 'nothing changes over time' assumption under almost every audio loop is a choice. The plan has five instruments. The first, a pumped resonator, is built and waits on Max, which is paused, and on your ears. The second, a string with its loudness and length pumped, has its browser proofs. The third reads a wavetable surface from the 2D Torus library as a filter that changes over time. Last cycle measured it in Python. This cycle rebuilt it as a small bank of band-passes, each followed by a frequency shift, so it runs live. Here you can play it in the browser, and the eventual codebox can afford it.
+Floquet Time-Modulated Loops argues that the 'nothing changes over time' assumption under almost every audio loop is a choice. Its plan has five instruments. The first, a pumped resonator, is built and waits on Max, which is paused. The second, a string with its loudness and length pumped, has its browser proofs. The third is where the work is now: it plays a wavetable surface from the 2D Torus library as a filter that changes over time. One axis of the surface is the filter, and the other is scanned. Last cycle it was rebuilt as a cheap bank of band-passes and frequency shifts. You answered that it sounds worth pursuing, asked for Knot Shadow on a real phrase, a scan kept relative to the p…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
 - **rough since cycle 1:** I only checked its script parses. _(in 2 notes, the latest cycle 4)_
-- **rough since cycle 2:** Nobody has heard it yet: not the play page, and not the four glide renders from last cycle. _(in 5 notes, the latest cycle 6)_
+- **rough since cycle 2:** Nobody has heard it yet: not the play page, and not the four reels. _(in 6 notes, the latest cycle 7)_
 
 ### Open asks
 
-- `floquet-steward-014` — directional_decision · posted 2026-11-04 · options: SOUNDS-RIGHT · HANN-BETTER · NOT-GRABBING · NOT-NOW
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -52,10 +52,12 @@ _None._
 
 ### Decided
 
+- `floquet-steward-014` — directional_decision → GRANTED — option_id=SOUNDS-RIGHT; notes: "I wonder about trying options where the scan rate is kept relative to the pitch, in ratios to it both big integer ratios, and small percentages of it. I like the idea of having hann, I am curious to know more about what that is. IS this a filter that can go over any sound? If so we need to have a more varied collection of input sounds, like spoken words!" (2026-11-04)
 - `floquet-steward-003` — directional_decision → GRANTED — option_id=GENTLE (2026-11-04)
 
 ### Runs
 
+- 2026-11-03 — cycle 7 · taught item 13, proposed item 14 for canon
 - 2026-11-03 — cycle 6 · taught item 11, proposed item 12 for canon
 - 2026-11-03 — cycle 5 · taught item 9, proposed item 10 for canon
 - 2026-11-03 — cycle 4 · taught item 7, proposed item 8 for canon
@@ -73,7 +75,7 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 
 - **6.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 2 — Floquet Comb, a new paragraph after the first — Adds what the two-pump proof measured to the Stage 2 sketch, and corrects the tongue width to its two meanings.
 - **8.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Open Questions, the bullet 'Does the tanh saturation in Stage 1 distort the Strutt picture?', a new progressed line after the existing one — The question asked which saturation is the right sound; Loudon answered it, and the measured level law is the reason it teaches well.
-- **12.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 3 — Floquet Kernel (wavetable as filter), a new paragraph after the first — The Stage 3 sketch claims a surface's synthesis character returns as a filter character. Two proofs now say how, and how to run it cheaply.
+- **14.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 3 — Floquet Kernel (wavetable as filter), a new paragraph after the first — Item 12 called Knot Shadow a pitch shifter; on a voice that holds only with the scan locked to the pitch, and the locked scan is the finding that makes the filter playable.
 
 <!-- scroll:now:end -->
 
@@ -102,6 +104,66 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="floquet-steward-016" -->
+### 2026-11-04 — cycle 7 — The surface filters now run over a voice, a plucked melody and drums, and the scan can follow the pitch. Locked, the output stays in tune.
+> shipped · four listening reels and a play page with speech · steward leans locked scan as the default mode
+
+Yes, it is an effect: any sound goes in. I made an input set (two spoken phrases from macOS voices, a plucked melody whose every pitch is known, a drum loop) and four listening reels, each starting dry.
+
+The scan that follows the pitch is the find. Set the scan to r × the input's pitch. A partial a mode moves n steps comes out at (h + n·r) × the pitch, so whenever n·r is a whole number every moved partial lands back on a harmonic. The result stays in tune while the voice moves: the filter changes the timbre and follows the singer. On the melody the theory holds cleanly: Theta locked to 2× the pitch keeps 0.95 of its energy on harmonics, against 0.53 for a fixed scan at the same average rate. Knot Shadow locked to 2/3 keeps 0.95, and fixed at 15.6 Hz it keeps 0.02. On the voice it holds only partly, because the pitch is tracked beforehand by a small tracker, and Knot Shadow triples any tracking error.
+
+Knot Shadow on a voice is not a clean pitch shifter. That reading held for sines on its three band centres only. Each band moves everything inside it by the same hertz, so a voice goes partly shifted and partly ring-modulated, and muffled, since the bands all sit under 650 Hz. Locking the scan to the pitch is what makes it musical.
+
+Small percentages: at 3 % of the pitch, Theta shimmers close to each harmonic and the shimmer speeds up as the pitch rises. Penrose turns into a cloud, because its modes move 6 and 10 steps.
+
+Hann, in plain words: the filter is 512 taps, about 11 ms of impulse response. Plain, it starts and stops like a sound cut with scissors, and each band leaks into its neighbours (first leak only 13 dB down). Hann lays a smooth raised-cosine hump over the taps so it fades in and out: the leak drops to 31 dB down, and each band gets about twice as wide. Rounder, less ringing bands. It costs the bank nothing new.
+
+The play page now has the spoken phrase (with its tracked pitch) and the melody as sources, and a 'scan follows the pitch' switch with a ratio from 1 % to 4 that snaps to 1/3, 1/2, 2/3, 1, 4/3, 2, 3. Its DSP still matches the Python to 112–125 dB, and it played all sources in headless Chrome with no errors. Full write-up: [Floquet Kernel — on real sounds](obsidian://open?vault=The%20Palace&file=Projects/Floquet%20Time-Modulated%20Loops/kernel/Floquet%20Kernel%20%E2%80%94%20on%20real%20sounds.md).
+
+The four reels are only worth something once you hear them, and I can't hear them for you. Reel 2, the melody, is the quickest: dry, then Theta locked, then Theta fixed at the same rate, and the in-tune-versus-drifting difference should be obvious inside thirty seconds.
+
+**Artifacts:**
+- [Start here: plucked melody dry, then Theta and Penrose with the scan locked to the pitch vs fixed. Locked stays in tune.](Projects/Floquet Time-Modulated Loops/kernel/phrase/reel_2_pitch_locked_melody.wav)
+- [Knot Shadow on two voices: frozen, fixed scans aimed down a fourth and up a third, then locked to 1/3 and 2/3 of the pitch.](Projects/Floquet Time-Modulated Loops/kernel/phrase/reel_1_knot_shadow_speech.wav)
+- [The same locked-vs-fixed set as the melody reel, on the spoken phrase.](Projects/Floquet Time-Modulated Loops/kernel/phrase/reel_3_pitch_locked_speech.wav)
+- [A drum loop through Theta at 2 Hz, Penrose at 6.25 and 60 Hz, Knot Shadow at 15.6 Hz. Unmeasured.](Projects/Floquet Time-Modulated Loops/kernel/phrase/reel_4_drums.wav)
+- [The play page, now with the spoken phrase, the melody, and a scan that follows the pitch.](Projects/Floquet Time-Modulated Loops/kernel/Floquet Kernel — play.html)
+- [The write-up: what the locked scan does, what Knot Shadow does to a voice, what Hann is.](Projects/Floquet Time-Modulated Loops/kernel/Floquet Kernel — on real sounds.md)
+- [Builds the inputs, tracks the voice's pitch, renders the reels, measures harmonicity.](Projects/Floquet Time-Modulated Loops/kernel/phrase.py)
+- [Every number, and what plays at which second of each reel.](Projects/Floquet Time-Modulated Loops/kernel/phrase_report.json)
+- [Input: spoken phrase, Daniel voice.](Projects/Floquet Time-Modulated Loops/kernel/inputs/speech_daniel.wav)
+- [Input: spoken phrase, Flo voice.](Projects/Floquet Time-Modulated Loops/kernel/inputs/speech_flo.wav)
+- [Input: plucked melody, known pitches.](Projects/Floquet Time-Modulated Loops/kernel/inputs/pluck_melody.wav)
+- [Input: two-bar drum loop.](Projects/Floquet Time-Modulated Loops/kernel/inputs/drum_loop.wav)
+
+_Harmonicity: share of energy on harmonics of the input's pitch (dry melody 0.84, dry voice 0.44)_
+| surface, scan | melody | voice (Daniel) |
+| --- | --- | --- |
+| Theta, locked to 2 × pitch | 0.95 | 0.61 |
+| Theta, fixed at the same average rate | 0.53 | 0.52 |
+| Penrose, locked to 2 × pitch | 0.94 | 0.23 |
+| Penrose, fixed | 0.75 | 0.18 |
+| Knot Shadow, locked to 2/3 × pitch | 0.95 | 0.41 |
+| Knot Shadow, locked to 1/3 × pitch | 0.89 | 0.62 |
+| Knot Shadow, fixed at 15.6 Hz | 0.02 | 0.07 |
+
+_Changed in the workshop:_ Floquet Kernel — on real sounds — New workshop note for the third instrument's third proof: real inputs and the pitch-locked scan.
+_Changed in the workshop:_ Floquet Kernel — play.html — Added the spoken phrase and melody sources, the scan-follows-pitch switch, and a plain note on Hann.
+_Proposed for canon:_ Floquet Time-Modulated Loops (§ Stages 2–5 — the development arc, ### Stage 3 — Floquet Kernel (wavetable as filter), a new paragraph after the first) — Item 12 called Knot Shadow a pitch shifter; on a voice that holds only with the scan locked to the pitch, and the locked scan is the finding that makes the filter playable.; owed in the tuning ledger until Loudon's review; it replaces item 12
+
+_Left rough:_ Nobody has heard it yet: not the play page, and not the four reels. The voices are synthetic, and the pitch tracker is too rough to play live through.
+
+_Next moves named:_ Make the locked scan the page's default and test it on a sung or real recorded voice, with a better pitch tracker, since Knot Shadow triples the tracker's error. · Give the two expensive surfaces (Stiff String, Chladni Ghost) a cheap form, or settle that they run as the full filter. · For the codebox when the Max pause lifts: one more input, the pitch (the note, or a smoothed sigmund~/fzero~), driving the scan phasor as r × pitch.
+<sub>`floquet-steward-016` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-ec7f7f2bc3" -->
+### 2026-11-03 — cycle 7
+
+taught item 13, proposed item 14 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="floquet-steward-014" -->
 ### 2026-11-04 — cycle 6 — Four cycles of filters and strings, and nobody has listened. Will you play the surface-as-filter page for two minutes?
 > still working · page plays, checked against Python · steward leans listen to Penrose and Knot Shadow
