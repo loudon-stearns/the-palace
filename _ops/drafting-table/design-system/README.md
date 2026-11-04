@@ -86,13 +86,13 @@ A browser supplies what a page does not: a scrollbar, a select's chevron and pop
 
 It also sets what the browser draws when nothing is asked: links (ink with a hairline under; `source-datasheet` blue when the link leaves the sheet), `hr`, `mark` (hatched), `kbd` (a slab), `code` in `mono`, tabular numerals in cells and readouts, the autofill tint painted back, an invalid field as a HOLD in `source-measure` with no OS bubble, `overscroll-behavior: contain` on in-window scrollers, no tap flash, and nothing moving under `prefers-reduced-motion`. Where Chrome lets a page draw the select popup (`appearance: base-select`, 135+), it is a hairline cell; elsewhere `color-scheme` keeps it on the right ground.
 
-What it cannot dress: `<audio controls>` and `<video controls>` (the OS player; draw a `▸ ■` Button and a hairline scrub from the components) and the `title=` tooltip (write the note on the sheet). A Transport component is the next thing this system wants.
+`<audio controls>` it hands to the Transport: `transport.js`, loaded after the page's audio, replaces every OS audio player with the house's (§ Components). What it still cannot dress: `<video controls>` (the OS player stays) and the `title=` tooltip (write the note on the sheet).
 
 **The tab icon.** Every canon entry wears an avatar and a hero ([[Hero and Avatar Maker]]). A page in an entry's bundle takes the avatar beside it as its tab icon, `<link rel="icon" href="<Entry> — icon.png">`, and may pin the hero behind its header where that fits. A piece shown in a frame declares no icon and carries none. A framed piece never owns a browser tab, and declaring any file in `piece:files` turns its opaque sandbox into `allow-same-origin` and makes its storage persist (`_ops/rich-face/contract.mjs`, `sameOrigin`; `_ops/rich-face/README.md` § What the page lets run), a cost the palace will not pay for an icon nobody sees. The page that frames it (the rich face, a scroll's trail, a TRICKSTER card) wears the entry's avatar as its tab icon. A piece opened on its own from disk goes without: a known gap. A page that belongs to no entry takes `favicon.svg` beside this file: the entry's knob avatar at 32px, the system's tab mark. `<meta name="theme-color">` carries `ground-000`. The specimens are `preview/controls.html` and, for the scrollbar at 3×, `preview/scrollbar-3x.html`.
 
 ## Components
 
-Twelve, built for a VST plugin face and reusable anywhere a value is set or shown. The props of the controls mirror `tpl::ParamSpec` from the VST Template (`Projects/VST Template/machinery/src/ParamSpec.h`): `id`, `name`, `unit`, `min`, `max`, `def`, `taper` (`Linear` | `Log` | `Choice` | `Toggle`), `choices`. A plugin's parameter table can be handed to the face as data.
+Thirteen: twelve built for a VST plugin face and reusable anywhere a value is set or shown, and a Transport for the page a proof plays from. The props of the controls mirror `tpl::ParamSpec` from the VST Template (`Projects/VST Template/machinery/src/ParamSpec.h`): `id`, `name`, `unit`, `min`, `max`, `def`, `taper` (`Linear` | `Log` | `Choice` | `Toggle`), `choices`. A plugin's parameter table can be handed to the face as data.
 
 | Group | Component | What it is |
 |---|---|---|
@@ -108,8 +108,9 @@ Twelve, built for a VST plugin face and reusable anywhere a value is set or show
 | Displays | `Readout` | A value in a hairline cell with its unit, coloured by source. |
 | Displays | `Meter` | A level meter whose fill is hatching, with a red peak line. |
 | Displays | `Scope` | The lit window: a trace on the terminal ground with a graticule. |
+| Displays | `Transport` | A play/stop button with a scrub track and the time said twice, drawn beside an `<audio>` so a proof never shows the OS player (2026-11-03). A slab button that inverts while playing, a recess whose played run is hatching, a cap outlined in ink; a file that will not load writes HOLD. |
 
-The bundle is one classic script, `components/bundle.js`, assigning `window.DraftingTable`; it reads `window.React` and `window.ReactDOM` 18. `components/bundle.css` holds the styles, all in tokens. The consumer provides React, the fonts, state and the `onChange` wiring to the host (JUCE `WebBrowserComponent` relays, or a Web Audio node for a web proof). The components hold no audio and no parameter state of their own.
+The bundle is one classic script, `components/bundle.js`, assigning `window.DraftingTable`; it reads `window.React` and `window.ReactDOM` 18. `components/bundle.css` holds the styles, all in tokens. The consumer provides React, the fonts, state and the `onChange` wiring to the host (JUCE `WebBrowserComponent` relays, or a Web Audio node for a web proof). The components hold no audio and no parameter state of their own. The Transport is the exception in form only: it is not in the React bundle but a plain script, `transport.js`, that mounts on an `<audio>` (every `<audio controls>` on load, or `DT.transport(audio)` by hand); a React page mounts it in an effect. It plays what the element plays and nothing more.
 
 ## For a plugin editor
 
@@ -146,7 +147,7 @@ Answers to what the VST Template's WebView editor asked of the system (2026-10-2
 - **JetBrains Mono** is hosted, not a file.
 - **No assembly views, no GD&T symbols**, mirroring what the CAD Drafter has not yet drawn.
 - **Built, not synced.** The components were hand-written from the sources above, not bundled from a repository; there is no React library in the palace to sync from. Change them here.
-- **No Transport.** A play/stop button with a scrub track, so a proof never shows the OS audio player. `controls.css` says what to draw until it lands.
+- **No video transport.** `<video controls>` still shows the OS player; the Transport plays audio.
 
 ---
 
@@ -168,6 +169,8 @@ Answers to what the VST Template's WebView editor asked of the system (2026-10-2
 | `controls.css` | The browser's furniture re-dressed for the bare elements: scrollbars, selects, checkboxes, ranges, the textarea grip, spinners, `<details>`, focus, selection, autofill, links. Load after the tokens. |
 | `preview/controls.html` | The specimen: every control bare, on both grounds. |
 | `preview/scrollbar-3x.html` | The scrollbar at 3×, Paper and Phosphor: the cap in its recess, square-ended. |
+| `transport.js` | The Transport, a plain script: replaces every `<audio controls>` with the house's player; `DT.transport` and `DT.transportAll` when `dt-controls.js` is loaded first. Styles in `bundle.css` § Transport. |
+| `preview/transport.html` | The specimen: four players on both grounds, sounds made in the page. |
 | `favicon.svg` | The tab icon for a page with no entry of its own: the knob avatar at 32px, Paper values written in by hand. |
 
 The living copy with live previews is the Design System artifact: https://claude.ai/artifact/5B7KLXdyRVpavzgpEgcRVH (private). This folder is its export; when one changes, the other is brought level by hand.

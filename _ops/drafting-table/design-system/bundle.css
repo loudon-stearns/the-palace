@@ -179,3 +179,25 @@
 .dt-scope__screen { position: relative; background: var(--scope-ground); border: 1.5px solid var(--ink); box-shadow: inset 0 0 0 1px #0b2a14, var(--shadow-glow); }
 .dt-scope canvas { display: block; }
 .dt-scope__label { font-size: 11px; line-height: 16px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-2); display: flex; justify-content: space-between; gap: var(--space-3); }
+
+/* ── Transport ──────────────────────────────────────────────────────── */
+/* The thirteenth: a play/stop button with a scrub, drawn by transport.js beside an <audio>, so a proof never shows
+   the OS player (2026-11-03). The button is a slab that inverts while playing, as a latched Button does; the track is
+   a fader slot (a recess) whose played run is hatching, as a Meter's fill is; the head is a cap outlined in ink; the
+   time is a sheet-dim readout, said twice. A file that will not load writes HOLD in source-measure. */
+.dt-transport { display: flex; align-items: center; gap: var(--space-3); min-height: 28px; margin: var(--space-2) 0; font-family: var(--font-mono); font-size: 12px; line-height: 16px; color: var(--ink-2); }
+.dt-transport__btn { flex: none; width: 32px; height: 24px; padding: 0 0 1px; font: inherit; font-size: 14px; line-height: 1; color: var(--ink); background: var(--slab-face); border: 1.5px solid var(--ink); border-radius: var(--radius-bevel); box-shadow: var(--shadow-slab); cursor: pointer; position: relative; top: 0; }
+.dt-transport__btn:hover { background: var(--slab-light); }
+.dt-transport__btn:active { top: 1px; box-shadow: var(--shadow-recess); background: var(--ground-100); }
+.dt-transport__btn:focus-visible { outline: 1px dashed var(--ink); outline-offset: 2px; }
+.dt-transport[data-state="playing"] .dt-transport__btn { background: var(--ink); color: var(--ground-000); }
+.dt-transport__track { position: relative; flex: 1 1 120px; min-width: 80px; height: 10px; background: var(--ground-100); box-shadow: var(--shadow-recess); cursor: ew-resize; touch-action: none; }
+.dt-transport__played { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background-color: var(--ground-200); background-image: repeating-linear-gradient(45deg, var(--ink) 0, var(--ink) 1px, transparent 1px, transparent 5px); }
+.dt-transport__head { position: absolute; top: -4px; left: 0; width: 10px; height: 18px; margin-left: -5px; box-sizing: border-box; background: var(--slab-face); border: 1.5px solid var(--ink); border-radius: var(--radius-bevel); box-shadow: var(--shadow-slab); }
+.dt-transport[data-state="playing"] .dt-transport__head { border-color: var(--accent); }
+.dt-transport__track:focus-visible { outline: 1px dashed var(--ink); outline-offset: 3px; }
+.dt-transport__time { flex: none; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink-2); }
+.dt-transport__now { color: var(--ink); }
+.dt-transport[data-state="hold"] .dt-transport__dur { color: var(--source-measure); font-weight: 600; }
+.dt-transport[data-state="hold"] .dt-transport__track { opacity: .5; cursor: default; }
+.dt-transport__name { flex: none; max-width: 40%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink-2); }

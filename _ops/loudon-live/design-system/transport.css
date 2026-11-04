@@ -1,0 +1,31 @@
+/* ────────────────────────────────────────────────────────────────────────
+   Loudon Live · transport.css · the player the house draws
+   ────────────────────────────────────────────────────────────────────────
+   Load after colors_and_type.css. Dresses what transport.js draws beside an
+   <audio>: a ▸ ■ button, a hairline track with a square head, the time said
+   twice. The house grammar: square or 2 px, a hairline is the control, the
+   head is a mark, accent only while playing; every value is text.
+   ───────────────────────────────────────────────────────────────────── */
+.tp { display: flex; align-items: center; gap: var(--s-3); min-height: 28px; margin: var(--s-2) 0;
+      font-family: var(--mono); font-size: var(--t-meta); line-height: 1; color: var(--fg-2); }
+.tp__btn { appearance: none; -webkit-appearance: none; flex: none; width: 30px; height: 24px; padding: 0 0 1px;
+           font: inherit; font-size: 14px; line-height: 1; color: var(--fg-1); background: var(--bg-elev-1);
+           border: 1px solid var(--border); border-radius: var(--r-sm); cursor: pointer;
+           transition: border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease); }
+.tp__btn:hover { border-color: var(--border-hover); }
+.tp__btn:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+.tp[data-state="playing"] .tp__btn { color: var(--accent); border-color: var(--accent); }
+.tp__track { position: relative; flex: 1 1 120px; min-width: 80px; height: 14px; cursor: ew-resize; touch-action: none; }
+.tp__track::before { content: ""; position: absolute; left: 0; right: 0; top: 6px; height: 2px; background: var(--border); }
+.tp__played { position: absolute; left: 0; top: 6px; height: 2px; width: 0; background: var(--fg-3); }
+.tp[data-state="playing"] .tp__played { background: var(--accent); }
+.tp__head { position: absolute; top: 1px; left: 0; width: 8px; height: 12px; margin-left: -4px;
+            background: var(--fg-1); border: 1px solid var(--bg); border-radius: var(--r-xs); box-sizing: border-box; }
+.tp[data-state="playing"] .tp__head { background: var(--accent); }
+.tp__track:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+.tp__time { flex: none; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--fg-3); }
+.tp__now { color: var(--fg-1); }
+.tp[data-state="hold"] .tp__dur { color: var(--danger); }
+.tp[data-state="hold"] .tp__track { opacity: .4; cursor: default; }
+.tp__name { flex: none; max-width: 40%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--fg-3); }
+@media (prefers-reduced-motion: reduce) { .tp__btn { transition: none; } }

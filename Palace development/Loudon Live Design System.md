@@ -191,11 +191,12 @@ _ops/loudon-live/design-system/
 ├── README.md             ← full design rationale (read this first)
 ├── colors_and_type.css   ← canonical source of every token
 ├── controls.css          ← the browser's furniture, re-dressed per skin
+├── transport.js · transport.css ← the player the house draws, for every <audio>
 ├── index.html            ← system overview / cover page
 ├── looks/                ← Loud'n Live's complete looks (worn-broadcast.html, cyanotype.html, night-signal.html)
 ├── assets/               ← Lissajous logos, wordmark, monogram, watermark, avatar, favicon.svg
 │   └── generators/       ← six per-stream generative SVGs
-├── preview/              ← specimen cards (type / colors / spacing / components / controls.html)
+├── preview/              ← specimen cards (type / colors / spacing / components / controls.html / transport.html)
 ├── slides/               ← OBS scene templates (1920×1080)
 └── ui_kits/
     ├── session-artifact/ ← long-form session HTML + JSX components

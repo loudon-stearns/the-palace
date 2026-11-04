@@ -34,6 +34,14 @@ _Loudon's standing direction for this page. Never regenerated; it holds until he
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="2026-11-03-transport" -->
+### 2026-11-03 — The transport, and the artifact brought level
+
+The one piece of furniture a stylesheet cannot dress has its answer: `transport.js` replaces the OS audio player with the house's, a ▸ ■ button, a hairline scrub with a square head, the time said twice, in both dresses. It went onto the pages that still showed the OS player through `_ops/furniture-fanout/transport.py`. Drafting Table's claude.ai Design System artifact was brought level with its export the same day: `controls.css`, the squared scrollbar, the tab mark, the Transport and two new cards.
+
+<sub>Controls, 2026-11-03 · transport</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="2026-11-03-controls" -->
 ### 2026-11-03 — The browser's furniture, re-dressed
 

@@ -267,6 +267,5 @@ button, summary, label, input[type="range"], input[type="checkbox"], input[type=
   select::picker-icon { display: none; }
 }
 
-/* audio and video · `controls` is the OS's player and nothing here can dress it. For a proof that
-   plays one sound, draw a ▸ ■ button and a hairline scrub track with the Web Audio or media API;
-   a shared transport is the next component this sheet wants. */
+/* audio · `controls` is the OS's player and nothing here can dress it. transport.js, loaded after the page's
+   audio, replaces every <audio controls> with the house's player (transport.css). <video controls> still shows the OS's. */

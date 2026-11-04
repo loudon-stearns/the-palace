@@ -196,5 +196,5 @@ button, summary, label, input[type="range"], input[type="checkbox"], input[type=
   select::picker-icon { display: none; }
 }
 
-/* audio and video: `controls` is the OS's player and nothing here can dress it. A proof that plays a sound draws
-   a ▸ ■ Button and a hairline scrub track from the components; a Transport is the next component this sheet wants. */
+/* audio: `controls` is the OS's player and nothing here can dress it. transport.js, loaded after the page's audio, replaces every
+   <audio controls> with the Transport (bundle.css § Transport, the thirteenth component). <video controls> still shows the OS player. */
