@@ -55,9 +55,20 @@ console.log('\n3 · the network rules can fail both ways (calibration)');
   console.log(`  an unrelated random network passes "completely" ${pass} of 200 times`);
   ok(pass >= 140, 'an unrelated network usually passes, so the rule is reachable'); }
 
+console.log('\n3b · the numbers the remake quotes (challenge, 2026-11-04)');
+{ const sum = (a) => a.R.spikesAll.reduce((x, y) => x + y, 0);
+  console.log(`  network spikes, seed 7: in order ${sum(arms.sequence0)}, kicks at random times ${sum(arms.shuffled0)}`);
+  ok(sum(arms.sequence0) === 8474 && sum(arms.shuffled0) === 7953, 'the control regenerates its spikes: 8,474 against 7,953');
+  const z = arms['sequence0.2'].cell; ok(z.firstRec === 1 && z.firstBase === 2, `slow 0.2: recovery fails first at spike ${z.firstRec + 1}, baseline at spike ${z.firstBase + 1}`);
+  const y = seedRun('sequence', 0.01, 7).cell; ok(!y.holds, `slow 0.01 mV a spike already fails (recovery at spike ${y.firstRec + 1}, worst baseline ${y.maxBase.toFixed(3)} mV)`);
+  ok(10 * Math.log(9 / 8) < RULES.recTol, `clear-spike recovery can spread at most 10 ln(9/8) = ${(10 * Math.log(9 / 8)).toFixed(2)} ms < 2 ms with the slow term off`);
+  for (const [t, want] of [[3000, 0.871], [10000, 0.390]]) { const a = seedRun('shuffled', 0, 7, { target: t }); ok(Math.abs(a.net.r - want) < 0.0005, `kicks at random times, ${t} spikes: r ${a.net.r.toFixed(3)} (${a.net.verdict})`); }
+  const N = 8, w3 = SSI.initWeights(N, 3); let p3 = 0; for (let s = 1000; s < 2000; s++) if (netReport({ N, w0: w3, w: SSI.initWeights(N, s) }).verdict === 'completely') p3++;
+  ok(p3 === 737, `an unrelated network passes against seed 3's start ${p3} of 1000`); }
+
 console.log('\n4 · twelve starting networks, slow inactivation off');
 const seeds = Array.from({ length: 12 }, (_, i) => i + 1), baked = { date: '2026-11-04', seeds, arms: [] };
-for (const [pattern, label] of [['sequence', 'in order'], ['shuffled', 'same spikes, shuffled']]) {
+for (const [pattern, label] of [['sequence', 'in order'], ['shuffled', 'same kicks, at random times']]) {
   const r = [], verdict = []; let holds = 0;
   for (const s of seeds) { const a = seedRun(pattern, 0, s); r.push(+a.net.r.toFixed(3)); verdict.push(a.net.verdict); if (a.cell.holds) holds++; }
   const complete = verdict.filter(v => v === 'completely').length;

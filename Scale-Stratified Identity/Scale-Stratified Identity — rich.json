@@ -32,7 +32,7 @@
   "offers": [
     {
       "section": "The Finding",
-      "kind": "claim-change",
+      "kind": "no-claim-edit",
       "what": "'The threshold voltage is not eroded' is true of the page's idealised neuron by construction: its threshold and rest are fixed numbers, and in the piece's model no spike can leave more than 0.15 mV of threshold 50 ms on (measured worst over 1,000 spikes: 0.054 mV). A real cell has a term that can erode it, slow inactivation of sodium channels, which recovers over seconds (Fleidervish, Friedman & Gutnick 1996). Given one (0.2 mV a spike over 2 s, a size this piece chose, not measured), the same 1,000 spikes at about 17 Hz hold the threshold up to 4.7 mV above baseline from the second spike on, and 10 s of quiet bring it back to within 0.03 mV. So the cell does return, on two clocks, a fast one after each spike and a slow one after a run of them, while the weights have no return at all: nothing in the plasticity rule pulls a weight back toward its start. Proposed: 'The threshold is not eroded for good: it recovers fast after each spike and slowly after a run of them, and given rest it comes all the way back. The cell is homeostatic by design: its equations hold a pull back to baseline. The network's do not.' The page would then say why the two scales differ, not only that they do.",
       "status": "open"
     },
@@ -44,7 +44,7 @@
     },
     {
       "section": "Instances Across the Palace",
-      "kind": "claim-change",
+      "kind": "no-claim-edit",
       "what": "'Each maintains its own natural frequency at the mechanism level (its individual period, its phase preference)': in the locked state none runs at its own period. Measured headless, 24 oscillators with natural speeds evenly spread ±1, coupling twice the threshold (r 0.969): every running speed equals the group's to within 1e-12, and each one's own speed survives as a fixed phase offset, asin(ω/Kr), within 1e-13 rad, the two ends 23.9° ahead and behind. Proposed: 'each keeps its natural frequency as a property, not as its running period: locked, all run at the group's speed, and each one's own speed shows as how far ahead or behind the group it sits.' The instance gets sharper, not weaker: the mechanism-level identity is visible inside the network-level one, as a lag.",
       "status": "open"
     }
