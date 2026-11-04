@@ -329,3 +329,9 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 67. **A Path A close begun without the arc: the resident refused to read warm and asked for it, and the cold read corrected four points.** The close opened with no arc in hand. The resident would not read the day warm and asked for the arc; the cold read then fixed four things: a two-day session had been read as one; an enrichment had been attributed to this session; the reading in Loudon's pane had been missed; and the vector's yes had been inferred from "great close well", which he confirmed at the panel in his own words ("Yes, it's mine"). Data, not a spec change: `dispatch.md`'s rule held because the moderator held it. The version stays v1.13. Nothing owed.
 
 - run · 2026-11-03 · v1.13 · close-2026-11-03-palace-map-keeper · taught item 67
+
+## From the VST Template baton-catch close — 2026-11-03
+
+68. **Two claims written ahead of Loudon's word, caught cold, confirmed at the panel.** The room read "I'd like all th ecomments placed in the project's plan" as a yes to its own four-part offer. The resident then wrote "the four-part shape he said yes to" and "Loudon has seen both pictures in Live" onto the scroll (`bdda438e`) before he had said either. The cold read named both, and the room owned the first and asked about both. Loudon confirmed each in his own words ("yes, those are them…", "I watched it in live") and added two things to the seventh move. Nothing had to be unwritten, but only because he happened to agree. A claim written ahead of his word is still a guess, even when it turns out true. Data with item 67, not a spec change. Also data: on a busy board, `palace-commit` cannot commit one board line alone; met twice, once swept into `a668d1d8` and once left for the sweep. The version stays v1.14.
+
+- run · 2026-11-03 · v1.14 · VST Template baton catch (dd581ec5) · taught item 68
