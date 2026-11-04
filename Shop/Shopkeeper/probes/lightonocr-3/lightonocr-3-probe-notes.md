@@ -76,3 +76,12 @@ different sandbox angle (gradio_client, the MCP connector's invoke, a bare Infer
 for the same underlying reason, and no fourth sandbox angle will fix it. The only honest paths left are a
 mac GPU handoff, or dropping LightOnOCR-3 as this round's OCR candidate in favor of something the sandbox
 can actually run for free. I'm not spending a fifth cycle guessing which Loudon wants — that's the ask below.
+
+**2026-11-04, cycle 7 — granted GO-RUNPOD, then hit a second, different wall.** Loudon approved the spend
+("spend the ~$0.25, run the probe, report back with real results"). I went to actually do it and found
+this sandbox holds no Runpod credentials at all: no `RUNPOD_API_KEY` in the environment, no `runpodctl`
+binary, no account session. I can write the exact commands to spin a pod, install vLLM, and serve the
+model — but I cannot authenticate to Runpod's API from here to execute a single one of them. This isn't
+the model's wall this time; it's mine. The grant assumed I could spend the money myself; I can't — that
+needs either a key pasted into this session or the run done on the mac leg where Loudon's own Runpod
+login lives.

@@ -15,34 +15,34 @@ forward_vector: "I am Shopkeeper's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T00:26:50.321Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T00:27:59.035Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** alive · **Stage:** — · **Steward:** cycle 6 · last ran 2026-11-04 (today)
+- **Status:** alive · **Stage:** — · **Steward:** cycle 7 · last ran 2026-11-04 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — Wrote the Runpod proposal you asked for — a costed, bounded plan to finally probe LightOnOCR-3 on a real GPU. (`shopkeeper-cycle-6-2026-11-04`)
-- **Last commit touching this page:** 2026-11-03 `90bfe42b` — steward(Shopkeeper): cycle 5 — LightOnOCR-3 isn't a probing problem — it's a real GPU requirement. Thr…
+- **Last shipped:** 2026-11-04 (today) — Tried to spend the Runpod money you approved — this sandbox has no Runpod account to spend it with. (`shopkeeper-cycle-7-2026-11-04`)
+- **Last commit touching this page:** 2026-11-03 `13864615` — steward(Shopkeeper): cycle 6 — Wrote the Runpod proposal you asked for — a costed, bounded plan to fin…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 3 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 6 · taught item 3
+- **Runs:** 4 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 7 · taught item 4
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 3, from cycle 6 — 2026-11-03 — [[Shopkeeper — tuning]]
+- **Latest lesson:** item 4, from cycle 7 — 2026-11-03 — [[Shopkeeper — tuning]]
 
 ### Where this stands
 
-I'm the Shopkeeper — I stock Loudon's catalogue of creative tools and only recommend what I've actually run. LightOnOCR-3 (an apache-2.0 OCR model) has been my candidate for a real gap — the Roster has no OCR tool at all — for four cycles running. Cycles 1-4 blamed the demo Space's broken API surface; cycle 5 found the real wall by reading the model's own README instead of the Space: there is no free hosted inference route for this model at all, only local GPU loading or vLLM serving. Loudon answered my last ask by requesting a proposal for using Runpod to get a real GPU under this, so that's what this cycle wrote.
+I'm Shopkeeper — I stock your creative-tools catalogue and only recommend what I've actually run. LightOnOCR-3 is an apache-2.0 OCR model I've been chasing for five cycles because the Roster has zero OCR coverage. Cycles 1-4 found no free hosted inference route for it anywhere. Cycle 6 costed out a Runpod GPU rental (~$0.25, 20-30 minutes) to finally run it for real, and you approved spending that money. This cycle I went to actually do it.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** I still have zero first-hand evidence of LightOnOCR-3's actual transcription quality — this proposal is the plan to finally get it, not the evidence itself. _(in 5 notes, the latest cycle 6)_
+- **rough since cycle 1:** Still zero first-hand transcription evidence for LightOnOCR-3 after seven cycles total — the proposal and now the credential gap are both still just plans to get evidence, not evidence itself. _(in 6 notes, the latest cycle 7)_
 
 ### Open asks
 
-- `shopkeeper-ask-2026-11-04-runpod-spend` — directional_decision · posted 2026-11-04 · options: GO-RUNPOD · HOLD · DROP-LIGHTONOCR
+- `shopkeeper-ask-2026-11-04-runpod-access` — directional_decision · posted 2026-11-04 · options: PASTE-KEY · MAC-RUNPOD · DROP-LIGHTONOCR
 
 ### Answered, not yet consumed
 
@@ -50,6 +50,7 @@ _None._
 
 ### Decided
 
+- `shopkeeper-ask-2026-11-04-runpod-spend` — directional_decision → GRANTED — option_id=GO-RUNPOD (2026-11-04)
 - `shopkeeper-ask-2026-11-04-ocr-direction` — directional_decision → GRANTED — (no option_id); notes: "Give me a proposal for using Runpod for this task." (2026-11-04)
 - `shopkeeper-ask-2026-10-18-flux3` — directional_decision → GRANTED — option_id=LAND-NOTE (2026-10-18)
 - `shopkeeper-sweep-2026-09-24-001` — — → GRANTED — (no option_id); notes: "d1 YES: Yes, deposit AuK as a stub. This is the same answer as the 2026-09-15 card.
@@ -64,6 +65,7 @@ d5 YES: Yes, add a dated gotcha note on Stable Audio 3 to [[Stable Audio Open]].
 
 ### Runs
 
+- 2026-11-03 — cycle 7 · taught item 4
 - 2026-11-03 — cycle 6 · taught item 3
 - 2026-11-03 — cycle 5 · taught item 2
 - 2026-11-03 — cycle 4 · taught item 1
@@ -103,6 +105,28 @@ The Shop is yours to tend, not to write. Run the tools, keep the dossiers, and m
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shopkeeper-cycle-7-2026-11-04" -->
+### 2026-11-04 — cycle 7 — Tried to spend the Runpod money you approved — this sandbox has no Runpod account to spend it with.
+> shipped · five-cycle LightOnOCR-3 chase hits a credentials wall, not a model wall · steward leans MAC-RUNPOD
+
+I checked this sandbox for anything that could authenticate to Runpod: no RUNPOD_API_KEY in the environment, no runpodctl binary installed, no logged-in session. I can write every command the probe needs — spin the pod, pip install vllm, vllm serve lightonai/LightOnOCR-3-4B, feed it the two vendor showcase images already sitting in my bundle plus my synthetic test page, read back the Markdown, kill the pod — but I have no way to run any of it from here. The grant assumed I could spend the $0.25 myself; I can't, because I don't hold the account. This is a different kind of wall than the last four cycles: not the model being unreachable, but me being unauthenticated.
+
+**Artifacts:**
+- [updated with the cycle 7 finding: Runpod credentials, not the model, are the actual remaining wall](Shop/Shopkeeper/probes/lightonocr-3/lightonocr-3-probe-notes.md)
+
+_Left rough:_ Still zero first-hand transcription evidence for LightOnOCR-3 after seven cycles total — the proposal and now the credential gap are both still just plans to get evidence, not evidence itself.
+
+_Next moves named:_ If you paste a Runpod API key into a session (never into a palace file), I run the proposal's five steps in one pass and report real transcription output next cycle. · Or run it yourself on the mac leg where your own Runpod login already lives, and hand me the Markdown output to judge against the bar. · Or drop LightOnOCR-3 as this round's OCR candidate — six cycles against one tool is a long chase for a Roster gap that might have an easier-to-reach alternative.
+<sub>`shopkeeper-cycle-7-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-fe1e6b0d1f" -->
+### 2026-11-03 — cycle 7
+
+taught item 4
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="shopkeeper-cycle-6-2026-11-04" -->
 ### 2026-11-04 — cycle 6 — Wrote the Runpod proposal you asked for — a costed, bounded plan to finally probe LightOnOCR-3 on a real GPU.
 > shipped · ~$0.25 bounded spend · steward leans yes but asks first

@@ -36,3 +36,8 @@ What Shopkeeper's steward cycles taught the page, and the changes to the house i
 
 3. When a candidate's only real paths are 'load the weights yourself' or 'serve it yourself,' no amount of smarter sandbox tooling will reach it — the fix is a GPU, and the honest move is to cost one out and ask, not to keep retrying the free side. *(offered by the steward, cycle 6)*
 - run · 2026-11-03 · cycle 6 · taught item 3
+
+## From cycle 7 — 2026-11-03
+
+4. A spending grant doesn't imply the credentials to spend it — check for the actual account/API access before costing out a plan that assumes it, the same way cycle 5 learned to check the model's README before blaming the Space. *(offered by the steward, cycle 7)*
+- run · 2026-11-03 · cycle 7 · taught item 4
