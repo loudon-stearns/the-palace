@@ -44,7 +44,8 @@
           "place": "band",
           "height": 1500
         }
-      ]
+      ],
+      "challenge": { "date": "2026-11-04", "by": "challenger · claude-opus-5-5 · cloud batch 3", "verdicts": [ { "file": "Buckminster Fuller — rich — trimtab.html", "verdict": "remake", "why": "The test is sound (matched arm inside the direct arm's limits, effort read at the driven joint in both, null can fail: a 2% hold-term error reads 1.62%), but the words say more than the run: L equals the lever-arm ratio within 0.1% at every hinge, so the run adds the delay, not L; and forward of 0.90 m the failures are a 30° tab-travel limit (0.60–0.90 m) and a reversed turn (forward of 0.44 m; 0.30 m ends at −8.7°), not leverage falling through 1. Fix the caption, step 4 and the verdict; add check lines for 0.44 m and 0.60 m." } ] }
     },
     {
       "heading": "Where he can't see",
@@ -63,7 +64,8 @@
           "place": "band",
           "height": 1450
         }
-      ]
+      ],
+      "challenge": { "date": "2026-11-04", "by": "challenger · claude-opus-5-5 · cloud batch 3", "verdicts": [ { "file": "Buckminster Fuller — rich — no brake.html", "verdict": "remake", "why": "Numbers reproduce by a second route (81.1%, 160.3%), but half one holds by construction whenever use starts above regrowth on a long enough horizon (100,000 cycles: 98.08% at stock 100), so the sweep measures the band's width in 300 cycles; and the sheet's own sliders fail half one with the overdraw still there (start 1.05, stock 30: 101.6% at 2%), a horizon effect the failure text blames on a start at or below regrowth. Say both in the rule, caption and failure text, and add them to check.mjs." } ] }
     }
   ]
 }
