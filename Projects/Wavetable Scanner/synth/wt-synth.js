@@ -11,8 +11,9 @@
  *  Voice: wavetable osc (1-7 unison copies, detune, stereo spread)
  *         → 12 dB state-variable lowpass (Simper's TPT form)
  *         → amp envelope.
- *  Mod:   a second envelope (to cutoff and to Position), one LFO (to
- *         Position), the mod wheel (to Position), pitch bend, sustain pedal.
+ *  Mod:   a second envelope (to cutoff and to Position), LFO 1 (sine or
+ *         triangle, to Position), LFO 2 (sine, to cutoff), the mod wheel
+ *         (to Position), pitch bend, sustain pedal, transpose.
  *
  *  Anti-aliasing: every frame is band-limited per octave (buildMips): level
  *  L keeps harmonics up to 512 >> L. A note reads the two levels around its
@@ -87,6 +88,9 @@
       aA: 0.0154, aD: 0.575, aS: 1, aR: 0.0986,       // fast · medium · held · short
       mA: 0.00488, mD: 0.575, mS: 0, mR: 0.575,       // instant · medium · zero · medium
       mode: 0, glide: 0, bendRange: 2, velToAmp: 0.6, gain: 0.35,
+      lfoWave: 0,                  // 0 sine · 1 triangle (the Synth Templates cards mostly ask for triangle)
+      lfo2Rate: 0.3, lfo2ToCutoff: 0,   // a second LFO, on the cutoff only, in octaves either way
+      transpose: 0,                // semitones, for a card's "octave: -1"
     };
     const coef = (T, sr) => 1 - Math.exp(-3 / (Math.max(T, 0.0005) * sr));   // tau = T/3
 
@@ -118,7 +122,7 @@
         this.sr = sr; this.p = Object.assign({}, DEFAULTS);
         this.voices = Array.from({ length: MAXV }, () => new Voice());
         this.mips = null; this.frames = 0;
-        this.wheel = 0; this.bend = 0; this.sustain = false; this.lfoPh = 0;
+        this.wheel = 0; this.bend = 0; this.sustain = false; this.lfoPh = 0; this.lfo2Ph = 0;
         this.stack = []; this.clock = 0; this.seed = 1; this.lastPos = 0;
       }
       rand() { this.seed = (this.seed * 1664525 + 1013904223) >>> 0; return this.seed / 4294967296; }
@@ -189,7 +193,8 @@
         const U = Math.max(1, Math.min(MAXU, p.unison | 0)), uNorm = 1 / Math.sqrt(U);
         const glideK = p.glide > 0 ? coef(p.glide, sr) : 1;
         const k = 2 - 1.96 * Math.min(1, Math.max(0, p.reso));
-        const lfoInc = p.lfoRate / sr;
+        const lfoInc = p.lfoRate / sr, lfo2Inc = p.lfo2Rate / sr;
+        const lfoAt = ph => p.lfoWave === 1 ? 1 - 4 * Math.abs(ph - 0.5) : Math.sin(2 * Math.PI * ph);   // triangle: −1 at 0 and 1, +1 at the middle
         for (const v of this.voices) {
           if (!v.active) continue;
           let g = 0, a1 = 0, a2 = 0, a3 = 0, L0 = 0, w = 0;
@@ -199,21 +204,21 @@
             det[u] = Math.pow(2, s * p.detune / 1200);
             const pan = s * p.spread; panL[u] = Math.sqrt((1 - pan) / 2) * uNorm * 1.414; panR[u] = Math.sqrt((1 + pan) / 2) * uNorm * 1.414;
           }
-          let lfoPh = this.lfoPh;
+          let lfoPh = this.lfoPh, lfo2Ph = this.lfo2Ph;
           for (let i = 0; i < n; i++) {
             v.cur += (v.target - v.cur) * glideK;
             const ea = v.amp.tick(p.aA, p.aD, p.aS, p.aR, sr);
             const em = v.mod.tick(p.mA, p.mD, p.mS, p.mR, sr);
-            const hz = 440 * Math.pow(2, (v.cur + this.bend * p.bendRange - 69) / 12);
+            const hz = 440 * Math.pow(2, (v.cur + p.transpose + this.bend * p.bendRange - 69) / 12);
             if ((i & (CTRL - 1)) === 0) {
               const lam = Math.max(0, Math.log2(512 * hz * (U > 1 ? Math.pow(2, p.detune / 1200) : 1) / nyq));
               L0 = Math.min(LEVELS - 1, Math.ceil(lam)); w = L0 === 0 ? 0 : Math.min(1, lam - (L0 - 1));
               if (lam === 0) { L0 = 0; w = 0; }
-              let fc = p.cutoff * Math.pow(2, p.envToCutoff * em + p.keytrack * (v.cur - 60) / 12);
+              let fc = p.cutoff * Math.pow(2, p.envToCutoff * em + p.keytrack * (v.cur - 60) / 12 + p.lfo2ToCutoff * Math.sin(2 * Math.PI * lfo2Ph));
               fc = Math.min(Math.max(fc, 20), nyq * 0.9);
               g = Math.tan(Math.PI * fc / sr); a1 = 1 / (1 + g * (g + k)); a2 = g * a1; a3 = g * a2;
             }
-            let pos = p.position + this.wheel * p.wheelToPos + p.lfoToPos * Math.sin(2 * Math.PI * lfoPh) * 0.5 + p.envToPos * em;
+            let pos = p.position + this.wheel * p.wheelToPos + p.lfoToPos * lfoAt(lfoPh) * 0.5 + p.envToPos * em;
             pos = pos < 0 ? 0 : pos > 1 ? 1 : pos;
             const fp = pos * (F - 1);
             let l = 0, r = 0;
@@ -227,13 +232,14 @@
             const amp = ea * (1 - p.velToAmp + p.velToAmp * v.vel) * p.gain;
             outL[i] += lv * amp; outR[i] += rv * amp;
             lfoPh += lfoInc; if (lfoPh >= 1) lfoPh -= 1;
+            lfo2Ph += lfo2Inc; if (lfo2Ph >= 1) lfo2Ph -= 1;
             if (i === n - 1) this.lastPos = pos;
           }
           if (!v.active) v.note = -1;
         }
-        this.lfoPh = (this.lfoPh + lfoInc * n) % 1;
+        this.lfoPh = (this.lfoPh + lfoInc * n) % 1; this.lfo2Ph = (this.lfo2Ph + lfo2Inc * n) % 1;
         if (!this.voices.some(v => v.active)) {
-          const pos = p.position + this.wheel * p.wheelToPos + p.lfoToPos * Math.sin(2 * Math.PI * this.lfoPh) * 0.5;
+          const pos = p.position + this.wheel * p.wheelToPos + p.lfoToPos * lfoAt(this.lfoPh) * 0.5;
           this.lastPos = Math.min(1, Math.max(0, pos));
         }
         for (let i = 0; i < n; i++) { outL[i] = Math.tanh(outL[i]); outR[i] = Math.tanh(outR[i]); }

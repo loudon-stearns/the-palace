@@ -107,6 +107,7 @@ h1 { font-family: var(--display, sans-serif); font-weight: 400; letter-spacing: 
   </div>
 
   <div class="bar">
+    <label title="a Synth Templates card, played on this synth: its table, and every word on the card read through their vocabulary.yaml">Card <select id="cCard"><option value="">— none —</option></select></label>
     <label>Table <select id="cTable"></select></label>
     <label title="how one frame becomes the next. Spectral moves each harmonic's level in a straight line, with every frame's phases lined up, so no harmonic drops out halfway; Crossfade mixes the two waveforms, as before">Morph <select id="cMorph"><option value="locked">Spectral</option><option value="crossfade">Crossfade</option></select></label>
     <label class="filebtn" for="cDir">Pack a folder…</label>
@@ -118,6 +119,7 @@ h1 { font-family: var(--display, sans-serif); font-weight: 400; letter-spacing: 
     <button id="panic" title="all notes off">Panic</button>
   </div>
 
+  <p class="note" id="cardNote" hidden></p>
   <div class="keys" id="keys"></div>
 
   <div class="panels" id="panels"></div>
@@ -138,6 +140,7 @@ h1 { font-family: var(--display, sans-serif); font-weight: 400; letter-spacing: 
 </script>
 <script>
 const TABLES = %%TABLES%%;
+const CARDS = %%CARDS%%;   // build_cards.py: Synth Templates cards → patches
 const TIME_WORDS = { instant: 0.00488, fast: 0.0154, short: 0.0986, medium: 0.575, slow: 1.41, long: 3.16, 'very slow': 4.18, 'very long': 5 };
 const $ = id => document.getElementById(id);
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
@@ -283,6 +286,7 @@ const PANELS = [
     ['wheelToPos', 'Mod wheel → Position', 0, 1, { fmt: v => v.toFixed(2) }],
     ['lfoToPos', 'LFO → Position', 0, 1, { fmt: v => v.toFixed(2) }],
     ['lfoRate', 'LFO rate', 0.02, 10, { log: true, fmt: v => v.toFixed(2) + ' Hz' }],
+    ['transpose', 'Transpose', -24, 24, { step: 1, fmt: v => (v > 0 ? '+' : '') + v + ' st' }],
     ['envToPos', 'Mod env → Position', -1, 1, { fmt: v => v.toFixed(2) }],
     ['unison', 'Unison', 1, 7, { step: 1, fmt: v => v + (v > 1 ? ' copies' : ' copy') }],
     ['detune', 'Detune', 0, 50, { fmt: v => v.toFixed(1) + ' ¢' }],
@@ -291,7 +295,9 @@ const PANELS = [
     ['cutoff', 'Cutoff', 20, 20000, { log: true, fmt: v => v < 1000 ? v.toFixed(0) + ' Hz' : (v / 1000).toFixed(2) + ' kHz' }],
     ['reso', 'Resonance', 0, 1, { fmt: v => v.toFixed(2) }],
     ['envToCutoff', 'Mod env → cutoff', -6, 6, { fmt: v => (v > 0 ? '+' : '') + v.toFixed(1) + ' oct' }],
-    ['keytrack', 'Key tracking', 0, 1, { fmt: v => (v * 100).toFixed(0) + ' %' }]]],
+    ['keytrack', 'Key tracking', 0, 1, { fmt: v => (v * 100).toFixed(0) + ' %' }],
+    ['lfo2ToCutoff', 'LFO 2 → cutoff', -3, 3, { fmt: v => '± ' + Math.abs(v).toFixed(2) + ' oct' }],
+    ['lfo2Rate', 'LFO 2 rate', 0.02, 10, { log: true, fmt: v => v.toFixed(2) + ' Hz' }]]],
   ['Amp envelope', [
     ['aA', 'Attack', T.min, T.max, T], ['aD', 'Decay', T.min, T.max, T],
     ['aS', 'Sustain', 0, 1, { fmt: v => v.toFixed(2) }], ['aR', 'Release', T.min, T.max, T],
@@ -317,15 +323,33 @@ for (const [title, ctls] of PANELS) {
     ui[k] = v => { params[k] = v; r.value = toX(v); show(v); };
     p.appendChild(c);
   }
-  if (title.startsWith('Mod')) {
+  const segment = (k, label, names, at) => {
     const seg = document.createElement('div'); seg.className = 'ctl';
-    seg.innerHTML = '<label>Voices <span></span></label><div class="seg"><button data-m="0" class="on">Poly 8</button><button data-m="1">Mono</button><button data-m="2">Legato</button></div>';
-    seg.querySelectorAll('button').forEach(b => b.onclick = () => { seg.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); params.mode = +b.dataset.m; send({ t: 'set', k: 'mode', v: params.mode }); });
-    p.insertBefore(seg, p.children[1]);
-  }
+    seg.innerHTML = `<label>${label} <span></span></label><div class="seg">` + names.map((n, i) => `<button data-m="${i}">${n}</button>`).join('') + '</div>';
+    const bs = [...seg.querySelectorAll('button')], show = v => bs.forEach(x => x.classList.toggle('on', +x.dataset.m === v));
+    bs.forEach(b => b.onclick = () => { params[k] = +b.dataset.m; show(params[k]); send({ t: 'set', k, v: params[k] }); });
+    ui[k] = v => { params[k] = v; show(v); }; show(params[k]);
+    p.insertBefore(seg, p.children[at]);
+  };
+  if (title.startsWith('Mod')) segment('mode', 'Voices', ['Poly 8', 'Mono', 'Legato'], 1);
+  if (title === 'Oscillator') segment('lfoWave', 'LFO shape', ['Sine', 'Triangle'], 5);
   $('panels').appendChild(p);
 }
 function setUi(k, v) { ui[k] && ui[k](v); }
+
+// ---------- cards: a Synth Templates card sets the table and the whole patch ----------
+CARDS.forEach((c, i) => { const o = document.createElement('option'); o.value = i; o.textContent = c.patch ? `${c.name} · ${c.family}` : `${c.name} — not yet`; o.disabled = !c.patch; $('cCard').appendChild(o); });
+function applyCard(i) {
+  const c = CARDS[i], note = $('cardNote');
+  if (!c || !c.patch) { note.hidden = true; return; }
+  const ti = TABLES.findIndex(t => t.key === c.table); $('cTable').value = ti; pickTable(ti);
+  const patch = Object.assign({}, D, c.patch, { wheelToPos: D.wheelToPos });
+  for (const [k, v] of Object.entries(patch)) { setUi(k, v); params[k] = v; send({ t: 'set', k, v }); }
+  note.hidden = false;
+  note.innerHTML = `<b>${c.name}</b> — table: ${c.why_table}. Not carried: ${c.not_carried.join('; ')}.`;
+  window.__card = c.id;
+}
+$('cCard').onchange = e => applyCard(+e.target.value);
 
 // ---------- drawing: the table as stacked ridges, and the scope ----------
 const tc = $('table'), sc = $('scope');

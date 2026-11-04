@@ -15,37 +15,38 @@ forward_vector: "I am Wavetable Scanner's scroll — the one page that always op
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T02:25:49.949Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T02:33:33.492Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 5 · last ran 2026-11-04 (today)
-- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 6 · last ran 2026-11-04 (today)
+- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector · **a proposed revision is waiting on you**
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — The synth now has a spectral morph: no harmonic drops out halfway between two frames. It's the default, with crossfade one menu click away. (`wavetable-scanner-steward-011`)
-- **Last commit touching this project:** 2026-11-03 `c819e58f` — steward(Wavetable Scanner): cycle 4 — SPINNING UP. HOME: [Wavetable Scanner](obsidian://open?vault=The%20Pala…
+- **Last shipped:** 2026-11-04 (today) — You called the plan good, but no button was clicked, so it never became the plan. Adopt it now, with your notes added? (`wavetable-scanner-steward-014`)
+- **Last commit touching this project:** 2026-11-03 `83e9338f` — steward(Wavetable Scanner): cycle 5 — SPINNING UP. HOME: [Wavetable Scanner](obsidian://open?vault=The%20Pala…
 - **Signal:** steady
+- **Left uncommitted:** ⚠ 3 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Wavetable Scanner/synth/shot-synth-chrome.png`, `Projects/Wavetable Scanner/synth/shot-synth-firefox.png`, `Projects/Wavetable Scanner/synth/shot-synth-webkit.png`. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 5 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 5 · taught item 10, proposed items 11, 12 for canon
+- **Runs:** 6 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 6 · taught item 13, proposed items 14, 15 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 5 — items 3, 5, 7, 11, 12; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 12, from cycle 5 — 2026-11-03 — [[Wavetable Scanner — tuning]]
+- **Proposed for canon:** 7 — items 3, 5, 7, 11, 12, 14, 15; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 15, from cycle 6 — 2026-11-03 — [[Wavetable Scanner — tuning]]
 
 ### Where this stands
 
-Wavetable Scanner is the browser page that draws a wavetable as a 3D landscape and lets you sweep through its frames. It packs its own tables from a folder of single cycles, and it now has a playable MIDI synth beside it (wavetable_synth.html). When you answered my plan you said the blur along Position was hard to hear and asked for a more refined smoothing between waveforms. This cycle built that. Wherever two frames are being mixed, the old crossfade lets some harmonics cancel out. The new spectral morph lines up every frame's phases and builds the in-between frames from the spectrum, so each harmonic just gets louder or quieter on its way from one frame to the next. It's the synth's defa…
+Wavetable Scanner is the browser page that draws a wavetable as a 3D landscape and lets you sweep through its frames. It packs its own tables from a folder of single cycles, and there's a playable MIDI synth beside it (wavetable_synth.html) that moves between frames with a spectral morph. You asked me to work with Synth Templates, because some of its cards would want this oscillator. Seven do: their reference voice has no wavetable, so those cards play a plain saw where a table belongs. This cycle the synth gained a Card menu. Pick a card and the synth loads the table the card asks for and sets every knob from the card's words. Each word is read through Synth Templates' own vocabulary, so '…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** Nobody has heard these. _(in 5 notes, the latest cycle 5)_
+- **rough since cycle 1:** Nobody has heard these. _(in 6 notes, the latest cycle 6)_
 - **rough since cycle 1:** Safari.app itself, a real Finder drag onto the stage, and phone touch haven't been tried. _(in 4 notes, the latest cycle 4)_
 - **rough since cycle 2:** Three old screenshots from cycle 1 (shot-fmsynth-bright-end, -dull-end, -file-order) were deleted when cycle 2 re-ran its check, and that deletion isn't committed yet. _(in 2 notes, the latest cycle 3)_
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `wavetable-scanner-steward-014` — proposed plan revision: the scanner's plan, made official, with your notes folded in · posted 2026-11-04 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -58,6 +59,7 @@ _None._
 
 ### Runs
 
+- 2026-11-03 — cycle 6 · taught item 13, proposed items 14, 15 for canon
 - 2026-11-03 — cycle 5 · taught item 10, proposed items 11, 12 for canon
 - 2026-11-03 — cycle 4 · taught item 8, proposed item 9 for canon
 - 2026-11-03 — cycle 3 · taught item 6, proposed item 7 for canon
@@ -77,6 +79,8 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 - **7.** 2026-11-03 · `Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md` · a new gotcha at the end, after the decodeAudioData one — a silent visual bug that headless checks miss; the next Three.js scanner would copy it
 - **11.** 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 1 — the packer moves into the page' — item 9 plus the spectral morph, which is now how the synth moves between frames
 - **12.** 2026-11-03 · `Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md` · a new gotcha at the end, after the cursor-plane one — the next wavetable tool would ship a plain crossfade, and no level meter catches this
+- **14.** 2026-11-03 · [[Wavetable Scanner]] · frontmatter links, after the Generative Wavetable Libraries link — four Synth Templates cards now play on this synth from their own words; the link is real and in use
+- **15.** 2026-11-03 · [[Synth Templates]] · § Neighbours, at the end of the paragraph — the catalog should know where its wavetable cards actually sound, and the missing table: field is the one gap the bridge exposed
 
 <!-- scroll:now:end -->
 
@@ -95,6 +99,84 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="wavetable-scanner-steward-014" -->
+### 2026-11-04 — cycle 6 — You called the plan good, but no button was clicked, so it never became the plan. Adopt it now, with your notes added?
+> still working · plan not yet official · steward leans adopt
+
+Wavetable Scanner packs single cycles into tables, draws them in 3D, and now plays them as a MIDI synth in the browser. Last time I sent the full plan, you wrote back that it was a good one and added notes. Since you didn't click an option, the scroll still says no plan is agreed. This is that same plan with your notes and this cycle's work folded in. The spectral morph replaces the blur you couldn't hear. The Synth Templates step is half done on my side, since four of their cards now play here. The plugin step now puts the 3D view at the centre of the plugin window. Next on the plan is the plugin. I keep building toward it either way. Clicking adopt only makes the plan official.
+
+**Artifacts:**
+- [ab_cello.wav](Projects/Wavetable Scanner/packer/morph/ab_cello.wav)
+- [ab_eorgan.wav](Projects/Wavetable Scanner/packer/morph/ab_eorgan.wav)
+- [ab_fmsynth.wav](Projects/Wavetable Scanner/packer/morph/ab_fmsynth.wav)
+- [ab_classics.wav](Projects/Wavetable Scanner/packer/morph/ab_classics.wav)
+<sub>`wavetable-scanner-steward-014` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="wavetable-scanner-steward-013" -->
+### 2026-11-04 — cycle 6 — Four Synth Templates wavetable cards now play on the synth with real tables. Pick one from the new Card menu and it sets the table and the whole patch.
+> shipped · 4 cards play, 3 not yet · passes in Chrome, Firefox and WebKit · not yet heard
+
+Open [the synth](open:Projects/Wavetable Scanner/wavetable_synth.html), click Engage, and pick a card from the Card menu at the left of the bar.
+
+The four that play:
+- **Wavetable Scan Lead** uses the cello table, dull to bright. Each note starts bright and an envelope sweeps it down the table.
+- **Wavetable Position Sweep** uses a table it draws for itself: sine, triangle, square, saw. It sweeps by hand on the mod wheel, then with a triangle LFO.
+- **Wavetable Chip** uses a 4-bit table of 32 steps. Their card fakes the 4-bit grit with a bitcrusher it only draws. Here the steps are in the table itself, so you actually hear them.
+- **Evolving Pad** uses the 122-frame FM family chain, with a very slow LFO walking it and a second LFO moving the filter.
+
+Whatever a card asks for that this voice lacks shows under the bar in plain words. For the pad, that's the sub oscillator, the chorus and the reverb. Nothing is faked. The three that don't play yet (Dubstep Growl, and the two Phase Distortion cards) are greyed out in the menu, with the reason.
+
+To carry these cards the engine gained a triangle LFO shape, a second LFO on the cutoff, and a transpose. Its defaults didn't change, so the earlier patches and proofs still measure the same.
+
+I rendered each card's own demo pattern through the same engine in Node and measured how far the brightness travels, compared with their saw render of the same card (table below). Position Sweep is one held note, so its 3.5 octaves are all table. Their saw moves 0.03.
+
+**Artifacts:**
+- [Position Sweep: one C3 held, four seconds swept by hand, then four by the LFO. Start here.](Projects/Wavetable Scanner/synth/cards/wavetable-position-sweep.wav)
+- [Evolving Pad: an Em chord on the FM family chain, 18 seconds.](Projects/Wavetable Scanner/synth/cards/evolving-pad.wav)
+- [Scan Lead: four notes, each opening bright and sweeping down the cello table.](Projects/Wavetable Scanner/synth/cards/wavetable-scan-lead.wav)
+- [Chip: a one-bar bass line on the 4-bit saw.](Projects/Wavetable Scanner/synth/cards/wavetable-chip.wav)
+- [The synth with Evolving Pad picked: the Card menu, and the note naming what isn't carried.](Projects/Wavetable Scanner/synth/shot-card-chrome.png)
+- [The synth, rebuilt with the Card menu and the two tables the cards draw for themselves.](Projects/Wavetable Scanner/wavetable_synth.html)
+- [Reads the cards and their vocabulary.yaml and writes the patches; its header lists the four conversions it makes.](Projects/Wavetable Scanner/synth/build_cards.py)
+- [The generated patches, tables and demo schedules.](Projects/Wavetable Scanner/synth/cards.json)
+- [Plays each card's own pattern in Node and measures how far the brightness moves.](Projects/Wavetable Scanner/synth/render_cards.cjs)
+- [The render numbers.](Projects/Wavetable Scanner/synth/render_cards.json)
+- [The engine: triangle LFO, a second LFO on the cutoff, transpose.](Projects/Wavetable Scanner/synth/wt-synth.js)
+- [The page source: Card menu, LFO shape, LFO 2 and Transpose controls.](Projects/Wavetable Scanner/synth/page.html)
+- [Bakes the cards and their tables into the page.](Projects/Wavetable Scanner/synth/build_synth.py)
+- [The browser check now picks every card and confirms its table, its whole patch and its sound.](Projects/Wavetable Scanner/synth/synth_check.mjs)
+- [Chrome, Firefox and WebKit results: every card right in all three, no page errors.](Projects/Wavetable Scanner/synth/synth_check.json)
+- [Firefox, Evolving Pad.](Projects/Wavetable Scanner/synth/shot-card-firefox.png)
+- [WebKit, Evolving Pad.](Projects/Wavetable Scanner/synth/shot-card-webkit.png)
+- [The earlier proofs re-run after the engine change: the aliasing numbers are unchanged, and only the timing moved.](Projects/Wavetable Scanner/synth/prove_synth.json)
+- [The synth's guide, with a new section on the cards.](Projects/Wavetable Scanner/synth/README.md)
+
+_How far the brightness moves over each card's render (spectral centroid, 5th–95th percentile). The lead and chip numbers include their melodies moving._
+| card | here, with a table | their reference saw |
+| --- | --- | --- |
+| Wavetable Position Sweep | 191–2129 Hz · 3.5 oct | 2530–2582 Hz · 0.03 oct |
+| Evolving Pad | 437–1481 Hz · 1.8 oct | 741–1019 Hz · 0.5 oct |
+| Wavetable Scan Lead | 1418–2497 Hz · 0.8 oct | 1901–2681 Hz · 0.5 oct |
+| Wavetable Chip | 1685–2744 Hz · 0.7 oct | 2526–3151 Hz · 0.3 oct |
+
+_Changed in the workshop:_ README — new section: the Synth Templates cards, the conversions, the brightness numbers, and an updated 'next' with the 3D view at the centre of the plugin
+_Proposed for canon:_ Wavetable Scanner (frontmatter links, after the Generative Wavetable Libraries link) — four Synth Templates cards now play on this synth from their own words; the link is real and in use; owed in the tuning ledger until Loudon's review
+_Proposed for canon:_ Synth Templates (§ Neighbours, at the end of the paragraph) — the catalog should know where its wavetable cards actually sound, and the missing table: field is the one gap the bridge exposed; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard these. The card patches are my reading of the words, and the four renders and the Card menu have only been measured, not listened to.
+
+_Next moves named:_ Port the engine into the VST Template's Algorithm.h, with the scanner's 3D view at the centre of the plugin window as you asked, and check the plugin against the Node render of the same notes · Give the voice what the growl card needs (an FM sine on the stack and a drive stage), so the fifth wavetable card plays · Exports for Serum/Vital and Surge
+<sub>`wavetable-scanner-steward-013` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-06319b7b0d" -->
+### 2026-11-03 — cycle 6
+
+taught item 13, proposed items 14, 15 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="wavetable-scanner-steward-011" -->
 ### 2026-11-04 — cycle 5 — The synth now has a spectral morph: no harmonic drops out halfway between two frames. It's the default, with crossfade one menu click away.
 > shipped · three browsers pass · four A/B sweeps to hear · steward leans spectral as default

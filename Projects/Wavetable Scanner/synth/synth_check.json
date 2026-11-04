@@ -3,18 +3,18 @@
   "errors": [],
   "sampleRate": 44100,
   "silence_rms": 0,
-  "page_key_rms": 0.2052,
+  "page_key_rms": 0.2054,
   "computer_keys_sounding": [
    60,
    64,
    67
   ],
-  "computer_keys_rms": 0.3399,
+  "computer_keys_rms": 0.3265,
   "pos_wheel_0": 0,
   "pos_wheel_127": 1,
   "pos_wheel_64": 0.504,
   "cc74_cutoff_hz": 176,
-  "midi_rms": 0.0603,
+  "midi_rms": 0.0606,
   "after_release_sounding": 0,
   "fm_table_rms": 0.1034,
   "morph": {
@@ -23,7 +23,7 @@
     "stride": 4,
     "morph": "locked",
     "hud": "position 0.504 · frame 62 (61.98/122 · spectral)",
-    "rms": 0.0802
+    "rms": 0.0797
    },
    "crossfade": {
     "frames": 122,
@@ -32,15 +32,49 @@
     "rms": 0.0806,
     "hud": "position 0.504 · frame 62 (62/122)"
    },
-   "switch_back_ms": 181,
+   "switch_back_ms": 176,
    "back": {
     "frames": 485,
     "stride": 4,
     "morph": "locked"
    }
   },
+  "cards": {
+   "wavetable-scan-lead": {
+    "id": "wavetable-scan-lead",
+    "table": "cello",
+    "want_table": "cello",
+    "patch_matches": true,
+    "frames": 505,
+    "rms": 0.0832
+   },
+   "wavetable-position-sweep": {
+    "id": "wavetable-position-sweep",
+    "table": "sweep4",
+    "want_table": "sweep4",
+    "patch_matches": true,
+    "frames": 196,
+    "rms": 0.1233
+   },
+   "wavetable-chip": {
+    "id": "wavetable-chip",
+    "table": "chip",
+    "want_table": "chip",
+    "patch_matches": true,
+    "frames": 66,
+    "rms": 0.205
+   },
+   "evolving-pad": {
+    "id": "evolving-pad",
+    "table": "fm",
+    "want_table": "fm",
+    "patch_matches": true,
+    "frames": 485,
+    "rms": 0.1526
+   }
+  },
   "packed_label": "Packed — 40 cycles, family chain",
-  "packed_rms": 0.1146
+  "packed_rms": 0.0226
  },
  "firefox": {
   "errors": [],
@@ -52,7 +86,7 @@
    64,
    67
   ],
-  "computer_keys_rms": 0.3267,
+  "computer_keys_rms": 0.3265,
   "pos_wheel_0": 0,
   "pos_wheel_127": 1,
   "pos_wheel_64": 0.504,
@@ -75,41 +109,75 @@
     "rms": 0.0804,
     "hud": "position 0.504 · frame 62 (62/122)"
    },
-   "switch_back_ms": 196,
+   "switch_back_ms": 199,
    "back": {
     "frames": 485,
     "stride": 4,
     "morph": "locked"
    }
   },
+  "cards": {
+   "wavetable-scan-lead": {
+    "id": "wavetable-scan-lead",
+    "table": "cello",
+    "want_table": "cello",
+    "patch_matches": true,
+    "frames": 505,
+    "rms": 0.0831
+   },
+   "wavetable-position-sweep": {
+    "id": "wavetable-position-sweep",
+    "table": "sweep4",
+    "want_table": "sweep4",
+    "patch_matches": true,
+    "frames": 196,
+    "rms": 0.1238
+   },
+   "wavetable-chip": {
+    "id": "wavetable-chip",
+    "table": "chip",
+    "want_table": "chip",
+    "patch_matches": true,
+    "frames": 66,
+    "rms": 0.205
+   },
+   "evolving-pad": {
+    "id": "evolving-pad",
+    "table": "fm",
+    "want_table": "fm",
+    "patch_matches": true,
+    "frames": 485,
+    "rms": 0.1455
+   }
+  },
   "packed_label": "Packed — 40 cycles, family chain",
-  "packed_rms": 0.1146
+  "packed_rms": 0.0256
  },
  "webkit": {
   "errors": [],
   "sampleRate": 44100,
   "silence_rms": 0,
-  "page_key_rms": 0.2054,
+  "page_key_rms": 0.2033,
   "computer_keys_sounding": [
    60,
    64,
    67
   ],
-  "computer_keys_rms": 0.3335,
+  "computer_keys_rms": 0.329,
   "pos_wheel_0": 0,
   "pos_wheel_127": 1,
   "pos_wheel_64": 0.504,
   "cc74_cutoff_hz": 176,
-  "midi_rms": 0.062,
+  "midi_rms": 0.0619,
   "after_release_sounding": 0,
-  "fm_table_rms": 0.1035,
+  "fm_table_rms": 0.1034,
   "morph": {
    "spectral": {
     "frames": 485,
     "stride": 4,
     "morph": "locked",
     "hud": "position 0.504 · frame 62 (61.98/122 · spectral)",
-    "rms": 0.0799
+    "rms": 0.0798
    },
    "crossfade": {
     "frames": 122,
@@ -118,14 +186,48 @@
     "rms": 0.0799,
     "hud": "position 0.504 · frame 62 (62/122)"
    },
-   "switch_back_ms": 152,
+   "switch_back_ms": 156,
    "back": {
     "frames": 485,
     "stride": 4,
     "morph": "locked"
    }
   },
+  "cards": {
+   "wavetable-scan-lead": {
+    "id": "wavetable-scan-lead",
+    "table": "cello",
+    "want_table": "cello",
+    "patch_matches": true,
+    "frames": 505,
+    "rms": 0.083
+   },
+   "wavetable-position-sweep": {
+    "id": "wavetable-position-sweep",
+    "table": "sweep4",
+    "want_table": "sweep4",
+    "patch_matches": true,
+    "frames": 196,
+    "rms": 0.12
+   },
+   "wavetable-chip": {
+    "id": "wavetable-chip",
+    "table": "chip",
+    "want_table": "chip",
+    "patch_matches": true,
+    "frames": 66,
+    "rms": 0.2043
+   },
+   "evolving-pad": {
+    "id": "evolving-pad",
+    "table": "fm",
+    "want_table": "fm",
+    "patch_matches": true,
+    "frames": 485,
+    "rms": 0.0595
+   }
+  },
   "packed_label": "Packed — 40 cycles, family chain",
-  "packed_rms": 0.1148
+  "packed_rms": 0.0148
  }
 }

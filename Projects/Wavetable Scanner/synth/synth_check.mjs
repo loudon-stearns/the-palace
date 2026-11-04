@@ -1,6 +1,6 @@
 // Drives wavetable_synth.html in Chrome, Firefox and WebKit: engage, play the page keys and the
 // computer keys, feed raw MIDI bytes through the page's own handler (note on/off, mod wheel, CC74,
-// pitch bend), switch tables, pack a folder through the file input, and measure that sound comes out
+// pitch bend), switch tables, pick each Synth Templates card, pack a folder through the file input, and measure that sound comes out
 // and that the mod wheel moves Position. Photographs each browser with a chord held.
 // usage: node synth_check.mjs   (uses the stigmergy app's playwright, as study_check.mjs does)
 import { chromium, firefox, webkit } from '../../../_ops/stigmergy/app/node_modules/playwright/index.mjs';
@@ -64,6 +64,19 @@ for (const [name, type] of [['chrome', chromium], ['firefox', firefox], ['webkit
   const t1 = Date.now(); await page.selectOption('#cMorph', 'locked'); r.morph.switch_back_ms = Date.now() - t1;
   r.morph.back = await page.evaluate(() => window.__synth.table);
   await page.evaluate(() => { window.__synth.cc(1, 0); window.__synth.noteOff(48); });
+  // the Synth Templates cards: each sets its table and its whole patch, and sounds
+  r.cards = {};
+  for (const i of await page.evaluate(() => CARDS.map((c, i) => c.patch ? i : -1).filter(i => i >= 0))) {
+    await page.selectOption('#cCard', String(i)); await page.waitForTimeout(250);
+    const got = await page.evaluate(i => { const c = CARDS[i], p = window.__synth.params; return { id: c.id, table: TABLES[+document.querySelector('#cTable').value].key, want_table: c.table,
+      patch_matches: Object.entries(c.patch).every(([k, v]) => Math.abs(p[k] - v) < 1e-9), frames: window.__synth.table.frames }; }, i);
+    await page.evaluate(() => window.__synth.noteOn(60, 100)); await page.waitForTimeout(got.id === 'evolving-pad' ? 2500 : 400);
+    got.rms = +(await page.evaluate(rms)).toFixed(4);
+    if (got.id === 'evolving-pad') await page.screenshot({ path: path.join(HERE, `shot-card-${name}.png`), fullPage: false });
+    await page.evaluate(() => window.__synth.noteOff(60)); await page.waitForTimeout(150);
+    await page.evaluate(() => onMidi({ data: [0xb0, 120, 0] }));
+    r.cards[got.id] = got;
+  }
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'eorgan40-'));   // the folder input wants a folder: the first 40 organ cycles
   fs.readdirSync(AK).filter(n => n.endsWith('.wav')).slice(0, 40).forEach(n => fs.copyFileSync(path.join(AK, n), path.join(dir, n)));
   await page.locator('#cDir').setInputFiles(dir).catch(e => r.errors.push('setInputFiles: ' + e.message.split('\n')[0]));

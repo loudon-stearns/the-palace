@@ -87,3 +87,19 @@ What Wavetable Scanner's steward cycles taught the page, and the changes to the 
     > **A crossfade between frames hollows out harmonics (2026-11-04).** Mixing two waveforms cancels any harmonic they hold out of phase, so halfway through a morph a harmonic can drop out that neither frame has lost (70 of 121 steps on the FM chain, by up to 30 dB). Blurring the frames doesn't fix it. Line up the phases, then fill the gaps from the spectrum (`spectralMorph`). Don't fill them without lining up the phases first: turning each harmonic's phase is a pitch wobble, and the sweep buzzes 5 dB more.
 
 - run · 2026-11-03 · cycle 5 · taught item 10, proposed items 11, 12 for canon
+
+## From cycle 6 — 2026-11-03
+
+13. When this synth's patch comes from a card, convert each of the card's words through Synth Templates' own vocabulary.yaml at build time, never a copy of its numbers: their vocabulary is sat by ear and still moving, and a copy would quietly drift from their site. *(offered by the steward, cycle 6)*
+14. **Proposed for canon** · 2026-11-03 · [[Wavetable Scanner]] · frontmatter links, after the Generative Wavetable Libraries link · canon change owed *(proposed by the steward, cycle 6)*
+    Why: four Synth Templates cards now play on this synth from their own words; the link is real and in use
+    Path: `Projects/Wavetable Scanner.md`
+    >   - target: "[[Synth Templates]]"
+    >     type: connects-to
+    >     label: plays-its-cards
+15. **Proposed for canon** · 2026-11-03 · [[Synth Templates]] · § Neighbours, at the end of the paragraph · canon change owed *(proposed by the steward, cycle 6)*
+    Why: the catalog should know where its wavetable cards actually sound, and the missing table: field is the one gap the bridge exposed
+    Path: `Projects/Synth Templates.md`
+    > [[Wavetable Scanner]]'s synth plays the wavetable cards this voice can't: Wavetable Scan Lead, Wavetable Position Sweep, Wavetable Chip and Evolving Pad load a real table there, with every word read through this vocabulary (`Projects/Wavetable Scanner/synth/build_cards.py`). A `table:` field on a card would let the card name its own table instead of the synth choosing one.
+
+- run · 2026-11-03 · cycle 6 · taught item 13, proposed items 14, 15 for canon

@@ -1,0 +1,111 @@
+[
+ {
+  "id": "wavetable-scan-lead",
+  "played": true,
+  "file": "cards/wavetable-scan-lead.wav",
+  "table": "cello",
+  "frames_after_morph": 505,
+  "seconds": 4.14,
+  "peak_dbfs": -11.2,
+  "rms_dbfs": -20.7,
+  "brightness_here": {
+   "lo": 1418,
+   "hi": 2497,
+   "octaves": 0.82
+  },
+  "brightness_reference": {
+   "lo": 1901,
+   "hi": 2681,
+   "octaves": 0.5
+  },
+  "not_carried": [
+   "the card's filter is 24 dB per octave; this one is 12 dB, so the top is less dark"
+  ]
+ },
+ {
+  "id": "wavetable-position-sweep",
+  "played": true,
+  "file": "cards/wavetable-position-sweep.wav",
+  "table": "sweep4",
+  "frames_after_morph": 196,
+  "seconds": 9,
+  "peak_dbfs": -6.4,
+  "rms_dbfs": -18.5,
+  "brightness_here": {
+   "lo": 191,
+   "hi": 2129,
+   "octaves": 3.48
+  },
+  "brightness_reference": {
+   "lo": 2530,
+   "hi": 2582,
+   "octaves": 0.03
+  },
+  "not_carried": [
+   "the card gives its filter no cutoff, so it is left open (12 kHz)",
+   "at its default depth (generous) the LFO reaches 70 % of the way, short of the saw; the hand sweep, the mod wheel, goes all the way"
+  ]
+ },
+ {
+  "id": "wavetable-chip",
+  "played": true,
+  "file": "cards/wavetable-chip.wav",
+  "table": "chip",
+  "frames_after_morph": 66,
+  "seconds": 2,
+  "peak_dbfs": -7.4,
+  "rms_dbfs": -15.7,
+  "brightness_here": {
+   "lo": 1685,
+   "hi": 2744,
+   "octaves": 0.7
+  },
+  "brightness_reference": {
+   "lo": 2526,
+   "hi": 3151,
+   "octaves": 0.32
+  },
+  "not_carried": [
+   "no bitcrusher, and none needed: the card's fx stands for the table's 4-bit steps, and here the steps are in the table itself"
+  ]
+ },
+ {
+  "id": "evolving-pad",
+  "played": true,
+  "file": "cards/evolving-pad.wav",
+  "table": "fm",
+  "frames_after_morph": 485,
+  "seconds": 19.91,
+  "peak_dbfs": -2.9,
+  "rms_dbfs": -17.5,
+  "brightness_here": {
+   "lo": 437,
+   "hi": 1481,
+   "octaves": 1.76
+  },
+  "brightness_reference": {
+   "lo": 741,
+   "hi": 1019,
+   "octaves": 0.46
+  },
+  "not_carried": [
+   "the second oscillator, a triangle an octave down at a quarter level",
+   "the chorus and the large reverb"
+  ]
+ },
+ {
+  "id": "detuned-dubstep-growl",
+  "played": false,
+  "why": "not playable here yet: an FM sine on the stack, distortion and an OTT compressor, and an LFO synced to the beat"
+ },
+ {
+  "id": "phase-distortion",
+  "played": false,
+  "why": "not playable here yet: phase distortion is a different oscillator, a bent read of one cosine, not a row of frames"
+ },
+ {
+  "id": "phase-distortion-lead",
+  "played": false,
+  "why": "not playable here yet: the same: a phase-distortion oscillator, not a table"
+ }
+]
