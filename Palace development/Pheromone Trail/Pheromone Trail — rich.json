@@ -61,7 +61,18 @@
           "place": "band",
           "height": 1150
         }
-      ]
+      ],
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5 · cloud batch 3",
+        "verdicts": [
+          {
+            "file": "Pheromone Trail — rich — the colony clusters.html",
+            "verdict": "keep",
+            "why": "A real test: rules and chance stated first, and the proportional-following control can fail and does (0 of 50 on fresh seeds against 50 of 50 at n = 2). It names k and n as the model's and stops its numbers at the palace's workers."
+          }
+        ]
+      }
     },
     {
       "heading": "The Inverse: Trail Decay",
@@ -85,7 +96,18 @@
           "place": "band",
           "height": 1100
         }
-      ]
+      ],
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5 · cloud batch 3",
+        "verdicts": [
+          {
+            "file": "Pheromone Trail — rich — a trail no one walks.html",
+            "verdict": "remake",
+            "why": "Neither arm can fail at these settings: at ρ = 0.01 the colony is free by tick 400–500 against a window at 3500, and at ρ = 0 the dead trail stands near 4900 against k = 20. Score an arm that can come out either way (ρ = 0 with off-trail ants, the Spore Check analog), and move the note's claim that palace trails stay as strong as the day they were laid into an offer or cut it."
+          }
+        ]
+      }
     },
     {
       "heading": "Open Questions",
@@ -109,7 +131,18 @@
           "place": "band",
           "height": 1200
         }
-      ]
+      ],
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5 · cloud batch 3",
+        "verdicts": [
+          {
+            "file": "Pheromone Trail — rich — too strong.html",
+            "verdict": "remake",
+            "why": "Locked is read at one 4000-tick window while the colony is still moving: at 1.5–1.6 k the worn colony leaves 17–20 of 20 by 20 000–40 000 ticks, so no strength both finds and leaves holds only at 4000. Call locked only if it holds at a long second window too, and write a rule for the off-trail column or stop drawing a finding from it."
+          }
+        ]
+      }
     }
   ]
 }
