@@ -18,7 +18,7 @@ Loudon asked (2026-11-04, under the working name Sonic Hallucinations) for a pag
 
 The visual twins came second, at Loudon's ask (2026-11-04), with the Shepard tone and the barber pole as his example. Each twin is graded mechanism or shape because the palace's rule is that a forced connection is not a find; the grading keeps the strong pairs (Huggins pitch and the stereogram, continuity and amodal completion, musical ear and Charles Bonnet) from lending false weight to the merely pretty ones.
 
-It grew from the [[Shepard Tone Synthesizer]]'s sixth open question, which asked whether the family of auditory illusions wanted its own entry and named it [[Auditory Illusions]] before it existed; the 2026-10-24 Weave ruled that ghost an invitation and left it to Loudon. He chose that name over his working one, Sonic Hallucinations, so the ghost closes as written. The word *hallucination* stayed in the body on purpose: the palace elsewhere uses it only for a model's failure, and this page holds that it is also how hearing works.
+It grew from the [[Shepard Tone Synthesizer]]'s sixth open question, which asked whether the family of auditory illusions wanted its own entry and named it [[Auditory Illusions]] before it existed; the 2026-10-24 Weave ruled that ghost an invitation and left it to Loudon. He chose that name over his working one, Sonic Hallucinations, so the ghost closes as written. The word *hallucination* stayed in the body on purpose: the palace elsewhere uses it almost only for a model's failure (Hofstadter's page and Agnes Martin's dossier are the exceptions), and this page holds that it is also how hearing works.
 
 ## Where to hear them
 

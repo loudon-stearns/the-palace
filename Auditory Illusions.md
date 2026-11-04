@@ -27,7 +27,7 @@ links:
 
 Every one of these is the hearing system caught doing its normal job in a place where the normal job gives the wrong answer. That is why they are worth collecting. A sound you hear that isn't in the air marks the stage of hearing that made it up, and tells you what that stage assumes about the world. Lay them out in order and they climb the ear, from the air to the meaning, one probe per stage.
 
-Strictly, an illusion is a real sound heard wrong, and a hallucination is a sound heard with nothing there. The page holds both, and its last section is the true hallucinations. Everywhere else in the palace *hallucination* names the failure the house guards against, a model making things up; here it is also how hearing works. Both are true. All hearing is a construction; an illusion is the moment the construction shows.
+Strictly, an illusion is a real sound heard wrong, and a hallucination is a sound heard with nothing there. The page holds both, and its last section is the true hallucinations. Almost everywhere else in the palace *hallucination* names the failure the house guards against, a model making things up; here it is also how hearing works. Both are true. All hearing is a construction; an illusion is the moment the construction shows.
 
 Most of them have a twin in the eye, and each entry names it. The twins are not equally strong. Some share a **mechanism** — the same kind of neural trick, run on light and on sound. Some share only a **shape** — the same structure, built by different machinery. Where nothing honest fits, the entry says so; the missing twins are a map too.
 
@@ -83,7 +83,7 @@ Most of them have a twin in the eye, and each entry names it. The twins are not 
 **The continuity illusion.** Cut a gap in a tone and fill it with a burst of noise, and you hear the tone go on through the noise. Do it to a syllable and you hear the missing sound: phonemic restoration (Warren, 1970). What it proves: when something covers a sound, the brain fills in what was probably there.
 *Seen:* amodal completion — the cat behind a picket fence is seen as one cat. Mechanism, and Bregman's own pairing: the noise is the fence, and the gap is in time instead of space.
 
-**The gap transfer illusion.** A long glide with a short gap in it crosses a short glide with none. Listeners hear the long one as continuous and the gap as belonging to the short one (Nakajima, 1992). The brain builds events out of onsets and endings, and here it pairs them wrong.
+**The gap transfer illusion.** A long glide with a short gap in it crosses a short glide with none. Listeners hear the long one as continuous and the gap as belonging to the short one (Nakajima and colleagues; found in 1992, published in 2000). The brain builds events out of onsets and endings, and here it pairs them wrong.
 *Seen:* no clean twin.
 
 ## Meaning gets in early
@@ -96,7 +96,7 @@ Most of them have a twin in the eye, and each entry names it. The twins are not 
 
 **Phantom words.** Two words looped and overlapped from two speakers. After a while people hear words that aren't there, and the words they hear often have to do with what is on their minds (Deutsch).
 *Seen:* pareidolia — faces in clouds, in electrical sockets. Shape: the pattern-finder supplies the pattern.
-*Machined:* [[Whisper]] does it too. Give the transcriber a long silence and it writes "thank you for watching," a phrase that ends a thousand videos it learned from. A brain and a model, each built to find words, find words when the input is too thin to hold them.
+*Machined:* [[Whisper]] does it too. Give the transcriber a long silence and it writes "thank you for watching," having decided the gap means the video is over. A brain and a model, each built to find words, find words when the input is too thin to hold them.
 
 **Speech to song.** Loop a spoken phrase — Deutsch's was "sometimes behave so strangely," in 1995 — and after a few repetitions it is being sung. Go back to the whole sentence and the phrase still sings. What it proves: the line between talking and music is drawn by the listener, and repetition moves it.
 *Seen:* the hidden Dalmatian, or any Mooney image — a blotch that becomes a dog and can't go back to blotch. Shape: one-way recognition.
