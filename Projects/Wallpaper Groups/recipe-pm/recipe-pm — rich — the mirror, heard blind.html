@@ -304,10 +304,10 @@ const ones = (r) => hitsOf(r).map((i) => i + 1).join(' ');
 const STEPS = [
   { name: 'the half', says: 'Step 2 of the Method: three or four hits in steps 1 to 8. Click steps 1 to 8 to set them; a half needs three or four. This half is all you write. Play it alone first: half a bar, then half a bar of rest.' },
   { name: 'the mirror', says: 'Step 3: every hit at n gets a partner at 17 − n, so 1 pairs with 16 and 3 with 14. The dashed line is the mirror. On a loop it has two ends: the seam between 8 and 9, and the seam between 16 and 1. So the Ingredients\' other choice, the mirror at the start of the cycle, is this same mirror seen from its other end. That is an identity, not a second recipe.' },
-  { name: 'the half again, beside it', says: 'The page says pm sounds heavier and more settled than p2. recipe-p2\'s rule, n → n + 8, sends the same half on without reversing it, so the half plays twice. Both loops have the same hits in steps 1 to 8 and the same number of hits, in the same tone. Only the order of the second half differs. Switch between them and listen.' },
-  { name: 'the test · blind', says: 'Is the mirror stiller, by ear, with the pictures gone? Read the rule before the first trial: it is fixed now, before anything is heard.' },
+  { name: 'the half again, beside it', says: 'recipe-p2\'s rule, n → n + 8, sends the same half on without reversing it, so the half plays twice. Both loops have the same hits in steps 1 to 8 and the same number of hits, in the same tone. Only the order of the second half differs. Switch between them and listen.' },
+  { name: 'the test · blind', says: 'Two loops, one at a time, with the pictures gone: which one is stiller, by ear? Read the rule before the first trial: it is fixed now, before anything is heard.' },
 ];
-const S = { step: 1, half: [0, 3, 5], pick: 'mirror', t: null };
+const S = { step: 1, half: [0, 3, 5], pick: 'mirror', t: null, seen: new Set([1]) };
 const HALVES = pmHalves().filter((h) => !same(pmLoop(h), repeatLoop(h)));
 function halfLoop() { return loopOf(S.half, 16); }
 function rowNow() { if (S.step === 1) return halfLoop(); if (S.step === 3 && S.pick === 'again') return repeatLoop(S.half); return pmLoop(S.half); }
@@ -337,16 +337,17 @@ function controls() {
     go.onclick = () => { if (playing) stop(); else play(progOf(rowNow(), 1), true); controls(); }; c.append(go);
     if (S.step === 3) c.append(seg('play', [['mirror', 'the mirror · pm'], ['again', 'the half again · p2\'s rule']], () => S.pick, (v) => { S.pick = v; const was = playing; refresh(); if (was) { play(progOf(rowNow(), 1), true); controls(); } }));
   }
+  if (S.step === 1) { const fr = document.createElement('button'); fr.textContent = 'a fresh listener: straight to the test'; fr.onclick = () => { S.t = null; goStep(4); }; c.append(fr); }
   const tk = document.createElement('button'); tk.textContent = TICKS ? 'tick on' : 'tick off'; tk.className = TICKS ? 'on' : ''; tk.onclick = () => { TICKS = !TICKS; controls(); };
   if (S.step < 4) c.append(tk);
 }
 // ── the blind test ──
 const TRIALS = 8;
-const RULE = '<b>The rule, set before the first trial.</b> Eight trials. Each draws a fresh half at random from the 120 whose mirror and repeat differ, and plays both loops twice through, in a random order, with the pictures hidden. You answer one question: which one was stiller, with less push to go on? '
-  + '<b>Chance:</b> guessing, you pick the mirror half the time, and 7 or 8 of 8 comes up 9 times in 256 (3.5%). '
-  + '<b>Verdict:</b> 7 or 8 mirror picks means the mirror sounds stiller to you, the page\'s direction. 0 or 1 means the half played twice sounds stiller to you: the page backwards for you, also 3.5% by guessing, and a result of its own, not a pass. 2 to 6 means your ear didn\'t sort these two by stillness. '
-  + '<b>Both arms are scored</b> (mirror picks and repeat picks), with how often you chose the first one played, where an order habit would show. '
-  + '<b>The leak:</b> the page above tells you which should be stiller, so if you can hear which second half runs backwards, you can answer from the page and not from the feel, and this test can\'t tell those apart. For a reading without that leak, hand the piece to someone who hasn\'t read the recipe and ask them only the question. '
+const RULE = '<b>The rule, set before the first trial.</b> Eight trials. Each draws a fresh half at random from the 120 where the two loops differ, and plays both loops twice through, in a random order, with the pictures hidden. Call the loops M and R. You answer one question: which one was stiller, with less push to go on? '
+  + '<b>Chance:</b> guessing, you pick M half the time, and 7 or 8 picks of M in 8 comes up 9 times in 256 (3.5%); so do 7 or 8 picks of R. '
+  + '<b>Verdict:</b> 7 or 8 picks of one loop means your ear sorted them; each direction is its own 3.5%, never added into one pass. 2 to 6 means your ear didn\'t sort these two by stillness. Which loop the page expects to be stiller is named only with the score. '
+  + '<b>Both arms are scored</b> (M picks and R picks), with how often you chose the first one played, where an order habit would show. '
+  + '<b>The leak:</b> the recipe\'s text says which loop should be stiller, and steps 2 and 3 teach what each loop is. A run after those steps can\'t tell hearing it from remembering it, and the score says whether they were seen. For a reading without that leak, a fresh listener takes the door on step 1 straight here. '
   + '<b>Matched by construction:</b> same tone, same level, same number of hits, the same first half, two bars each, no compressor.';
 function newTest() { S.t = { k: 0, rows: [], played: false }; nextTrial(); }
 function nextTrial() {
@@ -374,11 +375,12 @@ function trialUI() {
 }
 function score() {
   const R = S.t.rows, s = R.filter((r) => r.pickedMirror).length, f = R.filter((r) => r.v === 'first').length, mf = R.filter((r) => r.mirrorFirst).length;
-  $('trial').innerHTML = `<div class="score">the mirror called stiller <b>${s}</b> of ${TRIALS} · the half played twice called stiller <b>${TRIALS - s}</b> of ${TRIALS}<br>you chose the first one played <b>${f}</b> of ${TRIALS} times; the mirror came first in <b>${mf}</b><br>trial by trial: ${R.map((r) => (r.pickedMirror ? 'M' : 'R')).join(' ')}</div>`;
+  const seen = S.seen.has(2) || S.seen.has(3);
+  $('trial').innerHTML = `<div class="score">M, the mirror (n → 17 − n), called stiller <b>${s}</b> of ${TRIALS} · R, the half played twice (recipe-p2's n + 8), called stiller <b>${TRIALS - s}</b> of ${TRIALS}<br>steps 2–3 seen before this score: <b>${seen ? 'yes' : 'no, a fresh listener'}</b><br>the page (recipe-pm.md:23–25) expects M to be stiller<br>you chose the first one played <b>${f}</b> of ${TRIALS} times; the mirror came first in <b>${mf}</b><br>trial by trial: ${R.map((r) => (r.pickedMirror ? 'M' : 'R')).join(' ')}</div>`;
   const again = document.createElement('button'); again.textContent = 'run it again'; again.onclick = () => { newTest(); }; $('trial').append(again);
-  $('verdict').textContent = s >= 7 ? `${s} of 8: the mirror sounds stiller to you, the page's direction. Guessing gets this 3.5% of the time. If you could also hear which one ran backwards, the page's own words may have answered for you.`
+  $('verdict').textContent = s >= 7 ? (seen ? `${s} of 8 for the mirror: the page's direction, or the page's words; this run can't tell them apart, since steps 2–3 were seen. Guessing gets 7 or 8 for the mirror 3.5% of the time.` : `${s} of 8 for the mirror, from a fresh listener: the mirror sounds stiller to you, the page's direction. Guessing gets this 3.5% of the time.`)
     : s <= 1 ? `${s} of 8: the half played twice sounds stiller to you, the page backwards for you. Guessing gets this 3.5% of the time too.`
-      : `${s} of 8: by the rule set before the first trial, your ear didn't sort these two by stillness. That is a result, not a failure to listen.`;
+      : `${s} of 8 for the mirror: by the rule set before the first trial, your ear didn't sort these two by stillness. That is a result, not a failure to listen.`;
   $('read').innerHTML = '';
 }
 function refresh() {
@@ -390,7 +392,7 @@ function refresh() {
   if (!test) { $('verdict').textContent = ''; redraw(); readout(); } else { if (!S.t) newTest(); else trialUI(); }
   controls();
 }
-function goStep(n) { stop(); S.step = n; refresh(); }
+function goStep(n) { stop(); S.step = n; S.seen.add(n); refresh(); }
 $('back').onclick = () => goStep(Math.max(1, S.step - 1)); $('next').onclick = () => goStep(Math.min(STEPS.length, S.step + 1));
 window.addEventListener('resize', () => redraw());
 refresh();

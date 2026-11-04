@@ -39,8 +39,12 @@ const rot = (r, k) => E.slide(r, k), inv = (r) => [E.turns(r).length, E.mirrors(
 say([E.BELL5, E.BELL7].every((b) => Array.from({ length: 12 }, (_, k) => inv(rot(b, k))).every((x) => x === inv(b))), 'all three readings are the same for every rotation of either bell, so the starting step doesn\'t matter');
 say(T.bell5.nearestP6 === 5 && T.bell7.nearestP6 === 5, `distance to the nearest p6 loop: ${T.bell5.nearestP6} and ${T.bell7.nearestP6}`);
 nul(T.nearestNull5[1] === 12 && T.nearestNull5[3] === 180 && T.nearestNull5[5] === 600, `null, every 5-stroke pattern: distance 1 for ${T.nearestNull5[1]}, 3 for ${T.nearestNull5[3]}, 5 for ${T.nearestNull5[5]} (of 792); 7 strokes: ${JSON.stringify(T.nearestNull7)}`);
-nul(T.p6BreaksNearest.join() === '1', `positive control: the section's own breaks (${T.p6Breaks}) all read distance ${T.p6BreaksNearest.join()}`);
-finding(`both bells sit 5 changes from p6, as far as 600 of 792 patterns their size; each has a mirror and no turn: the bell's one symmetry is the mirror the section says p6 refuses`);
+identity(T.p6BreaksNearest.join() === '1', `meter check, not a control (it cannot fail): the section's own breaks (${T.p6Breaks}) all read distance ${T.p6BreaksNearest.join()}, one hit out of a cooked loop by construction`);
+const far = Math.max(...[5, 7].map((k) => Math.max(...Object.keys(k === 5 ? T.nearestNull5 : T.nearestNull7).map(Number))));
+say(far === 5, `5 is the farthest any 5- or 7-stroke pattern can sit from p6 (max over all: ${far})`);
+const comp = E.BELL7.map((v) => 1 - v), compIsE5 = Array.from({ length: 12 }, (_, k) => E.same(E.slide(comp, k), E.BELL5)).some(Boolean);
+say(compIsE5, 'the seven-stroke bell\'s rests, its complement, are E(5,12) turned: the "E(5,12)" label counts the rests');
+finding(`both bells sit 5 changes from p6, the farthest any pattern their size can sit (600 of 792 sit there); each has a mirror and no turn: the bell's one symmetry is the mirror the section says p6 refuses`);
 console.log('— the break as written (:31) —');
 say(T.p6BreaksWithMirror === 20 && T.p6BreaksTurns === 0, `${T.p6BreaksWithMirror} of ${T.p6Breaks} breaks have a mirror (through the gap), ${T.p6BreaksTurns} keep a turn`);
 const b5 = E.slide(E.BELL5, 0), nearBreak = Math.min(...E.p6Breaks().map((r) => Math.min(...Array.from({ length: 12 }, (_, k) => E.dist(r, E.slide(b5, k))))));

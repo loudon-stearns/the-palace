@@ -1,89 +1,94 @@
 {
-  "title": "recipe-p6 — rich",
-  "born": "2026-11-04",
-  "links": [
+ "title": "recipe-p6 — rich",
+ "born": "2026-11-04",
+ "links": [
+  {
+   "target": "[[recipe-p6]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Wallpaper Groups]]",
+   "type": "member-of",
+   "label": "bundle-entry"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  }
+ ],
+ "forward_vector": "I am the manifest of the p6 recipe's rich face, its first round at Sketch tier: one made piece that cooks the recipe exactly as written (three loops in all), shows the mirrors they carry, sets E(5,12) and the seven-stroke bell beside them, and walks up to a measure of how near each bell sits to p6, with a null over every pattern its size and the section's own break as a positive control; with the fingerprint of the words it was laid against and the offers it measured for the text, one of them for Wallpaper Groups. The page is a bundle note with no frontmatter, so I am keyed by its file name, recipe-p6. I never hold the recipe's words.",
+ "entry": "recipe-p6",
+ "tier": "sketch",
+ "made": "2026-11-04",
+ "round": 1,
+ "grain": "The page's own ## grain: six sections; one carries a piece (What you should hear). Where to break it and What this teaches carry offers only; their numbers are in the piece's engine and its workshop check.",
+ "offers": [
+  {
+   "section": "What you should hear",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "\"The standard Ewe timeline (E(5,12)) approximates p6's rotational skeleton\" (:25): the bell and p6 share no symmetry. A six-fold copy makes 6 or 12 strokes. E(5,12) has five. The bell Wallpaper Groups lists (steps 1 3 5 6 8 10 12) has seven, which is E(7,12) turned. Neither bell lands on itself under any slide. Each has exactly one mirror: E(5,12) through steps 5 & 11, the seven-stroke bell through 3 & 9. Each sits 5 changes from the nearest loop the Method can cook, the farthest any pattern its size can sit (600 of 792 sit there). The section's own break reads 1, a meter check that can't fail. \"No mirror settles it\" fails too: the recipe's loops carry 6 or 12 mirrors, the most a 12-step pattern can have. On the attribution, the challenger found that E(5,12) is the complement of the seven-stroke bell, its rests, turned. Search summaries of Toussaint 2005 give E(5,12) as a Venda clapping pattern and the 7-in-12 as the Ewe gankogui bell. The primary source was not reachable from this cloud, so it needs confirming. If it holds, the error is the label. Proposed: \"The standard Ewe bell, seven strokes in twelve (E(7,12)), shares p6's grid of twelve, not its turn: no turn lands it on itself, and its one symmetry is a mirror.\""
+  },
+  {
+   "section": "Where to break it",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "\"The breach is local and asymmetric\" (:31): every break the section allows has a mirror through the gap. That is one hit out of sectors 2–6, 20 breaks in all, and none of them keeps a turn. The broken pulse does have \"five accents where six were\", as written. But it is 4 changes from E(5,12) at its nearest rotation, so the bell is not the pulse with one deliberate break either. Proposed: \"the breach leaves a mirror through the gap: the turn is gone, and the mirror is what's left.\""
+  },
+  {
+   "section": "What this teaches",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "\"Each step doubles the rotational frequency and the groove intensity\" (:37). The rotation order goes 1 → 2 → 3 → 6, which is ×2, ×1.5, ×2, so it does not double at the p2 → p3 step. What doubles at every step is how often the cooked loop repeats: up to 16 steps for p1, then 8 (p2, on its 16-step grid), 4 (p3) and 2 (p6, both on 12). That is the loop shortening, which :25 names (\"compresses time\"), and it doubles only because the grid changes from 16 to 12. Groove intensity is untested. Proposed: \"Each step shortens the loop: it repeats every 16, 8, 4, then 2 steps.\""
+  },
+  {
+   "section": "→ Wallpaper Groups",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "§ Wallpaper Groups in World Music: the bell that section lists (steps 1 3 5 6 8 10 12) has one mirror, through steps 3 and 9, and no turn that lands it on itself (measured on recipe-p6's piece). So \"a rotation-only group with no mirror to stop the momentum\" fails for the bell it names; by the section's own grammar the bell has a mirror and no turn. Its \"E(5,12)\" label counts the rests: the five steps the bell leaves empty are E(5,12) turned, and the seven strokes it lists are E(7,12) turned. This adds to that page's open E(5,12) offer, which found the count is seven and no three-fold."
+  }
+ ],
+ "sections": [
+  {
+   "heading": "What you should hear",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-04",
+    "by": "maker · claude-opus-5-5 · proposal round · cloud batch 2",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
     {
-      "target": "[[recipe-p6]]",
-      "type": "connects-to",
-      "label": "rich-face-of"
-    },
-    {
-      "target": "[[Wallpaper Groups]]",
-      "type": "member-of",
-      "label": "bundle-entry"
-    },
-    {
-      "target": "[[Enrichment]]",
-      "type": "connects-to",
-      "label": "made-by"
+     "file": "recipe-p6 — rich — the bell beside the spin.html",
+     "origin": "made",
+     "by": "the Maker · Web Audio",
+     "height": 1520,
+     "title": "the bell beside the spin · five steps",
+     "caption": "**Does the Ewe bell approximate p6?** One onset on a twelve-step clock, copied by +2 as the Method says. That makes three loops in all, each a pulse or all twelve, and each with 6 or 12 mirrors. Beside them are E(5,12), as named, and the seven-stroke bell Wallpaper Groups lists. The test comes last, with its rule set first. No slide lands either bell on itself, each has exactly one mirror, and each sits 5 changes from p6, the farthest any pattern its size can sit (600 of 792 sit there). The section's own break reads 1, a meter check that can't fail, not a control. The attribution itself is not settled here. Checked in Node on the piece's own engine (workshop/rich-checks.mjs, all PASS); no agent can hear a mix, so how it sounds was not heard.",
+     "near": "approximates p6's rotational skeleton",
+     "place": "band"
     }
-  ],
-  "forward_vector": "I am the manifest of the p6 recipe's rich face, its first round at Sketch tier: one made piece that cooks the recipe exactly as written (three loops in all), shows the mirrors they carry, sets E(5,12) and the seven-stroke bell beside them, and walks up to a measure of how near each bell sits to p6, with a null over every pattern its size and the section's own break as a positive control; with the fingerprint of the words it was laid against and the offers it measured for the text, one of them for Wallpaper Groups. The page is a bundle note with no frontmatter, so I am keyed by its file name, recipe-p6. I never hold the recipe's words.",
-  "entry": "recipe-p6",
-  "tier": "sketch",
-  "made": "2026-11-04",
-  "round": 1,
-  "grain": "The page's own ## grain: six sections; one carries a piece (What you should hear). Where to break it and What this teaches carry offers only; their numbers are in the piece's engine and its workshop check.",
-  "offers": [
-    {
-      "section": "What you should hear",
-      "kind": "claim-change",
-      "status": "open",
-      "what": "\"The standard Ewe timeline (E(5,12)) approximates p6's rotational skeleton\" (:25): the bell and p6 share no symmetry. A six-fold copy makes 6 or 12 strokes. E(5,12) has five. The bell Wallpaper Groups lists (steps 1 3 5 6 8 10 12) has seven, which is E(7,12) turned; that page's challenge confirmed the count. Neither bell lands on itself under any slide. Each has exactly one mirror: E(5,12) through steps 5 & 11, the seven-stroke bell through 3 & 9. Each sits 5 changes from the nearest loop the Method can cook, as far as 600 of 792 patterns of its size, where the section's own break reads 1. \"No mirror settles it\" fails too: the recipe's loops carry 6 or 12 mirrors, the most a 12-step pattern can have. Which bell is \"the standard Ewe timeline\" is an attribution not checked here; the sources were out of this session's reach. Proposed: \"West African bells share p6's grid of twelve, not its turn: the bell Wallpaper Groups lists has no turn that lands it on itself, and its one symmetry is a mirror.\""
-    },
-    {
-      "section": "Where to break it",
-      "kind": "claim-change",
-      "status": "open",
-      "what": "\"The breach is local and asymmetric\" (:31): every break the section allows has a mirror through the gap. That is one hit out of sectors 2–6, 20 breaks in all, and none of them keeps a turn. The broken pulse does have \"five accents where six were\", as written. But it is 4 changes from E(5,12) at its nearest rotation, so the bell is not the pulse with one deliberate break either. Proposed: \"the breach leaves a mirror through the gap: the turn is gone, and the mirror is what's left.\""
-    },
-    {
-      "section": "What this teaches",
-      "kind": "claim-change",
-      "status": "open",
-      "what": "\"Each step doubles the rotational frequency and the groove intensity\" (:37). The rotation order goes 1 → 2 → 3 → 6, which is ×2, ×1.5, ×2, so it does not double at the p2 → p3 step. What doubles at every step is how often the cooked loop repeats: up to 16 steps for p1, then 8 (p2, on its 16-step grid), 4 (p3) and 2 (p6, both on 12). That is the loop shortening, which :25 names (\"compresses time\"), and it doubles only because the grid changes from 16 to 12. Groove intensity is untested. Proposed: \"Each step shortens the loop: it repeats every 16, 8, 4, then 2 steps.\""
-    },
-    {
-      "section": "→ Wallpaper Groups",
-      "kind": "claim-change",
-      "status": "open",
-      "what": "§ Wallpaper Groups in World Music: the bell that section lists (steps 1 3 5 6 8 10 12) has one mirror, through steps 3 and 9, and no turn that lands it on itself (measured on recipe-p6's piece). So \"a rotation-only group with no mirror to stop the momentum\" fails for the bell it names; by the section's own grammar the bell has a mirror and no turn. This adds to that page's open E(5,12) offer, which found the count is seven and no three-fold."
-    }
-  ],
-  "sections": [
-    {
-      "heading": "What you should hear",
-      "status": "proposal",
-      "proposed": {
-        "date": "2026-11-04",
-        "by": "maker · claude-opus-5-5 · proposal round · cloud batch 2",
-        "round": "proposal-round-2026-11"
-      },
-      "pieces": [
-        {
-          "file": "recipe-p6 — rich — the bell beside the spin.html",
-          "origin": "made",
-          "by": "the Maker · Web Audio",
-          "height": 1520,
-          "title": "the bell beside the spin · five steps",
-          "caption": "**Does the Ewe bell approximate p6?** One onset on a twelve-step clock, copied by +2 as the Method says: three loops in all, each a pulse or all twelve, and each with 6 or 12 mirrors. Beside them are E(5,12), as named, and the seven-stroke bell Wallpaper Groups lists. The test, last, with its rule set first: no slide lands either bell on itself, each has exactly one mirror, and each sits 5 changes from p6. That is as far as 600 of 792 patterns its size; the section's own break, the positive control, reads 1. The attribution itself was not checked. Checked in Node on the piece's own engine (workshop/rich-checks.mjs, all PASS); no agent can hear a mix, so how it sounds was not heard.",
-          "near": "approximates p6's rotational skeleton",
-          "place": "band"
-        }
-      ],
-      "made_against": "7e1f48931149",
-      "stamped": "2026-11-04",
-      "challenge": {
-        "date": "2026-11-04",
-        "by": "challenger · claude-opus-5-5 · cloud batch 2",
-        "verdicts": [
-          {
-            "file": "recipe-p6 — rich — the bell beside the spin.html",
-            "verdict": "keep",
-            "why": "A closeness claim met with a distance and a rule that could have passed (≤3: 192/792); every number recomputed. Notes: 5 is the farthest any pattern its size can sit, so say that rather than \"as far as 600 of 792\"; the break reading 1 is a meter check that cannot fail, not a control."
-          }
-        ]
-      }
-    }
-  ]
+   ],
+   "made_against": "7e1f48931149",
+   "stamped": "2026-11-04",
+   "challenge": {
+    "date": "2026-11-04",
+    "by": "challenger · claude-opus-5-5 · cloud batch 2",
+    "verdicts": [
+     {
+      "file": "recipe-p6 — rich — the bell beside the spin.html",
+      "verdict": "keep",
+      "why": "A closeness claim met with a distance and a rule that could have passed (≤3: 192/792); every number recomputed. Notes: 5 is the farthest any pattern its size can sit, so say that rather than \"as far as 600 of 792\"; the break reading 1 is a meter check that cannot fail, not a control."
+     }
+    ]
+   },
+   "remade": {
+    "date": "2026-11-04",
+    "by": "maker · claude-opus-5-5 · proposal round · cloud batch 2",
+    "what": "The challenger's two notes taken as text. \"As far as 600 of 792\" now reads \"the farthest any pattern its size can sit (600 of 792 sit there)\". The break reading 1 is called a meter check that can't fail, not a positive control. The engine is unchanged."
+   }
+  }
+ ]
 }

@@ -323,8 +323,8 @@ function redraw() {
 function toggle(i) { const h = S.cell.includes(i) ? S.cell.filter((x) => x !== i) : [...S.cell, i].sort(); if (!h.length) return; S.cell = h; stop(); refresh(); }
 const RULE = '<b>The rule, set before the readings.</b> The section says E(5,12) "approximates p6\'s rotational skeleton" (recipe-p6.md:25). Three meters, the same on every pattern: (a) the slides that land it on itself; p6 needs the slide of two. (b) The mirrors that land it on itself. (c) Its distance: how many steps you would change to reach the nearest loop the Method can cook. '
   + '<b>It holds</b> if a bell sits nearer the p6 loops than most patterns with as many strokes. '
-  + '<b>The null:</b> over every 12-step pattern with five strokes the distance is 1 for 12, 3 for 180 and 5 for 600, of 792. Seven strokes give the same split. '
-  + '<b>The positive control:</b> the section\'s own break, one hit out of the pulse, must read 1. If it didn\'t, the meter would be wrong.';
+  + '<b>The null:</b> over every 12-step pattern with five strokes the distance is 1 for 12, 3 for 180 and 5 for 600, of 792; 5 is the farthest any five- or seven-stroke pattern can sit. Seven strokes give the same split. '
+  + '<b>A meter check, not a control:</b> the section\'s own break, one hit out of the pulse, reads 1 by construction. It shows the meter reads near when it should; it cannot fail, and it tests nothing about the bell.';
 let TALLY = null;
 function line(name, r) { const m = mirrors(r); return `<span>${name}: strokes <b>${count(r)}</b> · slides that land it on itself <b>${turns(r).map((k) => '+' + k).join(' ') || 'none'}</b> · mirrors <b>${m.length ? m.map((c) => mirrorEnds(c, 12).join(' & ')).join(' · ') : 'none'}</b> · distance to p6 <b>${nearest(r, P6)}</b></span>`; }
 function readout() {
@@ -340,7 +340,7 @@ function readout() {
 }
 function verdictText() {
   const t = TALLY;
-  return `Neither bell. No slide lands either one on itself: a six-fold copy makes 6 or 12 strokes, never 5 or 7. Each has exactly one mirror (E(5,12) through ${t.bell5.mirrors[0]}, the seven-stroke bell through ${t.bell7.mirrors[0]}). Each sits ${t.bell5.nearestP6} changes from the nearest p6 loop, as far as ${t.nearestNull5[5]} of 792 patterns its size. The break reads ${t.p6BreaksNearest.join(', ')}, so the meter can read near. By the recipes' own grammar, the bell's one symmetry is the mirror the section says p6 refuses. The break has a mirror too, through its gap: ${t.p6BreaksWithMirror} of ${t.p6Breaks} breaks the section allows do.`;
+  return `Neither bell. No slide lands either one on itself: a six-fold copy makes 6 or 12 strokes, never 5 or 7. Each has exactly one mirror (E(5,12) through ${t.bell5.mirrors[0]}, the seven-stroke bell through ${t.bell7.mirrors[0]}). Each sits ${t.bell5.nearestP6} changes from the nearest p6 loop, the farthest any pattern its size can sit (${t.nearestNull5[5]} of 792 sit there). The break reads ${t.p6BreaksNearest.join(', ')}, a meter check: one hit out of a cooked loop is 1 away by construction. By the recipes' own grammar, the bell's one symmetry is the mirror the section says p6 refuses. The break has a mirror too, through its gap: ${t.p6BreaksWithMirror} of ${t.p6Breaks} breaks the section allows do.`;
 }
 function controls() {
   const c = $('controls'); c.innerHTML = '';

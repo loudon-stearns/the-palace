@@ -43,6 +43,11 @@ say(H2.every((h) => E.count(E.pmLoop(h)) === E.count(E.repeatLoop(h)) && E.pmLoo
 const piecePm = piece('recipe-pm');
 say(/const TRIALS = 8;/.test(piecePm) && /Math\.random\(\) < 0\.5/.test(piecePm) && /display = test \? 'none'/.test(piecePm), 'the piece runs 8 trials, a coin for the order, and hides both pictures during the test');
 say(!/createDynamicsCompressor/.test(piecePm), 'no compressor in the chain, so nothing depends on how many hits play');
+// the remake after the challenge: the piece's own words no longer hand over the answer
+const ruleText = (piecePm.match(/const RULE = ([\s\S]*?);\n/) || [])[1] || '';
+say(!/heavier and more settled/.test(piecePm), 'the step-3 sentence that stated the answer is gone');
+say(!/mirror sounds stiller/.test(ruleText) && /named only with the score/.test(ruleText), 'the rule shown before trial 1 does not say which loop the page expects; that is named only with the score');
+say(/a fresh listener: straight to the test/.test(piecePm) && /S\.seen\.add\(n\)/.test(piecePm) && /steps 2–3 seen before this score/.test(piecePm), 'a fresh-listener door on step 1 opens the test directly, and the score prints whether steps 2–3 were seen');
 console.log('— the break as written (recipe-pm.md:29): keep the hit, silence its reflection —');
 say(T.pmBreaks === 448, `${T.pmBreaks} breaks: every hit of every half, its reflection silenced`);
 identity(T.pmBreaksKeep89 === 0, 'no break keeps the 8|9 mirror (one partner is gone)');
