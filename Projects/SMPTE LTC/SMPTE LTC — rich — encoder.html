@@ -3,7 +3,7 @@
   title: SMPTE LTC — rich — encoder
   born: 2026-11-04
   links: [[SMPTE LTC]] (connects-to · rich-face-piece) · listed in [[SMPTE LTC — rich.json]] · its engine is re-run by "SMPTE LTC — rich — check.mjs"
-  forward_vector: I am the walk from one bit to a timecode you can hear and read back. One cell of biphase mark code, a 0 and a 1; then a timecode packed into its eighty bits; then the waveform those bits make, played at the page's three rates; and last a reader that is told nothing, not the rate and not the polarity, reading the audio back to timecodes, beside a control that carries the same bits with no clock in them and must fail. I change only when the section I serve does.
+  forward_vector: I am the walk from one bit to a timecode you can hear and read back. One cell of biphase mark code, a 0 and a 1; then a timecode packed into its eighty bits; then the waveform those bits make, at all six rates; and last a reader that is told nothing, not the rate and not the polarity, reading the audio back to timecodes and naming the rate it heard from the spacing of its sync words, beside a control that carries the same bits with no clock in them and must fail. I change only when the section I serve does.
   sound: nothing plays until a play button is clicked; the AudioContext is made on that click. Changing step stops the sound.
   check: SMPTE LTC/SMPTE LTC — rich — check.mjs runs this page's core (the script with id ltc-core) in Node.
 -->
@@ -130,7 +130,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
     <div class="legend"><b>Eight cells</b> · click a cell to flip its bit. Dotted lines are cell boundaries; the level flips at every one, and once more in the middle of a 1.</div>
     <div class="row">
       <label for="rate0">rate</label>
-      <select id="rate0"><option value="24">24 fps</option><option value="25" selected>25 fps</option><option value="29.97">29.97 fps</option></select>
+      <select id="rate0"><option value="23.976">23.976 fps</option><option value="24">24 fps</option><option value="25" selected>25 fps</option><option value="29.97 ndf">29.97 fps non-drop</option><option value="29.97">29.97 fps drop-frame</option><option value="30">30 fps</option></select>
       <button class="ghost" id="p0z">play a run of 0s</button>
       <button class="ghost" id="p0o">play a run of 1s</button>
       <button class="ghost" id="p0c">play these eight, looped</button>
@@ -143,7 +143,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
     <div class="row">
       <label for="tc1">timecode</label><input type="text" id="tc1" value="01:23:45:12" size="12" spellcheck="false">
       <label for="rate1">rate</label>
-      <select id="rate1"><option value="24">24 fps</option><option value="25" selected>25 fps</option><option value="29.97">29.97 fps drop-frame</option></select>
+      <select id="rate1"><option value="23.976">23.976 fps</option><option value="24">24 fps</option><option value="25" selected>25 fps</option><option value="29.97 ndf">29.97 fps non-drop</option><option value="29.97">29.97 fps drop-frame</option><option value="30">30 fps</option></select>
       <label for="ub1">user bits</label><input type="text" id="ub1" value="00000000" size="9" spellcheck="false">
     </div>
     <div class="bits" id="bits1"></div>
@@ -163,8 +163,8 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
 
   <section class="panel view" data-step="3">
     <div class="rule"><span class="eyebrow">The rule, before the run</span>
-      Fifty frames from step 2's timecode are encoded at each rate and played through a plain audio path: a 10 Hz high-pass, as a coupling capacitor would, and noise 30 dB under the peak. The reader is told nothing: not the rate, not the polarity, not where a cell starts. It times the gaps between zero crossings and keeps its own guess of the bit period.
-      <b>Pass:</b> at every rate, and with the polarity flipped, all 50 frames come back with their own timecodes, no wrong reads, and the bits in order. <b>Fail:</b> any frame missing or any wrong read.
+      Fifty frames from step 2's timecode are encoded at each rate and played through a plain audio path: a 10 Hz high-pass, as a coupling capacitor would, and noise 30 dB under the peak. The reader is told nothing: not the rate, not the polarity, not where a cell starts. It times the gaps between zero crossings and keeps its own guess of the bit period, and it names the rate from how far apart its sync words come and from the drop-frame flag. It assumes the tape is played at its own speed: a 25 fps tape played 1.2× fast would be named 30, and no reader can tell the two apart from the audio alone.
+      <b>Pass:</b> at every one of the six rates, and with the polarity flipped, all 50 frames come back with their own timecodes, no wrong reads, the bits in order, and the rate named right. <b>Fail:</b> any frame missing or any wrong read.
       <b>The control:</b> the same bits sent as plain levels, high for 1 and low for 0, with no clock in them, through the same reader. It must read nothing. If it read the frames too, this test would say nothing about self-clocking. It is a weak control: a reader built for biphase fails on plain levels almost by construction, so it shows where the clock lives more than it tests the reader.
       Chance: a reader guessing bits would need 80 right in a row for one frame; it would read none.</div>
     <div class="row"><button class="play" id="run3">run the reader</button><span class="hint dim" id="h3"></span></div>
@@ -182,10 +182,15 @@ var LTC = (function(){
   var SYNC = [0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1];           // bits 64..79, in the order they are sent
   var SYNC_REV = SYNC.slice().reverse();                    // what a reader meets when the tape runs backward
   var RATES = {
-    '24':    { fps: 24,            nominal: 24, df: false, label: '24 fps' },
-    '25':    { fps: 25,            nominal: 25, df: false, label: '25 fps' },
-    '29.97': { fps: 30000 / 1001,  nominal: 30, df: true,  label: '29.97 fps drop-frame' }
+    '23.976':    { fps: 24000 / 1001, nominal: 24, df: false, label: '23.976 fps' },
+    '24':        { fps: 24,           nominal: 24, df: false, label: '24 fps' },
+    '25':        { fps: 25,           nominal: 25, df: false, label: '25 fps' },
+    '29.97 ndf': { fps: 30000 / 1001, nominal: 30, df: false, label: '29.97 fps non-drop' },
+    '29.97':     { fps: 30000 / 1001, nominal: 30, df: true,  label: '29.97 fps drop-frame' },
+    '30':        { fps: 30,           nominal: 30, df: false, label: '30 fps' }
   };
+  // the standard rate within 0.05 % of a measured one, with the drop-frame flag as read, or '' (GoButton's ltc.js names rates by the same rule)
+  function nameRate(fps, df){ for (var k in RATES) if (RATES[k].df === !!df && Math.abs(fps / RATES[k].fps - 1) < 0.0005) return k; return ''; }
   // Where each field sits, LSB first. From SMPTE 12M as commonly tabulated (unchecked against the standard here).
   var FIELDS = [
     ['frame units', 0, 4], ['user 1', 4, 4], ['frame tens', 8, 2], ['drop-frame flag', 10, 1], ['colour-frame flag', 11, 1],
@@ -382,7 +387,15 @@ var LTC = (function(){
       var tc = decodeWord(word);
       if (tc) frames.push({ tc: tc, label: fmt(tc), dir: dir, t: bitTimes[i] });
     }
-    return { edges: edges.length, bits: bits, frames: frames, period: P, periods: periods, locks: locks };
+    // the frame rate, from the spacing of the sync words: they come eighty bits apart, whatever the reader guessed a cell to be.
+    // It is the rate the tape is heard at: a reader that does not know the speed cannot tell a fast 25 from a 30.
+    var sp = [];
+    for (i = 1; i < frames.length; i++) if (frames[i].dir === frames[i - 1].dir) sp.push(Math.abs(frames[i].t - frames[i - 1].t));
+    sp.sort(function(p, q){ return p - q; });
+    var spacing = sp.length ? sp[Math.floor(sp.length / 2)] : 0, dfs = 0;
+    frames.forEach(function(f){ if (f.tc.df) dfs++; });
+    var fps = spacing ? 1 / spacing : 0, df = dfs * 2 > frames.length;
+    return { edges: edges.length, bits: bits, frames: frames, period: P, periods: periods, locks: locks, fps: fps, df: df, rate: fps ? nameRate(fps, df) : '' };
   }
 
   // score a read against the tape that was played: how many of the frames that passed whole were read, how many reads were wrong
@@ -416,7 +429,7 @@ var LTC = (function(){
     return band / tot;
   }
 
-  return { SYNC: SYNC, SYNC_REV: SYNC_REV, RATES: RATES, FIELDS: FIELDS, polarityBit: polarityBit, encode: encode, decodeWord: decodeWord, fmt: fmt,
+  return { SYNC: SYNC, SYNC_REV: SYNC_REV, RATES: RATES, nameRate: nameRate, FIELDS: FIELDS, polarityBit: polarityBit, encode: encode, decodeWord: decodeWord, fmt: fmt,
            frameToLabel: frameToLabel, labelIndex: labelIndex, labelToFrame: labelToFrame, labelValid: labelValid,
            tape: tape, tapeNRZ: tapeNRZ, play: play, path: path, resample: resample, atSpeed: atSpeed, read: read, score: score, spectrum: spectrum, bandShare: bandShare };
 })();
@@ -555,7 +568,7 @@ var Snd = (function(){
     });
     $('fields1').innerHTML = lines.join('');
     var ones = w.bits.reduce(function(a, b){ return a + b; }, 0);
-    $('m1').innerHTML = 'the word for <b>' + LTC.fmt(w.tc) + '</b> · each digit in binary-coded decimal, least significant bit first · ' + ones + ' ones, ' + (80 - ones) + ' zeros: even, because bit ' + pb + ' is set when it needs to be (bit 59 at 25 fps, bit 27 at 24 and 29.97) · the sync word ' + LTC.SYNC.join('') + ' closes every word; its twelve 1s in a row cannot turn up in the data, where the longest run is ten even with every user bit and flag set (checked over every timecode of the day at all three rates).';
+    $('m1').innerHTML = 'the word for <b>' + LTC.fmt(w.tc) + '</b> · each digit in binary-coded decimal, least significant bit first · ' + ones + ' ones, ' + (80 - ones) + ' zeros: even, because bit ' + pb + ' is set when it needs to be (bit 59 at 25 fps, bit 27 at every other rate) · the sync word ' + LTC.SYNC.join('') + ' closes every word; its twelve 1s in a row cannot turn up in the data, where the longest run is ten even with every user bit and flag set (checked over every timecode of the day at all six rates).';
     drawWave();
   }
   ['tc1', 'rate1', 'ub1'].forEach(function(id){ $(id).addEventListener('input', showWord); $(id).addEventListener('change', showWord); });
@@ -578,7 +591,7 @@ var Snd = (function(){
     g.font = (Math.max(8, Math.min(11, cw / d * 0.9)) * d) + 'px ' + MONO;
     for (i = 0; i < 80; i++){ g.fillStyle = w.bits[i] ? '#e8b84a' : '#4a4a5a'; g.fillText(String(w.bits[i]), x0 + i * cw + cw * 0.25, 18 * d); }
     var R = 80 * LTC.RATES[w.rk].fps;
-    $('m2').innerHTML = 'one word is 80 bits; at ' + LTC.RATES[w.rk].label + ' that is 80 × ' + (w.rk === '29.97' ? '30000/1001' : w.rk) + ' = <b>' + (Math.round(R * 10000) / 10000) + ' bit/s</b> · the page says 1920, 2000 and 2397.6; the encoder makes 1920, 2000 and 2397.6024 · one word lasts ' + (1000 / LTC.RATES[w.rk].fps).toFixed(3) + ' ms';
+    $('m2').innerHTML = 'one word is 80 bits; at ' + LTC.RATES[w.rk].label + ' that is 80 × ' + ({ '23.976': '24000/1001', '29.97': '30000/1001', '29.97 ndf': '30000/1001' }[w.rk] || w.rk) + ' = <b>' + (Math.round(R * 10000) / 10000) + ' bit/s</b> · the page says 1920, 2000, 2400 and 2397.6; the encoder makes 1920, 2000, 2400 and 2397.6024 · one word lasts ' + (1000 / LTC.RATES[w.rk].fps).toFixed(3) + ' ms';
   }
   var lv = $('lv2'); function lvShow(){ $('lv2v').textContent = lv.value + ' dBFS'; } lv.addEventListener('input', function(){ lvShow(); Snd.level(+lv.value); }); lvShow();
   $('p2').addEventListener('click', function(){
@@ -609,18 +622,18 @@ var Snd = (function(){
     var w = word(), start = w.tc || { h: 1, m: 23, s: 45, f: 12 }, rows = [], pass = true, ctl;
     $('h3').textContent = 'reading…';
     setTimeout(function(){
-      var html = '<tr><th>what was played</th><th>reader’s bit-rate guess</th><th>frames read</th><th>wrong reads</th><th>bits in order</th><th></th></tr>';
-      [['24', {}], ['25', {}], ['29.97', {}], [w.rk, { flip: true }], [w.rk, { nrz: true }]].forEach(function(c){
+      var html = '<tr><th>what was played</th><th>reader’s bit-rate guess</th><th>rate named, from the sync words</th><th>frames read</th><th>wrong reads</th><th>bits in order</th><th></th></tr>';
+      [['23.976', {}], ['24', {}], ['25', {}], ['29.97 ndf', {}], ['29.97', {}], ['30', {}], [w.rk, { flip: true }], [w.rk, { nrz: true }]].forEach(function(c){
         var rk = c[0], o = c[1], st = parseTc(LTC.fmt(start), rk) || { h: 1, m: 0, s: 0, f: 2 }, r = runOne(rk, st, w.ub, o);
-        var good = r.sc.distinct === 50 && r.sc.wrong === 0 && r.bo.ok;
+        var good = r.sc.distinct === 50 && r.sc.wrong === 0 && r.bo.ok && r.rd.rate === rk;
         var name = LTC.RATES[rk].label + (o.flip ? ', polarity flipped' : '') + (o.nrz ? ' · the control: same bits, no clock' : '');
         if (!o.nrz) pass = pass && good; else ctl = r;
-        html += '<tr><td>' + name + '</td><td>' + (r.rd.period ? (1 / r.rd.period).toFixed(1) : '—') + ' (sent ' + (80 * LTC.RATES[rk].fps).toFixed(1) + ')</td><td>' + r.sc.distinct + ' of 50</td><td>' + r.sc.wrong + '</td><td>' + (r.bo.ok ? r.bo.n + ' match' : 'no') + '</td><td class="' + ((o.nrz ? r.sc.distinct === 0 : good) ? 'ok' : 'no') + '">' + (o.nrz ? (r.sc.distinct === 0 ? 'reads nothing, as expected' : 'READ: the test is void') : (good ? 'pass' : 'FAIL')) + '</td></tr>';
+        html += '<tr><td>' + name + '</td><td>' + (r.rd.period ? (1 / r.rd.period).toFixed(1) : '—') + ' (sent ' + (80 * LTC.RATES[rk].fps).toFixed(1) + ')</td><td>' + (r.rd.rate ? LTC.RATES[r.rd.rate].label : '—') + (r.rd.fps ? ' <span class="dim">' + r.rd.fps.toFixed(3) + ' fps</span>' : '') + '</td><td>' + r.sc.distinct + ' of 50</td><td>' + r.sc.wrong + '</td><td>' + (r.bo.ok ? r.bo.n + ' match' : 'no') + '</td><td class="' + ((o.nrz ? r.sc.distinct === 0 : good) ? 'ok' : 'no') + '">' + (o.nrz ? (r.sc.distinct === 0 ? 'reads nothing, as expected' : 'READ: the test is void') : (good ? 'pass' : 'FAIL')) + '</td></tr>';
       });
       $('tab3').innerHTML = html; $('h3').textContent = 'starting at ' + LTC.fmt(start) + ', user bits ' + $('ub1').value;
       var ctlOk = ctl.sc.distinct === 0;
       $('v3').innerHTML = (pass && ctlOk)
-        ? 'Pass. The audio carried its own clock: a reader that knew nothing found the bit period in the gaps between flips, at all three rates and upside down, and read every frame back. The same bits without the mid-cell flips read nothing. This is the page’s claim, run: every boundary flips, a 1 flips once more, and the flips carry both the timing and the data.'
+        ? 'Pass. The audio carried its own clock: a reader that knew nothing found the bit period in the gaps between flips, at all six rates and upside down, read every frame back, and named each rate from the spacing of its sync words and the drop-frame flag. The same bits without the mid-cell flips read nothing. This is the page’s claim, run: every boundary flips, a 1 flips once more, and the flips carry both the timing and the data.'
         : (pass ? 'The biphase rows passed, but the control read frames too, so this run cannot credit the clock in the code.' : 'Fail. At least one row lost a frame or read a wrong one; the table says which.');
     }, 30);
   });
@@ -633,10 +646,10 @@ var Snd = (function(){
       say: 'Every frame of video gets one word of eighty bits. Hours, minutes, seconds and frames are written digit by digit in binary-coded decimal, each digit least significant bit first. Between the digits sit eight groups of four user bits, free for anything, and a few flags. The last sixteen bits are the sync word, the same in every frame. Type a timecode; hover a bit to see what it is.',
       eq: ['word = [ BCD time digits + 32 user bits + flags ] + sync 0011 1111 1111 1101', 'each word is the time in decimal digits, thirty-two free bits and a few flags, closed by the same sixteen-bit sync word'] },
     { short: 'The waveform', title: 'The word as a level that flips',
-      say: 'Here is that word as it goes down the cable: the level flipping at every cell and again in the middle of every 1. The green band is the sync word. Press play to hear ten seconds of timecode running from what you typed. The bit rate is eighty times the frame rate, so the three rates the page names come out of the encoder exactly, the third one to four decimals.',
-      eq: ['24 × 80 = 1920 ;  25 × 80 = 2000 ;  (30000/1001) × 80 = 2397.6024', 'film, PAL and NTSC: twenty-four, twenty-five and 29.97 frames a second, eighty bits each'] },
+      say: 'Here is that word as it goes down the cable: the level flipping at every cell and again in the middle of every 1. The green band is the sync word. Press play to hear ten seconds of timecode running from what you typed. The bit rate is eighty times the frame rate, so the page’s four bit rates come out of the encoder exactly, 29.97’s to four decimals.',
+      eq: ['24 × 80 = 1920 ;  25 × 80 = 2000 ;  30 × 80 = 2400 ;  (30000/1001) × 80 = 2397.6024', 'twenty-four, twenty-five, thirty and 29.97 frames a second, eighty bits each'] },
     { short: 'Read it back', title: 'The test: a reader that is told nothing',
-      say: 'If the flips carry their own clock, a reader should need nothing but the audio. This one is given none of what made it: not the rate, not the polarity, not where a cell starts. It times the gaps between zero crossings, calls the long ones 0 and pairs the short ones into 1s, and keeps adjusting its own guess of the cell length from what it hears. The rule is above the button; it was written before the first run.',
+      say: 'If the flips carry their own clock, a reader should need nothing but the audio. This one is given none of what made it: not the rate, not the polarity, not where a cell starts. It times the gaps between zero crossings, calls the long ones 0 and pairs the short ones into 1s, and keeps adjusting its own guess of the cell length from what it hears. Then it names the rate: sync words come eighty bits apart, so their spacing is the frame period, and bit 10 says whether the count is drop-frame. The rule is above the button; it was written before the first run.',
       eq: ['gap ≈ T → 0 ;  gap ≈ T/2, twice → 1 ;  T ← T + 0.15 (gap’ − T)', 'a whole-cell gap is a 0; two half-cell gaps are a 1; after each gap the reader nudges its guess of the cell length toward what it just measured'] }
   ];
   var walk = makeWalk(STEPS, function(i){

@@ -83,3 +83,105 @@ That's one round of work.
 ## The face as a whole
 
 It makes the idea felt. Time becomes eighty flips, and a reader that knows nothing pulls the clock back out of them. A counter skips names to stay honest, and the face shows exactly how much honesty that buys. It is a test-heavy face, not a busy one: every piece ends on something that could have come out the other way, and one of them overturns the page's own guess. That refutation survived my rebuild of the page's situation. What needs tightening is the edge of the backward table, where a rendering convenience is presented as a law. The yes is solid. The "must fail" is not.
+
+---
+
+## Second challenge, after the 2026-11-04 rewrite
+
+*2026-11-04 · challenger · claude-opus-5-5 · I made none of these pieces.* Read against `Projects/SMPTE LTC.md` as rewritten (ca1101ef), with the encoder now anchored in **Every form** at "The good reader measures the bit length as it goes", and the backward reader in **The fine points** at "The sync word". The teaching room is not judged here. Verdicts: **0 keep, 2 remake, 0 retire.** Both engines hold; both pieces still argue with, or count for, a page that is gone, and each leaves its new anchor's sharpest claim untested.
+
+### Checks run
+
+- `check.mjs`: all PASS, every number in the captions reproduced.
+- `conform.mjs "SMPTE LTC"`: 3 pieces, 0 piece errors, 0 warnings, browser pass at 760 and 1130 px. The one error is the known `ref-missing` on the retired drop-frame piece's kept verdict line.
+- `fingerprint.mjs`: The fine points 9e11caf7739c, Every form 732162fd789c, both in step.
+- `challenge-check.mjs`: still runs clean (reversed buffer, resampler edge, band share 88.8% at 25 fps).
+- My own route (scratchpad, not kept), pulling the pieces' `ltc-core` and the bundle's GoButton `ltc.js` into Node:
+  - **The pieces' core agrees with the page's specification.** Over every frame of a day — 2,073,600 at 24, 2,160,000 at 25, 2,589,408 at 29.97 drop — the core's `encode` and `ltc.js`'s `frameBits` give the same eighty bits, 0 words differing, and the core's drop-frame labels match `fromFrames`, 0 differing.
+  - **The encoder's rate guess does not name the rate.** The number the piece prints is the reader's last smoothed cell length. Run through `ltc.js`'s own `nameRate` (0.05%): 24 fps reads 23.985 fps and is named **23.976**; 29.97 reads 29.950 and is named nothing. Timing sync word to sync word instead gives 23.9760, 24.0000, 25.0000, 29.9700, 29.9700 and 30.0000 and names all six right, drop flag included. The piece's reader, given the three rates it lacks (23.976, 29.97 non-drop, 30), reads 50/50 at each.
+  - **The sync word's spacing tells the speed exactly.** On the backward piece's time-scaled tape, speed from sync-to-sync came out 8.0000, 4.0000, 2.0000, 1.0000, 0.5000 and 0.1000 backward and 0.1000, 0.5000, 2.0000 and 6.0000 forward. The piece never shows it.
+  - **Rate and speed are one measurement.** A 25 fps tape played 1.2× fast is named **30** by `ltc.js`'s decoder (30.0022 fps); 24 fps slowed by 1000/1001 is named 23.976; 29.97 sped by 1001/1000 is named nothing. A reader can name the rate only if it assumes 1×, and the speed only if it knows the rate. Frame numbers that never pass 24 hint 25 rather than 30; nothing tells a 0.1% pull from the fractional rate.
+
+### Every form · `SMPTE LTC — rich — encoder.html` — **remake**
+
+1. **Test or decoration?** Half a test of its new anchor. "One reader reads every rate" is run, at three of the six rates the room counts. "And says which it hears" is not: the piece prints a bit-rate guess beside "(sent …)" and never names a rate, and the guess it prints would name 24 as 23.976 by the specification's own rule. The caption cites 1918.8, 1999.9 and 2396.0 bit/s as if they were the answer.
+2. **Faithful to the current text?** Engine yes (above). Words no: three places still count the page's rates as three, where the page now names four bit rates and the room six frame rates.
+3. **Walks up?** Yes: one cell, eighty bits, the waveform, then the reader told nothing, last.
+
+**Must fix:**
+- `encoder.html:337–385` (`read`) and `:618` (the table) — measure the rate from the sync words' spacing (mean of `frames[i].t − frames[i−1].t`), not the last `P`, and name it by `ltc.js`'s rule (`nameRate`: within 0.05%, drop flag from bit 10). A row passes only if the name is right.
+- `encoder.html:184–188` (`RATES`, shared core: change both pieces) and `:613` — add 23.976, 29.97 non-drop and 30, so "every rate" is the page's every rate.
+- `encoder.html:636` — "the three rates the page names come out of the encoder exactly" → "the page's four bit rates, 1920, 2000, 2400 and 2397.6, come out of the encoder exactly".
+- `encoder.html:581` — "the page says 1920, 2000 and 2397.6" → "the page says 1920 at 24, 2000 at 25, 2400 at 30, 2397.6 at 29.97".
+- `encoder.html:6` (forward_vector, "the page's three rates") and `:623` (verdict, "at all three rates") — follow the rate change.
+- `SMPTE LTC — rich.json:133` (caption) — replace "guessed the bit rate from the gaps alone (1918.8, 1999.9, 2396.0 bit/s)" and "three of the page's four rates" with the rates as named.
+
+### The fine points · `SMPTE LTC — rich — backward.html` — **remake** (second verdict, after the 90591477 remake)
+
+The 90591477 remake did what the first challenge asked: the reversed-buffer rows are in, speeds are named as time-scaled, the resampler is printed beside them, ±12×/±16× are the limit and not judged. That part holds.
+
+1. **Test or decoration?** A real test of "LTC reads in reverse and at varispeed" and "read backward it tells the reader the tape is running in reverse". The forward-only control can fail. But the anchor's third claim, "its length tells the speed", is untested, though the reader already has what it needs. Step 1 (the spectrum) answered "can you hear LTC?", which is no longer asked. Its honest home now is the **Level and edge** bullet: a harsh buzz in a monitor mix, nothing musical in its path.
+2. **Faithful to the current text?** No. The whole frame argues with a page that is gone: the eyebrow, the lead, the rule, the step texts and the verdict quote a guess the page now states the other way.
+3. **Walks up?** Yes, once step 1 leans toward what follows: the sound at 1×, the sync word both ways, speeds by ear, then the test.
+
+**Must fix:**
+- `backward.html:122` (lead) — replace "The page asks whether you can hear LTC, and guesses it probably cannot be read backward or at fractional speeds" with the current claim: "The page says the sync word is not symmetrical, so read backward it tells the reader the tape runs in reverse, and its length tells the speed."
+- `backward.html:120` (eyebrow "two open questions") → "the sync word"; `:16` (`<title>`) → "read backward and at speed".
+- `backward.html:158` — "First, the page’s own case:" → "First, a recording reversed:"; `:159` — "The page’s guess is borne out if …" → "The page's claim fails if …"; `:561` (comment) and `:618` ("First the page’s own case") the same.
+- `backward.html:602` (verdict) — delete "That is the page’s own case, and its guess, “probably not, the biphase code assumes forward continuous time”, does not hold for this reader." In its place: "That is the page's 'LTC reads in reverse', run."
+- `backward.html:609` (step 1) — drop "“Can you hear LTC?” is a question about ears". Lean it on Level and edge: about 89% of the power sits in 500 Hz–3 kHz, where music does, which is why it buzzes in a monitor mix and why no EQ, compressor or codec belongs in its path. Keep "no agent heard this".
+- `backward.html:582/595` (the table) — add a "speed read" column: the frame rate measured from the sync words' spacing ÷ 25, passing within 0.1%. That is "its length tells the speed", run.
+- `backward.html:6` (forward_vector) — "answers two of the page's open questions" goes. "Nine speeds each way" is ten (`:470`).
+- `SMPTE LTC — rich.json:82` (caption) — rewrite away from "Can you hear it … a question for your ears" and "The page's own case first".
+
+### Nice to have (both)
+
+- **Hold the core to `ltc.js` in `check.mjs`.** The page says every other build is held to the specification, and I ran it: 0 differing words over a day at three rates. With that check in place, `encoder.html:177`'s footer can say "agrees with GoButton's ltc.js over every frame of a day" instead of "unchecked against the standard here".
+- `check.mjs:5–6, 38, 67, 95, 109, 138` still name "Technical Architecture", "Open Questions" and "the page's three bit rates", and `pageRates` is hard-coded; add 30 → 2400.
+- **Show the confound.** One row in the encoder's test, 25 fps played 1.2× fast, named 30, would make "says which it hears" honest about what it assumes. Below I offer it to the text.
+- `backward.html:579` — "20 speeds two ways" → "twenty speeds, ten each way".
+- The encoder caption's "edges are 40 µs" is the width of the averaging box; 10–90% that is about 32 µs, against the page's "about 25 µs". Say which one is meant.
+- Both pieces are prior art for the room's Read and Break it stops (varispeed, reverse, wrong rate). When the room reaches them, port them onto `ltc.js`, and ask then whether these two still earn a place of their own.
+
+### An offer for the text (for the carrier, not a piece fix)
+
+- **Every form + The fine points · claim-change.** "One reader reads every rate and says which it hears" and "its length tells the speed" are one measurement read two ways. A reader names the rate only if it assumes 1×, and the speed only if it knows the rate. Evidence: `ltc.js`'s decoder names a 25 fps tape at 1.2× as "30", and 24 fps slowed by 1000/1001 as "23.976". A frame count that never passes 24 hints 25 rather than 30; nothing separates a 0.1% pull from the fractional rate. Carried to Loudon as a claim-change, through the Deposit map.
+
+### Second verdict, on the remake (uncommitted, on top of 5763e862)
+
+*2026-11-04 · challenger · claude-opus-5-5.* I read the diff against every must-fix above and re-ran everything. Verdicts: **2 keep, 0 remake, 0 retire.**
+
+**Checks.** `check.mjs` passes everything at six rates. `conform` shows 0 piece errors, 0 warnings, and only the known drop-frame `ref-missing`. The two cores are identical, 16,075 characters each.
+
+My own route:
+- **Bits.** Against `ltc.js`, the core gives the same bits at all six rates: 0 words differ, sampling every 7th frame of a day.
+- **Rate naming.** The new `read()` names the rate right on fresh noise seeds and start times:
+  - 30 across midnight (23:59:58 on);
+  - 29.97 drop with every user bit set;
+  - 29.97 non-drop with mixed user bits;
+  - a six-frame 23.976 run;
+  - 23.976, 29.97 non-drop and 30 at 44.1 kHz.
+
+  50/50 everywhere, 0 wrong.
+- **The assumption.** A 25 fps tape at 1.2× is named "30" (30.0001 fps). That is exactly what the rule text now says it assumes.
+
+**encoder.html: keep.** Every must-fix is met:
+- the rate comes from the sync-word spacing, by `ltc.js`'s 0.05% rule, and a row passes only if the name is right;
+- six rates, plus flip and control;
+- the stale "three rates" text is gone at `:6`, `:581`, `:623` and `:636`;
+- the caption is updated, and so is the 32 µs edge.
+
+One leftover, not blocking: `:571` still says "bit 27 at 24 and 29.97" and "checked … at all three rates". The check now covers six, so write "bit 27 at every other rate" and "at all six rates".
+
+**backward.html: keep.** Every must-fix is met:
+- the frame now rests on the page's current claim;
+- step 1 is tied to the monitor-mix buzz;
+- the "page's own case" and "probably not" lines are gone;
+- six reversed rows;
+- a speed-read column, judged to 0.1% (8.0001 down to 0.1000 either way);
+- "ten speeds each way";
+- the caption is updated.
+
+**Still open (nice to have):**
+- Both cores' `:186`/`:194` comments and the encoder footer at `:177` still say "unchecked against the standard". The core is now checked against `ltc.js`, so they could say so, once `check.mjs` asserts it.
+- Moving both pieces onto `ltc.js` waits for the room's Read stop.

@@ -3,7 +3,7 @@
   title: SMPTE LTC — rich — backward
   born: 2026-11-04
   links: [[SMPTE LTC]] (connects-to · rich-face-piece) · listed in [[SMPTE LTC — rich.json]] · its reader is re-run by "SMPTE LTC — rich — check.mjs"
-  forward_vector: I am the walk that answers two of the page's open questions with a thing to play. First LTC itself, at a level you choose, with the spectrum of exactly what is playing, because whether you can hear it is a question for your ears and no agent heard it. Then the sync word forward and mirrored, and a biphase cell played backward, which is still a biphase cell. Then the same tape run backward and at other speeds, by ear. Last a reader that knows neither the speed nor the direction, run on fifty frames at nine speeds each way and on a shuttle that stops and turns round, with a forward-only reader beside it as the control. I change only when the section I serve does.
+  forward_vector: I am the walk that tests the page's claim that LTC reads in reverse and at varispeed because of its sync word. First LTC itself, at a level you choose, with the spectrum of exactly what is playing, because the page calls it a harsh buzz in a monitor mix and no agent heard it. Then the sync word forward and mirrored, and a biphase cell played backward, which is still a biphase cell. Then the same tape run backward and at other speeds, by ear. Last a reader that knows neither the speed nor the direction, run on fifty frames at ten speeds each way and on a shuttle that stops and turns round, with a forward-only reader beside it as the control, and the speed read from the spacing of the sync words. I change only when the section I serve does.
   sound: nothing plays until a play button is clicked; the AudioContext is made on that click. Changing step stops the sound.
   check: SMPTE LTC/SMPTE LTC — rich — check.mjs runs this page's core (the script with id ltc-core) in Node.
 -->
@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
 <meta name="piece:needs" content="">
-<title>SMPTE LTC · can it be heard, can it be read backward</title>
+<title>SMPTE LTC · read backward, read at speed</title>
 <meta name="theme-color" content="#0a0a0f">
 <style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
 /* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
@@ -117,9 +117,9 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
 </head>
 <body>
 <main>
-  <div class="eyebrow">SMPTE LTC · two open questions · four steps</div>
-  <h1>Heard, and read backward</h1>
-  <p class="lead">The page asks whether you can hear LTC, and guesses it probably cannot be read backward or at fractional speeds. Four steps: the sound itself and where its energy sits; the sync word forward and mirrored; the tape run backward and at other speeds, by ear; and last, a reader that knows neither speed nor direction. Nothing plays until you press a play button.</p>
+  <div class="eyebrow">SMPTE LTC · the sync word · four steps</div>
+  <h1>Backward, and at any speed</h1>
+  <p class="lead">The page says LTC reads in reverse and at varispeed, and that the sync word is why: it tells a reader where a frame is, which way the tape runs, and how fast. Four steps: the sound itself and where its energy sits; the sync word forward and mirrored; the tape run backward and at other speeds, by ear; and last, a reader that knows neither speed nor direction. Nothing plays until you press a play button.</p>
   <nav class="rail" id="rail" aria-label="steps"></nav>
   <div class="eyebrow" id="stepEyebrow"></div>
   <h2 id="stepTitle"></h2>
@@ -128,7 +128,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   <section class="panel view" data-step="0">
     <div class="row">
       <label for="rate0">rate</label>
-      <select id="rate0"><option value="24">24 fps</option><option value="25" selected>25 fps</option><option value="29.97">29.97 fps drop-frame</option></select>
+      <select id="rate0"><option value="23.976">23.976 fps</option><option value="24">24 fps</option><option value="25" selected>25 fps</option><option value="29.97 ndf">29.97 fps non-drop</option><option value="29.97">29.97 fps drop-frame</option><option value="30">30 fps</option></select>
       <button class="play" id="p0">play LTC</button>
       <label for="lv0">level</label><input type="range" id="lv0" min="-50" max="-10" step="1" value="-24"><span class="v" id="lv0v"></span>
     </div>
@@ -155,8 +155,8 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   <section class="panel view" data-step="3">
     <div class="rule"><span class="eyebrow">The rule, before the run</span>
       Fifty frames, plus one either side that is not scored, go through the same audio path every time: a 10 Hz high-pass and noise 30 dB under the peak, sampled at 48 kHz. The reader is told neither speed nor direction; it guesses the cell length from the gaps and looks for the sync word both ways.
-      <b>First, the page’s own case:</b> a recording made at 1× at each rate, its samples reversed, then sent through the path. <b>Then speeds:</b> 25 fps, rendered by time-scaling the tape, so each sample is the tape averaged under the head. That is an ideal anti-alias, kinder than a real varispeed, so beside each row the same speed is also read from a 1× buffer through a plain linear resampler, printed and not judged.
-      <b>A row passes</b> when all 50 frames come back with no wrong timecode and the direction right on every one. <b>The page’s guess is borne out</b> if the reversed recordings or the backward rows read nothing, or read wrong timecodes. Chance: none; a frame needs eighty bits right and a sync word in place.
+      <b>First, a reversed recording:</b> one made at 1× at each of the six rates, its samples reversed, then sent through the path. <b>Then speeds:</b> 25 fps, rendered by time-scaling the tape, so each sample is the tape averaged under the head. That is an ideal anti-alias, kinder than a real varispeed, so beside each row the same speed is also read from a 1× buffer through a plain linear resampler, printed and not judged.
+      <b>A row passes</b> when all 50 frames come back with no wrong timecode and the direction right on every one. <b>The page’s claim fails</b> if the reversed recordings or the backward rows read nothing, or read wrong timecodes. <b>The speed</b> is read from how far apart the sync words come, against the rate the tape was made at; it is printed beside each row. Without the rate, a reader could not tell a fast 25 from a 30. Chance: none; a frame needs eighty bits right and a sync word in place.
       <b>The limit:</b> at 12× and 16× a half cell is one sample or less at 48 kHz, which is Nyquist. Those rows show where the sample rate runs out; they are not counted either way. <b>The control:</b> a forward-only reader on the backward rows. If it read nothing there, the direction comes from the asymmetric sync word, not the bit code.
       <b>The shuttle:</b> 2× forward, slowing through a stop, back at 2× in reverse. Printed, not judged.</div>
     <div class="row"><button class="play" id="run3">run the reader</button><span class="hint dim" id="h3"></span></div>
@@ -174,10 +174,15 @@ var LTC = (function(){
   var SYNC = [0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1];           // bits 64..79, in the order they are sent
   var SYNC_REV = SYNC.slice().reverse();                    // what a reader meets when the tape runs backward
   var RATES = {
-    '24':    { fps: 24,            nominal: 24, df: false, label: '24 fps' },
-    '25':    { fps: 25,            nominal: 25, df: false, label: '25 fps' },
-    '29.97': { fps: 30000 / 1001,  nominal: 30, df: true,  label: '29.97 fps drop-frame' }
+    '23.976':    { fps: 24000 / 1001, nominal: 24, df: false, label: '23.976 fps' },
+    '24':        { fps: 24,           nominal: 24, df: false, label: '24 fps' },
+    '25':        { fps: 25,           nominal: 25, df: false, label: '25 fps' },
+    '29.97 ndf': { fps: 30000 / 1001, nominal: 30, df: false, label: '29.97 fps non-drop' },
+    '29.97':     { fps: 30000 / 1001, nominal: 30, df: true,  label: '29.97 fps drop-frame' },
+    '30':        { fps: 30,           nominal: 30, df: false, label: '30 fps' }
   };
+  // the standard rate within 0.05 % of a measured one, with the drop-frame flag as read, or '' (GoButton's ltc.js names rates by the same rule)
+  function nameRate(fps, df){ for (var k in RATES) if (RATES[k].df === !!df && Math.abs(fps / RATES[k].fps - 1) < 0.0005) return k; return ''; }
   // Where each field sits, LSB first. From SMPTE 12M as commonly tabulated (unchecked against the standard here).
   var FIELDS = [
     ['frame units', 0, 4], ['user 1', 4, 4], ['frame tens', 8, 2], ['drop-frame flag', 10, 1], ['colour-frame flag', 11, 1],
@@ -374,7 +379,15 @@ var LTC = (function(){
       var tc = decodeWord(word);
       if (tc) frames.push({ tc: tc, label: fmt(tc), dir: dir, t: bitTimes[i] });
     }
-    return { edges: edges.length, bits: bits, frames: frames, period: P, periods: periods, locks: locks };
+    // the frame rate, from the spacing of the sync words: they come eighty bits apart, whatever the reader guessed a cell to be.
+    // It is the rate the tape is heard at: a reader that does not know the speed cannot tell a fast 25 from a 30.
+    var sp = [];
+    for (i = 1; i < frames.length; i++) if (frames[i].dir === frames[i - 1].dir) sp.push(Math.abs(frames[i].t - frames[i - 1].t));
+    sp.sort(function(p, q){ return p - q; });
+    var spacing = sp.length ? sp[Math.floor(sp.length / 2)] : 0, dfs = 0;
+    frames.forEach(function(f){ if (f.tc.df) dfs++; });
+    var fps = spacing ? 1 / spacing : 0, df = dfs * 2 > frames.length;
+    return { edges: edges.length, bits: bits, frames: frames, period: P, periods: periods, locks: locks, fps: fps, df: df, rate: fps ? nameRate(fps, df) : '' };
   }
 
   // score a read against the tape that was played: how many of the frames that passed whole were read, how many reads were wrong
@@ -408,7 +421,7 @@ var LTC = (function(){
     return band / tot;
   }
 
-  return { SYNC: SYNC, SYNC_REV: SYNC_REV, RATES: RATES, FIELDS: FIELDS, polarityBit: polarityBit, encode: encode, decodeWord: decodeWord, fmt: fmt,
+  return { SYNC: SYNC, SYNC_REV: SYNC_REV, RATES: RATES, nameRate: nameRate, FIELDS: FIELDS, polarityBit: polarityBit, encode: encode, decodeWord: decodeWord, fmt: fmt,
            frameToLabel: frameToLabel, labelIndex: labelIndex, labelToFrame: labelToFrame, labelValid: labelValid,
            tape: tape, tapeNRZ: tapeNRZ, play: play, path: path, resample: resample, atSpeed: atSpeed, read: read, score: score, spectrum: spectrum, bandShare: bandShare };
 })();
@@ -558,10 +571,10 @@ var Snd = (function(){
     if (!ONEX) ONEX = LTC.play(tp, SR, Math.round(tp.dur * SR), function(t){ return t; }, {});
     return LTC.score(LTC.read(LTC.path(LTC.resample(ONEX, s), SR, PATH), SR), tp, Math.sign(s));
   }
-  function runReversedBuffer(rk){                    // the page's own case: a 1× recording, its samples played last first
+  function runReversedBuffer(rk){                    // a reversed recording: a 1× recording, its samples played last first
     var SR = 48000, tp = LTC.tape(START, 50, rk), y = LTC.play(tp, SR, Math.round(tp.dur * SR), function(t){ return t; }, {});
-    var r = LTC.path(Float32Array.from(y).reverse(), SR, PATH);
-    return LTC.score(LTC.read(r, SR), tp, -1);
+    var r = LTC.path(Float32Array.from(y).reverse(), SR, PATH), rd = LTC.read(r, SR), sc = LTC.score(rd, tp, -1);
+    sc.rd = rd; return sc;
   }
   function runShuttle(){
     var SR = 48000, tp = LTC.tape(START, 50, '25'), v0 = 2, D = 4 * 0.9 * tp.dur / v0;   // turns round at 90% of the tape
@@ -576,37 +589,39 @@ var Snd = (function(){
     return { fw: fw.length, bw: bw.length, wrong: wrong, turnAt: turnAt, backFrom: backFrom, whole: whole, lastWhole: tp.labels[whole] };
   }
   $('run3').addEventListener('click', function(){
-    $('h3').textContent = 'reading 3 reversed buffers, 20 speeds two ways, and a shuttle…'; $('tab3').innerHTML = ''; $('v3').innerHTML = '';
+    $('h3').textContent = 'reading 6 reversed buffers, ten speeds each way, and a shuttle…'; $('tab3').innerHTML = ''; $('v3').innerHTML = '';
     setTimeout(function(){
       var tag = function(ok){ return ok ? '<span class="ok">pass</span>' : '<span class="no">FAIL</span>'; };
-      var html = '<tr><th>what was played</th><th>frames read</th><th>wrong reads</th><th>direction wrong</th><th>forward-only reader</th><th>same speed, linear resampler</th><th></th></tr>';
+      var html = '<tr><th>what was played</th><th>frames read</th><th>wrong reads</th><th>direction wrong</th><th>speed read</th><th>forward-only reader</th><th>same speed, linear resampler</th><th></th></tr>';
+      var spd = function(rd, fps){ return rd.frames.length && rd.fps ? (rd.frames[0].dir < 0 ? '−' : '+') + (rd.fps / fps).toFixed(3) + '×' : '—'; }, spOk = 0, spRows = 0;
       var revPass = 0, backPass = 0, backRows = 0, fwdPass = 0, fwdRows = 0, ctlZero = true, edge = [], resClean = [];
-      ['24', '25', '29.97'].forEach(function(rk){
+      ['23.976', '24', '25', '29.97 ndf', '29.97', '30'].forEach(function(rk){
         var sc = runReversedBuffer(rk), ok = sc.distinct === 50 && sc.wrong === 0 && sc.dirWrong === 0; if (ok) revPass++;
-        html += '<tr><td>1× recording at ' + LTC.RATES[rk].label + ', samples reversed</td><td>' + sc.distinct + ' of 50</td><td>' + sc.wrong + '</td><td>' + sc.dirWrong + '</td><td class="dim">—</td><td class="dim">—</td><td>' + tag(ok) + '</td></tr>';
+        html += '<tr><td>1× recording at ' + LTC.RATES[rk].label + ', samples reversed</td><td>' + sc.distinct + ' of 50</td><td>' + sc.wrong + '</td><td>' + sc.dirWrong + '</td><td>' + spd(sc.rd, LTC.RATES[rk].fps) + '</td><td class="dim">—</td><td class="dim">—</td><td>' + tag(ok) + '</td></tr>';
       });
       SPEEDS.forEach(function(s){
         var r = runSpeed(s, false), ok = r.sc.distinct === 50 && r.sc.wrong === 0 && r.sc.dirWrong === 0, near = Math.abs(s) >= 12;
         var ctl = s < 0 ? runSpeed(s, true).sc.distinct : null, rs = runResampled(s);
         if (s < 0 && ctl > 0) ctlZero = false;
+        if (!near){ spRows++; if (r.rd.fps && Math.abs(r.rd.fps / 25 - Math.abs(s)) / Math.abs(s) < 0.001 && (r.rd.frames[0].dir > 0) === (s > 0)) spOk++; }
         if (rs.distinct === 50 && rs.wrong === 0 && rs.dirWrong === 0) resClean.push(s);
         if (near) edge.push(fmtSp(s) + ' ' + r.sc.distinct + '/50');
         else if (s < 0){ backRows++; if (ok) backPass++; } else { fwdRows++; if (ok) fwdPass++; }
-        html += '<tr><td>' + fmtSp(s) + ' · time-scaled</td><td>' + r.sc.distinct + ' of 50</td><td>' + r.sc.wrong + '</td><td>' + r.sc.dirWrong + '</td><td>' + (ctl === null ? '<span class="dim">—</span>' : ctl + ' of 50') + '</td><td>' + rs.distinct + ' of 50' + (rs.wrong ? ', ' + rs.wrong + ' wrong' : '') + '</td><td>' + (near ? '<span class="dim">near Nyquist: the limit, not judged</span>' : tag(ok)) + '</td></tr>';
+        html += '<tr><td>' + fmtSp(s) + ' · time-scaled</td><td>' + r.sc.distinct + ' of 50</td><td>' + r.sc.wrong + '</td><td>' + r.sc.dirWrong + '</td><td>' + spd(r.rd, 25) + '</td><td>' + (ctl === null ? '<span class="dim">—</span>' : ctl + ' of 50') + '</td><td>' + rs.distinct + ' of 50' + (rs.wrong ? ', ' + rs.wrong + ' wrong' : '') + '</td><td>' + (near ? '<span class="dim">near Nyquist: the limit, not judged</span>' : tag(ok)) + '</td></tr>';
       });
       var sh = runShuttle();
-      html += '<tr><td>shuttle +2× → 0 → −2× · time-scaled</td><td>' + sh.fw + ' forward, ' + sh.bw + ' backward, of ' + sh.whole + ' that passed whole</td><td>' + sh.wrong + '</td><td>—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">printed</td></tr>';
+      html += '<tr><td>shuttle +2× → 0 → −2× · time-scaled</td><td>' + sh.fw + ' forward, ' + sh.bw + ' backward, of ' + sh.whole + ' that passed whole</td><td>' + sh.wrong + '</td><td>—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">printed</td></tr>';
       $('tab3').innerHTML = html; $('h3').textContent = 'fifty frames from ' + LTC.fmt(START) + '; noise seed fixed, so a rerun gives the same table';
       var cleanEdge = 0; [0.1, 0.25, 0.5, 1, 2, 4, 6, 8, 10, 12, 16].some(function(v){ if (resClean.indexOf(v) >= 0 && resClean.indexOf(-v) >= 0){ cleanEdge = v; return false; } return true; });
-      $('v3').innerHTML = (revPass === 3 && backPass === backRows && fwdPass === fwdRows && ctlZero)
-        ? 'Backward reads. A 1× recording with its samples reversed came back whole at all three rates, every timecode right and the direction called backward every time. That is the page’s own case, and its guess, “probably not, the biphase code assumes forward continuous time”, does not hold for this reader. Played backward, a biphase stream is still a biphase stream; the bits arrive last first, and the sync word, which is not a palindrome, says which way the tape runs. The forward-only reader read nothing backward: the direction lives in the sync word. With the tape time-scaled, every speed tried from 0.1× to 8× either way read all 50 frames. At 12× and 16× a half cell is one sample or less at 48 kHz, which is Nyquist: there it read ' + edge.join(', ') + ', the expected limit. Through a plain linear resampler, the way a DAW shuttle reads a buffer, it read clean at every speed out to ±' + cleanEdge + '× and patchily beyond, so the edge depends on the sample rate and how the audio is resampled, not on the code. On the shuttle, ' + sh.whole + ' frames passed under the head whole before it stopped and turned; the reader read ' + sh.fw + ' going forward and ' + sh.bw + ' coming back, ' + sh.wrong + ' wrong. This is one reader, in a browser, on synthetic tape through a high-pass and noise; no hardware reader was tested.'
-        : 'Not as expected: reversed buffers ' + revPass + ' of 3, backward speeds ' + backPass + ' of ' + backRows + ', forward ' + fwdPass + ' of ' + fwdRows + (ctlZero ? '' : '; the forward-only reader read frames backward, which needs explaining') + '.';
+      $('v3').innerHTML = (revPass === 6 && backPass === backRows && fwdPass === fwdRows && ctlZero && spOk === spRows)
+        ? 'Backward reads. A 1× recording with its samples reversed came back whole at all six rates, every timecode right and the direction called backward every time, as the page says it should. Played backward, a biphase stream is still a biphase stream; the bits arrive last first, and the sync word, which is not a palindrome, says which way the tape runs. The forward-only reader read nothing backward: the direction lives in the sync word. With the tape time-scaled, every speed tried from 0.1× to 8× either way read all 50 frames, and the spacing of the sync words gave each speed to within 0.1 %, given the tape’s rate. At 12× and 16× a half cell is one sample or less at 48 kHz, which is Nyquist: there it read ' + edge.join(', ') + ', the expected limit. Through a plain linear resampler, the way a DAW shuttle reads a buffer, it read clean at every speed out to ±' + cleanEdge + '× and patchily beyond, so the edge depends on the sample rate and how the audio is resampled, not on the code. On the shuttle, ' + sh.whole + ' frames passed under the head whole before it stopped and turned; the reader read ' + sh.fw + ' going forward and ' + sh.bw + ' coming back, ' + sh.wrong + ' wrong. This is one reader, in a browser, on synthetic tape through a high-pass and noise; no hardware reader was tested.'
+        : 'Not as expected: reversed buffers ' + revPass + ' of 6, speeds read ' + spOk + ' of ' + spRows + ', backward speeds ' + backPass + ' of ' + backRows + ', forward ' + fwdPass + ' of ' + fwdRows + (ctlZero ? '' : '; the forward-only reader read frames backward, which needs explaining') + '.';
     }, 30);
   });
 
   var STEPS = [
     { short: 'Hear it', title: 'What it sounds like, and where its energy sits',
-      say: '“Can you hear LTC?” is a question about ears, and no agent heard this; the button lets you answer it. What a piece can show is where the sound’s energy sits. A run of 0s is a square wave at half the bit rate and a run of 1s at the bit rate, so at 25 fps the two lines are at 1 and 2 kHz, in the middle of the band speech and most instruments live in. A filter that removed it would remove that band of the mix with it. Start low; the level slider is in dBFS of the square’s peak.',
+      say: 'The page calls LTC in a monitor mix a harsh buzz, one that bleeds into neighbouring channels. No agent heard this; the button lets you. What a piece can show is where the sound’s energy sits. A run of 0s is a square wave at half the bit rate and a run of 1s at the bit rate, so at 25 fps the two lines are at 1 and 2 kHz, in the middle of the band speech and most instruments live in. A filter that removed it would remove that band of the mix with it. Start low; the level slider is in dBFS of the square’s peak.',
       eq: ['f₀ = 40 × fps ;  f₁ = 80 × fps', 'the zeros sound at forty times the frame rate, the ones at eighty: 1 kHz and 2 kHz at 25 fps'] },
     { short: 'The sync word', title: 'Forward and mirrored',
       say: 'Two facts make backward reading possible. First, a biphase stream played backward is still a biphase stream: the flips at cell boundaries are still at boundaries, and a 1’s mid-cell flip is still mid-cell, so a reader gets the same bits, last first. Second, the sync word is not a palindrome. Forward it reads 0011 1111 1111 1101; backward, 1011 1111 1111 1100. A reader that meets the second pattern knows the tape is running backward, and that the word’s other sixty-four bits are coming after it, last first.',
@@ -615,7 +630,7 @@ var Snd = (function(){
       say: 'Pick a speed and play fifty frames from 10:00:00:00. Faster tapes play higher, slower ones lower, and a backward run has the same two pitches as a forward one at the same speed, since its cells are the same length; whether it sounds the same is for your ears. Under the button the reader reports what it took from exactly the buffer being played: how many frames, and which way it thinks the tape is going.',
       eq: ['cell = 1 / (80 × fps × |speed|)', 'the length of a cell is one over the bit rate times the speed, whichever way the tape runs'] },
     { short: 'Read it', title: 'The test: a reversed recording, speeds both ways, and a stop',
-      say: 'The rule is in the panel, written before the first run. First the page’s own case: a recording made at 1×, its samples reversed. Then the same fifty frames at speeds both ways, each read by the same reader, which guesses the cell length from the gaps and looks for the sync word in both directions. The forward-only column is the control; the resampler column shows how much of the speed edge belongs to how the audio is resampled.',
+      say: 'The rule is in the panel, written before the first run. First a recording made at 1×, its samples reversed. Then the same fifty frames at speeds both ways, each read by the same reader, which guesses the cell length from the gaps and looks for the sync word in both directions. The speed column is the page’s third claim for the sync word, its length tells the speed: the spacing of the sync words against the rate the tape was made at. The forward-only column is the control; the resampler column shows how much of the speed edge belongs to how the audio is resampled.',
       eq: ['dir = +1 if …0011111111111101 ;  dir = −1 if 1011111111111100…', 'a word that ends in the sync pattern runs forward; one that begins with the mirrored pattern runs backward'] }
   ];
   var walk = makeWalk(STEPS, function(i){

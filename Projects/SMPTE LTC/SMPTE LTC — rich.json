@@ -51,6 +51,13 @@
       "what": "Wording: 'peak detection yields the bit stream' is loose beside the page's own Technical Architecture ('The decoder detects phase transitions'). On LTC's flat-topped square the raw peaks carry no timing; what a reader times is the level's transitions (a peak detector on the differentiated signal is the same thing). Suggest 'detecting the level's transitions yields the bit stream'.",
       "status": "taken",
       "note": "taken · paid by ca1101ef (2026-11-04), the page's rewrite on Loudon's word"
+    },
+    {
+      "section": "The fine points",
+      "kind": "claim-change",
+      "what": "A reader cannot tell rate and speed apart from the audio alone. A 25 fps tape played 1.2× fast reads as 30 (ltc.js's own decoder names it so, and so does the encoder piece's reader), and 24 slowed by 1000/1001 reads as 23.976. So 'its length tells the speed' (The fine points) and 'one reader reads every rate and says which it hears' (Every form) each hold only given the other: the speed if the rate is known, the rate if the tape runs at its own speed.",
+      "status": "open",
+      "note": "Goes home through the Deposit Ceremony's map on Loudon's word; the .md is not written in this run."
     }
   ],
   "sections": [
@@ -79,7 +86,7 @@
           "origin": "made",
           "by": "maker · claude-opus-5-5 · inline JS, no library",
           "title": "Heard, and read backward · a walk in four steps",
-          "caption": "**Can you hear it, and can it be read backward?** The first is a question for your ears; no agent heard this. The piece plays LTC at a level you choose with the spectrum of exactly what is playing: about 89% of its power sits between 500 Hz and 3 kHz (25 fps), in two lines at 1 and 2 kHz. Then the sync word forward and mirrored, which are different patterns; the tape played backward and at other speeds by ear; and last a reader that knows neither speed nor direction. The page's own case first: a 1× recording with its samples reversed read all 50 frames at 24, 25 and 29.97 fps, right timecodes, direction right. With the tape time-scaled (an ideal anti-alias) it read all 50 at every speed tried from 0.1× to 8× either way; through a plain linear resampler of a 1× buffer, clean to ±6×, with −8× at 26 of 50. At 12× and 16× a half cell is one sample or less at 48 kHz, Nyquist: the limit, not judged. A forward-only reader read nothing backward: the direction lives in the sync word.\n\ncell = 1 ÷ (80 × fps × |speed|)\n\nthe length of a cell is one over the bit rate times the speed, whichever way the tape runs",
+          "caption": "**Does LTC read backward and at any speed, as the page says the sync word lets it?** First the piece plays LTC at a level you choose with the spectrum of exactly what is playing: about 89% of its power sits between 500 Hz and 3 kHz (25 fps), in two lines at 1 and 2 kHz, which is why the page calls it a harsh buzz in a monitor mix; no agent heard it. Then the sync word forward and mirrored, which are different patterns; the tape played backward and at other speeds by ear; and last a reader that knows neither speed nor direction. A 1× recording with its samples reversed read all 50 frames at all six rates, right timecodes, direction right. With the tape time-scaled (an ideal anti-alias) it read all 50 at every speed tried from 0.1× to 8× either way; through a plain linear resampler of a 1× buffer, clean to ±6×, with −8× at 26 of 50. At 12× and 16× a half cell is one sample or less at 48 kHz, Nyquist: the limit, not judged. A forward-only reader read nothing backward: the direction lives in the sync word. And the sync words' spacing gave every speed to within 0.1 %, given the tape's rate; without the rate, a reader could not tell a fast 25 from a 30.\n\ncell = 1 ÷ (80 × fps × |speed|)\n\nthe length of a cell is one over the bit rate times the speed, whichever way the tape runs",
           "near": "The sync word",
           "place": "band",
           "height": 1300,
@@ -111,6 +118,22 @@
             "why": "the teaching room's step 3 teaches drop-frame; Loudon, 2026-11-04: 'Merge, drop theirs' DF'",
             "by": "Loudon",
             "date": "2026-11-04"
+          },
+          {
+            "file": "SMPTE LTC — rich — backward.html",
+            "verdict": "remake",
+            "why": "Must-fix: its framing argued with the old page (\"probably not\", the page's open questions), and \"its length tells the speed\" was untested.",
+            "by": "challenger · claude-opus-5-5",
+            "date": "2026-11-04",
+            "round": "second challenge, round 1, after the page's rewrite"
+          },
+          {
+            "file": "SMPTE LTC — rich — backward.html",
+            "verdict": "keep",
+            "why": "Every must-fix met: it rests on the page's current claim, step 1 leans on the monitor-mix buzz, the old-page lines are gone, six reversed rows, and a speed-read column judged to 0.1% (8.0001 down to 0.1000 either way); ten speeds each way; caption updated.",
+            "by": "challenger · claude-opus-5-5",
+            "date": "2026-11-04",
+            "round": "second challenge, round 2, on the remake"
           }
         ]
       }
@@ -130,7 +153,7 @@
           "origin": "made",
           "by": "maker · claude-opus-5-5 · inline JS, no library",
           "title": "From one bit to a timecode read back · a walk in four steps",
-          "caption": "**Does the audio really carry its own clock?** Four steps: one biphase cell, where a 0 flips once and a 1 twice, so a run of 1s sounds an octave above a run of 0s (1 and 2 kHz at 25 fps); a timecode typed into its eighty bits, BCD digits, user bits, flags and the sync word; the waveform that word makes, with ten seconds of running timecode to play; and last, a reader told nothing, not the rate and not the polarity, reading fifty frames back from the audio through a 10 Hz high-pass and noise 30 dB down. It read 50 of 50 at 24, 25 and 29.97 fps and with the polarity flipped, and guessed the bit rate from the gaps alone (1918.8, 1999.9, 2396.0 bit/s). The control, the same bits as plain levels with no mid-cell flips, read 0; it is a weak control, since a biphase reader fails on plain levels almost by construction, so it shows where the clock lives more than it tests the reader. The render's edges are 40 µs, where SMPTE 12M asks 25 ± 5 µs; the reader does not depend on edge time. The encoder makes three of the page's four rates: 1920, 2000 and 2397.6024 bit/s.\n\nR = 80 × f_frame\n\n(bit rate) = eighty bits × (frames per second)",
+          "caption": "**Does the audio really carry its own clock?** Four steps: one biphase cell, where a 0 flips once and a 1 twice, so a run of 1s sounds an octave above a run of 0s (1 and 2 kHz at 25 fps); a timecode typed into its eighty bits, BCD digits, user bits, flags and the sync word; the waveform that word makes, with ten seconds of running timecode to play; and last, a reader told nothing, not the rate and not the polarity, reading fifty frames back from the audio through a 10 Hz high-pass and noise 30 dB down. It read 50 of 50 at all six rates and with the polarity flipped, guessed the bit rate from the gaps alone, and named each rate right from the spacing of its sync words and the drop-frame flag. It assumes the tape runs at its own speed: a 25 fps tape played 1.2× fast would be named 30. The control, the same bits as plain levels with no mid-cell flips, read 0; it is a weak control, since a biphase reader fails on plain levels almost by construction, so it shows where the clock lives more than it tests the reader. The render softens each edge over 40 µs, about 32 µs from 10 to 90 %, where the page asks about 25 µs; the reader does not depend on edge time. The encoder makes all four of the page's bit rates: 1920, 2000, 2400 and 2397.6024 bit/s.\n\nR = 80 × f_frame\n\n(bit rate) = eighty bits × (frames per second)",
           "near": "The good reader measures the bit length as it goes",
           "place": "band",
           "height": 1180,
@@ -139,13 +162,29 @@
       ],
       "challenge": {
         "date": "2026-11-04",
-        "by": "challenger · opus · cloud batch 4",
+        "by": "challenger · claude-opus-5-5",
         "verdicts": [
           {
             "file": "SMPTE LTC — rich — encoder.html",
             "verdict": "keep",
             "why": "A real test: a reader given only samples reads 50/50 at 24, 25, 29.97 fps and flipped, and the bit map matches SMPTE 12M as I recall it field for field (sync 0011 1111 1111 1101, polarity 27 / 59 at 25 fps). Note: the NRZ control is weak (a biphase reader fails NRZ almost by construction), and edges are 40 µs where 12M asks 25 ± 5 µs; neither changes a result.",
             "round": "cloud batch 4 · first challenge, before the page's rewrite (history)"
+          },
+          {
+            "file": "SMPTE LTC — rich — encoder.html",
+            "verdict": "remake",
+            "why": "Must-fix: it never named the rate it hears, though the page says the good reader does; it read only three rates; and its text still said \"three rates\".",
+            "by": "challenger · claude-opus-5-5",
+            "date": "2026-11-04",
+            "round": "second challenge, round 1, after the page's rewrite"
+          },
+          {
+            "file": "SMPTE LTC — rich — encoder.html",
+            "verdict": "keep",
+            "why": "Every must-fix met: the rate is named from the sync words' spacing by ltc.js's 0.05% rule and a row passes only if the name is right; six rates, plus the flipped signal and the control; the stale \"three rates\" text is gone; the caption and the 32 µs edge are updated. A leftover, not blocking: :571 still says bit 27 \"at 24 and 29.97\" and \"all three rates\".",
+            "by": "challenger · claude-opus-5-5",
+            "date": "2026-11-04",
+            "round": "second challenge, round 2, on the remake"
           }
         ]
       },
