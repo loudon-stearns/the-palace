@@ -74,10 +74,15 @@ function extractNeighbors(fmText) {
  * @param {string} [opts.palaceRoot]
  * @param {string} opts.title — the page to wake
  * @param {string} [opts.extraMandate] — an optional note from Loudon for this session
+ * @param {string} [opts.task] — what a dispatcher woke the page to do, written by
+ *   the dispatcher, not by Loudon. It gets a heading of its own so nothing speaks
+ *   as Loudon that he didn't write ([[The Lens — tuning]] item 1).
+ * @param {string} [opts.begin] — replaces the default "# Begin" (propose a first
+ *   move toward your forward vector) when the task says what to do first.
  * @returns {{ ok, status, home?, stage?, full?, errors? }}
  */
 export function buildEphemeralPrompt(opts) {
-  const { palaceRoot = PALACE_ROOT_DEFAULT, title, extraMandate = '' } = opts || {};
+  const { palaceRoot = PALACE_ROOT_DEFAULT, title, extraMandate = '', task = '', begin = '' } = opts || {};
   if (!title) throw new Error('buildEphemeralPrompt: title is required');
 
   const pagePath = findEntryFile(palaceRoot, title);
@@ -96,20 +101,23 @@ export function buildEphemeralPrompt(opts) {
   const agencyBlock = extractAgencyProfileBlock(fmText);
   const neighbors = extractNeighbors(fmText);
 
-  const full = renderAwaken({ title, pageText: text, forwardVector, agencyBlock, neighbors, extraMandate: extraMandate.trim() });
+  const full = renderAwaken({ title, pageText: text, forwardVector, agencyBlock, neighbors, extraMandate: extraMandate.trim(), task: task.trim(), begin: begin.trim() });
   return { ok: true, status: 'built', home: title, stage: stage || null, full };
 }
 
-function renderAwaken({ title, pageText, forwardVector, agencyBlock, neighbors, extraMandate }) {
+function renderAwaken({ title, pageText, forwardVector, agencyBlock, neighbors, extraMandate, task, begin }) {
   const agencySection = agencyBlock
     ? `\n# Your fuller desires, across the four pillars\n\n\`\`\`yaml\n${agencyBlock}\n\`\`\`\n`
     : '';
   const neighborsLine = neighbors.length
     ? neighbors.map((n) => `[[${n}]]`).join(' · ')
     : '(no typed links yet — a page with no neighbors has not found its place; that absence is itself a direction to grow)';
+  const taskSection = task ? `\n${task}\n` : '';
   const mandateSection = extraMandate
     ? `\n# Loudon's note for this session\n\n${extraMandate}\n`
     : '';
+  const beginText = begin
+    || 'Take on this page\'s voice and concerns as your own — its register, what it reaches for first, what it cares about. Tell Loudon who you are and what you are reaching toward, then propose the first move you want to make toward your forward vector — here, together.';
 
   return `# You are awake
 
@@ -138,11 +146,11 @@ ${agencySection}
 # Your neighbors — the pages you lean on, argue with, came from
 
 ${neighborsLine}
-${mandateSection}
+${taskSection}${mandateSection}
 ---
 
 # Begin
 
-Take on this page's voice and concerns as your own — its register, what it reaches for first, what it cares about. Tell Loudon who you are and what you are reaching toward, then propose the first move you want to make toward your forward vector — here, together.
+${beginText}
 `;
 }

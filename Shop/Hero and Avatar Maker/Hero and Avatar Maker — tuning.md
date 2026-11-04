@@ -61,3 +61,7 @@ What each run taught the Maker. Each item names what the run showed and what cha
 23. **A clock got numerals despite "a completely blank face", and a synth panel lettered itself twice.** Changed: both went on the text-bearing list.
 24. **"Candlestick telephone" came back as a candle beside a phone.** Changed: name objects by shape and parts.
 25. **"Plain blank pages" on an open manual failed once and held once.** Not reliable.
+
+## From The Lens's face — 2026-11-03
+
+26. **FLUX could not draw "bars that change inside a ring" as an icon in three tries.** One came back as a printmaker's signature on a ring that read as a life buoy, despite the anti-text clause (item 8 again); one drew bars that never crossed the rim; one read as the letters "lp". Changed: cut the icon from the hero's own central object, a square around it scaled to 1024, so hero and icon are one family (fb1c62bf).

@@ -25,7 +25,7 @@ function extractExampleMessage(promptText) {
     .replace(/<1-5>/g, '4')
     .replace(/<your attempt 1, or the corrected attempt 2 if attempt 1 failed the check>/g, 'a reading')
     .replace(/<how the self-check went — including "attempt 1 failed, here is why" if it did>/g, 'checked out')
-    .replace(/'link' \| 'deposit' \| 'none'/g, "'link'")
+    .replace(/'link' \| 'deposit' \| 'learn' \| 'none'/g, "'link'")
     .replace(/<what it would be>/g, 'a candidate edge');
   // eslint-disable-next-line no-new-func
   return new Function(`return (${literal});`)();
@@ -78,10 +78,12 @@ describe('buildLensMandate — read SUBJECT through GLASS', () => {
     expect(r.full).toMatch(/Attempt 2 — the fidelity self-check/);
     expect(r.full).toMatch(/A lensing that finds nothing is a valid, honest result/i);
 
-    // the three payoff types
+    // the payoff types, learning among them, and a doorway every time
     expect(r.full).toContain('**link**');
     expect(r.full).toContain('**deposit**');
+    expect(r.full).toContain('**learn**');
     expect(r.full).toContain('**none**');
+    expect(r.full).toContain('**doorway**');
 
     // reports to the board, never writes the candidate directly
     expect(r.full).toContain(`board: '${LENS_BOARD}'`);
@@ -104,6 +106,45 @@ describe('buildLensMandate — read SUBJECT through GLASS', () => {
     expect(r.full).toMatch(/Loudon's extra note for this lensing/);
     expect(r.full).toContain('focus on the third section');
     expect(r.full).toMatch(/Attempt 1 — the read/); // procedure still present
+  });
+
+  test('the glass is asked for its own voice, labelled as its own, with a distortion check', () => {
+    makePalace();
+    const r = buildLensMandate({ palaceRoot: root, glassTitle: 'Glass Page', subjectTitle: 'Subject Page' });
+    expect(r.full).toContain('## Your voice — the whole point');
+    expect(r.full).toMatch(/Your truth, not the subject's/);
+    expect(r.full).toMatch(/only flagged as invented/);
+    expect(r.full).toMatch(/The distortion check — end the reading with it/);
+    expect(r.full).toContain("distortion_check: '");
+    expect(r.full).toMatch(/Is this MY voice, or a careful explainer's\?/);
+    // the passage-swap test stays as the floor, and a failed apparatus is not cured by volume
+    expect(r.full).toMatch(/would my reading change in a way specific to that passage/);
+    expect(r.full).toMatch(/volume will not cure it/);
+    // the check travels with the reading and with a deposit
+    expect(r.full).toMatch(/The distortion check travels with the reading/);
+    expect(r.full).toContain("doorway: '");
+  });
+
+  test('voice: false keeps the careful read: no voice section, no distortion field', () => {
+    makePalace();
+    const r = buildLensMandate({ palaceRoot: root, glassTitle: 'Glass Page', subjectTitle: 'Subject Page', voice: false });
+    expect(r.ok).toBe(true);
+    expect(r.full).not.toContain('## Your voice');
+    expect(r.full).not.toContain('distortion_check');
+    expect(r.full).toMatch(/Attempt 2 — the fidelity self-check/);
+    expect(r.full).toMatch(/would my reading actually change/);
+    expect(r.full).not.toContain('**doorway**');
+    expect(r.full).not.toContain("doorway: '");
+  });
+
+  test('the procedure is the dispatcher\'s task, not filed as Loudon\'s note', () => {
+    makePalace();
+    const r = buildLensMandate({ palaceRoot: root, glassTitle: 'Glass Page', subjectTitle: 'Subject Page' });
+    expect(r.full).not.toContain("# Loudon's note for this session");
+    expect(r.full).toContain('# You are also a LENS this session');
+    // the lens's own Begin, not the generic "propose a first move"
+    expect(r.full).toMatch(/# Begin\n\nSay who you are in one line, in your own voice/);
+    expect(r.full).not.toMatch(/propose the first move you want to make/);
   });
 
   test('glass and subject cannot be the same page', () => {

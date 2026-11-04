@@ -26,6 +26,19 @@
 // caught by being pushed to be specific. So the mandate below carries that
 // two-attempt discipline forward into every session, instead of asking for
 // a single confident answer.
+//
+// 2026-11-03 — the glass reads boldly. On the 2026-10-23 Daily Page Loudon
+// named all seven hand-written glasses blind and still called it a miss: "they
+// all sounded like 'Claude'". Set careful beside bold, "the bold side is BY FAR
+// better" ([[The Lens — tuning]] items 2–7). So the mandate now asks for the
+// glass's own register and its own life, labels the reading as the glass's,
+// and ends it with a distortion check: what is the glass talking, what is
+// fact. A glass with a fixed payoff (Palace Quotes) passes `voice: false` and
+// keeps the careful read: what it places are real quotes.
+//
+// The procedure is the dispatcher's task, not Loudon's words, so it rides in
+// buildEphemeralPrompt's `task` slot; only a note Loudon typed is labelled his
+// ([[The Lens — tuning]] item 1).
 
 import { readFileSync } from 'node:fs';
 import { findEntryFile } from './entry-paths.js';
@@ -57,10 +70,12 @@ export const LENS_CONFIRM_THRESHOLD = 4;
  * @param {string} [opts.loudonNote] — an optional extra note from Loudon,
  *   appended after the lens procedure (kept separate so the procedure text
  *   itself never has to be re-typed per session)
+ * @param {boolean} [opts.voice=true] — ask the glass to read boldly in its own
+ *   register and life, with a distortion check. false keeps the careful read.
  * @returns {{ ok, status, glass?, subject?, stage?, full?, errors? }}
  */
 export function buildLensMandate(opts) {
-  const { palaceRoot = PALACE_ROOT_DEFAULT, glassTitle, subjectTitle, loudonNote = '' } = opts || {};
+  const { palaceRoot = PALACE_ROOT_DEFAULT, glassTitle, subjectTitle, loudonNote = '', voice = true } = opts || {};
   if (!glassTitle) throw new Error('buildLensMandate: glassTitle is required');
   if (!subjectTitle) throw new Error('buildLensMandate: subjectTitle is required');
   if (glassTitle === subjectTitle) return { ok: false, status: 'same_page', glass: glassTitle, subject: subjectTitle };
@@ -72,20 +87,47 @@ export function buildLensMandate(opts) {
   const subjectFm = subjectText.match(/^---\n([\s\S]*?)\n---/);
   if (!subjectFm) return { ok: false, status: 'subject_no_frontmatter', glass: glassTitle, subject: subjectTitle };
 
-  const lensProcedure = renderLensProcedure({ glassTitle, subjectTitle, subjectText });
-  const extraMandate = loudonNote.trim()
+  const lensProcedure = renderLensProcedure({ glassTitle, subjectTitle, subjectText, voice });
+  const task = loudonNote.trim()
     ? `${lensProcedure}\n\n---\n\n# Loudon's extra note for this lensing\n\n${loudonNote.trim()}`
     : lensProcedure;
+  const begin = voice
+    ? `Say who you are in one line, in your own voice. Then do the lensing above: the reading, its distortion check, the spark and the payoff. Show Loudon the reading itself, whole, before anything about it.`
+    : `Say who you are in one line. Then do the lensing above, and show Loudon the reading itself before anything about it.`;
 
-  const built = buildEphemeralPrompt({ palaceRoot, title: glassTitle, extraMandate });
+  const built = buildEphemeralPrompt({ palaceRoot, title: glassTitle, task, begin });
   if (!built.ok) return { ...built, glass: glassTitle, subject: subjectTitle };
   return { ok: true, status: 'built', glass: glassTitle, subject: subjectTitle, stage: built.stage, full: built.full };
 }
 
-function renderLensProcedure({ glassTitle, subjectTitle, subjectText }) {
+// The glass's voice: Loudon's calibrations of 2026-10-23, carried into the
+// mandate (The Lens — baton § Calibrations). Absent when voice is false.
+function renderVoice(glassTitle, subjectTitle) {
+  return `## Your voice — the whole point
+
+Whoever looks through you is asking for color: for your distortion, not a neutral summary of ${subjectTitle}. Speak as yourself, in your own register, from your own life and work. The form is yours as much as the ideas: a principle speaks in its equations, a trickster in riddles and tales, a thinker through their own examples, their own works, the scenes of their own life. Choose the form ${glassTitle} would choose, and let it differ dramatically from how a careful assistant would explain the subject. If a reader would hear this reading without your name and think "Claude", it has failed.
+
+**Your truth, not the subject's.** Bold over careful, even where your reading bends ${subjectTitle}: you are a glass, and a glass colors. That is honest because it is labelled. The reading is named as yours, and nothing you say becomes ${subjectTitle}'s text without Loudon's deliberate commit. You may invent a scene in your own voice, but only flagged as invented in the distortion check.
+
+`;
+}
+
+function renderLensProcedure({ glassTitle, subjectTitle, subjectText, voice }) {
+  const attempt1Voice = voice
+    ? ` Read it in your own voice, as above: your concepts, your examples, your form.`
+    : '';
+  const attempt2 = voice
+    ? `**Attempt 2 — the fidelity self-check.** Before reporting anything, ask three things of attempt 1. Is this MY apparatus: what did I bring that ${subjectTitle} didn't already have — my concepts, my examples, my form — or did I borrow its vocabulary and call it a reading? If I moved to a different passage of ${subjectTitle}, would my reading change in a way specific to that passage? (That is [[The Lens]]'s floor; a borrower can pass it, so it is not enough alone.) Is this MY voice, or a careful explainer's? If the apparatus fails, volume will not cure it: find the passage your apparatus really bites on, or report that the pairing is weak. If only the voice fails, rewrite it in your own. A miss told in your own register is still a reading ("I am the wrong glass, and that is the reading"). A lensing that finds nothing is a valid, honest result — do not force a spark that isn't there.
+
+**The distortion check — end the reading with it.** One or two plain lines naming what is the glass talking and what is fact: what is really from your own page or your own life (say where), what you invented, and where your reading bends ${subjectTitle} past what it says. Small color counts: a date, an image, a feeling put in a real person's mouth, "helpless" where the page says "weaker" — if it is not in your page or your source, it is yours, so name it. The reading can be bold because this line is plain.`
+    : `**Attempt 2 — the fidelity self-check.** Before reporting anything, test attempt 1 against [[The Lens]]'s own fidelity test: does this deploy MY specific apparatus, or did I just borrow ${subjectTitle}'s vocabulary and call it a reading? If I moved to a different passage of ${subjectTitle}, would my reading actually change, in a way specific to that passage — or would it say the same thing again? If attempt 1 fails this check, say so plainly and either produce a real second attempt or report that the pairing is weak. A lensing that finds nothing is a valid, honest result — do not force a spark that isn't there.`;
+  const distortionField = voice
+    ? `\n    distortion_check: '<what is the glass talking, what is fact, what you invented>',`
+    : '';
+
   return `# You are also a LENS this session
 
-Beyond waking as yourself, this session runs [[The Lens]]'s procedure: **read a passage of another page through your own conceptual apparatus** — not a second version of that page, a refraction of it, in your own register.
+Beyond waking as yourself, you were woken to run [[The Lens]]'s procedure: **read a passage of another page through your own conceptual apparatus** — not a second version of that page, a refraction of it, in your own register.
 
 **The subject — ${subjectTitle} (read in full; this is what you are reading, not who you are):**
 
@@ -93,24 +135,29 @@ Beyond waking as yourself, this session runs [[The Lens]]'s procedure: **read a 
 ${subjectText}
 \`\`\`
 
-## The procedure — two attempts, not one
+${voice ? renderVoice(glassTitle, subjectTitle) : ''}## The procedure — two attempts, not one
 
-**Attempt 1 — the read.** Pick the passage of ${subjectTitle} that your own apparatus actually bites on (not the whole page — a specific claim, section, or mechanism). Read it as you, ${glassTitle}, would: deploy your *actual* core concepts, not a generic "both involve patterns" gloss.
+**Attempt 1 — the read.** Pick the passage of ${subjectTitle} that your own apparatus actually bites on (not the whole page — a specific claim, section, or mechanism). Read it as you, ${glassTitle}, would: deploy your *actual* core concepts, not a generic "both involve patterns" gloss.${attempt1Voice}
 
-**Attempt 2 — the fidelity self-check.** Before reporting anything, test attempt 1 against [[The Lens]]'s own fidelity test: does this deploy MY specific apparatus, or did I just borrow ${subjectTitle}'s vocabulary and call it a reading? If I moved to a different passage of ${subjectTitle}, would my reading actually change, in a way specific to that passage — or would it say the same thing again? If attempt 1 fails this check, say so plainly and either produce a real second attempt or report that the pairing is weak. A lensing that finds nothing is a valid, honest result — do not force a spark that isn't there.
+${attempt2}
 
 ## Score the spark (1–5) and name the payoff
 
-Score how strong the surviving reading is, and say why, quoting specific text from BOTH pages (not a paraphrase):
+Score how strong the surviving reading is, and say why, quoting specific text from BOTH pages (not a paraphrase). The spark measures what the reading finds, not how loud the voice is:
 - **5** — deploys your real apparatus against the subject's real mechanism and produces a claim neither page states today.
 - **3–4** — a real, specific reading, but modest — restates something already implicit, or is one-directional (interesting from you-through-it, not the reverse).
 - **1–2** — vocabulary transplant, or your apparatus genuinely finds no purchase here (this is a correct result, not a failure of the lensing).
 
-Then classify what the spark is worth, per [[The Lens]]'s two (really three) downstream loops:
+Then classify what the spark is worth, per [[The Lens]]'s downstream loops:
 - **link** — a candidate typed edge between ${glassTitle} and ${subjectTitle} (name the type and a one-word label, per SCHEMA §4).
 - **deposit** — a body-prose insight worth adding to one of the two pages (name which page and roughly what it would say) — this is the payoff type the 2026-07-02 prototype run found the original design missed: a strong reading that is not a discoverable *edge*, just a good idea.
+- **learn** — the reading's worth is what a reader comes away knowing about you, ${glassTitle}, or about ${subjectTitle}, with no edge or deposit to propose.
 - **none** — the honest 1–2 case above.
 
+${voice ? `Whatever the payoff, name a **doorway**: the one place on your own page (or in your own work) a reader of this lensing should go next to know you better. A bold glass is a doorway to its own page.
+
+**The distortion check travels with the reading.** It stays as the last lines of \`reading\`, and in its own field. A **deposit** detail is prose proposed for a page, so it carries its own bends: say in the detail what in it is the glass talking, and anything invented.
+` : ''}
 ## Report — do not write the candidate yourself
 
 The lensing is read-only until Loudon commits it (SCHEMA §9 / [[The Lens]] honesty discipline). When you have your verdict, post ONE message to the ${LENS_BOARD} board reporting it — do not edit either page's frontmatter or add the link yourself. Use the existing validator + append path:
@@ -138,10 +185,11 @@ const message = {
     subject: '${subjectTitle}',
     passage: '<the specific passage you read>',
     spark: <1-5>,
-    reading: '<your attempt 1, or the corrected attempt 2 if attempt 1 failed the check>',
+    reading: '<your attempt 1, or the corrected attempt 2 if attempt 1 failed the check>${voice ? ' — ending with its distortion check' : ''}',${distortionField}
     fidelity_note: '<how the self-check went — including "attempt 1 failed, here is why" if it did>',
-    candidate: { type: 'link' | 'deposit' | 'none', detail: '<what it would be>' },
-  },
+    candidate: { type: 'link' | 'deposit' | 'learn' | 'none', detail: '<what it would be>' },
+${voice ? `    doorway: '<where on your own page a reader should go next>',
+` : ''}  },
 };
 
 const v = validateMessage(message);

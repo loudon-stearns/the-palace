@@ -95,15 +95,21 @@ export function visitContext(palaceRoot, subjectTitle) {
 }
 
 // The Lens's reporting section starts at this heading and runs to the end of
-// the procedure (or to Loudon's extra note, when one was given).
+// the whole prompt, through the lens's own "# Begin". Loudon's extra note, when
+// one was given, sits between the report and that Begin: keep the note, drop
+// the rest, since the quoter's method below is this glass's Begin.
 const REPORT_HEADING = '## Report — do not write the candidate yourself';
 const NOTE_MARKER = '\n\n---\n\n# Loudon\'s extra note for this lensing';
+const BEGIN_MARKER = '\n---\n\n# Begin';
 
 export function stripLensReport(full) {
   const at = full.indexOf(REPORT_HEADING);
   if (at === -1) return full;
   const noteAt = full.indexOf(NOTE_MARKER, at);
-  return noteAt === -1 ? full.slice(0, at).trimEnd() : `${full.slice(0, at).trimEnd()}${full.slice(noteAt)}`;
+  if (noteAt === -1) return full.slice(0, at).trimEnd();
+  const beginAt = full.indexOf(BEGIN_MARKER, noteAt + NOTE_MARKER.length);
+  const note = beginAt === -1 ? full.slice(noteAt) : full.slice(noteAt, beginAt);
+  return `${full.slice(0, at).trimEnd()}${note.trimEnd()}`;
 }
 
 export function quoterText(subjectTitle) {
@@ -116,7 +122,9 @@ export function quoterText(subjectTitle) {
  * is accepted and ignored: this builder is Palace Quotes' own.
  */
 export function buildQuoteMandate({ palaceRoot, subjectTitle, loudonNote = '' } = {}) {
-  const built = buildLensMandate({ palaceRoot, glassTitle: GLASS, subjectTitle, loudonNote });
+  // voice: false — Quotes keeps the careful read. The Lens's bold voice licenses
+  // an invented scene; a placement is a real quote, so that licence stays out.
+  const built = buildLensMandate({ palaceRoot, glassTitle: GLASS, subjectTitle, loudonNote, voice: false });
   if (!built.ok) return built;
   const full = `${stripLensReport(built.full)}\n\n---\n\n${quoterText(subjectTitle)}\n\n${visitContext(palaceRoot, subjectTitle)}`;
   return { ...built, full, payoff: 'quote' };
