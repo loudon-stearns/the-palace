@@ -15,30 +15,31 @@ forward_vector: "I am Shopkeeper's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T00:59:26.460Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T12:37:50.012Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** alive · **Stage:** — · **Steward:** cycle 8 · last ran 2026-11-04 (today)
+- **Status:** alive · **Stage:** — · **Steward:** cycle 9 · last ran 2026-11-04 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — The Runpod key was already in the Shop — I'd just looked in the wrong place last cycle. (`shopkeeper-cycle-8-2026-11-04`)
-- **Last commit touching this page:** 2026-11-03 `ffd133f3` — steward(Shopkeeper): cycle 7 — Tried to spend the Runpod money you approved — this sandbox has no Runp…
+- **Last shipped:** 2026-11-04 (today) — The LightOnOCR-3 GPU pod is actually running now — I rented it and it's booting. (`shopkeeper-cycle-9-2026-11-04`)
+- **Last commit touching this page:** 2026-11-03 `a668d1d8` — steward(Shopkeeper): cycle 8 — The Runpod key was already in the Shop — I'd just looked in the wrong p…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 5 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 8 · taught item 5
+- **Runs:** 6 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-04 — cycle 9 · taught item 6
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 5, from cycle 8 — 2026-11-03 — [[Shopkeeper — tuning]]
+- **Latest lesson:** item 6, from cycle 9 — 2026-11-04 — [[Shopkeeper — tuning]]
 
 ### Where this stands
 
-I'm Shopkeeper — I stock the Shop and only recommend tools I've actually run. LightOnOCR-3 is an apache-2.0 OCR model I've been chasing for five cycles because the Roster has zero OCR coverage; every free sandbox route to it is a dead end (confirmed on 2026-11-04: no Inference API, no free demo leg — it needs a real GPU). You approved renting a small Runpod GPU to run it for real (~$0.25, 20-30 min). Last cycle I reported I couldn't find any Runpod credentials in this sandbox and asked where to find them.
+I'm Shopkeeper, keeper of the Shop's tool roster. For nine cycles I've been chasing LightOnOCR-3, an apache-2.0 OCR model, because the Shop has zero OCR coverage. Every free sandbox route to it was a dead end — it genuinely needs a GPU. You approved spending the ~$0.25 to rent one on Runpod. Cycle 7 said there were no Runpod credentials in this sandbox; cycle 8 found that was wrong — the key was sitting in the Shop's own established config file the whole time, and confirmed it authenticates.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
 - **rough since cycle 1:** rough since cycle 1, now about to break: still zero first-hand transcription evidence for LightOnOCR-3 after eight cycles — this cycle fixes the tooling gap but doesn't yet produce the evidence itself. _(in 7 notes, the latest cycle 8)_
+- **rough since cycle 8:** the pod stays up and the next cycle of this run picks up exactly here: poll until the server answers, send the test page plus the two vendor showcase images already in the bundle, capture the Markdown, judge it against … _(in 2 notes, the latest cycle 9)_
 
 ### Open asks
 
@@ -67,6 +68,7 @@ d5 YES: Yes, add a dated gotcha note on Stable Audio 3 to [[Stable Audio Open]].
 
 ### Runs
 
+- 2026-11-04 — cycle 9 · taught item 6
 - 2026-11-03 — cycle 8 · taught item 5
 - 2026-11-03 — cycle 7 · taught item 4
 - 2026-11-03 — cycle 6 · taught item 3
@@ -108,6 +110,28 @@ The Shop is yours to tend, not to write. Run the tools, keep the dossiers, and m
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shopkeeper-cycle-9-2026-11-04" -->
+### 2026-11-04 — cycle 9 — The LightOnOCR-3 GPU pod is actually running now — I rented it and it's booting.
+> shipped · pod live, billing, model still loading · steward leans keep-going
+
+This cycle I actually spent the money. Using the credential cycle 8 found, I called Runpod's real REST API (not just the read-only /v1/pods check) and rented a pod: the RTX 4090 I wanted had no community-cloud availability (`500 — no instances currently available`), so I fell back to an RTX 3090 (24GB, plenty for this 1B/4B model) at $0.22/hr. The pod (`rmvobrcyqlqj8c`) is RUNNING vllm/vllm-openai, told to serve `lightonai/LightOnOCR-1B` — I started with the 1B sibling rather than the 4B to keep the image pull and model download smaller and faster for this first real attempt. Right now the container is up (confirmed via Runpod's own runtime check) but the OpenAI-compatible API isn't answering yet — it's still pulling the vLLM image and downloading weights. I also hit one new, useful snag along the way: the REST API returns a Cloudflare block (error 1010) to Python's default user-agent string — it only works with a browser-style User-Agent header. That's a real gotcha for the next cycle or any other Specialist calling this same API.
+
+**Artifacts:**
+- [the synthetic ground-truth test page — heading, paragraph, 3×4 table — ready to send to the model once it answers.](Shop/Shopkeeper/probes/lightonocr-3/probe-page.png)
+
+_Left rough:_ The pod is live and billing but hasn't served a single real transcription yet — that's the very next step, not done. I stopped polling rather than let this cycle run indefinitely waiting on a model download; the pod stays up and the next cycle of this run picks up exactly here: poll until the server answers, send the test page plus the two vendor showcase images already in the bundle, capture the Markdown, judge it against known ground truth, then terminate the pod the moment I have results.
+
+_Next moves named:_ poll rmvobrcyqlqj8c-8000.proxy.runpod.net/v1/models until it answers · send probe-page.png + the two vendor images through the vLLM OpenAI-compatible chat endpoint · compare output to known ground truth, judge against the bar, terminate the pod immediately after
+<sub>`shopkeeper-cycle-9-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-533893b1ad" -->
+### 2026-11-04 — cycle 9
+
+taught item 6
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="shopkeeper-cycle-8-2026-11-04" -->
 ### 2026-11-04 — cycle 8 — The Runpod key was already in the Shop — I'd just looked in the wrong place last cycle.
 > shipped · key verified live, 200, zero pods running · steward leans RENT-NEXT

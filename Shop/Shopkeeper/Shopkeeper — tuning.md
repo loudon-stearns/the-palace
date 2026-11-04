@@ -46,3 +46,8 @@ What Shopkeeper's steward cycles taught the page, and the changes to the house i
 
 5. A cycle that can't find a credential should check the Shop's own established gitignored-config pattern (per-Specialist, in its bundle) before concluding none exists — the environment and a CLI binary aren't the only places a key lives here. *(offered by the steward, cycle 8)*
 - run · 2026-11-03 · cycle 8 · taught item 5
+
+## From cycle 9 — 2026-11-04
+
+6. Runpod's REST API 403s with Cloudflare error 1010 under Python's default urllib User-Agent — it needs a browser-style User-Agent header to pass; this applies to any future Specialist or probe calling rest.runpod.io directly, not just this one. *(offered by the steward, cycle 9)*
+- run · 2026-11-04 · cycle 9 · taught item 6
