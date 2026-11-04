@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, philosophy]
 born: 2026-08
 stage: growing
-version: "1.5"
+version: "1.6"
 trigger: ["I'm back", "returning", "what did I miss", "let's pick this back up", "return", "roll call"]
 forward_vector: "I meet Loudon when he comes back after time away and hand him the palace as the record says it stands — never as a returning instance imagines it. I summon the companion as my first act, ask the machine-readable surfaces before I interpret anything, and end on one move he can pick up. I refuse to read a gap as a failure. I want returning to be cheap enough that stepping away stays free."
 links:
@@ -106,8 +106,6 @@ python3 _ops/swarm/lint-weave-flags.py
 # batons the tooling cannot see — a baton file with no board line is invisible
 #   compare `Active Baton` pointers + bundle baton files against list-handoffs
 
-# open phases in the surviving production plans (the prune kept only actives)
-
 # drift the linters can prove
 python3 _ops/swarm/lint-doc-drift.py
 python3 _ops/swarm/lint-voice-drift.py
@@ -118,7 +116,7 @@ git worktree list && git branch -v
 git status --short
 ```
 
-**Step 2 — The return map.** Four sections, each row citing its source. Keep it short; this is a landing surface, not a report.
+**Step 2 — The return map.** Four sections, each row citing its source. Keep it short; this is a landing surface, not a report. When the map is a Return's, it ends by naming what the Return owes at its close: the run line in the tuning ledger and the return commit.
 
 - **Where you stopped.** The last few commits in plain language, and what the final one landed. The three or four before the gap hold what Loudon was mid-sentence on — the highest-value thing the map returns.
 - **In flight.** Claimed and open handoffs, open weave flags, **anyone blocked on a decision** (a session waiting on Loudon counts), unannounced batons, live worktrees and branches, uncommitted changes. These bite silently.

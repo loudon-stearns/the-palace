@@ -91,6 +91,8 @@ sentence a person would actually say — the real tradeoff, not a label standing
 Return **only** the map (it is a product handed back, not a chat turn — no preamble, no sign-off).
 Keep it short: this is a landing surface, not a report. Every row cites a command's output or a
 `file:line`. **"I inferred it from the current state" is disqualifying.**
+When the survey is a Return, end the map by naming what the Return owes at its close: the run
+line in the tuning ledger and the return commit.
 
 - **Where the palace stopped.** The last commit and the two or three before it, in plain language —
   what Loudon was mid-sentence on. If there is a gap, report its **length only**. Never its cause.
