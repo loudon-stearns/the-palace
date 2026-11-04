@@ -71,7 +71,18 @@
           "height": 1650
         }
       ],
-      "stamped": "2026-11-04"
+      "stamped": "2026-11-04",
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5 · cloud batch 2",
+        "verdicts": [
+          {
+            "file": "Frequency Domain ↔ Perspective Shift — rich — one kick, two views.html",
+            "verdict": "remake",
+            "why": "A fair, leak-free blind test that walks up, but its '0.04 Hz, every time' for counting cycles holds only for its own clean-sine kick (a 2% noise floor drops the same procedure to 5 of 25 while the spectrum stays 25 of 25): scope it to this kick, and stop labelling a ≤2 score on a 'can't' arm 'as the notes say' (a guesser lands there 90.1% of the time)."
+          }
+        ]
+      }
     }
   ]
 }
