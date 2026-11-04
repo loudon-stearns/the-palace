@@ -15,37 +15,36 @@ forward_vector: "I am Wavetable Scanner's scroll — the one page that always op
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T02:40:23.164Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T04:10:25.333Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 7 · last ran 2026-11-04 (today)
-- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector · **a proposed revision is waiting on you**
-- **Waiting on you:** 1 open ask
+- **Status:** active · **Stage:** growing · **Steward:** cycle 8 · last ran 2026-11-04 (today)
+- **Plan:** agreed 2026-11-04 (today) · 1 made thing since
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — The synth is now a VST3 and AU plugin, with the 3D landscape in the middle of its window, and it matches the browser synth bit for bit. (`wavetable-scanner-steward-016`)
-- **Last commit touching this project:** 2026-11-03 `3c04ae47` — steward(Wavetable Scanner): cycle 6 — SPINNING UP. HOME: [Wavetable Scanner](obsidian://open?vault=The%20Pala…
+- **Last shipped:** 2026-11-04 (today) — The scanner now saves any table for Serum/Vital, Surge XT and Ableton, and reads Serum and Surge tables back in whole. (`wavetable-scanner-steward-018`)
+- **Last commit touching this project:** 2026-11-03 `80bdbd4d` — steward(Wavetable Scanner): cycle 7 — SPINNING UP. HOME: [Wavetable Scanner](obsidian://open?vault=The%20Pala…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 7 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 7 · taught item 16, proposed items 17, 18 for canon
+- **Runs:** 8 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 8 · taught item 19, proposed item 20 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 9 — items 3, 5, 7, 11, 12, 14, 15, 17, 18; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 18, from cycle 7 — 2026-11-03 — [[Wavetable Scanner — tuning]]
+- **Proposed for canon:** 10 — items 3, 5, 7, 11, 12, 14, 15, 17, 18, 20; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 20, from cycle 8 — 2026-11-03 — [[Wavetable Scanner — tuning]]
 
 ### Where this stands
 
-Wavetable Scanner is the page that draws a wavetable as a 3D landscape. It packs its own tables from a folder of single cycles, and it has a playable browser synth (wavetable_synth.html) that moves between frames with a spectral morph. The plan (still waiting on your adopt) says the next step after the browser synth is the same synth as a plugin through the VST Template, with the 3D view in the centre of the window, as you asked. This cycle built that plugin. It's installed on this Mac as 'Wavetable Scanner' under Loudon Live, as a VST3 and an AU. Inside are eight voices, unison, the filter, both envelopes, two LFOs and three built-in tables: the classics, the cello and the FM chain. The mi…
+Wavetable Scanner is the page that draws a wavetable as a 3D landscape. It packs its own tables from a folder of single cycles, plays them as a browser synth, and now also runs as a VST3/AU plugin with the landscape in the middle of its window. You adopted the plan. Its export step says a packed table should leave in the formats of the synths you use, beside the Ableton WAV. This cycle built that. The study page has four export buttons: Serum / Vital, Surge .wt, Ableton and Float .wav. Each saves whichever table is showing. Dropping a Serum or Surge table on the page now loads it whole. Before, a Serum file came in split in half.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** Nobody has heard these: the plugin hasn't been opened in Live or played from a keyboard. _(in 7 notes, the latest cycle 7)_
+- **rough since cycle 1:** Nobody has heard these: the exports haven't been loaded in Serum, Vital, Surge or Live, and the plugin hasn't been opened in Live or played from a keyboard. _(in 8 notes, the latest cycle 8)_
 - **rough since cycle 1:** Safari.app itself, a real Finder drag onto the stage, and phone touch haven't been tried. _(in 4 notes, the latest cycle 4)_
-- **rough since cycle 2:** Three old screenshots from cycle 1 (shot-fmsynth-bright-end, -dull-end, -file-order) were deleted when cycle 2 re-ran its check, and that deletion isn't committed yet. _(in 2 notes, the latest cycle 3)_
 
 ### Open asks
 
-- `wavetable-scanner-steward-014` — proposed plan revision: the scanner's plan, made official, with your notes folded in · posted 2026-11-04 · options: adopt · keep
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -53,11 +52,13 @@ _None._
 
 ### Decided
 
+- `wavetable-scanner-steward-014` — the scanner's plan, made official, with your notes folded in → GRANTED — option_id=adopt (2026-11-04)
 - `wavetable-scanner-steward-009` — the scanner's plan, with your synth, plugin and preset-library steps → GRANTED — (no option_id); notes: "I am suggesting that you work with synth templates, as there will surely be wavetable presets there so your oscillator will be useful and we can use much of the same synthesizer code. I am also interested for your 3D view here to show up at the center of a custom VST! I think a better/more refined smoothing between waveforms algo would be good, the "blur" I can't really hear. Your plan is a good one." (2026-11-04)
 - `wavetable-scanner-steward-002` — a first plan for the scanner → GRANTED — (no option_id); notes: "This is a good plan, but before step 4 add in an online MIDI synthesizer and build a synthesizer using the VST template, and make sure the work we do here can also be plugged into the Preset library project currently in progress. " (2026-11-04)
 
 ### Runs
 
+- 2026-11-03 — cycle 8 · taught item 19, proposed item 20 for canon
 - 2026-11-03 — cycle 7 · taught item 16, proposed items 17, 18 for canon
 - 2026-11-03 — cycle 6 · taught item 13, proposed items 14, 15 for canon
 - 2026-11-03 — cycle 5 · taught item 10, proposed items 11, 12 for canon
@@ -83,13 +84,23 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 - **15.** 2026-11-03 · [[Synth Templates]] · § Neighbours, at the end of the paragraph — the catalog should know where its wavetable cards actually sound, and the missing table: field is the one gap the bridge exposed
 - **17.** 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 2 — the synth' — the plugin step of the plan is built and checked; the page should say the scanner now lives in a DAW too
 - **18.** 2026-11-03 · [[VST Template]] · Processor::handleMidi, after the note branches — every instrument made from the template drops the mod wheel, pitch bend and sustain; the Wavetable Scanner plugin needs CC1 on Position, and the fix belongs in the shared machinery, not one plugin
+- **20.** 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 3 — the plugin' — the export step of the plan is built and checked; the page should say the scanner's tables now reach Serum, Vital, Surge and Live
 
 <!-- scroll:now:end -->
 
 ## Plan
 
 <!-- scroll:plan:start -->
-_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+Where it's going: a self-contained tool that turns any folder of single cycles into a morphable table you can see, hear and export, and an instrument that plays those tables in the browser and as a plugin in Live, whose tables and voice the Synth Templates catalog can use.
+
+1. The packer in the page (done 2026-11-03): folder in, centroid-sorted table out, matching pack_wavetable.py.
+2. Pack the way you chose (done 2026-11-04): the family-chain order and frame alignment from Generative Wavetable Libraries. The spectral morph (done 2026-11-04) replaces the blur as the smoothing between frames.
+3. Finish Study (done 2026-11-04, two checks left by hand): Firefox and WebKit, folder drag-and-drop, dragging the cursor plane in the 3D scene, a test plan. Safari.app and phone touch are still untried.
+4. An online MIDI synth (done 2026-11-04): wavetable_synth.html plays the tables from a MIDI keyboard or the computer keys, with the mod wheel on Position, band-limited tables, the Synth Templates envelope curve and the spectral morph.
+5. The synth as a plugin through the VST Template: the same engine ported into Algorithm.h, a VST3/AU that loads a packed table, with the scanner's 3D view at the centre of its window, checked against the Node render of the same notes and with pluginval.
+6. Plug into Synth Templates (my side done 2026-11-04): four wavetable cards play on this synth from their own words. Still to come: the growl card (an FM sine and drive), and, offered to that project for its yes, a wavetable source in its own voice and a table: field on its cards.
+7. Export for the synths you use: Serum/Vital CLM WAV and Surge .wt beside the Ableton WAV.
+8. Piece: a rendered demo scan, a per-table CPU and draw budget, and Loudon Live chrome. Then the question of whether a 2D scanner grows here or as its own project.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -101,6 +112,66 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-wavetable-scanner-steward-014" -->
+### 2026-11-03 — Plan agreed: You called the plan good, but no button was clicked, so it never became the plan. Adopt it now, with your notes added?
+
+Wavetable Scanner packs single cycles into tables, draws them in 3D, and now plays them as a MIDI synth in the browser. Last time I sent the full plan, you wrote back that it was a good one and added notes. Since you didn't click an option, the scroll still says no plan is agreed. This is that same plan with your notes and this cycle's work folded in. The spectral morph replaces the blur you couldn't hear. The Synth Templates step is half done on my side, since four of their cards now play here. The plugin step now puts the 3D view at the centre of the plugin window. Next on the plan is the plugin. I keep building toward it either way. Clicking adopt only makes the plan official.
+<sub>`plan-wavetable-scanner-steward-014` · plan agreed · agreed 2026-11-04T04:10:25.245Z · proposed by Wavetable Scanner's steward (`wavetable-scanner-steward-014`), adopted by Loudon (`resp-mw1lmc7x-n4dg96`)</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="wavetable-scanner-steward-018" -->
+### 2026-11-04 — cycle 8 — The scanner now saves any table for Serum/Vital, Surge XT and Ableton, and reads Serum and Surge tables back in whole.
+> shipped · export step built, checked in three browsers · steward leans plugin table loading next
+
+packer/formats.js writes three containers. Serum and Vital get a CLM WAV: 2048-sample frames, float, laid out like Serum's factory 'Basic Shapes.wav'. Re-encoding that factory file gives the same bytes, so the layout is proven against a real Serum file. The 1024 → 2048 step uses the spectrum, so every harmonic in a frame is kept and nothing new is made. Surge XT gets a .wt in the layout from Surge's own 'WT fileformat.txt' (installed on this Mac): 1024-sample waves, float32. Surge's factory tables are 16-bit at half scale, and the reader handles those too. Ableton gets a plain 16-bit WAV of 1024-sample frames, the same shape as the crystal and Shepard tables you heard in Live in June. A table longer than a format allows (256 frames for Serum and Ableton, 512 for Surge) is thinned evenly with the ends kept, and the page says how many frames it dropped. The FM and organ family chains are exported into packer/exports/. Every format reads back to the same frames: below −178 dB for Serum, exact for Surge, −89 dB for Ableton, which is the 16-bit rounding. In Chrome, Firefox and WebKit I packed the 122 FM cycles, clicked each button, and every download matched the node export byte for byte. Dropping the Serum and Surge files back on the page read 122 frames each. The page's earlier checks (export, cursor drag, folder drop) still pass in all three. Generative Wavetable Libraries still lists a Surge .wt writer as undone in its plan. This one is in plain JS and is proven, so it could borrow it.
+
+**Artifacts:**
+- [the four export buttons on the study page, after a save.](Projects/Wavetable Scanner/packer/shot-export-buttons.png)
+- [the Serum export dropped back on the page: 122 frames, read as 2048-sample CLM.](Projects/Wavetable Scanner/packer/shot-serum-read-back.png)
+- [drag onto a Serum or Vital oscillator: the FM chain, 122 × 2048.](Projects/Wavetable Scanner/packer/exports/akwf_fmsynth_family_chain_serum.wav)
+- [load in Surge XT: Load Wavetable File… in the oscillator menu.](Projects/Wavetable Scanner/packer/exports/akwf_fmsynth_family_chain.wt)
+- [drag onto Ableton Wavetable's oscillator display.](Projects/Wavetable Scanner/packer/exports/akwf_fmsynth_family_chain_ableton.wav)
+- [the organ chain for Serum/Vital, 154 frames.](Projects/Wavetable Scanner/packer/exports/akwf_eorgan_family_chain_serum.wav)
+- [the organ chain for Surge.](Projects/Wavetable Scanner/packer/exports/akwf_eorgan_family_chain.wt)
+- [the organ chain for Ableton.](Projects/Wavetable Scanner/packer/exports/akwf_eorgan_family_chain_ableton.wav)
+- [which file to drag where, and what to listen for.](Projects/Wavetable Scanner/packer/exports/README.md)
+- [the writers and the reader.](Projects/Wavetable Scanner/packer/formats.js)
+- [the node check: factory byte match, round trips, Surge factory reads; writes exports/.](Projects/Wavetable Scanner/packer/formats_check.cjs)
+- [its results.](Projects/Wavetable Scanner/packer/formats_check.json)
+- [the three-browser check of the buttons.](Projects/Wavetable Scanner/packer/formats_browser_check.mjs)
+- [its results.](Projects/Wavetable Scanner/packer/formats_browser_check.json)
+- [the page build: formats.js inlined, the export buttons, .wt and CLM accepted on drop.](Projects/Wavetable Scanner/packer/build_page.py)
+- [the rebuilt study page.](Projects/Wavetable Scanner/wavetable_scanner_study.html)
+- [a new section on the export formats.](Projects/Wavetable Scanner/packer/BUILD.md)
+- [the earlier study check, re-run: still passing in all three browsers.](Projects/Wavetable Scanner/packer/study_check.json)
+- [re-taken by that re-run.](Projects/Wavetable Scanner/packer/shot-drag-webkit.png)
+- [rewritten by the page build (three new fields, same table).](Projects/Wavetable Scanner/packer/demo_cello.json)
+
+_Every format, out and back (AKWF_fmsynth family chain, 122 frames)_
+| format | frames × size | read back against the packed table | browser download = node export |
+| --- | --- | --- | --- |
+| Serum / Vital (CLM WAV) | 122 × 2048, float | −178 dB | yes, in Chrome, Firefox, WebKit |
+| Surge XT (.wt) | 122 × 1024, float32 | exact | yes, in all three |
+| Ableton (WAV) | 122 × 1024, 16-bit | −89 dB (16-bit rounding) | yes, in all three |
+| Serum factory Basic Shapes.wav, re-encoded | 7 × 2048 | byte for byte | — |
+
+_Changed in the workshop:_ BUILD — a section on the export formats and the two checks
+_Changed in the workshop:_ README — new: which file to drag into which synth, and what to listen for
+_Proposed for canon:_ Wavetable Scanner (§ Tiers, a new subsection after 'Study round 3 — the plugin') — the export step of the plan is built and checked; the page should say the scanner's tables now reach Serum, Vital, Surge and Live; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard these: the exports haven't been loaded in Serum, Vital, Surge or Live, and the plugin hasn't been opened in Live or played from a keyboard. The 256-frame cap for Serum and Ableton is my assumption; no table here reaches it. The 'rough since cycle 2' note about three deleted screenshots looks stale: those files are present and git shows no deletion.
+
+_Next moves named:_ The plugin loads your own table: a file chooser in its window and the table saved with the Live set. That needs a small shared hook in the VST Template's code, which I'll propose there rather than edit. · The growl card for Synth Templates (an FM sine with drive), the one card from that step still to come.
+<sub>`wavetable-scanner-steward-018` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-a33681cf92" -->
+### 2026-11-03 — cycle 8
+
+taught item 19, proposed item 20 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="wavetable-scanner-steward-016" -->
 ### 2026-11-04 — cycle 7 — The synth is now a VST3 and AU plugin, with the 3D landscape in the middle of its window, and it matches the browser synth bit for bit.
 > shipped · installed, all checks pass · not yet opened in Live or heard

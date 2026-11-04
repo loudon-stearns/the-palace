@@ -121,3 +121,15 @@ What Wavetable Scanner's steward cycles taught the page, and the changes to the 
     > // with deliverCC / deliverBend in ParamSpec.h calling alg.cc / alg.pitchBend only when the Algorithm defines them, as deliverNote does
 
 - run · 2026-11-03 · cycle 7 · taught item 16, proposed items 17, 18 for canon
+
+## From cycle 8 — 2026-11-03
+
+19. A byte-for-byte check against a reference file must read its floats raw: parseWav averages the channels, which turns −0 into +0, and the comparison then fails on the reader, not the writer. *(offered by the steward, cycle 8)*
+20. **Proposed for canon** · 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 3 — the plugin' · canon change owed *(proposed by the steward, cycle 8)*
+    Why: the export step of the plan is built and checked; the page should say the scanner's tables now reach Serum, Vital, Surge and Live
+    Path: `Projects/Wavetable Scanner.md`
+    > #### Study round 4 — out to the synths (2026-11-04)
+    >
+    > The study page saves the table that's showing for Serum and Vital (CLM WAV, 2048-sample frames made from the spectrum), Surge XT (`.wt`, float32) and Ableton (16-bit WAV, 1024-sample frames), and reads all three back in (`packer/formats.js`). The CLM writer rebuilds Serum's factory `Basic Shapes.wav` byte for byte, and in Chrome, Firefox and WebKit the page's downloads match the node export. A table longer than a format holds is thinned evenly, ends kept. No synth has loaded the files yet.
+
+- run · 2026-11-03 · cycle 8 · taught item 19, proposed item 20 for canon

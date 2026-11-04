@@ -1,0 +1,84 @@
+{
+ "checks": [
+  {
+   "pass": true,
+   "what": "Serum's Basic Shapes.wav re-encoded is byte for byte the factory file",
+   "bytes": 57480,
+   "frames": 7
+  },
+  {
+   "pass": true,
+   "what": "a Serum table reads in as its own frames, not split in half",
+   "frames": 7,
+   "source": "CLM, 2048-sample frames"
+  },
+  {
+   "pass": true,
+   "what": "AKWF_fmsynth → Serum / Vital → back",
+   "file": "akwf_fmsynth_family_chain_serum.wav",
+   "frames": 122,
+   "thinned": 0,
+   "frame": 2048,
+   "error_dB": -177.9
+  },
+  {
+   "pass": true,
+   "what": "AKWF_fmsynth → Surge XT → back",
+   "file": "akwf_fmsynth_family_chain.wt",
+   "frames": 122,
+   "thinned": 0,
+   "frame": 1024,
+   "error_dB": -300
+  },
+  {
+   "pass": true,
+   "what": "AKWF_fmsynth → Ableton → back",
+   "file": "akwf_fmsynth_family_chain_ableton.wav",
+   "frames": 122,
+   "thinned": 0,
+   "frame": 1024,
+   "error_dB": -88.9
+  },
+  {
+   "pass": true,
+   "what": "AKWF_eorgan → Serum / Vital → back",
+   "file": "akwf_eorgan_family_chain_serum.wav",
+   "frames": 154,
+   "thinned": 0,
+   "frame": 2048,
+   "error_dB": -181.7
+  },
+  {
+   "pass": true,
+   "what": "AKWF_eorgan → Surge XT → back",
+   "file": "akwf_eorgan_family_chain.wt",
+   "frames": 154,
+   "thinned": 0,
+   "frame": 1024,
+   "error_dB": -300
+  },
+  {
+   "pass": true,
+   "what": "AKWF_eorgan → Ableton → back",
+   "file": "akwf_eorgan_family_chain_ableton.wav",
+   "frames": 154,
+   "thinned": 0,
+   "frame": 1024,
+   "error_dB": -89
+  },
+  {
+   "pass": true,
+   "what": "Surge's factory Basic/Triangle.wt reads in at full scale",
+   "frames": 16,
+   "frameSize": 1024,
+   "peak": 1
+  },
+  {
+   "pass": true,
+   "what": "Surge's factory Generated/Sawtooth Reso.wt reads in at full scale",
+   "frames": 64,
+   "frameSize": 512,
+   "peak": 1
+  }
+ ]
+}

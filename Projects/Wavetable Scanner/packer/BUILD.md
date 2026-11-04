@@ -108,3 +108,7 @@ Against the Python: the organ folder splits into the same three families (round 
 ## Not yet
 
 Nobody has heard these. Firefox and WebKit pass the drive, but Safari.app itself and a real Finder drag onto the stage haven't been tried; the walker was checked on a mocked drop. Phone touch is untried. Tables are capped at 256 frames, and a bigger folder is thinned evenly along the order. The tilted chain (each family's walk pulled toward dull-to-bright, GWL's pick for organs) isn't ported. The family chain hasn't been heard in this page either.
+
+## Export formats (2026-11-04)
+
+`formats.js` (inlined after `packer.js`) writes the table that's showing for Serum/Vital (CLM WAV, 2048-sample frames), Surge XT (`.wt`, float32) and Ableton (16-bit WAV, 1024-sample frames), and reads all three back in. `node formats_check.cjs` checks that the CLM writer rebuilds Serum's `Basic Shapes.wav` byte for byte, that every format round trips, and that Surge's factory tables read in. It also writes `exports/`. `node formats_browser_check.mjs` clicks the page's buttons in three browsers and compares the downloads. What to drag where: `exports/README.md`.

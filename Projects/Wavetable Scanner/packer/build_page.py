@@ -39,7 +39,7 @@ rep('''        <label>Load .wav <span id="vFile">— (drop a wavetable WAV or pi
           <label class="filebtn seg-btn" for="cFile">Choose files…</label>
         </div>
         <input id="cDir" type="file" webkitdirectory multiple />
-        <input id="cFile" type="file" multiple accept=".wav,audio/wav,audio/wave" />
+        <input id="cFile" type="file" multiple accept=".wav,.wt,audio/wav,audio/wave" />
       </div>
       <div class="ctl">
         <label>Frame order <span id="vOrder">families, each walked smoothly</span></label>
@@ -58,14 +58,19 @@ rep('''        <label>Load .wav <span id="vFile">— (drop a wavetable WAV or pi
         </div>
       </div>
       <div class="ctl">
-        <label>Export <span id="vExport">— pack something first</span></label>
-        <button class="filebtn" id="cExport" disabled>Download packed .wav</button>''')
+        <label>Export the table <span id="vExport">— the one showing, for the synth you use</span></label>
+        <div class="seg seg4" id="exportSeg">
+          <button class="filebtn seg-btn" data-kind="serum" title="CLM WAV, 2048-sample frames, up to 256 — drag onto a Serum or Vital oscillator">Serum / Vital</button>
+          <button class="filebtn seg-btn" data-kind="surge" title=".wt, 1024-sample waves, up to 512 — Surge XT's own format">Surge .wt</button>
+          <button class="filebtn seg-btn" data-kind="ableton" title="16-bit WAV, 1024-sample frames — drag onto Wavetable's oscillator">Ableton</button>
+          <button class="filebtn seg-btn" id="cExport" data-kind="float" title="32-bit float WAV, 1024-sample frames, as pack_wavetable.py writes">Float .wav</button>
+        </div>''')
 rep(".ctl input[type=file] { display: none; }",
-    ".ctl input[type=file] { display: none; }\n.ctl button.filebtn:disabled { opacity: .4; cursor: default; }\n.seg label.seg-btn { text-align: center; }\n.seg.seg3 { grid-template-columns: 1fr 1fr 1fr; }")
+    ".ctl input[type=file] { display: none; }\n.ctl button.filebtn:disabled { opacity: .4; cursor: default; }\n.seg label.seg-btn { text-align: center; }\n.seg.seg3 { grid-template-columns: 1fr 1fr 1fr; }\n.seg.seg4 { grid-template-columns: 1fr 1fr 1fr 1fr; }")
 
 # 3. the packer itself, inlined
 rep("<script>\n/* =====================================================================\n *  WAVETABLE DATA",
-    "<script>\n" + (HERE / "packer.js").read_text() + "\n</script>\n<script>\n/* =====================================================================\n *  WAVETABLE DATA")
+    "<script>\n" + (HERE / "packer.js").read_text() + "\n</script>\n<script>\n" + (HERE / "formats.js").read_text() + "\n</script>\n<script>\n/* =====================================================================\n *  WAVETABLE DATA")
 rep("const FRAME_LEN = 1024;\nconst TABLES = [", "const FRAME_LEN = 1024;\nconst TABLES = [" + json.dumps(demo_entry) + ", ")
 
 # 4. file handling: parse ourselves, pack folders, keep the order toggle live
@@ -106,19 +111,21 @@ function folderName(records){
 }
 
 async function handleFiles(fileList){
-  const recs = (await readAll(fileList)).filter(r => /\.wav$/i.test(r.name));
-  if (!recs.length){ $('vFile').textContent = '— no .wav files in that drop'; return; }
-  // One file that is already a table (2+ frames of 1024): load it as is.
+  const recs = (await readAll(fileList)).filter(r => /\.(wav|wt)$/i.test(r.name));
+  if (!recs.length){ $('vFile').textContent = '— no .wav or .wt files in that drop'; return; }
+  // One file that is already a table (a Serum/Vital CLM WAV, a Surge .wt, or 2+ frames
+  // of 1024): load it as is. A CLM table's 2048-sample frames come in as themselves,
+  // not split in half.
   if (recs.length === 1){
     try {
-      const w = WTPacker.parseWav(recs[0].buffer);
-      if (w.samples.length % FRAME_LEN === 0 && w.samples.length >= 2 * FRAME_LEN){
-        const F = Math.min(256, w.samples.length / FRAME_LEN);
+      const r = WTFormats.readTable(recs[0].buffer);
+      if (r){
+        const F = Math.min(256, r.frames);
         const names = Array.from({ length: F }, (_, i) => `frame${(i + 1).toString().padStart(2, '0')}`);
         tableData.push({ label: `Table — ${recs[0].name}`, frames: F, frameNames: names,
-          samples: w.samples.slice(0, F * FRAME_LEN), data: null, order: 'as-authored' });
+          samples: r.samples.slice(0, F * FRAME_LEN), data: null, order: 'as-authored', fileName: recs[0].name });
         fillTableSelect(); selectTable(tableData.length - 1);
-        $('vFile').textContent = `${recs[0].name} — read as a ${F}-frame table (it is already ${FRAME_LEN}-sample frames)`;
+        $('vFile').textContent = `${recs[0].name} — read as a ${F}-frame table (${r.source}${r.frames > F ? `, first ${F} of ${r.frames}` : ''})`;
         return;
       }
     } catch (e) { $('vFile').textContent = `${recs[0].name} — ${e.message}`; return; }
@@ -143,8 +150,7 @@ function repack(){
   if (t.thinned) notes.push(`${t.thinned} thinned to fit 256 frames`);
   if (t.families) notes.push(`${t.families.k} families: ${t.families.names.map((n, i) => `${n} ${t.families.of.filter(f => f === i).length}`).join(', ')}`);
   $('vFile').textContent = `${packState.folder} — ${t.frames} cycles packed${notes.length ? ' · ' + notes.join(' · ') : ''}`;
-  $('cExport').disabled = false;
-  $('vExport').textContent = `${t.frames} × ${FRAME_LEN}, float32`;
+  $('vExport').textContent = `${t.frames} frames — pick the synth you use`;
 }
 
 function setOrder(order){
@@ -162,16 +168,22 @@ function setSmooth(sigma){
 }
 document.querySelectorAll('#smoothSeg .seg-btn').forEach(b => b.addEventListener('click', () => setSmooth(b.dataset.smooth)));
 
-$('cExport').addEventListener('click', () => {
-  const t = tableData[packState.lastIdx] && tableData[packState.lastIdx].packed;
-  if (!t) return;
-  const blob = new Blob([WTPacker.encodeWavFloat32(t.samples)], { type: 'audio/wav' });
+/* Export whichever table is showing, packed or built in, in the chosen synth's format. */
+function exportAs(kind){
+  const t = tableData[state.tableIdx]; if (!t) return;
+  const base = (t.packed && t.packed.fileName) || t.fileName || t.label.replace(/[^\w\-]+/g, '_').replace(/^_+|_+$/g, '');
+  let x;
+  if (kind === 'float') x = { buffer: WTPacker.encodeWavFloat32(t.samples), fileName: base.replace(/\.(wav|wt)$/i, '') + '.wav', frames: t.frames, thinned: 0 };
+  else x = WTFormats.exportTable(t.samples, kind, base);
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob); a.download = t.fileName;
+  a.href = URL.createObjectURL(new Blob([x.buffer], { type: kind === 'surge' ? 'application/octet-stream' : 'audio/wav' }));
+  a.download = x.fileName;
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 2000);
-  $('vExport').textContent = `saved ${t.fileName.length > 40 ? t.fileName.slice(0, 40) + '…' : t.fileName}`;
-});
+  const nm = x.fileName.length > 34 ? x.fileName.slice(0, 34) + '…' : x.fileName;
+  $('vExport').textContent = `saved ${nm}${x.thinned ? ` · thinned ${x.thinned} to fit ${x.frames}` : ''}`;
+}
+document.querySelectorAll('#exportSeg .seg-btn').forEach(b => b.addEventListener('click', () => exportAs(b.dataset.kind)));
 
 $('cFile').addEventListener('change', e => { if (e.target.files.length) handleFiles(e.target.files); });
 $('cDir').addEventListener('change',  e => { if (e.target.files.length) handleFiles(e.target.files); });
