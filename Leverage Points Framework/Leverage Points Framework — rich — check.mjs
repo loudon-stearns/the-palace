@@ -3,8 +3,9 @@
 // and "who is steering"
 // forward_vector: I re-run, headless, every number the two pieces print, from the engine inside the pieces
 // themselves: that both carry the same engine, byte for byte; that the one-stock step settles where its equation
-// says; that the meter's positive control reads 100% and its coin-flip null reads 50%; and that both verdicts,
-// under the rules the pieces state, come out as printed. Every number is the model's. The pieces make no sound.
+// says; that the meter's positive control reads 100% and its coin-flip null reads 50%; and that every verdict,
+// under the rules the pieces state, comes out as printed: the switch and the dial, the hijack, and the remake's
+// cases after the challenge (the parameter fixed by construction, no delay, the fallen reference, views demoted). Every number is the model's. The pieces make no sound.
 //
 //   node "Leverage Points Framework/Leverage Points Framework — rich — check.mjs"
 //
@@ -91,10 +92,10 @@ pass(d1.length === 0, `every number "same effort three places" prints is recompu
 pass(d2.length === 0, `every number "who is steering" prints is recomputed exactly${d2.length ? ' — differs at ' + d2.slice(0, 5).join(' ') : ''}`);
 info(`recomputed in ${((Date.now() - t0) / 1000).toFixed(1)} s`);
 
-// the core-insight verdict, by the rule the piece states
+// the dial reading's verdict, by the rule the piece states (the model's reading; the page's own is the switch, below)
 for (const e of ['0.1', '0.25']) { const q = b1.Q[e], ge3 = q.filter(x => x >= 3).length, le1 = q.filter(x => x <= 1).length;
   const v = ge3 / 64 >= 0.8 ? 'HOLDS' : le1 / 64 >= 0.5 ? 'FAILS' : 'MIXED';
-  pass(v === 'FAILS', `core insight at ${e * 100}% effort: Q>=3 in ${ge3}/64, Q<=1 in ${le1}/64 -> ${v} (the piece prints "fails in this model")`); }
+  pass(v === 'FAILS', `the dial reading (the model's, not the page's) at ${e * 100}% effort: Q>=3 in ${ge3}/64, Q<=1 in ${le1}/64 -> ${v} (the piece prints "does nothing in this model")`); }
 info(`default constants: noise floor D ${b1.def.floor}; 10% nudge D: parameter ${b1.def['y@0.1'].D}, delay ${b1.def['tau@0.1'].D}, goal ${b1.def['g@0.1'].D}`);
 info(`after the verdict: goal weight 0.99 -> D ${b1.sw[6].D}, 1 -> D ${b1.sw[8].D}; yield at 2x -> D ${b1.yEnd}`);
 // the meter's controls
