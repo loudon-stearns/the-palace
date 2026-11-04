@@ -61,3 +61,13 @@ What Floquet Time-Modulated Loops's steward cycles taught the page, and the chan
    >   — settled (2026-11-04): Loudon chose damping that grows with the ring's energy over the build's state clip and tanh. Heard three ways, all three held the pitch at half the pump, but tanh's odd harmonics land on the Floquet ladder and hide it. With the gentle damping, the ring settles at E = (q/2 − ζ)/g, so its level follows the pump depth (measured within 3 %), and the ladder stays as the linear theory makes it ([[Gentle Resonator — what the codebox needs|the measurements]]).
 
 - run · 2026-11-03 · cycle 4 · taught item 7, proposed item 8 for canon
+
+## From cycle 5 — 2026-11-03
+
+9. Check a surface's power on its unmoved rung before using it as a filter: it says up front whether the filter keeps the input's pitch (Theta 38 %) or gives it all away once the scan is fast (Membrane 0 %). *(offered by the steward, cycle 5)*
+10. **Proposed for canon** · 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 3 — Floquet Kernel (wavetable as filter), a new paragraph after the first · canon change owed *(proposed by the steward, cycle 5)*
+    Why: The Stage 3 sketch claims a surface's synthesis character returns as a filter character; the first proof measured how, and named the three kinds.
+    Path: `Projects/Floquet Time-Modulated Loops.md`
+    > First proof (2026-11-04, Python; [[Floquet Kernel — first proof|the note]]): read a surface's fast axis as 512 taps and scan its slow axis at f_mod, and a surface mode (m, n) becomes a passband at m × 93.75 Hz whose output is moved by n × f_mod. The surface's 2D spectrum is the filter's map, and a sine test matches it to 0.0001 dB. The surfaces turn out to be different kinds of filter: Theta keeps the input's pitch, Membrane has nothing on its unmoved rung and gives the pitch away once the scan is fast, and Penrose splits the input into five bands, each moved its own distance.
+
+- run · 2026-11-03 · cycle 5 · taught item 9, proposed item 10 for canon

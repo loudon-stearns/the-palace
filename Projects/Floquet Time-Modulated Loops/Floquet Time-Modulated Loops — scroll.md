@@ -15,32 +15,32 @@ forward_vector: "I am Floquet Time-Modulated Loops's scroll — the one page tha
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T01:17:03.160Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T01:21:16.288Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 4 · last ran 2026-11-04 (today)
-- **Plan:** agreed 2026-09-26 (38 days ago) · 5 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 5 · last ran 2026-11-04 (today)
+- **Plan:** agreed 2026-09-26 (38 days ago) · 6 made things since
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — I built the resonator your way. Its damping grows with its energy, so its loudness follows the pump, and inside the tongue its pitch follows the pump too. (`floquet-steward-009`)
-- **Last commit touching this project:** 2026-11-03 `5710c7e9` — steward(Floquet Time-Modulated Loops): cycle 3 — SPINNING UP. HOME: [Floquet Time-Modulated Loops](obsidian://open?vault…
+- **Last shipped:** 2026-11-04 (today) — I turned three wavetable surfaces into filters that change over time. Each surface's 2D spectrum turns out to be its filter's map, measured exactly. (`floquet-steward-011`)
+- **Last commit touching this project:** 2026-11-03 `e09bb27d` — steward(Floquet Time-Modulated Loops): cycle 4 — SPINNING UP. HOME: [Floquet Time-Modulated Loops](obsidian://open?vault…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 4 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 4 · taught item 7, proposed item 8 for canon
+- **Runs:** 5 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 5 · taught item 9, proposed item 10 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 2 — items 6, 8; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 8, from cycle 4 — 2026-11-03 — [[Floquet Time-Modulated Loops — tuning]]
+- **Proposed for canon:** 3 — items 6, 8, 10; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 10, from cycle 5 — 2026-11-03 — [[Floquet Time-Modulated Loops — tuning]]
 
 ### Where this stands
 
-Floquet Time-Modulated Loops argues that the 'nothing changes over time' assumption under almost every audio loop is a choice. The first instrument is a 220 Hz resonator whose tuning is pumped. Below a threshold it's quiet; past it, the noise cracks into a ring. You chose how it stops growing: damping that rises with the ring's energy, instead of the build's clip and tanh. Max is paused, so this cycle built that version in Node and the browser. It measured it, rendered four listening files, and made a page you can play. The codebox is untouched; a note lists what it will need.
+Floquet Time-Modulated Loops argues that the 'nothing changes over time' assumption under almost every audio loop is a choice. The plan has five instruments. The first, a pumped resonator, is built and waits on Max, which is paused, and on your ears. The second, a string with its loudness and length pumped, has its browser proofs. This cycle began the third: a surface from the 2D Torus library read as a filter. The surface's fast axis gives the filter's taps, and its slow axis is scanned at a rate you set. I also opened the earlier play pages in a headless browser for the first time; both run without errors.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
 - **rough since cycle 1:** I only checked its script parses. _(in 2 notes, the latest cycle 4)_
-- **rough since cycle 2:** Nobody has heard it yet, and the play page hasn't been opened in a browser; _(in 3 notes, the latest cycle 4)_
+- **rough since cycle 2:** Nobody has heard it yet. _(in 4 notes, the latest cycle 5)_
 
 ### Open asks
 
@@ -56,6 +56,7 @@ _None._
 
 ### Runs
 
+- 2026-11-03 — cycle 5 · taught item 9, proposed item 10 for canon
 - 2026-11-03 — cycle 4 · taught item 7, proposed item 8 for canon
 - 2026-11-03 — cycle 3 · taught item 5, proposed item 6 for canon
 - 2026-11-03 — cycle 2 · taught item 3, proposed item 4 for canon
@@ -71,6 +72,7 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 
 - **6.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 2 — Floquet Comb, a new paragraph after the first — Adds what the two-pump proof measured to the Stage 2 sketch, and corrects the tongue width to its two meanings.
 - **8.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Open Questions, the bullet 'Does the tanh saturation in Stage 1 distort the Strutt picture?', a new progressed line after the existing one — The question asked which saturation is the right sound; Loudon answered it, and the measured level law is the reason it teaches well.
+- **10.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 3 — Floquet Kernel (wavetable as filter), a new paragraph after the first — The Stage 3 sketch claims a surface's synthesis character returns as a filter character; the first proof measured how, and named the three kinds.
 
 <!-- scroll:now:end -->
 
@@ -99,6 +101,56 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="floquet-steward-011" -->
+### 2026-11-04 — cycle 5 — I turned three wavetable surfaces into filters that change over time. Each surface's 2D spectrum turns out to be its filter's map, measured exactly.
+> shipped · third instrument's first proof, in Python · steward leans build its play page next
+
+The filter: y[n] = Σ_k h(k, φ[n]) · x[n−k]. The 512 taps come from the surface's fast axis, and φ scans its slow axis at f_mod. A surface pattern at fast-axis step m and slow-axis step n becomes a passband at m × 93.75 Hz, and the scan moves that band's output by n × f_mod. So the surface's 2D spectrum is the filter's map; the figure puts them side by side.
+
+With a 440 Hz sine in and a 31 Hz scan, every predicted line (±440 + n × 31) comes out at its predicted level, to better than 0.0001 dB, and 1e-8 or less of the power lands anywhere else.
+
+The three surfaces are three kinds of filter. Penrose splits the input into five bands (281, 844 and 1031 Hz) and moves them by 0, ±6 and ±10 times the scan rate. Even at a 0.25 Hz scan it detunes into a chorus. Theta keeps the pitch: 38 % of its power is on the unmoved rung. Membrane has exactly none there, so scanned fast it gives the pitch away entirely: 98 % of the output is shifted.
+
+Each render glides the scan rate from 0.25 to 80 Hz over 14 s. It starts as a filter you hear move and ends as a ladder of shifted copies, the crossing from ordinary to time-varying in one gesture.
+
+I also opened the gentle resonator and two-pump play pages in headless Chrome and pressed play. No exceptions or console errors, both canvases paint, and the start button changes to its playing state (screenshot check: verify/browser_open_check.mjs). Whether sound reaches a speaker is not something I can check.
+
+**Artifacts:**
+- [each surface, its 2D spectrum, and its filter's map. The bright points line up.](Projects/Floquet Time-Modulated Loops/kernel/kernel_map.png)
+- [a 110 Hz saw through Penrose, scan gliding 0.25 → 80 Hz: chorus, then five shifted bands.](Projects/Floquet Time-Modulated Loops/kernel/kernel_a_penrose_saw_glide.wav)
+- [the same saw through Theta: a soft moving filter that keeps its pitch, then gentle sidebands.](Projects/Floquet Time-Modulated Loops/kernel/kernel_b_theta_saw_glide.wav)
+- [the same saw through Membrane: a moving filter, then the pitch handed away entirely.](Projects/Floquet Time-Modulated Loops/kernel/kernel_c_membrane_saw_glide.wav)
+- [white noise through Penrose: the five bands, then their shifts.](Projects/Floquet Time-Modulated Loops/kernel/kernel_d_penrose_noise_glide.wav)
+- [the note: what was measured, and what the Max build will need.](Projects/Floquet Time-Modulated Loops/kernel/Floquet Kernel — first proof.md)
+- [the engine, the exact prediction, the sine check, the renders.](Projects/Floquet Time-Modulated Loops/kernel/floquet_kernel.py)
+- [draws kernel_map.png.](Projects/Floquet Time-Modulated Loops/kernel/kernel_figure.py)
+- [reads a 2D Torus surface WAV as a 1024 × 1024 grid.](Projects/Floquet Time-Modulated Loops/kernel/surface_io.py)
+- [every number above.](Projects/Floquet Time-Modulated Loops/kernel/kernel_report.json)
+- [opens a play page in headless Chrome, presses play, reports errors and a screenshot.](Projects/Floquet Time-Modulated Loops/verify/browser_open_check.mjs)
+
+_Three surfaces as filters · 512 taps · 440 Hz sine, 31 Hz scan · and the 110 Hz saw glide_
+| surface | power on the unmoved rung | lines within 60 dB | worst error | saw off its harmonics, slow → fast scan |
+| --- | --- | --- | --- | --- |
+| Penrose | 20 % | 5 | < 0.0001 dB | 82 % → 93 % |
+| Theta | 38 % | 7 | < 0.0001 dB | 3 % → 50 % |
+| Membrane | 0 % | 8 | < 0.0001 dB | 0.8 % → 98 % |
+
+_Changed in the workshop:_ Floquet Kernel — first proof — New workshop note for the third instrument's first proof.
+_Proposed for canon:_ Floquet Time-Modulated Loops (§ Stages 2–5 — the development arc, ### Stage 3 — Floquet Kernel (wavetable as filter), a new paragraph after the first) — The Stage 3 sketch claims a surface's synthesis character returns as a filter character; the first proof measured how, and named the three kinds.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard it yet. That includes the four kernel glides, and the play pages now run in Chrome but haven't reached anyone's ears. The taps aren't windowed, so each band leaks at −13 dB, and only three of the nine named surfaces were run.
+
+_Next moves named:_ Build the kernel's play page: pick a surface, drag the scan rate, and watch the live spectrum beside the map. · Run the other six named surfaces, and try a Hann window along the taps to hear leaky versus clean bands. · For Max, when the pause lifts: a 512-tap row read is about 49 M multiply-adds a second, so test 128–256 taps, or a bank of band-passes each followed by a frequency shifter (five for Penrose).
+<sub>`floquet-steward-011` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-686866d634" -->
+### 2026-11-03 — cycle 5
+
+taught item 9, proposed item 10 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="floquet-steward-009" -->
 ### 2026-11-04 — cycle 4 — Off plan — I built the resonator your way. Its damping grows with its energy, so its loudness follows the pump, and inside the tongue its pitch follows the pump too.
 > shipped · gentle resonator built and measured · steward leans back to the pumped comb
