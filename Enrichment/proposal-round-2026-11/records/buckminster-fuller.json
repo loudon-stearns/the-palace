@@ -1,0 +1,26 @@
+{
+ "entry": "Buckminster Fuller",
+ "path": "People/Buckminster Fuller.md",
+ "type": "person",
+ "stage": "seed",
+ "weight": 6,
+ "claim": "The trimtab: 'a life-or-death problem solved by one well-placed mechanical intervention rather than more force' (§ The life that shaped the thought), 'trimtab the whole ship with a rudder the size of my hand' (the closing voice) — and § Where he can't see: '\"do more with less\" has no brake … his story is all reinforcing loops and no balancing one — the efficiency he wins gets reinvested into more consumption, not banked as slack (the Jevons paradox).'",
+ "pieces": [
+  {
+   "section": "The life that shaped the thought",
+   "what": "A ship-and-rudder model: a hull with yaw inertia and drag, a rudder the water flow loads, and a trimtab on the rudder's trailing edge. The walk: turn the ship by pushing the rudder directly and read the effort (torque integrated over the turn); then add the trimtab and turn the ship by moving only the tab, the flow turning the rudder. The test: the trimtab's leverage measured as the ratio of effort to reach the same heading change in the same time, with the measure and the ratio that would mean 'no leverage' (≤ 1) stated before the run. Then the cost the page's own doubt points at — the delay a trimtab adds — read off the same run. A model's numbers, named as the model's; nothing of Fuller's reproduced.",
+   "kind": "interactive",
+   "walks_up_from": "a hull drifting with no rudder at all"
+  },
+  {
+   "section": "Where he can't see",
+   "what": "A doing-more-with-less model: one resource stock, a use rate, and an efficiency that improves each cycle (ephemeralization as a reinforcing loop). Two runs side by side: efficiency gains banked as slack (use falls), and gains spent (the rebound: lower cost per unit, more units). The page's doubt gets its number — with what rebound fraction total use stops falling and starts rising, in this model — and the reader moves the fraction and watches the stock. The verdict rule is stated first: the page's claim ('no balancing loop … gets spent, not banked') is confirmed only if the spent arm consumes more than the banked arm at the model's own ceiling; the piece says what would have meant the page was wrong.",
+   "kind": "interactive",
+   "walks_up_from": "one stock drawn down at a fixed rate"
+  }
+ ],
+ "gathered": [],
+ "tier": "sketch",
+ "note": "Weight-6 board line of the 2026-11-03 round. A person page: nothing of his reproduced — no recording, no lecture passage, no long quotation; the bundle's dossier and speech files are the page's evidence ledger and are not gathered as pieces. Only models. The Jevons sentence is the page's reading of a systems modeler's critique, so the second piece tests the claim as the page states it (reinvested vs banked), not the historical Jevons record. No baton on the page; no board notes.",
+ "slice": "cloud-3"
+}

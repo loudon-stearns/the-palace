@@ -1,0 +1,73 @@
+{
+  "title": "Songlines — rich",
+  "born": "2026-11-04",
+  "links": [
+    {
+      "target": "[[Songlines]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Songlines' rich face: what the Shop made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Songlines",
+  "tier": "sketch",
+  "made": "2026-11-04",
+  "round": 1,
+  "note": "One piece, in Cross-Domain Resonance, for its last paragraph (The Palace Itself). The section's grain is coarse: its three bold-headed paragraphs are one ## section, so this one piece is one stamp and one all-or-nothing approval for all three. The Key Ontological Claim and the Open Questions got no piece: nothing in them a walker can test tonight. The Personal Register is Loudon's own words about his past: no piece there, on purpose. The piece makes no sound.",
+  "sections": [
+    {
+      "heading": "Cross-Domain Resonance",
+      "made_against": "1be4c70735d6",
+      "made": "2026-11-04",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-04",
+        "by": "maker · claude-opus-5-5 · proposal round · cloud batch 3",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Songlines — rich — two-walkers.html",
+          "origin": "made",
+          "by": "the Maker · graph walk",
+          "title": "two walkers from the same doors · the palace's own roads",
+          "caption": "**Does walking the worn paths hide the country beside them?** Two walkers on the palace's real body links (328 entries, 2,289 links, read at e8d199b2), from the seven pages every agent is born with: one picks any road evenly, one follows wear (each road weighted by its destination's 90-day use from the 2026-11-03 Palace Map build; use counts edits and links formed, not visits, and the weights stay fixed, so no track deepens as they walk). It walks up from one page's roads to one walk each, then many walks, then the test, whose rule is stated before it runs, with a shuffled-use control: uneven wear hides country, but this palace's own wear is not told apart from the same wear dealt at random. A model of the claim on real roads and real use, not a record of any session.",
+          "near": "The palace has songlines",
+          "place": "band",
+          "height": 1500
+        }
+      ],
+      "stamped": "2026-11-04",
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5 · cloud batch 3",
+        "verdicts": [
+          {
+            "file": "Songlines — rich — two-walkers.html",
+            "verdict": "remake",
+            "why": "A real test, honestly scored, but A also holds with the same use values shuffled across entries (median 100.5 unreached, 1.70× chance; real use beats only 171 of 200 shuffles), so add a scored shuffled-use arm with its bar before the run. Also correct step 3's 'walking more does not open the land' (worn unreached falls 175.5 → 28.5), and have the caption say that use counts edits and links formed, not visits, and that tracks never deepen."
+          }
+        ]
+      }
+    }
+  ],
+  "offers": [
+    {
+      "section": "Cross-Domain Resonance",
+      "kind": "no-claim-edit",
+      "what": "Bears out \"not because they're wrong or thin\": on the palace's body-link graph (e8d199b2, a model, not sessions), a walker weighted by use leaves 117 of 293 reachable entries unvisited against chance's 58.5 (100 of 100 seeds), and the 70 entries it hides are neither thin nor barely linked (median 1,212 words, 3.5 in-links); seven sit one link from Palace Philosophies, a born-with page (The Drift, The Dichotomy of Control, The Four Virtues, The View From Above, Leibniz, Whitehead, Metaphor as Coupling Medium). Carried honestly with its limit: the same use values shuffled across entries leave a median 99.5 unreached against real use's 118.5, real ahead in 186 of 200 shuffles (p ≈ 0.07 here, 0.15 on the challenger's engine), short of the stated 95% bar — so what is shown is that wear this uneven hides country whoever wears it, not that this palace's own tracks do, and nothing deepens with longer walking (the gap closes after 200 walks).",
+      "status": "open"
+    },
+    {
+      "section": "Cross-Domain Resonance",
+      "kind": "no-claim-edit",
+      "what": "An addition: \"geographically present\" depends on which map. 35 of 328 entries are on no body road from the born-with pages at all (23 have no body link into them), and 22 of those 35 are reachable on the Palace Map's frontmatter typed links — present on the map, absent from the text a reader walks. The paragraph's dormant entries are the 293 a body road does reach.",
+      "status": "open"
+    }
+  ]
+}
