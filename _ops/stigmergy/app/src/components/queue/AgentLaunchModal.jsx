@@ -71,7 +71,7 @@ function Select({ value, onChange, options, testId, disabled }) {
       disabled={disabled}
       onChange={(e) => onChange(e.target.value)}
       style={{
-        background: 'var(--bg)', color: 'var(--phosphor)', textShadow: 'var(--glow)',
+        backgroundColor: 'var(--bg)', color: 'var(--phosphor)', textShadow: 'var(--glow)',
         border: '1px solid var(--phosphor-dim)', fontFamily: 'var(--font-mono)', fontSize: 12,
         padding: '2px 6px', borderRadius: 0, outline: 'none',
       }}
@@ -305,7 +305,7 @@ export default function AgentLaunchModal({ home, mandateSeed = '', mode = 'stewa
           {construction ? (
             <details data-testid="agent-prompt-fold" open={showPrompt} onToggle={(e) => setShowPrompt(e.currentTarget.open)}>
               <summary style={{ cursor: 'pointer', color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, letterSpacing: '.06em', textTransform: 'uppercase' }}>
-                ▸ view constructed prompt {loading ? '(updating…)' : ''}
+                view constructed prompt {loading ? '(updating…)' : ''}
               </summary>
               <pre data-testid="agent-prompt" style={{
                 margin: '8px 0 0', border: '1px solid var(--phosphor-dim)', padding: '10px',

@@ -181,7 +181,7 @@ export default function LinkRowEditor({ link, index, onChange, onRemove, testId 
 function inputStyle(color) {
   return {
     width: '100%',
-    background: 'var(--bg, #000)',
+    backgroundColor: 'var(--bg, #000)',
     color: `var(--${color})`,
     textShadow: color === 'phosphor' ? 'var(--glow)' : 'none',
     border: '1px solid var(--phosphor-dim)',

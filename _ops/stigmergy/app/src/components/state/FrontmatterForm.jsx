@@ -273,7 +273,7 @@ function Warn({ children }) {
 
 function inputStyle() {
   return {
-    background: 'var(--bg, #000)',
+    backgroundColor: 'var(--bg, #000)',
     color: 'var(--phosphor)',
     textShadow: 'var(--glow)',
     border: '1px solid var(--phosphor-dim)',

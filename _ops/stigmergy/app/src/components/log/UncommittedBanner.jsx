@@ -18,7 +18,7 @@ import { movesIn, isRowSelected, toggleRow, allPaths, selectedFileCount } from '
 // (lib/uncommitted-selection.js).
 
 const fieldStyle = {
-  background: 'transparent', border: 'none', borderBottom: '1px dashed var(--phosphor-dim)',
+  backgroundColor: 'transparent', border: 'none', borderBottom: '1px dashed var(--phosphor-dim)',
   color: 'var(--phosphor)', textShadow: 'var(--glow)', fontFamily: 'var(--font-mono)',
   fontSize: 12, outline: 'none', padding: '2px 4px',
 };
