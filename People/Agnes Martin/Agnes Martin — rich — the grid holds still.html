@@ -1,0 +1,483 @@
+<!doctype html>
+<!--
+  title: Agnes Martin — rich — the grid holds still
+  born: 2026-11-04
+  links: [[Agnes Martin]] (connects-to · rich-face-piece) · listed in [[Agnes Martin — rich.json]] · checked by Agnes Martin — rich — check.mjs
+  forward_vector: I am a walk from one hand-ruled line beside a true one to a blind test of the page's perceptual claim: that a grid held still makes a hair of drift visible, and that without it the drift vanishes into noise. Every line I draw is my own, from a stated model of a hand; nothing of hers is reproduced. I measure my own pixels as a control; the threshold that answers the claim belongs to whoever takes the test. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en" class="skin-amber-lab">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Agnes Martin — the grid holds still</title>
+<meta name="theme-color" content="#f4ecdc">
+<style>
+  /* Amber Lab skin, from _ops/loudon-live/design-system/colors_and_type.css; system fonts only. */
+  :root {
+    color-scheme: light;
+    --bg: #f4ecdc; --e1: #ece2cd; --e2: #e4d8be; --border: #c8b994; --soft: rgba(0,0,0,.06);
+    --fg1: #2a1d10; --fg2: #3d2a18; --fg3: #6e5a45; --fg4: #a59880;
+    --accent: #e8651b; --accent-dim: #b54a0e; --accent-soft: rgba(232,101,27,.10); --accent-line: rgba(232,101,27,.50);
+    --paper: #f7f1e3;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  /* The browser's furniture, drawn in the skin's tokens (after controls.css). */
+  ::-webkit-scrollbar { width: 11px; height: 11px; }
+  ::-webkit-scrollbar-track { background: linear-gradient(to right, transparent calc(50% - .5px), var(--soft) calc(50% - .5px), var(--soft) calc(50% + .5px), transparent calc(50% + .5px)); }
+  ::-webkit-scrollbar-thumb { background: var(--fg4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0; }
+  ::-webkit-scrollbar-thumb:hover { background-color: var(--fg3); }
+  ::-webkit-scrollbar-button { display: none; }
+  @supports not selector(::-webkit-scrollbar) { * { scrollbar-width: thin; scrollbar-color: var(--fg4) transparent; } }
+  ::selection { background: var(--accent); color: var(--bg); }
+  :focus { outline: none; }
+  :focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; border-radius: 1px; }
+  * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+  input[type=range] { -webkit-appearance: none; appearance: none; background: transparent; height: 22px; width: 220px; margin: 0; }
+  input[type=range]::-webkit-slider-runnable-track { height: 1px; background: var(--border); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 6px; height: 16px; margin-top: -7.5px; background: var(--fg2); border-radius: 0; border: 0; }
+  input[type=range]:active::-webkit-slider-thumb { background: var(--accent); }
+  input[type=range]::-moz-range-track { height: 1px; background: var(--border); }
+  input[type=range]::-moz-range-thumb { width: 6px; height: 16px; background: var(--fg2); border-radius: 0; border: 0; }
+  @media (prefers-reduced-motion: reduce) { * { transition-duration: .01ms !important; } }
+
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); }
+  body { font-family: var(--sans); font-size: 15px; line-height: 1.55; }
+  .piece { padding: 20px 20px 24px; max-width: 1000px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .title { font-family: var(--serif); font-weight: 400; font-size: 27px; line-height: 1.2; color: var(--fg1); margin: 0 0 6px; }
+  .sub { color: var(--fg3); margin: 0 0 14px; max-width: 76ch; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 16px; border: 1px solid var(--border); border-radius: 2px; width: fit-content; max-width: 100%; }
+  .rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; background: transparent; padding: 7px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button[aria-current="step"] { background: var(--accent-soft); color: var(--accent-dim); }
+  button { font: 13px var(--sans); color: var(--fg2); background: var(--e1); border: 1px solid var(--border); border-radius: 2px; padding: 6px 12px; cursor: pointer; transition: background 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover:not(:disabled) { background: var(--e2); }
+  button:disabled { opacity: .45; cursor: default; }
+  button.on { border-color: var(--accent); color: var(--accent-dim); background: var(--accent-soft); }
+  .step { display: none; }
+  .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .teach { max-width: 76ch; margin: 0 0 10px; }
+  .back { font-size: 12.5px; color: var(--fg3); margin: 0 0 10px; }
+  .eq { border-left: 1px solid var(--accent-line); padding: 6px 0 6px 14px; margin: 10px 0 12px; max-width: 76ch; }
+  .eq .sym { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .eq .words { color: var(--fg2); margin-top: 4px; }
+  .fieldwrap { overflow-x: auto; margin: 8px 0 8px; }
+  canvas#field { display: block; width: 600px; height: 380px; background: var(--paper); border: 1px solid var(--border); border-radius: 1px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin: 6px 0 10px; }
+  .controls label { font-family: var(--mono); font-size: 11.5px; color: var(--fg3); display: flex; align-items: center; gap: 10px; user-select: none; }
+  .controls input[type=range] { flex: none; width: 220px; }
+  .controls output { font-family: var(--mono); font-size: 12px; color: var(--fg1); min-width: 8ch; }
+  .btns { display: flex; flex-wrap: wrap; gap: 8px; }
+  .meter { font-family: var(--mono); font-size: 12px; color: var(--fg2); background: var(--e1); border: 1px solid var(--border); border-radius: 2px; padding: 8px 10px; max-width: 76ch; white-space: pre-wrap; margin: 6px 0 10px; }
+  .rule { border: 1px solid var(--border); border-radius: 2px; padding: 10px 14px; background: var(--e1); max-width: 76ch; margin: 8px 0 12px; }
+  .rule p { margin: 0 0 8px; }
+  .rule p:last-child { margin: 0; }
+  .trialbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 4px 0 6px; }
+  .trialbar .where { font-family: var(--mono); font-size: 12px; color: var(--fg3); }
+  .answer button { font-size: 14px; padding: 8px 18px; }
+  table.res { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 8px 0; }
+  table.res th, table.res td { border-bottom: 1px solid var(--border); padding: 4px 10px; text-align: right; }
+  table.res th:first-child, table.res td:first-child { text-align: left; }
+  table.res th { color: var(--fg3); font-weight: 400; }
+  .verdict { font-family: var(--serif); font-size: 19px; color: var(--fg1); max-width: 76ch; margin: 10px 0; }
+  .nav { display: flex; gap: 8px; align-items: center; margin-top: 16px; }
+  .nav .where { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 76ch; margin: 12px 0 0; }
+  .foot { font-family: var(--mono); font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><span id="sigil"></span>made · sketch · a walk in five steps · nothing of hers reproduced</div>
+  <h2 class="title">The grid holds still. Can you see the hand drift?</h2>
+  <p class="sub">The paragraph above makes a claim about seeing: a hand-ruled line drifts by a hair, a grid held still lets you see the hair, and without the grid the hair is lost in noise. This walk draws its own lines from a stated model of a hand, starts with one of them beside a true line, and ends on a blind test you take, where the only thing that changes between the two halves is the grid.</p>
+  <div class="rail" id="rail"></div>
+
+  <section class="step">
+    <h3>One line by hand, one true</h3>
+    <p class="teach">The top line is true: straight to the pixel. The bottom one is ruled by a model hand that wanders a little as it goes and lands back on its mark at the end. The orange trace under them is that wander, magnified twenty times, so you can see its shape even when the line itself looks straight. Slide the drift down until you can no longer tell which line is which without the trace.</p>
+  </section>
+  <section class="step">
+    <h3>The hand's drift, stated</h3>
+    <p class="teach">Every hand-ruled line here comes from one rule, so the test can say exactly what it is hiding.</p>
+    <div class="eq">
+      <div class="sym">y<sub>i</sub>(x) = ȳ<sub>i</sub> + a · w<sub>i</sub>(x), &nbsp; w<sub>i</sub>(0) = w<sub>i</sub>(L) = 0, &nbsp; rms(w<sub>i</sub>) = 1</div>
+      <div class="words">In words: line <i>i</i> sits where the ruler says, ȳ<sub>i</sub>, plus the hand's drift. The drift w<sub>i</sub> is a random walk, one step per pixel, smoothed over about 24 pixels so it wanders slowly like a hand and not a tremor, pinned to zero at both ends, and scaled so its typical distance from the true line, the root mean square, is exactly <i>a</i> pixels. Each line has its own walk, seeded by the trial and its row, so no two lines fall the same.</div>
+    </div>
+    <p class="teach">Here are ten of them, each one's drift magnified twenty times on its own dotted baseline. Same rule, same amplitude, ten different hands.</p>
+    <p class="back">Step 1 is one of these beside a true line, at full size.</p>
+  </section>
+  <section class="step">
+    <h3>The grid holds still</h3>
+    <p class="teach">Ten hand-ruled lines inside a grid that does not move: evenly spaced, starting on one edge, crossed by true vertical rules every 48 pixels. Switch between straight and drifting at the same amplitude and watch where the difference shows: in the gaps between neighbours, and at each crossing, where a cell is a hair taller on one side than the other.</p>
+    <p class="back">Set drift to 1 px and switch to straight: that is step 1's true line, ten times.</p>
+  </section>
+  <section class="step">
+    <h3>Take it away</h3>
+    <p class="teach">The same ten lines, the same drift, line for line. The slider takes away only the grid: the even spacing, the shared left edge and the vertical rules fade toward a scatter of lines at uneven heights and offsets. The lines stay horizontal, the same length and the same weight, because a tilted line is drawn on different pixels, and that would change something other than the grid. Under the field the piece measures its own pixels, so you can see the drift is the same in both, by the number.</p>
+    <p class="back">Slide back to 100% to return to step 3.</p>
+  </section>
+  <section class="step">
+    <h3>The test, blind</h3>
+    <div class="rule">
+      <p><b>What you do.</b> 64 fields, one at a time. Each shows ten lines, held in the grid or scattered without it. On each field the lines are either all drifting, at one of four amplitudes (0.25, 0.5, 1 or 2 px root mean square), or all perfectly straight, chosen by a fair coin for that field alone. You answer straight or drifting (keys S and D work too). Take as long as you like. No answer is marked until the end. Please leave the zoom as it is: zooming magnifies the drift, and the piece notes it if it changes.</p>
+      <p><b>Chance, before the first trial.</b> A guess is right half the time. Each half, grid and no grid, gets 8 fields at each amplitude, 32 in all, so a guesser scores about 16 of 32 in each. A half is above chance at 21 of 32 or more; a guesser gets there about 5.5% of the time.</p>
+      <p><b>The verdict rule, before the first trial.</b> The page's claim holds for you if, with the grid, you get at least 6 more of your 32 right than without it, and at least 21 of 32. It goes the other way if the half without the grid wins by the same rule. Anything closer is no clear difference. If neither half reaches 21, the drift was too faint to tell anything; if both reach 30, too easy to tell anything. The strong form, "the difference vanishes into noise", holds at these amplitudes only if the claim holds and you saw no amplitude at all without the grid (an amplitude counts as seen at 7 of its 8 right). Both halves are scored, and hits and false alarms are shown for each.</p>
+      <p><b>What the rule can and cannot see.</b> A reader guessing every field gets a verdict for the page <span id="pguess">about 2.9%</span> of the time. The page's claim is a strong one, and the test is sized for it: a model reader whom the grid helps by two doublings of amplitude gets "holds" about three times in four; one whom it helps by a single doubling, about one time in four, and otherwise "no clear difference"; one whom it does not help at all gets "holds" between 0.1% and 6%, depending on how sharp their eyes are. The numbers come from the check beside this piece, on this piece's own scoring code.</p>
+    </div>
+    <div class="btns" id="startbtns"><button id="start">Start the 64 fields</button></div>
+    <div id="trial" hidden>
+      <div class="trialbar"><span class="where" id="tcount"></span><span class="where" id="tzoom"></span></div>
+      <div class="trialbar answer"><button id="ansS">Straight · S</button><button id="ansD">Drifting · D</button></div>
+    </div>
+    <div id="result"></div>
+  </section>
+
+  <div class="fieldwrap"><canvas id="field" width="600" height="380" aria-label="the field of lines"></canvas></div>
+  <div class="controls" id="ctl">
+    <label id="ctlA">drift a <input type="range" id="amp" min="0" max="16" step="1" value="8"><output id="ampv"></output></label>
+    <label id="ctlR">grid <input type="range" id="reg" min="0" max="100" step="1" value="100"><output id="regv"></output></label>
+    <span class="btns" id="ctlS"><button id="bStraight">straight</button><button id="bDrift" class="on">drifting</button></span>
+    <span class="btns" id="ctlN"><button id="newhand">another hand</button></span>
+  </div>
+  <div class="meter" id="meter"></div>
+
+  <div class="nav"><button id="back">Back</button><button id="next">Next</button><span class="where" id="where"></span></div>
+  <p class="note" id="honest">Every line here is drawn by this piece from the rule in step 2; no painting of hers is reproduced, and the model hand is a model, not a measurement of anyone's hand. Lines are not stroked by the browser: each is laid on the pixels as a band of fixed width, so a straight line and a drifting one carry the same ink in every column and the same darkest pixel, and only their position differs (the meter shows it, and Agnes Martin — rich — check.mjs re-checks it headless: <span id="baked">on 2026-11-04, at 1, 1.25 and 2 device pixels per field pixel, every drifting line read back within 0.6% of the amplitude asked, every straight line at 0.00000 px, each line's drift the same with the grid and without it to 0.014 px, and on the 8-bit pixels the canvas shows, a straight line and a 0.25 px drifting one within 0.3% of each other in total ink</span>). The piece can measure its own pixels; it cannot see. The threshold that answers the page is yours.</p>
+  <div class="foot">Loud’n Live</div>
+</div>
+
+<script id="engine">
+// The engine: no page, no DOM. Agnes Martin — rich — check.mjs runs this block in Node.
+const AM = (() => {
+  const W = 600, H = 380;            // the field, in field px (1 field px = 1 CSS px at 100% zoom)
+  const N = 10, L = 480;             // ten lines, each 480 px long
+  const GX = 60, GY = 46, SPACING = 32, CELL = 48, OVER = 12; // the grid: left edge, first line, row spacing, rule spacing, rule overhang
+  const GAP = 22, SCX = [10, 110];   // the scatter: smallest gap between lines, range of left ends
+  const SMOOTH = 24;                 // the hand's drift is smoothed over a Gaussian of this sigma, field px
+  const ALPHA = 0.62;                // ink of a fully covered pixel
+  const WINDOW = 7;                  // the meter reads each line within this many px of its true height
+  const LEVELS = [0.25, 0.5, 1, 2];  // drift amplitudes in the test, px root mean square
+  const PER = 8, PASS = 7;           // fields per amplitude per half; right answers that count as seen
+
+  function hash(a, b) {
+    let h = (a ^ Math.imul(b + 1, 0x9E3779B1)) >>> 0;
+    h = Math.imul(h ^ (h >>> 16), 0x85ebca6b) >>> 0;
+    h = Math.imul(h ^ (h >>> 13), 0xc2b2ae35) >>> 0;
+    return (h ^ (h >>> 16)) >>> 0;
+  }
+  function rng(seed) { // mulberry32
+    let s = seed >>> 0;
+    return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  }
+  function normal(r) { let u = 0; while (u === 0) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * r()); }
+
+  // The hand's unit drift for row i of a trial: rms 1, zero at both ends. It depends on (seed, i)
+  // and nothing else; the grid never enters it, which is how the two halves are matched.
+  const KER = (() => { const pad = 3 * SMOOTH, k = []; let s = 0; for (let j = -pad; j <= pad; j++) { const g = Math.exp(-j * j / (2 * SMOOTH * SMOOTH)); k.push(g); s += g; } return k.map((g) => g / s); })();
+  function shape(seed, i) {
+    const r = rng(hash(seed, i)), pad = 3 * SMOOTH, n = L + 1 + 2 * pad;
+    const walk = new Float64Array(n); let v = 0;
+    for (let k = 0; k < n; k++) { v += normal(r); walk[k] = v; }
+    const out = new Float64Array(L + 1);
+    for (let x = 0; x <= L; x++) { let s = 0; for (let k = 0; k < KER.length; k++) s += KER[k] * walk[x + k]; out[x] = s; }
+    const a0 = out[0], a1 = out[L];
+    for (let x = 0; x <= L; x++) out[x] -= a0 + (a1 - a0) * x / L;
+    let ss = 0; for (let x = 0; x <= L; x++) ss += out[x] * out[x];
+    const rms = Math.sqrt(ss / (L + 1));
+    for (let x = 0; x <= L; x++) out[x] /= rms;
+    return out;
+  }
+  function drift(seed, i, a) { if (!(a > 0)) return null; const s = shape(seed, i); for (let x = 0; x <= L; x++) s[x] *= a; return s; }
+
+  // Where the lines sit. reg = 1 is the grid held still; reg = 0 is the scatter. sub is one
+  // sub-pixel offset for every line of the field, so a straight line is not always pixel-crisp.
+  function layout(seed, reg, sub) {
+    const r = rng(hash(seed, 7777));
+    const room = (H - 32) - (N - 1) * GAP, u = [];
+    for (let i = 0; i < N; i++) u.push(Math.floor(r() * (room + 1)));
+    u.sort((p, q) => p - q);
+    const sy = u.map((v, i) => 16 + v + i * GAP);
+    const sx = []; for (let i = 0; i < N; i++) sx.push(SCX[0] + Math.floor(r() * (SCX[1] - SCX[0] + 1)));
+    const lines = [];
+    for (let i = 0; i < N; i++) lines.push({ x0: reg * GX + (1 - reg) * sx[i], y: reg * (GY + SPACING * i) + (1 - reg) * sy[i] + sub });
+    const xs = []; for (let k = 0; k <= L / CELL; k++) xs.push(GX + CELL * k);
+    return { lines, rules: { xs, y0: GY - OVER + sub, y1: GY + SPACING * (N - 1) + OVER + sub, alpha: reg } };
+  }
+  function field(seed, reg, a, sub) {
+    const f = layout(seed, reg, sub);
+    f.lines.forEach((ln, i) => { ln.dev = drift(seed, i, a); });
+    f.a = a; f.seed = seed; f.reg = reg; f.sub = sub;
+    return f;
+  }
+  function band(dpr) { return Math.max(2, Math.round(1.25 * dpr)); }
+
+  // Lay a field on the pixels: each line is a band `w` device px tall, area-sampled down each
+  // column, so every column holds the same ink and its darkest pixel is ALPHA wherever it sits.
+  function render(f, dpr) {
+    const Wd = Math.round(W * dpr), Hd = Math.round(H * dpr), w = band(dpr);
+    const ink = new Float32Array(Wd * Hd);
+    const put = (idx, v) => { if (v > ink[idx]) ink[idx] = v; };
+    for (const ln of f.lines) {
+      const c0 = Math.max(0, Math.ceil(ln.x0 * dpr - 0.5)), c1 = Math.min(Wd - 1, Math.floor((ln.x0 + L) * dpr - 0.5));
+      for (let c = c0; c <= c1; c++) {
+        const fx = (c + 0.5) / dpr - ln.x0; let d = 0;
+        if (ln.dev) { const k = Math.max(0, Math.min(L - 1, Math.floor(fx))), t = fx - k; d = ln.dev[k] * (1 - t) + ln.dev[k + 1] * t; }
+        const yc = (ln.y + d) * dpr, top = yc - w / 2, bot = yc + w / 2;
+        for (let r = Math.floor(top); r < Math.ceil(bot); r++) {
+          if (r < 0 || r >= Hd) continue;
+          const cov = Math.min(bot, r + 1) - Math.max(top, r);
+          if (cov > 0) put(r * Wd + c, cov * ALPHA);
+        }
+      }
+    }
+    const R = f.rules;
+    if (R.alpha > 0) {
+      const r0 = Math.max(0, Math.round(R.y0 * dpr)), r1 = Math.min(Hd - 1, Math.round(R.y1 * dpr));
+      for (const x of R.xs) {
+        const left = x * dpr - w / 2, right = x * dpr + w / 2;
+        for (let c = Math.floor(left); c < Math.ceil(right); c++) {
+          if (c < 0 || c >= Wd) continue;
+          const cov = Math.min(right, c + 1) - Math.max(left, c);
+          if (cov <= 0) continue;
+          for (let r = r0; r <= r1; r++) put(r * Wd + c, cov * ALPHA * R.alpha);
+        }
+      }
+    }
+    return { Wd, Hd, w, ink };
+  }
+
+  // The meter: read each line back off the pixels. Per column, the ink-weighted centre within
+  // WINDOW px of the line's true height, less that height, is the drift as drawn. Columns near a
+  // vertical rule and two at each end are skipped. Also per column: total ink and darkest pixel.
+  function measure(f, img, dpr) {
+    const { Wd, Hd, w, ink } = img, R = f.rules;
+    const near = (c) => R.alpha > 0 && R.xs.some((x) => Math.abs(c + 0.5 - x * dpr) < w / 2 + 2);
+    return f.lines.map((ln) => {
+      const c0 = Math.ceil(ln.x0 * dpr - 0.5) + 2, c1 = Math.floor((ln.x0 + L) * dpr - 0.5) - 2;
+      const rA = Math.max(0, Math.floor((ln.y - WINDOW) * dpr)), rB = Math.min(Hd - 1, Math.ceil((ln.y + WINDOW) * dpr));
+      let n = 0, ss = 0, si = 0, si2 = 0, sp = 0;
+      for (let c = Math.max(0, c0); c <= Math.min(Wd - 1, c1); c++) {
+        if (near(c)) continue;
+        let s = 0, m = 0, pk = 0;
+        for (let r = rA; r <= rB; r++) { const v = ink[r * Wd + c]; s += v; m += v * (r + 0.5); if (v > pk) pk = v; }
+        if (s === 0) continue;
+        const dev = m / s / dpr - ln.y;
+        ss += dev * dev; si += s; si2 += s * s; sp += pk; n++;
+      }
+      const im = si / n;
+      return { rms: Math.sqrt(ss / n), ink: im / dpr, inkSd: Math.sqrt(Math.max(0, si2 / n - im * im)) / dpr, peak: sp / n, cols: n };
+    });
+  }
+
+  // Scoring, and the verdict rule stated in the piece before the first trial.
+  // The verdict counts right answers per half (32 each): the page's claim holds if the grid half
+  // beats the other by at least MARGIN and is itself above chance (at least GATE of 32).
+  const MARGIN = 6, GATE = 21;
+  function choose(n, k) { let c = 1; for (let j = 1; j <= k; j++) c = c * (n - k + j) / j; return c; }
+  function tail(n, k) { let s = 0; for (let j = k; j <= n; j++) s += choose(n, j); return s / Math.pow(2, n); }
+  const Q = tail(PER, PASS); // a guesser "sees" one amplitude: 9/256
+  function threshold(seen) { let j = LEVELS.length; for (let k = LEVELS.length - 1; k >= 0; k--) { if (seen[k]) j = k; else break; } return j; } // LEVELS.length = above the top
+  function verdict(g, o, n, openTh) {
+    if (g >= n - 2 && o >= n - 2) return 'floor';
+    if (g < GATE && o < GATE) return 'ceiling';
+    if (g - o >= MARGIN && g >= GATE) return openTh >= LEVELS.length ? 'holds-strong' : 'holds';
+    if (o - g >= MARGIN && o >= GATE) return 'reversed';
+    return 'no-difference';
+  }
+  function guessHolds() { // exact: P(G - O >= MARGIN and G >= GATE), G and O ~ Binomial(32, 1/2)
+    const n = PER * LEVELS.length, p = (k) => choose(n, k) / Math.pow(2, n); let s = 0;
+    for (let g = GATE; g <= n; g++) for (let o = 0; o <= g - MARGIN; o++) if (!(g >= n - 2 && o >= n - 2)) s += p(g) * p(o);
+    return s;
+  }
+  function score(trials) { // trials: {arm:'grid'|'open', level, present, said}
+    const out = {};
+    for (const arm of ['grid', 'open']) {
+      const t = trials.filter((x) => x.arm === arm);
+      const byLevel = LEVELS.map((_, k) => { const u = t.filter((x) => x.level === k); const right = u.filter((x) => x.said === x.present).length; return { n: u.length, right, seen: right >= PASS }; });
+      const pres = t.filter((x) => x.present), abs = t.filter((x) => !x.present);
+      out[arm] = { byLevel, th: threshold(byLevel.map((b) => b.seen)), right: t.filter((x) => x.said === x.present).length, n: t.length,
+        hits: pres.filter((x) => x.said).length, nPres: pres.length, fa: abs.filter((x) => x.said).length, nAbs: abs.length };
+    }
+    out.verdict = verdict(out.grid.right, out.open.right, out.grid.n, out.open.th);
+    return out;
+  }
+  return { W, H, N, L, GX, GY, SPACING, CELL, LEVELS, PER, PASS, MARGIN, GATE, ALPHA, SMOOTH, Q, hash, rng, shape, drift, layout, field, band, render, measure, threshold, verdict, guessHolds, score, tail };
+})();
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const TAU = Math.PI * 2;
+const AMPS = []; for (let k = 0; k <= 16; k++) AMPS.push(+(0.25 * Math.pow(2, k / 4)).toFixed(3)); // 0.25 … 4 px, quarter-octave steps
+const fmt = (x, d = 2) => (Math.round(x * Math.pow(10, d)) / Math.pow(10, d)).toFixed(d);
+const cv = $('field'), g = cv.getContext('2d');
+let dpr = 1;
+function fitCanvas() { dpr = window.devicePixelRatio || 1; cv.width = Math.round(AM.W * dpr); cv.height = Math.round(AM.H * dpr); }
+function paint(img) {
+  const id = g.createImageData(img.Wd, img.Hd), d = id.data;
+  const P = [247, 241, 227], I = [42, 29, 16];
+  for (let k = 0; k < img.ink.length; k++) { const v = img.ink[k]; d[4 * k] = P[0] + (I[0] - P[0]) * v; d[4 * k + 1] = P[1] + (I[1] - P[1]) * v; d[4 * k + 2] = P[2] + (I[2] - P[2]) * v; d[4 * k + 3] = 255; }
+  g.putImageData(id, 0, 0);
+}
+function label(text, x, y) { g.save(); g.scale(dpr, dpr); g.font = '11px ui-monospace, Menlo, Consolas, monospace'; g.fillStyle = '#6e5a45'; g.fillText(text, x, y); g.restore(); }
+function trace(dev, x0, y, mag, color, dotted) {
+  g.save(); g.scale(dpr, dpr);
+  if (dotted) { g.strokeStyle = '#c8b994'; g.setLineDash([2, 3]); g.lineWidth = 1; g.beginPath(); g.moveTo(x0, y); g.lineTo(x0 + AM.L, y); g.stroke(); g.setLineDash([]); }
+  g.strokeStyle = color; g.lineWidth = 1.2; g.beginPath();
+  for (let x = 0; x <= AM.L; x++) { const yy = y + (dev ? dev[x] : 0) * mag; x ? g.lineTo(x0 + x, yy) : g.moveTo(x0 + x, yy); }
+  g.stroke(); g.restore();
+}
+
+const S = { step: 0, ai: 8, reg: 100, drifting: true, seed: 1912, seed2: 1, seed3: 3 };
+const amp = () => AMPS[S.ai];
+
+function drawStep() {
+  fitCanvas();
+  const a = amp();
+  $('ampv').textContent = fmt(a) + ' px rms';
+  $('regv').textContent = S.reg + '%';
+  $('bStraight').classList.toggle('on', !S.drifting); $('bDrift').classList.toggle('on', S.drifting);
+  const show = (id, on) => { $(id).style.display = on ? '' : 'none'; };
+  const st = S.step;
+  show('ctlA', st === 0 || st === 2 || st === 3); show('ctlR', st === 3); show('ctlS', st === 2 || st === 3); show('ctlN', st <= 3);
+  show('ctl', st <= 3); show('meter', st !== 4);
+  if (st === 0) {
+    const dev = AM.drift(S.seed, 0, a);
+    const f = { lines: [{ x0: AM.GX, y: 120, dev: null }, { x0: AM.GX, y: 200, dev }], rules: { xs: [], alpha: 0 } };
+    const img = AM.render(f, dpr); paint(img);
+    label('true', 14, 124); label('by hand', 8, 204);
+    label('the hand’s drift × 20', AM.GX, 268);
+    trace(dev, AM.GX, 310, 20, '#e8651b', true);
+    const m = AM.measure(f, img, dpr);
+    let pk = 0; for (let x = 0; x <= AM.L; x++) pk = Math.max(pk, Math.abs(dev[x]));
+    $('meter').textContent = 'drift asked: ' + fmt(a) + ' px rms, farthest ' + fmt(pk) + ' px from true\n'
+      + 'read back off the pixels: by hand ' + fmt(m[1].rms, 3) + ' px rms · true line ' + fmt(m[0].rms, 3) + ' px rms\n'
+      + 'ink per column: by hand ' + fmt(m[1].ink, 3) + ' · true ' + fmt(m[0].ink, 3) + ' (field px × ink); darkest pixel ' + fmt(m[1].peak, 3) + ' · ' + fmt(m[0].peak, 3);
+  } else if (st === 1) {
+    g.fillStyle = '#f7f1e3'; g.fillRect(0, 0, cv.width, cv.height);
+    for (let i = 0; i < AM.N; i++) trace(AM.shape(S.seed2, i), AM.GX, AM.GY + AM.SPACING * i, 12 * 1, '#3d2a18', true);
+    label('ten hands, each drift × 12 at a = 1 px rms', AM.GX, 22);
+    $('meter').textContent = 'rule: random walk, 1 step per px · smoothed, sigma ' + AM.SMOOTH + ' px · pinned to 0 at both ends · scaled to rms 1 · seed ' + S.seed2;
+  } else if (st === 2 || st === 3) {
+    const reg = st === 2 ? 1 : S.reg / 100;
+    const f = AM.field(S.seed3, reg, S.drifting ? a : 0, 0.37);
+    const img = AM.render(f, dpr); paint(img);
+    if (st === 2) {
+      const m = AM.measure(f, img, dpr), mean = m.reduce((s, x) => s + x.rms, 0) / m.length;
+      $('meter').textContent = (S.drifting ? 'drifting at ' + fmt(a) + ' px rms' : 'straight') + ' · read back off the pixels: mean ' + fmt(mean, 3) + ' px rms over ten lines';
+    } else {
+      const held = AM.field(S.seed3, 1, S.drifting ? a : 0, 0.37), open = AM.field(S.seed3, 0, S.drifting ? a : 0, 0.37);
+      const mh = AM.measure(held, AM.render(held, dpr), dpr), mo = AM.measure(open, AM.render(open, dpr), dpr), mn = AM.measure(f, img, dpr);
+      let diff = 0, idiff = 0, pdiff = 0; for (let i = 0; i < AM.N; i++) { diff = Math.max(diff, Math.abs(mh[i].rms - mo[i].rms)); idiff = Math.max(idiff, Math.abs(mh[i].ink - mo[i].ink)); pdiff = Math.max(pdiff, Math.abs(mh[i].peak - mo[i].peak)); }
+      $('meter').textContent = 'this field (grid ' + S.reg + '%): ' + mn.map((x) => fmt(x.rms)).join(' ') + ' px rms, line by line\n'
+        + 'grid 100%:           ' + mh.map((x) => fmt(x.rms)).join(' ') + '\n'
+        + 'grid 0%:             ' + mo.map((x) => fmt(x.rms)).join(' ') + '\n'
+        + 'largest difference between the two, any line: drift ' + fmt(diff, 4) + ' px · ink ' + fmt(idiff, 4) + ' · darkest pixel ' + fmt(pdiff, 4) + '\n'
+        + 'a match is under 0.02 px; a bigger number would mean the grid changed the lines, not only their setting.';
+    }
+  } else if (st === 4) {
+    if (T.on) drawTrial(); else { g.fillStyle = '#f7f1e3'; g.fillRect(0, 0, cv.width, cv.height); label(T.done ? 'done · the result is above' : 'the fields appear here', 20, 30); }
+  }
+}
+
+// ── The test ──
+const T = { on: false, done: false, list: [], k: 0, z0: null, zoomMoved: false, ctrl: [] };
+function rand32() { const u = new Uint32Array(1); crypto.getRandomValues(u); return u[0]; }
+function coin() { return (rand32() & 1) === 1; }
+function zoomNow() { return (window.devicePixelRatio || 1) * ((window.visualViewport && window.visualViewport.scale) || 1); }
+function startTest() {
+  const list = [];
+  for (const arm of ['grid', 'open']) for (let k = 0; k < AM.LEVELS.length; k++) for (let j = 0; j < AM.PER; j++) list.push({ arm, level: k, present: coin(), seed: rand32(), sub: (rand32() % 1000) / 1000 });
+  for (let i = list.length - 1; i > 0; i--) { const j = rand32() % (i + 1); [list[i], list[j]] = [list[j], list[i]]; }
+  Object.assign(T, { on: true, done: false, list, k: 0, z0: zoomNow(), zoomMoved: false, ctrl: [] });
+  $('startbtns').hidden = true; $('trial').hidden = false; $('result').innerHTML = '';
+  drawStep();
+}
+function drawTrial() {
+  const t = T.list[T.k];
+  fitCanvas();
+  const f = AM.field(t.seed, t.arm === 'grid' ? 1 : 0, t.present ? AM.LEVELS[t.level] : 0, t.sub);
+  const img = AM.render(f, dpr); paint(img);
+  const m = AM.measure(f, img, dpr);
+  T.ctrl[T.k] = { arm: t.arm, a: t.present ? AM.LEVELS[t.level] : 0, rms: m.map((x) => x.rms), ink: m.map((x) => x.ink), inkSd: m.map((x) => x.inkSd), peak: m.map((x) => x.peak) };
+  if (Math.abs(zoomNow() - T.z0) > 1e-6) T.zoomMoved = true;
+  $('tcount').textContent = 'field ' + (T.k + 1) + ' of ' + T.list.length;
+  $('tzoom').textContent = T.zoomMoved ? 'zoom changed during the test: the result will say so' : '';
+}
+function answer(said) {
+  if (!T.on) return;
+  T.list[T.k].said = said;
+  T.k++;
+  if (T.k >= T.list.length) { T.on = false; T.done = true; $('trial').hidden = true; showResult(); drawStep(); return; }
+  drawTrial();
+}
+function thName(j) { return j >= AM.LEVELS.length ? 'above 2 px' : AM.LEVELS[j] + ' px'; }
+function showResult() {
+  const sc = AM.score(T.list), L = AM.LEVELS;
+  const row = (arm, name) => { const s = sc[arm]; return '<tr><td>' + name + '</td>' + s.byLevel.map((b) => '<td>' + b.right + '/' + b.n + (b.seen ? ' ●' : '') + '</td>').join('') + '<td>' + s.right + '/' + s.n + '</td><td>' + s.hits + '/' + s.nPres + '</td><td>' + s.fa + '/' + s.nAbs + '</td><td>' + thName(s.th) + '</td></tr>'; };
+  const g = sc.grid.right, o = sc.open.right, n = sc.grid.n;
+  const V = {
+    'holds': 'The claim holds for you: ' + g + ' of ' + n + ' right with the grid, ' + o + ' without it.',
+    'holds-strong': 'The claim holds for you, in its strong form at these amplitudes: ' + g + ' of ' + n + ' right with the grid, ' + o + ' without it, and without it you saw no amplitude at all, not even 2 px.',
+    'no-difference': 'No clear difference for you: ' + g + ' of ' + n + ' right with the grid, ' + o + ' without it. The page claims more than that.',
+    'reversed': 'The claim fails for you, the other way round: ' + o + ' of ' + n + ' right without the grid, ' + g + ' with it.',
+    'floor': 'Too easy to tell anything: ' + g + ' and ' + o + ' of ' + n + ' right. The page is not shown wrong; this test cannot separate the two halves for your eyes.',
+    'ceiling': 'Too faint to tell anything: neither half reached 21 of ' + n + ' (' + g + ' with the grid, ' + o + ' without). The page is not shown wrong; this test cannot separate the two halves.',
+  }[sc.verdict];
+  // The control: what the pixels held, over every field you saw.
+  let worstA = 0, nullMax = 0, inkSd = 0, inkS = [], inkD = [], pkS = [], pkD = [];
+  for (const c of T.ctrl) { if (!c) continue; c.rms.forEach((r) => { if (c.a > 0) worstA = Math.max(worstA, Math.abs(r - c.a) / c.a); else nullMax = Math.max(nullMax, r); }); c.inkSd.forEach((s) => { inkSd = Math.max(inkSd, s); }); (c.a > 0 ? inkD : inkS).push(...c.ink); (c.a > 0 ? pkD : pkS).push(...c.peak); }
+  const mean = (v) => v.length ? v.reduce((s, x) => s + x, 0) / v.length : NaN;
+  $('result').innerHTML = '<p class="verdict">' + V + '</p>'
+    + '<table class="res"><tr><th>half</th>' + L.map((a) => '<th>' + a + ' px</th>').join('') + '<th>right</th><th>hits</th><th>false alarms</th><th>seen from</th></tr>' + row('grid', 'with the grid') + row('open', 'without it') + '</table>'
+    + '<p class="note">● marks an amplitude seen: at least ' + AM.PASS + ' of ' + AM.PER + ' right, which a guesser reaches ' + fmt(100 * AM.Q, 1) + '% of the time; seen from is the smallest amplitude from which every larger one was seen too. Hits are drifting fields you called drifting; false alarms are straight fields you called drifting. A reader who believed the paragraph above and leaned toward "drifting" in the grid half would show it as more false alarms there. A guesser gets a verdict for the page ' + fmt(100 * AM.guessHolds(), 1) + '% of the time.'
+    + (T.zoomMoved ? ' <b>The zoom changed during the test</b>, so some fields were magnified; read this result with that in mind.' : '') + ' Zoom at the start: ' + fmt(T.z0, 2) + ' device px per field px.</p>'
+    + '<div class="meter">the control, read off the pixels of all ' + T.ctrl.length + ' fields you saw:\n'
+    + 'drifting lines: worst gap between asked and drawn drift ' + fmt(100 * worstA, 2) + '% (a pass is under 3%)\n'
+    + 'straight lines: largest drawn drift ' + fmt(nullMax, 4) + ' px rms (a pass is under 0.005 px)\n'
+    + 'ink per column: straight ' + fmt(mean(inkS), 4) + ' · drifting ' + fmt(mean(inkD), 4) + ' · largest spread within a line ' + fmt(inkSd, 5) + '\n'
+    + 'darkest pixel: straight ' + fmt(mean(pkS), 4) + ' · drifting ' + fmt(mean(pkD), 4) + '\n'
+    + 'equal ink and equal darkest pixel mean thickness and darkness give nothing away; only position differs.</div>'
+    + '<div class="btns"><button id="again">Take it again, fresh fields</button></div>';
+  $('again').onclick = () => { startTest(); };
+}
+
+// ── The walk ──
+const stepEls = [...document.querySelectorAll('.step')];
+const names = ['one line', 'the drift', 'held still', 'taken away', 'the test'];
+function setStep(i) {
+  if (T.on && i !== 4) { T.on = false; $('trial').hidden = true; $('startbtns').hidden = false; }
+  S.step = Math.max(0, Math.min(stepEls.length - 1, i));
+  stepEls.forEach((el, k) => el.classList.toggle('on', k === S.step));
+  $('rail').querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === S.step ? 'step' : 'false'));
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === stepEls.length - 1;
+  $('where').textContent = 'step ' + (S.step + 1) + ' of ' + stepEls.length;
+  drawStep();
+}
+names.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+$('back').onclick = () => setStep(S.step - 1);
+$('next').onclick = () => setStep(S.step + 1);
+$('amp').oninput = (e) => { S.ai = +e.target.value; drawStep(); };
+$('reg').oninput = (e) => { S.reg = +e.target.value; drawStep(); };
+$('bStraight').onclick = () => { S.drifting = false; drawStep(); };
+$('bDrift').onclick = () => { S.drifting = true; drawStep(); };
+$('newhand').onclick = () => { if (S.step === 0) S.seed++; else if (S.step === 1) S.seed2++; else S.seed3++; drawStep(); };
+$('start').onclick = startTest;
+$('ansS').onclick = () => answer(false);
+$('ansD').onclick = () => answer(true);
+document.addEventListener('keydown', (e) => { if (!T.on || e.metaKey || e.ctrlKey || e.altKey) return; const k = e.key.toLowerCase(); if (k === 's') { e.preventDefault(); answer(false); } else if (k === 'd') { e.preventDefault(); answer(true); } });
+window.addEventListener('resize', () => { if (Math.abs((window.devicePixelRatio || 1) - dpr) > 1e-6) { if (T.on) T.zoomMoved = true; drawStep(); } });
+$('pguess').textContent = fmt(100 * AM.guessHolds(), 1) + '%';
+(function sigil(el) { // the Lissajous trace, 3:2, small
+  const p = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * TAU; p.push((11 + 9 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ',' + (11 + 9 * Math.sin(2 * t)).toFixed(2)); }
+  el.innerHTML = '<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.4" fill="none" stroke="#c8b994" stroke-width="1"/><polyline points="' + p.join(' ') + '" fill="none" stroke="#e8651b" stroke-width="1"/></svg>';
+})($('sigil'));
+setStep(0);
+</script>
+</body>
+</html>
