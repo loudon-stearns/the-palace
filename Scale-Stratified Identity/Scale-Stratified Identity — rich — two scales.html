@@ -1,0 +1,432 @@
+<!doctype html>
+<!--
+  title: Scale-Stratified Identity — rich — two scales
+  born: 2026-11-04
+  links: [[Scale-Stratified Identity]] (connects-to · rich-face-piece) · [[Action Potential Oscillator]] (connects-to · the neuron, at the cell's own grain) · [[Threshold Conatus]] (connects-to · the refractory period as self-maintenance) · [[Progressive Staging]] (exemplifies · a walk in steps) · listed in [[Scale-Stratified Identity — rich.json]]
+  forward_vector: I am the Finding with both scales measured at once: eight leaky integrate-and-fire cells,
+    one of them watched, wired to each other by synapses that learn by spike timing. I walk from one spike
+    and its recovery, to a thousand spikes, to the learning rule, and end on the section's two answers
+    under rules I state before the run: did the cell come back after every spike, and did the network
+    change completely? I make no sound. I change only when the section I serve does.
+  engine: in-page, no library. Cell and STDP constants from Song, Miller & Abbott 2000; the rest is this
+    piece's own (named in the piece). Checked headless by "Scale-Stratified Identity — rich — checks.mjs",
+    beside this file, on the engine pulled out of this HTML.
+  dress: Loudon Live house style, Graphite skin, system type (no web fonts).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Scale-Stratified Identity — two scales at once</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --cool:#7fb2d9;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace; --sans:system-ui,-apple-system,'Segoe UI',sans-serif; --serif:Georgia,'Times New Roman',serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .ssi-piece { padding: 22px 22px 20px; }
+  .ssi-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .ssi-kicker svg { width: 18px; height: 18px; flex: none; }
+  .ssi-title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .ssi-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 16px; }
+  .ssi-rail { display: flex; flex-wrap: wrap; margin: 0 0 14px; }
+  .ssi-rail button { border-radius: 0; margin-right: -1px; }
+  .ssi-rail button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.ssi-go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); }
+  button:disabled { opacity: .5; cursor: wait; }
+  .ssi-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .ssi-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .ssi-says { font-size: 14.5px; line-height: 1.62; color: var(--fg2); max-width: 80ch; margin: 0 0 12px; }
+  .ssi-says b { color: var(--fg1); font-weight: 500; }
+  .ssi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 720px) { .ssi-grid { grid-template-columns: 1fr; } }
+  .ssi-panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--bg); padding: 8px 10px; }
+  .ssi-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .ssi-controls { display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: end; margin-top: 14px; }
+  .ssi-controls label.ssi-sl { flex: 1 1 260px; }
+  .ssi-btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .ssi-btns .ssi-lab { font-family: var(--mono); font-size: 11px; color: var(--fg3); margin-right: 4px; }
+  label.ssi-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.ssi-sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .ssi-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .ssi-read b { color: var(--fg1); font-weight: 500; }
+  .ssi-flag { color: var(--amber) !important; }
+  .ssi-eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .ssi-eq { font-family: var(--serif); font-size: 18px; color: var(--fg1); }
+  .ssi-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 80ch; }
+  .ssi-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .ssi-rules { border-left: 2px solid var(--fg4); padding: 4px 0 4px 12px; margin: 0 0 12px; font-size: 13.5px; line-height: 1.6; max-width: 82ch; }
+  .ssi-rules b { color: var(--fg1); font-weight: 500; }
+  table.ssi-t { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin-top: 12px; width: 100%; }
+  table.ssi-t th, table.ssi-t td { border-bottom: 1px solid var(--soft); padding: 5px 8px; text-align: right; color: var(--fg2); }
+  table.ssi-t th:first-child, table.ssi-t td:first-child { text-align: left; }
+  table.ssi-t th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; }
+  .ssi-verdict { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 82ch; border-left: 2px solid var(--amberline); padding-left: 12px; }
+  .ssi-small { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 82ch; margin-top: 10px; }
+  .ssi-small b { color: var(--fg2); font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="ssi-piece">
+  <div class="ssi-kicker"><svg id="sigil" viewBox="0 0 18 18" aria-hidden="true"></svg><span>made · in-page model · sketch · a walk in four steps · silent</span></div>
+  <h3 class="ssi-title">Two scales at once</h3>
+  <p class="ssi-sub">Eight model neurons, one of them watched, wired to each other by synapses that learn from spike timing. Walk from one spike and its recovery to a thousand spikes, then to the learning rule, and end on the section's two answers, measured together under rules stated before the run. Nothing here makes a sound.</p>
+  <div class="ssi-rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="ssi-step">
+    <div class="ssi-stephead"><span id="stepname"></span><span id="stepof"></span></div>
+    <p class="ssi-says" id="says"></p>
+    <div id="view"></div>
+    <div class="ssi-nav"><button id="prev">← back</button><button id="next">next →</button></div>
+  </div>
+</div>
+<script>
+/* ENGINE:START */
+const SSI = (() => {
+  // Song, Miller & Abbott 2000 (Nat Neurosci 3:919): cell and STDP constants
+  const LIT = { tauM: 20, EL: -70, theta0: -54, Vreset: -60, Eex: 0, tauEx: 5, gmax: 0.015,
+                Aplus: 0.005, ratio: 1.05, tauPlus: 20, tauMinus: 20 };
+  // this piece's own choices (not from the literature)
+  const OWN = { N: 8, dt: 0.1, tRef: 2, dFast: 4, tauFast: 10, period: 100, lag: 6, kick: 20,
+                mu: 11, sigma: 4.5, wSeed: 7, nSeed: 11 };
+  function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function gauss(r) { let u = 0; while (u === 0) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * r()); }
+  function initWeights(N, seed) { const r = rng(seed), w = new Float64Array(N * N); for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) w[i * N + j] = i === j ? 0 : r(); return w; }
+  // run: opts { pattern: 'sequence'|'shuffled'|'none', dSlow (mV per spike), tauSlow (ms), target (spikes of cell 0), stdp: bool }
+  function run(opts) {
+    const o = Object.assign({ pattern: 'sequence', dSlow: 0, tauSlow: 2000, target: 1000, stdp: true, record: 0, maxT: 600000 }, opts);
+    const { N, dt, tRef, dFast, tauFast, period, lag, kick, mu, sigma } = OWN;
+    const L = LIT, Aminus = L.Aplus * L.ratio;
+    const r = rng(OWN.nSeed + (o.pattern === 'sequence' ? 0 : 1000));
+    const w0 = initWeights(N, OWN.wSeed), w = Float64Array.from(w0);
+    const V = new Float64Array(N).fill(L.EL), gex = new Float64Array(N), thF = new Float64Array(N), thS = new Float64Array(N);
+    const x = new Float64Array(N), y = new Float64Array(N), refUntil = new Float64Array(N).fill(-1);
+    const cell0 = [], spikesAll = new Int32Array(N), wTrack = [];
+    const kicks = new Float64Array(N);   // next kick time per cell in this cycle
+    let cycle = -1, t = 0;
+    const eF = Math.exp(-dt / tauFast), eS = Math.exp(-dt / o.tauSlow), eX = Math.exp(-dt / L.tauPlus), eY = Math.exp(-dt / L.tauMinus), eG = Math.exp(-dt / L.tauEx);
+    const sq = Math.sqrt(dt);
+    const rec = o.record ? { t: [], V: [], th: [] } : null;
+    const distOf = () => { let s = 0; for (let k = 0; k < N * N; k++) s += (w[k] - w0[k]) ** 2; return Math.sqrt(s / (N * (N - 1))); };
+    while (cell0.length < o.target && t < o.maxT) {
+      const c = Math.floor(t / period);
+      if (c !== cycle) { cycle = c;
+        for (let i = 0; i < N; i++) kicks[i] = o.pattern === 'none' ? Infinity : o.pattern === 'sequence' ? c * period + 5 + i * lag : c * period + r() * period; }
+      for (let i = 0; i < N; i++) {
+        thF[i] *= eF; thS[i] *= eS; x[i] *= eX; y[i] *= eY; gex[i] *= eG;
+        if (t < refUntil[i]) { V[i] = L.Vreset; continue; }
+        V[i] += dt * (L.EL - V[i] + mu + gex[i] * (L.Eex - V[i])) / L.tauM + sigma * sq * gauss(r) / Math.sqrt(L.tauM);
+        if (t >= kicks[i]) { V[i] += kick; kicks[i] = Infinity; }
+        const th = L.theta0 + thF[i] + thS[i];
+        if (V[i] >= th) {
+          
+          spikesAll[i]++;
+          V[i] = L.Vreset; refUntil[i] = t + tRef; thF[i] += dFast; thS[i] += o.dSlow;
+          if (i === 0) cell0.push({ t, thAt: th, fast: thF[i], slow: thS[i] });
+          for (let j = 0; j < N; j++) if (j !== i) gex[j] += w[i * N + j] * L.gmax;
+          if (o.stdp) {
+            for (let j = 0; j < N; j++) if (j !== i) { // i as post: potentiate j->i ; i as pre: depress i->j
+              let a = w[j * N + i] + L.Aplus * x[j]; w[j * N + i] = a > 1 ? 1 : a;
+              let b = w[i * N + j] - Aminus * y[j]; w[i * N + j] = b < 0 ? 0 : b; }
+          }
+          x[i] += 1; y[i] += 1;
+          if (i === 0 && (cell0.length % 25 === 0 || cell0.length === 1)) wTrack.push({ n: cell0.length, r: corr(w0, w, N), d: distOf() });
+        }
+      }
+      if (rec && t < o.record) { rec.t.push(t); rec.V.push(V[0]); rec.th.push(L.theta0 + thF[0] + thS[0]); }
+      t += dt;
+    }
+    // after: quiet, measure the cell coming back
+    const tEnd = t;
+    const restAfter = (ms) => { const k = Math.exp(-ms / tauFast), ks = Math.exp(-ms / o.tauSlow); return { th: L.theta0 + thF[0] * k + thS[0] * ks, V: L.EL + (V[0] - L.EL) * Math.exp(-ms / L.tauM) }; };
+    return { w0, w, cell0, spikesAll: Array.from(spikesAll), tEnd, wTrack, restAfter, rec, N, tauSlow: o.tauSlow, dSlow: o.dSlow, pattern: o.pattern };
+  }
+  function corr(a, b, N) { let n = 0, sa = 0, sb = 0; const A = [], B = []; for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) if (i !== j) { A.push(a[i * N + j]); B.push(b[i * N + j]); }
+    n = A.length; const ma = A.reduce((s, v) => s + v, 0) / n, mb = B.reduce((s, v) => s + v, 0) / n; let c = 0, va = 0, vb = 0;
+    for (let k = 0; k < n; k++) { c += (A[k] - ma) * (B[k] - mb); va += (A[k] - ma) ** 2; vb += (B[k] - mb) ** 2; }
+    return vb === 0 || va === 0 ? 0 : c / Math.sqrt(va * vb); }
+  // one cell, no noise, at rest; one kick at 10 ms crosses it; then nothing, so its recovery shows alone
+  function oneSpike(dSlow, tauSlow, ms) {
+    const L = LIT, { dt, tRef, dFast, tauFast } = OWN, T = ms || 200, out = { t: [], V: [], th: [], spikeAt: -1 };
+    let V = L.EL, thF = 0, thS = 0, refUntil = -1, kicked = false;
+    for (let t = 0; t <= T + 1e-9; t += dt) {
+      thF *= Math.exp(-dt / tauFast); thS *= Math.exp(-dt / tauSlow);
+      if (t < refUntil) V = L.Vreset; else { V += dt * (L.EL - V) / L.tauM; if (!kicked && t >= 10) { V += OWN.kick; kicked = true; }
+        if (V >= L.theta0 + thF + thS) { out.spikeAt = t; out.peak = V; V = L.Vreset; refUntil = t + tRef; thF += dFast; thS += dSlow; } }
+      out.t.push(t); out.V.push(V); out.th.push(L.theta0 + thF + thS); }
+    const after = (pred) => { for (let k = 0; k < out.t.length; k++) if (out.t[k] > out.spikeAt + tRef && pred(k)) return out.t[k] - out.spikeAt; return Infinity; };
+    out.thBack = after(k => out.th[k] - L.theta0 <= 0.5);
+    out.vBack = after(k => Math.abs(out.V[k] - L.EL) <= 0.1);
+    out.thEnd = out.th[out.th.length - 1] - L.theta0;
+    return out;
+  }
+  return { LIT, OWN, run, corr, initWeights, rng, oneSpike };
+})();
+/* ENGINE:END */
+/* MEASURE:START */
+// The rules, stated before any run (the piece prints them before its button):
+const RULES = {
+  // cell: "no" holds only if EVERY spike leaves the threshold, 50 ms on, within 0.5 mV of its baseline,
+  // and every spike's recovery time is within 2 ms of the first spike's
+  baseAt: 50, baseTol: 0.5, recTol: 2, restAt: 10000, restTol: 0.1,
+  // network: "completely" holds only if all three hold after cell 0's 1,000th spike
+  rBand: 1.96 / Math.sqrt(56),          // |r(start, end)| inside the 95% band for 56 unrelated pairs: 0.262
+  sideMax: 0.5 + 1.96 * 0.5 / Math.sqrt(56), // share of edges still on their starting side of 0.5: at most 0.631 (chance 0.5)
+  distMin: 0.9 * Math.sqrt(1 / 6),       // RMS move from start at least 0.9 x the RMS gap between two unrelated networks (0.408): 0.367
+  barely: 0.9                            // r >= 0.9: the network barely changed
+};
+function cellReport(R) {
+  const { tauFast, dFast } = SSI.OWN, ts = R.tauSlow, tol = RULES.baseTol;
+  const left = (f, s, ms) => f * Math.exp(-ms / tauFast) + s * Math.exp(-ms / ts);
+  const recOf = (f, s) => { if (left(f, s, 0) <= tol) return 0; let lo = 0, hi = 1; while (left(f, s, hi) > tol) hi *= 2; for (let k = 0; k < 60; k++) { const m = (lo + hi) / 2; if (left(f, s, m) > tol) lo = m; else hi = m; } return hi; };
+  const base = R.cell0.map(p => left(p.fast, p.slow, RULES.baseAt)), rec = R.cell0.map(p => recOf(p.fast, p.slow));
+  // a spike fired inside the last one's recovery inherits it (the relative refractory period at work);
+  // the recovery rule reads only spikes that arrive after the last one has recovered
+  const clear = R.cell0.map((p, k) => k === 0 || p.t - R.cell0[k - 1].t >= rec[k - 1]);
+  let firstBase = -1, firstRec = -1, firstRecAny = -1, inside = 0;
+  for (let k = 0; k < base.length; k++) {
+    if (firstBase < 0 && base[k] > tol) firstBase = k;
+    if (firstRecAny < 0 && Math.abs(rec[k] - rec[0]) > RULES.recTol) firstRecAny = k;
+    if (!clear[k]) inside++; else if (firstRec < 0 && Math.abs(rec[k] - rec[0]) > RULES.recTol) firstRec = k; }
+  const firstBad = firstBase < 0 ? firstRec : firstRec < 0 ? firstBase : Math.min(firstBase, firstRec);
+  let recClearMax = 0; for (let k = 0; k < rec.length; k++) if (clear[k]) recClearMax = Math.max(recClearMax, rec[k]);
+  const last = R.cell0[R.cell0.length - 1], rest = left(last.fast, last.slow, RULES.restAt);
+  return { n: base.length, base, rec, clear, inside, maxBase: Math.max(...base), rec1: rec[0], recMax: Math.max(...rec), recClearMax, firstBase, firstRec, firstRecAny, firstBad, holds: firstBad < 0, rest, restHolds: rest <= RULES.restTol };
+}
+function netReport(R) {
+  const N = R.N, r = SSI.corr(R.w0, R.w, N); let same = 0, d = 0, moved = 0, n = 0;
+  for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) if (i !== j) { n++; const a = R.w0[i * N + j], b = R.w[i * N + j]; if ((a > 0.5) === (b > 0.5)) same++; d += (a - b) ** 2; if (Math.abs(a - b) > 0.25) moved++; }
+  const side = same / n, dist = Math.sqrt(d / n), tests = { r: Math.abs(r) <= RULES.rBand, side: side <= RULES.sideMax, dist: dist >= RULES.distMin };
+  const all = tests.r && tests.side && tests.dist, verdict = all ? 'completely' : r >= RULES.barely ? 'barely' : 'partly';
+  return { r, side, dist, moved: moved / n, tests, verdict };
+}
+/* MEASURE:END */
+/* BAKED:START */
+const BAKED = {"date":"2026-11-04","seeds":[1,2,3,4,5,6,7,8,9,10,11,12],"arms":[{"label":"in order","r":[0.235,0.112,-0.099,0.149,0.282,0.04,0.148,-0.033,0.227,0.075,0.331,0.031],"verdict":["completely","completely","completely","completely","partly","completely","completely","completely","completely","completely","partly","completely"],"complete":10},{"label":"same spikes, shuffled","r":[0.961,0.983,0.946,0.949,0.971,0.958,0.959,0.963,0.97,0.966,0.949,0.945],"verdict":["barely","barely","barely","barely","barely","barely","barely","barely","barely","barely","barely","barely"],"complete":0}]};
+/* BAKED:END */
+(function sigil() { const s = document.getElementById('sigil'); let d = ''; for (let i = 0; i <= 160; i++) { const t = 2 * Math.PI * i / 160; d += (i ? 'L' : 'M') + (9 + 7.5 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 + 7.5 * Math.sin(2 * t)).toFixed(2); } s.innerHTML = '<path d="' + d + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
+
+const C = { fg1: '#e8e8f0', fg2: '#c8c8d8', fg3: '#8a8aa0', fg4: '#4a4a5a', amber: '#e8b84a', cool: '#7fb2d9', soft: 'rgba(255,255,255,.08)', bad: '#d9776a' };
+const $ = (id) => document.getElementById(id);
+const f = (v, d) => (v === Infinity ? '∞' : v.toFixed(d));
+const state = { step: 0, dSlow: 0, pattern: 'sequence', seed: 7, dt: 12 };
+const cache = new Map();
+function runOf(pattern, dSlow, seed) {
+  const key = pattern + '|' + dSlow + '|' + seed;
+  if (!cache.has(key)) { SSI.OWN.wSeed = seed; SSI.OWN.nSeed = 100 + seed; const R = SSI.run({ pattern, dSlow }); cache.set(key, { R, cell: cellReport(R), net: netReport(R) }); }
+  return cache.get(key);
+}
+
+// ── drawing ──
+function prep(cv) { const dpr = window.devicePixelRatio || 1, w = cv.clientWidth || 600, h = +cv.getAttribute('height'); cv.width = Math.round(w * dpr); cv.style.height = h + 'px'; const g = cv.getContext('2d'); g.setTransform(cv.width / w, 0, 0, cv.width / w, 0, 0); g.clearRect(0, 0, w, h); return { g, w, h }; }
+function plot(cv, o) {
+  const { g, w, h } = prep(cv), L = 46, R = 10, T = 10, B = 26, pw = w - L - R, ph = h - T - B;
+  const ylog = !!o.logy, ty = (v) => ylog ? Math.log10(Math.max(v, o.yr[0])) : v;
+  const y0 = ty(o.yr[0]), y1 = ty(o.yr[1]);
+  const X = (x) => L + (x - o.xr[0]) / (o.xr[1] - o.xr[0]) * pw, Y = (y) => T + ph - (ty(y) - y0) / (y1 - y0) * ph;
+  g.font = '10px ui-monospace, Menlo, monospace'; g.fillStyle = C.fg3; g.strokeStyle = C.soft; g.lineWidth = 1;
+  for (const yt of o.yticks) { g.beginPath(); g.moveTo(L, Y(yt)); g.lineTo(L + pw, Y(yt)); g.stroke(); g.textAlign = 'right'; g.fillText(String(yt), L - 5, Y(yt) + 3); }
+  for (const xt of o.xticks) { g.textAlign = 'center'; g.fillText(String(xt), X(xt), h - 9); }
+  if (o.xlabel) { g.textAlign = 'right'; g.fillText(o.xlabel, L + pw, h - 0.5); }
+  if (o.band) { g.fillStyle = 'rgba(127,178,217,.10)'; g.fillRect(L, Y(o.band[1]), pw, Y(o.band[0]) - Y(o.band[1])); }
+  for (const hl of o.hlines || []) { g.strokeStyle = hl.color; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(L, Y(hl.y)); g.lineTo(L + pw, Y(hl.y)); g.stroke(); g.setLineDash([]); if (hl.label) { g.fillStyle = hl.color; g.textAlign = 'left'; g.fillText(hl.label, L + 6, Y(hl.y) - 4); } }
+  for (const vl of o.vlines || []) { g.strokeStyle = vl.color; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(X(vl.x), T); g.lineTo(X(vl.x), T + ph); g.stroke(); g.setLineDash([]); }
+  for (const s of o.series) {
+    g.strokeStyle = s.color; g.fillStyle = s.color; g.lineWidth = s.width || 1.3; g.setLineDash(s.dash || []);
+    if (s.dots) { for (let k = 0; k < s.x.length; k++) { g.fillRect(X(s.x[k]) - 0.8, Y(s.y[k]) - 0.8, 1.6, 1.6); } }
+    else { g.beginPath(); for (let k = 0; k < s.x.length; k++) { const px = X(s.x[k]), py = Y(Math.min(Math.max(s.y[k], o.yr[0]), o.yr[1])); k ? g.lineTo(px, py) : g.moveTo(px, py); } g.stroke(); }
+    g.setLineDash([]);
+  }
+  for (const m of o.marks || []) { g.fillStyle = m.color; g.beginPath(); g.arc(X(m.x), Y(m.y), m.r || 3, 0, 2 * Math.PI); g.fill(); if (m.label) { g.font = '9.5px ui-monospace, Menlo, monospace'; g.textAlign = 'center'; g.fillText(m.label, X(m.x), Y(m.y) + (m.below ? 13 : -7)); } }
+}
+function heat(cv, mats, titles) {
+  const { g, w, h } = prep(cv), N = 8, gap = 30, side = Math.min((w - gap * (mats.length - 1) - 30) / mats.length, h - 34), cell = side / N;
+  g.font = '10px ui-monospace, Menlo, monospace';
+  mats.forEach((m, q) => { const ox = 22 + q * (side + gap), oy = 18;
+    g.fillStyle = C.fg3; g.textAlign = 'left'; g.fillText(titles[q], ox, 11);
+    for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) { if (i === j) { g.fillStyle = '#16161f'; } else { const v = m[i * N + j]; g.fillStyle = `rgba(232,184,74,${(0.06 + 0.94 * v).toFixed(3)})`; } g.fillRect(ox + j * cell + 0.5, oy + i * cell + 0.5, cell - 1, cell - 1); }
+    if (q === 0) { g.fillStyle = C.fg3; g.textAlign = 'right'; for (let i = 0; i < N; i++) g.fillText(String(i), ox - 4, oy + i * cell + cell / 2 + 3); }
+    g.fillStyle = C.fg3; g.textAlign = 'center'; for (let j = 0; j < N; j++) g.fillText(String(j), ox + j * cell + cell / 2, oy + side + 12);
+  });
+}
+
+// ── the steps ──
+const STEPS = [
+  { name: 'one spike', render: stepOne },
+  { name: 'a thousand spikes', render: stepMany },
+  { name: 'the learning rule', render: stepRule },
+  { name: 'both scales at once', render: stepTest },
+];
+const slowSlider = (id) => `<label class="ssi-sl">slow inactivation · threshold added per spike, recovering over 2 s · <b id="${id}-v"></b><input id="${id}" type="range" min="0" max="0.4" step="0.01"></label>`;
+function wireSlow(id, after) { const el = $(id), v = $(id + '-v'); el.value = state.dSlow; const show = () => { v.textContent = state.dSlow === 0 ? 'off (the page’s neuron)' : '+' + state.dSlow.toFixed(2) + ' mV'; }; show();
+  el.addEventListener('input', () => { state.dSlow = +el.value; show(); after(); }); }
+
+function stepOne() {
+  $('says').innerHTML = 'One cell at rest, at −70 mV. A kick at 10 ms carries it over its threshold at −54 mV, and it spikes. Then nothing else happens, so its recovery shows alone. The membrane resets to −60 mV, is held there for 2 ms (the absolute refractory period) and relaxes back to rest. The threshold jumps 4 mV and comes back over about 20 ms (the relative refractory period). <b>This is the page’s neuron: the threshold and the rest it returns to are fixed numbers, so here “not eroded” is true by construction.</b> The slider adds the one term in this piece that can erode the threshold, a slow inactivation that recovers over seconds. Turn it up: one spike can hardly show it.';
+  $('view').innerHTML = `<div class="ssi-panel"><div class="ssi-plabel"><span>membrane (white) and threshold (amber) · mV · first 200 ms</span><span>rest −70 · threshold −54</span></div><canvas id="c1" height="240"></canvas></div>
+    <div class="ssi-controls">${slowSlider('s1')}</div><div class="ssi-read" id="r1"></div>
+    <div class="ssi-eqs"><div class="ssi-eq">τ<sub>m</sub> dV/dt = (E<sub>L</sub> − V) + I + g (E<sub>ex</sub> − V) &nbsp;·&nbsp; spike when V ≥ θ(t), then V → V<sub>reset</sub>, held 2 ms</div>
+    <div class="ssi-words">(how fast the membrane moves) × (its time constant, 20 ms) = (the pull back to rest) + (the input) + (what the other cells’ synapses push in); when it reaches the threshold it spikes, drops to −60 mV and is held there for 2 ms</div>
+    <div class="ssi-eq">θ(t) = θ<sub>0</sub> + θ<sub>fast</sub>(t) + θ<sub>slow</sub>(t) &nbsp;·&nbsp; each spike adds 4 mV to θ<sub>fast</sub> (back in τ = 10 ms) and Δ<sub>slow</sub> to θ<sub>slow</sub> (back in τ = 2 s)</div>
+    <div class="ssi-words">(the threshold now) = (its baseline, −54 mV) + (a fast part every spike raises and that fades in about 20 ms) + (a slow part that fades over seconds, zero in the page’s neuron)</div></div>`;
+  wireSlow('s1', draw1); draw1();
+}
+function draw1() {
+  const o = SSI.oneSpike(state.dSlow, 2000, 200);
+  plot($('c1'), { xr: [0, 200], yr: [-72, -40], xticks: [0, 50, 100, 150, 200], yticks: [-70, -60, -54, -50, -40], xlabel: 'ms',
+    series: [{ x: o.t, y: o.th, color: C.amber, width: 1.4 }, { x: o.t, y: o.V, color: C.fg1 }], vlines: [{ x: o.spikeAt, color: C.fg4 }] });
+  $('r1').innerHTML = `<span>spike at <b>${f(o.spikeAt, 1)} ms</b></span><span>threshold back within 0.5 mV <b>${f(o.thBack, 1)} ms</b> after</span><span>membrane back within 0.1 mV of rest <b>${f(o.vBack, 1)} ms</b> after</span><span>threshold still raised at 200 ms <b class="${o.thEnd > 0.5 ? 'ssi-flag' : ''}">${f(o.thEnd, 3)} mV</b></span>`;
+}
+
+function stepMany() {
+  $('says').innerHTML = 'Now the watched cell fires a thousand times, driven as it is in the network: a noisy input that holds it a few millivolts under threshold, and a kick once every 100 ms. After each spike, read <b>where its threshold would sit 50 ms on, if nothing else arrived</b>. That is the baseline the spike leaves behind. <b>The tolerance, stated first: more than 0.5 mV above −54 after any spike would mean the cell has changed.</b> With slow inactivation off, it cannot get there: however fast the cell fires, the fast part can stack to at most 22 mV, and 50 ms later that is 0.15 mV. So for the page’s neuron this rule cannot fail; that is what “true by construction” means here. Turn the slow term on and fire again.';
+  $('view').innerHTML = `<div class="ssi-panel"><div class="ssi-plabel"><span>baseline left behind · mV above −54, 50 ms after each spike</span><span id="n2"></span></div><canvas id="c2" height="230"></canvas></div>
+    <div class="ssi-controls">${slowSlider('s2')}<div class="ssi-btns"><button class="ssi-go" id="go2">fire 1,000 spikes</button></div></div><div class="ssi-read" id="r2"></div>`;
+  wireSlow('s2', () => { $('r2').innerHTML = '<span>press fire to run this setting</span>'; });
+  $('go2').addEventListener('click', () => busy($('go2'), draw2)); draw2();
+}
+function draw2() {
+  const { R, cell } = runOf('sequence', state.dSlow, state.seed), xs = cell.base.map((_, k) => k + 1);
+  const top = Math.max(1, Math.ceil(cell.maxBase * 1.15));
+  plot($('c2'), { xr: [0, 1000], yr: [0, top], xticks: [1, 250, 500, 750, 1000], yticks: top > 2 ? [0, 0.5, Math.round(top / 2), top] : [0, 0.5, 1], xlabel: 'spike',
+    hlines: [{ y: RULES.baseTol, color: C.cool, label: 'tolerance · 0.5 mV' }], series: [{ x: xs, y: cell.base, color: cell.maxBase > RULES.baseTol ? C.amber : C.fg1, dots: true }] });
+  $('n2').textContent = `${cell.n} spikes in ${(R.tEnd / 1000).toFixed(1)} s`;
+  $('r2').innerHTML = `<span>worst baseline left <b class="${cell.maxBase > RULES.baseTol ? 'ssi-flag' : ''}">${f(cell.maxBase, 3)} mV</b></span>`
+    + `<span>first spike over tolerance <b class="${cell.firstBase >= 0 ? 'ssi-flag' : ''}">${cell.firstBase >= 0 ? '#' + (cell.firstBase + 1) : 'none'}</b></span>`
+    + `<span>recovery after spike 1 <b>${f(cell.rec1, 1)} ms</b> · worst after a clear spike <b class="${cell.firstRec >= 0 ? 'ssi-flag' : ''}">${f(cell.recClearMax, 1)} ms</b></span>`
+    + `<span>spikes fired inside the last one’s recovery <b>${cell.inside}</b></span>`
+    + `<span>after 10 s of quiet the threshold sits <b>${f(cell.rest, 3)} mV</b> above baseline</span>`;
+}
+
+function stepRule() {
+  const L = SSI.LIT, lag = SSI.OWN.lag;
+  $('says').innerHTML = `Between every pair of cells runs a synapse with a weight from 0 to 1. The rule that changes it reads only timing: when the sending cell fires a few milliseconds <b>before</b> the receiving one, the weight grows; <b>after</b>, it shrinks; the closer the two spikes, the bigger the change. This is pair-based spike-timing-dependent plasticity, with the window Bi and Poo measured in 1998 and the constants Song, Miller and Abbott used in 2000. In the network the kicks come in a fixed order, cell 0 then 1 then 2, ${lag} ms apart. Each dot below is a pair’s place on the window: forward pairs gain, backward pairs lose, and pairs far apart in the order (7 against 0, ${7 * lag} ms) sit out on the tails, where the window is weak. Nothing pulls a weight back toward where it started; only the bounds at 0 and 1 stop it.`;
+  $('view').innerHTML = `<div class="ssi-grid"><div class="ssi-panel"><div class="ssi-plabel"><span>change per spike pair · Δw against Δt</span><span>Song, Miller & Abbott 2000</span></div><canvas id="c3" height="230"></canvas></div>
+    <div class="ssi-panel"><div class="ssi-plabel"><span>the network at the start · row sends, column receives</span><span>random, seed ${state.seed}</span></div><canvas id="h3" height="230"></canvas></div></div>
+    <div class="ssi-controls"><label class="ssi-sl">Δt = t<sub>receiver</sub> − t<sub>sender</sub> · <b id="d3-v"></b><input id="d3" type="range" min="-60" max="60" step="1"></label></div><div class="ssi-read" id="r3"></div>
+    <table class="ssi-t" id="t3"></table>
+    <div class="ssi-eqs"><div class="ssi-eq">Δw = +A<sub>+</sub> e<sup>−Δt/τ<sub>+</sub></sup> &nbsp;(Δt &gt; 0) &nbsp;·&nbsp; Δw = −A<sub>−</sub> e<sup>Δt/τ<sub>−</sub></sup> &nbsp;(Δt &lt; 0) &nbsp;·&nbsp; w kept in [0, 1]</div>
+    <div class="ssi-words">(the change to a weight) = (${L.Aplus} of the range) shrinking with the gap if the receiver fired after the sender, or (${(L.Aplus * L.ratio).toFixed(5)}, 5% more) shrinking with the gap if it fired before; both gaps fade over ${L.tauPlus} ms; every pair of spikes counts, and the weight stops at 0 and at 1</div></div>`;
+  heat($('h3'), [SSI.initWeights(8, state.seed)], ['start']);
+  const el = $('d3'); el.value = state.dt; el.addEventListener('input', () => { state.dt = +el.value; draw3(); }); draw3();
+  // per cycle drift for each distance in the order: the pair's own spikes, and the next cycle's wrap
+  const P = SSI.OWN.period, Am = L.Aplus * L.ratio, win = (d) => d > 0 ? L.Aplus * Math.exp(-d / L.tauPlus) : d < 0 ? -Am * Math.exp(d / L.tauMinus) : 0;
+  let rows = '<tr><th>distance in the order</th><th>gap</th><th>forward edge · per cycle</th><th>backward edge · per cycle</th><th>cycles to cross the range</th></tr>';
+  for (let k = 1; k <= 7; k++) { const fwd = win(k * lag) + win(-(P - k * lag)), bwd = win(-k * lag) + win(P - k * lag); rows += `<tr><td>${k}</td><td>${k * lag} ms</td><td>${fwd >= 0 ? '+' : ''}${fwd.toFixed(5)}</td><td>${bwd.toFixed(5)}</td><td>${Math.round(1 / Math.min(Math.abs(fwd), Math.abs(bwd)))}</td></tr>`; }
+  $('t3').innerHTML = rows;
+}
+function draw3() {
+  const L = SSI.LIT, Am = L.Aplus * L.ratio, lag = SSI.OWN.lag, win = (d) => d > 0 ? L.Aplus * Math.exp(-d / L.tauPlus) : d < 0 ? -Am * Math.exp(d / L.tauMinus) : 0;
+  const xs = [], ys = []; for (let d = -60; d <= 60; d += 0.25) { if (Math.abs(d) < 0.1) continue; xs.push(d); ys.push(win(d) * 1000); }
+  const marks = []; for (let k = 1; k <= 7; k++) { marks.push({ x: k * lag, y: win(k * lag) * 1000, color: C.cool, r: 2.5, label: k === 1 || k === 7 ? String(k) : '' }); marks.push({ x: -k * lag, y: win(-k * lag) * 1000, color: C.cool, r: 2.5, below: true, label: k === 1 || k === 7 ? String(k) : '' }); }
+  marks.push({ x: state.dt, y: win(state.dt) * 1000, color: C.amber, r: 4 });
+  plot($('c3'), { xr: [-60, 60], yr: [-5.6, 5.6], xticks: [-60, -40, -20, 0, 20, 40, 60], yticks: [-5, 0, 5], xlabel: 'Δt ms · Δw ×1000', series: [{ x: xs.filter(x => x < 0), y: ys.slice(0, xs.filter(x => x < 0).length), color: C.fg1 }, { x: xs.filter(x => x > 0), y: ys.slice(xs.filter(x => x < 0).length), color: C.fg1 }], marks, vlines: [{ x: 0, color: C.fg4 }] });
+  $('d3-v').textContent = (state.dt > 0 ? '+' : '') + state.dt + ' ms';
+  $('r3').innerHTML = `<span>one pair at ${state.dt} ms changes the weight by <b>${(win(state.dt) >= 0 ? '+' : '') + win(state.dt).toFixed(5)}</b> of its range</span><span>${state.dt > 0 ? 'sender first: it grows' : state.dt < 0 ? 'receiver first: it shrinks' : 'at 0 the rule says nothing'}</span>`;
+}
+
+function stepTest() {
+  $('says').innerHTML = 'Both scales, one run, until the watched cell has fired its 1,000th spike, the number the page names. The rules below are written before the button, and both firing patterns are scored by the same rules. <b>The same spikes, shuffled in time</b> is the control: every cell gets the same kicks per cycle at the same rate, each at a random moment instead of in order. If the network rewired as much without the order, the order would not be what rewires it.';
+  $('view').innerHTML = `<div class="ssi-rules"><b>Cell · “no”</b> holds if every one of its 1,000 spikes leaves the threshold, 50 ms on, within 0.5 mV of −54 mV, and every spike that arrives after the last one recovered takes within 2 ms of the first spike’s recovery time (20.8 ms in the page’s neuron). A spike fired inside the last one’s recovery inherits it, as the relative refractory period should; I first wrote this rule for every spike, and the page’s own neuron broke it on those (up to 27.7 ms), so the rule reads clear spikes only, and the readout counts the others. <b>Network · “completely”</b> holds only if all three hold at the 1,000th spike: the weights’ correlation with their start inside the band two unrelated networks of 56 weights fall in 95% of the time (|r| ≤ ${RULES.rBand.toFixed(3)}); no more of the 56 edges still on their starting side of 0.5 than chance allows (≤ ${(RULES.sideMax * 100).toFixed(1)}%); and the weights moved, on average, at least 0.9 of the distance between two unrelated networks (≥ ${RULES.distMin.toFixed(3)}). <b>“Barely”</b> is r ≥ 0.9; anything between is <b>“partly”</b>.</div>
+    <div class="ssi-controls" style="margin-top:0"><div class="ssi-btns"><span class="ssi-lab">firing</span><button id="p-seq">in order</button><button id="p-shuf">same spikes, shuffled in time</button></div>
+      <div class="ssi-btns"><span class="ssi-lab">slow inactivation</span><button id="z-off">off · the page’s neuron</button><button id="z-on">on · +0.2 mV a spike</button></div>
+      <label class="ssi-sl" style="flex:0 1 200px">starting network · seed <b id="sd-v"></b><input id="sd" type="range" min="1" max="12" step="1"></label>
+      <div class="ssi-btns"><button class="ssi-go" id="go4">run to 1,000 spikes</button></div></div>
+    <div class="ssi-grid" style="margin-top:14px"><div class="ssi-panel"><div class="ssi-plabel"><span>the cell · baseline left, mV above −54</span><span id="v4c"></span></div><canvas id="c4" height="200"></canvas></div>
+      <div class="ssi-panel"><div class="ssi-plabel"><span>the network · r(start, now) by spike</span><span id="v4n"></span></div><canvas id="n4" height="200"></canvas></div></div>
+    <div class="ssi-panel" style="margin-top:14px"><div class="ssi-plabel"><span>the weights · row sends, column receives</span><span id="h4l"></span></div><canvas id="h4" height="210"></canvas></div>
+    <table class="ssi-t" id="t4"></table><div class="ssi-verdict" id="v4"></div>
+    <table class="ssi-t" id="b4"></table><p class="ssi-small" id="w4"></p>`;
+  const sync = () => { $('p-seq').setAttribute('aria-pressed', state.pattern === 'sequence'); $('p-shuf').setAttribute('aria-pressed', state.pattern === 'shuffled'); $('z-off').setAttribute('aria-pressed', state.dSlow === 0); $('z-on').setAttribute('aria-pressed', state.dSlow > 0); $('sd-v').textContent = state.seed; };
+  const pend = () => { sync(); $('v4').innerHTML = 'Setting changed: press run.'; };
+  $('p-seq').onclick = () => { state.pattern = 'sequence'; pend(); }; $('p-shuf').onclick = () => { state.pattern = 'shuffled'; pend(); };
+  $('z-off').onclick = () => { state.dSlow = 0; pend(); }; $('z-on').onclick = () => { state.dSlow = 0.2; pend(); };
+  const sd = $('sd'); sd.value = state.seed; sd.oninput = () => { state.seed = +sd.value; pend(); };
+  if (state.dSlow !== 0 && state.dSlow !== 0.2) state.dSlow = 0.2;
+  sync(); $('go4').onclick = () => busy($('go4'), draw4); draw4(); bakedTable();
+}
+function draw4() {
+  const { R, cell, net } = runOf(state.pattern, state.dSlow, state.seed), xs = cell.base.map((_, k) => k + 1), top = Math.max(1, Math.ceil(cell.maxBase * 1.15));
+  plot($('c4'), { xr: [0, 1000], yr: [0, top], xticks: [1, 500, 1000], yticks: top > 2 ? [0, 0.5, top] : [0, 0.5, 1], xlabel: 'spike', hlines: [{ y: RULES.baseTol, color: C.cool, label: '0.5 mV' }], series: [{ x: xs, y: cell.base, color: cell.holds ? C.fg1 : C.amber, dots: true }] });
+  const tx = R.wTrack.map(p => p.n), ty = R.wTrack.map(p => p.r);
+  plot($('n4'), { xr: [0, 1000], yr: [-0.4, 1], xticks: [1, 500, 1000], yticks: [-0.25, 0, 0.5, 1], xlabel: 'spike of cell 0', band: [-RULES.rBand, RULES.rBand], hlines: [{ y: RULES.barely, color: C.fg4, label: 'barely · 0.9' }], series: [{ x: tx, y: ty, color: net.verdict === 'completely' ? C.amber : C.fg1, width: 1.6 }] });
+  heat($('h4'), [R.w0, R.w], ['start', 'after 1,000 spikes']);
+  $('h4l').textContent = state.pattern === 'sequence' ? 'in order: forward edges (above the diagonal) to 1' : 'shuffled: no direction';
+  $('v4c').textContent = cell.holds ? '“no” holds' : 'changed · first at spike ' + (cell.firstBad + 1);
+  $('v4n').textContent = net.verdict;
+  const ok = (b) => b ? '✓' : '✗';
+  $('t4').innerHTML = `<tr><th>scale · measure</th><th>rule</th><th>measured</th><th></th></tr>`
+    + `<tr><td>cell · worst baseline left</td><td>≤ 0.5 mV</td><td>${f(cell.maxBase, 3)} mV</td><td>${ok(cell.firstBase < 0)}</td></tr>`
+    + `<tr><td>cell · recovery, clear spikes</td><td>${f(cell.rec1, 1)} ± 2 ms</td><td>worst ${f(cell.recClearMax, 1)} ms</td><td>${ok(cell.firstRec < 0)}</td></tr>`
+    + `<tr><td>cell · after 10 s quiet</td><td>≤ 0.1 mV</td><td>${f(cell.rest, 3)} mV</td><td>${ok(cell.restHolds)}</td></tr>`
+    + `<tr><td>network · |r(start, end)|</td><td>≤ ${RULES.rBand.toFixed(3)}</td><td>${f(Math.abs(net.r), 3)}</td><td>${ok(net.tests.r)}</td></tr>`
+    + `<tr><td>network · edges on their starting side</td><td>≤ ${(RULES.sideMax * 100).toFixed(1)}%</td><td>${(net.side * 100).toFixed(1)}%</td><td>${ok(net.tests.side)}</td></tr>`
+    + `<tr><td>network · RMS move from start</td><td>≥ ${RULES.distMin.toFixed(3)}</td><td>${f(net.dist, 3)}</td><td>${ok(net.tests.dist)}</td></tr>`
+    + `<tr><td>network · after 10 s quiet</td><td>—</td><td>unchanged: no term pulls a weight back</td><td></td></tr>`;
+  const cellSays = cell.holds ? `<b>The cell: no.</b> Every spike left the threshold within ${f(cell.maxBase, 3)} mV of baseline 50 ms on. This is the page’s neuron, and it could not have failed this rule; the slow term is what can.`
+    : `<b>The cell: changed.</b> From spike ${cell.firstBad + 1} it no longer came back within tolerance; the worst baseline left was ${f(cell.maxBase, 2)} mV. Yet ${f(cell.rest, 3)} mV remains after 10 s of quiet, so it does come back, on its own slower time.`;
+  const netSays = net.verdict === 'completely' ? `<b>The network: completely,</b> by all three rules: r ${f(net.r, 3)}, ${(net.side * 100).toFixed(0)}% of edges on their old side, a move of ${f(net.dist, 3)}.`
+    : net.verdict === 'barely' ? `<b>The network: barely.</b> The same number of spikes, without the order, leave the weights at r ${f(net.r, 3)} with their start. It is the pattern of firing that rewires, not the firing.`
+    : `<b>The network: partly.</b> r ${f(net.r, 3)}, ${(net.side * 100).toFixed(0)}% of edges on their old side, a move of ${f(net.dist, 3)}: changed, not completely.`;
+  $('v4').innerHTML = cellSays + ' ' + netSays;
+}
+function bakedTable() {
+  if (!BAKED) { $('b4').innerHTML = ''; return; }
+  let rows = `<tr><th>all twelve starting networks · seed</th>${BAKED.seeds.map(s => `<th>${s}</th>`).join('')}</tr>`;
+  for (const arm of BAKED.arms) rows += `<tr><td>${arm.label}</td>${arm.r.map((v, k) => `<td style="color:${arm.verdict[k] === 'completely' ? C.amber : C.fg2}">${v.toFixed(2)}</td>`).join('')}</tr>`;
+  $('b4').innerHTML = rows;
+  $('w4').innerHTML = `Above: r(start, end) after cell 0’s 1,000th spike, slow inactivation off; amber where all three rules for “completely” held (${BAKED.arms[0].complete} of 12 in order, ${BAKED.arms[1].complete} of 12 shuffled). Where “completely” fails in order, it is the far edges, 6 or 7 places apart, still near where they began: the table in the learning-rule step says they need about a thousand cycles to cross. How strict the rules are: a network drawn fresh, with no relation to its start, passes all three 173 times in 200, so 10 of 12 is close to as complete as these rules can tell. Numbers baked by the checks file on ${BAKED.date}.<br><br>`
+    + `<b>Whose numbers.</b> The window’s shape is Bi and Poo (1998, J Neurosci 18:10464); its constants (A<sub>+</sub> 0.005, A<sub>−</sub>/A<sub>+</sub> 1.05, τ<sub>±</sub> 20 ms, additive, bounded) and the cell (τ<sub>m</sub> 20 ms, rest −70, threshold −54, reset −60 mV, E<sub>ex</sub> 0 mV, synapse 5 ms, g<sub>max</sub> 0.015) are Song, Miller and Abbott (2000, Nat Neurosci 3:919). That slow inactivation of sodium channels recovers over seconds is Fleidervish, Friedman and Gutnick (1996, J Physiol 493:83); its size here, 0.2 mV a spike over 2 s, is this piece’s, chosen to show the term, not measured. Also this piece’s: eight cells, the 2 ms hold, the fast threshold (4 mV, 10 ms), the input, the kicks every 100 ms, 6 ms apart, and the seeds. At g<sub>max</sub> 0.015 a synapse moves its target by a fraction of a millivolt, so in this model the weights barely feed back on who fires; the loop Threshold Conatus describes, where what the network records changes who can cross next, is not tested here.`;
+}
+function busy(btn, fn) { btn.disabled = true; const t = btn.textContent; btn.textContent = 'running…'; setTimeout(() => { try { fn(); } finally { btn.disabled = false; btn.textContent = t; } }, 30); }
+
+function go(k) {
+  state.step = Math.max(0, Math.min(STEPS.length - 1, k));
+  $('rail').innerHTML = STEPS.map((s, i) => `<button aria-pressed="${i === state.step}" data-k="${i}">${i + 1} · ${s.name}</button>`).join('');
+  $('rail').querySelectorAll('button').forEach(b => b.onclick = () => go(+b.dataset.k));
+  $('stepname').textContent = STEPS[state.step].name; $('stepof').textContent = `step ${state.step + 1} of ${STEPS.length}`;
+  $('prev').disabled = state.step === 0; $('next').disabled = state.step === STEPS.length - 1;
+  STEPS[state.step].render();
+}
+$('prev').onclick = () => go(state.step - 1); $('next').onclick = () => go(state.step + 1);
+let rz; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => STEPS[state.step].render(), 150); });
+go(0);
+</script>
+</body>
+</html>

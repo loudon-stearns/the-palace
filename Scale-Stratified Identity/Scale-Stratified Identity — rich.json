@@ -1,0 +1,78 @@
+{
+  "title": "Scale-Stratified Identity — rich",
+  "born": "2026-11-04",
+  "links": [
+    {
+      "target": "[[Scale-Stratified Identity]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Action Potential Oscillator]]",
+      "type": "connects-to",
+      "label": "the-neuron-at-its-own-grain"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "walk-built-by-the-method"
+    }
+  ],
+  "forward_vector": "I am the manifest of Scale-Stratified Identity's rich face: one walk that measures the Finding's two answers at once, the cell and the network, under rules stated before the run, with the fingerprint of the words it was made against and the offers it found for the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Scale-Stratified Identity",
+  "tier": "sketch",
+  "made": "2026-11-04",
+  "round": 1,
+  "grain": "The page's own ## grain; one section carries a piece. The record's second piece, a Kuramoto population for § Instances Across the Palace, was dropped: Kuramoto Coupling's landed face already plays a locking population, and the one thing it does not show (whether a locked oscillator keeps its own frequency) was settled headless and is carried as an offer.",
+  "offers": [
+    {
+      "section": "The Finding",
+      "kind": "claim-change",
+      "what": "'The threshold voltage is not eroded' is true of the page's idealised neuron by construction: its threshold and rest are fixed numbers, and in the piece's model no spike can leave more than 0.15 mV of threshold 50 ms on (measured worst over 1,000 spikes: 0.054 mV). A real cell has a term that can erode it, slow inactivation of sodium channels, which recovers over seconds (Fleidervish, Friedman & Gutnick 1996). Given one (0.2 mV a spike over 2 s, a size this piece chose, not measured), the same 1,000 spikes at about 17 Hz hold the threshold up to 4.7 mV above baseline from the second spike on, and 10 s of quiet bring it back to within 0.03 mV. So the cell does return, on two clocks, a fast one after each spike and a slow one after a run of them, while the weights have no return at all: nothing in the plasticity rule pulls a weight back toward its start. Proposed: 'The threshold is not eroded for good: it recovers fast after each spike and slowly after a run of them, and given rest it comes all the way back. The cell is homeostatic by design: its equations hold a pull back to baseline. The network's do not.' The page would then say why the two scales differ, not only that they do.",
+      "status": "open"
+    },
+    {
+      "section": "The Finding",
+      "kind": "no-claim-edit",
+      "what": "'Yes, completely' holds when the firing has a pattern, which is what the page's own 'in response to patterns of firing' says. Measured after the watched cell's 1,000th spike, eight cells, pair-based STDP with Song, Miller & Abbott's constants: with the kicks in a fixed order the weights pass all three pre-stated rules for 'completely' (|r| with the start ≤ 0.262, ≤ 63.1% of edges on their old side, RMS move ≥ 0.367) on 10 of 12 starting networks (r −0.10 to 0.33); the two that miss keep part of their start in the edges between cells 6–7 places apart in the order, which the window barely reaches. A fresh random network passes the same rules 173 times in 200. The same spikes shuffled in time, at the same rate (17.4 Hz), leave r 0.94–0.98 on all 12: barely changed. Proposed: 'yes, completely, when the firing has a pattern: the same thousand spikes in no order leave the network nearly as it was.'",
+      "status": "open"
+    },
+    {
+      "section": "Instances Across the Palace",
+      "kind": "claim-change",
+      "what": "'Each maintains its own natural frequency at the mechanism level (its individual period, its phase preference)': in the locked state none runs at its own period. Measured headless, 24 oscillators with natural speeds evenly spread ±1, coupling twice the threshold (r 0.969): every running speed equals the group's to within 1e-12, and each one's own speed survives as a fixed phase offset, asin(ω/Kr), within 1e-13 rad, the two ends 23.9° ahead and behind. Proposed: 'each keeps its natural frequency as a property, not as its running period: locked, all run at the group's speed, and each one's own speed shows as how far ahead or behind the group it sits.' The instance gets sharper, not weaker: the mechanism-level identity is visible inside the network-level one, as a lag.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The Finding",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-04",
+        "by": "maker · claude-opus-5-5 · proposal round · cloud batch 2",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-04",
+      "pieces": [
+        {
+          "file": "Scale-Stratified Identity — rich — two scales.html",
+          "origin": "made",
+          "by": "in-page model",
+          "height": 1700,
+          "place": "band",
+          "title": "two scales at once · a walk in four steps",
+          "caption": "**Eight model neurons, one watched, wired by synapses that learn from spike timing.** One spike and its recovery, then a thousand, then the learning rule, then both of the Finding's answers measured in one run under rules stated first: did the cell come back after every spike, and did the network change completely? A slow-inactivation term lets the cell's 'no' fail; a shuffled-timing control lets the network's 'completely' fail. Cell and STDP constants from Song, Miller & Abbott 2000; the rest is the piece's own, named inside it. Silent. The neuron at the instrument's own grain is on [[Action Potential Oscillator]]'s face.",
+          "near": "Both answers are true"
+        }
+      ],
+      "made_against": "9d52cfad2a74",
+      "stamped": "2026-11-04"
+    }
+  ]
+}
