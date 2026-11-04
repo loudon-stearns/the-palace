@@ -1,0 +1,337 @@
+<!doctype html>
+<!--
+  title: Biomechanical Synthesis — rich — negative space
+  born: 2026-11-04
+  links: [[Biomechanical Synthesis]] (connects-to · rich-face-piece) · listed in [[Biomechanical Synthesis — rich.json]] · checked by "Biomechanical Synthesis — rich — check.mjs"
+  forward_vector: I am a steady trigger and a few leaky nodes that inhibit each other, walked up from one node on every trigger to a test that takes the inhibition away and counts what the rhythm loses, beside gaps put at random. I play inside the entry’s rich face and stand alone opened directly; I change only when The Neural Network Synthesis Paradigm does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biomechanical Synthesis — negative space</title>
+<meta name="theme-color" content="#0a0a0f">
+<meta name="piece:needs" content="">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --blood:#c2324a; --bloodd:#5a1220; --vein:#7a5af0; --ok:#7fd4a0;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace; --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; --serif:Georgia,'Times New Roman',serif; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 400; }
+  .piece { padding: 22px 22px 24px; max-width: 1100px; }
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  h1 { font-family: var(--serif); font-size: 27px; font-weight: 400; color: var(--fg1); margin: 0 0 8px; }
+  h2 { font-family: var(--serif); font-size: 21px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  p { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 12px; }
+  .lead { color: var(--fg2); }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 14px 0 16px; }
+  .rail button { border-radius: 0; margin-right: -1px; }
+  .rail button[aria-current] { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.go { color: var(--amber); border-color: var(--amberline); }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 12px 14px; margin: 10px 0; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .row { display: flex; gap: 14px; flex-wrap: wrap; align-items: stretch; }
+  .row > * { flex: 1 1 260px; }
+  .ctl { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px 24px; margin-top: 10px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 10px; font-family: var(--mono); font-size: 11.5px; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .eq { font-family: var(--serif); font-size: 18px; color: var(--fg1); margin: 8px 0 2px; }
+  .words { font-size: 13px; color: var(--fg2); margin: 0 0 8px; }
+  .walk { display: flex; gap: 10px; margin-top: 16px; }
+  .rule { border-left: 2px solid var(--amberline); padding: 8px 12px; background: rgba(232,184,74,.05); font-size: 13.5px; line-height: 1.6; margin: 10px 0; }
+  .rule ol, .rule ul { margin: 6px 0; padding-left: 20px; }
+  .num { font-family: var(--mono); color: var(--fg1); }
+  .pass { color: var(--ok); } .fail { color: #ff7a7a; }
+  table { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin: 8px 0; }
+  td, th { border: 1px solid var(--soft); padding: 4px 8px; text-align: right; color: var(--fg2); font-weight: 400; }
+  th { color: var(--fg3); }
+  textarea { width: 100%; background: var(--bg); color: var(--fg1); border: 1px solid var(--border); font-family: var(--mono); font-size: 11px; padding: 6px; }
+  .hide { display: none !important; }
+  .sig { float: right; opacity: .7; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="eyebrow">Biomechanical Synthesis · the neural network paradigm · rhythm as negative space <svg class="sig" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigp" fill="none" stroke="#e8b84a" stroke-width=".8"/></svg></div>
+  <h1>Does inhibition make the rhythm?</h1>
+  <p class="lead">The page says one neuron firing suppresses others, and that inhibitory networks make competitive patterns and syncopation: a beat from what is prevented from firing. This builds that network, a steady trigger and a few leaky nodes, and walks up from one node on every trigger to a test that takes the inhibition away and counts what the rhythm loses, beside a control where the same gaps come from chance. Five steps. Nothing plays until you press Play.</p>
+  <div class="rail" id="rail"></div>
+  <div class="eyebrow" id="sEye"></div>
+  <h2 id="sTitle"></h2>
+  <p id="sSay"></p>
+
+  <div class="panel" id="vEq">
+    <div class="eq">V ← λ·V + w &nbsp;·&nbsp; fire when V ≥ 1, then V = 0 <span id="eqInh"> &nbsp;·&nbsp; a firing node takes g from every other: V<sub>j</sub> ← V<sub>j</sub> − g</span></div>
+    <div class="words">On each trigger a node keeps λ of its charge (λ = 0.85 here, the leak) and gains its drive w. It fires when the charge reaches 1 and starts again from nothing. <span id="eqInhW">With inhibition, the node that fires first pushes every other node down by g; a node it pushes back under 1 in the same trigger is prevented.</span></div>
+  </div>
+
+  <div class="panel">
+    <div class="plabel"><span id="gridLabel">four bars of sixteen triggers</span><span id="legend"></span></div>
+    <canvas id="grid" height="160"></canvas>
+    <canvas id="volt" height="110"></canvas>
+    <div class="read" id="gridRead"></div>
+  </div>
+
+  <div class="panel" id="ctlPanel">
+    <div class="ctl" id="ctl"></div>
+    <div class="walk" style="margin-top:12px; flex-wrap: wrap">
+      <button class="go" id="play">Play</button>
+      <span id="armBtns"><button data-arm="inh">with inhibition</button><button data-arm="none">without</button><button data-arm="drop">chance gaps</button></span>
+      <span id="presetBtns"><button data-pre="sub">drives under 1</button><button data-pre="sup">drives over 1</button></span>
+    </div>
+  </div>
+
+  <div class="panel" id="vTest">
+    <div class="plabel"><span>the test · 200 random networks, three arms</span></div>
+    <div class="rule">
+      <b>The rule, written before the first run.</b> Each network has three nodes with drives drawn at random, leak 0.85, inhibition g = 0.5, 64 triggers to settle, then 32 bars scored. Three arms on the same drives: <b>with inhibition</b>; <b>without</b> (g = 0); and <b>chance gaps</b>, the without-arm with each node’s onsets dropped at random until it has exactly as many as the same node with inhibition (40 draws, averaged), so the two differ in where the gaps fall, not how many there are.
+      <ol>
+        <li><b>T1, inhibition makes syncopation.</b> Syncopation is Longuet-Higgins and Lee’s count on a 16-step bar (a note followed by a rest on a stronger position scores the difference in metric weight), per bar, summed over the three nodes. Per network, inhibited minus without. Holds if more networks rise than fall at one-sided sign-test p &lt; 0.05 (ties dropped); <b>the page is wrong here</b> if more fall than rise at p &lt; 0.05; otherwise not shown. Chance is a coin per network.</li>
+        <li><b>T2, the gaps are not chance.</b> Entropy of each node’s inter-onset intervals, averaged over nodes: inhibited minus chance gaps. Holds if inhibited is lower (more regular) in more networks at p &lt; 0.05; wrong if higher.</li>
+        <li>The page’s “rhythm as negative space” holds in this model only if T1 and T2 both hold.</li>
+      </ol>
+      The first run drew drives from 0.18 to 0.9, under 1: each node needs several triggers to fire, so without inhibition it already divides the trigger. That is the run the rule was written for. After it, a second run was added with the rule unchanged: drives from 1 to 2, the page’s “a single trigger … reaches”, where every trigger alone would fire every node.
+    </div>
+    <button class="go" id="runTest">Run both</button>
+    <div id="testOut"></div>
+  </div>
+
+  <div class="walk"><button id="back">Back</button><button id="next">Next</button></div>
+</div>
+<script id="bms-net">
+// NET core: inhibitory network on a steady trigger grid.
+// RULE (written before the first run, 2026-11-04):
+//  T1  inhibition makes syncopation: per network d = S(inhibited) - S(no inhibition), summed LHL syncopation per bar over nodes.
+//      Holds if networks with d>0 outnumber d<0 at one-sided sign-test p<0.05 (ties dropped). Page wrong here if d<0 wins at p<0.05. Else: not shown.
+//  T2  the gaps are not chance: per network e = H(inhibited) - mean H(random dropout matched per node to the inhibited counts, 40 seeds),
+//      H = entropy (bits) of each node's inter-onset intervals, averaged over nodes. Holds if e<0 wins at p<0.05; page wrong if e>0 wins.
+//  The page's "rhythm as negative space" holds in this model only if T1 and T2 both hold.
+var NET = (function () {
+  var STEPS = 16;
+  var W = [0, -4, -3, -4, -2, -4, -3, -4, -1, -4, -3, -4, -2, -4, -3, -4]; // Longuet-Higgins & Lee metric weights, 16-step bar
+  function rng(seed) { var s = seed >>> 0 || 1; return function () { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; return s / 4294967296; }; }
+  // run: drives w[i], leak, inhibition g, slots. Returns {on: [node][slot] 0/1, prevented: [node][slot] 0/1}
+  function run(w, opt) {
+    var n = w.length, leak = opt.leak, g = opt.g, T = opt.slots, warm = opt.warm || 0;
+    var V = new Float64Array(n), on = [], prev = [];
+    for (var i = 0; i < n; i++) { on.push(new Uint8Array(T)); prev.push(new Uint8Array(T)); }
+    for (var t = -warm; t < T; t++) {
+      for (i = 0; i < n; i++) V[i] = leak * V[i] + w[i];
+      var cand = [];
+      for (i = 0; i < n; i++) if (V[i] >= 1) cand.push(i);
+      cand.sort(function (a, b) { return V[b] - V[a] || a - b; });
+      for (var k = 0; k < cand.length; k++) {
+        var c = cand[k];
+        if (V[c] >= 1) {
+          if (t >= 0) on[c][t] = 1;
+          V[c] = 0;
+          if (g > 0) for (var j = 0; j < n; j++) if (j !== c) V[j] = Math.max(-1, V[j] - g);
+        } else if (t >= 0) prev[c][t] = 1;
+      }
+    }
+    return { on: on, prevented: prev };
+  }
+  function syncopation(p) { // LHL: a note followed by a rest on a stronger position; per bar
+    var T = p.length, s = 0, idx = [];
+    for (var t = 0; t < T; t++) if (p[t]) idx.push(t);
+    for (var k = 0; k + 1 < idx.length; k++) {
+      var a = idx[k], b = idx[k + 1], m = -99;
+      for (var r = a + 1; r < b; r++) m = Math.max(m, W[r % STEPS]);
+      if (m > W[a % STEPS]) s += m - W[a % STEPS];
+    }
+    return s / (T / STEPS);
+  }
+  function ioiEntropy(p) {
+    var last = -1, h = {}, n = 0;
+    for (var t = 0; t < p.length; t++) if (p[t]) { if (last >= 0) { var d = t - last; h[d] = (h[d] || 0) + 1; n++; } last = t; }
+    if (n < 2) return 0;
+    var H = 0; for (var d in h) { var q = h[d] / n; H -= q * Math.log2(q); } return H;
+  }
+  function count(p) { var c = 0; for (var t = 0; t < p.length; t++) c += p[t]; return c; }
+  function dropout(p, keep, r) { // keep exactly `keep` of p's onsets, chosen at random
+    var idx = []; for (var t = 0; t < p.length; t++) if (p[t]) idx.push(t);
+    for (var i = idx.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var x = idx[i]; idx[i] = idx[j]; idx[j] = x; }
+    var q = new Uint8Array(p.length); for (i = 0; i < keep && i < idx.length; i++) q[idx[i]] = 1; return q;
+  }
+  function score(on) { var S = 0, H = 0; for (var i = 0; i < on.length; i++) { S += syncopation(on[i]); H += ioiEntropy(on[i]); } return { S: S, H: H / on.length }; }
+  function union(on) { var q = new Uint8Array(on[0].length); for (var i = 0; i < on.length; i++) for (var t = 0; t < q.length; t++) q[t] |= on[i][t]; return q; }
+  function emptySlots(on) { var u = union(on), e = 0; for (var t = 0; t < u.length; t++) e += 1 - u[t]; return e; }
+  function binomTail(k, n) { // P(X >= k), X ~ Bin(n, 1/2)
+    var p = 0, c = 1; for (var i = 0; i <= n; i++) { if (i >= k) p += c; c = c * (n - i) / (i + 1); } return p / Math.pow(2, n);
+  }
+  function arms(w, opt, seeds) {
+    var A = run(w, { leak: opt.leak, g: opt.g, slots: opt.slots, warm: opt.warm });
+    var B = run(w, { leak: opt.leak, g: 0, slots: opt.slots, warm: opt.warm });
+    var a = score(A.on), b = score(B.on), r = rng(opt.seed || 7), dS = 0, dH = 0, ok = true;
+    for (var s = 0; s < seeds; s++) {
+      var D = [];
+      for (var i = 0; i < w.length; i++) { var kA = count(A.on[i]), kB = count(B.on[i]); if (kA > kB) ok = false; D.push(dropout(B.on[i], Math.min(kA, kB), r)); }
+      var d = score(D); dS += d.S; dH += d.H;
+    }
+    return { inh: a, none: b, drop: { S: dS / seeds, H: dH / seeds }, dropOk: ok, A: A, B: B,
+             counts: { inh: A.on.map(count), none: B.on.map(count) }, empty: { inh: emptySlots(A.on), none: emptySlots(B.on) } };
+  }
+  function sweep(opt) { // opt: nets, nodes, wmin, wmax, leak, g, slots, warm, seeds, seed
+    var r = rng(opt.seed), res = [], up1 = 0, dn1 = 0, up2 = 0, dn2 = 0, uncovered = 0;
+    var sS = { inh: 0, none: 0, drop: 0 }, sH = { inh: 0, none: 0, drop: 0 };
+    for (var k = 0; k < opt.nets; k++) {
+      var w = []; for (var i = 0; i < opt.nodes; i++) w.push(opt.wmin + (opt.wmax - opt.wmin) * r());
+      var x = arms(w, { leak: opt.leak, g: opt.g, slots: opt.slots, warm: opt.warm, seed: 1000 + k }, opt.seeds);
+      if (!x.dropOk) uncovered++;
+      var d1 = x.inh.S - x.none.S, e = x.inh.H - x.drop.H;
+      if (d1 > 1e-9) up1++; else if (d1 < -1e-9) dn1++;
+      if (e < -1e-9) up2++; else if (e > 1e-9) dn2++;
+      sS.inh += x.inh.S; sS.none += x.none.S; sS.drop += x.drop.S; sH.inh += x.inh.H; sH.none += x.none.H; sH.drop += x.drop.H;
+    }
+    var N = opt.nets;
+    var p1 = binomTail(up1, up1 + dn1), q1 = binomTail(dn1, up1 + dn1), p2 = binomTail(up2, up2 + dn2), q2 = binomTail(dn2, up2 + dn2);
+    var v1 = p1 < 0.05 ? 'holds' : q1 < 0.05 ? 'wrong' : 'not shown', v2 = p2 < 0.05 ? 'holds' : q2 < 0.05 ? 'wrong' : 'not shown';
+    return { nets: N, T1: { up: up1, down: dn1, ties: N - up1 - dn1, p: p1, pOpp: q1, verdict: v1 },
+             T2: { up: up2, down: dn2, ties: N - up2 - dn2, p: p2, pOpp: q2, verdict: v2 },
+             meanS: { inh: sS.inh / N, none: sS.none / N, drop: sS.drop / N }, meanH: { inh: sH.inh / N, none: sH.none / N, drop: sH.drop / N },
+             uncovered: uncovered, page: (v1 === 'holds' && v2 === 'holds') ? 'holds in this model' : 'does not hold in this model' };
+  }
+  return { STEPS: STEPS, W: W, rng: rng, run: run, syncopation: syncopation, ioiEntropy: ioiEntropy, count: count, dropout: dropout, score: score, union: union, emptySlots: emptySlots, binomTail: binomTail, arms: arms, sweep: sweep };
+})();
+</script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  (function sig() { var d = ''; for (var i = 0; i <= 200; i++) { var t = i / 200 * Math.PI * 2; d += (i ? 'L' : 'M') + (9 * Math.sin(3 * t + .5)).toFixed(2) + ' ' + (9 * Math.sin(2 * t)).toFixed(2); } $('sigp').setAttribute('d', d); })();
+  var N = NET, LEAK = 0.85, SHOW = 64, SCORE = 512, WARM = 64;
+  var COLORS = ['#e8b84a', '#c2324a', '#7a5af0', '#7fd4a0', '#8ab4ff'];
+  var st = { w: [1.0], g: 0.5, inh: true, arm: 'inh' }, step = 0, R = null;
+  var CTL = [];
+  function slider(id, label, min, max, val, fmt, on) {
+    var w = document.createElement('div'); w.innerHTML = '<label class="sl" for="' + id + '">' + label + ' <b id="' + id + 'v"></b></label><input id="' + id + '" type="range" min="' + min * 1000 + '" max="' + max * 1000 + '" step="1">';
+    $('ctl').appendChild(w); var el = $(id); el.value = val * 1000; $(id + 'v').textContent = fmt(val);
+    el.addEventListener('input', function () { var v = el.value / 1000; $(id + 'v').textContent = fmt(v); on(v); refresh(); });
+  }
+  function compute() {
+    var opt = { leak: LEAK, g: st.inh ? st.g : 0, slots: SCORE, warm: WARM };
+    var A = N.run(st.w, opt), B = N.run(st.w, { leak: LEAK, g: 0, slots: SCORE, warm: WARM });
+    var r = N.rng(7), D = B.on.map(function (p, i) { return N.dropout(p, Math.min(N.count(A.on[i]), N.count(B.on[i])), r); });
+    R = { A: A, B: B, D: D };
+  }
+  function pattern() { return st.arm === 'none' || !st.inh ? R.B.on : st.arm === 'drop' ? R.D : R.A.on; }
+  function fit(cv) { var d = window.devicePixelRatio || 1, w = cv.clientWidth || 600, h = +cv.getAttribute('height'); if (cv.width !== Math.round(w * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); } var g = cv.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g: g, w: w, h: h }; }
+  var playSlot = -1;
+  function drawGrid() {
+    var n = st.w.length, rows = n + 2, F = fit($('grid'));
+    $('grid').setAttribute('height', String(22 * rows + 10)); F = fit($('grid'));
+    var g = F.g, w = F.w, h = F.h, cw = (w - 64) / SHOW, ch = 22, P = pattern(), ghost = st.arm === 'inh' && st.inh && step >= 3;
+    g.clearRect(0, 0, w, h); g.font = '10px ui-monospace,Menlo,monospace';
+    for (var t = 0; t < SHOW; t++) { var wt = N.W[t % 16]; g.fillStyle = wt === 0 ? 'rgba(255,255,255,.08)' : wt === -1 ? 'rgba(255,255,255,.05)' : wt === -2 ? 'rgba(255,255,255,.03)' : 'rgba(0,0,0,0)'; g.fillRect(64 + t * cw, 0, cw, h); }
+    g.fillStyle = '#8a8aa0'; g.fillText('trigger', 2, 15);
+    for (t = 0; t < SHOW; t++) { g.fillStyle = t === playSlot ? '#e8e8f0' : '#4a4a5a'; g.fillRect(64 + t * cw + cw / 2 - 1, 6, 2, 10); }
+    for (var i = 0; i < n; i++) {
+      var y = (i + 1) * ch + 4; g.fillStyle = COLORS[i]; g.fillText('node ' + (i + 1), 2, y + 12);
+      for (t = 0; t < SHOW; t++) {
+        var x = 64 + t * cw + 1, on = P[i][t];
+        if (on) { g.fillStyle = COLORS[i]; g.globalAlpha = t === playSlot ? 1 : .85; g.fillRect(x, y, cw - 2, ch - 6); g.globalAlpha = 1; }
+        else if (ghost && R.B.on[i][t]) { g.strokeStyle = COLORS[i]; g.globalAlpha = .55; g.strokeRect(x + .5, y + .5, cw - 3, ch - 7); g.globalAlpha = 1; }
+        if (ghost && R.A.prevented[i][t]) { g.strokeStyle = '#e8e8f0'; g.beginPath(); g.moveTo(x + 2, y + 2); g.lineTo(x + cw - 4, y + ch - 8); g.stroke(); }
+      }
+    }
+    var yu = (n + 1) * ch + 4; g.fillStyle = '#8a8aa0'; g.fillText('any', 2, yu + 12);
+    for (t = 0; t < SHOW; t++) { var any = 0; for (i = 0; i < n; i++) any |= P[i][t]; if (any) { g.fillStyle = '#c8c8d8'; g.fillRect(64 + t * cw + 1, yu + 4, cw - 2, ch - 12); } }
+    $('legend').textContent = ghost ? 'filled = fires · outline = fires without inhibition, silent with it · slash = reached 1 and was pushed back' : 'filled = fires · shaded columns = the bar’s strong beats';
+  }
+  function drawVolt() {
+    var show = step === 1, cv = $('volt'); cv.classList.toggle('hide', !show); if (!show) return;
+    var F = fit(cv), g = F.g, w = F.w, h = F.h, cw = (w - 64) / 32, V = 0, wv = st.w[0], Y = function (v) { return h - 10 - v / 1.3 * (h - 20); };
+    g.clearRect(0, 0, w, h); g.strokeStyle = '#e8b84a'; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(64, Y(1)); g.lineTo(w, Y(1)); g.stroke(); g.setLineDash([]);
+    g.fillStyle = '#8a8aa0'; g.font = '10px ui-monospace,Menlo,monospace'; g.fillText('charge V', 2, Y(.5)); g.fillText('1', 50, Y(1) + 3);
+    for (var k = 0; k < WARM; k++) { V = LEAK * V + wv; if (V >= 1) V = 0; }
+    g.strokeStyle = '#c8c8d8'; g.beginPath(); g.moveTo(64, Y(V));
+    for (var t = 0; t < 32; t++) { var x = 64 + t * cw; V = LEAK * V + wv; g.lineTo(x + cw * .5, Y(Math.min(V, 1.3))); if (V >= 1) { V = 0; g.lineTo(x + cw * .5, Y(0)); } g.lineTo(x + cw, Y(V)); }
+    g.stroke();
+  }
+  function f2(x) { return x.toFixed(2); }
+  function readOut() {
+    var n = st.w.length, cA = N.score(R.A.on), cB = N.score(R.B.on), cD = N.score(R.D), cnt = function (on) { return on.reduce(function (s, p) { return s + N.count(p); }, 0) / (SCORE / 16); };
+    var html;
+    if (step === 0) html = 'the node fires on <b>' + N.count(R.A.on[0]) + '</b> of ' + SCORE + ' triggers · syncopation <b>' + f2(cA.S) + '</b> per bar: nothing is held back, so nothing is off the beat';
+    else if (step === 1) { var c = N.count(R.A.on[0]); html = 'fires on <b>' + c + '</b> of ' + SCORE + ' triggers, once every <b>' + (c ? (SCORE / c).toFixed(2) : '∞') + '</b> · the steady charge it heads for is w ÷ (1 − λ) = <b>' + f2(st.w[0] / (1 - LEAK)) + '</b>, so under w = 0.15 it never fires · syncopation <b>' + f2(cA.S) + '</b> per bar · interval entropy <b>' + f2(cA.H) + '</b> bits'; }
+    else if (step === 2) html = 'three nodes, no inhibition · onsets per bar <b>' + f2(cnt(R.B.on)) + '</b> · syncopation <b>' + f2(cB.S) + '</b> per bar (summed over nodes) · interval entropy <b>' + f2(cB.H) + '</b> bits: each node is strictly periodic · triggers with no onset at all <b>' + N.emptySlots(R.B.on) + '</b> of ' + SCORE;
+    else html = '<table><tr><th></th><th>onsets / bar</th><th>syncopation / bar</th><th>interval entropy, bits</th><th>empty triggers of ' + SCORE + '</th></tr>' +
+      '<tr><td>with inhibition (g ' + f2(st.g) + ')</td><td>' + f2(cnt(R.A.on)) + '</td><td>' + f2(cA.S) + '</td><td>' + f2(cA.H) + '</td><td>' + N.emptySlots(R.A.on) + '</td></tr>' +
+      '<tr><td>without</td><td>' + f2(cnt(R.B.on)) + '</td><td>' + f2(cB.S) + '</td><td>' + f2(cB.H) + '</td><td>' + N.emptySlots(R.B.on) + '</td></tr>' +
+      '<tr><td>chance gaps (one draw)</td><td>' + f2(cnt(R.D)) + '</td><td>' + f2(cD.S) + '</td><td>' + f2(cD.H) + '</td><td>' + N.emptySlots(R.D) + '</td></tr></table>';
+    $('gridRead').innerHTML = html;
+  }
+  function refresh() { compute(); drawGrid(); drawVolt(); readOut(); }
+  // ── sound: a lookahead scheduler over the shown four bars, 120 bpm sixteenths ──
+  var ctx = null, out = null, playing = false, timer = 0, nextT = 0, slot = 0, SLOT = 0.125, FREQ = [110, 330, 990, 1480, 2200];
+  function voice(i, t) {
+    var o = ctx.createOscillator(), e = ctx.createGain(); o.type = i === 0 ? 'sine' : 'triangle'; o.frequency.value = FREQ[i];
+    if (i === 0) { o.frequency.setValueAtTime(220, t); o.frequency.exponentialRampToValueAtTime(70, t + 0.08); }
+    e.gain.setValueAtTime(0, t); e.gain.linearRampToValueAtTime(i === 0 ? .55 : .22, t + .002); e.gain.exponentialRampToValueAtTime(.0005, t + (i === 0 ? .16 : .07));
+    o.connect(e); e.connect(out); o.start(t); o.stop(t + .2);
+  }
+  function tickSound() {
+    var P = pattern();
+    while (nextT < ctx.currentTime + 0.1) {
+      for (var i = 0; i < P.length; i++) if (P[i][slot]) voice(i, nextT);
+      (function (s, t) { setTimeout(function () { if (playing) { playSlot = s; drawGrid(); } }, Math.max(0, (t - ctx.currentTime) * 1000)); })(slot, nextT);
+      nextT += SLOT; slot = (slot + 1) % SHOW;
+    }
+  }
+  function stop() { playing = false; clearInterval(timer); playSlot = -1; $('play').textContent = 'Play'; if (R) drawGrid(); }
+  $('play').addEventListener('click', function () {
+    if (playing) { stop(); return; }
+    if (!ctx) { ctx = new (window.AudioContext || window.webkitAudioContext)(); out = ctx.createGain(); out.gain.value = .8; var c = ctx.createDynamicsCompressor(); out.connect(c); c.connect(ctx.destination); }
+    if (ctx.state === 'suspended') ctx.resume();
+    playing = true; slot = 0; nextT = ctx.currentTime + 0.05; $('play').textContent = 'Stop'; tickSound(); timer = setInterval(tickSound, 25);
+  });
+  document.querySelectorAll('[data-arm]').forEach(function (b) { b.addEventListener('click', function () { st.arm = b.dataset.arm; markArm(); drawGrid(); readOut(); }); });
+  function markArm() { document.querySelectorAll('[data-arm]').forEach(function (b) { b.classList.toggle('go', b.dataset.arm === st.arm); }); }
+  // ── the test ──
+  var SWEEP = { nets: 200, nodes: 3, leak: 0.85, g: 0.5, slots: 512, warm: 64, seeds: 40, seed: 20261104 };
+  $('runTest').addEventListener('click', function () {
+    var rows = [['drives 0.18 to 0.9 · the run the rule was written for', 0.18, 0.9], ['drives 1 to 2 · added after, rule unchanged', 1, 2]].map(function (r) { return { name: r[0], res: N.sweep(Object.assign({}, SWEEP, { wmin: r[1], wmax: r[2] })) }; });
+    var tb = function (T, word) { return T.up + ' / ' + T.down + ' / ' + T.ties + ' · p ' + (T.p < 1e-4 ? T.p.toExponential(1) : T.p.toFixed(3)) + ', opposite ' + (T.pOpp < 1e-4 ? T.pOpp.toExponential(1) : T.pOpp.toFixed(3)) + ' · <b class="' + (T.verdict === 'holds' ? 'pass' : T.verdict === 'wrong' ? 'fail' : '') + '">' + T.verdict + '</b>'; };
+    $('testOut').innerHTML = rows.map(function (r) { var x = r.res; return '<p style="margin-top:12px"><b>' + r.name + '</b></p><table><tr><th></th><th>with inhibition</th><th>without</th><th>chance gaps</th></tr>' +
+      '<tr><td>syncopation / bar, mean</td><td>' + f2(x.meanS.inh) + '</td><td>' + f2(x.meanS.none) + '</td><td>' + f2(x.meanS.drop) + '</td></tr>' +
+      '<tr><td>interval entropy, bits, mean</td><td>' + f2(x.meanH.inh) + '</td><td>' + f2(x.meanH.none) + '</td><td>' + f2(x.meanH.drop) + '</td></tr></table>' +
+      '<div class="read">T1 (rise / fall / tie): ' + tb(x.T1) + '</div><div class="read">T2 (more regular than chance / less / tie): ' + tb(x.T2) + '</div><div class="read">the page’s sentence, in this run: <b>' + x.page + '</b></div>'; }).join('') +
+      '<p style="margin-top:14px">What the two runs say together. Where every trigger alone would fire every node, inhibition is the only thing making a rhythm, and the page is right: syncopation appears from nothing, and the gaps are far more regular than chance. Where the nodes already divide the trigger, inhibition <i>takes syncopation away</i>, in 199 of 200 networks: three periodic layers against a 4/4 grid are already off the beat, and inhibition thins them. Its gaps are still not chance there. And in the over-1 run some node fires on every trigger: the silence is in each voice, never in the whole, a hocket. The check script gets these numbers on every run; the sweep is the same code.</p>';
+  });
+  // ── steps ──
+  var STEPS = [
+    { eye: 'step 1 of 5 · one node', title: 'One node, fired by every trigger', say: 'A steady trigger, sixteen to a bar. One node with drive 1: every trigger fills it, so it fires on every one. A pulse, and nothing in it is off the beat.', setup: function () { st.w = [1.0]; st.inh = false; st.arm = 'none'; } },
+    { eye: 'step 2 of 5 · a leaky node', title: 'Charge, leak, fire: one node divides the trigger', say: 'Turn the drive down and the node needs several triggers to reach 1. It fires on every second, third or fifth trigger: a division, from integration alone, and it never changes. Under 0.15 the leak wins and it never fires.', setup: function () { st.w = [0.4]; st.inh = false; st.arm = 'none'; },
+      ctl: function () { slider('w0', 'drive w', 0.1, 1.2, st.w[0], f2, function (v) { st.w[0] = v; }); } },
+    { eye: 'step 3 of 5 · three nodes', title: 'Three nodes, no inhibition', say: 'Three nodes on the same trigger, each with its own drive. Three divisions laid over each other: a polyrhythm already, and where they coincide they stack. Nothing yet stops anything.', setup: function () { st.w = [0.42, 0.3, 0.24]; st.inh = false; st.arm = 'none'; }, ctl: drives },
+    { eye: 'step 4 of 5 · inhibition', title: 'Now a firing node pushes the others down', say: 'Inhibition is on: the same three drives, and now a firing node takes g from the others. Outlines show where a node fired without inhibition and is silent with it; slashes show a node that reached 1 and was pushed back on the same trigger. Hear the three arms: with inhibition, without, and the same number of gaps put at random. Try both kinds of drive: under 1, where each node already divides the trigger, and over 1, where every trigger would fire every node.', setup: function () { st.w = [0.42, 0.3, 0.24]; st.inh = true; st.arm = 'inh'; }, ctl: function () { drives(); slider('g', 'inhibition g', 0, 1, st.g, f2, function (v) { st.g = v; }); }, arms: true },
+    { eye: 'step 5 of 5 · the test', title: 'Take the inhibition away and count what is lost', say: 'Two hundred random networks, the three arms each, scored by the rule below, written before the first run. Run it; it takes a moment.', setup: function () { st.w = [1.6, 1.3, 1.1]; st.inh = true; st.arm = 'inh'; }, ctl: function () { drives(); }, arms: true, test: true }
+  ];
+  function drives() { for (var i = 0; i < 3; i++) (function (i) { slider('w' + i, 'drive, node ' + (i + 1), 0.1, 2, st.w[i], f2, function (v) { st.w[i] = v; }); })(i); }
+  document.querySelectorAll('[data-pre]').forEach(function (b) { b.addEventListener('click', function () { st.w = b.dataset.pre === 'sub' ? [0.42, 0.3, 0.24] : [1.6, 1.3, 1.1]; build(); }); });
+  STEPS.forEach(function (s, k) { var b = document.createElement('button'); b.textContent = (k + 1) + ' ' + s.eye.split('· ')[1]; b.addEventListener('click', function () { go(k); }); $('rail').appendChild(b); });
+  function build() { $('ctl').innerHTML = ''; var s = STEPS[step]; if (s.ctl) s.ctl(); refresh(); }
+  function go(k) {
+    stop(); step = Math.max(0, Math.min(STEPS.length - 1, k)); var s = STEPS[step]; s.setup();
+    $('rail').querySelectorAll('button').forEach(function (b, i) { if (i === step) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    $('sEye').textContent = s.eye; $('sTitle').textContent = s.title; $('sSay').textContent = s.say;
+    $('armBtns').classList.toggle('hide', !s.arms); $('presetBtns').classList.toggle('hide', !s.arms); $('vTest').classList.toggle('hide', !s.test);
+    $('eqInh').classList.toggle('hide', step < 3); $('eqInhW').classList.toggle('hide', step < 3);
+    $('back').disabled = step === 0; $('next').disabled = step === STEPS.length - 1; markArm(); build();
+  }
+  $('back').addEventListener('click', function () { go(step - 1); });
+  $('next').addEventListener('click', function () { go(step + 1); });
+  window.addEventListener('resize', function () { if (R) { drawGrid(); drawVolt(); } });
+  go(0);
+})();
+</script>
+</body>
+</html>
