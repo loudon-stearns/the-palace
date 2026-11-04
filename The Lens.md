@@ -182,3 +182,7 @@ Both are feel-tests for the fidelity claim: drag the glass (same lens, new patch
 - Is a *pure* lens entry (almost no data face) healthy palace tissue, or does the palace's love of substantial, connected nodes argue that lenses should be dual-purpose?
 - Does the pillar-lens's "absent face" risk over-generating thin sections — completing projections that an entry was right to leave latent? The deposit must stay a *candidate*, never automatic.
 - Can an entry name, in its forward vector, the lens it most wants pointed at it — and is that the same instinct as [[Philosopher Visits the Entry]]'s "an entry requesting its own visit"?
+
+## Active Baton
+
+[[The Lens — baton]] — drafted 2026-11-04
