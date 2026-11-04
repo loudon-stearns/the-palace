@@ -77,7 +77,7 @@
   <div class="nav"><button id="back">← back</button><button id="next">next step →</button></div>
   <div class="eqs">
     <div class="eq">S = [ L₁ ; L₂ ; L₃ ; L₄ ] · X &nbsp;&nbsp;⇒&nbsp;&nbsp; rank S ≤ d</div>
-    <div class="words">In words: stack the four shadows, two numbers each for every point, eight numbers a point. If all four are shadows of one thing with d dimensions, those eight numbers never need more than d directions. Four separate things need up to eight. The count in steps 5 and 6 is that rank, read off the singular values; a direction counts when it carries more than one hundred-thousandth of the largest.</div>
+    <div class="words">In words: stack the four shadows, two numbers each for every point, eight numbers a point. If all four are shadows of one thing with d dimensions, those eight numbers never need more than d directions. Four separate things need up to eight. The count in steps 5 and 6 is that rank, read off the singular values; a direction counts when it carries more than one hundred-thousandth of the largest. The count holds for straight shadows only: bend each shadow of one object (through tanh, say) and it reads as four.</div>
   </div>
   <div class="foot"><svg width="16" height="16" viewBox="-1 -1 2 2"><path id="sig" fill="none" stroke="#e8b84a" stroke-width=".08"/></svg>Loud’n Live</div>
 </div>
@@ -258,7 +258,7 @@ function testControls2() {
   $('extra').innerHTML = `<table class="score"><tr><th>set</th><th>what it was</th><th>you said</th><th>the count said</th></tr>${rows}<tr><th></th><th>score</th><th>${you.all}/10 · one ${you.one}/5 · four ${you.four}/5</th><th>${cnt.all}/10 · one ${cnt.one}/5 · four ${cnt.four}/5</th></tr></table>`;
   const pass = (s) => s.all >= 9;
   let v = `Your eye: ${you.all} of 10, ${pass(you) ? 'past the rule: you told them apart' : 'under the rule: not shown'}. The count: ${cnt.all} of 10. `;
-  if (!S.unlinked && S.cap === 4) v += 'With the links kept and the hidden object held to four dimensions, one thing seen four ways can be told from four things, but only from the four shadows together, by which point is which. That is the opening’s claim given a test it could fail, and it passes. Now lose the links, or let the object grow.';
+  if (!S.unlinked && S.cap === 4) v += 'With the links kept and the hidden object held to four dimensions, the count told one thing seen four ways from four things on these curves, but only from the four shadows together, by which point is which. The one-object half holds by algebra; the four-object half could have failed and didn’t. That shows the opening’s claim can be put in a form that could fail, not that the pillars passed it. Now lose the links, or let the object grow.';
   else if (S.unlinked && S.cap === 4) v += 'Shuffle which point is which inside each shadow, and every shadow holds the same points as before, yet the count calls every set four things. The oneness was never in any one shadow. It was in the links across them.';
   else if (S.cap >= 8) v += 'Let the hidden object have eight dimensions and the count calls every set one thing: any four flat shadows, stacked, are the shadows of one eight-dimensional thing. A claim of oneness with no limit on the dimension cannot fail.';
   else v += `At six dimensions the four-object sets still need eight directions, so the count still tells them apart${S.unlinked ? ', but with the links lost every set needs eight, and every set reads as four things' : ''}. The claim holds while the object is smaller than its shadows put together.`;
