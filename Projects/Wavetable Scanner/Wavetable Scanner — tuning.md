@@ -103,3 +103,21 @@ What Wavetable Scanner's steward cycles taught the page, and the changes to the 
     > [[Wavetable Scanner]]'s synth plays the wavetable cards this voice can't: Wavetable Scan Lead, Wavetable Position Sweep, Wavetable Chip and Evolving Pad load a real table there, with every word read through this vocabulary (`Projects/Wavetable Scanner/synth/build_cards.py`). A `table:` field on a card would let the card name its own table instead of the synth choosing one.
 
 - run · 2026-11-03 · cycle 6 · taught item 13, proposed items 14, 15 for canon
+
+## From cycle 7 — 2026-11-03
+
+16. When the reference engine works in blocks, check the port against it in blocks of its control step, put every test move on those marks, and round t·SR to a whole sample before you quantize, or a ramp lands one sample early at some block edges and the sample-for-sample check fails on the test, not the code. *(offered by the steward, cycle 7)*
+17. **Proposed for canon** · 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 2 — the synth' · canon change owed *(proposed by the steward, cycle 7)*
+    Why: the plugin step of the plan is built and checked; the page should say the scanner now lives in a DAW too
+    Path: `Projects/Wavetable Scanner.md`
+    > #### Study round 3 — the plugin (2026-11-04)
+    >
+    > `plugin/` is the synth as a VST3 and AU, made with the [[VST Template]] (code Wtsc). `Algorithm.h` ports `wt-synth.js` line for line, and runs the page's spectral morph and per-octave band-limiting on three built-in tables at load. It is checked against the browser synth's own engine, run in Node in 16-sample blocks. Four of five passages match bit for bit, and the fifth to 3.6e-8 of peak. It passes pluginval at strictness 5, auval, and the host check. The centre of its window is the scanner's landscape, which follows the plugin's own Position; dragging on it moves the knob. The mod wheel and loading your own table are still to come. Nobody has played it in Live yet.
+18. **Proposed for canon** · 2026-11-03 · [[VST Template]] · Processor::handleMidi, after the note branches · canon change owed *(proposed by the steward, cycle 7)*
+    Why: every instrument made from the template drops the mod wheel, pitch bend and sustain; the Wavetable Scanner plugin needs CC1 on Position, and the fix belongs in the shared machinery, not one plugin
+    Path: `Projects/VST Template.md`
+    > else if (m.isController()) tpl::deliverCC (alg, m.getControllerNumber(), m.getControllerValue() / 127.0);
+    > else if (m.isPitchWheel()) tpl::deliverBend (alg, (m.getPitchWheelValue() - 8192) / 8192.0);
+    > // with deliverCC / deliverBend in ParamSpec.h calling alg.cc / alg.pitchBend only when the Algorithm defines them, as deliverNote does
+
+- run · 2026-11-03 · cycle 7 · taught item 16, proposed items 17, 18 for canon

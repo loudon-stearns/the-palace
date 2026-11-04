@@ -15,32 +15,31 @@ forward_vector: "I am Wavetable Scanner's scroll — the one page that always op
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T02:33:33.492Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T02:40:23.164Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 6 · last ran 2026-11-04 (today)
+- **Status:** active · **Stage:** growing · **Steward:** cycle 7 · last ran 2026-11-04 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — You called the plan good, but no button was clicked, so it never became the plan. Adopt it now, with your notes added? (`wavetable-scanner-steward-014`)
-- **Last commit touching this project:** 2026-11-03 `83e9338f` — steward(Wavetable Scanner): cycle 5 — SPINNING UP. HOME: [Wavetable Scanner](obsidian://open?vault=The%20Pala…
+- **Last shipped:** 2026-11-04 (today) — The synth is now a VST3 and AU plugin, with the 3D landscape in the middle of its window, and it matches the browser synth bit for bit. (`wavetable-scanner-steward-016`)
+- **Last commit touching this project:** 2026-11-03 `3c04ae47` — steward(Wavetable Scanner): cycle 6 — SPINNING UP. HOME: [Wavetable Scanner](obsidian://open?vault=The%20Pala…
 - **Signal:** steady
-- **Left uncommitted:** ⚠ 3 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Wavetable Scanner/synth/shot-synth-chrome.png`, `Projects/Wavetable Scanner/synth/shot-synth-firefox.png`, `Projects/Wavetable Scanner/synth/shot-synth-webkit.png`. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 6 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 6 · taught item 13, proposed items 14, 15 for canon
+- **Runs:** 7 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 7 · taught item 16, proposed items 17, 18 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 7 — items 3, 5, 7, 11, 12, 14, 15; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 15, from cycle 6 — 2026-11-03 — [[Wavetable Scanner — tuning]]
+- **Proposed for canon:** 9 — items 3, 5, 7, 11, 12, 14, 15, 17, 18; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 18, from cycle 7 — 2026-11-03 — [[Wavetable Scanner — tuning]]
 
 ### Where this stands
 
-Wavetable Scanner is the browser page that draws a wavetable as a 3D landscape and lets you sweep through its frames. It packs its own tables from a folder of single cycles, and there's a playable MIDI synth beside it (wavetable_synth.html) that moves between frames with a spectral morph. You asked me to work with Synth Templates, because some of its cards would want this oscillator. Seven do: their reference voice has no wavetable, so those cards play a plain saw where a table belongs. This cycle the synth gained a Card menu. Pick a card and the synth loads the table the card asks for and sets every knob from the card's words. Each word is read through Synth Templates' own vocabulary, so '…
+Wavetable Scanner is the page that draws a wavetable as a 3D landscape. It packs its own tables from a folder of single cycles, and it has a playable browser synth (wavetable_synth.html) that moves between frames with a spectral morph. The plan (still waiting on your adopt) says the next step after the browser synth is the same synth as a plugin through the VST Template, with the 3D view in the centre of the window, as you asked. This cycle built that plugin. It's installed on this Mac as 'Wavetable Scanner' under Loudon Live, as a VST3 and an AU. Inside are eight voices, unison, the filter, both envelopes, two LFOs and three built-in tables: the classics, the cello and the FM chain. The mi…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** Nobody has heard these. _(in 6 notes, the latest cycle 6)_
+- **rough since cycle 1:** Nobody has heard these: the plugin hasn't been opened in Live or played from a keyboard. _(in 7 notes, the latest cycle 7)_
 - **rough since cycle 1:** Safari.app itself, a real Finder drag onto the stage, and phone touch haven't been tried. _(in 4 notes, the latest cycle 4)_
 - **rough since cycle 2:** Three old screenshots from cycle 1 (shot-fmsynth-bright-end, -dull-end, -file-order) were deleted when cycle 2 re-ran its check, and that deletion isn't committed yet. _(in 2 notes, the latest cycle 3)_
 
@@ -59,6 +58,7 @@ _None._
 
 ### Runs
 
+- 2026-11-03 — cycle 7 · taught item 16, proposed items 17, 18 for canon
 - 2026-11-03 — cycle 6 · taught item 13, proposed items 14, 15 for canon
 - 2026-11-03 — cycle 5 · taught item 10, proposed items 11, 12 for canon
 - 2026-11-03 — cycle 4 · taught item 8, proposed item 9 for canon
@@ -81,6 +81,8 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 - **12.** 2026-11-03 · `Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md` · a new gotcha at the end, after the cursor-plane one — the next wavetable tool would ship a plain crossfade, and no level meter catches this
 - **14.** 2026-11-03 · [[Wavetable Scanner]] · frontmatter links, after the Generative Wavetable Libraries link — four Synth Templates cards now play on this synth from their own words; the link is real and in use
 - **15.** 2026-11-03 · [[Synth Templates]] · § Neighbours, at the end of the paragraph — the catalog should know where its wavetable cards actually sound, and the missing table: field is the one gap the bridge exposed
+- **17.** 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 2 — the synth' — the plugin step of the plan is built and checked; the page should say the scanner now lives in a DAW too
+- **18.** 2026-11-03 · [[VST Template]] · Processor::handleMidi, after the note branches — every instrument made from the template drops the mod wheel, pitch bend and sustain; the Wavetable Scanner plugin needs CC1 on Position, and the fix belongs in the shared machinery, not one plugin
 
 <!-- scroll:now:end -->
 
@@ -99,6 +101,63 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="wavetable-scanner-steward-016" -->
+### 2026-11-04 — cycle 7 — The synth is now a VST3 and AU plugin, with the 3D landscape in the middle of its window, and it matches the browser synth bit for bit.
+> shipped · installed, all checks pass · not yet opened in Live or heard
+
+The engine (plugin/src/Algorithm.h) is synth/wt-synth.js ported line for line. The spectral morph and the per-octave band-limiting are ported too, and run once on the tables at load, so the plugin moves between frames exactly as the page does. The check doesn't use a numpy copy. The plugin is held against the browser synth's own engine, running in Node. The JS engine sets its slow values every 16 samples, so the C++ keeps the same 16-sample count and the test passages put every note and every move on those marks. Five passages, each checked sample by sample: the FM chain swept by hand, a cello chord with the mod envelope scanning, the classics under a triangle LFO with seven unison copies, legato with glide down to a C8, and nine notes stealing from eight voices. Four match to the last bit and the fifth to 3.6e-8 of peak. The real plugin, with its parameter smoothing and block automation, keeps the loudness within 0.4 dB on the hand sweep and within 0.0003 dB everywhere else. pluginval passes at strictness 5, and so do auval and the strict code-signature check. The host check loads both formats and hears every move. The editor fits from 1120 × 780 up. The landscape follows the plugin's own Position, including the LFO and the envelope, and dragging on it moves the Position knob, so it records as automation.
+
+**Artifacts:**
+- [the plugin's editor at 1280 × 820: the FM chain as a landscape in the middle, every control around it (the template's mock in Chrome, fed by a harness render)](Projects/Wavetable Scanner/plugin/shot-editor.png)
+- [the same editor, live in the board: the landscape replays a harness render](Projects/Wavetable Scanner/plugin/editor-mock.html)
+- [the real plugin: three notes on the FM chain while Position is swept front to back](Projects/Wavetable Scanner/plugin/demo-fm-sweep-plugin.wav)
+- [the real plugin: a cello chord, the mod envelope scanning the table and opening the filter](Projects/Wavetable Scanner/plugin/demo-cello-envelopes-plugin.wav)
+- [what's in the plugin, what the checks say, how to rebuild it, what's missing](Projects/Wavetable Scanner/plugin/README.md)
+- [the engine, the morph and the band-limiting, ported from the page](Projects/Wavetable Scanner/plugin/src/Algorithm.h)
+- [the three tables' raw frames (generated)](Projects/Wavetable Scanner/plugin/src/Tables.h)
+- [writes Tables.h, the reference tables and the visualizer from the page's sources](Projects/Wavetable Scanner/plugin/tools/make_tables.py)
+- [the landscape for the plugin's screen](Projects/Wavetable Scanner/plugin/ui/visualizer.src.js)
+- [the same, with the tables baked in (generated)](Projects/Wavetable Scanner/plugin/ui/visualizer.js)
+- [the reference: the browser synth's engine, called through Node](Projects/Wavetable Scanner/plugin/reference/sketch.py)
+- [runs wt-synth.js and the page's morph in 16-sample blocks](Projects/Wavetable Scanner/plugin/reference/ref_render.cjs)
+- [the five test passages, every move on a 16-sample mark](Projects/Wavetable Scanner/plugin/reference/paths.py)
+- [raw frames for the reference](Projects/Wavetable Scanner/plugin/reference/tables/classics.f32)
+- [raw frames for the reference](Projects/Wavetable Scanner/plugin/reference/tables/cello.f32)
+- [raw frames for the reference](Projects/Wavetable Scanner/plugin/reference/tables/fm.f32)
+- [name, code Wtsc, host-check moves, the editor's size](Projects/Wavetable Scanner/plugin/plugin.json)
+- [the template's runner](Projects/Wavetable Scanner/plugin/plugin.sh)
+- [the template's build](Projects/Wavetable Scanner/plugin/CMakeLists.txt)
+- [keeps build/ and out/ out of git](Projects/Wavetable Scanner/plugin/.gitignore)
+- [cycle 6's re-run of the synth check in Chrome, left uncommitted then](Projects/Wavetable Scanner/synth/shot-synth-chrome.png)
+- [the same, Firefox](Projects/Wavetable Scanner/synth/shot-synth-firefox.png)
+- [the same, WebKit](Projects/Wavetable Scanner/synth/shot-synth-webkit.png)
+
+_plugin against the browser synth's engine, 48 kHz_
+| passage | sample for sample | plugin loudness |
+| --- | --- | --- |
+| FM chain, Position swept by hand | 0 (bit for bit) | within 0.40 dB |
+| cello chord, mod env scanning, filter env | 0 | 0.0003 dB |
+| classics, triangle LFO, 7 unison, LFO 2 on cutoff | 3.6e-8 of peak | 0.00003 dB |
+| legato + glide, transpose −12, then C8 | 0 | ~0 |
+| nine notes into eight voices | 0 | ~0 |
+
+_Changed in the workshop:_ README — new: the plugin's recipe, its check results and what it still lacks
+_Proposed for canon:_ Wavetable Scanner (§ Tiers, a new subsection after 'Study round 2 — the synth') — the plugin step of the plan is built and checked; the page should say the scanner now lives in a DAW too; owed in the tuning ledger until Loudon's review
+_Proposed for canon:_ VST Template (Processor::handleMidi, after the note branches) — every instrument made from the template drops the mod wheel, pitch bend and sustain; the Wavetable Scanner plugin needs CC1 on Position, and the fix belongs in the shared machinery, not one plugin; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard these: the plugin hasn't been opened in Live or played from a keyboard. The mod wheel doesn't reach Position, because the template's wrapper only sends notes. The real editor window couldn't be photographed from a headless run (macOS screen capture said no), so the picture is the template's Chrome mock.
+
+_Next moves named:_ Load your own table in the plugin: a file chooser for a packed WAV, morphed and band-limited off the audio thread, so any folder the page packs plays in Live · Once the VST Template sends CC, put the mod wheel on Position and add pitch bend and sustain, as the browser synth has · Plan step 7: export packed tables for Serum/Vital and Surge beside the Ableton WAV
+<sub>`wavetable-scanner-steward-016` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-d395f62b83" -->
+### 2026-11-03 — cycle 7
+
+taught item 16, proposed items 17, 18 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="wavetable-scanner-steward-014" -->
 ### 2026-11-04 — cycle 6 — You called the plan good, but no button was clicked, so it never became the plan. Adopt it now, with your notes added?
 > still working · plan not yet official · steward leans adopt

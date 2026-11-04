@@ -1,0 +1,30 @@
+{
+  "name": "Wavetable Scanner",
+  "target": "WavetableScanner",
+  "company": "Loudon Live",
+  "bundle_id": "com.LoudonLive.WavetableScanner",
+  "manufacturer_code": "Loud",
+  "plugin_code": "Wtsc",
+  "kind": "instrument",
+  "version": "0.1.0",
+  "hostcheck": [
+    "position=0.9",
+    "table=cello",
+    "cutoff=400",
+    "unison=5"
+  ],
+  "ui": {
+    "width": 1280,
+    "height": 820,
+    "min": [
+      1120,
+      780
+    ],
+    "max": [
+      1800,
+      1100
+    ],
+    "direction": "bench",
+    "screen": true
+  }
+}
