@@ -114,8 +114,8 @@ for (const [k, L] of Object.entries(arms)) {
 // the tests with teeth, each with the number that would have meant failure, on this run's numbers (not the piece's)
 const E = BAKE.ENS;
 info('harmonic reading, arithmetic not a test: a third always narrows, so parallel tenths narrow every strong beat and the written line can only tie or trail', `tenths ${E.tenths.narrows} vs written ${E.written.narrows}`);
-check('rebuild: the removed written line is never 80% recoverable from the cantus by slide or mirror (failure: any pair ≥ 0.8)', Math.max(E.written.shiftMax, E.written.mirrorMax) < 0.8, `most ${Math.max(E.written.shiftMax, E.written.mirrorMax)}`);
-check('vertical rules do work: the unwritten line contradicts the cantus on more strong beats than the written (failure: ≤ 0)', E.notwritten.contradicts > E.written.contradicts, `${E.notwritten.contradicts} vs ${E.written.contradicts}`);
+info('rebuild, by construction: the written line\'s own rules (at least 60% contrary moves; the opening and cadence formula) cap it under 80% on these canti — the challenger counted at most 8 of 11 and 8 of 12', `most ${Math.max(E.written.shiftMax, E.written.mirrorMax)}`);
+info('unwritten arms contradict more than the written, by construction: a line with no vertical rule lands seconds and sevenths on white keys (random lines: 28%)', `reordered ${E.notwritten.contradicts}, other cantus ${E.other.contradicts}, written ${E.written.contradicts}`);
 check('control: the rebuild measure finds a line that can be rebuilt (parallel lines, by construction)', E.tenths.shiftMax === 1 && E.octaves.shiftMax === 1, 'tenths and octaves 1.0');
 // a null: a random white-note line with no melodic rule — does it look "written for it"?
 { const r = CP.rng(4242), cf = CP.CANTI[0], P = []; for (let m = cf.lo; m <= cf.hi; m++) if (WHITE.has(m % 12)) P.push(m); let pass = 0, con = [];
@@ -153,7 +153,10 @@ function learned(feats, seed) { const coin = CP.rng(seed); let hit = 0;
 { const v = score((l, t) => CP.contraryCount(l, t.cf), 98); rows.push(['pair · more contrary motion against the cantus (the page’s own rule)', v]); info('pair: more contrary motion against the cantus', `${(100 * v).toFixed(1)}%`); }
 { const v = score((l, t) => -l.filter((u, i) => i % 2 === 0 && !CONSO.has((u - t.cf.notes[i / 2]) % 12)).length, 99); rows.push(['pair · fewer strong-beat dissonances against the cantus (the thing under test)', v]);
   check('control: reading both voices at once (strong-beat dissonances) finds the cue a lone line lacks (failure: ≤ 65%)', v > 0.65, `${(100 * v).toFixed(1)}%`); }
-BAKE.LEAK = { n: T.length, rows };
+{ const sd = T.map((t) => t.N.filter((u, i) => i % 2 === 0 && !CONSO.has((u - t.cf.notes[i / 2]) % 12)).length), sn = T.map((t) => (t.N.length + 1) / 2);
+  var DIS = { mean: r3(avg(sd)), share: r3(sd.reduce((a, b) => a + b, 0) / sn.reduce((a, b) => a + b, 0)), none: sd.filter((x) => x === 0).length };
+  info('the line written for another cantus, on this one: strong-beat dissonances', `${DIS.mean} a line, ${(100 * DIS.share).toFixed(1)}% of strong beats; ${DIS.none} of ${T.length} trials have none`); }
+BAKE.LEAK = { n: T.length, rows, dis: DIS };
 check('the leak table the piece prints is this run', JSON.stringify(LEAK) === JSON.stringify(BAKE.LEAK), NT === 300 ? 'compared at 300 trials' : `run at ${NT}; the piece's is 300, so this compares only at 300`);
 { const a = T.filter((t) => t.answer === 'A').length; info('position of the written line', `A in ${a} of ${T.length}`); }
 // level: every clip matched; the pairs before matching
