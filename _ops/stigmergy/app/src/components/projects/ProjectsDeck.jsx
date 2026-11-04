@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Box, Button, Tag } from '../primitives.jsx';
+import { Box, Button } from '../primitives.jsx';
+import { healthColor } from '../../lib/format.js';
 import { fetchProjects, enchantProject } from '../../adapters/projects.js';
 import { advanceSteward, advanceAllStewards, dequeueSteward } from '../../adapters/stewards.js';
 import { ageOf, rowSignal, groupProjects, readyToAdvance } from '../../lib/scroll-view.js';
@@ -62,8 +63,15 @@ const CEREMONY_COLS = 'minmax(180px, 2fr) 56px 90px 90px minmax(140px, 1.6fr) 90
 // The project table is ONE grid; the header and every row are subgrids of it.
 // Each row used to be its own grid, so the trailing `auto` column (the advance
 // button) sized differently in the header than in a row and shifted every
-// column after the name. The steward column holds "cyc N" and the health tag.
-const PROJECT_COLS = 'minmax(180px, 2fr) 84px 124px minmax(120px, 1.4fr) 110px auto';
+// column after the name. The steward column is "cycle N", coloured by the
+// last cycle's health (orchestrator/src/process-cycle.js): bright when it
+// shipped, amber when it shipped nothing, red once stalled, dim with none.
+const PROJECT_COLS = 'minmax(180px, 2fr) 84px 76px minmax(120px, 1.4fr) 110px auto';
+const HEALTH_WORDS = {
+  green: 'last cycle shipped',
+  yellow: 'last cycle shipped nothing',
+  red: 'stalled: two cycles in a row shipped nothing',
+};
 const PROJECT_TABLE = { display: 'grid', gridTemplateColumns: PROJECT_COLS, columnGap: 10, rowGap: 2 };
 const PROJECT_SUBGRID = { gridColumn: '1 / -1', display: 'grid', gridTemplateColumns: 'subgrid' };
 
@@ -144,7 +152,15 @@ export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, co
         ) : null}
       </span>
       <span style={dim}>{row.stage || '—'}</span>
-      <span style={{ ...dim, display: 'flex', alignItems: 'center', gap: 6 }}><span style={{ minWidth: '7ch', textAlign: 'right' }}>{row.stewarded ? `cyc ${row.iteration ?? 0}` : '—'}</span>{row.stewarded && row.health ?<Tag tone={row.health === 'green' ? 'ok' : row.health === 'red' ? 'err' : 'default'}>{row.health}</Tag> : null}</span>
+      {row.stewarded ? (
+        <span
+          data-testid={`project-cycle-${sid}`}
+          data-health={row.health || 'none'}
+          title={HEALTH_WORDS[row.health] || 'no health recorded'}
+          aria-label={`cycle ${row.iteration ?? 0}: ${HEALTH_WORDS[row.health] || 'no health recorded'}`}
+          style={{ ...dim, color: healthColor(row.health), textShadow: HEALTH_WORDS[row.health] ? 'var(--glow)' : 'none' }}
+        >cycle {row.iteration ?? 0}</span>
+      ) : <span style={dim}>—</span>}
       <span style={{ ...dim, overflow: 'hidden', textOverflow: 'ellipsis' }} title={row.last_shipped ? row.last_shipped.headline || '' : ''}>
         {row.last_shipped ? `${ageOf(row.last_shipped.ts)} · ${row.last_shipped.headline || row.last_shipped.id}` : (row.last_activity ? `${ageOf(row.last_activity)} · (no shipped thing on the board)` : 'nothing yet')}
       </span>
