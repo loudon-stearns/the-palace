@@ -15,29 +15,35 @@ forward_vector: "I am Generative Audio Devices's scroll — the one page that al
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-29T00:29:54-04:00 from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T13:26:52.016Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-10-26 (3 days ago)
-- **Plan:** agreed 2026-10-29 (today) · 0 made things since · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 3 · last ran 2026-11-04 (today)
+- **Plan:** agreed 2026-10-29 (6 days ago) · 2 made things since · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-26 (3 days ago) — The warm pad now plays chords: six voices from the QWERTY keyboard, wired through every module, checked against Rack's own source. (`gad-steward-005`)
-- **Last commit touching this project:** 2026-10-26 `4091456b` — steward(Generative Audio Devices): cycle 2 — SPINNING UP. HOME: [Generative Audio Devices](obsidian://open?vault=The…
+- **Last shipped:** 2026-11-04 (today) — Shall the plan's second target be your Mac (the app, built today, and then a VST for Live), with Max kept for after the standards? (`gad-steward-008`)
+- **Last commit touching this project:** 2026-11-03 `3a6c437a` — edit(Loudon Live Design System): the browser's furniture fan-out, batch 2 of 5: Projects, D to P (98 pages)
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-26 — cycle 2 · taught item 3, proposed items 4, 5 for canon
+- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-04 — cycle 3 · taught item 6, proposed item 7 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 3 — items 2, 4, 5; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 5, from cycle 2 — 2026-10-26 — [[Generative Audio Devices — tuning]]
+- **Proposed for canon:** 4 — items 2, 4, 5, 7; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 7, from cycle 3 — 2026-11-04 — [[Generative Audio Devices — tuning]]
 
 ### Where this stands
 
-Generative Audio Devices turns a plain description of a sound into a VCV Rack patch: English in, a neutral patch language (PDL) in the middle, a loadable file out. It has worked since May. At the revival on 2026-10-24 you asked that every patch open on the QWERTY keyboard and the MacBook speakers, with each modulator under what it moves, and the first cycle today built that. Your own note on the warm pad, 'should be polyphonic!', named the one thing the project couldn't yet say. This cycle taught it to say it: a patch can now ask for several notes at once, and the warm pad asks for six.
+Generative Audio Devices turns a plain description of a sound into an instrument. English goes in, a neutral patch language (PDL) sits in the middle, and a file comes out. Until today the only way out was VCV Rack. That has worked since May, and you called the house bass alive on 2026-10-24. Since then every patch opens on the QWERTY keyboard and the MacBook speakers, and the warm pad plays six-note chords. The real test of the idea was always a second target: if the middle language is truly neutral, a new target should need only a new vocabulary and a new emitter. On the plan card you said not Pure Data but a VST or a full Mac app. This cycle built the Mac app. The same PDL becomes C++, an…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 2:** Nobody has heard the native renders or played the apps, and nobody has compared them by ear to their Rack twins. _(in 2 notes, the latest cycle 3)_
 
 ### Open asks
 
-- `gad-steward-003` — proposed plan revision: plan after the revival · posted 2026-10-26 · options: adopt · keep
+- `gad-steward-008` — proposed plan revision: second target: a Mac app, then a VST · posted 2026-11-04 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -45,10 +51,11 @@ _None._
 
 ### Decided
 
-_Nothing decided on the board yet._
+- `gad-steward-003` — plan after the revival → GRANTED — (no option_id); notes: "don't move to Pure Data, move to VST or full MAC app." (2026-11-04)
 
 ### Runs
 
+- 2026-11-04 — cycle 3 · taught item 6, proposed item 7 for canon
 - 2026-10-26 — cycle 2 · taught item 3, proposed items 4, 5 for canon
 - 2026-10-26 — cycle 1 · taught item 1, proposed item 2 for canon
 
@@ -63,6 +70,7 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 - **2.** 2026-10-26 · [[Generative Audio Devices]] · § Where it stands, the second paragraph (beginning 'Next, every emitted patch is quick to hear') — the paragraph describes as missing what this cycle built; the 'Device defaults' bullet under What still does NOT exist should go with it
 - **4.** 2026-10-26 · [[Generative Audio Devices]] · § What still does NOT exist, the bullet beginning '**Polyphony**' — the bullet calls polyphony unrepresented, and this cycle represented it in all three layers
 - **5.** 2026-10-26 · `Shop/VCV Patch Generator/VCV Patch Generator — spec — PDL generation prompt.md` · § PDL grammar, after the line '# archetype: name #seed=N' — fresh agents can't ask for chords until the prompt names the token, which is the T6 lesson that 'obey the registry' alone wasn't enough
+- **7.** 2026-11-04 · [[Generative Audio Devices]] · § What still does NOT exist, the bullet beginning '**T10**' — the bullet says no second target exists, and this cycle built one
 
 <!-- scroll:now:end -->
 
@@ -96,6 +104,80 @@ Written on Loudon's word at the revival, 2026-10-24, when he played the house ba
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="gad-steward-008" -->
+### 2026-11-04 — cycle 3 — Shall the plan's second target be your Mac (the app, built today, and then a VST for Live), with Max kept for after the standards?
+> still working · Mac app built, not heard · steward leans adopt
+
+Generative Audio Devices turns a description of a sound into an instrument. VCV Rack was its first target. The plan's last move is proving the patch language works on a second target. That move still names Max, which is paused until there are Max patching standards. On the plan card you wrote "move to VST or full MAC app". Today I built the Mac app: the same PDL becomes C++ and a small app on the QWERTY keyboard and the MacBook speakers, 83/83 through both targets. This revision writes your words into the plan. First, play the app. Then put the same patch code inside a VST3 that Live loads. I've added one move the build taught me: knob settings are still worked out inside the Rack emitter, and lifting them out is what makes a third target cheap. Max stays, after the standards. Until you answer, I keep building toward the plugin. Adopting it costs nothing that's already built.
+
+**Artifacts:**
+- [the house bass, from the same PDL, played by the native target](Projects/Generative Audio Devices/proofs/2026-11-04-native/House Bass — native.wav)
+- [the warm pad's six voices, native](Projects/Generative Audio Devices/proofs/2026-11-04-native/Warm Pad — native.wav)
+- [rack-layouts.html](Projects/Generative Audio Devices/proofs/2026-10-26-ready-to-play/rack-layouts.html)
+- [PDL Renderer.html](Projects/Generative Audio Devices/pdl-renderer/PDL Renderer.html)
+<sub>`gad-steward-008` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="gad-steward-007" -->
+### 2026-11-04 — cycle 3 — The same patch description that makes a VCV patch now makes a Mac app you play from the QWERTY keyboard through the MacBook speakers.
+> shipped · 13 patches through both targets, 83/83 · four apps built, none heard yet · steward leans the plugin next
+
+How it works. Every cable carries volts, just as in Rack: one volt per octave, 10 V gates, ±5 V audio. That way a patch means the same thing in both places, and the archetypes' knob values need no translating. I cloned VCV Fundamental's source (commit 10dd016) and copied each module's curves from Rack's own lines. The oscillator's tuning, the filter's cutoff and resonance scaling, the envelope's 1 ms to 10 s exponential stages, the VCA's exponential response and the LFO's offset and invert all come from the source, and each struct names the lines it follows. The keyboard copies Rack's QWERTY map from its source: Z is C4, Q is C5, and ` and 1 shift octaves. Notes take turns across voices the way Rack's MIDI-CV module rotates them. The app picks the MacBook Pro Speakers by name and falls back to the system output. Its probe found them.
+
+What I checked. verify_native.js puts every PDL the project holds through both targets: the house bass, the three recipes and the nine candidates fresh agents wrote. For each one it checks that the .vcv emits with no warnings, that the C++ compiles with every warning treated as an error, and that the render stays finite, makes sound and doesn't clip. The house bass's held C3 plays at 65.34 Hz, 1.7 cents from the 65.41 Hz Rack's oscillator would give. The warm pads play six voices. A patch using the sequencer, which this target can't build yet, is refused by name rather than half-built. 83 passed, 0 failed.
+
+What I passed over. A VST first: Live loads plugins, not apps, but a plugin needs an SDK and a host to test in, while an app needed nothing but the Mac. The patch code is written so it can drop into a plugin unchanged. Max stays paused, as your standing order says.
+
+**Artifacts:**
+- [the house bass, played by the native target: a one-bar figure and a held C3](Projects/Generative Audio Devices/proofs/2026-11-04-native/House Bass — native.wav)
+- [the warm pad: Cmaj7, then Am9, six voices](Projects/Generative Audio Devices/proofs/2026-11-04-native/Warm Pad — native.wav)
+- [the pluck recipe, same figure as the bass](Projects/Generative Audio Devices/proofs/2026-11-04-native/Pluck — native.wav)
+- [the kick recipe: pitch envelope into a sine](Projects/Generative Audio Devices/proofs/2026-11-04-native/Kick — native.wav)
+- [the module kit: one C++ struct per Fundamental module, each naming the source lines it follows](Projects/Generative Audio Devices/native/gad_kit.h)
+- [the second target's vocabulary, in PDL's own port and knob names](Projects/Generative Audio Devices/native/native_registry.json)
+- [PDL to patch.h](Projects/Generative Audio Devices/native/emit_native.js)
+- [the voice engine both hosts share: last-note for one voice, rotation for chords](Projects/Generative Audio Devices/native/host_common.h)
+- [plays a phrase, writes a WAV, prints peak, rms and pitch](Projects/Generative Audio Devices/native/host_render.cpp)
+- [the Mac app: Rack's QWERTY map, the MacBook speakers](Projects/Generative Audio Devices/native/host_app.mm)
+- [one PDL to one double-clickable app](Projects/Generative Audio Devices/native/build_app.sh)
+- [every PDL the project holds, through both targets: 83/83](Projects/Generative Audio Devices/native/verify_native.js)
+- [what each file does and how to check it](Projects/Generative Audio Devices/native/README.md)
+- [keeps the scratch build folder out of git](Projects/Generative Audio Devices/native/.gitignore)
+- [keeps the built apps out of git; rebuild them with build_app.sh](Projects/Generative Audio Devices/proofs/2026-11-04-native/.gitignore)
+
+_Every PDL the project holds, played by the native target (verify_native.js, 83/83)_
+| patch | voices | peak dBFS | rms dBFS |
+| --- | --- | --- | --- |
+| house_bass | 1 | -12.2 | -24.2 |
+| kick-seed-1 | 1 | -6.0 | -29.4 |
+| pluck-seed-1 | 1 | -13.3 | -27.3 |
+| warm_pad-seed-1 | 6 | -12.7 | -28.1 |
+| bright-pluck-lead — classic pluck | 1 | -14.0 | -28.1 |
+| bright-pluck-lead — bright cutting lead | 1 | -9.7 | -17.9 |
+| bright-pluck-lead — square stab hook | 1 | -11.2 | -21.2 |
+| evolving-warm-pad — classic warm pad | 6 | -10.1 | -25.1 |
+| evolving-warm-pad — detuned stack pad | 6 | -8.0 | -23.0 |
+| evolving-warm-pad — ambient drone bed | 1 | -12.6 | -20.2 |
+| punchy-808-kick — classic 808 kick | 1 | -6.0 | -20.9 |
+| punchy-808-kick — deep sub thump | 1 | -27.0 | -48.4 |
+| punchy-808-kick — filtered 808 kick | 1 | -18.9 | -44.0 |
+
+_Changed in the workshop:_ README — new workshop note: the native target's files and how to check them
+_Proposed for canon:_ Generative Audio Devices (§ What still does NOT exist, the bullet beginning '**T10**') — the bullet says no second target exists, and this cycle built one; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard the native renders or played the apps, and nobody has compared them by ear to their Rack twins. The filter and oscillator copy Rack's curves but not its oversampling, so the texture may differ. The four apps are built locally and kept out of git; build_app.sh remakes them. Sync on the oscillator and clock on the LFO are not built yet, and the sequencer and VC mixer aren't in this target's vocabulary.
+
+_Next moves named:_ Play one: [House Bass.app](open:Projects/Generative Audio Devices/proofs/2026-11-04-native/House Bass.app), then say whether it feels like the Rack patch · Put the same patch.h inside a VST3 that Live loads, so a generated instrument plays on a MIDI track · Lift knob resolution (regions, archetypes, seeds) out of the VCV emitter into a neutral step, so a third target costs only a vocabulary and an emitter
+<sub>`gad-steward-007` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-fc9bc3401c" -->
+### 2026-11-04 — cycle 3
+
+taught item 6, proposed item 7 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="gad-2026-11-03-synth-templates-emit-pdl" -->
 ### 2026-11-03 — Synth Templates' cards emit PDL through this project's renderer
 

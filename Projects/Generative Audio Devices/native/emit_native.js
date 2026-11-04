@@ -1,0 +1,130 @@
+#!/usr/bin/env node
+// emit_native.js — PDL → a C++ patch header for the native target
+// (Generative Audio Devices, 2026-11-04). The second target: the same PDL
+// that becomes a .vcv becomes one `struct Voice` built from gad_kit.h, which
+// host_render.cpp turns into a WAV and host_app.mm into a Mac app you play
+// from the QWERTY keyboard through the MacBook speakers.
+//
+// Reads the graph with the renderer's own parsePDL, and the knob values from
+// the renderer's emitVcvJson: regions, archetypes and seeds are resolved there
+// today, so this target borrows the resolved numbers by name rather than
+// re-resolving them. Routing comes from native_registry.json alone.
+//
+// Usage:  node emit_native.js <file.pdl> [--out <file.h>] [--name "Title"]
+// Exits 1, writing nothing, if the PDL uses a module this target can't build.
+
+const fs = require("fs");
+const path = require("path");
+const HERE = __dirname;
+const RENDERER = path.join(HERE, "..", "pdl-renderer", "PDL Renderer.html");
+const NATIVE = JSON.parse(fs.readFileSync(path.join(HERE, "native_registry.json"), "utf8"));
+
+function loadRenderer() {
+  const html = fs.readFileSync(RENDERER, "utf8");
+  const between = (s, a, b) => { const i = s.indexOf(a); return s.slice(i + a.length, s.indexOf(b, i + a.length)); };
+  const regText = between(html, '<script type="application/json" id="vcv-registry">', "</script>").trim();
+  const archText = between(html, '<script type="application/json" id="archetypes">', "</script>").trim();
+  const bs = html.indexOf('<script type="text/babel">'); const body = html.indexOf(">", bs) + 1;
+  const code = html.slice(body, html.indexOf("// ─── Port Map", body));
+  const doc = { getElementById: (id) => ({ textContent: id === "vcv-registry" ? regText : id === "archetypes" ? archText : "{}" }) };
+  const api = new Function("document", "React", code + "\n return { emitVcvJson, parsePDL };")(doc, { useState: () => [undefined, () => {}] });
+  return { ...api, VCV: JSON.parse(regText).modules };
+}
+
+const lit = (x) => { let s = String(+(+x).toFixed(6)); if (!/[.e]/.test(s)) s += ".0"; return s + "f"; };
+const ident = (s) => s.replace(/[^A-Za-z0-9_]/g, "_");
+const enumOf = (mod, dir, name) => {
+  const list = mod[dir], en = (dir === "inputs" && mod.input_enum) || list.map(n => n.replace("/", ""));
+  const i = list.indexOf(name); return i < 0 ? null : en[i];
+};
+
+function emitNative(pdlText, { name = "PDL patch", source = "" } = {}) {
+  const R = loadRenderer();
+  const g = R.parsePDL(pdlText);
+  const vcv = R.emitVcvJson(pdlText);
+  const problems = [], notes = [];
+  const types = g.instanceTypes;
+
+  for (const [id, t] of Object.entries(types)) if (!NATIVE.modules[t]) problems.push(`${id} is a ${t}, which this target can't build yet`);
+  if (problems.length) return { problems };
+
+  // Knob values as the renderer resolved them (explicit > archetype > default).
+  const ids = Object.keys(types).filter(id => R.VCV[types[id]]);
+  const knobs = {};
+  ids.forEach((id, i) => {
+    const m = vcv.patch.modules.find(x => x.id === i + 1), reg = R.VCV[types[id]];
+    knobs[id] = {};
+    for (const p of m.params || []) { const spec = (reg.params || []).find(s => s.index === p.id); if (spec) knobs[id][spec.name] = p.value; }
+  });
+  const midi = vcv.patch.modules.find(m => m.model === "MIDIToCVInterface");
+  const voices = midi && midi.data && midi.data.channels || 1;
+
+  const kb = ids.filter(id => NATIVE.modules[types[id]].role === "keyboard");
+  const spk = ids.filter(id => NATIVE.modules[types[id]].role === "speakers");
+  const dsp = ids.filter(id => !NATIVE.modules[types[id]].role);
+  if (!spk.length) problems.push("nothing reaches the speakers (no OUT)");
+  if (problems.length) return { problems };
+
+  // Cables, by destination input.
+  const into = {};
+  for (const c of g.connections) {
+    const ft = NATIVE.modules[types[c.from]], tt = NATIVE.modules[types[c.to]];
+    if (!ft || !tt) { notes.push(`skipped ${c.from} -> ${c.to}: an end is not a module here`); continue; }
+    const fo = enumOf(ft, "outputs", c.fromPort), ti = tt.role === "speakers" ? c.toPort : enumOf(tt, "inputs", c.toPort);
+    if (fo == null || ti == null || (tt.role === "speakers" && !["IN1", "IN2"].includes(ti))) { notes.push(`skipped ${c.from}:${c.fromPort} -> ${c.to}:${c.toPort}: no such port here`); continue; }
+    if ((tt.not_yet || []).includes(c.toPort)) notes.push(`${c.to}:${c.toPort} is cabled but not built in this target yet; it is ignored`);
+    (into[c.to] = into[c.to] || []).push({ from: c.from, fo, ti, fstruct: ft.struct });
+  }
+
+  // Order: a module after everything that feeds it; a loop reads last sample.
+  const order = [], state = {};
+  const visit = (id) => {
+    if (state[id] === 2 || state[id] === 1) return;
+    state[id] = 1;
+    for (const e of into[id] || []) if (dsp.includes(e.from)) visit(e.from);
+    state[id] = 2; order.push(id);
+  };
+  dsp.forEach(visit);
+
+  const L = [];
+  L.push(`// ${name} — generated by emit_native.js from ${source || "PDL"}. Do not edit; edit the PDL.`);
+  L.push(`#pragma once`, `#include "gad_kit.h"`, `namespace patch {`);
+  L.push(`constexpr const char* NAME = ${JSON.stringify(name)};`, `constexpr int VOICES = ${voices};`);
+  L.push(`struct Voice {`);
+  for (const id of kb) L.push(`  gad::KEYBOARD ${ident(id)};`);
+  for (const id of order) L.push(`  gad::${NATIVE.modules[types[id]].struct} ${ident(id)};`);
+  L.push(`  Voice() {`);
+  for (const id of order) {
+    const m = NATIVE.modules[types[id]];
+    for (const pn of m.params) if (knobs[id][pn] != null) L.push(`    ${ident(id)}.p[gad::${m.struct}::${pn}] = ${lit(knobs[id][pn])};`);
+    for (const [port, flag] of Object.entries(m.flag_when_cabled || {})) if ((into[id] || []).some(e => e.ti === port)) L.push(`    ${ident(id)}.${flag} = true;`);
+  }
+  L.push(`  }`);
+  const src = (e) => `${ident(e.from)}.out[gad::${e.fstruct}::${e.fo}]`;
+  L.push(`  void process(float dt, float& left, float& right) {`);
+  for (const id of order) {
+    const m = NATIVE.modules[types[id]], by = {};
+    for (const e of into[id] || []) (by[e.ti] = by[e.ti] || []).push(src(e));
+    for (const [ti, srcs] of Object.entries(by)) L.push(`    ${ident(id)}.in[gad::${m.struct}::${ti}] = ${srcs.join(" + ")};`);
+    L.push(`    ${ident(id)}.process(dt);`);
+  }
+  for (const [side, port] of [["left", "IN1"], ["right", "IN2"]]) {
+    const srcs = spk.flatMap(s => (into[s] || []).filter(e => e.ti === port).map(src));
+    L.push(`    ${side} = ${srcs.length ? `(${srcs.join(" + ")}) / 10.f` : "0.f"};`);
+  }
+  L.push(`  }`, `};`, `} // namespace patch`, ``);
+  return { header: L.join("\n"), voices, order, notes, warnings: vcv.warnings };
+}
+
+module.exports = { emitNative };
+
+if (require.main === module) {
+  const args = process.argv.slice(2);
+  const file = args.find(a => !a.startsWith("--") && args[args.indexOf(a) - 1] !== "--out" && args[args.indexOf(a) - 1] !== "--name");
+  const opt = (k) => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : null; };
+  if (!file) { console.error("usage: node emit_native.js <file.pdl> [--out <file.h>] [--name \"Title\"]"); process.exit(2); }
+  const r = emitNative(fs.readFileSync(file, "utf8"), { name: opt("--name") || path.basename(file, ".pdl"), source: path.basename(file) });
+  if (r.problems) { r.problems.forEach(p => console.error("cannot build: " + p)); process.exit(1); }
+  r.notes.forEach(n => console.error("note: " + n));
+  if (opt("--out")) fs.writeFileSync(opt("--out"), r.header); else process.stdout.write(r.header);
+}

@@ -47,3 +47,13 @@ What Generative Audio Devices's steward cycles taught the page, and the changes 
    > # voices: N                               // how many notes play at once (1–16); omit it and the archetype decides, usually one
 
 - run · 2026-10-26 · cycle 2 · taught item 3, proposed items 4, 5 for canon
+
+## From cycle 3 — 2026-11-04
+
+6. The second target showed that knob resolution (regions, archetypes, seeds) lives inside the VCV emitter, so a new target has to borrow resolved numbers from it; the middle language is neutral for cables but not yet for knobs. *(offered by the steward, cycle 3)*
+7. **Proposed for canon** · 2026-11-04 · [[Generative Audio Devices]] · § What still does NOT exist, the bullet beginning '**T10**' · canon change owed *(proposed by the steward, cycle 3)*
+   Why: the bullet says no second target exists, and this cycle built one
+   Path: `Projects/Generative Audio Devices.md`
+   > - **A plugin.** The second target exists as of 2026-11-04. The native target turns the same PDL into C++ and a Mac app that plays on the QWERTY keyboard and the MacBook speakers (`native/`; 83/83 with every PDL the project holds going through both targets). What's missing is a VST3 that Live can load, and Max, which waits for the patching standards. Knob resolution still lives inside the VCV emitter, and the native target borrows its numbers.
+
+- run · 2026-11-04 · cycle 3 · taught item 6, proposed item 7 for canon

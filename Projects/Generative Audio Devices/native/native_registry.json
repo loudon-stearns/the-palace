@@ -1,0 +1,18 @@
+{
+  "target": "native",
+  "version": "0.1",
+  "about": "The second target's vocabulary: the PDL module types this target can build, each mapped to a struct in gad_kit.h. Port and parameter names are PDL's own, so the same PDL resolves here and in VCV Rack. Curves are read from VCV Fundamental's source; see each module's `follows`.",
+  "source": { "repo": "https://github.com/VCVRack/Fundamental", "commit": "10dd0160c664770910e5584b7b00498cc48d9ddd", "read": "2026-11-04", "core": "https://github.com/VCVRack/Rack (v2 branch): src/core/MIDI_CV.cpp, src/core/Audio.cpp, src/keyboard.cpp, read 2026-11-04" },
+  "units": "volts on every cable: 1 V/oct pitch, 10 V gates, ±5 V audio; the audio sink divides by 10 (Audio.cpp:267)",
+  "modules": {
+    "VCO":    { "struct": "VCO",   "follows": "VCO.cpp:720-761",  "inputs": ["V/OCT","FM","SYNC","PWM"], "outputs": ["SIN","TRI","SAW","SQR"], "params": ["FREQ","FM_DEPTH","PW","PWM_DEPTH","FM_MODE","SYNC_MODE"], "not_yet": ["SYNC"] },
+    "VCF":    { "struct": "VCF",   "follows": "VCF.cpp:313-366",  "inputs": ["FREQ","RES","DRIVE","IN"], "input_enum": ["FREQ_IN","RES_IN","DRIVE_IN","IN"], "outputs": ["LPF","HPF"], "params": ["FREQ","RES","RES_CV","FREQ_CV","DRIVE","DRIVE_CV"] },
+    "ADSR":   { "struct": "ADSR",  "follows": "ADSR.cpp:43-46, 96-156", "inputs": ["A_CV","D_CV","S_CV","R_CV","GATE","RETRIG"], "input_enum": ["A_IN","D_IN","S_IN","R_IN","GATE","RETRIG"], "outputs": ["ENV"], "params": ["A","D","S","R","A_CV","D_CV","S_CV","R_CV","PUSH"] },
+    "VCA":    { "struct": "VCA",   "follows": "VCA-1.cpp:36-60",  "inputs": ["CV","IN"], "outputs": ["OUT"], "params": ["LEVEL","RESPONSE"], "flag_when_cabled": { "CV": "cvConnected" } },
+    "LFO":    { "struct": "LFO",   "follows": "LFO.cpp:103-200",  "inputs": ["FM","CLOCK","RESET","PWM"], "outputs": ["SIN","TRI","SAW","SQR"], "params": ["FREQ","FM_DEPTH","PW","PWM_DEPTH","OFFSET","INVERT"], "not_yet": ["CLOCK"] },
+    "MIXER":  { "struct": "MIXER", "follows": "Mixer.cpp:35-67",  "inputs": ["IN1","IN2","IN3","IN4","IN5","IN6"], "outputs": ["MIX"], "params": ["LEVEL"] },
+    "MIDI_CV":{ "struct": "KEYBOARD", "role": "keyboard", "follows": "Rack core MIDI_CV.cpp:70-96; keyboard.cpp (Z = C4, Q = C5, velocity 127)", "inputs": [], "outputs": ["PITCH","GATE","VELOCITY"] },
+    "AUDIO_8":{ "role": "speakers", "follows": "Rack core Audio.cpp:262-270 (sample = volts / 10; only Audio-2 normals IN1 to the right, so on Audio-8 IN1 alone plays left only)", "inputs": ["IN1","IN2"], "outputs": [] }
+  },
+  "not_in_this_target_yet": ["SEQ3", "VCMIXER"]
+}
