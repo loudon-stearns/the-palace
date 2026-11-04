@@ -82,7 +82,23 @@
         }
       ],
       "made_against": "9fd3f82b1fef",
-      "stamped": "2026-11-04"
+      "stamped": "2026-11-04",
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · opus · cloud batch 4",
+        "verdicts": [
+          {
+            "file": "SMPTE LTC — rich — encoder.html",
+            "verdict": "keep",
+            "why": "A real test: a reader given only samples reads 50/50 at 24, 25, 29.97 fps and flipped, and the bit map matches SMPTE 12M as I recall it field for field (sync 0011 1111 1111 1101, polarity 27 / 59 at 25 fps). Note: the NRZ control is weak (a biphase reader fails NRZ almost by construction), and edges are 40 µs where 12M asks 25 ± 5 µs; neither changes a result."
+          },
+          {
+            "file": "SMPTE LTC — rich — drop-frame.html",
+            "verdict": "keep",
+            "why": "An independent walker reproduces 2,589,408 frames, +0.600 ms per ten-minute mark, +3.600 ms per hour, a −60.0 to +63.5 ms swing. Note: step 4 says 86.4 ms a day and the offer says 86.3. Both are right but measured at different marks (label 24:00:00;00 vs wall-clock 24 h): pick one and name the mark."
+          }
+        ]
+      }
     },
     {
       "heading": "Open Questions",
@@ -106,7 +122,18 @@
         }
       ],
       "made_against": "8268c2be33d2",
-      "stamped": "2026-11-04"
+      "stamped": "2026-11-04",
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · opus · cloud batch 4",
+        "verdicts": [
+          {
+            "file": "SMPTE LTC — rich — backward.html",
+            "verdict": "remake",
+            "why": "The yes holds: a reversed 1× sample buffer reads 50/50 at three rates. The edge does not. Speeds are time-scaled (ideal anti-alias); through a plain resampler the edge is ±6× (−8× 24/50, −12× 50/50), so the rule's 'must fail at ±12×, else reading something other than the audio' is false. Recast ±12/16× as the expected limit near Nyquist, add a reversed-buffer row, and name the time-scaling in the rule."
+          }
+        ]
+      }
     }
   ]
 }
