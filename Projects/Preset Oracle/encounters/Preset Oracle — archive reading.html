@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Preset Oracle — archive reading</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --ink: #e9e0cf; --dim: #9a8f7c; --ground: #14110e; --card: #1d1914;
+    --edge: #3a3128; --glow: #d9a85b; --rose: #c97a7a; --steel: #7f9bb0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: radial-gradient(ellipse at 50% 0%, #241d16 0%, var(--ground) 70%);
+    color: var(--ink); font: 17px/1.5 "Iowan Old Style", "Palatino", Georgia, serif;
+    min-height: 100vh; padding: 28px 16px 60px;
+  }
+  main { max-width: 960px; margin: 0 auto; }
+  h1 { font-weight: normal; letter-spacing: .08em; font-size: 15px; text-transform: uppercase; color: var(--dim); margin: 0 0 4px; }
+  .sub { color: var(--dim); font-size: 14px; margin: 0 0 18px; font-style: italic; }
+  .step { color: var(--glow); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; margin: 34px 0 10px; }
+  .verdict { font-size: 19px; margin: 0 0 6px; }
+  .verdict.thin { color: var(--rose); }
+  .note { font-size: 13px; color: var(--dim); }
+
+  /* i · the altar: one candle per dealt card, one flame per kept encounter */
+  .altar { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; }
+  .candle { width: 112px; text-align: center; cursor: pointer; }
+  .candle .flames { height: 46px; display: flex; justify-content: center; align-items: flex-end; gap: 3px; }
+  .flame { width: 10px; height: 26px; border-radius: 50% 50% 45% 45% / 70% 70% 30% 30%;
+    background: radial-gradient(ellipse at 50% 80%, #fff3c8 0%, var(--glow) 45%, rgba(217,168,91,0) 75%);
+    animation: sway 2.6s ease-in-out infinite; transform-origin: 50% 100%; }
+  .flame.agent { background: radial-gradient(ellipse at 50% 80%, #e4f0fa 0%, var(--steel) 45%, rgba(127,155,176,0) 75%); }
+  .flame:nth-child(2) { animation-delay: -.7s; } .flame:nth-child(3) { animation-delay: -1.3s; }
+  @keyframes sway { 0%,100% { transform: rotate(-3deg) scaleY(1); } 50% { transform: rotate(4deg) scaleY(1.12); } }
+  .wick { width: 2px; height: 6px; background: #4a3f33; margin: 0 auto; }
+  .wax { height: 64px; border: 1px solid var(--edge); border-radius: 2px 2px 0 0; background: linear-gradient(#2a241c, #1a1611);
+    padding: 6px 5px; font-size: 11.5px; line-height: 1.25; display: flex; align-items: center; justify-content: center; }
+  .candle.unlit .wax { color: var(--dim); opacity: .6; }
+  .candle.on .wax { border-color: var(--glow); box-shadow: 0 0 18px rgba(217,168,91,.25); }
+  .candle.off-deck .wax { border-style: dashed; }
+  .legend { margin-top: 10px; font-size: 13px; color: var(--dim); }
+  .legend i { display: inline-block; width: 8px; height: 14px; border-radius: 50% 50% 40% 40%; vertical-align: -2px; margin: 0 4px 0 10px; }
+
+  /* ii · the clock strip */
+  .strip { position: relative; height: 60px; border-bottom: 1px solid var(--edge); margin: 6px 0 22px; }
+  .promise { position: absolute; top: 0; bottom: 0; background: rgba(217,168,91,.07); border-left: 1px dashed var(--edge); border-right: 1px dashed var(--edge); }
+  .promise span { position: absolute; top: 2px; left: 6px; font-size: 11px; color: var(--dim); letter-spacing: .08em; text-transform: uppercase; }
+  .tick { position: absolute; bottom: -18px; font-size: 11px; color: var(--dim); transform: translateX(-50%); }
+  .dot { position: absolute; bottom: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--glow); transform: translateX(-50%); }
+  .dot.agent { background: var(--steel); }
+
+  /* iii · the spread */
+  .fields button {
+    font: inherit; font-size: 14px; color: var(--ink); background: transparent; border: 1px solid var(--edge);
+    border-radius: 2px; padding: 7px 12px; margin: 0 6px 8px 0; cursor: pointer;
+  }
+  .fields button:hover { border-color: var(--glow); }
+  .fields button[aria-pressed="true"] { border-color: var(--glow); color: var(--glow); box-shadow: 0 0 14px rgba(217,168,91,.2); }
+  .spread { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 12px; perspective: 900px; }
+  .leaf {
+    flex: 1 1 280px; max-width: 440px; background: var(--card); border: 1px solid var(--edge); border-radius: 3px;
+    padding: 16px 18px 14px; position: relative; font-size: 15px;
+    transform: rotate(var(--tilt)); transition: transform .35s ease, box-shadow .35s ease;
+  }
+  .leaf:hover { transform: rotate(0) translateY(-3px); box-shadow: 0 0 30px rgba(217,168,91,.12); }
+  .leaf.agent { border-color: #36444f; }
+  .leaf .who { font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); margin: 0 0 8px; }
+  .leaf .who b { color: var(--glow); font-weight: normal; }
+  .leaf.agent .who b { color: var(--steel); }
+  .leaf .text { white-space: pre-wrap; margin: 0; }
+  .leaf .blank { color: var(--dim); font-style: italic; }
+  .seal { position: absolute; top: 10px; right: 12px; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--rose); border: 1px solid var(--rose); padding: 1px 6px; border-radius: 2px; transform: rotate(4deg); }
+  .glitch { animation: flick 9s infinite steps(1); }
+  @keyframes flick { 0%,96%,100% { opacity: 1; } 97% { opacity: .55; transform: translateX(1px) rotate(var(--tilt)); } 98% { opacity: .9; } }
+
+  /* iv · what it can't say yet */
+  ul.owed { margin: 6px 0 0; padding-left: 20px; font-size: 15px; }
+  ul.owed li { margin: 4px 0; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Preset Oracle · archive reading</h1>
+  <p class="sub">Every kept encounter, read together. Not a score: the place where one card's teaching shows against another's.</p>
+  <p class="verdict" id="verdict">—</p>
+  <p class="note" id="stamp"></p>
+
+  <div class="step">i · which cards have been answered</div>
+  <div class="altar" id="altar"></div>
+  <div class="legend"><i style="background:var(--glow)"></i>a student's encounter<i style="background:var(--steel)"></i>an agent's, read as calibration · an unlit candle is a card no one has answered · a dashed one was drawn from outside the deck</div>
+
+  <div class="step">ii · how long until they committed</div>
+  <div class="strip" id="strip"></div>
+  <p class="note" id="clocknote"></p>
+
+  <div class="step">iii · lay out one part of every record</div>
+  <div class="fields" id="fields"></div>
+  <div class="spread" id="spread"></div>
+
+  <div class="step">iv · what this reading can't say yet</div>
+  <ul class="owed" id="owed"></ul>
+</main>
+<script>
+const ARCHIVE = /*ARCHIVE*/{"readAt":"2026-11-04","deckVersion":"draft-1","dealt":[{"id":"spinoza-1","name":"Conatus in a Locked Room","thinker":"Spinoza"},{"id":"parmenides-1","name":"Parmenides Dying Alone in a Warehouse","thinker":"Parmenides"},{"id":"merleau-ponty-1","name":"Bioluminescence in Broken Glass","thinker":"Merleau-Ponty"},{"id":"heidegger-1","name":"The Dwelling Under the Bridge","thinker":"Heidegger"},{"id":"barthes-1","name":"The Pleasure Boat Upside Down","thinker":"Barthes"},{"id":"deleuze-1","name":"Difference Without a Copy","thinker":"Deleuze"},{"id":"glassblower","name":"A Glassblower Remembering an Argument with Their Teacher","thinker":"The glassblower proof"}],"waiting":40,"records":[{"file":"Preset Oracle — encounter — 2026-11-03 — Parmenides Dying Alone in a Warehouse.md","date":"2026-11-03","challenge":"Parmenides Dying Alone in a Warehouse","source":"seed deck","maker":"Preset Oracle's steward (Claude, an AI) — the oracle answering its own card","setting":"steward cycle 2, headless; no hands, no ears; Python as the synthesizer","minutes":null,"consent":"quote-named","kind":"agent","card":{"anchor":"Parmenides — being does not change; becoming is illusion","constraint":"Use feedback routing only, no filter envelopes","direction":"Industrial machinery becoming sentient"},"parts":{"The instrument":"A Python render script, not a synth. My first reach was for a Karplus-Strong string, a delay line that rings when you pluck it, because it is the feedback instrument I know best. The card let me keep it, but only if one click starts the sound and nothing is ever fed in again: four delay loops as the machines, a feedback delay network as the warehouse.","The moves":"1. One click into four delay loops, tuned near 55, 82, 110 and 165 Hz, each saturating through tanh. 2. A fixed one-pole lowpass inside each loop; it never moves, so there is no filter envelope. 3. The only things allowed to change are routing gains: the cross-feed between machines rises over the first twenty seconds (becoming sentient), then the loop gain sinks from 26 s (dying). 4. The warehouse is itself feedback: eight delay lines through a Householder matrix. 5. Take 1 latched to a stuck value. For take 2 I inverted every loop's polarity, ran it hot (gain 1.35), and put a fixed DC blocker in each loop. 6. Committed take 2 without listening; I can't listen. I measured loudness and brightness second by second, and that was my ear.","The recording":"encounters/parmenides-steward/parmenides-take2.wav (40 s, stereo, 48 kHz, on the Mac, out of git). The miss beside it is parmenides-take1.wav.","Their reading":"Parmenides says what is cannot change; motion is how being looks to a mortal who can't see it whole. So I built a sound that is only ever one state, a loop holding itself up, and gave it every chance to change. The machines couple to each other more and more, the way a factory floor starts to sound like it is thinking. If becoming is an illusion, the coupling should change the surface and not the thing. Dying, for Parmenides, is the one event that should be impossible, so the end of the piece tests him: I pull the loop gain down and see whether being can stop.","The surprise":"Parmenides won twice. First, the strongest partials at 2, 14 and 24 seconds are the same six frequencies (137–246 Hz): the coupling rose from nothing to its full value and changed the brightness, from about 1015 to 1190 Hz, but did not move a single pitch. The becoming really was surface. Second, the dying didn't come. I sank the gain from 1.35 to 0.8 over the last fourteen seconds and the warehouse is only 2 dB quieter at the end. Only the brightness fell, to about 750 Hz, and the pitches crowded down onto 138 and 167 Hz. I meant a death and made a machine that will not stop being. I had also set out to tune near 55 Hz; inverting the loops moved everything, and I didn't predict where. That was measured, not heard, and an ear may disagree.","The miss":"Take 1 (parmenides-take1.wav): loops at positive gain just above one, no DC blocker. After four seconds of a buzzing start, the whole network froze onto a constant offset, a flat line with no pitch at all, and held it for thirty seconds. It is the most literal Parmenides possible: being that does not change, because nothing is happening. It answered the anchor and missed the direction: no machinery, nothing becoming sentient, just a stuck value. I threw it away and kept it.","Teacher's note":"This is the archive's first record, and it is not a student's. An agent took the card to test whether the record holds a real encounter before a person is asked to fill it. What it showed about the form: an agent's 'surprise' is a measured asymmetry, not a heard one, and that should be said in the record, never smoothed over. A human record's surprise will be different in kind. Read this one as a calibration, not a data point about students."}}],"sections":["The instrument","The moves","The recording","Their reading","The surprise","The miss","Teacher's note"]}/*/ARCHIVE*/;
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const R = ARCHIVE.records;
+const students = R.filter((r) => r.kind === "student");
+const agents = R.filter((r) => r.kind === "agent");
+const READS_ACROSS = 3; // below this many student records, a cross-reading is anecdote
+
+$("verdict").textContent = students.length >= READS_ACROSS
+  ? `${students.length} students have answered the oracle. The reading can begin.`
+  : students.length === 0
+    ? "No student has answered the oracle yet. The archive is waiting for its first person."
+    : `${students.length} student record${students.length > 1 ? "s" : ""}. Not enough to read across; ${READS_ACROSS} is where comparing starts to mean something.`;
+if (students.length < READS_ACROSS) $("verdict").classList.add("thin");
+$("stamp").textContent = `Read ${ARCHIVE.readAt} · ${R.length} record${R.length === 1 ? "" : "s"} on file (${students.length} student, ${agents.length} agent) · deck ${ARCHIVE.deckVersion}: ${ARCHIVE.dealt.length} cards dealt to students, ${ARCHIVE.waiting} still waiting at the vetting table.`;
+
+// i · the altar
+const byName = (n) => R.filter((r) => r.challenge === n);
+let focus = null;
+const candles = ARCHIVE.dealt.map((c) => ({ name: c.name, offDeck: false }));
+for (const r of R) if (!candles.some((c) => c.name === r.challenge)) candles.push({ name: r.challenge, offDeck: true });
+for (const c of candles) {
+  const recs = byName(c.name);
+  const d = el("div", "candle" + (recs.length ? "" : " unlit") + (c.offDeck ? " off-deck" : ""));
+  d.dataset.name = c.name;
+  const f = el("div", "flames");
+  recs.slice(0, 3).forEach((r) => f.appendChild(el("div", "flame" + (r.kind === "agent" ? " agent" : ""))));
+  if (recs.length > 3) f.appendChild(el("span", "note", "+" + (recs.length - 3)));
+  d.append(f, el("div", "wick"), el("div", "wax", c.name));
+  d.title = recs.length ? `${recs.length} encounter${recs.length > 1 ? "s" : ""} — click to read only these` : "no one has answered this card";
+  d.onclick = () => { focus = focus === c.name ? null : c.name; draw(); };
+  $("altar").appendChild(d);
+}
+
+// ii · the clock strip, 0–60 minutes, the page's promise of 30–45 shaded
+const MAX = 60, pct = (m) => (Math.min(m, MAX) / MAX * 100) + "%";
+const promise = el("div", "promise"); promise.style.left = pct(30); promise.style.width = (15 / MAX * 100) + "%";
+promise.appendChild(el("span", null, "the page's 30–45"));
+$("strip").appendChild(promise);
+for (const m of [0, 15, 30, 45, 60]) { const t = el("div", "tick", m + "′"); t.style.left = pct(m); $("strip").appendChild(t); }
+const timed = R.filter((r) => r.minutes != null);
+for (const r of timed) { const d = el("div", "dot" + (r.kind === "agent" ? " agent" : "")); d.style.left = pct(r.minutes); d.title = `${r.challenge} · ${r.minutes} min`; $("strip").appendChild(d); }
+const sTimed = timed.filter((r) => r.kind === "student").map((r) => r.minutes).sort((a, b) => a - b);
+$("clocknote").textContent = sTimed.length
+  ? `${sTimed.length} student${sTimed.length > 1 ? "s" : ""} timed · median ${sTimed.length % 2 ? sTimed[(sTimed.length - 1) / 2] : (sTimed[sTimed.length / 2 - 1] + sTimed[sTimed.length / 2]) / 2} min · ${sTimed.filter((m) => m > 45).length} ran past 45.`
+  : `No student has been timed yet. ${R.length - timed.length} record${R.length - timed.length === 1 ? "" : "s"} on file carr${R.length - timed.length === 1 ? "ies" : "y"} no time.`;
+
+// iii · the spread
+const FIELDS = ["The surprise", "Their reading", "The instrument", "The miss", "The moves", "Teacher's note"];
+let field = FIELDS[0];
+for (const f of FIELDS) {
+  const b = el("button", null, f.replace(/^The |^Their /, (m) => m === "Their " ? "their " : "").toLowerCase());
+  b.dataset.field = f;
+  b.onclick = () => { field = f; draw(); };
+  $("fields").appendChild(b);
+}
+function draw() {
+  document.querySelectorAll(".fields button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.field === field)));
+  document.querySelectorAll(".candle").forEach((c) => c.classList.toggle("on", c.dataset.name === focus));
+  const sp = $("spread"); sp.textContent = "";
+  const shown = R.filter((r) => !focus || r.challenge === focus);
+  // students first, agents after: a calibration never leads the reading
+  shown.sort((a, b) => (a.kind === b.kind ? 0 : a.kind === "student" ? -1 : 1));
+  if (!shown.length) { sp.appendChild(el("p", "note", focus ? "No one has answered this card yet." : "Nothing kept yet.")); return; }
+  shown.forEach((r, i) => {
+    const leaf = el("div", "leaf glitch" + (r.kind === "agent" ? " agent" : ""));
+    leaf.style.setProperty("--tilt", ((i % 3) - 1) * 0.8 + "deg");
+    const who = el("p", "who");
+    const b = el("b", null, r.challenge); who.append(b, ` · ${r.kind === "agent" ? "agent — surprise measured, not heard" : r.consent === "quote-named" ? r.maker : "a student"} · ${r.date}${r.minutes != null ? " · " + r.minutes + " min" : ""}`);
+    leaf.appendChild(who);
+    const t = r.parts[field];
+    leaf.appendChild(t ? el("p", "text", t) : el("p", "text blank", "left blank"));
+    if (r.consent === "keep-private") leaf.appendChild(el("span", "seal", "private · not for quoting"));
+    sp.appendChild(leaf);
+  });
+}
+draw();
+
+// iv · what it can't say yet — the questions the archive exists to answer, and how far each is
+const answered = new Set(students.map((r) => r.challenge));
+const owed = [
+  [`Which cards teach and which only puzzle`, answered.size >= 2 ? `${answered.size} cards have student answers` : `needs student answers on at least two cards; ${answered.size} so far`],
+  [`What kinds of surprise recur`, students.filter((r) => r.parts["The surprise"]).length >= READS_ACROSS ? "enough surprises to compare" : `needs ${READS_ACROSS} student surprises; ${students.filter((r) => r.parts["The surprise"]).length} so far`],
+  [`Whether the deliberate incompleteness holds — committing inside 30–45 minutes`, sTimed.length >= READS_ACROSS ? `${sTimed.filter((m) => m <= 45).length} of ${sTimed.length} timed students committed by 45` : `needs ${READS_ACROSS} timed students; ${sTimed.length} so far`],
+  [`Whether a human surprise differs in kind from the agent's measured one`, students.length && agents.length ? "both kinds are on file — read their surprises side by side" : students.length ? "no agent record to compare" : "needs one student record"],
+];
+for (const [q, s] of owed) { const li = el("li"); li.append(q + " — "); li.appendChild(el("span", "note", s)); $("owed").appendChild(li); }
+</script>
+</body>
+</html>

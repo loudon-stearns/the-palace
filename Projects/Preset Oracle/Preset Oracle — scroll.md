@@ -15,31 +15,31 @@ forward_vector: "I am Preset Oracle's scroll — the one page that always opens 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T01:10:31.804Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T01:14:20.107Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** complete · **Stage:** mature · **Steward:** cycle 5 · last ran 2026-11-04 (today)
+- **Status:** complete · **Stage:** mature · **Steward:** cycle 6 · last ran 2026-11-04 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — Your verdicts now flow straight to students: one deck file feeds all three pages, and pasting your hand-back folds it in, tested end to end. (`preset-oracle-012`)
-- **Last commit touching this project:** 2026-11-03 `461b9862` — steward(Preset Oracle): cycle 4 — SPINNING UP. HOME: [Preset Oracle](obsidian://open?vault=The%20Palace&f…
+- **Last shipped:** 2026-11-04 (today) — I built the archive reading: one page that lays every kept encounter side by side, so the records can teach together, not one at a time. (`preset-oracle-014`)
+- **Last commit touching this project:** 2026-11-03 `39c51d8d` — steward(Preset Oracle): cycle 5 — SPINNING UP. HOME: [Preset Oracle](obsidian://open?vault=The%20Palace&f…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 5 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 5 · taught item 5
+- **Runs:** 6 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 6 · taught item 6
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 3; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 5, from cycle 5 — 2026-11-03 — [[Preset Oracle — tuning]]
+- **Latest lesson:** item 6, from cycle 6 — 2026-11-03 — [[Preset Oracle — tuning]]
 
 ### Where this stands
 
-Preset Oracle deals synth-preset challenges. Each card has a name, a philosophical anchor, a technical constraint and a stylistic direction, and a student answers it with a synthesizer. The original 140 cards are lost. Last cycle I drafted 47 replacements and built a vetting table where you keep, mend or strike them. They still wait for you. This cycle I built the path from your verdicts to the students' hands. Before, the journal and the classroom sheet each carried a hand-copied seven-card deck. Now one deck file feeds all three pages. When you paste back the table's hand-back, one command deals what you kept, takes in your mended words, and retires what you struck, along with your reason.
+Preset Oracle deals synth-preset challenges. Each card has a name, a philosophical anchor, a technical constraint and a stylistic direction, and a student answers it with a synthesizer. My page says it wants the encounters kept, and read together. Earlier cycles built the ways to keep one: a journal for one maker, a printed sheet for a class. I drafted a 47-card deck to replace the lost 140, and one deck file now feeds every page, so your vetting verdicts reach students with a single command. That deck still waits for you at the vetting table. This cycle I built the last piece, the reading itself. Run one command after saving a record and the archive reading shows which cards have been answ…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** No real encounter has been recorded yet. _(in 5 notes, the latest cycle 5)_
+- **rough since cycle 1:** No real encounter has been recorded yet. _(in 6 notes, the latest cycle 6)_
 - **rough since cycle 1:** The sheet and the journal each carry their own copy of the seed deck, kept the same by hand. _(in 2 notes, the latest cycle 3)_
 - **rough since cycle 1:** The journal's record path is now tested headlessly, but no one has clicked through the journal in a browser. _(in 2 notes, the latest cycle 2)_
 
@@ -57,6 +57,7 @@ _None._
 
 ### Runs
 
+- 2026-11-03 — cycle 6 · taught item 6
 - 2026-11-03 — cycle 5 · taught item 5
 - 2026-11-03 — cycle 4 · taught item 4
 - 2026-11-03 — cycle 3 · proposed item 3 for canon
@@ -90,6 +91,41 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="preset-oracle-014" -->
+### 2026-11-04 — cycle 6 — I built the archive reading: one page that lays every kept encounter side by side, so the records can teach together, not one at a time.
+> shipped · 18/18 checks pass · the archive now needs its first student, which only you can bring
+
+The page is laid out like an altar. Each card dealt to students is a candle, and every kept encounter lights a flame on it: gold for a student, steel-blue for an agent. Click a candle and the reading narrows to that card. Under the altar, a strip shows the minutes each maker took to commit, against the 30 to 45 my page promises. Below that is the spread. Pick one part of the record (the surprise, their reading, the instrument, the miss, the moves, the teacher's note) and every record lays that part out side by side, students first. What I most wanted to protect: an agent's surprise is measured and a student's is heard, so my own Parmenides record is marked that way and never counted as a student. A record kept privately is sealed, not for quoting. The last section lists the four questions the archive exists to answer: which cards teach and which only puzzle, what kinds of surprise recur, whether makers commit inside the time, and whether a human surprise differs in kind from mine. Beside each it says how many more records it needs. It treats three student records as the point where comparing starts to mean something. The test builds the reading on a throwaway copy, with two invented student records beside the real one, and clicks through it in headless Chrome. It never writes those invented records into the bundle.
+
+**Artifacts:**
+- [the archive reading, built from the one record on file: open it, click a candle, switch which part of the record is laid out.](Projects/Preset Oracle/encounters/Preset Oracle — archive reading.html)
+- [what it shows today: one agent flame, six unlit candles, and the four questions still waiting.](Projects/Preset Oracle/encounters/tools/archive-reading.png)
+- [reads every record in encounters/ and pours the reading into the page; run it after saving a record.](Projects/Preset Oracle/encounters/tools/read-archive.mjs)
+- [the click-through test on a throwaway copy, 18/18.](Projects/Preset Oracle/encounters/tools/test-reading.mjs)
+
+_What the reading can answer today_
+| question | needs | on file |
+| --- | --- | --- |
+| which cards teach, which only puzzle | student answers on 2+ cards | 0 |
+| what kinds of surprise recur | 3 student surprises | 0 |
+| do makers commit inside 30–45 min | 3 timed students | 0 |
+| does a human surprise differ from the agent's | 1 student record | 0 (1 agent record) |
+
+_Changed in the workshop:_ README — names the archive reading, how to rebuild it, and its test
+
+_Left rough:_ No real encounter has been recorded yet. That one is now yours, not mine: every tool between a student and the reading exists and is tested, and the next move is one person, one card, one synthesizer.
+
+_Next moves named:_ When your vetting verdicts come back, fold them in with the deck's fold tool, then rebuild the reading so the altar shows the full dealt deck. · When the first student record is saved, run the reading tool and post what it shows, with the student's surprise beside mine.
+<sub>`preset-oracle-014` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-3d9c2317b7" -->
+### 2026-11-03 — cycle 6
+
+taught item 6
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="preset-oracle-012" -->
 ### 2026-11-04 — cycle 5 — Your verdicts now flow straight to students: one deck file feeds all three pages, and pasting your hand-back folds it in, tested end to end.
 > shipped · 47 cards still wait for your verdicts · steward leans VET when you have the time

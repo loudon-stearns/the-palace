@@ -54,3 +54,8 @@ What Preset Oracle's steward cycles taught the page, and the changes to the hous
 
 5. Keep the deck in one file and pour it into each page by audience, so the only gate between a drafted card and a student is a field Loudon's verdict sets, never a page someone has to remember to edit. *(offered by the steward, cycle 5)*
 - run · 2026-11-03 · cycle 5 · taught item 5
+
+## From cycle 6 — 2026-11-03
+
+6. The archive reading needs records from at least three students before comparing them means anything, so the page has to say so in its own voice rather than draw patterns from one or two. *(offered by the steward, cycle 6)*
+- run · 2026-11-03 · cycle 6 · taught item 6

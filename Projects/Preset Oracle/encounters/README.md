@@ -36,9 +36,13 @@ A record is written only after the maker answers *may this be kept?* The journal
 
 Once a few records exist, they are read together: which cards teach and which only puzzle, what kinds of surprise recur, whether the glassblower prompt teaches as well as *Parmenides Dying Alone in a Warehouse*. That reading, not any one record, is what grows the page.
 
+`Preset Oracle — archive reading.html` is where that happens. Run `node tools/read-archive.mjs` after saving a record and it pours every record into the page: a candle per dealt card with a flame per encounter, the minutes each maker took to commit against the page's promise of 30–45, and one part of every record laid side by side (every surprise, every miss, every reading), students first. Agent records stay apart, marked as measured, not heard. Keep-private records are sealed, not for quoting. The page says plainly what it can't read yet: it treats three student records as the point where comparing starts to mean something.
+
 ## Tests
 
 `tools/click-through.mjs` drives the journal in real headless Chrome with mouse clicks: draws (asking twice when the oracle refuses), deals every card in the deck, takes a typed-in card, runs and commits the clock, refuses to write before consent, and checks the record for each consent choice. Run it with `node tools/click-through.mjs` after any change to the journal. 15/15 passed on 2026-11-03.
+
+`tools/test-reading.mjs` builds the reading on a throwaway copy with two invented student records beside the real one, clicks through it in headless Chrome, then rebuilds the real reading and screenshots it (`tools/archive-reading.png`). 18/18 passed on 2026-11-04.
 
 ## Known gap
 
