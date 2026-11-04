@@ -32,10 +32,10 @@ ok(Math.abs(rows[1].x - 0.5) < 1e-3, 'bowl under F = 1 sits at F/k = 0.5', rows[
 ok(rows[2].pass && Math.abs(rows[2].x) < 0.005, 'keeper under F = 1 holds within the rule (|x| < 0.005)', rows[2].x.toExponential(2) + ', pushing back ' + rows[2].held.toFixed(3));
 ok(!rows[3].pass && Math.abs(rows[3].x - 1 / 6) < 1e-3, 'control: keeper with no memory fails the rule, at F/(k + Kp) = 0.1667', rows[3].x.toFixed(4));
 ok(!rows[4].pass && Math.abs(rows[4].x - 0.25) < 1e-3, 'keeper pushed past its power gives way to (F − U)/k = 0.25', rows[4].x.toFixed(4));
-ok(t.distinctionReal, 'the page\'s line is real in the model, and the rule could fail (the control fails it)');
+ok(t.distinctionReal, 'the line can be drawn in the model (every row is fixed by its form: 0, F/(k + Kp), (F − U)/k); the control fails the rule');
 // the null: the rule must also fail a keeper so weak in memory it can't come home in 30 s
 P.P.Ki = 0.05; const weak = P.lean('keeper', 1); P.P.Ki = 6;
-ok(Math.abs(weak.x) >= 0.005, 'null: a keeper with almost no memory (Ki = 0.05) fails the rule', weak.x.toFixed(4));
+ok(Math.abs(weak.x) >= 0.005, 'window: a slow keeper (Ki = 0.05) is still out at 30 s and fails the rule only on the window, not the line', weak.x.toFixed(4));
 
 // ---------- five voices coupled ----------
 const K = core('Spinoza Conatus — rich — five voices coupled.html', 'kura-core', 'KURA');
@@ -51,6 +51,8 @@ ok(!even[0].locked && !anc[0].locked, 'below the lock (0.5×) neither crowd lock
 ok(even.slice(1).every(r => r.locked && !r.dominates && Math.abs(r.omega - mean) < 1e-6), 'even crowd: locked at every K from 1.05× to 20×, pitch on the mean (220.4), no voice dominates', even.slice(1).map(r => (220 + r.omega).toFixed(6)).join(' '));
 ok(anc.slice(1).every(r => r.locked && r.dominates && K.NAMES[r.who] === 'E'), 'control: anchored crowd locked at E\'s own 226 Hz at every K past its lock, the rule reads domination', anc.slice(1).map(r => (220 + r.omega).toFixed(6)).join(' '));
 ok(even[4].same && !even[1].same, 'even crowd: sameness grows with K (spread under 5° at 20×, not at 1.05×)', even[1].spread.toFixed(2) + '° → ' + even[4].spread.toFixed(2) + '°');
+const overN = even[2].run.filter((f, i) => Math.abs(f - K.NAT[i]) > 0.1).length;
+ok(overN === 5, 'overridden, by the rule said first: 5 of 5 voices more than 0.1 Hz from their own at 2× (follows from locked)', overN);
 const lead2 = even[2].lead, order = [0, 1, 2, 3, 4].sort((a, b) => lead2[a] - lead2[b]).join('');
 ok(order === '01234', 'leads at 2× in the order of the voices\' own pitches (A lowest … E highest)', lead2.map(v => v.toFixed(1)).join(' '));
 ok(Math.abs(even[2].run[0] - K.NAT[0] - 4.4) < 1e-3 && Math.abs(K.NAT[4] - even[2].run[4] - 5.6) < 1e-3, 'in the even lock A is moved 4.40 Hz up and E 5.60 Hz down: sounding pitch overridden', (even[2].run[0] - K.NAT[0]).toFixed(4) + ' / ' + (even[2].run[4] - K.NAT[4]).toFixed(4));

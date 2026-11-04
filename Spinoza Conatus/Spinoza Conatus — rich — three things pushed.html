@@ -71,7 +71,7 @@
 <main>
   <div class="eyebrow">Spinoza Conatus · persisting and striving · five steps</div>
   <h1>Three things pushed</h1>
-  <p class="lead">The opening says conatus is “not static preservation” but “active self-maintenance.” That is a definition, not a law of nature, and no model can tell you what Spinoza meant. What a model can do is check whether the line the page draws is a real line, one you can measure, and then see which side of it the page’s own first example falls on. Three things, each with a place of its own at the gold mark. Five steps; the last one measures. Silent.</p>
+  <p class="lead">The opening says conatus is “not static preservation” but “active self-maintenance.” That is a definition, not a law of nature, and no model can tell you what Spinoza meant. What a model can do is show that a line like it can be drawn, one you can measure, and then hold the page’s own first example up to it, two ways. Three things, each with a place of its own at the gold mark. Five steps; the last one measures. Silent.</p>
 
   <nav class="rail" aria-label="Steps" id="rail"></nav>
 
@@ -97,6 +97,7 @@
     <div id="testBox" hidden>
       <div class="rule"><span class="eyebrow">Said before the run</span>
         The model is deterministic, so there is no chance level to beat. <b>The rule:</b> the page’s line between static preservation and active self-maintenance is a real line here if, after 30 seconds of a steady push F = 1, the keeper sits within 1% of the bowl’s offset from its own place (|x| &lt; 0.005, the bowl’s being F/k = 0.5), and the bowl sits at 0.5. <b>It fails</b> if the keeper sits at 0.005 or further. <b>The control:</b> the same keeper with its memory taken away still spends effort; it must fail the rule, or the rule is too loose to tell effort from keeping.
+        <br><br><b>What this can and can’t show.</b> Every row is fixed by the model’s form before it runs: with a memory and a push under its power, standing still needs ∫x to stop changing, so x = 0 exactly; with no memory, x = F/(k + Kp) = 0.167; past its power, x = (F − U)/k = 0.25; the bowl, F/k = 0.5. So the test shows that the line can be drawn, that a thing can be built on each side of it. It does not show that the page draws it there.
       </div>
       <div class="rowb"><button class="go" id="runTest">Run the test</button><span class="eyebrow" id="testState"></span></div>
       <table id="testTable" hidden>
@@ -195,7 +196,7 @@ if (typeof module !== 'undefined') module.exports = PERSIST;
       eq2: ['', ''],
       tryText: 'Set the push to 1 and watch where each settles. Then push 2 against a keeper of power 1.5, and raise its power past 2.' },
     { short: 'the test', lanes: ['rock', 'bowl', 'keeper'], lean: true, test: true, title: 'Is the line real, and where is the rock?',
-      say: 'The opening draws a line: static preservation on one side, active self-maintenance on the other. The test below measures whether the line is real in this model, with a control that can fail it. Then the reading asks which side the page’s own rock is on. The keeper’s memory button runs the control live.',
+      say: 'The opening draws a line: static preservation on one side, active self-maintenance on the other. The test below shows the line can be drawn in this model, with a control that tells keeping from effort. Then the reading holds the page’s own rock up to it, in two readings of Spinoza. The keeper’s memory button runs the control live.',
       eq1: ['', ''], eq2: ['', ''],
       tryText: 'Run the test, then turn the keeper’s memory off and lean on it: it still pushes back, and it still gives way.' }
   ];
@@ -252,12 +253,12 @@ if (typeof module !== 'undefined') module.exports = PERSIST;
         body.appendChild(tr);
       });
       $('testTable').hidden = false;
-      $('testState').textContent = r.distinctionReal ? 'the line is real here: the keeper holds within ' + r.limit.toFixed(3) + ', the control does not' : 'the rule failed: the line is not real in this model';
+      $('testState').textContent = r.distinctionReal ? 'the line can be drawn here: the keeper holds within ' + r.limit.toFixed(3) + ', the control does not' : 'the rule failed: the line can’t be drawn in this model';
       var rd = $('reading'); rd.hidden = false;
       rd.innerHTML = '';
-      [ 'So the second paragraph’s line is a real one, and the control says what draws it. Effort alone doesn’t: the keeper with no memory pushes back the whole time and still gives way, a third of the bowl’s offset. What brings a thing all the way home under a steady push is a push of its own that remembers where home is, and keeps it up for as long as the lean lasts. That is a fair picture of “active self-maintenance,” and the bowl is a fair picture of what it is set against.',
-        'Now the rock. It has no place it comes back to and it spends nothing. By the second paragraph it is not even static preservation; it is the thing the line was drawn to leave out. The first paragraph says the opposite: “A rock persists in being a rock.” The page sorts its own first example two ways, one per paragraph, and doesn’t say so.',
-        'The rock does keep one thing: its state, at rest or moving, until something else changes it. That is inertia, and Spinoza’s own physics states it, in the short treatise on bodies after Proposition 13 of Part II of the Ethics. Many readers take the conatus of Part III, Proposition 6 to grow from that principle; some argue it can’t. The model can’t settle what Spinoza meant. It shows that the page holds two readings of conatus at once: a broad one in which a rock strives, and a narrow, active one in which only something like the keeper does.' ]
+      [ 'So the line can be drawn, and the control says what draws it. Effort alone doesn’t: the keeper with no memory pushes back the whole time and still gives way, a third of the bowl’s offset. What brings a thing all the way home under a steady push is a push of its own that remembers where home is. That is one fair picture of “active self-maintenance,” and the bowl is a fair picture of what it is set against.',
+        'Now the rock, with one caution first: this model measures place, and the page speaks of being. A rock at 24.3 is as much a rock as a rock at 0, and nothing here breaks it. So the model can’t say whether the rock persists in being a rock. What it can show is two ways of reading the word “active,” and they meet in the same two propositions of the Ethics.',
+        'Part III, Proposition 6: each thing, as far as it is in itself (quantum in se est), strives to persevere in its being. That phrase was the period’s formula for inertia: a body keeps its state of rest or motion until something else changes it, as Spinoza’s own physics states in the lemmas after Part II, Proposition 13. Read so, the rock strives, as the page’s first paragraph says. Proposition 7: that striving is nothing but the thing’s actual essence, a power of its own. Read so, “active” in the page’s second paragraph can mean Spinoza’s sense, which the rock has too, or the keeper’s sense, a thing that spends effort to come home, which the rock does not. The page’s two paragraphs sit on the two readings. This piece can show both; it doesn’t rule between them.' ]
         .forEach(function(t){ var p = document.createElement('p'); p.textContent = t; rd.appendChild(p); });
     }, 30);
   });
