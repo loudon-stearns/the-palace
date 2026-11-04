@@ -198,3 +198,7 @@ The mornings, newest first, are this page's scroll. It is made by machine from t
 ---
 
 *The dealer, the wake prompt, the roughs and the scheduled task's shim: `_ops/daily-page/` (README there). Why the practice is shaped this way: [[The Daily Page — Context]]. The version and what each morning taught it: [[The Daily Page — tuning]], in git. The diary and the scroll stay on this machine.*
+
+## Active Baton
+
+[[The Daily Page — baton — dealer-ghosts]] — drafted 2026-11-04
