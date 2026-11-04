@@ -1,0 +1,32 @@
+{
+ "entry": "SMPTE LTC",
+ "path": "Projects/SMPTE LTC.md",
+ "type": "project",
+ "stage": "growing",
+ "weight": 6,
+ "claim": "Technical Architecture §: time is encoded as audio by biphase mark code — 'every bit boundary gets a clock transition; a mid-cell transition also occurs for a 1'. Open Questions asks 'Can you hear LTC?' and guesses LTC cannot be read backward; LTC's asymmetric sync word exists so readers can tell direction, and readers do decode it in reverse and at shuttle speeds, so a decode-reversed piece would answer the page's own question (latent error).",
+ "pieces": [
+  {
+   "section": "Technical Architecture",
+   "what": "An inline LTC encoder: type a timecode, see its 80 bits (BCD fields, user bits, the sync word) and the biphase mark waveform, hear it on a click; tests 'every bit boundary gets a clock transition; a mid-cell transition also occurs for a 1' and 'a self-clocking waveform carries both timing and data' by decoding its own audio back to the bits.",
+   "kind": "interactive",
+   "walks_up_from": "one bit, 0 then 1, as transitions"
+  },
+  {
+   "section": "Open Questions",
+   "what": "Encode a run of frames, play it, then decode it forward, reversed and at shuttle speeds with a transition-timing reader; the asymmetric sync word (0011 1111 1111 1101) is what tells direction. Answers 'can it be read backward' with a count of frames recovered each way, and 'can you hear it' by playing it.",
+   "kind": "interactive",
+   "walks_up_from": "the 16-bit sync word, forward and mirrored"
+  },
+  {
+   "section": "Technical Architecture",
+   "what": "A drop-frame counter at 29.97 across a minute boundary showing the skipped frame numbers (00 and 01 dropped except every tenth minute), with the wall-clock error it corrects.",
+   "kind": "interactive",
+   "walks_up_from": "frame numbers at 30 fps"
+  }
+ ],
+ "gathered": [],
+ "tier": "sketch",
+ "slice": 4,
+ "batch": "cloud batch 4"
+}
