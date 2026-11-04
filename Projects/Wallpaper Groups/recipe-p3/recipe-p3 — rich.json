@@ -65,7 +65,18 @@
         }
       ],
       "made_against": "1751b531b874",
-      "stamped": "2026-11-04"
+      "stamped": "2026-11-04",
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5 · cloud batch 2",
+        "verdicts": [
+          {
+            "file": "recipe-p3 — rich — the turn and its mirror.html",
+            "verdict": "keep",
+            "why": "A test of the structural premise only, with the rule and a null (708/924) set first. 10/10 is forced, since every subset of a 4-step loop has a mirror, and the piece says so; the 24-step repair stays an offer. Note: name that theorem in the rule."
+          }
+        ]
+      }
     }
   ]
 }

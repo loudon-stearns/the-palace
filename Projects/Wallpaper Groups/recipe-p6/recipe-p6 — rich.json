@@ -72,7 +72,18 @@
         }
       ],
       "made_against": "7e1f48931149",
-      "stamped": "2026-11-04"
+      "stamped": "2026-11-04",
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5 · cloud batch 2",
+        "verdicts": [
+          {
+            "file": "recipe-p6 — rich — the bell beside the spin.html",
+            "verdict": "keep",
+            "why": "A closeness claim met with a distance and a rule that could have passed (≤3: 192/792); every number recomputed. Notes: 5 is the farthest any pattern its size can sit, so say that rather than \"as far as 600 of 792\"; the break reading 1 is a meter check that cannot fail, not a control."
+          }
+        ]
+      }
     }
   ]
 }

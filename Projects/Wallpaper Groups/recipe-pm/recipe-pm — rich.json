@@ -77,7 +77,18 @@
         }
       ],
       "made_against": "c5f51a4849da",
-      "stamped": "2026-11-04"
+      "stamped": "2026-11-04",
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · claude-opus-5-5 · cloud batch 2",
+        "verdicts": [
+          {
+            "file": "recipe-pm — rich — the mirror, heard blind.html",
+            "verdict": "remake",
+            "why": "The leak is in the piece itself: step 3 states the answer (\"pm sounds heavier and more settled than p2\") and teaches which loop is which, so a reader who walks steps 1–3 can score 8/8 on recall. Drop that sentence, add a fresh-listener door from step 1 straight to the test, and print with the score whether steps 2–3 were seen."
+          }
+        ]
+      }
     }
   ]
 }
