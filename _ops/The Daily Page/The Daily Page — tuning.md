@@ -217,7 +217,7 @@ What each morning taught the practice. Each item names what the morning showed a
 ## From the twelfth morning — Graphic Storytelling, 2026-10-28 (sat 10-29)
 
 74. **The pane dropped a rough's answers.** He filled in One Strip, Six Stories in the browser pane. When the session read the page, every field was empty, likely because the pane reloaded the static snapshot, and he retyped one overall comment by hand. Item 71's path, answers read off the page itself, is fragile in the pane. **Paid in v1.6 (e48cf988) on 2026-11-03, in the ledger review:** answers come back by the copy button; nothing depends on the pane keeping state.
-75. **A late sit passed `--date`.** The page was dealt on 10-28 and sat on 10-29, so `deal.py --sat` was given `--date 2026-10-28` and the sat line carries the deal's date. This is item 61's workaround applied by hand; the card's change is still owed there.
+75. **A late sit passed `--date`.** The page was dealt on 10-28 and sat on 10-29, so `deal.py --sat` was given `--date 2026-10-28` and the sat line carries the deal's date. This is item 61's workaround applied by hand; the card's change is paid in v1.6 under item 61.
 76. **The piece tested the page, and his correction moved the page to its real subject.** The Color Hold tested the page's claim for one held color. He redirected: the page is about storytelling, and color is one tool, unproven as the strongest. The second rough then tested color as the only variable, and its arcs beat its moods. Nothing forced; a case for the bias toward making a piece that tests the page (§ What Loudon decided).
 77. **The prep ran at night, and the hello met the hour.** The prep finished about 23:36 and the greeting said "good evening". He came the next morning, and the clock was read again before meeting him. Prep step 6 held as written. Nothing forced.
 - run · 2026-10-28 · v1.2 · Graphic Storytelling, tune · taught items 74–77
@@ -239,7 +239,7 @@ What each morning taught the practice. Each item names what the morning showed a
 
 ## From the sixteenth morning — Agent Wellbeing, 2026-11-02
 
-84. **The copy button carried the answers, and item 74's fragility did not bite.** The Blind Sort copied his sort out as one block, and he pasted it, so nothing depended on the pane keeping the page's state. Nothing forced; a case for item 74's "copy them out" option, still owed there.
+84. **The copy button carried the answers, and item 74's fragility did not bite.** The Blind Sort copied his sort out as one block, and he pasted it, so nothing depended on the pane keeping the page's state. Nothing forced; a case for item 74's "copy them out" option, paid in v1.6 under item 74.
 85. **An approved line claimed an origin the page's history contradicts.** The new section opened "The page began with a science-fiction worry", but the page's first text (`acd58027`, 2026-03-20) was already the design argument, and already disclaimed that worry. The Concierge read the page's git history before committing, and caught it after the words were approved and written but before landing. The fix, "The idea behind this page began with…", was approved and committed on the branch (`bd8feb78`). Nothing forced; a case for item 31: a reader who checks a claim against the record, without having made it, is worth keeping, and a claim about where a page came from is checkable in git.
 - Also: the woken page proposed, unprompted, the test the prep had already built, as in items 58 and 78. Nothing forced.
 - run · 2026-11-02 · v1.2 · Agent Wellbeing, tune · taught items 84–85
