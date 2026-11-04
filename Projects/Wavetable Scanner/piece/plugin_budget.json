@@ -1,0 +1,29 @@
+{
+ "sr": 48000,
+ "block": 128,
+ "seconds": 10.0,
+ "method": "best of 3 wall-clock runs of the harness, start-up taken off",
+ "rows": [
+  {
+   "table": "classics",
+   "startup_s": 0.42,
+   "8x1_core_pct": 2.36,
+   "8x3_core_pct": 2.65,
+   "8x7_core_pct": 3.5
+  },
+  {
+   "table": "cello",
+   "startup_s": 0.43,
+   "8x1_core_pct": 2.38,
+   "8x3_core_pct": 2.82,
+   "8x7_core_pct": 3.43
+  },
+  {
+   "table": "fm chain",
+   "startup_s": 0.43,
+   "8x1_core_pct": 2.32,
+   "8x3_core_pct": 2.75,
+   "8x7_core_pct": 3.45
+  }
+ ]
+}

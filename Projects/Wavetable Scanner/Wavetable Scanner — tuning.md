@@ -145,3 +145,15 @@ What Wavetable Scanner's steward cycles taught the page, and the changes to the 
     > `plugin/` is the synth as a VST3 and AU, made with the [[VST Template]] (code Wtsc). `Algorithm.h` ports `wt-synth.js` line for line, and runs the page's spectral morph and per-octave band-limiting on its tables at load. It is checked against the browser synth's own engine, run in Node in 16-sample blocks. Four of five passages match bit for bit, and the fifth to 3.6e-8 of peak. It passes pluginval at strictness 5, auval, and the host check. The centre of its window is the scanner's landscape, which follows the plugin's own Position; dragging on it moves the knob. Besides three built-in tables, the Table menu has eight folder slots, read from `~/Music/Wavetable Scanner/Tables`. They take the study page's Serum, Surge and Ableton exports, and a table's own frames load bit for bit. The mod wheel and a file chooser are still to come. Nobody has played it in Live yet.
 
 - run · 2026-11-03 · cycle 9 · taught item 21, proposed item 22 for canon
+
+## From cycle 10 — 2026-11-03
+
+23. Time the plugin through the harness's plugin mode, but read the result as a ceiling: the harness pushes every parameter into the processor every block, which costs more than the synth itself does with one copy a note. *(offered by the steward, cycle 10)*
+24. **Proposed for canon** · 2026-11-03 · [[Wavetable Scanner]] · § Tiers, under 'Piece', before its earned-by list · canon change owed *(proposed by the steward, cycle 10)*
+    Why: two of the Piece tier's earned-by items now exist, measured; the page should say so
+    Path: `Projects/Wavetable Scanner.md`
+    > #### Piece round 1 — the demo and the cost (2026-11-04)
+    >
+    > `piece/tour.wav` is a 46-second demo of four tables (the classics, the cello, the organ chain and the FM chain), with the mod wheel scanning each one up and back. `piece/README.md` has the cost on an M1 Max. The plugin takes 3.5 % of a core or less for eight notes of seven copies each, and that is a ceiling from the harness. It starts up in 0.43 s. The browser engine needs 10 to 20 MB a table. The 3D view draws one line per frame, 260 draw calls at 256 frames, in 3.4 ms or less. The Loudon Live chrome is still to do, and nobody has heard the demo.
+
+- run · 2026-11-03 · cycle 10 · taught item 23, proposed item 24 for canon

@@ -15,35 +15,37 @@ forward_vector: "I am Wavetable Scanner's scroll — the one page that always op
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T04:16:05.065Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T04:23:29.866Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 9 · last ran 2026-11-04 (today)
-- **Plan:** agreed 2026-11-04 (today) · 2 made things since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 10 · last ran 2026-11-04 (today)
+- **Plan:** agreed 2026-11-04 (today) · 4 made things since
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — The plugin now plays your own tables: drop Serum, Surge or Ableton tables into a folder and they appear in its Table menu. (`wavetable-scanner-steward-020`)
-- **Last commit touching this project:** 2026-11-03 `0697f173` — steward(Wavetable Scanner): cycle 8 — SPINNING UP. HOME: [Wavetable Scanner](obsidian://open?vault=The%20Pala…
+- **Last shipped:** 2026-11-04 (today) — Nothing has been heard yet. Will you listen to the 46-second demo, or should I build on without your ears? (`wavetable-scanner-steward-023`)
+- **Last commit touching this project:** 2026-11-03 `d447beb6` — steward(Wavetable Scanner): cycle 9 — SPINNING UP. HOME: [Wavetable Scanner](obsidian://open?vault=The%20Pala…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 9 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 9 · taught item 21, proposed item 22 for canon
+- **Runs:** 10 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 10 · taught item 23, proposed item 24 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 10 — items 3, 5, 7, 11, 12, 14, 15, 18, 20, 22; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 22, from cycle 9 — 2026-11-03 — [[Wavetable Scanner — tuning]]
+- **Proposed for canon:** 11 — items 3, 5, 7, 11, 12, 14, 15, 18, 20, 22, 24; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 24, from cycle 10 — 2026-11-03 — [[Wavetable Scanner — tuning]]
 
 ### Where this stands
 
-Wavetable Scanner is the page that draws a wavetable as a 3D landscape. It packs its own tables from a folder of single cycles, plays them as a browser synth, saves them for Serum, Vital, Surge and Ableton, and runs as a VST3/AU plugin with the landscape in the middle of its window. The plan's plugin step said the plugin should load a packed table, and until now it only played three built-in ones. This cycle closed that gap. The plugin's Table menu now ends in eight folder slots, read from ~/Music/Wavetable Scanner/Tables. I've put two of the study page's exports there for you to try.
+Wavetable Scanner draws a wavetable as a 3D landscape. It packs its own tables from a folder of single cycles, plays them as a browser synth, saves them for Serum, Vital, Surge and Ableton, and runs as a VST3/AU plugin with the landscape in the middle of its window. Every step of the plan before the finishing stage is built, apart from two things only you can do: hear it, and open it in Live. This cycle began that last stage, which asks for a demo of the scan, a measure of what each table costs to run and to draw, and Loudon Live chrome. The demo and the cost are done; the chrome isn't started.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** Nobody has heard these: the exports haven't been loaded in Serum, Vital, Surge or Live, and the plugin hasn't been opened in Live or played from a keyboard. _(in 9 notes, the latest cycle 9)_
+- **rough since cycle 1:** Nobody has heard these: the demo, the exports in Serum, Vital, Surge or Live, and the plugin from a keyboard. _(in 10 notes, the latest cycle 10)_
+- **rough since cycle 1:** Also not done: the Loudon Live chrome, any timing of the plugin's own window, the draw times in Firefox, WebKit and Safari.app. _(in 5 notes, the latest cycle 10)_
+- **rough since cycle 5:** And the study page cuts a single table file of more than 256 frames to its first 256, where the exports and the plugin thin it evenly. _(in 2 notes, the latest cycle 10)_
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `wavetable-scanner-steward-023` — directional_decision · posted 2026-11-04 · options: LISTENED · GROWL · CHROME · LIVE-SESSION
 
 ### Answered, not yet consumed
 
@@ -57,6 +59,7 @@ _None._
 
 ### Runs
 
+- 2026-11-03 — cycle 10 · taught item 23, proposed item 24 for canon
 - 2026-11-03 — cycle 9 · taught item 21, proposed item 22 for canon
 - 2026-11-03 — cycle 8 · taught item 19, proposed item 20 for canon
 - 2026-11-03 — cycle 7 · taught item 16, proposed items 17, 18 for canon
@@ -64,8 +67,7 @@ _None._
 - 2026-11-03 — cycle 5 · taught item 10, proposed items 11, 12 for canon
 - 2026-11-03 — cycle 4 · taught item 8, proposed item 9 for canon
 - 2026-11-03 — cycle 3 · taught item 6, proposed item 7 for canon
-- 2026-11-03 — cycle 2 · taught item 4, proposed item 5 for canon
-- _…and 1 more in the trail below._
+- _…and 2 more in the trail below._
 
 ### Owed
 
@@ -85,6 +87,7 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 - **18.** 2026-11-03 · [[VST Template]] · Processor::handleMidi, after the note branches — every instrument made from the template drops the mod wheel, pitch bend and sustain; the Wavetable Scanner plugin needs CC1 on Position, and the fix belongs in the shared machinery, not one plugin
 - **20.** 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 3 — the plugin' — the export step of the plan is built and checked; the page should say the scanner's tables now reach Serum, Vital, Surge and Live
 - **22.** 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 2 — the synth' — the plugin now loads your own tables, so the earlier proposal's 'loading your own table is still to come' is no longer true
+- **24.** 2026-11-03 · [[Wavetable Scanner]] · § Tiers, under 'Piece', before its earned-by list — two of the Piece tier's earned-by items now exist, measured; the page should say so
 
 <!-- scroll:now:end -->
 
@@ -112,6 +115,77 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="wavetable-scanner-steward-023" -->
+### 2026-11-04 — cycle 10 — Nothing has been heard yet. Will you listen to the 46-second demo, or should I build on without your ears?
+> still working · demo and cost measured · steward leans growl card next
+
+Catch-up: Wavetable Scanner packs single cycles into tables, draws them in 3D, plays them as a browser synth and a VST3/AU plugin, and saves them for Serum, Vital, Surge and Ableton. This cycle began the finishing stage: a 46-second demo, tour.wav, which scans four tables with the mod wheel, plus the measured cost (the plugin under 3.5 % of a core, the 3D view under 3.4 ms a frame). Every cycle since the first has ended with the same note: nobody has heard any of it. Everything checks out by numbers, but only your ears can say whether the morph sounds smooth. I'm still working. Unless you steer me, I'll build the growl card next, the one Synth Templates card the synth can't play yet: an FM sine with drive. The cost of skipping the listen is that I keep stacking work on a sound nobody has judged.
+
+**Artifacts:**
+- [the demo: four tables, 46 s, the mod wheel scanning each up and back](Projects/Wavetable Scanner/piece/tour.wav)
+- [where each table's section sits, and the scan rising and falling](Projects/Wavetable Scanner/piece/tour-spectrogram.png)
+- [shot-picture-folder-empty.png](Projects/Wavetable Scanner/plugin/shot-picture-folder-empty.png)
+- [shot-picture-folder-filled.png](Projects/Wavetable Scanner/plugin/shot-picture-folder-filled.png)
+- [shot-picture-builtin-fm.png](Projects/Wavetable Scanner/plugin/shot-picture-builtin-fm.png)
+- [voice-steal-plugin.wav](Projects/Wavetable Scanner/plugin/out/voice-steal-plugin.wav)
+- [voice-steal-engine.wav](Projects/Wavetable Scanner/plugin/out/voice-steal-engine.wav)
+- [voice-steal-sketch.wav](Projects/Wavetable Scanner/plugin/out/voice-steal-sketch.wav)
+- [legato-glide-high-plugin.wav](Projects/Wavetable Scanner/plugin/out/legato-glide-high-plugin.wav)
+- [legato-glide-high-engine.wav](Projects/Wavetable Scanner/plugin/out/legato-glide-high-engine.wav)
+- [legato-glide-high-sketch.wav](Projects/Wavetable Scanner/plugin/out/legato-glide-high-sketch.wav)
+- [classics-lfo-plugin.wav](Projects/Wavetable Scanner/plugin/out/classics-lfo-plugin.wav)
+- [classics-lfo-engine.wav](Projects/Wavetable Scanner/plugin/out/classics-lfo-engine.wav)
+- [classics-lfo-sketch.wav](Projects/Wavetable Scanner/plugin/out/classics-lfo-sketch.wav)
+<sub>`wavetable-scanner-steward-023` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="wavetable-scanner-steward-022" -->
+### 2026-11-04 — cycle 10 — A 46-second demo that scans all four tables with the mod wheel, and what the plugin, the engine and the 3D view cost to run.
+> shipped · finishing stage begun: demo and cost done, Live chrome not started · steward leans the growl card next
+
+**The demo.** [tour.wav](open:Projects/Wavetable Scanner/piece/tour.wav) runs 46 seconds through four tables, 11.5 s each: the five classics (sine to bell), the 19 cello cycles, the AKWF organ folder as a family chain, and the 122-cycle FM chain. In each section the mod wheel scans the whole table, up over five seconds and back down. The engine is the browser synth's own, and each table is prepared the way the synth page prepares it (phases lined up, in-between frames built from the spectrum, band-limited per octave). The spectrogram shows the scan: in the FM section the brightness peaks in the middle, where the wheel turns round. The release tails are down at least 40 dB before each section's 50 ms fade.
+
+**The plugin's cost.** The template's harness drives the real processBlock in 128-sample blocks at 48 kHz, with eight notes held and Position swept. It takes 2.3–2.4 % of one M1 Max core with one copy per note, and 3.4–3.5 % with seven. The table makes no difference. That figure is a ceiling, because the harness pushes all 28 parameters every block and a host doesn't. Start-up, which morphs and band-limits all three tables once, takes 0.43 s.
+
+**The 3D view's cost.** In Chrome on the M1 Max's GPU at 2100 × 1040, one draw call per frame: 6 calls for a 2-frame table, 126 for the packed FM folder, and 260 at 256 frames, the most the page shows. Every render takes 1.3–3.4 ms at the median, a fifth of a 60 Hz frame or less. The full tables, and how I measured, are in [piece/README.md](obsidian://open?vault=The%20Palace&file=Projects/Wavetable%20Scanner/piece/README.md).
+
+**Artifacts:**
+- [the demo: four tables, 46 s, the mod wheel scanning each one up and back](Projects/Wavetable Scanner/piece/tour.wav)
+- [the demo's spectrogram, one section per table; the scan shows as brightness rising and falling](Projects/Wavetable Scanner/piece/tour-spectrogram.png)
+- [the finishing stage's first pass: the demo, the three cost tables, what wasn't measured](Projects/Wavetable Scanner/piece/README.md)
+- [renders the demo and times the browser engine per table](Projects/Wavetable Scanner/piece/render_tour.cjs)
+- [draws the spectrogram (numpy and sips, no plotting library)](Projects/Wavetable Scanner/piece/spectrogram.py)
+- [times the real plugin through the template's harness](Projects/Wavetable Scanner/piece/plugin_budget.py)
+- [times the 3D view in Chrome, table by table](Projects/Wavetable Scanner/piece/draw_budget.mjs)
+- [the engine's numbers](Projects/Wavetable Scanner/piece/tour_budget.json)
+- [the plugin's numbers](Projects/Wavetable Scanner/piece/plugin_budget.json)
+- [the 3D view's numbers](Projects/Wavetable Scanner/piece/draw_budget.json)
+
+_What a table costs · M1 Max · 8 notes held, Position sweeping_
+| table | plugin, 7 copies a note | browser engine, 7 copies | memory | 3D draw calls | 3D render, median |
+| --- | --- | --- | --- | --- | --- |
+| classics (5 → 261 frames) | 3.5 % of a core | 8.6 % | 10.2 MB | 9 | 1.3 ms |
+| cello (19 → 505) | 3.4 % | 8.3 % | 19.7 MB | 23 | 2.7 ms |
+| organ chain (154 → 460) | — | 8.6 % | 18.0 MB | — | — |
+| fm chain (122 → 485) | 3.5 % | 8.6 % | 18.9 MB | 126 | 1.9–3.4 ms |
+| 256 frames, the page's most | — | — | — | 260 | 2.5 ms |
+
+_Changed in the workshop:_ README — new: the finishing stage's first pass, with the demo, the three cost tables and what wasn't measured
+_Proposed for canon:_ Wavetable Scanner (§ Tiers, under 'Piece', before its earned-by list) — two of the Piece tier's earned-by items now exist, measured; the page should say so; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard these: the demo, the exports in Serum, Vital, Surge or Live, and the plugin from a keyboard. Also not done: the Loudon Live chrome, any timing of the plugin's own window, the draw times in Firefox, WebKit and Safari.app. And the study page cuts a single table file of more than 256 frames to its first 256, where the exports and the plugin thin it evenly.
+
+_Next moves named:_ The growl card, the Synth Templates card the synth can't yet play: an FM sine and drive, added to wt-synth.js and ported line for line into Algorithm.h, then checked against the Node render as before. · Make the study page thin a single table of more than 256 frames evenly, ends kept, as the exports and the plugin do. · Loudon Live chrome for the synth page: a header card and an alternate layout ready for OBS.
+<sub>`wavetable-scanner-steward-022` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-f0b03f1974" -->
+### 2026-11-03 — cycle 10
+
+taught item 23, proposed item 24 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="wavetable-scanner-steward-020" -->
 ### 2026-11-04 — cycle 9 — The plugin now plays your own tables: drop Serum, Surge or Ableton tables into a folder and they appear in its Table menu.
 > shipped · all plugin checks pass again · steward leans the mod wheel next

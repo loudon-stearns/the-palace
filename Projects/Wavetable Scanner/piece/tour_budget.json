@@ -1,0 +1,83 @@
+{
+ "sr": 44100,
+ "seconds": 46,
+ "raw_peak_dbfs": -0.3,
+ "set_to_dbfs": -1,
+ "sections": [
+  {
+   "table": "classics",
+   "label": "the five classics, sine to bell",
+   "starts_s": 0
+  },
+  {
+   "table": "cello",
+   "label": "the 19 cello cycles",
+   "starts_s": 11.5
+  },
+  {
+   "table": "eorgan",
+   "label": "the AKWF organ folder, family chain",
+   "starts_s": 23
+  },
+  {
+   "table": "fm chain",
+   "label": "the 122-cycle AKWF FM family chain",
+   "starts_s": 34.5
+  }
+ ],
+ "node": "v25.9.0",
+ "budget": [
+  {
+   "table": "classics",
+   "source_frames": 5,
+   "playing_frames": 261,
+   "morph_ms": 29,
+   "bandlimit_ms": 63,
+   "memory_MB": 10.2,
+   "tour_voices": 4,
+   "tour_unison": 5,
+   "tour_realtime_x": 15.8,
+   "heavy_8x7_realtime_x": 11.2,
+   "heavy_8x7_core_pct": 8.9
+  },
+  {
+   "table": "cello",
+   "source_frames": 19,
+   "playing_frames": 505,
+   "morph_ms": 37,
+   "bandlimit_ms": 101,
+   "memory_MB": 19.7,
+   "tour_voices": 3,
+   "tour_unison": 3,
+   "tour_realtime_x": 30.2,
+   "heavy_8x7_realtime_x": 11.2,
+   "heavy_8x7_core_pct": 8.9
+  },
+  {
+   "table": "eorgan",
+   "source_frames": 154,
+   "playing_frames": 460,
+   "morph_ms": 62,
+   "bandlimit_ms": 99,
+   "memory_MB": 18,
+   "tour_voices": 4,
+   "tour_unison": 2,
+   "tour_realtime_x": 31.8,
+   "heavy_8x7_realtime_x": 11,
+   "heavy_8x7_core_pct": 9.1
+  },
+  {
+   "table": "fm chain",
+   "source_frames": 122,
+   "playing_frames": 485,
+   "morph_ms": 49,
+   "bandlimit_ms": 102,
+   "memory_MB": 18.9,
+   "tour_voices": 5,
+   "tour_unison": 7,
+   "tour_realtime_x": 18.1,
+   "heavy_8x7_realtime_x": 11.3,
+   "heavy_8x7_core_pct": 8.9
+  }
+ ]
+}
