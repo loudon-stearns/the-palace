@@ -75,7 +75,7 @@ Most of them have a twin in the eye, and each entry names it. The twins are not 
 ## Sorting the world into sources
 
 **Auditory streaming.** A high and a low tone in a galloping pattern, ta-ta-ta, ta-ta-ta. Slow and close in pitch, it is one rhythm. Faster or further apart, it splits into two lines and the gallop is gone. What it proves: before anything else, the brain sorts sound into sources, by rules — close in pitch, close in time, same timbre (Bregman, *Auditory Scene Analysis*, 1990).
-*Seen:* Gestalt grouping by proximity, and apparent motion. Mechanism, arguably: Bregman showed the auditory scene follows the grouping laws first found for vision, and a 2001 study found streaming, apparent motion and static dot displays group the same way. Remez argues shared rules only describe.
+*Seen:* Gestalt grouping by proximity, and apparent motion. Mechanism, arguably: Bregman showed the auditory scene follows the grouping laws first found for vision, and a 2001 study found streaming, apparent motion and static dot displays group the same way. Remez counters that shared rules describe the grouping without explaining it.
 
 **The scale illusion.** A rising and a falling scale, with alternate notes swapped between the ears. Nobody hears the zigzag in each ear; most hear a smooth melody in one and another in the other (Deutsch, 1975). Grouping by pitch beats grouping by place.
 *Seen:* grouping by similarity — dots of two colours read as rows of colour, not their real arrangement. Shape.
@@ -106,7 +106,7 @@ Most of them have a twin in the eye, and each entry names it. The twins are not 
 **The Risset rhythm.** The Shepard tone moved into the time domain: a beat that speeds up forever, by fading between copies at half and double tempo. Same window, same circle, now around tempo. Tempo is a rate on the same axis as pitch ([[Frequency-Time Duality]]), so this is the Shepard loop run on the slow side of it.
 *Seen:* the infinite zoom — a picture that contains itself, zoomed into forever. Shape.
 
-**Rhythm turns into pitch.** Speed up a click. Below about 20 a second you hear a fast tapping; somewhere past 30 to 50 it has become a buzz with a pitch, with a muddy zone between where neither sense is sharp. Nothing about the sound changes kind; you do. Stockhausen's essay *…wie die Zeit vergeht…* (1957) argued this — rhythm and pitch as one axis of vibration, cut in two by perception. See [[Frequency-Time Duality]]. It is the pattern [[Boundary-Crossing Instruments]] names: one continuous axis, with the wall drawn by the listener, not the sound.
+**Rhythm turns into pitch.** Speed up a click. Below about 20 a second you hear a fast tapping; somewhere past 30 to 50 it has become a buzz with a pitch, with a muddy zone between where neither sense is sharp. Nothing about the sound changes kind; you do. Stockhausen's essay *…wie die Zeit vergeht…* (1957) argued this — rhythm and pitch as one axis of vibration, cut in two by perception. See [[Frequency-Time Duality]]. [[Boundary-Crossing Instruments]] takes this as its first case: one dial, several perceptual worlds along it.
 *Seen:* flicker fusion — a light flashing fast enough looks steady, which is why a projector's light doesn't seem to flicker. Shape: a rate past which the sense stops counting events. The ear goes further and turns the rate into a pitch; the eye only sees it steady.
 
 ## Hearing what isn't there
@@ -125,7 +125,7 @@ Most of them have a twin in the eye, and each entry names it. The twins are not 
 | Heard | Seen | What they share | How strong |
 |---|---|---|---|
 | Beats | Moiré | interference makes a slow difference pattern | mechanism |
-| Masking | Lateral inhibition | neighbours in a sensory map suppress each other | shape |
+| Masking | Lateral inhibition | one signal hides or shifts a neighbour | shape |
 | Binaural beats | Pulfrich effect | a timing gap between two sensors | shape |
 | Huggins pitch | Random-dot stereogram | a percept made only of the difference between two sensors | mechanism, tight |
 | Missing fundamental | Kanizsa triangle | structure seen where nothing is | shape |
@@ -139,7 +139,7 @@ Most of them have a twin in the eye, and each entry names it. The twins are not 
 | Phantom words | Pareidolia | the pattern-finder supplies the pattern | shape |
 | Speech to song | Mooney image | recognition that can't be undone | shape |
 | Risset rhythm | Infinite zoom | the Shepard loop in another dimension | shape |
-| Click into pitch | Flicker fusion | a rate where counting becomes quality | shape |
+| Click into pitch | Flicker fusion | a rate past which the sense stops counting | shape |
 | Spectral motion aftereffect | Waterfall illusion | tired motion detectors | mechanism |
 | Zwicker tone | Negative afterimage | the opposite appears when input stops | shape |
 | Musical ear syndrome | Charles Bonnet syndrome | a deprived sense fills the hole | mechanism |
@@ -159,7 +159,7 @@ That is why the page wants to become a set of instruments. Nearly every one here
 
 - The Shepard tone, layer by layer: the still drone and the free seam in [[Shepard Tone Synthesizer]]'s bundle, its four session pages, and twelve rendered drones in [[Generative Sample Libraries]]' shepard-instrument.
 - Masking, as a blind trial: *under the kick*, proposed for [[Sidechain ↔ Conversation]]'s rich face.
-- Rhythm turning into pitch, through a zone that starts near 20 Hz: *the flip*, in [[Frequency-Time Duality]]'s proofs. The same page's Echo Walk holds the Haas zone: for speech, an echo under about 30 ms from another speaker is heard as one sound, placed at the first arrival. A click needs much less.
+- Rhythm turning into pitch, through a zone that starts near 20 Hz: *the flip*, in [[Frequency-Time Duality]]'s proofs.
 
 ---
 
