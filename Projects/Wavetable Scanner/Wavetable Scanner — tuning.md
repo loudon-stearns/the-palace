@@ -63,7 +63,7 @@ What Wavetable Scanner's steward cycles taught the page, and the changes to the 
 ## From cycle 4 — 2026-11-03
 
 8. Write the DSP as one plain class with a per-sample render and stringify it into the AudioWorklet: the same code then runs in Node for proofs and ports straight to the VST Template's Algorithm.h. *(offered by the steward, cycle 4)*
-9. **Proposed for canon** · 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 1 — the packer moves into the page' · canon change owed *(proposed by the steward, cycle 4)*
+9. **Proposed for canon** · 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 1 — the packer moves into the page' · superseded by item 11 *(proposed by the steward, cycle 4)*
    Why: Loudon's 2026-11-04 note put a MIDI synth ahead of the exports; the entry should record that it exists and how it is built
    Path: `Projects/Wavetable Scanner.md`
    > #### Study round 2 — the synth (2026-11-04)
@@ -71,3 +71,19 @@ What Wavetable Scanner's steward cycles taught the page, and the changes to the 
    > `wavetable_synth.html` plays the scanner's tables as an instrument: Web MIDI from any input, the computer keys, or the page's keys. It has eight voices with up to seven unison copies each, a 12 dB lowpass, two envelopes on the Synth Templates Moog curve, an LFO, and the mod wheel on Position. Every frame is band-limited per octave, which takes aliasing at C7 from −15 to −57 dB. The engine (`synth/wt-synth.js`) is one plain class that both the AudioWorklet and Node run, shaped for the [[VST Template]]'s `Algorithm.h`. It passes in Chrome, Firefox and WebKit; no real keyboard has played it yet.
 
 - run · 2026-11-03 · cycle 4 · taught item 8, proposed item 9 for canon
+
+## From cycle 5 — 2026-11-03
+
+10. A crossfade between wavetable frames cancels any harmonic the two hold out of phase, and blurring the frames doesn't fix it; line up the phases first, then fill the gaps from the spectrum. Filling the gaps without lining up the phases turns each harmonic's phase, and that small pitch wobble makes a fast sweep buzz more. *(offered by the steward, cycle 5)*
+11. **Proposed for canon** · 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 1 — the packer moves into the page' · canon change owed *(proposed by the steward, cycle 5)*
+    Why: item 9 plus the spectral morph, which is now how the synth moves between frames
+    Path: `Projects/Wavetable Scanner.md`
+    > #### Study round 2 — the synth (2026-11-04)
+    >
+    > `wavetable_synth.html` plays the scanner's tables as an instrument: Web MIDI from any input, the computer keys, or the page's keys. It has eight voices with up to seven unison copies each, a 12 dB lowpass, two envelopes on the Synth Templates Moog curve, an LFO, and the mod wheel on Position. Every frame is band-limited per octave, which takes aliasing at C7 from −15 to −57 dB. The engine (`synth/wt-synth.js`) is one plain class that both the AudioWorklet and Node run, shaped for the [[VST Template]]'s `Algorithm.h`. Its default morph lines up every frame's phases and builds the in-between frames from the spectrum (`spectralMorph` in `packer/packer.js`), so no harmonic cancels halfway between two frames; a plain crossfade loses one in 70 of the FM chain's 121 steps. It passes in Chrome, Firefox and WebKit; no real keyboard has played it yet.
+12. **Proposed for canon** · 2026-11-03 · `Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md` · a new gotcha at the end, after the cursor-plane one · canon change owed *(proposed by the steward, cycle 5)*
+    Why: the next wavetable tool would ship a plain crossfade, and no level meter catches this
+    Path: `Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md`
+    > **A crossfade between frames hollows out harmonics (2026-11-04).** Mixing two waveforms cancels any harmonic they hold out of phase, so halfway through a morph a harmonic can drop out that neither frame has lost (70 of 121 steps on the FM chain, by up to 30 dB). Blurring the frames doesn't fix it. Line up the phases, then fill the gaps from the spectrum (`spectralMorph`). Don't fill them without lining up the phases first: turning each harmonic's phase is a pitch wobble, and the sweep buzzes 5 dB more.
+
+- run · 2026-11-03 · cycle 5 · taught item 10, proposed items 11, 12 for canon

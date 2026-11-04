@@ -327,18 +327,77 @@
     });
   }
 
+  /* Spectral morph (2026-11-04): fill the gap between each pair of neighbours
+   * with `between` frames made in the spectrum, not by mixing waveforms. Each
+   * harmonic's level goes in a straight line from one frame's to the next, and
+   * its phase turns the short way round, so no harmonic can cancel halfway the
+   * way two mixed waveforms do. Playback still crossfades, but now between
+   * frames so close that the crossfade cannot hollow anything out.
+   * `target` caps the whole table (frames + in-betweens); `between` is the
+   * most in-betweens that fit, at most 64. A target no bigger than the table
+   * adds none: with `lock` that is the phase lock alone, at the table's size. */
+  function spectralMorph(frames, target, lock) {
+    const F = frames.length, L = frames[0].length, H = L / 2;
+    if (F < 2) return { frames: frames.slice(), between: 0 };
+    const between = Math.max(0, Math.min(64, Math.floor(((target || 512) - 1) / (F - 1)) - 1));
+    const spec = frames.map(c => { const s = rfftMags(c); return { m: Array.from({ length: H }, (_, k) => Math.hypot(s.re[k], s.im[k])), p: Array.from({ length: H }, (_, k) => Math.atan2(s.im[k], s.re[k])) }; });
+    const re = new Float64Array(L), im = new Float64Array(L);
+    const synth = (m, p) => {
+      re.fill(0); im.fill(0);
+      for (let k = 1; k < H; k++) { re[k] = m[k] * Math.cos(p[k]); im[k] = m[k] * Math.sin(p[k]); re[L - k] = re[k]; im[L - k] = -im[k]; }
+      fft(re, im, true);
+      const o = new Float32Array(L); for (let i = 0; i < L; i++) o[i] = re[i] / L;
+      return o;
+    };
+    /* lock: a held note does not hear the phases of its harmonics, only their
+     * levels, so each frame may take the phases of the frame before it for
+     * every harmonic that frame already sounds (louder than −60 dB of its
+     * peak). The levels, and so the steady sound, are kept; the waveform's
+     * drawing changes. Then nothing turns during a morph: only levels move. */
+    let src = frames;
+    if (lock) {
+      src = [frames[0]];
+      for (let f = 1; f < F; f++) {
+        const A = spec[f - 1], B = spec[f], top = Math.max(...A.m);
+        for (let k = 1; k < H; k++) if (A.m[k] > top * 1e-3) B.p[k] = A.p[k];
+        src.push(synth(B.m, B.p));
+      }
+    }
+    const out = [];
+    for (let f = 0; f < F - 1; f++) {
+      out.push(src[f]);
+      const A = spec[f], B = spec[f + 1];
+      for (let j = 1; j <= between; j++) {
+        const t = j / (between + 1);
+        const m = new Float64Array(H), ph = new Float64Array(H);
+        for (let k = 1; k < H; k++) {                       // DC and Nyquist stay empty
+          let d = B.p[k] - A.p[k];
+          d -= 2 * Math.PI * Math.round(d / (2 * Math.PI));
+          m[k] = Math.sqrt(A.m[k] * A.m[k] + t * (B.m[k] * B.m[k] - A.m[k] * A.m[k]));   // equal power: no level dip
+          ph[k] = A.p[k] + t * d;
+        }
+        out.push(synth(m, ph));
+      }
+    }
+    out.push(src[F - 1]);
+    return { frames: out, between };
+  }
+
   const stemOf = name => name.replace(/^.*[\\/]/, '').replace(/\.[^.]*$/, '');
   // Python's sorted() on paths: plain code-point order.
   const byName = (a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
 
   /* files: [{ name, buffer: ArrayBuffer }]  →  the packed table.
    * opts: { frameLen = 1024, order: 'centroid' | 'file' | 'chain', maxFrames = 256,
-   *         smooth = 0 (Gaussian sigma in frames along Position) } */
+   *         smooth = 0 (Gaussian sigma in frames along Position),
+   *         morph = 'crossfade' | 'spectral' | 'locked', morphTarget = 512 (frames in the
+   *         finished table when the morph is spectral) } */
   function packCycles(files, opts) {
     const L = (opts && opts.frameLen) || 1024;
     const order = (opts && opts.order) || 'centroid';
     const maxFrames = (opts && opts.maxFrames) || 256;
     const smooth = (opts && +opts.smooth) || 0;
+    const morph = ['spectral', 'locked'].includes(opts && opts.morph) ? opts.morph : 'crossfade';
     const skipped = [];
     const records = [];
     files.filter(f => /\.wav$/i.test(f.name)).sort(byName).forEach(f => {
@@ -363,24 +422,30 @@
       for (let i = 0; i < maxFrames; i++) keep.push(ordered[Math.round(i * (ordered.length - 1) / (maxFrames - 1))]);
       thinned = ordered.length - maxFrames; ordered = keep;
     }
-    const F = ordered.length, samples = new Float32Array(F * L);
-    // Line the frames up whenever the order is a walk or a blur will mix them.
-    let frames = ordered.map(r => r.cycle);
-    if (order === 'chain' || smooth > 0) {
+    // Line the frames up whenever the order is a walk or a blur or morph will mix them.
+    let frames = ordered.map(r => r.cycle), between = 0;
+    if (order === 'chain' || smooth > 0 || morph !== 'crossfade') {
       frames = frames.map(c => { let m = 0; for (let i = 0; i < L; i++) m += c[i]; m /= L; return c.map(v => v - m); });
       frames = blurFrames(alignRotations(frames), smooth);
     }
+    if (morph !== 'crossfade') ({ frames, between } = spectralMorph(frames, (opts && opts.morphTarget) || 512, morph === 'locked'));
+    const F = frames.length, samples = new Float32Array(F * L);
     frames.forEach((c, i) => samples.set(c, i * L));
     let peak = 0; for (let i = 0; i < samples.length; i++) peak = Math.max(peak, Math.abs(samples[i]));
     if (peak > 0) { const k = 0.99 / peak; for (let i = 0; i < samples.length; i++) samples[i] *= k; }
-    const stems = ordered.map(r => r.stem);
-    let joined = stems.join('_');
+    const src = ordered.map(r => r.stem);
+    // One name per frame of the finished table; an in-between names its pair.
+    const stems = between ? frames.map((_, i) => { const f = Math.floor(i / (between + 1)), j = i % (between + 1);
+      return j === 0 ? src[f] : `${src[f]} → ${src[f + 1]}`; }) : src;
+    const at = i => ordered[Math.min(ordered.length - 1, Math.round(i / (between + 1)))];
+    let joined = src.join('_');
     if (joined.length > MAX_FILENAME_CHARS) joined = joined.slice(0, MAX_FILENAME_CHARS) + `__${F}frames`;
     return {
       frames: F, frameLen: L, samples, order,
-      frameNames: stems, centroids: ordered.map(r => r.centroid), srcLens: ordered.map(r => r.srcLen),
-      skipped, thinned, fileName: joined + (smooth > 0 ? `_smooth${smooth}` : '') + '.wav', smooth,
-      families: chain ? { k: chain.k, names: chain.names, silhouette: chain.silhouette, of: ordered.map(r => r.family) } : null,
+      frameNames: stems, centroids: frames.map((_, i) => between ? spectralCentroid(frames[i], OUTPUT_SR) : ordered[i].centroid),
+      srcLens: frames.map((_, i) => at(i).srcLen), sourceFrames: ordered.length, morph, between,
+      skipped, thinned, fileName: joined + (smooth > 0 ? `_smooth${smooth}` : '') + (between ? `_morph${between}` : '') + '.wav', smooth,
+      families: chain ? { k: chain.k, names: chain.names, silhouette: chain.silhouette, of: frames.map((_, i) => at(i).family) } : null,
       steps: chain ? ordered.slice(1).map((r, i) => chain.D[ordered[i].idx][r.idx]) : null,
     };
   }
@@ -399,7 +464,7 @@
   }
 
   const api = { parseWav, resampleCycle, spectralCentroid, packCycles, encodeWavFloat32, OUTPUT_SR,
-    timbreFeatures, pairwise, walkOrder, familyChain, alignRotations, blurFrames };
+    timbreFeatures, pairwise, walkOrder, familyChain, alignRotations, blurFrames, spectralMorph };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.WTPacker = api;
 })(typeof window !== 'undefined' ? window : globalThis);

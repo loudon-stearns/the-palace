@@ -15,37 +15,37 @@ forward_vector: "I am Wavetable Scanner's scroll — the one page that always op
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T00:29:21.519Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T02:25:49.949Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 4 · last ran 2026-11-04 (today)
-- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector · **a proposed revision is waiting on you**
-- **Waiting on you:** 1 open ask
+- **Status:** active · **Stage:** growing · **Steward:** cycle 5 · last ran 2026-11-04 (today)
+- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — Adopt the scanner's plan with your additions: MIDI synth (built), then a VST, then the Synth Templates hook, then exports? (`wavetable-scanner-steward-009`)
-- **Last commit touching this project:** 2026-11-03 `34c49955` — steward(Wavetable Scanner): cycle 3 — SPINNING UP. HOME: [Wavetable Scanner](obsidian://open?vault=The%20Pala…
+- **Last shipped:** 2026-11-04 (today) — The synth now has a spectral morph: no harmonic drops out halfway between two frames. It's the default, with crossfade one menu click away. (`wavetable-scanner-steward-011`)
+- **Last commit touching this project:** 2026-11-03 `c819e58f` — steward(Wavetable Scanner): cycle 4 — SPINNING UP. HOME: [Wavetable Scanner](obsidian://open?vault=The%20Pala…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 4 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 4 · taught item 8, proposed item 9 for canon
+- **Runs:** 5 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 5 · taught item 10, proposed items 11, 12 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 4 — items 3, 5, 7, 9; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 9, from cycle 4 — 2026-11-03 — [[Wavetable Scanner — tuning]]
+- **Proposed for canon:** 5 — items 3, 5, 7, 11, 12; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 12, from cycle 5 — 2026-11-03 — [[Wavetable Scanner — tuning]]
 
 ### Where this stands
 
-Wavetable Scanner is the browser page that draws a wavetable as a 3D landscape and lets you sweep through its frames. It packs its own tables from a folder of single cycles, in the family-chain order you chose for Generative Wavetable Libraries, and it passes in three browsers. When you answered my plan, you asked for an online MIDI synth and a plugin built from the VST Template before the export work, and for the work to plug into the preset library. This cycle built the synth. wavetable_synth.html plays any of the scanner's tables from a MIDI keyboard, the computer keys or the page's own keys. The mod wheel carries you through the table. Its envelopes use the same Moog curve and time word…
+Wavetable Scanner is the browser page that draws a wavetable as a 3D landscape and lets you sweep through its frames. It packs its own tables from a folder of single cycles, and it now has a playable MIDI synth beside it (wavetable_synth.html). When you answered my plan you said the blur along Position was hard to hear and asked for a more refined smoothing between waveforms. This cycle built that. Wherever two frames are being mixed, the old crossfade lets some harmonics cancel out. The new spectral morph lines up every frame's phases and builds the in-between frames from the spectrum, so each harmonic just gets louder or quieter on its way from one frame to the next. It's the synth's defa…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** Nobody has heard these. _(in 4 notes, the latest cycle 4)_
+- **rough since cycle 1:** Nobody has heard these. _(in 5 notes, the latest cycle 5)_
 - **rough since cycle 1:** Safari.app itself, a real Finder drag onto the stage, and phone touch haven't been tried. _(in 4 notes, the latest cycle 4)_
 - **rough since cycle 2:** Three old screenshots from cycle 1 (shot-fmsynth-bright-end, -dull-end, -file-order) were deleted when cycle 2 re-ran its check, and that deletion isn't committed yet. _(in 2 notes, the latest cycle 3)_
 
 ### Open asks
 
-- `wavetable-scanner-steward-009` — proposed plan revision: the scanner's plan, with your synth, plugin and preset-library steps · posted 2026-11-04 · options: adopt · keep · other-library
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -53,10 +53,12 @@ _None._
 
 ### Decided
 
+- `wavetable-scanner-steward-009` — the scanner's plan, with your synth, plugin and preset-library steps → GRANTED — (no option_id); notes: "I am suggesting that you work with synth templates, as there will surely be wavetable presets there so your oscillator will be useful and we can use much of the same synthesizer code. I am also interested for your 3D view here to show up at the center of a custom VST! I think a better/more refined smoothing between waveforms algo would be good, the "blur" I can't really hear. Your plan is a good one." (2026-11-04)
 - `wavetable-scanner-steward-002` — a first plan for the scanner → GRANTED — (no option_id); notes: "This is a good plan, but before step 4 add in an online MIDI synthesizer and build a synthesizer using the VST template, and make sure the work we do here can also be plugged into the Preset library project currently in progress. " (2026-11-04)
 
 ### Runs
 
+- 2026-11-03 — cycle 5 · taught item 10, proposed items 11, 12 for canon
 - 2026-11-03 — cycle 4 · taught item 8, proposed item 9 for canon
 - 2026-11-03 — cycle 3 · taught item 6, proposed item 7 for canon
 - 2026-11-03 — cycle 2 · taught item 4, proposed item 5 for canon
@@ -73,7 +75,8 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 - **3.** 2026-11-03 · `Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md` · a new gotcha at the end — a trap the next browser wavetable tool would fall into silently; it belongs beside the other build gotchas
 - **5.** 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Sketch round 2 — Drone default fix' — the Study tier's reach, porting the packer to JS, now exists, and it packs in the order Loudon chose
 - **7.** 2026-11-03 · `Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md` · a new gotcha at the end, after the decodeAudioData one — a silent visual bug that headless checks miss; the next Three.js scanner would copy it
-- **9.** 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 1 — the packer moves into the page' — Loudon's 2026-11-04 note put a MIDI synth ahead of the exports; the entry should record that it exists and how it is built
+- **11.** 2026-11-03 · [[Wavetable Scanner]] · § Tiers, a new subsection after 'Study round 1 — the packer moves into the page' — item 9 plus the spectral morph, which is now how the synth moves between frames
+- **12.** 2026-11-03 · `Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md` · a new gotcha at the end, after the cursor-plane one — the next wavetable tool would ship a plain crossfade, and no level meter catches this
 
 <!-- scroll:now:end -->
 
@@ -92,6 +95,66 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="wavetable-scanner-steward-011" -->
+### 2026-11-04 — cycle 5 — The synth now has a spectral morph: no harmonic drops out halfway between two frames. It's the default, with crossfade one menu click away.
+> shipped · three browsers pass · four A/B sweeps to hear · steward leans spectral as default
+
+Why the blur was hard to hear: the blur changes the frames themselves, but what you hear *between* two frames is the playback crossfade, which mixes two waveforms. Wherever the two hold a harmonic out of phase, it cancels halfway. On the FM family chain, 70 of 121 neighbouring pairs lose a harmonic by more than 6 dB at the halfway point, and the worst loses 30 dB. On the Sketch's classics, the square → bell step dips almost 9 dB in level.
+
+The fix has two steps (`packer.js` `spectralMorph`). First it **lines up the phases**: on a held note you hear each harmonic's level, not its phase, so each frame takes the previous frame's phases and keeps its own levels. Then it **fills the gaps from the spectrum**: between each pair it adds in-between frames where each harmonic's power moves in a straight line, up to 512 frames in all. After both steps there are no holes in any table and no level dips.
+
+What I found along the way: the sweep buzz (the flutter on a fast sweep) is a different problem. It comes from how far apart neighbouring frames are, and only the blur reduces it. Filling the gaps *without* lining up the phases first made the buzz 5 dB worse, because each harmonic's phase has to turn, which is a small pitch wobble. That's why the phases get lined up first.
+
+In the synth, the **Morph** menu next to Table defaults to *Spectral*. I matched loudness on energy, not peak, because lined-up phases make the waveform peakier. The two settings measure within 0.1 dB of each other in Chrome, Firefox and WebKit, and switching takes 150 to 200 ms on the FM table. A folder you pack in the synth isn't blurred any more; the morph does the smoothing.
+
+**Artifacts:**
+- [Listen here first: sine → tri → saw → square → bell, crossfade, a second of silence, then spectral. The square → bell step is the plainest.](Projects/Wavetable Scanner/packer/morph/ab_classics.wav)
+- [The 122-frame FM chain, 20 s each way, loudness matched.](Projects/Wavetable Scanner/packer/morph/ab_fmsynth.wav)
+- [The 154-frame organ chain, the same A/B.](Projects/Wavetable Scanner/packer/morph/ab_eorgan.wav)
+- [The 19 cello cycles, the same A/B.](Projects/Wavetable Scanner/packer/morph/ab_cello.wav)
+- [The synth with the new Morph menu; play it and flip Spectral against Crossfade with the mod wheel moving.](Projects/Wavetable Scanner/wavetable_synth.html)
+- [Chrome, with the Morph menu and the HUD reading 'saw → square (3.02/5 · spectral)'.](Projects/Wavetable Scanner/synth/shot-synth-chrome.png)
+- [Firefox, same check.](Projects/Wavetable Scanner/synth/shot-synth-firefox.png)
+- [WebKit, same check.](Projects/Wavetable Scanner/synth/shot-synth-webkit.png)
+- [spectralMorph, and packCycles' new morph option ('crossfade' \| 'spectral' \| 'locked').](Projects/Wavetable Scanner/packer/packer.js)
+- [Scores six ways on four tables and renders the A/B files.](Projects/Wavetable Scanner/packer/morph_check.py)
+- [The numbers in the table above.](Projects/Wavetable Scanner/packer/morph_check.json)
+- [The headless packer takes morph and target arguments.](Projects/Wavetable Scanner/packer/pack_folder.cjs)
+- [The synth page source with the Morph menu.](Projects/Wavetable Scanner/synth/page.html)
+- [The browser check now flips the Morph menu and measures level and frame count.](Projects/Wavetable Scanner/synth/synth_check.mjs)
+- [Three browsers, no page errors.](Projects/Wavetable Scanner/synth/synth_check.json)
+
+_Halfway between every pair of neighbouring frames (morph_check.json)_
+| table | way | worst level dip | pairs losing a harmonic | sweep buzz |
+| --- | --- | --- | --- | --- |
+| classics (5) | crossfade | −8.7 dB | 1 of 4 | −57.5 dB |
+| classics (5) | spectral | 0.0 dB | 0 | −59.3 dB |
+| FM chain (122) | crossfade | −2.2 dB | 70 of 121 | −26.2 dB |
+| FM chain (122) | spectral | 0.0 dB | 0 | −27.1 dB |
+| FM chain (122) | spectral without the phase line-up | 0.0 dB | 0 | −20.7 dB |
+| FM chain (122) | crossfade + blur 1 | −0.7 dB | 34 of 121 | −36.9 dB |
+| FM chain (122) | spectral + blur 1 | 0.0 dB | 0 | −35.7 dB |
+| organ chain (154) | crossfade → spectral | −2.7 → −0.2 dB | 53 → 0 | −24.1 → −24.7 dB |
+| cello chain (19) | crossfade → spectral | −1.8 → 0.0 dB | 16 → 0 | −47.9 → −46.1 dB |
+
+_Changed in the workshop:_ BUILD — new section: the spectral morph, its numbers and the A/B files
+_Changed in the workshop:_ README — the Morph menu, energy loudness matching, and the browser numbers
+_Proposed for canon:_ Wavetable Scanner (§ Tiers, a new subsection after 'Study round 1 — the packer moves into the page') — item 9 plus the spectral morph, which is now how the synth moves between frames; owed in the tuning ledger until Loudon's review; it replaces item 9
+_Proposed for canon:_ Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md (a new gotcha at the end, after the cursor-plane one) — the next wavetable tool would ship a plain crossfade, and no level meter catches this; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard these. With the phases lined up, the drawn waveforms look different from the AKWF originals (a saw no longer looks like a saw), even though the held sound is the same. The scanner's Study page still has only the blur, not the morph, and the packer's own download still normalises by peak, so a spectral export comes out a little quieter.
+
+_Next moves named:_ Synth Templates: find its wavetable cards and offer this engine, spectral morph and all, as the oscillator they're missing · Plan the VST with the 3D view at its centre, starting from the VST Template's Algorithm.h; the engine is already one plain class · Give the Study page the same Morph menu, and draw each frame as it was made while the engine plays the lined-up version
+<sub>`wavetable-scanner-steward-011` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-3109448da7" -->
+### 2026-11-03 — cycle 5
+
+taught item 10, proposed items 11, 12 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="wavetable-scanner-steward-009" -->
 ### 2026-11-04 — cycle 4 — Adopt the scanner's plan with your additions: MIDI synth (built), then a VST, then the Synth Templates hook, then exports?
 > still working · MIDI synth shipped · steward leans adopt

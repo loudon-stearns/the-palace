@@ -11,6 +11,36 @@
 5. Try **Smooth along Position**: *Blur 1 frame* is the fix for the sweep buzz from Generative Wavetable Libraries. Sweep Position fast with it off, then on.
 6. **Download packed .wav** saves a 32-bit float table. Drop it on Ableton Wavetable's oscillator display.
 
+## Spectral morph (cycle 5, 2026-11-04)
+
+Loudon on the blur: "I can't really hear it. A better, more refined smoothing between waveforms would be good." The blur works on the frames. What you hear *between* two frames is the playback crossfade, and that is where the trouble is: mixing two waveforms cancels any harmonic the two hold out of phase, so halfway through a morph some harmonics drop out that neither frame has lost. `morph_check.py` counts them. On the FM chain, 70 of 121 neighbouring pairs lose at least one harmonic by more than 6 dB at the halfway point, and the deepest hole is 30 dB.
+
+`spectralMorph(frames, target, lock)` in `packer.js` fixes this in two steps:
+
+- **Lock the phases.** A held note doesn't let you hear the phases of its harmonics, only their levels. So each frame takes the phases of the frame before it for every harmonic that frame already sounds. The levels, and so the held sound, stay the same. The drawing of the waveform changes, and it gets peakier (median crest +2.3 dB on the FM chain).
+- **Fill the gaps in the spectrum.** Between each pair it adds in-between frames: each harmonic's power moves in a straight line and its phase turns the short way, up to 512 frames in all. Equal power means the level doesn't dip.
+
+`packCycles(…, { morph: 'locked' })` does both. `'spectral'` fills the gaps without the lock. `morphTarget: 1` locks the phases and adds no frames.
+
+| table | way | worst level dip | pairs with a hole | buzz |
+|---|---|---|---|---|
+| classics (5) | crossfade | −8.7 dB | 1 of 4 | −57.5 dB |
+| | **locked spectral** | 0.0 dB | 0 | −59.3 dB |
+| fmsynth chain (122) | crossfade | −2.2 dB | 70 of 121 | −26.2 dB |
+| | spectral, no lock | 0.0 dB | 0 | −20.7 dB |
+| | **locked spectral** | 0.0 dB | 0 | −27.1 dB |
+| | lock only, 122 frames | −1.9 dB | 0 | −28.8 dB |
+| | crossfade, blur 1 | −0.7 dB | 34 of 121 | −36.9 dB |
+| | locked spectral, blur 1 | 0.0 dB | 0 | −35.7 dB |
+| eorgan chain (154) | crossfade | −2.7 dB | 53 of 153 | −24.1 dB |
+| | **locked spectral** | −0.2 dB | 0 | −24.7 dB |
+| cello chain (19) | crossfade | −1.8 dB | 16 of 18 | −47.9 dB |
+| | **locked spectral** | 0.0 dB | 0 | −46.1 dB |
+
+What this shows: the two fixes treat different things. The locked morph takes out the holes and the level dips, so the sound between two frames is one tone and not two waves fighting. The buzz on a fast sweep comes from how far apart neighbouring frames are, and only the blur moves it. Filling the gaps without the lock turns each harmonic's phase, which is a small pitch wobble, and that makes the buzz 5 dB worse on the FM chain. That is why the lock comes first.
+
+**Listen:** `morph/ab_classics.wav`, `ab_fmsynth.wav`, `ab_eorgan.wav`, `ab_cello.wav`. Each has the same sweep twice at 110 Hz, crossfade first, then a second of silence, then the locked spectral morph, matched in loudness. The classics file is the plainest: listen at the square → bell step, where the crossfade dips by almost 9 dB.
+
 ## Drag the cursor, and three browsers (cycle 3, 2026-11-04)
 
 **The cursor plane was turned the wrong way.** In the Sketch it was rotated a quarter turn, so it ran lengthwise through the middle of the table and slid forward and back without ever marking where the scan was (look at `shot-fmsynth-chain-mid.png` from cycle 2: the dark sheet runs along the table). The Study page drops the rotation. The plane is now a cross-section at the scan position, with an outline so it reads against a dense table.

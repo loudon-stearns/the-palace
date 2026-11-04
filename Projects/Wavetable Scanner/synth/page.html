@@ -108,6 +108,7 @@ h1 { font-family: var(--display, sans-serif); font-weight: 400; letter-spacing: 
 
   <div class="bar">
     <label>Table <select id="cTable"></select></label>
+    <label title="how one frame becomes the next. Spectral moves each harmonic's level in a straight line, with every frame's phases lined up, so no harmonic drops out halfway; Crossfade mixes the two waveforms, as before">Morph <select id="cMorph"><option value="locked">Spectral</option><option value="crossfade">Crossfade</option></select></label>
     <label class="filebtn" for="cDir">Pack a folder…</label>
     <input id="cDir" type="file" webkitdirectory multiple />
     <label class="filebtn" for="cWav">Load a table .wav…</label>
@@ -150,19 +151,38 @@ function decode(t) {
   if (t.int16) { const s = new Int16Array(bytes.buffer), f = new Float32Array(s.length); for (let i = 0; i < s.length; i++) f[i] = s[i] / 32767; return f; }
   return new Float32Array(bytes.buffer);
 }
-let cur = null;   // { label, frames, samples, names }
+let cur = null;   // { label, frames, samples, names, stride } — what the engine plays
+let src = null;   // the table as chosen, before the morph
+let morph = 'locked';
 TABLES.forEach((t, i) => { const o = document.createElement('option'); o.value = i; o.textContent = t.label; $('cTable').appendChild(o); });
+/* Spectral morph: line the frames up, lock their phases, fill each gap with
+   in-betweens made in the spectrum (packer.js spectralMorph); up to 512 frames. */
+function morphed(t) {
+  if (morph === 'crossfade' || t.frames < 2) return { ...t, stride: 1 };
+  const L = 1024, frames = [];
+  for (let f = 0; f < t.frames; f++) { const c = t.samples.slice(f * L, f * L + L); let m = 0; for (const v of c) m += v; m /= L; frames.push(c.map(v => v - m)); }
+  const { frames: out, between } = WTPacker.spectralMorph(WTPacker.alignRotations(frames), 512, true);
+  const samples = new Float32Array(out.length * L); out.forEach((c, i) => samples.set(c, i * L));
+  // Match loudness, not peaks: lining up the phases makes the waveforms peakier
+  // (about +4 dB of crest on the FM chain), and a peak match would cost that in level.
+  // The engine reads floats and ends in tanh, so a peak over 1 is safe.
+  let e = 0; for (const v of samples) e += v * v; e /= samples.length;
+  let e0 = 0; for (const v of t.samples) e0 += v * v; e0 /= t.samples.length;
+  if (e > 0) { const k = Math.sqrt(e0 / e); for (let i = 0; i < samples.length; i++) samples[i] *= k; }
+  return { label: t.label, frames: out.length, samples, names: t.names, stride: between + 1 };
+}
 function useTable(t) {
-  cur = t; drawTable();
+  src = t; cur = morphed(t); t = cur; drawTable();
   if (node) { const mips = WTSynth.buildMips(t.samples, t.frames); node.port.postMessage({ t: 'table', mips, frames: t.frames }, [mips.buffer]); }
 }
 function pickTable(i) { const t = TABLES[i]; useTable({ label: t.label, frames: t.frames, samples: decode(t), names: t.frameNames || [] }); }
 $('cTable').onchange = e => pickTable(+e.target.value);
+$('cMorph').onchange = e => { morph = e.target.value; if (src) useTable(src); };
 $('cDir').onchange = async e => {
   const files = await Promise.all([...e.target.files].filter(f => /\.wav$/i.test(f.name)).map(async f => ({ name: f.name, buffer: await f.arrayBuffer() })));
   if (!files.length) return toast('no .wav files in that folder');
-  const p = WTPacker.packCycles(files, { order: 'chain', smooth: 1 });
-  addTable({ label: `Packed — ${files.length} cycles, family chain, blur 1`, frames: p.frames, samples: p.samples, names: p.frameNames });
+  const p = WTPacker.packCycles(files, { order: 'chain' });
+  addTable({ label: `Packed — ${files.length} cycles, family chain`, frames: p.frames, samples: p.samples, names: p.frameNames });
   toast(`packed ${p.frames} frames` + (p.skipped.length ? `, skipped ${p.skipped.length}` : ''));
 };
 $('cWav').onchange = async e => {
@@ -188,11 +208,11 @@ async function engage() {
   node.connect(analyser); analyser.connect(ac.destination);
   node.port.onmessage = ({ data }) => { enginePos = data.pos; sounding = data.voices; };
   for (const [k, v] of Object.entries(params)) node.port.postMessage({ t: 'set', k, v });
-  useTable(cur);
+  useTable(src);
   await ac.resume();
   $('gate').classList.add('hidden');
   startMidi();
-  window.__synth = { ac, node, noteOn, noteOff, cc, params, get pos() { return enginePos; }, get sounding() { return sounding; } };
+  window.__synth = { ac, node, noteOn, noteOff, cc, params, get pos() { return enginePos; }, get table() { return { frames: cur.frames, stride: cur.stride, morph }; }, get sounding() { return sounding; } };
 }
 $('engage').onclick = engage;
 const send = m => node && node.port.postMessage(m);
@@ -315,10 +335,11 @@ function drawTable() {
   const d = fit(tc), g = tc.getContext('2d'), W = tc.width, H = tc.height, F = cur.frames;
   g.clearRect(0, 0, W, H);
   const acc = css('--accent') || '#5cf2a0', dim = css('--fg-4') || '#53655b';
-  const rows = Math.min(F, 64), pos = node ? enginePos : params.position, fp = pos * (F - 1);
+  const st = cur.stride || 1, SF = Math.round((F - 1) / st) + 1;            // the ridges are the chosen frames, not the in-betweens
+  const rows = Math.min(SF, 64), pos = node ? enginePos : params.position, fp = pos * (F - 1);
   const x0 = W * 0.08, x1 = W * 0.78, depthX = W * 0.16, yBack = H * 0.18, yFront = H * 0.86, amp = H * 0.11;
   for (let r = rows - 1; r >= 0; r--) {
-    const f = Math.round(r / Math.max(1, rows - 1) * (F - 1)), z = r / Math.max(1, rows - 1);
+    const f = Math.round(r / Math.max(1, rows - 1) * (SF - 1)) * st, z = r / Math.max(1, rows - 1);
     const ox = depthX * z, oy = yFront - (yFront - yBack) * z;
     g.beginPath();
     for (let i = 0; i <= 256; i++) { const s = cur.samples[f * 1024 + Math.min(1023, i * 4)]; const x = x0 + ox + (x1 - x0) * i / 256, y = oy - s * amp; i ? g.lineTo(x, y) : g.moveTo(x, y); }
@@ -333,9 +354,11 @@ function drawTable() {
   // the Position rail
   g.strokeStyle = dim; g.lineWidth = d; g.beginPath(); g.moveTo(x1 + 18 * d, yFront); g.lineTo(x1 + depthX + 18 * d, yBack); g.stroke();
   g.fillStyle = acc; g.beginPath(); g.arc(x1 + 18 * d + depthX * z, yFront - (yFront - yBack) * z, 5 * d, 0, 7); g.fill();
-  const name = cur.names[Math.round(fp)] || `frame ${Math.round(fp) + 1}`;
+  const sf = fp / st, sa = Math.floor(sf), on = Math.abs(sf - Math.round(sf)) < 0.5 / st;
+  const nm = i => cur.names[i] || `frame ${i + 1}`;
+  const name = st === 1 || on ? nm(Math.round(sf)) : `${nm(sa)} → ${nm(Math.min(SF - 1, sa + 1))}`;
   $('hud').innerHTML = `<div><span class="k">table</span> <span class="v">${cur.label}</span></div>
-    <div><span class="k">position</span> <span class="v">${pos.toFixed(3)}</span> · <b>${name}</b> <span class="v">(${Math.round(fp) + 1}/${F})</span></div>
+    <div><span class="k">position</span> <span class="v">${pos.toFixed(3)}</span> · <b>${name}</b> <span class="v">(${(sf + 1).toFixed(st > 1 ? 2 : 0)}/${SF}${st > 1 ? ' · spectral' : ''})</span></div>
     <div><span class="k">wheel</span> <span class="v">${wheel.toFixed(2)}</span> · <span class="k">sounding</span> <span class="v">${sounding.map(n => NAMES[n % 12] + (Math.floor(n / 12) - 1)).join(' ') || '—'}</span></div>`;
 }
 const buf = new Float32Array(2048);

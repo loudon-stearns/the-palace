@@ -52,7 +52,18 @@ for (const [name, type] of [['chrome', chromium], ['firefox', firefox], ['webkit
   await page.waitForTimeout(2500); r.after_release_sounding = await page.evaluate(() => window.__synth.sounding.length);
   // switch to the 122-frame table, then pack a folder of organ cycles through the folder input
   await page.selectOption('#cTable', '2'); await page.evaluate(() => window.__synth.noteOn(48, 100)); await page.waitForTimeout(300);
-  r.fm_table_rms = +(await page.evaluate(rms)).toFixed(4); await page.evaluate(() => window.__synth.noteOff(48));
+  r.fm_table_rms = +(await page.evaluate(rms)).toFixed(4);
+  // the Morph switch: spectral (the default) fills the gaps; crossfade plays the 122 frames as they are
+  r.morph = { spectral: await page.evaluate(() => window.__synth.table) };
+  await page.evaluate(() => window.__synth.cc(1, 64)); await page.waitForTimeout(200);
+  r.morph.spectral.hud = await page.evaluate(() => document.querySelector('#hud').innerText.split('\n')[1]);
+  r.morph.spectral.rms = +(await page.evaluate(rms)).toFixed(4);
+  const t0 = Date.now(); await page.selectOption('#cMorph', 'crossfade'); r.morph.crossfade = await page.evaluate(() => window.__synth.table);
+  await page.waitForTimeout(200); r.morph.crossfade.rms = +(await page.evaluate(rms)).toFixed(4);
+  r.morph.crossfade.hud = await page.evaluate(() => document.querySelector('#hud').innerText.split('\n')[1]);
+  const t1 = Date.now(); await page.selectOption('#cMorph', 'locked'); r.morph.switch_back_ms = Date.now() - t1;
+  r.morph.back = await page.evaluate(() => window.__synth.table);
+  await page.evaluate(() => { window.__synth.cc(1, 0); window.__synth.noteOff(48); });
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'eorgan40-'));   // the folder input wants a folder: the first 40 organ cycles
   fs.readdirSync(AK).filter(n => n.endsWith('.wav')).slice(0, 40).forEach(n => fs.copyFileSync(path.join(AK, n), path.join(dir, n)));
   await page.locator('#cDir').setInputFiles(dir).catch(e => r.errors.push('setInputFiles: ' + e.message.split('\n')[0]));
