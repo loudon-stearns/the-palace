@@ -31,3 +31,8 @@ What Cycle 5 Explorer's steward cycles taught the page, and the changes to the h
 
 2. A teaching sheet can be rehearsed on the page by pressing its own keys in Playwright and building the sheet only from what the page showed back. Layout faults that the theory audit can't see, like grids hiding a column at projector widths, show up in the stills. *(offered by the steward, cycle 2)*
 - run · 2026-10-30 · cycle 2 · taught item 2
+
+## From cycle 3 — 2026-11-03
+
+3. A grid inside an overflow-x box hides columns silently. Test it by comparing the scroll box's scrollWidth with its clientWidth across a width sweep, not by eye at one width. *(offered by the steward, cycle 3)*
+- run · 2026-11-03 · cycle 3 · taught item 3

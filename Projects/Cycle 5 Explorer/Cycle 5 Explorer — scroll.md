@@ -15,34 +15,35 @@ forward_vector: "I am Cycle 5 Explorer's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-30T10:04:03.712Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-04T01:30:52.732Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-10-30 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 3 · last ran 2026-11-04 (today)
 - **Plan:** agreed (no dated change on the trail yet)
-- **Waiting on you:** 1 open ask — one of them has the steward paused
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-30 (today) — A fifty-minute class plan for teaching with me, with every step pressed on the real page first. It found that my grids hide their last column on a projector. (`cycle5-explorer-steward-006`)
-- **Last commit touching this project:** 2026-10-30 `a91383f5` — steward(Cycle 5 Explorer): cycle 1 — SPINNING UP. HOME: [Cycle 5 Explorer](obsidian://open?vault=The%20Palac…
+- **Last shipped:** 2026-11-04 (today) — My three grids now show every column on a projector, the 7 and ♭7 column included. Before, all three hid their last column at every classroom width. (`cycle5-explorer-steward-008`)
+- **Last commit touching this project:** 2026-11-03 `74d578ec` — edit(Loudon Live Design System): the browser's furniture fan-out, batch 1 of 5: Projects, 0 to C (81 pages)
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-30 — cycle 2 · taught item 2
+- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 3 · taught item 3
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 2, from cycle 2 — 2026-10-30 — [[Cycle 5 Explorer — tuning]]
+- **Latest lesson:** item 3, from cycle 3 — 2026-11-03 — [[Cycle 5 Explorer — tuning]]
 
 ### Where this stands
 
-Cycle 5 Explorer is the decoder ring for harmony you rebuilt from your Illustrator board on 27 and 28 October. Every key is a seven-note window sliding along the line of fifths. You drag one ring to change key and another to change mode, and three grids and a four-notation chord readout follow. The plan is to have you answer the page's open questions, try it once in a class or a stream, then grow it. You asked to look at me before any cycle changes me, and that ask is still open. So cycle 1 built a review kit beside the page: a spelling check of every key (3,990 checks, no failures), the page's own sound recorded, and your four questions on one sheet. This cycle prepared the classroom step:…
+Cycle 5 Explorer is the decoder ring for harmony you rebuilt from your Illustrator board on 27 and 28 October. Every key is a seven-note window sliding along the line of fifths. You drag one ring to change key and another to change mode, and three grids plus a chord readout in four notations follow along. On 4 November you reviewed me and said the plan stands. The path is that you answer my open questions, I fold your answers in, and you try me once in a class or a stream before I grow anything new. Last cycle I rehearsed a fifty-minute class on the page and found that its three grids, side by side, each hid their last column on a projector. In Scale Tones that is the 7 and ♭7 column, the v…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since 2026-10-28:** Nobody has heard the page, me included. _(in 3 notes, the latest cycle 2)_
+- **rough since 2026-10-28:** Nobody has heard the page, me included. _(in 4 notes, the latest cycle 3)_
+- **rough since 2026-10-28:** The grids are measured in headless Chromium only and haven't been seen on a real projector. _(in 2 notes, the latest cycle 3)_
 
 ### Open asks
 
-- `cycle5-explorer-steward-002` — review the current state before any cycle runs · **steward paused on this** · posted 2026-10-29 · options: reviewed · notes · replan
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -50,10 +51,11 @@ _None._
 
 ### Decided
 
-_Nothing decided on the board yet._
+- `cycle5-explorer-steward-002` — review the current state before any cycle runs → GRANTED — option_id=reviewed (2026-11-04)
 
 ### Runs
 
+- 2026-11-03 — cycle 3 · taught item 3
 - 2026-10-30 — cycle 2 · taught item 2
 - 2026-10-30 — cycle 1 · taught item 1
 
@@ -82,6 +84,51 @@ Where this is going: the page Loudon pulls up to teach harmony, proven in a clas
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="cycle5-explorer-steward-008" -->
+### 2026-11-04 — cycle 3 — My three grids now show every column on a projector, the 7 and ♭7 column included. Before, all three hid their last column at every classroom width.
+> shipped · grids fixed and swept from 360 to 1920 px · steward leans: you try me in class
+
+**Open this:** [the page](open:Projects/Cycle 5 Explorer/cycle5-explorer.html), and scroll down to the grids.
+
+**What changed.** The three grids no longer try to fit side by side. Scale Tones and Chord Function share the top row, and Chord Tones gets its own full-width row underneath. Below 1100 px wide, all three stack. That's the only change, a few lines of CSS. The wheel, the inspector, the sound and the theory are untouched.
+
+**How I know.** I measured each grid's table against the box that holds it in headless Chromium, in both mode-change settings. Before the change, a sweep of every width from 360 to 1920 px in 20-px steps found 159 cases of a hidden column, and at 1920 the Scale Tones grid still lost 29 px. After the change, nothing hides from 640 px up. On a phone, the grids still scroll sideways. Cells also grew: the smallest cell at 1280 went from 38 to 45 px in Scale Tones and from 38 to 112 px in Chord Tones. The theory tests pass, and the spelling audit still reads 3,990 checks with 0 failures. The class run-sheet's warning to scroll the grids sideways now says they show in full.
+
+**Artifacts:**
+- [the page, with the grid layout changed.](Projects/Cycle 5 Explorer/cycle5-explorer.html)
+- [before, at 1280 px: three across, each grid cut off at its right edge.](Projects/Cycle 5 Explorer/workshop/projector-grids/before-grids-1280.png)
+- [after, at 1280 px: two across, Chord Tones below, all seven columns showing.](Projects/Cycle 5 Explorer/workshop/projector-grids/after-grids-1280.png)
+- [before, at 1920 px.](Projects/Cycle 5 Explorer/workshop/projector-grids/before-grids-1920.png)
+- [after, at 1920 px.](Projects/Cycle 5 Explorer/workshop/projector-grids/after-grids-1920.png)
+- [measures each grid's hidden width at five projector widths, in both mode-change settings (Playwright).](Projects/Cycle 5 Explorer/workshop/projector-grids/measure-grids.mjs)
+- [sweeps 360 to 1920 px and names any grid that still hides a column.](Projects/Cycle 5 Explorer/workshop/projector-grids/sweep.mjs)
+- [every measurement before the change.](Projects/Cycle 5 Explorer/workshop/projector-grids/before-grids.json)
+- [every measurement after.](Projects/Cycle 5 Explorer/workshop/projector-grids/after-grids.json)
+- [the class run-sheet builder, with the warning about hidden columns replaced.](Projects/Cycle 5 Explorer/class/build-run-sheet.mjs)
+- [the class run-sheet, rebuilt.](Projects/Cycle 5 Explorer/class/class-run-sheet.html)
+
+_hidden width of each grid (px) · same notes · before → after_
+| width | Scale Tones | Chord Function | Chord Tones |
+| --- | --- | --- | --- |
+| 1024 | 0 → 0 | 109 → 0 | 0 → 0 |
+| 1280 | 80 → 0 | 81 → 0 | 91 → 0 |
+| 1366 | 56 → 0 | 44 → 0 | 66 → 0 |
+| 1440 | 35 → 0 | 13 → 0 | 44 → 0 |
+| 1920 | 29 → 0 | 3 → 0 | 36 → 0 |
+
+_Left rough:_ Nobody has heard the page, me included. The grids are measured in headless Chromium only and haven't been seen on a real projector. The page is now taller, so you'll scroll down to reach Chord Tones. Your four open questions still wait on the review sheet.
+
+_Next moves named:_ When you answer the four questions on the review sheet (class default, Berklee notation, feel words, which feature next), fold them in and lift the title block from SKETCH to STUDY. · Meanwhile: measure the grids' and inspector's labels as the back row would see them at 720p and 1080p, the way Rational Hearing measured its ladder, and fix whatever falls under readable. · Then: one class or stream with the run-sheet.
+<sub>`cycle5-explorer-steward-008` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-a8ac0d1811" -->
+### 2026-11-03 — cycle 3
+
+taught item 3
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="cycle5-explorer-steward-006" -->
 ### 2026-10-30 — cycle 2 — A fifty-minute class plan for teaching with me, with every step pressed on the real page first. It found that my grids hide their last column on a projector.
 > shipped · page untouched, your review still open · steward leans fix the grid clipping first

@@ -257,9 +257,10 @@ text { dominant-baseline: central; text-anchor: middle; font-family: var(--font-
 .inline-seg { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
 
 /* grids: hairline cells, the tonic hatched, the sounding chord lit */
-.grids { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.35fr) minmax(0, .95fr); gap: var(--space-4); }
-@media (max-width: 1240px) { .grids { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .grids .panel:last-child { grid-column: 1 / -1; } }
-@media (max-width: 760px) { .grids { grid-template-columns: minmax(0, 1fr); } }
+/* two across, Chord Tones on its own row below: three across hid each grid's last column at every width up to 1920 */
+.grids { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.35fr); gap: var(--space-4); }
+.grids .panel:last-child { grid-column: 1 / -1; }
+@media (max-width: 1100px) { .grids { grid-template-columns: minmax(0, 1fr); } }
 .gridhead { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px 12px; }
 .gridnote { color: var(--ink-2); margin: 0 0 var(--space-2); }
 .scroll { overflow-x: auto; }
