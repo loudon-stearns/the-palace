@@ -15,7 +15,25 @@ forward_vector: "I am Graphic Storytelling's scroll: the page that opens on wher
 <!-- scroll:now:start -->
 ## Now
 
-_Not generated yet. This zone belongs to the machine and fills itself in the first time anyone looks._
+> _Regenerated 2026-11-03T23:49:48-05:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+
+- **Status:** — · **Stage:** growing · **Steward:** none — this page has no permanent steward yet
+- **Plan:** agreed 2026-11-03 (today) · 0 made things since
+- **Waiting on you:** nothing
+- **Last shipped:** nothing on the board yet — but the bundle holds 3 media files (see the making trail)
+- **Last commit touching this page:** 2026-11-03 `b2bc2636` — handoff(Graphic Storytelling): the revision baton is caught and landed; the file and pointer go
+
+### Where this stands
+
+**handoff id:** graphic-storytelling-handoff-2026-10-29 **completion:** complete **commit:** b95d9dcf **move:** Land the revision of Graphic Storytelling from the draft Loudon corrected at the Daily Page of 2026-10-28, move the old research canon into a new Graphic Storytelling — Context, and get his final yes on the landed text. **note:** Move landed in b95d9dcf, in the spirit of the original.
+
+### Open asks
+
+_None — nothing is waiting on you._
+
+### Decided
+
+_Nothing decided on the board yet._
 
 <!-- scroll:now:end -->
 
@@ -25,7 +43,8 @@ _Not generated yet. This zone belongs to the machine and fills itself in the fir
 **Where the work is going:** from a borrowed canon about comics to the palace's own working theory of sequential art, with every claim shown rather than argued, and carried from the page to the screen.
 
 **The moves ahead:**
-1. **Land the revision.** The page is rewritten from the draft Loudon read and corrected in the sit ([revision draft](Graphic Storytelling/proofs/2026-10-28-daily-page/Graphic Storytelling — proof — revision-draft.md)). The old research canon moves into a new [[Graphic Storytelling — Context]]. The revision is in the baton, [[Graphic Storytelling — baton]], and waits for a session. His final yes on the landed text is still owed.
+1. ~~Land the revision.~~ Landed 2026-11-03 in `b95d9dcf`. The page is now the draft Loudon corrected in the sit, with two fixes: McCloud's time-is-space is hedged, and the held red is dated from the glove's fall. The research canon is in [[Graphic Storytelling — Context]], and the rich face is re-keyed to the new headings.
+2. *The next move is Loudon's to set.* The page's own candidates are the strip player from "What the Shop should build" (panels on a clock, one variable swapped at a time, blind takes that come back with no retyping), or a reader's first run through the time-is-space test, so its section can come up for his approval.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -37,6 +56,20 @@ _Loudon's standing direction for this page. Never regenerated; it holds until he
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-2026-11-03T23-49-48-05-00" -->
+### 2026-11-03 — Plan revised
+
+Move 1 landed on Loudon's yes, 2026-11-03; no next move agreed yet.
+
+_The plan before this change:_
+
+> **Where the work is going:** from a borrowed canon about comics to the palace's own working theory of sequential art, with every claim shown rather than argued, and carried from the page to the screen.
+>
+> **The moves ahead:**
+> 1. **Land the revision.** The page is rewritten from the draft Loudon read and corrected in the sit ([revision draft](Graphic Storytelling/proofs/2026-10-28-daily-page/Graphic Storytelling — proof — revision-draft.md)). The old research canon moves into a new [[Graphic Storytelling — Context]]. The revision is in the baton, [[Graphic Storytelling — baton]], and waits for a session. His final yes on the landed text is still owed.
+<sub>`plan-2026-11-03T23-49-48-05-00` · plan revised · agreed 2026-11-03T23:49:48-05:00 · Loudon</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-10-29" -->
 ### 2026-10-29 — The plan set: land the revision
 
