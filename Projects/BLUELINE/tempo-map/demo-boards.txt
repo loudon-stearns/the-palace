@@ -1,0 +1,24 @@
+# === BIBLE ===
+CLOCK: demo-set.als          # the Set is the clock: tempo lane, meter lane, locators
+FPS: 24
+
+# === BOARD ===
+SHOT_ID: 01
+BAR: 5
+BEAT: 4                      # beat 4 of a 7/8 bar: an eighth note
+FRAME: 0
+SECTION:
+
+# === BOARD ===
+SHOT_ID: 02
+BAR: 11
+BEAT: 2                      # mid-ramp, 3/4
+FRAME: 0
+SECTION:
+
+# === BOARD ===
+SHOT_ID: 03
+BAR: 13
+BEAT: 1                      # the drop
+FRAME: 0
+SECTION:

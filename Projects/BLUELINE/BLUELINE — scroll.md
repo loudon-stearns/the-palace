@@ -15,24 +15,29 @@ forward_vector: "I am BLUELINE's scroll — the one page that always opens on wh
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T09:56:39-05:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-05T15:43:36.291Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 0 · last ran —
-- **Plan:** agreed 2026-11-04 (today) · 0 made things since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 1 · last ran 2026-11-05 (today)
+- **Plan:** agreed 2026-11-04 (1 day ago) · 2 made things since
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-06-21 (136 days ago) — result (`blueline-m37-m4-result-2026-06-19`)
-- **Last commit touching this project:** 2026-11-04 `7cc04682` — handoff(BLUELINE): the reset baton carries only its remainder: the tempo map, the six boards, the guide pick, the Set-parsing lessons
+- **Last shipped:** 2026-11-05 (today) — When Live is open: does demo-set.als put bar 11 beat 2 at 20.53 s and bar 17 at 29.10 s? (`blueline-steward-003`)
+- **Last commit touching this project:** 2026-11-04 `66b808e7` — edit(BLUELINE): the Active Baton line names only the reset's remainder
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-05 — cycle 1 · taught item 1, proposed item 2 for canon
+- **Owed in the ledger:** nothing
+- **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 2, from cycle 1 — 2026-11-05 — [[BLUELINE — tuning]]
 
 ### Where this stands
 
-**move:** M3.7 cumulative-sequence test + M4 hyperreal-impact reconnaissance (batched, one pod) **verdict:** render_noise_bet_closed; M4_identity_holds_at_baseline **m3 7:** 6-frame coil->leap, seed-lock vs per-step warped chain, scored on adjacent-frame coherence. SEED-LOCK WINS (adjacent embed 0.858 vs 0.809, color +0.596 vs +0.476); the warped chain wanders. Across EVERY regime (single jump M3.6 + sequence M3.7) flow-warped noise never beats seed-lock at the render. 'Move the noise at the render' is RETIRED; the flow field stays the compositional/FX spine (M2). Track V novel-core unknown = clean no. **m4:** comic<->hyperreal pair (same pose+N_A, two style prompts), boards A&B. Identity a…
+BLUELINE tells a story in comic panels set to a song. The song lives in an Ableton Set, and the plan says the Set's own clock places every panel. On 2026-11-04 you widened that order to any tempo, tempo changes and meter changes included. The board record, the one file every part of BLUELINE reads, still assumed a single tempo of 120 BPM and 12 frames a beat. The rough cut you picked on 2026-10-29 was made the same way, at one tempo. The plan's next move was to put the record on the Set's real tempo map, before the six boards get one shared finish and are cut to the song again. This cycle built that reader. It reads the tempo lane, the meter lane and the locators from a Set, works out where…
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `blueline-steward-003` — verification · posted 2026-11-05 · options: MATCHES · OFF · LATER
 
 ### Answered, not yet consumed
 
@@ -41,6 +46,20 @@ _None._
 ### Decided
 
 _Nothing decided on the board yet._
+
+### Runs
+
+- 2026-11-05 — cycle 1 · taught item 1, proposed item 2 for canon
+
+### Owed
+
+_Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **2.** 2026-11-05 · `Projects/BLUELINE/BLUELINE — Board Record Schema.md` · the `# === BIBLE ===` block (TEMPO / FPS / FRAMES_PER_BEAT) and the determinism rule under it, plus the BAR / BEAT / FRAME / SECTION comments in the BOARD extensions — the schema still says 'choose FPS and TEMPO so frames per beat is a whole number', which the 2026-11-03/04 standing orders (any tempo, tempo changes included) retired; the reader now exists to back the new rule
 
 <!-- scroll:now:end -->
 
@@ -83,6 +102,69 @@ Decided with Loudon between June and July 2026, carried over from the locked sco
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="blueline-steward-003" -->
+### 2026-11-05 — cycle 1 — When Live is open: does demo-set.als put bar 11 beat 2 at 20.53 s and bar 17 at 29.10 s?
+> still working · tempo reader built, 15 checks pass · no clear lean, only Live can say
+
+BLUELINE times its comic panels to a song, and the Ableton Set is the clock. This cycle I built the part that reads that clock, with its tempo jumps, ramps and meter changes, so every cut lands on its frame. All of its own checks pass, but one assumption only Live can confirm: that a tempo ramp runs evenly by the beat, and that 7/8 and 3/4 are written the way Live reads them. The demo Set has no song in it. Open it, and Live's ruler should show 7/8 at bar 5 and 3/4 at bar 9. Then check where bar 11 beat 2 and bar 17 fall in seconds. If they read 20.53 s and 29.10 s, the reader is right. If not, tell me the numbers and I'll fix the ramp. The run keeps going whether you answer or not.
+
+**Artifacts:**
+- [the demo Set to open in Live: no song, a tempo jump, a ramp, 7/8 and 3/4.](Projects/BLUELINE/tempo-map/demo-set.als)
+- [what the reader thinks the Set's clock is, with clicks to play.](Projects/BLUELINE/tempo-map/proofs/tempo-map.html)
+<sub>`blueline-steward-003` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="blueline-steward-002" -->
+### 2026-11-05 — cycle 1 — BLUELINE now reads a Set's tempo map, its jumps, ramps and meter changes, and places every cut on a frame without drift.
+> shipped · 15 checks pass · not yet confirmed in Live · steward leans the six boards' finish next
+
+**What it does.** `tempo_map.py` opens a Set (Live 12 or 11) and reads three things from the Main track: the tempo lane (holds, jumps where two points share a time, and ramps), the meter lane, and the locators, which it treats as sections. From those it answers four questions. Where is bar 13, beat 1, in song beats, counting every meter change? Where is that in seconds, summing every tempo segment before it and working out each ramp exactly? Which frame does it fall on, from `round(seconds × fps)` done once? And which section is it in? Given a `board_template.txt`, `--record` fills in each board's FRAME and SECTION from its BAR and BEAT.
+
+**Why rounding once matters.** At 127 BPM a beat is 11.34 frames. Round that to 11 and add it up beat by beat, and after 128 bars the cut is 173 frames (7 seconds) late. Rounding the time in the song just once keeps every cut within half a frame of the music, at any tempo and through any change. One of the checks shows that trap and that the reader avoids it.
+
+**Where Live keeps the clock.** I read Live 12's own blank Set (the Shopkeeper's template): tempo is a lane of points in BPM, and meter is a lane of numbers coded as (top − 1) + 99 × log2(bottom), so 201 means 4/4. I also ran the reader over the five Live 11 Sets in Downloads, recording only counts and never their contents. It parsed all five: up to a thousand tempo changes, dozens of ramps, over a hundred meter changes, hundreds of locators. That turned up two differences between Live versions, and the reader handles both.
+
+**The proof.** `demo-set.als` is written from Live's blank with no song in it: four bars of 4/4 at 120, a jump to 96 in 7/8, a ramp to 150 through 3/4, then 4/4 at 150, with locators named intro, verse, rise, drop and end. [The proof page](Projects/BLUELINE/tempo-map/proofs/tempo-map.html) draws that clock, plays a click on every beat (higher on each downbeat) so you can hear the jump and the ramp, and shows in red where the old one-tempo record would have put the same bars. By bar 17 the old record is 70 frames, nearly 3 seconds, late.
+
+**Artifacts:**
+- [start here: the demo Set's clock drawn, with clicks you can play and the old record's bars in red beside it.](Projects/BLUELINE/tempo-map/proofs/tempo-map.html)
+- [a still of the same page.](Projects/BLUELINE/tempo-map/proofs/tempo-map.png)
+- [a Set with no song, written from Live 12's own blank: a tempo jump, a ramp, 7/8 and 3/4, five locators. Open it in Live to check the reader.](Projects/BLUELINE/tempo-map/demo-set.als)
+- [the reader: a Set's tempo, meter and sections in; frames for any bar and beat out; fills a board record's FRAME.](Projects/BLUELINE/tempo-map/tempo_map.py)
+- [15 checks: one tempo matches the 2026-10-29 cut, ramps match brute-force sums, every meter round-trips, and the drift trap is shown.](Projects/BLUELINE/tempo-map/test_tempo_map.py)
+- [writes demo-set.als.](Projects/BLUELINE/tempo-map/make_demo_set.py)
+- [builds the proof page from demo-set.als.](Projects/BLUELINE/tempo-map/make_proof.py)
+- [three boards holding only BAR and BEAT; --record fills in their frames and sections.](Projects/BLUELINE/tempo-map/demo-boards.txt)
+- [how to use it, where Live keeps the clock, and what isn't proven yet.](Projects/BLUELINE/tempo-map/README.md)
+- [the draft clock section for the Board Record Schema, proposed below.](Projects/BLUELINE/tempo-map/clock-section-draft.md)
+
+_the demo Set: where each cut lands, read from the Set, against the old one-tempo record (24 fps)_
+| cut at | section | tempo there | song time | frame (Set) | frame (old) | off by |
+| --- | --- | --- | --- | --- | --- | --- |
+| bar 5 · beat 1 | verse | 96 | 8.0000 s | 192 | 192 | 0 |
+| bar 5 · beat 4 (7/8) | verse | 96 | 8.9375 s | 214 | 228 | +14 |
+| bar 9 · beat 1 | rise | 96, ramp starts | 16.7500 s | 402 | 384 | −18 |
+| bar 11 · beat 2 (3/4) | rise | 127.5 | 20.5336 s | 493 | 492 | −1 |
+| bar 13 · beat 1 | drop | 150 | 22.7005 s | 545 | 576 | +31 |
+| bar 17 · beat 1 | end | 150 | 29.1005 s | 698 | 768 | +70 |
+
+_Changed in the workshop:_ README — new workshop folder: how to use the tempo map reader, where Live keeps the clock, and what isn't proven yet
+_Changed in the workshop:_ clock-section-draft — the full text of the Board Record Schema's new clock section, for the proposal below
+_Proposed for canon:_ Projects/BLUELINE/BLUELINE — Board Record Schema.md (the `# === BIBLE ===` block (TEMPO / FPS / FRAMES_PER_BEAT) and the determinism rule under it, plus the BAR / BEAT / FRAME / SECTION comments in the BOARD extensions) — the schema still says 'choose FPS and TEMPO so frames per beat is a whole number', which the 2026-11-03/04 standing orders (any tempo, tempo changes included) retired; the reader now exists to back the new rule; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has opened demo-set.als in Live, so two things are still unconfirmed: that Live ramps tempo evenly by the beat, as the reader assumes, and that it shows 7/8 and 3/4 the way the reader writes them (the code is confirmed for 4/4 only). I haven't read your separate Set-parsing work either, and the 2026-10-29 cut hasn't been moved onto the reader.
+
+_Next moves named:_ Move the cut script (make_cuts.py) onto the reader, so the next cut takes the song's tempo from the Set rather than from a number in the script. · Give the six boards one shared finish, then cut them to the song again on the Set's clock (the next move on the plan). · When you have a session for it: read your separate Set-parsing work for tools and techniques only, and fold anything better into the reader.
+<sub>`blueline-steward-002` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-97b8aea525" -->
+### 2026-11-05 — cycle 1
+
+taught item 1, proposed item 2 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-11-04T09-56-39-05-00" -->
 ### 2026-11-04 — Plan revised
 
