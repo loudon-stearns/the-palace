@@ -27,7 +27,7 @@ The page is a hub that hands its depth elsewhere:
 - **The look.** In the page itself, § The look, folded in from BBS Design System on 2026-11-02, when that page composted.
 - **The words in other traditions.** [[ROSETTA]] §4b. The catcher's checklist is [[Baton Ceremony — on-pickup]], kept as one copy and linted.
 - **The thesis behind "you cannot fake completion".** The time-deck argument, the commit specification and the reconciliation engine are in [[STIGMERGY v1.0 — Palace Front-End]], now in the Archive. Its Revision 3 says it "remains the canonical statement" of all three. The page's strongest sentence rests on a file in `Archive/`.
-- **The Companion.** The entry-agent window (discussion, honest in-place edits, graffiti, undo) was planned (the [[STIGMERGY Entry-Agent Window — Integration Plan v0.1]] in the Archive). Its Maker-dispatch tier was parked by choice, with revival conditions. The page never names it, and whether the branch merged is not recorded.
+- **The Companion's plan.** The entry-agent window was planned in the [[STIGMERGY Entry-Agent Window — Integration Plan v0.1]], now in the Archive. Its discussion and in-place edits with undo run (`server/companion-lane.js`, `server/armed-write.js`); the page names it under § The lanes. Its Maker-dispatch tier was parked by choice, with revival conditions.
 - **What it is not.** v1.0's own list: no Obsidian parity, no auto-pickup scheduler, a single operator on localhost.
 
 ## What was tried and dropped
@@ -51,7 +51,13 @@ The lease, heartbeat and dead-letter rungs were not dropped. They are deferred b
 
 **The handoff section is the longest, and the only one that argues from outside the palace.** SQS, AMQP and Beanstalkd are there because the fumble was already solved elsewhere, and the page borrows on purpose and says so.
 
-**It grew in layers.** Each dated heading was added when its feature landed: 2026-06, then three for 2026-09. The result is a page that tells its own history. "Current state (2026-06)" now holds an October fact. The v2.0 paragraph tells the story of a drift that has since been healed. The frontmatter still says `version: "1.0"`, as it did at birth, and nothing says whether that tracks the page or the app. [[ELDER]]'s "write what is, not what was" pulls the other way. If the page is ever relaid in the present tense, the story can come here. That choice is Loudon's.
+**It was relaid in the present tense on 2026-11-05.** It had grown in layers, a dated heading added as each feature landed: "Current state (2026-06)", then three for 2026-09. By November the page told its own history. "Current state" still counted about 400 board messages (there were 1,366) and called the `@stigmergy/core` extraction in progress (it landed 2026-06-06, `dac21217`…`b748540f`). Its message types left out `RETRACT`. It never named STATE's lenses, the authoring path, the lanes, LOG's trunk strip or TRICKSTER's fold. Loudon asked for the page "updated based on the current state of stigmergy itself", and [[ELDER]]'s "write what is, not what was" decided the form. The dated layers became § The decks and § The lanes, and the story they carried comes here:
+
+- **The v2.0 consolidation (2026-06-16)** healed a drift where the v0.x board paradigm and the v1.0 time paradigm had stacked on one screen. Decisions moved to one surface, the TRICKSTER deck. QUEUE became the open-work board, with the raw feed demoted to a firehose. The monospace look was restored on every surface. Its roadmap toward the primary interface was to pull enrichment, handoffs and weave proposals inside the terminal, then authoring, then the Lens. By the relay all of those had a home in the terminal ([[STIGMERGY v2.0 — Consolidation & Primary Interface]]).
+- **The PROJECTS deck (2026-09-23)** answered a gap Loudon named plainly: no big-picture view of the projects, no way back *into* a project after a steward moved it, and steward progress folded away behind the firehose.
+- **The STIGMERGY Audit (2026-06-06)** is what started the core extraction (`_ops/stigmergy/STIGMERGY Audit — 2026-06-06.md`).
+
+`version: "1.0"` was left as it was at the relay. Nothing yet says whether it tracks the page or the app.
 
 **It carries its move in flight.** Since 2026-07-05 (`73c3cc99`) an Active Baton section has sat in the body, rewritten at each catch. Those lines are among the most edited in its log. A reader always sees what the deck is in the middle of. The cost is that the page's top half changes faster than its claims do.
 

@@ -41,12 +41,14 @@ The build turned the piece contract from a rule to remember into a process (spec
 
 **What the tree does now.** Both faces pass the checker ([[Kuramoto Coupling]], [[Language as a Tonal Medium]]) and the rich suite runs 235 of 235 (the old card's close). Kuramoto's three pieces stay unedited: the kit carries their playing signal. [[Generative Sample Libraries]] and [[Inharmonic Wavetable Synthesis]] need no tracking until a face names their renders: neither has a manifest, and the 557 `file-local` warnings the checker reads over the palace are nearly all GSL's ai-source-probe pages loading ignored renders no face shows (`1860515e`); a piece no face shows is told it needs a face first. Not built, by the record: spec § 5's enforcement test that fails a file lookup outside `resolve.mjs` (`scroll-view.test.js` tests `palacePathOf`, the fourth lookup, and forbids nothing); the canary piece has its test (`rich-pieces.test.js`). The card does not name it; it is written here so the spec's row reads as open, not forgotten.
 
-**What remains, as the card states it:**
+**Landed since the card was written** (checked 2026-11-05):
 
-- **The design-system `SKILL.md` words.** `_ops/loudon-live/design-system/SKILL.md:37` — "A web piece stands alone … everything inline, no `fetch` of a file beside it, no storage" — is the rule as it was before the contract; spec § 5 wants one hard rule there pointing at the contract (`_ops/rich-face/README.md` § What the page lets run). That folder is Loudon's: left for his own [[Drafting Table Design System]] session, on his word of 2026-10-21 ("Leave the design-system pins for my own session").
-- **The design-system pins.** `STIGMERGY/proofs/2026-10-21-pin-cdn/design-system-pins.diff`, digest `eefadf0589d8`: 6 tags in the five design-system pages (`assets/logo-lissajous.live.html`, `preview/card-gen-lissajous-bundle.html`, `preview/categorical-palette.html`, `slides/brb.html`, `slides/stream-ended.html`). Same session, same reason. To write after his yes: `node _ops/rich-face/pin-cdn.mjs <those five pages> --write eefadf0589d8`; a page changed since gives another digest and nothing is written — run it again and show the new diff.
-- **Enrichment tuning item 8** (`Enrichment/Enrichment — tuning.md:47`): a bare `--stamp` re-stamps a section held drifted on purpose; step 5 should stamp by section name whenever any section is held. v2.5 landed without it (`37853d97`: "still owed").
-- **The propagate-flag decision.** Three pages restate the old rule: `The Scroll.md:74` ("A web page runs sandboxed, so make it one self-contained file"), `_ops/orchestrator/prompts/shared.md:605` — a steward prompt — ("HTML runs in a sandboxed iframe … so it must stand alone"), and `SKILL.md:37` above. One propagate flag (`python3 -m commons propagate`, from `_ops/`; [[SCHEMA — Reference]] § 9) would carry the new rule to them on Loudon's yes, with the README section as its home; or each is reworded as it is next touched. Not decided.
+- **The design-system rule and pins** — `b6e90ecc`, 2026-10-21, on Loudon's yes. `_ops/loudon-live/design-system/SKILL.md` now carries "A web piece declares what it needs", pointing at the contract, and the five design-system pages load their CDN libraries pinned, with hashes.
+- **Enrichment tuning item 8** — `fc274353`, [[Enrichment]] v2.7, 2026-10-25: step 5 stamps by section name.
+
+**What remains:**
+
+- **The propagate-flag decision.** Two pages still restate the old rule: `The Scroll.md:73` ("one self-contained file") and `_ops/orchestrator/prompts/shared.md:605`, a steward prompt ("HTML runs in a sandboxed iframe … so it must stand alone"). The third, `SKILL.md`, was reworded in `b6e90ecc`. One propagate flag (`python3 -m commons propagate`, from `_ops/`; [[SCHEMA — Reference]] § 9) would carry the new rule to them on Loudon's yes, with the README section as its home; or each is reworded as it is next touched. Not decided.
 - **Three pre-existing `file-missing` errors**, in gathered proofs no face shows, there since the first census (`STIGMERGY/proofs/2026-10-20-conform-census/census.md:435,441,572`) and still on main: `Projects/BLUELINE/proofs/m1-animatic/m1-animatic.html` and `…/m2-motion-comic/m2-motion-comic.html` each load a `storyboard.json` the palace lacks; `Projects/Quantum Synthesizer/quantum-synthesizer-demo-01.html` loads `quantum-membrane.js`. Report-only; nothing blocks on them. Their owners are [[BLUELINE]] and [[Quantum Synthesizer]], not this build.
 - **Retiring the spec page.** [[STIGMERGY — spec — rich-face pieces]] says it stays as written until the build makes it true, then retires to Archive (its `forward_vector`). That is the close's move, once the words above are placed.
 
@@ -54,11 +56,9 @@ The build turned the piece contract from a rule to remember into a process (spec
 
 In this order:
 
-1. **Loudon's own Drafting Table session** writes the `SKILL.md` rule (one hard rule in place of `:37`, pointing at the contract) and the design-system pins (`--write eefadf0589d8`). His folder, his session; this catcher writes neither.
-2. **Enrichment tuning item 8:** step 5 stamps by section name whenever a section is held. A spec change, so Enrichment's version moves and item 8 is marked paid — through the Concierge and Loudon's yes.
-3. **The propagate-flag decision:** put the three lines to Loudon. On a yes, post the flag from `_ops/` with `--home "_ops/rich-face/README.md § What the page lets run"` and the three pages as its scope; on a no, reword each as it is next touched.
-4. **The three `file-missing` errors:** fix the missing files, or leave them standing and named — Loudon's call, told to their owners.
-5. **At the close:** `git mv` the spec page to `STIGMERGY/Archive/`, naming both sides to the committer; close the card against the commit; this baton goes with it, and STIGMERGY.md's Active Baton section too.
+1. **The propagate-flag decision:** put the two lines to Loudon. On a yes, post the flag from `_ops/` with `--home "_ops/rich-face/README.md § What the page lets run"` and the two pages as its scope; on a no, reword each as it is next touched.
+2. **The three `file-missing` errors:** fix the missing files, or leave them standing and named — Loudon's call, told to their owners.
+3. **At the close:** `git mv` the spec page to `STIGMERGY/Archive/`, naming both sides to the committer; close the card against the commit; this baton goes with it, and STIGMERGY.md's Active Baton section too.
 
 ## Receiving environment
 
