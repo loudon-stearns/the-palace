@@ -6,6 +6,7 @@ pillars:
   - tools
 born: 2026-03
 stage: growing
+forward_vector: "I am the doorway to the palace's rites, for people and agents alike. Both learn here what a rite is before which rites there are; then a person finds what each one tends, the words that begin it and what it asks of whoever calls it, and an agent finds the page to read before it runs one. I stay true by pointing at each rite, never retelling it."
 links:
   - target: "[[SUBSTRATE]]"
     type: deepens
@@ -30,6 +31,9 @@ links:
     type: enables
   - target: "[[Closing Well Ceremony]]"
     type: enables
+  - target: "[[Closing Well]]"
+    type: enables
+    label: carries-the-trigger
   - target: "[[Sentry]]"
     type: enables
     label: ceremony-registry
@@ -39,72 +43,79 @@ links:
   - target: "[[SCHEMA — Reference]]"
     type: connects-to
     label: ledger-rules
+  - target: "[[Palace Ceremonies — Context]]"
+    type: spawned
 ---
 # Palace Ceremonies
 
 ![[Palace Ceremonies — hero.png]]
 
-The complete and canonical list of all palace ceremonies. Every ceremony has a trigger phrase — say it and the ceremony begins, no clarification needed. For operational details, follow the "Full Spec" link.
-
-## Recurring Ceremonies
-
-| Ceremony | Trigger | Cadence | What Happens | Full Spec |
-|---|---|---|---|---|
-| The Daily Page | The morning's scheduled task; or "daily page" / "today's page" / "deal today's page" | Daily | One page a morning, dealt by chance until every page has been sat with; the morning ends in a verdict. | [[The Daily Page]] |
-| The Walk | "Let's walk" | Weekly | Pick a starting entry, follow typed links, and name honestly what the path turned up — a connection, a tension, or nothing | [[Walk Ceremony]] |
-| The Weave | "Let's weave" | Monthly | Full palace structural audit, run as a **Swarm Weave** (parallel workers + coordinator synthesis). Opens with a Map Build. Carries every propagate flag first (a decision made since the last weave, taken to each page it hasn't reached), then reports topology and link quality, formalizes unsung paths, settles every bare `connects-to` (label, retype or cut), folds each pair to one link, audits bundles for the memory a page's weight has earned, nominates rich faces, and writes the health row. | [[Weave Ceremony]] |
-| The Return | "I'm back" / "what did I miss" / "return" / "roll call" | On returning after a gap, or to see every open session now | Summon the [[Concierge]] as the first act (which also leaves a warm resident for the close); run the query block before interpreting anything; show a return map whose every row cites a command or `file:line`; end on one move, preferring an open handoff over an invented one. Loudon signs. Report the gap's length, never its cause. | [[Return Ceremony]] |
-| The Spore Check | "Spore check" | Quarterly, when Loudon calls it | Read every sleeper together — dormant pages, spores at any stage, granted revivals not yet landed — and decide each with Loudon: revive, hold, compost or fold. It decides and never revives inline; a compost is flagged for the Weave. | [[Spore Check Ceremony]] |
-| The Self-Model Update | "Self-model update" | At the end of a Weave; when an organ is grown, retired or rewired; when the anatomy check fails | Redraw [[SUBSTRATE]]'s anatomy — the organs the palace runs and how they couple — from the map's diff and the anatomy check (`_ops/self-model/anatomy.mjs`). The counts stay the [[Palace Map]]'s. | [[Self-Model Update Ceremony]] |
-| The Enrichment | "Enrich [page]" / "Enrich this page" / "Let's enrich [page]" | When a page wants to be played, not only read | The whole Shop on one page: its **rich face** — the entry's words read live as the spine, with sound, image and interactives beside the headings they serve (a manifest in the bundle, fingerprinted so a piece that lags the text says so). Pieces that test the text beat pieces that decorate it; what making teaches goes home shown first, or through the [[Deposit Ceremony]] when it changes what the page says. | [[Enrichment]] |
-| The Sentry | "Sentry sweep" / "Security sweep" / "Sentry, check [X]" | On demand, and before anything widens the public surface | Sweep for what must not leave a public repository — secrets, personal data, text written to steer the agents who read here, loose permissions, and (with `--deep`) every blob in history, npm advisories and GitHub's own settings. Raise what it finds to Loudon, masked; hold open findings locally, never in a tracked file. Its one tooth is the pre-push gate, which refuses a credential. | [[Sentry]] |
-
-## Harvest and Deposit Ceremonies
-
-| Ceremony | Trigger | What Happens | Full Spec |
-|---|---|---|---|
-| The Harvest | "Let's harvest" | Search a body of past work and surface candidates worthy of deposit. Writes candidates to a working list. | [[Harvest Ceremony]] |
-| The Deposit | "Let's deposit" / "Add this to the palace" | The gate for a find entering canon — a new entry, or a fold that changes what one says — from any door: the session in the room, a harvest, a close, a steward. Larger additions only; upkeep is an edit. Re-enter the source, consult the [[Concierge]], make a careful map, and write only what Loudon has read; whoever brought the find hears what became of it. Closes as a **movement close** ([[Closing Well]] § Scope): a punchlist into the source thread — what to look at first, what couldn't be verified — and a verified postcondition, not an asserted one. The commit *is* the record (`deposit(<id>):` subject + `Palace-Kind: deposit` + synthesis in the body); the [[Deposit Ceremony — Deposit Archive\|Deposit Archive]] is frozen — no row appended. | [[Deposit Ceremony]] |
-| The Map Build | "Let's build the map" / "Map build" | Scan palace frontmatter, extract typed links, compile edge list and ghost nodes. Output TSV, adjacency list, or JSON. Full survey; neighborhood maps are grown toward. | [[Map Build Ceremony]] |
-
-## Revival
-
-| Ceremony | Trigger | What Happens | Full Spec |
-|---|---|---|---|
-| The Revival | "Revive [entry]" / "Let's revive [entry]" / "Time to revive [entry]" | The only way a sleeping page wakes. Four ways in: Loudon's word, a Spore Check, a Daily Page morning, a revive request he grants on the board. Loudon meets the page through a made thing and decides whether it is alive; then the page is made true now, every changed word shown to him first, and a project gets a scroll, an agreed Plan and, on his word, a steward. No Revival Note: the story goes on the scroll and in the commit. | [[Revival Ceremony]] |
-
-## Continuity Ceremonies
-
-| Ceremony | Trigger | What Happens | Full Spec |
-|---|---|---|---|
-| The Baton | "baton" / "pass the baton" / "baton this" / "baton it to [surface]" | Compress an in-progress move into a baton (a file) the next Claude catches and runs with, without restarting. Writes to the entry's bundle (or the work's home). Disposable — deleted on pickup; git is the archive. | [[Baton Ceremony]] |
-| The Close | "close well" / "let's close well" / "close this session well" | Dispatch the enchanted [[Closing Well]] page as the Closing Well Agent: read the spent session's arc with fresh eyes, draft a **close map** (deposit · baton · artifacts, or fewer), one gate (Loudon signs), then execute each row via its own ceremony. "deposit: none" is a first-class outcome — never manufacture canon to fill the map. *The arc reader, the moderated panel and the backstage executors are live (`_ops/closing-well/`), and the executor's tuning row carries what a close taught into [[Closing Well — tuning]].* *Closing Well is the one ceremony that is two pages, because the agent that hears the trigger is not the agent that runs it: the spent working Claude reads the thin card, [[Closing Well Ceremony]]; the fresh moderator reads and runs [[Closing Well]], which carries the `trigger:` field.* | [[Closing Well Ceremony]] |
-
-**"Handoff" is ambiguous — ask first.** "Baton" is the official trigger; the baton is the file that gets passed. Loudon also says "handoff," but sometimes means an informal, non-ceremony pass — so when he says "handoff" or "hand this off," ask *"Baton ceremony, or an informal handoff?"* and proceed on his answer. A deliberate, temporary training-wheel while the "baton" habit sets in.
-
----
-
-## Ad-Hoc Operations
-
-Not full ceremonies, but palace-aware interactions that can happen in any conversation:
-
-| Trigger | What Happens |
-|---|---|
-| "Connect this to the palace" | Propose typed links between the current topic and existing entries. |
-| "What does the palace say about [topic]?" | Read relevant entries and synthesize. Follow typed links. |
-
----
+The palace's rites: what one is, and which there are. Every ceremony is listed here. The register the machinery reads is the `trigger:` field; this page is how a person finds a rite, and the doorway an agent comes through before it opens one's own page.
 
 ## What Makes a Ceremony, and How It Changes
 
-A ceremony is a rite the palace runs on itself, called by name: its page carries `trigger:`, the words Loudon says to begin it ([[SCHEMA]] §1). The tables above are how a person finds one; the field is how the machinery does. A ledger no longer marks a ceremony, since any page may keep one ([[SCHEMA — Reference]] §6), though every ceremony keeps a tuning ledger, `[Ceremony] — tuning.md`. Connection, Query and the Ceremony Reader have no page of their own and live only in the tables. [[The Daily Page]] keeps its tuning ledger in git and its diary (Loudon's own words from each morning) only in the main checkout, with its scroll, on his word.
+A ceremony is a rite the palace runs on itself. Its page carries `trigger:`, the words that begin it, and that field is what makes it one, whatever the page's type. A page that only keeps a ledger is not a ceremony ([[SCHEMA]] §1). Most rites begin when Loudon says the words; a few also begin on their own — the Daily Page with the morning's task, the Sentry's gate at every push. Context still decides: "close" alone does not begin a close.
 
-- **It carries a version**, in its frontmatter. The version moves when the spec changes — a step, a gate, a postcondition — and never on a run.
-- **Every run opens with the tail read** of its ledger: the last 40 lines once the run lines are set aside, and every item still owed.
-- **Every run closes by marking the ledger** with one line: `- run · <date> · v<version> · <what it ran on> · nothing new`, or `taught item N`. A numbered item is written when the run taught something; when it changed the spec, the item names the change and the version.
-- **Where to see it:** the CEREMONIES box on STIGMERGY's PROJECTS deck gives each ceremony's version, its runs since the spec changed, and what its ledger owes. A ceremony's name there opens its scroll; a standing order saved in the scroll stays there; a one-shot order goes into the ledger as owed.
+The field makes a ceremony. What makes a good one:
 
-The rules and the exact commands: [[SCHEMA — Reference]] §6.
+- **It tends something.** A harvest gathers, a weave connects, a close puts the day to sleep and a return wakes it. A rite that tends nothing is a checklist.
+- **It knows what done looks like.** Most say it as a contract: what holds before, what must be true after, what to do when it goes sideways. One that cannot verify its end has not ended ([[ELDER]]). An honest "nothing found" can be the end; it is the Walk's.
+- **It reads like a letter, not a script.** It says what it is for and what done looks like, and leaves the route to whoever walks it. Its metaphors are part of the instruction.
+- **It remembers.** Its version moves when its spec changes, not because it ran. Every ceremony keeps a tuning ledger today, `[Ceremony] — tuning.md`. A run opens by reading the ledger's tail and closes with one line — what it ran on, and "nothing new" or what it taught — so the next run starts from the last, not from scratch. The exact rules and commands: [[SCHEMA — Reference]] §6.
+
+Adding or retiring a ceremony is a Schema Ceremony ([[SCHEMA — Reference]] §5); changing how one works is an edit to its page, and its version moves.
+
+Every rite is run by the agent it was addressed to, with one exception. The session that hears "close well" is the spent one, so it reads only the card, [[Closing Well Ceremony]], and a fresh moderator runs [[Closing Well]], the page that carries the field.
+
+The rites are listed below, grouped by what each tends.
+
+---
+
+## The Rites
+
+Grouped by what each one tends; how they couple as organs of the palace is [[SUBSTRATE]] § Anatomy. **Say** holds words from each page's own field — and, for two rites, the moment that also begins them — and "…" means the page has more. **Loudon's part** is what the rite asks of whoever calls it. The steps are on each rite's page — read it before you run one.
+
+| Ceremony | Say | When | What it does | Loudon's part |
+|---|---|---|---|---|
+| **Bringing finds in** | | | | |
+| [[Harvest Ceremony]] | "harvest", "let's harvest" | When a body of past work waits to be sifted; stopped and started freely | Searches past conversations, documents and archives, and lists what is worth depositing, without depositing any of it. | Calls the interesting candidates as they come; in a close reading, approves each section's deposit map |
+| [[Deposit Ceremony]] | "deposit", "let's deposit", "add this to the palace", … | When a find is large enough to change canon; upkeep is an edit | Brings a find into canon, as a new entry or a fold that changes what one says, through a map approved before anything is written. | Approves the map, and reads every word before it is written |
+| **Sitting with pages** | | | | |
+| [[The Daily Page]] | the morning's scheduled task; or "daily page", "today's page", … | Every morning | Deals one page by chance, until every page has been sat with, and ends the morning in a verdict on it. | Sits with the page, says what it brings back, and gives the verdict |
+| [[Walk Ceremony]] | "walk", "let's walk" | Weekly | Follows typed links from one page and names honestly what the path turned up: a connection, a tension, or nothing. | May name the starting page; sees any proposed change before it is written |
+| **Tending the whole** | | | | |
+| [[Weave Ceremony]] | "weave", "let's weave" | Monthly | Reads every thread of the palace with parallel readers and a skeptic, carries each decision made since the last weave to every page, and settles links, stages and faces. | Confirms what the decision surface proposes, mostly in sampled batches; alone retires a propagate flag |
+| [[Map Build Ceremony]] | "map build", "build the map" | Run by hand when a mind should learn from it; built without a ledger line every morning and at every weave | Reads every page's frontmatter and writes the palace's graph — its pages, its typed links, and the pages pointed at but not yet written — to `_ops/maps/`. | |
+| [[Self-Model Update Ceremony]] | "self-model update" | At the end of a weave; when an organ is grown, retired or rewired; when the anatomy check fails | Redraws [[SUBSTRATE]]'s anatomy from the map's diff and the anatomy check, so a fresh agent can name every organ and how it couples. | Reads the diff before it is written |
+| **Pages' sleep and waking** | | | | |
+| [[Spore Check Ceremony]] | "spore check" | Quarterly, when Loudon calls it | Reads every sleeping page together and gives each a disposition — revive, hold, compost or fold — deciding and never reviving. | Agrees each sleeper's disposition before anything is written |
+| [[Revival Ceremony]] | "revive [entry]", "let's revive [entry]", … | When Loudon asks, a Spore Check or a Daily Page decides *revive*, or he grants a steward's request | Wakes a sleeping page: it is met through something made, then made true to what it is now and given a plan. | Meets the page through something made and decides whether it is alive; reads every changed word, agrees the plan, and names a steward if he wants one |
+| **Sessions' sleep and waking** | | | | |
+| [[Closing Well Ceremony]] — runs [[Closing Well]] | "close well", "let's close well", "close this session well" | At the end of a session | A fresh moderator reads the day cold, draws out what it amounted to, and places each gesture — keep, hand on, leave a trace, let go — through its own rite. | Talks through the day on the panel, then says whether the reckoning is true |
+| [[Baton Ceremony]] | "baton", "pass the baton", "baton this", … | Whenever a session hands the next its place in an ongoing plan | Compresses a move in flight into one file the next session catches and runs with, deleted once the move lands. | Names why it is being passed, and sees it before it is written |
+| [[Return Ceremony]] | "I'm back", "what did I miss", "roll call", … | On coming back after a gap; a roll call whenever sessions are open at once | Asks the record before interpreting anything, and shows a return map, every row cited, that ends on one move to re-enter with. | Signs, adjusts or declines the return map |
+| **Where the palace meets the world** | | | | |
+| [[Enrichment]] | "enrich [page]", "enrich this page", "proposal round", … | On request: one page, or a round of many | Makes a page's rich face, with sound, image and interaction beside its own words, each piece challenged by a second agent and each section a proposal until approved. | Approves each section at his own pace |
+| [[Sentry]] | "sentry sweep", "security sweep", "sentry, check [X]"; and, unasked, before anything widens the public surface | On request; before anything widens the public surface; its gate at every push | Sweeps for what must not leave a public repository, raises it masked, and refuses a credential at every push. | Decides each finding, raised to him masked |
+
+**"Handoff" is ambiguous — ask first.** "Baton" is the trigger. Loudon also says "handoff", sometimes meaning an informal pass, so when he says "handoff" or "hand this off", ask *"Baton ceremony, or an informal handoff?"* and go on his answer. A training wheel while the "baton" habit sets in.
+
+**Where to see them:** the CEREMONIES box on STIGMERGY's PROJECTS deck gives each ceremony's version, its runs since the spec changed, and what its ledger owes. A ceremony's name there opens its scroll; a standing order saved in the scroll stays there; a one-shot order goes into the ledger as owed.
+
+### Two rites with no page
+
+**The Schema Ceremony** begins when one of these changes is proposed ([[SCHEMA — Reference]] §5): an entry type, a link type, a required field, the stage lifecycle, or a ceremony itself, added or removed. It has steps, a postcondition and a fixed commit subject, but no page and no `trigger:`, so the machinery does not count it. **The Ceremony Reader**, below, reads a proposed rite.
+
+---
+
+## Ways of Asking
+
+Not rites: palace-aware asks any conversation can make. They keep no page, ledger or scroll.
+
+| Ask | Say | When | What it does |
+|---|---|---|---|
+| **Connection** | "connect this", "connect [X] to the palace" | Any conversation | Proposes typed links between the topic in hand and the pages it belongs beside. |
+| **Query** | "what does the palace say about [topic]?" | Any conversation | Reads the pages on the topic, follows their typed links, and synthesizes what they say. |
 
 ---
 
@@ -114,11 +125,9 @@ A good ceremony reads like a letter from someone who has done this before. It te
 
 When you encounter a ceremony for the first time, read it the way you would read directions from a friend: for the spirit, not the letter.
 
----
+### The Ceremony Reader
 
-## The Ceremony Reader
-
-When a new ceremony is proposed, read it as if you are three different visitors arriving for the first time.
+When a new ceremony is proposed, read it against the marks above from three seats, as three visitors arriving for the first time.
 
 **As a gardener** — Does this ceremony tend something? Does it have a season, a rhythm, a sense of when it's needed? Does it leave the palace in better condition than it found it? A ceremony that does not tend anything is not yet a ceremony — it is a checklist.
 
@@ -142,3 +151,7 @@ The report is a gift to the ceremony's author, not a verdict. A ceremony can pro
 ## Active Baton
 
 [[Palace Ceremonies — baton]] — drafted 2026-09-26; Schema v1.28 and the code that follows it landed 2026-10-15, and the baton now carries the first ledgers beyond ceremonies
+
+---
+
+*Why this page is shaped as it is — the field rather than a ledger, the groups, the thin rows, the two readers — and the questions held open about ledgers beyond ceremonies live in [[Palace Ceremonies — Context]].*

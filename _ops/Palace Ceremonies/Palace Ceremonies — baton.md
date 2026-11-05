@@ -38,12 +38,8 @@ Canon says a ledger is a family any page may keep, and a ceremony is a page carr
 1. ~~**Wave 3a, the pilots**~~ Landed 2026-10-16: the Hero and Avatar Maker (`e36d8efd`) and GSL (`6d659dee`, simplified `9e8cb8c6`). Check each page's first run line by itself: the Maker's on its next face, GSL's on cycle 39. A steward now grows its own ledger at its first offered lesson (Loudon, 2026-10-16; the code session is restoring it from `73d06fa8`).
 2. **Wave 3b and 3c**, one ledger at a time, each on Loudon's yes; the test for each: would a worker who ignored the line today be wrong? If so it stays on the page. This is the open card on the board, `palace-ceremonies-remainder-20261025T045722Z`; the claim that carried 3a was closed partial on 2026-10-25, citing `e36d8efd` and `6d659dee`, on Loudon's word.
 
-## Still open (from 2026-10-14)
-- how many recurrences earn a change to what a page wants ([[The Remembering Page]]: a clean same-direction drift by the third, one pair, one topic);
-- what one run is when three or more pages meet;
-- whether a diary settles between molts, for a page lived often that never changes;
-- whether the Schema Ceremony, which has no page and no trigger words in CLAUDE.md, should learn from its runs.
-- **folding** (parked by Loudon, 2026-10-16): how a settled lesson leaves a ledger for its page or design doc. Revisit when a ledger is long enough to bury one. Built once as a steward's fold ask and let-go ask (`73d06fa8`) and held back; once stewards grow up, folding may just be a steward writing its own page. Let-go is gone with the debts, which now stay on the scroll's trail.
+## Still open
+Moved to [[Palace Ceremonies — Context]] § Held open (2026-11-05), where they outlive this baton.
 
 ## Calibrations
 - Loudon (10-14): "Write it loosely so pages can innovate, don't over-specify and allow pages to even use them outside of spec so that we have examples to grow with."
