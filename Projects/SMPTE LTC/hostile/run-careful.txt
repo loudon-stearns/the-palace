@@ -1,0 +1,28 @@
+PASS  00-clean-30          right 117/120 wrong  0  rate 30         settled after 0
+PASS  01-clean-23976       right  93/96  wrong  0  rate 23.976     settled after 0
+PASS  02-drop-minute       right  57/60  wrong  0  rate 29.97 drop settled after 0
+PASS  03-drop-tenth        right  57/60  wrong  0  rate 29.97 drop settled after 0
+PASS  04-inverted          right 117/120 wrong  0  rate 30         settled after 0
+PASS  05-quiet             right 117/120 wrong  0  rate 30         settled after 0
+PASS  06-hot-clipped       right 117/120 wrong  0  rate 30         settled after 0
+PASS  07-noise-20dB        right 117/120 wrong  0  rate 30         settled after 0
+FAIL  08-noise-6dB         right   0/120 wrong  0  rate -          settled after 0
+PASS  09-hum               right 117/120 wrong  0  rate 30         settled after 0
+PASS  10-dc-offset         right 117/120 wrong  0  rate 30         settled after 0
+PASS  11-highpass-300      right  93/96  wrong  0  rate 24         settled after 0
+PASS  12-lowpass-3k        right 117/120 wrong  0  rate 30         settled after 0
+FAIL  13-eq-peak           right   0/120 wrong  0  rate -          settled after 0
+PASS  14-compressor        right 117/120 wrong  0  rate 30         settled after 0
+PASS  15-mp3-128           right  97/100 wrong  0  rate 25         settled after 0
+FAIL  16-mp3-32            right  82/100 wrong  0  rate ?          settled after 0
+PASS  17-44k1              right 117/120 wrong  0  rate 30         settled after 0
+PASS  18-8k                right 117/120 wrong  0  rate 30         settled after 10
+PASS  19-wrong-clock       right 117/120 wrong  0  rate ?          settled after 0
+PASS  20-varispeed-half    right  72/75  wrong  0  rate ?          settled after 0
+PASS  21-varispeed-x4      right 197/200 wrong  0  rate ?          settled after 0
+PASS  22-tape-stop         right  73/76  wrong  0  rate ?          settled after 0
+FAIL  23-reverse           right   0/120 wrong  0  rate -          settled after 0   (expected to fail)
+PASS  24-dropout           right 108/120 wrong  0  rate 30         settled after 0
+PASS  25-rate-change       right 106/110 wrong  0  rate 29.97 drop settled after 74
+
+22 of 26 passed
