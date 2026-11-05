@@ -26,3 +26,8 @@ What Synth Templates's steward cycles taught the page, and the changes to the ho
 
 1. A synth's resonance knob has no shared unit with the reference voice's filter Q, so a mapping row for resonance has to describe the sound and give a starting point, not convert the number. *(offered by the steward, cycle 1)*
 - run · 2026-11-05 · cycle 1 · taught item 1
+
+## From cycle 2 — 2026-11-05
+
+2. A synth whose envelope stage ends at its set time needs about 1.8× our time word on release to ring the same, because the vocabulary's times are Moog 95 % points that keep ringing; fit the release against the reference's loudness line, don't copy the number. *(offered by the steward, cycle 2)*
+- run · 2026-11-05 · cycle 2 · taught item 2

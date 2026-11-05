@@ -15,31 +15,34 @@ forward_vector: "I am Synth Templates' scroll — the one page that always opens
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-05T16:01:41.796Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-05T16:05:25.658Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 1 · last ran 2026-11-05 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-11-05 (today)
 - **Plan:** agreed (no dated change on the trail yet)
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-05 (today) — The house bass card now shows where each setting lives on Vital, Serum and Ableton Wavetable, and what to set it to, with how sure I am of each row. (`synth-templates-steward-002`)
-- **Last commit touching this project:** 2026-11-04 `d4a9eef0` — enrich(Synth Templates): remake after challenge — resonance named, step 3 corrected, meter A labelled · proposal
+- **Last shipped:** 2026-11-05 (today) — The house bass is now a real Vital preset, played in Vital beside our reference: the pluck matches as mapped, and the release needed about twice as long. (`synth-templates-steward-006`)
+- **Last commit touching this project:** 2026-11-05 `a1bad80f` — steward(Synth Templates): cycle 1 — SPINNING UP. HOME: [Synth Templates](obsidian://open?vault=The%20Palace…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-05 — cycle 1 · taught item 1
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-05 — cycle 2 · taught item 2
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 1, from cycle 1 — 2026-11-05 — [[Synth Templates — tuning]]
+- **Latest lesson:** item 2, from cycle 2 — 2026-11-05 — [[Synth Templates — tuning]]
 
 ### Where this stands
 
-Synth Templates is a catalog of starting presets that teach synthesis. Each one is a card: the settings that make the sound that sound, the ones that are yours to move, a signal-flow sheet, and a version that plays on the project's own website. All 292 cards are drafted and play there. Over 2–3 November you sat with the envelope-time words by ear. The site also renders every card offline and has a page where your own recording sits beside ours. The last step on the plan is to prove the house bass on three real synths, Vital, Serum and Ableton Wavetable, and have you hear it. Until today the card couldn't help with that, because its per-synth section was empty. This cycle filled it in for th…
+Synth Templates is a catalog of starting presets that teach synthesis, built as a website where each card plays on the project's own neutral voice. The last step on the plan is to prove the house bass on three real synths (Vital, Serum and Ableton Wavetable) and have you hear it. Last cycle wrote down where each house-bass setting lives on those three synths, all from memory. This cycle turned the Vital column into a real preset file, played it in Vital on this Mac, and measured it against the reference. It's the first time the card has been tried on a real synth, and only by numbers so far. Nobody has heard it.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since 2026-11-01:** two Weave flags (Blood Compressor, Logarithmic Interface Scaling) drafted, not posted, awaiting Loudon's read. _(in 2 notes, the latest 2026-11-03)_
+- **rough since 2026-11-02:** Vital's is now measured, but nobody has heard it. _(in 4 notes, the latest cycle 2)_
+- **rough since 2026-11-03:** I drew the square and sine myself rather than picking Vital's Basic Shapes frames, so the 'by eye' row is still untested. _(in 2 notes, the latest cycle 2)_
 - **rough since 2026-11-03:** the eleven wordless cards wait on their voice fixes; _(in 2 notes, the latest 2026-11-03)_
+- **rough since cycle 1:** None of the three mappings has been tried by ear on a real synth. _(in 2 notes, the latest cycle 2)_
+- **rough since cycle 1:** Wavetable's mono switch, sub and filter circuit are still from the manual. _(in 2 notes, the latest cycle 2)_
 
 ### Open asks
 
@@ -55,6 +58,7 @@ _Nothing decided on the board yet._
 
 ### Runs
 
+- 2026-11-05 — cycle 2 · taught item 2
 - 2026-11-05 — cycle 1 · taught item 1
 
 ### Owed
@@ -92,6 +96,84 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-steward-006" -->
+### 2026-11-05 — cycle 2 — The house bass is now a real Vital preset, played in Vital beside our reference: the pluck matches as mapped, and the release needed about twice as long.
+> shipped · first real-synth proof, measured, not yet heard · steward leans you load it in Vital
+
+on-vital.py writes the card's Vital rows as a .vital file. It uses a drawn square for Oscillator 1 and a drawn sine an octave down at half level for Oscillator 2, into Filter 1 (Analog, 24 dB low pass, 300 Hz, resonance 40 %), with Envelope 2 plucking the cutoff 3.5 octaves, and mono. It plays the file in Vital on the same four offbeat eighths the reference plays (after the rhythm fix in my last post) and draws the two sounds' brightness and loudness over time, one line over the other. Then it tries other settings. First the pluck: 8 decay times × 7 depths, 56 renders, scored on brightness. The mapped row (100 ms, 3.5 octaves) already sits at the bottom: 0.384 octaves off, against a best of 0.378. That's too small a gain to move the row. Then the release, scored on loudness: at our 100 ms, Vital's notes die about twice as fast as the reference's. Nearer 180 ms they fall together (loudness shape off by 4.2 dB, down from 11). The reason is in the curves. A Vital stage reaches zero at its time. Ours, the Moog standard, reaches 95 % at its time and keeps ringing. So on Vital a release word needs about 1.8× our number. I've written 180 ms into the card's two Vital envelope rows, with that reason, and the side-by-side sheet now shows it. One difference I didn't chase: Vital comes out about 7 dB quieter at the same velocity, which is level, not shape.
+
+**Artifacts:**
+- [reference (black) and Vital (red), brightness above and loudness below, four offbeat notes: the pluck lines overlap, and the tails meet once the release is 180 ms](Projects/Synth Templates/workshop/proofs/2026-11-05-on-vital/house-bass-compare.png)
+- [the house bass as a Vital preset; drop it into Vital and play C2](Projects/Synth Templates/workshop/proofs/2026-11-05-on-vital/house-bass.vital)
+- [what Vital played, on the reference's schedule (on this Mac, not in git)](Projects/Synth Templates/workshop/proofs/2026-11-05-on-vital/house-bass-vital.wav)
+- [both sweeps, every point, and the features side by side](Projects/Synth Templates/workshop/proofs/2026-11-05-on-vital/house-bass-compare.json)
+- [builds the preset from the card's Vital rows, renders it in the hosted Vital, compares it, and fits it with --fit](Projects/Synth Templates/workshop/on-vital.py)
+- [the card: both Vital envelope rows now say 180 ms release, and why](Projects/Synth Templates/workshop/cards/house-bass.yaml)
+- [the three-synth sheet, regenerated with the measured Vital release](Projects/Synth Templates/workshop/proofs/2026-11-05-on-your-synth/house-bass-on-three-synths.html)
+- [how to run on-vital.py, what it found, and the load-blip trap](Projects/Synth Templates/workshop/README.md)
+
+_Vital release against the reference's loudness shape (pluck held at the mapped 100 ms, 3.5 octaves)_
+| Vital release | loudness shape off by (dB RMS) |
+| --- | --- |
+| 99 ms (our number) | 11.0 |
+| 120 ms | 8.9 |
+| 150 ms | 6.2 |
+| 180 ms | 4.2 (best) |
+| 220 ms | 4.7 |
+| 270 ms | 8.0 |
+| 330 ms | 11.4 |
+
+_Changed in the workshop:_ README — documents on-vital.py, its two sweeps, the release finding, and the load-blip trap
+
+_Left rough:_ None of the three mappings has been tried by ear on a real synth. Vital's is now measured, but nobody has heard it. I drew the square and sine myself rather than picking Vital's Basic Shapes frames, so the 'by eye' row is still untested. The brightness fit can't get closer than 0.38 octaves because the centroid jitters at the bass's low fundamental. Wavetable's mono switch, sub and filter circuit are still from the manual.
+
+_Next moves named:_ Load house-bass.vital in Vital, play C2 offbeats beside the card's Play the default, and say whether it is that sound. That's the first of the three proofs, and only you can do it. · Meanwhile, without your ears: write the Ableton Wavetable column as a real .adv preset with Generative Preset Development's wavetable writer. Then check the release there, because Wavetable's envelope curve won't be the Moog one either. · Read the ten patterns that name no grid, so every reference matches its words.
+<sub>`synth-templates-steward-006` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="synth-templates-steward-005" -->
+### 2026-11-05 — cycle 2 — The reference house bass played the wrong rhythm: eight short notes, not four offbeat eighths. Fixed, with 13 cards re-rendered.
+> shipped · 13 reference renders corrected · steward leans keep the fix
+
+The card asks for 'offbeat eighths, one bar: rest C2 rest C2 rest C2 rest C2, each a 16th long'. The voice picks the rhythm grid from the first note-length word it finds. It found the '16th' in 'a 16th long', so it played a sixteenth grid: eight notes of 60 ms each, not four offbeat eighths of a sixteenth each. Eleven other cards say 'eighths, each a 16th long' (marimba, pluck, kalimba, pizzicato, music box, steel drum, toy piano, chord stab and others) and had the same fault. The self-oscillating filter card had it with 'quarter notes, each released after a 16th'. Now the voice ignores the length phrases when it picks the grid, but only when another grid word is left, so cards that name no grid ('one hit on beat 1, a 16th long') play as they did before. The fix is in build-site.py, which writes the voice, so the site and the offline renders change together. I re-rendered just those cards and merged them back into the full set. The sanity pass's too-long-or-too-short flags dropped from 35 to 32, and the other flags didn't change. The house bass reference now starts its first note at 0.29 s, on the 'and' of beat one, where the card puts it.
+
+**Artifacts:**
+- [the voice's rhythm reader, which now ignores 'a 16th long' when it picks the grid](Projects/Synth Templates/workshop/build-site.py)
+- [the voice, regenerated](Projects/Synth Templates/workshop/site/voice.js)
+- [the site, rebuilt](Projects/Synth Templates/workshop/site/index.html)
+- [the house bass reference spectrogram: four offbeat notes now](Projects/Synth Templates/workshop/renders/house-bass.png)
+- [the corrected house bass reference (on this Mac, not in git)](Projects/Synth Templates/workshop/renders/house-bass.wav)
+- [the render manifest, with the 13 re-rendered entries merged in](Projects/Synth Templates/workshop/renders/manifest.json)
+- [features for all 292 cards; 13 changed](Projects/Synth Templates/workshop/renders/features.json)
+- [the sanity pass after the fix: 32 length flags, down from 35](Projects/Synth Templates/workshop/renders/SANITY-2026-11-05.md)
+- [pluck, re-rendered](Projects/Synth Templates/workshop/renders/pluck.png)
+- [marimba, re-rendered](Projects/Synth Templates/workshop/renders/marimba.png)
+- [kalimba, re-rendered](Projects/Synth Templates/workshop/renders/kalimba.png)
+- [pizzicato, re-rendered](Projects/Synth Templates/workshop/renders/pizzicato.png)
+- [music box, re-rendered](Projects/Synth Templates/workshop/renders/music-box.png)
+- [steel drum, re-rendered](Projects/Synth Templates/workshop/renders/steel-drum.png)
+- [toy piano, re-rendered](Projects/Synth Templates/workshop/renders/toy-piano.png)
+- [chord stab, re-rendered](Projects/Synth Templates/workshop/renders/chord-stab.png)
+- [CC decay on percussive, re-rendered](Projects/Synth Templates/workshop/renders/cc-decay-on-percussive.png)
+- [envelope follower delay, re-rendered](Projects/Synth Templates/workshop/renders/envelope-follower-delay.png)
+- [NES triangle bass, re-rendered](Projects/Synth Templates/workshop/renders/triangle-bass-nes.png)
+- [wavetable chip, re-rendered](Projects/Synth Templates/workshop/renders/wavetable-chip.png)
+
+_Changed in the workshop:_ README — records the rhythm-grid fix and how the 13 re-renders were merged, so the next worker knows the set was partly re-rendered
+
+_Left rough:_ Ten cards that name no grid ('four strikes, one per beat, each a sixteenth long', 'one hit on beat 1, a 16th long') still play a sixteenth grid that doesn't match their words. Their patterns need a reader of their own. Nobody has listened to the 13 re-renders.
+
+_Next moves named:_ Read the ten no-grid patterns properly ('one per beat', 'on beat 1', 'beats 1, 2 and 3') so their references match their words. · Measure the house bass on Vital against the corrected reference (the next post).
+<sub>`synth-templates-steward-005` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-de87b425a3" -->
+### 2026-11-05 — cycle 2
+
+taught item 2
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="synth-templates-steward-002" -->
 ### 2026-11-05 — cycle 1 — The house bass card now shows where each setting lives on Vital, Serum and Ableton Wavetable, and what to set it to, with how sure I am of each row.
 > shipped · 11 settings × 3 synths · not yet checked on any synth · steward leans Wavetable first

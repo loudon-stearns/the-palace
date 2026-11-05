@@ -1,12 +1,12 @@
 {
- "set": "Synth Templates — reference renders",
- "generator": "render-refs.mjs → site/voice.js (the site's own Web Audio voice) via node-web-audio-api OfflineAudioContext",
+ "set": "Synth Templates \u2014 reference renders",
+ "generator": "render-refs.mjs \u2192 site/voice.js (the site's own Web Audio voice) via node-web-audio-api OfflineAudioContext",
  "vocabulary": "vocabulary.yaml as on disk (the browser's tuned copy is not used)",
  "master_compressor": "BYPASSED: node-web-audio-api 2.2.0 DynamicsCompressor is unstable on fast onsets (gain runs to 4e5 then NaN on a 1.6 ms step); the browser plays through a -12 dB threshold compressor, so peaks here are up to ~6 dB hotter than the page; a render whose float peak passes -1 dBFS is scaled on write to -1 dBFS (a plain gain, no limiter; normalised_db per render), so the 16-bit file never clips",
  "sample_rate_hz": 48000,
  "channels": 2,
  "bit_depth": 16,
- "rendered": "2026-11-03T14:29:11.294Z",
+ "rendered": "2026-11-03T14:29:11.294Z (14 re-rendered 2026-11-05T16:07:24.478Z after the pattern-grid fix)",
  "renders": [
   {
    "id": "808-bass",
@@ -351,7 +351,7 @@
   },
   {
    "id": "aftertouch-filter",
-   "name": "Aftertouch → Filter",
+   "name": "Aftertouch \u2192 Filter",
    "family": "LFO Behaviours",
    "tier": 2,
    "mode": "mono",
@@ -548,7 +548,7 @@
   },
   {
    "id": "auto-wah-lfo-filter",
-   "name": "Auto-Wah (LFO → Filter)",
+   "name": "Auto-Wah (LFO \u2192 Filter)",
    "family": "Technique Demonstrations",
    "tier": 1,
    "mode": "mono",
@@ -761,7 +761,7 @@
   },
   {
    "id": "cc-decay-on-percussive",
-   "name": "CC → Decay on Percussive",
+   "name": "CC \u2192 Decay on Percussive",
    "family": "Performance Controls",
    "tier": 1,
    "mode": "mono",
@@ -785,13 +785,13 @@
    },
    "schedule": {
     "t0": 0.05,
-    "last_note_off_s": 1.0727272727272725,
+    "last_note_off_s": 2.0954545454545452,
     "release_s": 0.575,
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 5,
-    "written_s": 2.416354166666667,
-    "raw_peak_dbfs": -1.37
+    "written_s": 3.3973333333333335,
+    "raw_peak_dbfs": -4.16
    },
    "normalised_db": 0,
    "warnings": []
@@ -989,13 +989,13 @@
    },
    "schedule": {
     "t0": 0.05,
-    "last_note_off_s": 1.925,
+    "last_note_off_s": 1.8645161290322583,
     "release_s": 0.0986,
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 3.5,
-    "written_s": 2.328291666666667,
-    "raw_peak_dbfs": -3.59
+    "written_s": 2.207333333333333,
+    "raw_peak_dbfs": -3.56
    },
    "normalised_db": 0,
    "warnings": []
@@ -1813,20 +1813,20 @@
    },
    "schedule": {
     "t0": 0.05,
-    "last_note_off_s": 0.9875,
+    "last_note_off_s": 1.925,
     "release_s": 0.0986,
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 4,
-    "written_s": 1.4292083333333334,
-    "raw_peak_dbfs": -3.06
+    "written_s": 2.3577083333333335,
+    "raw_peak_dbfs": -3.62
    },
    "normalised_db": 0,
    "warnings": []
   },
   {
    "id": "envelope-pitch-attack-blip",
-   "name": "Envelope → Pitch (Attack Blip)",
+   "name": "Envelope \u2192 Pitch (Attack Blip)",
    "family": "Envelope Shapes",
    "tier": 1,
    "mode": "mono",
@@ -3218,13 +3218,13 @@
    },
    "schedule": {
     "t0": 0.05,
-    "last_note_off_s": 1.925,
+    "last_note_off_s": 1.8645161290322583,
     "release_s": 0.0986,
     "reverb_s": 0,
     "delay_tail_s": 0,
-    "rendered_s": 3.1222083333333335,
-    "written_s": 2.366833333333333,
-    "raw_peak_dbfs": -3.65
+    "rendered_s": 3.061729166666667,
+    "written_s": 2.306791666666667,
+    "raw_peak_dbfs": -3.62
    },
    "normalised_db": 0,
    "warnings": []
@@ -3456,13 +3456,13 @@
    },
    "schedule": {
     "t0": 0.05,
-    "last_note_off_s": 2.471875,
+    "last_note_off_s": 2.39375,
     "release_s": 0.575,
     "reverb_s": 0,
     "delay_tail_s": 0,
-    "rendered_s": 4.621875,
-    "written_s": 3.7628958333333333,
-    "raw_peak_dbfs": -6.4
+    "rendered_s": 4.54375,
+    "written_s": 3.5811458333333333,
+    "raw_peak_dbfs": -8.53
    },
    "normalised_db": 0,
    "warnings": []
@@ -3554,7 +3554,7 @@
   },
   {
    "id": "key-filter-cutoff-keytracking",
-   "name": "Key → Filter Cutoff (Keytracking)",
+   "name": "Key \u2192 Filter Cutoff (Keytracking)",
    "family": "Performance Controls",
    "tier": 1,
    "mode": "poly",
@@ -3592,7 +3592,7 @@
   },
   {
    "id": "key-pan",
-   "name": "Key → Pan",
+   "name": "Key \u2192 Pan",
    "family": "Performance Controls",
    "tier": 1,
    "mode": "poly",
@@ -3909,7 +3909,7 @@
   },
   {
    "id": "lfo-pan",
-   "name": "LFO → Pan",
+   "name": "LFO \u2192 Pan",
    "family": "LFO Behaviours",
    "tier": 1,
    "mode": "poly",
@@ -4074,32 +4074,16 @@
    },
    "schedule": {
     "t0": 0.05,
-    "last_note_off_s": 2.1636363636363636,
+    "last_note_off_s": 2.0954545454545452,
     "release_s": 0.575,
     "reverb_s": 0,
     "delay_tail_s": 0,
-    "rendered_s": 4.313645833333333,
-    "written_s": 3.4913333333333334,
-    "raw_peak_dbfs": -5.64
+    "rendered_s": 4.245458333333334,
+    "written_s": 3.3216041666666665,
+    "raw_peak_dbfs": -8.67
    },
    "normalised_db": 0,
    "warnings": [
-    "vocabulary: no pitch_amount word \"little\", using 1200",
-    "vocabulary: no pitch_amount word \"little\", using 1200",
-    "vocabulary: no pitch_amount word \"little\", using 1200",
-    "vocabulary: no pitch_amount word \"little\", using 1200",
-    "vocabulary: no pitch_amount word \"little\", using 1200",
-    "vocabulary: no pitch_amount word \"little\", using 1200",
-    "vocabulary: no pitch_amount word \"little\", using 1200",
-    "vocabulary: no pitch_amount word \"little\", using 1200",
-    "vocabulary: no pitch_amount word \"little\", using 1200",
-    "vocabulary: no pitch_amount word \"little\", using 1200",
-    "vocabulary: no pitch_amount word \"little\", using 1200",
-    "vocabulary: no pitch_amount word \"little\", using 1200",
-    "vocabulary: no pitch_amount word \"little\", using 1200",
-    "vocabulary: no pitch_amount word \"little\", using 1200",
-    "vocabulary: no pitch_amount word \"little\", using 1200",
-    "vocabulary: no pitch_amount word \"little\", using 1200",
     "vocabulary: no pitch_amount word \"little\", using 1200",
     "vocabulary: no pitch_amount word \"little\", using 1200",
     "vocabulary: no pitch_amount word \"little\", using 1200",
@@ -4248,7 +4232,7 @@
   },
   {
    "id": "mod-wheel-vibrato-depth",
-   "name": "Mod Wheel → Vibrato Depth",
+   "name": "Mod Wheel \u2192 Vibrato Depth",
    "family": "LFO Behaviours",
    "tier": 1,
    "mode": "mono",
@@ -4432,13 +4416,13 @@
    },
    "schedule": {
     "t0": 0.05,
-    "last_note_off_s": 5.216666666666667,
+    "last_note_off_s": 5.049999999999999,
     "release_s": 0.575,
     "reverb_s": 0.8,
     "delay_tail_s": 0,
-    "rendered_s": 8.1666875,
-    "written_s": 3.9574166666666666,
-    "raw_peak_dbfs": -7.91
+    "rendered_s": 8,
+    "written_s": 3.7166875,
+    "raw_peak_dbfs": -9.85
    },
    "normalised_db": 0,
    "warnings": []
@@ -5510,13 +5494,13 @@
    },
    "schedule": {
     "t0": 0.05,
-    "last_note_off_s": 3.925,
+    "last_note_off_s": 3.8,
     "release_s": 0.0986,
     "reverb_s": 0,
     "delay_tail_s": 0,
-    "rendered_s": 5.122208333333333,
-    "written_s": 2.3644166666666666,
-    "raw_peak_dbfs": -7.34
+    "rendered_s": 4.997208333333333,
+    "written_s": 2.2393958333333335,
+    "raw_peak_dbfs": -7.43
    },
    "normalised_db": 0,
    "warnings": []
@@ -5626,13 +5610,13 @@
    },
    "schedule": {
     "t0": 0.05,
-    "last_note_off_s": 1.9875,
+    "last_note_off_s": 1.925,
     "release_s": 0.575,
     "reverb_s": 0,
     "delay_tail_s": 0,
-    "rendered_s": 4.1375,
-    "written_s": 3.2369791666666665,
-    "raw_peak_dbfs": -3.81
+    "rendered_s": 4.075,
+    "written_s": 3.161770833333333,
+    "raw_peak_dbfs": -5.64
    },
    "normalised_db": 0,
    "warnings": []
@@ -6728,11 +6712,11 @@
    },
    "schedule": {
     "t0": 0.05,
-    "last_note_off_s": 0.6425,
+    "last_note_off_s": 2.42,
     "release_s": 0.575,
     "reverb_s": 0,
     "delay_tail_s": 0,
-    "rendered_s": 4,
+    "rendered_s": 4.57,
     "written_s": 1,
     "raw_peak_dbfs": -180
    },
@@ -7617,13 +7601,13 @@
    },
    "schedule": {
     "t0": 0.05,
-    "last_note_off_s": 1.9875,
+    "last_note_off_s": 1.925,
     "release_s": 0.575,
     "reverb_s": 0.8,
     "delay_tail_s": 0,
-    "rendered_s": 4.9375,
-    "written_s": 3.301645833333333,
-    "raw_peak_dbfs": -7.17
+    "rendered_s": 4.875,
+    "written_s": 3.1509375,
+    "raw_peak_dbfs": -9.76
    },
    "normalised_db": 0,
    "warnings": []
@@ -8619,13 +8603,13 @@
    },
    "schedule": {
     "t0": 0.05,
-    "last_note_off_s": 2.054310344827586,
+    "last_note_off_s": 1.9896551724137934,
     "release_s": 0.575,
     "reverb_s": 0,
     "delay_tail_s": 0,
-    "rendered_s": 4.2043125,
-    "written_s": 3.4228958333333335,
-    "raw_peak_dbfs": -1.95
+    "rendered_s": 4.139666666666667,
+    "written_s": 3.26975,
+    "raw_peak_dbfs": -4.22
    },
    "normalised_db": 0,
    "warnings": []
@@ -8735,7 +8719,7 @@
   },
   {
    "id": "tremolo-lfo-amp",
-   "name": "Tremolo (LFO → Amp)",
+   "name": "Tremolo (LFO \u2192 Amp)",
    "family": "Technique Demonstrations",
    "tier": 1,
    "mode": "mono",
@@ -8787,13 +8771,13 @@
    },
    "schedule": {
     "t0": 0.05,
-    "last_note_off_s": 0.8000000000000002,
+    "last_note_off_s": 1.5500000000000003,
     "release_s": 0.00488,
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 3,
-    "written_s": 1.0865208333333334,
-    "raw_peak_dbfs": -8.57
+    "written_s": 1.8340208333333334,
+    "raw_peak_dbfs": -8.69
    },
    "normalised_db": 0,
    "warnings": []
@@ -8963,7 +8947,7 @@
   },
   {
    "id": "unison-voices-budget",
-   "name": "Unison × Voices Budget",
+   "name": "Unison \u00d7 Voices Budget",
    "family": "Voices, Tuning and Retrigger",
    "tier": 1,
    "mode": "poly",
@@ -8995,7 +8979,7 @@
   },
   {
    "id": "velocity-amplitude-and-filter",
-   "name": "Velocity → Amplitude and Filter",
+   "name": "Velocity \u2192 Amplitude and Filter",
    "family": "Performance Controls",
    "tier": 1,
    "mode": "poly",
@@ -9033,7 +9017,7 @@
   },
   {
    "id": "velocity-attack-negative",
-   "name": "Velocity → Attack (Negative)",
+   "name": "Velocity \u2192 Attack (Negative)",
    "family": "Envelope Shapes",
    "tier": 2,
    "mode": "poly",
@@ -9071,7 +9055,7 @@
   },
   {
    "id": "velocity-filter-envelope-amount",
-   "name": "Velocity → Filter Envelope Amount",
+   "name": "Velocity \u2192 Filter Envelope Amount",
    "family": "Performance Controls",
    "tier": 1,
    "mode": "poly",
@@ -9109,7 +9093,7 @@
   },
   {
    "id": "velocity-filter",
-   "name": "Velocity → Filter",
+   "name": "Velocity \u2192 Filter",
    "family": "Technique Demonstrations",
    "tier": 1,
    "mode": "mono",
@@ -9147,7 +9131,7 @@
   },
   {
    "id": "velocity-lfo-rate",
-   "name": "Velocity → LFO Rate",
+   "name": "Velocity \u2192 LFO Rate",
    "family": "LFO Behaviours",
    "tier": 2,
    "mode": "poly",
@@ -9185,7 +9169,7 @@
   },
   {
    "id": "velocity-pitch-envelope-amount",
-   "name": "Velocity → Pitch Envelope Amount",
+   "name": "Velocity \u2192 Pitch Envelope Amount",
    "family": "Performance Controls",
    "tier": 2,
    "mode": "mono",
@@ -9292,7 +9276,7 @@
   },
   {
    "id": "vibrato-lfo-pitch",
-   "name": "Vibrato (LFO → Pitch)",
+   "name": "Vibrato (LFO \u2192 Pitch)",
    "family": "Technique Demonstrations",
    "tier": 1,
    "mode": "mono",
@@ -9574,13 +9558,13 @@
    },
    "schedule": {
     "t0": 0.05,
-    "last_note_off_s": 0.8000000000000002,
+    "last_note_off_s": 1.5500000000000003,
     "release_s": 0.00488,
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 3,
-    "written_s": 1.0825833333333332,
-    "raw_peak_dbfs": -8.74
+    "written_s": 1.8335625,
+    "raw_peak_dbfs": -8.88
    },
    "normalised_db": 0,
    "warnings": []

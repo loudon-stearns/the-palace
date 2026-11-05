@@ -89,9 +89,10 @@ mappings:             # per synth: where each block lives, and what to set it to
       - {block: filter1, param: cutoff,    where: "Filter 1, Cutoff", set: "300 Hz", sure: exact}
       - {block: filter1, param: resonance, where: "Filter 1, Resonance", set: "a clear vowel, short of a whistle (start near 40 %)", sure: near}
       - {block: fenv,    param: amount,    where: "drag Envelope 2 onto Filter 1 Cutoff", set: "so the peak opens about 3.5 octaves up, near 3.4 kHz", sure: near}
-      - {block: fenv,    param: shape,     where: "Envelope 2: Attack, Decay, Sustain, Release", set: "0 ms, 100 ms, 0 %, 100 ms", sure: near}
-      - {block: aenv,    param: shape,     where: "Envelope 1 (hard-wired to the amp)", set: "15 ms, 575 ms, 70 %, 100 ms", sure: near}
+      - {block: fenv,    param: shape,     where: "Envelope 2: Attack, Decay, Sustain, Release", set: "0 ms, 100 ms, 0 %, 180 ms (measured on Vital 1.5.5: the 100 ms decay and 3.5 octaves sit at the bottom of the brightness fit; release nearly doubled to ring like the reference)", sure: near}
+      - {block: aenv,    param: shape,     where: "Envelope 1 (hard-wired to the amp)", set: "15 ms, 575 ms, 70 %, 180 ms (Vital's stage ends at its time; ours is a 95 % point that still rings, so Vital's release runs nearly twice as long, measured 2026-11-05)", sure: near}
       - {block: osc1,    param: glide,     where: "Voice section, Glide", set: "0", sure: exact}
+    preset: proofs/2026-11-05-on-vital/house-bass.vital   # these rows written out as a real preset by on-vital.py, rendered in the hosted Vital
   serum:
     name: Serum
     version: "1 or 2"

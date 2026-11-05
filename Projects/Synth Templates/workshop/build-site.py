@@ -227,9 +227,14 @@ function readPattern(c){
   const env = envTimes(c.graph.blocks.aenv?.shape); const tail = Math.max(env.r * 1.5, 0.3);
   const length = r.length_s || 4; const bar = 4 * beat;
   const num = w => ({ a: 1, an: 1, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, ten: 10, sixteen: 16 })[w] ?? parseFloat(w);
+  // the grid is read with the note-length phrases taken out: "eighths, each a 16th long" is an eighth grid of 16th-long notes, not a 16th grid
+  // (2026-11-05: the 16th in "a 16th long" set the grid, so the house bass played eight 60 ms notes, not four offbeat eighths)
+  // A pattern with no other grid word ("one hit on beat 1, a 16th long") keeps its old reading; those cards' patterns are read by no rule yet.
+  const stripped = txt.replace(/(each (key |note )?)?an? (16th|sixteenth) long|each an? (16th|sixteenth)|(released )?after an? (16th|sixteenth)/g, ' ');
+  const grid = /1\/32|thirty-second|sixteenth|16th|eighth|8th|quarter/.test(stripped) ? stripped : txt;
   let unit = null;
-  if (/1\/32|thirty-second/.test(txt)) unit = beat / 8; else if (/sixteenth|16th/.test(txt)) unit = beat / 4; else if (/eighth|8th/.test(txt)) unit = beat / 2;
-  else if (/quarter note|quarter-note|quarters\b|quarter notes/.test(txt)) unit = beat; else if (/half note/.test(txt)) unit = 2 * beat; else if (/whole note/.test(txt)) unit = 4 * beat;
+  if (/1\/32|thirty-second/.test(grid)) unit = beat / 8; else if (/sixteenth|16th/.test(grid)) unit = beat / 4; else if (/eighth|8th/.test(grid)) unit = beat / 2;
+  else if (/quarter note|quarter-note|quarters\b|quarter notes/.test(grid)) unit = beat; else if (/half note/.test(txt)) unit = 2 * beat; else if (/whole note/.test(txt)) unit = 4 * beat;
   let bars = null; const mb = txt.match(/(\w+) bars?\b/); if (mb && !/held (\w+) bars?/.test(txt.slice(Math.max(0, mb.index - 5), mb.index + mb[0].length)) && Number.isFinite(num(mb[1]))) bars = num(mb[1]);
   let hold = null; const mh = txt.match(/held (?:for )?(\w+) (bars?|beats?|seconds?)/); if (mh && Number.isFinite(num(mh[1]))) hold = num(mh[1]) * ({ bar: bar, bars: bar, beat: beat, beats: beat, second: 1, seconds: 1 })[mh[2]];
   if (hold === null && /held a bar|held one bar/.test(txt)) hold = bar;
