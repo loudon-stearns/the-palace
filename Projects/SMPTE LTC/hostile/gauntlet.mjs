@@ -86,7 +86,9 @@ const fx = {
     const tmp = fs.mkdtempSync(path.join(FILES, '.mp3-'));
     const a = path.join(tmp, 'a.wav'), b = path.join(tmp, 'a.mp3'), c = path.join(tmp, 'b.wav');
     writeWav(a, y, sr);
-    execFileSync('lame', ['--quiet', '-b', String(kbps), a, b]);
+    // --resample holds the rate: at low bitrates lame quietly drops to 22.05 kHz, and a file read back
+    // at the old rate plays at double speed (the first gauntlet's 16-mp3-32 was that, not a codec loss)
+    execFileSync('lame', ['--quiet', '-b', String(kbps), '--resample', String(sr / 1000), a, b]);
     execFileSync('lame', ['--quiet', '--decode', b, c]);
     const out = readWav(c).y; fs.rmSync(tmp, { recursive: true }); return out;
   },

@@ -15,25 +15,33 @@ forward_vector: "I am SMPTE LTC's scroll — the one page that always opens on w
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-05T15:51:48.364Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-05T15:58:12.883Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 1 · last ran 2026-11-05 (today)
+- **Status:** active · **Stage:** growing · **Steward:** cycle 2 · last ran 2026-11-05 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 2 open asks
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-05 (today) — GoButton's reader reads wrong times through a boosted EQ. Should I draft the two-check fix for GoButton's ltc.js? (`smpte-ltc-steward-003`)
-- **Last commit touching this project:** 2026-11-05 `fa0b2565` — enrich(SMPTE LTC): both claim-change offers taken in a4cdd3b1; The fine points and Every form restamped
+- **Last shipped:** 2026-11-05 (today) — The teaching room's backward reader took the gauntlet. With one added check it is the first reader to play a tape backward with zero wrong frames. (`smpte-ltc-steward-006`)
+- **Last commit touching this project:** 2026-11-05 `2c2357ed` — steward(SMPTE LTC): cycle 1 — SPINNING UP. HOME: [SMPTE LTC](obsidian://open?vault=The%20Palace&file=…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-05 — cycle 1 · taught item 1, proposed items 2, 3 for canon
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-05 — cycle 2 · taught item 4, proposed item 5 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 2 — items 2, 3; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 3, from cycle 1 — 2026-11-05 — [[SMPTE LTC — tuning]]
+- **Proposed for canon:** 2 — items 3, 5; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 5, from cycle 2 — 2026-11-05 — [[SMPTE LTC — tuning]]
 
 ### Where this stands
 
-SMPTE LTC is your page on timecode as sound: the eighty bits, biphase mark, the sync word, drop-frame and the reader that is always a frame late. It should teach until a student can make and read LTC in every form and prove the tool right. GoButton's ltc.js is the specification every build is held to. On 4 November the page got its first rich face: the teaching room's Count and Bits, an encoder and a backward reader. The room's last stop promises a challenge, 'a reader that passes its hostile test files', but those files didn't exist. Now they do. There are 26 of them, each one broken in a single way, with a scorer that any reader can take. GoButton's own reader went through it first, and t…
+SMPTE LTC is your page on timecode as sound. GoButton's ltc.js is the specification every other build is held to. Earlier today I built the hostile gauntlet: 26 LTC files, each broken one way, plus a scorer. GoButton's reader passed 22 of them but read 297 wrong frames. A careful reader, the same code with three changes, read none. Neither reads a tape played backward. This cycle the reader your rich face's Read step already runs went through the same 26 files, unchanged. It reads the backward file, and in the sweeps it read 102 wrong frames. Adding one check fixes that: a frame counts only when it follows the frame before. With that check it reads backward and reads nothing wrong. I also f…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 1:** No hardware reader has heard any of these files, so 'passes' means passes against ltc.js's own encoder, not against a desk. _(in 2 notes, the latest cycle 2)_
+- **rough since cycle 1:** The rich face's Read step still runs the unchecked reader. _(in 2 notes, the latest cycle 2)_
+- **rough since cycle 1:** Noise 6 dB down and the resonant EQ still defeat every reader. _(in 2 notes, the latest cycle 2)_
 
 ### Open asks
 
@@ -50,6 +58,7 @@ _Nothing decided on the board yet._
 
 ### Runs
 
+- 2026-11-05 — cycle 2 · taught item 4, proposed item 5 for canon
 - 2026-11-05 — cycle 1 · taught item 1, proposed items 2, 3 for canon
 
 ### Owed
@@ -60,8 +69,8 @@ _Nothing owed._
 
 _Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
 
-- **2.** 2026-11-05 · [[SMPTE LTC]] · § The builds, a new bullet after 'The specification and its tests' — The page promises hostile test files; they exist now, and what they found about wrong frames is the most teachable fact the project has made.
 - **3.** 2026-11-05 · [[SMPTE LTC]] · § Open questions, the 'Resampling' bullet — The gauntlet's sample-rate sweep answers most of the question; what remains is narrower.
+- **5.** 2026-11-05 · [[SMPTE LTC]] · § The builds, a new bullet after 'The specification and its tests' — The gauntlet now holds the room's own reader, and its finding (the even-zeros check is not enough, the order check is) is the most teachable thing the project has made; this updates the counts after the MP3 fix.
 
 <!-- scroll:now:end -->
 
@@ -80,6 +89,68 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="smpte-ltc-steward-006" -->
+### 2026-11-05 — cycle 2 — The teaching room's backward reader took the gauntlet. With one added check it is the first reader to play a tape backward with zero wrong frames.
+> shipped · workshop only · four readers scored · steward leans the sequence check is the lesson
+
+**Open this:** [the gauntlet report](open:Projects/SMPTE LTC/hostile/report.html). It now sets four readers side by side.
+
+**The room's reader, unchanged.** `backward-reader.mjs` lifts the reader script straight out of the rich face's page, so the score belongs to the exact reader a class sees. It works differently from GoButton's. It takes in the whole buffer, times every edge, then locks onto the longest gaps. It also looks for the sync word both ways round. It passes 21 of 26 files and reads `23-reverse`, which nothing else did. It keeps reading through a 1.2 kHz low-pass and a 2 kHz high-pass under noise, where the careful reader goes deaf. It loses three files the others keep: hum as loud as the code, a DC offset past 40%, and 8 kHz. All three come from the same cause: it finds its crossings at the true zero.
+
+**The finding.** The room's reader already makes one of LTC's two free checks: it throws out a word whose count of 0s is odd. That check is not enough. At a 7 kHz sample rate the reader read 98 frames, all wrong (04:00:00:07, 02:00:00:07, 02:00:00:07…), and every one had an even count of 0s. Not one of them followed the frame before. `checked-backward-reader.mjs` adds the second check: a frame counts only when it is the next frame in the direction the tape is running. The reader doesn't know the rate, so the check accepts any count a tape can have, and uses drop-frame only when the word's own flag says so. That check costs one frame each time the reader locks on, and it takes the wrong frames from 102 to 0. The careful reader showed the same thing from the other side. The order check is the one that holds.
+
+**My bug, fixed.** At 32 kbps, lame quietly drops the sample rate to 22.05 kHz. The gauntlet read the file back as if it were still 44.1, so `16-mp3-32` played at double speed. Last cycle I said MP3 at 32 kbps defeats both readers, and that was wrong. With `--resample` holding the rate, only that file changed. Every reader now reads most of it (70 to 92 of 100), and none passes. GoButton's total went from 297 wrong frames to 300.
+
+**Artifacts:**
+- [the gauntlet report, now four readers side by side: scores, waveforms, clips, the sweeps.](Projects/SMPTE LTC/hostile/report.html)
+- [the report photographed: the two room columns read 23-reverse; orange is a wrong frame.](Projects/SMPTE LTC/hostile/report.png)
+- [the teaching room's reader, lifted from its page unchanged and run through the gauntlet.](Projects/SMPTE LTC/hostile/backward-reader.mjs)
+- [the room's reader plus one check: a frame counts only when it follows the last.](Projects/SMPTE LTC/hostile/checked-backward-reader.mjs)
+- [the MP3 round trip now holds its sample rate (the 32 kbps file had been at double speed).](Projects/SMPTE LTC/hostile/gauntlet.mjs)
+- [the report, generalised to any list of readers.](Projects/SMPTE LTC/hostile/report.py)
+- [the gauntlet's note, with the second run and the bug.](Projects/SMPTE LTC/hostile/README.md)
+- [GoButton, re-run on the fixed file.](Projects/SMPTE LTC/hostile/results.json)
+- [careful, re-run.](Projects/SMPTE LTC/hostile/results-careful-reader.json)
+- [the room's reader, file by file.](Projects/SMPTE LTC/hostile/results-backward-reader.json)
+- [the room's reader, checked, file by file.](Projects/SMPTE LTC/hostile/results-checked-backward-reader.json)
+- [where GoButton breaks.](Projects/SMPTE LTC/hostile/sweeps.json)
+- [where careful breaks.](Projects/SMPTE LTC/hostile/sweeps-careful-reader.json)
+- [where the room's reader breaks, including its 98 wrong frames at 7 kHz.](Projects/SMPTE LTC/hostile/sweeps-backward-reader.json)
+- [where the checked room reader breaks: never wrongly.](Projects/SMPTE LTC/hostile/sweeps-checked-backward-reader.json)
+- [printout, GoButton.](Projects/SMPTE LTC/hostile/run-gobutton.txt)
+- [printout, careful.](Projects/SMPTE LTC/hostile/run-careful.txt)
+- [printout, the room's reader.](Projects/SMPTE LTC/hostile/run-backward.txt)
+- [printout, the room's reader checked.](Projects/SMPTE LTC/hostile/run-checked-backward.txt)
+- [the answer key, remade (only 16-mp3-32 changed).](Projects/SMPTE LTC/hostile/files/answers.json)
+- [the fixed 32 kbps file, now at its true speed (stays on this Mac).](Projects/SMPTE LTC/hostile/files/16-mp3-32.wav)
+- [the backward file the room's reader now reads (stays on this Mac).](Projects/SMPTE LTC/hostile/files/23-reverse.wav)
+
+_the gauntlet, second run · four readers, told nothing about rate, polarity or speed_
+|  | GoButton | careful | room | room, checked |
+| --- | --- | --- | --- | --- |
+| wrong frames, files + sweeps | 300 | 0 | 102 | 0 |
+| files passed (of 26) | 22 | 22 | 21 | 21 |
+| played backward | 0/120 | 0/120 | 118/120 | 117/120 |
+| 1.2 kHz low-pass | 98% | 0% (deaf) | 98% | 98% |
+| hum / 8 kHz | read / read | read / read | deaf / deaf | deaf / deaf |
+| MP3 32 kbps, fixed | 88/100, 6 wrong | 70/100 | 92/100 | 87/100 |
+
+_Changed in the workshop:_ README — the second run: four readers, the double-speed MP3 bug and its fix, the sequence check as the one that holds.
+_Proposed for canon:_ SMPTE LTC (§ The builds, a new bullet after 'The specification and its tests') — The gauntlet now holds the room's own reader, and its finding (the even-zeros check is not enough, the order check is) is the most teachable thing the project has made; this updates the counts after the MP3 fix.; owed in the tuning ledger until Loudon's review; it replaces item 2
+
+_Left rough:_ No hardware reader has heard any of these files, so 'passes' means passes against ltc.js's own encoder, not against a desk. Noise 6 dB down and the resonant EQ still defeat every reader. Speed 10× and 16× read nothing while 12× reads, in every reader, and I didn't chase why. The rich face's Read step still runs the unchecked reader.
+
+_Next moves named:_ Propose the follows-the-last check for the rich face's reader, so the room teaches the check that holds (a change to a face, so it waits on your yes). · Find why 10× and 16× shuttle go dark while 12× reads: likely the bit landing on whole samples, a resampling lesson worth a step in the room. · A reader that times crossings through a filter matched to the bit, aimed at the noise-6 dB and EQ files that nobody passes.
+<sub>`smpte-ltc-steward-006` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-28a291538b" -->
+### 2026-11-05 — cycle 2
+
+taught item 4, proposed item 5 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="smpte-ltc-steward-003" -->
 ### 2026-11-05 — cycle 1 — GoButton's reader reads wrong times through a boosted EQ. Should I draft the two-check fix for GoButton's ltc.js?
 > still working · gauntlet shipped · steward leans DRAFT-PATCH
