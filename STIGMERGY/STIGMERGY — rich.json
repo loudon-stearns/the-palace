@@ -84,7 +84,7 @@
           }
         ]
       },
-      "made_against": "decb4b2580a5",
+      "made_against": "d1307c83e9d6",
       "stamped": "2026-11-05"
     },
     {
@@ -118,7 +118,7 @@
           }
         ]
       },
-      "made_against": "ed7df051e483",
+      "made_against": "664c15795368",
       "stamped": "2026-11-05"
     },
     {
@@ -185,7 +185,7 @@
           }
         ]
       },
-      "made_against": "dc375d983392",
+      "made_against": "b33db9631690",
       "stamped": "2026-11-05"
     },
     {
@@ -231,19 +231,19 @@
     {
       "section": "The honesty discipline, made structural",
       "kind": "claim-change",
-      "status": "open",
+      "status": "taken",
       "what": "STIGMERGY.md says \"you cannot fake completion when the surface itself reconciles QUEUE against LOG\", and § The coordination schema says \"reconciliation closes QUEUE items when git proves the work happened\". The terminal has git auto-reconciliation switched off since 2026-07-03 (ae008d6b; QueuePanel.jsx: \"the heuristic was mis-firing … nothing greys or self-retires off a git guess\"). Today a card closes by a handoff_closed citing a commit that exists (batons), a Palace-Resolves trailer that greys it for a person to confirm (weave flags), a person's GRANT or DENY on the board (proposals, entry flags, to-dos), or a person's clear. The door checks that a cited hash is a commit, not that it holds the work."
     },
     {
       "section": "Handoff Lifecycle",
       "kind": "claim-change",
-      "status": "open",
+      "status": "taken",
       "what": "Rung 3 says lease expiry and pheromone that evaporates unless refreshed \"turn out to be the same mechanism\". That holds when each heartbeat resets the scent to full (L = τ·ln(1/θ)); it does not when deposits add up, as Pheromone Trail's \"reinforced\" pheromone does — a frequent beater's scent then outlives its lease after death. And \"the liveness heartbeat the palace already emits on every message\" overstates it: every message carries a health block, whose score is a green stub on Path-2 and hand-authored lines (SCHEMA — Reference §9), and a catcher deep in a move posts nothing between claim and close."
     },
     {
       "section": "Handoff Lifecycle",
       "kind": "claim-change",
-      "status": "open",
+      "status": "taken",
       "what": "Rung 1 does not stop a double catch. pickup-handoff.mjs warns when a card is already claimed and then claims it again (pickup-handoff.mjs:68-70), so two catchers who read inside the gap can both hold one baton. The page doesn't say so."
     }
   ]

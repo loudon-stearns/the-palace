@@ -39,9 +39,6 @@ links:
   - target: "[[Pheromone Trail]]"
     type: mirrors
     label: two-timescale-trace
-  - target: "[[How the Palace Commits]]"
-    type: connects-to
-    label: the-door-log-reads
   - target: "[[STIGMERGY — Context]]"
     type: spawned
     label: rationale-archive
@@ -63,13 +60,13 @@ It is two things at once. Seen by a human, it is a **front-end** — a phosphor 
 
 ## The honesty discipline, made structural
 
-The three decks are ordered by time, and the ordering is the point. STATE is what is known now; QUEUE is what is intended; LOG is what actually happened. Work is not real until it lands in LOG — until git proves it. This makes the palace's standing rule (*nothing is true until it is committed*) **structural rather than remembered**: you cannot fake completion when the surface itself reconciles QUEUE against LOG. Git is ground truth; the blackboard is append-only; there is one write path. Commits don't travel the bus: every one goes through the palace's one door, and the board's own file rides along in any committer's sweep once its oldest uncommitted line is half an hour old ([[How the Palace Commits]]).
+The three decks are ordered by time, and the ordering is the point. STATE is what is known now; QUEUE is what is intended; LOG is what actually happened. Work is not real until it lands in LOG — until git proves it. This makes the palace's standing rule (*nothing is true until it is committed*) **structural rather than remembered**: you cannot fake completion by saying so. Nothing infers done from git, because a commit touching a page does not mean this card's work landed. A card leaves QUEUE in only four ways: a baton by a close that cites a commit git can find; a weave flag when its `Palace-Resolves` trailer greys it and a person confirms; a proposal or to-do by a person's grant or deny; any card by a person's clear. The door checks that a cited commit exists, not that it holds the work, so a wrong citation can still get through, but only on the record, under a hash anyone can open. Git is ground truth; the blackboard is append-only; there is one write path. Commits don't travel the bus: every one goes through the palace's one door, and the board's own file rides along in any committer's sweep once its oldest uncommitted line is half an hour old ([[How the Palace Commits]]).
 
 ## The coordination schema
 
 Underneath the terminal is the **blackboard** (`blackboard.jsonl`) — an append-only, schema-strict stigmergic field. Per-session boards live at `_ops/swarm/sessions/[session-id]/blackboard.jsonl`; the cross-session **persistent** board at `_ops/swarm/persistent/blackboard.jsonl` carries standing concerns and ongoing stewardship forward across sessions.
 
-Stewards deposit pheromone (messages); the Trickster reads the gradient and responds; reconciliation closes QUEUE items when git proves the work happened. The full message grammar — the envelope, the `health` block, the message types (`BROADCAST`, `RESOURCE_REQUEST`, `RESOURCE_GRANT`/`DENY`, `FLAG`, `PROOF`, `REPLY`, `RETRACT`, `SESSION_INIT`/`CLOSE`), and the boards — is canonized in [[SCHEMA]] §9, *The Coordination Schema*. It is the palace's second link ontology: §4 types the edges between entries, §9 types the edges between agents. The board is never edited: a message posted in error, or a card gone stale, is withdrawn by appending a `RETRACT` that names it. The persistent board holds well over a thousand messages. The strict validator and the append-only reader live in one package, `@stigmergy/core` (`_ops/stigmergy/core/`), the edge the app, the orchestrator and `trickster-auto` all speak, given a node of its own.
+Stewards deposit pheromone (messages); the Trickster reads the gradient and responds; a close that cites its commit retires a baton, and a person's answer retires a request. The full message grammar — the envelope, the `health` block, the message types (`BROADCAST`, `RESOURCE_REQUEST`, `RESOURCE_GRANT`/`DENY`, `FLAG`, `PROOF`, `REPLY`, `RETRACT`, `SESSION_INIT`/`CLOSE`), and the boards — is canonized in [[SCHEMA]] §9, *The Coordination Schema*. It is the palace's second link ontology: §4 types the edges between entries, §9 types the edges between agents. The board is never edited: a message posted in error, or a card gone stale, is withdrawn by appending a `RETRACT` that names it. The persistent board holds well over a thousand messages. The strict validator and the append-only reader live in one package, `@stigmergy/core` (`_ops/stigmergy/core/`), the edge the app, the orchestrator and `trickster-auto` all speak, given a node of its own.
 
 The discipline that keeps it coherent is **"speak like a person, log like a protocol"**: human-readable surfaces, exact wire terms. Protocol names (`RESOURCE_REQUEST`, `blocking`, `payload`, the health block) are sacred because validators and agent code depend on them; the prose around them stays human.
 
@@ -86,7 +83,7 @@ A **baton** handed on the board is the palace's unit of continued work, and keep
 **The three states** (folded from board events by `_ops/stigmergy/handoff-model.mjs`; driven by `list-handoffs.mjs` / `pickup-handoff.mjs` / `close-handoff.mjs`):
 
 - **OPEN** — a `handoff_ready` nobody has claimed. Available to catch.
-- **CLAIMED** — a `handoff_picked_up` (marked `lifecycle: claim`) posted on catch. The work is *in flight*; the card stays visible. A claim that ages with no close is a fumble made visible instead of hidden.
+- **CLAIMED** — a `handoff_picked_up` (marked `lifecycle: claim`) posted on catch. The work is *in flight*; the card stays visible. A claim that ages with no close is a fumble made visible instead of hidden. A claim does not lock: a second pickup warns that the card is already claimed and claims it anyway, so two catchers who read the board at once can both hold one baton.
 - **CLOSED** — a `handoff_closed`, citing the commit that landed the move. This is the *only* thing that retires a card: **done is never inferred** from git or the filesystem (the bug removed 2026-07-07). Its two disciplines — cite the evidence, and *complete-or-re-baton* (a partial close posts the leftover as a fresh `handoff_ready`) — are what make "in the spirit of the original" trustworthy rather than a hatch for dropped scope.
 
 This is manual-ack, not auto-ack — the move every mature queue makes (SQS's visibility-timeout-then-delete, AMQP's explicit `ack`/`nack`, Beanstalkd's `ready → reserved → buried`). And it fits the board's grain: the blackboard is an **append-only event log**, so state is a *fold over events* (event sourcing / CQRS), never a mutation — a richer substrate than a delete-on-done queue, with the full audit trail those throw away. The reconciliation view `pickup-handoff.mjs` prints before claiming is the **idempotent-consumer** guard that at-least-once delivery requires: *this may already be done — check before continuing.* Migration is by grandfather: a legacy `handoff_picked_up` with no `lifecycle` marker counts as closed (those were start-claims for work since landed).
@@ -94,7 +91,7 @@ This is manual-ack, not auto-ack — the move every mature queue makes (SQS's vi
 **The horizon — the Reliable Handoff ladder.** Rung 1 (above) is built and lived-in. The rest are named so they are a known direction, not a rediscovery, and deferred by design until the scheduled dispatcher makes them live:
 
 2. **Lease / TTL** — a claim ages; a stale claim is *flagged*, never silently auto-reverted (SQS visibility timeout; etcd/ZooKeeper leases).
-3. **Heartbeat → fade** — wire the `health` block (the liveness heartbeat the palace *already emits* on every message) to reap zombie claims. This is where distributed-systems "lease expiry" and stigmergy's own founding metaphor — **pheromone that evaporates unless refreshed** ([[Pheromone Trail]], Grassé) — turn out to be the *same mechanism*: the heartbeat is the ant re-depositing scent to keep the trail alive.
+3. **Heartbeat → fade** — send a beat while a move is in flight and read it to reap zombie claims. Every message carries a `health` block, but a catcher deep in a move posts nothing between claim and close, so the beat has to be sent on purpose. This is where distributed-systems "lease expiry" and stigmergy's own founding metaphor — **pheromone that evaporates unless refreshed** ([[Pheromone Trail]], Grassé) — turn out to be the *same mechanism*, as long as each beat resets the scent to full: scent evaporating with time constant τ and read against a threshold θ is a lease of length τ·ln(1/θ). Real pheromone is reinforced, deposits adding up, and then the two part: a trail laid often outlives its lease after the ant is gone. The rung wants the reset kind: the heartbeat is the ant re-depositing scent to keep the trail alive, never piling it up.
 4. **Dead-letter / "buried"** — a repeatedly-fumbled baton escalates to a human channel instead of looping (SQS DLQ; Airflow zombie-task reaping).
 
 The cross-tradition mapping of these terms lives in [[ROSETTA]] §4b; the operator's two-beat checklist (claim on catch, close on completion) is [[Baton Ceremony — on-pickup]] — the one copy of the text, which every baton carries verbatim and `_ops/swarm/lint-baton-footer.py` holds to that.
@@ -150,7 +147,7 @@ STIGMERGY emerged from the [[BBS Blackboard]] concept (March 2026), which named 
 
 ## Cross-Domain Resonance
 
-**[[BBS Blackboard]]** — the origin concept and historical root. STIGMERGY is what the architecture became once it had a terminal, a reconciliation spine, and daily use.
+**[[BBS Blackboard]]** — the origin concept and historical root. STIGMERGY is what the architecture became once it had a terminal, a close that must cite its evidence, and daily use.
 
 **[[Pheromone Trail]]** — STIGMERGY carries both timescales of the palace's memory: the blackboard holds the ephemeral, session-scoped trace (what is happening now); the entries hold the permanent trace (what was learned). The persistent board bridges them.
 
