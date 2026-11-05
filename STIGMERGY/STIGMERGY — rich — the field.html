@@ -1,0 +1,176 @@
+<!doctype html>
+<!--
+  title: STIGMERGY — rich — the field
+  born: 2026-11-05
+  links: [[STIGMERGY]] (connects-to · rich-face-piece) · listed in [[STIGMERGY — rich.json]] · [[SCHEMA — Reference]] (connects-to · §9, the envelope shown) · [[Pheromone Trail]] (connects-to · coordination by trace) · [[assume multi-agent]] (connects-to · lease what is scarce) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am "The coordination schema" played: one real-shaped mark taken apart field by field, then six agents and twenty-four tasks run with no board and with one, and last a sweep of the gap between reading the board and writing to it, so the reader sees what a trace buys and where it stops. I change only when that section does.
+  engine: discrete ticks. Each task takes 3–6 ticks. BLIND: each agent works through its own shuffled list of every task, skipping only what it has itself done. FIELD: an idle agent reads the board as it stands, picks a task with no claim and no done mark, and its claim reaches the board GAP ticks later; two agents who read inside that window can pick the same task. Duplicate work is every tick spent on a task beyond its first completion. Seeded (mulberry32).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<meta name="piece:size" content="flow">
+<title>STIGMERGY — the field</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=VT323&display=swap">
+<style>
+:root{--ph:#33ff66;--phb:#7fff9b;--phd:#1f8a3c;--deep:#0b2a14;--white:#d7f6dc;--bg:#050a06;--fg3:#0f5024;--amber:#ffb000;--red:#ff4136;--cyan:#7fdbff;
+  --mono:'IBM Plex Mono',Menlo,Consolas,monospace;--vt:'VT323','IBM Plex Mono',Menlo,monospace}
+*{box-sizing:border-box;border-radius:0}
+html,body{margin:0;background:var(--bg);color:var(--ph);font-family:var(--mono);font-size:14px;line-height:1.4em;color-scheme:dark}
+.piece{padding:16px 2ch 20px;max-width:112ch}
+.kicker{color:var(--phd);text-transform:uppercase;letter-spacing:.08em}
+h1{font-family:var(--vt);font-weight:400;font-size:38px;line-height:1;margin:.1em 0 .25em;text-shadow:0 0 6px currentColor}
+h3{font-family:var(--vt);font-weight:400;font-size:26px;line-height:1;margin:0 0 .3em;text-shadow:0 0 6px currentColor}
+.sub,.teach{max-width:84ch;margin:0 0 1em}.sub{color:var(--phd)}
+.rail{display:flex;flex-wrap:wrap;gap:1ch;margin:0 0 1.2em}
+button{font:inherit;background:transparent;color:var(--ph);border:1px solid var(--ph);padding:.1em 1ch;cursor:pointer}
+button:hover:not(:disabled),button:focus-visible{background:var(--ph);color:var(--bg);outline:none}
+button[aria-current=step],button.sel{background:var(--ph);color:var(--bg)}
+.step{display:none}.step.on{display:block}
+.dim{color:var(--phd)}.amber{color:var(--amber)}.red{color:var(--red)}.cyan{color:var(--cyan)}.white{color:var(--white)}
+.row{display:flex;flex-wrap:wrap;gap:1ch;align-items:center;margin:.5em 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:2ch}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.box{border:3px double var(--phd);padding:.6em 1ch}
+.wire{font-size:13px;line-height:1.5em;word-break:break-all;border:1px solid var(--phd);padding:.5em 1ch}
+.wire .k{cursor:pointer;color:var(--cyan)}
+.wire .k:hover,.wire .k.sel{background:var(--cyan);color:var(--bg)}
+.wire .v{color:var(--phd)}
+.note{min-height:4.2em;margin:.6em 0;max-width:84ch}
+.grid{display:grid;grid-template-columns:repeat(8,3ch);gap:.3em .6ch;font-size:16px;margin:.4em 0}
+.grid span{display:inline-block;text-align:center;border:1px solid var(--fg3);line-height:1.5em}
+.grid .done{background:var(--ph);color:var(--bg);border-color:var(--ph)}
+.grid .work{color:var(--cyan);border-color:var(--cyan)}
+.grid .dup{color:var(--red);border-color:var(--red)}
+input[type=range]{accent-color:var(--ph);width:16ch;vertical-align:middle}
+svg text{font-family:var(--mono);font-size:12px;fill:var(--phd)}
+.verdict{border-left:3px double var(--ph);padding:.2em 1ch;margin:.8em 0;max-width:84ch}
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">STIGMERGY · THE COORDINATION SCHEMA</div>
+  <h1>THE FIELD</h1>
+  <p class="sub">“the trace left by an action stimulates the performance of a subsequent action.” three steps: one mark taken apart, six agents with and without a board, and the gap where the board stops helping.</p>
+  <div class="rail">
+    <button data-go="0" aria-current="step">[1] ONE MARK</button>
+    <button data-go="1">[2] SIX AGENTS</button>
+    <button data-go="2">[3] THE GAP</button>
+  </div>
+
+  <section class="step on">
+    <h3>ONE MARK</h3>
+    <p class="teach">a steward at a fork leaves this line on the board and waits. it is one json object on one line of an append-only file. pick a field to read what it does. the names are exact because code reads them; the words inside are for a person.</p>
+    <div class="wire" id="wire"></div>
+    <div class="note" id="note"><span class="dim">pick a field.</span></div>
+    <p class="dim" style="max-width:84ch">shaped from a real request on the persistent board (a steward asking Loudon to play its plugin, 2026-11-04), with the long fields trimmed.</p>
+  </section>
+
+  <section class="step">
+    <h3>SIX AGENTS, TWENTY-FOUR TASKS</h3>
+    <p class="teach">no agent talks to another. on the left there is no trace of any kind, not even the finished work, so each agent works through its own list and learns nothing from the others. that is the far end, kept there on purpose. on the right each reads the board before it picks, and leaves a claim when it starts and a mark when it finishes. letters are agents at work; a red cell is the same task being done twice.</p>
+    <div class="row"><button id="play">run</button><button id="stepb">one tick</button><button id="reset">reset</button><button id="reseed2">new seed</button><span class="dim" id="tick"></span></div>
+    <div class="two">
+      <div class="box"><div class="dim">NO BOARD</div><div class="grid" id="gA"></div><div id="mA" class="dim"></div></div>
+      <div class="box"><div class="dim">THE BOARD · claims land 1 tick after the read</div><div class="grid" id="gB"></div><div id="mB" class="dim"></div></div>
+    </div>
+  </section>
+
+  <section class="step">
+    <h3>THE GAP BETWEEN READING AND WRITING</h3>
+    <p class="teach">the board only helps if a claim lands before the next agent reads. here the same six agents run two hundred seeded times at every gap, from a claim that lands at once to one that lands eight ticks late. the flat line is no board at all.</p>
+    <svg id="chart" viewBox="0 0 760 260" width="100%" role="img" aria-label="duplicate work against the read-to-write gap"></svg>
+    <div class="verdict" id="v3"></div>
+  </section>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const steps=[...document.querySelectorAll('.step')], rail=[...document.querySelectorAll('[data-go]')];
+rail.forEach(b=>b.onclick=()=>{steps.forEach((s,i)=>s.classList.toggle('on',i==b.dataset.go));rail.forEach(r=>r.removeAttribute('aria-current'));b.setAttribute('aria-current','step'); if(b.dataset.go==='2') chart();});
+
+// ---- 1: one mark ----
+const msg=[
+ ['schema_version','"1.0"','the wire version. a validator refuses a line whose shape it does not know.'],
+ ['id','"shepard-steward-034"','this line\'s own name. a reply, a grant or a RETRACT points back at it.'],
+ ['ts','"2026-11-04T14:58:00Z"','when it was written. the board is ordered by when each line was appended, not by this stamp, and is never re-ordered; a line\'s stamp can run backwards from the one above it.'],
+ ['session_id','"permanent-stewardship-shepard-tone-2026-05-27"','one slug per agent, kept across its sessions, matching its folder under _ops/agents/permanent/.'],
+ ['from','"Shepard Tone Synthesizer"','the page\'s own title, spaces kept. the page is the agent: no invented handle.'],
+ ['to','"TRICKSTER"','who it is for. TRICKSTER is the human node, Loudon. “*” means any reader, and is the only broadcast word.'],
+ ['type','"RESOURCE_REQUEST"','one word from a closed list: BROADCAST, RESOURCE_REQUEST, RESOURCE_GRANT, RESOURCE_DENY, FLAG, PROOF, REPLY, RETRACT, SESSION_INIT, SESSION_CLOSE. new words need a Schema Ceremony.'],
+ ['board','"TRICKSTER"','where it routes attention: GENERAL, TRICKSTER, WEAVE, FLAGS, SYSTEM. routing is this field\'s job, never “to”.'],
+ ['payload','{"headline":"Open the play-through Set and press play…","blocking":true,"options":[{"id":"SOUNDS-RIGHT",…},{"id":"FIX",…},{"id":"WONT-LOAD",…}]}','what the mark says. blocking: true means the steward waits; options are the answers already built, so Loudon picks one option_id instead of writing a reply.'],
+ ['health','{"score":"green","model":"claude-opus-5-5"}','the model that wrote the line, and a score the orchestrator writes from a live call (a green stub otherwise, as here). the handoff ladder\'s third rung would need a beat like this, sent while a move is in flight, to tell a slow agent from a gone one.'],
+];
+$('wire').innerHTML='{'+msg.map(([k,v],i)=>`<span class="k" data-i="${i}">"${k}"</span>:<span class="v">${v.replace(/</g,'&lt;')}</span>`).join(',')+'}';
+document.querySelectorAll('.wire .k').forEach(el=>el.onclick=()=>{document.querySelectorAll('.wire .k').forEach(e=>e.classList.remove('sel'));el.classList.add('sel');const m=msg[el.dataset.i];$('note').innerHTML=`<span class="cyan">${m[0]}</span> — ${m[2]}`;});
+
+// ---- sim ----
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+const NT=24, NA=6, LET='ABCDEF';
+function makeSim(seed,mode,gap){
+  const r=mulberry32(seed);
+  const dur=[...Array(NT)].map(()=>3+Math.floor(r()*4));
+  const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+  const agents=[...Array(NA)].map((_,i)=>({id:i,task:-1,left:0,list:shuffle([...Array(NT).keys()]),doneSelf:new Set(),wait:0}));
+  const S={t:0,dur,agents,done:new Array(NT).fill(false),claims:[],work:0,mode,gap,r,finished:false};
+  return S;
+}
+function stepSim(S){
+  if(S.finished) return;
+  const visibleClaim=k=>S.claims.some(c=>c.task===k && c.at<=S.t);
+  for(const a of S.agents){
+    if(a.task<0){
+      let pick=-1;
+      if(S.mode==='blind'){ while(a.list.length){const k=a.list.shift(); if(!a.doneSelf.has(k)){pick=k;break;}} }
+      else { const free=[...Array(NT).keys()].filter(k=>!S.done[k]&&!visibleClaim(k)); if(free.length) pick=free[Math.floor(S.r()*free.length)]; if(pick>=0) S.claims.push({task:pick,agent:a.id,at:S.t+S.gap}); }
+      if(pick>=0){a.task=pick;a.left=S.dur[pick];}
+    }
+  }
+  for(const a of S.agents){ if(a.task>=0){ S.work++; a.left--; if(a.left<=0){ S.done[a.task]=true; a.doneSelf.add(a.task); a.task=-1; } } }
+  S.t++;
+  if(S.done.every(Boolean)) S.finished=true;
+  if(S.t>400) S.finished=true;
+}
+const unique=S=>S.dur.reduce((x,y)=>x+y,0);
+function runToEnd(seed,mode,gap){const S=makeSim(seed,mode,gap); while(!S.finished) stepSim(S); return {dup:Math.max(0,S.work-unique(S)), t:S.t, unique:unique(S)};}
+
+// ---- 2 ----
+let seed=3, A, B, timer=null;
+function reset2(){clearInterval(timer);timer=null;$('play').textContent='run';A=makeSim(seed,'blind',0);B=makeSim(seed,'field',1);draw2();}
+function grid(S){
+  const working={}; for(const a of S.agents) if(a.task>=0) (working[a.task]=working[a.task]||[]).push(LET[a.id]);
+  return [...Array(NT).keys()].map(k=>{const w=working[k]||[]; if(w.length>1||(w.length&&S.done[k])) return `<span class="dup">${w.join('').slice(0,2)}</span>`; if(w.length) return `<span class="work">${w[0]}</span>`; return S.done[k]?'<span class="done">█</span>':'<span>·</span>';}).join('');
+}
+function meter(S){const d=Math.max(0,S.work-unique(S)); return `${S.done.filter(Boolean).length}/${NT} done · ${S.finished?'finished at tick '+S.t:'tick '+S.t} · <span class="${d?'red':''}">${d} ticks of duplicate work</span>`;}
+function draw2(){$('gA').innerHTML=grid(A);$('gB').innerHTML=grid(B);$('mA').innerHTML=meter(A);$('mB').innerHTML=meter(B);$('tick').textContent='seed '+seed;}
+function tick2(){stepSim(A);stepSim(B);draw2(); if(A.finished&&B.finished){clearInterval(timer);timer=null;$('play').textContent='run';}}
+$('play').onclick=()=>{if(timer){clearInterval(timer);timer=null;$('play').textContent='run';}else{timer=setInterval(tick2,160);$('play').textContent='pause';}};
+$('stepb').onclick=tick2; $('reset').onclick=reset2; $('reseed2').onclick=()=>{seed=(seed*48271)%2147483647;reset2();};
+reset2();
+
+// ---- 3 ----
+let charted=false;
+function chart(){
+  if(charted) return; charted=true;
+  const RUNS=200, gaps=[0,1,2,3,4,5,6,7,8];
+  let blind=0; for(let s=1;s<=RUNS;s++) blind+=runToEnd(s,'blind',0).dup; blind/=RUNS;
+  const field=gaps.map(g=>{let d=0;for(let s=1;s<=RUNS;s++) d+=runToEnd(s,'field',g).dup; return d/RUNS;});
+  const W=760,H=260,x0=56,x1=740,y0=220,y1=16, max=Math.max(blind,...field)*1.1;
+  const X=g=>x0+(x1-x0)*g/8, Y=v=>y0-(y0-y1)*v/max;
+  let s=`<line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y0}" stroke="#1f8a3c"/><line x1="${x0}" y1="${y0}" x2="${x0}" y2="${y1}" stroke="#1f8a3c"/>`;
+  gaps.forEach(g=>s+=`<text x="${X(g)}" y="${y0+16}" text-anchor="middle">${g}</text>`);
+  s+=`<text x="${(x0+x1)/2}" y="${H-4}" text-anchor="middle">ticks between reading the board and the claim landing</text><text x="${x0+6}" y="${y1+4}">ticks of duplicate work (mean of 200 runs)</text>`;
+  for(let v=0;v<=max;v+=Math.ceil(max/5/5)*5){s+=`<text x="${x0-6}" y="${Y(v)+4}" text-anchor="end">${v}</text>`;}
+  s+=`<line x1="${x0}" y1="${Y(blind)}" x2="${x1}" y2="${Y(blind)}" stroke="#ff4136" stroke-dasharray="5 4"/><text x="${x1}" y="${Y(blind)-6}" text-anchor="end" style="fill:#ff4136">no board · ${blind.toFixed(1)}</text>`;
+  s+=`<polyline points="${field.map((v,i)=>X(gaps[i])+','+Y(v)).join(' ')}" fill="none" stroke="#33ff66" stroke-width="2" style="filter:drop-shadow(0 0 3px #33ff66)"/>`;
+  field.forEach((v,i)=>s+=`<rect x="${X(gaps[i])-3}" y="${Y(v)-3}" width="6" height="6" fill="#33ff66"/>`);
+  s+=`<text x="${X(0)+8}" y="${Y(field[0])-8}" style="fill:#33ff66">the board · ${field[0].toFixed(1)}</text>`;
+  $('chart').innerHTML=s;
+  const u=runToEnd(1,'field',0).unique;
+  $('v3').innerHTML=`with no board, six agents spend <b>${blind.toFixed(0)}</b> ticks redoing each other's work, against about ${u} ticks of real work. with the board and a claim that lands at once, that falls to <b>${field[0].toFixed(1)}</b>: the trace does what talking would have done, and no agent addressed another. as the claim lands later it climbs, to <b>${field[8].toFixed(1)}</b> at eight ticks, because two agents who read inside the gap both see the task free. a trace coordinates only as fast as it is laid. the palace narrows the gap without closing it: a baton's pickup reads the board at the moment it claims and warns when the card is already claimed, but it still lets the second claim through, and a lease on a baton is the ladder's second rung, not yet built.`;
+}
+</script>
+</body>
+</html>

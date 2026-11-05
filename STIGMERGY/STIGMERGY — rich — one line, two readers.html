@@ -1,0 +1,139 @@
+<!doctype html>
+<!--
+  title: STIGMERGY — rich — one line, two readers
+  born: 2026-11-05
+  links: [[STIGMERGY]] (connects-to · rich-face-piece) · listed in [[STIGMERGY — rich.json]] · [[BBS Blackboard]] (connects-to · the board it folds in) · [[How the Palace Commits]] (connects-to · the door) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am STIGMERGY's opening played: three tools that were apart, folded into one terminal with five decks and its lanes, and last one board line read twice, as a card by a person and as data by an agent, where a person's pick on the card is a line an agent reads. I change only when the opening does.
+  engine: STEP 3 keeps one in-memory board of real-shaped §9 lines. The card is rendered from the line; picking an option appends a RESOURCE_GRANT with that option_id; the agent's reader is a plain fold over the same lines (latest grant whose re names the request). Nothing here touches the real board.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<meta name="piece:size" content="flow">
+<title>STIGMERGY — one line, two readers</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=VT323&display=swap">
+<style>
+:root{--ph:#33ff66;--phb:#7fff9b;--phd:#1f8a3c;--deep:#0b2a14;--white:#d7f6dc;--bg:#050a06;--fg3:#0f5024;--amber:#ffb000;--red:#ff4136;--cyan:#7fdbff;
+  --mono:'IBM Plex Mono',Menlo,Consolas,monospace;--vt:'VT323','IBM Plex Mono',Menlo,monospace}
+*{box-sizing:border-box;border-radius:0}
+html,body{margin:0;background:var(--bg);color:var(--ph);font-family:var(--mono);font-size:14px;line-height:1.4em;color-scheme:dark}
+.piece{padding:16px 2ch 20px;max-width:112ch}
+.kicker{color:var(--phd);text-transform:uppercase;letter-spacing:.08em}
+h1{font-family:var(--vt);font-weight:400;font-size:38px;line-height:1;margin:.1em 0 .25em;text-shadow:0 0 6px currentColor}
+h3{font-family:var(--vt);font-weight:400;font-size:26px;line-height:1;margin:0 0 .3em;text-shadow:0 0 6px currentColor}
+.sub,.teach{max-width:84ch;margin:0 0 1em}.sub{color:var(--phd)}
+.rail{display:flex;flex-wrap:wrap;gap:1ch;margin:0 0 1.2em}
+button{font:inherit;background:transparent;color:var(--ph);border:1px solid var(--ph);padding:.1em 1ch;cursor:pointer}
+button:hover:not(:disabled),button:focus-visible{background:var(--ph);color:var(--bg);outline:none}
+button[aria-current=step]{background:var(--ph);color:var(--bg)}
+button:disabled{border-color:var(--fg3);color:var(--fg3);cursor:default}
+.step{display:none}.step.on{display:block}
+.dim{color:var(--phd)}.amber{color:var(--amber)}.red{color:var(--red)}.cyan{color:var(--cyan)}.white{color:var(--white)}
+.row{display:flex;flex-wrap:wrap;gap:1ch;align-items:center;margin:.5em 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:2ch}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.box{border:3px double var(--phd);padding:.6em 1ch;min-height:11em}
+.card{border:1px solid var(--phd);padding:.4em 1ch;margin:.4em 0}
+.card .q{color:var(--white)}
+.raw{font-size:12px;line-height:1.45em;word-break:break-all;white-space:pre-wrap;color:var(--phd)}
+.raw .new{color:var(--ph)}
+.code{font-size:13px;white-space:pre;overflow-x:auto;border:1px solid var(--fg3);padding:.4em 1ch;color:var(--phd)}
+.out{color:var(--ph);margin-top:.4em}
+svg text{font-family:var(--mono);font-size:13px;fill:var(--ph)}
+svg .lbl{fill:var(--phd);font-size:12px}
+.verdict{border-left:3px double var(--ph);padding:.2em 1ch;margin:.8em 0;max-width:84ch}
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">STIGMERGY</div>
+  <h1>ONE LINE, TWO READERS</h1>
+  <p class="sub">a front-end to a person, an engine to an agent, and one data structure under both. three steps: the three tools it folded, the terminal they became, and one line read both ways.</p>
+  <div class="rail">
+    <button data-go="0" aria-current="step">[1] THREE TOOLS</button>
+    <button data-go="1">[2] ONE TERMINAL</button>
+    <button data-go="2">[3] TWO READERS</button>
+  </div>
+
+  <section class="step on">
+    <h3>THREE TOOLS THAT WERE APART</h3>
+    <p class="teach">before the terminal, writing, coordinating and committing lived in three places, and the seams between them were where work went missing: an entry edited and never committed, a change made with no line on the board to say so, a commit no intention pointed at.</p>
+    <svg viewBox="0 0 760 200" width="100%" role="img" aria-label="Obsidian, the board, and git as three separate tools with gaps between them">
+      <g fill="none" stroke="#1f8a3c" stroke-width="3"><rect x="20" y="50" width="200" height="80"/><rect x="280" y="50" width="200" height="80"/><rect x="540" y="50" width="200" height="80"/></g>
+      <text x="120" y="86" text-anchor="middle" style="font-family:VT323,monospace;font-size:22px">OBSIDIAN</text><text class="lbl" x="120" y="108" text-anchor="middle">authoring</text>
+      <text x="380" y="86" text-anchor="middle" style="font-family:VT323,monospace;font-size:22px">THE BOARD</text><text class="lbl" x="380" y="108" text-anchor="middle">coordination</text>
+      <text x="640" y="86" text-anchor="middle" style="font-family:VT323,monospace;font-size:22px">GIT</text><text class="lbl" x="640" y="108" text-anchor="middle">commit</text>
+      <g stroke="#ff4136" stroke-dasharray="3 5"><line x1="222" y1="90" x2="278" y2="90"/><line x1="482" y1="90" x2="538" y2="90"/></g>
+      <text x="250" y="160" text-anchor="middle" style="fill:#ff4136;font-size:12px">changed, never announced</text>
+      <text x="510" y="160" text-anchor="middle" style="fill:#ff4136;font-size:12px">committed, never asked for</text>
+      <path d="M120,48 C120,8 640,8 640,48" stroke="#ff4136" stroke-dasharray="3 5" fill="none"/>
+      <text x="380" y="24" text-anchor="middle" style="fill:#ff4136;font-size:12px">edited, never committed</text>
+    </svg>
+  </section>
+
+  <section class="step">
+    <h3>ONE TERMINAL</h3>
+    <p class="teach">the three become decks on one screen, ordered by time, with two decks for acting and the lanes where work runs. pick a part to read what it holds.</p>
+    <svg id="map" viewBox="0 0 760 330" width="100%" role="img" aria-label="the five decks around the board and git, with the lanes below"></svg>
+    <div class="verdict" id="mapnote"><span class="dim">pick a deck, the board, git or a lane.</span></div>
+  </section>
+
+  <section class="step">
+    <h3>TWO READERS, ONE LINE</h3>
+    <p class="teach">a steward has posted one line. on the left it is a card in the TRICKSTER deck. on the right it is the raw board, and the few lines of code an agent runs to learn its answer. the request is invented, in the real shape. pick an option on the card. no message is sent to the agent: a line is added to the board, and the agent's reading of the board changes.</p>
+    <div class="two">
+      <div class="box"><div class="dim">THE FRONT-END · what a person reads</div><div id="cardv"></div></div>
+      <div class="box"><div class="dim">THE ENGINE · what an agent reads</div><div class="raw" id="rawv"></div>
+        <div class="code">const grant = board.filter(m =&gt;
+  m.type === 'RESOURCE_GRANT' &amp;&amp; m.re === 'gsl-steward-012').at(-1);
+grant ? grant.payload.option_id : 'still blocked';</div><div class="out" id="outv"></div></div>
+    </div>
+    <div class="row"><button id="rs3">reset the board</button></div>
+    <div class="verdict" id="v3"></div>
+  </section>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const steps=[...document.querySelectorAll('.step')], rail=[...document.querySelectorAll('[data-go]')];
+rail.forEach(b=>b.onclick=()=>{steps.forEach((s,i)=>s.classList.toggle('on',i==b.dataset.go));rail.forEach(r=>r.removeAttribute('aria-current'));b.setAttribute('aria-current','step');});
+
+// ---- 2: the map ----
+const parts={
+ STATE:'present · what is. the palace as it stands, read through four lenses (PULSE, TOPOLOGY, TREE, QUOTES). an entry opens in a reader that also writes, and shows the exact commit before anything lands.',
+ QUEUE:'future · what is waiting. batons in their three states, Weave proposals to grant, and the raw feed folded away below.',
+ LOG:'past · what happened. git as the record, with a strip on top that reads the trunk: main against origin, the last push, moves around the door.',
+ TRICKSTER:'decide · what needs you. the inbox of blocking requests, each with its answers already built.',
+ PROJECTS:'advance · where everything stands. every project on one screen; each row opens its scroll.',
+ BOARD:'the append-only blackboard. one json object a line, never edited. every agent reads and writes here; QUEUE and TRICKSTER are readings of it.',
+ GIT:'ground truth. every commit goes through one door; LOG reads it, and nothing is done until it is here.',
+ LANES:'where the terminal sets work running, one worker per lane: the Companion, a steward cycle, a hero and avatar render, the schedule strip.',
+};
+const S=(x,y,w,h,k,big,sub)=>`<g data-k="${k}" style="cursor:pointer"><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#050a06" stroke="#1f8a3c" stroke-width="${big?3:1}"/><text x="${x+w/2}" y="${y+h/2+2}" text-anchor="middle" style="font-family:VT323,monospace;font-size:21px">${k}</text>${sub?`<text class="lbl" x="${x+w/2}" y="${y+h/2+20}" text-anchor="middle">${sub}</text>`:''}</g>`;
+let m=`<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1f8a3c"/></marker></defs>`;
+m+=S(10,20,136,62,'STATE',1,'present')+S(160,20,136,62,'QUEUE',1,'future')+S(310,20,136,62,'LOG',1,'past')+S(460,20,136,62,'TRICKSTER',1,'decide')+S(610,20,140,62,'PROJECTS',1,'advance');
+m+=S(160,150,286,56,'BOARD',0,'_ops/swarm/persistent/blackboard.jsonl')+S(500,150,180,56,'GIT',0,'one door in');
+m+=S(160,262,520,50,'LANES',0,'companion · steward · regen · schedule');
+const L=(x1,y1,x2,y2)=>`<path d="M${x1},${y1} L${x2},${y2}" stroke="#1f8a3c" fill="none" marker-end="url(#ah)"/>`;
+m+=L(228,148,228,84)+L(420,148,510,84)+L(440,150,650,84)+L(540,148,420,84)+L(360,260,330,208)+L(600,260,600,208);
+$('map').innerHTML=m;
+document.querySelectorAll('#map g[data-k]').forEach(g=>g.onclick=()=>{document.querySelectorAll('#map rect').forEach(r=>r.setAttribute('fill','#050a06'));g.querySelector('rect').setAttribute('fill','#0b2a14');$('mapnote').innerHTML=`<span class="cyan">${g.dataset.k}</span> — ${parts[g.dataset.k]}`;});
+
+// ---- 3 ----
+const REQ={schema_version:'1.0',id:'gsl-steward-012',ts:'2026-11-05T09:12:00Z',session_id:'permanent-stewardship-gsl',from:'Generative Sample Libraries',to:'TRICKSTER',type:'RESOURCE_REQUEST',board:'TRICKSTER',
+  payload:{headline:'Two render paths sound the same to me. Which do I keep?',blocking:true,options:[{id:'KEEP-FAST',label:'keep the fast path'},{id:'KEEP-CLEAN',label:'keep the clean path'},{id:'LISTEN-FIRST',label:'send me both, I\'ll listen'}]},health:{score:'green',model:'claude-opus-5-5'}};
+let board;
+function reset3(){board=[REQ];draw3();}
+function draw3(){
+  const grant=board.filter(m=>m.type==='RESOURCE_GRANT'&&m.re==='gsl-steward-012').at(-1);
+  $('cardv').innerHTML=`<div class="card"><span class="cyan">${REQ.from}</span> · ${grant?'<span class="dim">answered</span>':'<span class="amber">waiting on you</span>'}<br><span class="q">${REQ.payload.headline}</span><br>${REQ.payload.options.map(o=>`<button data-o="${o.id}" ${grant?'disabled':''}>${o.id}</button>`).join(' ')}${grant?`<div class="dim" style="margin-top:.4em">you picked ${grant.payload.option_id}</div>`:''}</div>`;
+  document.querySelectorAll('#cardv button').forEach(b=>b.onclick=()=>{board.push({schema_version:'1.0',id:'resp-'+Date.now().toString(36),ts:new Date().toISOString(),session_id:REQ.session_id,from:'TRICKSTER',to:REQ.from,type:'RESOURCE_GRANT',board:'TRICKSTER',re:REQ.id,payload:{granted:true,option_id:b.dataset.o},health:{score:'green',model:'loudon-trickster'}});draw3();});
+  $('rawv').innerHTML=board.map((m,i)=>`<div class="${i===board.length-1&&i>0?'new':''}">${JSON.stringify(m).replace(/</g,'&lt;')}</div>`).join('');
+  $('outv').innerHTML='→ '+(grant?`<span class="white">'${grant.payload.option_id}'</span>`:'<span class="amber">\'still blocked\'</span>');
+  $('v3').innerHTML=grant?`one line was appended. the card and the agent's reader now agree, because neither holds anything of its own: both are readings of the board. that is the sense in which the [[Trickster]] is just another node — Loudon's pick is a mark on the same field the agents use.`.replace('[[Trickster]]','TRICKSTER'):`the card and the code read the same single line. pick an option.`;
+}
+$('rs3').onclick=reset3; reset3();
+</script>
+</body>
+</html>
