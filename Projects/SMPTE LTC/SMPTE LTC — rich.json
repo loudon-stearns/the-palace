@@ -42,8 +42,8 @@
       "section": "Open questions",
       "kind": "claim-change",
       "what": "Drop-frame NTSC edge cases: the question can carry its arithmetic half, answered. Counted by the rule, the labels are exact over 24 hours (every label back to its own frame), and when the label reaches 24:00:00;00 it is 86.4 ms (2.59 frames) ahead of the wall clock, because 108 skips an hour do not quite match 30000/1001. Whether Loudon's Max patch counts this way is still his to test.",
-      "status": "open",
-      "note": "Still open. Its number matches the teaching room's own: 86.4 ms is 2.589 frames, and the room's Count step shows the drift as about 2.6 frames a day."
+      "status": "taken",
+      "note": "taken · paid in a4cdd3b1, deposit D-2026-11-05-LTCSPEED, on Loudon's \"make the changes\" (2026-11-05)"
     },
     {
       "section": "What SMPTE LTC Is",
@@ -56,8 +56,8 @@
       "section": "The fine points",
       "kind": "claim-change",
       "what": "A reader cannot tell rate and speed apart from the audio alone. A 25 fps tape played 1.2× fast reads as 30 (ltc.js's own decoder names it so, and so does the encoder piece's reader), and 24 slowed by 1000/1001 reads as 23.976. So 'its length tells the speed' (The fine points) and 'one reader reads every rate and says which it hears' (Every form) each hold only given the other: the speed if the rate is known, the rate if the tape runs at its own speed.",
-      "status": "open",
-      "note": "Goes home through the Deposit Ceremony's map on Loudon's word; the .md is not written in this run."
+      "status": "taken",
+      "note": "taken · paid in a4cdd3b1, deposit D-2026-11-05-LTCSPEED, on Loudon's \"make the changes\" (2026-11-05)"
     }
   ],
   "sections": [
@@ -93,8 +93,8 @@
           "round": "proposal-round-2026-11 · cloud batch 4"
         }
       ],
-      "made_against": "9e11caf7739c",
-      "stamped": "2026-11-04",
+      "made_against": "e801c7f0b2e7",
+      "stamped": "2026-11-05",
       "challenge": {
         "date": "2026-11-04",
         "by": "challenger · claude-opus-5-5",
@@ -193,8 +193,8 @@
           }
         ]
       },
-      "made_against": "732162fd789c",
-      "stamped": "2026-11-04",
+      "made_against": "ab4e799c2f43",
+      "stamped": "2026-11-05",
       "approved": {
         "date": "2026-11-04",
         "by": "Loudon",
