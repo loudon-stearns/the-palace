@@ -12,10 +12,15 @@ nearest frame of its absolute time, rounded once.
 | `make_demo_set.py` → `demo-set.als` | a Set written from Live 12.4's own blank (the Shopkeeper's template): 4/4 at 120, a jump to 96 in 7/8, a ramp to 150 through 3/4, 4/4 at 150, five locators. No song. |
 | `demo-boards.txt` | three boards with BAR and BEAT only; `--record` fills in FRAME and SECTION. |
 | `make_proof.py` → `proofs/tempo-map.html` | the demo clock drawn, with clicks you can play, and the old record's bars beside it. |
+| `cut.py` | the cut on the clock: a board record in, an animatic MP4 out. Each board change sits on the frame nearest its absolute time, counted from the cut's in-point. Takes `--audio` for the song; without it, lays a click track drawn from the same clock, and a white bar flashes on every beat. `--plan` prints the timing table only. |
+| `test_cut.py` | 7 checks: cut 1 of 2026-10-29 rebuilt frame for frame from a one-tempo map, every change within half a frame on the demo clock, board lengths summing exactly, clicks walking the meter. |
+| `demo-six-boards.txt` → `proofs/demo-six-boards.mp4` | the six animatic boards on `demo-set.als`, changes quickening into the drop as in cut 1, over clicks. The MP4 and WAV stay on this Mac; `proofs/demo-six-boards-changes.png` is four frames at the changes. |
 
 ```
 python3 tempo_map.py <set.als> [--fps 24] [--cuts "5.4,13.1"] [--record board_template.txt]
 python3 test_tempo_map.py
+python3 cut.py <record.txt> [--in 23.1] [--end 42.1] [--audio song.wav] [--out proofs] [--plan]
+python3 test_cut.py
 ```
 
 ## How it reads the clock
@@ -38,6 +43,12 @@ at one time are a jump. Locators sit in `Locators > Locators`; Live 11 puts a `N
 the inner list.
 
 ## Not proven yet
+
+- **A board placed before `--in`** gets a negative frame; `cut.py` doesn't drop or clamp it yet.
+- **The real song through `cut.py`.** Cut 1 is matched in arithmetic only; the song is unreleased and stays
+  on the Mac that made the 2026-10-29 cuts.
+- **A faster way to check the ramp in Live:** drop `proofs/demo-six-boards-clicks.wav` into `demo-set.als`
+  at bar 1 with Warp off. If its clicks sit on Live's metronome through bars 9–12, the ramp holds.
 
 - **That Live ramps tempo linearly in beats.** The reader assumes it. The check: open `demo-set.als` in
   Live, put a locator at bar 11 beat 2 and at bar 17, and read their times in seconds (or export the

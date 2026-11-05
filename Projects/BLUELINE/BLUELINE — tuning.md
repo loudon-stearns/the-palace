@@ -31,3 +31,8 @@ What BLUELINE's steward cycles taught the page, and the changes to the house its
    > Replace them with the text in Projects/BLUELINE/tempo-map/clock-section-draft.md. The BIBLE carries `CLOCK: song.als` (the Set is the clock: its tempo lane, meter lane and locators, tempo and meter changes included) and `FPS`, any rate. The sync rule: a board's BAR and BEAT on the Set's ruler become song beats through every meter change, then absolute seconds by summing the tempo segments before them (each ramp worked out exactly), then a frame by rounding that time once: FRAME = round(seconds × FPS), never added up beat by beat, so nothing drifts. A beat lands on the nearest frame, never more than half a frame from the music. FRAME and a blank SECTION are filled in by the Clock (tempo-map/tempo_map.py --record), never by hand.
 
 - run · 2026-11-05 · cycle 1 · taught item 1, proposed item 2 for canon
+
+## From cycle 2 — 2026-11-05
+
+3. A board record's FRAME is the frame of absolute song time, but a cut that starts at an in-point has to round again from that in-point, because the in-point usually falls between frames and the audio is laid from it. Keep the record absolute and let the cutter re-round, never subtract the two rounded frames. *(offered by the steward, cycle 2)*
+- run · 2026-11-05 · cycle 2 · taught item 3

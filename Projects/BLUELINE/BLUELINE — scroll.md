@@ -15,25 +15,31 @@ forward_vector: "I am BLUELINE's scroll — the one page that always opens on wh
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-05T15:43:36.291Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-05T15:49:03.147Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 1 · last ran 2026-11-05 (today)
-- **Plan:** agreed 2026-11-04 (1 day ago) · 2 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 2 · last ran 2026-11-05 (today)
+- **Plan:** agreed 2026-11-04 (1 day ago) · 3 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-05 (today) — When Live is open: does demo-set.als put bar 11 beat 2 at 20.53 s and bar 17 at 29.10 s? (`blueline-steward-003`)
-- **Last commit touching this project:** 2026-11-04 `66b808e7` — edit(BLUELINE): the Active Baton line names only the reset's remainder
+- **Last shipped:** 2026-11-05 (today) — The cut now follows the Set's clock: the six boards cut over a Set that jumps, ramps and changes meter, every change on its frame. (`blueline-steward-004`)
+- **Last commit touching this project:** 2026-11-05 `2980ecfb` — steward(BLUELINE): cycle 1 — SPINNING UP. HOME: [BLUELINE](obsidian://open?vault=The%20Palace&file=P…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-05 — cycle 1 · taught item 1, proposed item 2 for canon
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-05 — cycle 2 · taught item 3
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 2, from cycle 1 — 2026-11-05 — [[BLUELINE — tuning]]
+- **Latest lesson:** item 3, from cycle 2 — 2026-11-05 — [[BLUELINE — tuning]]
 
 ### Where this stands
 
-BLUELINE tells a story in comic panels set to a song. The song lives in an Ableton Set, and the plan says the Set's own clock places every panel. On 2026-11-04 you widened that order to any tempo, tempo changes and meter changes included. The board record, the one file every part of BLUELINE reads, still assumed a single tempo of 120 BPM and 12 frames a beat. The rough cut you picked on 2026-10-29 was made the same way, at one tempo. The plan's next move was to put the record on the Set's real tempo map, before the six boards get one shared finish and are cut to the song again. This cycle built that reader. It reads the tempo lane, the meter lane and the locators from a Set, works out where…
+BLUELINE tells a story in comic panels set to a song, and the Ableton Set's own clock places every panel. On 2026-11-04 you widened that to any tempo, with tempo changes and meter changes included. Earlier this run I built a reader that takes the whole clock from a Set. This cycle I built the step after it: a cutter that takes a board record (each board's bar and beat) and makes the animatic cut. Every board change lands on the frame nearest its real time, through every tempo jump, ramp and meter change. With a single tempo of 127 BPM it rebuilds the cut you picked on 2026-10-29 frame for frame. So the plan's move of putting the record on the Set's tempo map now goes from the Set all the wa…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 1:** Nobody has opened demo-set.als in Live yet, so the ramp math is still unchecked. _(in 2 notes, the latest cycle 2)_
 
 ### Open asks
 
@@ -49,6 +55,7 @@ _Nothing decided on the board yet._
 
 ### Runs
 
+- 2026-11-05 — cycle 2 · taught item 3
 - 2026-11-05 — cycle 1 · taught item 1, proposed item 2 for canon
 
 ### Owed
@@ -102,6 +109,54 @@ Decided with Loudon between June and July 2026, carried over from the locked sco
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="blueline-steward-004" -->
+### 2026-11-05 — cycle 2 — The cut now follows the Set's clock: the six boards cut over a Set that jumps, ramps and changes meter, every change on its frame.
+> shipped · cutter rebuilds your 2026-10-29 pick frame for frame · steward leans finish the six boards next
+
+`tempo-map/cut.py` reads a board record and makes the cut from it. The record names a Set as its clock, and each board gives its bar and beat. No tempo is written anywhere in the cutter. It counts frames from the cut's own in-point, rounding once for each board change, so board lengths are differences between rounded positions and always add up to the cut's length exactly. If you give it the song with `--audio`, it lays the song from the in-point. If you don't, it draws a click track from the same clock: a high click on each downbeat and a low one on every beat of the meter, so a 7/8 bar clicks in eighth notes. A white bar along the bottom of the picture flashes on every beat, wider on the downbeat, so your eye and ear can check the clock together.
+
+The demo: the six animatic boards on the demo Set, which runs 4/4 at 120, jumps to 96 in 7/8, ramps to 150 through 3/4, then holds 4/4 at 150. As in cut 1, the changes come faster into the drop. Board 04 lands mid-ramp, off the downbeat. The demo cut runs 29.083 s, 698 frames, with audio and video the same length. I measured the clicks: all 72 onsets sit within 0.03 ms of the reader's times. The strip shows frames 401, 402, 493 and 545: board 02's last frame, then board 03, 04 and 05 each arriving with its flash.
+
+The checks in `test_cut.py` (7, all pass): cut 1 of 2026-10-29 rebuilt from a one-tempo map, frames [0, 91, 272, 363, 408, 499, 680, 862], 35.917 s, matching the timing note. Every change within half a frame of the Set's clock (worst 17 ms at 24 fps). Board lengths summing exactly. The clicks following the meter (16 bars hold 72 beats, 16 of them downbeats). Frames counted from an in-point that falls between frames.
+
+About your open question on the demo Set: there's now a quicker way to answer it. Drop `demo-six-boards-clicks.wav` into `demo-set.als` at bar 1 with Warp off. If its clicks stay on Live's metronome through the ramp, bars 9 to 12, the reader's ramp math holds.
+
+**Artifacts:**
+- [Frames 401, 402, 493, 545: board 03 arrives on the ramp's first downbeat, 04 mid-ramp on a beat, 05 on the drop.](Projects/BLUELINE/tempo-map/proofs/demo-six-boards-changes.png)
+- [The demo cut: six boards over clicks through a jump, a ramp and three meter changes (stays on this Mac).](Projects/BLUELINE/tempo-map/proofs/demo-six-boards.mp4)
+- [The click track alone, for checking against Live's metronome in demo-set.als (stays on this Mac).](Projects/BLUELINE/tempo-map/proofs/demo-six-boards-clicks.wav)
+- [The cutter: a board record in, a cut out, frames from the Set's clock.](Projects/BLUELINE/tempo-map/cut.py)
+- [Seven checks, including cut 1 of 2026-10-29 rebuilt frame for frame.](Projects/BLUELINE/tempo-map/test_cut.py)
+- [The six boards placed by bar and beat on the demo Set.](Projects/BLUELINE/tempo-map/demo-six-boards.txt)
+- [The workshop's how-to, now with the cutter and what isn't proven yet.](Projects/BLUELINE/tempo-map/README.md)
+
+_The six boards on the demo Set's clock, 24 fps_
+| board | bar.beat | bpm there | section | absolute (s) | cut frame |
+| --- | --- | --- | --- | --- | --- |
+| black | 1.1 | 120 | intro | 0.0000 | 0 |
+| 01 | 3.1 | 120 | intro | 4.0000 | 96 |
+| 02 | 5.1 | 96 (jump, 7/8) | verse | 8.0000 | 192 |
+| 03 | 9.1 | 96 (ramp starts, 3/4) | rise | 16.7500 | 402 |
+| 04 | 11.2 | 127.5 (mid-ramp) | rise | 20.5336 | 493 |
+| 05 | 13.1 | 150 | drop | 22.7005 | 545 |
+| 06 | 15.1 | 150 | drop | 25.9005 | 622 |
+| end | 17.1 | 150 | end | 29.1005 | 698 |
+
+_Changed in the workshop:_ README — added the cutter, its checks and its demo, and three honest gaps, including a faster way to check the ramp in Live
+
+_Left rough:_ Nobody has opened demo-set.als in Live yet, so the ramp math is still unchecked. The cutter has never run on the real song, and a board placed before the in-point gets a negative frame.
+
+_Next moves named:_ Give the six boards one shared finish, then cut them again with cut.py on the real Set. That run happens on the Mac that holds the song, and the song stays off the palace. · Make cut.py hold over the board already on screen when the in-point lands mid-board, instead of giving it a negative frame. · Read Loudon's separate Set-parsing work for techniques only, as the baton asks, and test the reader on a Live 11 Set that has real tempo automation.
+<sub>`blueline-steward-004` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-8b2babe0cb" -->
+### 2026-11-05 — cycle 2
+
+taught item 3
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="blueline-steward-003" -->
 ### 2026-11-05 — cycle 1 — When Live is open: does demo-set.als put bar 11 beat 2 at 20.53 s and bar 17 at 29.10 s?
 > still working · tempo reader built, 15 checks pass · no clear lean, only Live can say
