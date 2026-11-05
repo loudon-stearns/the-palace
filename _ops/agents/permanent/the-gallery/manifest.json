@@ -1,0 +1,60 @@
+{
+  "agent_id": "The Gallery",
+  "agent_id_rationale": "The page IS the agent. Per Pages-as-Agents and the cycle-1 finding from the GSL Steward pilot (2026-05-03), a permanent agent identity on the BBS is its own page title — not an invented compound handle.",
+  "home": "The Gallery",
+  "session_id": "permanent-stewardship-the-gallery-2026-11-03",
+  "mode": "long_duration_background",
+  "neighborhood": [
+    "Identity Molting",
+    "Oblique Portrait",
+    "Loudon Live",
+    "The Shop",
+    "Project Stewardship System",
+    "Synthesis Notes (Loudon)",
+    "Harvest Ceremony",
+    "Meaning and the Link",
+    "Drafting Table Design System",
+    "Loudon Live Design System",
+    "FOUR PILLARS",
+    "The Gallery — Context",
+    "Substrate Skill",
+    "Project Stewardship System"
+  ],
+  "model": {
+    "provider": "anthropic",
+    "name": "opus",
+    "endpoint": "https://api.anthropic.com/v1"
+  },
+  "tool_registry": [
+    "read_palace",
+    "read_manifest",
+    "read_blackboard_session",
+    "read_blackboard_persistent",
+    "write_blackboard"
+  ],
+  "stopping_conditions": {
+    "max_iterations": 3,
+    "stop_on": [
+      "cycle_complete",
+      "blocking_ask",
+      "interactive_session",
+      "stalled"
+    ]
+  },
+  "blackboard_session_path": null,
+  "blackboard_persistent_path": "_ops/swarm/persistent/blackboard.jsonl",
+  "partner_id": null,
+  "trickster_mode": "human",
+  "parallel_safe": true,
+  "stewardship": {
+    "stage_at_spawn": "seed",
+    "vector_at_spawn": "I am the Gallery: every creative and educational work Loudon has made, from school onward, hung where it earns its place, dated and sourced, playable where the media survives, and drawn as one line a visitor can walk. I want to be built first as a system — a folder of works, a store for the files git keeps out, a timeline face — then filled from everything the Dropbox, the palace and git already hold, and only then to sit Loudon down era by era, and after him the people he made things with. I want every work to link forward into the palace idea it seeded, so the line reads as the root system under the house and never as a list of credits.",
+    "posture_source": "Substrate Skill § Stage as Alignment Confidence",
+    "posture_summary_at_spawn": "seed-stage posture per the steward template — see steward.md and shared.md."
+  },
+  "_spawn_metadata": {
+    "spawned": "2026-11-03",
+    "spawned_by": "palace-orchestrator skill — enchant (one-at-a-time)",
+    "first_activation": null
+  }
+}

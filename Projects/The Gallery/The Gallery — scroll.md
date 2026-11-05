@@ -15,14 +15,14 @@ forward_vector: "I am The Gallery's scroll — the one page that always opens on
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T16:16:39.066Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-03T16:23:37.683Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** active · **Stage:** seed · **Steward:** cycle 1 · last ran 2026-11-03 (today)
 - **Plan:** agreed 2026-11-03 (today) · 2 made things since
-- **Waiting on you:** 1 open ask
-- **Ready to advance:** no unread answers
+- **Waiting on you:** nothing
+- **Ready to advance:** 1 answer filed since the steward last ran — a cycle will consume it
 - **Last shipped:** 2026-11-03 (today) — Should tomorrow morning's era-map conversation run from the sketch and my question sheet, or start from your stories? (`the-gallery-steward-003`)
-- **Last commit touching this project:** 2026-11-03 `1e9fd845` — edit(The Gallery): born — the timeline-and-archive project, its scroll with the first Plan, its Context and the media-store spec
+- **Last commit touching this project:** 2026-11-03 `d0a336e8` — steward(The Gallery): cycle 1 — SPINNING UP. HOME: [[The Gallery]]. Neighborhood loaded.
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 - **Runs:** 1 run on 1 day, counted from the ledger's run lines
@@ -36,15 +36,15 @@ The Gallery is the new project, born this morning, that will hold everything you
 
 ### Open asks
 
-- `the-gallery-steward-003` — directional_decision · posted 2026-11-03 · options: USE-AS-AGENDA · TRIM · STORY-FIRST
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
-_None._
+- `the-gallery-steward-003` — GRANTED — option_id=USE-AS-AGENDA; notes: "Loudon, 2026-11-03, relayed by the session: "Use as agenda"." · answered 2026-11-03 — waiting for the next cycle
 
 ### Decided
 
-_Nothing decided on the board yet._
+- `the-gallery-steward-003` — directional_decision → GRANTED — option_id=USE-AS-AGENDA; notes: "Loudon, 2026-11-03, relayed by the session: "Use as agenda"." (2026-11-03)
 
 ### Runs
 
