@@ -51,3 +51,5 @@ The **Vocabulary page** (`#/vocabulary`, from the catalog toolbar) is where the 
 
 `vocabulary.yaml` is the one place the cards' range words become numbers for the reference voice (time, level, cutoff, resonance, amount, pitch amount, detune, rate, glide, drive, fm index, reverb). Draft 0.1 is marked ASSUMED in its header: set by reasoning, to be earned by ear against the site's own voice. Known: `fm_index: half = 3` makes the FM piano hot.
 
+
+**On your synth** (2026-11-05). A card's `mappings` names, per synth (`vital`, `serum`, `wavetable`), where each essential and taste setting lives and what to set it to in that synth's own units, each row marked `exact`, `near` (start here, finish by ear), `look` (a frame chosen by eye) or `unchecked` (from the manual, not yet seen on this Mac). The card page shows it as an On your synth section with one tab per synth, between Listening and Compare yours; `python3 on-your-synth.py cards/<id>.yaml <out.html>` writes the same rows as one standalone sheet with the synths side by side. Only house-bass carries mappings so far.

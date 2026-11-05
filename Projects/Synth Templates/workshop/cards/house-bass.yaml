@@ -72,4 +72,51 @@ render:               # the reference audio
   pattern: "offbeat eighths, one bar: rest C2 rest C2 rest C2 rest C2, each a 16th long"
   length_s: 2.0
 
-mappings: {}          # per synth, later: where each block lives in Vital, Serum, Ableton Wavetable
+mappings:             # per synth: where each block lives, and what to set it to, in that synth's own units
+  # sure: exact = a number or a switch the synth shows as written · near = a start point, finish by ear against the reference
+  #       look = a frame or shape chosen by eye on the synth's own display · unchecked = from the manual, not yet seen on this Mac
+  # The numbers come from vocabulary.yaml (time on the Moog curve, 95 % point). Synths define a stage's time and curve
+  # differently, so every time is "near": match the pluck to the reference, not the millisecond.
+  vital:
+    name: Vital
+    version: "1.5"
+    rows:
+      - {block: mode,    param: voices,    where: "Voice section, Voices", set: "1 (Legato off)", sure: exact}
+      - {block: osc1,    param: wave,      where: "Oscillator 1, wavetable menu, Basic Shapes; Wave Frame", set: "the square frame", sure: look}
+      - {block: sub,     param: wave,      where: "Oscillator 2, Basic Shapes; Wave Frame; Transpose", set: "the sine frame, Transpose -12", sure: look}
+      - {block: sub,     param: level,     where: "Oscillator 2, Level", set: "half of Oscillator 1 (about -6 dB)", sure: near}
+      - {block: filter1, param: type,      where: "Filter 1, Analog model, Low Pass 24 dB; Oscillator 1 and 2 routed to Filter 1", set: "Low Pass, 24 dB", sure: exact}
+      - {block: filter1, param: cutoff,    where: "Filter 1, Cutoff", set: "300 Hz", sure: exact}
+      - {block: filter1, param: resonance, where: "Filter 1, Resonance", set: "a clear vowel, short of a whistle (start near 40 %)", sure: near}
+      - {block: fenv,    param: amount,    where: "drag Envelope 2 onto Filter 1 Cutoff", set: "so the peak opens about 3.5 octaves up, near 3.4 kHz", sure: near}
+      - {block: fenv,    param: shape,     where: "Envelope 2: Attack, Decay, Sustain, Release", set: "0 ms, 100 ms, 0 %, 100 ms", sure: near}
+      - {block: aenv,    param: shape,     where: "Envelope 1 (hard-wired to the amp)", set: "15 ms, 575 ms, 70 %, 100 ms", sure: near}
+      - {block: osc1,    param: glide,     where: "Voice section, Glide", set: "0", sure: exact}
+  serum:
+    name: Serum
+    version: "1 or 2"
+    rows:
+      - {block: mode,    param: voices,    where: "Voicing, Mono", set: "on (Legato off, Porta 0)", sure: exact}
+      - {block: osc1,    param: wave,      where: "Osc A, wavetable menu, Basic Shapes; WT Pos", set: "the square frame", sure: look}
+      - {block: sub,     param: wave,      where: "Sub, on; shape; Octave", set: "Sine, Octave -1", sure: exact}
+      - {block: sub,     param: level,     where: "Sub, Level", set: "half of Osc A (about -6 dB)", sure: near}
+      - {block: filter1, param: type,      where: "Filter, on; type; Osc A and Sub routed to it", set: "MG Low 24 (or Low 24)", sure: exact}
+      - {block: filter1, param: cutoff,    where: "Filter, Cutoff", set: "300 Hz", sure: exact}
+      - {block: filter1, param: resonance, where: "Filter, Res", set: "a clear vowel, short of a whistle (start near 40 %)", sure: near}
+      - {block: fenv,    param: amount,    where: "drag Env 2 onto Filter Cutoff", set: "so the peak opens about 3.5 octaves up, near 3.4 kHz", sure: near}
+      - {block: fenv,    param: shape,     where: "Env 2: Attack, Hold 0, Decay, Sustain, Release", set: "0 ms, 100 ms, -inf dB, 100 ms", sure: near}
+      - {block: aenv,    param: shape,     where: "Env 1 (hard-wired to the amp)", set: "15 ms, 575 ms, -3 dB (70 %), 100 ms", sure: near}
+  wavetable:
+    name: Ableton Wavetable
+    version: "Live 12"
+    rows:
+      - {block: mode,    param: voices,    where: "Global, Poly / Mono switch; Glide", set: "Mono, Glide 0", sure: unchecked}
+      - {block: osc1,    param: wave,      where: "Osc 1, category Basic Shapes; Position", set: "the square frame", sure: look}
+      - {block: sub,     param: wave,      where: "Sub, on; Tone; Octave", set: "Tone 0 % (a pure sine), Octave -1", sure: unchecked}
+      - {block: sub,     param: level,     where: "Sub, Gain", set: "about -6 dB under Osc 1", sure: near}
+      - {block: filter1, param: type,      where: "Filter 1, on; Lowpass; slope; circuit", set: "Lowpass, 24 dB, circuit MS2 or OSR; Filter 2 off", sure: unchecked}
+      - {block: filter1, param: cutoff,    where: "Filter 1, Freq", set: "300 Hz", sure: exact}
+      - {block: filter1, param: resonance, where: "Filter 1, Res", set: "a clear vowel, short of a whistle (start near 40 %)", sure: near}
+      - {block: fenv,    param: amount,    where: "Matrix, Env 2 row, Filter 1 Freq column", set: "so the peak opens about 3.5 octaves up, near 3.4 kHz", sure: near}
+      - {block: fenv,    param: shape,     where: "Env 2: Attack, Decay, Sustain, Release", set: "0 ms, 100 ms, 0 %, 100 ms", sure: near}
+      - {block: aenv,    param: shape,     where: "Amp envelope", set: "15 ms, 575 ms, 70 %, 100 ms", sure: near}

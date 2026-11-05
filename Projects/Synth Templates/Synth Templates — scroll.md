@@ -15,7 +15,52 @@ forward_vector: "I am Synth Templates' scroll — the one page that always opens
 <!-- scroll:now:start -->
 ## Now
 
-_Not yet regenerated. The project was born 2026-10-29 and has not been looked at by the board._
+> _Regenerated 2026-11-05T16:01:41.796Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 1 · last ran 2026-11-05 (today)
+- **Plan:** agreed (no dated change on the trail yet)
+- **Waiting on you:** 1 open ask
+- **Ready to advance:** no unread answers
+- **Last shipped:** 2026-11-05 (today) — The house bass card now shows where each setting lives on Vital, Serum and Ableton Wavetable, and what to set it to, with how sure I am of each row. (`synth-templates-steward-002`)
+- **Last commit touching this project:** 2026-11-04 `d4a9eef0` — enrich(Synth Templates): remake after challenge — resonance named, step 3 corrected, meter A labelled · proposal
+- **Signal:** steady
+- **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-05 — cycle 1 · taught item 1
+- **Owed in the ledger:** nothing
+- **Latest lesson:** item 1, from cycle 1 — 2026-11-05 — [[Synth Templates — tuning]]
+
+### Where this stands
+
+Synth Templates is a catalog of starting presets that teach synthesis. Each one is a card: the settings that make the sound that sound, the ones that are yours to move, a signal-flow sheet, and a version that plays on the project's own website. All 292 cards are drafted and play there. Over 2–3 November you sat with the envelope-time words by ear. The site also renders every card offline and has a page where your own recording sits beside ours. The last step on the plan is to prove the house bass on three real synths, Vital, Serum and Ableton Wavetable, and have you hear it. Until today the card couldn't help with that, because its per-synth section was empty. This cycle filled it in for th…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since 2026-11-01:** two Weave flags (Blood Compressor, Logarithmic Interface Scaling) drafted, not posted, awaiting Loudon's read. _(in 2 notes, the latest 2026-11-03)_
+- **rough since 2026-11-03:** the eleven wordless cards wait on their voice fixes; _(in 2 notes, the latest 2026-11-03)_
+
+### Open asks
+
+- `synth-templates-steward-003` — directional_decision · posted 2026-11-05 · options: WAVETABLE-FIRST · VITAL-FIRST · SERUM-FIRST
+
+### Answered, not yet consumed
+
+_None._
+
+### Decided
+
+_Nothing decided on the board yet._
+
+### Runs
+
+- 2026-11-05 — cycle 1 · taught item 1
+
+### Owed
+
+_Nothing owed._
+
 <!-- scroll:now:end -->
 
 ## Plan
@@ -47,6 +92,49 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-steward-002" -->
+### 2026-11-05 — cycle 1 — The house bass card now shows where each setting lives on Vital, Serum and Ableton Wavetable, and what to set it to, with how sure I am of each row.
+> shipped · 11 settings × 3 synths · not yet checked on any synth · steward leans Wavetable first
+
+**What's new.** The house bass card (`cards/house-bass.yaml`) now has a `mappings` section with one list per synth. Each row names the control in that synth's own words, says what to set it to in its own units, and marks how sure I am. *Exact* is a number or switch you set as written. *Start here, finish by ear* is a starting point you finish by listening. *By eye* means picking a frame or shape on the synth's display. *From the manual* means I haven't seen it on this Mac. The card page shows this as **On your synth**, one tab per synth, between Listening and Compare yours, so a learner goes straight from programming it to comparing it. `on-your-synth.py` writes the same rows as one standalone sheet with the three synths side by side ([the sheet](open:Projects/Synth Templates/workshop/proofs/2026-11-05-on-your-synth/house-bass-on-three-synths.html)).
+
+**Where the numbers come from.** They come from the vocabulary file, and the time words are the ones you set by ear. 'Dark' cutoff is 300 Hz on all three synths. 'Generous' envelope amount is 3.5 octaves, so the pluck peaks near 3.4 kHz. Times are 0 ms, 100 ms, 0 % and 100 ms for the pluck, and 15 ms, 575 ms, 70 % and 100 ms for the amp. Each synth times and curves its envelope stages its own way, so every time is a starting point to match by ear, not a millisecond to copy. Resonance is the weakest row. The project's 'moderate' is a filter Q of 4, and no synth shows Q, so the row describes the sound you're after ('a clear vowel, short of a whistle') and gives a starting point.
+
+**The Rack fix.** Generative Audio Devices found that the Rack parts list had the mixer's audio and control inputs swapped. I re-made `pdl/house-bass.vcv`. The square now goes into mixer input 1 and the sub into input 2, where before they went into the control inputs (jacks 5 and 6). It has 12 cables, no warnings and nothing skipped. It's the only Rack file this project has made.
+
+**Artifacts:**
+- [the side-by-side sheet: every house-bass setting on Vital, Serum and Ableton Wavetable](Projects/Synth Templates/workshop/proofs/2026-11-05-on-your-synth/house-bass-on-three-synths.png)
+- [the same sheet, live, generated from the card](Projects/Synth Templates/workshop/proofs/2026-11-05-on-your-synth/house-bass-on-three-synths.html)
+- [the new On your synth section on the card page, Vital tab open](Projects/Synth Templates/workshop/proofs/2026-11-05-on-your-synth/house-bass-on-vital.png)
+- [the card, with its mappings section filled in for three synths](Projects/Synth Templates/workshop/cards/house-bass.yaml)
+- [writes any card's mappings as a standalone side-by-side sheet](Projects/Synth Templates/workshop/on-your-synth.py)
+- [the card page's On your synth section, one tab per synth](Projects/Synth Templates/workshop/build-site.py)
+- [the site, rebuilt](Projects/Synth Templates/workshop/site/index.html)
+- [the house bass Rack patch, re-made after the mixer fix: both oscillators now go into the mixer's audio inputs](Projects/Synth Templates/workshop/pdl/house-bass.vcv)
+- [the workshop's front door, now describing mappings and on-your-synth.py](Projects/Synth Templates/workshop/README.md)
+
+_How sure each row is, house bass_
+| synth | exact | start here, finish by ear | by eye | from the manual |
+| --- | --- | --- | --- | --- |
+| Vital 1.5 | 4 | 5 | 2 | 0 |
+| Serum | 4 | 5 | 1 | 0 |
+| Ableton Wavetable | 1 | 5 | 1 | 3 |
+
+_Changed in the workshop:_ README — documents the card's mappings section and on-your-synth.py so the next worker can map the next card
+
+_Left rough:_ None of the three mappings has been tried on a real synth, so the control names and the 'Basic Shapes' frame for the square are from memory. Wavetable's mono switch, sub and filter circuit are marked as read from the manual. The velocity-to-envelope-amount taste route isn't mapped on any synth. The re-made Rack patch hasn't been played in Rack.
+
+_Next moves named:_ Program the house bass from the Wavetable tab in Live, record the pattern, and drop it into Compare yours on the card page. That's the first of the three proofs, and only you can hear it. · Meanwhile, without your ears: write the house bass as an actual Ableton Wavetable preset using Generative Preset Development's preset writer. That would make the Wavetable column a file you load instead of a list you follow. · Once the house bass holds on one synth, map the next two cards the same way. Each one adds a single idea.
+<sub>`synth-templates-steward-002` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-07419c459c" -->
+### 2026-11-05 — cycle 1
+
+taught item 1
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="synth-templates-2026-11-03-finish-well" -->
 ### 2026-11-03 — The finish-well pass: renders normalised, the stale cause rewritten, two cards reworded, the wordless eleven listed
 

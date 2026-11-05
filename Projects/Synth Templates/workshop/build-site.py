@@ -506,6 +506,7 @@ td.badge span{border:1px solid var(--ok);color:var(--ok);padding:1px 5px}
 .kv.taste td.v{color:var(--assumed)}
 .kv td.w{color:var(--ink-2)}
 .listen{padding:12px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.synths .row{display:flex;gap:6px;margin:6px 0 10px}.synths .btn.on{background:var(--ink);color:var(--ground-000)}.sure{font-size:10px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}.sure.exact{color:var(--ink)}.sure.near,.sure.look{color:var(--ink-2)}.sure.unchecked{color:var(--assumed)}
 .listen p{margin:4px 0 10px}
 .listen textarea{width:100%;min-height:90px;font:13px/18px inherit;font-family:inherit;background:var(--ground-100);color:var(--ink);border:1px solid var(--rule);border-radius:0;padding:8px}
 .meta{padding:12px;font-size:12px;color:var(--ink-2)}
@@ -593,10 +594,25 @@ function filter(){ let n = 0; document.querySelectorAll('tr.item').forEach(tr =>
 
 // ---------- card page ----------
 const BLOCKNAME = {osc1:'Oscillator 1', osc2:'Oscillator 2', sub:'Sub oscillator', noise:'Noise oscillator', mix:'Mixer', filter1:'Filter 1', filter2:'Filter 2', amp:'Amplifier', fx:'Effects', fenv:'Filter envelope', aenv:'Amplitude envelope', menv:'Modulation envelope', lfo1:'LFO 1', lfo2:'LFO 2', key:'Keyboard', vel:'Velocity', wheel:'Mod wheel', at:'Aftertouch', mode:'Voice mode'};
-const PARAMNAME = {attack:'Attack time', decay:'Decay time', sustain:'Sustain level', release:'Release time', cutoff:'Cutoff frequency', resonance:'Resonance', amount:'Envelope amount', wave:'Waveform', glide:'Glide time', level:'Level', pw:'Pulse width', unison:'Unison voices', detune:'Detune', spread:'Stereo spread', drive:'Drive', type:'Filter type', voices:'Voices', retrigger:'Oscillator retrigger', ratio:'Frequency ratio', rate:'Rate', depth:'Depth', chain:'Effects chain', reverb:'Reverb size', chorus:'Chorus depth', pitch:'Pitch', mode:'Trigger mode', target:'Target', routing:'Routing', accent:'Accent'};
+const PARAMNAME = {shape:'Attack, decay, sustain, release', attack:'Attack time', decay:'Decay time', sustain:'Sustain level', release:'Release time', cutoff:'Cutoff frequency', resonance:'Resonance', amount:'Envelope amount', wave:'Waveform', glide:'Glide time', level:'Level', pw:'Pulse width', unison:'Unison voices', detune:'Detune', spread:'Stereo spread', drive:'Drive', type:'Filter type', voices:'Voices', retrigger:'Oscillator retrigger', ratio:'Frequency ratio', rate:'Rate', depth:'Depth', chain:'Effects chain', reverb:'Reverb size', chorus:'Chorus depth', pitch:'Pitch', mode:'Trigger mode', target:'Target', routing:'Routing', accent:'Accent'};
 function blockName(c, b){ if (b === 'menv' && c.graph?.blocks?.menv?.role) return c.graph.blocks.menv.role.charAt(0).toUpperCase() + c.graph.blocks.menv.role.slice(1) + ' envelope'; return BLOCKNAME[b] || b; }
 function paramName(p){ return PARAMNAME[p] || p; }
 function esc(s){ return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+const SURE = {exact:'exact', near:'start here, finish by ear', look:'by eye on its display', unchecked:'from the manual, not yet seen'};
+function onYourSynth(c){
+  const m = c.mappings || {}; const keys = Object.keys(m).filter(k => m[k] && m[k].rows);
+  if (!keys.length) return '';
+  const table = k => `<table class="kv">${m[k].rows.map(r => `<tr><td class="k">${esc(blockName(c, r.block))}<br><span style="font-weight:400">${esc(paramName(r.param))}</span></td><td class="w">${esc(r.where)}</td><td class="v">${esc(r.set)}<br><span class="sure ${esc(r.sure)}">${esc(SURE[r.sure]||r.sure||'')}</span></td></tr>`).join('')}</table>`;
+  return `<div class="listen synths"><h3>On your synth</h3><p class="sub">The same card in each synth's own names and units. Program it, play the pattern, then compare it with ours below. A stage's time is its 95 % point on the Moog curve; each synth times and curves its stages its own way, so match the pluck by ear, not the millisecond.</p>
+    <div class="row">${keys.map((k,i) => `<button class="btn${i?'':' on'}" data-synth="${esc(k)}">${esc(m[k].name)}</button>`).join('')}</div>
+    ${keys.map((k,i) => `<div class="synth-tab" data-synth="${esc(k)}"${i?' hidden':''}><div class="hint">${esc(m[k].name)} ${esc(m[k].version||'')}</div>${table(k)}</div>`).join('')}</div>`;
+}
+function bindSynths(){
+  document.querySelectorAll('.synths .btn[data-synth]').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.synths .btn[data-synth]').forEach(x => x.classList.toggle('on', x === b));
+    document.querySelectorAll('.synth-tab').forEach(t => t.hidden = t.dataset.synth !== b.dataset.synth);
+  }));
+}
 function renderCard(id){
   stopAll();
   const c = CARDS[id];
@@ -611,6 +627,7 @@ function renderCard(id){
     <div class="diagram">${SVGS.includes(id) ? `<img class="sheet-svg" src="sheets/${id}.svg" alt="signal-flow sheet">` : '<div class="sub">no sheet rendered for this card</div>'}</div>
     <div class="two"><div><h3>Essentials · what makes it this sound</h3>${kv(c.essentials||[], 'ess')}</div><div><h3>Taste · what you move</h3>${kv(c.taste||[], 'taste')}</div></div>
     <div class="listen"><h3>Listening</h3><p>${esc(c.listening?.cue)}</p><h3>A / B</h3><p>${esc(c.listening?.ab)}</p></div>
+    ${onYourSynth(c)}
     <div class="listen compare" id="compare">
       <h3>Compare yours</h3>
       <p class="sub">Play this card's pattern (${esc(notes)} at ${c.render?.tempo||120} bpm, ${esc(c.render?.pattern||'')}) on your own synth and put it beside ours. Compared by feature and by ear, never by null test: the readings below are measurements turned toward the card's words, and only the essentials are graded. Leading silence is trimmed at -50 dBFS on both, so timing does not depend on when you hit record.</p>
@@ -637,6 +654,7 @@ function renderCard(id){
   document.getElementById('stop').addEventListener('click', stopAll);
   buildKeys(c);
   bindCompare(c);
+  bindSynths();
 }
 
 // ---------- compare yours (Plan move 5) ----------
