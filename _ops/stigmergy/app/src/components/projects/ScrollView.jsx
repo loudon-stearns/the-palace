@@ -123,7 +123,7 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
   // whether or not the file has been written yet.
   const homeRef = palace?.refIndex?.get?.(home) ?? null;
   const homePath = (row && row.path) || homeRef?.path || null;
-  const scrollFaces = orderFaces([...(homeRef?.faces || ['text']), 'scroll'], { everyRich: !IS_PUBLIC });
+  const scrollFaces = orderFaces([...(homeRef?.faces || ['text']), 'scroll'], { everyRich: true });
   // The page's hero behind the scroll, as it sits behind the page in the reader.
   const [hero, setHero] = useState(null);
   useEffect(() => {

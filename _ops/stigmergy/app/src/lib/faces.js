@@ -4,8 +4,8 @@
 // them, cycles them, and names where each one opens. Live, every page has a
 // rich face: without a manifest it is the page's own words in the rich page's
 // reading column, so the switch offers it everywhere (Loudon, 2026-10-23). The
-// public read view ships a rich page only for an enriched entry, so there the
-// switch still offers rich only when the bundle carries one. The rich
+// public read view matches it (Loudon, 2026-11-06): build-public.mjs ships a
+// rich record for every published entry, manifest or not. The rich
 // face's own top strip (_ops/rich-face/rich.html) carries the same switch in
 // plain script; keep the order and words in step with it.
 

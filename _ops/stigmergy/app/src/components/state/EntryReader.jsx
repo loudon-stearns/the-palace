@@ -231,7 +231,7 @@ export default function EntryReader({
   // file in this reader is the fallback where there is no scroll view (the
   // public read view). A project with a row has its scroll view even before
   // the file is written, so the row alone lights SCROLL.
-  const faces = orderFaces(projectRow ? [...(faceOwner.faces || []), 'scroll'] : faceOwner.faces, { everyRich: !IS_PUBLIC });
+  const faces = orderFaces(projectRow ? [...(faceOwner.faces || []), 'scroll'] : faceOwner.faces, { everyRich: true });
   const currentFace = entry.face_of ? entry.face_of.face : 'text';
   const ownerStem = faceOwner.path.split('/').pop().replace(/\.md$/, '');
   const selectFace = (f) => {

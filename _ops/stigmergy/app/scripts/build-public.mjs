@@ -358,23 +358,31 @@ const conformCheck = (fn) => {
     return null;
   }
 };
+// Every published entry gets a rich face, as it does live (faces.js, Loudon
+// 2026-10-23): an enriched one with its manifest, the rest without — the
+// page's own words in the rich page's reading column, which rich.js lays
+// when `manifest` is null, the same as the live handler's _api/resolve.
 for (const s of published) {
-  if (!Array.isArray(s.faces) || !s.faces.includes('rich')) continue;
   const e = readEntry(ROOT, s.path, { use: USE });
+  if (!e) continue;
   const stem = stemOf(e.path);
   const bundleRel = e.path.replace(/\.md$/, '');
-  const manifestRel = e.face_files?.rich;
-  if (!manifestRel || !addFile(e.path) || !addFile(manifestRel)) continue;
+  const enriched = Array.isArray(s.faces) && s.faces.includes('rich') && !!e.face_files?.rich;
+  const manifestRel = enriched ? e.face_files.rich : null;
+  if (!addFile(e.path) || (manifestRel && !addFile(manifestRel))) continue;
   // The same table the live page gets from _api/resolve: every file the text
   // and the manifest name, and where it landed or why not. A failure keeps
   // its label, so the read view shows the same box the live page does.
-  const manifestJson = JSON.parse(readFileSync(join(ROOT, manifestRel), 'utf8'));
+  const manifestJson = manifestRel ? JSON.parse(readFileSync(join(ROOT, manifestRel), 'utf8')) : null;
   const refs = richReferences(resolver, e.path, readFileSync(join(ROOT, e.path), 'utf8'), manifestJson);
   // A gathered proof's contract block, by the name its manifest gives it.
-  const contracts = new Map((manifestJson.sections || []).flatMap((m) => m.pieces || []).filter((p) => p && p.contract).map((p) => [p.file, p.contract]));
+  const contracts = new Map(((manifestJson && manifestJson.sections) || []).flatMap((m) => m.pieces || []).filter((p) => p && p.contract).map((p) => [p.file, p.contract]));
   const media = {}, pieces = {};
   for (const [n, r] of refs) {
     if (!r.ok) media[n] = { error: r.reason, label: r.label };
+    // An unenriched face ships only what the reader already may: never a text
+    // that isn't published (a Context, a ledger) because the words embed it.
+    else if (!manifestRel && /\.md$/i.test(r.path) && !readablePaths.has(r.path)) media[n] = { path: r.path, error: 'skipped', label: `“${n}” is not in the read view (not published).` };
     else if (addFile(r.path)) media[n] = { path: r.path, url: `../files/${encodeSegments(servedAs(r.path))}` };
     else media[n] = { path: r.path, error: 'skipped', label: `“${n}” is not in the read view (${skipped.find((x) => x.path === r.path)?.reason || 'left out'}).` };
     // Each piece framed as the live page frames it, from the same contract, but
@@ -383,7 +391,12 @@ for (const s of published) {
       pieces[n] = framePlan({ path: r.path, contract: contractOf({ html: readFileSync(join(ROOT, r.path), 'utf8'), manifestContract: contracts.get(n) }), mode: 'static', url: media[n].url });
     }
   }
-  conformCheck(() => {
+  // An unenriched face has no manifest for readFace, but a piece its words
+  // embed still ships, so the checker still reads that piece on its own.
+  if (!manifestRel) for (const [n, plan] of Object.entries(pieces)) conformCheck(() => {
+    conformRun.results.push(checkPage(conformCtx, { path: plan.path || media[n].path, via: [{ entry: e.path, name: n }] }));
+  });
+  if (manifestRel) conformCheck(() => {
     const face = readFace(conformCtx, e.path, manifestRel);
     conformRun.faces.push(face);
     conformRun.faceFindings.push(...face.findings);
@@ -402,16 +415,19 @@ for (const s of published) {
     title: stem,
     path: e.path,
     md: `../files/${encodeSegments(e.path)}`,
-    bundle: `../files/${encodeSegments(bundleRel)}/`,
-    manifest: `../files/${encodeSegments(manifestRel)}`,
+    // No folder, no bundle — as the live handler answers.
+    bundle: bundleNames.length ? `../files/${encodeSegments(bundleRel)}/` : null,
+    manifest: manifestRel ? `../files/${encodeSegments(manifestRel)}` : null,
     // Only what was copied is listed, so the page never reaches for a file that isn't there.
     files: bundleNames.filter((f) => files.has(`${bundleRel}/${f}`) || shownPaths.has(`${bundleRel}/${f}`)),
     media,
     pieces,
-    paths: namePaths,
   };
 }
-writeJson('data/rich.json', { entries: rich });
+// The name → path table every face links by, written once rather than inside
+// each entry: with a face for every entry, per-entry copies would make this
+// file (which every rich page fetches whole) several times larger.
+writeJson('data/rich.json', { entries: rich, paths: namePaths });
 
 if (conformRun.faces.length) {
   markLocal(conformCtx, conformRun.faces, conformRun.results);

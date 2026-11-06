@@ -632,7 +632,9 @@ document.getElementById('relay').addEventListener('click', () => location.reload
 
 async function boot() {
   const r = await fetch(STATIC ? '../data/rich.json' : `_api/resolve?entry=${encodeURIComponent(ENTRY)}`);
-  info = r.ok ? (STATIC ? (((await r.json()).entries || {})[ENTRY] || null) : await r.json()) : null;
+  // Static: the name → path table sits once at the top of rich.json, beside the entries.
+  if (STATIC && r.ok) { const d = await r.json(); info = (d.entries || {})[ENTRY] || null; if (info && !info.paths) info.paths = d.paths || null; }
+  else info = r.ok ? await r.json() : null;
   if (!info) { $('#sections').append(h('div', { class: 'err' }, `No entry named “${ENTRY}”.`)); return; }
   if (STATIC) $('#sync').innerHTML = 'text <b>snapshot</b>';
   document.title = `${info.title} · rich face`;

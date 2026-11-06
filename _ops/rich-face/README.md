@@ -8,8 +8,8 @@ serve. The ceremony (when and how to enrich a page) is `Enrichment.md`; this fol
 
 - From any entry in STIGMERGY: the face switch (`F`). It leaves the app for the rich page, the whole tab. Every
   page has a rich face: without a manifest it is the entry's own words in the reading column, with the
-  review notes beside them. The floating companion belongs to the text face only. On the public read view
-  the switch offers rich only for an entry whose bundle holds the manifest, since only those are built.
+  review notes beside them. The floating companion belongs to the text face only. The public read view
+  matches it: every published entry is built a rich face, an unenriched one with `manifest: null`.
 - With STIGMERGY running: `http://localhost:5173/rich/?entry=Kuramoto%20Coupling`
 - Standalone: `node _ops/rich-face/rich-server.mjs [--root <palace>] [--detach]` prints its URL, on a
   port leased to it (8850–8949), so several sessions can preview several palaces at once; its pieces
@@ -18,7 +18,8 @@ serve. The ceremony (when and how to enrich a page) is `Enrichment.md`; this fol
   STIGMERGY's board only when started with `--app http://localhost:5173`. The app README's
   § A preview of your own, on a leased port has the rest.
 - Public: the read view ships this page static under `rich/`. `_ops/stigmergy/app/scripts/build-public.mjs`
-  marks the page `<meta name="rich:static">`, so its lookups come from the snapshot (`data/rich.json`),
+  marks the page `<meta name="rich:static">`, so its lookups come from the snapshot (`data/rich.json`:
+  one record per entry, and the name → path table once beside them as `paths`),
   its text is the snapshot's rather than re-read live, and nothing is posted.
 
 Any entry opens. `&review=0` hides the review layer.
