@@ -337,3 +337,9 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 - run · 2026-11-03 · v1.14 · VST Template baton catch (dd581ec5) · taught item 68
 
 - run · 2026-11-04 · v1.14 · close-2026-11-04-owed-ledger-review · nothing new
+
+## From The Lens bold-mandate close — 2026-11-07
+
+69. **A lint result relayed as fact named the wrong cause, and the cold read caught it by diffing.** The resident relayed a lint result as fact: "footer stale". The room passed it to Loudon as the cause of the slip ("on pickup… an out-of-date footer") and as "twelve other batons". A lint fix made in the close's gap (`f2ec6e0b`) showed the footer was never stale. The real cause was the room's own instruction to delete the baton before the close had decided partial or whole. The cold read caught it by diffing, and the room owned it at the panel. Data with items 61 and 64, and for "structure verifies cheaply, and it lies". The stake is named: the faulty writes were the moderator's own (`f7bbccac`, `49ccf853`). Also data for item 62: the default wondering, "what did your yes cover?", brought the face and the page's words to his screen, and he confirmed them. Not a spec change; the version stays v1.14.
+
+- run · 2026-11-07 · v1.14 · close-2026-11-07-the-lens-bold-mandate · taught item 69
