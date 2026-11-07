@@ -35,8 +35,8 @@ node _ops/concierge/return-map.mjs
 
 That runs the [[Return Ceremony]]'s whole query block and prints each probe beside the command that
 produced it: where the palace stopped, the arc of commits, open and claimed handoffs, anyone
-blocked on a decision, baton files with no board line, the linters, worktrees, unpushed commits,
-uncommitted changes. `--json` if you want it structured; `--since <date>` when the last session's
+blocked on a decision, Loudon's open review notes, baton files with no board line, the linters,
+worktrees, unpushed commits, uncommitted changes. `--json` if you want it structured; `--since <date>` when the last session's
 date is known.
 
 Beside the record, two reads of the map, one command each, so the one move can come from the shape of the palace and not only from what is open:
@@ -99,8 +99,10 @@ line in the tuning ledger and the return commit.
   A gap is not a finding; people have lives, and a returning collaborator should not be met with a
   theory about why they left.
 - **In flight.** Open and claimed handoffs (one line each: entry · state · age · the move), anyone
-  blocked on a decision, unannounced baton files, live worktrees, unpushed or uncommitted work.
-  These are the things that bite silently.
+  blocked on a decision, Loudon's open review notes (one line per page: the page, how many, from its
+  rich face or the rough they were sent from, age — his word left on a page, waiting for whoever
+  works there next; [[Review Layer]]), unannounced baton files, live worktrees, unpushed or
+  uncommitted work. These are the things that bite silently.
 - **Stale — only what a query proves.** Linter findings, an "IN FLIGHT" marker months old, an open
   plan phase whose work already landed. If nothing is provably stale, say "nothing a linter can
   prove," and stop. Do not pad this section; a suspicion is not a finding.
