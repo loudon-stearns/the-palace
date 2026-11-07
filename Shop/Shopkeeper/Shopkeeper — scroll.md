@@ -15,35 +15,36 @@ forward_vector: "I am Shopkeeper's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T13:58:55.265Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-07T13:23:06.784Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** alive · **Stage:** — · **Steward:** cycle 14 · last ran 2026-11-04 (today)
+- **Status:** alive · **Stage:** — · **Steward:** cycle 15 · last ran 2026-11-07 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
-- **Waiting on you:** 1 open ask
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — Third pod, same wall — vLLM never bound its port; I killed it and I'm done guessing blind. (`shopkeeper-cycle-14-2026-11-04`)
-- **Last commit touching this page:** 2026-11-04 `27d74f1d` — steward(Shopkeeper): cycle 13 — Second LightOnOCR-3 pod confirmed running; set a 15-minute background w…
+- **Last shipped:** 2026-11-07 (today) — LightOnOCR-3 is on the Roster with a face and a host row, and every Runpod note in the palace now points to one runbook. (`shopkeeper-cycle-15-close-2026-11-07`)
+- **Last commit touching this page:** 2026-11-07 `826d3ca8` — steward(Shopkeeper): cycle 15's lessons in the ledger, the disproved ones marked; the runbook holds the week's last two Runpod findings
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 11 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-04 — cycle 14 · taught item 10
+- **Runs:** 12 runs on 3 days, counted from the ledger's run lines
+- **Last run:** 2026-11-07 — cycle 15 · taught items 11, 12
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 10, from cycle 14 — 2026-11-04 — [[Shopkeeper — tuning]]
+- **Latest lesson:** item 12, from cycle 15 — 2026-11-04 to 2026-11-07, driven live with Loudon — [[Shopkeeper — tuning]]
 
 ### Where this stands
 
-I've been trying to get LightOnOCR-3 — a real document-OCR model that would be a genuine new door for the Shop — running long enough to actually feed it a page and see what comes out. Fourteen cycles in, the model has no free hosted API; it has to run on a rented GPU. I've now rented three pods across cycles 9-14, varying the Docker image and model size each time, and every one has failed to actually start the inference server inside its boot window.
+This cycle moved the Shop's Runpod work onto v2 behind one module (_ops/commons/runpod_api.py) and one page (RunPod GPU Backend — runbook), and got LightOnOCR-3 — the Shop's first OCR tool — reading pages. Since the last post: LightOnOCR-3 landed as a stub Specialist with its hero, icon and host-capability row; the Palace Studio launchers, which still scaled the FLUX endpoint through a v1 curl that silently did nothing, now go through the shared EndpointWorkers; the last four Runpod notes point to the runbook; and the STIGMERGY session's scale read-back landed, so a scale that doesn't take now raises instead of leaving jobs queued.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
 - **rough since cycle 1:** Still zero first-hand transcription evidence from LightOnOCR-3 at any size, and now a well-established pattern rather than a fluke: three rentals, two images, two model sizes, same silent failure to bind the port. _(in 12 notes, the latest cycle 14)_
-- **rough since cycle 8:** That's the one thing every remaining cycle of this run needs to close. _(in 3 notes, the latest cycle 10)_
+- **rough since cycle 15:** Both OCR test pages were clean digital renders; _(in 2 notes, the latest cycle 15)_
+- **rough since cycle 15:** no phone photo, skewed scan, handwriting or dense multi-column page has been through it yet. _(in 2 notes, the latest cycle 15)_
 
 ### Open asks
 
-- `shopkeeper-ask-2026-11-04-ocr-console-or-drop` — directional_decision · posted 2026-11-04 · options: OPEN-CONSOLE · DROP-LIGHTONOCR · ONE-MORE-BLIND-TRY
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -51,6 +52,7 @@ _None._
 
 ### Decided
 
+- `shopkeeper-ask-2026-11-04-ocr-console-or-drop` — directional_decision → GRANTED — (no option_id); notes: "Loudon, live 2026-11-04: "Lets try to figure out what is going on with Runpod!" … "Also, have a look at runpod documentaiton and fix our helper if needed … lets take this opportunity to zoom out a little and update how we work with runpod." … "I approve all of this. Lets assume runpod will change frequently, so put all runpod documentation and process in a single location and reference our one place of runpod truth." Filed by Shopkeeper in the live session, in his words." (2026-11-04)
 - `shopkeeper-ask-2026-11-04-ocr-nextstep` — directional_decision → GRANTED — option_id=RETRY-DIFFERENT-IMAGE (2026-11-04)
 - `shopkeeper-ask-2026-11-04-runpod-access` — directional_decision → GRANTED — (no option_id); notes: "check with hero/avatar maker on runpod creds
 " (2026-11-04)
@@ -61,14 +63,10 @@ _None._
 d2 YES-WHEN-IN-USE: Yes, pull Qwen-Image-2.1 into the existing ComfyUI install on a mac pass, but only the next time ComfyUI is used for real work, not as a separate errand. Don't retry the free Space." (2026-09-25)
 - `shopkeeper-sweep-2026-09-15-auk-recommend` — — → GRANTED — (no option_id); notes: "d1 YES: Yes, deposit AuK as a stub Specialist. Its three edit types were verified and it is MIT-licensed. Record the unchecked speaker-identity claim as a known gap on the entry.
 d2 NO: No Viggle probe. It needs a 96GB GPU and there is no honest free probe. Park it with the video lane until a real brief asks for motion reenactment. Standing rule: no paid-GPU probe without a brief." (2026-09-25)
-- `e2c20da5-7677-4008-add2-4164a7af1829` — — → GRANTED — (no option_id); notes: "d1 APPROVE: Approve the Image-to-3D Smith stub as it stands. It stays status: stub until its first real job.
-d2 HI3DGEN: Hi3DGen is primary. It was the only engine in the shoot-out with watertight output, which Blender needs. Hunyuan3D-2 stays the fast fallback.
-d3 NOT-YET: Not yet. TripoSplat is a real separate lane (it makes a splat, not a mesh), but no job has asked for splats. Keep it as a lane note inside the Smith until a brief wants one.
-d4 BLENDER-IMPORT: The first real job is the Study→Blender import test. Watertight geometry is why Hi3DGen won, so prove that first.
-d5 YES: Yes, add a dated gotcha note on Stable Audio 3 to [[Stable Audio Open]]. The news is three months old, so re-check it on the Hub before writing." (2026-09-25)
 
 ### Runs
 
+- 2026-11-07 — cycle 15 · taught items 11, 12
 - 2026-11-04 — cycle 14 · taught item 10
 - 2026-11-04 — cycle 13 · nothing new
 - 2026-11-04 — cycle 12 · taught item 9
@@ -76,8 +74,7 @@ d5 YES: Yes, add a dated gotcha note on Stable Audio 3 to [[Stable Audio Open]].
 - 2026-11-04 — cycle 10 · taught item 7
 - 2026-11-04 — cycle 9 · taught item 6
 - 2026-11-03 — cycle 8 · taught item 5
-- 2026-11-03 — cycle 7 · taught item 4
-- _…and 3 more in the trail below._
+- _…and 4 more in the trail below._
 
 ### Owed
 
@@ -114,6 +111,51 @@ The Shop is yours to tend, not to write. Run the tools, keep the dossiers, and m
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shopkeeper-cycle-15-close-2026-11-07" -->
+### 2026-11-07 — cycle 15 — LightOnOCR-3 is on the Roster with a face and a host row, and every Runpod note in the palace now points to one runbook.
+> shipped · landed and pushed · steward leans first-real-OCR-job
+
+Commits: 86894063 (LightOnOCR-3 lands), 9cecd726 (Studio launchers on EndpointWorkers), 5e2d918c (notes point to the runbook, host row), 901907d2 (the runbook's leak check covers every file type), dccf90dd (the face). The face render was the first real FLUX render through v2 scaling plus read-back: workersMax 1 confirmed, parked to 0 after. Coordinated with the STIGMERGY hero session (the-palace-bc), whose 063f39bb added the read-back.
+
+**Artifacts:**
+- [the new stub Specialist](Shop/LightOnOCR-3.md)
+- [a woodcut scribe boxing the blocks of a pinned page; one torn page unread](Shop/LightOnOCR-3/LightOnOCR-3 — hero.png)
+- [a lens over ruled lines](Shop/LightOnOCR-3/LightOnOCR-3 — icon.png)
+- [the one place of Runpod truth](Shop/RunPod GPU Backend/RunPod GPU Backend — runbook.md)
+
+_Left rough:_ Both OCR test pages were clean digital renders; no phone photo, skewed scan, handwriting or dense multi-column page has been through it yet. The face is near the brief, not on it (red marks lines, not whole blocks; the icon lost its brackets). set_workers reads back immediately — if v2 ever serves that read stale, add a short retry.
+
+_Next moves named:_ LightOnOCR-3's first real job: a phone photo or whiteboard and a dense multi-column PDF page, both modes, against a hand transcription · Wire endpoint worker logs into runpod_api for the next silent IN_QUEUE
+<sub>`shopkeeper-cycle-15-close-2026-11-07` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shopkeeper-cycle-15-2026-11-04" -->
+### 2026-11-07 — cycle 15 — LightOnOCR-3 read its first pages — and the Shop's Runpod stack moved to v2 behind one module and one runbook.
+> shipped · landed 3d256c5a · steward leans draft-the-OCR-Specialist
+
+Diagnosis from Runpod v2's new log stream, the model card and the image configs. Runpod v2 port: runpod_api.py (v2 client + v1 shim), the pod provider, endpoint worker scaling, regen_one, BLUELINE's two standalone clients — no code calls rest.runpod.io. Tests: test_runpod_api 16/16 incl. live read-only, test_provider 11/11, test_multi_agent 9/9, test_reaper 17/17. Probe: Secure A40 at $0.59/hr (no Community stock under a CUDA-13 floor), vLLM v0.33.0, /health at 195 s, four passes 1.3–3.9 s, terminated 204, account confirmed empty. Read: my synthetic page exact in both modes; the vendor's table page word-for-word with heading levels, bold list labels and the ✅/❌ table; grounding boxes sensible.
+
+**Artifacts:**
+- [my synthetic page, layout mode — every block with a label and a box](Shop/Shopkeeper/probes/lightonocr-3/out/probe-page.grounding.md)
+- [the vendor's table page, layout mode](Shop/Shopkeeper/probes/lightonocr-3/out/docs-table.grounding.md)
+- [the pod's own boot log, streamed over Runpod v2 — the view I never had](Shop/Shopkeeper/probes/lightonocr-3/out/boot.log)
+- [the probe: catalog pick, logs, readiness, watchdog, teardown](Shop/Shopkeeper/probes/lightonocr-3/lightonocr_pod.py)
+- [the one place of Runpod truth](Shop/RunPod GPU Backend/RunPod GPU Backend — runbook.md)
+- [the one module that speaks Runpod](_ops/commons/runpod_api.py)
+
+_Left rough:_ Both OCR test pages were clean digital renders; no phone photo, skewed scan, handwriting or dense multi-column page has been through it yet. Four older notes and BLUELINE's toolbox still carry Runpod detail of their own (listed in the runbook).
+
+_Next moves named:_ Draft the LightOnOCR-3 Specialist stub for Loudon's review, its first job a hard real-world page · Fold the four older Runpod notes into the runbook as they're next touched · Add node_modules to the shop worktree profile so a shop worktree can run the palace committer
+<sub>`shopkeeper-cycle-15-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-12cca6e31b" -->
+### 2026-11-07 — cycle 15
+
+taught items 11, 12
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="shopkeeper-cycle-14-2026-11-04" -->
 ### 2026-11-04 — cycle 14 — Third pod, same wall — vLLM never bound its port; I killed it and I'm done guessing blind.
 > shipped · pod terminated, ~5 cents spent · steward leans ask-for-console-or-drop
