@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, philosophy]
 born: 2026-08
 stage: growing
-version: "1.6"
+version: "1.7"
 trigger: ["I'm back", "returning", "what did I miss", "let's pick this back up", "return", "roll call"]
 forward_vector: "I meet Loudon when he comes back after time away and hand him the palace as the record says it stands — never as a returning instance imagines it. I summon the companion as my first act, ask the machine-readable surfaces before I interpret anything, and end on one move he can pick up. I refuse to read a gap as a failure. I want returning to be cheap enough that stepping away stays free."
 links:
@@ -103,6 +103,9 @@ python3 _ops/swarm/lint-weave-flags.py
 # anyone blocked on Loudon (a steward can wait months in silence)
 #   unanswered RESOURCE_REQUESTs on the persistent board, blocking: true first
 
+# Loudon's open review notes (his word left on a page, waiting for whoever works there next)
+node _ops/loudon-eval/read-answers.mjs --open
+
 # batons the tooling cannot see — a baton file with no board line is invisible
 #   compare `Active Baton` pointers + bundle baton files against list-handoffs
 
@@ -119,7 +122,7 @@ git status --short
 **Step 2 — The return map.** Four sections, each row citing its source. Keep it short; this is a landing surface, not a report. When the map is a Return's, it ends by naming what the Return owes at its close: the run line in the tuning ledger and the return commit.
 
 - **Where you stopped.** The last few commits in plain language, and what the final one landed. The three or four before the gap hold what Loudon was mid-sentence on — the highest-value thing the map returns.
-- **In flight.** Claimed and open handoffs, open weave flags, **anyone blocked on a decision** (a session waiting on Loudon counts), unannounced batons, live worktrees and branches, uncommitted changes. These bite silently.
+- **In flight.** Claimed and open handoffs, open weave flags, **anyone blocked on a decision** (a session waiting on Loudon counts), Loudon's open review notes (`node _ops/loudon-eval/read-answers.mjs --open`), unannounced batons, live worktrees and branches, uncommitted changes. These bite silently.
 - **Stale.** Only what a linter or a query proves: a self-model whose anatomy check fails (`node _ops/self-model/anatomy.mjs` exits 1; [[SUBSTRATE]] § Anatomy), a To-Do carrying shipped items, an "IN FLIGHT" marker months old, unpushed commits, an open plan phase whose work already landed.
 - **One move to re-enter with.** Exactly one, with a reason. **An already-open handoff outranks anything the returning instance invents** — the palace's existing open work is grounded in the record; the fresh idea is the unreliable part. Only propose something new when the queries return nothing open, and say so plainly.
 
@@ -163,6 +166,7 @@ Report the gap's **length**, because it bears on what went stale. Never report i
 - Should the return map be written to a file, or spoken and discarded? [[Closing Well]] produces a signed artifact; this may be lighter by design.
   — answered in postcondition 6 above (2026-10-24): a return leaves no report file; the return commit is its record.
 - Open: whether the card's command list and `return-map.mjs` drift apart, and which one a future reader will trust when they disagree.
+  — seen again (2026-11-07): the review-notes probe landed in `return-map.mjs` first (`649693cb`) and reached this card's list a step later, on Loudon's yes ([[Return Ceremony — tuning]] item 18). The script led and the card followed, so for now the script is the one to trust when they disagree.
 
 ---
 
