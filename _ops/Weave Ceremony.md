@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, tools, philosophy]
 born: 2026-03
 stage: mature
-version: "2.1"
+version: "2.2"
 trigger: ["weave", "let's weave"]
 links:
   - target: "[[Walk Ceremony]]"
@@ -184,7 +184,7 @@ Report on:
 
 **Step 2.5: Substrate sweep**
 
-Before proposing changes to the graph, audit the substrate that records them. A 30-second pre-flight scan, six commands, one report block. The sixth, `trunk-state.mjs`, adds what git alone cannot say: who wrote each unsaved file, what went around the door, and which worktrees and branches are merged and can go:
+Before proposing changes to the graph, audit the substrate that records them. A 30-second pre-flight scan, seven commands, one report block. The sixth, `trunk-state.mjs`, adds what git alone cannot say: who wrote each unsaved file, what went around the door, and which worktrees and branches are merged and can go. The seventh, `drift-check.mjs`, asks whether [[STIGMERGY]]'s page still describes the terminal it names — its decks, lanes and message types against the code, the kit against the app's tokens, the app README's map, dead coordinates and old claims on the board, and app commits its ledger hasn't recorded:
 
 ```bash
 git status --porcelain                            # uncommitted edits
@@ -193,6 +193,7 @@ git fsck --no-reflogs --unreachable --lost-found  # dangling commits / blobs
 git branch -a --no-merged main                    # unmerged branches
 git reflog --date=iso | grep -E 'reset|amend'     # recent rewrites
 node _ops/stigmergy/app/scripts/trunk-state.mjs   # unsent, the ear, unsaved with writers, leftover worktrees
+node _ops/stigmergy/drift-check.mjs                # STIGMERGY's page against its code, board and ledger
 ```
 
 Present every finding as one row in a table with a proposed disposition. Loudon confirms one of three:

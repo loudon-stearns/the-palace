@@ -123,6 +123,14 @@ describe('buildQueue', () => {
     expect(q[0].worktree).toBeNull();
   });
 
+  it('drops a handoff_ready a RETRACT withdraws, and keeps its repost (SCHEMA — Reference §9)', () => {
+    const old = handoffMsg();
+    const repost = handoffMsg({ id: 'h2' });
+    const retract = { id: 'r1', type: 'RETRACT', re: 'h1', from: 'STIGMERGY', payload: { kind: 'retract', reason: 'its worktree is gone', superseded_by: 'h2' } };
+    const q = buildQueue([old, repost, retract]);
+    expect(q.map((it) => it.id)).toEqual(['h2']);
+  });
+
   it('carries the worktree coordinate through when the board announcement has one', () => {
     const wt = { branch: 'feature/x', dir: '../palace-feature-x', profile: 'stigmergy' };
     const q = buildQueue([handoffMsg({ payload: { ...handoffMsg().payload, worktree: wt } })]);

@@ -74,10 +74,12 @@ export function buildQueue(messages) {
   //   OPEN    — neither. Available to catch.
   // A lifecycle message names its handoff two ways, both honored: payload
   // handoff_id and the top-level `re`. Done is NEVER inferred from git — only an
-  // explicit close (or the migration grandfather) retires a card.
+  // explicit close (or the migration grandfather) retires a card. A RETRACT
+  // whose `re` names a handoff_ready withdraws it too (SCHEMA — Reference §9).
   const closedHandoffs = new Set();
   const claimByHandoff = new Map();            // handoff_ready id -> its claim message
   for (const m of messages) {
+    if (m?.type === 'RETRACT' && typeof m.re === 'string' && m.re) { closedHandoffs.add(m.re); continue; }
     const p = m?.payload;
     if (!p || (p.kind !== 'handoff_closed' && p.kind !== 'handoff_picked_up')) continue;
     const refs = [];

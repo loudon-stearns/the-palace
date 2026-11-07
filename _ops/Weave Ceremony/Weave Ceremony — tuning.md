@@ -149,3 +149,7 @@ What each weave taught the ceremony, appended after the run. Each entry names th
 61. **A coherence room proposes links at half the hit rate of a link room.** The eight folder rooms' 125 relation proposals passed the skeptic at 52% (65 of 125); the weak-link and hub rooms' verdicts passed at 85%. The folder readers called links bare that already carried a label, built new links from one page, dossiers or sentences not yet written, and chose directed types by feel. Paid in v2.1 (98cdd731) on 2026-11-03, in the ledger review: the card and the worker template say the folder pass proposes no typed links beyond a quotable retype.
 
 - run · 2026-10-24 · v2.0 · weave-2026-10-24, the first run under v2.0 (fewer, better links; the memory layer; the health ledger) · taught items 58–61; items 60 and 61 owed
+
+## From STIGMERGY, 2026-11-07
+
+62. **A page about running code can drift from it for months, and no Weave check read the code.** STIGMERGY's page counted a board a third its size, called finished work in progress, and claimed a QUEUE reconciliation the deck had switched off in July; its rich face's challenger found the last by reading `QueuePanel.jsx` (2026-11-05). Asked whether STIGMERGY should get a steward, it answered that most of the upkeep is mechanical and belongs in a script the Weave runs, and Loudon agreed (2026-11-07). Spec change, v2.2: the Substrate sweep's seventh command is `node _ops/stigmergy/drift-check.mjs`; its findings are judgment, reported, never blocking. **Paid in v2.2.**

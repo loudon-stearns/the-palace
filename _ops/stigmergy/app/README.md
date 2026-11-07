@@ -256,24 +256,24 @@ checkout are still two holders. Before a port is handed out, a probe connects on
 
 ## What this is, and is not
 
-**v0.2 is** an operational board. Read path (render), write path (POST
-with strict §2.2 validation), live tail (SSE), and click-to-respond UI
-(Trickster inbox response buttons + confirm modal) are all present.
+**It is** STIGMERGY, the palace's operating terminal: five decks (STATE, QUEUE, LOG, TRICKSTER,
+PROJECTS), the scroll and the rich face, the lanes that run work (Companion, steward, regen,
+schedule), and the scripts that are the palace's one door to git (`scripts/palace-commit.mjs`,
+`palace-land.mjs`, `palace-push.mjs`). What each part does is the page's job:
+[STIGMERGY.md](../../../STIGMERGY.md) § The decks and § The lanes. The wire it speaks is
+`@stigmergy/core` (`../core/`), the strict validator and the append-only board reader.
 
-**v0.2 is not** a daemonized service, an authentication system, the
-Palace Orchestrator engine, or a Trickster broadcast surface for
-non-RESOURCE_REQUEST types. Those are v0.3+.
+**It is not** an authentication system or a daemon: it runs on localhost, for one operator, under
+Vite. It does not infer done from git: QUEUE cards close by a board event, a trailer or a person
+(STIGMERGY.md § The honesty discipline).
 
-## How Claude Code uses this directory
+## Changing the app
 
-This dir is a build target driven by the contract in
-[Palace development/BBS Production Plan v0.2.md](../../../Palace%20development/BBS%20Production%20Plan%20v0.2.md).
-A Claude Code session reads that plan, builds the app phase by phase,
-runs `node scripts/check-phase.js N` at each gate, dispatches a
-vision-capable subagent against the matching `tests/checklists/phase-N.md`,
-iterates on failures up to ten attempts per check, and stops on either
-success (`V0.2-COMPLETE.md` written) or a stop condition
-(`STOP-REPORT.md` written). See the plan for the full protocol.
+Work in a worktree of your own (`node _ops/worktree/new-worktree.mjs --name <branch> --profile
+stigmergy`). Run vitest and the e2e specs for the surface you touched (the gotchas below say why
+not the whole e2e suite). Write a run line in [STIGMERGY — tuning](../../../STIGMERGY/STIGMERGY%20—%20tuning.md)
+in the same commit, as its `writes:` asks. Land between steward cycles when the change is in
+Vite's import graph (§ gotchas, "An edit in the Vite config's import graph").
 
 ## Testing, worktree & topology gotchas
 
@@ -307,19 +307,26 @@ _ops/stigmergy/app/
 ├── package.json
 ├── vite.config.js · vitest.config.js · playwright.config.js
 ├── index.html · src/
-│   ├── main.jsx · App.jsx · styles/tokens.css
-│   ├── components/  (Shell, LoginScreen, BoardIndex, …, primitives.jsx)
-│   ├── adapters/    (fetch helpers; populated in Phase 2)
-│   └── lib/         (parser, schema, inbox, roster; populated phase-by-phase)
-├── server/middleware.js   (Vite plugin: GET /api/persistent etc.)
-├── public/fonts/          (woff2 copies of VT323 + IBM Plex Mono)
+│   ├── main.jsx · App.jsx · PublicApp.jsx (the read view) · styles/tokens.css
+│   ├── components/  (Shell, DeckTabs, CommandBar, FaceSwitch, CompanionHost, …, primitives.jsx)
+│   │   ├── state/ queue/ log/ trickster/ projects/   (one folder per deck)
+│   │   ├── stewards/ (the schedule strip) · public/ (the read view's welcome)
+│   ├── adapters/    (fetch helpers for /api/*)
+│   └── lib/         (the models the decks render: queue-model, pulse, entry-edit, decks, …)
+├── server/
+│   ├── middleware.js · router.js · api/   (the /api/* handlers)
+│   ├── actuator.js and the lanes: companion-lane, steward-lane, regen-lane, scheduler
+│   ├── door.js · landing.js · commit.js   (the one door to git)
+│   └── weave-generate.js · weave-apply.js · weave-emit.js
+├── scripts/       (palace-commit, palace-land, palace-push, trunk-state, build-public, scratch-vite, …)
+├── public/fonts/  (woff2 copies of VT323 + IBM Plex Mono)
 ├── tests/
 │   ├── unit/  integration/  e2e/  fixtures/
 │   ├── helpers/  setup/    (loopback.js: listen on 127.0.0.1 · loopback-only.js: refuses a wildcard listen)
-│   └── checklists/         (visual-validator inputs)
-├── screenshots/            (Playwright outputs; reviewed by visual-validator)
-├── scripts/check-phase.js
-└── build-log.jsonl         (append-only log of every check + every fix)
+│   └── checklists/
+├── screenshots/   (Playwright outputs)
+├── Archive/       (the v0.2 build's plan-era files)
+└── build-log.jsonl (append-only log of the v0.2 build's checks and fixes)
 ```
 
 ## Visual non-negotiables (cribbed from the design system)

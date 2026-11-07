@@ -79,7 +79,8 @@ const fold = foldHandoffs(loadBoard(board));
 const res = resolveCard(fold, selector);
 
 if (res.closed) {
-  console.log(`${C.G}✓ already closed${C.R} — ${C.B}${res.closed.p.entry}${C.R} (${res.closed.m.id}) is retired. Nothing to do.`);
+  const by = res.closed.state === 'retracted' && (res.closed.close.payload || {}).superseded_by;
+  console.log(`${C.G}✓ already ${res.closed.state === 'retracted' ? 'retracted' : 'closed'}${C.R} — ${C.B}${res.closed.p.entry}${C.R} (${res.closed.m.id}) is retired${by ? `; see ${by}` : ''}. Nothing to do.`);
   process.exit(0);
 }
 if (res.error) die(res.error);
