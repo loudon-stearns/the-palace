@@ -59,12 +59,12 @@ The method works because it respects the student's interpretation. The oracle do
 
 Each challenge is a compressed exercise in the [[FOUR PILLARS]]:
 
-- **Philosophy pillar**: The anchor (Spinoza, Heidegger, etc.) provides the conceptual frame.
-- **Tools pillar**: The technical constraint forces explicit engagement with signal flow.
+- **Philosophy pillar**: The theme (Spinoza, Heidegger, etc.) provides the conceptual frame.
+- **Tools pillar**: The technical guidance forces explicit engagement with signal flow.
 - **Creation pillar**: You make the preset. This is not optional. The oracle is not a passive listening experience.
 - **Practice pillar**: The discipline is non-negotiable: make a decision, commit to it, move on. No infinite tweaking. The oracle enforces deliberate incompleteness.
 
-A single challenge is a complete cycle through all four pillars in 30–45 minutes.
+A single challenge is a complete cycle through all four pillars in thirty minutes.
 
 ## Interface Aesthetic
 
