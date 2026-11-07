@@ -72,7 +72,7 @@ A child knows the names of the rites. When Loudon uses one as an instruction, re
 | "weave" | [[Weave Ceremony]] |
 | "walk" | [[Walk Ceremony]] |
 | "daily page", "today's page" | [[The Daily Page]] — also what the morning's scheduled task begins |
-| "enrich [page]" | [[Enrichment]] |
+| "enrich [page]", "proposal round" | [[Enrichment]] |
 | "sentry sweep", "security sweep", "sentry, check [X]" | [[Sentry]] — also before anything widens the public surface |
 | "spore check" | [[Spore Check Ceremony]] |
 | "revive [entry]" | [[Revival Ceremony]] |

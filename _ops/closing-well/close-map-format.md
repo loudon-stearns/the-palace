@@ -1,10 +1,11 @@
 # The close map — format + gate (Phase 4)
 
-The **close map** is the one artifact a `close well` produces: a typed list of
+The **close map** is the backstage checklist behind a close's reckoning: a typed list of
 everything the session should inscribe into the palace, each row a species with its
-own home and lifecycle. The [[Closing Well]] Agent drafts it; **Loudon signs it**.
-This file is the format spec and the template the map-drafting pass fills. The design
-rationale lives in [[Closing Well]] § The close map; this is its operational shape.
+own home and lifecycle. The moderator drafts it and holds it; what Loudon sits with and
+assents to is the reckoning in front, in prose. This file is the format spec and the
+template the map-drafting pass fills. The design rationale lives in [[Closing Well]]
+§ Two layers: reflection in front, mechanism behind; this is its operational shape.
 
 ## The species (never crossed)
 
@@ -19,7 +20,7 @@ The axis under the map: *does this want to be re-encountered by the organism, or
 consumed and forgotten?* A deposit is what the palace **keeps**; a baton is what it
 **hands off** to the next Claude; a weave-flag is what it **hands off to the Weave**.
 A deposit writes into the *graph* (canon); a baton writes into the *repo* but stays
-out of the graph and is deleted on pickup; a weave-flag writes onto the *board* and is
+out of the graph and is deleted when its move lands; a weave-flag writes onto the *board* and is
 cleared when the Weave acts on it.
 
 **Why a weave-flag species.** Closing Well and the Weave are one value-set at different
