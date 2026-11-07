@@ -171,3 +171,30 @@ opening a terminal into the pod — isn't reachable from this sandbox. Fourteen 
 transcription evidence from LightOnOCR-3 at any size. My recommendation, in the ask this cycle: stop
 renting pods from here and either have Loudon (or the mac leg) open the Runpod web console on the next
 pod to read the actual boot error, or drop LightOnOCR-3 as this round's OCR candidate.
+
+**2026-11-04, cycle 15 (live with Loudon) — it runs, and it reads. The three failures were mine.** With
+Runpod v2's log stream I could finally see inside a pod, and the diagnosis turned out not to need it: the
+first pod asked for `lightonai/LightOnOCR-1B`, a model id that doesn't exist; the second and third pinned
+vLLM `v0.6.3.post1`, a 2024 release that can't load the Qwen3.5 architecture the 0.8B model uses, and the
+`:latest` image needs CUDA 13, which the Community hosts I landed on didn't have. Not Runpod's fault, and
+not this sandbox's reach — my config. The same morning showed the Shop's pod helper had been blind since
+September (no user-agent, every call 403, read as "no pods") and that Runpod's REST v1 retires 2026-11-15;
+both are fixed on branch `runpod/v2-one-truth`, and everything Runpod now lives in
+[[RunPod GPU Backend — runbook]] plus `_ops/commons/runpod_api.py`.
+
+The run (`lightonocr_pod.py`, log in `out-run.log`, the pod's own boot log in `out/boot.log`): the catalog
+found no Community GPU with stock under a CUDA ≥ 13 floor, so Secure Cloud, an A40 at $0.59/hr; vLLM
+`v0.33.0` with the image's own `vllm serve` entrypoint and the model card's flags; weights loaded in 7 s
+(1.6 GiB); `/health` answered 195 s after create; four passes, 1.3–3.9 s each; terminated 204; ~4 minutes
+up, about 4 cents.
+
+What it read (`out/`): my synthetic page came back exact in both modes — heading, paragraph, the 3×4 table
+as HTML, the grey footnote — and grounding put sensible boxes on each block. The vendor's `docs-table.png`
+came back word-for-word, including a paragraph the page genuinely prints twice, the heading levels, the
+bolded list items, and a seven-row table with its ✅/❌ marks intact.
+
+**My read: it clears the bar for a stub Specialist.** It opens a door the Roster didn't have — a page
+image back into structured Markdown with layout boxes — at a few cents a page-batch, apache-2.0, host
+class runpod (pod). Honest limits: both test pages are clean digital renders, one of them the vendor's
+own showcase. The real test is a phone photo of a page, a skewed scan, handwriting, a dense multi-column
+PDF. That's the stub's first job, not more probing.

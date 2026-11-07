@@ -1,0 +1,148 @@
+[pick] SECURE ['NVIDIA A40', 'NVIDIA L4', 'NVIDIA RTX PRO 4500 Blackwell Server Edition', 'NVIDIA GeForce RTX 5090'] (cheapest $0.59/hr)
+[runpod_pod] created 8gezkr8p0h311p (shopkeeper-ocr--palace-runpod-v2-one-truth)
+[pod] 8gezkr8p0h311p created; watchdog pid 54873 terminates it at 30 min
+[wait] 1s status=RUNNING gpu=NVIDIA A40
+  | create container vllm/vllm-openai:v0.33.0
+  | v0.33.0 Pulling from vllm/vllm-openai
+  | Digest: sha256:d825baf9ce4b1b6bfc5ecc7b79880c7e6748c65a72d697ce3d47607aafa84c6e
+  | Status: Downloaded newer image for vllm/vllm-openai:v0.33.0
+  | start container for vllm/vllm-openai:v0.33.0: begin
+  | W1104 15:02:55.785000 56 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+  | W1104 15:02:55.786000 56 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+  | W1104 15:02:55.786000 56 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+[wait] 26s status=RUNNING gpu=NVIDIA A40
+  | (APIServer pid=56) INFO 11-04 15:03:02 [startup.py:38]
+  | (APIServer pid=56) INFO 11-04 15:03:02 [startup.py:38]        █     █     █▄   ▄█
+  | (APIServer pid=56) INFO 11-04 15:03:02 [startup.py:38]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.33.0
+  | (APIServer pid=56) INFO 11-04 15:03:02 [startup.py:38]   █▄█▀ █     █     █     █  model   lightonai/LightOnOCR-3-0.8B
+  | (APIServer pid=56) INFO 11-04 15:03:02 [startup.py:38]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+  | (APIServer pid=56) INFO 11-04 15:03:02 [startup.py:38]
+  | (APIServer pid=56) INFO 11-04 15:03:02 [startup.py:96] non-default args: {'model_tag': 'lightonai/LightOnOCR-3-0.8B', 'default_chat_template_kwargs': {'enable_thinking': False}, 'model': 'lightona
+  | Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+  | (APIServer pid=56) INFO 11-04 15:03:16 [model.py:744] Resolved architecture: Qwen3_5ForConditionalGeneration
+  | (APIServer pid=56) INFO 11-04 15:03:16 [model.py:2170] Using max model len 8192
+  | Fetching 13 files:   0%|          | 0/13 [00:00<?, ?it/s]Fetching 13 files:  31%|███       | 4/13 [00:00<00:00, 17.75it/s]Fetching 13 files:  85%|████████▍ | 11/13 [00:00<00:00, 30.75it/s]Fetc
+  | (APIServer pid=56) INFO 11-04 15:03:21 [config.py:766] Mamba cache mode is set to 'align' for Qwen3_5ForConditionalGeneration by default when prefix caching is enabled
+  | (APIServer pid=56) INFO 11-04 15:03:21 [kernel.py:480] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_spa
+[wait] 51s status=RUNNING gpu=NVIDIA A40
+  | W1104 15:03:37.500000 692 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+  | W1104 15:03:37.501000 692 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+  | W1104 15:03:37.501000 692 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+  | (EngineCore pid=692) INFO 11-04 15:03:41 [core.py:139] Initializing a V1 LLM engine (v0.33.0) with config: model='lightonai/LightOnOCR-3-0.8B', speculative_config=None, tokenizer='lightonai/LightO
+  | (EngineCore pid=692) INFO 11-04 15:03:44 [parallel_state.py:1929] world_size=1 rank=0 local_rank=0 distributed_init_method=file:///tmp/vllm_dist_e36c851ff2c94fe9b71ff9f15e03a7e0 backend=nccl
+  | (EngineCore pid=692) INFO 11-04 15:03:44 [parallel_state.py:2385] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank N/A, EPLB rank N/A
+  | (EngineCore pid=692) INFO 11-04 15:03:44 [gpu_worker.py:513] Using V2 Model Runner
+  | (EngineCore pid=692) INFO 11-04 15:03:45 [model_runner.py:399] Loading model from scratch...
+  | Fetching 13 files:   0%|          | 0/13 [00:00<?, ?it/s]Fetching 13 files: 100%|██████████| 13/13 [00:00<00:00, 2094.90it/s]
+  | (EngineCore pid=692) INFO 11-04 15:03:47 [cuda.py:567] Using backend AttentionBackendEnum.FLASH_ATTN for vit attention
+  | (EngineCore pid=692) INFO 11-04 15:03:47 [mm_encoder_attention.py:372] Using AttentionBackendEnum.FLASH_ATTN for MMEncoderAttention.
+  | (EngineCore pid=692) INFO 11-04 15:03:47 [qwen_gdn_linear_attn.py:300] Using Triton/FLA GDN prefill kernel (requested=auto, head_k_dim=128).
+  | (EngineCore pid=692) INFO 11-04 15:03:47 [cuda.py:508] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
+  | (EngineCore pid=692) INFO 11-04 15:03:47 [flash_attn.py:1122] Using FlashAttention version 2
+  | (EngineCore pid=692) INFO 11-04 15:03:48 [base_loader.py:82] Initializing model took 2.766544 seconds
+  | (EngineCore pid=692) INFO 11-04 15:03:50 [weight_utils.py:537] Time spent downloading weights for lightonai/LightOnOCR-3-0.8B: 2.427544 seconds
+  | (EngineCore pid=692) INFO 11-04 15:03:50 [weight_utils.py:1144] Filesystem type for checkpoints: OVERLAY. Checkpoint size: 1.59 GiB. Available RAM: 39.82 GiB.
+  | (EngineCore pid=692) INFO 11-04 15:03:50 [weight_utils.py:1167] Auto-prefetch is disabled because the filesystem (OVERLAY) is not a recognized network FS (NFS/Lustre). If you want to force prefetc
+  | Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+  | Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  3.89it/s]
+  | Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  3.89it/s]
+  | 
+  | (EngineCore pid=692) INFO 11-04 15:03:51 [default_loader.py:506] Loading weights took 0.26 seconds
+  | (EngineCore pid=692) INFO 11-04 15:03:52 [model_runner.py:428] Model loading took 1.63 GiB memory and 7.373711 seconds
+  | (EngineCore pid=692) INFO 11-04 15:03:52 [topk_topp_sampler.py:149] Using FlashInfer for top-p & top-k sampling.
+  | (EngineCore pid=692) INFO 11-04 15:03:52 [torch_utils.py:281] Reducing Torch threads from 7 to 1 for serving. Set OMP_NUM_THREADS in the external environment to override.
+  | (EngineCore pid=692) INFO 11-04 15:03:52 [interface.py:1108] Setting attention block size to 544 tokens to ensure that attention page size is >= mamba page size.
+  | (EngineCore pid=692) INFO 11-04 15:03:52 [interface.py:1132] Padding mamba page size by 2.64% to ensure that mamba page size and attention page size are exactly equal.
+  | (EngineCore pid=692) INFO 11-04 15:03:52 [utils.py:381] Using LBNHC KV cache layout.
+  | [transformers] Qwen3VL video processing does not apply the per-frame pixel cap the reference implementation (qwen-vl-utils) applies, so some videos cost far more tokens than they would there. In v
+  | (APIServer pid=56) INFO 11-04 15:03:53 [base.py:283] Multi-modal warmup completed in 19.296s
+[wait] 83s status=RUNNING gpu=NVIDIA A40
+  | (EngineCore pid=692) INFO 11-04 15:04:01 [encoder_runner.py:131] Encoder cache will be initialized with a budget of 16384 tokens, and profiled with 1 image items of the maximum feature size.
+  | (EngineCore pid=692) INFO 11-04 15:04:04 [monitor.py:40] [backbone] Starting torch.compile
+  | (EngineCore pid=692) INFO 11-04 15:04:07 [backends.py:1125] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/535ac3ca2e/rank_0_0/backbone for vLLM's torch.compile
+  | (EngineCore pid=692) INFO 11-04 15:04:07 [backends.py:1187] [backbone] Dynamo bytecode transform time: 3.07 s
+  | (EngineCore pid=692) INFO 11-04 15:04:20 [backends.py:417] [backbone] Compiling a graph for compile range (1, 2048) takes 12.24 s
+  | (EngineCore pid=692) INFO 11-04 15:04:21 [backends.py:948] collected artifacts: 25 entries, 11 artifacts, 15946283 bytes total
+  | (EngineCore pid=692) INFO 11-04 15:04:21 [decorators.py:752] [backbone] saved AOT compiled function to /root/.cache/vllm/torch_compile_cache/torch_aot_compile/14beccd13e6a55083ef2db945be5fdaffa0ee
+  | (EngineCore pid=692) INFO 11-04 15:04:21 [monitor.py:62] [backbone] torch.compile took 17.28 s in total
+[wait] 111s status=RUNNING gpu=NVIDIA A40
+[wait] 136s status=RUNNING gpu=NVIDIA A40
+[wait] 161s status=RUNNING gpu=NVIDIA A40
+  | (EngineCore pid=692) INFO 11-04 15:05:29 [monitor.py:91] [backbone] Initial profiling/warmup run took 67.49 s
+  | Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]Capturing CUDA graphs (PIECEWISE):   2%|▏         | 1/51 [00:00<00:44,  1.12it/s]Capturing CUDA graphs (PIECEWISE):   4%
+  | Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]Capturing CUDA graphs (FULL): 100%|██████████| 2/2 [00:00<00:00, 30.08it/s]
+  | (EngineCore pid=692) INFO 11-04 15:05:43 [model_runner.py:1163] Graph capturing finished in 10 secs, took 0.30 GiB
+  | (EngineCore pid=692) INFO 11-04 15:05:43 [gpu_worker.py:772] Available KV cache memory: 37.34 GiB
+  | (EngineCore pid=692) INFO 11-04 15:05:43 [gpu_worker.py:787] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.9200 is equivalent to --gpu-memo
+  | (EngineCore pid=692) INFO 11-04 15:05:43 [kv_cache_utils.py:1147] GPU KV cache size: 2,233,437 tokens, Maximum concurrency for 8,192 tokens per request: 272.64x
+  | (EngineCore pid=692) INFO 11-04 15:05:43 [kv_cache_utils.py:865] kv cache group sizes (544, 544, 544, 544)
+  | (EngineCore pid=692) INFO 11-04 15:05:43 [kv_cache_utils.py:866] kv lcm block sizes 544
+  | (EngineCore pid=692) INFO 11-04 15:05:43 [kernel_warmup.py:179] JIT kernel warmup starting.
+  | (EngineCore pid=692) INFO 11-04 15:05:43 [kernel_warmup.py:192] JIT kernel warmup finished in 0.00s.
+  | (EngineCore pid=692) INFO 11-04 15:05:43 [qwen_triton_warmup.py:370] Warming up Qwen GDN Triton kernels for model_type=qwen3_5_text.
+  | (EngineCore pid=692) INFO 11-04 15:05:45 [qwen_vl_triton_warmup.py:57] Warmed position embedding and vision rotary kernels on grids=[(1, 16, 16), (1, 16, 2), (1, 2, 16), (1, 2, 2)].
+  | (EngineCore pid=692) INFO 11-04 15:05:45 [mamba_triton_warmup.py:42] Warmed Mamba batch_memcpy_kernel.
+  | Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]Capturing CUDA graphs (PIECEWISE):   2%|▏         | 1/51 [00:00<00:21,  2.30it/s]Capturing CUDA graphs (PIECEWISE):   4%
+  | Capturing CUDA graphs (FULL):   0%|          | 0/35 [00:00<?, ?it/s]Capturing CUDA graphs (FULL):   9%|▊         | 3/35 [00:00<00:01, 29.53it/s]Capturing CUDA graphs (FULL):  20%|██        | 7/
+  | (EngineCore pid=692) INFO 11-04 15:05:55 [model_runner.py:1163] Graph capturing finished in 8 secs, took 0.20 GiB
+  | (EngineCore pid=692) INFO 11-04 15:05:55 [gpu_worker.py:1003] CUDA graph pool memory: 0.2 GiB (actual), 0.33 GiB (estimated), difference: 0.13 GiB (65.0%).
+  | (EngineCore pid=692) INFO 11-04 15:05:55 [gpu_worker.py:1066] Free memory on device (44.08/44.42 GiB) on startup. Desired GPU memory utilization is (0.92, 40.87 GiB). Actual usage is 1.97 GiB for 
+  | (EngineCore pid=692) INFO 11-04 15:05:56 [jit_monitor.py:84] Kernel JIT monitor activated; monitored JIT compilations during inference will use mode=warn.
+  | (EngineCore pid=692) INFO 11-04 15:05:56 [core.py:405] init engine (profile, create kv cache, warmup model) took 124.25 s (compilation: 17.28 s)
+  | Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+  | (EngineCore pid=692) INFO 11-04 15:05:56 [kernel.py:480] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_s
+  | (APIServer pid=56) INFO 11-04 15:05:56 [entry.py:135] Supported tasks: ['generate']
+  | (APIServer pid=56) INFO 11-04 15:05:57 [factories.py:105] Scale-out endpoints are disabled. Restart vllm serve with --enable-scale-out to enable them.
+  | (APIServer pid=56) INFO 11-04 15:05:58 [hf.py:736] Detected the chat template content format to be 'openai'. You can set `--chat-template-content-format` to override this.
+  | (APIServer pid=56) WARNING 11-04 15:05:58 [serving.py:291] The chat template requires system-first ordering, so inline system messages in /v1/messages requests (e.g. Claude Code's per-turn reminde
+  | (APIServer pid=56) INFO 11-04 15:05:58 [entry.py:139] Starting vLLM server on http://0.0.0.0:8000
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:188] Available routes are:
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /openapi.json, Methods: GET, HEAD
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /docs, Methods: GET, HEAD
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /docs/oauth2-redirect, Methods: GET, HEAD
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /redoc, Methods: GET, HEAD
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /load, Methods: GET
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /version, Methods: GET
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /kv_event_sources, Methods: GET
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /health, Methods: GET
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /metrics, Methods: GET
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /tokenize, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /detokenize, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /v1/models, Methods: GET
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /v1/systemone, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /v1/decisions, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /ping, Methods: GET
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /ping, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /invocations, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /v1/chat/completions, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /v1/chat/completions/batch, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /v1/responses, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /v1/responses/{response_id}, Methods: GET
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /v1/responses/{response_id}/cancel, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /v1/completions, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /v1/messages, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /v1/messages/count_tokens, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /generative_scoring, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /scale_elastic_ep, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /is_scaling_elastic_ep, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /v1/chat/completions/render, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /v1/messages/render, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /v1/completions/render, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /v1/responses/render, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /v1/chat/completions/derender, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /v1/completions/derender, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /inference/v1/generate, Methods: POST
+  | (APIServer pid=56) INFO 11-04 15:05:58 [launcher.py:197] Route: /inference/v1/abort_requests, Methods: POST
+  | INFO:     Started server process [56]
+  | INFO:     Waiting for application startup.
+  | INFO:     Application startup complete.
+  | INFO:     100.64.1.67:52832 - "GET /health HTTP/1.1" 200 OK
+[ready] True after 195s
+[ocr] docs-table.png transcribe: 1859 chars in 3.9s
+[ocr] docs-table.png grounding: 2122 chars in 3.5s
+[ocr] probe-page.png transcribe: 554 chars in 1.3s
+[ocr] probe-page.png grounding: 650 chars in 1.5s
+[runpod_pod] DELETE /pods/8gezkr8p0h311p -> 204
+[terminate] 8gezkr8p0h311p -> True
+[cost] ~3.4 min up, ~$0.03 at $0.59/hr
+exit 0
