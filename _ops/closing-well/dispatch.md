@@ -72,6 +72,21 @@ brief as prose. A lesson with no tool change yet (tuning item 29).
 
 ---
 
+## A steward session
+
+The arc's header says when the session was a steward cycle: `- **steward session:** driven live
+as [[Page]]` (transcript-reader.mjs reads it from the launch brief, so it holds even when Loudon
+has forgotten). Then the close carries two more things, whichever path it takes:
+
+- **Square the books.** A live cycle has no orchestrator after it, so the steward's state,
+  history, scroll Now and tuning run line stay where the last headless cycle left them. Run
+  `node _ops/stigmergy/orchestrator/src/finalize-live.js --home "<Page>" --dry-run`, then without
+  `--dry-run`; it counts what the session posted as the cycle and commits. A run line written by
+  hand is left alone. A headless cycle needs none of this — processCycle already did it.
+- **Read the Plan and Standing Orders against the day.** The moderator reads the page's scroll
+  and ledger tail (closing-well-agent.md § What a good moderator holds) and brings anything the
+  session outdated to the panel as a question. Loudon's answer is written on his yes.
+
 ## Path A — resume the resident (preferred)
 
 The resident already holds the charter, including its § At a close section, so it knows it is

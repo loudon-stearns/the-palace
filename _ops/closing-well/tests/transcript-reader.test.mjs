@@ -346,3 +346,23 @@ test('an outgoing SendMessage is kept whole, as an incoming peer message is', ()
   assert.ok(said.length > 160, 'the message is longer than a tool call\'s one-line cut');
   assert.ok(text.includes('END-OF-MESSAGE'), 'the end of the message reaches the arc');
 });
+
+test('a steward session is named in the arc\'s header from its launch brief, and only from that', () => {
+  // A live steward cycle is launched with its briefing as the first human message
+  // (build-cycle-prompt.js); the close must see it without Loudon remembering
+  // (Shopkeeper cycle 15 close, 2026-11-07). The same words inside a tool result —
+  // a session that reads the prompt's source — must not count.
+  const BRIEF = '# You are a permanent steward\n\nYou are operating as the page **Preset Oracle** in `long_duration_background`\nmode.\n\n# You are being driven live — narrate every write';
+  const live = variant('steward-live', recs => [
+    { type: 'user', uuid: 'brief-1', timestamp: '2026-11-07T08:00:00.000Z', message: { role: 'user', content: BRIEF } },
+    ...recs,
+  ]);
+  assert.match(live, /- \*\*steward session:\*\* driven live as \[\[Preset Oracle\]\]/);
+  assert.match(live, /finalize-live\.js --home "Preset Oracle"/);
+  const read = variant('steward-in-a-tool-result', recs => [
+    ...recs,
+    { type: 'user', uuid: 'read-1', timestamp: '2026-11-07T09:00:00.000Z',
+      message: { role: 'user', content: [{ type: 'tool_result', tool_use_id: 'toolu_x', content: BRIEF }] } },
+  ]);
+  assert.doesNotMatch(read, /steward session/);
+});

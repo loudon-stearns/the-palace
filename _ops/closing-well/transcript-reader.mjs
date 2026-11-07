@@ -329,13 +329,31 @@ function isNarration(nth, ms) {
   return nth > 1;
 }
 
+// A steward session is launched with its briefing as the first human message
+// (build-cycle-prompt.js): "You are operating as the page **X** in
+// `long_duration_background` mode", and "You are being driven live" when Loudon
+// drives it. Only that first message counts — a session that merely reads the
+// prompt's source carries the same words in a tool result.
+export function stewardOf(lines) {
+  for (const l of lines) {
+    let o; try { o = JSON.parse(l); } catch { continue; }
+    if (o.type !== 'user' || o.isSidechain === true) continue;
+    const c = o.message && o.message.content;
+    const text = typeof c === 'string' ? c : Array.isArray(c) ? c.filter(b => b && b.type === 'text').map(b => b.text).join('\n') : '';
+    if (!text.trim()) continue;
+    const m = text.match(/You are operating as the page \*\*([^*]+)\*\* in `long_duration_background`/);
+    return m ? { home: m[1], live: /You are being driven live/.test(text) } : null;
+  }
+  return null;
+}
+
 function distill(file, opts) {
   let raw;
   try { raw = fs.readFileSync(file, 'utf8'); } catch (e) { die(`cannot read ${file}: ${e.message}`, 2); }
   const lines = raw.split('\n').filter(l => l.trim());
 
   const beats = [];
-  let meta = { sessionId: null, cwd: null, branches: new Set(), firstTs: null, lastTs: null, models: new Set() };
+  let meta = { sessionId: null, cwd: null, branches: new Set(), firstTs: null, lastTs: null, models: new Set(), steward: stewardOf(lines) };
   let userTurns = 0, midTurns = 0, popups = 0, machineNotes = 0, asstTurns = 0, toolCalls = 0, narrations = 0, untimed = 0;
   const calls = new Map(); // tool_use id → { name, input }, so a result knows what it answers
   const thinkingSeen = new Map(); // API message id → thinking blocks so far, to tell narration from thinking
@@ -505,6 +523,7 @@ function render({ meta, beats, stats }, file) {
   out.push(`- branches touched: ${[...meta.branches].map(b => '`' + b + '`').join(', ') || '?'}`);
   out.push(`- models: ${[...meta.models].join(', ') || '?'}`);
   out.push(`- span: ${meta.firstTs || '?'} → ${meta.lastTs || '?'}`);
+  if (meta.steward) out.push(`- **steward session:** ${meta.steward.live ? 'driven live' : 'headless'} as [[${meta.steward.home}]] — the close squares its books (\`node _ops/stigmergy/orchestrator/src/finalize-live.js --home "${meta.steward.home}"\`) and reads its scroll's Plan and Standing Orders against the arc (dispatch.md § A steward session)`);
   out.push(`- turns: ${stats.userTurns} human (+${stats.midTurns} mid-turn, ${stats.popups} popup) · ${stats.asstTurns} assistant · ${stats.toolCalls} tool calls · ${stats.machineNotes} ⚙ machine notes · ${stats.lines} records`);
   if (stats.narrations) out.push(`- narration: ${stats.narrations} CLAUDE beat${stats.narrations === 1 ? '' : 's'} kept only as the platform's paraphrase`);
   if (stats.untimed) out.push(`- narration unknowable: ${stats.untimed} thinking block${stats.untimed === 1 ? '' : 's'} with no timing opened ${stats.untimed === 1 ? 'its message' : 'their messages'}; a paraphrase there can't be told from thinking and is left out`);
