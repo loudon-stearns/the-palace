@@ -7,6 +7,9 @@ answers land on the STIGMERGY board, whichever browser he opened it in. **The ra
 BROADCAST from TRICKSTER; the session reads it off the board file, so nothing depends on the
 browser or on the page keeping its state.
 
+**Home entry: [[Review Layer]]** (`Review Layer.md`, § How the answers come back). The rule for
+how a page's answers come back lives there; this README is the how-to.
+
 ## The answers server
 
 ```bash
@@ -51,8 +54,11 @@ So it binds 127.0.0.1 only, stands behind STIGMERGY's request guard (a foreign H
 foreign origin and a non-JSON write are refused), posts only `human_eval` messages through the
 app's validated write path, and serves no dotfolder, dotfile or `node_modules`.
 
-**Not yet proved in Loudon's Chrome** (2026-11-07). Headless Chromium against a scratch
-STIGMERGY proved the send, the REVIEW NOTE card, the 502 fallback and the `file://` copy block.
+**Proved in Loudon's Chrome** on 2026-11-07: his answers to the Lens's Woken Glasses landed as
+`human-eval-answers-The-Lens-1794059071889` and `read-answers.mjs` read them back whole. Headless
+Chromium against a scratch STIGMERGY proved the REVIEW NOTE card, the 502 fallback and the
+`file://` copy block. The card for answers reads as a note on the page, "sent from" the rough,
+never "on the rich face of" (`queue-model.js` readReview `via`).
 
 ## The rating sheet
 
