@@ -9,6 +9,7 @@ import { join } from 'node:path';
 import { assembleGrounding } from '../../src/lib/entry-grounding.js';
 import { buildEntryPrompt } from '../../server/companion-prompt.js';
 import { buildReviewMessage } from '../../../../rich-face/rich-handler.mjs';
+import { buildAnswersMessage } from '../../../../loudon-eval/eval-server.mjs';
 
 let root;
 let bare;
@@ -31,6 +32,9 @@ beforeAll(() => {
     send('kc-r2', '2026-10-13T10:00:00Z', 'Kuramoto Coupling', 2, { 'The Mechanism': { note: 'the slider reads backwards' } }, 'the bed is too loud'),
     // another page's note
     send('sc-r1', '2026-10-13T10:05:00Z', 'Spinoza Conatus', 1, { Core: { note: 'not this page' } }),
+    // Loudon's answers to a rough about this page, through the answers server: a note on the
+    // page, not on its rich face, so the companion's rich-face block leaves it out
+    { ...buildAnswersMessage({ page: 'Kuramoto Coupling', task: 'a-rough', answers: { a: 1 }, summary: 'from a rough, not the dock' }).message, id: 'answers-kc', ts: '2026-10-13T10:07:00Z' },
     // a rating sheet: same kind, names no page
     { ...buildReviewMessage({ task: 'r4ng3r-lora-grade', groups: { flux: { note: 'hooded' } } }), id: 'rating', ts: '2026-10-13T10:06:00Z' },
   ];
@@ -46,7 +50,7 @@ afterAll(() => {
 });
 
 describe('assembleGrounding — the page\'s open rich-face notes', () => {
-  it('carries this page\'s open notes, and no answered round, other page or rating sheet', () => {
+  it('carries this page\'s open notes, and no answered round, other page, rating sheet or answers from a rough', () => {
     const g = assembleGrounding(root, 'Kuramoto Coupling.md');
     expect(g.review_notes).toEqual([{
       id: 'kc-r2', ts: '2026-10-13T10:00:00Z', round: 2,
@@ -71,6 +75,7 @@ describe('buildEntryPrompt — the open notes reach the turn', () => {
     expect(prompt).toContain('round 2 · The Mechanism: the slider reads backwards');
     expect(prompt).toContain('round 2 · the whole page: the bed is too loud');
     expect(prompt).not.toContain('answered already');
+    expect(prompt).not.toContain('from a rough, not the dock');
   });
 
   it('leaves the block out when there are none', () => {

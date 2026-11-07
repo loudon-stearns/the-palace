@@ -198,7 +198,7 @@ describe('the answers server', () => {
       payload: { kind: 'human_eval', entry: 'The Lens', task: 'woken-glasses', answers: { Trickster: { subject: 'two' } },
         url: '/The Lens/proofs/run/ask.html', overall: { note: 'Woken Glasses — my answers\n- Trickster: subject → bold' } } });
     const review = readReview(m.payload);
-    expect(review).toMatchObject({ entry: 'The Lens', notes: [{ section: null, note: expect.stringContaining('Woken Glasses') }] });
+    expect(review).toMatchObject({ entry: 'The Lens', via: 'page', notes: [{ section: 'woken-glasses', note: expect.stringContaining('Woken Glasses') }] });
   });
 
   test('answers with no summary get a readable one, so the card still has words', async () => {
