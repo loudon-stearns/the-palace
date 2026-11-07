@@ -31,10 +31,10 @@ const HEADING = '## On pickup';
 // repository instead of the throwaway tree (and this file's own git would write to it).
 const ENV = Object.fromEntries(Object.entries(process.env).filter(([k]) => !k.startsWith('GIT_')));
 
-/** The checklist as it lives in its single home. */
+/** The checklist as it lives in its single home: from the heading where it opens a line. */
 function canonicalFooter() {
   const raw = readFileSync(FRAGMENT, 'utf8');
-  return raw.slice(raw.indexOf(HEADING)).trim();
+  return raw.slice(/^## On pickup/m.exec(raw).index).trim();
 }
 
 /**
@@ -125,6 +125,38 @@ test('a missing fragment fails loud, never writes a footerless baton', () => {
     ], { encoding: 'utf8', stdio: 'pipe', env: ENV }),
     /canonical On-pickup checklist is missing/,
     'the executor ran with no canonical checklist available — it must refuse instead');
+  } finally {
+    rmSync(tree, { recursive: true, force: true });
+  }
+});
+
+test('a fragment whose note quotes the heading mid-line yields a footer from the real heading', () => {
+  const tree = mkdtempSync(join(tmpdir(), 'baton-exec-quoted-'));
+  try {
+    // Since Baton Ceremony v1.6 the fragment's editor note names the heading mid-line.
+    // The footer must start at the heading that opens a line, never inside the note.
+    mkdirSync(join(tree, '_ops/closing-well'), { recursive: true });
+    mkdirSync(join(tree, '_ops/models'), { recursive: true });
+    mkdirSync(join(tree, '_ops/Baton Ceremony'), { recursive: true });
+    cpSync(EXECUTOR, join(tree, '_ops/closing-well/baton-executor.mjs'));
+    cpSync(join(PALACE, '_ops/models/latest-opus.mjs'), join(tree, '_ops/models/latest-opus.mjs'));
+    writeFileSync(join(tree, '_ops/Baton Ceremony/Baton Ceremony — on-pickup.md'),
+      '---\ntitle: "Baton Ceremony — on-pickup"\n---\n\n'
+      + '<!-- NOTE: everything from the `## On pickup` heading down is appended; this note is not. -->\n\n'
+      + '## On pickup (fixed — test)\nClaim it, then close it.\n');
+    writeFileSync(join(tree, 'Test Entry.md'), '# Test Entry\n');
+    const bodyFile = join(tree, 'body.md');
+    writeFileSync(bodyFile, '## Move\nx\n');
+    execFileSync('node', [
+      join(tree, '_ops/closing-well/baton-executor.mjs'),
+      '--entry', 'Test Entry', '--move', 'm', '--body-file', bodyFile,
+      '--session-id', 'test', '--owner', PALACE, '--tree', tree, '--write',
+    ], { encoding: 'utf8', stdio: 'pipe', env: ENV });
+    const baton = readFileSync(join(tree, 'Test Entry', 'Test Entry — baton.md'), 'utf8');
+    assert.ok(!baton.includes('this note is not'), 'the footer was taken from inside the editor note');
+    assert.match(baton, /^## On pickup \(fixed — test\)\nClaim it, then close it\.\s*$/m,
+      'the footer does not start at the heading that opens a line');
+    assert.equal(baton.split('## On pickup').length - 1, 1, 'the heading appears more than once in the baton');
   } finally {
     rmSync(tree, { recursive: true, force: true });
   }

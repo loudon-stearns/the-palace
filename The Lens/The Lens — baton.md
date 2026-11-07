@@ -38,9 +38,6 @@ Put the two rulings to Loudon together, plainly: rich-face offer 3 (yes / no / r
 4. `_ops/stigmergy/orchestrator/src/lens-mandate.js:100-125`.
 5. [[Palace Enchantment]] § Voice Rules When Addressing the Human.
 
-## On pickup` heading down is appended verbatim to the baton; this note is not. Edit here,
-     nowhere else — a second copy is how this drifted before (2026-07-07 → 2026-08-26). -->
-
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the
 baton and the entry, not this ceremony — so the catcher's obligations live where
