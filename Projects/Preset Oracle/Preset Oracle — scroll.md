@@ -15,33 +15,32 @@ forward_vector: "I am Preset Oracle's scroll — the one page that always opens 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T01:14:20.107Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-07T13:29:40.434Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** complete · **Stage:** mature · **Steward:** cycle 6 · last ran 2026-11-04 (today)
+- **Status:** active · **Stage:** mature · **Steward:** cycle 7 · last ran 2026-11-07 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (today) — I built the archive reading: one page that lays every kept encounter side by side, so the records can teach together, not one at a time. (`preset-oracle-014`)
-- **Last commit touching this project:** 2026-11-03 `39c51d8d` — steward(Preset Oracle): cycle 5 — SPINNING UP. HOME: [Preset Oracle](obsidian://open?vault=The%20Palace&f…
+- **Last shipped:** 2026-11-04 (3 days ago) — I restored Loudon's original 122 cards, grew the deck to 170, and rebuilt the oracle weirder: an eye, hold-to-summon, static to rub away. (`preset-oracle-017-r2`)
+- **Last commit touching this project:** 2026-11-07 `205af2b9` — edit(Preset Oracle): Four-Pillars Compression in the deck's words: the theme, the technical guidance, thirty minutes, on Loudon's word of 2026-11-07
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 6 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 6 · taught item 6
+- **Runs:** 7 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-07 — cycle 7 · taught item 7
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 1 — item 3; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 6, from cycle 6 — 2026-11-03 — [[Preset Oracle — tuning]]
+- **Latest lesson:** item 7, from cycle 7 — 2026-11-07 — [[Preset Oracle — tuning]]
 
 ### Where this stands
 
-Preset Oracle deals synth-preset challenges. Each card has a name, a philosophical anchor, a technical constraint and a stylistic direction, and a student answers it with a synthesizer. My page says it wants the encounters kept, and read together. Earlier cycles built the ways to keep one: a journal for one maker, a printed sheet for a class. I drafted a 47-card deck to replace the lost 140, and one deck file now feeds every page, so your vetting verdicts reach students with a single command. That deck still waits for you at the vetting table. This cycle I built the last piece, the reading itself. Run one command after saving a record and the archive reading shows which cards have been answ…
+Preset Oracle deals synth-preset challenges. Each card has a name, a theme, a quote, technical guidance, four hints and a Hidden Transmission, and a maker answers it with a synthesizer. On 2026-11-04 Loudon brought back his original oracle page. It showed that the page's own description (140 cards, four parts, a tarot interface) had drifted from the real thing, and that six cycles had been built on the drift. Loudon refocused the project on the oracle itself: weird, playful, with questions of real depth. This cycle restored his 122 cards into the one deck file, corrected the facts that were wrong, added 48 new cards in the same shape, and rebuilt the oracle from his page, with more characte…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
 - **rough since cycle 1:** No real encounter has been recorded yet. _(in 6 notes, the latest cycle 6)_
-- **rough since cycle 1:** The sheet and the journal each carry their own copy of the seed deck, kept the same by hand. _(in 2 notes, the latest cycle 3)_
-- **rough since cycle 1:** The journal's record path is now tested headlessly, but no one has clicked through the journal in a browser. _(in 2 notes, the latest cycle 2)_
+- **rough since cycle 2:** No one has heard the oracle's sounds: the chord, the blips and the crackle are built and run without errors in headless Chrome, but no ear has checked them. _(in 3 notes, the latest cycle 7)_
+- **rough since cycle 7:** The journal and the sheet still label their three slots anchor, constraint and direction. _(in 2 notes, the latest cycle 7)_
 
 ### Open asks
 
@@ -57,6 +56,7 @@ _None._
 
 ### Runs
 
+- 2026-11-07 — cycle 7 · taught item 7
 - 2026-11-03 — cycle 6 · taught item 6
 - 2026-11-03 — cycle 5 · taught item 5
 - 2026-11-03 — cycle 4 · taught item 4
@@ -67,12 +67,6 @@ _None._
 ### Owed
 
 _Nothing owed._
-
-### Proposed for canon
-
-_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
-
-- **3.** 2026-11-03 · [[Preset Oracle]] · a new section after § Oblique Pedagogy, titled ## The Encounter Archive — the archive now has a classroom route, and the page should name both ways in
 
 <!-- scroll:now:end -->
 
@@ -91,6 +85,69 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="run-593f1097d3" -->
+### 2026-11-07 — cycle 7
+
+taught item 7
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="preset-oracle-017-r2" -->
+### 2026-11-04 — cycle 7 — I restored Loudon's original 122 cards, grew the deck to 170, and rebuilt the oracle weirder: an eye, hold-to-summon, static to rub away.
+> shipped · deck restored and grown · oracle rebuilt, 14/14 headless five runs running · driven live with Loudon
+
+The deck: 170 cards, 122 of them Loudon's, kept in his words. Eighteen were corrected where they were untrue: the Galilean moons' lock (Io, Europa and Ganymede are 1:2:4, and Callisto is in no lock), the Pythagorean card's thirds (81:64, not 5:4), the room-mode formula, a non-prime in a prime-delay card, and a few misattributed quotes. The 48 new cards bring in the palace's own voices (Kuramoto, Simondon, Whitehead, stigmergy, Margulis, Meadows, Eno), sound artists (Lucier, Oliveros, Derbyshire, Russolo, Sun Ra), science (Chladni, the Perseus B-flat, the 52-hertz whale) and the films the page claimed but the deck lacked (Arrival, Memento, Inception), along with Solaris, Her, Persona and more. The oracle keeps Loudon's neon CRT and his memory fragments, and adds a character. An eye watches the pointer, dozes, and narrows when you peek. Holding the summon button turns hints face-up, one per pip, so patience earns help. The Hidden Transmission lies under live static you rub away. Each card has its own chord, and the name decodes in blips. Fragments of cards already dealt drift up and can be touched to recall them. Typing a name deals that card. Accepting starts a thirty-minute ring, and three refusals make it sulk.
+
+**Artifacts:**
+- [the oracle, rebuilt — hold to summon, rub the static, type a name](Projects/Preset Oracle/oracle/Preset Oracle — the oracle.html)
+- [a full reading after a long hold: all four hints face-up, the transmission still under static](Projects/Preset Oracle/oracle/tools/oracle-full-reading.png)
+- [phone width: a recalled card, three hints still face-down](Projects/Preset Oracle/oracle/tools/oracle-phone.png)
+- [after three refusals the oracle turns away](Projects/Preset Oracle/oracle/tools/oracle-sulk.png)
+- [headless click-through, 14 checks](Projects/Preset Oracle/oracle/tools/click-through.mjs)
+- [Loudon's original oracle, kept unchanged](Projects/Preset Oracle/original/oracle.html)
+- [the deck: 170 cards, six parts each](Projects/Preset Oracle/deck/Preset Oracle — deck.json)
+- [rebuilds the deck from the original, with the corrections listed](Projects/Preset Oracle/deck/tools/restore-deck.mjs)
+- [the 48 new cards](Projects/Preset Oracle/deck/tools/new-cards.json)
+- [pours the deck into the oracle, journal and sheet](Projects/Preset Oracle/deck/tools/build-deck.mjs)
+- [how the deck is made now](Projects/Preset Oracle/deck/README.md)
+
+_Changed in the workshop:_ README — describes the restored deck and sets the draft aside
+_Changed in the workshop:_ README — the journal and sheet now deal from the restored deck
+
+_Left rough:_ No one has heard the oracle's sounds: the chord, the blips and the crackle are built and run without errors in headless Chrome, but no ear has checked them. The journal and the sheet still label their three slots anchor, constraint and direction.
+
+_Next moves named:_ Loudon plays the oracle with sound on and says what to push further · correct the page’s Architecture and Interface sections and its forward vector, once Loudon has read the words · relabel the journal and sheet to theme, guidance and transmission
+<sub>`preset-oracle-017-r2` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="preset-oracle-017" -->
+### 2026-11-03 — cycle 7 — I restored Loudon's original 122 cards, grew the deck to 170, and rebuilt the oracle weirder: an eye, hold-to-summon, static to rub away.
+> shipped · deck restored and grown · oracle rebuilt, 14/14 headless five runs running · driven live with Loudon
+
+The deck: 170 cards, 122 of them Loudon's, kept in his words. Eighteen were corrected where they were untrue: the Galilean moons' lock (Io, Europa and Ganymede are 1:2:4, and Callisto is in no lock), the Pythagorean card's thirds (81:64, not 5:4), the room-mode formula, a non-prime in a prime-delay card, and a few misattributed quotes. The 48 new cards bring in the palace's own voices (Kuramoto, Simondon, Whitehead, stigmergy, Margulis, Meadows, Eno), sound artists (Lucier, Oliveros, Derbyshire, Russolo, Sun Ra), science (Chladni, the Perseus B-flat, the 52-hertz whale) and the films the page claimed but the deck lacked (Arrival, Memento, Inception), along with Solaris, Her, Persona and more. The oracle keeps Loudon's neon CRT and his memory fragments, and adds a character. An eye watches the pointer, dozes, and narrows when you peek. Holding the summon button turns hints face-up, one per pip, so patience earns help. The Hidden Transmission lies under live static you rub away. Each card has its own chord, and the name decodes in blips. Fragments of cards already dealt drift up and can be touched to recall them. Typing a name deals that card. Accepting starts a thirty-minute ring, and three refusals make it sulk.
+
+**Artifacts:**
+- [the oracle, rebuilt — hold to summon, rub the static, type a name](Projects/Preset Oracle/oracle/Preset Oracle — the oracle.html)
+- [a full reading after a long hold: all four hints face-up, the transmission still under static](Projects/Preset Oracle/oracle/tools/oracle-full-reading.png)
+- [phone width: a recalled card, three hints still face-down](Projects/Preset Oracle/oracle/tools/oracle-phone.png)
+- [after three refusals the oracle turns away](Projects/Preset Oracle/oracle/tools/oracle-sulk.png)
+- [headless click-through, 14 checks](Projects/Preset Oracle/oracle/tools/click-through.mjs)
+- [Loudon's original oracle, kept unchanged](Projects/Preset Oracle/original/oracle.html)
+- [the deck: 170 cards, six parts each](Projects/Preset Oracle/deck/Preset Oracle — deck.json)
+- [rebuilds the deck from the original, with the corrections listed](Projects/Preset Oracle/deck/tools/restore-deck.mjs)
+- [the 48 new cards](Projects/Preset Oracle/deck/tools/new-cards.json)
+- [pours the deck into the oracle, journal and sheet](Projects/Preset Oracle/deck/tools/build-deck.mjs)
+- [how the deck is made now](Projects/Preset Oracle/deck/README.md)
+
+_Changed in the workshop:_ README — describes the restored deck and sets the draft aside
+_Changed in the workshop:_ README — the journal and sheet now deal from the restored deck
+
+_Left rough:_ No one has heard the oracle's sounds: the chord, the blips and the crackle are built and run without errors in headless Chrome, but no ear has checked them. The journal and the sheet still label their three slots anchor, constraint and direction.
+
+_Next moves named:_ Loudon plays the oracle with sound on and says what to push further · correct the page’s Architecture and Interface sections and its forward vector, once Loudon has read the words · relabel the journal and sheet to theme, guidance and transmission
+<sub>`preset-oracle-017` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="preset-oracle-014" -->
 ### 2026-11-04 — cycle 6 — I built the archive reading: one page that lays every kept encounter side by side, so the records can teach together, not one at a time.
 > shipped · 18/18 checks pass · the archive now needs its first student, which only you can bring

@@ -59,3 +59,8 @@ What Preset Oracle's steward cycles taught the page, and the changes to the hous
 
 6. The archive reading needs records from at least three students before comparing them means anything, so the page has to say so in its own voice rather than draw patterns from one or two. *(offered by the steward, cycle 6)*
 - run · 2026-11-03 · cycle 6 · taught item 6
+
+## From cycle 7 — 2026-11-07
+
+7. Before building on the page's description of an artifact, find the artifact: a description written from memory can drift far enough that six cycles build on something that never existed. *(offered by the steward, cycle 7)*
+- run · 2026-11-07 · cycle 7 · taught item 7
