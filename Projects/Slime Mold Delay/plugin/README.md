@@ -52,6 +52,12 @@ and four tube slots per group, cycling through all 288 slots about four times a 
 `python3 ui/preview.py --shots` renders `proofs/dish-performance.html`: thirty seconds
 through the plugin's own processor, picture and sound together.
 
+`python3 bank.py` renders a small bank of dishes from recordings already in the palace (a drum
+loop, a speaking voice, a piano) through the plugin's own processor: `bank/<name>.wav`,
+`bank/roads.png` (the roads each one grew, at 3, 7, 11 and 16 seconds, read back from the
+probes) and `bank/report.json`. This is the offline renderer now; `../headless/` holds the
+older ones, which run the law from before cycle 11.
+
 ## Gotchas
 
 - Everything the dish decides depends only on the band levels and the knobs, never on the

@@ -15,31 +15,32 @@ forward_vector: "I am Slime Mold Delay's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-07T12:56:32.625Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-07T12:58:09.891Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 13 · last ran 2026-11-07 (today)
-- **Plan:** agreed 2026-10-14 (24 days ago) · 3 made things since · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 14 · last ran 2026-11-07 (today)
+- **Plan:** agreed 2026-10-14 (24 days ago) · 4 made things since · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-07 (today) — Make the plugin the plan's instrument, instead of the Max build your pause set aside? (`slime-mold-delay-steward-023`)
-- **Last commit touching this project:** 2026-11-07 `da3729f1` — steward(Slime Mold Delay): cycle 12 — machinery and scroll
+- **Last shipped:** 2026-11-07 (today) — A drum loop, a voice and a piano fed through the plugin: four renders and a picture of the roads each one grew. (`slime-mold-delay-steward-025`)
+- **Last commit touching this project:** 2026-11-07 `10303973` — steward(Slime Mold Delay): cycle 13 — SPINNING UP. HOME: [Slime Mold Delay](obsidian://open?vault=The%20Palac…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-07 — cycle 13 · taught item 2, proposed item 3 for canon
+- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-07 — cycle 14 · taught item 4, proposed item 5 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 1 — item 3; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 3, from cycle 13 — 2026-11-07 — [[Slime Mold Delay — tuning]]
+- **Proposed for canon:** 1 — item 5; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 5, from cycle 14 — 2026-11-07 — [[Slime Mold Delay — tuning]]
 
 ### Where this stands
 
-Slime Mold Delay is a delay whose routing is grown, not designed. A simulated slime mold connects food to a listener, and every tube it grows is a delay line: its length sets the echo time, its thickness how much sound it carries. In October I made it start as a mesh over the whole dish and let the flow carve it down to the roads that matter. On 2026-10-21 you said make it a product: a VST you can play in Live, built with VST Template, with a visualizer of its own on the template's screen. My last cycle built that and then posted nothing, so this cycle checked it, wrote it up and is showing it to you. It's a VST3 and AU in this folder's plugin/ subfolder, installed on this Mac. The five oat…
+Slime Mold Delay is a delay whose routing grows instead of being designed. A simulated slime mold connects five food spots to a listener. Each tube it grows is a delay line: its length sets the echo time, and its thickness sets how much sound it carries. On 2026-10-21 you asked for it as a plugin you can play in Live. Last cycle I showed you that plugin, a VST3 and AU that's installed on this Mac, and asked whether it should replace the Max instrument in the plan. That question is still open. Until now, everything fed to the plugin was test plucks. This cycle I fed it real recordings already in the palace: a drum loop, a speaking voice and a piano. They ran through the plugin's own processo…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 8:** I haven't heard it. _(in 5 notes, the latest cycle 13)_
+- **rough since cycle 8:** I haven't heard it. _(in 6 notes, the latest cycle 14)_
+- **rough since cycle 8:** Also: the voice and piano recordings are shorter than 16 s and loop, the piano render runs hot, and I can't tell whether the starving dish dropping its best-fed road is musical or a quirk of the law. _(in 2 notes, the latest cycle 14)_
 - **rough since cycle 9:** The browser run proves it plays (peak −6.6 dBFS, no errors, a true 30 steps a second), not that the forks sound good. _(in 2 notes, the latest cycle 10)_
 - **rough since cycle 9:** Unheard and unmeasured. _(in 2 notes, the latest cycle 10)_
 - **rough since cycle 10:** The Python renderer still runs the older law, so offline renders and the live page disagree. _(in 3 notes, the latest cycle 13)_
@@ -59,6 +60,7 @@ _None._
 
 ### Runs
 
+- 2026-11-07 — cycle 14 · taught item 4, proposed item 5 for canon
 - 2026-11-07 — cycle 13 · taught item 2, proposed item 3 for canon
 - 2026-11-07 — cycle 12, posted nothing · nothing new
 - 2026-10-18 — cycle 11 · taught item 1
@@ -71,7 +73,7 @@ _Nothing owed._
 
 _Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
 
-- **3.** 2026-11-07 · [[Slime Mold Delay]] · § What This Entry Is and Isn't, the **Isn't** paragraph — the paragraph names only the renderer and the browser dish; the plugin is now the main thing
+- **5.** 2026-11-07 · [[Slime Mold Delay]] · § What This Entry Is and Isn't, the **Isn't** paragraph — the older renderer is no longer the offline home; bank.py and the plugin's sketch are
 
 <!-- scroll:now:end -->
 
@@ -98,6 +100,57 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="slime-mold-delay-steward-025" -->
+### 2026-11-07 — cycle 14 — A drum loop, a voice and a piano fed through the plugin: four renders and a picture of the roads each one grew.
+> shipped · plan revision still waiting on you · steward leans: listen to drums-five first
+
+Each flake is one band of the sound: 120 Hz, 300, 750, 1.9 kHz and 4.7 kHz. So the recording decides which food is sounding. Every render starts as a mesh over the whole dish, 127 to 141 tubes. Six seconds later the flow carves it down. The picture shows the music choosing the roads:
+
+- The drums keep the most network. At 16 s there are 21 tubes, with trunks to the 300 Hz and 750 Hz flakes, the snare and body of the kit, which together get 56% of the food.
+- The voice carves down to one main road to the 300 Hz flake, where the speech fundamentals sit. The 120 Hz and 1.9 kHz flakes are cut off by the end.
+- The piano, on the Ring dish with Regen high, never builds a road to 1.9 kHz or 4.7 kHz. The piano barely feeds those flakes (12% and 4% of the food). It's also the loudest render: average level −8 dBFS, peak −1.7 dBFS. It doesn't clip, but it's hot.
+- The drums on the Scatter dish, with Feed sinking toward starving, thin to 9 tubes. In the last seconds the roads reshuffle. The 300 Hz flake, the best fed, loses its road, and a road to 1.9 kHz takes over.
+
+This also settles a note I've been leaving rough since cycle 10: 'the Python renderer still runs the older law.' The offline home of the current law is now the plugin's own Python sketch, which matches the plugin sample for sample. The new bank.py renders through the plugin itself. I wrote a note in headless/ saying the two older renderers are kept for the record and shouldn't be rendered from. So offline renders and the plugin now agree.
+
+One thing only you can do: nobody has heard any of this yet, not the plugin, these renders, or the browser dish. The notes about it not being heard won't close until you listen. If you have one minute, play drums-five.
+
+**Artifacts:**
+- [the roads each recording grew, at 3, 7, 11 and 16 seconds; flake size is how much that band is feeding it](Projects/Slime Mold Delay/plugin/bank/roads.png)
+- [drums, Five flakes dish, default knobs: the one to hear first](Projects/Slime Mold Delay/plugin/bank/drums-five.wav)
+- [a speaking voice, Five flakes dish: carves to one 300 Hz road](Projects/Slime Mold Delay/plugin/bank/voice-five.wav)
+- [piano, Ring dish, Regen 1.4: the high flakes never get roads; loud](Projects/Slime Mold Delay/plugin/bank/piano-ring.wav)
+- [drums, Scatter dish, Clock 2x, Feed sinking from 6 s: the colony thins and reshuffles](Projects/Slime Mold Delay/plugin/bank/drums-scatter-starving.wav)
+- [levels, the share of food per band, tube counts and road used, per render](Projects/Slime Mold Delay/plugin/bank/report.json)
+- [the roads picture as vector](Projects/Slime Mold Delay/plugin/bank/roads.svg)
+- [the bank: recordings in, through the plugin's processor, sound and roads out](Projects/Slime Mold Delay/plugin/bank.py)
+- [the older renderers marked as superseded, with a pointer to the current ones](Projects/Slime Mold Delay/headless/README.md)
+
+_what each recording grew (the plugin's own processor, 16 s each)_
+| render | tubes at 3 s → 16 s | road used at 16 s | best-fed bands | average level |
+| --- | --- | --- | --- | --- |
+| drums-five | 138 → 21 | 2.27 | 750 Hz 29%, 300 Hz 27% | −22.8 dBFS |
+| voice-five | 138 → 15 | 1.54 | 300 Hz 34%, 750 Hz 25% | −21.3 dBFS |
+| piano-ring | 141 → 13 | 1.22 | 120 Hz and 300 Hz, 29% each | −8.4 dBFS |
+| drums-scatter-starving | 127 → 9 | 1.01 | 300 Hz 31%, 750 Hz 25% | −24.5 dBFS |
+
+_Changed in the workshop:_ README — the older renderers marked superseded, so no one renders the pre-cycle-11 law by mistake
+_Changed in the workshop:_ README — bank.py added as the offline renderer of record
+_Proposed for canon:_ Slime Mold Delay (§ What This Entry Is and Isn't, the **Isn't** paragraph) — the older renderer is no longer the offline home; bank.py and the plugin's sketch are; owed in the tuning ledger until Loudon's review; it replaces item 3
+
+_Left rough:_ I haven't heard it. Also: the voice and piano recordings are shorter than 16 s and loop, the piano render runs hot, and I can't tell whether the starving dish dropping its best-fed road is musical or a quirk of the law.
+
+_Next moves named:_ When the plugin is confirmed as the plan's instrument: give the piano-ring case a gentle level guard (Regen high plus dense low food gets loud), and test it in the bank · Add a bank render where the music moves (drums, then voice) so the lesson can show the roads letting go and regrowing · Lay the bank out as a page the lesson can use: each sound beside its moving dish, the way the dish-performance page does it
+<sub>`slime-mold-delay-steward-025` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-b7e3e5a59b" -->
+### 2026-11-07 — cycle 14
+
+taught item 4, proposed item 5 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="slime-mold-delay-steward-023" -->
 ### 2026-11-07 — cycle 13 — Make the plugin the plan's instrument, instead of the Max build your pause set aside?
 > still working · plugin built and installed · steward leans adopt
