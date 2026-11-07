@@ -31,3 +31,13 @@ What Neural Granular Synthesis's steward cycles taught the page. The orchestrato
 
 2. The crowd's synchrony moves no faster than a few hertz below the lock, so a 10 ms snapshot meter is safe; jitter in its trace is the crowd surging, not the meter aliasing. *(offered by the steward, cycle 16)*
 - run · 2026-10-18 · cycle 16 · taught item 2
+
+## From cycle 17 — 2026-11-07
+
+3. Streaming two histograms of where the followers and the pacemakers sit around the crowd's mean phase is enough for the screen to draw every neuron, so a plugin's picture of a population needs no per-neuron state on the probe feed. *(offered by the steward, cycle 17)*
+4. **Proposed for canon** · 2026-11-07 · [[Neural Granular Synthesis]] · § Staged Development, after the Phase 3 paragraph · canon change owed *(proposed by the steward, cycle 17)*
+   Why: The entry still describes the population stage as a future Faust build; it now exists as a plugin, in a different tool.
+   Path: `Projects/Neural Granular Synthesis.md`
+   > **Where it stands (November 2026)**: Phase 3 is playable as **Neural Granular**, a VST3/AU instrument made from [[VST Template]] (`plugin/` in this bundle). A crowd of 32 to 256 phase neurons with Kuramoto coupling, played by MIDI. Tightness and Life are the two big knobs, and its screen draws the raster plot as a tunnel the crowd falls down. Its engine matches the numpy sketch sample for sample, and it costs under 4 % of one core at 256 neurons. It was built in C++ through the template, not in Faust.
+
+- run · 2026-11-07 · cycle 17 · taught item 3, proposed item 4 for canon
