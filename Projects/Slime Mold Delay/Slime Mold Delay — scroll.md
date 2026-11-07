@@ -15,38 +15,38 @@ forward_vector: "I am Slime Mold Delay's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-07T12:31:30.221Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-07T12:56:32.625Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 12 · last ran 2026-11-07 (today)
-- **Plan:** agreed 2026-10-14 (24 days ago) · 1 made thing since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 13 · last ran 2026-11-07 (today)
+- **Plan:** agreed 2026-10-14 (24 days ago) · 3 made things since · **a proposed revision is waiting on you**
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-18 (20 days ago) — The dish now starts as a mesh over the whole agar and carves it down. On the clustered dish the network got leaner: 1.73× the shortest network → 1.28×. (`slime-mold-delay-steward-020`)
-- **Last commit touching this project:** 2026-11-03 `a027a3f7` — edit(Loudon Live Design System): the browser's furniture fan-out, batch 3 of 5: Projects, Q to Z (94 pages)
-- **Signal:** ⚠ the last cycle posted nothing (one barren cycle — the lane will retry before calling it stalled)
-- **Left uncommitted:** ⚠ 20 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Slime Mold Delay/plugin/.gitignore`, `Projects/Slime Mold Delay/plugin/CMakeLists.txt`, `Projects/Slime Mold Delay/plugin/all.out`, `Projects/Slime Mold Delay/plugin/editor.out`, `Projects/Slime Mold Delay/plugin/plugin.json`, and 15 more. Look, then commit or clear them.
+- **Last shipped:** 2026-11-07 (today) — Make the plugin the plan's instrument, instead of the Max build your pause set aside? (`slime-mold-delay-steward-023`)
+- **Last commit touching this project:** 2026-11-07 `da3729f1` — steward(Slime Mold Delay): cycle 12 — machinery and scroll
+- **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-07 — cycle 12, posted nothing · nothing new
+- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-07 — cycle 13 · taught item 2, proposed item 3 for canon
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 1, from cycle 11 — 2026-10-18 — [[Slime Mold Delay — tuning]]
+- **Proposed for canon:** 1 — item 3; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 3, from cycle 13 — 2026-11-07 — [[Slime Mold Delay — tuning]]
 
 ### Where this stands
 
-Slime Mold Delay is a delay effect whose routing is grown, not designed. Every tube of a simulated slime mold is a delay line: its length sets the echo time, its thickness how much sound it carries. You place food (sound sources) and a listener, and the mold works out the network. There's a playable browser dish, and you adopted a five-move plan. First your ears on the dish. Then start dense and thin. Then fold the page engine back into the offline renderer, then a real instrument, then the Loudon Live lesson. Your listen is still open. This cycle did the second move. The mold now begins by covering the dish the way Nakagaki's plasmodium does, and the flow carves the cover down to the roads…
+Slime Mold Delay is a delay whose routing is grown, not designed. A simulated slime mold connects food to a listener, and every tube it grows is a delay line: its length sets the echo time, its thickness how much sound it carries. In October I made it start as a mesh over the whole dish and let the flow carve it down to the roads that matter. On 2026-10-21 you said make it a product: a VST you can play in Live, built with VST Template, with a visualizer of its own on the template's screen. My last cycle built that and then posted nothing, so this cycle checked it, wrote it up and is showing it to you. It's a VST3 and AU in this folder's plugin/ subfolder, installed on this Mac. The five oat…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 8:** I haven't heard it. _(in 4 notes, the latest cycle 11)_
+- **rough since cycle 8:** I haven't heard it. _(in 5 notes, the latest cycle 13)_
 - **rough since cycle 9:** The browser run proves it plays (peak −6.6 dBFS, no errors, a true 30 steps a second), not that the forks sound good. _(in 2 notes, the latest cycle 10)_
 - **rough since cycle 9:** Unheard and unmeasured. _(in 2 notes, the latest cycle 10)_
-- **rough since cycle 10:** The Python renderer still runs the older law, so offline renders and the live page disagree. _(in 2 notes, the latest cycle 11)_
+- **rough since cycle 10:** The Python renderer still runs the older law, so offline renders and the live page disagree. _(in 3 notes, the latest cycle 13)_
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `slime-mold-delay-steward-023` — proposed plan revision: the plugin replaces the Max instrument · posted 2026-11-07 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -59,12 +59,19 @@ _None._
 
 ### Runs
 
+- 2026-11-07 — cycle 13 · taught item 2, proposed item 3 for canon
 - 2026-11-07 — cycle 12, posted nothing · nothing new
 - 2026-10-18 — cycle 11 · taught item 1
 
 ### Owed
 
 _Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **3.** 2026-11-07 · [[Slime Mold Delay]] · § What This Entry Is and Isn't, the **Isn't** paragraph — the paragraph names only the renderer and the browser dish; the plugin is now the main thing
 
 <!-- scroll:now:end -->
 
@@ -91,6 +98,90 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="slime-mold-delay-steward-023" -->
+### 2026-11-07 — cycle 13 — Make the plugin the plan's instrument, instead of the Max build your pause set aside?
+> still working · plugin built and installed · steward leans adopt
+
+Slime Mold Delay is a delay whose routing a slime mold grows. The plan you adopted in October runs: your ears on the browser dish, start dense and thin (done), fold the engine back into the Python renderer, a real instrument in Max, then a Loudon Live lesson. Your 2026-10-21 order put Max aside and asked for a playable VST, and that plugin is now built, installed and passing every check (the dish performance page shows it). So the Max move is out of date. This revision swaps it for the plugin, moves your listening to the plugin in Live instead of the browser dish, and keeps the renderer fold and the lesson. It costs nothing that is built; Max can come back later as a teaching tool, as your order says.
+
+**Artifacts:**
+- [the plugin's dish playing a 30-second performance, the evidence for the swap.](Projects/Slime Mold Delay/plugin/proofs/dish-performance.html)
+- [fit-drafting-table-bench.html](Projects/Slime Mold Delay/plugin/build/ui/fit-drafting-table-bench.html)
+- [editor-960x620.png](Projects/Slime Mold Delay/plugin/proofs/editor-960x620.png)
+- [dish-29.0s.png](Projects/Slime Mold Delay/plugin/proofs/dish-29.0s.png)
+- [dish-22.0s.png](Projects/Slime Mold Delay/plugin/proofs/dish-22.0s.png)
+- [dish-15.0s.png](Projects/Slime Mold Delay/plugin/proofs/dish-15.0s.png)
+- [dish-08.0s.png](Projects/Slime Mold Delay/plugin/proofs/dish-08.0s.png)
+- [dish-03.0s.png](Projects/Slime Mold Delay/plugin/proofs/dish-03.0s.png)
+- [dish-performance.wav](Projects/Slime Mold Delay/plugin/proofs/dish-performance.wav)
+- [scatter-plugin.wav](Projects/Slime Mold Delay/plugin/out/scatter-plugin.wav)
+- [scatter-engine.wav](Projects/Slime Mold Delay/plugin/out/scatter-engine.wav)
+- [scatter-sketch.wav](Projects/Slime Mold Delay/plugin/out/scatter-sketch.wav)
+- [ring-plugin.wav](Projects/Slime Mold Delay/plugin/out/ring-plugin.wav)
+<sub>`slime-mold-delay-steward-023` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="slime-mold-delay-steward-022" -->
+### 2026-11-07 — cycle 13 — Slime Mold Delay is a plugin now, installed under Loudon Live: five bands of your sound feed a mold, and its tubes are the delay lines.
+> shipped · every check passes · not yet played in Live · steward leans you put it on a send
+
+**Start with [the dish, playing a performance](Projects/Slime Mold Delay/plugin/proofs/dish-performance.html).** Press play. It's thirty seconds through the plugin's own processor, picture and sound together. Bass plucks, and the mold covers the dish as a mesh. After six seconds the flow carves it down to the bass roads: from 138 tubes to 12 in three seconds. Then the music moves to the middle bands and the bass roads let go while tips go out looking. Then the highs take over. Then every band plays at once while Feed sinks from eating to starving, and the colony thins to 8 tubes.
+
+**The screen** is the petri dish seen at a tilt, not a scope. Each yellow filament is a tube, and so a delay line, standing up off the agar as thick as the flow law makes it. Beads stream along each tube at the Flow speed knob's rate, so a bead takes exactly as long to cross a tube as its echo does: you watch the sound travel the network. Flakes swell when their band plays. A tube that dies leaves a brown slime trail on the agar for a while, the way a real plasmodium leaves its trail and then avoids it. Drag up or down on the screen to feed or starve the colony.
+
+**The knobs:** Feed and Flow speed are the big two. Clock sets how fast the dish thinks (0 freezes the roads), Budget how much road it can afford, Dish picks Five flakes, Ring or Scatter, Cover again lays a fresh mesh over the carved roads, Regen sets how much sound recirculates, and Dry/Wet sets the mix.
+
+**How the sound works:** each tube carries sound both ways. Where tubes meet, the sound is summed, softly saturated and sent on down every other tube. Tubes that reach the listener are panned by where they came from. The plugin runs the same 'compete' flow law as the browser dish.
+
+**Checks, all passed** (`./plugin.sh all`): four test performances match the numpy sketch sample for sample to under 1e-7 of peak. The built plugin's loudness stays within 0.31 dB of the sketch every quarter second. Codesign, pluginval at strictness 5 and auval all pass. The installed VST3 loads the way a DAW loads it, and each knob changes the sound (table). One thing didn't work: the real editor's photo came back with no picture, the same as for the other template plugins on this Mac. So the editor image is the template's preview page.
+
+**Artifacts:**
+- [the dish playing a 30-second performance, picture and sound together; press play.](Projects/Slime Mold Delay/plugin/proofs/dish-performance.html)
+- [the editor: Feed and Flow speed beside the dish on the screen, Dish, Echo and Mix below (the template's preview page).](Projects/Slime Mold Delay/plugin/proofs/editor-960x620.png)
+- [3 s: the mesh covering the agar while the bass plays.](Projects/Slime Mold Delay/plugin/proofs/dish-03.0s.png)
+- [8 s: carved down to the bass roads.](Projects/Slime Mold Delay/plugin/proofs/dish-08.0s.png)
+- [15 s: the music in the middle bands, one road to the listener through the 300 Hz flake.](Projects/Slime Mold Delay/plugin/proofs/dish-15.0s.png)
+- [22 s: the highs take over.](Projects/Slime Mold Delay/plugin/proofs/dish-22.0s.png)
+- [29 s: every band, starving, thinned to 8 tubes.](Projects/Slime Mold Delay/plugin/proofs/dish-29.0s.png)
+- [the performance's sound, through the plugin's processor (stays on this Mac).](Projects/Slime Mold Delay/plugin/proofs/dish-performance.wav)
+- [tube count and road used across the performance.](Projects/Slime Mold Delay/plugin/proofs/dish-performance-report.json)
+- [the plugin: the dish in fixed slots, the flow law, the tubes as delay lines.](Projects/Slime Mold Delay/plugin/src/Algorithm.h)
+- [the numpy sketch the plugin is checked against.](Projects/Slime Mold Delay/plugin/reference/sketch.py)
+- [the four test performances: moves, starve, ring, scatter.](Projects/Slime Mold Delay/plugin/reference/paths.py)
+- [the petri dish on the CRT.](Projects/Slime Mold Delay/plugin/ui/visualizer.js)
+- [renders the performance page and stills.](Projects/Slime Mold Delay/plugin/ui/preview.py)
+- [the knobs, the screen, the checks, the gotchas.](Projects/Slime Mold Delay/plugin/README.md)
+- [name, code Slmd, the editor's size, the screen on, the host check's moves.](Projects/Slime Mold Delay/plugin/plugin.json)
+- [finds VST Template's shared build.](Projects/Slime Mold Delay/plugin/CMakeLists.txt)
+- [build, verify, install, validate, hostcheck, editor.](Projects/Slime Mold Delay/plugin/plugin.sh)
+- [keeps build output, logs and caches out of git.](Projects/Slime Mold Delay/plugin/.gitignore)
+
+_Host check: one second from a fresh start, one knob moved at a time_
+| setting | rms | peak | brightness | differs from defaults by |
+| --- | --- | --- | --- | --- |
+| defaults | −26.8 dBFS | −17.7 dBFS | 4595 Hz | — |
+| Feed 0.2 | −26.7 | −17.0 | 4572 Hz | 0.094 of peak |
+| Flow speed 2 | −24.8 | −14.4 | 4368 Hz | 1.6 of peak |
+| Regen 1.5 | −17.2 | −2.3 | 3034 Hz | 4.9 of peak |
+| Dry 0 | −38.4 | −24.0 | 1633 Hz | 0.57 of peak |
+| Wet 1.5 | −26.3 | −15.9 | 4478 Hz | 0.24 of peak |
+
+_Changed in the workshop:_ README — the plugin had no README: how it's built, its knobs, the screen, the checks and the gotchas
+_Proposed for canon:_ Slime Mold Delay (§ What This Entry Is and Isn't, the **Isn't** paragraph) — the paragraph names only the renderer and the browser dish; the plugin is now the main thing; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ I haven't heard it. Nobody has played it in Live, and the real editor's own photo came back with no picture, so the screen inside Live is unseen too. The Python renderer still runs the older law, so offline renders and the live page disagree.
+
+_Next moves named:_ Put it on a send in Live (Plug-Ins → Loudon Live → Slime Mold Delay), play something that moves between bass and highs, and watch the roads follow it. · Fold the plugin's engine back into the Python renderer, which still runs the older law, so the plugin, the browser dish and the offline bank all agree. · Add a way to place your own food on the dish: drag a flake on the screen, so you seed the conditions rather than accept the five fixed spots.
+<sub>`slime-mold-delay-steward-022` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-d270b37936" -->
+### 2026-11-07 — cycle 13
+
+taught item 2, proposed item 3 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="run-b3fe07ccda" -->
 ### 2026-11-07 — cycle 12, posted nothing
 
