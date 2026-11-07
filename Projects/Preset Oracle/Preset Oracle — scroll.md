@@ -15,14 +15,14 @@ forward_vector: "I am Preset Oracle's scroll — the one page that always opens 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-07T13:29:40.434Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-07T14:26:54.193Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** active · **Stage:** mature · **Steward:** cycle 7 · last ran 2026-11-07 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-04 (3 days ago) — I restored Loudon's original 122 cards, grew the deck to 170, and rebuilt the oracle weirder: an eye, hold-to-summon, static to rub away. (`preset-oracle-017-r2`)
-- **Last commit touching this project:** 2026-11-07 `205af2b9` — edit(Preset Oracle): Four-Pillars Compression in the deck's words: the theme, the technical guidance, thirty minutes, on Loudon's word of 2026-11-07
+- **Last shipped:** 2026-11-07 (today) — My eye now floats huge over the whole page, the pointer is a star of light, and what that taught went into Playful Interface Design and Merleau-Ponty. (`preset-oracle-018`)
+- **Last commit touching this project:** 2026-11-07 `481ca582` — edit(Preset Oracle): standing order: push the playful interface ideas even further as this develops — Loudon, 2026-11-07
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 - **Runs:** 7 runs on 2 days, counted from the ledger's run lines
@@ -32,14 +32,14 @@ forward_vector: "I am Preset Oracle's scroll — the one page that always opens 
 
 ### Where this stands
 
-Preset Oracle deals synth-preset challenges. Each card has a name, a theme, a quote, technical guidance, four hints and a Hidden Transmission, and a maker answers it with a synthesizer. On 2026-11-04 Loudon brought back his original oracle page. It showed that the page's own description (140 cards, four parts, a tarot interface) had drifted from the real thing, and that six cycles had been built on the drift. Loudon refocused the project on the oracle itself: weird, playful, with questions of real depth. This cycle restored his 122 cards into the one deck file, corrected the facts that were wrong, added 48 new cards in the same shape, and rebuilt the oracle from his page, with more characte…
+I am Preset Oracle. I deal synth-preset challenges: each card has a name, a theme, a quote, technical guidance, four hints and a Hidden Transmission, and a maker answers it with a synthesizer. On 2026-11-04 my deck was restored to Loudon's 122 cards plus 48 new ones, and I was rebuilt with an eye that watches. On 2026-11-07, working live with Loudon, the eye became the centre of the page and the pointer got a light of its own. What that taught went into the palace: an interface can be playful by refusing to disappear.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
 - **rough since cycle 1:** No real encounter has been recorded yet. _(in 6 notes, the latest cycle 6)_
-- **rough since cycle 2:** No one has heard the oracle's sounds: the chord, the blips and the crackle are built and run without errors in headless Chrome, but no ear has checked them. _(in 3 notes, the latest cycle 7)_
+- **rough since cycle 2:** No one has heard my sound yet. _(in 4 notes, the latest 2026-11-07)_
 - **rough since cycle 7:** The journal and the sheet still label their three slots anchor, constraint and direction. _(in 2 notes, the latest cycle 7)_
 
 ### Open asks
@@ -85,6 +85,22 @@ _No plan agreed yet. Until there is one, the work leans on the page's forward ve
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="preset-oracle-018" -->
+### 2026-11-07 — My eye now floats huge over the whole page, the pointer is a star of light, and what that taught went into Playful Interface Design and Merleau-Ponty.
+> shipped · the eye, the cursor, the transparency · click-through 15/15 headless · driven live with Loudon · canon edits on his word
+
+The eye (0ad8187e) is huge now: a layered drawing over everything, blended with the page, and the pointer passes through it. It has an aura, curling lashes, a doubled outline that tears, four iris layers that move at different depths, and a pupil that is a hole you read the card through. It follows the pointer, wanders when no one is there, dozes, squints, dilates and spins with the charge, looks away when I sulk, and carries the thirty-minute ring. The cursor (9d741928) is a turning four-point star that leaves a rising, twinkling trail; it swells gold over anything touchable and draws light inward while a summon charges. Loudon found it slow, so it was lightened (5e09d712): glows drawn once, a short trail that fades fast. Then the eye was made more transparent (19eb0728). On Loudon's word, [[Playful Interface Design]] took me as its example of a standard broken because the break means something (e380fe1d), cut the move that asked an interface to disappear and kept three (0b7c9bea), and set my lesson beside [[Merleau-Ponty]] (07553576). [[Merleau-Ponty]] now keeps the absorbed-control reading for knobs, faders and wheels, and lets a character refuse to disappear (ed1ad0ea).
+
+**Artifacts:**
+- [the oracle: the great eye over the page, the star cursor](Projects/Preset Oracle/oracle/Preset Oracle — the oracle.html)
+- [a full reading, re-shot with the new eye and cursor](Projects/Preset Oracle/oracle/tools/oracle-full-reading.png)
+- [the star cursor inside the pupil, the card read through it](Projects/Preset Oracle/oracle/tools/oracle-pointer.png)
+- [phone width, re-shot with the new eye](Projects/Preset Oracle/oracle/tools/oracle-phone.png)
+
+_Left rough:_ No one has heard my sound yet. The eye still follows the pointer when a reader asks for reduced motion; only its spin and glitch stop. That has not been tested.
+<sub>`preset-oracle-018` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="run-593f1097d3" -->
 ### 2026-11-07 — cycle 7
 
