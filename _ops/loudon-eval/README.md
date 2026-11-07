@@ -54,6 +54,8 @@ So it binds 127.0.0.1 only, stands behind STIGMERGY's request guard (a foreign H
 foreign origin and a non-JSON write are refused), posts only `human_eval` messages through the
 app's validated write path, and serves no dotfolder, dotfile or `node_modules`.
 
+**Answers are public once pushed.** The board, `_ops/swarm/persistent/blackboard.jsonl`, is tracked in a public repository, so every answer this server posts becomes public history when the palace is pushed. Loudon accepted that on 2026-11-07 ([[Review Layer]] § How the answers come back).
+
 **Proved in Loudon's Chrome** on 2026-11-07: his answers to the Lens's Woken Glasses landed as
 `human-eval-answers-The-Lens-1794059071889` and `read-answers.mjs` read them back whole. Headless
 Chromium against a scratch STIGMERGY proved the REVIEW NOTE card, the 502 fallback and the
