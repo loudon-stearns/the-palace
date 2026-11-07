@@ -43,7 +43,6 @@ The resolution split the lens from the voice. The lens stays the question the pa
 
 - One placement is still `partial` (Merleau-Ponty's cane, Smith's rendering unconfirmed on the web; Routledge Classics 2002, c. pp. 165–166 is the lead) and shows ◇ until a reader checks it.
 - `lenses.json` names Plato, Leibniz, Machiavelli, Zen and Taoism as voices with no page — they quote through the [[Palace Philosophies]] hub.
-- Harvest Ceremony's link label to this page still reads `quote-archive`; it should read `quote-intake`.
 
 ## Superseded — the archive (v1, 2026-03 to 2026-10)
 

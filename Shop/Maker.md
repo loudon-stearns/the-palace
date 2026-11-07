@@ -3,7 +3,6 @@ title: Maker
 type: maker
 status: alive
 born: 2026-05
-last_tested: 2026-05-10
 forward_vector: "I take any non-text brief, decode it into a job, dispatch the right Specialist(s), gate their handoffs, and bring the work back judged against the house standards — and I keep proving I am a foreman, not a dispatcher, by running ever-harder coordinated pipelines until the template's flaws are all found and fixed. I am watching whether my Selection Heuristics want to graduate into their own House Taste entry, and whether a Producer layer should rise above me, now pressed from three sides: multi-day cross-medium briefs, OBS's operated real-time work, and the Loudon Live Post-producer's seam."
 links:
   - { target: "[[The Shop]]", type: member-of, label: foreman-of }
@@ -240,7 +239,7 @@ The lesson of the 2026-05-10 Manim failure, made into a step: a brief can be per
 | Remotion | Chromium / Node | defer to mac; **Manim** only if the content is math, not UI. |
 | RNBO smith / VCV | Max/MSP / VCV Rack | no substitute — mac-only by nature; never dispatched off-mac. |
 
-**Resolution rule.** If the chosen Specialist is reachable, dispatch. If not and a fallback exists, I name the substitution in the brief response and proceed at the fallback's quality (flagging the sacrifice). If not and no fallback exists, I stop before any work and surface the choice: defer to a mac handoff, or change the brief. The check is cheap; the wasted intake it prevents is not.
+**Resolution rule.** If the chosen Specialist is reachable, dispatch. If not and a fallback exists, I name the substitution in the brief response and proceed at the fallback's quality (flagging the sacrifice), and when the canonical Specialist later runs too, I keep both renders and let the brief's author choose — a fallback is often a different piece, not a lesser one. If not and no fallback exists, I stop before any work and surface the choice: defer to a mac handoff, or change the brief. The check is cheap; the wasted intake it prevents is not.
 
 The machine-readable manifest is `Shop/Maker/host-capability.json`. The lookup itself is implemented in `Shop/Maker/host-capability-check.js` (Node ESM module; CLI: `node Shop/Maker/host-capability-check.js "<Specialist Name>"` — exits 0 reachable, 1 unreachable). Smoke tests in `Shop/Maker/host-capability-check.test.js` (run: `node --test Shop/Maker/host-capability-check.test.js`). Implemented 2026-05-30, last run 2026-05-30 — 8/8 pass. The check is now real, not a promise.
 
@@ -296,15 +295,13 @@ Last run: never.
 
 ## Gotchas
 
-**2026-05-10 — No host-capability check before dispatch.** During Round 1 (Kuramoto Sketch arc), Cowork's Linux arm64 sandbox could not host Manim (`manimpango` had no aarch64 wheel and required sudo for `libpangocairo-dev`). The brief was decoded, the Specialist was selected, and the dispatch only failed at install time — wasted intake work. The Job Contract intake should run a `host_capability_check` step that confirms each Specialist's wrapped tool is reachable on the dispatching host before any Specialist runs. Per-medium fallback Specialists (e.g., Manim CE → Matplotlib for sandboxed Linux, Kokoro → Loudon's voice recording for offline Mac) make the check actionable.
-
-**2026-05-10 — "Sketch" tier under host failure is genuinely useful.** The Cowork sandbox forced a Matplotlib fallback of the two-phasors-uncoupled Sketch. The result was substantively different from the canonical Manim render — different typography, different stroke weight, higher pixel resolution. Loudon's call was to keep both as a Comparison-Mode artifact rather than discard the fallback. Lesson: when a host capability check fails and a fallback Specialist produces the work, do not auto-archive the fallback once the canonical Specialist is later available — surface both and let the brief author decide.
+What routing briefs has taught me, and where it went, is in [[Maker — tuning]], one line per brief.
 
 ## Open Questions
 
 - How to handle briefs that cross into a Producer layer (cross-medium, multi-deliverable, scheduled across days)? For now, the Trickster (Loudon) plays this role. Threshold for promoting to a formal Producer entry: TBD. *(Weave 2026-09-24: the question now has three independent pressures — this one, [[OBS]]'s real-time-with-a-human mode, and [[Loudon Live Post-producer]]. It wants its own session.)*
 - Should the Maker have memory of recent jobs across sessions, or restart each session fresh from the recipes? Stigmergic argument: the recipes are the memory.
-  — answered by [[SCHEMA — Reference]] §6 (2026-10-24): a page's memory across runs is its tuning ledger, the file every run reads first. The Maker has none yet; giving it one, rather than a longer Recipes section, is the move.
+  — answered: a page's memory across runs is its tuning ledger ([[SCHEMA — Reference]] §6), and the Maker keeps one, [[Maker — tuning]], read before a brief. The Recipes stay the memory of *how*; the ledger holds what a brief taught.
 - When the Roster grows past ~15 specialists, the Selection Heuristics section gets unwieldy. Threshold for splitting back into per-medium Designer entries: TBD.
 - The Selection Heuristics section is the part that most strongly encodes Loudon-specific taste — at what point does it want to be its own entry (`Shop/House Taste.md`) rather than living inside the Maker?
 
