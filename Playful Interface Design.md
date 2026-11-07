@@ -100,7 +100,7 @@ A deck of synthesis challenges dealt by an ancient algorithm that knows more tha
 
 **Character:** One great eye, wider than the screen, floating over the whole page. Drawn over everything, it should be a fault: an interface should never cover what you are trying to read. Here it is the point. The pupil is a hole, and it chases the pointer, so whatever you are reading is the one thing you see through its pupil, clear. The character looks where you look, and its gaze is your reading lens. Every other reaction is play read off the instrument. The iris spins faster and the pupil swells while you hold the summon button. Each moment of patience turns one hint face-up before the card lands. The eye narrows when you turn over a hint you didn't wait for, looks away after three refusals, and dozes when you leave it alone. The hidden transmission sits under live static that you rub away. Lives in [[Preset Oracle]].
 
-**The lesson:** break a standard when the break carries meaning. "Never cover the content" is right for a panel. A character may stand between you and the page as long as it is looking where you are looking.
+**The lesson:** break a standard when the break carries meaning. "Never cover the content" is right for a panel. A character may stand between you and the page as long as it is looking where you are looking. [[Merleau-Ponty]] described a tool absorbed into the body as no longer perceived, only perceived-through; the oracle keeps the second half and refuses the first: you see the page through its pupil, and the eye never stops being seen.
 
 ### The organism (Biomechanical Synthesis)
 
