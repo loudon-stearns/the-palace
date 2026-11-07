@@ -16,6 +16,8 @@ links:
 
 # LightOnOCR-3
 
+![[LightOnOCR-3 — hero.png]]
+
 **Status: STUB** — drafted by the [[Shopkeeper]] from one real run (2026-11-04, cycle 15) after three failed rentals. Not yet dispatched on a real brief.
 
 ## Charter
