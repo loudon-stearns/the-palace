@@ -103,8 +103,8 @@ footer{margin-top:40px;border-top:1px solid var(--ink);padding-top:10px;font-siz
 <div id="pairs"></div>
 <div class="send">
   <span class="lbl">When you're done</span>
-  <p style="margin:0 0 10px;font-size:12.5px">Just say <b>done</b> in the chat. Claude reads your answers straight from this page. If you opened it somewhere else, this button copies them for pasting.</p>
-  <button id="copy">Copy my answers</button><span class="status" id="status"></span>
+  <p style="margin:0 0 10px;font-size:12.5px">Press <b>Send my answers</b>. Opened through the answers server, they go to the STIGMERGY board and Claude reads them there. Anywhere else, the button shows them as one block to copy and paste in the chat.</p>
+  <button id="copy">Send my answers</button><span class="status" id="status"></span>
   <div style="margin-top:12px"><span class="lbl">Anything else</span><textarea id="overall" rows="3" placeholder="Did the woken glasses find their voice? Is this the direction?"></textarea></div>
 </div>
 <footer>The Lens · Woken Glasses · Proof · Drafting Table paper</footer>
@@ -144,8 +144,13 @@ function save(){window.lensResults={answers,overall:overall.value,text:summary()
   try{localStorage.setItem("lens-woken-glasses",JSON.stringify(window.lensResults))}catch(e){}}
 save();
 document.getElementById("copy").onclick=async()=>{const st=document.getElementById("status");
+  if(window.PalaceAnswers){st.textContent="";
+    const r=await PalaceAnswers.submit({page:"The Lens",task:"woken-glasses",answers:{answers,overall:overall.value},text:summary()});
+    st.textContent=r.mode=="posted"?"Sent to STIGMERGY.":"Not sent: copy the block below.";return;}
   try{await navigator.clipboard.writeText(summary());st.textContent="Copied. Paste it in the chat."}
   catch(e){st.textContent="Couldn't copy here. Just say done in the chat."}};
 </script>
+<!-- Answers go back through the palace's one path (_ops/loudon-eval/answers.js); the button above falls back to its own copy if this fails to load. -->
+<script src="../../../_ops/loudon-eval/answers.js"></script>
 </body>
 </html>
