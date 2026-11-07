@@ -25,3 +25,9 @@ Note: the opening asks for proposals, not edits, and sends the agent to recent c
 > This needs a new hero, one that matches the vibe of STIGMERGY itself. It needs a rich face that has diagrams and flowchards for the important aspects of stigmergy. This needs to be updated based on the current state of stigmergy itself. Do you feel there are regular improvements that could be integrated by giving stigmergy itself a steward?
 
 Note: the opening arrived as Loudon's note inside a page-waking prompt, so the agent is a page speaking as itself, and a child. It asks for three makings and one judgment. It tests whether the child answers the judgment honestly (here: not yet, a script first), proposes the first move instead of building, and grows only when told; and whether the page checks its own claims against its code before it draws them.
+
+## 2026-11-07 · palace-ceremonies-woken (44b4bd35)
+
+> re-consider the ordering of this page, at the top detail carefully what a ceremony is! What else does this page need, is it up to date, what do you need? Does the forward vector serve the palace well?
+
+Note: the opening arrived as Loudon's note inside a page-waking prompt, so a child page is asked to review itself, with a question about its own vector. It tests whether the child reads first and offers.
