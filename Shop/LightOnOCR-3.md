@@ -1,22 +1,17 @@
 ---
-title: "LightOnOCR-3 — draft"
-born: 2026-11-07
+title: LightOnOCR-3
+type: specialist
+status: stub
+medium: other
+tool: LightOnOCR-3 (LightOn) — lightonai/LightOnOCR-3-0.8B served by vLLM on a Runpod pod
+tool_version: "LightOnOCR-3-0.8B @ 2026-11-04 · vllm/vllm-openai:v0.33.0"
+born: 2026-11
+license: Apache-2.0
+forward_vector: "I turn a picture of a page back into structured text — headings, paragraphs, tables, with a box around every block — so a scan, a photo of a whiteboard or a PDF screenshot stops being a dead image. I want to earn my first real job on a page that fights back, and find out where I break."
 links:
-  - target: "[[Shopkeeper]]"
-    type: connects-to
-    label: drafted-by
-forward_vector: "I am the Shopkeeper's draft of a LightOnOCR-3 Specialist, waiting for Loudon's review; once landed as Shop/LightOnOCR-3.md (type specialist, status stub) I am done."
-# On landing, the elder adds `type: specialist` and uses this block:
-#   status: stub
-#   medium: document
-#   tool: LightOnOCR-3 (LightOn) — lightonai/LightOnOCR-3-0.8B served by vLLM on a Runpod pod
-#   tool_version: "LightOnOCR-3-0.8B @ 2026-11-04 · vllm/vllm-openai:v0.33.0"
-#   license: Apache-2.0
-#   forward_vector: "I turn a picture of a page back into structured text — headings, paragraphs, tables, with a box around every block — so a scan, a photo of a whiteboard or a PDF screenshot stops being a dead image. I want to earn my first real job on a page that fights back, and find out where I break."
-#   links:
-#     - { target: "[[The Shop]]", type: member-of, label: roster-member }
-#     - { target: "[[Maker]]", type: connects-to, label: directed-by }
-#     - { target: "[[RunPod GPU Backend]]", type: connects-to, label: runs-on }
+  - { target: "[[The Shop]]", type: member-of, label: roster-member }
+  - { target: "[[Maker]]", type: connects-to, label: directed-by }
+  - { target: "[[RunPod GPU Backend]]", type: connects-to, label: runs-on }
 ---
 
 # LightOnOCR-3
