@@ -24,11 +24,18 @@ PY
 }
 IFS=$'\t' read -r RP_KEY RP_EP <<<"$(creds)"
 
-set_workers() { # $1 = max workers
+workers() { # $1 = enter | exit — ref-counted over the board, so quitting never parks the
+  # endpoint under another agent's render. Runpod is spoken only by _ops/commons/runpod_api.py
+  # ([[RunPod GPU Backend — runbook]]).
   [ -n "$RP_KEY" ] && [ -n "$RP_EP" ] || return 0
-  curl -s -o /dev/null -X PATCH "https://rest.runpod.io/v1/endpoints/$RP_EP" \
-    -H "Authorization: Bearer $RP_KEY" -H "Content-Type: application/json" \
-    -d "{\"workersMin\":0,\"workersMax\":$1}"
+  COMMONS_AGENT_SLUG=palace-studio RP_KEY="$RP_KEY" python3 - "$DIR/../../../_ops" "$RP_EP" "$1" <<'PY' \
+    || echo "  !! couldn't scale the GPU endpoint — the error is above"
+import os, sys
+sys.path.insert(0, sys.argv[1])
+from commons.endpoint import EndpointWorkers
+w = EndpointWorkers(sys.argv[2], os.environ["RP_KEY"], steward="Palace Studio")
+w.enter() if sys.argv[3] == "enter" else w.exit()
+PY
 }
 
 cleanup() {
@@ -37,7 +44,7 @@ cleanup() {
   echo "Shutting down Palace Studio…"
   [ -f "$PIDFILE" ] && { kill "$(cat "$PIDFILE")" 2>/dev/null; rm -f "$PIDFILE"; }
   if [ -n "$RP_KEY" ] && [ -n "$RP_EP" ]; then
-    echo "Parking the GPU endpoint (0 workers — no charges at rest)…"; set_workers 0
+    echo "Releasing the GPU endpoint (it parks to 0 once no one else is rendering)…"; workers exit
   fi
   echo "Done. You can close this window."
   exit 0
@@ -57,7 +64,7 @@ if curl -s -o /dev/null --max-time 2 "$URL/api/config"; then
 fi
 
 if [ -n "$RP_KEY" ] && [ -n "$RP_EP" ]; then
-  echo "• Enabling RunPod endpoint …"; set_workers 1
+  echo "• Enabling RunPod endpoint …"; workers enter
 else
   echo "• (No RunPod creds found — set RUNPOD_API_KEY/RUNPOD_ENDPOINT_ID or make config.json"
   echo "   to let this launcher manage the GPU endpoint.)"
