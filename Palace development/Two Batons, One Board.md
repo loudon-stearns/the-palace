@@ -99,3 +99,7 @@ The stage-conditional posture already in [[Project Stewardship System]] is exact
 ## Forward Vector
 
 I want the next time Loudon closes a session with a build still to do to end with a single move — write the handoff, announce it on the board — and for a scheduler, not Loudon, to be what picks it up when the project's stage has earned that. I want the board to be the one shared world where a hand-written handoff and a steward's request sit side by side, indistinguishable to whatever continues them. And I want to keep insisting that the goal was never to remove the human from the loop, but to spend his attention where it actually carries risk.
+
+## Active Baton
+
+[[Two Batons, One Board — baton]] — drafted 2026-11-07
