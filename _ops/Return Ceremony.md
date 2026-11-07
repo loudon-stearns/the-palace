@@ -166,7 +166,7 @@ Report the gap's **length**, because it bears on what went stale. Never report i
 - Should the return map be written to a file, or spoken and discarded? [[Closing Well]] produces a signed artifact; this may be lighter by design.
   — answered in postcondition 6 above (2026-10-24): a return leaves no report file; the return commit is its record.
 - Open: whether the card's command list and `return-map.mjs` drift apart, and which one a future reader will trust when they disagree.
-  — seen again (2026-11-07): the review-notes probe landed in `return-map.mjs` first (`649693cb`) and reached this card's list a step later, on Loudon's yes ([[Return Ceremony — tuning]] item 18). The script led and the card followed, so for now the script is the one to trust when they disagree.
+  — seen again (2026-11-07): the review-notes probe landed in `return-map.mjs` first (`649693cb`) and reached this card's list a step later, on Loudon's yes ([[Return Ceremony — tuning]] item 18). The script led and the card followed. Which one to trust when they disagree is still open.
 
 ---
 
