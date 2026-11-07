@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#14110c">
+<title>Ant Farm · Pheromone Trail · a rough</title>
+<style>
+  :root { --bg:#14110c; --paper:#211c14; --ink:#f3ead8; --dim:#a39a86; --home:#f2a33a; --food:#5fd0c8; --rule:#3a3227; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--ink); font: 16px/1.5 system-ui, -apple-system, sans-serif; overflow:hidden; }
+  canvas { position:fixed; inset:0; width:100vw; height:100vh; display:block; cursor:crosshair; }
+  body.rain canvas { cursor: cell; }
+  .hud { position:fixed; left:16px; top:16px; max-width:min(400px, calc(100vw - 32px)); background:rgba(20,17,12,.82); border:1px solid var(--rule); padding:14px 16px; backdrop-filter: blur(4px); }
+  h1 { font: 800 26px/1.05 system-ui, sans-serif; margin:0 0 6px; letter-spacing:-.01em; }
+  h1 em { font-style:normal; color:var(--home); }
+  .key { margin:8px 0 10px; font-size:14px; }
+  .key div { margin:3px 0; }
+  .sw { display:inline-block; width:22px; height:6px; border-radius:3px; vertical-align:middle; margin-right:8px; }
+  .row { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+  button { font: 700 14px/1 system-ui, sans-serif; color:var(--ink); background:transparent; border:1px solid var(--rule); padding:10px 12px; cursor:pointer; border-radius:999px; }
+  button:hover { border-color:var(--dim); }
+  button:focus-visible, input:focus-visible { outline:2px solid var(--home); outline-offset:2px; }
+  button.on { background:var(--home); color:#14110c; border-color:var(--home); }
+  label { display:block; font-size:13px; color:var(--dim); margin-top:10px; }
+  label b { color:var(--ink); }
+  input[type=range] { width:100%; accent-color: var(--home); }
+  .stats { font: 12px/1.5 ui-monospace, Menlo, monospace; color:var(--dim); margin-top:10px; }
+  .toast { position:fixed; left:50%; bottom:22px; transform:translateX(-50%); background:var(--paper); border:1px solid var(--home); color:var(--ink); padding:10px 16px; font-weight:700; border-radius:999px; opacity:0; transition: opacity .3s cubic-bezier(.4,0,.2,1); pointer-events:none; white-space:nowrap; max-width:calc(100vw - 32px); overflow:hidden; text-overflow:ellipsis; }
+  .toast.show { opacity:1; }
+  .min { position:fixed; right:16px; top:16px; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="hud" id="hud">
+  <h1>No ant knows the map.<br><em>The trail does.</em></h1>
+  <div class="key">
+    <div><span class="sw" style="background:var(--food)"></span><b>Teal glow</b> = "food this way." Laid by ants carrying a crumb home.</div>
+    <div><span class="sw" style="background:var(--home)"></span><b>Amber glow</b> = "home this way." Laid by ants out searching.</div>
+    <div><b>Brighter</b> = more ants walked here, more recently. It fades if no one does.</div>
+  </div>
+  <div class="row">
+    <button id="mFood" class="on">Drop a page</button>
+    <button id="mRain">Make it rain</button>
+    <button id="mAnts">+50 ants</button>
+  </div>
+  <label>How fast trails fade · <b id="oFade"></b><input id="fade" type="range" min="0" max="100" value="35"></label>
+  <label>Wild ants (ignore the trail) · <b id="oWild"></b><input id="wild" type="range" min="0" max="60" value="8"></label>
+  <div class="stats" id="stats"></div>
+</div>
+<button class="min" id="hide">hide panel</button>
+<div class="toast" id="toast"></div>
+<script>
+const PAGES = ["Martin Heidegger","FLUX (Hugging Face)","Shopkeeper","Two Batons, One Board","Compressor Design","Agent Wellbeing","The View From Above","The Aftermath Frame","Martin Buber","ffmpeg","Palace Enchantment","Enchanted Worker","Dialogue Moderator","Semantic Delay","Web Audio Worklet","Ohm's Law","Whisper","Palace Conatus","p5.js","LaTeX","Rational Hearing","The Flow Field is the Spine","Cooperation Yields Agency","Wavetable Oscillator","Rank-N Lattice Analysis","Tract Mirror","The Gallery","No Mind Checks Itself","LDN RTM","Ableton Session Writer","Reverb ↔ Space-Time","Spinoza Conatus","BLUELINE","Cross-Domain Resonances","Slime Mold Delay","Piano String Inharmonicity","Annie Dillard","Generative Compression","Splice Instrument Forge","Pheromone Trail"];
+const cv = document.getElementById('c'), g = cv.getContext('2d');
+const S = 4;                       // pheromone grid cell size, px
+let W, H, GW, GH, home, food, img, off, og;
+let nest, crumbs = [], ants = [], mode = 'food', delivered = 0, raining = null;
+let fadeK = .996, wild = .08;
+
+function resize() {
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  W = innerWidth; H = innerHeight;
+  cv.width = W * dpr; cv.height = H * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const nw = Math.ceil(W / S), nh = Math.ceil(H / S);
+  if (nw !== GW || nh !== GH) {           // keep the trails that still fit
+    const oh = home, of = food, ow = GW, oh2 = GH;
+    GW = nw; GH = nh;
+    home = new Float32Array(GW * GH); food = new Float32Array(GW * GH);
+    if (oh) for (let j = 0; j < Math.min(GH, oh2); j++) for (let i = 0; i < Math.min(GW, ow); i++) { home[j * GW + i] = oh[j * ow + i]; food[j * GW + i] = of[j * ow + i]; }
+    off = document.createElement('canvas'); off.width = GW; off.height = GH; og = off.getContext('2d');
+    img = og.createImageData(GW, GH);
+  }
+  if (!nest) nest = { x: W * (W > 760 ? .62 : .5), y: H * .55 };
+  nest.x = Math.min(nest.x, W - 30); nest.y = Math.min(nest.y, H - 30);
+  ants.forEach(a => { a.x = Math.min(a.x, W - 4); a.y = Math.min(a.y, H - 4); });
+}
+function rnd(a, b) { return a + Math.random() * (b - a); }
+function addAnts(n) { for (let i = 0; i < n; i++) ants.push({ x: nest.x, y: nest.y, a: rnd(0, 6.283), carry: null, step: rnd(0, 10), life: 0 }); }
+function dropCrumb(x, y) {
+  const name = PAGES[Math.floor(Math.random() * PAGES.length)];
+  crumbs.push({ x, y, name, left: 60, r: 16, hits: 0 });
+  toast('Dropped "' + name + '". Watch who finds it.');
+}
+function cell(x, y) { const i = (x / S) | 0, j = (y / S) | 0; return (i < 0 || j < 0 || i >= GW || j >= GH) ? -1 : j * GW + i; }
+function sense(grid, a, ang) {
+  const d = 18, x = a.x + Math.cos(a.a + ang) * d, y = a.y + Math.sin(a.a + ang) * d, k = cell(x, y);
+  return k < 0 ? -1 : grid[k];
+}
+function step() {
+  for (let k = 0; k < home.length; k++) { home[k] *= fadeK; food[k] *= fadeK; }
+  if (raining) rainAt(raining.x, raining.y);
+  for (const a of ants) {
+    a.life++;
+    const grid = a.carry ? home : food;
+    if (Math.random() < wild && !a.carry) a.a += rnd(-1.2, 1.2);
+    else {
+      const l = sense(grid, a, -.55), c = sense(grid, a, 0), r = sense(grid, a, .55);
+      if (c >= l && c >= r) {} else if (l > r) a.a -= .32; else a.a += .32;
+      a.a += rnd(-.18, .18);
+    }
+    // smell home or food when close
+    if (a.carry) { const dx = nest.x - a.x, dy = nest.y - a.y; if (dx*dx + dy*dy < 150*150) a.a = Math.atan2(dy, dx) + rnd(-.2, .2); }
+    else for (const f of crumbs) { const dx = f.x - a.x, dy = f.y - a.y; if (dx*dx + dy*dy < 60*60) { a.a = Math.atan2(dy, dx); break; } }
+    const sp = a.carry ? 1.7 : 1.5;
+    a.x += Math.cos(a.a) * sp; a.y += Math.sin(a.a) * sp; a.step += sp;
+    if (a.x < 4 || a.x > W - 4) { a.a = Math.PI - a.a; a.x = Math.max(4, Math.min(W - 4, a.x)); }
+    if (a.y < 4 || a.y > H - 4) { a.a = -a.a; a.y = Math.max(4, Math.min(H - 4, a.y)); }
+    const k = cell(a.x, a.y);
+    if (k >= 0) { const amt = Math.max(0, 1 - a.life / 700); if (amt > 0) { if (a.carry) food[k] = Math.min(food[k] + amt, 6); else home[k] = Math.min(home[k] + amt, 6); } }
+    if (!a.carry) for (const f of crumbs) {
+      const dx = f.x - a.x, dy = f.y - a.y;
+      if (f.left > 0 && dx*dx + dy*dy < f.r * f.r) { f.left--; f.hits++; a.carry = f.name; a.a += Math.PI; a.life = 0; break; }
+    } else {
+      const dx = nest.x - a.x, dy = nest.y - a.y;
+      if (dx*dx + dy*dy < 22*22) { delivered++; a.carry = null; a.a += Math.PI; a.life = 0; }
+    }
+  }
+  crumbs = crumbs.filter(f => f.left > 0 || (f.gone = (f.gone || 0) + 1) < 90);
+}
+function rainAt(x, y) {
+  const R = 46 / S, ci = x / S, cj = y / S;
+  for (let j = Math.max(0, cj - R | 0); j < Math.min(GH, cj + R); j++)
+    for (let i = Math.max(0, ci - R | 0); i < Math.min(GW, ci + R); i++)
+      if ((i - ci) ** 2 + (j - cj) ** 2 < R * R) { home[j * GW + i] *= .6; food[j * GW + i] *= .6; }
+}
+function draw(t) {
+  const d = img.data;
+  for (let k = 0; k < home.length; k++) {
+    const h = Math.min(1, home[k] / 1.6), f = Math.min(1, food[k] / 2.6), p = k * 4;
+    d[p]   = 20 + h * 222 + f * 75;
+    d[p+1] = 17 + h * 146 + f * 191;
+    d[p+2] = 12 + h * 46  + f * 188;
+    d[p+3] = 255;
+  }
+  og.putImageData(img, 0, 0);
+  g.imageSmoothingEnabled = true; g.drawImage(off, 0, 0, W, H);
+  // nest
+  g.save(); g.translate(nest.x, nest.y);
+  for (let i = 0; i < 3; i++) { g.strokeStyle = 'rgba(243,234,216,' + (.5 - i * .15) + ')'; g.lineWidth = 2; g.beginPath(); g.arc(0, 0, 20 + i * 7 + Math.sin(t / 400 + i) * 1.5, 0, 6.283); g.stroke(); }
+  g.fillStyle = '#0c0a07'; g.beginPath(); g.arc(0, 0, 16, 0, 6.283); g.fill();
+  g.fillStyle = '#f3ead8'; g.font = '800 12px system-ui'; g.textAlign = 'center'; g.fillText('NEST', 0, 42); g.restore();
+  // crumbs
+  for (const f of crumbs) {
+    const s = Math.max(0, f.left / 60), wob = Math.sin(t / 250 + f.x) * 1.2;
+    g.fillStyle = 'rgba(95,208,200,' + (.25 + .5 * s) + ')'; g.beginPath(); g.arc(f.x, f.y, 6 + 12 * s + wob, 0, 6.283); g.fill();
+    g.fillStyle = '#f3ead8'; g.font = '700 12px system-ui'; g.textAlign = 'center';
+    g.globalAlpha = f.left > 0 ? 1 : Math.max(0, 1 - (f.gone || 0) / 90);
+    g.fillText(f.left > 0 ? f.name : 'all carried home', f.x, f.y - 24); g.globalAlpha = 1;
+  }
+  // ants
+  for (const a of ants) drawAnt(a);
+  if (raining) { g.strokeStyle = 'rgba(160,200,255,.6)'; for (let i = 0; i < 14; i++) { const x = raining.x + rnd(-46, 46), y = raining.y + rnd(-46, 46); g.beginPath(); g.moveTo(x, y); g.lineTo(x - 3, y + 10); g.stroke(); } }
+  document.getElementById('stats').textContent = ants.length + ' ants · ' + delivered + ' crumbs carried home · ' + crumbs.filter(f => f.left > 0).length + ' pages on the ground';
+}
+function drawAnt(a) {
+  g.save(); g.translate(a.x, a.y); g.rotate(a.a);
+  const w = Math.sin(a.step * .9) * 2.2;
+  g.strokeStyle = '#f3ead8'; g.lineWidth = 1;
+  g.beginPath();
+  for (const s of [-1, 1]) { g.moveTo(-1, 0); g.lineTo(-4 + w * s, 5 * s); g.moveTo(1, 0); g.lineTo(1 - w * s, 5.5 * s); g.moveTo(3, 0); g.lineTo(6 + w * s, 4.5 * s); }
+  g.moveTo(6, 0); g.lineTo(10, -3); g.moveTo(6, 0); g.lineTo(10, 3);
+  g.stroke();
+  g.fillStyle = '#f3ead8';
+  g.beginPath(); g.ellipse(-4, 0, 3.4, 2.4, 0, 0, 6.283); g.fill();
+  g.beginPath(); g.ellipse(1, 0, 2, 1.5, 0, 0, 6.283); g.fill();
+  g.beginPath(); g.arc(5, 0, 1.8, 0, 6.283); g.fill();
+  if (a.carry) { g.fillStyle = '#5fd0c8'; g.beginPath(); g.arc(8.5, 0, 2.6, 0, 6.283); g.fill(); }
+  g.restore();
+}
+let toastT;
+function toast(s) { const el = document.getElementById('toast'); el.textContent = s; el.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove('show'), 2200); }
+function setMode(m) { mode = m; document.getElementById('mFood').classList.toggle('on', m === 'food'); document.getElementById('mRain').classList.toggle('on', m === 'rain'); document.body.classList.toggle('rain', m === 'rain'); }
+document.getElementById('mFood').onclick = () => setMode('food');
+document.getElementById('mRain').onclick = () => { setMode('rain'); toast('Drag across a trail. Rain washes the scent away.'); };
+document.getElementById('mAnts').onclick = () => { addAnts(50); toast(ants.length + ' ants now.'); };
+document.getElementById('hide').onclick = e => { const h = document.getElementById('hud'); const v = h.style.display === 'none'; h.style.display = v ? '' : 'none'; e.target.textContent = v ? 'hide panel' : 'show panel'; };
+const fade = document.getElementById('fade'), wildI = document.getElementById('wild');
+function setFade() { const v = +fade.value; fadeK = 1 - (0.0004 + v / 100 * 0.02); document.getElementById('oFade').textContent = v < 15 ? 'trails last ages' : v < 55 ? 'steady' : v < 85 ? 'quick' : 'gone almost at once'; }
+function setWild() { wild = +wildI.value / 100; document.getElementById('oWild').textContent = Math.round(wild * 100) + '% of choices at random'; }
+fade.oninput = setFade; wildI.oninput = setWild;
+cv.addEventListener('pointerdown', e => { if (mode === 'food') dropCrumb(e.clientX, e.clientY); else { raining = { x: e.clientX, y: e.clientY }; cv.setPointerCapture(e.pointerId); } });
+cv.addEventListener('pointermove', e => { if (raining) raining = { x: e.clientX, y: e.clientY }; });
+cv.addEventListener('pointerup', () => { raining = null; });
+addEventListener('resize', resize);
+resize(); setFade(); setWild(); addAnts(220);
+dropCrumb(W * .86, H * .2); dropCrumb(W * .9, H * .82); dropCrumb(W * .4, H * .86);
+document.getElementById('toast').classList.remove('show');
+const warm = +(new URLSearchParams(location.search).get('warm') || 0);
+for (let i = 0; i < warm; i++) step();
+function loop(t) { step(); step(); draw(t); requestAnimationFrame(loop); }
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

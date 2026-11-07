@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#16171a">
+<title>The palace's own trail · a sketch</title>
+<style>
+  :root { --bg:#16171a; --panel:#1e2024; --ink:#e7e4dc; --paper:#1e2024; --dim:#9a968c; --rule:#34363b; --accent:#e0a54a; --cool:#6fa8c8; --bad:#c86f6f; --good:#8fbf7a; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.75 Georgia, "Cormorant Garamond", serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 40px 16px 80px; }
+  .eyebrow { font: 12px/1.4 ui-monospace, Menlo, monospace; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); }
+  h1 { font: 600 30px/1.2 system-ui, sans-serif; margin: 6px 0 4px; }
+  h2 { font: 600 19px/1.3 system-ui, sans-serif; margin: 44px 0 6px; }
+  .step { border-top: 1px solid var(--rule); padding-top: 4px; }
+  .mono { font: 13px/1.6 ui-monospace, Menlo, monospace; color: var(--dim); }
+  .q { background:var(--panel); border:1px solid var(--rule); padding:14px 16px; margin:12px 0; }
+  .q p { margin:0 0 8px; }
+  .opts { display:flex; flex-wrap:wrap; gap:8px; }
+  button { font: 14px/1 system-ui, sans-serif; color:var(--ink); background:transparent; border:1px solid var(--rule); padding:9px 12px; cursor:pointer; }
+  button:hover { border-color: var(--dim); }
+  button:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+  button.on { border-color: var(--accent); color: var(--accent); }
+  button.primary { border-color: var(--accent); color: var(--accent); }
+  button:disabled { opacity:.35; cursor:default; }
+  .hidden { display:none; }
+  .bar { display:grid; grid-template-columns: 210px 1fr 64px; gap:10px; align-items:center; margin:8px 0; font: 14px/1.3 system-ui, sans-serif; }
+  .track { position:relative; height:16px; background:#23252a; }
+  .fill { position:absolute; left:0; top:0; bottom:0; }
+  .tick { position:absolute; top:-4px; bottom:-4px; width:1px; background:var(--ink); }
+  .tick.rule { background: var(--accent); }
+  .verdict { font: 600 14px/1.4 system-ui, sans-serif; }
+  .ok { color: var(--good); } .no { color: var(--bad); }
+  canvas { width:100%; height:auto; background:var(--panel); border:1px solid var(--rule); display:block; }
+  textarea { width:100%; min-height:80px; background:var(--panel); color:var(--ink); border:1px solid var(--rule); font: 15px/1.5 Georgia, serif; padding:10px; }
+  .legend span { margin-right:14px; }
+  .dot { display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:5px; vertical-align:middle; }
+  footer { margin-top:56px; color:var(--dim); font: 13px/1.5 system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Daily Page · Pheromone Trail · rough · sketch</div>
+  <h1>Does the palace's own trail reinforce itself?</h1>
+  <p>The page's face tests an ant colony. The colony answers for ants. This sketch asks the palace instead, from its own git history: do the pages that were walked keep getting walked, and do the ones nobody walked go cold?</p>
+
+  <section class="step">
+    <h2>1 · What counts as a step on the trail</h2>
+    <p>A <em>visit</em> is one commit that touches a page or its bundle, and touches no more than 5 pages in all. That keeps the deliberate visits and sets aside the sweeps, a Weave or a batch that touches everything at once. A sweep is the queen, not an ant.</p>
+    <p class="mono">window A · 2026-09-01 to 2026-10-06 · 195 visiting commits, 26 sweeps set aside<br>
+    window B · 2026-10-07 to 2026-11-06 · 1307 visiting commits, 28 sweeps set aside<br>
+    282 pages that already existed when window A opened</p>
+  </section>
+
+  <section class="step">
+    <h2>2 · Guess first</h2>
+    <p>Before the numbers, your hunch. Three questions, then the reveal opens.</p>
+    <div class="q" data-q="hot"><p>Of the most-visited quarter of pages in A, how many are still in the top quarter in B? Chance alone would say a quarter.</p>
+      <div class="opts"><button>about a quarter</button><button>about a third</button><button>about half</button><button>most of them</button></div></div>
+    <div class="q" data-q="cold"><p>Of the pages with no visit at all in A, how many stay unvisited through B?</p>
+      <div class="opts"><button>almost all</button><button>most</button><button>about half</button><button>under half</button></div></div>
+    <div class="q" data-q="links"><p>Which predicts a busy B better: being heavily linked to, or having been busy in A?</p>
+      <div class="opts"><button>the links</button><button>the use</button><button>about the same</button></div></div>
+    <button class="primary" id="reveal" disabled>Show the palace's answer</button>
+  </section>
+
+  <div id="answer" class="hidden">
+  <section class="step">
+    <h2>3 · The rules, fixed before the run</h2>
+    <p>The trail reinforces if the top quarter stays top at least 40% of the time (chance is 25%), and cold stays cold if at least half the unvisited pages stay unvisited. The amber mark is the rule; the white mark is chance.</p>
+    <div id="bars"></div>
+  </section>
+
+  <section class="step">
+    <h2>4 · The catch: B was a busier month</h2>
+    <p>Window B had 6.7× the visiting commits of A, so almost everything warmed: 66% of all pages were visited in B. Read against that, the cold pages were still less likely to be visited (62%) than the warm ones (77%). The trail tilts the odds. It does not decide them.</p>
+    <canvas id="plot" width="1400" height="820"></canvas>
+    <p class="legend mono"><span><i class="dot" style="background:var(--cool)"></i>a page</span><span><i class="dot" style="background:var(--accent)"></i>a page the Daily Page dealt</span> · visits in A across, visits in B up, both on a square-root scale</p>
+  </section>
+
+  <section class="step">
+    <h2>5 · The ant that walks off the trail</h2>
+    <p>The palace already has one. Of the pages the Daily Page dealt, 12 had no visit in window A. In B they had a median of 6 visits each; the other cold pages had a median of 1. The shuffle does not aim at cold pages. It ignores the trail entirely, and because most pages were cold, chance lands it on them, the way one ant in ten choosing at random frees a worn colony in the face's third piece.</p>
+    <p class="mono">Honest limit: a sat page's own morning commits count as visits, so part of this is the shuffle measuring itself. The fair version counts only visits after the morning was closed. Not run yet.</p>
+  </section>
+
+  <section class="step">
+    <h2>6 · Your read</h2>
+    <p>Does this change what the page should claim? One line is plenty.</p>
+    <textarea id="note" placeholder="your read"></textarea>
+    <p><button class="primary" id="copy">Send my guesses and read</button> <span id="copied" class="mono"></span></p>
+  </section>
+  </div>
+
+  <footer>A rough for the Daily Page, 2026-11-06. Every number is from git in this checkout, counted by a script in the session's scratchpad; nothing here is a measurement of what any worker read.</footer>
+</main>
+<script src="../../../../_ops/loudon-eval/answers.js"></script>
+<script>
+const D = {"windows": {"A": ["2026-09-01", "2026-10-07"], "B": ["2026-10-07", "2026-11-07"]}, "maxp": 5, "n": 282, "commits": {"A": [195, 26], "B": [1307, 28]}, "top_stays_top": 0.5428571428571428, "linked_top_is_hot": 0.4, "cold_n": 207, "cold_stays_cold": 0.38164251207729466, "rows": [{"id": "1 from 2", "a": 0, "b": 3, "inbound": 6}, {"id": "1D Wavetable Scanning", "a": 0, "b": 5, "inbound": 1}, {"id": "2D Torus Wavetable Synthesizer", "a": 10, "b": 20, "inbound": 22}, {"id": "4 Pillars Framework - The Founding Conversation", "a": 0, "b": 0, "inbound": 4}, {"id": "AI Partnership Philosophy", "a": 0, "b": 0, "inbound": 1}, {"id": "Action Potential Oscillator", "a": 3, "b": 8, "inbound": 21}, {"id": "Adopt the Craft, Author the Seam", "a": 0, "b": 7, "inbound": 10}, {"id": "Agent Toolbox", "a": 0, "b": 1, "inbound": 4}, {"id": "Agent Wellbeing", "a": 0, "b": 5, "inbound": 6}, {"id": "Agnes Martin", "a": 0, "b": 3, "inbound": 3}, {"id": "Andy Goldsworthy", "a": 0, "b": 0, "inbound": 3}, {"id": "Animate the Background", "a": 0, "b": 0, "inbound": 3}, {"id": "Annie Dillard", "a": 0, "b": 0, "inbound": 0}, {"id": "Audition Gate", "a": 0, "b": 0, "inbound": 5}, {"id": "Autodidact Polymaths", "a": 0, "b": 0, "inbound": 4}, {"id": "BBS Blackboard", "a": 0, "b": 1, "inbound": 17}, {"id": "BBS Design System", "a": 0, "b": 0, "inbound": 0}, {"id": "BLUELINE", "a": 4, "b": 22, "inbound": 18}, {"id": "Bayesian Granular Synthesizer", "a": 0, "b": 10, "inbound": 1}, {"id": "Bessel Functions in Synthesis", "a": 0, "b": 4, "inbound": 13}, {"id": "Biomechanical Synthesis", "a": 0, "b": 4, "inbound": 3}, {"id": "Blender", "a": 0, "b": 0, "inbound": 9}, {"id": "Block It in Blender, Ink It in genAI", "a": 0, "b": 0, "inbound": 2}, {"id": "Blocked, Not Prompted", "a": 0, "b": 0, "inbound": 13}, {"id": "Blood Compressor", "a": 1, "b": 9, "inbound": 1}, {"id": "Boundary-Crossing Instruments", "a": 0, "b": 5, "inbound": 30}, {"id": "Brian Eno", "a": 0, "b": 4, "inbound": 7}, {"id": "Bring In a Bigger Mind", "a": 0, "b": 0, "inbound": 2}, {"id": "Buckminster Fuller", "a": 0, "b": 3, "inbound": 0}, {"id": "CHILD", "a": 0, "b": 5, "inbound": 9}, {"id": "CLAUDE", "a": 10, "b": 12, "inbound": 2}, {"id": "Categorizing Inharmonicity", "a": 0, "b": 5, "inbound": 10}, {"id": "Chebyshev is Fourier", "a": 0, "b": 3, "inbound": 4}, {"id": "Christopher Alexander", "a": 0, "b": 0, "inbound": 3}, {"id": "Closing Well", "a": 27, "b": 45, "inbound": 19}, {"id": "ComfyUI", "a": 0, "b": 0, "inbound": 9}, {"id": "Comic and Cinema \u2014 Two Ways of Seeing", "a": 0, "b": 0, "inbound": 4}, {"id": "Compression \u2194 Intimacy", "a": 0, "b": 3, "inbound": 1}, {"id": "Compressor Design", "a": 0, "b": 3, "inbound": 8}, {"id": "Concierge", "a": 4, "b": 5, "inbound": 13}, {"id": "Confucianism", "a": 0, "b": 0, "inbound": 14}, {"id": "ControlNet as Topology", "a": 0, "b": 3, "inbound": 3}, {"id": "Cooking \u2194 Mixing", "a": 0, "b": 0, "inbound": 2}, {"id": "Cooperation Yields Agency", "a": 0, "b": 2, "inbound": 41}, {"id": "Cross-Domain Resonances", "a": 0, "b": 29, "inbound": 18}, {"id": "Crystal Synthesizer", "a": 1, "b": 13, "inbound": 12}, {"id": "D3.js", "a": 0, "b": 0, "inbound": 1}, {"id": "DSP Frameworks", "a": 0, "b": 0, "inbound": 5}, {"id": "DSP in Looping Dimensions", "a": 0, "b": 3, "inbound": 13}, {"id": "Deleuze", "a": 0, "b": 0, "inbound": 11}, {"id": "Depth Anything", "a": 0, "b": 0, "inbound": 1}, {"id": "Dialectic", "a": 0, "b": 0, "inbound": 10}, {"id": "Dialogue Moderator", "a": 0, "b": 0, "inbound": 1}, {"id": "Differential Equations", "a": 0, "b": 5, "inbound": 6}, {"id": "Dispersion", "a": 0, "b": 3, "inbound": 7}, {"id": "Dispersion Table", "a": 0, "b": 4, "inbound": 5}, {"id": "Dissolutions", "a": 0, "b": 21, "inbound": 7}, {"id": "Diversity of Thought in Many-Agent Systems", "a": 0, "b": 0, "inbound": 8}, {"id": "Does Personifying an Agent Change What It Does", "a": 0, "b": 0, "inbound": 0}, {"id": "Donella Meadows", "a": 1, "b": 0, "inbound": 10}, {"id": "Douglas Hofstadter", "a": 0, "b": 0, "inbound": 1}, {"id": "Dovetail Joint \u2194 Counterpoint", "a": 0, "b": 5, "inbound": 3}, {"id": "Drift and Consolidation", "a": 1, "b": 0, "inbound": 7}, {"id": "Dub Lineage", "a": 1, "b": 0, "inbound": 3}, {"id": "Embeddings as Relational Meaning", "a": 0, "b": 3, "inbound": 7}, {"id": "Enchanted Conversation Archive", "a": 1, "b": 0, "inbound": 0}, {"id": "Enchanted Worker", "a": 0, "b": 0, "inbound": 12}, {"id": "Endosymbiosis", "a": 0, "b": 1, "inbound": 11}, {"id": "Enrichment", "a": 14, "b": 66, "inbound": 11}, {"id": "Entry Conatus", "a": 1, "b": 0, "inbound": 5}, {"id": "Epictetus", "a": 0, "b": 0, "inbound": 1}, {"id": "Excellent Adventure", "a": 1, "b": 1, "inbound": 15}, {"id": "Exponential Decay Curvature", "a": 0, "b": 8, "inbound": 3}, {"id": "FLUX (Hugging Face)", "a": 0, "b": 2, "inbound": 3}, {"id": "FOUR PILLARS", "a": 1, "b": 2, "inbound": 78}, {"id": "Figure Rig", "a": 0, "b": 0, "inbound": 2}, {"id": "Flocking", "a": 0, "b": 3, "inbound": 13}, {"id": "Floquet Theory", "a": 0, "b": 3, "inbound": 7}, {"id": "Floquet Time-Modulated Loops", "a": 1, "b": 13, "inbound": 6}, {"id": "Found \u2194 Made", "a": 1, "b": 0, "inbound": 8}, {"id": "Four Pillars of Enchanted Agency", "a": 0, "b": 1, "inbound": 5}, {"id": "Frame Designer", "a": 0, "b": 1, "inbound": 8}, {"id": "Frequency Domain \u2194 Perspective Shift", "a": 0, "b": 3, "inbound": 2}, {"id": "Frequency-Time Duality", "a": 0, "b": 14, "inbound": 29}, {"id": "Gemma 4 \u2014 Local Coordination Guide", "a": 0, "b": 0, "inbound": 1}, {"id": "GenAI Camera", "a": 1, "b": 4, "inbound": 2}, {"id": "Generative Audio Devices", "a": 0, "b": 11, "inbound": 12}, {"id": "Generative Compression", "a": 1, "b": 0, "inbound": 5}, {"id": "Generative Preset Development", "a": 2, "b": 10, "inbound": 4}, {"id": "Generative Sample Libraries", "a": 10, "b": 21, "inbound": 8}, {"id": "Generative Wavetable Libraries", "a": 2, "b": 9, "inbound": 4}, {"id": "George Nakashima", "a": 0, "b": 0, "inbound": 1}, {"id": "Granular Synthesis", "a": 0, "b": 3, "inbound": 15}, {"id": "Graphic Storytelling", "a": 0, "b": 8, "inbound": 4}, {"id": "Hand-Drawn 3D Look", "a": 0, "b": 3, "inbound": 4}, {"id": "Harmonicity and Inharmonicity", "a": 0, "b": 4, "inbound": 16}, {"id": "Hero and Avatar Maker", "a": 5, "b": 5, "inbound": 5}, {"id": "Hilaritas Generator", "a": 0, "b": 3, "inbound": 45}, {"id": "Hyperdimensional Prism", "a": 0, "b": 3, "inbound": 26}, {"id": "Iain McGilchrist", "a": 0, "b": 1, "inbound": 4}, {"id": "Identity Molting", "a": 1, "b": 0, "inbound": 10}, {"id": "Image-to-3D Smith", "a": 0, "b": 0, "inbound": 1}, {"id": "Inharmonic Wavetable Synthesis", "a": 1, "b": 22, "inbound": 7}, {"id": "JEWEL", "a": 0, "b": 2, "inbound": 5}, {"id": "JSUI", "a": 0, "b": 1, "inbound": 1}, {"id": "James Turrell", "a": 1, "b": 0, "inbound": 1}, {"id": "John Cage", "a": 0, "b": 1, "inbound": 2}, {"id": "Julia Cameron", "a": 0, "b": 0, "inbound": 2}, {"id": "Kick Drum \u2194 Foundation", "a": 0, "b": 0, "inbound": 4}, {"id": "Kokoro", "a": 0, "b": 0, "inbound": 6}, {"id": "Kuramoto Coupling", "a": 8, "b": 6, "inbound": 50}, {"id": "LaMa", "a": 0, "b": 0, "inbound": 2}, {"id": "LaTeX", "a": 0, "b": 0, "inbound": 0}, {"id": "Language as a Tonal Medium", "a": 1, "b": 4, "inbound": 2}, {"id": "Lao Tzu", "a": 0, "b": 0, "inbound": 6}, {"id": "Latent Error", "a": 0, "b": 3, "inbound": 5}, {"id": "Lateral Access", "a": 0, "b": 1, "inbound": 21}, {"id": "Leibniz", "a": 0, "b": 1, "inbound": 2}, {"id": "Lettering", "a": 0, "b": 4, "inbound": 1}, {"id": "Leverage Points Framework", "a": 0, "b": 5, "inbound": 10}, {"id": "Like Water", "a": 0, "b": 0, "inbound": 9}, {"id": "Linear Predictive Coding", "a": 0, "b": 3, "inbound": 4}, {"id": "LoRA Trainer", "a": 1, "b": 1, "inbound": 1}, {"id": "Logarithmic Interface Scaling", "a": 0, "b": 3, "inbound": 3}, {"id": "Lossy Compression with Intent Alignment", "a": 0, "b": 3, "inbound": 5}, {"id": "Loudon Live", "a": 0, "b": 4, "inbound": 29}, {"id": "Loudon Live Design System", "a": 0, "b": 15, "inbound": 20}, {"id": "Loudon Live Post-producer", "a": 0, "b": 2, "inbound": 3}, {"id": "Loudon's Toolkit", "a": 1, "b": 2, "inbound": 4}, {"id": "Maker", "a": 1, "b": 10, "inbound": 42}, {"id": "Making a Palace Citizen", "a": 1, "b": 3, "inbound": 27}, {"id": "Manim CE", "a": 0, "b": 1, "inbound": 3}, {"id": "Marcus Aurelius", "a": 0, "b": 0, "inbound": 4}, {"id": "Martin Buber", "a": 0, "b": 0, "inbound": 4}, {"id": "Martin Heidegger", "a": 0, "b": 0, "inbound": 3}, {"id": "Mathieu Equation", "a": 0, "b": 3, "inbound": 3}, {"id": "Matplotlib", "a": 1, "b": 0, "inbound": 5}, {"id": "Meadows and Music \u2014 Leverage Points", "a": 1, "b": 0, "inbound": 4}, {"id": "Meadows and an Artist's Career", "a": 2, "b": 8, "inbound": 2}, {"id": "Meaning and the Link", "a": 0, "b": 0, "inbound": 15}, {"id": "Merleau-Ponty", "a": 0, "b": 0, "inbound": 11}, {"id": "Mermaid", "a": 0, "b": 0, "inbound": 1}, {"id": "Metaphor as Coupling Medium", "a": 0, "b": 0, "inbound": 4}, {"id": "Metric Modulation", "a": 0, "b": 3, "inbound": 2}, {"id": "Mixture of Experts", "a": 0, "b": 1, "inbound": 12}, {"id": "Modes of Collaboration", "a": 1, "b": 3, "inbound": 23}, {"id": "Move the Ink, Don't Redraw It", "a": 0, "b": 3, "inbound": 3}, {"id": "Murmuration", "a": 0, "b": 8, "inbound": 1}, {"id": "Neural Granular Synthesis", "a": 4, "b": 9, "inbound": 8}, {"id": "No Mind Checks Itself", "a": 2, "b": 0, "inbound": 6}, {"id": "Oblique Portrait", "a": 0, "b": 0, "inbound": 11}, {"id": "Observable Plot", "a": 0, "b": 0, "inbound": 1}, {"id": "Ohm's Law", "a": 0, "b": 3, "inbound": 3}, {"id": "Palace Conatus", "a": 1, "b": 3, "inbound": 5}, {"id": "Palace Enchantment", "a": 0, "b": 2, "inbound": 25}, {"id": "Palace Orchestrator", "a": 2, "b": 3, "inbound": 8}, {"id": "Palace Philosophies", "a": 0, "b": 2, "inbound": 5}, {"id": "Palace as Context Injection System", "a": 0, "b": 27, "inbound": 15}, {"id": "Parametric Resonance", "a": 0, "b": 3, "inbound": 5}, {"id": "Particle Synthesis", "a": 3, "b": 8, "inbound": 7}, {"id": "Pauline Oliveros", "a": 0, "b": 0, "inbound": 2}, {"id": "Phase Reduction", "a": 0, "b": 4, "inbound": 2}, {"id": "Pheromone Trail", "a": 0, "b": 3, "inbound": 8}, {"id": "Philosopher Visits the Entry", "a": 0, "b": 0, "inbound": 11}, {"id": "Phoneme Choir", "a": 0, "b": 4, "inbound": 4}, {"id": "Photonic Time Crystals", "a": 0, "b": 3, "inbound": 1}, {"id": "Piano String Inharmonicity", "a": 0, "b": 10, "inbound": 10}, {"id": "Playful Interface Design", "a": 0, "b": 6, "inbound": 6}, {"id": "Portamento and Physical Pitch Modeling", "a": 2, "b": 9, "inbound": 10}, {"id": "Preset Oracle", "a": 0, "b": 7, "inbound": 4}, {"id": "Progressive Staging", "a": 0, "b": 6, "inbound": 24}, {"id": "Project Stewardship System", "a": 0, "b": 54, "inbound": 17}, {"id": "Quadratic Interpolation in DSP", "a": 0, "b": 3, "inbound": 2}, {"id": "Quality Manifesto", "a": 0, "b": 1, "inbound": 38}, {"id": "Quantization \u2194 Precision vs Flow", "a": 0, "b": 5, "inbound": 1}, {"id": "Quantum Synthesizer", "a": 3, "b": 19, "inbound": 4}, {"id": "README - The Palace Guide", "a": 5, "b": 6, "inbound": 6}, {"id": "RNBO codebox~ smith", "a": 0, "b": 0, "inbound": 3}, {"id": "ROSETTA", "a": 6, "b": 11, "inbound": 6}, {"id": "Radio Play", "a": 1, "b": 3, "inbound": 4}, {"id": "Rank-N Lattice Analysis", "a": 3, "b": 3, "inbound": 2}, {"id": "Registry Pattern", "a": 0, "b": 0, "inbound": 5}, {"id": "Remnants in Depth", "a": 0, "b": 3, "inbound": 4}, {"id": "Remotion", "a": 0, "b": 0, "inbound": 1}, {"id": "Resonant Link Labels", "a": 0, "b": 2, "inbound": 3}, {"id": "Retrospective Delay", "a": 2, "b": 12, "inbound": 9}, {"id": "Reverb \u2194 Space-Time", "a": 0, "b": 3, "inbound": 2}, {"id": "Review Layer", "a": 1, "b": 3, "inbound": 4}, {"id": "Rick Rubin", "a": 0, "b": 0, "inbound": 7}, {"id": "RunPod GPU Backend", "a": 4, "b": 1, "inbound": 2}, {"id": "SAM", "a": 0, "b": 0, "inbound": 1}, {"id": "SCHEMA", "a": 7, "b": 12, "inbound": 22}, {"id": "SCHEMA \u2014 Reference", "a": 7, "b": 12, "inbound": 11}, {"id": "SMPTE LTC", "a": 0, "b": 13, "inbound": 1}, {"id": "STIGMERGY", "a": 14, "b": 39, "inbound": 34}, {"id": "STIGMERGY Philosophical Lenses", "a": 0, "b": 1, "inbound": 4}, {"id": "SUBSTRATE", "a": 2, "b": 6, "inbound": 27}, {"id": "Saturation \u2194 Richness", "a": 0, "b": 3, "inbound": 1}, {"id": "Scale-Stratified Identity", "a": 0, "b": 3, "inbound": 2}, {"id": "Search Before You Build", "a": 0, "b": 1, "inbound": 6}, {"id": "Self-Describing Knowledge Module", "a": 3, "b": 11, "inbound": 6}, {"id": "Semantic Delay", "a": 3, "b": 9, "inbound": 6}, {"id": "Semantic Webcam", "a": 1, "b": 9, "inbound": 2}, {"id": "Seneca", "a": 0, "b": 0, "inbound": 1}, {"id": "Shepard Tone Synthesizer", "a": 3, "b": 8, "inbound": 6}, {"id": "Shimmer Cloud", "a": 0, "b": 9, "inbound": 3}, {"id": "Shopkeeper", "a": 9, "b": 32, "inbound": 2}, {"id": "Shunryu Suzuki", "a": 0, "b": 0, "inbound": 4}, {"id": "Sidechain \u2194 Conversation", "a": 0, "b": 3, "inbound": 4}, {"id": "Signal-Rate CV Architecture", "a": 0, "b": 3, "inbound": 5}, {"id": "Simondon", "a": 0, "b": 0, "inbound": 13}, {"id": "Skills Are Enchantable Pages", "a": 0, "b": 0, "inbound": 4}, {"id": "Slime Mold Delay", "a": 1, "b": 7, "inbound": 1}, {"id": "Songlines", "a": 0, "b": 3, "inbound": 2}, {"id": "Source Library", "a": 1, "b": 1, "inbound": 23}, {"id": "Speak Like a Person, Log Like a Protocol", "a": 0, "b": 0, "inbound": 1}, {"id": "Spinoza", "a": 0, "b": 1, "inbound": 6}, {"id": "Spinoza Conatus", "a": 0, "b": 3, "inbound": 44}, {"id": "Stable Audio Open", "a": 1, "b": 0, "inbound": 3}, {"id": "State Machine", "a": 0, "b": 3, "inbound": 1}, {"id": "Steer the Generator", "a": 1, "b": 1, "inbound": 10}, {"id": "Stoicism", "a": 0, "b": 1, "inbound": 15}, {"id": "Striatum", "a": 0, "b": 0, "inbound": 3}, {"id": "Swarm Weave", "a": 0, "b": 3, "inbound": 19}, {"id": "Symbiotic Skills", "a": 0, "b": 2, "inbound": 15}, {"id": "Synthesis Topologies", "a": 0, "b": 8, "inbound": 11}, {"id": "Synthesis \u2194 Emergence", "a": 0, "b": 4, "inbound": 4}, {"id": "Talking Keyboard", "a": 0, "b": 3, "inbound": 2}, {"id": "The 2.5D Paper Stack", "a": 0, "b": 3, "inbound": 4}, {"id": "The Adjacent Affordance", "a": 0, "b": 1, "inbound": 0}, {"id": "The Aftermath Frame", "a": 0, "b": 3, "inbound": 3}, {"id": "The Blindspot Is the Surprise Fuel", "a": 0, "b": 0, "inbound": 6}, {"id": "The Commons", "a": 0, "b": 3, "inbound": 4}, {"id": "The Cooperation Path", "a": 0, "b": 0, "inbound": 1}, {"id": "The Curve Is the Material", "a": 0, "b": 3, "inbound": 2}, {"id": "The Dichotomy of Control", "a": 0, "b": 3, "inbound": 14}, {"id": "The Drift", "a": 0, "b": 0, "inbound": 8}, {"id": "The Flow Field is the Spine", "a": 0, "b": 6, "inbound": 6}, {"id": "The Fortress and the Threshold", "a": 0, "b": 0, "inbound": 6}, {"id": "The Four Virtues", "a": 0, "b": 0, "inbound": 5}, {"id": "The Lens", "a": 0, "b": 12, "inbound": 1}, {"id": "The Metaphor Stretch", "a": 0, "b": 3, "inbound": 3}, {"id": "The Multilinear Self", "a": 0, "b": 3, "inbound": 6}, {"id": "The Palace Hardens Around Values", "a": 1, "b": 0, "inbound": 4}, {"id": "The Palace Practices on Itself", "a": 1, "b": 0, "inbound": 4}, {"id": "The Palace Speaks", "a": 1, "b": 0, "inbound": 5}, {"id": "The Palace Voice", "a": 0, "b": 3, "inbound": 0}, {"id": "The Practice Rediscovers Its Philosophy", "a": 0, "b": 0, "inbound": 2}, {"id": "The Reader's Context Window", "a": 0, "b": 0, "inbound": 1}, {"id": "The Remembering Page", "a": 0, "b": 1, "inbound": 4}, {"id": "The Scroll", "a": 7, "b": 7, "inbound": 5}, {"id": "The Shop", "a": 2, "b": 7, "inbound": 53}, {"id": "The View From Above", "a": 0, "b": 0, "inbound": 6}, {"id": "Three Kinds of Warp", "a": 0, "b": 3, "inbound": 8}, {"id": "Three.js", "a": 0, "b": 1, "inbound": 5}, {"id": "Threshold Conatus", "a": 0, "b": 3, "inbound": 11}, {"id": "Tone.js", "a": 0, "b": 3, "inbound": 3}, {"id": "Tool Builder", "a": 1, "b": 0, "inbound": 3}, {"id": "Tract Mirror", "a": 1, "b": 4, "inbound": 2}, {"id": "Tree of Thoughts", "a": 0, "b": 0, "inbound": 1}, {"id": "Trickster", "a": 1, "b": 1, "inbound": 23}, {"id": "Trickster Commit", "a": 0, "b": 0, "inbound": 3}, {"id": "Two Batons, One Board", "a": 0, "b": 2, "inbound": 1}, {"id": "Typography as Meaning", "a": 0, "b": 4, "inbound": 3}, {"id": "VCV Patch Generator", "a": 1, "b": 1, "inbound": 1}, {"id": "Volterra Kernels and the Torus", "a": 0, "b": 3, "inbound": 2}, {"id": "Walk That Weaves", "a": 0, "b": 0, "inbound": 1}, {"id": "Wallpaper Groups", "a": 0, "b": 9, "inbound": 7}, {"id": "Waveguide Synthesizer", "a": 5, "b": 17, "inbound": 9}, {"id": "Wavetable Scanner", "a": 0, "b": 13, "inbound": 3}, {"id": "Wavetable Space as Torus", "a": 0, "b": 3, "inbound": 5}, {"id": "Wavetable Synthesis \u2014 Deep Research & Higher-Dimensional Design", "a": 0, "b": 2, "inbound": 3}, {"id": "Weaving Memory into the Palace", "a": 0, "b": 0, "inbound": 1}, {"id": "Web Audio Worklet", "a": 0, "b": 3, "inbound": 5}, {"id": "Whisper", "a": 0, "b": 0, "inbound": 4}, {"id": "Whitehead", "a": 0, "b": 0, "inbound": 7}, {"id": "Worktree Practice", "a": 3, "b": 24, "inbound": 3}, {"id": "Yasujir\u014d Ozu", "a": 0, "b": 0, "inbound": 0}, {"id": "Zoom Out to the Structure", "a": 0, "b": 1, "inbound": 4}, {"id": "assume multi-agent", "a": 0, "b": 0, "inbound": 7}, {"id": "ffmpeg", "a": 0, "b": 0, "inbound": 6}, {"id": "p5.js", "a": 0, "b": 0, "inbound": 4}], "daily": ["Adopt the Craft, Author the Seam", "Agent Wellbeing", "BBS Design System", "BLUELINE", "Dissolutions", "Graphic Storytelling", "Harmonicity and Inharmonicity", "Loudon Live", "Palace as Context Injection System", "Project Stewardship System", "Quantization \u2194 Precision vs Flow", "The Lens", "Typography as Meaning"]};
+const answers = {};
+document.querySelectorAll('.q').forEach(q => {
+  q.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+    q.querySelectorAll('button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on'); answers[q.dataset.q] = b.textContent;
+    document.getElementById('reveal').disabled = Object.keys(answers).length < 3;
+  }));
+});
+document.getElementById('reveal').addEventListener('click', () => {
+  document.getElementById('answer').classList.remove('hidden');
+  drawBars(); drawPlot();
+  document.getElementById('answer').scrollIntoView({behavior:'smooth'});
+});
+function bar(label, v, chance, rule, pass) {
+  return `<div class="bar"><div>${label}</div><div class="track">
+    <div class="fill" style="width:${v*100}%;background:${pass?'var(--good)':'var(--bad)'}"></div>
+    ${chance!=null?`<div class="tick" style="left:${chance*100}%"></div>`:''}
+    <div class="tick rule" style="left:${rule*100}%"></div></div>
+    <div class="verdict ${pass?'ok':'no'}">${Math.round(v*100)}%</div></div>`;
+}
+function drawBars() {
+  const h = D.top_stays_top, c = D.cold_stays_cold, l = D.linked_top_is_hot;
+  document.getElementById('bars').innerHTML =
+    bar('top quarter stays top', h, .25, .40, h >= .40) +
+    bar('cold stays cold', c, null, .50, c >= .50) +
+    bar('most-linked quarter is top in B', l, .25, .40, l >= .40) +
+    `<p class="mono">your guesses: hot · ${answers.hot} — cold · ${answers.cold} — links or use · ${answers.links}</p>
+     <p>Reinforcement <span class="ok">holds</span>: a busy page tends to stay busy, about twice chance. Cold staying cold <span class="no">fails</span>: most unvisited pages were visited next month. And use predicted the next month better than links did (${Math.round(h*100)}% against ${Math.round(l*100)}%): the trail is the walking more than the wiring.</p>`;
+}
+function drawPlot() {
+  const cv = document.getElementById('plot'), g = cv.getContext('2d');
+  const W = cv.width, H = cv.height, P = 70;
+  const s = Math.sqrt;
+  const maxA = Math.max(...D.rows.map(r => r.a)), maxB = Math.max(...D.rows.map(r => r.b));
+  const X = a => P + s(a) / s(maxA) * (W - 2*P), Y = b => H - P - s(b) / s(maxB) * (H - 2*P);
+  g.clearRect(0,0,W,H); g.strokeStyle = '#34363b'; g.lineWidth = 2;
+  g.beginPath(); g.moveTo(P, P/2); g.lineTo(P, H-P); g.lineTo(W-P/2, H-P); g.stroke();
+  g.fillStyle = '#9a968c'; g.font = '22px system-ui';
+  [0,1,4,9,16,25].filter(v => v <= maxA).forEach(v => g.fillText(v, X(v)-6, H-P+30));
+  [0,1,4,9,16,25,36,49,64].filter(v => v <= maxB).forEach(v => g.fillText(v, P-40, Y(v)+7));
+  g.fillText('visits in A', W/2-50, H-14);
+  g.save(); g.translate(22, H/2+50); g.rotate(-Math.PI/2); g.fillText('visits in B', 0, 0); g.restore();
+  const daily = new Set(D.daily);
+  const jit = () => (Math.random()-.5) * 14;
+  D.rows.filter(r => !daily.has(r.id)).forEach(r => dot(X(r.a)+jit(), Y(r.b)+jit(), '#6fa8c8', 6));
+  D.rows.filter(r => daily.has(r.id)).forEach(r => { const x = X(r.a)+jit(), y = Y(r.b)+jit(); dot(x, y, '#e0a54a', 9);
+    if (r.b >= 12) { g.fillStyle = '#e0a54a'; g.font = '20px system-ui'; g.fillText(r.id, x+14, y+6); } });
+  function dot(x, y, c, r) { g.fillStyle = c; g.globalAlpha = .8; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); g.globalAlpha = 1; }
+}
+document.getElementById('copy').addEventListener('click', async () => {
+  const note = document.getElementById('note').value || '—';
+  const t = `Pheromone Trail rough · his guesses: hot stays hot — ${answers.hot}; cold stays cold — ${answers.cold}; links or use — ${answers.links}.\nResult: top stays top ${Math.round(D.top_stays_top*100)}% (chance 25%), cold stays cold ${Math.round(D.cold_stays_cold*100)}%, linked quarter top ${Math.round(D.linked_top_is_hot*100)}%.\nHis read: ${note}`;
+  if (window.PalaceAnswers) {
+    const r = await PalaceAnswers.submit({ page: 'Pheromone Trail', task: 'the-palaces-own-trail',
+      answers: { hot: answers.hot, cold: answers.cold, links: answers.links, read: note }, text: t });
+    document.getElementById('copied').textContent = r && r.mode === 'copy' ? '' : 'sent to the board';
+    return;
+  }
+  try { await navigator.clipboard.writeText(t); document.getElementById('copied').textContent = 'copied, paste it in the chat'; }
+  catch (e) { document.getElementById('note').value = t; document.getElementById('copied').textContent = 'copy blocked: the block is in the box, select and copy it'; }
+});
+</script>
+</body>
+</html>

@@ -76,3 +76,7 @@ The Spore Check ceremony is the mechanism for detecting decayed trails and decid
   — answered on [[Swarm Weave]] § The oblique lens: every weave now cuts the map once more with no axis at all, a chance cover that sends workers off the worn routes (2026-10-24)
 - Should the palace develop a convention for marking fresh trails vs. reinforced ones — a `confidence` or use threshold below which a link is considered provisional?
   — answered on [[Weave Ceremony]]: a typed link is a claim with a reason — its type, its label, or a sentence in the body — and a link with no reason is cut (Steps 3c–3e). A trail without a reason is not provisional; it is absent until it has one (2026-10-24)
+
+## Active Baton
+
+[[Pheromone Trail — baton]] — drafted 2026-11-07
