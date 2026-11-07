@@ -79,7 +79,7 @@ _No plan agreed yet. Until there is one, the work leans on the page's forward ve
 ## Standing Orders
 
 <!-- scroll:orders:start -->
-_Loudon's standing direction for this project. The steward reads this zone every cycle before anything else, and it is never regenerated. Taste, priorities, "stop asking me about X", "always prefer Y" — write it once here instead of answering it every cycle._
+- **Push the playful interface ideas even further as this develops** (Loudon, 2026-11-07): "the standing order should be to push the playful interface ideas even further as this continues to develop."
 <!-- scroll:orders:end -->
 
 ## The making
