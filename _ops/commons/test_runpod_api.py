@@ -91,6 +91,19 @@ def offline():
     except NotImplementedError:
         check("an unmapped v1 path is refused by name", True)
 
+    # set_workers reads the scale back: a 2xx PATCH that changed nothing raises.
+    for took, label in ((True, "a scale that took returns"), (False, "a 2xx scale that did not take raises")):
+        state = {"workers": {"min": 0, "max": 0, "idleTimeout": 5}}
+        def fake(method, path, body=None, ok=(200,), **k):
+            if method == "PATCH" and took: state["workers"] = dict(body["workers"])
+            return dict(state)
+        rp4 = R.Runpod(api_key="test"); rp4.call = fake
+        try:
+            ok_ = rp4.set_workers("ep", 1) == 1 and took
+        except R.RunpodError:
+            ok_ = not took
+        check(f"set_workers: {label}", ok_)
+
 
 def live():
     import json
