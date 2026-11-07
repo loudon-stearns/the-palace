@@ -135,7 +135,8 @@
   .banner button { font: inherit; color: var(--warn); background: none; border: 1px solid var(--warn); border-radius: 2px; padding: 2px 8px; cursor: pointer; }
   .pin { font-family: var(--mono); font-size: 12px; color: var(--fg-3); background: none; border: 0; cursor: pointer; letter-spacing: 0.1em; padding: 0; }
   .pin.has { color: var(--accent); }
-  .rf-note { display: none; margin: -12px 0 24px; }
+  .rf-foot { display: flex; gap: 18px; margin-top: 22px; padding-top: 10px; border-top: 1px dashed var(--border); }
+  .rf-note { display: none; margin: 10px 0 0; }
   .rf-note.open { display: block; }
   .rf-note textarea, #dock textarea { width: 100%; min-height: 72px; resize: vertical; background: var(--bg-elev-1); color: var(--fg-1); border: 1px solid var(--border);
     border-radius: 2px; padding: 10px 12px; font-family: var(--sans); font-weight: 300; font-size: 14px; line-height: 1.5; }
@@ -149,6 +150,22 @@
   #dock .actions button { flex: 1; font: inherit; text-transform: uppercase; letter-spacing: 0.12em; background: var(--bg); color: var(--fg-2); border: 1px solid var(--border); border-radius: 2px; padding: 7px 8px; cursor: pointer; }
   #dock .actions button.send { color: var(--accent); border-color: var(--accent-line); }
   #dock .msg { margin-top: 8px; letter-spacing: 0.06em; line-height: 1.5; text-transform: none; }
+  #dock .actions button:disabled { opacity: 0.55; cursor: progress; }
+  #sent { position: fixed; left: 50%; bottom: 26px; z-index: 31; transform: translateX(-50%); max-width: min(560px, calc(100vw - 32px));
+    background: var(--bg-elev-2); border: 1.5px solid var(--accent); border-radius: 2px; padding: 12px 18px; cursor: pointer;
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--fg-1); box-shadow: 0 0 0 6px var(--accent-soft);
+    animation: sent-rise 0.5s cubic-bezier(.2,1.4,.4,1); }
+  #sent.fail { border-color: var(--warn); box-shadow: none; }
+  #sent .sent-head { text-transform: uppercase; color: var(--accent); }
+  #sent.fail .sent-head { color: var(--warn); }
+  #sent .sent-items { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 6px; color: var(--fg-3); letter-spacing: 0.04em; }
+  #sent.ok .sent-items span { animation: sent-pop 0.4s ease-out backwards; }
+  #sent.ok .sent-items span:nth-child(2) { animation-delay: 0.08s; } #sent.ok .sent-items span:nth-child(3) { animation-delay: 0.16s; }
+  #sent.ok .sent-items span:nth-child(4) { animation-delay: 0.24s; } #sent.ok .sent-items span:nth-child(n+5) { animation-delay: 0.32s; }
+  #sent[hidden] { display: none; }
+  @keyframes sent-rise { from { opacity: 0; transform: translate(-50%, 18px); } }
+  @keyframes sent-pop { from { opacity: 0; transform: translateY(6px); } }
+  @media (prefers-reduced-motion: reduce) { #sent, #sent .sent-items span { animation: none; } }
 
   footer.sig { margin-top: 100px; padding-top: 22px; border-top: 1.5px solid var(--border); display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap;
     font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-3); }
@@ -183,13 +200,14 @@
   <footer class="sig" id="sig"></footer>
 </div>
 <div class="banner" id="banner" hidden><span>The text's shape changed — sections or figures moved.</span><button id="relay">re-lay the page</button></div>
+<div id="sent" role="status" aria-live="polite" hidden></div>
 <div id="dock" hidden>
   <header id="dock-head"><span>◇ Review</span><span id="dock-count">0 notes</span></header>
   <div class="body">
     <div style="margin-bottom:6px;text-transform:uppercase">The whole page</div>
     <textarea id="overall" placeholder="How does the page land as a whole?"></textarea>
     <div class="actions"><button class="send" id="send">Send to STIGMERGY</button><button id="copy">Copy</button></div>
-    <div class="msg" id="dock-msg">Leave a note on any section with its ◇. Notes save as you type.</div>
+    <div class="msg" id="dock-msg">Leave a note at the foot of any section, with its ◇. Notes save as you type.</div>
   </div>
 </div>
 

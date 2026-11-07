@@ -440,25 +440,33 @@ async function laySection(s, idx) {
     if (r.band.childElementCount) el.append(r.band);
   }
 
+  // The note sits at the section's foot, in the reader's order: you read a
+  // section, then you review it (Loudon, 2026-11-07).
   if (REVIEW) {
     const k = noteKey(s.key);
     const ta = h('textarea', { placeholder: `A note on “${s.heading}” — the words, the pieces, or both.` });
     ta.value = localStorage.getItem(k) || '';
     const box = h('div', { class: 'rf-note' }, ta);
-    const pin = h('button', { class: 'pin' + (ta.value ? ' has' : ''), title: 'leave a note on this section' }, ta.value ? '◆ note' : '◇ note');
+    const pin = h('button', { class: 'pin', title: 'leave a note on this section' });
+    const paint = () => { pin.className = 'pin' + (ta.value ? ' has' : ''); pin.textContent = ta.value ? '◆ your note on this section' : '◇ a note on this section'; };
     pin.onclick = () => { box.classList.toggle('open'); if (box.classList.contains('open')) ta.focus(); };
-    ta.oninput = () => { localStorage.setItem(k, ta.value); pin.className = 'pin' + (ta.value ? ' has' : ''); pin.textContent = ta.value ? '◆ note' : '◇ note'; countNotes(); };
-    flags.append(pin);
+    ta.oninput = () => { localStorage.setItem(k, ta.value); paint(); countNotes(); };
+    const foot = h('div', { class: 'rf-foot' }, pin);
     // A proposal section also takes Loudon's yes: the button rides with the
     // notes to the board as `verdict: "approve"`, and approve.mjs --via dock
     // writes it into the manifest. Nothing here writes the manifest itself.
+    let paintAp = () => {};
     if (isProposal(ms)) {
       const ak = approveKey(s.key), on = () => localStorage.getItem(ak) === '1';
-      const ap = h('button', { class: 'pin' + (on() ? ' has' : ''), title: 'approve this section — sent with your notes to STIGMERGY, where the next session writes it' }, on() ? '◆ approved' : '◇ approve');
-      ap.onclick = () => { localStorage.setItem(ak, on() ? '' : '1'); ap.className = 'pin' + (on() ? ' has' : ''); ap.textContent = on() ? '◆ approved' : '◇ approve'; countNotes(); };
-      flags.append(ap);
+      const ap = h('button', { class: 'pin', title: 'approve this section — sent with your notes to STIGMERGY, where the next session writes it' });
+      paintAp = () => { ap.className = 'pin' + (on() ? ' has' : ''); ap.textContent = on() ? '◆ approved' : '◇ approve'; };
+      ap.onclick = () => { localStorage.setItem(ak, on() ? '' : '1'); paintAp(); countNotes(); };
+      foot.append(ap);
     }
-    label.after(box);
+    paint(); paintAp();
+    // After a send clears what went, each section re-reads its box from storage.
+    noteViews.push(() => { ta.value = localStorage.getItem(k) || ''; if (!ta.value) box.classList.remove('open'); paint(); paintAp(); });
+    el.append(foot, box);
   }
   return el;
 }
@@ -497,6 +505,7 @@ const round = () => (manifest && manifest.round) || 1;
 const noteKey = (k) => `richface:${ENTRY}:r${round()}:${k}`;
 const approveKey = (k) => noteKey(k) + ':approve';
 const approvedHere = (s) => isProposal(manifestSection(s.key)) && localStorage.getItem(approveKey(s.key)) === '1';
+const noteViews = [];
 function countNotes() {
   let n = 0, a = 0;
   for (const s of entry.sections) { if ((localStorage.getItem(noteKey(s.key)) || '').trim()) n++; if (approvedHere(s)) a++; }
@@ -524,17 +533,65 @@ function mountDock() {
       ...Object.entries(d.groups).map(([k, v]) => `**${k}:**${v.verdict ? ` *${v.verdict}*` : ''}${v.note ? ' ' + v.note : ''}`)].filter((x) => x !== false && x !== '').join('\n\n');
     try { await navigator.clipboard.writeText(md); $('#dock-msg').textContent = 'Copied as markdown.'; } catch { $('#dock-msg').textContent = 'Clipboard blocked — use Send.'; }
   };
-  $('#send').onclick = async () => {
+  // One send at a time: the button is off while a send is in flight, and a
+  // send that lands clears what it carried, so a second click finds nothing to
+  // send. A failed send keeps every note.
+  const send = $('#send');
+  send.onclick = async () => {
+    if (send.disabled) return;
     const d = collectNotes();
-    if (!countNotes()) { $('#dock-msg').textContent = 'Nothing to send yet.'; return; }
-    $('#dock-msg').textContent = 'Sending…';
+    if (!countNotes()) {
+      $('#dock-msg').textContent = $('#dock-msg').title ? 'Nothing new to send — your last send is on the board.' : 'Nothing to send yet — leave a note at the foot of any section.';
+      return;
+    }
+    send.disabled = true; send.textContent = 'Sending…';
     try {
       const r = await fetch('_api/review', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) });
-      const j = await r.json();
-      $('#dock-msg').textContent = r.ok ? `On the board — ${j.message_id}. The next session reads it from there.` : `Not sent: ${j.error || JSON.stringify(j.board_response)}`;
-    } catch (e) { $('#dock-msg').textContent = 'Not sent: ' + e.message; }
+      const j = await r.json().catch(() => ({}));
+      if (r.ok) {
+        clearSent(d);
+        const where = [...Object.keys(d.groups), ...(d.overall.note ? ['the whole page'] : [])];
+        $('#dock-msg').textContent = `Sent. ${where.length} note${where.length === 1 ? '' : 's'} on the board, boxes cleared. The next session on ${ENTRY} finds them there.`;
+        $('#dock-msg').title = j.message_id || '';
+        flash(true, where);
+      } else {
+        const why = j.error || JSON.stringify(j.board_response) || `HTTP ${r.status}`;
+        $('#dock-msg').textContent = `Not sent — your notes are kept. ${why}`;
+        flash(false, [why]);
+      }
+    } catch (e) {
+      $('#dock-msg').textContent = `Not sent — your notes are kept. ${e.message}`;
+      flash(false, [e.message]);
+    } finally { send.disabled = false; send.textContent = 'Send to STIGMERGY'; }
   };
   countNotes();
+}
+
+// Clear only what the send carried: a note typed while it was in flight stays.
+function clearSent(d) {
+  for (const s of entry.sections) {
+    const g = d.groups[s.name];
+    if (!g) continue;
+    if ((localStorage.getItem(noteKey(s.key)) || '').trim() === g.note) localStorage.removeItem(noteKey(s.key));
+    if (g.verdict === 'approve') localStorage.removeItem(approveKey(s.key));
+  }
+  if (d.overall.note && $('#overall').value.trim() === d.overall.note) { localStorage.removeItem(noteKey('__overall')); $('#overall').value = ''; }
+  for (const sync of noteViews) sync();
+  countNotes();
+}
+
+// The word that it went, where he is reading, not only in the dock.
+let flashTimer;
+function flash(ok, items) {
+  const t = $('#sent');
+  t.className = ok ? 'ok' : 'fail';
+  t.replaceChildren(
+    h('div', { class: 'sent-head' }, ok ? `◆ Sent to STIGMERGY — ${items.length} note${items.length === 1 ? '' : 's'}` : '◇ Not sent — your notes are kept'),
+    h('div', { class: 'sent-items' }, ...items.map((x) => h('span', {}, x))));
+  t.hidden = false;
+  clearTimeout(flashTimer);
+  flashTimer = setTimeout(() => { t.hidden = true; }, ok ? 6000 : 12000);
+  t.onclick = () => { clearTimeout(flashTimer); t.hidden = true; };
 }
 
 // ── room tone: the page's bed, low and looped ──
