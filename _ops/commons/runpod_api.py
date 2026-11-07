@@ -317,6 +317,12 @@ class Runpod:
         cur = self.call("GET", f"/serverless/{endpoint_id}", ok=(200,)).get("workers") or {}
         workers = {**cur, "min": min_workers, "max": max_workers}
         self.call("PATCH", f"/serverless/{endpoint_id}", {"workers": workers}, ok=(200,))
+        # Read it back: a 2xx is not proof the scale took. v1's PATCH answered 2xx and
+        # changed nothing from about 2026-11-05, so jobs queued against max 0 (runbook § Incidents).
+        got = (self.call("GET", f"/serverless/{endpoint_id}", ok=(200,)).get("workers") or {})
+        if got.get("max") != max_workers or got.get("min") != min_workers:
+            raise RunpodError(200, f"scale did not take: asked min {min_workers} max {max_workers}, endpoint reads {got}",
+                              f"/serverless/{endpoint_id}")
         return max_workers
 
     def endpoint_health(self, endpoint_id: str) -> dict:
