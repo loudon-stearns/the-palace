@@ -8,7 +8,8 @@
      The deck is poured in between the DECK markers by ../deck/tools/build-deck.mjs; edit the deck
      file, never the copy here. Every reaction of the interface means something:
        hold to summon — each pip of charge turns one hint face-up before the card lands
-       the eye — follows you, dozes when left alone, narrows when you peek at a hint you didn't wait for
+       the eye — huge, over everything, its pupil a hole you read through; it chases the pointer, dozes when
+                 left alone, narrows when you peek, spins and dilates as you charge, looks away when it sulks
        the static — the hidden transmission has to be rubbed free
        the fragments — names of cards already dealt drift up; click one to recall it
        typing — say a name (rothko, basho, lebowski) and the oracle deals that card
@@ -36,7 +37,7 @@ body {
 @keyframes scanlines { to { transform: translateY(10px); } }
 .container { max-width: 900px; margin: 0 auto; padding: 32px 16px 80px; position: relative; z-index: 1; pointer-events: none; }
 .container > * { pointer-events: none; }
-.oracle-box, .container button, #eye { pointer-events: auto; } /* fragments drift beneath; only these catch the hand */
+.oracle-box, .container button { pointer-events: auto; } /* fragments drift beneath; only these catch the hand */
 
 .header { text-align: center; margin-bottom: 18px; }
 .title {
@@ -50,11 +51,19 @@ body {
 @keyframes glitch { 0%,100%{transform:translate(0)} 33%{transform:translate(-2px,2px)} 66%{transform:translate(2px,-2px)} }
 .subtitle { font-size: .9rem; color: var(--pink); letter-spacing: 3px; opacity: .7; font-style: italic; }
 
-.eye-wrap { display: flex; justify-content: center; margin: 14px 0 4px; }
-#eye { width: 132px; height: 72px; overflow: visible; cursor: help; }
-#eye .ring-bg { stroke: rgba(255,100,200,.12); }
-#eye .ring { stroke: var(--gold); transition: stroke-dashoffset 1s linear; }
+.header { margin-bottom: 10px; }
+/* The eye floats over everything and catches nothing: the hand passes through it, and its pupil is a
+   hole — whatever the pointer rests on is seen through it, clear. */
+#bigeye {
+  position: fixed; left: 50%; top: 47%; width: min(125vw, 1500px); height: auto; aspect-ratio: 2 / 1;
+  transform: translate(-50%, -50%); z-index: 900; pointer-events: none; mix-blend-mode: screen;
+  overflow: visible; transition: opacity 1.4s ease, filter 1.4s ease;
+}
+#bigeye.dozing { opacity: .35; filter: saturate(.4); }
+#bigeye.sulk { filter: hue-rotate(-40deg) saturate(1.6); }
+@media (max-width: 640px) { #bigeye { width: 175vw; top: 42%; } }
 .mood {
+  position: relative; z-index: 950; text-shadow: 0 0 8px #0a0015, 0 0 2px #0a0015;
   min-height: 1.6em; text-align: center; font-style: italic; color: var(--gold);
   font-size: .95rem; letter-spacing: 1px; opacity: .85; margin-bottom: 26px; padding: 0 8px;
 }
@@ -193,6 +202,40 @@ body {
 </head>
 <body>
 <div class="glitch-overlay"></div>
+<svg id="bigeye" viewBox="-700 -350 1400 700" aria-hidden="true">
+  <defs>
+    <radialGradient id="auraG"><stop offset="0" stop-color="#ff64c8" stop-opacity=".22"/><stop offset=".55" stop-color="#c864ff" stop-opacity=".08"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+    <radialGradient id="scleraG" cx="0" cy="0" r="680" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#64c8ff" stop-opacity="0"/><stop offset=".55" stop-color="#64c8ff" stop-opacity=".03"/><stop offset="1" stop-color="#c864ff" stop-opacity=".2"/></radialGradient>
+    <radialGradient id="irisG" cx="0" cy="0" r="250" gradientUnits="userSpaceOnUse"><stop offset=".3" stop-color="#64c8ff" stop-opacity=".04"/><stop offset=".55" stop-color="#64c8ff" stop-opacity=".16"/><stop offset=".8" stop-color="#c864ff" stop-opacity=".3"/><stop offset="1" stop-color="#ff64c8" stop-opacity=".5"/></radialGradient>
+    <clipPath id="almondClip"><path id="almondClipPath"/></clipPath>
+    <mask id="holeMask" maskUnits="userSpaceOnUse" x="-700" y="-350" width="1400" height="700">
+      <rect x="-700" y="-350" width="1400" height="700" fill="#fff"/><circle id="holeC" r="85" fill="#000"/>
+    </mask>
+    <path id="glyphCircle" d="M -178 0 a 178 178 0 1 1 356 0 a 178 178 0 1 1 -356 0"/>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <circle id="auraC" r="640" fill="url(#auraG)"/>
+  <g fill="none" stroke-linecap="round" filter="url(#glow)">
+    <path id="lashTop" stroke="#ff64c8" stroke-width="3" opacity=".7"/>
+    <path id="lashBot" stroke="#c864ff" stroke-width="2" opacity=".5"/>
+  </g>
+  <path id="almondFill" fill="url(#scleraG)"/>
+  <g clip-path="url(#almondClip)">
+    <g mask="url(#holeMask)">
+      <g id="L1"><circle r="250" fill="url(#irisG)"/><g id="spin1"><circle r="244" fill="none" stroke="#64c8ff" stroke-width="3" stroke-dasharray="3 9" opacity=".8"/></g>
+        <circle id="gatherRing" r="268" fill="none" stroke="#ffc864" stroke-width="5" stroke-dasharray="1683.9" stroke-dashoffset="1683.9" transform="rotate(-90)" filter="url(#glow)"/></g>
+      <g id="L2"><g id="spin2"><path id="fibres" fill="none" stroke-linecap="round"/></g></g>
+      <g id="L3"><g id="spin3"><text font-family="VT323, monospace" font-size="30" fill="#ffc864" opacity=".55" letter-spacing="6"><textPath href="#glyphCircle">∿ ▓ ⟡ ∞ ◬ ≋ ⊗ ∻ ◈ ⟐ ∿ ▓ ⟡ ∞ ◬ ≋ ⊗ ∻ ◈ ⟐ ∿ ▓ ⟡ ∞ ◬ ≋ ⊗ ∻ ◈ ⟐ ∿ ▓ ⟡ ∞ ◬ ≋ ⊗</textPath></text></g></g>
+      <g id="L4"><g id="spin4"><circle r="128" fill="none" stroke="#ff64c8" stroke-width="2.5" stroke-dasharray="46 14" filter="url(#glow)"/><circle r="108" fill="none" stroke="#64c8ff" stroke-width="1" stroke-dasharray="2 5"/></g></g>
+    </g>
+    <g id="L5"><circle id="rim" r="85" fill="none" stroke="#ffc864" stroke-width="2.5" filter="url(#glow)"/>
+      <path id="glint" d="M -60 -96 q 40 -26 92 -6" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".55"/></g>
+  </g>
+  <g fill="none" stroke-width="3">
+    <path id="almondPink" stroke="#ff64c8" opacity=".85"/><path id="almondCyan" stroke="#64c8ff" opacity=".85"/>
+    <path id="almondCore" stroke="#fff" stroke-width="1.2" opacity=".7"/>
+  </g>
+</svg>
 <button class="mute" id="mute" aria-pressed="false">♪ sound on</button>
 
 <div class="container">
@@ -201,22 +244,6 @@ body {
     <p class="subtitle">~ where waveforms dream of philosophy ~</p>
   </div>
 
-  <div class="eye-wrap" title="it is watching">
-    <svg id="eye" viewBox="-66 -36 132 72" aria-hidden="true">
-      <defs><clipPath id="lid"><ellipse id="lidShape" cx="0" cy="0" rx="46" ry="20"/></clipPath></defs>
-      <circle class="ring-bg" r="34" fill="none" stroke-width="2"/>
-      <circle class="ring" id="ring" r="34" fill="none" stroke-width="2" stroke-dasharray="213.6" stroke-dashoffset="213.6" transform="rotate(-90)"/>
-      <ellipse id="lidLine" cx="0" cy="0" rx="46" ry="20" fill="rgba(10,0,21,.9)" stroke="#ff64c8" stroke-width="1.6"/>
-      <g clip-path="url(#lid)">
-        <g id="iris">
-          <circle r="15" fill="#1a0b3a" stroke="#64c8ff" stroke-width="1.4"/>
-          <circle r="11" fill="none" stroke="rgba(200,100,255,.6)" stroke-dasharray="2 3"/>
-          <circle id="pupil" r="6" fill="#000"/>
-          <circle cx="-4" cy="-5" r="2" fill="rgba(255,255,255,.75)"/>
-        </g>
-      </g>
-    </svg>
-  </div>
   <p class="mood" id="mood" aria-live="polite">The oracle is half awake.</p>
 
   <div class="oracle-box fade-in" id="challengeBox">
@@ -343,29 +370,77 @@ $("mute").onclick = () => {
 };
 
 /* ---------- the eye ---------- */
-const eye = { open: 20, target: 20, px: 0, py: 0, tx: 0, ty: 0, pupil: 6, pupilT: 6, away: false, asleep: false };
-let lastInput = performance.now();
-addEventListener("pointermove", (e) => {
-  touch();
-  const r = $("eye").getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-  const dx = e.clientX - cx, dy = e.clientY - cy, d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 300);
-  eye.tx = (dx / d) * 22 * k; eye.ty = (dy / d) * 8 * k;
-});
-function touch() { lastInput = performance.now(); if (eye.asleep) { eye.asleep = false; eye.target = 20; say(LINES.wake, 3000); } }
-function blink() { if (eye.asleep) return; const t = eye.target; eye.open = 1; setTimeout(() => (eye.target = t), 90); }
-(function loop() {
-  if (!eye.asleep && performance.now() - lastInput > 45000 && !gather) { eye.asleep = true; eye.target = 1; say(LINES.sleep); }
-  if (Math.random() < 0.004) blink();
-  eye.open += (eye.target - eye.open) * 0.18; eye.pupil += (eye.pupilT - eye.pupil) * 0.12;
-  const ax = eye.away ? 26 : eye.tx, ay = eye.away ? -4 : eye.ty;
-  eye.px += (ax - eye.px) * 0.15; eye.py += (ay - eye.py) * 0.15;
-  $("lidShape").setAttribute("ry", eye.open.toFixed(2)); $("lidLine").setAttribute("ry", eye.open.toFixed(2));
-  $("iris").setAttribute("transform", `translate(${eye.px.toFixed(1)} ${eye.py.toFixed(1)})`);
-  $("pupil").setAttribute("r", eye.pupil.toFixed(2));
+// One great eye over the page. Its iris chases the pointer with a lag, each layer lagging a little
+// more than the one inside it (depth), and its pupil is a hole: what you point at is seen through it.
+const OPEN = 262, HOLE = 88, W = 650;
+const eye = { open: OPEN, target: OPEN, x: 0, y: 0, tx: 0, ty: 0, pupil: HOLE, pupilT: HOLE, spin: 1, spinT: 1, away: false, asleep: false, glitch: 0, rot: 0 };
+const svgE = $("bigeye"), L = ["L1", "L2", "L3", "L4"].map($), F = [0.82, 0.88, 0.94, 1];
+let lastInput = performance.now(), lastPointer = 0;
+function aimAt(x, y) {
+  const r = svgE.getBoundingClientRect(), k = 1400 / r.width;
+  eye.tx = (x - r.left) * k - 700; eye.ty = (y - r.top) * k - 350; lastPointer = performance.now();
+}
+addEventListener("pointermove", (e) => { touch(); aimAt(e.clientX, e.clientY); });
+addEventListener("pointerdown", (e) => { touch(); aimAt(e.clientX, e.clientY); });
+function touch() { lastInput = performance.now(); if (eye.asleep) { eye.asleep = false; eye.target = OPEN; svgE.classList.remove("dozing"); say(LINES.wake, 3000); } }
+function blink() { if (eye.asleep) return; const t = eye.target; eye.open = 6; setTimeout(() => (eye.target = t), 110); }
+(function fibres() { // the iris's grain, drawn once
+  let d = "", d2 = "";
+  for (let i = 0; i < 120; i++) {
+    const a = (i / 120) * Math.PI * 2 + Math.sin(i * 7.3) * 0.03, r0 = 112 + (i % 5) * 4, r1 = 205 + Math.sin(i * 3.1) * 26, bend = Math.sin(i * 1.7) * 0.18;
+    const seg = `M ${(Math.cos(a) * r0).toFixed(1)} ${(Math.sin(a) * r0).toFixed(1)} Q ${(Math.cos(a + bend) * (r0 + r1) / 2).toFixed(1)} ${(Math.sin(a + bend) * (r0 + r1) / 2).toFixed(1)} ${(Math.cos(a) * r1).toFixed(1)} ${(Math.sin(a) * r1).toFixed(1)} `;
+    if (i % 3) d += seg; else d2 += seg;
+  }
+  $("fibres").setAttribute("d", d); $("fibres").setAttribute("stroke", "#c864ff"); $("fibres").setAttribute("stroke-width", "2"); $("fibres").setAttribute("opacity", ".55");
+  const p2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  p2.setAttribute("d", d2); p2.setAttribute("fill", "none"); p2.setAttribute("stroke", "#64c8ff"); p2.setAttribute("stroke-width", "1.4"); p2.setAttribute("opacity", ".7");
+  $("spin2").appendChild(p2);
+})();
+const almond = (H, dx = 0, dy = 0) => `M ${-W + dx} ${dy} Q ${dx} ${-2 * H + dy} ${W + dx} ${dy} Q ${dx} ${2 * H + dy} ${-W + dx} ${dy} Z`;
+function lashes(H, sign, n, len) {
+  let d = "";
+  for (let i = 1; i < n; i++) {
+    const t = i / n, x = (2 * t - 1) * W, y = sign * -2 * H * 2 * t * (1 - t);
+    const dx = 2 * W, dy = sign * -2 * H * (2 - 4 * t), m = Math.hypot(dx, dy) || 1;
+    let nx = dy / m, ny = -dx / m; if (ny * sign > 0) { nx = -nx; ny = -ny; }
+    const l = len * (0.35 + Math.sin(Math.PI * t)) * (H / OPEN), curl = (t - 0.5) * 0.9;
+    d += `M ${x.toFixed(1)} ${y.toFixed(1)} q ${((nx + curl * ny) * l * 0.5).toFixed(1)} ${((ny - curl * nx) * l * 0.5).toFixed(1)} ${((nx + curl) * l).toFixed(1)} ${(ny * l).toFixed(1)} `;
+  }
+  return d;
+}
+let lastT = performance.now();
+(function loop(now) {
+  now = now || performance.now(); const dt = Math.min(50, now - lastT); lastT = now;
+  if (!eye.asleep && now - lastInput > 45000 && !gather) { eye.asleep = true; eye.target = 5; svgE.classList.add("dozing"); say(LINES.sleep); }
+  if (!eye.asleep && Math.random() < 0.003) blink();
+  if (!reduced && Math.random() < 0.0035) eye.glitch = 6;
+  let ax = eye.tx, ay = eye.ty;
+  if (now - lastPointer > 6000) { const t = now / 1000; ax = Math.sin(t * 0.31) * 330; ay = Math.sin(t * 0.47) * 110; } // wanders when no one is there
+  if (eye.away) { ax = 520; ay = -170; }
+  const lim = Math.max(0, eye.open - 80), rx = W - 170, ry = Math.max(40, lim);
+  const q = Math.hypot(ax / rx, ay / ry); if (q > 1) { ax /= q; ay /= q; }
+  eye.x += (ax - eye.x) * 0.07; eye.y += (ay - eye.y) * 0.07;
+  eye.open += (eye.target - eye.open) * 0.16; eye.pupil += (eye.pupilT - eye.pupil) * 0.1; eye.spin += (eye.spinT - eye.spin) * 0.05;
+  const H = Math.max(2, eye.open), g = eye.glitch > 0 ? (eye.glitch--, (Math.random() - 0.5) * 30) : 0;
+  $("almondClipPath").setAttribute("d", almond(H)); $("almondFill").setAttribute("d", almond(H));
+  $("almondPink").setAttribute("d", almond(H, -5 + g, g * 0.3)); $("almondCyan").setAttribute("d", almond(H, 5 - g, -g * 0.3)); $("almondCore").setAttribute("d", almond(H));
+  $("lashTop").setAttribute("d", lashes(H, 1, 26, 95)); $("lashBot").setAttribute("d", lashes(H, -1, 18, 38));
+  L.forEach((el, i) => el.setAttribute("transform", `translate(${(eye.x * F[i]).toFixed(1)} ${(eye.y * F[i]).toFixed(1)})`));
+  $("L5").setAttribute("transform", `translate(${eye.x.toFixed(1)} ${eye.y.toFixed(1)})`);
+  $("holeC").setAttribute("cx", eye.x.toFixed(1)); $("holeC").setAttribute("cy", eye.y.toFixed(1));
+  $("holeC").setAttribute("r", eye.pupil.toFixed(1)); $("rim").setAttribute("r", eye.pupil.toFixed(1));
+  $("auraC").setAttribute("transform", `translate(${(eye.x * 0.15).toFixed(1)} ${(eye.y * 0.15).toFixed(1)}) scale(${(1 + 0.04 * Math.sin(now / 900) + (eye.spin - 1) * 0.03).toFixed(3)})`);
+  if (!reduced) {
+    eye.rot += dt * 0.006 * eye.spin;
+    $("spin1").setAttribute("transform", `rotate(${(eye.rot).toFixed(2)})`);
+    $("spin2").setAttribute("transform", `rotate(${(-eye.rot * 0.35).toFixed(2)})`);
+    $("spin3").setAttribute("transform", `rotate(${(eye.rot * 0.6).toFixed(2)})`);
+    $("spin4").setAttribute("transform", `rotate(${(-eye.rot * 1.4).toFixed(2)})`);
+  }
   requestAnimationFrame(loop);
 })();
-function squint(ms = 1400) { eye.target = 7; eye.pupilT = 3; setTimeout(() => { if (!eye.asleep) { eye.target = 20; eye.pupilT = 6; } }, ms); }
-function dilate(ms = 1600) { eye.target = 24; eye.pupilT = 10; setTimeout(() => { if (!eye.asleep) { eye.target = 20; eye.pupilT = 6; } }, ms); }
+function squint(ms = 1400) { eye.target = 120; eye.pupilT = 40; setTimeout(() => { if (!eye.asleep) { eye.target = OPEN; eye.pupilT = HOLE; } }, ms); }
+function dilate(ms = 1600) { eye.target = 300; eye.pupilT = 140; setTimeout(() => { if (!eye.asleep) { eye.target = OPEN; eye.pupilT = HOLE; } }, ms); }
 
 /* ---------- the deck ---------- */
 let queue = [], dealt = [], current = null, refusals = 0, sulking = false;
@@ -508,12 +583,12 @@ function acceptCard() {
 function tickGather() {
   if (!gather) return;
   const left = gather.end - Date.now(), frac = Math.max(0, left / GATHER_MS);
-  $("ring").setAttribute("stroke-dashoffset", (213.6 * (1 - frac)).toFixed(1));
+  $("gatherRing").setAttribute("stroke-dashoffset", (1683.9 * (1 - frac)).toFixed(1));
   deckline();
   if (left <= 0) { say(LINES.done); tone({ f: 880, a: 0.01, d: 2.5, g: 0.08 }); tone({ f: 1320, t: 0.2, a: 0.01, d: 2.5, g: 0.05 }); dilate(3000); stopGather(); return; }
   gather.t = setTimeout(tickGather, 1000);
 }
-function stopGather() { if (gather) clearTimeout(gather.t); gather = null; $("ring").setAttribute("stroke-dashoffset", "213.6"); deckline(); }
+function stopGather() { if (gather) clearTimeout(gather.t); gather = null; $("gatherRing").setAttribute("stroke-dashoffset", "1683.9"); deckline(); }
 function refuseCard() {
   touch(); refusals++;
   tone({ f: 90, to: 40, a: 0.005, d: 0.45, g: 0.25, type: "sine" });
@@ -521,8 +596,8 @@ function refuseCard() {
   setTimeout(() => { box.classList.remove("burn"); box.innerHTML = `<p class="waiting">ash.<small>summon again</small></p>`; box.classList.add("fade-in"); }, 1100);
   current = null;
   if (refusals >= 3) {
-    sulking = true; refusals = 0; eye.away = true; eye.target = 9; $("summon").disabled = true; say(LINES.sulk);
-    setTimeout(() => { sulking = false; eye.away = false; eye.target = 20; $("summon").disabled = false; say("…fine. Ask again.", 3000); }, 7000);
+    sulking = true; refusals = 0; eye.away = true; eye.target = 150; svgE.classList.add("sulk"); $("summon").disabled = true; say(LINES.sulk);
+    setTimeout(() => { sulking = false; eye.away = false; eye.target = OPEN; svgE.classList.remove("sulk"); $("summon").disabled = false; say("…fine. Ask again.", 3000); }, 7000);
   } else say(LINES.refuse, 3000);
 }
 
@@ -534,11 +609,11 @@ function litPips(n) { pips.forEach((p, i) => p.classList.toggle("lit", i < n)); 
 function beginCharge() {
   if (sulking || press) return;
   touch(); press = { t: performance.now(), n: 0 }; btn.classList.add("held"); $("challengeBox").classList.add("charging");
-  droneStart(); eye.target = 23; eye.pupilT = 8; say(LINES.charge[0]);
+  droneStart(); eye.target = 290; eye.pupilT = 100; eye.spinT = 7; say(LINES.charge[0]);
   const step = () => {
     if (!press) return;
     const n = Math.min(4, Math.floor((performance.now() - press.t) / CHARGE_MS));
-    if (n !== press.n) { press.n = n; litPips(n); if (n > 0) { tone({ f: mtof(76 + n * 3), type: "triangle", a: 0.005, d: 0.12, g: 0.05 }); say(LINES.charge[Math.min(n, 3)]); } }
+    if (n !== press.n) { press.n = n; litPips(n); eye.pupilT = 100 + n * 16; eye.spinT = 7 + n * 4; if (n > 0) { tone({ f: mtof(76 + n * 3), type: "triangle", a: 0.005, d: 0.12, g: 0.05 }); say(LINES.charge[Math.min(n, 3)]); } }
     press.raf = requestAnimationFrame(step);
   };
   step();
@@ -547,7 +622,7 @@ function endCharge() {
   if (!press) return;
   cancelAnimationFrame(press.raf);
   const n = Math.min(4, Math.floor((performance.now() - press.t) / CHARGE_MS));
-  press = null; btn.classList.remove("held"); $("challengeBox").classList.remove("charging"); droneStop(); litPips(0);
+  press = null; eye.spinT = 1; btn.classList.remove("held"); $("challengeBox").classList.remove("charging"); droneStop(); litPips(0);
   deal(cards[nextIndex()], { face: n, charge: n / 4 });
 }
 btn.addEventListener("pointerdown", (e) => { e.preventDefault(); btn.setPointerCapture?.(e.pointerId); beginCharge(); });
