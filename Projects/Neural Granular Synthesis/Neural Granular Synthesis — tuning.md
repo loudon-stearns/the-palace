@@ -41,3 +41,13 @@ What Neural Granular Synthesis's steward cycles taught the page. The orchestrato
    > **Where it stands (November 2026)**: Phase 3 is playable as **Neural Granular**, a VST3/AU instrument made from [[VST Template]] (`plugin/` in this bundle). A crowd of 32 to 256 phase neurons with Kuramoto coupling, played by MIDI. Tightness and Life are the two big knobs, and its screen draws the raster plot as a tunnel the crowd falls down. Its engine matches the numpy sketch sample for sample, and it costs under 4 % of one core at 256 neurons. It was built in C++ through the template, not in Faust.
 
 - run · 2026-11-07 · cycle 17 · taught item 3, proposed item 4 for canon
+
+## From cycle 18 — 2026-11-07
+
+5. Crowd size sets the lock's character, not just its steadiness: with the default lumpiness, small crowds agree well before the line 1/(1 − life) and big crowds hold it sharp, so that line is exact only for crowds of 512 or more. *(offered by the steward, cycle 18)*
+6. **Proposed for canon** · 2026-11-07 · [[Neural Granular Synthesis]] · § Open Questions, under 'What is the minimum population size for perceptually stable timbres?' · canon change owed *(proposed by the steward, cycle 18)*
+   Why: The open question now has a measured answer, and the answer reframes it: size changes how the lock behaves, not whether the sound is stable.
+   Path: `Projects/Neural Granular Synthesis.md`
+   >   — progressed on [[Neural Granular Synthesis — scroll]] (2026-11-07): measured on the plugin's own engine from 32 to 1024 neurons. There is no single minimum, because size changes the lock's character. A steady locked tone settles by 128. Small crowds agree early and softly, well before the line. Crowds of 512 or more hold the line sharp, and they surge hardest right on it. Size is a character knob. Nobody has listened yet.
+
+- run · 2026-11-07 · cycle 18 · taught item 5, proposed item 6 for canon
