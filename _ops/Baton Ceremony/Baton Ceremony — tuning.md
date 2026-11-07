@@ -98,3 +98,7 @@ What each baton taught the ceremony. Each item names what the run showed and the
 - run · 2026-10-23 · v1.5 · Palace Map, the map's keeper — Move 1 of the Plan of 2026-10-23 (continuation, at a deposit) · taught item 15
 - run · 2026-10-25 · v1.5 · Dissolutions, the walk re-batoned as learning sequences after three sits (continuation, at a partial close) · nothing new
 - run · 2026-10-29 · v1.5 · Graphic Storytelling, land the revision and make its Context (commissioning, at the Daily Page) · nothing new
+
+## From The Lens bold-mandate close — 2026-11-07
+
+16. **On-pickup step 8 deletes on every close; the ceremony keeps the file on a partial one.** The footer's step 8 (`Baton Ceremony — on-pickup.md:33`) says to delete the baton file and remove the pointer, with no condition. The ceremony keeps the file on a `--partial` close, for the remainder (`Baton Ceremony.md:226`, and completion signal 5 at `:297`). The Lens's bold-mandate session followed the footer: it deleted [[The Lens — baton]] before the close had decided partial or whole, so the remainder card `the-lens-remainder-20261104T050135Z` pointed at no file until `49ccf853` wrote it back. Fixing the fragment changes the footer every baton carries, so **owed**, waiting on Loudon's yes.
