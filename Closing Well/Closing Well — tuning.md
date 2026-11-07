@@ -361,3 +361,9 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 72. **A promised after-write check was never asked for across three landings.** `4d555c64`, the room's files in `433f13da`, and `553a832e` landed with no after-write check asked for; only `9329cc4c` was checked. Item 63 seen again. Also data: the moderator's stake was named from outside, by the room, as gotcha 23 asks, and the cold read still caught the overstated "I read the diff before it landed". Data, not a spec change. This close ran on v1.14; v1.15 (`62286146`, item 71) landed on main the same morning from another close.
 
 - run · 2026-11-07 · v1.14 · close-2026-11-07-palace-ceremonies · taught item 72
+
+## From the answers-back close — 2026-11-07
+
+73. **A redirect was taken as a yes to the words, and the resident who wrote them was also the moderator who read them.** Loudon said "Daily page is the wrong page for this whole work to be. I think "Review layer" is a better home…". The room briefed the resident that "his objection is placement, not wording", and Review Layer's final text landed (`77509398`) without Loudon seeing it. Item 68 seen again, from the coordinator's side; Loudon later said he was content. The resident wrote every house change of the session, so at the close the cold moderator read its own work. The room named that stake from outside, as gotcha 23 asks. The moderator owned two slips of its own: a note that half-answered an open question on the Return Ceremony card (`266b7455`), and two of Loudon's messages joined under one ellipsis in Enrichment item 16 (`15201b9a`). Data, not a spec change: words for canon go to Loudon as text before they land, even when his word was about where they live.
+
+- run · 2026-11-07 · v1.15 · close-2026-11-07-answers-back · taught item 73
