@@ -21,7 +21,7 @@ The one place for how the palace works with Runpod. Every other page that touche
 2. Fix it in `runpod_api.py`, and nowhere else.
 3. Update **Runpod today** below, and add a dated line to **Incidents** if it cost us anything.
 4. If a fix had to touch another file, that file was speaking Runpod directly — move what it said into `runpod_api.py`.
-5. `git grep -nE "rest\.runpod\.io|api\.runpod\.(io|ai)" -- '*.py' '*.mjs' '*.js'` should name only `runpod_api.py`, and the serverless job runners on `api.runpod.ai` (below).
+5. `git grep -nI -E "rest\.runpod\.io|api\.runpod\.(io|ai)|proxy\.runpod\.net" -- . ':(exclude)*.md' ':(exclude)*.jsonl'` — every file type, not just Python: the Palace Studio `.command` launchers spoke v1 through `curl` and a `.py`-only search missed them. It should name only `runpod_api.py`, the serverless job runners on `api.runpod.ai`, and pod-proxy transports (`<pod>-<port>.proxy.runpod.net`).
 
 ## Runpod today (checked 2026-11-04)
 
