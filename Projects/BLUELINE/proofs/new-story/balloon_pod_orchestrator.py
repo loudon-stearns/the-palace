@@ -34,21 +34,20 @@ SDXL_URL = "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/reso
 CANNY_URL = "https://huggingface.co/xinsir/controlnet-canny-sdxl-1.0/resolve/main/diffusion_pytorch_model.safetensors"
 PIDFILE = "/tmp/balloon_pod_id"
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-KEY = json.load(open(CONFIG))["api_key"]
+sys.path.insert(0, str(Path(__file__).resolve().parents[4] / "_ops"))
+from commons.runpod_api import Runpod   # Runpod's API lives only there ([[RunPod GPU Backend — runbook]])
+_RP = Runpod()                          # finds the key itself, worktree or not (commons.runpod_config)
+KEY = _RP.key
 try:
     import certifi; CTX = ssl.create_default_context(cafile=certifi.where())
 except Exception:
     CTX = ssl._create_unverified_context()
 
+
+
 def api(method, path, body=None, timeout=60):
-    data = json.dumps(body).encode() if body is not None else None
-    req = urllib.request.Request("https://rest.runpod.io/v1"+path, data=data, method=method,
-          headers={"Authorization": f"Bearer {KEY}", "Content-Type": "application/json"})
-    try:
-        with urllib.request.urlopen(req, timeout=timeout, context=CTX) as r:
-            b = r.read(); return (json.loads(b) if b else {}), r.status
-    except urllib.error.HTTPError as e:
-        return {"_error": e.read().decode()[:300]}, e.code
+    """v1 path + body → v1-shaped (data, status), served by Runpod v2 through runpod_api's shim."""
+    return _RP.legacy(method, path, body, timeout=timeout)
 
 def proxy_get(pid, path, timeout=12):
     req = urllib.request.Request(f"https://{pid}-8188.proxy.runpod.net{path}", headers={"User-Agent": UA})
