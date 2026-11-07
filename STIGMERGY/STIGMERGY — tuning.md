@@ -60,6 +60,7 @@ The ledger was born on 2026-10-21 and no change to the deck wrote its line. Thes
 - run · 2026-11-04 · a Trickster card's proposed plan renders as the scroll's Plan does (`61a00ba8`) · not recorded
 - run · 2026-11-04 · a finished project says so, and offers no steward (`66ec2f06`) · not recorded
 - run · 2026-11-07 · the handoff readers honour RETRACT (handoff-model.mjs, queue-model.js); `--dur-type-banner` brought level with the kit; the README's v0.2 sections and directory map relaid; the two comments of item 3 repointed · nothing new
+- run · 2026-11-07 · a REVIEW NOTE that did not come from the rich face's dock (Loudon's answers to a rough, through the answers server) reads as a note on the page, sent from the rough it names, not "on the rich face of"; each rough's answers stand under its task; the companion's rich-face block takes only the dock's notes (queue-model.js, review-notes.js) · nothing new
 
 ## From STIGMERGY's close — 2026-11-07
 
