@@ -83,6 +83,10 @@ if (fr) { await mouse("mousePressed", fr[0], fr[1]); await mouse("mouseReleased"
 await sleep(1300);
 check("touching a remembered fragment calls its card back", (await state()).current === "basho-frog-pond", (await state()).current);
 
+for (let i = 0; i <= 30; i++) await mouse("mouseMoved", 200 + i * 12, 300 + Math.sin(i / 4) * 60, { button: "none" });
+check("the pointer is a mote of light: no arrow, and a trail behind it", (await js("getComputedStyle(document.body).cursor")) === "none" && (await js("motes.length")) > 20, `${await js("motes.length")} motes`);
+await shot("oracle-pointer.png");
+
 await send("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 2, mobile: true });
 await sleep(500);
 const overflow = await js("document.documentElement.scrollWidth - document.documentElement.clientWidth");

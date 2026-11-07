@@ -13,6 +13,7 @@
        the static — the hidden transmission has to be rubbed free
        the fragments — names of cards already dealt drift up; click one to recall it
        typing — say a name (rothko, basho, lebowski) and the oracle deals that card
+       the pointer — a mote of light with a rising trail; it swells over what you can touch and gathers as you charge
        accept — starts the thirty-minute gather; refuse three times running and the oracle sulks -->
 <style>
 @import url('https://fonts.googleapis.com/css2?family=VT323&family=Courier+Prime:ital@0;1&display=swap');
@@ -194,6 +195,9 @@ body {
   0% { transform: translateY(100vh) rotate(0); opacity: 0; } 10% { opacity: .55; } 90% { opacity: .55; }
   100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
 }
+/* The pointer is a mote of light drawn on its own layer; the arrow is gone everywhere. */
+html, body, button, canvas, .hint-tag, .memory-fragment, .mute { cursor: none !important; }
+#sparkle { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1100; }
 @media (prefers-reduced-motion: reduce) {
   .title, .glitch-overlay, .oracle-box::before, .hint-tag.down, .summon-btn.held { animation: none !important; }
   .memory-fragment { animation-duration: 40s !important; }
@@ -202,6 +206,7 @@ body {
 </head>
 <body>
 <div class="glitch-overlay"></div>
+<canvas id="sparkle" aria-hidden="true"></canvas>
 <svg id="bigeye" viewBox="-700 -350 1400 700" aria-hidden="true">
   <defs>
     <radialGradient id="auraG"><stop offset="0" stop-color="#ff64c8" stop-opacity=".22"/><stop offset=".55" stop-color="#c864ff" stop-opacity=".08"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
@@ -668,6 +673,75 @@ function spawnFragments(n) {
   }, i * 1600);
 }
 setInterval(() => { if (Math.random() > 0.7) spawnFragments(1); }, 5000);
+
+/* ---------- the pointer: a mote of light, and its trail ---------- */
+// The arrow is replaced by a turning four-point star. Moving leaves motes that twinkle, rise like
+// incense and fade through the oracle's colours. It swells gold over anything you can touch,
+// bursts when you press, and draws light inward while you charge a summon.
+const sp = $("sparkle"), sx = sp.getContext("2d");
+let DPR = 1;
+function sizeSparkle() { DPR = Math.min(2, devicePixelRatio || 1); sp.width = innerWidth * DPR; sp.height = innerHeight * DPR; }
+sizeSparkle(); addEventListener("resize", sizeSparkle);
+const motes = [], cur = { x: -99, y: -99, px: -99, py: -99, show: false, hover: false, size: 14, rot: 0 };
+const HUES = ["255,100,200", "255,200,100", "100,200,255", "200,100,255", "255,255,255"];
+function mote(x, y, o = {}) {
+  if (motes.length > 280) motes.shift();
+  motes.push({ x, y, vx: o.vx ?? (Math.random() - 0.5) * 0.7, vy: o.vy ?? -0.2 - Math.random() * 0.7, life: 1,
+    decay: o.decay ?? 0.012 + Math.random() * 0.018, size: o.size ?? 1.4 + Math.random() * 3.2, c: pick(HUES),
+    star: Math.random() < 0.38, glyph: Math.random() < 0.035 ? pick(["∿", "◈", "⟡", "✦", "✧", "⋆", "∞"]) : null,
+    tw: Math.random() * 6, spin: (Math.random() - 0.5) * 0.12, rot: Math.random() * 6 });
+}
+addEventListener("pointermove", (e) => {
+  cur.show = e.pointerType !== "touch"; cur.x = e.clientX; cur.y = e.clientY;
+  if (cur.px < -50) { cur.px = cur.x; cur.py = cur.y; }
+  if (!reduced) { const d = Math.hypot(cur.x - cur.px, cur.y - cur.py), n = Math.min(7, Math.floor(d / 6)); for (let i = 0; i < n; i++) { const t = i / n; mote(cur.px + (cur.x - cur.px) * t, cur.py + (cur.y - cur.py) * t); } }
+  cur.px = cur.x; cur.py = cur.y;
+  cur.hover = !!(e.target.closest && e.target.closest("button, canvas#static, .memory-fragment.remembered"));
+});
+addEventListener("pointerdown", (e) => {
+  if (reduced) return;
+  for (let i = 0; i < 28; i++) { const a = (i / 28) * Math.PI * 2, v = 1.6 + Math.random() * 2.8; mote(e.clientX, e.clientY, { vx: Math.cos(a) * v, vy: Math.sin(a) * v, decay: 0.022 + Math.random() * 0.02, size: 1.4 + Math.random() * 2.6 }); }
+});
+document.documentElement.addEventListener("pointerleave", () => (cur.show = false));
+function star4(x, y, r, rot) {
+  sx.save(); sx.translate(x, y); sx.rotate(rot); sx.beginPath();
+  for (let i = 0; i < 8; i++) { const a = (i * Math.PI) / 4, rr = i % 2 ? r * 0.26 : r; sx.lineTo(Math.cos(a) * rr, Math.sin(a) * rr); }
+  sx.closePath(); sx.fill(); sx.restore();
+}
+(function sparkLoop(now) {
+  now = now || performance.now();
+  sx.setTransform(DPR, 0, 0, DPR, 0, 0); sx.clearRect(0, 0, innerWidth, innerHeight);
+  sx.globalCompositeOperation = "lighter";
+  if (!reduced && cur.show) {
+    if (press) for (let i = 0; i < 3; i++) { // gathering: light spirals in toward the hand
+      const a = Math.random() * Math.PI * 2, r = 70 + Math.random() * 90;
+      mote(cur.x + Math.cos(a) * r, cur.y + Math.sin(a) * r, { vx: -Math.cos(a) * r / 34 + Math.sin(a) * 1.4, vy: -Math.sin(a) * r / 34 - Math.cos(a) * 1.4, decay: 0.035 });
+    }
+    if (Math.random() < 0.22) mote(cur.x + (Math.random() - 0.5) * 16, cur.y + (Math.random() - 0.5) * 16, { size: 0.7 + Math.random() * 1.4, decay: 0.02 }); // it shimmers even at rest
+  }
+  for (let i = motes.length - 1; i >= 0; i--) {
+    const m = motes[i];
+    m.vx = m.vx * 0.965 + Math.sin(now / 420 + m.tw) * 0.025; m.vy = m.vy * 0.965 - 0.014;
+    m.x += m.vx; m.y += m.vy; m.rot += m.spin; m.life -= m.decay;
+    if (m.life <= 0) { motes.splice(i, 1); continue; }
+    const a = m.life * (0.55 + 0.45 * Math.sin(now / 85 + m.tw * 3));
+    sx.fillStyle = `rgba(${m.c},${a.toFixed(3)})`;
+    if (m.glyph) { sx.shadowBlur = 0; sx.font = `${(12 + m.size * 3) | 0}px VT323, monospace`; sx.fillText(m.glyph, m.x, m.y); }
+    else if (m.star) { sx.shadowColor = `rgba(${m.c},${a.toFixed(3)})`; sx.shadowBlur = 7; star4(m.x, m.y, m.size * 2.3 * m.life + 1, m.rot); }
+    else { sx.shadowBlur = 0; sx.beginPath(); sx.arc(m.x, m.y, Math.max(0.3, m.size * m.life), 0, 7); sx.fill(); }
+  }
+  if (cur.show) {
+    cur.rot += 0.025; cur.size += ((cur.hover ? 22 : 14) + (press ? 7 : 0) - cur.size) * 0.2;
+    const R = cur.size * 3.4, halo = sx.createRadialGradient(cur.x, cur.y, 0, cur.x, cur.y, R);
+    halo.addColorStop(0, cur.hover ? "rgba(255,200,100,.5)" : "rgba(255,100,200,.42)"); halo.addColorStop(1, "rgba(0,0,0,0)");
+    sx.shadowBlur = 0; sx.fillStyle = halo; sx.beginPath(); sx.arc(cur.x, cur.y, R, 0, 7); sx.fill();
+    sx.shadowColor = cur.hover ? "#ffc864" : "#ff64c8"; sx.shadowBlur = 18;
+    sx.fillStyle = cur.hover ? "#ffe2a8" : "#ffd6f0"; star4(cur.x, cur.y, cur.size, cur.rot);
+    sx.fillStyle = "#fff"; star4(cur.x, cur.y, cur.size * 0.45, -cur.rot * 1.6 + 0.4);
+  }
+  sx.shadowBlur = 0;
+  requestAnimationFrame(sparkLoop);
+})();
 
 /* ---------- open ---------- */
 say(LINES.idle);
