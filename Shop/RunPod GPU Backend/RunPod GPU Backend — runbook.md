@@ -78,13 +78,15 @@ Then reap: `python3 -m commons reap --self --force` (from `_ops/`). Worked examp
 - **Match the image's VRAM to the GPU pool.** FLUX-dev full precision (~24GB) OOMs a 24GB card and the worker silently takes no jobs; fp8 fits 24GB. SDXL fits anything.
 - **Set a CUDA floor** on every pod and endpoint, or workers land on old-driver hosts and die at init (`cuda>=…` prestart-hook error, "OCI runtime create failed").
 - **Broaden the GPU pool** (many types, not one) to beat throttling.
-- **Be patient through the first cold pull** — worker images are 19–35GB; recycling a worker mid-extract restarts the download. A long `IN_QUEUE` is not a wedge.
+- **Be patient through the first cold pull** — worker images are 19–35GB; recycling a worker mid-extract restarts the download. A long `IN_QUEUE` during a cold pull is not a wedge — but read the endpoint's `/health` before you wait: `initializing` is a cold pull, `throttled` is no stock, and all zeros means the endpoint never scaled (the 2026-11-07 incident below).
+- **Read the workers' own logs when a job sits queued with nothing saying why.** v2 has `GET /v2/serverless/{id}/workers`, then `/v2/serverless/{id}/workers/{workerId}/logs`. Not yet wrapped in `runpod_api.py`; wrap it the first time you need it.
 - **flashboot off** for very large images (it left workers in a flapping restored state).
 - **Container disk must hold the image** — a 35GB image needs ~80GB container disk, not 30GB.
 - **Stage big models to the container disk, then background-copy to the network volume.** The volume is fast to read, slow to write; downloading a 10GB checkpoint to it before launch blows the readiness timeout. A `>size` check rejects half-written partials.
 - **Pull ~10GB checkpoints with `aria2c -x16 -s16`.** Single-stream `wget` from Hugging Face to a pod is unreliable at that size.
 - **Raise the readiness timeout for FLUX cold pulls** (~30 min), and amortize a boot over many jobs per pod. When a host is just slow, retry on a *fresh* host rather than recycling the same one mid-pull.
 - **Verify one frame before batching.** The failed img2img movie ran all 30 frames before anyone looked.
+- **A scale is read back.** `set_workers` reads the endpoint after its PATCH and raises if `min`/`max` didn't take — a 2xx is not proof (v1's wasn't). If v2 ever answers that read stale, a scale that did take would raise; the cure is a short retry before raising. It held live on 2026-11-07, so the retry isn't written yet.
 - **Serverless worker scaling is shared.** One endpoint has one `workers.max`; `EndpointWorkers` ref-counts renderers on the board so it parks to 0 only when the last leaves. Park the endpoint after a batch — it bills while workers are up.
 - **Serverless cold start** is ~250s for FLUX, then ~15–30s per image.
 - **macOS framework Python 3.14:** HTTPS to `api.runpod.ai` dies `CERTIFICATE_VERIFY_FAILED` without `export SSL_CERT_FILE=$(python3 -c 'import certifi;print(certifi.where())')` (`runpod_api` falls back to certifi itself; `serverless-client.py` doesn't use `runpod_api` and has no such fallback); loading the hyphenated `serverless-client.py` via `spec_from_file_location` must set `sys.modules[name] = mod` before `exec_module`.

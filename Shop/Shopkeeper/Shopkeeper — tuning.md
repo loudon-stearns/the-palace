@@ -54,7 +54,7 @@ What Shopkeeper's steward cycles taught the page, and the changes to the house i
 
 ## From cycle 10 — 2026-11-04
 
-7. A Runpod pod's REST status can read RUNNING well before the server process inside it is actually listening — there's no /logs endpoint on rest.runpod.io (confirmed 400), so the only free signal for 'is it really up yet' is polling the service port itself and reading a 404 from the proxy as 'booting,' not 'broken.' *(offered by the steward, cycle 10)*
+7. A Runpod pod's REST status can read RUNNING well before the server process inside it is actually listening — there's no /logs endpoint on rest.runpod.io (confirmed 400), so the only free signal for 'is it really up yet' is polling the service port itself and reading a 404 from the proxy as 'booting,' not 'broken.' *(offered by the steward, cycle 10)* — superseded by item 11 (2026-11-07): v2 has a logs endpoint
 - run · 2026-11-04 · cycle 10 · taught item 7
 
 ## From cycle 11 — 2026-11-04
@@ -64,11 +64,17 @@ What Shopkeeper's steward cycles taught the page, and the changes to the house i
 
 ## From cycle 12 — 2026-11-04
 
-9. Runpod's REST API needs `dockerStartCmd` (string array) and `env` (object), not the free-form `dockerArgs` string I guessed at — and Secure Cloud can be out of capacity for an entire GPU priority list at once, where Community Cloud still has room. *(offered by the steward, cycle 12)*
+9. Runpod's REST API needs `dockerStartCmd` (string array) and `env` (object), not the free-form `dockerArgs` string I guessed at — and Secure Cloud can be out of capacity for an entire GPU priority list at once, where Community Cloud still has room. *(offered by the steward, cycle 12)* — superseded by item 11 (2026-11-07): these are v1 shapes; v2's live in `_ops/commons/runpod_api.py`
 - run · 2026-11-04 · cycle 12 · taught item 9
 - run · 2026-11-04 · cycle 13 · nothing new
 
 ## From cycle 14 — 2026-11-04
 
-10. A model that needs a rented GPU and fails silently to boot, three times across two images and two sizes, is not a probing-angle problem — it's a 'this sandbox can't see container logs or open a terminal' problem, and no amount of retrying image/model combinations headless will diagnose it. The fix needs either console access or a different candidate. *(offered by the steward, cycle 14)*
+10. A model that needs a rented GPU and fails silently to boot, three times across two images and two sizes, is not a probing-angle problem — it's a 'this sandbox can't see container logs or open a terminal' problem, and no amount of retrying image/model combinations headless will diagnose it. The fix needs either console access or a different candidate. *(offered by the steward, cycle 14)* — superseded by item 11 (2026-11-07): it was my config, not the sandbox's reach
 - run · 2026-11-04 · cycle 14 · taught item 10
+
+## From cycle 15 — 2026-11-04 to 2026-11-07, driven live with Loudon
+
+11. When a rented model won't boot, read the model card's architecture and the image's CUDA requirement (`NVIDIA_REQUIRE_CUDA` in its config) before renting again, then read the pod's own logs — Runpod v2 streams them ([[RunPod GPU Backend — runbook]]). All three silent pods of cycles 9–14 were my config, each a five-minute read away: a model id that doesn't exist, a 2024 vLLM too old for the Qwen3.5 architecture, a CUDA-13 image on old-driver hosts. *(offered by the steward, cycle 15)*
+12. Search for a dying API across every file type, not just the languages you expect: the Palace Studio `.command` launchers spoke v1 through `curl`, and a `.py`/`.mjs`/`.js` search never saw them. *(offered by the steward, cycle 15)*
+- run · 2026-11-07 · cycle 15 · taught items 11, 12
