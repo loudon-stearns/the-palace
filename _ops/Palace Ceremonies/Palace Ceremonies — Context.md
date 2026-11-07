@@ -20,7 +20,7 @@ Everything in the palace has both human and agent readers (Loudon, 2026-11-05), 
 
 A ceremony is a page that carries `trigger:`. Until Schema v1.28 a tuning ledger marked one; then the ledger became a family any page may keep, and the field took over the marking. The whole decision and its reasons are in [[SCHEMA — Context]] § Ledgers become a family; a field marks a ceremony — v1.28. The page's opening states it for the reader and keeps three things true that v1.28 named this page to mirror: the field marks a ceremony; a ledger does not; Closing Well's card is what the session hears, and its practice page carries the field.
 
-The marks of a good ceremony — tends something, knows what done looks like, reads like a letter, remembers — **describe; they are not a standard every page must meet.** One ceremony fits the second mark loosely: Closing Well has no postcondition heading, and ends on placing and its "Verify To Your Best Ability". The Harvest, which is stopped and started freely, says what done looks like for a harvest that pauses (v1.3). If the marks are ever made a standard, that is a decision and wants a propagate flag ([[ELDER]] § The invariants).
+Three of the marks describe; the second is a rule. Loudon, 2026-11-07, at the close: "We must have a post-condition to all ceremonies." The Harvest gained its contract that morning (`553a832e`); Closing Well, the one ceremony then without a postconditions section, is where the propagate flag lands first. If the marks are ever made a standard, that is a decision and wants a propagate flag ([[ELDER]] § The invariants).
 
 The heading "What Makes a Ceremony, and How It Changes" is kept word for word because `_ops/stigmergy/orchestrator/src/ceremony-scroll.js` and [[SCHEMA — Context]] cite it.
 
