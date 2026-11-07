@@ -202,3 +202,4 @@ The mornings, newest first, are this page's scroll. It is made by machine from t
 ## Active Baton
 
 [[The Daily Page — baton — dealer-ghosts]] — drafted 2026-11-04
+[[The Daily Page — baton — answers-back]] — drafted 2026-11-07
