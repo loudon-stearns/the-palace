@@ -59,3 +59,7 @@ What lensing has taught The Lens. A run is one glass page woken to read one subj
 - run · 2026-11-03 · Merleau-Ponty through Haptic Handwheel, bold (a145f1a4) · taught items 8, 9
 - run · 2026-11-03 · Endosymbiosis through Haptic Handwheel, careful (main's mandate) · taught item 8
 - run · 2026-11-03 · Endosymbiosis through Haptic Handwheel, bold (a145f1a4) · taught items 8, 9, 10
+
+## From the bold mandate's close — 2026-11-07
+
+14. **Item 8's cause, corrected: the session could not read the page at all.** Item 8 says the page's answers path was not used, as if it had simply been passed over. The session could not have used it. Loudon played Woken Glasses in a Chrome tab, and the session cannot read a Chrome tab without the browser extension; `window.lensResults` lives only in that browser. So his verdict had to come by chat. The fix is not The Lens's alone: it is a consistent answers-back path for every page that asks Loudon something, which [[The Daily Page]] owns (its prep step 5, tuning item 71).
