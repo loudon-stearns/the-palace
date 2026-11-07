@@ -12,6 +12,7 @@
 //   feel <name>              frets | string | struck | pendulum | follow | turntable | centre | free
 //                            each feel keeps its own settings and its own brake (feel_core.h defaults())
 //   set <param> <value>      any Params field of the selected feel, e.g. "set k 0.2", "set cancelBrake 1"
+//                            and three for the whole knob: "set kt", "set R", "set cancelMax" (bench_analyze.py prints them)
 //   play <N·m>               torque played into the hand (LFO, pitch, beat clicks), held until replaced
 //   bench coast | accel-bare | accel-disc | cog | chirp
 //   hello                    answers "hello handwheel <board>" and "ready"
@@ -37,6 +38,11 @@ hw::Feel bank[8];                                    // one per FeelId, each wit
 hw::Feel* cur = &bank[hw::CENTRE];
 hw::Motor model;
 float played = 0, tauMax = 0.2f;
+// The most of the motor's own brake any feel may cancel. 0 until the bench
+// sends it: cancelling with a kt that reads even 1–2% high leaves a push, not a
+// brake, and the struck spring or pendulum swings up and runs away
+// (proofs/feel-lab/pendulum_check.mjs). bench_analyze.py prints the safe value.
+float cancelMax = 0;
 uint32_t lastReport = 0;
 
 void setup() {
@@ -66,7 +72,7 @@ void parse(String l) {
     else if (n == "follow") id = hw::FOLLOW; else if (n == "turntable") id = hw::TURNTABLE;
     else if (n == "centre") id = hw::CENTRE;
     cur = &bank[id]; cur->reset();                    // the turntable starts learning afresh
-    Serial.printf("f %s brake %.2f\n", n.c_str(), cur->p.cancelBrake);
+    Serial.printf("f %s brake %.2f\n", n.c_str(), min(cur->p.cancelBrake, cancelMax));
   } else if (l.startsWith("set ")) {
     int sp = l.indexOf(' ', 4); String k = l.substring(4, sp); float v = l.substring(sp + 1).toFloat();
     hw::Params& p = cur->p;
@@ -74,7 +80,7 @@ void parse(String l) {
     else if (k == "k3") p.k3 = v; else if (k == "damp") p.damp = v; else if (k == "rest") p.rest = v;
     else if (k == "rpm") p.rpm = v; else if (k == "kv") p.kv = v; else if (k == "cap") p.cap = v;
     else if (k == "target") p.target = v; else if (k == "wallLo") p.wallLo = v; else if (k == "wallHi") p.wallHi = v;
-    else if (k == "cancelBrake") p.cancelBrake = v; else if (k == "tauMax") tauMax = v;
+    else if (k == "cancelBrake") p.cancelBrake = v; else if (k == "tauMax") tauMax = v; else if (k == "cancelMax") cancelMax = v;
     else if (k == "ffB") p.ffB = v; else if (k == "ffC") p.ffC = v; else if (k == "ki") p.ki = v;
     else if (k == "gate") p.gate = v; else if (k == "trim") p.trim = v; else if (k == "speedTf") p.speedTf = v;
     else if (k == "R") model.R = v; else if (k == "kt") model.kt = v; else if (k == "cogGain") cogGain = v;
@@ -89,7 +95,7 @@ void loop() {
   uint32_t now = micros(); float dt = (now - lastUs) * 1e-6f; lastUs = now;
   hw::Sense s{ motor.shaft_angle, motor.shaft_velocity, now * 1e-6f, dt };
   float tau = hw::tick(*cur, s, played, tauMax);
-  motor.move(model.volts(tau, s.om, cur->p.cancelBrake) + cogCancel(s.th));
+  motor.move(model.volts(tau, s.om, min(cur->p.cancelBrake, cancelMax)) + cogCancel(s.th));
   if (Serial.available()) parse(Serial.readStringUntil('\n'));
   if (millis() - lastReport >= 2) {
     lastReport = millis();

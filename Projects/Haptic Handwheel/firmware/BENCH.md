@@ -111,3 +111,21 @@ a second and let go: it should be back within 1% in well under a second, with no
 surge past about 115%. If it hunts or surges, lower `ki`; if it idles short,
 check that `ffB` and `ffC` were sent to the turntable, not another feel (each
 feel keeps its own settings now).
+
+**Does the cancelled brake still brake?** (added 2026-11-07, from `proofs/feel-lab/pendulum_check.mjs`)
+The struck spring, the pendulum and the turntable cancel the motor's own brake:
+the firmware adds kt·ω volts to undo the back-EMF. If the kt it uses reads even
+1–2% high, what's left is a push, not a brake. In the model, a struck spring
+then swings up until it hits the torque cap, and a pendulum goes over the top
+in a fraction of a second. Warm magnets lose about 0.1% of kt per °C, so a kt
+measured cold reads high on a warm motor. So the firmware now cancels **none**
+of the brake until it is told how much is safe (`set cancelMax`), and the
+analyzer prints that number after `bench accel-disc`, beside `set kt`: the most
+it can cancel and still be braked if kt is 5% high, (1 + b_bearings/b_backemf)/1.05,
+0.98 on the pretend motor. The cost is a shorter ring. In the model, a struck
+spring that rang for 1.4 s with an exact cancel rings 0.4–1.4 s under the rule,
+depending on how strong the brake turns out to be. On the bench: send `set kt`
+and `set cancelMax`, pick `feel struck`, pull it about a third of a turn and let
+go, hands off. It should ring down within about three seconds. If it rings
+longer, or grows, lower `cancelMax` by 0.02 and try again; if it barely rings,
+the brake is stronger than guessed and the rule is doing its job.

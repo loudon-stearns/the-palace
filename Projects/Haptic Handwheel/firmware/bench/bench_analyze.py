@@ -293,7 +293,10 @@ def report(rows_by, a, truth=None, mic=None, header_path=None, plot_path=None):
     print(f"{'number':<26}{'measured':>12} {'':<8}" + (f"{'true':>12}{'error':>9}" if truth else ''))
     for k, v in m.items(): line(k, v, T.get('motor', {}).get(k))
     if m:  # the lines to paste into Max, so the knob stops guessing
-        print(f"  send to the knob: set kt {m['kt']:.4g} · then with the turntable selected: "
+        # the most of the brake a feel may cancel and still be braked if kt reads 5% high
+        # (warm magnets lose about 0.1% of kt per °C; proofs/feel-lab/pendulum_check.mjs)
+        cmax = min(1.0, (1 + m['b_bearings'] / m['b_backemf']) / 1.05) if m.get('b_backemf') else 0.0
+        print(f"  send to the knob: set kt {m['kt']:.4g} · set cancelMax {cmax:.3f} · then with the turntable selected: "
               f"set ffB {m['b_bearings']:.4g} · set ffC {m['coulomb']:.4g}")
     res = dict(motor=m)
     if m and 'cog-fwd' in rows_by and 'cog-rev' in rows_by:

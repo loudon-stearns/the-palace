@@ -36,3 +36,13 @@ What Haptic Handwheel's steward cycles taught the page, and the changes to the h
 
 3. Every number the bench reports scales with the one reference it trusts, the disc's inertia, so measure that reference directly (hang it and time it) and never compute it from a shape you assumed. *(offered by the steward, cycle 10)*
 - run · 2026-11-07 · cycle 10 · taught item 3
+
+## From cycle 11 — 2026-11-07
+
+4. A feel that cancels the motor's own brake is only as safe as the kt it cancels with: a kt reading 1–2% high turns the brake into a push, so cancel nothing until the bench has measured kt, and leave room for it to drift. *(offered by the steward, cycle 11)*
+5. **Proposed for canon** · 2026-11-07 · [[Haptic Handwheel]] · § What the hand should feel, the struck-spring bullet, after "a pendulum quickens as it settles." · canon change owed *(proposed by the steward, cycle 11)*
+   Why: the page's spring-versus-pendulum claim now has an independent check and a number, and the number says only a big strike shows the difference.
+   Path: `Projects/Haptic Handwheel.md`
+   > Checked against the exact period of a real pendulum, the model agrees: from a swing of about 130° it settles nearly half again as fast, and from a small swing the two can't be told apart.
+
+- run · 2026-11-07 · cycle 11 · taught item 4, proposed item 5 for canon
