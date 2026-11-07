@@ -26,3 +26,4 @@ What Slime Mold Delay's steward cycles taught the page. The orchestrator grew th
 
 1. Starting dense only gets the mold lean if the growth law makes roads compete (thickness growing faster than flow) and the pressure isn't all aimed at one listener; with a saturating law or a single drain, a mesh carves down to one parallel road per flake. *(offered by the steward, cycle 11)*
 - run · 2026-10-18 · cycle 11 · taught item 1
+- run · 2026-11-07 · cycle 12, posted nothing · nothing new

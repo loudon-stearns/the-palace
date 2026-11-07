@@ -15,18 +15,19 @@ forward_vector: "I am Slime Mold Delay's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-18T10:30:33.458Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-07T12:31:30.221Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 11 · last ran 2026-10-18 (today)
-- **Plan:** agreed 2026-10-14 (4 days ago) · 1 made thing since
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 12 · last ran 2026-11-07 (today)
+- **Plan:** agreed 2026-10-14 (24 days ago) · 1 made thing since
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-18 (today) — The dish now starts as a mesh over the whole agar and carves it down. On the clustered dish the network got leaner: 1.73× the shortest network → 1.28×. (`slime-mold-delay-steward-020`)
-- **Last commit touching this project:** 2026-10-13 `98cc3645` — steward(Slime Mold Delay): cycle 10 — SPINNING UP. HOME: [[Slime Mold Delay]]. Neighborhood loaded. Cycle 10,…
-- **Signal:** steady
+- **Last shipped:** 2026-10-18 (20 days ago) — The dish now starts as a mesh over the whole agar and carves it down. On the clustered dish the network got leaner: 1.73× the shortest network → 1.28×. (`slime-mold-delay-steward-020`)
+- **Last commit touching this project:** 2026-11-03 `a027a3f7` — edit(Loudon Live Design System): the browser's furniture fan-out, batch 3 of 5: Projects, Q to Z (94 pages)
+- **Signal:** ⚠ the last cycle posted nothing (one barren cycle — the lane will retry before calling it stalled)
+- **Left uncommitted:** ⚠ 20 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Slime Mold Delay/plugin/.gitignore`, `Projects/Slime Mold Delay/plugin/CMakeLists.txt`, `Projects/Slime Mold Delay/plugin/all.out`, `Projects/Slime Mold Delay/plugin/editor.out`, `Projects/Slime Mold Delay/plugin/plugin.json`, and 15 more. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-18 — cycle 11 · taught item 1
+- **Runs:** 2 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-07 — cycle 12, posted nothing · nothing new
 - **Owed in the ledger:** nothing
 - **Latest lesson:** item 1, from cycle 11 — 2026-10-18 — [[Slime Mold Delay — tuning]]
 
@@ -58,6 +59,7 @@ _None._
 
 ### Runs
 
+- 2026-11-07 — cycle 12, posted nothing · nothing new
 - 2026-10-18 — cycle 11 · taught item 1
 
 ### Owed
@@ -89,6 +91,13 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="run-b3fe07ccda" -->
+### 2026-11-07 — cycle 12, posted nothing
+
+nothing new
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-slime-mold-delay-steward-018" -->
 ### 2026-10-13 — Plan agreed: Slime Mold Delay has never had an agreed plan. Here's one: your ears on the dish, then start dense and thin, then Max, then the lesson.
 
