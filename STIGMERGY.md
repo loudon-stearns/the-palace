@@ -52,12 +52,6 @@ STIGMERGY is the palace's **nervous system made visible**: one terminal with thr
 
 It is two things at once. Seen by a human, it is a **front-end** — a phosphor terminal you read and act in. Seen by an agent, it is an **engine** — an append-only blackboard you leave marks on and read gradients from. The same data structure serves both; the [[Trickster]] is just another node on the board.
 
-## Active Baton
-
-> **[[STIGMERGY — baton — rich-face pieces]]** (2026-10-13) — the piece origin: pieces run on an origin of their own, declare what they need, and a check keeps them honest. The plan is [[STIGMERGY — spec — rich-face pieces]]; the build landed in five steps, the last the migration on 2026-10-21 (`3b0744c8`). The design-system rule and pins and Enrichment's stamp-by-name have since landed. What is left is a decision and a close: whether one propagate flag carries the new piece rule to [[The Scroll]] and the steward prompt, which still restate the old one; three checker errors in gathered proofs that belong to [[BLUELINE]] and [[Quantum Synthesizer]]; and the spec page's retirement.
-
-[[STIGMERGY — baton — stale worktree on remainder]] — drafted 2026-10-25
-
 ## The honesty discipline, made structural
 
 The three decks are ordered by time, and the ordering is the point. STATE is what is known now; QUEUE is what is intended; LOG is what actually happened. Work is not real until it lands in LOG — until git proves it. This makes the palace's standing rule (*nothing is true until it is committed*) **structural rather than remembered**: you cannot fake completion by saying so. Nothing infers done from git, because a commit touching a page does not mean this card's work landed. A card leaves QUEUE in only four ways: a baton by a close that cites a commit git can find; a weave flag when its `Palace-Resolves` trailer greys it and a person confirms; a proposal or to-do by a person's grant or deny; any card by a person's clear. The door checks that a cited commit exists, not that it holds the work, so a wrong citation can still get through, but only on the record, under a hash anyone can open. Git is ground truth; the blackboard is append-only; there is one write path. Commits don't travel the bus: every one goes through the palace's one door, and the board's own file rides along in any committer's sweep once its oldest uncommitted line is half an hour old ([[How the Palace Commits]]).
@@ -139,6 +133,8 @@ The terminal wears one locked look, and it was the palace's first design system 
 
 The kit is `_ops/stigmergy/design-system/`. Its `README.md` is the brand book, and its `SKILL.md` is what an agent reads before building a screen. The app doesn't import the kit's CSS. `_ops/stigmergy/app/src/styles/tokens.css` mirrors `colors_and_type.css` by hand, because the kit's font paths 403 under Vite and its CDN links are stale. Keep the two level. The board also draws its own furniture: every scrollbar, grip, chevron, box, cursor and fold that the browser would have supplied, in phosphor, and reads every hint into its command bar instead of the OS tooltip, by the rule the palace's other two dresses carry (`_ops/stigmergy/design-system/README.md` § The browser's furniture).
 
+A piece made for this page's rich face wears this kit, carrying its tokens inline, since the piece origin serves only the Loudon Live design system (Loudon, 2026-11-07).
+
 **Open:** the TRICKSTER board has no colour of its own. Loudon picked red on 2026-11-02, but red already means errors and DENY.
 
 ## Lineage
@@ -159,7 +155,7 @@ STIGMERGY emerged from the [[BBS Blackboard]] concept (March 2026), which named 
 
 ## Forward Vector
 
-Become the front door — the single surface Loudon opens to run the palace, where the seams between writing an entry, coordinating a swarm, and committing the result disappear entirely. Keep the wire exact and the surface human. Make completion impossible to fake. Two tests stand open. The scroll: a project's state must be readable in one screen, true without a cycle, and steerable in place. And this page: it once fell five months behind the terminal it describes. The next honesty to make structural is my own description — a check that reads the decks, the wire's types and the kit against these words, so the page cannot drift from the terminal without the terminal saying so.
+Become the front door — the single surface Loudon opens to run the palace, where the seams between writing an entry, coordinating a swarm, and committing the result disappear entirely. Keep the wire exact and the surface human. Make completion impossible to fake. Two tests stand open. The scroll: a project's state must be readable in one screen, true without a cycle, and steerable in place. And this page: it once fell five months behind the terminal it describes. My own description is now checked like my work: `drift-check.mjs` reads the decks, the lanes, the wire's types and the kit against these words at every Weave, so the page cannot drift from the terminal without the terminal saying so.
 
 ---
 
