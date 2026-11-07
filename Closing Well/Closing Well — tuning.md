@@ -355,3 +355,9 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 71. **A live steward session left its steward's books three days stale, and nothing in the close looked.** Shopkeeper cycle 15 was driven live: state.json still said cycle 14, the scroll's Now still said "waiting on you: 1 open ask" days after it was answered, and the ledger got its run line only because the room wrote it by hand. Loudon asked whether a close should look back at a steward's Plan and Standing Orders, since a live session can change them and he may forget he was running a steward. The transcript reader now names a steward session in the arc's header from its launch brief, the moderator reads the page's Plan, Standing Orders and ledger tail against the day, and the checklist squares the books with `finalize-live.js`. Spec change: § When the session was a steward → v1.15.
 
 - run · 2026-11-07 · v1.15 · close-2026-11-07-shopkeeper-cycle-15 · taught item 71
+
+## From the Palace Ceremonies close — 2026-11-07
+
+72. **A promised after-write check was never asked for across three landings.** `4d555c64`, the room's files in `433f13da`, and `553a832e` landed with no after-write check asked for; only `9329cc4c` was checked. Item 63 seen again. Also data: the moderator's stake was named from outside, by the room, as gotcha 23 asks, and the cold read still caught the overstated "I read the diff before it landed". Data, not a spec change. This close ran on v1.14; v1.15 (`62286146`, item 71) landed on main the same morning from another close.
+
+- run · 2026-11-07 · v1.14 · close-2026-11-07-palace-ceremonies · taught item 72
