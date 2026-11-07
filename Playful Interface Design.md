@@ -18,9 +18,6 @@ links:
   - target: "[[Semantic Delay]]"
     type: connects-to
     label: trickster-spirits-kind
-  - target: "[[Preset Oracle]]"
-    type: connects-to
-    label: oracle-kind
   - target: "[[Trickster]]"
     type: deepens
   - target: "[[Boundary-Crossing Instruments]]"
@@ -73,15 +70,13 @@ Gaver's **ludic design** goes further: an object can be built for curiosity, exp
 
 That gap is the engine. Loewenstein's account of curiosity is an information gap: curiosity peaks when the gap between what you know and what you want to know is small but not closed, it is triggered by a violated expectation, and it dies if the answer never comes ([Golman & Loewenstein](https://www.cmu.edu/dietrich/sds/docs/golman/golman_loewenstein_curiosity.pdf)). An interface that is a little unpredictable, and whose behaviour can be understood by playing more, is a curiosity machine. One whose behaviour can never be understood is just noise.
 
-## Four moves the direction asks for
+## Three moves the direction asks for
 
 **Make it legible before it is lovely.** Game designers call excess feedback *juice* — the screen shake, the sparkle, the pop. The research is sobering: players rate juicy versions higher but sometimes perform worse, and the best results come from a middle amount, not the most ([Juul & Begy](https://adk.elsevierpure.com/da/publications/good-feedback-for-bad-players-a-preliminary-study-of-juicy-interf); [Kao's inverted U](https://dl.digra.org/index.php/dl/article/view/936)). The failure mode is feedback that is decorative rather than informative — the player can no longer tell which part of the animation means something. Every reaction of the interface should *mean* something about the sound. If the ghost trembles, something in the signal is trembling; if the vessel narrows, the gain is coming down.
 
 **Low floor, high ceiling, wide walls.** Resnick's rule for creative tools: easy to start, no cap on how deep you can go, many different paths through ([Lifelong Kindergarten](https://www.media.mit.edu/articles/lifelong-kindergarten-how-to-learn-like-a-kid-by-the-co-creator-of-scratch/)). A picture lowers the floor — you don't need to know what "feedback gain" is to see that the spirit is getting excited, or what "ratio" is to see the artery clamp — and it widens the walls, because different players will chase different parts of the picture. It must not lower the ceiling: the expert still needs the fine control underneath. Perry Cook's warning from two decades of building controllers applies — programmability is a curse, and more control bandwidth is not more instrument ([Principles for Designing Computer Music Controllers](https://nime.org/proc/nime2001_cook/)). The picture is a way of *reading* the instrument, not a replacement for its depth.
 
 **Let the character push back.** Hassenzahl's group builds "pleasurable troublemakers" — objects that introduce a little friction, in a playful tone, so the person reflects instead of running on habit ([Annoying, but in a Nice Way](https://ijdesign.org/index.php/IJDesign/article/view/2099)). The oracle dealing you a constraint card is one of these. An instrument with agency is a partner, not a servant, and the friction is where the playing changes. Tune it so it is felt as an invitation, never a wall.
-
-**Design for the body, then let the interface disappear.** The aim of a good control is to be absorbed into the body schema until it is no longer perceived, only perceived-through ([[Merleau-Ponty]]). The picture helps at the start — it is how the player first understands what the instrument wants — and then it should recede. Flow needs clear goals and immediate feedback, then gets out of the way ([Flow theory](https://edutechwiki.unige.ch/en/Flow_theory)). The medium at the crystal ball is a teacher who knows when to stop talking; the wheel that resists simply becomes your arm.
 
 ## Kinds already made: examples from the palace
 
@@ -132,7 +127,6 @@ Nothing above requires pixels, and nothing above requires a face. Gaver's Drift 
 - **Consistency across scales:** how does an interface keep its nature from a phone screen to a full monitor to a physical object?
 - **Subtlety vs. obviousness:** how much reaction feels alive without becoming the thing you watch instead of the thing you hear? (The juice research says the answer is "less than you think.")
 - **Personalization:** should a player choose between pictures for the same instrument, and does choosing change how they play?
-- **Receding:** when, and how, does the picture step back once the player has absorbed the instrument?
 - **Which kind:** is there a way to tell, early, whether a new instrument wants to be a character, a body, a place, or a thing with mass? Or is the answer always "build it and listen"?
 - **Accessibility:** an animated picture must be optional. Motion triggered by interaction should be something a player can turn down or off ([WCAG 2.3.3](https://w3c.github.io/wcag/understanding/animation-from-interactions.html)), and the picture's *meaning* should survive the loss of its motion — through sound, through touch, through a still pose. How does a playful interface serve players with visual or motor needs, rather than exclude them?
 
