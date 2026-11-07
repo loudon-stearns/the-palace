@@ -105,3 +105,4 @@ What each baton taught the ceremony. Each item names what the run showed and the
 - run · 2026-11-07 · v1.6 · BLUELINE, the reset baton brought up to date with its steward's cycles (update in place, at a partial re-close) · nothing new
 - run · 2026-11-07 · v1.6 · Two Batons, One Board, four checks for a baton and a steward on one project (commissioning, at a close) · nothing new
 - run · 2026-11-07 · v1.6 · Pheromone Trail, the whole-page rewrite and a playful face round (commissioning, from the Daily Page) · nothing new
+- run · 2026-11-07 · v1.6 · Review Layer, the rich face dock's send and note placement (commissioning, from the Daily Page) · nothing new

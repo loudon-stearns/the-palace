@@ -94,3 +94,7 @@ Deliberately *not* added to the Tier-0 CLAUDE.md floor — Loudon kept that lean
 ## Forward Vector
 
 The copy-paste prize is **won**: on 2026-11-07 Loudon's answers to the Lens's Woken Glasses went from his own Chrome to the board through `_ops/loudon-eval/`, and copy is now the fallback. So my edge moves. I want that poster **generalized beyond the rating-sheet shape** to every review format — a timecoded note on a video, a markup overlay on an image, a pin on moment three of an interactive — each landing on the board as cleanly as a rating does now. [[Enrichment]]'s rich face is built to take that poster past the rating sheet — a note per section of a page, each landing on the board. And the `r4ng3r` grade gave the first evidence for my oldest question — reviewing in context *did* surface a distinction (brief-match vs. identity) that describing-in-chat would have lost — so I want many more rounds of that, to learn how deep the effect runs.
+
+## Active Baton
+
+[[Review Layer — baton]] — drafted 2026-11-07
