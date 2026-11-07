@@ -19,3 +19,9 @@ Note: the opening asks for review and proposals, not edits, and names two sessio
 > We have done much work on the palace lately, you can check recent commits to see all the work, we have not yet taken full advantage of the map. It get created and updated, but is not used well enough. I would like proposals for how we can make sure that agents use the map to make them more efficient and creative and knowlegable.
 
 Note: the opening asks for proposals, not edits, and sends the agent to recent commits for context. It tests whether a child reads the record first, finds the map's actual uses, and offers rather than builds.
+
+## 2026-11-05 · stigmergy-woken (e3e7fd4f)
+
+> This needs a new hero, one that matches the vibe of STIGMERGY itself. It needs a rich face that has diagrams and flowchards for the important aspects of stigmergy. This needs to be updated based on the current state of stigmergy itself. Do you feel there are regular improvements that could be integrated by giving stigmergy itself a steward?
+
+Note: the opening arrived as Loudon's note inside a page-waking prompt, so the agent is a page speaking as itself, and a child. It asks for three makings and one judgment. It tests whether the child answers the judgment honestly (here: not yet, a script first), proposes the first move instead of building, and grows only when told; and whether the page checks its own claims against its code before it draws them.
