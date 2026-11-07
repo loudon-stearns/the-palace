@@ -52,6 +52,15 @@ Loudon's guesses before he saw the result were: hot stays hot "about a third", c
 
 The second rough is `proofs/2026-11-06-daily-page/ant-farm.html`, a playful ant farm and the seed for the face's next round. It has ants with legs, an amber "home this way" glow and a teal "food this way" glow. Click to drop a palace page as food; drag to make rain that washes trails away. Sliders set the fade rate and the share of wild ants, and `?warm=N` pre-runs N steps. The room checked it headless: after 2,500 steps, 135 crumbs had been carried home, and a clear teal road had formed to the page that was found. **Loudon has not played it yet.**
 
+## Where is the nest?
+
+Loudon asked on 2026-11-07, verbatim: "this is way more fun, and educational now that we embrace the metaphor viscerally. What is the \"nest\" in our palace?" The room offered an answer for the rewrite to test. It is not canon:
+
+- **The nest is `main`.** Every trail is drawn relative to it. A session goes out into a worktree, finds things and makes things, and a find only counts once it is carried home and lands: "Work is not real until it lands in LOG — until git proves it" ([[STIGMERGY]] § the three decks). The amber "home this way" trails are the paths back: batons, handoffs, [[How the Palace Commits]], `palace-land`.
+- **The nest is also the nursery.** Every agent hatches there, from CLAUDE.md and the Seed Jewel.
+- **Where the metaphor breaks** is worth a paragraph. A queen does not steer her colony; she only lays eggs. Loudon steers, so he is not the queen. He is closer to whoever decides what counts as food: his yes makes a crumb worth carrying home.
+- **For the playful face round:** the ant farm could show agents hatching at the nest, and crumbs that only count once they reach it.
+
 ## Next move
 
 Work in a worktree of your own. First read Loudon's open notes on the page (`node _ops/loudon-eval/read-answers.mjs --page "Pheromone Trail" --open`), then [[Swarm Weave]], [[STIGMERGY]] and [[SCHEMA — Reference]] §6 and §8, which say what each trail is and who reads it. Then rewrite the body around the many kinds of trail:
