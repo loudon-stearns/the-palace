@@ -59,9 +59,11 @@ A ceremony is a rite the palace runs on itself. Its page carries `trigger:`, the
 The field makes a ceremony. What makes a good one:
 
 - **It tends something.** A harvest gathers, a weave connects, a close puts the day to sleep and a return wakes it. A rite that tends nothing is a checklist.
-- **It knows what done looks like.** Most say it as a contract: what holds before, what must be true after, what to do when it goes sideways. One that cannot verify its end has not ended ([[ELDER]]). An honest "nothing found" can be the end; it is the Walk's.
+- **It knows what done looks like, and says so.** Every ceremony states its postconditions: what must be true when a run ends, and what to do when it goes sideways. One that cannot verify its end has not ended ([[ELDER]]). An honest "nothing found" can be the end; it is the Walk's.
 - **It reads like a letter, not a script.** It says what it is for and what done looks like, and leaves the route to whoever walks it. Its metaphors are part of the instruction.
 - **It remembers.** Its version moves when its spec changes, not because it ran. Every ceremony keeps a tuning ledger today, `[Ceremony] — tuning.md`. A run opens by reading the ledger's tail and closes with one line — what it ran on, and "nothing new" or what it taught — so the next run starts from the last, not from scratch. The exact rules and commands: [[SCHEMA — Reference]] §6.
+
+Three of these marks describe a good ceremony; the second is a rule every ceremony keeps.
 
 Adding or retiring a ceremony is a Schema Ceremony ([[SCHEMA — Reference]] §5); changing how one works is an edit to its page, and its version moves.
 
