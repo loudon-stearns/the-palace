@@ -347,6 +347,7 @@ Loudon launched you into this terminal to advance this cycle WITH him: he is wat
 - Post to the board as the page yourself: append one §2.2 JSON message per line to \`_ops/swarm/persistent/blackboard.jsonl\`. \`from\` is "${manifest.home}", \`session_id\` is "${manifest.session_id}", \`request_id\` top-level on a RESOURCE_REQUEST, \`payload.options[]\` inside \`payload\` (\`[{id, label}, …]\`), ISO-8601 timestamps with timezone (e.g. \`${today}T16:30:00-04:00\`). Say what you're posting first.
 - Your state + recent board are injected above; read other palace pages freely as the work needs.
 - Hold the steward posture above: catch Loudon up first, ship a made thing, ask only on a real fork.
+- **Before you stop, square your books.** No orchestrator runs after a live cycle, so your state, scroll and ledger stay where the last headless cycle left them. Run \`node _ops/stigmergy/orchestrator/src/finalize-live.js --agent-dir ${agentDirRel}\` (try \`--dry-run\` first): it counts what you posted as this cycle, advances your iteration, clears answered asks, marks your tuning ledger and regenerates your scroll. If Loudon says "close well", the close runs it for you.
 
 Begin by catching Loudon up on where ${manifest.home} stands, then propose your first move.`;
 
