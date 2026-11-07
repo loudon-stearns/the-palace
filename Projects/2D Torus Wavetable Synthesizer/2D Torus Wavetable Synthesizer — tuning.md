@@ -41,3 +41,4 @@ What 2D Torus Wavetable Synthesizer's steward cycles taught the page, and the ch
    > - **The Singer**, the first instrument of the Torus Ensemble: `Instruments/singer.html`, a Hopf voice played from a keyboard. It reads the surface's coefficients to find the partial the ear hears on each lock, so a note keeps its pitch when the lock changes. Built and checked offline; not yet played by hand.
 
 - run · 2026-10-20 · cycle 23 · taught item 3, proposed item 4 for canon
+- run · 2026-11-07 · cycle 24, posted nothing · nothing new

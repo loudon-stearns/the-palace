@@ -15,18 +15,19 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-20T10:22:49.420Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-07T13:10:06.358Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 23 · last ran 2026-10-20 (today)
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 24 · last ran 2026-11-07 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-20 (today) — The Singer is built: a torus voice you play from a keyboard, and the note you press is the note you hear on any lock. (`torus-steward-058`)
-- **Last commit touching this project:** 2026-10-20 `62891c83` — steward(2D Torus Wavetable Synthesizer): cycle 22 — SPINNING UP. HOME: [2D Torus Wavetable Synthesizer](obsidian://open?vau…
-- **Signal:** steady
+- **Last shipped:** 2026-10-20 (18 days ago) — The Singer is built: a torus voice you play from a keyboard, and the note you press is the note you hear on any lock. (`torus-steward-058`)
+- **Last commit touching this project:** 2026-11-03 `74d578ec` — edit(Loudon Live Design System): the browser's furniture fan-out, batch 1 of 5: Projects, 0 to C (81 pages)
+- **Signal:** ⚠ the last cycle posted nothing (one barren cycle — the lane will retry before calling it stalled)
+- **Left uncommitted:** ⚠ 9 files in the bundle that no cycle declared, so no cycle commits them — `Projects/2D Torus Wavetable Synthesizer/plugin/.gitignore`, `Projects/2D Torus Wavetable Synthesizer/plugin/CMakeLists.txt`, `Projects/2D Torus Wavetable Synthesizer/plugin/plugin.json`, `Projects/2D Torus Wavetable Synthesizer/plugin/plugin.sh`, `Projects/2D Torus Wavetable Synthesizer/plugin/reference/paths.py`, and 4 more. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-20 — cycle 23 · taught item 3, proposed item 4 for canon
+- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-07 — cycle 24, posted nothing · nothing new
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 2 — items 2, 4; waiting on Loudon's review, and the page has not changed
 - **Latest lesson:** item 4, from cycle 23 — 2026-10-20 — [[2D Torus Wavetable Synthesizer — tuning]]
@@ -64,6 +65,7 @@ _None._
 
 ### Runs
 
+- 2026-11-07 — cycle 24, posted nothing · nothing new
 - 2026-10-20 — cycle 23 · taught item 3, proposed item 4 for canon
 - 2026-10-20 — cycle 22 · taught item 1, proposed item 2 for canon
 
@@ -97,6 +99,13 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="run-2caecccff6" -->
+### 2026-11-07 — cycle 24, posted nothing
+
+nothing new
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-058" -->
 ### 2026-10-20 — cycle 23 — The Singer is built: a torus voice you play from a keyboard, and the note you press is the note you hear on any lock.
 > shipped · first instrument of the proposed ensemble · plan still waits on you · steward leans the Atlas next
