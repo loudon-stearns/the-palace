@@ -31,3 +31,8 @@ What Haptic Handwheel's steward cycles taught the page, and the changes to the h
 
 2. Read a speed as angle travelled over time, never as one sample: the motor's 84 bumps a turn make a single reading land anywhere in a ±14% wobble, which is how the pretend turntable seemed to run at 28–31 rpm while holding 33⅓. *(offered by the steward, cycle 9)*
 - run · 2026-10-20 · cycle 9 · taught item 2
+
+## From cycle 10 — 2026-11-07
+
+3. Every number the bench reports scales with the one reference it trusts, the disc's inertia, so measure that reference directly (hang it and time it) and never compute it from a shape you assumed. *(offered by the steward, cycle 10)*
+- run · 2026-11-07 · cycle 10 · taught item 3

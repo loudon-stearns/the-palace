@@ -3,7 +3,22 @@
 The feel lab guessed four numbers about the GM5208-12. Every feel's stability
 and every feel's sound hangs on them. These tests replace the guesses. They
 need the motor, its encoder, a driver board, a 12 V supply, a multimeter, and
-one disc of known mass (the light 40 g, 80 mm printed cap will do).
+one disc whose inertia you have measured (below: two threads and a stopwatch).
+
+**Measure the disc before box day** (2026-11-07). Every number the bench
+reports — inertia, torque per amp, drag, friction, the brake — comes out in
+proportion to the disc's inertia. The analyzer used to take it as a flat solid
+disc, ½·m·r². The drawn light cap carries its mass out in a skirt and is 1.178×
+that (the Shopkeeper's CAD probe, 2026-10-20), so on the pretend motor every
+number read 15–19 % low (`bench/cap_check.txt`). Friction reading 19 % low would
+set the frets' push-off-the-ridge below the real friction, and frets would stick.
+So hang the disc from two threads, twist it, and time twenty twists:
+
+    python3 bench/disc_inertia.py --mass 0.0402 --spacing 0.060 --length 0.500 --seconds 29.0
+
+It prints `--disc-J`; hand that to `run_bench.py` and `bench_analyze.py`. Any
+disc or cap will do this way, at 100 % infill or not, since nothing rests on its
+shape. (A 40 g disc 60 mm between threads 500 mm long twists in about 1.3–1.5 s.)
 
 Nothing here has been run on a motor. The analyzer is checked only against a
 pretend motor: `python3 bench/bench_analyze.py --selftest --plot selftest.png`
@@ -28,7 +43,7 @@ a pass and a fail for each, and a console that drives the knob from Chrome over
 USB. The whole bench below runs in one command, which asks when to fit the disc
 and when to start the mic recording:
 
-    /usr/local/bin/python3 bench/run_bench.py --R <ohms per phase>
+    /usr/local/bin/python3 bench/run_bench.py --R <ohms per phase> --disc-J <from disc_inertia.py>
 
 Rehearse it with `--fake`. (That Python is the one on this laptop with numpy and scipy.)
 
@@ -36,14 +51,14 @@ Rehearse it with `--fake`. (That Python is the one on this laptop with numpy and
 |---|---|---|---|
 | meter | ohms across each pair of motor leads | R per phase (half the reading) | turns torque into volts |
 | `bench coast` | nothing — it spins up and lets go twice | bearing drag, dry friction, **the motor's own brake** | the brake decides how stiff a feel can cross a cable, and how long the struck spring rings |
-| `bench accel-bare`, then fit the disc, `bench accel-disc` | swap the cap on between runs | rotor inertia, torque per amp | the feel lab's weight and strength |
+| `bench accel-bare`, then fit the disc, `bench accel-disc` | fit the disc you hung and timed between runs | rotor inertia, torque per amp | the feel lab's weight and strength |
 | `bench cog` | hands off, ~100 s (one turn forward, one back) | cogging and friction around one turn; writes `handwheel/cog_map.h` so the firmware cancels the bumps | whether frets made in software are louder than the motor's own bumps |
 | `bench chirp` + a contact mic | disc on, piezo taped to its rim, record it into your interface (start recording first; the analyzer finds the sweep by itself) | how much push survives 10 → 400 Hz, and the winding's inductance | the only real test of "can I feel a G" — the encoder only counts up to about 90 Hz |
 
 Capture the serial lines to a file (the Arduino serial monitor, or `cat
 /dev/cu.usbserial-* > capture.csv`), then:
 
-    python3 bench/bench_analyze.py capture.csv --R <ohms per phase> --disc-mass 0.040 --disc-radius 0.040
+    python3 bench/bench_analyze.py capture.csv --R <ohms per phase> --disc-J <from disc_inertia.py>
 
 For the chirp, add the recording: `--mic chirp_mic.wav --plot bench.png`.
 
