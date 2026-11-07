@@ -100,6 +100,6 @@ Then reap: `python3 -m commons reap --self --force` (from `_ops/`). Worked examp
 
 ## Pages that point here
 
-[[RunPod GPU Backend]] · [[LoRA Trainer]] · [[Hero and Avatar Maker]] · [[Maker]] (host-class row) · [[The Commons]] · [[BLUELINE — Render Backend]].
+[[RunPod GPU Backend]] · [[LoRA Trainer]] · [[Hero and Avatar Maker]] · [[Maker]] (host-class row) · [[The Commons]] · [[BLUELINE — Render Backend]] · [[LightOnOCR-3]] · `Shop/RunPod GPU Backend/studio/README.md` · `Shop/RunPod GPU Backend/backend-design.md` (the June design record) · `Projects/BLUELINE/render-backend/README.md` (the by-hand console route) · `Projects/BLUELINE/proofs/track-II-lora/TRAIN.md`.
 
-Not yet pointed here, and still carrying some Runpod detail of their own — fold them in as they're next touched: `Shop/RunPod GPU Backend/backend-design.md` (the serverless design), `Shop/RunPod GPU Backend/studio/README.md`, `Projects/BLUELINE/render-backend/README.md`, `Projects/BLUELINE/proofs/track-II-lora/TRAIN.md`, [[BLUELINE — toolbox]] (pinned images, by design). Dated records that keep their own account: [[Frame Designer]]'s 2026-06-23 field notes, `_ops/runpod/CALLER-AUDIT.md`, the LightOnOCR-3 probe notes.
+[[BLUELINE — toolbox]] pins its own images by design. Dated records that keep their own account: [[Frame Designer]]'s 2026-06-23 field notes, `_ops/runpod/CALLER-AUDIT.md`, the LightOnOCR-3 probe notes.

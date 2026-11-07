@@ -74,6 +74,8 @@ not set per board — that is the whole point of putting the axes on wires.
 
 ## RunPod setup (once)
 
+> This is the by-hand console route. Creating pods from code, and every Runpod trap, is in [[RunPod GPU Backend — runbook]]; `pod_runner.py` uses the Shop's pod provider.
+
 1. Deploy a one-click **ComfyUI** template on an RTX 3090 or 4090, **Secure Cloud**, with a
    **network volume** (≈40 GB for Study only; ≈110 GB if both tiers live on one volume).
    Everything under `/workspace` persists; models download once.

@@ -76,7 +76,7 @@ their multi-agent safety (do they namespace their pod + reap their own slug?):
 | `cloud-i2v/svd_orchestrator.py` (+ `svd_render.py`) | pod | ✅ slug + reap (retrofit 2026-07-03 — RunpodPodProvider + `reap --self`) |
 
 Rule (from [[RunPod GPU Backend — runbook]] + [[The Commons]]): any pod-creating script
-must name its pod `blueline-…-<slug>` (`agent_ns.py`), recover-by-name on a flaky create, and
+must name its pod `<base>--<slug>` (the Shop's pod provider does it), recover-by-name on a flaky create, and
 `commons reap --self` after every run — success or failure. Serverless-endpoint tools are inherently
 multi-agent-safe (shared managed infra, not a single-tenant pod).
 
