@@ -40,3 +40,7 @@ What each harvest taught the ceremony. Each item names what the run showed and t
 ## From the stewardship work — 2026-10-16
 
 7. **Loudon's projects outside the palace held lessons it needed, and the palace had no way to take them in without their contents.** Forced: § Lessons from outside — an export prompt carried to the outside project ([[Harvest Ceremony — spec — lessons from outside]]), a second checker on the private side, an untracked inbox until Loudon reads it and the Sentry checks it, then the close reading. First use: a private Max project's lessons, toward the Max patching standards ([[Project Stewardship System]]). Version 1.1 → 1.2.
+
+## From Palace Ceremonies' rewrite — 2026-11-07
+
+8. **The Harvest was the one ceremony with no contract.** Palace Ceremonies' new account of what makes a ceremony asks that each one know what done looks like, and [[ROSETTA]] §3.5 asks every ceremony's page for a postcondition; the 2026-10-24 Weave had noticed the Harvest had none. Forced: six postconditions, written so a harvest stopped partway still ends honestly — the scope named first, every candidate pointing back to its source, nothing in canon from a sweep, an honest zero as complete, where it stopped named in the commit, the run line. Proposed by Palace Ceremonies, approved by Loudon. Version 1.2 → 1.3.
