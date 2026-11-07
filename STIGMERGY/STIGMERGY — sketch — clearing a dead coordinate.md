@@ -5,9 +5,6 @@ links:
   - target: "[[STIGMERGY]]"
     type: connects-to
     label: "workshop-for"
-  - target: "[[STIGMERGY — baton — stale worktree on remainder]]"
-    type: connects-to
-    label: "drafted-for"
 forward_vector: "I hold, verbatim, the stale-worktree session's draft for clearing the rich-face card's dead worktree coordinate (RETRACT and repost, or an amend event), until Loudon decides the route; then I am history."
 ---
 
