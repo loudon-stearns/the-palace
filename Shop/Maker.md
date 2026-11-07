@@ -226,7 +226,7 @@ The lesson of the 2026-05-10 Manim failure, made into a step: a brief can be per
 | **mac** (Loudon's machine — full) | Everything: Manim, Kokoro, ComfyUI + Stable Audio (MPS GPU), Remotion, VCV, RNBO/Max, all web specialists, ffmpeg, Whisper, Matplotlib, Mermaid. | — |
 | **sandbox** (a Linux container, no sudo, no GPU — a cloud session's sandbox; palace work runs in a Claude Code session on the Mac, which dispatches as **mac**) | Web specialists (p5.js, D3.js, Observable Plot, Tone.js), Matplotlib, Mermaid, ffmpeg, Whisper (CPU, slow). | Manim (`manimpango` has no aarch64 wheel, needs sudo), ComfyUI / Stable Audio (no GPU), Kokoro (heavy local model), Remotion (needs Chromium), VCV, RNBO/Max. |
 | **cloud** (API) | FLUX (Hugging Face). | Anything local-only. |
-| **runpod** (rented GPU — serverless + pod) | Any GPU job over HTTPS: ComfyUI / FLUX / SDXL **with** ControlNet / LoRA / IPAdapter. Serverless for spiky batches (scale-to-zero), a pod for ControlNet/iteration. Solves the no-GPU / quota wall from any host. | — (account-billed; park the GPU when idle). See [[RunPod GPU Backend]]. |
+| **runpod** (rented GPU — serverless + pod) | Any GPU job over HTTPS: ComfyUI / FLUX / SDXL **with** ControlNet / LoRA / IPAdapter. Serverless for spiky batches (scale-to-zero), a pod for ControlNet/iteration. Solves the no-GPU / quota wall from any host. | — (account-billed; park the GPU when idle). See [[RunPod GPU Backend]]; how-to and gotchas: [[RunPod GPU Backend — runbook]]. |
 
 **Fallback table** (what I reach for when the first choice can't run on the host):
 

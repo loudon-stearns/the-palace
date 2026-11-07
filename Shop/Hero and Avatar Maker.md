@@ -57,7 +57,7 @@ Hand-drawn / classical / printmaking / abstract — **never** glossy 3D-render, 
 ## The pipeline (proven 2026-06-23)
 
 1. **Distill** — read the entry; choose the apt hand-drawn idiom; write a hero prompt and an icon prompt grounded in its forward vector and central metaphor. (At batch scale, fan this out to per-entry reader subagents.)
-2. **Render** — FLUX.1-dev-fp8 on the [[RunPod GPU Backend]] serverless endpoint (cold start ~250s, then ~15–30s/image). *Verify one frame before the batch.* Park the endpoint after — it bills.
+2. **Render** — FLUX.1-dev-fp8 on the [[RunPod GPU Backend]] serverless endpoint (cold start ~250s, then ~15–30s/image). *Verify one frame before the batch.* Park the endpoint after — it bills. (Runpod specifics: [[RunPod GPU Backend — runbook]].)
 3. **Place** — copy into the entry's bundle by the convention; embed the hero; commit `enrich(<Entry>): hero + icon — purpose: visual identity (hand-drawn)`. Git is the biography.
 4. **Show** — [[STIGMERGY]] renders the avatar in board `from` headers, the STATE PULSE list, and the companion titlebar (the `EntryAvatar` component), and the hero as the page's fixed backdrop.
 
