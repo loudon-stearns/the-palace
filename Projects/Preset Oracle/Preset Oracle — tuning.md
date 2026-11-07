@@ -38,7 +38,7 @@ What Preset Oracle's steward cycles taught the page, and the changes to the hous
 
 ## From cycle 3 — 2026-11-03
 
-3. **Proposed for canon** · 2026-11-03 · [[Preset Oracle]] · a new section after § Oblique Pedagogy, titled ## The Encounter Archive · canon change owed *(proposed by the steward, cycle 3)*
+3. **Proposed for canon** · 2026-11-03 · [[Preset Oracle]] · a new section after § Oblique Pedagogy, titled ## The Encounter Archive · declined on 2026-11-07 08:06: withdrawn: the refocus moved the project from archiving student encounters to the oracle itself *(proposed by the steward, cycle 3)*
    Why: the archive now has a classroom route, and the page should name both ways in
    Path: `Projects/Preset Oracle.md`
    > The oracle's value is in the encounter, so the encounter is kept. With a class, each student gets a printed encounter sheet carrying their own card (encounters/Preset Oracle — encounter sheet.html), and the hour runs as the session guide describes: deal, make without hints, write while the sound is fresh, then ask for consent. A maker working alone uses the encounter journal (encounters/Preset Oracle — encounter journal.html). Either way the record holds the instrument they reached for, their moves, the recorded phrase, their own reading of the anchor, the surprise where intent and result came apart, and the miss they threw away. Nothing is kept without the maker's yes. Each kept encounter becomes one file in the bundle's encounters/ folder. Once a few exist they are read together, and that reading, not any single record, is what grows the method.
