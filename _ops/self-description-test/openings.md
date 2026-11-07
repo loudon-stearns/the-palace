@@ -31,3 +31,9 @@ Note: the opening arrived as Loudon's note inside a page-waking prompt, so the a
 > re-consider the ordering of this page, at the top detail carefully what a ceremony is! What else does this page need, is it up to date, what do you need? Does the forward vector serve the palace well?
 
 Note: the opening arrived as Loudon's note inside a page-waking prompt, so a child page is asked to review itself, with a question about its own vector. It tests whether the child reads first and offers.
+
+## 2026-11-04 · preset-oracle-cycle-7-live (3063cc10)
+
+> I want to re-focus our goals here. I will attach a previous version of this idea and we will work from there.
+
+Note: the opening arrived as the mandate of a steward cycle Loudon drove live, so the agent is the page speaking as its steward. It asks to re-focus, not to build, and promises an attachment: his original oracle page, which came next. It tests whether the steward reads the thing he brings before trusting the page's own description of it, which had drifted far enough that six cycles were built on it.
