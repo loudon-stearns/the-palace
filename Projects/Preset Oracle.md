@@ -8,7 +8,7 @@ pillars:
   - practice
 born: 2026-01
 stage: mature
-status: complete
+status: active
 links:
   - target: "[[FOUR PILLARS]]"
     type: mirrors
@@ -19,7 +19,9 @@ links:
   - target: "[[Spinoza Conatus]]"
     type: connects-to
     label: conatus-as-sound
-forward_vector: "I am complete as an artifact but want to become documented as a teaching method — the entry that captures what actually happens when a student confronts 'Parmenides Dying Alone in a Warehouse' with a synthesizer. I want student responses archived: what sounds did they make, what philosophical reasoning did they offer, what surprised them. The oracle's value is in the encounter between the challenge and the maker; I need that encounter documented to grow."
+  - target: "[[Playful Interface Design]]"
+    type: exemplifies
+forward_vector: "I want to be a stranger, deeper oracle: more cards whose questions are worth a maker's thirty minutes, an interface that is a character rather than a panel, and on every card a transmission that breaks its own frame. When makers answer me, I want to hear what they made."
 ---
 
 # Preset Oracle
@@ -30,29 +32,16 @@ An interactive synthesizer preset challenger that generates random creative cons
 
 ## Architecture
 
-140 challenges in a shuffled queue (Fisher-Yates, no repeats per session). Each challenge has four elements:
+170 challenges in a shuffled queue (Fisher-Yates, no repeats until the deck is spent). 122 are the original deck; 48 were added in its shape in November 2026. Each card has six parts:
 
-**1. A preset name** (evocative, not descriptive)
-- Examples: "Parmenides Dying Alone in a Warehouse," "The Pleasure Boat Upside Down," "Bioluminescence in Broken Glass"
+1. **A name**, written like a file or a patch: `HERACLITUS_FLUX.wav`, `VOID_TEMPLE.syx`, `PARMENIDES_STATIC`.
+2. **A theme**: the thinker, artist or film, and the question it asks. "You cannot step into the same oscillator twice."
+3. **A quote**, or a line in the source's voice.
+4. **Technical guidance**: the constraint, in plain synthesis terms. "Build complex timbres exclusively from sine waves."
+5. **Four hints**, as tags.
+6. **A Hidden Transmission**: the card breaking its own frame. "One parameter is labeled but does nothing—discovering this is part of the preset's teaching."
 
-**2. A philosophical anchor** (Spinoza's conatus, Parmenides, Merleau-Ponty, Heidegger, Barthes, Deleuze, etc.)
-- The philosophy is not window dressing. It is the seed of the constraint.
-
-**3. A technical constraint** (explicit DSP limitations)
-- Examples: "Use feedback routing only, no filter envelopes"; "Modulate everything via chaos"; "All oscillators must frequency-modulate each other"
-
-**4. A stylistic direction** (a sonic or narrative frame)
-- Examples: "Industrial machinery becoming sentient"; "Broken music box in infinite stairwell"; "The sound of light bending around a black hole"
-
-## The Challenge Pools
-
-Two sources merged into 140 challenges:
-
-- **100 philosophy/art base** — anchored in thinkers the palace is in conversation with: Spinoza (conatus, desire, joy), Parmenides (being vs. becoming), Merleau-Ponty (embodiment, perception), Heidegger (dwelling, revealing), Barthes (pleasure, the obtuse), Deleuze (difference, becoming)
-
-- **40 cult cinema** — The Matrix, Bill & Ted, Big Lebowski, Fight Club, Inception, Memento, Arrival, Mulholland Drive. These films are chosen because they are *philosophy in motion* — each asks a specific question that manifests as tone, rhythm, visual language. The oracle extracts that question and gives it to you sonically.
-
-Challenges are shuffled without replacement per session. The oracle does not repeat within a single engagement.
+The philosophy is not window dressing; it is the seed of the constraint. The deck reaches well past philosophers: Heraclitus, Spinoza and Zhuangzi beside Rothko, Turrell, Kusama, Cage, Bashō, Hildegard, Celan and Morrison; science from Fourier to Chladni to a black hole humming in B-flat; and some forty films, chosen because each is philosophy in motion — The Matrix, The Big Lebowski, The Princess Bride, The Truman Show, Spirited Away, Fargo, Lynch, Akira, Arrival, Inception. The deck lives in one file in the bundle, and every page that deals from it is poured from that file.
 
 ## Oblique Pedagogy
 
@@ -79,11 +68,11 @@ A single challenge is a complete cycle through all four pillars in 30–45 minut
 
 ## Interface Aesthetic
 
-Glitchy-romantic visual design. Intentionally unreliable interface elements. Buttons that *might* work, that require a second click. Text that appears in unexpected places. Responsive layout that rewards hovering and clicking in unexpected regions.
+A neon CRT: scanlines, pixel type, a flickering title, a glow turning behind the card, memory fragments drifting up the screen. Over all of it floats one great eye, wider than the screen, with a pupil that is a hole. It chases the cursor, so whatever you are reading is seen through its pupil, clear — the worked example in [[Playful Interface Design]]. The cursor itself is a turning mote of light with a short rising trail.
 
-The interface performs instability — appropriate for an oracle. An oracle is not polished. It is alive and unpredictable.
+Every reaction means something. Hold the summon button and each pip of patience turns one hint face-up before the card lands, while the iris spins and the pupil swells; tap in a hurry and the hints come face-down, and turning one makes the eye narrow. The Hidden Transmission sits under live static you rub away. Each card sounds its own chord, and its name decodes in blips. Fragments of cards already dealt drift past and can be touched to call them back. Type a name (ROTHKO, BASHO) and the oracle deals that card. Accept a card and a thirty-minute ring drains around the iris; refuse three in a row and the eye looks away and sulks. Leave it alone and it dozes.
 
-The visual language draws from divination tools: tarot, I Ching, oracle cards. The challenge appears like a card drawn from a deck. The text is rendered in a serif font that suggests age and wisdom. The next button glows faintly, inviting but not demanding.
+The interface performs an oracle: alive, a little unreliable in temper, never in function.
 
 ## Connection to Symbiotic Skills
 
