@@ -188,3 +188,12 @@ ln -s "$OWNER/Shop/RunPod GPU Backend/studio/config.json" "../palace-blueline/Sh
 ```
 
 Keep the script's manifest the source of truth; the manual path is for when Node isn't handy.
+
+**A session the Claude app started in its own worktree** (`<palace>/.claude/worktrees/<name>`, on a
+`claude/<name>` branch) is already isolated, but has only tracked files, so `npx vitest run` in
+`_ops/stigmergy/app` fails until `node_modules` is there. The script can't adopt it — it refuses an
+existing `--dir`. Link by hand instead: `node _ops/worktree/new-worktree.mjs --name probe/x --profile
+stigmergy --dry-run` prints the mirror list and changes nothing; for each `node_modules` it lists, run
+`ln -s "$OWNER/<rel>" "<rel>"` from the worktree root. `git status` stays clean, since the links are
+ignored. Never `npm install` through them — they are the owner's install. When a task says to make a
+worktree, say you are already isolated and linked by hand, rather than making a second one.
