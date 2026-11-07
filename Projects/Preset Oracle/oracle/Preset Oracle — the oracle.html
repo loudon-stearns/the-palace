@@ -57,10 +57,10 @@ body {
    hole — whatever the pointer rests on is seen through it, clear. */
 #bigeye {
   position: fixed; left: 50%; top: 47%; width: min(125vw, 1500px); height: auto; aspect-ratio: 2 / 1;
-  transform: translate(-50%, -50%); z-index: 900; pointer-events: none; mix-blend-mode: screen;
+  transform: translate(-50%, -50%); z-index: 900; pointer-events: none; mix-blend-mode: screen; opacity: .55;
   overflow: visible; transition: opacity 1.4s ease, filter 1.4s ease;
 }
-#bigeye.dozing { opacity: .35; filter: saturate(.4); }
+#bigeye.dozing { opacity: .2; filter: saturate(.4); }
 #bigeye.sulk { filter: hue-rotate(-40deg) saturate(1.6); }
 @media (max-width: 640px) { #bigeye { width: 175vw; top: 42%; } }
 .mood {
@@ -211,7 +211,7 @@ html, body, button, canvas, .hint-tag, .memory-fragment, .mute { cursor: none !i
   <defs>
     <radialGradient id="auraG"><stop offset="0" stop-color="#ff64c8" stop-opacity=".22"/><stop offset=".55" stop-color="#c864ff" stop-opacity=".08"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
     <radialGradient id="scleraG" cx="0" cy="0" r="680" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#64c8ff" stop-opacity="0"/><stop offset=".55" stop-color="#64c8ff" stop-opacity=".03"/><stop offset="1" stop-color="#c864ff" stop-opacity=".2"/></radialGradient>
-    <radialGradient id="irisG" cx="0" cy="0" r="250" gradientUnits="userSpaceOnUse"><stop offset=".3" stop-color="#64c8ff" stop-opacity=".04"/><stop offset=".55" stop-color="#64c8ff" stop-opacity=".16"/><stop offset=".8" stop-color="#c864ff" stop-opacity=".3"/><stop offset="1" stop-color="#ff64c8" stop-opacity=".5"/></radialGradient>
+    <radialGradient id="irisG" cx="0" cy="0" r="250" gradientUnits="userSpaceOnUse"><stop offset=".3" stop-color="#64c8ff" stop-opacity=".04"/><stop offset=".55" stop-color="#64c8ff" stop-opacity=".08"/><stop offset=".8" stop-color="#c864ff" stop-opacity=".16"/><stop offset="1" stop-color="#ff64c8" stop-opacity=".3"/></radialGradient>
     <clipPath id="almondClip"><path id="almondClipPath"/></clipPath>
     <mask id="holeMask" maskUnits="userSpaceOnUse" x="-700" y="-350" width="1400" height="700">
       <rect x="-700" y="-350" width="1400" height="700" fill="#fff"/><circle id="holeC" r="85" fill="#000"/>
