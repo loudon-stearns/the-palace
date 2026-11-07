@@ -56,6 +56,11 @@ const board = boardPath(flags.board);
 const fold = foldHandoffs(loadBoard(board));
 const res = resolveCard(fold, selector);
 
+if (res.closed && res.closed.state === 'retracted') {
+  const by = (res.closed.close.payload || {}).superseded_by;
+  console.log(`${C.G}✓ retracted${C.R} — ${C.B}${res.closed.p.entry}${C.R} (${res.closed.m.id}) was withdrawn${by ? `; see ${by}` : ''}. Nothing to claim.`);
+  process.exit(0);
+}
 if (res.closed) {
   console.log(`${C.G}✓ already closed${C.R} — ${C.B}${res.closed.p.entry}${C.R} (${res.closed.m.id}) is retired. Nothing to claim.`);
   process.exit(0);
