@@ -77,6 +77,8 @@ Any page that asks Loudon something — a Daily Page rough, a review page, the L
 
 The Review Layer and [[Enrichment]] are two halves of one loop. Enrichment *sends* — a page made rich, its sound and interactives laid beside its words. The Review Layer *collects* — Loudon's reactions, in context, structured. Every rich face carries its own review surface, cut to this entry's granularity rule: one note per section of the page, plus one for the page as a whole, built to send to [[STIGMERGY]] as a `human_eval` from TRICKSTER — the loudon-eval poster, generalized past the rating sheet. What comes back becomes work: the QUEUE shows each page's notes as a review note, which stays there until someone grants or denies it.
 
+The review lives in the frame, not in the piece. STIGMERGY serves every piece in a sandbox that cannot write, so a piece could not carry its own review even if it wanted to; the dock sits in the rich face around the pieces, and one renderer gives it to every face. The pieces stay instruments, the rich face is the room they sit in, and the room has one way back to the board. Loudon, 2026-11-07: "It seems like we architected this well, we kept the review layer as part of stigmergy so that the interactions can stay clean." The one exception is a page opened through the answers server: it carries its review inside, as one script tag and one call to `answers.js`. If such pages multiply, the answers server could wrap them the way the rich face wraps its pieces.
+
 ## Where the habit lives
 
 Per [[Palace as Context Injection System]], a habit only holds if it's planted where it gets loaded, not in a memory only Claude reads. The Review Layer is canon at three call surfaces, deepest specificity winning:
