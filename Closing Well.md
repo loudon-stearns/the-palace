@@ -7,7 +7,7 @@ pillars:
   - tools
 born: 2026-05-26
 stage: mature
-version: "1.14"
+version: "1.15"
 trigger: ["close well", "let's close well", "close this session well"]
 links:
   - target: "[[Maker]]"
@@ -77,6 +77,10 @@ The principle has a test built into it: *could the next person who arrives, cold
 Every close, at any scale, runs the same four beats: **look back honestly · decide together what's worth keeping · write only that · say plainly what you couldn't verify.** Nothing below is a fifth thing — the [[Deposit Ceremony]] is those four at the scale of one movement of work, the [[Closing Well Ceremony]] is those four at the scale of a session.
 
 And the test has a *range* in it. Whoever arrives next is not you: they may be tired and forgetful, a curious beginner, or far sharper. What you leave has to work across that whole span — which is why the two practices below are not separate rules but one test pointed at two different readers.
+
+## When the session was a steward
+
+A steward cycle Loudon drives live ends with no orchestrator after it, and he may not remember it was one. The arc's header names it, and the close then does two things more: it squares the steward's books (state, scroll, the cycle's run line, through `finalize-live.js`), and it reads the steward's Plan and Standing Orders against what the session did, bringing anything outdated to the panel. They are Loudon's; the close asks and writes his answer, never its own. (`_ops/closing-well/dispatch.md` § A steward session.)
 
 ## The Range Test — one check, two readers
 

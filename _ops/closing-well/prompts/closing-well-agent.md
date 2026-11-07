@@ -58,6 +58,15 @@ arc spans a gap, `git log` the entries it touched and name what moved.
   read back from its runner, not from files on disk? Which made things reached Loudon as the
   things themselves, and which only as text about them? Name all four even when the
   transcript shows only their absence.
+- **A steward session reads against its own plan.** When the arc's header names a steward
+  session (`- **steward session:** … as [[Page]]`), read that page's scroll (its bundle's
+  `<Page> — scroll.md`: the Plan and the Standing Orders) and its tuning ledger's tail. In your
+  homework, name any Plan move or Standing Order the day may have outdated, any ledger item it
+  disproved, and whether the books were squared: a live cycle has no orchestrator after it, so
+  the steward's state, scroll Now and run line stay where the last headless cycle left them
+  until `finalize-live.js` runs. Put each stale one to Loudon as a wondering in Part B. The
+  Plan and the Orders are his; the close asks about them and never rewrites them unbidden.
+  Loudon may not remember the session was a steward; the header is how you know.
 
 ### Return exactly this — two parts
 
