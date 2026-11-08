@@ -66,11 +66,12 @@ The foundational principle: **cooperation yields agency**. Two entities with com
 
 ## Versioning
 
-The palace is tracked with git. Every committed change is a snapshot of the organism at a moment in time — the history of growth, stage transitions, new links, and ceremonies left as a record. To capture a session:
+The palace is tracked with git. Every committed change is a snapshot of the organism at a moment in time — the history of growth, stage transitions, new links, and ceremonies left as a record. To capture a session, commit through the palace's committer, which takes only the files you name, never `git add .` ([[How the Palace Commits]]):
 
 ```bash
-git add .
-git commit -m "brief description of what changed"
+node _ops/stigmergy/app/scripts/palace-commit.mjs \
+  --kind edit --scope "Entry" --summary "brief description of what changed" \
+  --verify verified --path "Entry.md"
 ```
 
 Commit messages are a second layer of narrative. Use them like log entries: *"sprouted [[X]] from conversation about Y"* or *"Weave ceremony — 3 new links, 2 entries promoted."*
