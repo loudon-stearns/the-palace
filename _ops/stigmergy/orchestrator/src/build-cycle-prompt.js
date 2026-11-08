@@ -16,7 +16,7 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve, join, relative, basename } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { loadAndRender } from './prompts.js';
-import { checkPageChange } from './git.js';
+import { checkPageChange, checkBundleChange } from './git.js';
 import { findEntryFile } from './entry-paths.js';
 import { readEntryMeta } from './entry-frontmatter.js';
 import { reconcilePendingRequests } from './process-cycle.js';
@@ -312,6 +312,10 @@ export function buildCyclePrompt(opts) {
   if (state.last_active) {
     try { pageChange = checkPageChange(palaceRoot, manifest.home, state.last_active); } catch { /* git unavailable */ }
   }
+  let bundleChange = { changed: false, commits: [] };
+  if (state.last_active) {
+    try { bundleChange = checkBundleChange(palaceRoot, manifest.home, state.last_active); } catch { /* git unavailable */ }
+  }
 
   const isFirstActivation = !state.last_read_cursor;
 
@@ -375,7 +379,9 @@ ${slice.length === 0 ? '(empty — no new messages addressed to you or from your
 ${pageChange.changed
     ? `PAGE_UPDATE_NOTICE — your home entry has commits since \`${state.last_active}\`:\n\n${JSON.stringify(pageChange.commits, null, 2)}\n\nRead them carefully.`
     : `No commits have touched your home entry since your last activation. Your home entry's \`forward_vector\` and \`stage\` are unchanged.`}
-
+${bundleChange.changed
+    ? `\nBUNDLE_UPDATE_NOTICE — your bundle's faces or memory (rich face, Context) changed since \`${state.last_active}\`, by someone other than you, most likely a live session working with Loudon:\n\n${JSON.stringify(bundleChange.commits, null, 2)}\n\nRead the files they touched before you build on them.\n`
+    : ''}
 ` : '';
 
   const userTurn = `# Catch-up framing

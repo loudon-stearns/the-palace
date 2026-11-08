@@ -44,7 +44,7 @@ off if prior art surfaces *before* the keystroke, unprompted.
 ## The reflex (fires on any "build X")
 
 1. **Grep the proofs** for the capability's terms — `grep -rn <term> Projects/*/proofs/`, the project's code.
-2. **Read the owning entry's Gotchas & recipes** and its front-door doc — the hard-won lessons live there. After a gap, read the project's scroll before you answer about the project; the plan and the open asks sit there.
+2. **Read the owning entry's Gotchas & recipes** and its front-door doc — the hard-won lessons live there. After a gap, read the project's scroll before you answer about the project; the plan and the open asks sit there. If the page has a steward, read its scroll before you build on the page too, gap or not: the Now says what waits on Loudon, and `node _ops/stigmergy/list-proposals.mjs --page "<title>"` lists what the steward has proposed for the page. While Loudon is in the room, bring both to him; file his answers on the board in his words, and hand a yes that changes the page to the [[Concierge]].
 3. **Skim the commits** touching that area — `git log --oneline -- <path>`.
 4. **Adopt / extend** what you find; author only the seam. Reinventing is the exception and needs a reason.
 5. **When unsure, address the [[Concierge]]** — offload the search to the resident companion.
