@@ -61,6 +61,30 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="sit-2026-11-07-one-curve-three-readers" -->
+### 2026-11-07 — One curve, three readers, played again: the turn-around shows the bend, and the pictures should carry the labels
+
+Loudon played the second rough of 2026-10-18 again on 2026-11-07. He left notes in three of the four boxes; the envelope's stayed empty. His words, as typed:
+
+> "osc: The oscillator is WAY more interesting with Back and forth, because when it is running fast the straight line has only odd harmonics, very "square wave" sounding, and symetrical, and when there is a curve, the sound is "saw" like and asymetrical."
+>
+> "fx: This really sounds like a filter, excellent work."
+>
+> "whole: This works great, Generally you are relying on the text to describe what is going on, we should try to rely more on the labels of the graphics, but you are not careful enough in labeling the axies of each graphic."
+
+The oscillator note names what reading back and forth reveals, which the page never says. The session checked it against the page's own curve and harmonic count, run headless; the page itself does not say it. The straight line read up and back is a triangle wave: odd harmonics only, the third 19 dB under the first. Shifted half a cycle, it is itself turned upside down, and that symmetry is what removes the even harmonics. Bend the curve and the top and bottom no longer match, so every harmonic appears. At the default bend of 5, the second, third and fourth sit 5.5, 10.3 and 14.5 dB down, close to a saw's 6, 9.5 and 12, then fall away faster. "Square" names the family a triangle shares with a square, odd harmonics only; a square is about 10 dB louder at the third.
+
+Nothing in the effect sweeps like a filter. A sine reads the curve, and raising the level reads more of the bend and adds harmonics. That brightening is what his ear heard as a filter opening.
+
+The whole note is about how the proof teaches. The canvas names its four panels and nothing else. No axis carries a name, a unit or its end values, so what each one means lives in the legend under the picture. The note points the same way as his note on the first rough: the proof should show it, not just say it.
+
+The identity verdict in [[Dissolutions — hunt]] stands. Whether the triangle's symmetry belongs in the hunt line's knob is his to say.
+
+**Artifacts:**
+- [one curve, three readers](Dissolutions/proofs/2026-10-18-one-curve-three-doorways/one-curve-three-doorways-2.html)
+
+<sub>hand-appended · sit · played through in a sit 2026-11-07; the notes are Loudon's, quoted as typed; the harmonic numbers are the session's</sub>
+<!-- /scroll:entry -->
 <!-- scroll:entry id="plan-2026-10-25T16-19-22-04-00" -->
 ### 2026-10-25 — Plan revised
 
