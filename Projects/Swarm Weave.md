@@ -170,11 +170,11 @@ coherent. Its context budget goes to synthesis logic, not content storage.
 
 ### Parallelism
 
-Workers run in parallel via `Promise.all()` in Node.js (Claude Code's native
-environment). For a 30-entry palace: ~30 simultaneous API calls, each with a
-small context. Total API time approaches the time of one worker call, not 30
-sequential calls. This is the core performance gain — and the core reason the
-architecture scales where the single-weaver cannot.
+Workers run in parallel as Claude Code sub-agents, dispatched together (see
+Execution below). For a 30-entry palace: ~30 simultaneous workers, each with a
+small context. Total time approaches the time of one worker, not 30 sequential
+ones. This is the core performance gain — and the core reason the architecture
+scales where the single-weaver cannot.
 
 ### Execution
 
@@ -364,8 +364,8 @@ enables.
 
 ## Phase 2: Pheromone Trails and Worker Differentiation
 
-*This section describes work that begins only after the basic swarm is running and
-producing clean output. Do not build Phase 2 until Phase 1 is ceremony-ified.*
+*Phase 2 waits on a basic swarm that runs and produces clean output, and that wait
+is over: Phase 1, the basic swarm, is the Weave's canonical path ([[Weave Ceremony]]).*
 
 Once the swarm is functioning, it will begin to know things that no single prior
 agent has known: which entries consistently generate conflicting worker reports,
@@ -454,9 +454,11 @@ complex. They didn't. The swarm will find out.
 - **How should the coordinator handle disagreement between workers?** If worker A
   proposes A→B as `mirrors` and worker B proposes B→A as `deepens`, present both
   to Loudon with the rationale — do not auto-resolve.
-- **Rate limits:** The Anthropic API rate-limits by tokens per minute. A 30-worker
-  swarm with medium-context entries may hit limits. Build in backoff/retry from
-  the start.
+- **Rate limits:** Thirty sub-agents dispatched at once spend the plan's shared
+  usage in a burst and may hit its limits. Before a fan-out, read the windows
+  every open session shares (`claude -p /usage`) and let Loudon choose: now,
+  trimmed, or after a reset ([[ELDER]]). How many to dispatch at a time, and what
+  a throttled worker should do, is still open.
 - **When does the Palace Worker become the default post-deposit step?** It has
   been added to the [[Deposit Ceremony]] as Step 7.5. The question becomes: when
   is it built and tested enough to be non-optional?
