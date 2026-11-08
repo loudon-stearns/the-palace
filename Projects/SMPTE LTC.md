@@ -81,7 +81,7 @@ The method is GoButton's: **every algorithm exists twice, and the second copy is
 
 ## The teaching room
 
-The rich face is not built yet. It is to be a walk up to the proof ([[Progressive Staging]]), each step complete on its own and silent until a click, made through [[Enrichment]].
+Count and Bits are built, and beside them two pieces that reach ahead: an encoder, toward Wave, and a backward reader, toward Read and Break it. The rest is still to make, through [[Enrichment]]. The room is to be a walk up to the proof ([[Progressive Staging]]), each step complete on its own and silent until a click.
 
 1. **Count** — a clock at six frame rates. Drop-frame shows itself as skipped numbers; 23.976 shows itself drifting from the wall.
 2. **Bits** — the eighty-bit word for any time, its digits, flags and sync word laid out where a student can flip any bit.

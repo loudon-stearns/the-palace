@@ -35,5 +35,7 @@ The old page said the project then "transitioned to Max MSP v8 native implementa
 ## Open threads
 
 - The link to [[Modes of Collaboration]] (`multi-device-sync`) is kept for now. Under the teaching vector it reads as forced — device sync is not a mode of collaboration — and whether to cut it is Loudon's call.
-- The rich face is not built yet. The page's *The teaching room* is the ladder it should follow.
-- The scroll has no agreed plan. A plan proposed for Loudon's yes would begin with the rich face's first two steps, or with the plugin route.
+- The rich face holds Count, Bits, the encoder and the backward reader (`1436e03d`). The page's *The teaching room* is the ladder the rest should follow.
+- The scroll has a Plan, adopted on 2026-11-08 (`f1c14499`).
+- Approved unseen: the encoder and the backward reader were approved 2026-11-04 on the challenger's word; no one has played them with Loudon. The first hearing is owed.
+- All the way up. Loudon, 2026-11-08: "I have read the page, it is excellent, it states that we need to teach "all the way down" but it doesn't teach "all the way up" we have done a great job of showing how the protocol works, but we have not shown how it is used." It stands on the scroll as a Standing Order. The forward vector still says "all the way down"; a new one is left to the next session on the page.
