@@ -73,6 +73,7 @@
   a.proof-link:hover{box-shadow:0 0 24px var(--accent-soft)}
   button.send{font-family:var(--sans);font-weight:500;font-size:14px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:8px 16px;cursor:pointer}
   button.send:disabled{opacity:.55;cursor:default}
+  .proposal{display:inline-block;margin:10px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px dashed var(--accent-line);border-radius:3px;padding:3px 9px}
   footer{margin-top:36px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
   footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
   footer a{color:var(--fg-3)}
@@ -84,6 +85,7 @@
   <div class="eyebrow">Dissolutions · learning sequence · Dispersion Table</div>
   <h1>The table that travels, step by step</h1>
   <p class="lead">Five short steps up to the proof. A table alone, a loop alone, the two set against each other, a filter alone, then the filter put in the loop. Each step has one thing to hear. Nothing plays until you press Play.</p>
+  <div class="proposal" title="made in a proposal round and not yet approved by Loudon; send a note from the last step, or say so in chat">proposal · 2026-11-07 · not yet approved by Loudon</div>
 
   <nav class="rail" aria-label="Steps"></nav>
 
@@ -97,7 +99,7 @@
       <canvas class="stage" data-aspect="0.5"></canvas>
       <div class="legend">
         <div><b>Top · the table</b>Gold: the stored cycle, 436 numbers. The dot is the reader, slowed down so the eye can follow it.</div>
-        <div><b>Bottom · what comes out</b>Three periods of what the reader gives you at this speed. Faster reader, more periods squeezed into the same time.</div>
+        <div><b>Bottom · what comes out</b>The same 27 ms at every speed: three periods at 110 Hz. Faster reader, more periods squeezed in.</div>
       </div>
       <div class="rowb"><span class="eyebrow">the stored cycle</span>
         <button class="ghost small" data-s1shape="saw" aria-pressed="true">Saw</button>
@@ -117,7 +119,7 @@
   <section class="step" data-step="1" data-title="The loop" hidden>
     <div class="eyebrow">Step 2 of 6 · the loop alone</div>
     <h2>A delay fed back into itself</h2>
-    <p class="say">Now a different machine. Take a delay line, fill it once, and send its output back into its input. Nothing sweeps across it. The samples travel round the ring and pass a tap that holds still. What went in comes back after one trip, then again, and again. Its length sets the pitch: one trip per period.</p>
+    <p class="say">Now a different machine. Take a delay line, fill it once, and send its output back into its input. Nothing sweeps across it. The samples travel round the ring and pass a tap that holds still. What went in comes back after one trip, then again, and again. Its length sets the pitch: one trip per period. And a partial lasts only if it turns a whole number of times in one trip, so the loop keeps exactly the harmonic grid: once, twice, three times the pitch, and nothing between.</p>
     <div class="panel">
       <div class="tabs"><span class="eyebrow">Hear</span><span class="hint">the loop, after it was filled once</span><button class="play" data-play>Play</button></div>
       <canvas class="stage" data-aspect="0.5"></canvas>
@@ -131,8 +133,8 @@
       </div>
       <div class="ctl"><label for="s2l">loop length</label><input id="s2l" type="range" min="0" max="1" step="0.001" value="0.333"><span class="v" id="s2lv"></span></div>
       <div class="meter" id="s2m"></div>
-      <div class="eq">y[n] = y[n − L]          f = sr ÷ L</div>
-      <div class="eq words">(output now) = (the output one trip ago)  ·  (pitch) = (sample rate) ÷ (loop length in samples)</div>
+      <div class="eq">y[n] = y[n − L]          fₖ = k × sr ÷ L</div>
+      <div class="eq words">(output now) = (the output one trip ago)  ·  (the kth partial) = (a whole number k) × (sample rate) ÷ (loop length in samples): the harmonic grid, with k = 1 the pitch</div>
     </div>
     <div class="try"><span class="eyebrow">Try</span>Fill it with noise. A burst of hiss, sent round a loop, becomes a steady pitched buzz: the loop remembers one trip and repeats it exactly. Whatever you put in, its length makes it periodic.</div>
     <textarea data-note placeholder="What your ear and eye say about the loop"></textarea>
@@ -160,7 +162,7 @@
       <div class="eq">d[n] = table[n] − loop[n]</div>
       <div class="eq words">(what you hear) = (the table now) − (the loop now)</div>
     </div>
-    <div class="try"><span class="eyebrow">Try</span>Play the difference: silence, for as long as you like. Then make the loop one sample long and play it again. A one-sample mismatch is enough to make the null speak.</div>
+    <div class="try"><span class="eyebrow">Try</span>Play the difference: silence, for as long as you like. Then make the loop one sample too long and play it again. A one-sample mismatch is enough to make the null speak.</div>
     <textarea data-note placeholder="What your ear and eye say about the difference"></textarea>
   </section>
 
@@ -227,6 +229,7 @@
     <a class="proof-link" href="../2026-10-20-the-table-that-travels/the-table-that-travels.html">Open the proof</a>
     <textarea data-note placeholder="Did the steps get you there? What was missing?"></textarea>
     <div class="rowb"><button class="send" id="send">Send to STIGMERGY</button><button class="ghost small" id="copy">Copy all notes</button><span class="hint" id="copied"></span></div>
+    <p class="hint" style="margin-top:8px">These notes are the review: step by step, say keep, revise or drop. Approval is yours, one sequence at a time, whenever you come back to it.</p>
   </section>
 
   <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
@@ -273,6 +276,8 @@
     }
     return out;
   }
+  // a buffer of whole trips, so a bare loop plays round without a seam
+  function wholeTrips(L, secs, sr){ return L * Math.floor(secs * sr / L); }
   // a bare loop of length L: filled once with fill (its first L samples leave the tap), then y[n] = y[n − L]
   function bareLoop(fill, L, n){
     var y = new Float64Array(n);
@@ -374,6 +379,8 @@
     // step 2: a bare loop repeats any fill exactly, saw or noise
     var L = 300, nz = bareLoop(makeNoise(L, 99), L, n), w2 = 0; for (i = L; i < n; i++) w2 = Math.max(w2, Math.abs(nz[i] - nz[i - L]));
     t('step 2: a loop filled with noise repeats its first trip exactly, for 3 s', w2 === 0, 'largest change trip to trip ' + w2);
+    var nW = wholeTrips(436, 3, sr), bW = bareLoop(makeNoise(436, 99), 436, nW), seam = 0; for (i = 0; i < 436; i++) seam = Math.max(seam, Math.abs(bW[i] - bW[nW - 436 + i]));
+    t('step 2: the played buffer is whole trips, so its end runs into its start one trip later, with no seam', nW % 436 === 0 && seam === 0, nW + ' samples = ' + (nW / 436) + ' trips; largest jump at the seam ' + seam);
     t('step 2: the loop length slider gives pitch = sr ÷ L', lengthFor(0, sr) === 873 && lengthFor(1, sr) === 109 && Math.abs(sr / lengthFor(1 / 3, sr) - 110) < 0.2, 'L from ' + lengthFor(0, sr) + ' to ' + lengthFor(1, sr) + ' samples; at the default, ' + (sr / lengthFor(1 / 3, sr)).toFixed(2) + ' Hz');
     // step 3: table and bare loop null exactly when the loop is one cycle long; one sample long, they do not
     var worst3 = 0;
@@ -533,7 +540,7 @@
     function rebuild(){
       L = lengthFor(s, sr);
       contents = fill === 'saw' ? makeCycle('saw', L) : makeNoise(L, 99);
-      buf = bareLoop(contents, L, Math.round(sr * SECS));
+      buf = bareLoop(contents, L, wholeTrips(L, SECS, sr));
     }
     function ui(){
       $('s2lv').textContent = L + ' samples';
@@ -584,7 +591,7 @@
       var h;
       if (door === 'table') h = 'You hear <b>the table</b>.';
       else if (door === 'loop') h = 'You hear <b>the loop</b>' + (miss ? ', a shade flat of the table.' : ', and it is the table.');
-      else h = dmax === 0 ? 'You hear <b>silence</b>: the two cancel exactly.' : 'You hear <b>the leftover</b>: a slow beating, the two drifting in and out of step.';
+      else h = dmax === 0 ? 'You hear <b>silence</b>: the two cancel exactly.' : 'You hear <b>the leftover</b>: the two drifting out of step, swelling from silence, then starting over.';
       $('s3h').innerHTML = h;
     }
     STEP[2] = {

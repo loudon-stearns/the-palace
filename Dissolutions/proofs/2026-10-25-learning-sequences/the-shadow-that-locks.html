@@ -73,6 +73,7 @@
   a.proof-link:hover{box-shadow:0 0 24px var(--accent-soft)}
   button.send{font-family:var(--sans);font-weight:500;font-size:14px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:8px 16px;cursor:pointer}
   button.send:disabled{opacity:.55;cursor:default}
+  .proposal{display:inline-block;margin:10px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px dashed var(--accent-line);border-radius:3px;padding:3px 9px}
   footer{margin-top:36px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
   footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
   footer a{color:var(--fg-3)}
@@ -84,6 +85,7 @@
   <div class="eyebrow">Dissolutions · learning sequence · Phase Reduction</div>
   <h1>The shadow that locks, step by step</h1>
   <p class="lead">Six short steps up to the proof. One oscillator and the loop it keeps falling back onto, a kick and when it lands, the same curve read off the loop itself, two oscillators that lock, why their pitch climbs, and the phase-only shadow. Each step has one thing to hear or see. Nothing plays until you press Play.</p>
+  <div class="proposal" title="made in a proposal round and not yet approved by Loudon; send a note from the last step, or say so in chat">proposal · 2026-11-07 · not yet approved by Loudon</div>
 
   <nav class="rail" aria-label="Steps"></nav>
 
@@ -211,18 +213,18 @@
         <button class="play" data-play>Play</button></div>
       <canvas class="stage" data-aspect="0.5"></canvas>
       <div class="legend">
-        <div><b>Left · pitch against coupling</b>Blue dots: the pair’s pitch, measured once it has locked. Dashed: the spring’s count for a round swing. White cross: where you are.</div>
+        <div><b>Left · pitch against coupling</b>Blue dots: the pair’s pitch once locked, started 120° apart. White rings: the same, started together. Dashed: the spring’s count for a round swing, for the blue dots. White cross: where you are.</div>
         <div><b>Right · the spring</b>Each oscillator’s position x as a ball on its own track, slowed, with the spring between them. Gold when stretched. Opposite, it stretches on every swing; in step, it stays slack.</div>
       </div>
       <div class="ctl"><label for="s5e">coupling ε</label><input id="s5e" type="range" min="0" max="0.5" step="0.005" value="0.2"><span class="v" id="s5ev"></span></div>
-      <div class="rowb"><button class="toggle" id="s5in" aria-pressed="false">Start them together, no detuning</button><span class="hint">Then nothing ever pulls them apart, and the spring never stretches.</span></div>
+      <div class="rowb"><button class="toggle" id="s5in" aria-pressed="false">Start them together</button><span class="hint">Below about 0.25 they still pull apart to opposite and the pitch climbs. From about 0.25 up they can stay nearly in step: the spring stays slack and the pitch stays within a percent of home. The pair has two ways to lock, and where it starts decides which.</span></div>
       <div class="hear" id="s5h"></div>
       <div class="meter" id="s5m"></div>
       <div class="eq">ε × (x₂ − x₁) ≈ −2 × ε × x₁  when x₂ ≈ −x₁          f ÷ f₀ ≈ √(1 + ε × (1 − cos ψ))</div>
       <div class="eq words">(the spring’s pull on the first) = (coupling) × ((the other’s position) − (its own)) ≈ −2 × (coupling) × (its own position), when the two are opposite  ·  (new pitch) ÷ (old pitch) ≈ √(1 + (coupling) × (1 − cos (the gap)))</div>
       <p class="hint" style="margin-top:12px">The count treats each swing as a circle, which the van der Pol loop is not, so here it lands a few points under the measured pitch. On the gentle loop, which is nearly round, it lands within a point of it at every coupling from 0.1 to 0.5.</p>
     </div>
-    <div class="try"><span class="eyebrow">Try</span>Play the pair and pull the coupling from 0 up to 0.5: the pitch climbs more than six semitones. Flip to one alone to hear where it started. Then start them together and play again: the spring goes slack, and the pitch comes home.</div>
+    <div class="try"><span class="eyebrow">Try</span>Play the pair and pull the coupling from 0 up to 0.5: the pitch climbs more than six semitones. Flip to one alone to hear where it started. Then start them together and play again, once below 0.25 and once above: below, they still pull apart and the pitch climbs; above, the spring stays slack and the pitch stays near home.</div>
     <textarea data-note placeholder="Does the spring explain what you heard?"></textarea>
   </section>
 
@@ -275,6 +277,7 @@
     <a class="proof-link" href="../2026-10-20-the-shadow-that-locks/the-shadow-that-locks.html">Open the proof</a>
     <textarea data-note placeholder="Did the steps get you there? What was missing?"></textarea>
     <div class="rowb"><button class="send" id="send">Send to STIGMERGY</button><button class="ghost small" id="copy">Copy all notes</button><span class="hint" id="copied"></span></div>
+    <p class="hint" style="margin-top:8px">These notes are the review: step by step, say keep, revise or drop. Approval is yours, one sequence at a time, whenever you come back to it.</p>
   </section>
 
   <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
@@ -578,8 +581,17 @@
     t('step 5: locked, the pitch climbs with the coupling, and the spring’s count lands a few points under it', ok5, rows5.join('; '));
     var top = pairPitch(c1, 0.5, DET, PSI0, 80, 200);
     t('step 5: from 0 to 0.5 the pitch climbs more than six semitones', semis(top.r1) > 6, semis(top.r1).toFixed(2) + ' semitones');
-    var inS = runFull(c1, 0.5, 0, 0, 80, 200), inP = pairPitch(c1, 0.5, 0, 0, 80, 200);
-    t('step 5: started together with no detuning, the spring never stretches and the pitch stays', inS.locked && Math.abs(inS.at) < 1e-6 && Math.abs(inP.r1 - 1) < 1e-5, 'gap ' + deg(inS.at).toExponential(1) + '°, pitch ' + ((inP.r1 - 1) * 100).toExponential(1) + '%');
+    // started together, still detuned +0.6%: weak coupling still pulls them to opposite; strong coupling holds them nearly in step
+    var rowsT = [], okT = true;
+    [0.1, 0.3, 0.5].forEach(function(e){
+      var r = runFull(c1, e, DET, 0, 80, 200), pp = pairPitch(c1, e, DET, 0, 80, 200), up = (pp.r1 - 1) * 100;
+      okT = okT && r.locked && (e === 0.1 ? Math.abs(deg(r.at)) > 150 && Math.abs(up - 10.8) < 0.3 : Math.abs(deg(r.at)) < 10 && Math.abs(up) < 1);
+      rowsT.push('ε ' + e + ': ' + (r.locked ? deg(r.at).toFixed(1) + '°' : 'drift') + ', up ' + up.toFixed(2) + '%');
+    });
+    t('step 5: started together at +0.6%, at 0.1 the pair locks beyond 150° and climbs about 10.8%; at 0.3 and 0.5 it locks within 10° and stays within 1% of home', okT, rowsT.join('; '));
+    var rowsTH = [], okTH = true;
+    [0.1, 0.3].forEach(function(e){ var a = renderPair(c1, L[1].G, e, DET, 0, c1.T * F0 / sr, sr, 100 * Math.round(sr / F0)), pp = pairPitch(c1, e, DET, 0, 80, 200), hd = sr / periodOf(a.full[0], 0) / F0; okTH = okTH && Math.abs(hd - pp.r1) < 0.003; rowsTH.push('ε ' + e + ': heard up ' + ((hd - 1) * 100).toFixed(2) + '%, readout up ' + ((pp.r1 - 1) * 100).toFixed(2) + '%'); });
+    t('step 5: started together, what you hear has the pitch the readout says', okTH, rowsTH.join('; '));
     var rows5c = [], ok5c = true;
     [0.1, 0.2, 0.3, 0.4, 0.5].forEach(function(e){ var c = L[0.3].cyc, r = runFull(c, e, DET, PSI0, 80, 200), pp = pairPitch(c, e, DET, PSI0, 80, 200), sc = springCount(e, r.at); ok5c = ok5c && r.locked && Math.abs(pp.r1 - sc) < 0.01; rows5c.push('ε ' + e + ': ' + ((pp.r1 - 1) * 100).toFixed(2) + '% vs ' + ((sc - 1) * 100).toFixed(2) + '%'); });
     t('step 5: on the gentle loop, nearly round, the count lands within a point', ok5c, rows5c.join('; '));
@@ -922,10 +934,10 @@
   // ---- step 5: the spring ----
   (function(){
     var door = 'pair', eps = 0.2, inStep = false, L = null, full = null, pp = null, chart = null;
-    function det(){ return inStep ? 0 : DET; } function psi0(){ return inStep ? 0 : PSI0; }
+    function det(){ return DET; } function psi0(){ return inStep ? 0 : PSI0; } // together keeps the +0.6% detuning
     function rebuild(){
       L = loopOf(1); var c = L.cyc;
-      if (!chart){ chart = []; for (var k = 0; k <= 10; k++){ var e = 0.05 * k, r = runFull(c, e, DET, PSI0, 80, 200); chart.push({ e: e, r: pairPitch(c, e, DET, PSI0, 80, 200).r1, sc: springCount(e, r.at), locked: r.locked }); } }
+      if (!chart){ chart = []; for (var k = 0; k <= 10; k++){ var e = 0.05 * k, r = runFull(c, e, DET, PSI0, 80, 200); chart.push({ e: e, r: pairPitch(c, e, DET, PSI0, 80, 200).r1, sc: springCount(e, r.at), locked: r.locked, rIn: pairPitch(c, e, DET, 0, 80, 200).r1 }); } }
       full = runFull(c, eps, det(), psi0(), 80, 200); pp = pairPitch(c, eps, det(), psi0(), 80, 200);
     }
     function ui(){
@@ -956,6 +968,7 @@
         g.strokeStyle = FG3; g.setLineDash([5 * d, 4 * d]); g.lineWidth = 1.4 * d; g.beginPath();
         chart.forEach(function(q, i){ if (i) g.lineTo(X(q.e), Y(q.sc)); else g.moveTo(X(q.e), Y(q.sc)); }); g.stroke(); g.setLineDash([]);
         chart.forEach(function(q){ dot(g, X(q.e), Y(q.r), 4 * d, INFO); });
+        chart.forEach(function(q){ ring(g, X(q.e), Y(q.rIn), 5.5 * d, FG1, 1.4 * d); });
         var mx = X(eps), my = Y(pp.r1);
         g.strokeStyle = FG1; g.lineWidth = 1.5 * d; g.beginPath(); g.moveTo(mx - 7 * d, my); g.lineTo(mx + 7 * d, my); g.moveTo(mx, my - 7 * d); g.lineTo(mx, my + 7 * d); g.stroke();
         label(g, '+50%', x0 - 6 * d, Y(1.5) + 4 * d, d, 'right'); label(g, '+25%', x0 - 6 * d, Y(1.25) + 4 * d, d, 'right'); label(g, '0', x0 - 6 * d, Y(1) + 4 * d, d, 'right');

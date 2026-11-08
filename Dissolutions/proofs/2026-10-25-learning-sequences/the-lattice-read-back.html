@@ -73,6 +73,7 @@
   a.proof-link:hover{box-shadow:0 0 24px var(--accent-soft)}
   button.send{font-family:var(--sans);font-weight:500;font-size:14px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:8px 16px;cursor:pointer}
   button.send:disabled{opacity:.55;cursor:default}
+  .proposal{display:inline-block;margin:10px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px dashed var(--accent-line);border-radius:3px;padding:3px 9px}
   footer{margin-top:36px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
   footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
   footer a{color:var(--fg-3)}
@@ -84,6 +85,7 @@
   <div class="eyebrow">Dissolutions · learning sequence · Rank-N Lattice Analysis</div>
   <h1>The lattice read back, step by step</h1>
   <p class="lead">Five short steps up to the proof. One generator, then two, then a ruler laid across the peaks to read them back, then the bound on how large its whole numbers may grow, then the same lattice counted along other steps. Each step has one thing to hear. Nothing plays until you press Play.</p>
+  <div class="proposal" title="made in a proposal round and not yet approved by Loudon; send a note from the last step, or say so in chat">proposal · 2026-11-07 · not yet approved by Loudon</div>
 
   <nav class="rail" aria-label="Steps"></nav>
 
@@ -201,9 +203,9 @@
       <div class="meter" id="s4m"></div>
       <div class="eq">rank = the fewest generators whose whole-number sums, none above K, land within 0.5 Hz of every peak</div>
       <div class="eq words">(the rank) = how many generators the sound needs, once you say (how large the whole numbers may grow) and (how close a peak must land)</div>
-      <p class="hint" style="margin-top:12px">Each peak may miss its mark by 0.5 Hz here, the proof's default. Measure more finely and the tiny ruler must shrink further, but for any finite set of peaks at any finite precision it is mathematically always there. When no single ruler fits, this step runs the proof's own two-generator search, which keeps its whole numbers to 8 or less.</p>
+      <p class="hint" style="margin-top:12px">Each peak may miss its mark by 0.5 Hz here, the proof's default. Measure more finely and the tiny ruler must shrink further, but for any finite set of peaks at any finite precision it is mathematically always there. This step tries every single ruler, not only those that put a peak exactly on a mark; when none fits, it runs the proof's own two-generator search, which keeps its whole numbers to 8 or less.</p>
     </div>
-    <div class="try"><span class="eyebrow">Try</span>On 7 ÷ 5, slide the bound down from 40. Below 27 the rank jumps from 1 to 2, and nothing in the sound changed. Then pick √2 and push the bound up to 157: one ruler at 3.79 Hz fits every peak. Play the sound over that ruler: about four ticks a second, which is nobody's idea of what that bell is.</div>
+    <div class="try"><span class="eyebrow">Try</span>On 7 ÷ 5, slide the bound down from 40. Below 27 the rank jumps from 1 to 2, and nothing in the sound changed. Then pick √2 and push the bound up to 65: one ruler at 9.16 Hz fits every peak. Play the sound over that ruler: about nine ticks a second, which is nobody's idea of what that bell is.</div>
     <textarea data-note placeholder="What your ear and eye say about the bound"></textarea>
   </section>
 
@@ -252,14 +254,16 @@
     <ul class="gathered">
       <li><b>One generator</b> and <b>two generators</b>, steps 1 and 2, are <b>The synthesis</b> tab with its <b>Bell</b>, <b>Two rows</b> and <b>Diagonal</b> fields, the <b>g₂ ÷ g₁</b> slider and its presets. The middle panel is the field's points; the bottom panel is the reading, each row slid along by n × g₂.</li>
       <li><b>The ruler</b>, step 3, is the right panel, <b>what comes out</b>: the measured spectrum and the peaks the analysis found. The <b>tolerance</b> slider is the half hertz you were forgiven.</li>
-      <li><b>The bound</b>, step 4, is the <b>whole numbers up to</b> slider and the <b>7 ÷ 5</b> preset. The measurement box says, at √2, that harmonic numbers up to 157 would make the same peaks rank 1 on a 3.79 Hz fundamental.</li>
+      <li><b>The bound</b>, step 4, is the <b>whole numbers up to</b> slider and the <b>7 ÷ 5</b> preset. The measurement box says, at √2, that harmonic numbers up to 157 would make the same peaks rank 1 on a 3.79 Hz fundamental. That 157 and 3.79 Hz come from the proof's search, which only tries rulers that pin one of the low peaks exactly on a mark; as step 4 showed, a ruler already fits at 65.</li>
       <li><b>Another basis</b>, step 5, is the <b>Diagonal</b> field. The <b>read back</b> panel draws the points in the generators the analysis found, and the measurement's last line writes the drawing generators in them: g₁ = ĝ₁, g₂ = −ĝ₁ + ĝ₂.</li>
       <li>What the proof adds: the <b>two-generator search</b> itself, which builds its candidates from the peaks and the gaps between them and keeps the simplest whole numbers; <b>The analysis, played</b> and <b>Their difference</b>, the found lattice played back with each partial's loudness and phase measured from the sound; and points you can light or dark by clicking the field.</li>
     </ul>
+    <p class="say" style="margin-top:14px">The Rank-N Lattice Analysis page, as it stands, calls rank a property of the source and has the analysis hand back the generators. Steps 4 and 5 show otherwise: the rank depends on how large the whole numbers may grow, and what comes back is the lattice, which more than one pair of generators draws. Offer B in the Dissolutions baton is the change that would bring the page in line.</p>
     <p class="say" style="margin-top:14px">It ends on a question: is the rank a property of the sound, or of the sound and how much you are willing to count?</p>
     <a class="proof-link" href="../2026-10-20-the-lattice-read-back/the-lattice-read-back.html">Open the proof</a>
     <textarea data-note placeholder="Did the steps get you there? What was missing?"></textarea>
     <div class="rowb"><button class="send" id="send">Send to STIGMERGY</button><button class="ghost small" id="copy">Copy all notes</button><span class="hint" id="copied"></span></div>
+    <p class="hint" style="margin-top:8px">These notes are the review: step by step, say keep, revise or drop. Approval is yours, one sequence at a time, whenever you come back to it.</p>
   </section>
 
   <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
@@ -345,7 +349,8 @@
     for (var i = 0; i < N; i++){ var w = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / N), a = 2 * Math.PI * f * i / sr; re += w * x[i] * Math.cos(a); im -= w * x[i] * Math.sin(a); ws += w; }
     return { amp: 2 * Math.sqrt(re * re + im * im) / ws, phase: Math.atan2(im, re) };
   }
-  // the proof's own. rank 1: the largest g whose whole multiples, none above K, land within tol of every peak
+  // the proof's own. rank 1: the largest g whose whole multiples, none above K, land within tol of every peak.
+  // It is anchored: it only tries rulers that put one of the three lowest peaks exactly on a mark (g = peak ÷ k).
   function fitRank1(fs, tol, K){
     var best = null;
     for (var j = 0; j < Math.min(3, fs.length); j++) for (var k = 1; k <= K; k++){
@@ -431,8 +436,33 @@
     return y;
   }
   function energyDb(x, ref, n){ var e = 0, p = 0; for (var i = 0; i < n; i++){ e += x[i] * x[i]; p += ref[i] * ref[i]; } return 10 * Math.log10(e / p + 1e-30); }
-  // step 4: the smallest bound at which a single ruler fits
-  function rank1Threshold(fs, tol, Kmax){ for (var K = 1; K <= Kmax; K++) if (fitRank1(fs, tol, K)) return K; return null; }
+  // step 4, not the proof's: rank 1 searched exhaustively. For each whole number m ≤ K on the lowest peak, the
+  // fundamentals it allows are (peak ± tol) ÷ m; each further peak allows (peak ± tol) ÷ n for some n ≤ K; keep every
+  // nonempty intersection. Any g inside one fits every peak. Of those, the largest ruler wins, and inside its interval
+  // the least-squares g for its whole numbers, held to the interval.
+  function fitRank1All(fs, tol, K){
+    var s = fs.slice().sort(function(a, b){ return a - b; }), best = null, m, i;
+    for (m = 1; m <= K; m++){
+      var ivs = [{ lo: (s[0] - tol) / m, hi: (s[0] + tol) / m, ks: [m] }];
+      for (i = 1; i < s.length && ivs.length; i++){
+        var nx = [], f = s[i];
+        ivs.forEach(function(v){
+          var n0 = Math.max(1, Math.ceil((f - tol) / v.hi)), n1 = Math.min(K, Math.floor((f + tol) / v.lo));
+          for (var n = n0; n <= n1; n++){ var lo = Math.max(v.lo, (f - tol) / n), hi = Math.min(v.hi, (f + tol) / n); if (lo <= hi) nx.push({ lo: lo, hi: hi, ks: v.ks.concat([n]) }); }
+        });
+        ivs = nx;
+      }
+      ivs.forEach(function(v){ if (!best || v.hi > best.hi) best = v; });
+    }
+    if (!best) return null;
+    var num = 0, den = 0; s.forEach(function(f, k){ num += best.ks[k] * f; den += best.ks[k] * best.ks[k]; });
+    var g = Math.min(best.hi, Math.max(best.lo, num / den));
+    return { rank: 1, g: g, lo: best.lo, hi: best.hi, coords: best.ks.map(function(h){ return [h, 0]; }), gens: [g] };
+  }
+  // step 4's analysis: the exhaustive one-ruler search, then the proof's own two-generator search
+  function analyseAll(fs, tol, K){ return fitRank1All(fs, tol, K) || fitRank2(fs, tol, Math.min(K, 8)) || { rank: 3, gens: [], coords: [] }; }
+  // step 4: the smallest bound at which a single ruler fits, by the exhaustive search unless another is named
+  function rank1Threshold(fs, tol, Kmax, fit){ fit = fit || fitRank1All; for (var K = 1; K <= Kmax; K++) if (fit(fs, tol, K)) return K; return null; }
   // the one ruler made audible: harmonics 1..H of g at equal level, summed in closed form, peak 1
   function rulerPulse(g, H, sr, N){
     var y = new Float64Array(N);
@@ -507,11 +537,16 @@
     var mxm = 0; rh.forEach(function(r){ mxm = Math.max(mxm, Math.abs(r.miss)); });
     t('step 3: on the harmonic tone each miss is within the 0.5 Hz band', mxm <= TOL, 'largest miss ' + mxm.toFixed(4) + ' Hz');
     // step 4
-    var m75 = measure(synth(FIELDS.bell, G1, 1.4 * G1, sr, N, 9), sr), th75 = rank1Threshold(m75.fs, TOL, 400), a40 = analyse(m75.fs, TOL, 40), a26 = analyse(m75.fs, TOL, 26);
-    t('step 4: at 7 ÷ 5, rank 1 first fits at a bound of 27, on 22.00 Hz, marks up to ×27', th75 === 27 && a40.rank === 1 && Math.abs(a40.g - 22) < 0.01 && Math.max.apply(null, a40.coords.map(function(q){ return q[0]; })) === 27, 'threshold ' + th75 + '; at 40: ' + (a40.g ? a40.g.toFixed(3) : '—') + ' Hz');
+    var m75 = measure(synth(FIELDS.bell, G1, 1.4 * G1, sr, N, 9), sr), th75 = rank1Threshold(m75.fs, TOL, 400), a40 = analyseAll(m75.fs, TOL, 40), a26 = analyseAll(m75.fs, TOL, 26);
+    t('step 4: at 7 ÷ 5, rank 1 first fits at a bound of 27, on 22.00 Hz, marks up to ×27 (exhaustive search)', th75 === 27 && a40.rank === 1 && Math.abs(a40.g - 22) < 0.01 && Math.max.apply(null, a40.coords.map(function(q){ return q[0]; })) === 27, 'threshold ' + th75 + '; at 40: ' + (a40.g ? a40.g.toFixed(3) : '—') + ' Hz');
     t('step 4: at 7 ÷ 5 below the bound, the proof’s two-generator search finds 110.00 and 154.00 Hz', a26.rank === 2 && Math.abs(a26.gens[0] - 110) < 0.01 && Math.abs(a26.gens[1] - 154) < 0.01, 'rank ' + a26.rank + ', ' + a26.gens.map(function(g){ return g.toFixed(3); }).join(' / ') + ' Hz');
-    var thR = rank1Threshold(m2.fs, TOL, 400), fR = fitRank1(m2.fs, TOL, 200), aR = analyse(m2.fs, TOL, 156);
-    t('step 4: at √2, rank 1 first fits at a bound of 157, on 3.79 Hz; just below it, rank 2 at 110.00 and 155.56', thR === 157 && fR && Math.abs(fR.g - 3.79) < 0.005 && aR.rank === 2 && Math.abs(aR.gens[0] - 110) < 0.01 && Math.abs(aR.gens[1] - R2) < 0.01, 'threshold ' + thR + '; ruler ' + (fR ? fR.g.toFixed(4) : '—') + ' Hz; below: ' + aR.gens.map(function(g){ return g.toFixed(2); }).join(' / '));
+    var thR = rank1Threshold(m2.fs, TOL, 400), fR = analyseAll(m2.fs, TOL, 65), aR = analyseAll(m2.fs, TOL, 64), okR = fR.rank === 1, wR = 0;
+    if (okR) m2.fs.forEach(function(f, k){ var h = fR.coords[k][0]; okR = okR && h <= 65; wR = Math.max(wR, Math.abs(h * fR.g - f)); });
+    t('step 4: at √2, rank 1 first fits at a bound of 65, on 9.16 Hz, every peak within 0.5 Hz of a mark; at 64, rank 2 at 110.00 and 155.56', thR === 65 && okR && wR <= TOL && Math.abs(fR.g - 9.16) < 0.005 && Math.max.apply(null, fR.coords.map(function(q){ return q[0]; })) === 65 && aR.rank === 2 && Math.abs(aR.gens[0] - 110) < 0.01 && Math.abs(aR.gens[1] - R2) < 0.01, 'threshold ' + thR + '; ruler ' + (okR ? fR.g.toFixed(4) : '—') + ' Hz, largest miss ' + wR.toFixed(3) + ' Hz; at 64: ' + aR.gens.map(function(g){ return g.toFixed(2); }).join(' / '));
+    var thA = rank1Threshold(m2.fs, TOL, 400, fitRank1), fA = fitRank1(m2.fs, TOL, thA || 400);
+    t('step 4: at √2 the proof’s own anchored search says 157, on 3.79 Hz, where the exhaustive one says 65', thA === 157 && fA && Math.abs(fA.g - 3.79) < 0.005 && thR === 65 && thA > thR, 'anchored ' + thA + ' on ' + (fA ? fA.g.toFixed(4) : '—') + ' Hz; exhaustive ' + thR);
+    var tolK = [0.3, 0.4, 0.5].map(function(tl){ return rank1Threshold(m2.fs, tl, 400); });
+    t('step 4: at √2 the exhaustive threshold stays 65 for every tolerance from 0.3 to 0.5 Hz', tolK.every(function(k){ return k === 65; }), 'at 0.3, 0.4, 0.5 Hz: ' + tolK.join(', '));
     var pu = rulerPulse(22, 27, sr, 2000), wp = 0;
     for (i = 0; i < 2000; i += 13){ var s = 0; for (var k = 1; k <= 27; k++) s += Math.cos(2 * Math.PI * 22 * k * i / sr); wp = Math.max(wp, Math.abs(pu[i] - s / 27)); }
     t('step 4: the ruler’s sound is its 27 harmonics at equal level, peak 1', wp < 1e-9 && Math.abs(pu[0] - 1) < 1e-12, 'largest error against the plain sum ' + wp.toExponential(1));
@@ -821,7 +856,7 @@
       ms = measure(y, sr); th = rank1Threshold(ms.fs, TOL, 400); refit();
     }
     function refit(){
-      fit = analyse(ms.fs, TOL, K);
+      fit = analyseAll(ms.fs, TOL, K);
       pulse = fit.rank === 1 ? rulerPulse(fit.g, Math.max.apply(null, fit.coords.map(function(q){ return q[0]; })), sr, y.length) : null;
     }
     function topH(){ return Math.max.apply(null, fit.coords.map(function(q){ return q[0]; })); }
@@ -950,7 +985,7 @@
         grid(gc, LB, d, m0, m1, n0, n1, by + bh - 6 * d);
         for (n = n0; n <= n1; n++) label(gc, String(n), bx + 10 * d, LB.Y(n) + 3 * d, d, 'center');
         rc.forEach(function(r){
-          if (r.whole) ring(gc, LB.X(r.mp), LB.Y(r.np), (3 + 6 * r.amp) * d, INFO, 2 * d);
+          if (r.whole) dot(gc, LB.X(r.mp), LB.Y(r.np), (3 + 6 * r.amp) * d, INFO);
           else { ring(gc, LB.X(r.mp), LB.Y(r.np), (3 + 6 * r.amp) * d, FG3, 1.2 * d); label(gc, '½', LB.X(r.mp), LB.Y(r.np) - 10 * d, d, 'center', FG3); }
         });
         // bottom: the frequencies

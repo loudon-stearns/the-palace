@@ -73,6 +73,7 @@
   a.proof-link:hover{box-shadow:0 0 24px var(--accent-soft)}
   button.send{font-family:var(--sans);font-weight:500;font-size:14px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:8px 16px;cursor:pointer}
   button.send:disabled{opacity:.55;cursor:default}
+  .proposal{display:inline-block;margin:10px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px dashed var(--accent-line);border-radius:3px;padding:3px 9px}
   footer{margin-top:36px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
   footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
   footer a{color:var(--fg-3)}
@@ -84,6 +85,7 @@
   <div class="eyebrow">Dissolutions · learning sequence · Volterra Kernels and the Torus</div>
   <h1>One field, two hands, step by step</h1>
   <p class="lead">Six short steps up to the proof. A field of heights alone, two phasors reading it, the input reading it along its diagonal, the two hands lined up until they cancel, a lag that does what no fixed curve can, and the same reading written as a kernel. Each step has one thing to hear. Nothing plays until you press Play.</p>
+  <div class="proposal" title="made in a proposal round and not yet approved by Loudon; send a note from the last step, or say so in chat">proposal · 2026-11-07 · not yet approved by Loudon</div>
 
   <nav class="rail" aria-label="Steps"></nav>
 
@@ -91,7 +93,7 @@
   <section class="step" data-step="0" data-title="The field">
     <div class="eyebrow">Step 1 of 7 · the field alone</div>
     <h2>A landscape of heights, read along one line</h2>
-    <p class="say">The field is a square of heights: gold where it rises above zero, blue where it dips below. Pick a height up the square and walk straight across it, and the heights under your feet make one curve. Run a cosine back and forth across that line, and the curve shapes the cosine into a tone. Each column of the field, counted from the left, feeds one harmonic, so moving the line up changes the tone's colour.</p>
+    <p class="say">The field is a square of heights: gold where it rises above zero, blue where it dips below. Pick a height up the square and walk straight across it, and the heights under your feet make one curve. Run a cosine back and forth across that line, and the curve shapes the cosine into a tone. The field is built from curves across, one per harmonic: curve m, read by a cosine, gives harmonic m. Moving the line up changes how much of each, so the colour moves.</p>
     <div class="panel">
       <div class="tabs"><span class="eyebrow">Hear</span><span class="hint">a 220 Hz cosine walking across the line</span><button class="play" data-play>Play</button></div>
       <canvas class="stage" data-aspect="0.5"></canvas>
@@ -135,9 +137,9 @@
       <div class="ctl"><label for="s2r">phasor ratio</label><input id="s2r" type="range" min="1" max="3" step="0.001" value="1.414"><span class="v" id="s2rv"></span></div>
       <div class="meter" id="s2m"></div>
       <div class="eq">y = F(cos φ₁, cos φ₂)          partials at m × f₁ ± n × f₂</div>
-      <div class="eq words">(output) = F at ((the first phasor's shadow), (the second phasor's shadow))  ·  (where partials land) = (column m) × (first rate) ± (row n) × (second rate)</div>
+      <div class="eq words">(output) = F at ((the first phasor's shadow), (the second phasor's shadow))  ·  (where partials land) = (across-curve m) × (first rate) ± (up-curve n) × (second rate)</div>
     </div>
-    <div class="try"><span class="eyebrow">Try</span>Start on the ring field, which is just across × up. You hear two pitches and neither of them is 220 Hz: that is a ring modulator. Slide the ratio to exactly 2, then 1.5. The figure closes and the partials fall onto one harmonic series. Anywhere in between, the figure never closes and the tone is bell-like.</div>
+    <div class="try"><span class="eyebrow">Try</span>Start on the ring field, which is just across × up. You hear two pitches and neither of them is 220 Hz: that is a ring modulator. Slide the ratio to exactly 2, then 1.5. The figure closes and the partials fall onto one harmonic series. Anywhere in between, the figure takes many turns to close, or never does, and the tone is bell-like.</div>
     <textarea data-note placeholder="What your ear and eye say about the two phasors"></textarea>
   </section>
 
@@ -153,7 +155,7 @@
         <button class="play" data-play>Play</button></div>
       <canvas class="stage" data-aspect="0.5"></canvas>
       <div class="legend">
-        <div><b>Left · the field</b>The dashed line is the diagonal, where across equals up. The dot rides it and never leaves.</div>
+        <div><b>Left · the field</b>The solid white line is the diagonal, where across equals up, traced by the dot as it rides it. It never leaves.</div>
         <div><b>Right top · the diagonal, as a curve</b>The heights along the diagonal: the static curve the input is pushed through.</div>
         <div><b>Right bottom · the spectrum</b>Measured from what comes out of the curve, 0–1.2 kHz. Ticks mark the input's own tones; with two in, also their difference and sum.</div>
       </div>
@@ -213,6 +215,7 @@
     <div class="eyebrow">Step 5 of 7 · what the lag can do</div>
     <h2>Mixing that depends on which tones went in</h2>
     <p class="say">Here is a test a static curve cannot pass, even with a filter after it. Send in two tones 30 Hz apart and slide both up together. Their difference stays at 30 Hz the whole way. A static curve makes that 30 Hz tone at one strength, whatever the two tones are, and a filter after it only ever hears 30 Hz, so it can move that strength but never make it rise and fall. With a lag, the two tones are read at two moments, each has turned by its own amount in between, and how strongly they mix depends on the tones themselves.</p>
+    <p class="say">A static curve then a filter is what the Volterra page calls a Hammerstein structure. That page says it discards intermodulation; step 3 heard it make some. What it cannot make is intermodulation whose strength depends on which tones went in.</p>
     <div class="panel">
       <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
         <button class="tab" data-s5door="steady" aria-pressed="false">Two tones, steady</button>
@@ -246,6 +249,7 @@
     <div class="eyebrow">Step 6 of 7 · the same reading, written as a kernel</div>
     <h2>A field of heights, translated onto lags</h2>
     <p class="say">There is another way to write any effect with memory: a Volterra series. It multiplies the input against itself at chosen lags, and a kernel holds the weight for each choice of lags. The field read at now and τ ago translates into one exactly. Its axes are no longer heights of the signal but lags, and every weight sits at a lag of 0 or τ. The map runs one way only for kernels that sparse: put a weight at any other lag, and no field read at now and τ ago can give it.</p>
+    <p class="say">The dots on the kernel's own diagonal, at (0, 0) and (τ, τ), are a static curve and its echo: a Hammerstein structure. The two off it, at (0, τ) and (τ, 0), are what made step 5's tone rise and fall; on the ring field they are the only ones.</p>
     <div class="panel">
       <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
         <button class="tab" data-s6door="field" aria-pressed="false">The field, read</button>
@@ -290,6 +294,7 @@
     <a class="proof-link" href="../2026-10-20-one-field-two-hands/one-field-two-hands.html">Open the proof</a>
     <textarea data-note placeholder="Did the steps get you there? What was missing?"></textarea>
     <div class="rowb"><button class="send" id="send">Send to STIGMERGY</button><button class="ghost small" id="copy">Copy all notes</button><span class="hint" id="copied"></span></div>
+    <p class="hint" style="margin-top:8px">These notes are the review: step by step, say keep, revise or drop. Approval is yours, one sequence at a time, whenever you come back to it.</p>
   </section>
 
   <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
@@ -391,7 +396,7 @@
     return out;
   }
 
-  // step 1: one line across the field at height v is the curve u ↦ F(u, v); read by cos φ, column m gives harmonic m
+  // step 1: one line across the field at height v is the curve u ↦ F(u, v); read by cos φ, curve m across gives harmonic m
   function sliceHarmonics(c, v){ var tv = chebs(v), a = [0, 0, 0, 0]; for (var m = 0; m < 4; m++) for (var n = 0; n < 4; n++) a[m] += c[m][n] * tv[n]; return a; }
   function readSlice(c, f, v, sr, N){ var y = new Float64Array(N); for (var i = 0; i < N; i++) y[i] = fieldAt(c, Math.cos(2 * Math.PI * f * i / sr), v); return y; }
   // step 2: where two phasors put the partials. cos(mα)·cos(nβ) = ½cos(mα − nβ) + ½cos(mα + nβ); equal frequencies add
@@ -465,12 +470,20 @@
     return best;
   }
   function offsetFor(f, lag, sr){ return ((-f * lag / sr) % 1 + 1) % 1; }
+  // step 6, the diagonal: back from terms uⁱ × vʲ to a field (xⁱ in Chebyshev curves), and a field with its cross terms removed
+  var PT = [[1, 0, 0, 0], [0, 1, 0, 0], [0.5, 0, 0.5, 0], [0, 0.75, 0, 0.25]];
+  function fromMonomials(d){
+    var c = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+    for (var i = 0; i < 4; i++) for (var j = 0; j < 4; j++) if (d[i][j]) for (var m = 0; m < 4; m++) for (var n = 0; n < 4; n++) c[m][n] += d[i][j] * PT[i][m] * PT[j][n];
+    return c;
+  }
+  function diagonalOnly(c){ return fromMonomials(monomials(c).map(function(row, i){ return row.map(function(w, j){ return i && j ? 0 : w; }); })); }
 
   // every number a step shows, re-derived; each line is { name, ok, detail }
   function selfTest(){
     var out = [], sr = 48000, t = function(name, ok, detail){ out.push({ name: name, ok: !!ok, detail: detail }); };
     var names = ['ring', 'terrain', 'ridges'];
-    // step 1: column m is harmonic m; the harmonic strengths shown are Σₙ cₘₙ Tₙ(v), measured from the sound
+    // step 1: curve m across is harmonic m; the harmonic strengths shown are Σₙ cₘₙ Tₙ(v), measured from the sound
     var w1 = 0;
     names.forEach(function(nm){ [-1, -0.6, 0, 0.5, 1].forEach(function(v){
       var a = sliceHarmonics(FIELDS[nm], v), y = readSlice(FIELDS[nm], 220, v, sr, sr);
@@ -542,6 +555,16 @@
     var col = 1e9, cdu = 0;
     [8, 24, 61, 96].forEach(function(L){ var cc = collision(220, 330, L, sr, 4800, 0.004); col = Math.min(col, cc ? cc.dw : 0); cdu = Math.max(cdu, cc ? Math.max(cc.du, cc.dv) : 1); });
     t('step 6: for lags 8 to 96 the hand stands at one point (within 0.004) under two inputs where x(t) × x(t − 2τ) differs by more than 0.05', col > 0.05 && cdu < 0.004, 'smallest such gap ' + col.toFixed(3) + ', points within ' + cdu.toFixed(4));
+    // step 6, the diagonal: a field of uⁱ and vʲ terms alone (no uⁱ × vʲ with both) is a static curve plus its echo, a
+    // Hammerstein structure, and its 30 Hz line is flat at lag 24; the cross terms are what swing it
+    var rt = 0; names.forEach(function(nm){ var a = monomials(FIELDS[nm]), bk = monomials(fromMonomials(a)); for (var i2 = 0; i2 < 4; i2++) for (var j2 = 0; j2 < 4; j2++) rt = Math.max(rt, Math.abs(a[i2][j2] - bk[i2][j2])); });
+    var dg = [['u² + v² + u³ + v³', fromMonomials([[0, 0, 1, 1], [0, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0]])], ['terrain, cross terms removed', diagonalOnly(FIELDS.terrain)], ['ridges, cross terms removed', diagonalOnly(FIELDS.ridges)]], dgw = 0, dgs = [];
+    dg.forEach(function(p){ var s = swingOf(hammLine(p[1], 24, sr)); dgw = Math.max(dgw, s.swing); dgs.push(p[0] + ' ' + s.swing.toFixed(2) + ' dB'); });
+    t('step 6: with only diagonal terms, the 30 Hz line at lag 24 is flat as both tones slide 110–660 Hz', dgw < 0.05 && rt < 1e-12, dgs.join(', ') + '; field ↔ terms round trip ' + rt.toExponential(1));
+    var xs = swingOf(hammLine(fromMonomials([[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 0]]), 24, sr));
+    t('step 6: the cross term u² × v² alone swings that line', xs.swing > 5, 'swing ' + xs.swing.toFixed(2) + ' dB, deepest at ' + xs.dipAt + ' Hz');
+    var rk = volterraKernels(FIELDS.ring, 24), rOff = rk.length > 0 && rk.every(function(h){ return h.zeros > 0 && h.taus > 0; });
+    t('step 6: on the ring field every kernel weight is off the diagonal, at (0, τ) and (τ, 0)', rOff && rk.length === 1 && rk[0].order === 2, rk.length + ' weight' + (rk.length === 1 ? '' : 's') + ', order ' + rk.map(function(h){ return h.order; }).join(', ') + ', ' + rk[0].zeros + ' at 0 and ' + rk[0].taus + ' at τ');
     return out;
   }
   // ---- end math ----

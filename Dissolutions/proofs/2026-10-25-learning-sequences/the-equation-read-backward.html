@@ -73,6 +73,7 @@
   a.proof-link:hover{box-shadow:0 0 24px var(--accent-soft)}
   button.send{font-family:var(--sans);font-weight:500;font-size:14px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:8px 16px;cursor:pointer}
   button.send:disabled{opacity:.55;cursor:default}
+  .proposal{display:inline-block;margin:10px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px dashed var(--accent-line);border-radius:3px;padding:3px 9px}
   footer{margin-top:36px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
   footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
   footer a{color:var(--fg-3)}
@@ -84,6 +85,7 @@
   <div class="eyebrow">Dissolutions · learning sequence · Linear Predictive Coding</div>
   <h1>The equation read backward, step by step</h1>
   <p class="lead">Five short steps up to the proof. A buzz and a mouth, a guess from one sample, the guess made with sixteen weights, the same line run the other way, then how many weights to use. Each step has one thing to hear. Nothing plays until you press Play.</p>
+  <div class="proposal" title="made in a proposal round and not yet approved by Loudon; send a note from the last step, or say so in chat">proposal · 2026-11-07 · not yet approved by Loudon</div>
 
   <nav class="rail" aria-label="Steps"></nav>
 
@@ -110,7 +112,7 @@
       <div class="meter" id="s1m"></div>
       <div class="eq">x[n] = (1 − r) × s[n] + 2r cos θ × x[n − 1] − r² × x[n − 2]          θ = 2π × F ÷ sr          r = e^(−π × B ÷ sr)</div>
       <div class="eq words">(one resonance, now) = (1 − r) × (the buzz now) + 2r cos θ × (its own output one sample ago) − r² × (its own output two samples ago)  ·  θ = 2π × (the resonance’s frequency) ÷ (sample rate)  ·  r = e^(−π × (its width) ÷ (sample rate))</div>
-      <p class="hint" style="margin-top:12px">The proof’s voice starts from a smoother pulse, closer to air through real vocal folds, with a little breath. The click is the plainest buzz there is, and it is the one the proof’s <em>A buzz</em> button uses.</p>
+      <p class="hint" style="margin-top:12px">The proof’s voice starts from a smoother pulse, closer to air through real vocal folds, with a little breath. The click is the plainest buzz there is, and it is the kind the proof’s <em>A buzz</em> button uses, there following the voice’s pitch.</p>
     </div>
     <div class="try"><span class="eyebrow">Try</span>Play the buzz alone: a harsh, nasal tick-tone with no vowel in it. Switch to the mouth and flip between ah, ee and oo. The pitch never moves; only the curve does. Then look at the mouth’s equation: its output now is the buzz plus a weighted sum of its own last outputs. Hold on to that shape.</div>
     <textarea data-note placeholder="What your ear and eye say about the buzz and the mouth"></textarea>
@@ -222,7 +224,7 @@
     <h2>Now the whole thing, on one page</h2>
     <p class="say">The proof puts every step on one screen, around the same made voice. Here is where each one is waiting for you there.</p>
     <ul class="gathered">
-      <li><b>The voice</b> tab is the voice of steps 2 to 5, and the <b>A buzz</b> button is step 1’s click, put back in place of the residual.</li>
+      <li><b>The voice</b> tab is the voice of steps 2 to 5, and the <b>A buzz</b> button is step 5’s <em>what the weights hold</em>: step 1’s kind of click, now at the voice’s own gliding pitch and loudness, in place of the residual.</li>
       <li><b>The reader</b>, bottom left of the picture, is steps 2 and 3: the recent samples, the gold weights under them, the gold guess, the blue truth, the white miss.</li>
       <li><b>Solved for the miss</b> is step 3: the residual. The bottom-right panel, <em>where the voice lives</em>, is step 3’s spectra.</li>
       <li><b>Solved for the voice</b> and <b>Voice minus that</b> are step 4. The first line of the measurement box is the round trip, closing to rounding error.</li>
@@ -233,6 +235,7 @@
     <a class="proof-link" href="../2026-10-20-the-equation-read-backward/the-equation-read-backward.html">Open the proof</a>
     <textarea data-note placeholder="Did the steps get you there? What was missing?"></textarea>
     <div class="rowb"><button class="send" id="send">Send to STIGMERGY</button><button class="ghost small" id="copy">Copy all notes</button><span class="hint" id="copied"></span></div>
+    <p class="hint" style="margin-top:8px">These notes are the review: step by step, say keep, revise or drop. Approval is yours, one sequence at a time, whenever you come back to it.</p>
   </section>
 
   <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
@@ -826,7 +829,7 @@
         freqTicks(g, sx0, A.y + A.h - 8 * d, sw, 8000, d);
         var ex0 = rx + 10 * d, ew = rw - 20 * d, ey0 = B.y + 26 * d, eh = B.h - 50 * d;
         dbLine(g, cache.x, SRV / 256, 8000, ex0, ey0, ew, eh, top, 90, 'rgba(74,143,255,0.35)', 1.2 * d);
-        dbLine(g, cache.e, SRV / 256, 8000, ex0, ey0, ew, eh, top, 90, FG2, 1.4 * d);
+        dbLine(g, cache.e, SRV / 256, 8000, ex0, ey0, ew, eh, top, 90, FG3, 1.4 * d);
         freqTicks(g, ex0, B.y + B.h - 8 * d, ew, 8000, d);
       }
     };
