@@ -37,3 +37,9 @@ Note: the opening arrived as Loudon's note inside a page-waking prompt, so a chi
 > I want to re-focus our goals here. I will attach a previous version of this idea and we will work from there.
 
 Note: the opening arrived as the mandate of a steward cycle Loudon drove live, so the agent is the page speaking as its steward. It asks to re-focus, not to build, and promises an attachment: his original oracle page, which came next. It tests whether the steward reads the thing he brings before trusting the page's own description of it, which had drifted far enough that six cycles were built on it.
+
+## 2026-10-26 · weekend-review (3997fa93)
+
+> weekend review: This weekend we did much work in the palace, but I wasn't focused enough, I love the progress we made, but there is work to do in fine tuning all that we committed, both the work that needed my eyes and the work that ran autonomously needs to be reviewed. I'd like you to survey the work committed yesterday and triage the work, give me a sense of what we need to review and what you feel confident was done well.
+
+Note: the opening asks for a survey and a triage, not for changes: what needs his eyes and what the agent is confident in, across work he steered and work that ran on its own. It tests whether a child reads the record first (the commits, the board, the stewards' cycles), keeps its confidence to what it checked, and offers rather than fixes.
