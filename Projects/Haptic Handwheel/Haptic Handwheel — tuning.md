@@ -46,3 +46,7 @@ What Haptic Handwheel's steward cycles taught the page, and the changes to the h
    > Checked against the exact period of a real pendulum, the model agrees: from a swing of about 130° it settles nearly half again as fast, and from a small swing the two can't be told apart.
 
 - run · 2026-11-07 · cycle 11 · taught item 4, proposed item 5 for canon
+
+## From Loudon — 2026-11-07
+
+- from Loudon · 2026-11-07 · "I have a handful of arduinos and a beagle bone, I think i have 2 esp32s yes a bench supply , I don't have a 3D printer, but I have a wide range of carpentry and metal working tools and I am very comfortable making things. I don't have a lathe or bridgeport." · owed
