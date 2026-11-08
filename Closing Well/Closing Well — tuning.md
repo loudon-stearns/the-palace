@@ -373,3 +373,9 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 74. **The room relayed a board state across a three-day gap without re-reading the board, and another session had already fixed it.** The session ran from 2026-11-04 to 11-07, a steward cycle Loudon drove live. Item 70's gap rule, from the board's side. Also data: a resident house write orphaned a rich-face section, and only the close's audit found it. `0b7c9bea` renamed Playful Interface Design's "Four moves the direction asks for" to "Three moves…", which left the face's section and an open claim-change offer keyed to a heading that was gone. `fingerprint.mjs` reported it lost, and the close mended it (`a3ef9b9b`). The resident has no one to check its own placements. Data, not a spec change; the version stays v1.15. Nothing owed.
 
 - run · 2026-11-07 · v1.15 · close-2026-11-07-preset-oracle · taught item 74
+
+## From the cloud-credits close — 2026-11-07
+
+75. **Handing work to cloud sessions took Loudon's decisions out of the arc, and a board line was older than its own baton.** (1) Three rulings and "merge the pr" were made in a cloud session. The close saw them only through `dbd524d9`'s commit body, because the arc held none of them. Data, not a spec change. (2) The one line of the handoff `stigmergy-remainder-20261025T132513Z` still said "SCHEMA has to say whether RETRACT covers a card that went stale…" (blackboard line 1086). But `5a6a4e62` (2026-10-26) and the baton's own `544b09bb` had already settled that. The room passed the stale line to Loudon, and the panel corrected it. This is items 70 and 74 seen from the reason's side: a board line is a claim with a date, and a later commit can make it false. Not a spec change; the version stays v1.15.
+
+- run · 2026-11-07 · v1.15 · close-2026-11-07-cloud-credits · taught item 75
