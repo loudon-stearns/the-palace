@@ -81,7 +81,7 @@ _Draft, not yet agreed: this plan was written by the builder on 2026-10-28 from 
 ## Standing Orders
 
 <!-- scroll:orders:start -->
-_None yet._
+- **"Fine tuning" is Loudon sitting with the page.** Loudon, 2026-11-08, closing the session that built this page, asked to leave its fine tuning for later and said what that is: "'fine tuning' is me sitting with what was created and discussing with you and thinking about a student experience and how it can best represent the goal… building in a metaphor will help students remember." The path he leaned toward was a metaphor and the student's experience, not a move on the Plan; a move, when he names one, comes as a `plan_revision`.
 <!-- scroll:orders:end -->
 
 ## The making

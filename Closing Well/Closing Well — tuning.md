@@ -429,6 +429,11 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 
 - run · 2026-11-08 · v1.18 · close-8eaea235-smpte-ltc (placed with main at v1.19) · taught item 83
 
+## From the two-projects close — 2026-11-08
+
+87. **A room assured Loudon that a blocking ask stops the heartbeat and the deck, and said it had read that from the page, not the runner.** Session 141ef2b3 (2026-10-29) told him Rational Hearing's and Cycle 5 Explorer's `-002` asks would hold their stewards until he answered, read from `Project Stewardship System.md`; the next morning's batch ran both (`fc56eec0`, `fee39ce0`, `a91383f5`, `d966fe3e`). The page does not make the claim (§ How it runs says the batch takes the stewards that are due, and a click is a run); the sentence was the room's reading, not the page's words. Loudon's answer at the close: keep the bias (his words, dated, in Project Stewardship System — Context). Second clause: the resident landed two builder branches without re-reading the builders' final diffs (arc:249), a check it owed itself. Also data: the close itself spanned ten days from first message to panel, and in the gap both pages moved under their stewards and an enrichment round; items 65 and 80's gap rule again. Data, not a spec change; the close ran on v1.18, main at v1.19 by its placing.
+
+- run · 2026-11-08 · v1.18 · close-141ef2b3-two-projects (opened 2026-10-29, closed 2026-11-08 "yes"; placed with main at v1.19) · taught item 87
 ## From the Auditory Illusions close — 2026-11-08
 
 84. **'Read' has two tenses, and a two-button question hid the one he meant.** 'Read it, land it' (2026-11-08) was past tense: he had read the page. The deposit commit recorded it that way, correctly. At the panel, the moderator's first wondering offered an either/or ('did you read it through, or was it more go-ahead'), the room made it two buttons, and he picked 'More go-ahead' before correcting it. The binary nearly wrote a false correction into a true record. Also: the 2026-11-08 Weave carried all five of the session's flags two hours after posting, and the readiness check ran over that commit without connecting it (item 74, from the Weave's side).
