@@ -188,6 +188,12 @@
       "rule": "generic-api-key",
       "reason": "reviewed 2026-10-18: the name of a browser localStorage key a page uses to remember its own state, not a credential",
       "date": "2026-10-18"
+    },
+    {
+      "fp": "1c748f3efcc0b89e",
+      "rule": "generic-api-key",
+      "reason": "read 2026-11-07: the row of keyboard keys, 1 to 0 then minus and equals, that plays a rich-face piece's twelve pads; not a credential",
+      "date": "2026-11-07"
     }
   ]
 }
