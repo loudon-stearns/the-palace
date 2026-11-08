@@ -39,6 +39,7 @@ forward_vector: "I hold where the November weave stands, so a Claude that picks 
 ## Checkpoint 4 — landed ✅ (2026-11-08 afternoon)
 - Faces rendered and placed (16 PNGs; face-audit 0 missing; the raw renders carried to the owner's gitignored `Shop/Hero and Avatar Maker/_renders/`). Close health row written. Report md + `report.html` (Loudon Live dress, ceremony_version 2.3).
 - Committed through the door in the worktree as `1315454d` (352 paths, 41 trailers, 7 declines, 2 carried); main merged into the branch (`84b4aaa5`, Closing Well v1.19 — main had reached v1.18 the same morning); landed on main as `6ba30695`; then `claude/dazzling-noyce-acd879` landed as `2b90e7eb` on Loudon's word. `lint-weave-flags.py --since 2026-11-08`: 0 open, 2 carried, 1 touched-unverified read by hand (the Mathieu flag, closed by trailer; its source page was touched again by the faces in the same landing), exit 0. Worktree removed; branch kept.
+- The Mathieu flag (commons-scoped-linters-941839-1792968356001) was settled in the weave — its words now follow its code (Q 20, bandwidth 11 Hz, threshold 2ζ) — but its trailer fell off the Weave commit (40 of 41 landed); it rides the commit that records this line.
 - Not done, owed: one baton on the board announcing the five rich-face nominations for [[Enrichment]] to catch (Step 5e); the Runpod spend figure for the render (re-check `/v2/billing/serverless`); Loudon pushes main.
 
 ## The order of the close, kept here for the next weave
