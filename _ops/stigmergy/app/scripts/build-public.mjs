@@ -258,13 +258,14 @@ for (const s of published) {
     summary: publicSummary(e.summary),
     bundle: e.bundle ? { dir: e.bundle.dir, files: kept.map(servedFile) } : null,
     face_files: faceFiles,
+    memory: null, // the Context and ledgers are workers' memory, not published
   });
 }
 
 for (const path of scrollPaths) {
   const s = readEntry(ROOT, path, { use: USE });
   if (!s) continue;
-  writeEntry(path, { ...s, body: publicBody(makingOnly(s.body || ''), path), bundle: null, summary: publicSummary(s.summary) });
+  writeEntry(path, { ...s, body: publicBody(makingOnly(s.body || ''), path), bundle: null, summary: publicSummary(s.summary), memory: null, face_of: s.face_of ? { ...s.face_of, memory: null, hero: null } : null });
 }
 
 // ── 4. the index, tree, map and unsung paths ────────────────────────────────

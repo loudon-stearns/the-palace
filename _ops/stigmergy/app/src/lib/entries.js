@@ -13,7 +13,7 @@
 import { readdirSync, statSync, readFileSync, existsSync } from 'node:fs';
 import { join, resolve, sep, basename, dirname } from 'node:path';
 import { parseFrontmatter, normalizeLinks, normalizePillars } from './yaml-frontmatter.js';
-import { bundleDirFor, listBundleFiles, iconRelFor, facesFor, faceOwnerOf } from './bundle.js';
+import { bundleDirFor, listBundleFiles, iconRelFor, facesFor, faceOwnerOf, memoryFor, bundleOwnerOf, heroFor } from './bundle.js';
 import { useFields } from './entry-use.js';
 
 // Top-level dirs we never walk into.
@@ -223,7 +223,9 @@ export function readEntry(palaceRoot, relPath, { use = null } = {}) {
   const bundleDir = bundleDirFor(abs);
   let bundle = null;
   let faceFiles = {};
+  let memory = null;
   if (bundleDir) {
+    memory = memoryFor(root, bundleDir);
     summary.has_bundle = true;
     summary.icon = iconRelFor(root, bundleDir);
     ({ faces: summary.faces, files: faceFiles } = facesFor(root, bundleDir));
@@ -242,19 +244,34 @@ export function readEntry(palaceRoot, relPath, { use = null } = {}) {
     summary,
     faces: summary.faces,
     face_files: faceFiles,
+    memory,
     face_of: faceOfFor(root, normalizedRel),
     error: error ?? null,
   };
 }
 
-// When this file is one of another entry's faces (its scroll), name the owner
-// and the owner's faces, so the reader can light SCROLL and switch back to the
-// text. Null for an ordinary entry, or when the owner is missing.
+// When this file is one of another entry's faces (its scroll) or its memory
+// (its Context or a ledger), name the owner, the owner's faces and memory, so
+// the reader can light the one being read and switch back to the text. `face`
+// is 'scroll', 'context' or 'ledger:<path>'; `hero` is the owner's, drawn
+// behind the file as it is behind the page. Null for an ordinary entry, or
+// when the owner is missing.
 function faceOfFor(root, relPath) {
   const owner = faceOwnerOf(relPath);
-  if (!owner) return null;
-  const abs = join(root, owner.path);
+  const ownerPath = owner?.path ?? bundleOwnerOf(relPath);
+  if (!ownerPath) return null;
+  // Bundle files carry the `<Title> — ` prefix (SCHEMA — Reference §8), case
+  // aside (JEWEL/Jewel); an entry that merely sits in a folder is not one.
+  const ownerStem = basename(ownerPath, '.md').toLowerCase();
+  if (!owner && !basename(relPath).toLowerCase().startsWith(`${ownerStem} — `)) return null;
+  const abs = join(root, ownerPath);
   if (!existsSync(abs)) return null;
-  const { faces, files } = facesFor(root, bundleDirFor(abs));
-  return { path: owner.path, title: basename(owner.path, '.md'), face: owner.face, faces, files };
+  const bundleDir = bundleDirFor(abs);
+  const memory = memoryFor(root, bundleDir);
+  let face = owner?.face ?? null;
+  if (!face && memory.context === relPath) face = 'context';
+  if (!face && memory.ledgers.some((l) => l.path === relPath)) face = `ledger:${relPath}`;
+  if (!face) return null;
+  const { faces, files } = facesFor(root, bundleDir);
+  return { path: ownerPath, title: basename(ownerPath, '.md'), face, faces, files, memory, hero: heroFor(root, bundleDir) };
 }
