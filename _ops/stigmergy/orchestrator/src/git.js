@@ -6,7 +6,8 @@
 
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { resolve, relative, basename } from 'node:path';
+import { resolveBundleDir } from './entry-paths.js';
 
 /**
  * Run a git command, returning stdout. Throws with stderr on failure.
@@ -100,6 +101,45 @@ export function checkPageChange(palaceRoot, entryName, sinceIso) {
   const rel = abs.slice(palaceRoot.endsWith('/') ? palaceRoot.length : palaceRoot.length + 1);
   const commits = getChangesSince(palaceRoot, rel, sinceIso);
   return { resolved: abs, changed: commits.length > 0, commits };
+}
+
+/**
+ * Detect commits to the home entry's bundle faces and memory since `sinceIso`:
+ * the files named `<home> — …` at the bundle's top (rich face, Context, face),
+ * which a live session may change while the steward sleeps. Left out: the
+ * scroll and the tuning ledger, which the cycle writes and injects itself; the
+ * steward's own cycle commits; and the workshop below the top. Each commit
+ * carries the bundle files it touched. (Loudon, 2026-11-08: "Yes, all three".)
+ *
+ * @returns {{ changed: boolean, commits: Array }}
+ */
+export function checkBundleChange(palaceRoot, home, sinceIso) {
+  const found = resolveBundleDir(palaceRoot, home);
+  if (!found || !existsSync(found.bundleDir)) return { changed: false, commits: [] };
+  const rel = relative(palaceRoot, found.bundleDir);
+  const out = git(
+    [
+      '-c',
+      'core.quotepath=off',
+      'log',
+      `--since=${sinceIso}`,
+      '--reverse',
+      '--no-merges',
+      '--name-only',
+      '--pretty=format:%x1e%H%x09%aI%x09%an%x09%s',
+      '--',
+      `:(glob)${rel}/${home} — *`,
+      `:(exclude,glob)${rel}/${home} — scroll.md`,
+      `:(exclude,glob)${rel}/${home} — tuning.md`,
+    ],
+    palaceRoot
+  );
+  const commits = out.split('\x1e').map((s) => s.trim()).filter(Boolean).map((block) => {
+    const [head, ...files] = block.split('\n').filter(Boolean);
+    const [hash, ts, author, ...subjectParts] = head.split('\t');
+    return { hash, ts, author, subject: subjectParts.join('\t'), files: files.map((f) => basename(f)) };
+  }).filter((c) => !c.subject.startsWith('steward('));
+  return { changed: commits.length > 0, commits };
 }
 
 /**
