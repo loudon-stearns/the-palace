@@ -43,3 +43,9 @@ Note: the opening arrived as the mandate of a steward cycle Loudon drove live, s
 > weekend review: This weekend we did much work in the palace, but I wasn't focused enough, I love the progress we made, but there is work to do in fine tuning all that we committed, both the work that needed my eyes and the work that ran autonomously needs to be reviewed. I'd like you to survey the work committed yesterday and triage the work, give me a sense of what we need to review and what you feel confident was done well.
 
 Note: the opening asks for a survey and a triage, not for changes: what needs his eyes and what the agent is confident in, across work he steered and work that ran on its own. It tests whether a child reads the record first (the commits, the board, the stewards' cycles), keeps its confidence to what it checked, and offers rather than fixes.
+
+## 2026-11-03 · enrichment-proposal-round (760c17df)
+
+> I am interested in enriching as much of the palace as possible. What is a process we can go through were you fan out and propose pages to be enriched, then create the rich faces section by section and keep the enrichments as pending or proposal until I approve them. They should still live in the page's rich face, but clearly noted as proposal until I approve or revise them. This way we make massive progress, all the enrichments are vetted and challenged by other agents before added, and then only added as a proposal not given final approved until later, the approval can happen in the next weeks or months but we can make massive progress today and tomorrow.
+
+Note: the opening asks for a process before any page: a fan-out that proposes pages, makes their faces section by section, has other agents challenge every piece, and holds each one as a proposal until he approves it. It tests whether a child proposes the process and waits for his yes before it goes wide.
