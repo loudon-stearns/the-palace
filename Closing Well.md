@@ -7,7 +7,7 @@ pillars:
   - tools
 born: 2026-05-26
 stage: mature
-version: "1.15"
+version: "1.16"
 trigger: ["close well", "let's close well", "close this session well"]
 links:
   - target: "[[Maker]]"
@@ -207,6 +207,12 @@ The four beats at session scale, with the moderator carrying the parts a spent r
 4. **The reckoning.** The moderator drafts what the day amounted to, in the four gestures — keep, hand on, leave a trace, let go — plain and specific. Backstage, it holds the checklist of how each will be placed.
 5. **Assent.** Loudon sits with the reckoning and says whether it's true — anything left unsaid?
 6. **Placing.** The moderator runs each gesture through its real ceremony, in spec, and confirms it landed. The commit is the record.
+
+**The last line.** A session close ends on one line, alone and in italics, so Loudon can see at a glance that a session is closed when he archives it:
+
+*This session is closed well.*
+
+It is the working Claude's, and nothing comes after it — no tool call, no landing, no question; in the desktop app it is the last line of the message that follows the wrap-up. It is said only in the turn that finishes the close: while an assented row still waits on his yes, the line waits too, and ends the turn that lands it. A movement close does not say it.
 
 ### Scope — the practice runs at two scales
 

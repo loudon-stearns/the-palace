@@ -253,6 +253,16 @@ changed, naming every rule those words write down (the new words themselves wher
 prose), last in the turn as at the gate, and land the branch on his yes (`executor.md` § keep →
 deposit).
 
+**End on the line.** The close is done when the report is relayed and every `prepared` branch
+has landed on his yes or been set down by him. Then the session's last words are one line, alone:
+
+*This session is closed well.*
+
+Nothing follows it: every tool call, the landing and the wrap-up come first, and in the desktop
+app it is the last line of the message after the wrap-up. A turn that still waits on his yes
+ends on the question instead, and the turn that finishes the close ends on the line
+([[Closing Well]] § The flow).
+
 **When an executor is cut off, verify the tree before believing its last sentence** (gotcha 22).
 A partial report's final claim is the least reliable thing in it — the 2026-08-25 run said
 "landed at 333f246" and was true about the commit, silent about the row it never reached.
