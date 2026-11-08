@@ -282,7 +282,7 @@ The inharmonicity space mirrors other multidimensional parameter spaces:
 
 - [[Bessel Functions in Synthesis|Geometry → eigenfunction choice → spectral shape]]: The boundary conditions in quantum mechanics, acoustics, and synthesis all force specific mathematical functions into the system. Inharmonicity is the acoustic manifestation of eigenfunction structure.
 
-- [[Quantum Synthesizer|Potential well shaping]]: The nonlinear potentials that produce anharmonic energy eigenvalues in quantum mechanics are the same nonlinear springs that produce stretched tuning in acoustic strings. Shape the potential, shape the spectrum.
+- [[Quantum Synthesizer|Potential well shaping]]: Bend a quantum well away from a parabola and its energy ladder goes unequal; a string's partials stretch by a different road. The stretch is not a nonlinearity: it comes from a linear stiffness term in the wave equation, and a string with nothing but stiffness is a pinned bar, which is Schrödinger's box. Shape the well or shape the equation, and you shape the spectrum.
 
 - [[Kuramoto Coupling|Phase-locking in coupled systems]]: Inharmonic partials resist phase-locking more than harmonic ones. The coupling dynamics reveal how much "dissonance" the system can tolerate before coherence breaks.
 
