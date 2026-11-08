@@ -1,0 +1,1073 @@
+<!doctype html>
+<!--
+  title: The Lattice Read Back — a learning sequence
+  born: 2026-10-25
+  parent: [[Dissolutions]] · leads up to ../2026-10-20-the-lattice-read-back/the-lattice-read-back.html · tests [[Rank-N Lattice Analysis]]
+  forward_vector: I am the way up to the lattice read back. I take one generator, two generators, a ruler laid across the peaks, the bound on the ruler's whole numbers, and the same lattice counted along other steps, one step each, so that the proof, and the two qualifications it puts on rank, make sense the first time it is played.
+  outline: the general one from Loudon's note of 2026-10-25 (each concept alone, then combined, then the proof), applied here: rank 1 alone, rank 2 alone, reading back with one ruler, the bound that makes rank mean something, the basis the analysis cannot see, then the proof.
+  sound: nothing plays until a Play button is clicked; the AudioContext is made on that click.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Lattice Read Back · learning sequence</title>
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.75;padding:40px 16px 64px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:52px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:32px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:20px;color:var(--fg-2);margin:0 0 22px;max-width:64ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  .rail button.seen{color:var(--fg-2)}
+  .step p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:8px;padding:18px;margin:0 0 16px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  .tabs .eyebrow{margin-right:4px}
+  .tab{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  .tab[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas.stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:120px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap}
+  .hear{font-family:var(--sans);font-size:13px;color:var(--fg-3);margin-top:10px}
+  .hear b{color:var(--accent);font-weight:500}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin-top:10px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .toggle{font-family:var(--sans);font-size:13px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 12px;cursor:pointer}
+  .toggle[aria-pressed="true"]{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:14px 0 0;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  textarea{width:100%;margin-top:10px;min-height:54px;font-family:var(--sans);font-size:14px;color:var(--fg-1);background:var(--bg-elev-2);border:1px solid var(--border-soft);border-radius:4px;padding:8px 10px;resize:vertical}
+  textarea::placeholder{color:var(--fg-4)}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+  .gathered{margin:0;padding:0 0 0 18px;color:var(--fg-2)}
+  .gathered li{margin:4px 0}
+  a.proof-link{display:inline-block;font-family:var(--sans);font-weight:500;font-size:15px;color:#0a0a0f;background:var(--accent);border-radius:4px;padding:11px 22px;text-decoration:none;margin-top:14px}
+  a.proof-link:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.send{font-family:var(--sans);font-weight:500;font-size:14px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:8px 16px;cursor:pointer}
+  button.send:disabled{opacity:.55;cursor:default}
+  .proposal{display:inline-block;margin:10px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px dashed var(--accent-line);border-radius:3px;padding:3px 9px}
+  footer{margin-top:36px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer a{color:var(--fg-3)}
+  @media (max-width:520px){h1{font-size:40px}h2{font-size:26px}.ctl{grid-template-columns:90px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Dissolutions · learning sequence · Rank-N Lattice Analysis</div>
+  <h1>The lattice read back, step by step</h1>
+  <p class="lead">Five short steps up to the proof. One generator, then two, then a ruler laid across the peaks to read them back, then the bound on how large its whole numbers may grow, then the same lattice counted along other steps. Each step has one thing to hear. Nothing plays until you press Play.</p>
+  <div class="proposal" title="made in a proposal round and not yet approved by Loudon; send a note from the last step, or say so in chat">proposal · 2026-11-07 · not yet approved by Loudon</div>
+
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <!-- ───────────── step 1 ───────────── -->
+  <section class="step" data-step="0" data-title="One generator">
+    <div class="eyebrow">Step 1 of 6 · one generator</div>
+    <h2>A harmonic series is rank 1</h2>
+    <p class="say">Start with the plainest tone there is: partials at 1, 2, 3, 4 and 5 times one frequency. That frequency is the generator, and every partial is a whole-number multiple of it, a mark on one ruler. One generator, so we call it rank 1. You hear one pitch because the partials share one ruler.</p>
+    <div class="panel">
+      <div class="tabs"><span class="eyebrow">Hear</span><span class="hint">the lit partials, together</span><button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Top · the ruler</b>Dashed: a mark at every whole multiple of the generator. Gold: the partials you lit, as tall as they are loud. Pale triangles: the largest ruler every lit partial sits on.</div>
+        <div><b>Bottom · what comes out</b>Three periods of the generator. Each period is the same as the last, because every partial fits a whole number of times into it.</div>
+      </div>
+      <div class="rowb"><span class="eyebrow">light partials</span>
+        <button class="ghost small" data-s1k="1" aria-pressed="true">×1</button>
+        <button class="ghost small" data-s1k="2" aria-pressed="true">×2</button>
+        <button class="ghost small" data-s1k="3" aria-pressed="true">×3</button>
+        <button class="ghost small" data-s1k="4" aria-pressed="true">×4</button>
+        <button class="ghost small" data-s1k="5" aria-pressed="true">×5</button>
+        <button class="ghost small" data-s1k="6" aria-pressed="false">×6</button>
+        <button class="ghost small" data-s1k="7" aria-pressed="false">×7</button>
+        <button class="ghost small" data-s1k="8" aria-pressed="false">×8</button>
+      </div>
+      <div class="ctl"><label for="s1g">generator</label><input id="s1g" type="range" min="0" max="1" step="0.001" value="0.5"><span class="v" id="s1gv"></span></div>
+      <div class="meter" id="s1m"></div>
+      <div class="eq">f(k) = k × g</div>
+      <div class="eq words">(the frequency of partial k) = (a whole number k) × (the generator)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Turn off ×1 and listen: the pitch stays where it was. The ruler is still the generator, even with nothing on its first mark. Then light only ×2, ×4 and ×6: the largest ruler that fits jumps an octave, and so does the pitch.</div>
+    <textarea data-note placeholder="What your ear and eye say about one generator"></textarea>
+  </section>
+
+  <!-- ───────────── step 2 ───────────── -->
+  <section class="step" data-step="1" data-title="Two generators" hidden>
+    <div class="eyebrow">Step 2 of 6 · two generators</div>
+    <h2>Two phases make a lattice</h2>
+    <p class="say">A torus synth keeps a field on a square and reads it with two phases at once: one runs across at g₁, the other up at g₂. Each lit point (m, n) of the field becomes one partial, at m × g₁ + n × g₂. With g₂ ÷ g₁ = √2 the reading line winds round the square and never comes back to where it began, so no one ruler holds the partials. Two generators: rank 2. You hear a bell, not a pitch.</p>
+    <div class="panel">
+      <div class="tabs"><span class="eyebrow">Hear</span><span class="hint">the torus, playing the lit points</span><button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.56"></canvas>
+      <div class="legend">
+        <div><b>Left · the torus</b>The stored field: φ₁ across, φ₂ up, light where it is high. The blue line is the path the two phases trace; the gold dot is the reader, slowed down for the eye.</div>
+        <div><b>Right top · the field's points</b>The lit points on the grid of whole-number pairs, m across, n up, sized by how loud.</div>
+        <div><b>Right bottom · the reading</b>Each point slid to its frequency, m × g₁ + n × g₂. Each row is a harmonic series of g₁, pushed along by n × g₂.</div>
+      </div>
+      <div class="rowb"><span class="eyebrow">the field</span>
+        <button class="ghost small" data-s2field="bell" aria-pressed="true">Bell</button>
+        <button class="ghost small" data-s2field="rows" aria-pressed="false">Two rows</button>
+        <button class="ghost small" data-s2field="diag" aria-pressed="false">Diagonal</button>
+      </div>
+      <div class="ctl"><label for="s2r">g₂ ÷ g₁</label><input id="s2r" type="range" min="1.05" max="1.95" step="0.0001" value="1.41421"><span class="v" id="s2rv"></span></div>
+      <div class="rowb"><button class="ghost small" data-s2ratio="1.41421356">√2</button><button class="ghost small" data-s2ratio="1.61803399">golden</button><button class="ghost small" data-s2ratio="1.5">3 ÷ 2</button></div>
+      <div class="meter" id="s2m"></div>
+      <div class="eq">y(t) = Σ a × cos(m × φ₁ + n × φ₂ + p)          φ₁ = 2π × g₁ × t,  φ₂ = 2π × g₂ × t          f(m, n) = m × g₁ + n × g₂</div>
+      <div class="eq words">(output) = sum over lit points of (its loudness) × cos((m) × (first phase) + (n) × (second phase) + (its starting phase))  ·  (each phase) = 2π × (its generator) × (time)  ·  (a partial's frequency) = (m) × (first generator) + (n) × (second generator)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Press 3 ÷ 2. The blue line closes after two turns, and the bell pulls together into a pitch: every partial is now a whole multiple of 55 Hz. The synth still turns two phases, and the sound is rank 1.</div>
+    <textarea data-note placeholder="What your ear and eye say about two generators"></textarea>
+  </section>
+
+  <!-- ───────────── step 3 ───────────── -->
+  <section class="step" data-step="2" data-title="A ruler on the peaks" hidden>
+    <div class="eyebrow">Step 3 of 6 · reading back</div>
+    <h2>Which whole numbers explain the peaks?</h2>
+    <p class="say">Now turn round. The analysis gets the sound and nothing else. It finds the peaks in the spectrum, then lays a ruler across them: a trial generator with a mark at every whole multiple. A peak is explained if it sits within half a hertz of a mark. What the ruler explains can be played back; what it cannot is left over in the difference.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s3door="sound" aria-pressed="true">The sound</button>
+        <button class="tab" data-s3door="read" aria-pressed="false">What the ruler explains</button>
+        <button class="tab" data-s3door="left" aria-pressed="false">What it leaves</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.52"></canvas>
+      <div class="legend">
+        <div><b>Top · the spectrum and the ruler</b>Blue: the spectrum measured from the sound. Dashed: the ruler's marks. Gold ticks: peaks on a mark, with the whole number that explains them. Grey ticks: peaks no mark explains.</div>
+        <div><b>Bottom · each peak's miss</b>How far each peak sits from its nearest mark. The band is the half hertz the analysis forgives.</div>
+      </div>
+      <div class="rowb"><span class="eyebrow">the sound</span>
+        <button class="ghost small" data-s3sound="bell" aria-pressed="true">The bell, √2</button>
+        <button class="ghost small" data-s3sound="harm" aria-pressed="false">The harmonic tone</button>
+      </div>
+      <div class="ctl"><label for="s3g">the ruler</label><input id="s3g" type="range" min="0" max="1" step="0.0001" value="0.686"><span class="v" id="s3gv"></span></div>
+      <div class="rowb"><button class="ghost small" data-s3ruler="110">110 Hz · g₁</button><button class="ghost small" data-s3ruler="155.56349186">155.56 Hz · g₂</button><button class="ghost small" data-s3ruler="55">55 Hz</button></div>
+      <div class="hear" id="s3h"></div>
+      <div class="meter" id="s3m"></div>
+      <div class="eq">h = round(f ÷ g)          miss = | h × g − f |          explained if miss ≤ 0.5 Hz</div>
+      <div class="eq words">(the nearest whole number) = round((the peak's frequency) ÷ (the ruler))  ·  (the miss) = | (that whole number) × (the ruler) − (the peak's frequency) |</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Start on the harmonic tone at 110 Hz: every peak on a mark, and what it leaves is silence. Switch to the bell. The 110 Hz ruler catches the bottom row and nothing else; play what it leaves and you hear the partials it missed. Press 155.56 Hz and g₂'s own multiples land instead. No single ruler with small whole numbers takes the lot.</div>
+    <textarea data-note placeholder="What your ear and eye say about the ruler"></textarea>
+  </section>
+
+  <!-- ───────────── step 4 ───────────── -->
+  <section class="step" data-step="3" data-title="The bound" hidden>
+    <div class="eyebrow">Step 4 of 6 · the bound on the whole numbers</div>
+    <h2>How large may the whole numbers grow?</h2>
+    <p class="say">Rulers can always get finer. Shrink the generator far enough and its marks crowd so close that every peak finds one. So the analysis has to be told how large a whole number it may use, and the rank it hands back depends on that bound. Set the bound low and this sound needs two generators. Raise it past one point and a single tiny ruler explains every peak, and tells you almost nothing.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s4door="sound" aria-pressed="true">The sound</button>
+        <button class="tab" data-s4door="ruler" aria-pressed="false">The sound over its one ruler</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.52"></canvas>
+      <div class="legend">
+        <div><b>Top · the peaks and the one ruler</b>Gold: the peaks the analysis found. Grey lines: the marks of the largest single ruler allowed at this bound, if there is one.</div>
+        <div><b>Bottom · rank against the bound</b>The rank the analysis gives at each bound, from 4 to 200. The gold line is where you are. Nothing in the sound changes along it.</div>
+      </div>
+      <div class="rowb"><span class="eyebrow">the sound</span>
+        <button class="ghost small" data-s4sound="r75" aria-pressed="true">The bell, 7 ÷ 5</button>
+        <button class="ghost small" data-s4sound="r2" aria-pressed="false">The bell, √2</button>
+      </div>
+      <div class="ctl"><label for="s4k">whole numbers up to</label><input id="s4k" type="range" min="4" max="200" step="1" value="40"><span class="v" id="s4kv"></span></div>
+      <div class="hear" id="s4h"></div>
+      <div class="meter" id="s4m"></div>
+      <div class="eq">rank = the fewest generators whose whole-number sums, none above K, land within 0.5 Hz of every peak</div>
+      <div class="eq words">(the rank) = how many generators the sound needs, once you say (how large the whole numbers may grow) and (how close a peak must land)</div>
+      <p class="hint" style="margin-top:12px">Each peak may miss its mark by 0.5 Hz here, the proof's default. Measure more finely and the tiny ruler must shrink further, but for any finite set of peaks at any finite precision it is mathematically always there. This step tries every single ruler, not only those that put a peak exactly on a mark; when none fits, it runs the proof's own two-generator search, which keeps its whole numbers to 8 or less.</p>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>On 7 ÷ 5, slide the bound down from 40. Below 27 the rank jumps from 1 to 2, and nothing in the sound changed. Then pick √2 and push the bound up to 65: one ruler at 9.16 Hz fits every peak. Play the sound over that ruler: about nine ticks a second, which is nobody's idea of what that bell is.</div>
+    <textarea data-note placeholder="What your ear and eye say about the bound"></textarea>
+  </section>
+
+  <!-- ───────────── step 5 ───────────── -->
+  <section class="step" data-step="4" data-title="Another basis" hidden>
+    <div class="eyebrow">Step 5 of 6 · the same lattice, counted along other steps</div>
+    <h2>The analysis gets the lattice, not the hand</h2>
+    <p class="say">Two generators draw a lattice, but they are not the only two that draw it. Swap g₂ for g₁ + g₂ and every point you lit still has whole-number coordinates, different ones, and lands on exactly the same frequency. The sound cannot tell the two apart, so neither can the analysis: it recovers the lattice, not the generators that drew it. Any whole-number change of steps does the same, as long as its determinant is 1 or −1.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s5door="drawn" aria-pressed="false">As drawn</button>
+        <button class="tab" data-s5door="recount" aria-pressed="false">As re-counted</button>
+        <button class="tab" data-s5door="diff" aria-pressed="true">Their difference</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.6"></canvas>
+      <div class="legend">
+        <div><b>Left · drawn with g₁, g₂</b>The lit points at (m, n). The two arrows are the new steps, ĝ₁ and ĝ₂, drawn on the old grid.</div>
+        <div><b>Right · counted with ĝ₁, ĝ₂</b>The same points at their new coordinates. A hollow ring sits between grid points: that point has no whole-number place in this basis.</div>
+        <div><b>Bottom · the frequencies</b>Gold above the line: the drawn points. Blue below: the re-counted ones. When they line up, the sound is the same.</div>
+      </div>
+      <div class="rowb"><span class="eyebrow">the new steps</span>
+        <button class="ghost small" data-s5basis="0" aria-pressed="false">g₁, g₂</button>
+        <button class="ghost small" data-s5basis="1" aria-pressed="true">g₁, g₁ + g₂</button>
+        <button class="ghost small" data-s5basis="2" aria-pressed="false">g₁, g₂ − g₁</button>
+        <button class="ghost small" data-s5basis="3" aria-pressed="false">g₂, g₁</button>
+        <button class="ghost small" data-s5basis="4" aria-pressed="false">g₁, 2 × g₂</button>
+      </div>
+      <div class="rowb"><span class="eyebrow">the field</span>
+        <button class="ghost small" data-s5field="diag" aria-pressed="true">Diagonal</button>
+        <button class="ghost small" data-s5field="bell" aria-pressed="false">Bell</button>
+      </div>
+      <div class="hear" id="s5h"></div>
+      <div class="meter" id="s5m"></div>
+      <div class="eq">ĝ₁ = a × g₁ + b × g₂          ĝ₂ = c × g₁ + d × g₂          same lattice when a × d − b × c = ±1</div>
+      <div class="eq words">(first new step) = (a) × (first generator) + (b) × (second generator)  ·  (second new step) = (c) × (first generator) + (d) × (second generator)  ·  (determinant) = (a) × (d) − (b) × (c), and it must be 1 or −1</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Play the difference: silence, for every basis with determinant ±1. Then pick g₁, 2 × g₂, determinant 2. Points on odd rows now need half a step, there is no such thing, and rounded to the nearest whole number they land on the wrong frequency. The null speaks.</div>
+    <textarea data-note placeholder="What your ear and eye say about the basis"></textarea>
+  </section>
+
+  <!-- ───────────── step 6 ───────────── -->
+  <section class="step" data-step="5" data-title="The proof" hidden>
+    <div class="eyebrow">Step 6 of 6 · the proof</div>
+    <h2>Now the whole round trip, on one page</h2>
+    <p class="say">The proof plays a field through two generators, hands only the sound to the analysis, and draws what comes back. Here is where each step is waiting for you there.</p>
+    <ul class="gathered">
+      <li><b>One generator</b> and <b>two generators</b>, steps 1 and 2, are <b>The synthesis</b> tab with its <b>Bell</b>, <b>Two rows</b> and <b>Diagonal</b> fields, the <b>g₂ ÷ g₁</b> slider and its presets. The middle panel is the field's points; the bottom panel is the reading, each row slid along by n × g₂.</li>
+      <li><b>The ruler</b>, step 3, is the right panel, <b>what comes out</b>: the measured spectrum and the peaks the analysis found. The <b>tolerance</b> slider is the half hertz you were forgiven.</li>
+      <li><b>The bound</b>, step 4, is the <b>whole numbers up to</b> slider and the <b>7 ÷ 5</b> preset. The measurement box says, at √2, that harmonic numbers up to 157 would make the same peaks rank 1 on a 3.79 Hz fundamental. That 157 and 3.79 Hz come from the proof's search, which only tries rulers that pin one of the low peaks exactly on a mark; as step 4 showed, a ruler already fits at 65.</li>
+      <li><b>Another basis</b>, step 5, is the <b>Diagonal</b> field. The <b>read back</b> panel draws the points in the generators the analysis found, and the measurement's last line writes the drawing generators in them: g₁ = ĝ₁, g₂ = −ĝ₁ + ĝ₂.</li>
+      <li>What the proof adds: the <b>two-generator search</b> itself, which builds its candidates from the peaks and the gaps between them and keeps the simplest whole numbers; <b>The analysis, played</b> and <b>Their difference</b>, the found lattice played back with each partial's loudness and phase measured from the sound; and points you can light or dark by clicking the field.</li>
+    </ul>
+    <p class="say" style="margin-top:14px">The Rank-N Lattice Analysis page, as it stands, calls rank a property of the source and has the analysis hand back the generators. Steps 4 and 5 show otherwise: the rank depends on how large the whole numbers may grow, and what comes back is the lattice, which more than one pair of generators draws. Offer B in the Dissolutions baton is the change that would bring the page in line.</p>
+    <p class="say" style="margin-top:14px">It ends on a question: is the rank a property of the sound, or of the sound and how much you are willing to count?</p>
+    <a class="proof-link" href="../2026-10-20-the-lattice-read-back/the-lattice-read-back.html">Open the proof</a>
+    <textarea data-note placeholder="Did the steps get you there? What was missing?"></textarea>
+    <div class="rowb"><button class="send" id="send">Send to STIGMERGY</button><button class="ghost small" id="copy">Copy all notes</button><span class="hint" id="copied"></span></div>
+    <p class="hint" style="margin-top:8px">These notes are the review: step by step, say keep, revise or drop. Approval is yours, one sequence at a time, whenever you come back to it.</p>
+  </section>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><b>LOUD’N LIVE</b> · a learning sequence for Dissolutions, 2026-10-25 · up to <a href="../2026-10-20-the-lattice-read-back/the-lattice-read-back.html">the lattice read back</a> · <a href="index.html">all six sequences</a></footer>
+</main>
+
+<script src="../../../_ops/loudon-eval/answers.js"></script>
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var Q = function(sel, root){ return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+  // ---- math (pure; re-checked headless by check-sequences.mjs, which calls selfTest) ----
+  // the proof's own fields: lists of lit points [m, n, loudness] on m 0..5, n 0..3
+  var FIELDS = {
+    bell: [[1, 0, 1], [2, 0, 0.5], [0, 1, 0.8], [1, 1, 0.55], [3, 0, 0.3], [2, 1, 0.35], [0, 2, 0.3], [4, 1, 0.2]],
+    rows: [[1, 0, 1], [2, 0, 0.6], [3, 0, 0.45], [4, 0, 0.3], [0, 1, 0.7], [1, 1, 0.5], [2, 1, 0.35], [3, 1, 0.25]],
+    diag: [[1, 0, 0.9], [0, 1, 0.9], [1, 1, 0.7], [2, 2, 0.4], [3, 3, 0.25], [2, 1, 0.3], [1, 2, 0.3]]
+  };
+  // the proof's own
+  function rng(seed){ var s = seed >>> 0 || 1; return function(){ s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
+  // the proof's own: the torus read by two phasors; the field is stored as its modes cos(m·φ₁ + n·φ₂ + p)
+  function synth(points, g1, g2, sr, N, seed){
+    var y = new Float64Array(N), r = rng(seed), tot = 0;
+    points.forEach(function(q){ tot += q[2]; });
+    points.forEach(function(q){
+      var f = q[0] * g1 + q[1] * g2, ph = 2 * Math.PI * r(), a = 0.9 * q[2] / tot, w = 2 * Math.PI * f / sr;
+      for (var i = 0; i < N; i++) y[i] += a * Math.cos(w * i + ph);
+    });
+    return y;
+  }
+  // the same field synth plays, read at one place (u, v) on the square, both in turns; synth's phases, drawn in the same order
+  function fieldAt(points, seed, u, v){
+    var r = rng(seed), tot = 0, y = 0;
+    points.forEach(function(q){ tot += q[2]; });
+    points.forEach(function(q){ var ph = 2 * Math.PI * r(); y += 0.9 * q[2] / tot * Math.cos(2 * Math.PI * (q[0] * u + q[1] * v) + ph); });
+    return y;
+  }
+  // the proof's own
+  function fft(re, im){
+    var n = re.length, i, j = 0, k, len;
+    for (i = 1; i < n; i++){ var bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit;
+      if (i < j){ var t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+    for (len = 2; len <= n; len <<= 1){
+      var half = len >> 1, ang = -2 * Math.PI / len;
+      for (k = 0; k < half; k++){
+        var wr = Math.cos(ang * k), wi = Math.sin(ang * k);
+        for (i = k; i < n; i += len){
+          var r2 = re[i + half] * wr - im[i + half] * wi, i2 = re[i + half] * wi + im[i + half] * wr;
+          re[i + half] = re[i] - r2; im[i + half] = im[i] - i2; re[i] += r2; im[i] += i2;
+        }
+      }
+    }
+  }
+  // the proof's own: the analysis sees only this, a Hann-windowed spectrum and its peaks, refined by a parabola in dB
+  function spectrum(x, N){
+    var re = new Float64Array(N), im = new Float64Array(N);
+    for (var i = 0; i < N; i++) re[i] = x[i] * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / N));
+    fft(re, im);
+    var db = new Float64Array(N / 2);
+    for (i = 0; i < N / 2; i++) db[i] = 10 * Math.log10(re[i] * re[i] + im[i] * im[i] + 1e-30);
+    return db;
+  }
+  function findPeaks(db, binHz, floor, maxPeaks){
+    var top = -1e9, i; for (i = 2; i < db.length - 2; i++) top = Math.max(top, db[i]);
+    var out = [];
+    for (i = 2; i < db.length - 2; i++){
+      if (db[i] > top - floor && db[i] > db[i - 1] && db[i] >= db[i + 1] && db[i] > db[i - 2] && db[i] >= db[i + 2]){
+        var l = db[i - 1], c = db[i], r = db[i + 1], d = l - 2 * c + r, off = d < 0 ? 0.5 * (l - r) / d : 0;
+        out.push({ f: (i + off) * binHz, db: c - 0.25 * (l - r) * off });
+      }
+    }
+    out.sort(function(a, b){ return b.db - a.db; });
+    out = out.slice(0, maxPeaks).filter(function(p){ return p.f > 20; });
+    out.sort(function(a, b){ return a.f - b.f; });
+    return out;
+  }
+  // the proof's own: amplitude and phase of x at exactly frequency f (a one-frequency DFT over the Hann window)
+  function probe(x, f, sr, N){
+    var re = 0, im = 0, ws = 0;
+    for (var i = 0; i < N; i++){ var w = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / N), a = 2 * Math.PI * f * i / sr; re += w * x[i] * Math.cos(a); im -= w * x[i] * Math.sin(a); ws += w; }
+    return { amp: 2 * Math.sqrt(re * re + im * im) / ws, phase: Math.atan2(im, re) };
+  }
+  // the proof's own. rank 1: the largest g whose whole multiples, none above K, land within tol of every peak.
+  // It is anchored: it only tries rulers that put one of the three lowest peaks exactly on a mark (g = peak ÷ k).
+  function fitRank1(fs, tol, K){
+    var best = null;
+    for (var j = 0; j < Math.min(3, fs.length); j++) for (var k = 1; k <= K; k++){
+      var g = fs[j] / k; if (best && g <= best.g) continue;
+      var ok = true, ks = [];
+      for (var i = 0; i < fs.length && ok; i++){ var h = Math.round(fs[i] / g); if (h < 1 || h > K || Math.abs(h * g - fs[i]) > tol) ok = false; ks.push(h); }
+      if (ok){
+        var num = 0, den = 0; for (i = 0; i < fs.length; i++){ num += ks[i] * fs[i]; den += ks[i] * ks[i]; }
+        var gr = num / den, fine = true; for (i = 0; i < fs.length; i++) if (Math.abs(ks[i] * gr - fs[i]) > tol) fine = false;
+        if (fine) best = { rank: 1, g: gr, coords: ks.map(function(h){ return [h, 0]; }), gens: [gr] };
+      }
+    }
+    return best;
+  }
+  // the proof's own. rank 2: two generators from the peaks and their differences, every peak a whole-number sum
+  // m·a + n·b with |m|, |n| ≤ K; the simplest coordinates win; then refined by least squares
+  function fitRank2(fs, tol, K){
+    var cands = fs.slice(), i, j;
+    for (i = 0; i < fs.length; i++) for (j = 0; j < i; j++) cands.push(fs[i] - fs[j]);
+    cands = cands.filter(function(v){ return v > 15; }).sort(function(a, b){ return a - b; });
+    var uniq = []; cands.forEach(function(v){ if (!uniq.length || v - uniq[uniq.length - 1] > tol) uniq.push(v); });
+    uniq = uniq.slice(0, 40);
+    var best = null;
+    for (i = 0; i < uniq.length; i++) for (j = i + 1; j < uniq.length; j++){
+      var a = uniq[i], b = uniq[j], coords = [], cost = 0, ok = true;
+      for (var p = 0; p < fs.length && ok; p++){
+        var pick = null;
+        for (var n = -K; n <= K; n++){
+          var m = Math.round((fs[p] - n * b) / a);
+          if (Math.abs(m) > K || Math.abs(m * a + n * b - fs[p]) > tol) continue;
+          var c = Math.abs(m) + Math.abs(n);
+          if (!pick || c < pick[2]) pick = [m, n, c];
+        }
+        if (!pick) ok = false; else { coords.push([pick[0], pick[1]]); cost += pick[2]; }
+      }
+      if (ok && (!best || cost < best.cost)) best = { a: a, b: b, coords: coords, cost: cost };
+    }
+    if (!best) return null;
+    var s11 = 0, s12 = 0, s22 = 0, t1 = 0, t2 = 0;
+    best.coords.forEach(function(q, k){ s11 += q[0] * q[0]; s12 += q[0] * q[1]; s22 += q[1] * q[1]; t1 += q[0] * fs[k]; t2 += q[1] * fs[k]; });
+    var det = s11 * s22 - s12 * s12, A = best.a, B = best.b;
+    if (Math.abs(det) > 1e-9){ A = (t1 * s22 - t2 * s12) / det; B = (s11 * t2 - s12 * t1) / det; }
+    return { rank: 2, gens: [A, B], coords: best.coords, cost: best.cost };
+  }
+  // the proof's own
+  function analyse(fs, tol, K){ return fitRank1(fs, tol, K) || fitRank2(fs, tol, Math.min(K, 8)) || { rank: 3, gens: [], coords: [] }; }
+  // the proof's own: the true generators written in the found ones, whole numbers (p, q) with p·ĝ₁ + q·ĝ₂ = g
+  function express(g, gens, tol){
+    if (gens.length === 1){ var h = Math.round(g / gens[0]); return Math.abs(h * gens[0] - g) <= tol ? [h, 0] : null; }
+    for (var s = 0; s <= 12; s++) for (var q = -s; q <= s; q++){ var p = s - Math.abs(q);
+      for (var sg = -1; sg <= 1; sg += 2){ var pp = p * sg; if (Math.abs(pp * gens[0] + q * gens[1] - g) <= tol) return [pp, q]; if (!p) break; } }
+    return null;
+  }
+  // the proof's own
+  function maxDiff(a, b){ var m = 0; for (var i = 0; i < a.length; i++) m = Math.max(m, Math.abs(a[i] - b[i])); return m; }
+
+  // the proof's settings, used by every step
+  var G1 = 110, NA = 65536, TOL = 0.5;
+  // measure a sound the way the proof does: spectrum over the first NA samples, its 24 strongest peaks within 60 dB
+  function measure(y, sr){ var db = spectrum(y, NA), pk = findPeaks(db, sr / NA, 60, 24); return { db: db, peaks: pk, fs: pk.map(function(p){ return p.f; }) }; }
+  // step 1: the generator slider, 55 to 220 Hz evenly in octaves; a harmonic tone from the lit whole numbers, partial k at loudness 1/k
+  function genFor(s){ return 55 * Math.pow(4, s); }
+  function harmonicPoints(ks){ return ks.map(function(k){ return [k, 0, 1 / k]; }); }
+  function gcd(a, b){ while (b){ var t = a % b; a = b; b = t; } return a; }
+  function gcdList(ks){ return ks.reduce(function(a, k){ return gcd(a, k); }, 0); }
+  // step 2: does the path on the torus close? the smallest q ≤ qmax with q·ratio a whole number p
+  function closesAt(ratio, qmax, eps){
+    for (var q = 1; q <= qmax; q++){ var p = Math.round(ratio * q); if (Math.abs(ratio * q - p) < eps) return { p: p, q: q }; }
+    return null;
+  }
+  function fieldFreqs(points, g1, g2){ return points.map(function(q){ return q[0] * g1 + q[1] * g2; }); }
+  // step 3: the ruler slider, 20 to 240 Hz evenly in octaves, and its inverse
+  function rulerFor(s){ return 20 * Math.pow(12, s); }
+  function rulerPos(g){ return Math.log(g / 20) / Math.log(12); }
+  // lay a ruler g across the peaks: each peak's nearest whole number, its miss, and whether it is explained
+  function rulerRead(fs, g, tol){
+    return fs.map(function(f){ var h = Math.max(1, Math.round(f / g)), miss = h * g - f; return { f: f, h: h, miss: miss, hit: Math.abs(miss) <= tol }; });
+  }
+  // what the ruler explains, played back: each explained peak at its mark, with loudness and phase probed there from the sound
+  function rulerPlay(x, rd, g, sr, N){
+    var y = new Float64Array(N);
+    rd.forEach(function(r){ if (!r.hit) return; var f = r.h * g, pr = probe(x, f, sr, NA), w = 2 * Math.PI * f / sr; for (var i = 0; i < N; i++) y[i] += pr.amp * Math.cos(w * i + pr.phase); });
+    return y;
+  }
+  function energyDb(x, ref, n){ var e = 0, p = 0; for (var i = 0; i < n; i++){ e += x[i] * x[i]; p += ref[i] * ref[i]; } return 10 * Math.log10(e / p + 1e-30); }
+  // step 4, not the proof's: rank 1 searched exhaustively. For each whole number m ≤ K on the lowest peak, the
+  // fundamentals it allows are (peak ± tol) ÷ m; each further peak allows (peak ± tol) ÷ n for some n ≤ K; keep every
+  // nonempty intersection. Any g inside one fits every peak. Of those, the largest ruler wins, and inside its interval
+  // the least-squares g for its whole numbers, held to the interval.
+  function fitRank1All(fs, tol, K){
+    var s = fs.slice().sort(function(a, b){ return a - b; }), best = null, m, i;
+    for (m = 1; m <= K; m++){
+      var ivs = [{ lo: (s[0] - tol) / m, hi: (s[0] + tol) / m, ks: [m] }];
+      for (i = 1; i < s.length && ivs.length; i++){
+        var nx = [], f = s[i];
+        ivs.forEach(function(v){
+          var n0 = Math.max(1, Math.ceil((f - tol) / v.hi)), n1 = Math.min(K, Math.floor((f + tol) / v.lo));
+          for (var n = n0; n <= n1; n++){ var lo = Math.max(v.lo, (f - tol) / n), hi = Math.min(v.hi, (f + tol) / n); if (lo <= hi) nx.push({ lo: lo, hi: hi, ks: v.ks.concat([n]) }); }
+        });
+        ivs = nx;
+      }
+      ivs.forEach(function(v){ if (!best || v.hi > best.hi) best = v; });
+    }
+    if (!best) return null;
+    var num = 0, den = 0; s.forEach(function(f, k){ num += best.ks[k] * f; den += best.ks[k] * best.ks[k]; });
+    var g = Math.min(best.hi, Math.max(best.lo, num / den));
+    return { rank: 1, g: g, lo: best.lo, hi: best.hi, coords: best.ks.map(function(h){ return [h, 0]; }), gens: [g] };
+  }
+  // step 4's analysis: the exhaustive one-ruler search, then the proof's own two-generator search
+  function analyseAll(fs, tol, K){ return fitRank1All(fs, tol, K) || fitRank2(fs, tol, Math.min(K, 8)) || { rank: 3, gens: [], coords: [] }; }
+  // step 4: the smallest bound at which a single ruler fits, by the exhaustive search unless another is named
+  function rank1Threshold(fs, tol, Kmax, fit){ fit = fit || fitRank1All; for (var K = 1; K <= Kmax; K++) if (fit(fs, tol, K)) return K; return null; }
+  // the one ruler made audible: harmonics 1..H of g at equal level, summed in closed form, peak 1
+  function rulerPulse(g, H, sr, N){
+    var y = new Float64Array(N);
+    for (var i = 0; i < N; i++){
+      var th = (2 * Math.PI * g * i / sr) % (2 * Math.PI), s = Math.sin(th / 2);
+      y[i] = (Math.abs(s) < 1e-9 ? H : Math.sin((H + 0.5) * th) / (2 * s) - 0.5) / H;
+    }
+    return y;
+  }
+  // step 5: the new steps. ĝ₁ = a·g₁ + b·g₂, ĝ₂ = c·g₁ + d·g₂, kept as [a, b, c, d]
+  var BASES = [
+    { name: 'g₁, g₂', B: [1, 0, 0, 1] },
+    { name: 'g₁, g₁ + g₂', B: [1, 0, 1, 1] },
+    { name: 'g₁, g₂ − g₁', B: [1, 0, -1, 1] },
+    { name: 'g₂, g₁', B: [0, 1, 1, 0] },
+    { name: 'g₁, 2 × g₂', B: [1, 0, 0, 2] }
+  ];
+  function detOf(B){ return B[0] * B[3] - B[1] * B[2]; }
+  function newGens(B, g1, g2){ return [B[0] * g1 + B[1] * g2, B[2] * g1 + B[3] * g2]; }
+  // a point (m, n) in the new steps: (m′, n′) with m′·ĝ₁ + n′·ĝ₂ = m·g₁ + n·g₂; whole only if the determinant allows it
+  function recount(points, B){
+    var D = detOf(B);
+    return points.map(function(q){
+      var mp = (q[0] * B[3] - q[1] * B[2]) / D, np = (q[1] * B[0] - q[0] * B[1]) / D;
+      var whole = Math.abs(mp - Math.round(mp)) < 1e-9 && Math.abs(np - Math.round(np)) < 1e-9;
+      return { m: q[0], n: q[1], amp: q[2], mp: mp, np: np, whole: whole, rm: Math.round(mp), rn: Math.round(np) };
+    });
+  }
+  // the re-counted field, played: the same synth, the same loudness and phases, each point at its rounded new coordinates
+  function recountPoints(rc){ return rc.map(function(r){ return [r.rm, r.rn, r.amp]; }); }
+
+  // every number a step shows, re-derived; each line is { name, ok, detail }
+  function selfTest(){
+    var out = [], sr = 48000, N = 3 * sr, i;
+    var t = function(name, ok, detail){ out.push({ name: name, ok: !!ok, detail: detail }); };
+    var R2 = Math.SQRT2 * G1;
+    // step 1
+    t('step 1: the generator slider runs 55 to 220 Hz, 110 in the middle', Math.abs(genFor(0) - 55) < 1e-12 && Math.abs(genFor(1) - 220) < 1e-12 && Math.abs(genFor(0.5) - 110) < 1e-12, genFor(0) + ' · ' + genFor(0.5) + ' · ' + genFor(1) + ' Hz');
+    var y120 = synth(harmonicPoints([1, 2, 3, 4, 5]), 120, 0, sr, 9600, 9), w1 = 0;
+    for (i = 0; i + 400 < 9600; i++) w1 = Math.max(w1, Math.abs(y120[i] - y120[i + 400]));
+    t('step 1: a harmonic tone repeats once per period of its generator (120 Hz, every 400 samples)', w1 < 1e-9, 'largest drift ' + w1.toExponential(1));
+    var mh = measure(synth(harmonicPoints([1, 2, 3, 4, 5]), G1, 0, sr, N, 9), sr), wk = 0;
+    mh.fs.forEach(function(f, k){ wk = Math.max(wk, Math.abs(f - (k + 1) * G1)); });
+    var fh = fitRank1(mh.fs, TOL, 40);
+    t('step 1: its measured peaks are 1 to 5 times 110 Hz, and the proof’s analysis calls it rank 1 at 110 Hz', mh.fs.length === 5 && wk < 0.05 && fh && Math.abs(fh.g - G1) < 0.01, mh.fs.length + ' peaks, worst ' + wk.toFixed(4) + ' Hz off k × 110; rank-1 generator ' + (fh ? fh.g.toFixed(3) : 'none'));
+    var lr = [[2, 3, 4, 5], [2, 4, 6], [3, 6], [1, 2, 3, 4, 5]], lrOk = true, lrD = [];
+    lr.forEach(function(ks){ var fit = fitRank1(measure(synth(harmonicPoints(ks), G1, 0, sr, N, 9), sr).fs, TOL, 40), want = gcdList(ks) * G1; lrOk = lrOk && fit && Math.abs(fit.g - want) < 0.02; lrD.push(ks.join('·') + ' → ' + (fit ? fit.g.toFixed(2) : 'none') + ' (shown ' + want + ')'); });
+    t('step 1: the largest ruler shown (whole-number divisor × generator) is what the analysis finds', lrOk, lrD.join('; '));
+    // step 2
+    var m2 = measure(synth(FIELDS.bell, G1, R2, sr, N, 9), sr), ff = fieldFreqs(FIELDS.bell, G1, R2).sort(function(a, b){ return a - b; }), w2 = 0;
+    ff.forEach(function(f, k){ w2 = Math.max(w2, Math.abs(f - m2.fs[k])); });
+    t('step 2: at √2 the bell’s eight points sound at m × 110 + n × 155.56 Hz, as measured', m2.fs.length === 8 && w2 < 0.05 && Math.abs(R2 - 155.5635) < 1e-4, '8 frequencies, worst ' + w2.toFixed(4) + ' Hz from the measured peaks');
+    var pts = FIELDS.bell, wf = 0, yb = synth(pts, G1, R2, sr, 5000, 9);
+    for (i = 0; i < 5000; i += 37) wf = Math.max(wf, Math.abs(yb[i] - fieldAt(pts, 9, G1 * i / sr, R2 * i / sr)));
+    t('step 2: the torus synth is the field read along the line φ₁ = g₁ t, φ₂ = g₂ t', wf < 1e-9, 'largest difference ' + wf.toExponential(1));
+    var c15 = closesAt(1.5, 12, 1e-6), c14 = closesAt(1.4, 12, 1e-6), cr = closesAt(Math.SQRT2, 12, 1e-6), cg = closesAt(1.61803399, 12, 1e-6);
+    t('step 2: the path closes after 2 turns at 3 ÷ 2 (and 5 at 7 ÷ 5); at √2 and golden it does not close within 12', c15 && c15.q === 2 && c15.p === 3 && c14 && c14.q === 5 && !cr && !cg, '3 ÷ 2: ' + (c15 && c15.q) + ' turns; 7 ÷ 5: ' + (c14 && c14.q) + '; √2: ' + cr + '; golden: ' + cg);
+    var f15 = fieldFreqs(FIELDS.bell, G1, 1.5 * G1), all55 = f15.every(function(f){ return Math.abs(f / 55 - Math.round(f / 55)) < 1e-9; });
+    var fit15 = fitRank1(measure(synth(FIELDS.bell, G1, 1.5 * G1, sr, N, 9), sr).fs, TOL, 40);
+    t('step 2: at 3 ÷ 2 every partial is a whole multiple of 110 ÷ 2 = 55 Hz, and the analysis reads rank 1 at 55', all55 && fit15 && Math.abs(fit15.g - 55) < 0.02, 'multiples ' + f15.map(function(f){ return Math.round(f / 55); }).join(', ') + '; rank-1 generator ' + (fit15 ? fit15.g.toFixed(3) : 'none'));
+    // step 3
+    t('step 3: the ruler slider runs 20 to 240 Hz and its presets land where they say', Math.abs(rulerFor(0) - 20) < 1e-12 && Math.abs(rulerFor(1) - 240) < 1e-9 && Math.abs(rulerFor(rulerPos(110)) - 110) < 1e-9 && Math.abs(rulerFor(rulerPos(R2)) - R2) < 1e-9, '20 to ' + rulerFor(1).toFixed(1) + ' Hz');
+    var yh = synth(harmonicPoints([1, 2, 3, 4, 5]), G1, 0, sr, N, 9), rh = rulerRead(mh.fs, 110, TOL), ph = rulerPlay(yh, rh, 110, sr, N);
+    var lh = new Float64Array(N); for (i = 0; i < N; i++) lh[i] = yh[i] - ph[i];
+    var nh = rh.filter(function(r){ return r.hit; }).length, eh = energyDb(lh, yh, N);
+    t('step 3: on the harmonic tone the 110 Hz ruler explains 5 of 5, whole numbers 1 to 5, and leaves silence', nh === 5 && Math.max.apply(null, rh.map(function(r){ return r.h; })) === 5 && eh < -60, nh + ' of 5; what it leaves ' + eh.toFixed(1) + ' dB below the sound');
+    var yB = synth(FIELDS.bell, G1, R2, sr, N, 9), counts = [110, R2, 55].map(function(g){ return rulerRead(m2.fs, g, TOL).filter(function(r){ return r.hit; }).length; });
+    t('step 3: on the bell, the rulers at 110, 155.56 and 55 Hz explain 3, 2 and 3 of 8 peaks', counts[0] === 3 && counts[1] === 2 && counts[2] === 3, counts.join(', ') + ' of ' + m2.fs.length);
+    var rB = rulerRead(m2.fs, 110, TOL), pB = rulerPlay(yB, rB, 110, sr, N), lB = new Float64Array(N); for (i = 0; i < N; i++) lB[i] = yB[i] - pB[i];
+    var eB = energyDb(lB, yB, N), eP = energyDb(pB, yB, N);
+    t('step 3: on the bell at 110 Hz, what the ruler leaves is loud, and what it explains is the bottom row', eB > -10 && eP > -10 && rB.filter(function(r){ return r.hit; }).every(function(r){ return Math.abs(r.f / 110 - Math.round(r.f / 110)) < 0.01; }), 'left over ' + eB.toFixed(1) + ' dB, explained ' + eP.toFixed(1) + ' dB, against the sound');
+    var mxm = 0; rh.forEach(function(r){ mxm = Math.max(mxm, Math.abs(r.miss)); });
+    t('step 3: on the harmonic tone each miss is within the 0.5 Hz band', mxm <= TOL, 'largest miss ' + mxm.toFixed(4) + ' Hz');
+    // step 4
+    var m75 = measure(synth(FIELDS.bell, G1, 1.4 * G1, sr, N, 9), sr), th75 = rank1Threshold(m75.fs, TOL, 400), a40 = analyseAll(m75.fs, TOL, 40), a26 = analyseAll(m75.fs, TOL, 26);
+    t('step 4: at 7 ÷ 5, rank 1 first fits at a bound of 27, on 22.00 Hz, marks up to ×27 (exhaustive search)', th75 === 27 && a40.rank === 1 && Math.abs(a40.g - 22) < 0.01 && Math.max.apply(null, a40.coords.map(function(q){ return q[0]; })) === 27, 'threshold ' + th75 + '; at 40: ' + (a40.g ? a40.g.toFixed(3) : '—') + ' Hz');
+    t('step 4: at 7 ÷ 5 below the bound, the proof’s two-generator search finds 110.00 and 154.00 Hz', a26.rank === 2 && Math.abs(a26.gens[0] - 110) < 0.01 && Math.abs(a26.gens[1] - 154) < 0.01, 'rank ' + a26.rank + ', ' + a26.gens.map(function(g){ return g.toFixed(3); }).join(' / ') + ' Hz');
+    var thR = rank1Threshold(m2.fs, TOL, 400), fR = analyseAll(m2.fs, TOL, 65), aR = analyseAll(m2.fs, TOL, 64), okR = fR.rank === 1, wR = 0;
+    if (okR) m2.fs.forEach(function(f, k){ var h = fR.coords[k][0]; okR = okR && h <= 65; wR = Math.max(wR, Math.abs(h * fR.g - f)); });
+    t('step 4: at √2, rank 1 first fits at a bound of 65, on 9.16 Hz, every peak within 0.5 Hz of a mark; at 64, rank 2 at 110.00 and 155.56', thR === 65 && okR && wR <= TOL && Math.abs(fR.g - 9.16) < 0.005 && Math.max.apply(null, fR.coords.map(function(q){ return q[0]; })) === 65 && aR.rank === 2 && Math.abs(aR.gens[0] - 110) < 0.01 && Math.abs(aR.gens[1] - R2) < 0.01, 'threshold ' + thR + '; ruler ' + (okR ? fR.g.toFixed(4) : '—') + ' Hz, largest miss ' + wR.toFixed(3) + ' Hz; at 64: ' + aR.gens.map(function(g){ return g.toFixed(2); }).join(' / '));
+    var thA = rank1Threshold(m2.fs, TOL, 400, fitRank1), fA = fitRank1(m2.fs, TOL, thA || 400);
+    t('step 4: at √2 the proof’s own anchored search says 157, on 3.79 Hz, where the exhaustive one says 65', thA === 157 && fA && Math.abs(fA.g - 3.79) < 0.005 && thR === 65 && thA > thR, 'anchored ' + thA + ' on ' + (fA ? fA.g.toFixed(4) : '—') + ' Hz; exhaustive ' + thR);
+    var tolK = [0.3, 0.4, 0.5].map(function(tl){ return rank1Threshold(m2.fs, tl, 400); });
+    t('step 4: at √2 the exhaustive threshold stays 65 for every tolerance from 0.3 to 0.5 Hz', tolK.every(function(k){ return k === 65; }), 'at 0.3, 0.4, 0.5 Hz: ' + tolK.join(', '));
+    var pu = rulerPulse(22, 27, sr, 2000), wp = 0;
+    for (i = 0; i < 2000; i += 13){ var s = 0; for (var k = 1; k <= 27; k++) s += Math.cos(2 * Math.PI * 22 * k * i / sr); wp = Math.max(wp, Math.abs(pu[i] - s / 27)); }
+    t('step 4: the ruler’s sound is its 27 harmonics at equal level, peak 1', wp < 1e-9 && Math.abs(pu[0] - 1) < 1e-12, 'largest error against the plain sum ' + wp.toExponential(1));
+    // step 5
+    var dets = BASES.map(function(b){ return detOf(b.B); });
+    t('step 5: the five bases have determinants 1, 1, 1, −1 and 2', dets.join(',') === '1,1,1,-1,2', dets.join(', '));
+    var wsame = 0, wnull = 0, allWhole = true, yD = synth(FIELDS.diag, G1, R2, sr, N, 9);
+    [0, 1, 2, 3].forEach(function(bi){
+      var B = BASES[bi].B, ng = newGens(B, G1, R2), rc = recount(FIELDS.diag, B);
+      rc.forEach(function(r){ allWhole = allWhole && r.whole; wsame = Math.max(wsame, Math.abs(r.rm * ng[0] + r.rn * ng[1] - (r.m * G1 + r.n * R2))); });
+      wnull = Math.max(wnull, maxDiff(yD, synth(recountPoints(rc), ng[0], ng[1], sr, N, 9)));
+    });
+    t('step 5: for every basis with determinant ±1, every point is whole and lands on the same frequency; the null holds', allWhole && wsame < 1e-9 && wnull < 1e-9, 'worst frequency ' + wsame.toExponential(1) + ' Hz; largest sample difference ' + wnull.toExponential(1));
+    var ng1 = newGens(BASES[1].B, G1, R2), ng2 = newGens(BASES[2].B, G1, R2);
+    t('step 5: the new steps shown: g₁ + g₂ = 265.56 Hz, g₂ − g₁ = 45.56 Hz', Math.abs(ng1[1] - 265.5635) < 1e-4 && Math.abs(ng2[1] - 45.5635) < 1e-4, ng1[1].toFixed(4) + ' and ' + ng2[1].toFixed(4) + ' Hz');
+    var rc2 = recount(FIELDS.diag, BASES[4].B), lost = rc2.filter(function(r){ return !r.whole; }).length, ng4 = newGens(BASES[4].B, G1, R2), d4 = maxDiff(yD, synth(recountPoints(rc2), ng4[0], ng4[1], sr, N, 9));
+    t('step 5: with determinant 2, the 4 points on odd rows of the diagonal have no whole place, and the null breaks', lost === 4 && d4 > 0.1, lost + ' of 7 not whole; largest difference ' + d4.toFixed(3));
+    var mD = measure(yD, sr), aD = analyse(mD.fs, TOL, 40), e1 = express(G1, aD.gens, 1), e2 = express(R2, aD.gens, 1);
+    t('step 5: given the diagonal’s sound, the proof’s analysis returns 110.00 and 265.56 Hz: g₁ = ĝ₁, g₂ = −ĝ₁ + ĝ₂', aD.rank === 2 && Math.abs(aD.gens[0] - 110) < 0.01 && Math.abs(aD.gens[1] - ng1[1]) < 0.01 && e1 && e2 && e1.join() === '1,0' && e2.join() === '-1,1', aD.gens.map(function(g){ return g.toFixed(3); }).join(' / ') + ' Hz; g₁ = (' + e1 + '), g₂ = (' + e2 + ')');
+    var aBl = analyse(m2.fs, TOL, 40), b1 = express(G1, aBl.gens, 1), b2 = express(R2, aBl.gens, 1);
+    t('step 5: given the bell’s sound, it returns the drawing generators themselves', aBl.rank === 2 && b1 && b2 && b1.join() === '1,0' && b2.join() === '0,1', aBl.gens.map(function(g){ return g.toFixed(3); }).join(' / ') + ' Hz');
+    return out;
+  }
+  // ---- end math ----
+  window.__selfTest = selfTest;
+
+  // ================= the sequence frame =================
+  var sr = 48000;
+  var steps = Q('section.step'), cur = 0, seen = {};
+  var rail = document.querySelector('.rail');
+  steps.forEach(function(s, i){
+    var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.getAttribute('data-title'); b.setAttribute('data-go', i);
+    b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
+  });
+  var STEP = []; // per-step behaviour: { render(): Float32Array, draw(g, W, H, d, dt), changed(), aspect?(cssWidth) }
+
+  // ---------- audio: nothing is made until a Play click ----------
+  var ctx = null, master = null, voice = null, t0 = 0, playing = false;
+  function ensure(){
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 8;
+    master = ctx.createGain(); master.gain.value = 0.4; master.connect(comp); comp.connect(ctx.destination);
+    if (ctx.sampleRate !== sr){ sr = ctx.sampleRate; STEP.forEach(function(s){ s.changed(); }); }
+  }
+  function loopify(x, F){
+    var N = x.length - F, out = new Float32Array(N);
+    for (var i = 0; i < N; i++){
+      if (i < F){ var q = i / F; out[i] = x[i] * Math.sin(q * Math.PI / 2) + x[N + i] * Math.cos(q * Math.PI / 2); }
+      else out[i] = x[i];
+    }
+    return out;
+  }
+  function playBuffer(data){
+    var b = ctx.createBuffer(1, data.length, ctx.sampleRate); b.copyToChannel(data, 0);
+    var s = ctx.createBufferSource(); s.buffer = b; s.loop = true;
+    var g = ctx.createGain(); g.gain.value = 0; s.connect(g); g.connect(master);
+    var t = ctx.currentTime; s.start(); g.gain.setTargetAtTime(1, t, 0.03); t0 = t;
+    if (voice){ var o = voice; o.g.gain.setTargetAtTime(0, t, 0.03); setTimeout(function(){ try { o.s.stop(); } catch (e) {} o.g.disconnect(); }, 400); }
+    voice = { s: s, g: g, len: data.length };
+  }
+  function stopAudio(){
+    playing = false;
+    Q('[data-play]').forEach(function(b){ b.textContent = 'Play'; });
+    if (voice && ctx){ var o = voice; o.g.gain.setTargetAtTime(0, ctx.currentTime, 0.02); setTimeout(function(){ try { o.s.stop(); } catch (e) {} o.g.disconnect(); }, 200); }
+    voice = null;
+  }
+  var pend = 0;
+  function refreshAudio(){ if (!playing) return; clearTimeout(pend); pend = setTimeout(function(){ if (playing) playBuffer(STEP[cur].render()); }, 40); }
+  Q('[data-play]').forEach(function(b){
+    b.addEventListener('click', function(){
+      ensure(); if (ctx.state === 'suspended') ctx.resume();
+      if (playing){ stopAudio(); return; }
+      playing = true; b.textContent = 'Stop'; playBuffer(STEP[cur].render());
+    });
+  });
+
+  // ---------- walking the steps ----------
+  function go(i){
+    if (i < 0 || i >= steps.length) return;
+    stopAudio(); cur = i; seen[i] = true;
+    steps.forEach(function(s, k){ s.hidden = k !== i; });
+    Q('.rail button').forEach(function(b, k){ if (k === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); b.classList.toggle('seen', !!seen[k]); });
+    $('back').disabled = i === 0; $('next').disabled = i === steps.length - 1;
+    $('next').textContent = i === steps.length - 2 ? 'Next: the proof' : 'Next';
+    if (STEP[i] && STEP[i].changed) STEP[i].changed();
+  }
+  $('back').addEventListener('click', function(){ go(cur - 1); window.scrollTo(0, 0); });
+  $('next').addEventListener('click', function(){ go(cur + 1); window.scrollTo(0, 0); });
+  // a page nobody can see says nothing: hidden, the sound stops, and it does not start again on return
+  document.addEventListener('visibilitychange', function(){ if (document.hidden && playing) stopAudio(); });
+  window.__seq = { count: steps.length, current: function(){ return cur; }, playing: function(){ return playing; }, go: go };
+
+  // ---------- drawing helpers ----------
+  var css = getComputedStyle(document.documentElement);
+  var ACC = css.getPropertyValue('--accent').trim(), FG2 = css.getPropertyValue('--fg-2').trim(), FG3 = css.getPropertyValue('--fg-3').trim(), FG4 = css.getPropertyValue('--fg-4').trim(), INFO = css.getPropertyValue('--info').trim();
+  function strip(g, x0, y0, w, h, get, color, lw, dash){
+    g.strokeStyle = color; g.lineWidth = lw; g.setLineDash(dash || []); g.beginPath();
+    for (var i = 0; i <= 240; i++){ var v = get(i / 240), x = x0 + i / 240 * w, y = y0 + h / 2 - v * h * 0.42; if (i) g.lineTo(x, y); else g.moveTo(x, y); }
+    g.stroke(); g.setLineDash([]);
+  }
+  function box(g, x, y, w, h, d){ g.strokeStyle = 'rgba(255,255,255,0.06)'; g.lineWidth = d; g.strokeRect(x, y, w, h); }
+  function label(g, text, x, y, d, align, color){ g.font = (10 * d) + 'px JetBrains Mono, Menlo, monospace'; g.fillStyle = color || FG4; g.textAlign = align || 'left'; g.fillText(text, x, y); g.textAlign = 'left'; }
+  function axis(g, x0, y, w, d){ g.setLineDash([4 * d, 4 * d]); g.strokeStyle = FG4; g.lineWidth = d; g.beginPath(); g.moveTo(x0, y); g.lineTo(x0 + w, y); g.stroke(); g.setLineDash([]); }
+  function pressGroup(attr, val){ Q('[' + attr + ']').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute(attr) === String(val))); }); }
+  function vline(g, x, y0, y1, color, lw, dash){ g.strokeStyle = color; g.lineWidth = lw; g.setLineDash(dash || []); g.beginPath(); g.moveTo(x, y0); g.lineTo(x, y1); g.stroke(); g.setLineDash([]); }
+  function dot(g, x, y, r, color){ g.fillStyle = color; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); }
+  function ring(g, x, y, r, color, lw){ g.strokeStyle = color; g.lineWidth = lw; g.beginPath(); g.arc(x, y, r, 0, 7); g.stroke(); }
+  // a measured spectrum, 0..fmax Hz, the top 80 dB
+  function specPlot(g, db, binHz, fmax, x0, yt, w, yb, d){
+    var top = -1e9, i, bins = Math.floor(fmax / binHz); for (i = 1; i < bins; i++) top = Math.max(top, db[i]);
+    var stepB = Math.max(1, Math.floor(bins / (w / d)));
+    g.strokeStyle = INFO; g.lineWidth = 1.2 * d; g.beginPath();
+    for (i = 1; i < bins; i += stepB){ var mx = db[i]; for (var k = 1; k < stepB; k++) mx = Math.max(mx, db[i + k] || -1e9); var x = x0 + i * binHz / fmax * w, y = yb - Math.max(0, 1 + (mx - top) / 80) * (yb - yt); if (i > 1) g.lineTo(x, y); else g.moveTo(x, y); }
+    g.stroke();
+  }
+  function fmt(v){ return v.toFixed(2); }
+  function list(fs, dp){ return fs.map(function(f){ return f.toFixed(dp); }).join(', '); }
+  function narrow(W, d){ return W / d < 600; }
+
+  // ================= the steps =================
+  var SECS = 3, eyeT = 0;
+  function N0(){ return Math.round(sr * SECS); }
+  function asBuffer(x, gain){ var y = new Float64Array(x.length); for (var i = 0; i < x.length; i++) y[i] = gain * x[i]; return loopify(y, Math.round(0.25 * sr)); }
+
+  // ---- step 1: one generator ----
+  (function(){
+    var lit = [1, 2, 3, 4, 5], s = 0.5, y = null;
+    function g0(){ return genFor(s); }
+    function rebuild(){ y = synth(harmonicPoints(lit), g0(), 0, sr, N0(), 9); }
+    function ui(){
+      var g = g0(), r = gcdList(lit);
+      $('s1gv').textContent = g.toFixed(1) + ' Hz';
+      $('s1m').innerHTML = 'lit partials: <b>' + list(lit.map(function(k){ return k * g; }), 1) + '</b> Hz · each ÷ ' + g.toFixed(1) + ' = <b>' + lit.join(', ') + '</b>, every one whole<br>the largest ruler they all sit on: <b>' + (r * g).toFixed(1) + ' Hz</b>' + (r > 1 ? ' (' + r + ' × the generator)' : '') + ' · one generator, rank <b>1</b>';
+      Q('[data-s1k]').forEach(function(b){ b.setAttribute('aria-pressed', String(lit.indexOf(parseInt(b.getAttribute('data-s1k'), 10)) >= 0)); });
+    }
+    STEP[0] = {
+      render: function(){ return asBuffer(y, 0.9); },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(gc, W, H, d){
+        var p = 14 * d, h1 = (H - 3 * p) * 0.55, h2 = H - 3 * p - h1, g = g0(), r = gcdList(lit);
+        box(gc, p, p, W - 2 * p, h1, d); box(gc, p, 2 * p + h1, W - 2 * p, h2, d);
+        label(gc, 'THE RULER  marks at k × ' + g.toFixed(1) + ' Hz', p + 6 * d, p + 14 * d, d);
+        label(gc, 'WHAT COMES OUT  three periods of the generator', p + 6 * d, 2 * p + h1 + 14 * d, d);
+        var x0 = p + 16 * d, w = W - 2 * p - 32 * d, yb = p + h1 - 22 * d, yt = p + 34 * d, fmax = 8.7 * g;
+        var X = function(f){ return x0 + f / fmax * w; };
+        gc.strokeStyle = FG3; gc.lineWidth = d; gc.beginPath(); gc.moveTo(x0, yb); gc.lineTo(x0 + w, yb); gc.stroke();
+        for (var k = 1; k <= 8; k++){
+          vline(gc, X(k * g), yt - 6 * d, yb, FG4, d, [3 * d, 3 * d]);
+          label(gc, '×' + k, X(k * g), yb + 14 * d, d, 'center', lit.indexOf(k) >= 0 ? FG2 : FG4);
+          if (k % r === 0 && lit.length){ gc.fillStyle = FG2; gc.beginPath(); gc.moveTo(X(k * g) - 4 * d, yt - 16 * d); gc.lineTo(X(k * g) + 4 * d, yt - 16 * d); gc.lineTo(X(k * g), yt - 9 * d); gc.fill(); }
+        }
+        lit.forEach(function(k){ var hh = (yb - yt) * (1 / k); gc.strokeStyle = ACC; gc.lineWidth = 3 * d; gc.beginPath(); gc.moveTo(X(k * g), yb); gc.lineTo(X(k * g), yb - hh); gc.stroke(); dot(gc, X(k * g), yb - hh, 4 * d, ACC); });
+        label(gc, '0 Hz', x0, yb + 14 * d, d, 'left');
+        var span = 3 * sr / g, y1 = 2 * p + h1 + 18 * d, hh2 = h2 - 26 * d, pk = 1e-9, i;
+        for (i = 0; i < span; i++) pk = Math.max(pk, Math.abs(y[i]));
+        axis(gc, x0, y1 + hh2 / 2, w, d);
+        for (i = 1; i < 3; i++) vline(gc, x0 + i / 3 * w, y1, y1 + hh2, FG4, d, [2 * d, 3 * d]);
+        strip(gc, x0, y1, w, hh2, function(t){ return y[Math.floor(t * span)] / pk; }, ACC, 1.8 * d);
+      }
+    };
+    $('s1g').addEventListener('input', function(){ s = parseFloat($('s1g').value); STEP[0].changed(); });
+    Q('[data-s1k]').forEach(function(b){ b.addEventListener('click', function(){
+      var k = parseInt(b.getAttribute('data-s1k'), 10), at = lit.indexOf(k);
+      if (at >= 0){ if (lit.length > 1) lit.splice(at, 1); } else { lit.push(k); lit.sort(function(a, c){ return a - c; }); }
+      STEP[0].changed();
+    }); });
+  })();
+
+  // ---- step 2: two generators ----
+  (function(){
+    var field = 'bell', ratio = 1.41421356, y = null, heat = null, HG = 48, close = null;
+    function rebuild(){
+      var pts = FIELDS[field];
+      y = synth(pts, G1, G1 * ratio, sr, N0(), 9);
+      heat = new Float64Array(HG * HG);
+      for (var a = 0; a < HG; a++) for (var b = 0; b < HG; b++) heat[b * HG + a] = fieldAt(pts, 9, (a + 0.5) / HG, (b + 0.5) / HG);
+      close = closesAt(ratio, 12, 1e-6);
+    }
+    function ui(){
+      var g2 = G1 * ratio, fs = fieldFreqs(FIELDS[field], G1, g2).sort(function(a, b){ return a - b; });
+      $('s2rv').textContent = ratio.toFixed(4);
+      $('s2r').value = String(ratio);
+      pressGroup('data-s2field', field);
+      var ln = 'g₁ = <b>' + G1 + ' Hz</b> · g₂ = <b>' + fmt(g2) + ' Hz</b> · the lit points sound at <b>' + list(fs, 1) + '</b> Hz<br>';
+      if (close) ln += 'the path closes after <b>' + close.q + '</b> turn' + (close.q > 1 ? 's' : '') + ' of φ₁: every partial is a whole multiple of ' + G1 + ' ÷ ' + close.q + ' = <b>' + fmt(G1 / close.q) + ' Hz</b>, so the sound is rank 1';
+      else ln += 'the path does not close within <b>12</b> turns of φ₁: no small whole-number ratio between the generators';
+      $('s2m').innerHTML = ln;
+    }
+    STEP[1] = {
+      render: function(){ return asBuffer(y, 0.9); },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      aspect: function(w){ return w < 600 ? 1.55 : 0.56; },
+      draw: function(gc, W, H, d){
+        var p = 14 * d, nar = narrow(W, d), S, sx = p, sy = p, rx, ry, rw, rh;
+        if (nar){ S = Math.min(W - 2 * p, H * 0.46); rx = p; ry = sy + S + p; rw = W - 2 * p; rh = H - ry - p; }
+        else { S = Math.min(H - 2 * p, W * 0.44); rx = sx + S + p; ry = p; rw = W - p - rx; rh = H - 2 * p; }
+        var g2 = G1 * ratio, i, a, b;
+        // the torus square
+        box(gc, sx, sy, S, S, d);
+        var q0 = sx + 8 * d, qw = S - 16 * d, qy0 = sy + 22 * d, qh = S - 30 * d, cw = qw / HG, chh = qh / HG;
+        var hlo = 1e9, hhi = -1e9; for (i = 0; i < heat.length; i++){ hlo = Math.min(hlo, heat[i]); hhi = Math.max(hhi, heat[i]); }
+        for (a = 0; a < HG; a++) for (b = 0; b < HG; b++){
+          var v = (heat[b * HG + a] - hlo) / (hhi - hlo + 1e-12), xa = Math.round(q0 + a * cw), xb = Math.round(q0 + (a + 1) * cw), ya = Math.round(qy0 + qh - (b + 1) * chh), yb2 = Math.round(qy0 + qh - b * chh);
+          gc.fillStyle = 'rgb(' + Math.round(26 + 74 * v) + ',' + Math.round(26 + 72 * v) + ',' + Math.round(40 + 70 * v) + ')'; gc.fillRect(xa, ya, xb - xa, yb2 - ya);
+        }
+        var turns = close ? close.q : 12, nS = 900 * turns, pu = 0, pv = 0;
+        gc.strokeStyle = INFO; gc.lineWidth = 1.3 * d; gc.globalAlpha = close ? 0.95 : 0.6; gc.beginPath();
+        for (i = 0; i <= nS; i++){
+          var tt = i / nS * turns, u = tt % 1, vv = (tt * ratio) % 1, x = q0 + u * qw, yy = qy0 + qh - vv * qh;
+          if (i === 0 || Math.abs(u - pu) > 0.5 || Math.abs(vv - pv) > 0.5) gc.moveTo(x, yy); else gc.lineTo(x, yy);
+          pu = u; pv = vv;
+        }
+        gc.stroke(); gc.globalAlpha = 1;
+        var et = eyeT * 0.35; dot(gc, q0 + (et % 1) * qw, qy0 + qh - ((et * ratio) % 1) * qh, 5 * d, ACC);
+        label(gc, nar ? 'THE TORUS' : 'THE TORUS  φ₁ across, φ₂ up', sx + 6 * d, sy + 14 * d, d);
+        label(gc, close ? 'closes after ' + close.q : 'never closes', sx + S - 6 * d, sy + 14 * d, d, 'right');
+        // the lattice of lit points, and the reading
+        var lh = rh * 0.46, fy = ry + lh + p * 0.6, fh = rh - lh - p * 0.6;
+        box(gc, rx, ry, rw, lh, d); box(gc, rx, fy, rw, fh, d);
+        label(gc, 'THE FIELD’S POINTS  m across, n up', rx + 6 * d, ry + 14 * d, d);
+        var lx0 = rx + 24 * d, lw = rw - 32 * d, ly0 = ry + 22 * d, lhh = lh - 36 * d, MW = 6, NH = 4;
+        var LX = function(m){ return lx0 + (m + 0.5) * lw / MW; }, LY = function(n){ return ly0 + lhh - (n + 0.5) * lhh / NH; };
+        var litk = {}; FIELDS[field].forEach(function(q){ litk[q[0] + ',' + q[1]] = q[2]; });
+        for (a = 0; a < MW; a++) for (b = 0; b < NH; b++){ var lv = litk[a + ',' + b]; if (lv) dot(gc, LX(a), LY(b), (3 + 7 * lv) * d, ACC); else dot(gc, LX(a), LY(b), 2 * d, (a || b) ? FG4 : 'rgba(255,255,255,0.05)'); }
+        for (a = 0; a < MW; a++) label(gc, String(a), LX(a), ry + lh - 4 * d, d, 'center');
+        for (b = 0; b < NH; b++) label(gc, String(b), rx + 10 * d, LY(b) + 3 * d, d, 'center');
+        // the reading: rows slid to their frequencies
+        var fmax = 0; FIELDS[field].forEach(function(q){ fmax = Math.max(fmax, q[0] * G1 + q[1] * g2); }); fmax = Math.max(400, fmax * 1.08);
+        var fx0 = rx + 10 * d, fw = rw - 46 * d, lineY = fy + fh - 22 * d, rowH = (lineY - fy - 24 * d) / NH;
+        var FX = function(f){ return fx0 + f / fmax * fw; };
+        label(gc, 'THE READING  f = m × g₁ + n × g₂', rx + 6 * d, fy + 14 * d, d);
+        gc.strokeStyle = FG3; gc.lineWidth = d; gc.beginPath(); gc.moveTo(fx0, lineY); gc.lineTo(fx0 + fw, lineY); gc.stroke();
+        FIELDS[field].forEach(function(q){
+          var f = q[0] * G1 + q[1] * g2, yy = fy + 20 * d + (NH - 1 - q[1] + 0.5) * rowH;
+          vline(gc, FX(f), yy, lineY, 'rgba(232,184,74,0.35)', d);
+          dot(gc, FX(f), yy, (2.5 + 4 * q[2]) * d, ACC);
+          gc.fillStyle = ACC; gc.fillRect(FX(f) - 0.75 * d, lineY - 5 * d, 1.5 * d, 10 * d);
+        });
+        for (b = 0; b < NH; b++) label(gc, 'n=' + b, rx + rw - 6 * d, fy + 20 * d + (NH - 1 - b + 0.5) * rowH + 3 * d, d, 'right');
+        label(gc, '0', fx0, lineY + 14 * d, d); label(gc, Math.round(fmax) + ' Hz', fx0 + fw, lineY + 14 * d, d, 'right');
+      }
+    };
+    $('s2r').addEventListener('input', function(){ ratio = parseFloat($('s2r').value); STEP[1].changed(); });
+    Q('[data-s2ratio]').forEach(function(b){ b.addEventListener('click', function(){ ratio = parseFloat(b.getAttribute('data-s2ratio')); STEP[1].changed(); }); });
+    Q('[data-s2field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s2field'); STEP[1].changed(); }); });
+  })();
+
+  // ---- step 3: a ruler on the peaks ----
+  (function(){
+    var sound = 'bell', s = rulerPos(110), door = 'sound', y = null, ms = null, rd = [], read = null, left = null;
+    function g0(){ return rulerFor(s); }
+    function rebuild(){
+      y = sound === 'bell' ? synth(FIELDS.bell, G1, Math.SQRT2 * G1, sr, N0(), 9) : synth(harmonicPoints([1, 2, 3, 4, 5]), G1, 0, sr, N0(), 9);
+      ms = measure(y, sr); reread();
+    }
+    function reread(){
+      var g = g0(); rd = rulerRead(ms.fs, g, TOL); read = rulerPlay(y, rd, g, sr, y.length);
+      left = new Float64Array(y.length); for (var i = 0; i < y.length; i++) left[i] = y[i] - read[i];
+    }
+    function ui(){
+      var g = g0(), hits = rd.filter(function(r){ return r.hit; }), hs = hits.map(function(r){ return '×' + r.h; });
+      $('s3gv').textContent = g.toFixed(2) + ' Hz';
+      $('s3g').value = String(s);
+      pressGroup('data-s3sound', sound); pressGroup('data-s3door', door);
+      $('s3m').innerHTML = 'peaks the analysis found: <b>' + ms.fs.length + '</b> · on a mark of the ' + g.toFixed(2) + ' Hz ruler, within 0.5 Hz: <b>' + hits.length + ' of ' + ms.fs.length + '</b>' + (hits.length ? '<br>whole numbers that explain them: <b>' + hs.join(', ') + '</b>' : '');
+      var h;
+      if (door === 'sound') h = 'You hear <b>the sound</b>, all ' + ms.fs.length + ' partials.';
+      else if (door === 'read') h = 'You hear <b>what the ruler explains</b>: ' + hits.length + ' partial' + (hits.length === 1 ? '' : 's') + ', each at its mark.';
+      else h = hits.length === ms.fs.length ? 'You hear <b>what it leaves</b>: silence. The ruler explains the whole sound.' : 'You hear <b>what it leaves</b>: the ' + (ms.fs.length - hits.length) + ' partial' + (ms.fs.length - hits.length === 1 ? '' : 's') + ' no mark explains.';
+      $('s3h').innerHTML = h;
+    }
+    STEP[2] = {
+      aspect: function(w){ return w < 600 ? 0.95 : 0.52; },
+      render: function(){ return asBuffer(door === 'sound' ? y : door === 'read' ? read : left, 0.9); },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(gc, W, H, d){
+        var p = 14 * d, h1 = (H - 3 * p) * 0.6, h2 = H - 3 * p - h1, g = g0(), i;
+        box(gc, p, p, W - 2 * p, h1, d); box(gc, p, 2 * p + h1, W - 2 * p, h2, d);
+        var fmax = Math.max(400, ms.fs[ms.fs.length - 1] * 1.08), x0 = p + 10 * d, w = W - 2 * p - 20 * d, yt = p + 60 * d, yb = p + h1 - 24 * d;
+        var X = function(f){ return x0 + f / fmax * w; };
+        if (narrow(W, d)) label(gc, 'SPECTRUM AND RULER · 0–' + Math.round(fmax) + ' Hz', p + 6 * d, p + 14 * d, d);
+        else { label(gc, 'THE SPECTRUM AND THE RULER  marks every ' + g.toFixed(2) + ' Hz', p + 6 * d, p + 14 * d, d); label(gc, '80 dB · 0–' + Math.round(fmax) + ' Hz', W - p - 6 * d, p + 14 * d, d, 'right'); }
+        for (var k = 1; k * g < fmax; k++) vline(gc, X(k * g), yt - 14 * d, yb, FG4, d, [3 * d, 3 * d]);
+        specPlot(gc, ms.db, sr / NA, fmax, x0, yt, w, yb, d);
+        rd.forEach(function(r){ var x = X(r.f); gc.fillStyle = r.hit ? ACC : FG3; gc.fillRect(x - 1 * d, yt - 26 * d, 2 * d, 10 * d); if (r.hit) label(gc, '×' + r.h, x, yt - 30 * d, d, 'center', ACC); });
+        label(gc, '0', x0, yb + 14 * d, d);
+        // each peak's miss, ±5 Hz, with the forgiven band
+        var y1 = 2 * p + h1, mid = y1 + h2 / 2 + 4 * d, half = h2 / 2 - 18 * d, sc = half / 5;
+        label(gc, 'EACH PEAK’S MISS  ±5 Hz · band ±0.5', p + 6 * d, y1 + 14 * d, d);
+        gc.fillStyle = 'rgba(232,184,74,0.10)'; gc.fillRect(x0, mid - TOL * sc, w, 2 * TOL * sc);
+        axis(gc, x0, mid, w, d);
+        rd.forEach(function(r){ var x = X(r.f), m = Math.max(-5, Math.min(5, r.miss)); gc.fillStyle = r.hit ? ACC : FG3; gc.fillRect(x - 2.5 * d, Math.min(mid, mid - m * sc), 5 * d, Math.max(1.5 * d, Math.abs(m) * sc)); });
+      }
+    };
+    $('s3g').addEventListener('input', function(){ s = parseFloat($('s3g').value); reread(); ui(); refreshAudio(); });
+    Q('[data-s3ruler]').forEach(function(b){ b.addEventListener('click', function(){ s = rulerPos(parseFloat(b.getAttribute('data-s3ruler'))); reread(); ui(); refreshAudio(); }); });
+    Q('[data-s3sound]').forEach(function(b){ b.addEventListener('click', function(){ sound = b.getAttribute('data-s3sound'); STEP[2].changed(); }); });
+    Q('[data-s3door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s3door'); ui(); refreshAudio(); }); });
+  })();
+
+  // ---- step 4: the bound ----
+  (function(){
+    var sound = 'r75', K = 40, door = 'sound', y = null, ms = null, th = null, fit = null, pulse = null, KMIN = 4, KMAX = 200;
+    function rebuild(){
+      y = synth(FIELDS.bell, G1, (sound === 'r75' ? 1.4 : Math.SQRT2) * G1, sr, N0(), 9);
+      ms = measure(y, sr); th = rank1Threshold(ms.fs, TOL, 400); refit();
+    }
+    function refit(){
+      fit = analyseAll(ms.fs, TOL, K);
+      pulse = fit.rank === 1 ? rulerPulse(fit.g, Math.max.apply(null, fit.coords.map(function(q){ return q[0]; })), sr, y.length) : null;
+    }
+    function topH(){ return Math.max.apply(null, fit.coords.map(function(q){ return q[0]; })); }
+    function ui(){
+      $('s4kv').textContent = String(K); $('s4k').value = String(K);
+      pressGroup('data-s4sound', sound); pressGroup('data-s4door', door);
+      var ln = 'whole numbers up to <b>' + K + '</b>: ';
+      if (fit.rank === 1) ln += 'rank <b>1</b>, one ruler at <b>' + fmt(fit.g) + ' Hz</b>, its marks used up to ×<b>' + topH() + '</b>';
+      else if (fit.rank === 2) ln += 'no single ruler fits · the two-generator search finds rank <b>2</b>, <b>' + fmt(fit.gens[0]) + '</b> and <b>' + fmt(fit.gens[1]) + ' Hz</b>';
+      else ln += 'no fit inside these bounds';
+      ln += '<br>on this sound, rank 1 first appears at a bound of <b>' + (th === null ? 'more than 400' : th) + '</b>';
+      $('s4m').innerHTML = ln;
+      var h;
+      if (door === 'sound') h = 'You hear <b>the bell</b>, at g₂ ÷ g₁ = ' + (sound === 'r75' ? '7 ÷ 5' : '√2') + '. It is the same sound at every bound.';
+      else h = fit.rank === 1 ? 'You hear <b>the bell over its one ruler</b>: ' + fmt(fit.g) + ' Hz with all ' + topH() + ' of its marks sounding, ' + (fit.g < 15 ? 'ticks, not a pitch' : 'a low buzz') + '.' : 'You hear <b>the bell alone</b>: at this bound there is no single ruler to play under it.';
+      $('s4h').innerHTML = h;
+    }
+    STEP[3] = {
+      aspect: function(w){ return w < 600 ? 0.95 : 0.52; },
+      render: function(){
+        var x = new Float64Array(y.length);
+        for (var i = 0; i < x.length; i++) x[i] = door === 'ruler' && pulse ? 0.75 * y[i] + 0.35 * pulse[i] : 0.9 * y[i];
+        return asBuffer(x, 1);
+      },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(gc, W, H, d){
+        var p = 14 * d, h1 = (H - 3 * p) * 0.56, h2 = H - 3 * p - h1, i;
+        box(gc, p, p, W - 2 * p, h1, d); box(gc, p, 2 * p + h1, W - 2 * p, h2, d);
+        var fmax = Math.max(400, ms.fs[ms.fs.length - 1] * 1.08), x0 = p + 10 * d, w = W - 2 * p - 20 * d, yt = p + 48 * d, yb = p + h1 - 22 * d;
+        var X = function(f){ return x0 + f / fmax * w; };
+        if (narrow(W, d)) label(gc, fit.rank === 1 ? 'ONE RULER  ' + fmt(fit.g) + ' Hz' : 'NO SINGLE RULER', p + 6 * d, p + 14 * d, d);
+        else { label(gc, fit.rank === 1 ? 'THE ONE RULER  ' + fmt(fit.g) + ' Hz · marks to ×' + topH() : 'THE PEAKS  no single ruler at this bound', p + 6 * d, p + 14 * d, d); label(gc, '0–' + Math.round(fmax) + ' Hz', W - p - 6 * d, p + 14 * d, d, 'right'); }
+        if (fit.rank === 1) for (var k = 1; k * fit.g < fmax; k++) vline(gc, X(k * fit.g), yt - 10 * d, yb, k <= topH() ? FG4 : 'rgba(255,255,255,0.04)', d);
+        specPlot(gc, ms.db, sr / NA, fmax, x0, yt, w, yb, d);
+        ms.fs.forEach(function(f){ gc.fillStyle = ACC; gc.fillRect(X(f) - 1 * d, yt - 22 * d, 2 * d, 10 * d); });
+        label(gc, '0', x0, yb + 14 * d, d);
+        // rank against the bound
+        var y1 = 2 * p + h1, bx0 = p + 54 * d, bw = W - 2 * p - 70 * d, yr1 = y1 + h2 * 0.68, yr2 = y1 + h2 * 0.38;
+        var BX = function(k){ return bx0 + (k - KMIN) / (KMAX - KMIN) * bw; };
+        label(gc, narrow(W, d) ? 'RANK AGAINST THE BOUND' : 'RANK AGAINST THE BOUND  whole numbers up to ' + KMIN + '…' + KMAX, p + 6 * d, y1 + 14 * d, d);
+        label(gc, 'rank 2', bx0 - 8 * d, yr2 + 3 * d, d, 'right'); label(gc, 'rank 1', bx0 - 8 * d, yr1 + 3 * d, d, 'right');
+        axis(gc, bx0, yr1, bw, d); axis(gc, bx0, yr2, bw, d);
+        var tx = th === null || th > KMAX ? null : BX(Math.max(KMIN, th));
+        gc.strokeStyle = INFO; gc.lineWidth = 2.2 * d; gc.beginPath();
+        if (tx === null){ gc.moveTo(bx0, yr2); gc.lineTo(bx0 + bw, yr2); }
+        else if (th <= KMIN){ gc.moveTo(bx0, yr1); gc.lineTo(bx0 + bw, yr1); }
+        else { gc.moveTo(bx0, yr2); gc.lineTo(tx, yr2); gc.lineTo(tx, yr1); gc.lineTo(bx0 + bw, yr1); }
+        gc.stroke();
+        if (tx !== null) label(gc, 'from ' + th, tx + 4 * d, yr1 - 6 * d, d, 'left', FG3);
+        vline(gc, BX(K), y1 + 22 * d, y1 + h2 - 18 * d, ACC, 2 * d);
+        label(gc, String(KMIN), bx0, y1 + h2 - 6 * d, d, 'center'); label(gc, String(KMAX), bx0 + bw, y1 + h2 - 6 * d, d, 'center');
+        label(gc, 'K = ' + K, BX(K), y1 + h2 - 6 * d, d, 'center', ACC);
+      }
+    };
+    $('s4k').addEventListener('input', function(){ K = parseInt($('s4k').value, 10); refit(); ui(); refreshAudio(); });
+    Q('[data-s4sound]').forEach(function(b){ b.addEventListener('click', function(){ sound = b.getAttribute('data-s4sound'); STEP[3].changed(); }); });
+    Q('[data-s4door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s4door'); ui(); refreshAudio(); }); });
+  })();
+
+  // ---- step 5: another basis ----
+  (function(){
+    var field = 'diag', bi = 1, door = 'diff', y = null, yR = null, rc = [], dmax = 0, fit = null, found = null, R2 = Math.SQRT2 * G1;
+    function rebuild(){
+      y = synth(FIELDS[field], G1, R2, sr, N0(), 9);
+      var ms = measure(y, sr); fit = analyse(ms.fs, TOL, 40);
+      found = fit.rank === 2 ? [express(G1, fit.gens, 1), express(R2, fit.gens, 1)] : null;
+      recast();
+    }
+    function recast(){
+      var B = BASES[bi].B, ng = newGens(B, G1, R2);
+      rc = recount(FIELDS[field], B); yR = synth(recountPoints(rc), ng[0], ng[1], sr, y.length, 9); dmax = maxDiff(y, yR);
+    }
+    function word(q){ var t = []; if (q[0]) t.push((q[0] === 1 ? '' : q[0] === -1 ? '−' : q[0] + '·') + 'ĝ₁'); if (q[1]) t.push((q[1] === 1 ? '' : q[1] === -1 ? '−' : q[1] + '·') + 'ĝ₂'); return t.join(' + ').replace('+ −', '− ') || '0'; }
+    function ui(){
+      var B = BASES[bi].B, ng = newGens(B, G1, R2), D = detOf(B), whole = rc.filter(function(r){ return r.whole; }).length;
+      pressGroup('data-s5basis', bi); pressGroup('data-s5field', field); pressGroup('data-s5door', door);
+      var ln = 'ĝ₁ = <b>' + fmt(ng[0]) + ' Hz</b>, ĝ₂ = <b>' + fmt(ng[1]) + ' Hz</b> · determinant ' + B[0] + ' × ' + B[3] + ' − ' + B[1] + ' × ' + B[2] + ' = <b>' + D + '</b> · points with whole-number places: <b>' + whole + ' of ' + rc.length + '</b>';
+      ln += '<br>drawn against re-counted, largest sample difference: <b>' + (dmax === 0 ? '0, exactly' : dmax < 1e-6 ? dmax.toExponential(0) + ', rounding in the last digit' : dmax.toFixed(3)) + '</b>';
+      if (fit.rank === 2 && found && found[0] && found[1]) ln += '<br>the proof’s analysis, given only this sound, returns <b>' + fmt(fit.gens[0]) + '</b> and <b>' + fmt(fit.gens[1]) + ' Hz</b>: in them, g₁ = ' + word(found[0]) + ', g₂ = ' + word(found[1]);
+      $('s5m').innerHTML = ln;
+      var h;
+      if (door === 'drawn') h = 'You hear <b>the field as drawn</b>, with g₁ and g₂.';
+      else if (door === 'recount') h = 'You hear <b>the field re-counted</b>, with ' + BASES[bi].name + (D * D === 1 ? ': the same sound.' : ': some points rounded onto the wrong frequency.');
+      else h = dmax < 1e-6 ? 'You hear <b>silence</b>: drawn and re-counted are the same sound.' : 'You hear <b>the leftover</b>: the points the new steps could not reach.';
+      $('s5h').innerHTML = h;
+    }
+    function lattice(gc, x, yy, w, h, d, m0, m1, n0, n1){
+      var cw = w / (m1 - m0 + 1), ch = h / (n1 - n0 + 1), c = Math.min(cw, ch * 1.4);
+      var ox = x + (w - c * (m1 - m0 + 1)) / 2;
+      return { X: function(m){ return ox + (m - m0 + 0.5) * c; }, Y: function(n){ return yy + h - (n - n0 + 0.5) * ch; }, c: Math.min(c, ch) };
+    }
+    function grid(gc, L, d, m0, m1, n0, n1, yLab){
+      for (var m = m0; m <= m1; m++) for (var n = n0; n <= n1; n++) dot(gc, L.X(m), L.Y(n), 2 * d, (m || n) ? FG4 : 'rgba(255,255,255,0.25)');
+      for (m = m0; m <= m1; m++) label(gc, String(m), L.X(m), yLab, d, 'center');
+    }
+    function arrow(gc, x0, y0, x1, y1, color, d){
+      gc.strokeStyle = color; gc.fillStyle = color; gc.lineWidth = 2 * d; gc.beginPath(); gc.moveTo(x0, y0); gc.lineTo(x1, y1); gc.stroke();
+      var a = Math.atan2(y1 - y0, x1 - x0), r = 7 * d; gc.beginPath(); gc.moveTo(x1, y1); gc.lineTo(x1 - r * Math.cos(a - 0.4), y1 - r * Math.sin(a - 0.4)); gc.lineTo(x1 - r * Math.cos(a + 0.4), y1 - r * Math.sin(a + 0.4)); gc.fill();
+    }
+    STEP[4] = {
+      render: function(){ var x = new Float64Array(y.length); for (var i = 0; i < x.length; i++) x[i] = door === 'drawn' ? y[i] : door === 'recount' ? yR[i] : y[i] - yR[i]; return asBuffer(x, 0.9); },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      aspect: function(w){ return w < 600 ? 1.5 : 0.6; },
+      draw: function(gc, W, H, d){
+        var p = 14 * d, nar = narrow(W, d), B = BASES[bi].B, ng = newGens(B, G1, R2);
+        var ax, ay, aw, ah, bx, by, bw, bh, fx, fy, fw, fh;
+        if (nar){ aw = bw = fw = W - 2 * p; ax = bx = fx = p; ah = bh = (H - 4 * p) * 0.36; fh = H - 4 * p - ah - bh; ay = p; by = ay + ah + p; fy = by + bh + p; }
+        else { aw = bw = (W - 3 * p) / 2; ax = p; bx = 2 * p + aw; ah = bh = (H - 3 * p) * 0.66; ay = by = p; fx = p; fw = W - 2 * p; fy = ay + ah + p; fh = H - 3 * p - ah; }
+        box(gc, ax, ay, aw, ah, d); box(gc, bx, by, bw, bh, d); box(gc, fx, fy, fw, fh, d);
+        label(gc, 'DRAWN WITH g₁, g₂', ax + 6 * d, ay + 14 * d, d);
+        var nm = BASES[bi].name.split(', ');
+        label(gc, 'COUNTED WITH ĝ₁ = ' + nm[0] + ', ĝ₂ = ' + nm[1], bx + 6 * d, by + 14 * d, d);
+        // left: drawn
+        var LA = lattice(gc, ax + 20 * d, ay + 24 * d, aw - 28 * d, ah - 40 * d, d, -1, 5, 0, 3);
+        grid(gc, LA, d, -1, 5, 0, 3, ay + ah - 6 * d);
+        for (var n = 0; n <= 3; n++) label(gc, String(n), ax + 10 * d, LA.Y(n) + 3 * d, d, 'center');
+        rc.forEach(function(r){ dot(gc, LA.X(r.m), LA.Y(r.n), (3 + 6 * r.amp) * d, ACC); });
+        arrow(gc, LA.X(0), LA.Y(0), LA.X(B[0]), LA.Y(B[1]), FG2, d);
+        arrow(gc, LA.X(0), LA.Y(0), LA.X(B[2]), LA.Y(B[3]), INFO, d);
+        label(gc, 'ĝ₁', LA.X(B[0]) + 6 * d, LA.Y(B[1]) - 6 * d, d, 'left', FG2);
+        label(gc, 'ĝ₂', LA.X(B[2]) + 6 * d, LA.Y(B[3]) - 6 * d, d, 'left', INFO);
+        // right: re-counted
+        var m0 = 0, m1 = 3, n0 = 0, n1 = 3;
+        rc.forEach(function(r){ m0 = Math.min(m0, Math.floor(r.mp)); m1 = Math.max(m1, Math.ceil(r.mp)); n0 = Math.min(n0, Math.floor(r.np)); n1 = Math.max(n1, Math.ceil(r.np)); });
+        var LB = lattice(gc, bx + 20 * d, by + 24 * d, bw - 28 * d, bh - 40 * d, d, m0, m1, n0, n1);
+        grid(gc, LB, d, m0, m1, n0, n1, by + bh - 6 * d);
+        for (n = n0; n <= n1; n++) label(gc, String(n), bx + 10 * d, LB.Y(n) + 3 * d, d, 'center');
+        rc.forEach(function(r){
+          if (r.whole) dot(gc, LB.X(r.mp), LB.Y(r.np), (3 + 6 * r.amp) * d, INFO);
+          else { ring(gc, LB.X(r.mp), LB.Y(r.np), (3 + 6 * r.amp) * d, FG3, 1.2 * d); label(gc, '½', LB.X(r.mp), LB.Y(r.np) - 10 * d, d, 'center', FG3); }
+        });
+        // bottom: the frequencies
+        var fmax = 0; rc.forEach(function(r){ fmax = Math.max(fmax, r.m * G1 + r.n * R2, r.rm * ng[0] + r.rn * ng[1]); }); fmax = Math.max(400, fmax * 1.06);
+        var lx0 = fx + 10 * d, lw = fw - 20 * d, mid = fy + fh / 2 + 6 * d, X = function(f){ return lx0 + f / fmax * lw; };
+        label(gc, nar ? 'THE FREQUENCIES  0–' + Math.round(fmax) + ' Hz' : 'THE FREQUENCIES  gold drawn · blue re-counted · 0–' + Math.round(fmax) + ' Hz', fx + 6 * d, fy + 14 * d, d);
+        gc.strokeStyle = FG3; gc.lineWidth = d; gc.beginPath(); gc.moveTo(lx0, mid); gc.lineTo(lx0 + lw, mid); gc.stroke();
+        var arm = Math.min(18 * d, fh / 2 - 16 * d);
+        rc.forEach(function(r){
+          var fd = r.m * G1 + r.n * R2, fr = r.rm * ng[0] + r.rn * ng[1];
+          vline(gc, X(fd), mid - arm, mid, ACC, 2 * d); dot(gc, X(fd), mid - arm, 3 * d, ACC);
+          vline(gc, X(fr), mid, mid + arm, INFO, 2 * d, [3 * d, 2 * d]); ring(gc, X(fr), mid + arm, 3.5 * d, INFO, 1.5 * d);
+        });
+      }
+    };
+    Q('[data-s5basis]').forEach(function(b){ b.addEventListener('click', function(){ bi = parseInt(b.getAttribute('data-s5basis'), 10); recast(); ui(); refreshAudio(); }); });
+    Q('[data-s5field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s5field'); STEP[4].changed(); }); });
+    Q('[data-s5door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s5door'); ui(); refreshAudio(); }); });
+  })();
+
+  // ---------- the picture loop: only the step in view is drawn ----------
+  var lastT = performance.now();
+  function frame(now){
+    var dt = Math.max(0, Math.min(0.25, (now - lastT) / 1000)); lastT = now;
+    if (playing) eyeT += dt;
+    var cv = steps[cur].querySelector('canvas.stage');
+    if (cv && STEP[cur] && STEP[cur].draw){
+      var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+      var asp = STEP[cur].aspect ? STEP[cur].aspect(r.width) : parseFloat(cv.getAttribute('data-aspect') || '0.5');
+      var cssH = Math.min(STEP[cur].aspect && r.width < 600 ? 640 : 520, Math.max(220, r.width * asp));
+      if (cv.style.height !== cssH + 'px') cv.style.height = cssH + 'px';
+      var bw = Math.round(r.width * d), bh = Math.round(cssH * d);
+      if (bw > 0){
+        if (cv.width !== bw || cv.height !== bh){ cv.width = bw; cv.height = bh; }
+        var g = cv.getContext('2d'); g.clearRect(0, 0, bw, bh); STEP[cur].draw(g, bw, bh, d, dt);
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // ---------- notes: one per step; kept in this tab, and in storage only where storage is allowed ----------
+  var KEY = 'dissolutions-seq-the-lattice-read-back-notes', notes = {};
+  try { notes = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { notes = {}; }
+  Q('[data-note]').forEach(function(t){
+    var k = t.closest('section.step').getAttribute('data-step'); t.value = notes[k] || '';
+    t.addEventListener('input', function(){ notes[k] = t.value; try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} });
+  });
+  // the notes go to the STIGMERGY board through the answers server (_ops/loudon-eval/answers.js);
+  // Copy all notes, below, stays as the fallback
+  var TASK = 'the-lattice-read-back', HEAD = 'The lattice read back, learning sequence — notes', sending = false;
+  function digest(n){ return HEAD + '\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (n[i] || '—'); }).join('\n'); }
+  function saveNotes(){ try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} }
+  function sendDone(){ sending = false; $('send').disabled = false; $('send').textContent = 'Send to STIGMERGY'; }
+  $('send').addEventListener('click', function(){
+    if (sending) return;
+    var sent = {}, answers = {}, names = [];
+    steps.forEach(function(s, i){ if ((notes[i] || '').trim()){ sent[i] = notes[i]; answers[(i + 1) + ' · ' + s.getAttribute('data-title')] = notes[i]; names.push(s.getAttribute('data-title')); } });
+    if (!names.length){ $('copied').textContent = 'Nothing to send yet: every notes box is empty.'; return; }
+    if (!window.PalaceAnswers){ $('copied').textContent = 'Not sent, and your notes are kept: the answers script didn’t load. Use Copy all notes.'; return; }
+    sending = true; $('send').disabled = true; $('send').textContent = 'Sending…'; $('copied').textContent = '';
+    Promise.resolve().then(function(){ return window.PalaceAnswers.submit({ page: 'Dissolutions', task: TASK, answers: answers, text: digest(sent) }); }).then(function(r){
+      if (r && r.mode === 'posted'){
+        // clear what went; a note changed while it was in flight stays
+        Object.keys(sent).forEach(function(k){ if (notes[k] === sent[k]) delete notes[k]; });
+        Q('[data-note]').forEach(function(t){ var k = t.closest('section.step').getAttribute('data-step'); if (!(k in notes)) t.value = ''; });
+        saveNotes();
+        $('copied').textContent = 'Sent to STIGMERGY — ' + names.length + (names.length === 1 ? ' note: ' : ' notes: ') + names.join(' · ') + '. They’re on the board, and their boxes are cleared.';
+      } else {
+        $('copied').textContent = 'Not sent — your notes are kept. ' + ((r && r.reason) || '');
+      }
+    }, function(e){ $('copied').textContent = 'Not sent — your notes are kept. ' + ((e && e.message) || ''); }).then(sendDone, sendDone);
+  });
+  $('copy').addEventListener('click', function(){
+    var text = 'The lattice read back, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');
+    var done = function(){ $('copied').textContent = 'copied'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function(){ $('copied').textContent = text; }); else $('copied').textContent = text;
+  });
+
+  STEP.forEach(function(s){ s.changed(); });
+  go(0);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

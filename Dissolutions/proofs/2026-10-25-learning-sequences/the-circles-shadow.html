@@ -1,0 +1,1048 @@
+<!doctype html>
+<!--
+  title: The Circle's Shadow — a learning sequence
+  born: 2026-10-25
+  parent: [[Dissolutions]] · leads up to ../2026-10-20-the-circles-shadow/the-circles-shadow.html · tests [[Chebyshev is Fourier]]
+  forward_vector: I am the way up to the circle's shadow. I take the shadow alone, the stack of cosines alone, a bent curve alone, the one curve that gives back one harmonic, the curve and the stack through their difference, the reach alone, and the reach on the drawbars, one step each, so that the proof makes sense the first time it is played.
+  outline: the model of Loudon's outline for the table that travels (sit of 2026-10-25) — each thing alone, the two through their difference, the extra ingredient alone, then put into the combination.
+  sound: nothing plays until a Play button is clicked; the AudioContext is made on that click.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Circle's Shadow · learning sequence</title>
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.75;padding:40px 16px 64px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:52px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:32px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:20px;color:var(--fg-2);margin:0 0 22px;max-width:64ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  .rail button.seen{color:var(--fg-2)}
+  .step p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:8px;padding:18px;margin:0 0 16px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  .tabs .eyebrow{margin-right:4px}
+  .tab{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  .tab[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas.stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:120px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap}
+  .hear{font-family:var(--sans);font-size:13px;color:var(--fg-3);margin-top:10px}
+  .hear b{color:var(--accent);font-weight:500}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin-top:10px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .toggle{font-family:var(--sans);font-size:13px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 12px;cursor:pointer}
+  .toggle[aria-pressed="true"]{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:14px 0 0;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  textarea{width:100%;margin-top:10px;min-height:54px;font-family:var(--sans);font-size:14px;color:var(--fg-1);background:var(--bg-elev-2);border:1px solid var(--border-soft);border-radius:4px;padding:8px 10px;resize:vertical}
+  textarea::placeholder{color:var(--fg-4)}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+  .gathered{margin:0;padding:0 0 0 18px;color:var(--fg-2)}
+  .gathered li{margin:4px 0}
+  a.proof-link{display:inline-block;font-family:var(--sans);font-weight:500;font-size:15px;color:#0a0a0f;background:var(--accent);border-radius:4px;padding:11px 22px;text-decoration:none;margin-top:14px}
+  a.proof-link:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.send{font-family:var(--sans);font-weight:500;font-size:14px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:8px 16px;cursor:pointer}
+  button.send:disabled{opacity:.55;cursor:default}
+  .proposal{display:inline-block;margin:10px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px dashed var(--accent-line);border-radius:3px;padding:3px 9px}
+  footer{margin-top:36px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer a{color:var(--fg-3)}
+  /* the drawbars, as the proof has them */
+  .bars-wrap{margin-top:14px}
+  .bars-wrap .eyebrow{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+  canvas.bars{width:100%;height:110px;display:block;background:var(--bg-elev-2);border-radius:6px;margin-top:6px;cursor:ns-resize;touch-action:none}
+  @media (max-width:520px){h1{font-size:40px}h2{font-size:26px}.ctl{grid-template-columns:90px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Dissolutions · learning sequence · Chebyshev is Fourier</div>
+  <h1>The circle's shadow, step by step</h1>
+  <p class="lead">Seven short steps up to the proof. A shadow alone, a stack of cosines alone, a bent curve alone, the curve that gives back one harmonic, then the curve and the stack set against each other. Then the reach, alone and on the drawbars. Each step has one thing to hear. Nothing plays until you press Play.</p>
+  <div class="proposal" title="made in a proposal round and not yet approved by Loudon; send a note from the last step, or say so in chat">proposal · 2026-11-07 · not yet approved by Loudon</div>
+
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <!-- ───────────── step 1 ───────────── -->
+  <section class="step" data-step="0" data-title="The shadow">
+    <div class="eyebrow">Step 1 of 8 · the shadow alone</div>
+    <h2>A point going round, and its shadow</h2>
+    <p class="say">Send a point round a circle at a steady speed and look at its shadow on a straight line. The shadow slides left and right, and its place on the line is cos θ, where θ is how far round the point has gone. Played as sound, that sliding is the plainest tone there is: one frequency, nothing else. The shadow lingers at the two ends, where the point is heading straight up or down and its shadow barely moves.</p>
+    <div class="panel">
+      <div class="tabs"><span class="eyebrow">Hear</span><span class="hint">the shadow's place, as sound</span><button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Left · the point and its shadow</b>Blue dot on the line: the shadow, slowed down for the eye. Grey dots: sixteen equal steps round the circle. Their shadows, the ticks on the line, crowd at the ends.</div>
+        <div><b>Right · the shadow's place over time</b>Right of centre is drawn up, left is down. The newest moment is at the left edge, and time runs off to the right.</div>
+      </div>
+      <div class="ctl"><label for="s1f">how fast it turns</label><input id="s1f" type="range" min="0" max="1" step="0.001" value="0.333"><span class="v" id="s1fv"></span></div>
+      <div class="meter" id="s1m"></div>
+      <div class="eq">x = cos θ          θ = 2π × f × t</div>
+      <div class="eq words">(the shadow's place) = cos(how far round the point is)  ·  (how far round) = 2π × (turns per second) × (time)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Play it and slide the speed: one pure tone, higher as the point turns faster. Then look at the sixteen grey dots. They are evenly spaced round the circle, but their shadows bunch at the ends of the line. Every later step uses this shadow as its reader.</div>
+    <textarea data-note placeholder="What your ear and eye say about the shadow"></textarea>
+  </section>
+
+  <!-- ───────────── step 2 ───────────── -->
+  <section class="step" data-step="1" data-title="The stack" hidden>
+    <div class="eyebrow">Step 2 of 8 · the stack of cosines alone</div>
+    <h2>Many points, each going round faster</h2>
+    <p class="say">An organ builds a tone another way. Each drawbar is its own point going round: the first at the note's speed, the second twice as fast, the third three times, and so on up. Each one's shadow is a cosine, and the drawbar sets how big its circle is. Add the shadows up and you have the tone. Nothing is bent here: it is only cosines, added.</p>
+    <div class="panel">
+      <div class="tabs"><span class="eyebrow">Hear</span><span class="hint">the stack, on a 110 Hz note</span><button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Top · ten points</b>One per drawbar. Point n goes round n times for each turn of the first. Its circle is as big as its drawbar.</div>
+        <div><b>Bottom · what comes out</b>Grey: each point's shadow on its own. Gold: all of them added. Two turns of the first point.</div>
+      </div>
+      <div class="bars-wrap">
+        <div class="eyebrow"><span>Drawbars · harmonics 1–10 · drag up and down</span>
+          <span><button class="ghost small" data-s2preset="saw">Saw</button> <button class="ghost small" data-s2preset="square">Square</button> <button class="ghost small" data-s2preset="organ">Organ</button> <button class="ghost small" data-s2preset="first">First alone</button></span></div>
+        <canvas class="bars" id="s2bars"></canvas>
+      </div>
+      <div class="meter" id="s2m"></div>
+      <div class="eq">y(θ) = Σ cₙ × cos(n × θ)</div>
+      <div class="eq words">(what comes out) = the sum, over every drawbar n, of (drawbar n) × cos((its harmonic number) × (how far round the first point is))</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Press First alone and play: step 1's tone. Now raise the drawbars one at a time, left to right. Each one adds a tone a whole number of times the first, and the sum grows brighter and buzzier. Press Saw for all ten.</div>
+    <textarea data-note placeholder="What your ear and eye say about the stack"></textarea>
+  </section>
+
+  <!-- ───────────── step 3 ───────────── -->
+  <section class="step" data-step="2" data-title="A bent curve" hidden>
+    <div class="eyebrow">Step 3 of 8 · a bent curve alone</div>
+    <h2>A curve that bends the shadow</h2>
+    <p class="say">Back to one point and one shadow. This time the shadow doesn't go straight to the speaker. It slides along under a curve, and the curve's height above it is what you hear. That is a waveshaper. A straight line hands the shadow through unchanged; bend the line, and every cycle is reshaped the same way, so the tone changes colour but keeps its pitch.</p>
+    <div class="panel">
+      <div class="tabs"><span class="eyebrow">Hear</span><span class="hint">the 110 Hz shadow, read through the curve</span><button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.56"></canvas>
+      <div class="legend">
+        <div><b>Bottom left · the reader</b>Step 1's point and shadow. Its dotted line climbs to the curve.</div>
+        <div><b>Top left · the curve</b>Across: where the shadow is. Up: what you hear. The gold dot is the height the shadow finds now.</div>
+        <div><b>Top right · what comes out</b>Gold: the curve's height, over time. Grey, dashed: the plain cosine that went in.</div>
+        <div><b>Bottom right · harmonics</b>How much of each harmonic the bent wave holds, measured from it.</div>
+      </div>
+      <div class="rowb"><span class="eyebrow">the curve</span>
+        <button class="ghost small" data-s3curve="straight" aria-pressed="false">Straight</button>
+        <button class="ghost small" data-s3curve="soft" aria-pressed="true">Soft clip</button>
+        <button class="ghost small" data-s3curve="lopsided" aria-pressed="false">Lopsided</button>
+      </div>
+      <div class="meter" id="s3m"></div>
+      <div class="eq">y = f(x)          x = cos θ</div>
+      <div class="eq words">(what you hear) = (the curve's height) at (the shadow's place)  ·  (the shadow's place) = cos(how far round the point is)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Start on Straight: step 1's pure tone. Switch to Soft clip and listen for the buzz as the ends flatten. The bars show only odd harmonics, because the curve looks the same turned end over end. Lopsided bends one side only, and harmonic 2, an octave up, comes in.</div>
+    <textarea data-note placeholder="What your ear and eye say about the bent curve"></textarea>
+  </section>
+
+  <!-- ───────────── step 4 ───────────── -->
+  <section class="step" data-step="3" data-title="One harmonic" hidden>
+    <div class="eyebrow">Step 4 of 8 · the curve that gives back one harmonic</div>
+    <h2>Bend it just so, and the shadow goes n times as fast</h2>
+    <p class="say">Here is the fact the proof stands on. For every whole number n there is one curve, Tₙ, the nth Chebyshev polynomial, that turns the slow shadow into the shadow of a point going n times as fast. No oscillator runs at the higher speed. The curve has n&nbsp;−&nbsp;1 bends, and as the shadow sweeps across them the height rises and falls n times a turn. Each curve is built from the two before it, by the rule written below, with no cosine anywhere in it.</p>
+    <div class="panel">
+      <div class="tabs"><span class="eyebrow">Hear</span><span class="hint">the 110 Hz shadow, read through Tₙ</span><button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.56"></canvas>
+      <div class="legend">
+        <div><b>Top left · the curve Tₙ</b>A polynomial, worked out by the rule below. Its height at the shadow is the sound.</div>
+        <div><b>Top right · what comes out</b>Gold: the curve read by the slow shadow. Blue, dashed: the shadow of a point going n times as fast. They lie on each other.</div>
+        <div><b>Bottom right · the fast point</b>That faster point, drawn on its own, so you can see what the curve is standing in for.</div>
+      </div>
+      <div class="ctl"><label for="s4n">which curve, n</label><input id="s4n" type="range" min="1" max="10" step="1" value="3"><span class="v" id="s4nv"></span></div>
+      <div class="meter" id="s4m"></div>
+      <div class="eq">Tₙ(cos θ) = cos(n × θ)          Tₙ₊₁(x) = 2 × x × Tₙ(x) − Tₙ₋₁(x)</div>
+      <div class="eq words">(curve n, read at the shadow's place) = cos((n) × (how far round))  ·  (the next curve) = 2 × (the shadow's place) × (this curve) − (the curve before it)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Play it and step n from 1 to 10. You hear the harmonic series, 110, 220, 330 Hz and up, every note made by the same 110 Hz shadow read through a different curve. Watch the gold trace lie exactly on the blue at every n.</div>
+    <textarea data-note placeholder="What your ear and eye say about one harmonic"></textarea>
+  </section>
+
+  <!-- ───────────── step 5 ───────────── -->
+  <section class="step" data-step="4" data-title="Their difference" hidden>
+    <div class="eyebrow">Step 5 of 8 · the curve and the stack, through their difference</div>
+    <h2>Write the drawbars as one curve</h2>
+    <p class="say">Now put steps 2 and 4 together. Weight each curve Tₙ by its drawbar and add them into one curve. Read that one curve with the slow shadow; build the stack of cosines from the same drawbars; the two never share a line of code. Then flip one upside down and add them. Studio engineers call this a null test: if two paths cancel to silence, they are giving you the same numbers.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s5door="curve" aria-pressed="false">The bent curve</button>
+        <button class="tab" data-s5door="stack" aria-pressed="false">The stack</button>
+        <button class="tab" data-s5door="diff" aria-pressed="true">Their difference</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.56"></canvas>
+      <div class="legend">
+        <div><b>Top left · the one curve</b>Every drawbar's Tₙ, weighted and added: Σ cₙ Tₙ(x).</div>
+        <div><b>Top right · both</b>Gold: the curve read by the shadow. Blue, dashed: the stack of cosines. When they match, blue lies on gold.</div>
+        <div><b>Bottom right · their difference</b>The curve minus the stack, magnified ten times. A flat line is silence.</div>
+      </div>
+      <div class="bars-wrap">
+        <div class="eyebrow"><span>Drawbars · set once, built both ways</span>
+          <span><button class="ghost small" data-s5preset="saw">Saw</button> <button class="ghost small" data-s5preset="square">Square</button> <button class="ghost small" data-s5preset="organ">Organ</button></span></div>
+        <canvas class="bars" id="s5bars"></canvas>
+      </div>
+      <div class="rowb"><button class="toggle" id="s5pow" aria-pressed="false">Use plain powers x, x², x³ … instead</button><span class="hint">The obvious curves to try. They are not the stack, and the null says so.</span></div>
+      <div class="hear" id="s5h"></div>
+      <div class="meter" id="s5m"></div>
+      <div class="eq">Σ cₙ × Tₙ(cos θ) − Σ cₙ × cos(n × θ) = 0</div>
+      <div class="eq words">(the one curve, read by the shadow) − (the stack of cosines) = 0, for any drawbars you set</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Play the difference: silence. Drag the drawbars about while it plays, and it stays silent. Then switch to plain powers and play the difference again. That loud leftover is what the null catches when the curves are only nearly right.</div>
+    <textarea data-note placeholder="What your ear and eye say about the difference"></textarea>
+  </section>
+
+  <!-- ───────────── step 6 ───────────── -->
+  <section class="step" data-step="5" data-title="The reach" hidden>
+    <div class="eyebrow">Step 6 of 8 · the reach alone</div>
+    <h2>Don't swing the whole way</h2>
+    <p class="say">So far the shadow has always swept the whole line, from −1 to 1. Turn the input down and it only sweeps the middle, from −L to L, as if the point went round a smaller circle. On a waveshaper this is the drive. The identity needs the full sweep, so below it the curve stops giving back one clean harmonic. It follows a rule instead: harmonic n keeps only Lⁿ of its level, and the rest falls to harmonics below it of the same kind, odd to odd, even to even.</p>
+    <div class="panel">
+      <div class="tabs"><span class="eyebrow">Hear</span><span class="hint">the 110 Hz shadow, swinging only part of the way, read through Tₙ</span><button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.56"></canvas>
+      <div class="legend">
+        <div><b>Top left · the curve</b>The blue band is the stretch the shadow still reaches.</div>
+        <div><b>Top right · what comes out</b>Gold: the curve read at this reach. Blue, dashed: what full reach gives, harmonic n alone.</div>
+        <div><b>Bottom right · harmonics 0–10</b>Gold: measured. The outline is harmonic n at full strength, where full reach puts everything. Harmonic 0 is a steady offset.</div>
+      </div>
+      <div class="ctl"><label for="s6n">which curve, n</label><input id="s6n" type="range" min="1" max="10" step="1" value="3"><span class="v" id="s6nv"></span></div>
+      <div class="ctl"><label for="s6r">reach, L</label><input id="s6r" type="range" min="0.05" max="1" step="0.01" value="1"><span class="v" id="s6rv"></span></div>
+      <div class="meter" id="s6m"></div>
+      <div class="eq">Tₙ(L × cos θ) = Lⁿ × cos(n × θ) + (lower harmonics of the same parity)</div>
+      <div class="eq words">(curve n, read with reach L) = (the reach to the nth power) × (harmonic n) + (only harmonics below n, odd with odd, even with even)</div>
+      <p class="hint" style="margin-top:12px">For an even n, a curve read with less than full reach also makes a steady offset, harmonic 0. It is not a sound, so it is taken out of what you hear; the bars still show it.</p>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Leave n on 3 and play at full reach: a pure 330 Hz. Pull the reach down slowly. Nobody retunes anything, yet the weight sinks to 110 Hz, because the middle of T₃ is nearly a straight slope. At reach 0.6, harmonic 1 is 1.152 and harmonic 3 is 0.216, which is 0.6 × 0.6 × 0.6.</div>
+    <textarea data-note placeholder="What your ear and eye say about the reach"></textarea>
+  </section>
+
+  <!-- ───────────── step 7 ───────────── -->
+  <section class="step" data-step="6" data-title="Reach on the drawbars" hidden>
+    <div class="eyebrow">Step 7 of 8 · the reach, put into the combination</div>
+    <h2>Drive becomes a colour the stack doesn't have</h2>
+    <p class="say">Set the drawbars again and give the one curve its reach. At full reach the curve is the stack, as in step 5. Below it, every drawbar leaks downward at once, so the curve's colour depends on how hard you drive it. The stack has no input to turn down: it can only get louder or quieter. Swell the reach and you hear what a waveshaper is for.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s7door="curve" aria-pressed="true">The bent curve</button>
+        <button class="tab" data-s7door="stack" aria-pressed="false">The stack</button>
+        <button class="tab" data-s7door="diff" aria-pressed="false">Their difference</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.56"></canvas>
+      <div class="legend">
+        <div><b>Top left · the one curve</b>Σ cₙ Tₙ(x). The blue band is the stretch the reach covers.</div>
+        <div><b>Top right · what comes out</b>Gold: the curve at this reach. Blue, dashed: the stack of cosines, which has no reach.</div>
+        <div><b>Bottom right · harmonics</b>Gold: measured from the curve. Outlines: the drawbars you set. At full reach they fill each other.</div>
+      </div>
+      <div class="bars-wrap">
+        <div class="eyebrow"><span>Drawbars</span>
+          <span><button class="ghost small" data-s7preset="saw">Saw</button> <button class="ghost small" data-s7preset="square">Square</button> <button class="ghost small" data-s7preset="organ">Organ</button> <button class="ghost small" data-s7preset="third">Third alone</button></span></div>
+        <canvas class="bars" id="s7bars"></canvas>
+      </div>
+      <div class="ctl"><label for="s7r">reach, L</label><input id="s7r" type="range" min="0.05" max="1" step="0.01" value="0.6"><span class="v" id="s7rv"></span></div>
+      <div class="rowb"><button class="toggle" id="s7swell" aria-pressed="false">Swell the reach</button><span class="hint">0.15 up to 1 and back, every 2 seconds, in place of the slider.</span></div>
+      <div class="hear" id="s7h"></div>
+      <div class="meter" id="s7m"></div>
+      <div class="eq">Σ cₙ × Tₙ(L × cos θ)  vs  Σ cₙ × cos(n × θ)</div>
+      <div class="eq words">Σ (drawbar n) × Tₙ((the reach) × (the shadow's place))  vs  Σ (drawbar n) × cos((its harmonic number) × (how far round))</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Turn on the swell and play the bent curve. The tone opens up as it gets louder and closes as it fades, the way a struck or blown note does. Flip to the stack: the same swell only turns it up and down, and its colour never moves. Then play the difference: it goes quiet each time the reach touches 1.</div>
+    <textarea data-note placeholder="What your ear and eye say about the reach on the drawbars"></textarea>
+  </section>
+
+  <!-- ───────────── step 8 ───────────── -->
+  <section class="step" data-step="7" data-title="The proof" hidden>
+    <div class="eyebrow">Step 8 of 8 · the proof</div>
+    <h2>Now the whole thing, on one page</h2>
+    <p class="say">The proof puts every step on one screen, in one picture. Here is where each one is waiting for you there.</p>
+    <ul class="gathered">
+      <li><b>The reader</b> pane, bottom left, is step 1: the point going round, squashed to fit, its shadow on the line, and the sixteen ticks bunching at the ends.</li>
+      <li><b>The stack of cosines</b> tab, with the drawbars under the picture, is step 2.</li>
+      <li><b>The curve</b> pane, top left, and <b>The bent curve</b> tab are step 3: the dotted line climbs from the shadow to the curve, then across to what comes out.</li>
+      <li>The first equation under the picture, Tₙ(cos θ) = cos(n·θ), is step 4. The <b>Third alone</b> preset puts T₃ by itself on the curve.</li>
+      <li><b>Their difference</b> tab and the box <b>What the proof measures, live</b> are step 5: silence, with the difference given in dB below the tone, and the gold bars filling their outlines.</li>
+      <li>The <b>reader's reach</b> slider is steps 6 and 7: the blue stretch on the curve shrinks, and the box names the harmonic that misses most.</li>
+      <li>One thing the proof does not have is step 7's swell. Move the reach slider by hand while it plays to hear the same thing.</li>
+    </ul>
+    <p class="say" style="margin-top:14px">It ends on a question. Put Third alone on the drawbars and pull the reach down: only the curve changes. Is the reach a seam in the identity, or a knob the curve has that the stack never will?</p>
+    <a class="proof-link" href="../2026-10-20-the-circles-shadow/the-circles-shadow.html">Open the proof</a>
+    <textarea data-note placeholder="Did the steps get you there? What was missing?"></textarea>
+    <div class="rowb"><button class="send" id="send">Send to STIGMERGY</button><button class="ghost small" id="copy">Copy all notes</button><span class="hint" id="copied"></span></div>
+    <p class="hint" style="margin-top:8px">These notes are the review: step by step, say keep, revise or drop. Approval is yours, one sequence at a time, whenever you come back to it.</p>
+  </section>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><b>LOUD’N LIVE</b> · a learning sequence for Dissolutions, 2026-10-25 · up to <a href="../2026-10-20-the-circles-shadow/the-circles-shadow.html">the circle's shadow</a> · <a href="index.html">all six sequences</a></footer>
+</main>
+
+<script src="../../../_ops/loudon-eval/answers.js"></script>
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var Q = function(sel, root){ return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+  // ---- math (pure; re-checked headless by check-sequences.mjs, which calls selfTest) ----
+  // T_n(x) by the recurrence T_{n+1} = 2x·T_n − T_{n−1}: the polynomial, never a cosine (the proof's own)
+  function cheb(n, x){
+    if (n === 0) return 1;
+    var t0 = 1, t1 = x;
+    for (var k = 1; k < n; k++){ var t2 = 2 * x * t1 - t0; t0 = t1; t1 = t2; }
+    return t1;
+  }
+  // the bent curve: drawbars as one polynomial in x (the proof's own)
+  function curveAt(c, x){ var s = 0; for (var n = 1; n <= c.length; n++) s += c[n - 1] * cheb(n, x); return s; }
+  // the stack: drawbars as cosines in the angle (the proof's own)
+  function stackAt(c, th){ var s = 0; for (var n = 1; n <= c.length; n++) s += c[n - 1] * Math.cos(n * th); return s; }
+  // one cycle, M samples, each way. L is how far the cosine reader swings (the proof's own)
+  function readCurve(c, L, M){ var y = new Float64Array(M); for (var k = 0; k < M; k++) y[k] = curveAt(c, L * Math.cos(2 * Math.PI * k / M)); return y; }
+  function readStack(c, M){ var y = new Float64Array(M); for (var k = 0; k < M; k++) y[k] = stackAt(c, 2 * Math.PI * k / M); return y; }
+  // amplitude of harmonics 1..H in one cycle (the proof's own)
+  function harmonicsOf(y, H){
+    var M = y.length, out = [];
+    for (var h = 1; h <= H; h++){
+      var re = 0, im = 0;
+      for (var k = 0; k < M; k++){ var a = 2 * Math.PI * h * k / M; re += y[k] * Math.cos(a); im -= y[k] * Math.sin(a); }
+      out.push(2 * Math.sqrt(re * re + im * im) / M);
+    }
+    return out;
+  }
+  function maxDiff(a, b){ var m = 0; for (var i = 0; i < a.length; i++) m = Math.max(m, Math.abs(a[i] - b[i])); return m; }
+  // the drawbar presets (the proof's own, plus "first alone")
+  var PRESETS = {
+    saw: [1, 1/2, 1/3, 1/4, 1/5, 1/6, 1/7, 1/8, 1/9, 1/10],
+    square: [1, 0, 1/3, 0, 1/5, 0, 1/7, 0, 1/9, 0],
+    third: [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+    organ: [0.8, 1, 0, 0.6, 0, 0.3, 0, 0.5, 0, 0],
+    first: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  };
+  // the level the proof divides by
+  function norm(c){ var s = 0; for (var i = 0; i < c.length; i++) s += Math.abs(c[i]); return s > 1e-9 ? s : 1; }
+  function meanOf(y){ var s = 0; for (var i = 0; i < y.length; i++) s += y[i]; return s / y.length; }
+  // step 1's speed slider: 55 to 440 Hz evenly in octaves, rounded to whole hertz so a one-second loop holds whole turns
+  function freqFor(s){ return Math.round(55 * Math.pow(8, s)); }
+  // which drawbars are up
+  function sounding(c){ var out = []; for (var i = 0; i < c.length; i++) if (Math.abs(c[i]) > 1e-12) out.push(i + 1); return out; }
+  // step 3's three curves, each on x from −1 to 1
+  function shaper(kind, x){
+    if (kind === 'straight') return x;
+    if (kind === 'soft') return Math.tanh(2.5 * x) / Math.tanh(2.5);
+    return x + 0.5 * x * x - 0.25; // lopsided: x plus a little x², shifted so a full sweep has no offset
+  }
+  function readShaper(kind, M){ var y = new Float64Array(M); for (var k = 0; k < M; k++) y[k] = shaper(kind, Math.cos(2 * Math.PI * k / M)); return y; }
+  // T_n's coefficients, by the same recurrence run on lists of powers: p[k] is the number in front of x^k
+  function chebCoeffs(n){
+    var a = [1], b = [0, 1];
+    if (n === 0) return a;
+    for (var k = 1; k < n; k++){
+      var c = new Array(b.length + 1).fill(0), i;
+      for (i = 0; i < b.length; i++) c[i + 1] += 2 * b[i];
+      for (i = 0; i < a.length; i++) c[i] -= a[i];
+      a = b; b = c;
+    }
+    return b;
+  }
+  function polyAt(p, x){ var s = 0; for (var k = p.length - 1; k >= 0; k--) s = s * x + p[k]; return s; }
+  function polyText(p){
+    var sup = ['', '', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹', '¹⁰'], out = '';
+    for (var k = p.length - 1; k >= 0; k--){
+      var c = p[k]; if (c === 0) continue;
+      var mag = Math.abs(c), term = (mag === 1 && k > 0 ? '' : String(mag)) + (k > 0 ? 'x' + sup[k] : '');
+      out += out === '' ? (c < 0 ? '−' : '') + term : (c < 0 ? ' − ' : ' + ') + term;
+    }
+    return out;
+  }
+  // the plain powers: drawbars as Σ cₙ xⁿ, the curves that are not the stack
+  function powerAt(c, x){ var s = 0, xn = 1; for (var n = 1; n <= c.length; n++){ xn *= x; s += c[n - 1] * xn; } return s; }
+  function readPower(c, M){ var y = new Float64Array(M); for (var k = 0; k < M; k++) y[k] = powerAt(c, Math.cos(2 * Math.PI * k / M)); return y; }
+  // the steady offset of the one curve read at reach L, worked out exactly: the mean of cos^k θ is C(k, k/2) ÷ 2^k for even k
+  function dcOfCurve(c, L){
+    var s = 0;
+    for (var n = 1; n <= c.length; n++){
+      if (!c[n - 1]) continue;
+      var p = chebCoeffs(n), m = 0, mk = 1;
+      for (var k = 0; k < p.length; k += 2){ m += p[k] * Math.pow(L, k) * mk; mk *= (k + 1) / (k + 2); }
+      s += c[n - 1] * m;
+    }
+    return s;
+  }
+  // the null, as the proof measures it: largest difference, energy in dB against the tone, and the measured harmonics
+  function measureReach(c, L, M, H){
+    var a = readCurve(c, L, M), b = readStack(c, M), g = 1 / norm(c), e = 0, p = 0, i;
+    var spec = harmonicsOf(a, H).map(function(v){ return v * g; });
+    for (i = 0; i < M; i++){ e += (a[i] - b[i]) * (a[i] - b[i]); p += b[i] * b[i]; }
+    var biggest = 0, at = 0;
+    for (var h = 0; h < H; h++){ var dd = Math.abs(spec[h] - Math.abs(c[h] || 0) * g); if (dd > biggest){ biggest = dd; at = h + 1; } }
+    return { spec: spec, diffMax: maxDiff(a, b) * g, diffDb: p > 0 && e > 0 ? 10 * Math.log10(e / p) : -Infinity, missAt: at, miss: biggest };
+  }
+  function dbPhrase(db, bold){
+    var o = bold ? '<b>' : '', c = bold ? '</b>' : '';
+    if (db === -Infinity) return 'the difference is ' + o + 'exactly zero' + c;
+    if (db <= 0) return 'the difference sits ' + o + (-db).toFixed(db < -200 ? 0 : 1) + ' dB' + c + ' below the tone';
+    return 'the difference is ' + o + db.toFixed(1) + ' dB louder' + c + ' than the tone';
+  }
+  // step 7's swell: the reach over one pass of the loop, t from 0 to 1
+  function swellAt(t){ return 0.15 + 0.85 * (0.5 - 0.5 * Math.cos(2 * Math.PI * t)); }
+  function rand(seed){ var s = seed; return function(){ s = (s * 16807) % 2147483647; return s / 2147483647; }; }
+  function unit(n){ var e = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; e[n - 1] = 1; return e; }
+
+  // every number a step shows, re-derived; each line is { name, ok, detail }
+  function selfTest(){
+    var out = [], M = 1024, i, n;
+    var t = function(name, ok, detail){ out.push({ name: name, ok: !!ok, detail: detail }); };
+    // step 1
+    t('step 1: the speed slider runs 55 to 440 Hz in whole hertz, 110 Hz at its default', freqFor(0) === 55 && freqFor(1) === 440 && freqFor(0.333) === 110 && Number.isInteger(freqFor(0.517)), freqFor(0) + ' to ' + freqFor(1) + ' Hz; default ' + freqFor(0.333));
+    var hc = harmonicsOf(readStack([1], M), 10), oth = Math.max.apply(null, hc.slice(1));
+    t('step 1: the shadow of a point going round is one harmonic, nothing else', Math.abs(hc[0] - 1) < 1e-12 && oth < 1e-12, 'harmonic 1 ' + hc[0].toFixed(12) + '; largest other ' + oth.toExponential(1));
+    t('step 1: one turn at 110 Hz is 436.4 samples at 48 kHz', (48000 / freqFor(0.333)).toFixed(1) === '436.4', (48000 / 110).toFixed(4) + ' samples');
+    // step 2
+    var w2 = 0;
+    ['saw', 'square', 'organ', 'first'].forEach(function(k){ var c = PRESETS[k], h = harmonicsOf(readStack(c, M), 10); for (var j = 0; j < 10; j++) w2 = Math.max(w2, Math.abs(h[j] - c[j])); });
+    t('step 2: the stack holds exactly the drawbars, harmonic by harmonic, four presets', w2 < 1e-12, 'largest miss ' + w2.toExponential(1));
+    var sS = sounding(PRESETS.saw), sO = sounding(PRESETS.organ);
+    t('step 2: Saw sounds 10 cosines, 110 to 1100 Hz; Organ sounds 5, up to 880 Hz', sS.length === 10 && sS[9] * 110 === 1100 && sO.length === 5 && sO[4] * 110 === 880, 'saw ' + sS.join(',') + '; organ ' + sO.join(','));
+    // step 3
+    var hs = harmonicsOf(readShaper('straight', M), 10), ws = Math.max.apply(null, hs.slice(1));
+    t('step 3: the straight line hands the cosine through, harmonic 1 alone', Math.abs(hs[0] - 1) < 1e-12 && ws < 1e-12, 'others ' + ws.toExponential(1));
+    var ysoft = readShaper('soft', M), hsoft = harmonicsOf(ysoft, 10), ev = 0;
+    for (i = 1; i < 10; i += 2) ev = Math.max(ev, hsoft[i]);
+    t('step 3: soft clip makes only odd harmonics, falling as they climb', ev < 1e-12 && hsoft[0] > hsoft[2] && hsoft[2] > hsoft[4] && hsoft[4] > 0, 'h1 ' + hsoft[0].toFixed(3) + ', h3 ' + hsoft[2].toFixed(3) + ', h5 ' + hsoft[4].toFixed(3) + '; largest even ' + ev.toExponential(1));
+    var hfull = harmonicsOf(ysoft, 511), pw = 0, py = 0;
+    for (i = 0; i < hfull.length; i++) pw += hfull[i] * hfull[i] / 2;
+    for (i = 0; i < M; i++) py += ysoft[i] * ysoft[i] / M;
+    t('step 3: the soft clip harmonics shown add up to the wave’s whole power', Math.abs(pw - py) < 1e-9 && Math.abs(meanOf(ysoft)) < 1e-12, 'power ' + py.toFixed(6) + ', from the harmonics ' + pw.toFixed(6));
+    var ylop = readShaper('lopsided', M), hl = harmonicsOf(ylop, 10), wl = Math.max.apply(null, hl.slice(2));
+    t('step 3: lopsided keeps harmonic 1 and adds harmonic 2 at 0.25, no offset, nothing higher', Math.abs(hl[0] - 1) < 1e-12 && Math.abs(hl[1] - 0.25) < 1e-12 && wl < 1e-12 && Math.abs(meanOf(ylop)) < 1e-12, 'h1 ' + hl[0].toFixed(6) + ', h2 ' + hl[1].toFixed(6) + ', higher ' + wl.toExponential(1));
+    // step 4
+    var wp = 0, wh = 0, wc = 0;
+    for (n = 1; n <= 10; n++){
+      var p = chebCoeffs(n);
+      for (var x = -1; x <= 1.0001; x += 0.01) wp = Math.max(wp, Math.abs(polyAt(p, x) - cheb(n, x)));
+      var hn = harmonicsOf(readCurve(unit(n), 1, M), 10);
+      for (var j = 0; j < 10; j++) wh = Math.max(wh, j === n - 1 ? Math.abs(hn[j] - 1) : hn[j]);
+      for (var th = 0; th < 6.3; th += 0.01) wc = Math.max(wc, Math.abs(cheb(n, Math.cos(th)) - Math.cos(n * th)));
+    }
+    t('step 4: the coefficients shown are the recurrence’s curve, n = 1 to 10', wp < 1e-10 && polyText(chebCoeffs(3)) === '4x³ − 3x' && polyText(chebCoeffs(4)) === '8x⁴ − 8x² + 1', 'T₃ = ' + polyText(chebCoeffs(3)) + '; largest miss ' + wp.toExponential(1));
+    t('step 4: Tₙ read by the shadow is harmonic n at level 1, every other harmonic below 1e-12', wh < 1e-12, 'largest miss ' + wh.toExponential(1));
+    t('step 4: Tₙ(cos θ) = cos(nθ), sample by sample, n = 1 to 10', wc < 1e-12, 'largest difference ' + wc.toExponential(1));
+    // step 5
+    var r = rand(7), w5 = 0;
+    for (i = 0; i < 100; i++){ var c5 = []; for (j = 0; j < 10; j++) c5.push(r()); w5 = Math.max(w5, measureReach(c5, 1, M, 10).diffMax); }
+    t('step 5: at full reach the curve and the stack null, 100 random drawbar sets', w5 < 1e-13, 'worst normalised difference ' + w5.toExponential(2));
+    var mS = measureReach(PRESETS.saw, 1, M, 10), hm = 0;
+    for (j = 0; j < 10; j++) hm = Math.max(hm, Math.abs(mS.spec[j] - PRESETS.saw[j] / norm(PRESETS.saw)));
+    t('step 5: Saw, the difference sits over 250 dB below the tone, and the measured harmonics are the drawbars', mS.diffDb < -250 && hm < 1e-12, dbPhrase(mS.diffDb, false) + '; harmonic miss ' + hm.toExponential(1));
+    var pS = maxDiff(readPower(PRESETS.saw, M), readStack(PRESETS.saw, M)) / norm(PRESETS.saw);
+    var h3p = harmonicsOf(readPower(PRESETS.third, M), 10);
+    t('step 5: with plain powers the null breaks: x³ read by the shadow is 0.75 of harmonic 1 and only 0.25 of harmonic 3', pS > 0.1 && Math.abs(h3p[0] - 0.75) < 1e-12 && Math.abs(h3p[2] - 0.25) < 1e-12, 'Saw, normalised largest difference ' + pS.toFixed(3) + '; x³ gives h1 ' + h3p[0].toFixed(6) + ', h3 ' + h3p[2].toFixed(6));
+    // step 6
+    var h36 = harmonicsOf(readCurve(PRESETS.third, 0.6, M), 10);
+    t('step 6: reach 0.6, the third comes out as 1.152 of harmonic 1 and 0.216 of harmonic 3', Math.abs(h36[0] - 1.152) < 1e-9 && Math.abs(h36[2] - 0.216) < 1e-9 && h36[1] < 1e-12 && h36[3] < 1e-12, 'h1 ' + h36[0].toFixed(4) + ', h3 ' + h36[2].toFixed(4));
+    var wtop = 0, up = 0;
+    [0.05, 0.3, 0.6, 0.9].forEach(function(L){
+      for (var nn = 1; nn <= 10; nn++){
+        var hh = harmonicsOf(readCurve(unit(nn), L, M), 10);
+        wtop = Math.max(wtop, Math.abs(hh[nn - 1] - Math.pow(L, nn)));
+        for (var k = nn; k < 10; k++) up = Math.max(up, hh[k]);
+        for (k = nn - 2; k >= 0; k -= 2) up = Math.max(up, hh[k]);
+      }
+    });
+    t('step 6: harmonic n keeps exactly Lⁿ of its level, n = 1 to 10, four reaches', wtop < 1e-12, 'largest miss ' + wtop.toExponential(1));
+    t('step 6: below full reach a curve leaks only downward, within its parity', up < 1e-12, 'largest leak up or across parity ' + up.toExponential(1));
+    var d2 = dcOfCurve(unit(2), 0.6), wdc = 0, r6 = rand(11);
+    for (i = 0; i < 40; i++){ var c6 = [], L6 = r6(); for (j = 0; j < 10; j++) c6.push(r6() - 0.5); wdc = Math.max(wdc, Math.abs(dcOfCurve(c6, L6) - meanOf(readCurve(c6, L6, M)))); }
+    t('step 6: the offset shown is exact: T₂ at reach 0.6 sits at −0.640, and the closed form matches the measured mean', Math.abs(d2 + 0.64) < 1e-12 && wdc < 1e-12, 'T₂ offset ' + d2.toFixed(6) + '; largest miss ' + wdc.toExponential(1) + ' over 40 random sets');
+    // step 7
+    var m76 = measureReach(PRESETS.saw, 0.6, M, 10);
+    t('step 7: Saw at reach 0.6, the difference and the biggest-missing harmonic are the proof’s measure', isFinite(m76.diffDb) && m76.missAt >= 1 && m76.miss > 0.01, dbPhrase(m76.diffDb, false) + '; biggest miss at harmonic ' + m76.missAt);
+    var r7 = rand(3), above = 0;
+    for (i = 0; i < 60; i++){
+      var top = 1 + Math.floor(r7() * 10), c7 = [];
+      for (j = 0; j < 10; j++) c7.push(j < top ? r7() : 0);
+      c7[top - 1] = 0.2 + r7();
+      var sp = measureReach(c7, 0.05 + 0.9 * r7(), M, 10).spec;
+      for (j = top; j < 10; j++) above = Math.max(above, sp[j]);
+    }
+    t('step 7: nothing ever sounds above your top drawbar, at any reach', above < 1e-12, 'largest above the top ' + above.toExponential(1) + ', 60 random sets');
+    var wsw = 0; for (var q = 0; q <= 1; q += 0.01) wsw = Math.max(wsw, Math.abs(swellAt(q) - swellAt((q + 1) % 1)));
+    t('step 7: the swell runs from 0.15 to 1 and back, and closes its loop', Math.abs(swellAt(0) - 0.15) < 1e-12 && Math.abs(swellAt(0.5) - 1) < 1e-12 && wsw < 1e-12 && Math.abs(swellAt(1) - 0.15) < 1e-12, 'start ' + swellAt(0).toFixed(2) + ', middle ' + swellAt(0.5).toFixed(2));
+    return out;
+  }
+  // ---- end math ----
+  window.__selfTest = selfTest;
+
+  // ================= the sequence frame =================
+  var sr = 48000;
+  var steps = Q('section.step'), cur = 0, seen = {};
+  var rail = document.querySelector('.rail');
+  steps.forEach(function(s, i){
+    var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.getAttribute('data-title'); b.setAttribute('data-go', i);
+    b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
+  });
+  var STEP = []; // per-step behaviour: { render(): Float32Array, draw(g, W, H, d, dt), changed() }
+
+  // ---------- audio: nothing is made until a Play click ----------
+  var ctx = null, master = null, voice = null, t0 = 0, playing = false;
+  function ensure(){
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 8;
+    master = ctx.createGain(); master.gain.value = 0.4; master.connect(comp); comp.connect(ctx.destination);
+    if (ctx.sampleRate !== sr){ sr = ctx.sampleRate; STEP.forEach(function(s){ s.changed(); }); }
+  }
+  function loopify(x, F){
+    var N = x.length - F, out = new Float32Array(N);
+    for (var i = 0; i < N; i++){
+      if (i < F){ var q = i / F; out[i] = x[i] * Math.sin(q * Math.PI / 2) + x[N + i] * Math.cos(q * Math.PI / 2); }
+      else out[i] = x[i];
+    }
+    return out;
+  }
+  function playBuffer(data){
+    var b = ctx.createBuffer(1, data.length, ctx.sampleRate); b.copyToChannel(data, 0);
+    var s = ctx.createBufferSource(); s.buffer = b; s.loop = true;
+    var g = ctx.createGain(); g.gain.value = 0; s.connect(g); g.connect(master);
+    var t = ctx.currentTime; s.start(); g.gain.setTargetAtTime(1, t, 0.03); t0 = t;
+    if (voice){ var o = voice; o.g.gain.setTargetAtTime(0, t, 0.03); setTimeout(function(){ try { o.s.stop(); } catch (e) {} o.g.disconnect(); }, 400); }
+    voice = { s: s, g: g, len: data.length };
+  }
+  function stopAudio(){
+    playing = false;
+    Q('[data-play]').forEach(function(b){ b.textContent = 'Play'; });
+    if (voice && ctx){ var o = voice; o.g.gain.setTargetAtTime(0, ctx.currentTime, 0.02); setTimeout(function(){ try { o.s.stop(); } catch (e) {} o.g.disconnect(); }, 200); }
+    voice = null;
+  }
+  var pend = 0;
+  function refreshAudio(){ if (!playing) return; clearTimeout(pend); pend = setTimeout(function(){ if (playing) playBuffer(STEP[cur].render()); }, 40); }
+  function nowSample(len){ if (!playing || !voice) return -1; return Math.floor((ctx.currentTime - t0) * sr) % (len || voice.len); }
+  Q('[data-play]').forEach(function(b){
+    b.addEventListener('click', function(){
+      ensure(); if (ctx.state === 'suspended') ctx.resume();
+      if (playing){ stopAudio(); return; }
+      playing = true; b.textContent = 'Stop'; playBuffer(STEP[cur].render());
+    });
+  });
+
+  // ---------- walking the steps ----------
+  function go(i){
+    if (i < 0 || i >= steps.length) return;
+    stopAudio(); cur = i; seen[i] = true;
+    steps.forEach(function(s, k){ s.hidden = k !== i; });
+    Q('.rail button').forEach(function(b, k){ if (k === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); b.classList.toggle('seen', !!seen[k]); });
+    $('back').disabled = i === 0; $('next').disabled = i === steps.length - 1;
+    $('next').textContent = i === steps.length - 2 ? 'Next: the proof' : 'Next';
+    if (STEP[i] && STEP[i].changed) STEP[i].changed();
+  }
+  $('back').addEventListener('click', function(){ go(cur - 1); window.scrollTo(0, 0); });
+  $('next').addEventListener('click', function(){ go(cur + 1); window.scrollTo(0, 0); });
+  // a page nobody can see says nothing: hidden, the sound stops, and it does not start again on return
+  document.addEventListener('visibilitychange', function(){ if (document.hidden && playing) stopAudio(); });
+  window.__seq = { count: steps.length, current: function(){ return cur; }, playing: function(){ return playing; }, go: go };
+
+  // ---------- drawing helpers ----------
+  var css = getComputedStyle(document.documentElement);
+  var ACC = css.getPropertyValue('--accent').trim(), FG2 = css.getPropertyValue('--fg-2').trim(), FG3 = css.getPropertyValue('--fg-3').trim(), FG4 = css.getPropertyValue('--fg-4').trim(), INFO = css.getPropertyValue('--info').trim();
+  function strip(g, x0, y0, w, h, get, color, lw, dash){
+    g.strokeStyle = color; g.lineWidth = lw; g.setLineDash(dash || []); g.beginPath();
+    for (var i = 0; i <= 240; i++){ var v = get(i / 240), x = x0 + i / 240 * w, y = y0 + h / 2 - v * h * 0.42; if (i) g.lineTo(x, y); else g.moveTo(x, y); }
+    g.stroke(); g.setLineDash([]);
+  }
+  function box(g, x, y, w, h, d){ g.strokeStyle = 'rgba(255,255,255,0.06)'; g.lineWidth = d; g.strokeRect(x, y, w, h); }
+  function label(g, text, x, y, d, align){ g.font = (10 * d) + 'px JetBrains Mono, Menlo, monospace'; g.fillStyle = FG4; g.textAlign = align || 'left'; g.fillText(text, x, y); g.textAlign = 'left'; }
+  function axis(g, x0, y, w, d){ g.setLineDash([4 * d, 4 * d]); g.strokeStyle = FG4; g.lineWidth = d; g.beginPath(); g.moveTo(x0, y); g.lineTo(x0 + w, y); g.stroke(); g.setLineDash([]); }
+  function pressGroup(attr, val){ Q('[' + attr + ']').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute(attr) === val)); }); }
+  function dot(g, x, y, r, color){ g.fillStyle = color; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); }
+  function dashed(g, pts, d, color){ g.setLineDash([3 * d, 3 * d]); g.strokeStyle = color || FG3; g.lineWidth = d; g.beginPath(); pts.forEach(function(p, i){ if (i) g.lineTo(p[0], p[1]); else g.moveTo(p[0], p[1]); }); g.stroke(); g.setLineDash([]); }
+  // harmonic bars: gold measured, optional outlines, numbered from `first`
+  function harmBars(g, x, y, w, h, d, vals, outline, first){
+    var n = vals.length, mx = 1e-9, i;
+    for (i = 0; i < n; i++) mx = Math.max(mx, vals[i] || 0, outline ? (outline[i] || 0) : 0);
+    var bw = (w - 16 * d) / n, base = y + h - 18 * d, top = y + 24 * d;
+    for (i = 0; i < n; i++){
+      var bx = x + 8 * d + i * bw, hm = (vals[i] || 0) / mx * (base - top);
+      g.fillStyle = ACC; g.globalAlpha = 0.85; g.fillRect(bx + bw * 0.2, base - hm, bw * 0.6, hm); g.globalAlpha = 1;
+      if (outline && outline[i] > 1e-9){ var ho = outline[i] / mx * (base - top); g.strokeStyle = FG2; g.lineWidth = d; g.strokeRect(bx + bw * 0.12, base - ho, bw * 0.76, ho); }
+      label(g, String(first + i), bx + bw / 2, y + h - 5 * d, d, 'center');
+    }
+    label(g, 'linear', x + w - 8 * d, y + 14 * d, d, 'right');
+  }
+  // the proof's picture, in small: the curve top left, the reader under it, what comes out top right, one more pane bottom right
+  function shaperPicture(g, W, H, d, o){
+    var p = 14 * d, gap = 12 * d;
+    var S = Math.min((W - 2 * p - gap) * 0.42, (H - 2 * p - gap) * 0.64);
+    var sx = p, sy = p, rx = sx + S + gap, rw = W - p - rx, ry = sy + S + gap, rh = H - p - ry;
+    var L = o.reach == null ? 1 : o.reach, th = o.th, ym = o.yMax || 1, m = 0.86, i;
+    var clampv = function(v){ return Math.max(-1.15 * ym, Math.min(1.15 * ym, v)); };
+    function X(x){ return sx + S / 2 + x * S / 2 * m; }
+    function Y(v){ return sy + S / 2 - clampv(v) / ym * S / 2 * m; }
+    box(g, sx, sy, S, S, d); box(g, sx, ry, S, rh, d); box(g, rx, sy, rw, S, d); box(g, rx, ry, rw, rh, d);
+    // on a narrow canvas each label keeps only its name, the part before the double space
+    var narrow = S < 190 * d, short = function(t){ return narrow ? t.split('  ')[0] : t; };
+    label(g, short(o.curveLabel), sx + 6 * d, sy + 14 * d, d);
+    label(g, short('THE READER  x = ' + (L < 0.995 ? L.toFixed(2) + '·' : '') + 'cos θ'), sx + 6 * d, ry + rh - 6 * d, d);
+    label(g, short(o.outLabel || 'WHAT COMES OUT  → time'), rx + 6 * d, sy + 14 * d, d);
+    if (o.extraLabel) label(g, short(o.extraLabel), rx + 6 * d, ry + 14 * d, d);
+    // the curve, and the stretch the reader reaches
+    axis(g, sx + 4 * d, Y(0), S - 8 * d, d);
+    g.strokeStyle = ACC; g.lineWidth = 2.4 * d; g.beginPath();
+    for (i = 0; i <= 240; i++){ var xx = -1 + 2 * i / 240, yy = Y(o.curve(xx)); if (i) g.lineTo(X(xx), yy); else g.moveTo(X(xx), yy); }
+    g.stroke();
+    g.strokeStyle = INFO; g.globalAlpha = 0.2; g.lineWidth = 9 * d; g.beginPath();
+    for (i = 0; i <= 120; i++){ xx = -L + 2 * L * i / 120; yy = Y(o.curve(xx)); if (i) g.lineTo(X(xx), yy); else g.moveTo(X(xx), yy); }
+    g.stroke(); g.globalAlpha = 1;
+    // the reader: a point going round (squashed to fit), its shadow on the line
+    var cx = X(0), R = L * S / 2 * m, ly = ry + 16 * d, rv = Math.max(1, Math.min(R, (rh - 44 * d) / 2)), cy = ly + 8 * d + rv;
+    g.strokeStyle = FG4; g.lineWidth = d; g.beginPath(); g.moveTo(sx + 4 * d, ly); g.lineTo(sx + S - 4 * d, ly); g.stroke();
+    g.strokeStyle = 'rgba(74,143,255,0.45)'; g.beginPath(); g.ellipse(cx, cy, Math.max(R, 1), rv, 0, 0, 2 * Math.PI); g.stroke();
+    for (i = 0; i < 16; i++){
+      var a = Math.PI * (i + 0.5) / 8, ex = cx + R * Math.cos(a), ey = cy - rv * Math.sin(a);
+      dot(g, ex, ey, 1.8 * d, FG4); g.fillRect(ex - 0.5 * d, ly - 4 * d, d, 8 * d);
+    }
+    var pxp = cx + R * Math.cos(th), pyp = cy - rv * Math.sin(th);
+    dashed(g, [[pxp, pyp], [pxp, ly]], d);
+    dot(g, pxp, pyp, 4.5 * d, INFO);
+    // what comes out: newest at the left edge, older to the right
+    var ox0 = rx + 6 * d, ow = rw - 12 * d, cyc = o.cycles || 2, NP = 600;
+    axis(g, ox0, Y(0), ow, d);
+    o.outs.forEach(function(tr){
+      g.strokeStyle = tr.color; g.setLineDash(tr.dash || []); g.lineWidth = tr.lw * d; g.beginPath();
+      for (var j = 0; j <= NP; j++){ var tt = th - 2 * Math.PI * cyc * j / NP, qx = ox0 + j / NP * ow, qy = Y(tr.fn(tt)); if (j) g.lineTo(qx, qy); else g.moveTo(qx, qy); }
+      g.stroke(); g.setLineDash([]);
+    });
+    // the projection: shadow up to the curve, curve across to what comes out
+    var py = Y(o.curve(L * Math.cos(th)));
+    dashed(g, [[pxp, ly], [pxp, py], [ox0, py]], d);
+    dot(g, pxp, ly, 4.5 * d, INFO); dot(g, pxp, py, 5.5 * d, ACC); dot(g, ox0, py, 4.5 * d, ACC);
+    if (o.extra) o.extra(g, rx, ry, rw, rh);
+  }
+  // the drawbar editor (the proof's, made reusable): bars is an array the step owns
+  function makeBars(cv, bars, onChange){
+    var dragging = false, H = bars.length;
+    function draw(){
+      var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1, w = Math.round(r.width * d), h = Math.round(r.height * d);
+      if (w <= 0) return;
+      if (cv.width !== w || cv.height !== h){ cv.width = w; cv.height = h; }
+      var g = cv.getContext('2d'); g.clearRect(0, 0, w, h);
+      var bw = w / H, top = 10 * d, base = h - 18 * d;
+      g.font = (10 * d) + 'px JetBrains Mono, Menlo, monospace'; g.textAlign = 'center';
+      for (var i = 0; i < H; i++){
+        var x = i * bw, v = Math.max(0, Math.min(1, bars[i])), hh = v * (base - top);
+        g.fillStyle = 'rgba(255,255,255,0.04)'; g.fillRect(x + bw * 0.2, top, bw * 0.6, base - top);
+        g.fillStyle = ACC; g.globalAlpha = 0.85; g.fillRect(x + bw * 0.2, base - hh, bw * 0.6, hh); g.globalAlpha = 1;
+        g.fillStyle = FG3; g.fillText(String(i + 1), x + bw / 2, h - 5 * d);
+      }
+      g.textAlign = 'left';
+    }
+    function setFrom(e){
+      var r = cv.getBoundingClientRect(), i = Math.floor((e.clientX - r.left) / r.width * H);
+      if (i < 0 || i >= H) return;
+      var top = 10, base = r.height - 18, v = 1 - (e.clientY - r.top - top) / (base - top);
+      bars[i] = Math.max(0, Math.min(1, Math.round(v * 100) / 100)); onChange();
+    }
+    cv.addEventListener('pointerdown', function(e){ dragging = true; try { cv.setPointerCapture(e.pointerId); } catch (x) {} setFrom(e); });
+    cv.addEventListener('pointermove', function(e){ if (dragging) setFrom(e); });
+    cv.addEventListener('pointerup', function(){ dragging = false; });
+    cv.addEventListener('pointercancel', function(){ dragging = false; });
+    return { draw: draw };
+  }
+  function setPreset(bars, name){ var src = PRESETS[name]; for (var i = 0; i < bars.length; i++) bars[i] = src[i]; }
+
+  // the eye's clock: the points in the pictures turn slowly while the sound plays
+  var eyeT = 0;
+  function eyeTheta(){ return 2 * Math.PI * (0.125 + 0.5 * eyeT); }
+  // one or more seconds of a tone made from the angle: f is whole hertz, so the loop holds whole turns and needs no crossfade
+  var F0 = 110;
+  function renderTheta(fn, f, secs){
+    var N = Math.round(sr * secs), out = new Float32Array(N), w = 2 * Math.PI * f / sr;
+    for (var i = 0; i < N; i++) out[i] = fn(w * i, i / N);
+    return out;
+  }
+  function removeMean(x){ var s = 0, i; for (i = 0; i < x.length; i++) s += x[i]; s /= x.length; for (i = 0; i < x.length; i++) x[i] -= s; return x; }
+  function peakOf(x){ var m = 0; for (var i = 0; i < x.length; i++) m = Math.max(m, Math.abs(x[i])); return m; }
+
+  // ================= the steps =================
+
+  // ---- step 1: the shadow alone ----
+  (function(){
+    var s = 0.333;
+    function f(){ return freqFor(s); }
+    STEP[0] = {
+      render: function(){ return renderTheta(function(th){ return 0.7 * Math.cos(th); }, f(), 1); },
+      changed: function(){
+        $('s1fv').textContent = f() + ' Hz';
+        $('s1m').innerHTML = 'the point goes round <b>' + f() + '</b> times a second · one turn = <b>' + (sr / f()).toFixed(1) + '</b> samples at ' + sr + ' Hz · the shadow’s place runs from <b>−1</b> to <b>1</b>';
+        refreshAudio();
+      },
+      draw: function(g, W, H, d){
+        var p = 14 * d, gap = 12 * d, hh = H - 2 * p, lw = Math.min((W - 2 * p - gap) * 0.42, hh * 1.1), rx = p + lw + gap, rw = W - p - rx;
+        box(g, p, p, lw, hh, d); box(g, rx, p, rw, hh, d);
+        label(g, 'THE POINT AND ITS SHADOW', p + 6 * d, p + 14 * d, d);
+        label(g, 'THE SHADOW’S PLACE  → time', rx + 6 * d, p + 14 * d, d);
+        var th = eyeTheta(), cx = p + lw / 2, ly = p + 40 * d, R = Math.min(lw * 0.40, (hh - 64 * d) / 2), cy = ly + 12 * d + R;
+        g.strokeStyle = FG4; g.lineWidth = d; g.beginPath(); g.moveTo(cx - R - 10 * d, ly); g.lineTo(cx + R + 10 * d, ly); g.stroke();
+        label(g, '−1', cx - R, ly - 8 * d, d, 'center'); label(g, '0', cx, ly - 8 * d, d, 'center'); label(g, '1', cx + R, ly - 8 * d, d, 'center');
+        g.strokeStyle = 'rgba(74,143,255,0.45)'; g.beginPath(); g.arc(cx, cy, R, 0, 2 * Math.PI); g.stroke();
+        for (var i = 0; i < 16; i++){
+          var a = Math.PI * (i + 0.5) / 8, ex = cx + R * Math.cos(a), ey = cy - R * Math.sin(a);
+          dot(g, ex, ey, 2 * d, FG3); g.fillStyle = FG3; g.fillRect(ex - 0.5 * d, ly - 5 * d, d, 10 * d);
+        }
+        var px = cx + R * Math.cos(th), py = cy - R * Math.sin(th);
+        dashed(g, [[cx, cy], [px, py]], d, FG4);
+        dashed(g, [[px, py], [px, ly]], d);
+        dot(g, px, py, 5 * d, INFO); dot(g, px, ly, 5 * d, INFO);
+        label(g, 'θ', cx + 14 * d, cy - 4 * d, d);
+        // right: the shadow's place, stood up, two turns
+        var x0 = rx + 8 * d, w = rw - 16 * d, y0 = p + 22 * d, h2 = hh - 30 * d;
+        axis(g, x0, y0 + h2 / 2, w, d);
+        label(g, '1', x0 + w, y0 + h2 / 2 - h2 * 0.42 - 4 * d, d, 'right'); label(g, '−1', x0 + w, y0 + h2 / 2 + h2 * 0.42 + 12 * d, d, 'right');
+        strip(g, x0, y0, w, h2, function(t){ return Math.cos(th - 4 * Math.PI * t); }, ACC, 2 * d);
+        dot(g, x0, y0 + h2 / 2 - Math.cos(th) * h2 * 0.42, 5 * d, ACC);
+      }
+    };
+    $('s1f').addEventListener('input', function(){ s = parseFloat($('s1f').value); STEP[0].changed(); });
+  })();
+
+  // ---- step 2: the stack alone ----
+  (function(){
+    var bars = PRESETS.first.slice(), ed = null;
+    function ui(){
+      var on = sounding(bars);
+      $('s2m').innerHTML = on.length === 0 ? 'every drawbar is down: <b>silence</b>' :
+        'sounding: <b>' + on.length + '</b> cosine' + (on.length === 1 ? '' : 's') + ', at <b>' + on.map(function(n){ return n * F0; }).join(', ') + ' Hz</b> · each one a point going round a whole number of times for each turn of the first';
+      Q('[data-s2preset]').forEach(function(b){ var src = PRESETS[b.getAttribute('data-s2preset')], same = true; for (var i = 0; i < 10; i++) if (Math.abs(src[i] - bars[i]) > 1e-9) same = false; b.setAttribute('aria-pressed', String(same)); });
+    }
+    STEP[1] = {
+      render: function(){ var g = 0.8 / norm(bars); return renderTheta(function(th){ return g * stackAt(bars, th); }, F0, 1); },
+      changed: function(){ ui(); refreshAudio(); },
+      bars: null,
+      draw: function(g, W, H, d){
+        var p = 14 * d, slot0 = (W - 2 * p - 16 * d) / 10, h1 = Math.min((H - 3 * p) * 0.42, slot0 * 0.72 + 50 * d), h2 = H - 3 * p - h1, th = eyeTheta(), nb = norm(bars), i;
+        box(g, p, p, W - 2 * p, h1, d); box(g, p, 2 * p + h1, W - 2 * p, h2, d);
+        label(g, 'TEN POINTS  each n times as fast', p + 6 * d, p + 14 * d, d);
+        label(g, 'WHAT COMES OUT  their shadows, added', p + 6 * d, 2 * p + h1 + 14 * d, d);
+        var slot = (W - 2 * p - 16 * d) / 10, rmax = Math.max(4 * d, Math.min(slot * 0.36, (h1 - 46 * d) / 2)), cyy = p + 22 * d + rmax;
+        for (i = 0; i < 10; i++){
+          var cx = p + 8 * d + slot * (i + 0.5), r = rmax * Math.max(0, Math.min(1, bars[i]));
+          g.strokeStyle = FG4; g.lineWidth = d; g.setLineDash([2 * d, 3 * d]); g.beginPath(); g.arc(cx, cyy, rmax, 0, 7); g.stroke(); g.setLineDash([]);
+          if (r > 0.5 * d){
+            g.strokeStyle = 'rgba(74,143,255,0.6)'; g.beginPath(); g.arc(cx, cyy, r, 0, 7); g.stroke();
+            dot(g, cx + r * Math.cos((i + 1) * th), cyy - r * Math.sin((i + 1) * th), 3.5 * d, INFO);
+          }
+          label(g, '×' + (i + 1), cx, cyy + rmax + 14 * d, d, 'center');
+        }
+        var x0 = p + 8 * d, w = W - 2 * p - 16 * d, y0 = 2 * p + h1 + 18 * d, hh = h2 - 26 * d;
+        axis(g, x0, y0 + hh / 2, w, d);
+        for (i = 0; i < 10; i++) if (bars[i] > 1e-9) (function(n, c){ strip(g, x0, y0, w, hh, function(t){ return c * Math.cos(n * (th - 4 * Math.PI * t)) / nb; }, FG4, 1 * d); })(i + 1, bars[i]);
+        strip(g, x0, y0, w, hh, function(t){ return stackAt(bars, th - 4 * Math.PI * t) / nb; }, ACC, 2 * d);
+      }
+    };
+    ed = makeBars($('s2bars'), bars, function(){ STEP[1].changed(); });
+    STEP[1].bars = ed;
+    Q('[data-s2preset]').forEach(function(b){ b.addEventListener('click', function(){ setPreset(bars, b.getAttribute('data-s2preset')); STEP[1].changed(); }); });
+  })();
+
+  // ---- step 3: a bent curve alone ----
+  (function(){
+    var kind = 'soft', spec = [], peak = 1, M = 1024;
+    function rebuild(){
+      var y = readShaper(kind, M); spec = harmonicsOf(y, 10); peak = 1e-9;
+      for (var x = -1; x <= 1.0001; x += 0.005) peak = Math.max(peak, Math.abs(shaper(kind, x)));
+    }
+    function ui(){
+      pressGroup('data-s3curve', kind);
+      var parts = [], ev = 0, i;
+      for (i = 0; i < 10; i++){ if (spec[i] > 0.0005 && parts.length < 5) parts.push('harmonic ' + (i + 1) + ': <b>' + spec[i].toFixed(3) + '</b>'); if (i % 2 === 1) ev = Math.max(ev, spec[i]); }
+      $('s3m').innerHTML = parts.join(' · ') + (ev < 1e-9 ? ' · even harmonics: <b>none</b>' : '') + (kind === 'straight' ? ' · nothing else: the line changes nothing' : '');
+    }
+    STEP[2] = {
+      render: function(){ var g = 0.75 / peak; return renderTheta(function(th){ return g * shaper(kind, Math.cos(th)); }, F0, 1); },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        shaperPicture(g, W, H, d, {
+          th: eyeTheta(), reach: 1, yMax: peak,
+          curve: function(x){ return shaper(kind, x); },
+          curveLabel: 'THE CURVE  ' + (kind === 'straight' ? 'y = x' : kind === 'soft' ? 'soft clip' : 'lopsided'),
+          outs: [{ fn: function(t){ return Math.cos(t); }, color: FG3, dash: [4 * d, 4 * d], lw: 1.2 }, { fn: function(t){ return shaper(kind, Math.cos(t)); }, color: ACC, lw: 2 }],
+          extraLabel: 'HARMONICS 1–10',
+          extra: function(g2, x, y, w, h){ harmBars(g2, x, y, w, h, d, spec, null, 1); }
+        });
+      }
+    };
+    Q('[data-s3curve]').forEach(function(b){ b.addEventListener('click', function(){ kind = b.getAttribute('data-s3curve'); STEP[2].changed(); }); });
+  })();
+
+  // ---- step 4: the curve that gives back one harmonic ----
+  (function(){
+    var n = 3, worstOther = 0, level = 1, M = 1024;
+    function rebuild(){
+      var h = harmonicsOf(readCurve(unit(n), 1, M), 10); level = h[n - 1]; worstOther = 0;
+      for (var j = 0; j < 10; j++) if (j !== n - 1) worstOther = Math.max(worstOther, h[j]);
+    }
+    function ui(){
+      $('s4nv').textContent = 'T' + ['₁', '₂', '₃', '₄', '₅', '₆', '₇', '₈', '₉', '₁₀'][n - 1];
+      $('s4m').innerHTML = 'T' + ['₁', '₂', '₃', '₄', '₅', '₆', '₇', '₈', '₉', '₁₀'][n - 1] + '(x) = <b>' + polyText(chebCoeffs(n)) + '</b><br>read by the ' + F0 + ' Hz shadow: harmonic <b>' + n + '</b>, at <b>' + n * F0 + ' Hz</b>, level <b>' + level.toFixed(3) + '</b> · the largest of every other harmonic: <b>' + worstOther.toExponential(0) + '</b>';
+    }
+    STEP[3] = {
+      render: function(){ return renderTheta(function(th){ return 0.7 * cheb(n, Math.cos(th)); }, F0, 1); },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        var th = eyeTheta();
+        shaperPicture(g, W, H, d, {
+          th: th, reach: 1, yMax: 1, cycles: n > 5 ? 1 : 2,
+          curve: function(x){ return cheb(n, x); },
+          curveLabel: 'THE CURVE  T' + n + '(x)',
+          outs: [{ fn: function(t){ return cheb(n, Math.cos(t)); }, color: ACC, lw: 2.2 }, { fn: function(t){ return Math.cos(n * t); }, color: INFO, dash: [5 * d, 4 * d], lw: 1.4 }],
+          extraLabel: 'A POINT GOING ' + n + '× AS FAST',
+          extra: function(g2, x, y, w, h){
+            var ly = y + 30 * d, R = Math.max(4 * d, Math.min(w * 0.22, (h - 50 * d) / 2)), cx = x + w / 2, cy = ly + 10 * d + R;
+            g2.strokeStyle = FG4; g2.lineWidth = d; g2.beginPath(); g2.moveTo(cx - R - 10 * d, ly); g2.lineTo(cx + R + 10 * d, ly); g2.stroke();
+            g2.strokeStyle = 'rgba(74,143,255,0.45)'; g2.beginPath(); g2.arc(cx, cy, R, 0, 7); g2.stroke();
+            var px = cx + R * Math.cos(n * th), py = cy - R * Math.sin(n * th);
+            dashed(g2, [[px, py], [px, ly]], d);
+            dot(g2, px, py, 4.5 * d, INFO); dot(g2, px, ly, 4.5 * d, INFO);
+          }
+        });
+      }
+    };
+    $('s4n').addEventListener('input', function(){ n = parseInt($('s4n').value, 10); STEP[3].changed(); });
+  })();
+
+  // ---- step 5: the curve and the stack, through their difference ----
+  (function(){
+    var bars = PRESETS.saw.slice(), door = 'diff', pow = false, dmax = 0, ddb = -Infinity, M = 1024;
+    function curveFn(x){ return pow ? powerAt(bars, x) : curveAt(bars, x); }
+    function rebuild(){
+      var a = pow ? readPower(bars, M) : readCurve(bars, 1, M), b = readStack(bars, M), e = 0, p = 0;
+      for (var i = 0; i < M; i++){ e += (a[i] - b[i]) * (a[i] - b[i]); p += b[i] * b[i]; }
+      dmax = maxDiff(a, b) / norm(bars); ddb = p > 0 && e > 0 ? 10 * Math.log10(e / p) : -Infinity;
+    }
+    function ui(){
+      pressGroup('data-s5door', door);
+      $('s5pow').setAttribute('aria-pressed', String(pow));
+      $('s5m').innerHTML = 'over one cycle, largest difference: <b>' + (dmax < 1e-12 ? dmax.toExponential(1) : dmax.toFixed(4)) + '</b> · ' + dbPhrase(ddb, true) + (pow ? ' · curves: plain powers' : ' · curves: Tₙ');
+      var h;
+      if (door === 'curve') h = 'You hear <b>the bent curve</b>, ' + (pow ? 'built from plain powers, ' : '') + 'read by the ' + F0 + ' Hz shadow.';
+      else if (door === 'stack') h = 'You hear <b>the stack of cosines</b>, one per drawbar.';
+      else h = ddb < -200 ? 'You hear <b>silence</b>: the two cancel down to the last digit the computer keeps.' : 'You hear <b>the leftover</b>: everything the powers get wrong.';
+      $('s5h').innerHTML = h;
+      Q('[data-s5preset]').forEach(function(b){ var src = PRESETS[b.getAttribute('data-s5preset')], same = true; for (var i = 0; i < 10; i++) if (Math.abs(src[i] - bars[i]) > 1e-9) same = false; b.setAttribute('aria-pressed', String(same)); });
+    }
+    STEP[4] = {
+      render: function(){
+        var g = 0.8 / norm(bars);
+        return renderTheta(function(th){ var a = curveFn(Math.cos(th)), b = stackAt(bars, th); return g * (door === 'curve' ? a : door === 'stack' ? b : a - b); }, F0, 1);
+      },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      bars: null,
+      draw: function(g, W, H, d){
+        var nb = norm(bars);
+        shaperPicture(g, W, H, d, {
+          th: eyeTheta(), reach: 1, yMax: nb,
+          curve: curveFn,
+          curveLabel: pow ? 'THE CURVE  Σ cₙ xⁿ' : 'THE CURVE  Σ cₙ Tₙ(x)',
+          outLabel: 'BOTH  → time',
+          outs: [{ fn: function(t){ return curveFn(Math.cos(t)); }, color: ACC, lw: 2.2 }, { fn: function(t){ return stackAt(bars, t); }, color: INFO, dash: [5 * d, 4 * d], lw: 1.5 }],
+          extraLabel: 'THEIR DIFFERENCE  × 10',
+          extra: function(g2, x, y, w, h){
+            var th = eyeTheta(), x0 = x + 8 * d, ww = w - 16 * d, y0 = y + 20 * d, hh = h - 28 * d;
+            axis(g2, x0, y0 + hh / 2, ww, d);
+            strip(g2, x0, y0, ww, hh, function(t){ var tt = th - 4 * Math.PI * t; return Math.max(-1.1, Math.min(1.1, 10 * (curveFn(Math.cos(tt)) - stackAt(bars, tt)) / nb)); }, door === 'diff' ? ACC : FG3, 1.6 * d);
+          }
+        });
+      }
+    };
+    STEP[4].bars = makeBars($('s5bars'), bars, function(){ STEP[4].changed(); });
+    Q('[data-s5door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s5door'); ui(); refreshAudio(); }); });
+    Q('[data-s5preset]').forEach(function(b){ b.addEventListener('click', function(){ setPreset(bars, b.getAttribute('data-s5preset')); STEP[4].changed(); }); });
+    $('s5pow').addEventListener('click', function(){ pow = !pow; STEP[4].changed(); });
+  })();
+
+  // ---- step 6: the reach alone ----
+  (function(){
+    var n = 3, L = 1, spec = [], dc = 0, M = 1024;
+    function rebuild(){ var y = readCurve(unit(n), L, M); spec = harmonicsOf(y, 10); dc = dcOfCurve(unit(n), L); }
+    function ui(){
+      $('s6nv').textContent = 'T' + ['₁', '₂', '₃', '₄', '₅', '₆', '₇', '₈', '₉', '₁₀'][n - 1];
+      $('s6rv').textContent = L.toFixed(2);
+      var parts = [], up = 0, across = 0, k;
+      for (k = n; k >= 1; k--) if (spec[k - 1] > 0.0005) parts.push('harmonic ' + k + ': <b>' + spec[k - 1].toFixed(3) + '</b>' + (k === n && L < 0.995 ? ' = ' + L.toFixed(2) + (n > 1 ? '<sup>' + n + '</sup>' : '') : ''));
+      for (k = n + 1; k <= 10; k++) up = Math.max(up, spec[k - 1]);
+      for (k = n - 1; k >= 1; k -= 2) across = Math.max(across, spec[k - 1]);
+      var txt = parts.slice(0, 5).join(' · ') + (parts.length > 5 ? ' · …' : '');
+      txt += '<br>above ' + n + ': <b>' + (up < 1e-12 ? 'none' : up.toExponential(1)) + '</b> · ' + (n % 2 ? 'even' : 'odd') + ' harmonics: <b>' + (across < 1e-12 ? 'none' : across.toExponential(1)) + '</b>';
+      if (Math.abs(dc) > 0.0005) txt += ' · steady offset <b>' + dc.toFixed(3) + '</b>, taken out before you hear it';
+      $('s6m').innerHTML = txt;
+    }
+    STEP[5] = {
+      render: function(){
+        var x = renderTheta(function(th){ return cheb(n, L * Math.cos(th)); }, F0, 1);
+        removeMean(x); var g = 0.75 / Math.max(1, peakOf(x));
+        for (var i = 0; i < x.length; i++) x[i] *= g;
+        return x;
+      },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        var outline = [0]; for (var k = 1; k <= 10; k++) outline.push(k === n ? 1 : 0);
+        shaperPicture(g, W, H, d, {
+          th: eyeTheta(), reach: L, yMax: 1, cycles: n > 5 ? 1 : 2,
+          curve: function(x){ return cheb(n, x); },
+          curveLabel: 'THE CURVE  T' + n + '(x)',
+          outs: [{ fn: function(t){ return Math.cos(n * t); }, color: INFO, dash: [5 * d, 4 * d], lw: 1.2 }, { fn: function(t){ return cheb(n, L * Math.cos(t)); }, color: ACC, lw: 2.2 }],
+          extraLabel: 'HARMONICS 0–10',
+          extra: function(g2, x, y, w, h){ harmBars(g2, x, y, w, h, d, [Math.abs(dc)].concat(spec), outline, 0); }
+        });
+      }
+    };
+    $('s6n').addEventListener('input', function(){ n = parseInt($('s6n').value, 10); STEP[5].changed(); });
+    $('s6r').addEventListener('input', function(){ L = parseFloat($('s6r').value); STEP[5].changed(); });
+  })();
+
+  // ---- step 7: the reach, on the drawbars ----
+  (function(){
+    var bars = PRESETS.saw.slice(), door = 'curve', L = 0.6, swell = false, meas = null, M = 1024, SW = 2;
+    function rebuild(){ meas = measureReach(bars, L, M, 10); }
+    function ui(){
+      pressGroup('data-s7door', door);
+      $('s7swell').setAttribute('aria-pressed', String(swell));
+      $('s7rv').textContent = swell ? 'swelling' : L.toFixed(2);
+      var on = sounding(bars), topN = on.length ? on[on.length - 1] : 0, txt;
+      txt = 'at reach <b>' + L.toFixed(2) + '</b>: ' + dbPhrase(meas.diffDb, true);
+      if (L < 0.995 && meas.missAt) txt += ' · the biggest miss is at harmonic <b>' + meas.missAt + '</b>';
+      txt += ' · nothing above harmonic <b>' + topN + '</b>, your top drawbar';
+      if (swell) txt += '<br>the swell takes the reach from <b>0.15</b> to <b>1</b> and back every <b>' + SW + ' s</b>; the numbers above are for the slider';
+      $('s7m').innerHTML = txt;
+      var h;
+      if (door === 'curve') h = 'You hear <b>the bent curve</b>' + (swell ? ', its reach swelling: louder and brighter together.' : ' at reach ' + L.toFixed(2) + '.');
+      else if (door === 'stack') h = 'You hear <b>the stack of cosines</b>' + (swell ? ', turned up and down by the same swell. Its colour does not move.' : '. It has no reach, so the slider does nothing to it.');
+      else h = 'You hear <b>the leftover</b>: what the curve does that the stack does not' + (swell ? ', coming and going with the swell.' : '.');
+      $('s7h').innerHTML = h;
+      Q('[data-s7preset]').forEach(function(b){ var src = PRESETS[b.getAttribute('data-s7preset')], same = true; for (var i = 0; i < 10; i++) if (Math.abs(src[i] - bars[i]) > 1e-9) same = false; b.setAttribute('aria-pressed', String(same)); });
+    }
+    function liveReach(){ if (!swell) return L; var k = nowSample(); return k < 0 ? L : swellAt(k / voice.len); }
+    STEP[6] = {
+      render: function(){
+        var g = 0.8 / norm(bars), secs = swell ? SW : 1;
+        return renderTheta(function(th, u){
+          var Lh = swell ? swellAt(u) : L, a = curveAt(bars, Lh * Math.cos(th)) - dcOfCurveFast(Lh), b = stackAt(bars, th);
+          return g * (door === 'curve' ? a : door === 'stack' ? (swell ? Lh : 1) * b : a - b);
+        }, F0, secs);
+      },
+      changed: function(){ rebuild(); buildDc(); ui(); refreshAudio(); },
+      bars: null,
+      draw: function(g, W, H, d){
+        var nb = norm(bars), Lh = liveReach(), outline = bars.map(function(v){ return Math.abs(v) / nb; });
+        var spec = swell && playing ? measureReach(bars, Lh, 256, 10).spec : meas.spec;
+        shaperPicture(g, W, H, d, {
+          th: eyeTheta(), reach: Lh, yMax: nb,
+          curve: function(x){ return curveAt(bars, x); },
+          curveLabel: 'THE CURVE  Σ cₙ Tₙ(x)',
+          outs: [{ fn: function(t){ return stackAt(bars, t); }, color: INFO, dash: [5 * d, 4 * d], lw: 1.4 }, { fn: function(t){ return curveAt(bars, Lh * Math.cos(t)); }, color: ACC, lw: 2.2 }],
+          extraLabel: 'HARMONICS 1–10',
+          extra: function(g2, x, y, w, h){ harmBars(g2, x, y, w, h, d, spec, outline, 1); }
+        });
+      }
+    };
+    // the steady offset at each reach, tabled once per drawbar change (exact at the table's points, straight between)
+    var dcTab = null;
+    function buildDc(){ dcTab = new Float64Array(257); for (var j = 0; j <= 256; j++) dcTab[j] = dcOfCurve(bars, j / 256); }
+    function dcOfCurveFast(Lh){ var u = Math.max(0, Math.min(1, Lh)) * 256, j = Math.min(255, Math.floor(u)), f = u - j; return dcTab[j] + f * (dcTab[j + 1] - dcTab[j]); }
+    STEP[6].bars = makeBars($('s7bars'), bars, function(){ STEP[6].changed(); });
+    Q('[data-s7door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s7door'); ui(); refreshAudio(); }); });
+    Q('[data-s7preset]').forEach(function(b){ b.addEventListener('click', function(){ setPreset(bars, b.getAttribute('data-s7preset')); STEP[6].changed(); }); });
+    $('s7r').addEventListener('input', function(){ L = parseFloat($('s7r').value); STEP[6].changed(); });
+    $('s7swell').addEventListener('click', function(){ swell = !swell; STEP[6].changed(); });
+  })();
+
+  // ---------- the picture loop: only the step in view is drawn ----------
+  var lastT = performance.now();
+  function frame(now){
+    var dt = Math.max(0, Math.min(0.25, (now - lastT) / 1000)); lastT = now;
+    if (playing) eyeT += dt;
+    var cv = steps[cur].querySelector('canvas.stage');
+    if (cv && STEP[cur] && STEP[cur].draw){
+      var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1, asp = parseFloat(cv.getAttribute('data-aspect') || '0.5');
+      var cssH = Math.min(520, Math.max(r.width < 520 ? 300 : 220, r.width * asp));
+      if (cv.style.height !== cssH + 'px') cv.style.height = cssH + 'px';
+      var bw = Math.round(r.width * d), bh = Math.round(cssH * d);
+      if (bw > 0){
+        if (cv.width !== bw || cv.height !== bh){ cv.width = bw; cv.height = bh; }
+        var g = cv.getContext('2d'); g.clearRect(0, 0, bw, bh); STEP[cur].draw(g, bw, bh, d, dt);
+      }
+    }
+    if (STEP[cur] && STEP[cur].bars) STEP[cur].bars.draw();
+    requestAnimationFrame(frame);
+  }
+
+  // ---------- notes: one per step; kept in this tab, and in storage only where storage is allowed ----------
+  var KEY = 'dissolutions-seq-circles-shadow-notes', notes = {};
+  try { notes = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { notes = {}; }
+  Q('[data-note]').forEach(function(t){
+    var k = t.closest('section.step').getAttribute('data-step'); t.value = notes[k] || '';
+    t.addEventListener('input', function(){ notes[k] = t.value; try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} });
+  });
+  // the notes go to the STIGMERGY board through the answers server (_ops/loudon-eval/answers.js);
+  // Copy all notes, below, stays as the fallback
+  var TASK = 'the-circles-shadow', HEAD = 'The circle’s shadow, learning sequence — notes', sending = false;
+  function digest(n){ return HEAD + '\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (n[i] || '—'); }).join('\n'); }
+  function saveNotes(){ try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} }
+  function sendDone(){ sending = false; $('send').disabled = false; $('send').textContent = 'Send to STIGMERGY'; }
+  $('send').addEventListener('click', function(){
+    if (sending) return;
+    var sent = {}, answers = {}, names = [];
+    steps.forEach(function(s, i){ if ((notes[i] || '').trim()){ sent[i] = notes[i]; answers[(i + 1) + ' · ' + s.getAttribute('data-title')] = notes[i]; names.push(s.getAttribute('data-title')); } });
+    if (!names.length){ $('copied').textContent = 'Nothing to send yet: every notes box is empty.'; return; }
+    if (!window.PalaceAnswers){ $('copied').textContent = 'Not sent, and your notes are kept: the answers script didn’t load. Use Copy all notes.'; return; }
+    sending = true; $('send').disabled = true; $('send').textContent = 'Sending…'; $('copied').textContent = '';
+    Promise.resolve().then(function(){ return window.PalaceAnswers.submit({ page: 'Dissolutions', task: TASK, answers: answers, text: digest(sent) }); }).then(function(r){
+      if (r && r.mode === 'posted'){
+        // clear what went; a note changed while it was in flight stays
+        Object.keys(sent).forEach(function(k){ if (notes[k] === sent[k]) delete notes[k]; });
+        Q('[data-note]').forEach(function(t){ var k = t.closest('section.step').getAttribute('data-step'); if (!(k in notes)) t.value = ''; });
+        saveNotes();
+        $('copied').textContent = 'Sent to STIGMERGY — ' + names.length + (names.length === 1 ? ' note: ' : ' notes: ') + names.join(' · ') + '. They’re on the board, and their boxes are cleared.';
+      } else {
+        $('copied').textContent = 'Not sent — your notes are kept. ' + ((r && r.reason) || '');
+      }
+    }, function(e){ $('copied').textContent = 'Not sent — your notes are kept. ' + ((e && e.message) || ''); }).then(sendDone, sendDone);
+  });
+  $('copy').addEventListener('click', function(){
+    var text = 'The circle’s shadow, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');
+    var done = function(){ $('copied').textContent = 'copied'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function(){ $('copied').textContent = text; }); else $('copied').textContent = text;
+  });
+
+  STEP.forEach(function(s){ s.changed(); });
+  go(0);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

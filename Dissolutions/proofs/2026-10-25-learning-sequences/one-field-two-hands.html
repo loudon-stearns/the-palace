@@ -1,0 +1,1110 @@
+<!doctype html>
+<!--
+  title: One Field, Two Hands — a learning sequence
+  born: 2026-10-25
+  parent: [[Dissolutions]] · leads up to ../2026-10-20-one-field-two-hands/one-field-two-hands.html · tests [[Volterra Kernels and the Torus]]
+  forward_vector: I am the way up to one field, two hands. I take the field alone, the two phasors alone, the input read along the diagonal, the two hands through their difference, the lag's test that a static curve cannot pass, and the field translated into a kernel, one step each, so that the proof makes sense the first time it is played.
+  outline: Loudon's model from the sit of 2026-10-25 on the table that travels — each concept alone, then the combination through the difference, then the extra ingredient. Here: the field, the synthesizer's hand, the effect's hand at lag 0 (a static curve), the hands lined up and nulled, the lag that makes mixing depend on which tones went in, the kernel.
+  sound: nothing plays until a Play button is clicked; the AudioContext is made on that click.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One Field, Two Hands · learning sequence</title>
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.75;padding:40px 16px 64px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:52px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:32px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:20px;color:var(--fg-2);margin:0 0 22px;max-width:64ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  .rail button.seen{color:var(--fg-2)}
+  .step p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:8px;padding:18px;margin:0 0 16px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  .tabs .eyebrow{margin-right:4px}
+  .tab{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  .tab[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas.stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:120px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap}
+  .hear{font-family:var(--sans);font-size:13px;color:var(--fg-3);margin-top:10px}
+  .hear b{color:var(--accent);font-weight:500}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin-top:10px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .toggle{font-family:var(--sans);font-size:13px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 12px;cursor:pointer}
+  .toggle[aria-pressed="true"]{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:14px 0 0;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  textarea{width:100%;margin-top:10px;min-height:54px;font-family:var(--sans);font-size:14px;color:var(--fg-1);background:var(--bg-elev-2);border:1px solid var(--border-soft);border-radius:4px;padding:8px 10px;resize:vertical}
+  textarea::placeholder{color:var(--fg-4)}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+  .gathered{margin:0;padding:0 0 0 18px;color:var(--fg-2)}
+  .gathered li{margin:4px 0}
+  a.proof-link{display:inline-block;font-family:var(--sans);font-weight:500;font-size:15px;color:#0a0a0f;background:var(--accent);border-radius:4px;padding:11px 22px;text-decoration:none;margin-top:14px}
+  a.proof-link:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.send{font-family:var(--sans);font-weight:500;font-size:14px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:8px 16px;cursor:pointer}
+  button.send:disabled{opacity:.55;cursor:default}
+  .proposal{display:inline-block;margin:10px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px dashed var(--accent-line);border-radius:3px;padding:3px 9px}
+  footer{margin-top:36px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer a{color:var(--fg-3)}
+  @media (max-width:520px){h1{font-size:40px}h2{font-size:26px}.ctl{grid-template-columns:90px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Dissolutions · learning sequence · Volterra Kernels and the Torus</div>
+  <h1>One field, two hands, step by step</h1>
+  <p class="lead">Six short steps up to the proof. A field of heights alone, two phasors reading it, the input reading it along its diagonal, the two hands lined up until they cancel, a lag that does what no fixed curve can, and the same reading written as a kernel. Each step has one thing to hear. Nothing plays until you press Play.</p>
+  <div class="proposal" title="made in a proposal round and not yet approved by Loudon; send a note from the last step, or say so in chat">proposal · 2026-11-07 · not yet approved by Loudon</div>
+
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <!-- ───────────── step 1 ───────────── -->
+  <section class="step" data-step="0" data-title="The field">
+    <div class="eyebrow">Step 1 of 7 · the field alone</div>
+    <h2>A landscape of heights, read along one line</h2>
+    <p class="say">The field is a square of heights: gold where it rises above zero, blue where it dips below. Pick a height up the square and walk straight across it, and the heights under your feet make one curve. Run a cosine back and forth across that line, and the curve shapes the cosine into a tone. The field is built from curves across, one per harmonic: curve m, read by a cosine, gives harmonic m. Moving the line up changes how much of each, so the colour moves.</p>
+    <div class="panel">
+      <div class="tabs"><span class="eyebrow">Hear</span><span class="hint">a 220 Hz cosine walking across the line</span><button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Left · the field</b>Across is u, up is v, both from −1 to 1. The white line is where you read it; the dot is the cosine's shadow walking along it, slowed down for the eye.</div>
+        <div><b>Right top · the line, as a curve</b>The heights along the white line. A curve like this, read by a signal, is a waveshaper.</div>
+        <div><b>Right bottom · harmonics</b>How strong harmonics 1, 2 and 3 come out at this height. Measured from the sound.</div>
+      </div>
+      <div class="rowb"><span class="eyebrow">the field</span>
+        <button class="ghost small" data-s1field="ring" aria-pressed="false">Ring</button>
+        <button class="ghost small" data-s1field="terrain" aria-pressed="true">Terrain</button>
+        <button class="ghost small" data-s1field="ridges" aria-pressed="false">Ridges</button>
+      </div>
+      <div class="ctl"><label for="s1v">line height v</label><input id="s1v" type="range" min="-1" max="1" step="0.01" value="0.5"><span class="v" id="s1vv"></span></div>
+      <div class="meter" id="s1m"></div>
+      <div class="eq">F(u, v) = Σ cₘₙ × Tₘ(u) × Tₙ(v)          Tₘ(cos φ) = cos(m × φ)</div>
+      <div class="eq words">(height at a point) = Σ (weight m, n) × (curve m, across) × (curve n, up)  ·  (curve m, read by a cosine) = (harmonic m)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Play the terrain and drag the line slowly from the bottom to the top. Same pitch the whole way, different colour: you are hearing different curves cut from one field. Then pick the ring field and put the line at 0. Silence, because that line runs along a ridge of zero height.</div>
+    <textarea data-note placeholder="What your ear and eye say about the field"></textarea>
+  </section>
+
+  <!-- ───────────── step 2 ───────────── -->
+  <section class="step" data-step="1" data-title="Two phasors" hidden>
+    <div class="eyebrow">Step 2 of 7 · the synthesizer's hand</div>
+    <h2>Two phasors, one point on the field</h2>
+    <p class="say">Now give each direction its own hand. One phasor turns at 220 Hz and its shadow sets how far across; a second turns at its own rate and its shadow sets how far up. Together they move one point, which traces a figure across the field. Both phases wrap round, so the pair lives on a torus, and that is the torus synthesizer. Where the two rates mix, new pitches land at their sums and differences.</p>
+    <div class="panel">
+      <div class="tabs"><span class="eyebrow">Hear</span><span class="hint">the field, read by two phasors</span><button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Left · the field</b>The trail is the figure the point has drawn; the dot is where it reads now.</div>
+        <div><b>Right top · the two hands</b>Two phasors. The first one's shadow gives across, the second one's gives up.</div>
+        <div><b>Right bottom · the spectrum</b>Blue: measured from what you hear. Gold marks: where the sums and differences m × f₁ ± n × f₂ say the partials should be.</div>
+      </div>
+      <div class="rowb"><span class="eyebrow">the field</span>
+        <button class="ghost small" data-s2field="ring" aria-pressed="true">Ring</button>
+        <button class="ghost small" data-s2field="terrain" aria-pressed="false">Terrain</button>
+        <button class="ghost small" data-s2field="ridges" aria-pressed="false">Ridges</button>
+      </div>
+      <div class="ctl"><label for="s2r">phasor ratio</label><input id="s2r" type="range" min="1" max="3" step="0.001" value="1.414"><span class="v" id="s2rv"></span></div>
+      <div class="meter" id="s2m"></div>
+      <div class="eq">y = F(cos φ₁, cos φ₂)          partials at m × f₁ ± n × f₂</div>
+      <div class="eq words">(output) = F at ((the first phasor's shadow), (the second phasor's shadow))  ·  (where partials land) = (across-curve m) × (first rate) ± (up-curve n) × (second rate)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Start on the ring field, which is just across × up. You hear two pitches and neither of them is 220 Hz: that is a ring modulator. Slide the ratio to exactly 2, then 1.5. The figure closes and the partials fall onto one harmonic series. Anywhere in between, the figure takes many turns to close, or never does, and the tone is bell-like.</div>
+    <textarea data-note placeholder="What your ear and eye say about the two phasors"></textarea>
+  </section>
+
+  <!-- ───────────── step 3 ───────────── -->
+  <section class="step" data-step="2" data-title="The diagonal" hidden>
+    <div class="eyebrow">Step 3 of 7 · the effect's hand, with no lag</div>
+    <h2>Let the input be the hand</h2>
+    <p class="say">Take the phasors away and feed the field a signal. Read it at across = the input and up = the input too. The hand can only stand where across equals up, so it never leaves the diagonal, and the diagonal is one curve. That makes this an ordinary waveshaper, a static curve. A static curve still mixes: give it two tones and it makes their difference and their sum, pitches neither tone has.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s3door="in" aria-pressed="false">The input</button>
+        <button class="tab" data-s3door="out" aria-pressed="true">Through the curve</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Left · the field</b>The solid white line is the diagonal, where across equals up, traced by the dot as it rides it. It never leaves.</div>
+        <div><b>Right top · the diagonal, as a curve</b>The heights along the diagonal: the static curve the input is pushed through.</div>
+        <div><b>Right bottom · the spectrum</b>Measured from what comes out of the curve, 0–1.2 kHz. Ticks mark the input's own tones; with two in, also their difference and sum.</div>
+      </div>
+      <div class="rowb"><span class="eyebrow">the field</span>
+        <button class="ghost small" data-s3field="ring" aria-pressed="true">Ring</button>
+        <button class="ghost small" data-s3field="terrain" aria-pressed="false">Terrain</button>
+        <button class="ghost small" data-s3field="ridges" aria-pressed="false">Ridges</button>
+        <span class="eyebrow" style="margin-left:10px">input</span>
+        <button class="ghost small" data-s3input="one" aria-pressed="false">One tone</button>
+        <button class="ghost small" data-s3input="two" aria-pressed="true">Two tones</button>
+      </div>
+      <div class="ctl"><label for="s3b">lowest tone</label><input id="s3b" type="range" min="110" max="660" step="1" value="220"><span class="v" id="s3bv"></span></div>
+      <div class="hear" id="s3h"></div>
+      <div class="meter" id="s3m"></div>
+      <div class="eq">y = F(x(t), x(t))          two tones in:  f₂ − f₁ and f₁ + f₂ come out</div>
+      <div class="eq words">(output) = F at ((the input now), (the input now))  ·  (new pitches) = (upper tone) − (lower tone), and (lower tone) + (upper tone)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>On the ring field with one tone, the curve is x × x: switch between the input and the output and hear 220 Hz jump an octave. Then give it two tones, 30 Hz apart. Through the curve, a new pitch sits near 470 Hz, the two tones added. The readout also finds the 30 Hz difference, low enough to feel more than hear.</div>
+    <textarea data-note placeholder="What your ear and eye say about the diagonal"></textarea>
+  </section>
+
+  <!-- ───────────── step 4 ───────────── -->
+  <section class="step" data-step="3" data-title="Their difference" hidden>
+    <div class="eyebrow">Step 4 of 7 · the two hands, through their difference</div>
+    <h2>Read the input twice, and the phasors come back</h2>
+    <p class="say">Now read the input at two moments: across from where it is now, up from where it was a lag τ ago. With one tone in, the moment τ ago is the same cosine, turned back a little. That is two phasors at a ratio of exactly 1, a fixed offset apart. So set the synthesizer to that, flip one hand upside down, and add. If they cancel to silence, the two hands are reading one field along one path.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s4door="syn" aria-pressed="false">Two phasors</button>
+        <button class="tab" data-s4door="fx" aria-pressed="false">The input and its echo</button>
+        <button class="tab" data-s4door="diff" aria-pressed="true">Their difference</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Left · the field</b>Gold: the phasors' path. Blue, dashed: the effect's path. Off the diagonal now, a loop.</div>
+        <div><b>Right top · the effect's hand</b>The input, with two readers: now (across) and τ ago (up).</div>
+        <div><b>Right bottom · what comes out</b>Both outputs, gold and blue dashed, and under them their difference, magnified ten times. A flat line is silence.</div>
+      </div>
+      <div class="rowb"><span class="eyebrow">the field</span>
+        <button class="ghost small" data-s4field="ring" aria-pressed="false">Ring</button>
+        <button class="ghost small" data-s4field="terrain" aria-pressed="true">Terrain</button>
+        <button class="ghost small" data-s4field="ridges" aria-pressed="false">Ridges</button>
+        <button class="toggle" id="s4nudge" aria-pressed="false">Nudge the phasors 5° out of line</button>
+      </div>
+      <div class="ctl"><label for="s4l">lag τ</label><input id="s4l" type="range" min="0" max="96" step="1" value="24"><span class="v" id="s4lv"></span></div>
+      <div class="hear" id="s4h"></div>
+      <div class="meter" id="s4m"></div>
+      <div class="eq">x(t − τ) = cos(2π × f × t − 2π × f × τ)          so  φ₂ = φ₁ − 2π × f × τ</div>
+      <div class="eq words">(the input a lag ago) = cos((its phase now) − 2π × (frequency) × (lag))  ·  (second phasor) = (first phasor) − (the turn the tone makes during the lag)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Play the difference and slide the lag. Silence the whole way: the phasor offset follows the lag, and the readout shows it. Then nudge the phasors 5° out of line. A small mismatch is enough to make the null speak.</div>
+    <textarea data-note placeholder="What your ear and eye say about the difference"></textarea>
+  </section>
+
+  <!-- ───────────── step 5 ───────────── -->
+  <section class="step" data-step="4" data-title="The lag's test" hidden>
+    <div class="eyebrow">Step 5 of 7 · what the lag can do</div>
+    <h2>Mixing that depends on which tones went in</h2>
+    <p class="say">Here is a test a static curve cannot pass, even with a filter after it. Send in two tones 30 Hz apart and slide both up together. Their difference stays at 30 Hz the whole way. A static curve makes that 30 Hz tone at one strength, whatever the two tones are, and a filter after it only ever hears 30 Hz, so it can move that strength but never make it rise and fall. With a lag, the two tones are read at two moments, each has turned by its own amount in between, and how strongly they mix depends on the tones themselves.</p>
+    <p class="say">A static curve then a filter is what the Volterra page calls a Hammerstein structure. That page says it discards intermodulation; step 3 heard it make some. What it cannot make is intermodulation whose strength depends on which tones went in.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s5door="steady" aria-pressed="false">Two tones, steady</button>
+        <button class="tab" data-s5door="glide" aria-pressed="true">The 30 Hz tone, as both glide up</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.46"></canvas>
+      <div class="legend">
+        <div><b>Blue · with this lag</b>The 30 Hz tone's strength as the lower tone slides from 110 to 660 Hz, the upper 30 Hz above it.</div>
+        <div><b>Grey, dashed · a static curve</b>The same reading with the lag at zero. Flat.</div>
+        <div><b>Dim, dashed · a static curve, then a filter</b>Lag zero with a lowpass after it. Lower, and still flat.</div>
+      </div>
+      <div class="rowb"><span class="eyebrow">the field</span>
+        <button class="ghost small" data-s5field="ring" aria-pressed="true">Ring</button>
+        <button class="ghost small" data-s5field="terrain" aria-pressed="false">Terrain</button>
+        <button class="ghost small" data-s5field="ridges" aria-pressed="false">Ridges</button>
+      </div>
+      <div class="ctl"><label for="s5l">lag τ</label><input id="s5l" type="range" min="0" max="96" step="1" value="24"><span class="v" id="s5lv"></span></div>
+      <div class="ctl"><label for="s5b">lowest tone</label><input id="s5b" type="range" min="110" max="660" step="1" value="220"><span class="v" id="s5bv"></span></div>
+      <div class="hear" id="s5h"></div>
+      <div class="meter" id="s5m"></div>
+      <div class="eq">ring field:  strength of f₂ − f₁ = ¼ × |cos(π × (f₁ + f₂) × τ)|</div>
+      <div class="eq words">ring field:  (strength of the difference tone) = ¼ × |cos(π × ((lower tone) + (upper tone)) × (lag))|</div>
+      <p class="hint" style="margin-top:12px">So you can hear it on any speaker, the glide plays only the 30 Hz tone, cut out of the output and moved up to 300 Hz with its strength kept. The two tones glide 110 → 660 → 110 Hz over 12 seconds. The chart is measured from the real output, not the moved copy.</p>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Set the lag to 0 and play the glide: one steady tone for twelve seconds, a static curve. Now set the lag to 24 and play it again. The tone swells and dies away, and comes back, as both tones climb. Watch the cursor cross the blue line: the dip in the readout is where the two halves of the 30 Hz tone arrive opposed and cancel.</div>
+    <textarea data-note placeholder="What your ear and eye say about the lag"></textarea>
+  </section>
+
+  <!-- ───────────── step 6 ───────────── -->
+  <section class="step" data-step="5" data-title="The kernel" hidden>
+    <div class="eyebrow">Step 6 of 7 · the same reading, written as a kernel</div>
+    <h2>A field of heights, translated onto lags</h2>
+    <p class="say">There is another way to write any effect with memory: a Volterra series. It multiplies the input against itself at chosen lags, and a kernel holds the weight for each choice of lags. The field read at now and τ ago translates into one exactly. Its axes are no longer heights of the signal but lags, and every weight sits at a lag of 0 or τ. The map runs one way only for kernels that sparse: put a weight at any other lag, and no field read at now and τ ago can give it.</p>
+    <p class="say">The dots on the kernel's own diagonal, at (0, 0) and (τ, τ), are a static curve and its echo: a Hammerstein structure. The two off it, at (0, τ) and (τ, 0), are what made step 5's tone rise and fall; on the ring field they are the only ones.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s6door="field" aria-pressed="false">The field, read</button>
+        <button class="tab" data-s6door="series" aria-pressed="false">The Volterra series</button>
+        <button class="tab" data-s6door="diff" aria-pressed="true">Their difference</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Left · the field</b>Axes are heights: the input now, across; the input τ ago, up.</div>
+        <div><b>Right · the kernel, second order</b>Axes are lags, 0 to 96 samples. Each dot is a weight on x(t − τ₁) × x(t − τ₂); gold positive, blue negative, size its strength.</div>
+      </div>
+      <div class="rowb"><span class="eyebrow">the field</span>
+        <button class="ghost small" data-s6field="ring" aria-pressed="false">Ring</button>
+        <button class="ghost small" data-s6field="terrain" aria-pressed="true">Terrain</button>
+        <button class="ghost small" data-s6field="ridges" aria-pressed="false">Ridges</button>
+      </div>
+      <div class="ctl"><label for="s6l">lag τ</label><input id="s6l" type="range" min="8" max="96" step="1" value="24"><span class="v" id="s6lv"></span></div>
+      <div class="hear" id="s6h"></div>
+      <div class="meter" id="s6m"></div>
+      <div class="eq">y(t) = Σₖ Σᵢ hₖ,ᵢ × x(t)ⁱ × x(t − τ)ᵏ⁻ⁱ</div>
+      <div class="eq words">(output) = Σ over orders k, Σ over splits i: (kernel weight) × (the input now, i times) × (the input τ ago, the other k − i times)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Play the difference: silence, the series and the field give the same numbers. Now slide the lag and watch the right picture. The dots only ever sit at 0 and τ, and they move together. Turning the lag is a translation of one picture into the other, not a new control.</div>
+    <textarea data-note placeholder="What your ear and eye say about the kernel"></textarea>
+  </section>
+
+  <!-- ───────────── step 7 ───────────── -->
+  <section class="step" data-step="6" data-title="The proof" hidden>
+    <div class="eyebrow">Step 7 of 7 · the proof</div>
+    <h2>Now the whole thing, on one page</h2>
+    <p class="say">The proof puts every step on one screen, with one field and both hands. Here is where each one is waiting for you there.</p>
+    <ul class="gathered">
+      <li><b>The field</b> is step 1: the Ring, Terrain and Ridges buttons, and the square of gold and blue at the top left.</li>
+      <li><b>Two phasors</b> tab is step 2: the phasor ratio slider, and its two circles at the bottom left.</li>
+      <li><b>The input and its echo</b> tab, with the lag at 0, is step 3: the dot rides the dashed diagonal.</li>
+      <li><b>Line the hands up</b>, then <b>Their difference</b>, is step 4: one tone in, and the measurement reads a difference of rounding size, around 10⁻¹³.</li>
+      <li>The <b>lag</b> slider with <b>Two tones</b> is step 5: the left small chart below is the 30 Hz line, and the measurement names the swing.</li>
+      <li>The right small chart, <b>h₂(τ₁, τ₂)</b>, is step 6: the kernel's dots at 0 and τ.</li>
+      <li>Things the proof adds: a <b>phasor offset</b> slider you can move by hand, a spectrum panel of whatever you are hearing with the difference and sum ticked, and the lag given in milliseconds as well as samples. Its 30 Hz chart is measured from the real output; there is no lifted 300 Hz copy to listen to, so listen there with headphones, or come back here for the glide.</li>
+    </ul>
+    <p class="say" style="margin-top:14px">It ends on two questions. Are the synthesizer and the effect one instrument? And is the Volterra kernel that same instrument, or a faithful map of it drawn in another space?</p>
+    <a class="proof-link" href="../2026-10-20-one-field-two-hands/one-field-two-hands.html">Open the proof</a>
+    <textarea data-note placeholder="Did the steps get you there? What was missing?"></textarea>
+    <div class="rowb"><button class="send" id="send">Send to STIGMERGY</button><button class="ghost small" id="copy">Copy all notes</button><span class="hint" id="copied"></span></div>
+    <p class="hint" style="margin-top:8px">These notes are the review: step by step, say keep, revise or drop. Approval is yours, one sequence at a time, whenever you come back to it.</p>
+  </section>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><b>LOUD’N LIVE</b> · a learning sequence for Dissolutions, 2026-10-25 · up to <a href="../2026-10-20-one-field-two-hands/one-field-two-hands.html">one field, two hands</a> · <a href="index.html">all six sequences</a></footer>
+</main>
+
+<script src="../../../_ops/loudon-eval/answers.js"></script>
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var Q = function(sel, root){ return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+  // ---- math (pure; re-checked headless by check-sequences.mjs, which calls selfTest) ----
+  // the proof's own, verbatim: the three fields, the Chebyshev curves, the lookup, both hands, the kernel, the level meter
+  var FIELDS = {
+    ring: [[0, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+    terrain: [[0, 0.3, 0, 0.2], [0.5, 0.6, 0.3, 0], [0, 0.4, 0.25, 0], [0, 0.2, 0, 0]],
+    ridges: [[0, 0, 0, 0.5], [0, 0, 0, 0], [0, 0, 0.35, 0], [0.5, 0, 0, 0.3]]
+  }; // c[m][n]: m across (u), n up (v)
+  function chebs(x){ var t = [1, x, 2 * x * x - 1]; t.push(2 * x * t[2] - t[1]); return t; }
+  function fieldAt(c, u, v){
+    var tu = chebs(u), tv = chebs(v), s = 0;
+    for (var m = 0; m < 4; m++) for (var n = 0; n < 4; n++) if (c[m][n]) s += c[m][n] * tu[m] * tv[n];
+    return s;
+  }
+  function fieldNorm(c){ var s = 0; for (var m = 0; m < 4; m++) for (var n = 0; n < 4; n++) s += Math.abs(c[m][n]); return s || 1; }
+  function readSynth(c, f1, ratio, off, sr, N){
+    var y = new Float64Array(N);
+    for (var i = 0; i < N; i++) y[i] = fieldAt(c, Math.cos(2 * Math.PI * f1 * i / sr), Math.cos(2 * Math.PI * (f1 * ratio * i / sr + off)));
+    return y;
+  }
+  var GAP = 30;
+  function inputAt(kind, f1, t){
+    return kind === 'one' ? Math.cos(2 * Math.PI * f1 * t) : 0.5 * (Math.cos(2 * Math.PI * f1 * t) + Math.cos(2 * Math.PI * (f1 + GAP) * t));
+  }
+  function readEffect(c, kind, f1, lag, sr, N){
+    var y = new Float64Array(N);
+    for (var i = 0; i < N; i++) y[i] = fieldAt(c, inputAt(kind, f1, i / sr), inputAt(kind, f1, (i - lag) / sr));
+    return y;
+  }
+  var TP = [[1, 0, 0, 0], [0, 1, 0, 0], [-1, 0, 2, 0], [0, -3, 0, 4]];
+  function monomials(c){
+    var d = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+    for (var m = 0; m < 4; m++) for (var n = 0; n < 4; n++) if (c[m][n])
+      for (var i = 0; i < 4; i++) for (var j = 0; j < 4; j++) d[i][j] += c[m][n] * TP[m][i] * TP[n][j];
+    return d;
+  }
+  function choose(k, i){ var r = 1; for (var q = 1; q <= i; q++) r = r * (k - q + 1) / q; return r; }
+  function volterraKernels(c, lag){
+    var d = monomials(c), out = [];
+    for (var k = 0; k <= 6; k++) for (var i = 0; i <= k; i++){ var j = k - i; if (i < 4 && j < 4 && d[i][j]) out.push({ order: k, zeros: i, taus: j, lag: lag, w: d[i][j] / choose(k, i) }); }
+    return out;
+  }
+  function volterraEval(kernels, x, t){
+    var y = 0;
+    kernels.forEach(function(h){
+      var a = x(t), b = x(t - h.lag), term = h.w * Math.pow(a, h.zeros) * Math.pow(b, h.taus);
+      y += term * choose(h.order, h.zeros);
+    });
+    return y;
+  }
+  function levelAt(x, f, sr){
+    var N = x.length, re = 0, im = 0, wsum = 0;
+    for (var i = 0; i < N; i++){ var w = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / N), a = 2 * Math.PI * f * i / sr; re += w * x[i] * Math.cos(a); im -= w * x[i] * Math.sin(a); wsum += w; }
+    return 20 * Math.log10(2 * Math.sqrt(re * re + im * im) / wsum + 1e-12);
+  }
+  function maxDiff(a, b){ var m = 0; for (var i = 0; i < a.length; i++) m = Math.max(m, Math.abs(a[i] - b[i])); return m; }
+  // the proof's own Hammerstein test, lifted out of its rebuild(): the 30 Hz tone's level as both tones slide 110 → 660 Hz
+  function hammLine(c, lag, sr){
+    var line = [];
+    for (var f = 110; f <= 660; f += 10){ var y = readEffect(c, 'two', f, lag, sr, 16384); line.push([f, levelAt(y, GAP, sr)]); }
+    return line;
+  }
+  // the table-that-travels sequence's own FFT, for the spectrum pictures
+  function fft(re, im){
+    var n = re.length, i, j = 0, k, len;
+    for (i = 1; i < n; i++){ var bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit;
+      if (i < j){ var t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+    for (len = 2; len <= n; len <<= 1){
+      var half = len >> 1, ang = -2 * Math.PI / len;
+      for (k = 0; k < half; k++){
+        var wr = Math.cos(ang * k), wi = Math.sin(ang * k);
+        for (i = k; i < n; i += len){
+          var r2 = re[i + half] * wr - im[i + half] * wi, i2 = re[i + half] * wi + im[i + half] * wr;
+          re[i + half] = re[i] - r2; im[i + half] = im[i] - i2; re[i] += r2; im[i] += i2;
+        }
+      }
+    }
+  }
+  // spectrum in dB re a full-scale sine (Hann window), bins 0..N/2
+  function spectrumDbFS(x, start, N){
+    var re = new Float64Array(N), im = new Float64Array(N);
+    for (var i = 0; i < N; i++) re[i] = x[start + i] * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / N));
+    fft(re, im);
+    var out = new Float64Array(N / 2);
+    for (i = 0; i < N / 2; i++) out[i] = 20 * Math.log10(4 * Math.sqrt(re[i] * re[i] + im[i] * im[i]) / N + 1e-12);
+    return out;
+  }
+
+  // step 1: one line across the field at height v is the curve u ↦ F(u, v); read by cos φ, curve m across gives harmonic m
+  function sliceHarmonics(c, v){ var tv = chebs(v), a = [0, 0, 0, 0]; for (var m = 0; m < 4; m++) for (var n = 0; n < 4; n++) a[m] += c[m][n] * tv[n]; return a; }
+  function readSlice(c, f, v, sr, N){ var y = new Float64Array(N); for (var i = 0; i < N; i++) y[i] = fieldAt(c, Math.cos(2 * Math.PI * f * i / sr), v); return y; }
+  // step 2: where two phasors put the partials. cos(mα)·cos(nβ) = ½cos(mα − nβ) + ½cos(mα + nβ); equal frequencies add
+  function products(c, f1, f2){
+    var list = [];
+    function add(f, a){ f = Math.abs(f); for (var k = 0; k < list.length; k++) if (Math.abs(list[k].f - f) < 1e-6){ list[k].a += a; return; } list.push({ f: f, a: a }); }
+    for (var m = 0; m < 4; m++) for (var n = 0; n < 4; n++){ var w = c[m][n]; if (!w) continue;
+      if (m === 0 && n === 0) add(0, w); else if (n === 0) add(m * f1, w); else if (m === 0) add(n * f2, w);
+      else { add(m * f1 - n * f2, w / 2); add(m * f1 + n * f2, w / 2); } }
+    return list.filter(function(p){ return p.f > 1e-6 && Math.abs(p.a) > 1e-9; }).sort(function(a, b){ return a.f - b.f; });
+  }
+  // steps 3 and 5: an independent measure of one mixing product, p × f₁ + q × f₂, taken on the torus of the two tones' phases
+  // rather than from the sound: the reading is a trig polynomial in (α, β), so a 64 × 64 grid average is exact
+  function torusLevel(c, kind, f1, lag, sr, p, q){
+    var M = 64, re = 0, im = 0, w1 = 2 * Math.PI * f1 * lag / sr, w2 = 2 * Math.PI * (f1 + GAP) * lag / sr;
+    for (var i = 0; i < M; i++) for (var j = 0; j < M; j++){
+      var a = 2 * Math.PI * i / M, b = 2 * Math.PI * j / M;
+      var xn = kind === 'one' ? Math.cos(a) : 0.5 * (Math.cos(a) + Math.cos(b));
+      var xl = kind === 'one' ? Math.cos(a - w1) : 0.5 * (Math.cos(a - w1) + Math.cos(b - w2));
+      var val = fieldAt(c, xn, xl), ph = p * a + (kind === 'one' ? 0 : q * b);
+      re += val * Math.cos(ph); im -= val * Math.sin(ph);
+    }
+    return 20 * Math.log10(2 * Math.sqrt(re * re + im * im) / (M * M) + 1e-12);
+  }
+  function swingOf(line){ var lo = 1e9, hi = -1e9, at = 0; line.forEach(function(q){ if (q[1] < lo){ lo = q[1]; at = q[0]; } hi = Math.max(hi, q[1]); }); return { lo: lo, hi: hi, swing: hi - lo, dipAt: at }; }
+  // step 5: a static curve followed by a filter: the lag-0 reading, then a one-pole lowpass at fc (a settled pre-roll is dropped)
+  function onePole(x, fc, sr){ var k = 1 - Math.exp(-2 * Math.PI * fc / sr), s = 0, y = new Float64Array(x.length); for (var i = 0; i < x.length; i++){ s += k * (x[i] - s); y[i] = s; } return y; }
+  function onePoleGainDb(f, fc, sr){ var k = 1 - Math.exp(-2 * Math.PI * fc / sr), w = 2 * Math.PI * f / sr, re = 1 - (1 - k) * Math.cos(w), im = (1 - k) * Math.sin(w); return 20 * Math.log10(k / Math.sqrt(re * re + im * im)); }
+  function hammLineFiltered(c, sr, fc){
+    var line = [], PRE = 8192;
+    for (var f = 110; f <= 660; f += 10){ var y = onePole(readEffect(c, 'two', f, 0, sr, PRE + 16384), fc, sr).subarray(PRE); line.push([f, levelAt(y, GAP, sr)]); }
+    return line;
+  }
+  // the ring field's 30 Hz tone, worked by hand: ¼ |cos(π (f₁ + f₂) τ)|
+  function ringDiffDb(f1, lag, sr){ return 20 * Math.log10(0.25 * Math.abs(Math.cos(Math.PI * (2 * f1 + GAP) * lag / sr)) + 1e-12); }
+  // the glide: the lower tone runs 110 → 660 → 110 Hz over N samples, the upper GAP above, read now and lag samples ago
+  function glideBase(q){ return q < 0.5 ? 110 + 550 * 2 * q : 660 - 550 * (2 * q - 1); }
+  function renderGlide(c, lag, sr, N, pre, post){
+    var tot = pre + N + post, x = new Float64Array(tot + lag), th = 0, y = new Float64Array(tot), k;
+    for (k = 0; k < tot + lag; k++){ var n = k - lag - pre, q = ((n % N) + N) % N / N; th += 2 * Math.PI * glideBase(q) / sr; x[k] = 0.5 * (Math.cos(th) + Math.cos(th + 2 * Math.PI * GAP * k / sr)); }
+    for (k = 0; k < tot; k++) y[k] = fieldAt(c, x[k + lag], x[k]);
+    return y;
+  }
+  // cut out the band around f0 and move it to f1, strength kept: demodulate, four one-pole lowpasses at fc, remodulate
+  function liftTone(y, sr, f0, f1, fc){
+    var k = 1 - Math.exp(-2 * Math.PI * fc / sr), sr_ = [0, 0, 0, 0], si = [0, 0, 0, 0], out = new Float64Array(y.length);
+    for (var n = 0; n < y.length; n++){
+      var a0 = 2 * Math.PI * f0 * n / sr, a1 = 2 * Math.PI * f1 * n / sr, ur = y[n] * Math.cos(a0), ui = -y[n] * Math.sin(a0);
+      for (var s = 0; s < 4; s++){ sr_[s] += k * (ur - sr_[s]); si[s] += k * (ui - si[s]); ur = sr_[s]; ui = si[s]; }
+      out[n] = 2 * (ur * Math.cos(a1) - ui * Math.sin(a1));
+    }
+    return out;
+  }
+  // step 6: the series run over a whole buffer (sample-index time)
+  function readSeries(c, kind, f1, lag, sr, N){
+    var ks = volterraKernels(c, lag), y = new Float64Array(N), x = function(n){ return inputAt(kind, f1, n / sr); };
+    for (var i = 0; i < N; i++) y[i] = volterraEval(ks, x, i);
+    return y;
+  }
+  // step 6, the converse: two moments, one with 220 + 250 Hz in and one with fB + (fB + 30) Hz in, where (x(t), x(t − τ)) stand
+  // at the same point of the field but x(t) · x(t − 2τ) differs. A kernel weight at lag 2τ would need two outputs from one
+  // point, so no field read at (now, τ ago) can give it
+  function collision(fA, fB, lag, sr, N, tol){
+    var xa = function(n){ return inputAt('two', fA, n / sr); }, xb = function(n){ return inputAt('two', fB, n / sr); }, cells = {}, best = null, n, key;
+    for (n = 0; n < N; n++){ var u = xa(n), v = xa(n - lag); key = Math.round(u / tol) + ',' + Math.round(v / tol); (cells[key] = cells[key] || []).push({ n: n, u: u, v: v, w: u * xa(n - 2 * lag) }); }
+    for (n = 0; n < N; n++){
+      var ub = xb(n), vb = xb(n - lag), wb = ub * xb(n - 2 * lag), ci = Math.round(ub / tol), cj = Math.round(vb / tol);
+      for (var di = -1; di <= 1; di++) for (var dj = -1; dj <= 1; dj++){ var arr = cells[(ci + di) + ',' + (cj + dj)]; if (!arr) continue;
+        for (var k = 0; k < arr.length; k++){ var p = arr[k]; if (Math.abs(p.u - ub) < tol && Math.abs(p.v - vb) < tol){ var dw = Math.abs(p.w - wb); if (!best || dw > best.dw) best = { n1: p.n, n2: n, du: Math.abs(p.u - ub), dv: Math.abs(p.v - vb), w1: p.w, w2: wb, dw: dw }; } } }
+    }
+    return best;
+  }
+  function offsetFor(f, lag, sr){ return ((-f * lag / sr) % 1 + 1) % 1; }
+  // step 6, the diagonal: back from terms uⁱ × vʲ to a field (xⁱ in Chebyshev curves), and a field with its cross terms removed
+  var PT = [[1, 0, 0, 0], [0, 1, 0, 0], [0.5, 0, 0.5, 0], [0, 0.75, 0, 0.25]];
+  function fromMonomials(d){
+    var c = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+    for (var i = 0; i < 4; i++) for (var j = 0; j < 4; j++) if (d[i][j]) for (var m = 0; m < 4; m++) for (var n = 0; n < 4; n++) c[m][n] += d[i][j] * PT[i][m] * PT[j][n];
+    return c;
+  }
+  function diagonalOnly(c){ return fromMonomials(monomials(c).map(function(row, i){ return row.map(function(w, j){ return i && j ? 0 : w; }); })); }
+
+  // every number a step shows, re-derived; each line is { name, ok, detail }
+  function selfTest(){
+    var out = [], sr = 48000, t = function(name, ok, detail){ out.push({ name: name, ok: !!ok, detail: detail }); };
+    var names = ['ring', 'terrain', 'ridges'];
+    // step 1: curve m across is harmonic m; the harmonic strengths shown are Σₙ cₘₙ Tₙ(v), measured from the sound
+    var w1 = 0;
+    names.forEach(function(nm){ [-1, -0.6, 0, 0.5, 1].forEach(function(v){
+      var a = sliceHarmonics(FIELDS[nm], v), y = readSlice(FIELDS[nm], 220, v, sr, sr);
+      for (var m = 1; m < 4; m++) w1 = Math.max(w1, Math.abs(Math.pow(10, levelAt(y, 220 * m, sr) / 20) - Math.abs(a[m]))); }); });
+    t('step 1: harmonics 1–3 of a line across the field are Σₙ cₘₙ × Tₙ(v), three fields, five heights', w1 < 2e-3, 'worst miss in strength ' + w1.toExponential(1));
+    var r0 = readSlice(FIELDS.ring, 220, 0, sr, 4800), pk0 = 0; for (var i = 0; i < r0.length; i++) pk0 = Math.max(pk0, Math.abs(r0[i]));
+    t('step 1: on the ring field the line at v = 0 is silent', pk0 < 1e-12, 'peak ' + pk0.toExponential(1));
+    // step 2: the products land where m f₁ ± n f₂ says, at the strengths it says
+    var w2 = 0, sp2 = 1e9, cnt = 0;
+    names.forEach(function(nm){ [1.414, 2, 1.5].forEach(function(r){
+      var ps = products(FIELDS[nm], 220, 220 * r), y = readSynth(FIELDS[nm], 220, r, 0, sr, sr);
+      ps.forEach(function(p, k){ cnt++; w2 = Math.max(w2, Math.abs(Math.pow(10, levelAt(y, p.f, sr) / 20) - Math.abs(p.a))); if (k) sp2 = Math.min(sp2, p.f - ps[k - 1].f); }); }); });
+    t('step 2: every partial m × f₁ ± n × f₂ is measured at its predicted strength (three fields; ratios 1.414, 2, 1.5)', w2 < 3e-3 && sp2 > 5, cnt + ' partials, worst miss ' + w2.toExponential(1) + ', closest pair ' + sp2.toFixed(1) + ' Hz apart');
+    var pr = products(FIELDS.ring, 220, 220 * 1.414);
+    t('step 2: the ring field gives exactly two partials, f₂ − f₁ and f₁ + f₂, at half strength each', pr.length === 2 && Math.abs(pr[0].f - 91.08) < 1e-6 && Math.abs(pr[1].f - 531.08) < 1e-6 && pr[0].a === 0.5, pr.map(function(p){ return p.f.toFixed(2) + ' Hz × ' + p.a; }).join(', '));
+    // step 3: the levels shown (the proof's levelAt, on the sound) agree with the torus average (no sound at all)
+    var w3 = 0;
+    names.forEach(function(nm){ [220, 440, 137].forEach(function(f){
+      var y2 = readEffect(FIELDS[nm], 'two', f, 0, sr, sr), y1 = readEffect(FIELDS[nm], 'one', f, 0, sr, sr);
+      [[-1, 1, GAP], [1, 1, 2 * f + GAP]].forEach(function(pq){ var A = levelAt(y2, pq[2], sr), B = torusLevel(FIELDS[nm], 'two', f, 0, sr, pq[0], pq[1]); if (B > -60) w3 = Math.max(w3, Math.abs(A - B)); });
+      for (var m = 1; m <= 6; m++){ var A1 = levelAt(y1, m * f, sr), B1 = torusLevel(FIELDS[nm], 'one', f, 0, sr, m, 0); if (B1 > -60) w3 = Math.max(w3, Math.abs(A1 - B1)); } }); });
+    t('step 3: difference, sum and harmonic levels read from the sound match the torus average (three fields, three tones)', w3 < 0.05, 'worst miss ' + w3.toFixed(4) + ' dB');
+    var ringOct = levelAt(readEffect(FIELDS.ring, 'one', 220, 0, sr, sr), 440, sr), ringD = levelAt(readEffect(FIELDS.ring, 'two', 220, 0, sr, sr), GAP, sr);
+    t('step 3: ring field on the diagonal is x × x: one tone gives its octave at ½, two tones a 30 Hz tone at ¼', Math.abs(ringOct - 20 * Math.log10(0.5)) < 0.01 && Math.abs(ringD - 20 * Math.log10(0.25)) < 0.01, 'octave ' + ringOct.toFixed(2) + ' dB, difference ' + ringD.toFixed(2) + ' dB');
+    // step 4: the phasors at ratio 1, offset −f·τ, null against the input read now and τ ago; nudged 5°, they do not
+    var w4 = 0, nudge = 1e9;
+    names.forEach(function(nm){ [0, 1, 24, 96].forEach(function(L){ [110, 220, 437].forEach(function(f){
+      var off = offsetFor(f, L, sr), sy = readSynth(FIELDS[nm], f, 1, off, sr, 12000), fx = readEffect(FIELDS[nm], 'one', f, L, sr, 12000);
+      w4 = Math.max(w4, maxDiff(sy, fx));
+      nudge = Math.min(nudge, maxDiff(readSynth(FIELDS[nm], f, 1, off + 5 / 360, sr, 12000), fx)); }); }); });
+    t('step 4: two phasors a fixed offset apart give the effect’s numbers, three fields, four lags, three tones', w4 < 1e-9, 'largest difference ' + w4.toExponential(1));
+    t('step 4: nudged 5° out of line, the null breaks', nudge > 0.01, 'smallest leftover ' + nudge.toFixed(3));
+    t('step 4: the offset shown, −f × τ in turns, at 220 Hz and 24 samples is 0.89 of a turn, 320°', Math.round(offsetFor(220, 24, sr) * 360) === 320, (offsetFor(220, 24, sr) * 360).toFixed(2) + '°');
+    // step 5: at lag 0 the 30 Hz line is flat (a static curve), and stays flat behind a filter; with a lag it swings
+    var flat = 0, flatF = 0, shift = 0, swing24 = {};
+    names.forEach(function(nm){
+      var l0 = swingOf(hammLine(FIELDS[nm], 0, sr)), lf = swingOf(hammLineFiltered(FIELDS[nm], sr, 20));
+      flat = Math.max(flat, l0.swing); flatF = Math.max(flatF, lf.swing); shift = Math.max(shift, Math.abs((lf.hi - l0.hi) - onePoleGainDb(GAP, 20, sr)));
+      swing24[nm] = swingOf(hammLine(FIELDS[nm], 24, sr));
+    });
+    t('step 5: lag 0, a static curve: the 30 Hz tone is flat across 110–660 Hz, three fields', flat < 0.05, 'largest swing ' + flat.toFixed(4) + ' dB');
+    t('step 5: a static curve then a 20 Hz lowpass: still flat, lowered by the filter’s gain at 30 Hz', flatF < 0.05 && shift < 0.05, 'swing ' + flatF.toFixed(4) + ' dB; shift matches ' + onePoleGainDb(GAP, 20, sr).toFixed(2) + ' dB within ' + shift.toFixed(3));
+    t('step 5: at lag 24 the 30 Hz tone swings by more than 30 dB on the ring field', swing24.ring.swing > 30, 'ring ' + swing24.ring.swing.toFixed(1) + ' dB, terrain ' + swing24.terrain.swing.toFixed(1) + ', ridges ' + swing24.ridges.swing.toFixed(1));
+    var nullF = (1 / (2 * 24 / sr) - GAP) / 2;
+    t('step 5: on the ring field at lag 24 the dip falls on the 10 Hz grid point nearest where ¼|cos(π(f₁+f₂)τ)| is zero', Math.abs(swing24.ring.dipAt - nullF) <= 5, 'dip at ' + swing24.ring.dipAt + ' Hz; the formula’s zero at ' + nullF + ' Hz');
+    var w5 = 0;
+    [0, 7, 24, 61, 96].forEach(function(L){ hammLine(FIELDS.ring, L, sr).forEach(function(q){ var p = ringDiffDb(q[0], L, sr); if (p > -50) w5 = Math.max(w5, Math.abs(p - q[1])); }); });
+    t('step 5: the ring field’s 30 Hz line follows ¼ × |cos(π × (f₁ + f₂) × τ)|, five lags', w5 < 0.05, 'worst miss ' + w5.toFixed(4) + ' dB');
+    var w5b = 0;
+    names.forEach(function(nm){ [0, 24, 96].forEach(function(L){ var y = readEffect(FIELDS[nm], 'two', 220, L, sr, sr);
+      [[-1, 1, GAP], [1, 1, 470]].forEach(function(pq){ var B = torusLevel(FIELDS[nm], 'two', 220, L, sr, pq[0], pq[1]); if (B > -60) w5b = Math.max(w5b, Math.abs(levelAt(y, pq[2], sr) - B)); }); }); });
+    t('step 5: the steady levels shown with a lag match the torus average too', w5b < 0.05, 'worst miss ' + w5b.toFixed(4) + ' dB');
+    var st = readEffect(FIELDS.ring, 'two', 220, 24, sr, 3 * sr), lt = liftTone(st, sr, GAP, 300, 5).subarray(sr), stA = levelAt(st, GAP, sr), ltA = levelAt(lt, 300, sr);
+    t('step 5: the lift moves the 30 Hz tone to 300 Hz at its own strength', Math.abs(stA - ltA) < 0.3, '30 Hz in ' + stA.toFixed(2) + ' dB, 300 Hz out ' + ltA.toFixed(2) + ' dB');
+    var gl = renderGlide(FIELDS.ring, 0, sr, 4 * sr, sr, 0), glL = liftTone(gl, sr, GAP, 300, 5).subarray(sr), gmin = 1e9, gmax = 0, blk = 2400;
+    for (var b0 = blk; b0 + blk < glL.length; b0 += blk){ var e = 0; for (i = b0; i < b0 + blk; i++) e += glL[i] * glL[i]; e = Math.sqrt(2 * e / blk); gmin = Math.min(gmin, e); gmax = Math.max(gmax, e); }
+    t('step 5: gliding with the lag at 0, the lifted tone holds one strength', 20 * Math.log10(gmax / gmin) < 0.5 && Math.abs(gmax - 0.25) < 0.01, 'strength ' + gmin.toFixed(4) + ' to ' + gmax.toFixed(4) + ' (¼ expected)');
+    // step 6: the Volterra series gives the field's numbers, every weight at lag 0 or τ; and a weight at 2τ has no field
+    var w6 = 0, lagsOk = true;
+    names.forEach(function(nm){ [1, 24, 96].forEach(function(L){ ['one', 'two'].forEach(function(kind){
+      w6 = Math.max(w6, maxDiff(readSeries(FIELDS[nm], kind, 220, L, sr, 4800), readEffect(FIELDS[nm], kind, 220, L, sr, 4800)));
+      volterraKernels(FIELDS[nm], L).forEach(function(h){ if (h.zeros + h.taus !== h.order || h.lag !== L) lagsOk = false; }); }); }); });
+    t('step 6: the Volterra series and the field read at (now, τ ago) give the same numbers, three fields, three lags, one and two tones', w6 < 1e-9 && lagsOk, 'largest difference ' + w6.toExponential(1));
+    var kc = [], kOk = true;
+    names.forEach(function(nm){ var d = monomials(FIELDS[nm]), nz = 0, seen = {}; d.forEach(function(row){ row.forEach(function(v){ if (v) nz++; }); });
+      var ks = volterraKernels(FIELDS[nm], 24); ks.forEach(function(h){ var key = h.zeros + ',' + h.taus; if (seen[key]) kOk = false; seen[key] = 1; });
+      if (ks.length !== nz) kOk = false; kc.push(nm + ' ' + ks.length + ' of ' + nz); });
+    t('step 6: the kernel weights counted are one per nonzero term uⁱ × vʲ of the field', kOk, kc.join(', '));
+    var col = 1e9, cdu = 0;
+    [8, 24, 61, 96].forEach(function(L){ var cc = collision(220, 330, L, sr, 4800, 0.004); col = Math.min(col, cc ? cc.dw : 0); cdu = Math.max(cdu, cc ? Math.max(cc.du, cc.dv) : 1); });
+    t('step 6: for lags 8 to 96 the hand stands at one point (within 0.004) under two inputs where x(t) × x(t − 2τ) differs by more than 0.05', col > 0.05 && cdu < 0.004, 'smallest such gap ' + col.toFixed(3) + ', points within ' + cdu.toFixed(4));
+    // step 6, the diagonal: a field of uⁱ and vʲ terms alone (no uⁱ × vʲ with both) is a static curve plus its echo, a
+    // Hammerstein structure, and its 30 Hz line is flat at lag 24; the cross terms are what swing it
+    var rt = 0; names.forEach(function(nm){ var a = monomials(FIELDS[nm]), bk = monomials(fromMonomials(a)); for (var i2 = 0; i2 < 4; i2++) for (var j2 = 0; j2 < 4; j2++) rt = Math.max(rt, Math.abs(a[i2][j2] - bk[i2][j2])); });
+    var dg = [['u² + v² + u³ + v³', fromMonomials([[0, 0, 1, 1], [0, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0]])], ['terrain, cross terms removed', diagonalOnly(FIELDS.terrain)], ['ridges, cross terms removed', diagonalOnly(FIELDS.ridges)]], dgw = 0, dgs = [];
+    dg.forEach(function(p){ var s = swingOf(hammLine(p[1], 24, sr)); dgw = Math.max(dgw, s.swing); dgs.push(p[0] + ' ' + s.swing.toFixed(2) + ' dB'); });
+    t('step 6: with only diagonal terms, the 30 Hz line at lag 24 is flat as both tones slide 110–660 Hz', dgw < 0.05 && rt < 1e-12, dgs.join(', ') + '; field ↔ terms round trip ' + rt.toExponential(1));
+    var xs = swingOf(hammLine(fromMonomials([[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 0]]), 24, sr));
+    t('step 6: the cross term u² × v² alone swings that line', xs.swing > 5, 'swing ' + xs.swing.toFixed(2) + ' dB, deepest at ' + xs.dipAt + ' Hz');
+    var rk = volterraKernels(FIELDS.ring, 24), rOff = rk.length > 0 && rk.every(function(h){ return h.zeros > 0 && h.taus > 0; });
+    t('step 6: on the ring field every kernel weight is off the diagonal, at (0, τ) and (τ, 0)', rOff && rk.length === 1 && rk[0].order === 2, rk.length + ' weight' + (rk.length === 1 ? '' : 's') + ', order ' + rk.map(function(h){ return h.order; }).join(', ') + ', ' + rk[0].zeros + ' at 0 and ' + rk[0].taus + ' at τ');
+    return out;
+  }
+  // ---- end math ----
+  window.__selfTest = selfTest;
+
+  // ================= the sequence frame =================
+  var sr = 48000;
+  var steps = Q('section.step'), cur = 0, seen = {};
+  var rail = document.querySelector('.rail');
+  steps.forEach(function(s, i){
+    var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.getAttribute('data-title'); b.setAttribute('data-go', i);
+    b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
+  });
+  var STEP = []; // per-step behaviour: { render(): Float32Array, draw(g, W, H, d, dt), changed(), aspect?(cssW) }
+
+  // ---------- audio: nothing is made until a Play click ----------
+  var ctx = null, master = null, voice = null, t0 = 0, playing = false;
+  function ensure(){
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 8;
+    master = ctx.createGain(); master.gain.value = 0.4; master.connect(comp); comp.connect(ctx.destination);
+    if (ctx.sampleRate !== sr){ sr = ctx.sampleRate; STEP.forEach(function(s){ s.changed(); }); }
+  }
+  function loopify(x, F){
+    var N = x.length - F, out = new Float32Array(N);
+    for (var i = 0; i < N; i++){
+      if (i < F){ var q = i / F; out[i] = x[i] * Math.sin(q * Math.PI / 2) + x[N + i] * Math.cos(q * Math.PI / 2); }
+      else out[i] = x[i];
+    }
+    return out;
+  }
+  function playBuffer(data){
+    var b = ctx.createBuffer(1, data.length, ctx.sampleRate); b.copyToChannel(data, 0);
+    var s = ctx.createBufferSource(); s.buffer = b; s.loop = true;
+    var g = ctx.createGain(); g.gain.value = 0; s.connect(g); g.connect(master);
+    var t = ctx.currentTime; s.start(); g.gain.setTargetAtTime(1, t, 0.03); t0 = t;
+    if (voice){ var o = voice; o.g.gain.setTargetAtTime(0, t, 0.03); setTimeout(function(){ try { o.s.stop(); } catch (e) {} o.g.disconnect(); }, 400); }
+    voice = { s: s, g: g, len: data.length };
+  }
+  function stopAudio(){
+    playing = false;
+    Q('[data-play]').forEach(function(b){ b.textContent = 'Play'; });
+    if (voice && ctx){ var o = voice; o.g.gain.setTargetAtTime(0, ctx.currentTime, 0.02); setTimeout(function(){ try { o.s.stop(); } catch (e) {} o.g.disconnect(); }, 200); }
+    voice = null;
+  }
+  var pend = 0;
+  function refreshAudio(){ if (!playing) return; clearTimeout(pend); pend = setTimeout(function(){ if (playing) playBuffer(STEP[cur].render()); }, 40); }
+  function nowSample(len){ if (!playing || !voice) return -1; return Math.floor((ctx.currentTime - t0) * sr) % (len || voice.len); }
+  Q('[data-play]').forEach(function(b){
+    b.addEventListener('click', function(){
+      ensure(); if (ctx.state === 'suspended') ctx.resume();
+      if (playing){ stopAudio(); return; }
+      playing = true; b.textContent = 'Stop'; playBuffer(STEP[cur].render());
+    });
+  });
+
+  // ---------- walking the steps ----------
+  function go(i){
+    if (i < 0 || i >= steps.length) return;
+    stopAudio(); cur = i; seen[i] = true;
+    steps.forEach(function(s, k){ s.hidden = k !== i; });
+    Q('.rail button').forEach(function(b, k){ if (k === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); b.classList.toggle('seen', !!seen[k]); });
+    $('back').disabled = i === 0; $('next').disabled = i === steps.length - 1;
+    $('next').textContent = i === steps.length - 2 ? 'Next: the proof' : 'Next';
+    if (STEP[i] && STEP[i].changed) STEP[i].changed();
+  }
+  $('back').addEventListener('click', function(){ go(cur - 1); window.scrollTo(0, 0); });
+  $('next').addEventListener('click', function(){ go(cur + 1); window.scrollTo(0, 0); });
+  // a page nobody can see says nothing: hidden, the sound stops, and it does not start again on return
+  document.addEventListener('visibilitychange', function(){ if (document.hidden && playing) stopAudio(); });
+  window.__seq = { count: steps.length, current: function(){ return cur; }, playing: function(){ return playing; }, go: go };
+
+  // ---------- drawing helpers ----------
+  var css = getComputedStyle(document.documentElement);
+  var ACC = css.getPropertyValue('--accent').trim(), FG2 = css.getPropertyValue('--fg-2').trim(), FG3 = css.getPropertyValue('--fg-3').trim(), FG4 = css.getPropertyValue('--fg-4').trim(), INFO = css.getPropertyValue('--info').trim();
+  function box(g, x, y, w, h, d){ g.strokeStyle = 'rgba(255,255,255,0.06)'; g.lineWidth = d; g.strokeRect(x, y, w, h); }
+  function label(g, text, x, y, d, align, color){ g.font = (10 * d) + 'px JetBrains Mono, Menlo, monospace'; g.fillStyle = color || FG4; g.textAlign = align || 'left'; g.fillText(text, x, y); g.textAlign = 'left'; }
+  function axis(g, x0, y, w, d){ g.setLineDash([4 * d, 4 * d]); g.strokeStyle = FG4; g.lineWidth = d; g.beginPath(); g.moveTo(x0, y); g.lineTo(x0 + w, y); g.stroke(); g.setLineDash([]); }
+  function pressGroup(attr, val){ Q('[' + attr + ']').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute(attr) === val)); }); }
+  // the field square on the left (on top at phone width), the step's own panels in the rest
+  function layout(W, H, d){
+    var p = 14 * d;
+    if (W / d >= 600){ var S = Math.min(H - 2 * p, W * 0.44); return { p: p, f: { x: p, y: p, s: S }, r: { x: 2 * p + S, y: p, w: W - 3 * p - S, h: H - 2 * p } }; }
+    var S2 = Math.min(W - 2 * p, (H - 3 * p) * 0.56); return { p: p, f: { x: (W - S2) / 2, y: p, s: S2 }, r: { x: p, y: 2 * p + S2, w: W - 2 * p, h: H - 3 * p - S2 } };
+  }
+  function narrowAspect(w){ return w < 600 ? 1.45 : 0; }
+  // the field's heat map, one per field, gold above zero and blue below (the proof's colouring)
+  var heats = {};
+  function heatOf(name){
+    if (heats[name]) return heats[name];
+    var R = 160, cc = FIELDS[name], nb = fieldNorm(cc), cv = document.createElement('canvas'); cv.width = R; cv.height = R;
+    var g = cv.getContext('2d'), im = g.createImageData(R, R);
+    for (var j = 0; j < R; j++) for (var i = 0; i < R; i++){
+      var u = -1 + 2 * (i + 0.5) / R, v = 1 - 2 * (j + 0.5) / R, z = fieldAt(cc, u, v) / nb, k = 4 * (j * R + i), a = Math.min(1, Math.abs(z) * 1.6);
+      var col = z >= 0 ? [232, 184, 74] : [74, 143, 255];
+      im.data[k] = 26 + (col[0] - 26) * a; im.data[k + 1] = 26 + (col[1] - 26) * a; im.data[k + 2] = 40 + (col[2] - 40) * a; im.data[k + 3] = 255;
+    }
+    g.putImageData(im, 0, 0); heats[name] = cv; return cv;
+  }
+  // draw the field square, its frame, its title and the diagonal; returns coordinate maps
+  function drawField(g, F, name, d, title, diag){
+    g.imageSmoothingEnabled = true; g.drawImage(heatOf(name), F.x, F.y, F.s, F.s);
+    box(g, F.x, F.y, F.s, F.s, d);
+    if (diag){ g.setLineDash([3 * d, 4 * d]); g.strokeStyle = 'rgba(255,255,255,0.3)'; g.lineWidth = d; g.beginPath(); g.moveTo(F.x, F.y + F.s); g.lineTo(F.x + F.s, F.y); g.stroke(); g.setLineDash([]); }
+    var t = function(){
+      g.font = (10 * d) + 'px JetBrains Mono, Menlo, monospace';
+      g.fillStyle = 'rgba(10,10,15,0.78)'; g.fillRect(F.x + 2 * d, F.y + 2 * d, g.measureText(title).width + 10 * d, 17 * d);
+      label(g, title, F.x + 6 * d, F.y + 14 * d, d, 'left', FG2);
+    };
+    return { X: function(u){ return F.x + (u + 1) / 2 * F.s; }, Y: function(v){ return F.y + (1 - v) / 2 * F.s; }, title: t };
+  }
+  function trail(g, M, pts, color, lw, dash){
+    g.strokeStyle = color; g.lineWidth = lw; g.setLineDash(dash || []); g.beginPath();
+    pts.forEach(function(q, i){ if (i) g.lineTo(M.X(q[0]), M.Y(q[1])); else g.moveTo(M.X(q[0]), M.Y(q[1])); });
+    g.stroke(); g.setLineDash([]);
+  }
+  function dot(g, x, y, r, color){ g.fillStyle = color; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); }
+  // a spectrum line in dB re full scale, -80..0, from fmin to fmax
+  function specLine(g, db, binHz, x0, y0, w, h, fmax, color, d){
+    g.strokeStyle = color; g.lineWidth = 1.2 * d; g.beginPath();
+    var bins = Math.min(db.length - 1, Math.floor(fmax / binHz));
+    for (var i = 1; i <= bins; i++){ var x = x0 + i * binHz / fmax * w, y = y0 + h - Math.max(0, Math.min(1, 1 + db[i] / 80)) * h; if (i > 1) g.lineTo(x, y); else g.moveTo(x, y); }
+    g.stroke();
+  }
+  function tick(g, f, fmax, x0, w, yTop, text, d, color){ var x = x0 + f / fmax * w; if (x > x0 + w) return; g.fillStyle = color || FG3; g.fillRect(x - 0.5 * d, yTop, d, 8 * d); if (text) label(g, text, x + 3 * d, yTop + 7 * d, d, 'left', color || FG3); }
+  function tri(g, x, y, d){ g.fillStyle = ACC; g.beginPath(); g.moveTo(x - 3.5 * d, y); g.lineTo(x + 3.5 * d, y); g.lineTo(x, y + 8 * d); g.fill(); }
+  function fmtHz(f){ return f >= 100 ? f.toFixed(0) : f.toFixed(1); }
+
+  // ================= the steps =================
+  var SECS = 2, eyeT = 0;
+  function norm(name){ return 0.9 / fieldNorm(FIELDS[name]); }
+  function toF32(x, gain){ var y = new Float32Array(x.length); for (var i = 0; i < x.length; i++) y[i] = gain * x[i]; return y; }
+  function dcOff(x){ var m = 0, i; for (i = 0; i < x.length; i++) m += x[i]; m /= x.length; var y = new Float64Array(x.length); for (i = 0; i < x.length; i++) y[i] = x[i] - m; return y; }
+
+  // ---- step 1: the field alone, read along one line ----
+  (function(){
+    var field = 'terrain', v = 0.5, F0 = 220, a = [0, 0, 0, 0], meas = [0, 0, 0, 0], buf = null;
+    function rebuild(){
+      a = sliceHarmonics(FIELDS[field], v);
+      buf = readSlice(FIELDS[field], F0, v, sr, Math.round(sr * SECS));
+      for (var m = 1; m < 4; m++) meas[m] = Math.pow(10, levelAt(buf.subarray(0, Math.round(sr / 2)), m * F0, sr) / 20);
+    }
+    function ui(){
+      $('s1vv').textContent = 'v = ' + v.toFixed(2);
+      $('s1m').innerHTML = 'one 220 Hz cosine, read along the line at v = ' + v.toFixed(2) + ' · harmonic 1: <b>' + meas[1].toFixed(2) + '</b> · 2: <b>' + meas[2].toFixed(2) + '</b> · 3: <b>' + meas[3].toFixed(2) + '</b>' + (meas[1] + meas[2] + meas[3] < 1e-6 ? ' · <b>silence</b>: this line is all zero' : '');
+      pressGroup('data-s1field', field);
+    }
+    STEP[0] = {
+      // whole periods of 220 Hz in 2 s, so the loop is seamless
+      render: function(){ return toF32(dcOff(buf), 0.8 * norm(field)); },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      aspect: narrowAspect,
+      draw: function(g, W, H, d){
+        var L = layout(W, H, d), M = drawField(g, L.f, field, d, 'THE FIELD  u across, v up', false), cc = FIELDS[field], nb = fieldNorm(cc);
+        // the line, and the cosine's shadow walking it
+        g.strokeStyle = 'rgba(255,255,255,0.85)'; g.lineWidth = 1.5 * d; g.beginPath(); g.moveTo(M.X(-1), M.Y(v)); g.lineTo(M.X(1), M.Y(v)); g.stroke();
+        var ph = 2 * Math.PI * (eyeT * 0.5 + 0.38), u = Math.cos(ph); dot(g, M.X(u), M.Y(v), 5 * d, INFO); M.title();
+        var R = L.r, h1 = (R.h - 14 * d) * 0.55, h2 = R.h - 14 * d - h1;
+        box(g, R.x, R.y, R.w, h1, d); box(g, R.x, R.y + h1 + 14 * d, R.w, h2, d);
+        label(g, 'THE LINE, AS A CURVE  height against u', R.x + 6 * d, R.y + 14 * d, d);
+        var x0 = R.x + 10 * d, w = R.w - 20 * d, y0 = R.y + 22 * d, hh = h1 - 30 * d;
+        axis(g, x0, y0 + hh / 2, w, d);
+        g.strokeStyle = ACC; g.lineWidth = 2.2 * d; g.beginPath();
+        for (var i = 0; i <= 200; i++){ var uu = -1 + 2 * i / 200, y = y0 + hh / 2 - fieldAt(cc, uu, v) / nb * hh * 0.48; if (i) g.lineTo(x0 + i / 200 * w, y); else g.moveTo(x0, y); }
+        g.stroke();
+        dot(g, x0 + (u + 1) / 2 * w, y0 + hh / 2 - fieldAt(cc, u, v) / nb * hh * 0.48, 4.5 * d, INFO);
+        label(g, '−1', x0, y0 + hh + 6 * d, d); label(g, 'u  1', x0 + w, y0 + hh + 6 * d, d, 'right');
+        // harmonics
+        var by = R.y + h1 + 14 * d; label(g, 'HARMONICS  of 220 Hz, measured', R.x + 6 * d, by + 14 * d, d);
+        var bx0 = R.x + 16 * d, bw = R.w - 32 * d, bb = by + h2 - 20 * d, bt = by + 26 * d, top = Math.max(0.6, fieldNorm(cc) * 0.6);
+        for (var m = 1; m < 4; m++){
+          var cx = bx0 + (m - 0.5) / 3 * bw, bh = Math.min(1, meas[m] / top) * (bb - bt);
+          g.fillStyle = ACC; g.fillRect(cx - bw / 12, bb - bh, bw / 6, bh);
+          label(g, m + ' · ' + (220 * m) + ' Hz', cx, bb + 13 * d, d, 'center');
+        }
+      }
+    };
+    $('s1v').addEventListener('input', function(){ v = parseFloat($('s1v').value); STEP[0].changed(); });
+    Q('[data-s1field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s1field'); STEP[0].changed(); }); });
+  })();
+
+  // ---- step 2: two phasors, the synthesizer's hand ----
+  (function(){
+    var field = 'ring', r = 1.414, F1 = 220, buf = null, ps = [], db = null, binHz = 1, NF = 32768, ts = 0;
+    function rebuild(){
+      buf = readSynth(FIELDS[field], F1, r, 0, sr, Math.round(sr * SECS) + Math.round(0.15 * sr));
+      ps = products(FIELDS[field], F1, F1 * r);
+      binHz = sr / NF; db = spectrumDbFS(buf, 0, NF);
+    }
+    function ui(){
+      $('s2rv').textContent = r.toFixed(3) + ' : 1';
+      var shown = ps.slice(0, 8).map(function(p){ return fmtHz(p.f); }).join(' · ');
+      $('s2m').innerHTML = 'f₁ = <b>220 Hz</b>, f₂ = 220 × ' + r.toFixed(3) + ' = <b>' + (F1 * r).toFixed(1) + ' Hz</b> · ' + ps.length + ' partial' + (ps.length === 1 ? '' : 's') + ': <b>' + shown + (ps.length > 8 ? ' …' : '') + '</b> Hz';
+      pressGroup('data-s2field', field);
+    }
+    STEP[1] = {
+      render: function(){ return loopify(toF32(dcOff(buf), 0.8 * norm(field)), Math.round(0.15 * sr)); },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      aspect: narrowAspect,
+      draw: function(g, W, H, d, dt){
+        if (playing) ts += dt / (2 * F1);
+        var L = layout(W, H, d), M = drawField(g, L.f, field, d, 'THE FIELD  read by two phasors', false);
+        var pts = [], recent = [], span = 24 / F1;
+        for (var i = 0; i <= 1600; i++){ var tt = ts - span * i / 1600; pts.push([Math.cos(2 * Math.PI * F1 * tt), Math.cos(2 * Math.PI * F1 * r * tt)]); }
+        for (i = 0; i <= 160; i++){ tt = ts - (2 / F1) * i / 160; recent.push([Math.cos(2 * Math.PI * F1 * tt), Math.cos(2 * Math.PI * F1 * r * tt)]); }
+        trail(g, M, pts, 'rgba(255,255,255,0.12)', d); trail(g, M, recent, 'rgba(255,255,255,0.85)', 1.4 * d);
+        dot(g, M.X(recent[0][0]), M.Y(recent[0][1]), 5 * d, ACC); M.title();
+        var R = L.r, h1 = (R.h - 14 * d) * 0.38, h2 = R.h - 14 * d - h1;
+        box(g, R.x, R.y, R.w, h1, d); box(g, R.x, R.y + h1 + 14 * d, R.w, h2, d);
+        label(g, 'THE TWO HANDS  slowed for the eye', R.x + 6 * d, R.y + 14 * d, d);
+        var rad = Math.max(4 * d, Math.min(R.w / 6, (h1 - 40 * d) / 2)), cy = R.y + 22 * d + (h1 - 30 * d) / 2;
+        [[R.x + R.w * 0.28, 2 * Math.PI * F1 * ts, 'f₁ · across'], [R.x + R.w * 0.72, 2 * Math.PI * F1 * r * ts, 'f₂ · up']].forEach(function(o, k){
+          g.strokeStyle = 'rgba(232,184,74,0.45)'; g.lineWidth = d; g.beginPath(); g.arc(o[0], cy, rad, 0, 7); g.stroke();
+          var px = o[0] + rad * Math.cos(o[1]), py = cy - rad * Math.sin(o[1]); dot(g, px, py, 4 * d, ACC);
+          g.setLineDash([3 * d, 3 * d]); g.strokeStyle = FG3; g.beginPath(); g.moveTo(px, py);
+          if (k === 0) g.lineTo(px, cy + rad + 6 * d); else g.lineTo(o[0] + rad + 8 * d, py);
+          g.stroke(); g.setLineDash([]);
+          label(g, o[2], o[0], cy + rad + 16 * d, d, 'center');
+        });
+        var sy = R.y + h1 + 14 * d, fmax = 2000, x0 = R.x + 8 * d, w = R.w - 16 * d, pt = sy + 34 * d, ph = h2 - 50 * d;
+        label(g, 'SPECTRUM  0–2 kHz · 80 dB', R.x + 6 * d, sy + 14 * d, d);
+        specLine(g, db, binHz, x0, pt, w, ph, fmax, INFO, d);
+        ps.forEach(function(p){ if (p.f < fmax) tri(g, x0 + p.f / fmax * w, pt - 12 * d, d); });
+        label(g, '0', x0, sy + h2 - 4 * d, d); label(g, '2 kHz', x0 + w, sy + h2 - 4 * d, d, 'right');
+      }
+    };
+    $('s2r').addEventListener('input', function(){ r = parseFloat($('s2r').value); STEP[1].changed(); });
+    Q('[data-s2field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s2field'); STEP[1].changed(); }); });
+  })();
+
+  // ---- step 3: the diagonal, a static curve ----
+  (function(){
+    var field = 'ring', input = 'two', base = 220, door = 'out', inp = null, outb = null, db = null, binHz = 1, NF = 32768, ts = 0, lv = {};
+    function rebuild(){
+      // 2 s holds whole periods of every tone the slider can give, so the loop is seamless
+      var N = Math.round(sr * SECS);
+      outb = readEffect(FIELDS[field], input, base, 0, sr, N);
+      inp = new Float64Array(N); for (var i = 0; i < N; i++) inp[i] = inputAt(input, base, i / sr);
+      binHz = sr / NF; db = spectrumDbFS(outb, 0, NF);
+      var seg = outb.subarray(0, sr);
+      if (input === 'two'){ lv.diff = levelAt(seg, GAP, sr); lv.sum = levelAt(seg, 2 * base + GAP, sr); }
+      else { lv.h = []; for (var m = 1; m <= 4; m++) lv.h.push(levelAt(seg, m * base, sr)); }
+    }
+    function dbs(x){ return x < -100 ? 'none' : x.toFixed(1) + ' dB'; }
+    function ui(){
+      $('s3bv').textContent = base + ' Hz';
+      pressGroup('data-s3field', field); pressGroup('data-s3input', input); pressGroup('data-s3door', door);
+      if (input === 'two') $('s3m').innerHTML = 'two tones in, ' + base + ' and ' + (base + GAP) + ' Hz · difference tone (' + GAP + ' Hz) <b>' + dbs(lv.diff) + '</b> · sum tone (' + (2 * base + GAP) + ' Hz) <b>' + dbs(lv.sum) + '</b>';
+      else $('s3m').innerHTML = 'one tone in, ' + base + ' Hz · out of the curve, harmonics 1–4: <b>' + lv.h.map(dbs).join('</b> · <b>') + '</b>';
+      $('s3h').innerHTML = door === 'in' ? 'You hear <b>the input</b>, before the curve.' : 'You hear <b>the input through the curve</b>: the field read on its diagonal.';
+    }
+    STEP[2] = {
+      render: function(){ return door === 'in' ? toF32(inp, 0.7) : toF32(dcOff(outb), 0.8 * norm(field)); },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      aspect: narrowAspect,
+      draw: function(g, W, H, d, dt){
+        if (playing) ts += dt / (2 * base);
+        var L = layout(W, H, d), M = drawField(g, L.f, field, d, 'THE FIELD  across = up = the input', true), cc = FIELDS[field], nb = fieldNorm(cc);
+        var pts = []; for (var i = 0; i <= 300; i++){ var x = inputAt(input, base, ts - (4 / base) * i / 300); pts.push([x, x]); }
+        trail(g, M, pts, 'rgba(255,255,255,0.85)', 2 * d); dot(g, M.X(pts[0][0]), M.Y(pts[0][1]), 5 * d, INFO); M.title();
+        var R = L.r, h1 = (R.h - 14 * d) * 0.45, h2 = R.h - 14 * d - h1;
+        box(g, R.x, R.y, R.w, h1, d); box(g, R.x, R.y + h1 + 14 * d, R.w, h2, d);
+        label(g, 'THE DIAGONAL, AS A CURVE  height against x', R.x + 6 * d, R.y + 14 * d, d);
+        var x0 = R.x + 10 * d, w = R.w - 20 * d, y0 = R.y + 22 * d, hh = h1 - 30 * d;
+        axis(g, x0, y0 + hh / 2, w, d);
+        g.strokeStyle = ACC; g.lineWidth = 2.2 * d; g.beginPath();
+        for (i = 0; i <= 200; i++){ var xx = -1 + 2 * i / 200, yy = y0 + hh / 2 - fieldAt(cc, xx, xx) / nb * hh * 0.48; if (i) g.lineTo(x0 + i / 200 * w, yy); else g.moveTo(x0, yy); }
+        g.stroke();
+        var xn = pts[0][0]; dot(g, x0 + (xn + 1) / 2 * w, y0 + hh / 2 - fieldAt(cc, xn, xn) / nb * hh * 0.48, 4.5 * d, INFO);
+        var sy = R.y + h1 + 14 * d, fmax = 1200, sx0 = R.x + 8 * d, sw = R.w - 16 * d, pt = sy + 46 * d, ph = h2 - 62 * d;
+        label(g, 'SPECTRUM OUT  0–1.2 kHz · 80 dB', R.x + 6 * d, sy + 14 * d, d);
+        specLine(g, db, binHz, sx0, pt, sw, ph, fmax, INFO, d);
+        var tk = pt - 12 * d;
+        tick(g, base, fmax, sx0, sw, tk, input === 'two' ? '' : 'f₁', d, FG3);
+        if (input === 'two'){ tick(g, base + GAP, fmax, sx0, sw, tk, 'f₁ f₂', d, FG3); tick(g, GAP, fmax, sx0, sw, tk, 'f₂−f₁', d, ACC); tick(g, 2 * base + GAP, fmax, sx0, sw, tk, 'f₁+f₂', d, ACC); }
+        label(g, '0', sx0, sy + h2 - 4 * d, d); label(g, '1.2 kHz', sx0 + sw, sy + h2 - 4 * d, d, 'right');
+      }
+    };
+    $('s3b').addEventListener('input', function(){ base = parseInt($('s3b').value, 10); STEP[2].changed(); });
+    Q('[data-s3field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s3field'); STEP[2].changed(); }); });
+    Q('[data-s3input]').forEach(function(b){ b.addEventListener('click', function(){ input = b.getAttribute('data-s3input'); STEP[2].changed(); }); });
+    Q('[data-s3door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s3door'); ui(); refreshAudio(); }); });
+  })();
+
+  // ---- step 4: their difference ----
+  (function(){
+    var field = 'terrain', lag = 24, F = 220, door = 'diff', nudge = false, SY = null, FX = null, dmax = 0, off = 0, ts = 0;
+    function L(){ return Math.round(lag * sr / 48000); }
+    function rebuild(){
+      off = offsetFor(F, L(), sr);
+      var N = Math.round(sr * SECS);
+      SY = readSynth(FIELDS[field], F, 1, off + (nudge ? 5 / 360 : 0), sr, N);
+      FX = readEffect(FIELDS[field], 'one', F, L(), sr, N);
+      dmax = maxDiff(SY, FX);
+    }
+    function ui(){
+      $('s4lv').textContent = lag + ' smp · ' + (lag / 48).toFixed(2) + ' ms';
+      pressGroup('data-s4field', field); pressGroup('data-s4door', door);
+      $('s4nudge').setAttribute('aria-pressed', String(nudge));
+      $('s4m').innerHTML = 'one tone, 220 Hz · phasors at ratio <b>1</b>, offset −f × τ = <b>' + Math.round(off * 360) + '°</b>' + (nudge ? ' (+5°)' : '') + ' · largest difference over ' + SECS + ' s: <b>' + (dmax < 1e-9 ? dmax.toExponential(1) + ', rounding only' : dmax.toFixed(3)) + '</b>';
+      var h;
+      if (door === 'syn') h = 'You hear <b>two phasors</b>, at one rate, a fixed offset apart.';
+      else if (door === 'fx') h = 'You hear <b>the effect</b>: one tone, read now and ' + (lag / 48).toFixed(2) + ' ms ago.';
+      else h = dmax < 1e-9 ? 'You hear <b>silence</b>: one path, two hands.' : 'You hear <b>the leftover</b> between two paths.';
+      $('s4h').innerHTML = h;
+    }
+    STEP[3] = {
+      render: function(){
+        var g0 = 0.8 * norm(field), x = new Float32Array(SY.length);
+        for (var i = 0; i < x.length; i++) x[i] = g0 * (door === 'syn' ? SY[i] : door === 'fx' ? FX[i] : 0.5 * (SY[i] - FX[i]));
+        if (door !== 'diff'){ var m = 0; for (i = 0; i < x.length; i++) m += x[i]; m /= x.length; for (i = 0; i < x.length; i++) x[i] -= m; }
+        return x;
+      },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      aspect: narrowAspect,
+      draw: function(g, W, H, d, dt){
+        if (playing) ts += dt / (2 * F);
+        var Lo = layout(W, H, d), M = drawField(g, Lo.f, field, d, 'THE FIELD  two hands', true), cc = FIELDS[field], nb = fieldNorm(cc), tau = L() / sr, o2 = off + (nudge ? 5 / 360 : 0);
+        var ps = [], pf = [];
+        for (var i = 0; i <= 240; i++){ var tt = ts - (2 / F) * i / 240; ps.push([Math.cos(2 * Math.PI * F * tt), Math.cos(2 * Math.PI * (F * tt + o2))]); pf.push([Math.cos(2 * Math.PI * F * tt), Math.cos(2 * Math.PI * F * (tt - tau))]); }
+        trail(g, M, ps, ACC, 2.4 * d); trail(g, M, pf, INFO, 1.6 * d, [5 * d, 4 * d]);
+        dot(g, M.X(ps[0][0]), M.Y(ps[0][1]), 5 * d, ACC); dot(g, M.X(pf[0][0]), M.Y(pf[0][1]), 3.5 * d, INFO); M.title();
+        var R = Lo.r, h1 = (R.h - 14 * d) * 0.36, h2 = R.h - 14 * d - h1;
+        box(g, R.x, R.y, R.w, h1, d); box(g, R.x, R.y + h1 + 14 * d, R.w, h2, d);
+        label(g, 'THE EFFECT’S HAND  the input, two periods', R.x + 6 * d, R.y + 14 * d, d);
+        var x0 = R.x + 10 * d, w = R.w - 20 * d, y0 = R.y + 22 * d, hh = h1 - 30 * d, span = 2 / F;
+        axis(g, x0, y0 + hh / 2, w, d);
+        g.strokeStyle = INFO; g.lineWidth = 1.5 * d; g.beginPath();
+        for (i = 0; i <= 200; i++){ var t2 = ts - span + span * i / 200, yy = y0 + hh / 2 - Math.cos(2 * Math.PI * F * t2) * hh * 0.45; if (i) g.lineTo(x0 + i / 200 * w, yy); else g.moveTo(x0, yy); }
+        g.stroke();
+        [[x0 + w, ts, 'now · across'], [x0 + w - tau / span * w, ts - tau, 'τ ago · up']].forEach(function(o, k){
+          g.strokeStyle = FG3; g.lineWidth = d; g.beginPath(); g.moveTo(o[0], y0); g.lineTo(o[0], y0 + hh); g.stroke();
+          dot(g, o[0], y0 + hh / 2 - Math.cos(2 * Math.PI * F * o[1]) * hh * 0.45, 4 * d, INFO);
+          label(g, o[2], x0 + w - tau / span * w - 6 * d, y0 + 10 * d + k * 12 * d, d, 'right', FG3);
+        });
+        // outputs and their difference, three periods from the buffer
+        var oy = R.y + h1 + 14 * d, oh = (h2 - 30 * d) / 2, n0 = Math.max(0, nowSample()), P = Math.round(3 * sr / F);
+        n0 = Math.min(SY.length - P - 1, n0);
+        label(g, 'WHAT COMES OUT  three periods', R.x + 6 * d, oy + 14 * d, d);
+        var ya = oy + 20 * d, yb = ya + oh + 6 * d;
+        axis(g, x0, ya + oh / 2, w, d); axis(g, x0, yb + oh / 2, w, d);
+        function line(get, yTop, color, lw, dash){ g.strokeStyle = color; g.lineWidth = lw; g.setLineDash(dash || []); g.beginPath(); for (var k = 0; k <= 240; k++){ var yv = yTop + oh / 2 - Math.max(-1.1, Math.min(1.1, get(n0 + Math.floor(k / 240 * P)))) * oh * 0.45; if (k) g.lineTo(x0 + k / 240 * w, yv); else g.moveTo(x0, yv); } g.stroke(); g.setLineDash([]); }
+        line(function(n){ return SY[n] / nb; }, ya, ACC, 2 * d);
+        line(function(n){ return FX[n] / nb; }, ya, INFO, 1.4 * d, [5 * d, 4 * d]);
+        line(function(n){ return 10 * (SY[n] - FX[n]) / nb; }, yb, door === 'diff' ? ACC : FG3, 1.6 * d);
+        label(g, 'difference × 10', R.x + R.w - 6 * d, yb + 10 * d, d, 'right');
+      }
+    };
+    $('s4l').addEventListener('input', function(){ lag = parseInt($('s4l').value, 10); STEP[3].changed(); });
+    $('s4nudge').addEventListener('click', function(){ nudge = !nudge; STEP[3].changed(); });
+    Q('[data-s4field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s4field'); STEP[3].changed(); }); });
+    Q('[data-s4door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s4door'); ui(); refreshAudio(); }); });
+  })();
+
+  // ---- step 5: the lag's test ----
+  (function(){
+    var field = 'ring', lag = 24, base = 220, door = 'glide', line = [], ref0 = {}, refF = {}, sw = null, s0 = null, sf = null, steady = {}, GL = 12, FC = 20, tpend = 0;
+    function L(){ return Math.round(lag * sr / 48000); }
+    function refs(){
+      if (!ref0[field]){ ref0[field] = hammLine(FIELDS[field], 0, sr); refF[field] = hammLineFiltered(FIELDS[field], sr, FC); }
+      s0 = swingOf(ref0[field]); sf = swingOf(refF[field]);
+    }
+    function rebuild(){
+      refs();
+      line = hammLine(FIELDS[field], L(), sr); sw = swingOf(line);
+      var y = readEffect(FIELDS[field], 'two', base, L(), sr, sr);
+      steady.diff = levelAt(y, GAP, sr); steady.sum = levelAt(y, 2 * base + GAP, sr);
+    }
+    function dbs(x){ return x < -100 ? 'none' : x.toFixed(1) + ' dB'; }
+    function ui(){
+      $('s5lv').textContent = lag + ' smp · ' + (lag / 48).toFixed(2) + ' ms';
+      $('s5bv').textContent = base + ' Hz';
+      pressGroup('data-s5field', field); pressGroup('data-s5door', door);
+      var lines = [];
+      lines.push('across 110–660 Hz the 30 Hz tone swings by <b>' + sw.swing.toFixed(1) + ' dB</b>' + (sw.swing < 0.05 ? ', flat: a static curve' : ', deepest at a lowest tone of <b>' + sw.dipAt + ' Hz</b>'));
+      lines.push('static curve (lag 0): swing <b>' + s0.swing.toFixed(1) + ' dB</b> · static curve then a ' + FC + ' Hz lowpass: swing <b>' + sf.swing.toFixed(1) + ' dB</b>, ' + (sf.hi - s0.hi).toFixed(1) + ' dB lower');
+      lines.push('steady at ' + base + ' and ' + (base + GAP) + ' Hz: difference tone <b>' + dbs(steady.diff) + '</b> · sum tone (' + (2 * base + GAP) + ' Hz) <b>' + dbs(steady.sum) + '</b>');
+      $('s5m').innerHTML = lines.join('<br>');
+      $('s5h').innerHTML = door === 'steady' ? 'You hear <b>everything that comes out</b>, the two tones held at the slider.' : 'You hear <b>only the 30 Hz tone</b>, lifted to 300 Hz, while both tones glide up and back down.';
+    }
+    STEP[4] = {
+      render: function(){
+        var g0 = 0.8 * norm(field);
+        if (door === 'steady'){ var y = readEffect(FIELDS[field], 'two', base, L(), sr, Math.round(sr * SECS)); return toF32(dcOff(y), g0); }
+        var N = Math.round(GL * sr), pre = sr, post = Math.round(0.15 * sr), gl = renderGlide(FIELDS[field], L(), sr, N, pre, post);
+        var lifted = liftTone(gl, sr, GAP, 300, 5).subarray(pre);
+        // the lifted tone is played louder than it sits in the output, by the same amount at every lag, so lags compare by ear
+        return loopify(Float64Array.from(lifted, function(v){ return 2.5 * g0 * v; }), post);
+      },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        var p = 14 * d; box(g, p, p, W - 2 * p, H - 2 * p, d);
+        label(g, 'THE 30 Hz TONE  as both tones slide · lag ' + lag + ' smp', p + 6 * d, p + 14 * d, d);
+        var all = line.concat(ref0[field] || [], refF[field] || []), hi = -1e9, lo = 1e9;
+        all.forEach(function(q){ hi = Math.max(hi, q[1]); lo = Math.min(lo, q[1]); });
+        hi = Math.ceil((hi + 2) / 10) * 10; lo = Math.max(hi - 60, Math.floor((lo - 2) / 10) * 10); if (hi - lo < 20) lo = hi - 20;
+        var x0 = p + 50 * d, w = W - 2 * p - 64 * d, yt = p + 30 * d, yb = H - p - 30 * d;
+        function X(f){ return x0 + (f - 110) / 550 * w; } function Y(v){ return yt + (hi - Math.max(lo, Math.min(hi, v))) / (hi - lo) * (yb - yt); }
+        for (var gv = lo; gv <= hi; gv += 10){ g.strokeStyle = 'rgba(255,255,255,0.05)'; g.lineWidth = d; g.beginPath(); g.moveTo(x0, Y(gv)); g.lineTo(x0 + w, Y(gv)); g.stroke(); label(g, gv + ' dB', x0 - 6 * d, Y(gv) + 3 * d, d, 'right'); }
+        function plot(ln, color, lw, dash){ if (!ln) return; g.strokeStyle = color; g.lineWidth = lw; g.setLineDash(dash || []); g.beginPath(); ln.forEach(function(q, k){ if (k) g.lineTo(X(q[0]), Y(q[1])); else g.moveTo(X(q[0]), Y(q[1])); }); g.stroke(); g.setLineDash([]); }
+        plot(refF[field], FG4, 1.6 * d, [3 * d, 4 * d]);
+        plot(ref0[field], FG3, 1.6 * d, [6 * d, 4 * d]);
+        plot(line, INFO, 2.4 * d);
+        label(g, '110', x0, yb + 16 * d, d); label(g, 'lowest tone →  660 Hz', x0 + w, yb + 16 * d, d, 'right');
+        // where you are: the steady slider, or the glide's cursor
+        var fNow = base;
+        if (door === 'glide' && playing){ var n = nowSample(); if (n >= 0) fNow = glideBase(n / Math.round(GL * sr)); }
+        g.strokeStyle = door === 'glide' && playing ? ACC : FG3; g.lineWidth = 1.2 * d; g.beginPath(); g.moveTo(X(fNow), yt - 6 * d); g.lineTo(X(fNow), yb); g.stroke();
+        label(g, fNow.toFixed(0) + ' Hz', X(fNow) + 4 * d, yt - 4 * d, d, 'left', door === 'glide' && playing ? ACC : FG3);
+      }
+    };
+    function later(){ clearTimeout(tpend); tpend = setTimeout(function(){ STEP[4].changed(); }, 40); }
+    $('s5l').addEventListener('input', function(){ lag = parseInt($('s5l').value, 10); $('s5lv').textContent = lag + ' smp · ' + (lag / 48).toFixed(2) + ' ms'; later(); });
+    $('s5b').addEventListener('input', function(){ base = parseInt($('s5b').value, 10); $('s5bv').textContent = base + ' Hz'; later(); });
+    Q('[data-s5field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s5field'); STEP[4].changed(); }); });
+    Q('[data-s5door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s5door'); ui(); refreshAudio(); }); });
+  })();
+
+  // ---- step 6: the kernel ----
+  (function(){
+    var field = 'terrain', lag = 24, F = 220, door = 'diff', FD = null, SE = null, dmax = 0, ks = [], col = null, ts = 0;
+    function L(){ return Math.round(lag * sr / 48000); }
+    function rebuild(){
+      var N = Math.round(sr * SECS);
+      FD = readEffect(FIELDS[field], 'two', F, L(), sr, N);
+      SE = readSeries(FIELDS[field], 'two', F, L(), sr, N);
+      dmax = maxDiff(FD, SE);
+      ks = volterraKernels(FIELDS[field], L());
+      col = collision(F, 330, L(), sr, 4800, 0.004);
+    }
+    function ui(){
+      $('s6lv').textContent = lag + ' smp · ' + (lag / 48).toFixed(2) + ' ms';
+      pressGroup('data-s6field', field); pressGroup('data-s6door', door);
+      var orders = {}; ks.forEach(function(h){ orders[h.order] = 1; });
+      var ol = Object.keys(orders).map(Number).sort(function(a, b){ return a - b; });
+      var lines = [];
+      lines.push('this field as a Volterra series: <b>' + ks.length + '</b> kernel weight' + (ks.length === 1 ? '' : 's') + ', orders ' + ol.join(', ') + ', every lag in every one 0 or τ = ' + L() + ' smp');
+      lines.push('field against series, two tones, ' + SECS + ' s: largest difference <b>' + dmax.toExponential(1) + '</b>, rounding only');
+      if (col) lines.push('a weight at 2τ instead? With 220 + 250 Hz in, at ' + (col.n1 / sr * 1000).toFixed(2) + ' ms, and with 330 + 360 Hz in, at ' + (col.n2 / sr * 1000).toFixed(2) + ' ms, the hand stands on one point of the field, but x(t) × x(t − 2τ) is <b>' + col.w1.toFixed(3) + '</b> there and <b>' + col.w2.toFixed(3) + '</b> here. One point, two answers: no field gives it.');
+      $('s6m').innerHTML = lines.join('<br>');
+      $('s6h').innerHTML = door === 'field' ? 'You hear <b>the field</b>, read at now and τ ago.' : door === 'series' ? 'You hear <b>the Volterra series</b>: the input multiplied against itself at 0 and τ, weighted by the kernel.' : 'You hear <b>silence</b>: the series and the field give the same numbers.';
+    }
+    STEP[5] = {
+      render: function(){
+        var g0 = 0.8 * norm(field), x = new Float64Array(FD.length);
+        for (var i = 0; i < x.length; i++) x[i] = door === 'field' ? FD[i] : door === 'series' ? SE[i] : 0.5 * (FD[i] - SE[i]);
+        return toF32(door === 'diff' ? x : dcOff(x), g0);
+      },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      aspect: narrowAspect,
+      draw: function(g, W, H, d, dt){
+        if (playing) ts += dt / (2 * F);
+        var Lo = layout(W, H, d), M = drawField(g, Lo.f, field, d, 'THE FIELD  axes are heights', true), tau = L() / sr;
+        var pts = []; for (var i = 0; i <= 400; i++){ var tt = ts - (8 / F) * i / 400; pts.push([inputAt('two', F, tt), inputAt('two', F, tt - tau)]); }
+        trail(g, M, pts, 'rgba(255,255,255,0.8)', 1.3 * d); dot(g, M.X(pts[0][0]), M.Y(pts[0][1]), 5 * d, INFO); M.title();
+        var R = Lo.r; box(g, R.x, R.y, R.w, R.h, d);
+        label(g, 'THE KERNEL h₂(τ₁, τ₂)  axes are lags', R.x + 6 * d, R.y + 14 * d, d);
+        var side = Math.min(R.w - 50 * d, R.h - 56 * d), ox = R.x + 34 * d, oy = R.y + 26 * d, T = 96;
+        g.strokeStyle = FG4; g.lineWidth = d; g.strokeRect(ox, oy, side, side);
+        function LX(l){ return ox + 10 * d + l / T * (side - 20 * d); } function LY(l){ return oy + side - 10 * d - l / T * (side - 20 * d); }
+        // the lag grid: where τ sits
+        g.setLineDash([2 * d, 3 * d]); g.strokeStyle = 'rgba(255,255,255,0.12)'; g.beginPath(); g.moveTo(LX(lag), oy); g.lineTo(LX(lag), oy + side); g.moveTo(ox, LY(lag)); g.lineTo(ox + side, LY(lag)); g.stroke(); g.setLineDash([]);
+        var k2 = ks.filter(function(h){ return h.order === 2; }), wmax = 1e-9; k2.forEach(function(h){ wmax = Math.max(wmax, Math.abs(h.w)); });
+        if (!k2.length) label(g, 'no second-order part in this field', ox + 10 * d, oy + side / 2, d, 'left', FG3);
+        k2.forEach(function(h){
+          var spots = h.zeros === 2 ? [[0, 0]] : h.taus === 2 ? [[lag, lag]] : [[0, lag], [lag, 0]];
+          spots.forEach(function(s){ dot(g, LX(s[0]), LY(s[1]), (3 + 9 * Math.abs(h.w) / wmax) * d, h.w >= 0 ? ACC : INFO); });
+        });
+        label(g, '0', LX(0), oy + side + 13 * d, d, 'center'); label(g, 'τ', LX(lag), oy + side + 13 * d, d, 'center', FG2); label(g, '96 smp', ox + side, oy + side + 13 * d, d, 'right');
+        label(g, 'τ₁ →', ox + side / 2, oy + side + 26 * d, d, 'center');
+        label(g, 'τ', ox - 6 * d, LY(lag) + 3 * d, d, 'right', FG2); label(g, '0', ox - 6 * d, LY(0) + 3 * d, d, 'right'); label(g, 'τ₂', ox - 6 * d, oy + 10 * d, d, 'right');
+      }
+    };
+    $('s6l').addEventListener('input', function(){ lag = parseInt($('s6l').value, 10); STEP[5].changed(); });
+    Q('[data-s6field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s6field'); STEP[5].changed(); }); });
+    Q('[data-s6door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s6door'); ui(); refreshAudio(); }); });
+  })();
+
+  // ---------- the picture loop: only the step in view is drawn ----------
+  var lastT = performance.now();
+  function frame(now){
+    var dt = Math.max(0, Math.min(0.25, (now - lastT) / 1000)); lastT = now;
+    if (playing) eyeT += dt;
+    var cv = steps[cur].querySelector('canvas.stage');
+    if (cv && STEP[cur] && STEP[cur].draw){
+      var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1, asp = (STEP[cur].aspect && STEP[cur].aspect(r.width)) || parseFloat(cv.getAttribute('data-aspect') || '0.5');
+      var cssH = Math.min(520, Math.max(220, r.width * asp));
+      if (cv.style.height !== cssH + 'px') cv.style.height = cssH + 'px';
+      var bw = Math.round(r.width * d), bh = Math.round(cssH * d);
+      if (bw > 0){
+        if (cv.width !== bw || cv.height !== bh){ cv.width = bw; cv.height = bh; }
+        var g = cv.getContext('2d'); g.clearRect(0, 0, bw, bh); STEP[cur].draw(g, bw, bh, d, dt);
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // ---------- notes: one per step; kept in this tab, and in storage only where storage is allowed ----------
+  var KEY = 'dissolutions-seq-one-field-two-hands-notes', notes = {};
+  try { notes = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { notes = {}; }
+  Q('[data-note]').forEach(function(t){
+    var k = t.closest('section.step').getAttribute('data-step'); t.value = notes[k] || '';
+    t.addEventListener('input', function(){ notes[k] = t.value; try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} });
+  });
+  // the notes go to the STIGMERGY board through the answers server (_ops/loudon-eval/answers.js);
+  // Copy all notes, below, stays as the fallback
+  var TASK = 'one-field-two-hands', HEAD = 'One field, two hands, learning sequence — notes', sending = false;
+  function digest(n){ return HEAD + '\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (n[i] || '—'); }).join('\n'); }
+  function saveNotes(){ try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} }
+  function sendDone(){ sending = false; $('send').disabled = false; $('send').textContent = 'Send to STIGMERGY'; }
+  $('send').addEventListener('click', function(){
+    if (sending) return;
+    var sent = {}, answers = {}, names = [];
+    steps.forEach(function(s, i){ if ((notes[i] || '').trim()){ sent[i] = notes[i]; answers[(i + 1) + ' · ' + s.getAttribute('data-title')] = notes[i]; names.push(s.getAttribute('data-title')); } });
+    if (!names.length){ $('copied').textContent = 'Nothing to send yet: every notes box is empty.'; return; }
+    if (!window.PalaceAnswers){ $('copied').textContent = 'Not sent, and your notes are kept: the answers script didn’t load. Use Copy all notes.'; return; }
+    sending = true; $('send').disabled = true; $('send').textContent = 'Sending…'; $('copied').textContent = '';
+    Promise.resolve().then(function(){ return window.PalaceAnswers.submit({ page: 'Dissolutions', task: TASK, answers: answers, text: digest(sent) }); }).then(function(r){
+      if (r && r.mode === 'posted'){
+        // clear what went; a note changed while it was in flight stays
+        Object.keys(sent).forEach(function(k){ if (notes[k] === sent[k]) delete notes[k]; });
+        Q('[data-note]').forEach(function(t){ var k = t.closest('section.step').getAttribute('data-step'); if (!(k in notes)) t.value = ''; });
+        saveNotes();
+        $('copied').textContent = 'Sent to STIGMERGY — ' + names.length + (names.length === 1 ? ' note: ' : ' notes: ') + names.join(' · ') + '. They’re on the board, and their boxes are cleared.';
+      } else {
+        $('copied').textContent = 'Not sent — your notes are kept. ' + ((r && r.reason) || '');
+      }
+    }, function(e){ $('copied').textContent = 'Not sent — your notes are kept. ' + ((e && e.message) || ''); }).then(sendDone, sendDone);
+  });
+  $('copy').addEventListener('click', function(){
+    var text = 'One field, two hands, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');
+    var done = function(){ $('copied').textContent = 'copied'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function(){ $('copied').textContent = text; }); else $('copied').textContent = text;
+  });
+
+  STEP.forEach(function(s){ s.changed(); });
+  go(0);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

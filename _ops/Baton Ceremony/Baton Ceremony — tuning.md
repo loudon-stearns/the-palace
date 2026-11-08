@@ -97,6 +97,8 @@ What each baton taught the ceremony. Each item names what the run showed and the
 15. **Two readings of "verbatim" for the footer.** The editor note in `Baton Ceremony — on-pickup.md` says everything below its frontmatter is appended to the baton, which would carry the note itself; `_ops/closing-well/baton-executor.mjs` (`loadOnPickup`) takes the text from the `## On pickup` heading down. The hand-written [[Palace Map — baton]] followed the executor. **Paid in v1.6 (50d30607) on 2026-11-03:** the note names the heading the script reads from.
 - run · 2026-10-23 · v1.5 · Palace Map, the map's keeper — Move 1 of the Plan of 2026-10-23 (continuation, at a deposit) · taught item 15
 - run · 2026-10-25 · v1.5 · Dissolutions, the walk re-batoned as learning sequences after three sits (continuation, at a partial close) · nothing new
+- run · 2026-10-25 · v1.5 · Dissolutions, the baton updated in place when the close paused the claimed handoff (continuation, at a pause) · nothing new
+- run · 2026-11-07 · v1.5 · Dissolutions, the baton rewritten in place for the remainder after the sequences landed as proposal: his review at his own pace, notes by Send to STIGMERGY (continuation, before a partial close) · nothing new
 - run · 2026-10-29 · v1.5 · Graphic Storytelling, land the revision and make its Context (commissioning, at the Daily Page) · nothing new
 
 ## From The Lens bold-mandate close — 2026-11-07
