@@ -16,6 +16,7 @@ forward_vector: "I keep teaching that compression and intimacy are the same stru
 links:
   - target: "[[Cross-Domain Resonances]]"
     type: member-of
+    label: catalogued-bridge
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
     label: cross-domain-bridge

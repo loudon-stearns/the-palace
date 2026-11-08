@@ -1,0 +1,105 @@
+diff 2026-10-24 → 2026-11-08: 322→330 nodes, 2380→2511 edges
+nodes born (9): Auditory Illusions, Cycle 5 Explorer, FM Synthesis, LightOnOCR-3, Rational Hearing, Resonance and Damping, Synth Templates, Synthesis Notes (Loudon), The Gallery
+nodes gone (1): Palace To-Do
+edges formed (171):
+  2D Torus Wavetable Synthesizer  member-of  Synthesis Topologies
+  Auditory Illusions  connects-to  Boundary-Crossing Instruments
+  Auditory Illusions  connects-to  Frequency-Time Duality
+  Auditory Illusions  connects-to  Sidechain ↔ Conversation
+  Auditory Illusions  emerged-from  Shepard Tone Synthesizer
+  Auditory Illusions  mirrors  Whisper
+  BBS Blackboard  spawned  BBS Blackboard — Context
+  BLUELINE  exemplifies  Capability-first prototyping
+  Bayesian Granular Synthesizer  member-of  Synthesis Topologies
+  Boundary-Crossing Instruments  spawned  Boundary-Crossing Instruments — Context
+  CHILD  connects-to  Progressive Staging
+  Categorizing Inharmonicity  spawned  Categorizing Inharmonicity — Context
+  Cycle 5 Explorer  connects-to  Drafting Table Design System
+  Cycle 5 Explorer  connects-to  Harmonicity and Inharmonicity
+  Cycle 5 Explorer  connects-to  Hilaritas Generator
+  Cycle 5 Explorer  connects-to  Shepard Tone Synthesizer
+  Cycle 5 Explorer  contrasts-with  Inharmonic Wavetable Synthesis
+  Cycle 5 Explorer  couples-with  Rational Hearing
+  Cycle 5 Explorer  exemplifies  FOUR PILLARS
+  Cycle 5 Explorer  exemplifies  Objects to Think With
+  Cycle 5 Explorer  exemplifies  Playful Interface Design
+  Cycle 5 Explorer  spawned  Cycle 5 Explorer — Context
+  Dialectic  contrasts-with  The Remembering Page
+  Dissolutions  exemplifies  Progressive Staging
+  Does Personifying an Agent Change What It Does  contrasts-with  Pages as Agents
+  Dovetail Joint ↔ Counterpoint  spawned  Dovetail Joint ↔ Counterpoint — Context
+  Drafting Table Design System  connects-to  Hero and Avatar Maker
+  Drafting Table Design System  connects-to  STIGMERGY
+  Endosymbiosis  spawned  Endosymbiosis — Context
+  Enrichment  connects-to  Progressive Staging
+  Exponential Decay Curvature  connects-to  Synth Templates
+  Exponential Decay Curvature  deepens  Logarithmic Interface Scaling
+  FM Synthesis  connects-to  Bessel Functions in Synthesis
+  FM Synthesis  connects-to  Wavetable Oscillator
+  FM Synthesis  contrasts-with  Resonance and Damping
+  FM Synthesis  emerged-from  Frequency-Time Duality
+  FM Synthesis  exemplifies  Synthesis ↔ Emergence
+  FM Synthesis  member-of  Synthesis Topologies
+  Floquet Time-Modulated Loops  member-of  Synthesis Topologies
+  Four Pillars of Enchanted Agency  spawned  Four Pillars of Enchanted Agency — Context
+  … and 131 more
+edges dissolved (40):
+  2D Torus Wavetable Synthesizer  exemplifies  Synthesis Topologies
+  BBS Blackboard  spawned  BBS Design System
+  BLUELINE  connects-to  BLUELINE — Production Plan
+  BLUELINE  emerged-from  Graphic Storytelling
+  Dialectic  connects-to  The Remembering Page
+  Does Personifying an Agent Change What It Does  connects-to  Pages as Agents
+  Drafting Table Design System  mirrors  BBS Design System
+  Generative Compression  connects-to  Deposit Ceremony
+  Julia Cameron  connects-to  Marcus Aurelius
+  LoRA Trainer  connects-to  BLUELINE — Production Plan
+  Loudon Live Design System  mirrors  BBS Design System
+  Loudon Live Post-producer  connects-to  The Shop
+  Maker  connects-to  BBS Design System
+  Making a Palace Citizen  spawned  Making a Palace Citizen — context
+  Matplotlib  connects-to  Plotly
+  Mermaid  connects-to  Graphviz
+  Murmuration  connects-to  Neural Granular Synthesis
+  Palace To-Do  connects-to  Loudon Live
+  Palace To-Do  deepens  SUBSTRATE
+  Palace To-Do  enables  Deposit Ceremony
+  Palace To-Do  enables  Harvest Ceremony
+  Palace To-Do  spawned  Palace To-Do — Archive
+  Particle Synthesis  connects-to  Neural Granular Synthesis
+  Playful Interface Design  connects-to  Preset Oracle
+  Remotion  connects-to  Manim CE
+  SMPTE LTC  deepens  Boundary-Crossing Instruments
+  STIGMERGY Philosophical Lenses  connects-to  BBS Design System
+  Semantic Webcam  connects-to  BBS Design System
+  Seneca  connects-to  Marcus Aurelius
+  Slime Mold Delay  connects-to  Retrospective Delay
+  Speak Like a Person, Log Like a Protocol  connects-to  BBS Design System
+  Synthesis Topologies  mirrors  Lossy Compression with Intent Alignment
+  The Drift  connects-to  Parametric Resonance
+  The Lens  connects-to  BBS Design System
+  The Reader's Context Window  connects-to  BBS Design System
+  The Remembering Page  connects-to  Dialectic
+  The Shop  connects-to  BBS Blackboard
+  Tone.js  connects-to  RNBO codebox~ smith
+  Wavetable Scanner  connects-to  Maker
+  Weave Ceremony  connects-to  Walk Ceremony
+stage changes (4):
+  1 from 2: growing → dormant
+  BBS Design System: growing → composting
+  Symbiotic Skills: growing → composting
+  Synthesis Topologies: seed → growing
+inbound degree moved by ≥3 (11):
+  Synthesis Topologies: 2 → 11
+  BBS Design System: 9 → 0
+  STIGMERGY: 26 → 34
+  Progressive Staging: 17 → 24
+  Drafting Table Design System: 0 → 5
+  Frequency-Time Duality: 25 → 30
+  FOUR PILLARS: 74 → 78
+  Hilaritas Generator: 42 → 45
+  Wavetable Oscillator: 5 → 8
+  Portamento and Physical Pitch Modeling: 7 → 10
+  Hero and Avatar Maker: 2 → 5
+ghosts closed (1): Resonance and Damping
+ghosts new (0): none

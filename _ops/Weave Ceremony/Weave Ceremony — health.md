@@ -26,3 +26,5 @@ One row per weave, the open and the close of each, measured by `_ops/swarm/weave
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 2026-10-24 | 2026-10-24 | 324 | 2940 | 67 | 558 | 410 (219/151) | 1028 (354) | 25 / 0 (decile 19, median 5) | 20 | 13 | 20 | 60 | 36 | 3 | 8 | 56 | 38 (13) | open · v1.9 map, before any write |
 | 2026-10-24 | 2026-10-24 | 322 | 2380 | 85 | 46 | 2 (1/0) | 750 (143) | 12 / 0 (decile 16, median 4) | 20 | 6 | 26 | 61 | 36 | 3 | 0 | 38 | 3 (1) | close · v2.0 · after the writers (commit to follow) |
+| 2026-11-08 | 2026-11-08 | 330 | 2511 | 86 | 46 | 9 (5/3) | 764 (142) | 12 / 0 (decile 17, median 4) | 19 | 1 | 60 | 69 | 63 | 117 | 8 | 13 | 17 (8) | open · v2.2 map, before any write |
+| 2026-11-08 | 2026-11-08 | 329 | 2464 | 93 | 0 | 0 (0/0) | 719 (0) | 13 / 0 (decile 16, median 4) | 19 | 1 | 73 | 69 | 87 | 117 | 0 | 0 | 17 (8) | close · v2.3 · after the writers and the faces (commit to follow) |

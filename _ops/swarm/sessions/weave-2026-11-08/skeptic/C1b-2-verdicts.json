@@ -1,0 +1,547 @@
+{
+ "set": "C1b-2",
+ "verdicts": [
+  {
+   "source": "Harvest Ceremony",
+   "target": "SUBSTRATE",
+   "op": "label",
+   "proposed": "finds-come-in",
+   "verdict": "PASS",
+   "reason": "SUBSTRATE.md:77 names the Harvest as one of the rhythms by which finds come in; deepens points back at the organism, label in register.",
+   "better": ""
+  },
+  {
+   "source": "Deposit Ceremony",
+   "target": "SUBSTRATE",
+   "op": "label",
+   "proposed": "finds-come-in",
+   "verdict": "PASS",
+   "reason": "SUBSTRATE.md:77 names the Deposit beside the Harvest as how finds come in; same sentence, same reason.",
+   "better": ""
+  },
+  {
+   "source": "Harvest Ceremony",
+   "target": "Oblique Portrait",
+   "op": "label",
+   "proposed": "oblique-harvest",
+   "verdict": "PASS",
+   "reason": "Harvest Ceremony.md:92 prefers the oblique approach and :134 points to 'the Oblique Harvest best practice' in its Context, where the best harvest ran the Oblique Portrait over an archive (Harvest Ceremony — Context.md:23); the label is that name. The quote sits in the Harvest's own Context, not on Oblique Portrait as the target slot implies, and couples-with is loose for a mode the Harvest borrows, but the label stands.",
+   "better": ""
+  },
+  {
+   "source": "Image Embedding Standard",
+   "target": "Deposit Ceremony",
+   "op": "label",
+   "proposed": "figures-that-teach",
+   "verdict": "PASS",
+   "reason": "Deposit Ceremony.md:74 calls on the standard for 'a figure in the body that teaches what prose can't'; the label quotes it.",
+   "better": ""
+  },
+  {
+   "source": "SCHEMA",
+   "target": "Weave Ceremony",
+   "op": "label",
+   "proposed": "rules-it-keeps",
+   "verdict": "PASS",
+   "reason": "Weave Ceremony.md:64 says the Weave writes links 'all of which [[SCHEMA]] governs' and runs blind without §4 'to the rules it is about to apply'; the label carries that.",
+   "better": "rules-it-applies"
+  },
+  {
+   "source": "SCHEMA",
+   "target": "Harvest Ceremony",
+   "op": "cut",
+   "proposed": "cut enables",
+   "verdict": "PASS",
+   "reason": "I find no reason either: SCHEMA's body never names the Harvest, and the Harvest cites only SCHEMA — Reference §6 for its tail read, which every versioned ceremony shares; SCHEMA — Context.md:191 uses the Harvest only as an example of why ceremonies got versions.",
+   "better": ""
+  },
+  {
+   "source": "Map Build Ceremony",
+   "target": "Enchanted Worker",
+   "op": "label",
+   "proposed": "tier-one-context",
+   "verdict": "FAIL",
+   "reason": "The quoted sentence (Map Build Ceremony.md:204) is about [[Palace Enchantment]], and Map Build already carries that link labelled tier-1-context (:19-22); Enchanted Worker never mentions the map, so the label borrows a neighbour's reason and duplicates it.",
+   "better": "cut — the Palace Enchantment link already carries tier-1-context; at most :29 'placed where every enchanted agent can load it' is a generic reason"
+  },
+  {
+   "source": "Return Ceremony",
+   "target": "Palace Ceremonies",
+   "op": "label",
+   "proposed": "named-rite",
+   "verdict": "PASS",
+   "reason": "Palace Ceremonies.md:98 lists the Return Ceremony as a row of its table, and its forward vector calls itself 'the doorway to the palace's rites'; named-rite matches the named-mode precedent.",
+   "better": ""
+  },
+  {
+   "source": "Baton Ceremony",
+   "target": "Palace Ceremonies",
+   "op": "label",
+   "proposed": "named-rite",
+   "verdict": "PASS",
+   "reason": "Palace Ceremonies.md:97 lists the Baton Ceremony as a row of its table; same reason as the Return.",
+   "better": ""
+  },
+  {
+   "source": "Lateral Access",
+   "target": "Excellent Adventure",
+   "op": "cut",
+   "proposed": "cut couples-with",
+   "verdict": "PASS",
+   "reason": "I read both pages whole and Lateral Access — Context: neither names the other, and the play that disarms the social filter (Lateral Access.md:111) is never tied to the Adventure's irreverence (Excellent Adventure.md:50); no reason anywhere.",
+   "better": ""
+  },
+  {
+   "source": "Oblique Portrait",
+   "target": "Lateral Access",
+   "op": "cut",
+   "proposed": "cut spawned",
+   "verdict": "PASS",
+   "reason": "The pair carries two links; Lateral Access.md:14 emerged-from Oblique Portrait is said (:107, :121, :148 name the session), Oblique Portrait never names Lateral Access, so the bare spawned is the half to cut.",
+   "better": ""
+  },
+  {
+   "source": "Pheromone Trail",
+   "target": "Lateral Access",
+   "op": "label",
+   "proposed": "worn-path-hides-the-terrain",
+   "verdict": "PASS",
+   "reason": "Pheromone Trail.md:75 asks whether 'a deeply worn path forecloses lateral exploration' and Lateral Access.md:190 has the songline that 'carved deep tracks, making the surrounding terrain invisible'; the shared pattern is on both pages.",
+   "better": "worn-path (the word Lateral Access already uses for Songlines)"
+  },
+  {
+   "source": "Metaphor as Coupling Medium",
+   "target": "Excellent Adventure",
+   "op": "cut",
+   "proposed": "cut enables",
+   "verdict": "PASS",
+   "reason": "Neither body names the other and no bundle file does; the closest tie (metaphor and the Adventure in adjacent clauses) is on Palace Philosophies, a third page. The dating argument is weak since enables need not be chronological, but the cut holds on the missing reason.",
+   "better": ""
+  },
+  {
+   "source": "Striatum",
+   "target": "Excellent Adventure",
+   "op": "cut",
+   "proposed": "cut deepens",
+   "verdict": "PASS",
+   "reason": "Striatum's three threads (hilaritas, practice, beat timing) and its social-learning note never touch dialogue with a figure, and the Adventure never names the striatum.",
+   "better": ""
+  },
+  {
+   "source": "Retrospective Delay",
+   "target": "Trickster",
+   "op": "cut",
+   "proposed": "cut deepens",
+   "verdict": "FAIL",
+   "reason": "Trickster.md:78 defines trickster work as 'any process that intercepts, delays, substitutes, or subverts expected signal' in service of joyful creation, and :154 calls 'the delay line' a trickster instrument operating on time itself; Retrospective Delay is that delay line, replaying the phrase when you play silence, with a playful séance cat on its face (Retrospective Delay.md:33, :59-69). Trickster — Context.md:27 also records the enchantment finding the link.",
+   "better": "retype exemplifies, Retrospective Delay → Trickster, label delay-line-as-trickster"
+  },
+  {
+   "source": "Retrospective Delay",
+   "target": "Frequency-Time Duality",
+   "op": "cut",
+   "proposed": "cut deepens",
+   "verdict": "FAIL",
+   "reason": "The reason is on the page's rich face: the shrinking-measure caption reads 'The loop goes from a phrase to a stutter to a flutter to a tone. How long the tape is decides what it is. See [[Frequency-Time Duality]]' (Retrospective Delay — rich.json:260; the challenge record calls it 'a real cross-domain moment', rich — challenge.md:61), which is Frequency-Time Duality.md:88's 'How long the loop is decides echo or pitch.'",
+   "better": "keep deepens, label tape-length-decides"
+  },
+  {
+   "source": "Semantic Delay",
+   "target": "Frequency-Time Duality",
+   "op": "cut",
+   "proposed": "cut mirrors",
+   "verdict": "PASS",
+   "reason": "I read Semantic Delay whole and searched both bundles and rich faces: its coupling is speech rhythm to meter via Kuramoto, its 'how long a delay' face is about inference latency, and nothing names a frequency–time pattern.",
+   "better": ""
+  },
+  {
+   "source": "Metric Modulation",
+   "target": "Semantic Delay",
+   "op": "cut",
+   "proposed": "cut emerged-from",
+   "verdict": "PASS",
+   "reason": "Metric Modulation's body and rich face never name Semantic Delay, and Semantic Delay never names it; no lineage is recorded anywhere.",
+   "better": ""
+  },
+  {
+   "source": "The Fortress and the Threshold",
+   "target": "Frequency-Time Duality",
+   "op": "cut",
+   "proposed": "cut mirrors",
+   "verdict": "PASS",
+   "reason": "The Fortress and the Threshold is about the self (fortress, threshold, drift) and never touches rate or the 20 Hz zone; Frequency-Time Duality's bundle never names it; 'threshold' is a shared word in two senses.",
+   "better": ""
+  },
+  {
+   "source": "Shepard Tone Synthesizer",
+   "target": "Portamento and Physical Pitch Modeling",
+   "op": "label",
+   "proposed": "glide-the-whole-stack",
+   "verdict": "PASS",
+   "reason": "Shepard Tone Synthesizer.md:111-126 is a section on portamento across the octave stack ('All octaves glide together as a unit'), and its scroll names Portamento as the neighbour; deepens points back at the more general page.",
+   "better": ""
+  },
+  {
+   "source": "Wallpaper Groups",
+   "target": "Spinoza Conatus",
+   "op": "label",
+   "proposed": "substance-and-modes",
+   "verdict": "PASS",
+   "reason": "Wallpaper Groups.md:87 is a section titled 'The Spinoza Connection: Substance and Its Modes', and Spinoza Conatus.md:105 asks the same monism question of the pillars; the label is the section's own heading.",
+   "better": ""
+  },
+  {
+   "source": "BLUELINE",
+   "target": "Boundary-Crossing Instruments",
+   "op": "cut",
+   "proposed": "cut exemplifies",
+   "verdict": "PASS",
+   "reason": "BLUELINE's body and Context never touch a wall inside one parameter or a coordinate reframing; the link came in unlabelled from its deposit map (Archive/BLUELINE — Deposit Map.md:43), and BCI never names BLUELINE.",
+   "better": ""
+  },
+  {
+   "source": "2D Torus Wavetable Synthesizer",
+   "target": "Synthesis Topologies",
+   "op": "label",
+   "proposed": "two-loops-at-once",
+   "verdict": "PASS",
+   "reason": "Synthesis Topologies.md:102 says 'The torus is two loops at once' and :104 'is two loops'; the label quotes the hub, matching its other members' labels.",
+   "better": ""
+  },
+  {
+   "source": "Generative Audio Devices",
+   "target": "Loudon Live",
+   "op": "cut",
+   "proposed": "cut enables",
+   "verdict": "PASS",
+   "reason": "Neither page nor Loudon Live's Context names the other; the only trace is the plugin's vendor string 'Loudon Live' in a workshop file (plugin/House Bass/plugin.json:4), which is a company name, not a stated relation to the public channel.",
+   "better": ""
+  },
+  {
+   "source": "Generative Wavetable Libraries",
+   "target": "Generative Audio Devices",
+   "op": "cut",
+   "proposed": "cut couples-with",
+   "verdict": "PASS",
+   "reason": "Generative Wavetable Libraries names Generative Sample Libraries as its sister (:47) and never names the devices pipeline or its registry; GAD never names the wavetable project. They share a family on Synthesis Topologies, a third page.",
+   "better": ""
+  },
+  {
+   "source": "Bessel Functions in Synthesis",
+   "target": "Boundary-Crossing Instruments",
+   "op": "label",
+   "proposed": "right-coordinate-system",
+   "verdict": "PASS",
+   "reason": "Bessel Functions in Synthesis.md:71 and :133 say choosing a basis is 'choosing a coordinate system', and the 'wrong' basis needs infinitely many terms; that is BCI.md:48's 'right coordinate system' in its own material.",
+   "better": ""
+  },
+  {
+   "source": "Quantum Synthesizer",
+   "target": "Bessel Functions in Synthesis",
+   "op": "retype",
+   "proposed": "mirrors[geometry-picks-the-basis]",
+   "verdict": "PASS",
+   "reason": "Bessel.md:98/:130 lists the quantum oscillator as a row of its geometry-picks-the-basis principle and Quantum Synthesizer.md:58/:80 says 'The geometry of confinement chooses the shapes' and names Bessel modes for the bell; one pattern in two materials, not always active together. mirrors is symmetric, so direction is fine.",
+   "better": ""
+  },
+  {
+   "source": "Signal-Rate CV Architecture",
+   "target": "Action Potential Oscillator",
+   "op": "label",
+   "proposed": "every-parameter-a-jack",
+   "verdict": "PASS",
+   "reason": "Action Potential Oscillator.md:59 says its architecture follows Signal-Rate CV Architecture and 'Every parameter is a CV jack'; its Context (:25) confirms the pair is held from this side. enables points forward correctly.",
+   "better": ""
+  },
+  {
+   "source": "Cooperation Yields Agency",
+   "target": "Symbiotic Skills",
+   "op": "cut",
+   "proposed": "cut spawned",
+   "verdict": "FAIL",
+   "reason": "A reason sits in Cooperation Yields Agency — Context.md:40, Loudon's own note: 'The symbiotic relationship we predicted in this entry and in [[Symbiotic Skills]] has now played out through making.' The pages are two predictions of one relationship. That is not spawned, but it is not reasonless either.",
+   "better": "retype connects-to, label predicted-the-symbiosis (or mirrors, if Loudon reads the two as one pattern)"
+  },
+  {
+   "source": "FOUR PILLARS",
+   "target": "Symbiotic Skills",
+   "op": "cut",
+   "proposed": "cut spawned",
+   "verdict": "PASS",
+   "reason": "The pair carries two links; Symbiotic Skills.md:50 'Emerged from the recognition that Loudon's [[FOUR PILLARS]] skill … was too complex' states the emerged-from, and FOUR PILLARS never names Symbiotic Skills. Keep the said half.",
+   "better": ""
+  },
+  {
+   "source": "Symbiotic Skills",
+   "target": "1 from 2",
+   "op": "label",
+   "proposed": "scaling-relationship",
+   "verdict": "PASS",
+   "reason": "1 from 2.md:153-154 says the only thing that scales is relationship and names Symbiotic Skills 'the palace's own try at scaling it'; the label is in register.",
+   "better": ""
+  },
+  {
+   "source": "Boundary-Crossing Instruments",
+   "target": "Symbiotic Skills",
+   "op": "cut",
+   "proposed": "cut enables",
+   "verdict": "PASS",
+   "reason": "I read BCI and its Context whole; it never names Symbiotic Skills, and nothing in Symbiotic Skills touches coordinate reframing. The three-layer interface and the teaching scaffold are both about teaching but neither page draws that line.",
+   "better": ""
+  },
+  {
+   "source": "Stoicism",
+   "target": "Quality Manifesto",
+   "op": "retype",
+   "proposed": "mirrors[up-to-us]",
+   "verdict": "FAIL",
+   "reason": "The reader concedes neither body says it, and I agree: Quality Manifesto never names Stoicism or 'up to us', Stoicism never names the Manifesto, and the 'witnesses' list in the Manifesto's Context names Seneca and Marcus Aurelius, not Stoicism. A retype stacks an inferred pattern on an unsaid link. Minor: the evidence quote adds italics and lower-cases what QM.md:43 prints as 'Quality is furtherance of our goals, not theirs.'",
+   "better": "cut (may return with a sentence; Stoicism.md:70/:76 on preferred indifferents and QM.md:37 'rather than metrics, reach and status' are where one would go)"
+  },
+  {
+   "source": "Agent Wellbeing",
+   "target": "FOUR PILLARS",
+   "op": "label",
+   "proposed": "practice-pillar-widened",
+   "verdict": "PASS",
+   "reason": "Agent Wellbeing.md:54 says the practice pillar always carried wellbeing and this entry widens it to the agents; :82 says it is 'the Practice pillar turned on the maker'.",
+   "better": ""
+  },
+  {
+   "source": "Does Personifying an Agent Change What It Does",
+   "target": "Four Pillars of Enchanted Agency",
+   "op": "label",
+   "proposed": "the-personality-tier",
+   "verdict": "FAIL",
+   "reason": "The only tie on the target is Loudon's open graffiti asking 'is this another Tier?' (Four Pillars of Enchanted Agency.md:168), and :219 says that question 'is still yours'; the label answers it for him. The graffiti is about values drawn from philosophers and quotes, while the Personifying page is about gender and authored temperament, and it never names tiers or this page.",
+   "better": "label personality-question (pointing at the open question, not answering it), or cut — the Palace Enchantment link already carries 'beyond-voice'"
+  },
+  {
+   "source": "Identity Molting",
+   "target": "Progressive Staging",
+   "op": "cut",
+   "proposed": "cut mirrors",
+   "verdict": "PASS",
+   "reason": "Identity Molting — Context.md:31 and :43 say the Progressive Staging mirrors 'has no label and no sentence in the body that gives a reason' and asks for a reason or its cut; Progressive Staging never mentions molting.",
+   "better": ""
+  },
+  {
+   "source": "The Practice Rediscovers Its Philosophy",
+   "target": "FOUR PILLARS",
+   "op": "label",
+   "proposed": "tools-meet-philosophy",
+   "verdict": "PASS",
+   "reason": "The page says tools and philosophy are 'one object seen from two angles' (:57), and FOUR PILLARS says 'A philosophy is a tool'; the label names the crossing. The body never says 'pillar', so the anchor is FOUR PILLARS' own line.",
+   "better": "philosophy-is-a-tool"
+  },
+  {
+   "source": "Christopher Alexander",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "systems-thinker",
+   "verdict": "PASS",
+   "reason": "The hub lists this person on the Systems Thinkers (Source Library.md:60-64) shelf; member-of points back at the collection (SCHEMA.md:158 uses person → Source Library as its own example), and the label names the shelf.",
+   "better": ""
+  },
+  {
+   "source": "Buckminster Fuller",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "systems-thinker",
+   "verdict": "PASS",
+   "reason": "The hub lists this person on the Systems Thinkers (Source Library.md:65) shelf; member-of points back at the collection (SCHEMA.md:158 uses person → Source Library as its own example), and the label names the shelf.",
+   "better": ""
+  },
+  {
+   "source": "Douglas Hofstadter",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "systems-thinker",
+   "verdict": "PASS",
+   "reason": "The hub lists this person on the Systems Thinkers (Source Library.md:66) shelf; member-of points back at the collection (SCHEMA.md:158 uses person → Source Library as its own example), and the label names the shelf.",
+   "better": ""
+  },
+  {
+   "source": "Epictetus",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "philosopher-of-practice",
+   "verdict": "PASS",
+   "reason": "The hub lists this person on the Philosophers of Practice (Source Library.md:75) shelf; member-of points back at the collection (SCHEMA.md:158 uses person → Source Library as its own example), and the label names the shelf.",
+   "better": ""
+  },
+  {
+   "source": "Seneca",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "philosopher-of-practice",
+   "verdict": "PASS",
+   "reason": "The hub lists this person on the Philosophers of Practice (Source Library.md:76) shelf; member-of points back at the collection (SCHEMA.md:158 uses person → Source Library as its own example), and the label names the shelf.",
+   "better": ""
+  },
+  {
+   "source": "John Cage",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "sound-thinker",
+   "verdict": "PASS",
+   "reason": "The hub lists this person on the Musicians & Sound Thinkers (Source Library.md:83) shelf; member-of points back at the collection (SCHEMA.md:158 uses person → Source Library as its own example), and the label names the shelf.",
+   "better": ""
+  },
+  {
+   "source": "Pauline Oliveros",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "sound-thinker",
+   "verdict": "PASS",
+   "reason": "The hub lists this person on the Musicians & Sound Thinkers (Source Library.md:82) shelf; member-of points back at the collection (SCHEMA.md:158 uses person → Source Library as its own example), and the label names the shelf.",
+   "better": ""
+  },
+  {
+   "source": "James Turrell",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "artist-and-maker",
+   "verdict": "PASS",
+   "reason": "The hub lists this person on the Artists & Makers (Source Library.md:94) shelf; member-of points back at the collection (SCHEMA.md:158 uses person → Source Library as its own example), and the label names the shelf.",
+   "better": ""
+  },
+  {
+   "source": "Agnes Martin",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "artist-and-maker",
+   "verdict": "PASS",
+   "reason": "The hub lists this person on the Artists & Makers (Source Library.md:95) shelf; member-of points back at the collection (SCHEMA.md:158 uses person → Source Library as its own example), and the label names the shelf.",
+   "better": ""
+  },
+  {
+   "source": "Andy Goldsworthy",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "artist-and-maker",
+   "verdict": "PASS",
+   "reason": "The hub lists this person on the Artists & Makers (Source Library.md:96) shelf; member-of points back at the collection (SCHEMA.md:158 uses person → Source Library as its own example), and the label names the shelf.",
+   "better": ""
+  },
+  {
+   "source": "George Nakashima",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "artist-and-maker",
+   "verdict": "PASS",
+   "reason": "The hub lists this person on the Artists & Makers (Source Library.md:97) shelf; member-of points back at the collection (SCHEMA.md:158 uses person → Source Library as its own example), and the label names the shelf.",
+   "better": ""
+  },
+  {
+   "source": "Julia Cameron",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "writer-on-craft",
+   "verdict": "PASS",
+   "reason": "The hub lists this person on the Writers on Craft & Creativity (Source Library.md:103) shelf; member-of points back at the collection (SCHEMA.md:158 uses person → Source Library as its own example), and the label names the shelf.",
+   "better": ""
+  },
+  {
+   "source": "Annie Dillard",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "writer-on-craft",
+   "verdict": "PASS",
+   "reason": "The hub lists this person on the Writers on Craft & Creativity (Source Library.md:105) shelf; member-of points back at the collection (SCHEMA.md:158 uses person → Source Library as its own example), and the label names the shelf.",
+   "better": ""
+  },
+  {
+   "source": "Rick Rubin",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "writer-on-craft",
+   "verdict": "PASS",
+   "reason": "The hub lists this person on the Writers on Craft & Creativity (Source Library.md:107) shelf; member-of points back at the collection (SCHEMA.md:158 uses person → Source Library as its own example), and the label names the shelf.",
+   "better": ""
+  },
+  {
+   "source": "Yasujirō Ozu",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "filmmaker",
+   "verdict": "PASS",
+   "reason": "The hub lists this person on the Filmmakers (Source Library.md:113) shelf; member-of points back at the collection (SCHEMA.md:158 uses person → Source Library as its own example), and the label names the shelf.",
+   "better": ""
+  },
+  {
+   "source": "Donella Meadows",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "core-five",
+   "verdict": "PASS",
+   "reason": "One of The Core Five (Source Library.md:206); the label names the hub's strongest shelf. The fold note checks out: the person pages entered with the library in one restructure, 'alongside … about twenty person pages' (Source Library — Context.md:17), so the hub's spawned is the half to drop.",
+   "better": ""
+  },
+  {
+   "source": "Shunryu Suzuki",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "core-five",
+   "verdict": "PASS",
+   "reason": "One of The Core Five (Source Library.md:210); the label names the hub's strongest shelf. The fold note checks out: the person pages entered with the library in one restructure, 'alongside … about twenty person pages' (Source Library — Context.md:17), so the hub's spawned is the half to drop.",
+   "better": ""
+  },
+  {
+   "source": "Marcus Aurelius",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "core-five",
+   "verdict": "PASS",
+   "reason": "One of The Core Five (Source Library.md:214); the label names the hub's strongest shelf. The fold note checks out: the person pages entered with the library in one restructure, 'alongside … about twenty person pages' (Source Library — Context.md:17), so the hub's spawned is the half to drop.",
+   "better": ""
+  },
+  {
+   "source": "Lao Tzu",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "core-five",
+   "verdict": "PASS",
+   "reason": "One of The Core Five (Source Library.md:218); the label names the hub's strongest shelf. The fold note checks out: the person pages entered with the library in one restructure, 'alongside … about twenty person pages' (Source Library — Context.md:17), so the hub's spawned is the half to drop.",
+   "better": ""
+  },
+  {
+   "source": "Brian Eno",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "core-five",
+   "verdict": "PASS",
+   "reason": "One of The Core Five (Source Library.md:222); the label names the hub's strongest shelf. The fold note checks out: the person pages entered with the library in one restructure, 'alongside … about twenty person pages' (Source Library — Context.md:17), so the hub's spawned is the half to drop.",
+   "better": ""
+  },
+  {
+   "source": "Martin Buber",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "roster-voice",
+   "verdict": "FAIL",
+   "reason": "The membership is real, but the label claims a place on a roster that does not list this person; the reason it leans on is the hub's forward vector, and 'roster-voice' only restates member-of. What both pages do say: the person page's vector opens 'As a palace citizen I've only just arrived', the hub's vector wants members 'developed toward embodiment-grade so that loading a member wakes them', and Excellent Adventure.md:71 calls Buber, McGilchrist and Heidegger 'made citizens'.",
+   "better": "made-citizen (and the shelf placement stays a body edit for Loudon)"
+  },
+  {
+   "source": "Martin Heidegger",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "roster-voice",
+   "verdict": "FAIL",
+   "reason": "The membership is real, but the label claims a place on a roster that does not list this person; the reason it leans on is the hub's forward vector, and 'roster-voice' only restates member-of. What both pages do say: the person page's vector opens 'As a palace citizen I've only just arrived', the hub's vector wants members 'developed toward embodiment-grade so that loading a member wakes them', and Excellent Adventure.md:71 calls Buber, McGilchrist and Heidegger 'made citizens'.",
+   "better": "made-citizen (and the shelf placement stays a body edit for Loudon)"
+  },
+  {
+   "source": "Iain McGilchrist",
+   "target": "Source Library",
+   "op": "label",
+   "proposed": "roster-voice",
+   "verdict": "FAIL",
+   "reason": "The membership is real, but the label claims a place on a roster that does not list this person; the reason it leans on is the hub's forward vector, and 'roster-voice' only restates member-of. What both pages do say: the person page's vector opens 'As a palace citizen I've only just arrived', the hub's vector wants members 'developed toward embodiment-grade so that loading a member wakes them', and Excellent Adventure.md:71 calls Buber, McGilchrist and Heidegger 'made citizens'.",
+   "better": "made-citizen (and the shelf placement stays a body edit for Loudon)"
+  }
+ ],
+ "fabricated_quotes": [],
+ "summary": "51 of 60 pass (85%). Labels 36 of 41, cuts 14 of 17, retypes 1 of 2. No quote is fabricated; one is misplaced (the Oblique Portrait quote lives in Harvest Ceremony — Context, not on the target) and one adds emphasis to the Quality Manifesto's line. Each failure has one of two causes. The three failed cuts are reasons the reader did not look for: the pages give a reason in a companion file or another face, not in the body. Retrospective Delay's rich face captions the shrinking tape 'See [[Frequency-Time Duality]]'. Trickster's own definition and Open Questions name the delay line a trickster instrument. Loudon's note in Cooperation Yields Agency's Context says the symbiosis was 'predicted in this entry and in [[Symbiotic Skills]]'. The other failures are labels that put a reason on a page that hasn't stated it. Tier-one-context belongs to the Palace Enchantment link beside it. The-personality-tier answers a question Loudon's graffiti leaves open. Roster-voice claims a roster place three citizens do not have. Up-to-us retypes a link both pages are silent on. The shelf and Core Five labels for the Source Library members, the ceremony-row labels, and the mechanical pair folds are solid. The reader's no-sentence stance held everywhere except Stoicism ↔ Quality Manifesto, which should be cut unless Loudon wants a sentence."
+}

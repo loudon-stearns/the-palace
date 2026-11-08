@@ -1,0 +1,37 @@
+[
+ {
+  "op": "remove",
+  "source": "Cycle 5 Explorer",
+  "target": "Rational Hearing",
+  "type": "couples-with",
+  "note": "W1 same label; kept on Rational Hearing (body mentions 1)"
+ },
+ {
+  "op": "remove",
+  "source": "SMPTE LTC",
+  "target": "Signal-Rate CV Architecture",
+  "type": "connects-to",
+  "note": "W1 same label; kept on Signal-Rate CV Architecture (body mentions 1)"
+ },
+ {
+  "op": "remove",
+  "source": "Frequency-Time Duality",
+  "target": "FM Synthesis",
+  "type": "connects-to",
+  "note": "W2 connects-to beside a specific link; folded into the specific link"
+ },
+ {
+  "op": "remove",
+  "source": "Synth Templates",
+  "target": "Generative Audio Devices",
+  "type": "connects-to",
+  "note": "W2 connects-to beside a specific link; folded into the specific link"
+ },
+ {
+  "op": "remove",
+  "source": "Synthesis Notes (Loudon)",
+  "target": "Synth Templates",
+  "type": "connects-to",
+  "note": "W2 connects-to beside a specific link; folded into the specific link"
+ }
+]

@@ -24,8 +24,6 @@ links:
   - target: "[[Meaning and the Link]]"
     type: connects-to
     label: leans-threshold
-  - target: "[[Frequency-Time Duality]]"
-    type: mirrors
   - target: "[[Like Water]]"
     type: connects-to
     label: taoist-third-pole

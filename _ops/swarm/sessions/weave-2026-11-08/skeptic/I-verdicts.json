@@ -1,0 +1,151 @@
+{
+  "set": "I",
+  "verdicts": [
+    {
+      "source": "Substrate Skill",
+      "target": "Operator Memory",
+      "op": "add",
+      "proposed": "connects-to, label harness-facts-kept-there",
+      "verdict": "PASS",
+      "reason": "Substrate Skill:216 sends a harness fact (the subagent lifecycle) to auto-memory by name, which is the first of the three kinds of line Operator Memory:31 says it holds; no link joins the pair in either frontmatter or the map.",
+      "better": ""
+    },
+    {
+      "source": "Drift and Consolidation",
+      "target": "Operator Memory",
+      "op": "add",
+      "proposed": "mirrors, label consolidation-for-the-operator (needs_sentence)",
+      "verdict": "FAIL",
+      "reason": "Not plainly real: Drift and Consolidation is about a steward's log against its entry (lines 38-41), and Operator Memory is three kinds of line, not an episodic log; the memory-to-canon fold is already carried by Operator Memory -> Weaving Memory into the Palace (the-sweep), which is the page that actually describes memory drifting and being folded home (Weaving Memory:29-46).",
+      "better": "If a consolidation mirror is wanted, it is Weaving Memory into the Palace mirrors Drift and Consolidation (neither links the other), not a link to Operator Memory."
+    },
+    {
+      "source": "Review Layer",
+      "target": "Operator Memory",
+      "op": "add",
+      "proposed": "connects-to, label planted-in-canon-not-memory",
+      "verdict": "FAIL",
+      "reason": "Review Layer:84 mentions 'a memory only Claude reads' in passing while citing Palace as Context Injection System, which it already links (plant-where-loaded), and Operator Memory already deepens that same page; a direct link adds a passing phrase, not a relation.",
+      "better": ""
+    },
+    {
+      "source": "Lettering",
+      "target": "LightOnOCR-3",
+      "op": "add",
+      "proposed": "connects-to, label legibility-judge-candidate",
+      "verdict": "FAIL",
+      "reason": "Neither page names the other or OCR-as-judge: Lettering:89 asks for 'a visual legibility judge' without saying what kind, and LightOnOCR-3:25 and :53 say only clean digital renders are tested, so diffusion letterforms on black are a hypothesis outside its proven range; needs_sentence was marked false but no sentence carries it.",
+      "better": "Hold as a probe idea (an OCR pass on Lettering's seven-voice suite); the link returns with a sentence once a test shows it reads the letterforms."
+    },
+    {
+      "source": "The Gallery",
+      "target": "LightOnOCR-3",
+      "op": "add",
+      "proposed": "connects-to, label reads-the-scans (needs_sentence)",
+      "verdict": "FAIL",
+      "reason": "Not plainly real: The Gallery:63 shows scans as media in a rich face, it never asks for them to be transcribed, and LightOnOCR-3 is untested on scans (Known gaps, :53); the link is an invitation, not a relation either page holds.",
+      "better": ""
+    },
+    {
+      "source": "Synthesis Topologies",
+      "target": "Splice Instrument Forge",
+      "op": "add",
+      "proposed": "connects-to, label the-sampler-built-on-request",
+      "verdict": "PASS",
+      "reason": "Synthesis Topologies:94 names the Forge in its sampler paragraph ('builds Ableton racks from Splice sounds on request'), and the Forge's 'Where it sits' says it navigates 'a fixed sampler's zones', content instead of configuration, the same claim from its side; no existing link either way.",
+      "better": ""
+    },
+    {
+      "source": "Three Kinds of Warp",
+      "target": "FM Synthesis",
+      "op": "add",
+      "proposed": "connects-to, label ratio-picks-the-type",
+      "verdict": "PASS",
+      "reason": "Three Kinds of Warp:97 ('FM depends on its ratio ... type 1 in disguise ... type 2') and FM Synthesis:64 (which names Three Kinds of Warp and says 'the ratio is the scope') state the same scoped claim; no link either way.",
+      "better": ""
+    },
+    {
+      "source": "2D Torus Wavetable Synthesizer",
+      "target": "FM Synthesis",
+      "op": "add",
+      "proposed": "emerged-from, label the-comb-it-escapes",
+      "verdict": "PASS",
+      "reason": "The project's own word is seed ('The seed was a specific frustration with FM synthesis', line 58, quoted as :55), so emerged-from points back at the origin in the page's register, and the label names the comb it says FM cannot escape; no link either way.",
+      "better": ""
+    },
+    {
+      "source": "Exponential Decay Curvature",
+      "target": "FM Synthesis",
+      "op": "add",
+      "proposed": "connects-to, label an-operator-with-a-bendable-carrier",
+      "verdict": "PASS",
+      "reason": "Exponential Decay Curvature:105 calls its engine 'an FM operator whose carrier waveshape is itself a continuously-bendable parameter' against 'a fixed sine carrier', the operator FM Synthesis:37 defines; no link either way.",
+      "better": ""
+    },
+    {
+      "source": "Floquet Time-Modulated Loops",
+      "target": "FM Synthesis",
+      "op": "add",
+      "proposed": "connects-to, label fm-is-a-floquet-system",
+      "verdict": "PASS",
+      "reason": "Floquet:276 (quoted as :273) says 'FM is a Floquet system whose modulation spectrum happens to be Bessel-shaped', a claim about the instrument, and Synthesis Topologies:72 repeats it; the label is currently parked on the Bessel link and no Floquet-FM link exists.",
+      "better": ""
+    },
+    {
+      "source": "Synthesis Notes (Loudon)",
+      "target": "FM Synthesis",
+      "op": "add",
+      "proposed": "connects-to, label fm-in-his-words (needs_sentence)",
+      "verdict": "PASS",
+      "reason": "Plainly real: the bundle's notes-text.txt:14-22 has Loudon's own FM paragraph ('complex timbres from simple waveforms without the use of filters ... kind of an advanced additive synthesis'), which meets FM Synthesis:88 ('There was no filter'); the entry's section list leaves it out, so the sentence adds something.",
+      "better": "Write the sentence on Synthesis Notes (Loudon) and let it carry his 'no filters, advanced additive' framing, not just the word FM."
+    },
+    {
+      "source": "Image-to-3D Smith",
+      "target": "CAD Drafter",
+      "op": "add",
+      "proposed": "contrasts-with, label plausible-vs-measured",
+      "verdict": "PASS",
+      "reason": "CAD Drafter:29 sends 'sculpted and organic shapes' to Image-to-3D Smith and keeps 'the part that has to fit something else', two alternatives split along a named axis; no link either way. The label is the reader's composite: the Smith's 'plausible-looking geometry' (voice) is about meshes breaking in Blender, not about measurement, while CAD's own axis is organic against fitted.",
+      "better": "contrasts-with, label organic-vs-fitted, written on CAD Drafter's side where the sentence lives."
+    },
+    {
+      "source": "Audition Gate",
+      "target": "CAD Drafter",
+      "op": "add",
+      "proposed": "connects-to, label the-fit-gate (needs_sentence)",
+      "verdict": "PASS",
+      "reason": "Plainly real: Audition Gate:43 asks for sibling gates where 'the spec is suspended and perception takes over', and CAD Drafter runs one for the hand ('I refuse to say a part fits: the calipers and the hand say that', :29; Piece tier 'only because Loudon's hand said so', :74; Self-Check 'cannot check ... that the printed part fits', :87); the line in the sibling list says what neither page says yet.",
+      "better": ""
+    },
+    {
+      "source": "The Gallery",
+      "target": "Cycle 5 Explorer",
+      "op": "add",
+      "proposed": "connects-to, label a-board-rebuilt (needs_sentence)",
+      "verdict": "FAIL",
+      "reason": "Wrong carrier: The Gallery:51 links a work's page forward to the idea it seeded, so the Illustrator board (Cycle 5 Explorer:48) belongs on a work page that does not exist yet; linking the Gallery straight to a seeded project skips the work (the one existing Gallery link of this kind, to Synthesis Notes, points at the work itself).",
+      "better": "A Gallery work page for the board, member-of The Gallery, linking forward to Cycle 5 Explorer, once Loudon says it earns one."
+    },
+    {
+      "source": "Floquet Time-Modulated Loops",
+      "target": "Bessel Functions in Synthesis",
+      "op": "label",
+      "proposed": "connects-to, relabel fm-is-a-floquet-system -> bessel-shaped-sidebands",
+      "verdict": "PASS",
+      "reason": "Floquet:276 keeps its own reason for the Bessel link ('the c_n are Bessel functions ... Bessel-shaped. See [[Bessel Functions in Synthesis]]'), so once the FM claim moves to the FM link this link keeps a label for what the Bessel page holds; pass only together with the Floquet -> FM add.",
+      "better": ""
+    },
+    {
+      "source": "Cycle 5 Explorer",
+      "target": "FOUR PILLARS",
+      "op": "retype",
+      "proposed": "exemplifies -> mirrors, label one-structure-four-casts -> one-structure-cast-many-ways",
+      "verdict": "PASS",
+      "reason": "The only sentence carrying the link, Cycle 5 Explorer:79 ('One structure, cast several ways; the student sees that the five panels are one thing'), claims the shared shape of FOUR PILLARS' 'one higher-dimensional reality, cast ... into four dimensions', the same pattern in different material, which is mirrors (symmetric), and the old label's 'four' contradicts the page's five panels.",
+      "better": ""
+    }
+  ],
+  "fabricated_quotes": [],
+  "summary": "11 of 16 pass, 5 fail; no fabricated quotes. Every evidence quote is on its page. Two line numbers are off by three (2D Torus is :58, not :55; Floquet is :276, not :273), and the text is right in both. The FM cluster is sound. Five established pages talk about FM in sentences written before it had a page, and each FM link has its reason in prose, as do the Splice Forge sampler link, Substrate Skill's harness fact, the two CAD Drafter links and both weak-link fixes. The failures share one pattern: the reader built a relation from a resemblance or a wish that neither page states. Drift and Consolidation has only a shape-likeness to Operator Memory, and the real fold of memory into canon sits on Weaving Memory into the Palace. Review Layer mentions memory once in passing. Lettering's request for a legibility judge, and the Gallery's scans, both point at an OCR that has only been tested on clean digital renders. The Gallery-to-Cycle 5 link skips the work page that should carry it. So two newcomers stay low for honest reasons. LightOnOCR-3 gains nothing until a probe proves it reads letterforms or scans, and Cycle 5 Explorer gains only through its FOUR PILLARS retype. One label passes with a better one offered: Image-to-3D Smith against CAD Drafter reads organic-vs-fitted on CAD Drafter's own page."
+}

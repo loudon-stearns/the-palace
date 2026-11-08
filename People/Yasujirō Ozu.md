@@ -26,6 +26,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: filmmaker
   - target: "[[John Cage]]"
     type: couples-with
     label: stillness-without-seizure

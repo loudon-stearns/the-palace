@@ -40,9 +40,16 @@ links:
     label: asset-library
   - target: "[[Synthesis Topologies]]"
     type: member-of
+    label: two-loops-at-once
   - target: "[[Neural Granular Synthesis — spec — control-vocabulary-math]]"
     type: connects-to
     label: worked-control-vocabulary
+  - target: "[[2D Torus Wavetable Synthesizer — Context]]"
+    type: spawned
+    label: rationale-archive
+  - target: "[[FM Synthesis]]"
+    type: emerged-from
+    label: the-comb-it-escapes
 ---
 # 2D Torus Wavetable Synthesizer
 

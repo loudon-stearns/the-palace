@@ -75,6 +75,9 @@ links:
   - target: "[[Meaning and the Link]]"
     type: connects-to
     label: where-it-came-from
+  - target: "[[Palace Map — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # Palace Map

@@ -13,6 +13,7 @@ forward_vector: "I am the palace's gate for finds. Whoever brings one, I slow th
 links:
   - target: "[[SUBSTRATE]]"
     type: deepens
+    label: finds-come-in
   - target: "[[README - The Palace Guide]]"
     type: connects-to
     label: entry-template

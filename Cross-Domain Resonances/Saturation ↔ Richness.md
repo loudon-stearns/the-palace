@@ -16,8 +16,10 @@ forward_vector: "I keep teaching that the sweet spot between sterile and broken 
 links:
   - target: "[[Cross-Domain Resonances]]"
     type: member-of
+    label: catalogued-bridge
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
+    label: cross-domain-bridge
   - target: "[[Hilaritas Generator]]"
     type: connects-to
     label: sweet-spot

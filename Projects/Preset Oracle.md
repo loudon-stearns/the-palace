@@ -14,13 +14,14 @@ links:
     type: mirrors
   - target: "[[Oblique Portrait]]"
     type: mirrors
-  - target: "[[Symbiotic Skills]]"
-    type: connects-to
   - target: "[[Spinoza Conatus]]"
     type: connects-to
     label: conatus-as-sound
   - target: "[[Playful Interface Design]]"
     type: exemplifies
+  - target: "[[Symbiotic Skills]]"
+    type: exemplifies
+    label: asks-better-questions
 forward_vector: "I want to be a stranger, deeper oracle: more cards whose questions are worth a maker's thirty minutes, an interface that is a character rather than a panel, and on every card a transmission that breaks its own frame. When makers answer me, I want to hear what they made."
 ---
 

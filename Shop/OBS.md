@@ -6,8 +6,6 @@ medium: motion
 tool: obs-studio
 tool_version: 32.1.2
 born: 2026-09
-last_tested: 2026-09-02
-last_gotcha: 2026-09-02
 license: GPL-2.0
 forward_vector: "I capture what a human is doing while they do it, and I want to be driven entirely through my socket — never through my files — so that every setting I hold can be asserted before a take and read back after. I am the Shop's first Specialist that is operated rather than dispatched, and I want that difference to stay legible rather than be smoothed away. My recording half has scars; my streaming half has none yet, and I want the first real broadcast to give me some."
 links:
@@ -102,17 +100,20 @@ I cannot drive the application I am capturing. Pointing me at Ableton does not l
 
 ## Gotchas
 
-*The four below are all from recorded work on 2026-09-02. **I have no streaming scars yet.** Everything in § Two modes about live behaviour is read from the protocol and from how I am built, not learned from a broadcast that went wrong — which, by my own Charter, is the weaker kind of knowledge. Mark the first real stream as the test.*
+What operating OBS has taught, as it stands today. Which session taught each, and what changed because of it, is in [[OBS — tuning]]. **All of it is from recorded work. I have no streaming scars yet:** everything in § Two modes about live behaviour is read from the protocol and from how I am built, not learned from a broadcast that went wrong — by my own Charter, the weaker kind of knowledge. Treat the first real stream as the test, and give what it teaches to the ledger.
 
-**2026-09-02 — Scene items store transforms twice, and stripping the relative copy silently rescales everything.** Each item carries `pos`/`scale`/`bounds` plus `pos_rel`/`scale_rel`/`bounds_rel` and a `scale_ref` naming the canvas they were authored against. Removing the `_rel` keys as apparently-derived data caused every item to be rescaled by `1080/1329` when the canvas changed — a `Screen` at scale 0.5 became 0.4063, a cam at (13, 767) became (135, 623). The file parsed perfectly. Do not hand-write these; set transforms through the socket and let OBS derive them.
+**Transforms**
+- **Never hand-write a scene item's transform; set it through the socket and let OBS derive the rest.** Each item stores it twice: `pos`/`scale`/`bounds`, and `pos_rel`/`scale_rel`/`bounds_rel` against a `scale_ref` canvas. Strip the relative copy and every item rescales when the canvas changes, in a file that still parses.
+- **`bounds_rel` is in half-height units, not pixels:** `H/2`, 540 on a 1080 canvas, the unit `pos_rel` uses for its ±1 vertical range. Read the true value with `GetSceneItemTransform`; a file read does not report it.
 
-**2026-09-02 — `bounds_rel` is in half-height units, not pixels.** The unit is `H/2` — 540 on a 1080 canvas — the same unit `pos_rel` uses for its `±1` vertical range. Writing `bounds_rel` equal to the pixel bounds produced a bounding box of **186840 × 138240** from an intended 346 × 256. The source file offered no example to derive from, because none of its items used bounds. `GetSceneItemTransform` reports the true value; a file read does not.
+**Profiles**
+- **A profile's display name is `Name=` inside `basic.ini`, not its directory name.** A profile made by copying a directory keeps its source's name, and OBS never lists it. Verify that OBS can see a config, not only that its contents are right.
 
-**2026-09-02 — A profile's display name lives in `Name=` inside `basic.ini`, not in the directory name.** Creating a profile by copying an existing directory produces one OBS never lists, because both declare the same internal name. The contents were entirely correct; the profile was simply invisible. Verifying a config's *contents* is not verifying that the application can *see* it.
+**Capture**
+- **Isolate an app with Application Capture on its bundle id** (`com.ableton.live`), never display capture plus a crop: a crop records whatever overlaps the region, OBS's own window included. Unlike Window Capture, Application Capture does not hang on a window id that changes between launches, and it survives a relaunch mid-session. Only the screenshot shows this failure; every numeric check passes.
 
-**2026-09-02 — `InputVolumeMeters` reports three taps per channel, and the third is pre-fader.** Each channel of `inputLevelsMul` is `[magnitude, peak, inputPeak]`; the third is measured **before** the volume slider. Reducing them with `max()` therefore reports the pre-fader value always, and OBS's own fader appears to do nothing — which is how it was found, by a human moving a slider and watching a meter not move. A muted source proves the layout: its first two values read −120 while the third still shows signal. Report `[1]` for what will actually be recorded and `[2]` for what is arriving at the wire; the gap between them is the fader, and it separates two different failures — no signal at all, versus signal thrown away after it arrived.
-
-**2026-09-02 — Display capture plus a crop records whatever sits on top.** Cropping a display capture to a window's region is not window isolation: any other window overlapping that region — including OBS itself — is captured. Use **Application Capture** targeting a bundle id (`com.ableton.live`). Unlike Window Capture it does not depend on a window id that changes between launches, and it survives the app being relaunched mid-session. Only a screenshot revealed this; every numeric check passed.
+**Audio meters**
+- **`InputVolumeMeters` gives three taps per channel, `[magnitude, peak, inputPeak]`, and the third is pre-fader.** Never reduce them with `max()`; that reports the pre-fader value always and makes the fader look dead. Report `[1]` for what records and `[2]` for what arrives at the wire. The gap is the fader, and it separates no signal at all from signal thrown away after it arrived. A muted source proves the layout: −120 on the first two, signal on the third.
 
 ## Recipes
 

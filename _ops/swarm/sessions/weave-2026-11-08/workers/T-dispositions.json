@@ -1,0 +1,574 @@
+{
+ "lane": "T",
+ "dispositions": [
+  {
+   "id": "commons-the-palace-1790254299361",
+   "posted": "2026-09-24",
+   "sources": [
+    "Generative Sample Libraries",
+    "Project Stewardship System"
+   ],
+   "ask": "Have the steward prompt say 'use the real clock' when stamping ts.",
+   "disposition": "done",
+   "evidence": "_ops/orchestrator/prompts/shared.md:393: \"`ts` (ISO 8601 with timezone: the moment you post, read from the clock, `date -u +%Y-%m-%dT%H:%M:%SZ`; never the example's time or a projected one)\", landed a75350ec (2026-10-24 Weave); steward.md:35 includes it ({{>shared}}). The October weave planned it as ACT (weave-2026-10-24/flag-dispositions.json) but posted no trailer.",
+   "edit": {},
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1790299904567",
+   "posted": "2026-09-24",
+   "sources": [
+    "Creative Coach",
+    "Sidechain ↔ Conversation"
+   ],
+   "ask": "Revisit the balint-stance-unturned label on Creative Coach → Sidechain ↔ Conversation after the Balint fix.",
+   "disposition": "done",
+   "evidence": "The label is retired: 050af498 (2026-10-24, one link per pair) cut Creative Coach → Sidechain ↔ Conversation [balint-stance-unturned]; the pair's one link is now Sidechain ↔ Conversation.md:18-20 → [[Creative Coach]] connects-to [the-stance-never-turned-inward], which makes no Balint claim. `git grep balint-stance-unturned` finds it only in the Harvest record. Note: the October plan had the fold the other way (keep Coach's side, relabel the-presenter-ducks); the opposite side survived. Both settle the flag.",
+   "edit": {},
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1790299921121",
+   "posted": "2026-09-24",
+   "sources": [
+    "Creative Coach"
+   ],
+   "ask": "Restate the compost half of the Creative Coach table rule in the page.",
+   "disposition": "done",
+   "evidence": "Creative Coach.md:323: \"*A row enters either table only when it changes a move the coach would make, and a row that never has is composted at the next Weave.*\" — landed a75350ec, wording recovered from 2351c040^ baton :104-105.",
+   "edit": {},
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1790345897392",
+   "posted": "2026-09-25",
+   "sources": [
+    "Enrichment"
+   ],
+   "ask": "Typed link back from Drift and Consolidation; name the fingerprint case under Bidirectional drift.",
+   "disposition": "done",
+   "evidence": "Drift and Consolidation.md:73 now reads \"Entry to face has one working case. [[Enrichment]] stamps each rich-face section with a fingerprint ... (c9a8c7a8, b9f57b16). That is disclosure, not reconciliation.\" — a75350ec. No link back, by design: the pair's one link is Enrichment.md:22-24 → Drift and Consolidation [disclosed-drift] (one link per pair).",
+   "edit": {},
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1791311804031",
+   "posted": "2026-10-06",
+   "sources": [
+    "Haptic Handwheel"
+   ],
+   "ask": "Consider a reciprocal mirrors to Haptic Handwheel and a proposal line under Portamento's Open Question 1.",
+   "disposition": "done",
+   "evidence": "Projects/Portamento and Physical Pitch Modeling.md:212 ends \"*A proposal, not built:* [[Haptic Handwheel]]'s struck spring would let a finger damp the knob while it rings, which is ζ changed over time, by hand.\" — a75350ec. No reciprocal: mirrors is symmetric and the pair carries Haptic Handwheel → mirrors [the-same-spring-felt].",
+   "edit": {},
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1791827827785",
+   "posted": "2026-10-12",
+   "sources": [
+    "Wavetable Oscillator",
+    "Wavetable Synthesis — Deep Research & Higher-Dimensional Design"
+   ],
+   "ask": "Scope Three Kinds of Warp's 'FM is type-1 in disguise' sentence by ratio.",
+   "disposition": "done",
+   "evidence": "Three Kinds of Warp.md:97: \"FM depends on its ratio. At a whole-number carrier-to-modulator ratio its Bessel sidebands sit on the harmonic lattice, type 1 in disguise; at an irrational ratio its partials sit at $k f_c + n f_m$, a two-generator lattice, which is type 2\" — a75350ec.",
+   "edit": {},
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1792107627377",
+   "posted": "2026-10-15",
+   "sources": [
+    "Weave Ceremony",
+    "SCHEMA"
+   ],
+   "ask": "Drop 'breakthrough' from CANON_TYPES in lint-bundle-hygiene.py.",
+   "disposition": "done",
+   "evidence": "`grep breakthrough` over lint-bundle-hygiene.py, lint-ghost-links.py and lint-entry-naming.py finds nothing; CANON_TYPES at lint-bundle-hygiene.py:50 no longer lists it — a75350ec. Only face-audit.py:35 and test-hygiene-tools.py:183,187 name it, as retired.",
+   "edit": {},
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1792107627579",
+   "posted": "2026-10-15",
+   "sources": [
+    "Weave Ceremony"
+   ],
+   "ask": "Write the missing version paragraphs (v1.2-v1.4, check v1.5) in Weave Ceremony — Context.",
+   "disposition": "done",
+   "evidence": "_ops/Weave Ceremony/Weave Ceremony — Context.md:103 (v1.2), :105 (v1.3), :107 (v1.4), :109 (v1.5), also :115 (v1.8) and :117 (v1.9) — a75350ec. The card is at 2.2 now; v2.1 and v2.2 paragraphs are not this flag's ask.",
+   "edit": {},
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1792347288086",
+   "posted": "2026-10-18",
+   "sources": [
+    "Enchanted Worker"
+   ],
+   "ask": "Consider a typed link Enchanted Worker → Enchanted Conversation Archive; remove the in-file 'Flag for next Weave' note.",
+   "disposition": "done",
+   "evidence": "The HTML note is gone from Palace development/Enchanted Conversation Archive.md (no '<!--' or 'Flag for next Weave' left; removed in a75350ec). No new link, by one link per pair: the pair carries Enchanted Conversation Archive → connects-to Enchanted Worker [enchantment-record].",
+   "edit": {},
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1792347746312",
+   "posted": "2026-10-18",
+   "sources": [
+    "The Shop",
+    "Loudon Live Post-producer"
+   ],
+   "ask": "Retype Loudon Live Post-producer → The Shop from connects-to to member-of, label producer-layer.",
+   "disposition": "done",
+   "evidence": "Shop/Loudon Live Post-producer.md frontmatter: target [[The Shop]], type member-of, label producer-layer — fc759240 (2026-11-03, 'edit(Loudon Live Post-producer): member-of The Shop').",
+   "edit": {},
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1792765795078",
+   "posted": "2026-10-23",
+   "sources": [
+    "Palace Map",
+    "Substrate Skill"
+   ],
+   "ask": "Substrate Skill may want a line pointing to the map-agent test.",
+   "disposition": "done",
+   "evidence": "_ops/Substrate Skill.md:213: \"Haiku only does shallow, known-shape work; with the whole Palace Map loaded it sits at 179K of its 200K before the conversation starts ([[Palace Map — proof — map-agent-test]]).\" — a75350ec.",
+   "edit": {},
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1792765795465",
+   "posted": "2026-10-23",
+   "sources": [
+    "Palace Map",
+    "Gemma 4 — Local Coordination Guide"
+   ],
+   "ask": "Gemma 4 guide may want a line pointing to the map-agent test.",
+   "disposition": "done",
+   "evidence": "Gemma 4 — Local Coordination Guide.md:103: \"With the [[Palace Map]] in hand and a rule to cite every edge as a triple, Haiku invented no page in ten questions ([[Palace Map — proof — map-agent-test]]).\" — a75350ec.",
+   "edit": {},
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1794142680159",
+   "posted": "2026-11-08",
+   "sources": [
+    "Auditory Illusions",
+    "Shepard Tone Synthesizer"
+   ],
+   "ask": "Don't add a reciprocal member-of/exemplifies [[Auditory Illusions]] from Shepard.",
+   "disposition": "done",
+   "evidence": "A standing 'don't', and it holds: Projects/Shepard Tone Synthesizer.md frontmatter has no link to Auditory Illusions (its only mention is the body, :161); the pair's one link is Auditory Illusions.md → emerged-from [[Shepard Tone Synthesizer]] [the-barber-pole-question]. No lane output in weave-2026-11-08/workers proposes the reciprocal. Close it with the trailer so a later reciprocal pass does not reopen it.",
+   "edit": {},
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1790303833543",
+   "posted": "2026-09-24",
+   "sources": [
+    "Weave Ceremony — Context",
+    "Shop/Maker",
+    "Shop/RunPod GPU Backend"
+   ],
+   "ask": "Simplify the 2026-09-24 dense additions (Weave Context § Who the Workers Should Be, the Maker lessons, the RunPod gotcha) under tuning item 39.",
+   "disposition": "do-now",
+   "evidence": "Two of three are done: Shop/Maker.md:296-298 Gotchas now points to [[Maker — tuning]] (6f0785a1, 2026-11-07); Shop/RunPod GPU Backend.md has no Gotchas section, its gotchas live in the runbook (c6294b69, 2026-11-07). The third is not: § Who the Workers Should Be (:81-91) is unchanged since 291d0385 (389 words then and now). The October weave drafted the replacement and Loudon said yes to checkpoint 2 (weave-2026-10-24/RESUME.md:53, :76), but the writer skipped it as outside its file set (writers/log-set-2.md:236). Its staleness is factual too: :89 calls the shape 'to be re-tested before it becomes a rule', and v2.0 made it the rule (Weave Ceremony.md:62).",
+   "edit": {
+    "file": "_ops/Weave Ceremony/Weave Ceremony — Context.md",
+    "before": "Loudon asked whether the weave's errors came from running its workers as children rather than elders. It was tested the same day, with the rule fixed before any result came back: the same 10 rooms were rerun as children, as schema-only readers, and as grown elders, and blind elder judges checked every sampled proposal against the files.\n\n**Growing up the workers didn't help.** The elder arm was no better than the children (71% of sampled proposals invalid in both) and cost about 16% more per worker. Schema-only leaned best but missed the fixed bar. What the judges' notes found instead was that most errors were the harness's. The catch-up counted symmetric links one way, so it sent walk workers after entries that were already joined. Workers were never shown the links a pair already had. Fixing that (counting *reach*, showing each member's existing links in both directions, \"read both pages first\", the fidelity test on every relation) took duplicates from 13% to 2% and the judged invalid rate from 78% to 64%.\n\n**What remained was judgment: forced or passing links**, about half of what even the fixed run proposed, and no change to what workers read touched it. Every correction that day came from a *second* reader: the Concierge's cold read, the blind judges, a rerun that re-found a link the coordinator had wrongly declined, and a skeptic pass that refuted 33 of 82 batch candidates. The first readers never caught their own. That is [[No Mind Checks Itself]] running in the weave itself.\n\nSo the working shape, to be re-tested before it becomes a rule: workers stay children, with the fixed harness and the SCHEMA card; **an adversarial skeptic stage** sits between the fan-out and the synthesis, for anything that will be signed in a batch; and the Concierge reads the decision surface cold before Loudon does. The full record, with the numbers, is in `_ops/swarm/sessions/weave-2026-09-24/ab/RESULT.md`.",
+    "after": "Loudon asked whether the weave's errors came from running its workers as children. The same day the same ten rooms ran three ways, as children, as schema-only readers and as grown elders, with blind judges checking samples against the files. Growing up did not help: 71% of sampled proposals were invalid in both arms, and elders cost about 16% more. Most errors were the harness's. The catch-up counted symmetric links one way, and workers never saw the links a pair already had; fixing both took duplicates from 13% to 2% and the judged invalid rate from 78% to 64%.\n\nWhat remained was judgment, forced or passing links, and only second readers caught it: the Concierge's cold read, the blind judges, a rerun, a skeptic that refuted 33 of 82 candidates ([[No Mind Checks Itself]]). So workers stay children with the fixed harness and the SCHEMA card, a skeptic stands between the fan-out and the synthesis, and the Concierge reads the decision surface before Loudon. The numbers are in `_ops/swarm/sessions/weave-2026-09-24/ab/RESULT.md`.",
+    "note": "Lines 83-89 (four paragraphs) become two; the One link per pair paragraph at :91 stays. Text is the October draft Loudon approved."
+   },
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1790435294769",
+   "posted": "2026-09-26",
+   "sources": [
+    "Loudon Live"
+   ],
+   "ask": "Re-check Loudon Live → spawned → Hyperdimensional Prism; it points backwards in time.",
+   "disposition": "do-now",
+   "evidence": "Still spawned: Projects/Loudon Live.md:25-27. Prism born 2025-09 (Hyperdimensional Prism.md:8), Loudon Live 2026-04 (:9); the logo comes from the Prism's identity essay (Loudon Live.md:91). The October weave ruled the retype (flag-dispositions.json, checkpoint-2 §K, Loudon's yes) but no writer placed it — it was frontmatter, out of the writers' bounds. emerged-from points back to the ground (SCHEMA.md:162).",
+   "edit": {
+    "file": "Projects/Loudon Live.md",
+    "before": "  - target: \"[[Hyperdimensional Prism]]\"\n    type: spawned\n    label: visual-identity",
+    "after": "  - target: \"[[Hyperdimensional Prism]]\"\n    type: emerged-from\n    label: visual-identity"
+   },
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1791827827990",
+   "posted": "2026-10-12",
+   "sources": [
+    "Wavetable Oscillator",
+    "Three Kinds of Warp"
+   ],
+   "ask": "In Deep Research Part IV, mark methods 1, 3 and 7 as reshaping the harmonics, not leaving them.",
+   "disposition": "do-now",
+   "evidence": "Still unscoped: Wavetable Synthesis — Deep Research & Higher-Dimensional Design.md:118 \"All seven work by introducing aperiodicity ... never by escaping the harmonic substrate itself.\" Approved in October (checkpoint-2 §K) but placed by no writer (writers/log-set-1.md:217; RESUME.md 'Left for the next hands'). Methods 1 (:120), 3 (:124) and 7 (:132) keep one period; 2, 4, 5, 6 add a second oscillator, a second clock or random grain timing.",
+   "edit": {
+    "file": "Wavetable Synthesis — Deep Research & Higher-Dimensional Design.md",
+    "before": "All seven work by introducing aperiodicity into the signal path, modulation, or layering — never by escaping the harmonic substrate itself.",
+    "after": "Four of the seven leave the harmonic series, because something besides the one period sets the timing: a second oscillator (2, 6), a second clock (4) or random grain timing (5). Three keep one fixed period, so by [[Three Kinds of Warp]]'s one-period read they reshape the harmonics rather than leave them (1, 3, 7); method 3 leaves only when a non-integer LFO drives the distortion, which is a second clock."
+   },
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-palace-close-2026-10-13-1791914509187",
+   "posted": "2026-10-13",
+   "sources": [
+    "Stable Audio Open",
+    "Kuramoto Coupling",
+    "Project Stewardship System"
+   ],
+   "ask": "Reread four places the 2026-10-13 moves left stale and fix each or let it go.",
+   "disposition": "do-now",
+   "evidence": "(2) done: the indigo/amber caption is gone from Kuramoto Coupling.md (a75350ec). (3) done: Gap 9 left Projects/Project Stewardship System.md in 47ea856f (2026-10-16); it sits in the Context as history (:128). (1) still stale: Shop/Stable Audio Open.md:151 'Embedded in [[Kuramoto Coupling]] near the sync-arriving video' — the clip is in the rich face (Kuramoto Coupling — rich.json:135). (4) still stale: _ops/orchestrator/prompts/shared.md:98-101 gives a reason that 7e065f97 retired — the inbox now keys a request by its request_id, else its own id (trickster-auto/src/inbox.js:9-13). Stable Audio Open's line is in § Recipes, not the Gotchas lane A sweeps.",
+   "edit": [
+    {
+     "file": "Shop/Stable Audio Open.md",
+     "before": "Embedded in [[Kuramoto Coupling]] near the sync-arriving video as a parallel auditory rendering.",
+     "after": "Embedded in [[Kuramoto Coupling]]'s rich face, beside the sync-arriving video, as a parallel auditory rendering."
+    },
+    {
+     "file": "_ops/orchestrator/prompts/shared.md",
+     "before": "1. **Always set a top-level `request_id`.** It is the correlation key\n   Loudon's grant answers with (`re`). Two requests shipped without one\n   and became cards that could not be cleared — one of them was answered\n   and *still* rendered seven weeks later.",
+     "after": "1. **Always set a top-level `request_id`.** It is the correlation key\n   Loudon's grant answers with (`re`). Without it the inbox falls back to\n   the message's own `id`; a request carrying neither can never be\n   answered."
+    }
+   ],
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1792107627959",
+   "posted": "2026-10-15",
+   "sources": [
+    "Radio Play",
+    "GenAI Camera",
+    "The Lens"
+   ],
+   "ask": "Reword the scratch references in Radio Play, GenAI Camera and The Lens as local gitignored scratch, or teach lint-doc-drift to skip them.",
+   "disposition": "do-now",
+   "evidence": "GenAI Camera is done: :99 reads \"(the rig's per-render layers file, gitignored: its `cn`, `denoise` and `dilate` fields)\" (a75350ec). Radio Play.md:45, :56 and The Lens.md:89 still carry `_ops/scratch/` paths; lint-doc-drift.py today still warns W0 on all three. `_ops/scratch/` is gitignored (.gitignore:40). The October plan (Loudon's yes) was skipped by the writer as another set's file (writers/log-set-2.md:22). The plan's other half for The Lens, copying the owner's prototype into The Lens/proofs/, needs Loudon's own folder and is not proposed here. New since: lint-doc-drift also warns on GenAI Camera.md:53 `layers/`, which is a BLUELINE panel folder, not scratch; not this flag's.",
+   "edit": [
+    {
+     "file": "Radio Play.md",
+     "before": "[[Maker]]-dispatched, assets in `_ops/scratch/weave-video/`.",
+     "after": "[[Maker]]-dispatched, its assets kept in Loudon's local scratch, outside the palace."
+    },
+    {
+     "file": "Radio Play.md",
+     "before": "- Promote out of `_ops/scratch/` into a proper bundle once the template stabilizes.",
+     "after": "- Give the template a proper home in this bundle once it stabilizes; it lives in local scratch today."
+    },
+    {
+     "file": "The Lens.md",
+     "before": "; see `_ops/scratch/lens-prototype-2026-07-02.md`)",
+     "after": "; its notes are in Loudon's local scratch, outside the palace)"
+    }
+   ],
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1792906004848",
+   "posted": "2026-10-25",
+   "sources": [
+    "Palace Map"
+   ],
+   "ask": "Bring SCHEMA's sentence naming the foundational entries in line with the frontmatter.",
+   "disposition": "do-now",
+   "evidence": "SCHEMA.md:127 lists \"(CLAUDE, JEWEL, ELDER, SCHEMA, README, Substrate Skill)\". `git grep '^stage: foundational'` finds CHILD, CLAUDE, ELDER, JEWEL, Meaning and the Link, README - The Palace Guide, ROSETTA, SCHEMA — Reference, SCHEMA (plus one draft in a proof folder). Substrate Skill is stage: mature (_ops/Substrate Skill.md:8). SCHEMA has not been touched on this line since the flag (git log since 2026-10-25: ca30c5a2, 9566c5c1, neither here). SCHEMA is a foundational page: the coordinator may want it read whole and the version left as is, since this changes a list, not a rule.",
+   "edit": {
+    "file": "SCHEMA.md",
+    "before": "reserved stage for palace meta-entries (CLAUDE, JEWEL, ELDER, SCHEMA, README, Substrate Skill)",
+    "after": "reserved stage for palace meta-entries (CLAUDE, JEWEL, CHILD, ELDER, SCHEMA, SCHEMA — Reference, ROSETTA, Meaning and the Link, README)"
+   },
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1792983305573",
+   "posted": "2026-10-25",
+   "sources": [
+    "Frequency-Time Duality"
+   ],
+   "ask": "Decide fix or ignore for the ghost-lint warning on Frequency-Time Duality.md:101's proofs/…html link.",
+   "disposition": "do-now",
+   "evidence": "The file exists: Projects/Frequency-Time Duality/proofs/2026-10-13-the-flip-three-axes.html (tracked). It is the linter: lint-ghost-links.py:192 checks a plain link only against `stems` (names without extension), so any [[file.ext]] link to a real non-.md file reads as a ghost; the embed branch above it already checks `names`. Today this is the only plain link it trips on (the Meaning and the Link PDF link sits in backticks). A lint-path fix, not a page fix.",
+   "edit": {
+    "file": "_ops/swarm/lint-ghost-links.py",
+    "before": "                        if low in stems:\n                            continue\n                        kind = \"link\"",
+    "after": "                        if low in stems or low in names:\n                            continue\n                        kind = \"link\""
+   },
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-close-2026-11-07-weekend-review-1794107646262",
+   "posted": "2026-11-07",
+   "sources": [
+    "Closing Well",
+    "SCHEMA — Reference"
+   ],
+   "ask": "Rule which side moves: executor.md § tuning (item only when the spec changed) or SCHEMA — Reference §6 (item whenever a run taught something).",
+   "disposition": "do-now",
+   "evidence": "Still in conflict: _ops/closing-well/executor.md:139-144 vs SCHEMA — Reference.md:257-258 \"A numbered item is written when a run taught something ... whether or not it changed the spec\". Proposed ruling: the executor moves. §6 is the rule every ledger shares, and Closing Well's own practice already follows it (closes 72-78 numbered data-only items, per the flag). Neither file changed since the flag (git log since 2026-11-07 shows only 6effceae and 8c4ccd8f on Closing Well.md).",
+   "edit": {
+    "file": "_ops/closing-well/executor.md",
+    "before": "places nothing more. Otherwise also append the next numbered item under a heading for this\nclose — but only when the close changed the spec: the item names what the close showed, the spec change it forced, and\nthe version that change produced ([[SCHEMA — Reference]] §6). A lesson that changed nothing\nstays in the close map and the commit body. Commit it with the spec change it records.\n*Executor check:* the item's number follows the last one; it names a spec change and a\nversion; the version it names is the one now in `Closing Well.md`'s frontmatter.",
+    "after": "places nothing more. Otherwise also append the next numbered item under a heading for this\nclose, whether or not the close changed the spec: the item names what the close showed and,\nwhen it forced a spec change, that change and the version it produced ([[SCHEMA — Reference]] §6).\nA spec change is committed with the item that records it.\n*Executor check:* the item's number follows the last one; an item that names a spec change\nnames a version, and that version is the one now in `Closing Well.md`'s frontmatter."
+   },
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1794142679551",
+   "posted": "2026-11-08",
+   "sources": [
+    "Auditory Illusions",
+    "Shepard Tone Synthesizer"
+   ],
+   "ask": "Under Shepard's Open Question 6, add a progressed line: the family has its entry.",
+   "disposition": "do-now",
+   "evidence": "Not yet on the page: Projects/Shepard Tone Synthesizer.md:161 still ends \"does the family want its own entry, [[Auditory Illusions]]?\" with no progressed line; nothing on any branch touched Shepard since 2026-11-07 (git log --all). The line's claims check: Auditory Illusions landed f91572e2 (2026-11-08); Risset on the duality axis, Auditory Illusions.md:106; the wagon wheel to sampling, Auditory Illusions — Context.md:53; continuity with amodal completion (:84) and streaming with Gestalt proximity (:78), where OQ6 had Kanizsa and Rubin's vase. Style matches :153 and :158.",
+   "edit": {
+    "file": "Projects/Shepard Tone Synthesizer.md",
+    "before": "Each could be its own small build — does the family want its own entry, [[Auditory Illusions]]?\n",
+    "after": "Each could be its own small build — does the family want its own entry, [[Auditory Illusions]]?\n   — progressed: the family has its entry, [[Auditory Illusions]] (2026-11-08), which places Risset's rhythm on the Frequency-Time Duality axis, sends the wagon wheel back to sampling, and pairs continuity and streaming with closer visual twins than this question did.\n"
+   },
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1794142679863",
+   "posted": "2026-11-08",
+   "sources": [
+    "Shepard Tone Synthesizer",
+    "Frequency-Time Duality",
+    "Auditory Illusions"
+   ],
+   "ask": "Judge whether Shepard's bare connects-to [[Frequency-Time Duality]] still earns its place: cut, or keep with a label of Shepard's own.",
+   "disposition": "do-now",
+   "evidence": "Cut. Shepard's only tie to the Duality is Risset's rhythm in OQ6 (:161), and that tie now lives, labelled, on the family page: Auditory Illusions → connects-to [[Frequency-Time Duality]] [risset-on-the-duality-axis], with its body at Auditory Illusions.md:106. Frequency-Time Duality.md never mentions Shepard or Risset. The October skeptic said 'better: cut; it can return if the illusions series is written with Risset placed on the duality axis' (weave-2026-10-24/checkpoint-2-for-loudon.md:48); it was written, on another page. CONFLICT to reconcile: lane C1a proposes keeping it with label time-domain-twin at confidence low, and says itself 'Cut if the coordinator wants a named sentence' (workers/C1a-bare-links.json). This disposition is the cut.",
+   "edit": {
+    "file": "Projects/Shepard Tone Synthesizer.md",
+    "before": "  - target: \"[[Frequency-Time Duality]]\"\n    type: connects-to\n  - target: \"[[Hyperdimensional Prism]]\"",
+    "after": "  - target: \"[[Hyperdimensional Prism]]\""
+   },
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1794142680459",
+   "posted": "2026-11-08",
+   "sources": [
+    "Auditory Illusions",
+    "Frequency-Time Duality"
+   ],
+   "ask": "Read Frequency-Time Duality.md:39 ('above ~20 Hz fuse into tone') against Auditory Illusions § In time; reword :39 or carry the study's numbers into the open question.",
+   "disposition": "do-now",
+   "evidence": "Keep :39 as the summary line: the list it opens is already framed as zones on one axis (:44), and The Flip says \"The crossing is a zone, not a line\" (:53). Carry the numbers to the open question that asks how wide the zone is (:133; the flag's :139-141 has moved). The numbers are in Auditory Illusions — Context.md:41: Ungan and Yagcioglu 2014, tapping below about 20 clicks a second, pitch above about 50, worst discrimination 20-33, one small study. Open Questions carries no rich-face fingerprint (rich.json fingerprints The Echo Walk, The Recursion, Three Doorways), so no piece will report a lag. Style matches :135.",
+   "edit": {
+    "file": "Projects/Frequency-Time Duality.md",
+    "before": "the 40 Hz top Loudon heard as too high says to measure it, not assume it.\n- The table used 120 BPM",
+    "after": "the 40 Hz top Loudon heard as too high says to measure it, not assume it.\n  - Progressed, thinly (2026-11-08): [[Auditory Illusions]] carries one small study's numbers (Ungan and Yagcioglu, 2014, in its Context): tapping below about 20 clicks a second, pitch above about 50, and discrimination worst between 20 and 33. One study, and where the boundary falls moves with how it is defined.\n- The table used 120 BPM"
+   },
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-scoped-linters-941839-1792968355433",
+   "posted": "2026-10-25",
+   "sources": [
+    "Resonance and Damping"
+   ],
+   "ask": "Give Resonance and Damping a hero and an icon once Loudon has read the page.",
+   "disposition": "do-now",
+   "evidence": "The condition is met: Loudon read the page section by section on 2026-10-29 and moved it to growing (3fe36e60). Still faceless: the bundle has no hero or icon (ls Resonance and Damping/), and PLAN.md:26 lists it among the eight. Lane F carries it this weave (rooms/F-faces.md:7, flag commons-palace-close-2026-11-04-enrichme-1794110196821). No text edit; the trailer rides with lane F's face for this page when it lands on Loudon's yes.",
+   "edit": {
+    "file": "(lane F: Resonance and Damping/Resonance and Damping — hero.png, — icon.png)",
+    "before": "",
+    "after": ""
+   },
+   "reason": "",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1791311805006",
+   "posted": "2026-10-06",
+   "sources": [
+    "Haptic Handwheel"
+   ],
+   "ask": "Consider a Touch gate in Audition Gate § 4 beside Look, Watch and Play.",
+   "disposition": "decline",
+   "evidence": "Audition Gate.md:43 still lists Look, Watch and Play. Haptic Handwheel is still unbuilt (Projects/Haptic Handwheel.md:13, :75, :89). The October weave put it to Loudon (checkpoint-2 §L: 'now, or once the Haptic Handwheel is built?'); no answer is recorded.",
+   "edit": {},
+   "reason": "A gate only Loudon's hand can pass, for an object nobody has built, would be a rule ahead of any run; the Handwheel's own page parks its concept page 'until the knob has a built proof' (Haptic Handwheel.md:165), and the gate can wait on the same proof and be raised again then.",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-palace-close-2026-10-13-1791914501938",
+   "posted": "2026-10-13",
+   "sources": [
+    "Language as a Tonal Medium"
+   ],
+   "ask": "Decide whether a Convolution entry is earned or retarget the two links.",
+   "disposition": "decline",
+   "evidence": "Language as a Tonal Medium.md:21 and :46 still link [[Convolution]]; Projects/Semantic Webcam.md:18, :72, :79 reach for it too. The 2026-10-24 Weave ruled it: {\"target\": \"Convolution\", \"count\": 3, \"ruling\": \"invitation\", \"how\": \"a concept the palace reaches for from Semantic Webcam; leave\"} (weave-2026-10-24/ghost-rulings.json).",
+   "edit": {},
+   "reason": "Already decided: the ghost is an invitation, so neither retarget nor a page written by the weave; the page waits for a deposit that wants it.",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1792906004651",
+   "posted": "2026-10-25",
+   "sources": [
+    "Palace Map"
+   ],
+   "ask": "Consider citing the constellation test as evidence for Diversity of Thought § What Would Resolve This.",
+   "disposition": "decline",
+   "evidence": "Diversity of Thought in Many-Agent Systems.md:50-61 describes a Maker-vs-team experiment not yet run. The constellation test (_ops/Palace Map/proofs/Palace Map — proof — constellation-test.md) measured which card a woken page should wake with, on three pages, one run each; it calls 'the counted card pulled every page to know onto itself' 'the softest of the findings'.",
+   "edit": {},
+   "reason": "It does not bear on the experiment the section names, and leaning a three-page result about waking cards onto a question about plural orchestration would be a connection forced, not found; it can return if more woken pages confirm that a shared card pulls agents together.",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1793711823205",
+   "posted": "2026-11-03",
+   "sources": [
+    "Quantization ↔ Precision vs Flow"
+   ],
+   "ask": "Consider couples-with between Quantization ↔ Precision vs Flow and Synthesis ↔ Emergence (the keeper's rhyme, unjudged).",
+   "disposition": "decline",
+   "evidence": "Still no edge either way. The keeper's reason: shared neighbours (Brian Eno, Cross-Domain Resonances, Flocking) and 'one question from opposite ends: how little structure lets a whole emerge, and how little structure lets it keep its feel' (_ops/Palace Map/proofs/2026-11-03-keeper-first-run/sit-reading.md:11). The only body support is one table cell, 'Loses organic emergence' (Quantization ↔ Precision vs Flow.md:110). Both already mirror Flocking, so they meet in two hops.",
+   "edit": {},
+   "reason": "couples-with says the two are always active together, which neither page says; the keeper's own reading is two ends of one question, a contrast at most, and shared neighbours are the reason the Standing Order rejects, so fewer, better links says no.",
+   "question_for_loudon": ""
+  },
+  {
+   "id": "commons-the-palace-1792107627767",
+   "posted": "2026-10-15",
+   "sources": [
+    "CLAUDE",
+    "Weave Ceremony",
+    "ROSETTA",
+    "The Palace Voice"
+   ],
+   "ask": "Give the word 'face' one home that says it names two things: a page's faces (text, rich face, scroll) and the hero-plus-icon pair.",
+   "disposition": "leave-open",
+   "evidence": "Still no bridging sentence: SCHEMA — Reference.md:308 defines faces as what a reader meets; Shop/Hero and Avatar Maker.md:38 'What a face is' the hero and icon; CHILD § A page and its folder the first sense only. A third use has turned up: ROSETTA.md:202 'a face / mask — a page run as an agent'. The October draft (one sentence after SCHEMA — Reference §8's 'The `.md` is the canonical surface and the first face.') went to Loudon in checkpoint-2 §L; no answer is recorded.",
+   "edit": {},
+   "reason": "Where the word's home is was left to Loudon and the Weave, and his answer is not on record.",
+   "question_for_loudon": "Should SCHEMA — Reference §8 carry one sentence saying 'face' also names the hero and icon every entry wears: yes or no?"
+  },
+  {
+   "id": "commons-the-palace-1792647281211",
+   "posted": "2026-10-22",
+   "sources": [
+    "Palace Philosophies",
+    "Quality Manifesto",
+    "FOUR PILLARS"
+   ],
+   "ask": "Ask Loudon whether 'let's explore, not I'll teach' should return to the floor.",
+   "disposition": "leave-open",
+   "evidence": "Still on no birth page: `git grep -i \"let.s explore\"` finds Quality Manifesto.md:78, FOUR PILLARS — Context.md:62, Loudon Live Design System.md:156 and the design-system README/SKILL, none of them born-with. Asked in checkpoint-2 §L (2026-10-24); no answer recorded.",
+   "edit": {},
+   "reason": "The birth's words change only on his yes.",
+   "question_for_loudon": "Put 'let's explore, not I'll teach' back on a born-with page: yes or no?"
+  },
+  {
+   "id": "commons-scoped-linters-941839-1792968355730",
+   "posted": "2026-10-25",
+   "sources": [
+    "Resonance and Damping"
+   ],
+   "ask": "Ask Loudon whether Practice belongs on Resonance and Damping, and whether a ~2,000-word growing page should shed to a Context.",
+   "disposition": "leave-open",
+   "evidence": "Pillars still tools, creation, philosophy (Resonance and Damping.md:4-7). The length half is mostly settled: Loudon read the page whole on 2026-10-29 and moved it to growing as one page (3fe36e60); it is 2,495 words but 14 KB, under the 20 KB Context bar of the propagate flag commons-the-palace-1792897100361. The pillar half was never put to him.",
+   "edit": {},
+   "reason": "Only Loudon adds a pillar the room chose not to force.",
+   "question_for_loudon": "Add the Practice pillar to Resonance and Damping: yes or no?"
+  },
+  {
+   "id": "commons-scoped-linters-941839-1792968356001",
+   "posted": "2026-10-25",
+   "sources": [
+    "Resonance and Damping"
+   ],
+   "ask": "Measure the Mathieu Resonator's Q at damping_zeta = 0.025, then offer the choice of which number to fix; no edit before a ruling.",
+   "disposition": "leave-open",
+   "evidence": "Measured here in a Python copy of the codebox's own update (symplectic Euler, q_depth = 0, no noise or clip; not run in RNBO): Q = 19.98 at 44.1 and 48 kHz, peak 219.96 Hz, -3 dB bandwidth 11.01 Hz, by decay and by frequency response alike. So Q = 1/(2ζ) = 20 holds; README — Mathieu Resonator.md:57 ('Q ≈ 33 (3 dB bandwidth ≈ 6.6 Hz)') and mathieu_resonator.codebox:55, :142 ('Q ≈ 33') are wrong for ζ = 0.025. Side find, same model: the parametric threshold sits at q_depth ≈ 0.05 (= 2ζ), not 0.10 as codebox Test 3 and README:69 say — growth over 2.5 s is 1e-4 at 0.045, 0.98 at 0.05, 5.5e3 at 0.055 — so README Test 2's 'below threshold' setting, q_depth = 0.05 (:60), sits on it. The h = 4ζ rule is for h, and here h = 2·q_depth. Not checked: the RNBO patch itself.",
+   "edit": {},
+   "reason": "The flag reserves the choice of which number moves to Loudon or the owner, and the threshold side find widens the same choice.",
+   "question_for_loudon": "The Mathieu Resonator's text says Q 33 but the code gives 20: fix the words (Q 20, bandwidth 11 Hz, threshold q_depth 0.05) or the knob (damping_zeta about 0.015 for Q 33)? 'words' or 'knob'."
+  }
+ ],
+ "runpod_by_touch": {
+  "pattern": "rest\\.runpod\\.io|api\\.runpod\\.io/v[0-9]|allowedCudaVersions|workersMax",
+  "pages_matching": [
+   {
+    "path": "Shop/RunPod GPU Backend/RunPod GPU Backend — runbook.md",
+    "kind": "runbook",
+    "line": ":31 REST v2 at https://api.runpod.io/v2 ... v1 (rest.runpod.io/v1) retires 2026-11-15; :36 gpu.allowedCudaVersions is an exact set; :101 2026-11-07 incident (workersMax=1)"
+   },
+   {
+    "path": "Shop/Shopkeeper/Shopkeeper — tuning.md",
+    "kind": "restated-detail",
+    "line": ":52 item 6 'Runpod's REST API 403s with Cloudflare error 1010 under Python's default urllib User-Agent ... applies to any future Specialist or probe calling rest.runpod.io directly' — a standing rule restated outside the runbook, which holds the current version at runbook :41 (v2 accepts the default UA; v1 and the pod proxy refuse it). The ledger is append-only, so the by-touch move is a 'superseded by the runbook (:41)' tail like item 7's, not an edit of the item."
+   },
+   {
+    "path": "Shop/Shopkeeper/Shopkeeper — tuning.md",
+    "kind": "record",
+    "line": ":57 item 7 'no /logs endpoint on rest.runpod.io' — already marked superseded by item 11 (2026-11-07)."
+   },
+   {
+    "path": "Shop/Hero and Avatar Maker/Hero and Avatar Maker — tuning.md",
+    "kind": "record",
+    "line": ":71 item 27 'Three STIGMERGY hero runs logged workersMax=1 ...' — a ledger lesson from a past run, already pointing to RunPod runbook § Incidents."
+   },
+   {
+    "path": "Shop/Shopkeeper/Shopkeeper — scroll.md",
+    "kind": "record",
+    "line": ":118 'workersMax 1 confirmed, parked to 0 after'; :136 'no code calls rest.runpod.io'; :300 'GET /v1/pods on rest.runpod.io' — the scroll's trail of past cycles."
+   },
+   {
+    "path": "Projects/BLUELINE/render-backend/track-I-report.md",
+    "kind": "record",
+    "line": ":10, :26 endpoints 'parked at workersMax=0' — a report of a past run."
+   },
+   {
+    "path": "Shop/Shopkeeper/probes/lightonocr-3/lightonocr-3-probe-notes.md",
+    "kind": "record",
+    "line": ":93 'I called GET /v1/pods on rest.runpod.io with that key' — a probe's notes."
+   },
+   {
+    "path": "_ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md",
+    "kind": "record",
+    "line": ":54 D-2026-06-14-RUNPOD row — the deposit archive."
+   }
+  ],
+  "note": "One page carries a restated detail, Shopkeeper — tuning.md item 6, and the runbook already holds its current form (:41); everything else is the runbook itself or a record of a past run, left alone. By-touch: reported, not swept."
+ },
+ "summary": "33 flags read by hand: 13 done, 12 do-now, 4 decline, 4 leave-open, 0 already closed by a trailer the linter missed. The pattern is the October weave. It judged 16 of these flags ACT or DEFER (weave-2026-10-24/flag-dispositions.json), and Loudon said yes to its checkpoint 2. Its writers then placed 13 of the 20 sentence edits, plus links and moves, in a75350ec and its siblings, but no commit carried a Palace-Resolves trailer for any of them. So the work is there and the board never heard. The ones that did not land were skipped by writers because the edit was in frontmatter or in a file outside their set (Loudon Live's retype, the Weave Context rewrite, Deep Research's Part IV line, Radio Play and The Lens). Those are do-now with their approved text. The other do-nows are small and checked: two stale references, SCHEMA's foundational list, one line in the ghost linter (it misses links to real non-.md files), the Closing Well executor moved to match SCHEMA — Reference §6, three Auditory Illusions follow-ups, and Resonance and Damping's face, which rides with lane F. One conflict to reconcile: lane C1a would label Shepard → Frequency-Time Duality time-domain-twin, and this lane cuts it. Measuring the Mathieu Resonator turned up a second error: its parametric threshold is at q_depth ≈ 0.05, not 0.10. Only Loudon can settle four things, each answerable in one word: where the second sense of 'face' is written, 'let's explore' on the floor, Practice on Resonance and Damping, and the Mathieu numbers ('words' or 'knob')."
+}

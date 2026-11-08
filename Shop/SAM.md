@@ -6,8 +6,6 @@ medium: other
 tool: Segment Anything (ultralytics)
 tool_version: MobileSAM + ViT-B
 born: 2026-06
-last_tested: 2026-06-25
-last_gotcha: 2026-06-25
 license: Apache-2.0 (code); weights per checkpoint (SAM ViT-B; MobileSAM)
 forward_vector: "I cut a picture into its objects — but only where the picture looks like the photos I learned on. On line art I flail; on photoreal or flat-cel I'm sharp. I want to be the reason we convert first: send me a domain I know, and I hand back clean cels."
 links:
@@ -39,6 +37,8 @@ I cut an image into its constituent objects — a mask per thing. Auto mode (Mob
 - The reframe in one line: don't fix the segmenter, **move the image into the segmenter's world, then stylize back.**
 
 ## Gotchas / where I fail
+
+What segmenting has taught, as it stands today, beside § The wall. Which job taught what, and what changed because of it, is in [[SAM — tuning]].
 
 - **Thin, see-through objects** defeat me even in photoreal if they're glassy/wireframe — no solid region to bound.
 - **Auto-mode over-segments** busy scenes into fragments; prompted mode (box around the object) is steadier when you know what you want.

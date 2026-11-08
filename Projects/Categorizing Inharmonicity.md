@@ -18,6 +18,7 @@ links:
     label: potential-shaping
   - target: "[[Compressor Design]]"
     type: connects-to
+    label: all-pass-origin
   - target: "[[Granular Synthesis]]"
     type: connects-to
     label: granular-attractor-hybrid

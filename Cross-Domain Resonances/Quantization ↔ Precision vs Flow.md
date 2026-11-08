@@ -16,6 +16,7 @@ forward_vector: "I keep showing learners that precision and flow are the same qu
 links:
   - target: "[[Cross-Domain Resonances]]"
     type: member-of
+    label: catalogued-bridge
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
     label: cross-domain-bridge

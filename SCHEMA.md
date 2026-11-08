@@ -17,10 +17,10 @@ links:
     type: deepens
   - target: "[[Substrate Skill]]"
     type: enables
+    label: the-types-it-operates
   - target: "[[Weave Ceremony]]"
     type: enables
-  - target: "[[Harvest Ceremony]]"
-    type: enables
+    label: rules-it-keeps
   - target: "[[Deposit Ceremony]]"
     type: enables
     label: governed-by
@@ -124,7 +124,7 @@ seed → sprout → growing → mature → fruiting → dormant → composting
 
 **Composting protocol:** Before deleting any entry, mark it `stage: composting` for one Weave cycle. During the next Weave, confirm deletion or revive. This prevents accidental loss.
 
-**`foundational`** is a reserved stage for palace meta-entries (CLAUDE, JEWEL, ELDER, SCHEMA, README, Substrate Skill) that are structural and do not follow the seed-to-mature lifecycle. These entries persist as long as the palace exists.
+**`foundational`** is a reserved stage for palace meta-entries (CLAUDE, JEWEL, CHILD, ELDER, SCHEMA, SCHEMA — Reference, ROSETTA, Meaning and the Link, README) that are structural and do not follow the seed-to-mature lifecycle. These entries persist as long as the palace exists.
 
 ---
 

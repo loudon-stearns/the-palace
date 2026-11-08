@@ -24,13 +24,16 @@ links:
     type: enables
   - target: "[[Meaning and the Link]]"
     type: emerged-from
+    label: intellectual-ancestor
   - target: "[[Hilaritas Generator]]"
     type: connects-to
     label: measured-by-joy
   - target: "[[Palace Enchantment]]"
     type: connects-to
+    label: wakes-the-cells
   - target: "[[Lateral Access]]"
     type: connects-to
+    label: meaning-by-relation
   - target: "[[SUBSTRATE — Context]]"
     type: connects-to
     label: context-companion

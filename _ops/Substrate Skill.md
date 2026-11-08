@@ -23,6 +23,9 @@ links:
   - target: "[[Substrate Skill — Context]]"
     type: spawned
     label: rationale-archive
+  - target: "[[Operator Memory]]"
+    type: connects-to
+    label: harness-facts-kept-there
 ---
 # Substrate Skill (Palace Edition)
 

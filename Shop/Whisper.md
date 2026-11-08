@@ -6,8 +6,6 @@ medium: sound
 tool: whisper
 tool_version: large-v3
 born: 2026-05
-last_tested: 2026-05-26
-last_gotcha: 2026-05-26
 license: MIT
 forward_vector: "I read speech back into timed, confidence-scored text clean enough to drive animation sync — and I want to close the loop on Kokoro tightly enough that the diff at each step becomes an honest measure of what narration loses, never a place I quietly invent words."
 links:
@@ -149,16 +147,20 @@ The Maker should not run a `large-v3` Whisper transcription in parallel with a M
 
 ## Gotchas
 
-**2026-05-26 — "Kuramoto" transcribes as "curimodo" at `base` model.** Confirms the standing warning that technical vocabulary gets phonetically approximated. The Kokoro-rendered narration with no phoneme override produced this exact miss. Two fixes available: (1) phoneme override on the Kokoro side (`[Kuramoto](/k uw r ah m oh t oh/)` style) before rendering; (2) Whisper `--initial_prompt "Kuramoto coupling, oscillator, theta band"` to bias the language model toward the project vocabulary. For round-trip integrity testing the override should live on the *Kokoro* side — that's where the pronunciation actually wants to be correct.
+What transcribing with Whisper has taught, as it stands today. Which job taught each, and what changed because of it, is in [[Whisper — tuning]].
 
-**2026-05-26 — "entrains to it" → "in trains to it" at `base` model.** Compound verbs with rare technical use ("entrain", "phase-lock", "couple") fragment into common-word lookalikes. Same fix path as above — project-glossary initial_prompt or a Piece-tier `large-v3` pass.
+**Model size**
+- **`base` is enough for clean synthetic narration** (a Kokoro WAV: no noise, accent or reverb); its word timing sits well inside what `manim-voiceover` needs. Use `small` for accented or low-SNR speech, and `large-v3` for Piece-tier published work and for recovering technical vocabulary.
 
-**2026-05-26 — `base` model is sufficient for clean Kokoro narration sync.** Decided the standing open question. For Study-tier text-to-speech-to-text round-trips on a 24 kHz mono Kokoro WAV (no noise, no accent, no reverb), `base` (~150 MB) gives monotonic word timing with mean segment avg_logprob = −0.15, end-of-audio detection within 1 second of true duration. Word-timing precision is well inside the ±10ms `manim-voiceover` needs at this length. Reserve `small` for accented speech or low-SNR sources; reserve `large-v3` for Piece-tier published work and for technical-vocabulary recovery.
+**Technical vocabulary**
+- **Expect rare technical words to come back as common lookalikes at `base`:** "Kuramoto" as "curimodo", "entrains" as "in trains". Compound verbs with rare technical use ("entrain", "phase-lock", "couple") fragment. Bias the decode with a project-glossary `--initial_prompt`, or run `large-v3`.
+- **In a Kokoro round trip, fix pronunciation on the Kokoro side** with a phoneme override (`[Kuramoto](/k uw r ah m oh t oh/)`), not in Whisper. That is where the pronunciation wants to be correct.
 
-- Long silences trigger hallucinated phrases (`"thank you for watching"`, `"please subscribe"`). VAD pre-pass is the standard fix
-- Word timing drifts by 50–200ms on audio with very dense speech or significant reverb; `whisperx` realigns at the cost of an extra step
-- Speaker diarization with `whisperx --diarize` is sensitive to overlapping speech; clean turn-taking gives accurate boundaries, talk-over does not
-- Model version drift is real — pinning `large-v3` does not pin every checkpoint hash; archive the model weights alongside Piece-tier transcripts for true reproducibility
+**Silence, timing and reproducibility**
+- **Long silences trigger hallucinated phrases** ("thank you for watching", "please subscribe"). Run a VAD pre-pass.
+- **Dense speech or heavy reverb drifts word timing by 50–200 ms;** `whisperx` realigns, at the cost of an extra step.
+- **`whisperx --diarize` needs clean turn-taking.** Overlapping speech blurs the speaker boundaries.
+- **Pinning `large-v3` does not pin every checkpoint hash.** Archive the model weights beside a Piece-tier transcript for true reproducibility.
 
 ## Recipes
 

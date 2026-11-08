@@ -15,8 +15,6 @@ who_leads: shared
 links:
   - target: "[[Hyperdimensional Prism]]"
     type: mirrors
-  - target: "[[Symbiotic Skills]]"
-    type: enables
   - target: "[[DSP in Looping Dimensions]]"
     type: mirrors
     label: dimensional-reframing

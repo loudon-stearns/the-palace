@@ -31,8 +31,6 @@ links:
   - target: "[[The Drift]]"
     type: contradicts
     label: fortress-vs-no-architecture
-  - target: "[[Quality Manifesto]]"
-    type: deepens
   - target: "[[Excellent Adventure]]"
     type: connects-to
     label: the-fire-at-nicopolis
@@ -41,6 +39,7 @@ links:
     label: lens-ground
   - target: "[[Hyperdimensional Prism]]"
     type: connects-to
+    label: view-from-above
   - target: "[[Project Stewardship System]]"
     type: enables
     label: agent-virtue-spec

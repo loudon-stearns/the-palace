@@ -1,9 +1,12 @@
 {
   "title": "Rational Hearing",
-  "idiom": "a hand-inked lecture sheet: the zigzag ladder of partials drawn in brush pen on cream paper, one rung lit in engineering red; icon as a bold linocut 3:2 with a vibrating string under it",
-  "hero_prompt": "Hand-drawn lecture sheet in black brush pen on warm cream paper, flat and graphic, hand-made, not a photograph, not a 3D render, no gradients, no depth-of-field: a tall zigzag ladder of large hand-lettered numerals 1, 2, 3, 4, 5, 6, 8, 9, 15, 16 climbing down the left two-thirds of the frame, each pair joined by a thin pen line with a small boxed label on it, one line and its two numerals inked in a single spot of engineering red. To the right, three small sketches stacked: a string vibrating in two and three loops, two short tubes of different lengths, and a spiky spectrum with tall thin peaks falling away to the right. Along the bottom edge, a row of piano keys drawn as thin dashed lines with short black bars sitting just off them. Nothing else: no photographs, no colour but black, cream and one red.",
-  "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a warm cream ground, no shading or gradients: the numerals 3 over 2 as a stacked fraction with a thick horizontal bar between them, filling the upper two-thirds of the square, and below them one thick black wavy line with exactly three loops like a string vibrating in its third mode. Nothing else. Bold, high-contrast, no fine linework, reads clearly at 24 pixels.",
-  "seeds": {},
-  "rendered_at": null,
+  "idiom": "hand-coloured 15th-century music-theory woodcut, two strings in two and three loops, the sounding one red",
+  "hero_prompt": "Hand-coloured woodcut in the manner of a 15th-century Italian music-theory book, black ink on cream with a single accent of engineering red, hand-made on paper, flat and graphic with visible woodcut line and watercolour texture, not a photograph, not a 3D render, no depth-of-field, wide panoramic composition: across the foreground, large and close, a long plain wooden box with two strings stretched along its top, both inked red and drawn as vibrating standing waves; each string is doubled into an upper curve and a mirrored lower curve that meet in points, so the upper string makes two long pointed closed loops touching end to end, and the lower string makes three long pointed closed loops touching end to end. Behind, smaller, a row of plain unmarked bronze bells in falling sizes hangs from a wooden beam, and two open organ pipes stand, one longer than the other. An old woman scholar in a long robe stands at the far end with her back to us, head tilted, listening. Cream, black, ochre and one red.",
+  "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a warm cream ground, no shading or gradients: two thick strings stretched side by side between two solid posts, the upper string swelling into two loops and the lower into three loops. Bold, high-contrast, no fine linework, reads clearly at 24 pixels.",
+  "seeds": {
+    "hero": 548540,
+    "icon": 309837
+  },
+  "rendered_at": "2026-11-08T14:56:18Z",
   "history": []
 }

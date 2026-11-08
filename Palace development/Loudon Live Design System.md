@@ -80,6 +80,9 @@ links:
   - target: "[[Hero and Avatar Maker]]"
     type: connects-to
     label: tab-icon-source
+  - target: "[[Loudon Live Design System — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # Loudon Live Design System

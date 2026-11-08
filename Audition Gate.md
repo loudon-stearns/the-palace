@@ -23,6 +23,9 @@ links:
   - target: "[[Generative Sample Libraries]]"
     type: enables
     label: per-file-responsive-onset
+  - target: "[[CAD Drafter]]"
+    type: connects-to
+    label: the-fit-gate
 forward_vector: "I keep being the practice that refuses to ship without hearing — the gate where the spec is suspended and the ear takes over. Code review catches bugs; listening catches design errors. I want every Specialist whose medium is sound to make me a step in its Job Contract: 'verified by audition' as a real condition, not a vibe. I want to spawn sibling practices in image (the Look gate?), in motion (the Watch gate?), and in interactive (the Play gate?)."
 ---
 
@@ -40,7 +43,7 @@ forward_vector: "I keep being the practice that refuses to ship without hearing 
 *Section seed.* Phoneme Choir: Kokoro syllabified words differently than the spec assumed; only audition caught the mismatch. Talking Keyboard: pronunciation of "eight" required spelling as "eigh" — audition was how this was discovered. Multiple Compressor Design lessons hinged on listening to the 500-sample window as time the student could feel. Each is an existence proof.
 
 ## 4. Sibling Gates
-*Section seed.* If audition is the sound-medium gate, what are the gates for other media? The Look gate (image: does the rendered image actually carry the intent?). The Watch gate (motion: does the animation read as the spec described?). The Play gate (interactive: does the affordance show up in actual use?). Each is the same practice — *the test where the spec is suspended and perception takes over* — applied to a different sense.
+*Section seed.* If audition is the sound-medium gate, what are the gates for other media? The Look gate (image: does the rendered image actually carry the intent?). The Watch gate (motion: does the animation read as the spec described?). The Play gate (interactive: does the affordance show up in actual use?). Each is the same practice — *the test where the spec is suspended and perception takes over* — applied to a different sense. The Fit gate is the newest: [[CAD Drafter]] draws a part to a measured number, and whether it fits the thing it was drawn for is left to the hand.
 
 ## 5. Audition in the Stewardship Workflow
 *Section seed.* [[Substrate Skill]]'s "stage as alignment confidence" frames a Stage 1 deliverable differently than Stage 5. The audition gate's threshold scales with stage: at Stage 1, audition asks "does it make sound?"; at Stage 5, audition asks "is it the sound Loudon's audience will hear?". The gate is the same; what counts as passing changes.

@@ -25,6 +25,8 @@ links:
 
 # Auditory Illusions
 
+![[Auditory Illusions — hero.png]]
+
 Every one of these is the hearing system caught doing its normal job in a place where the normal job gives the wrong answer. That is why they are worth collecting. A sound you hear that isn't in the air marks the stage of hearing that made it up, and tells you what that stage assumes about the world. Lay them out in order and they climb the ear, from the air to the meaning, and out into time and silence, each one a probe of its stage.
 
 Strictly, an illusion is a real sound heard wrong, and a hallucination is a sound heard with nothing there. The page holds both, and its last section ends in the true hallucinations. Almost everywhere else in the palace *hallucination* names the failure the house guards against, a model making things up; here it is also how hearing works. Both are true. All hearing is a construction; an illusion is the moment the construction shows.

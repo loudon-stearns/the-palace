@@ -21,28 +21,6 @@ links:
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: applies-to
-  - target: "[[4 Pillars Framework - The Founding Conversation]]"
-    type: emerged-from
-  - target: "[[Sidechain ↔ Conversation]]"
-    type: spawned
-  - target: "[[Dovetail Joint ↔ Counterpoint]]"
-    type: spawned
-  - target: "[[Cooking ↔ Mixing]]"
-    type: spawned
-  - target: "[[Frequency Domain ↔ Perspective Shift]]"
-    type: spawned
-  - target: "[[Kick Drum ↔ Foundation]]"
-    type: spawned
-  - target: "[[Reverb ↔ Space-Time]]"
-    type: spawned
-  - target: "[[Quantization ↔ Precision vs Flow]]"
-    type: spawned
-  - target: "[[Saturation ↔ Richness]]"
-    type: spawned
-  - target: "[[Compression ↔ Intimacy]]"
-    type: spawned
-  - target: "[[Synthesis ↔ Emergence]]"
-    type: spawned
   - target: "[[Found ↔ Made]]"
     type: spawned
     label: essence-axis

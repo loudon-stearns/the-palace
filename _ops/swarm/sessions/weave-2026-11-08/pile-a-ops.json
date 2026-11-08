@@ -1,0 +1,1419 @@
+[
+ {
+  "op": "remove",
+  "source": "The Adjacent Affordance",
+  "target": "Stoicism",
+  "type": "connects-to",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The only sentence names the Dichotomy, which already carries mirrors[engineering-register] from this page and is the Stoicism family's own member (Stoicism.md:62); Stoicism never names the page, so the hub link restates that mirror one hop up. A label such as stoic-cousin would also be defensible."
+ },
+ {
+  "op": "label",
+  "source": "Progressive Staging",
+  "target": "Modes of Collaboration",
+  "type": "connects-to",
+  "label": "staging-the-collaboration",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The page's open question asks whether staging is itself a way of working together, which is Modes of Collaboration's subject; Modes never names the page (only Excellent Adventure's forward vector does, Modes of Collaboration/Excellent Adventure.md:32)."
+ },
+ {
+  "op": "label",
+  "source": "Wavetable Space as Torus",
+  "target": "Philosopher Visits the Entry",
+  "type": "connects-to",
+  "label": "visited-entry",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The page holds a full visit; the label matches Floquet Theory's existing visited-entry link, one of the same four."
+ },
+ {
+  "op": "label",
+  "source": "Dispersion",
+  "target": "Portamento and Physical Pitch Modeling",
+  "type": "connects-to",
+  "label": "stiff-string-glide",
+  "lane": "C1a-bare-links.json",
+  "rationale": "Neither names the other, but both write the same stiff-string B: Dispersion gives the relation, Portamento hears it move during a glide (tuning item 58: the reason under another name)."
+ },
+ {
+  "op": "label",
+  "source": "Differential Equations",
+  "target": "DSP Frameworks",
+  "type": "connects-to",
+  "label": "difference-equations",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The body states the relation in one line: DSP frameworks are where DEs are solved as difference equations."
+ },
+ {
+  "op": "label",
+  "source": "Linear Predictive Coding",
+  "target": "Philosopher Visits the Entry",
+  "type": "connects-to",
+  "label": "visited-entry",
+  "lane": "C1a-bare-links.json",
+  "rationale": "Same case as Wavetable and Floquet: the page carries a visit in its body; one label for the four."
+ },
+ {
+  "op": "label",
+  "source": "Lateral Access",
+  "target": "Creative Coach",
+  "type": "connects-to",
+  "label": "narrative-therapy",
+  "lane": "C1a-bare-links.json",
+  "rationale": "Creative Coach names the tradition the two share, re-authoring a life story, and points at Lateral Access § The New Song; Lateral Access itself is silent, so the label carries the reason."
+ },
+ {
+  "op": "label",
+  "source": "Endosymbiosis",
+  "target": "SUBSTRATE",
+  "type": "connects-to",
+  "label": "host-and-partner",
+  "lane": "C1a-bare-links.json",
+  "rationale": "SUBSTRATE's anatomy uses endosymbiosis as the biological cast of the heart (Loudon and Claude); Palace Philosophies says the same (Palace Philosophies.md, § The living and physical philosophy). The label is the anatomy's own name for the lens."
+ },
+ {
+  "op": "label",
+  "source": "Parametric Resonance",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "label": "pumped-creativity",
+  "lane": "C1a-bare-links.json",
+  "rationale": "An open question on the source names the target and the register; it is tentative by the page's own word, so the label stays modest."
+ },
+ {
+  "op": "label",
+  "source": "SUBSTRATE",
+  "target": "Palace Enchantment",
+  "type": "connects-to",
+  "label": "wakes-the-cells",
+  "lane": "C1a-bare-links.json",
+  "rationale": "SUBSTRATE's body does not name it, but its anatomy places Enchantment in the pages organ as the waking of the cells (tuning item 58); Enchantment's own SUBSTRATE link was folded in October (Projects/Palace Enchantment/Palace Enchantment — Context.md:38), so this side is the one left."
+ },
+ {
+  "op": "label",
+  "source": "SUBSTRATE",
+  "target": "Lateral Access",
+  "type": "connects-to",
+  "label": "meaning-by-relation",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The anatomy lists Lateral Access in the links organ, and Lateral Access argues meaning is reached through relations, not head-on; the label names that shared ground."
+ },
+ {
+  "op": "label",
+  "source": "Photonic Time Crystals",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "label": "hilaritas-hook",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The body names the target and the job: the page supplies the cross-domain moment, one of Hilaritas Generator's four design primitives."
+ },
+ {
+  "op": "label",
+  "source": "Mixture of Experts",
+  "target": "Boundary-Crossing Instruments",
+  "type": "connects-to",
+  "label": "expert-for-perceptual-thresholds",
+  "lane": "C1a-bare-links.json",
+  "rationale": "Same sentence, same form as the page's existing Spinoza Conatus link, labelled expert-for-drive-and-joy."
+ },
+ {
+  "op": "label",
+  "source": "SCHEMA — Reference",
+  "target": "Resonant Link Labels",
+  "type": "connects-to",
+  "label": "label-vocabulary",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The Reference's label note draws its examples from Resonant Link Labels' lexicon without naming it; the card SCHEMA names it as the vocabulary's home. A naming sentence in the Reference would be a Pile B edit."
+ },
+ {
+  "op": "label",
+  "source": "Mathieu Equation",
+  "target": "Philosopher Visits the Entry",
+  "type": "connects-to",
+  "label": "visited-entry",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The third of the four bare visited pages; one label for all four."
+ },
+ {
+  "op": "label",
+  "source": "Trickster",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "label": "taught-by-doing",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The target sits under display text; the sentence says the pillars are taught the trickster's way, by living each until the unity shows."
+ },
+ {
+  "op": "label",
+  "source": "Palace Philosophies",
+  "target": "1 from 2",
+  "type": "connects-to",
+  "label": "virtu-archetype",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The reason lives in the Context companion, not the card: Machiavelli's virtù seeds the 1 from 2 archetype, and 1 from 2 does cast Sun Wukong (Projects/1 from 2.md:115)."
+ },
+ {
+  "op": "label",
+  "source": "Exponential Decay Curvature",
+  "target": "Loudon Live",
+  "type": "connects-to",
+  "label": "performance-control-candidate",
+  "lane": "C1a-bare-links.json",
+  "rationale": "An open question carries it: the curvature morph as a control on the public stage. Loudon Live never names the page, and the link is only as strong as that question."
+ },
+ {
+  "op": "label",
+  "source": "Cooperation Yields Agency",
+  "target": "Quality Manifesto",
+  "type": "connects-to",
+  "label": "the-measure",
+  "lane": "C1a-bare-links.json",
+  "rationale": "Card and Context both name the Manifesto as the yardstick the collaboration is measured by."
+ },
+ {
+  "op": "label",
+  "source": "Stoicism",
+  "target": "Hyperdimensional Prism",
+  "type": "connects-to",
+  "label": "view-from-above",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The body names the target directly. The View From Above already mirrors the Prism (the-altitude-that-unifies), so a cut is defensible too, but this page carries its own sentence."
+ },
+ {
+  "op": "label",
+  "source": "Murmuration",
+  "target": "Diversity of Thought in Many-Agent Systems",
+  "type": "connects-to",
+  "label": "live-probe",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The body's own words: the RNBO crossover is a live probe of the Diversity question."
+ },
+ {
+  "op": "label",
+  "source": "Bessel Functions in Synthesis",
+  "target": "Hyperdimensional Prism",
+  "type": "connects-to",
+  "label": "one-geometry",
+  "lane": "C1a-bare-links.json",
+  "rationale": "Under display text: one geometry cast into instrument and ear, the Prism's shape."
+ },
+ {
+  "op": "label",
+  "source": "Bessel Functions in Synthesis",
+  "target": "Spinoza Conatus",
+  "type": "connects-to",
+  "label": "monism",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The display text is the label. (The monism claim is Spinoza's more than the conatus's; whether the link should point at [[Spinoza]] is outside this lane.)"
+ },
+ {
+  "op": "label",
+  "source": "Semantic Webcam",
+  "target": "Cooperation Yields Agency",
+  "type": "connects-to",
+  "label": "traces-not-orders",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The body points at the target with a reason, coordination without command; the target's matching line is its control failure (one dictates, the other complies). The thread is thin but stated."
+ },
+ {
+  "op": "label",
+  "source": "Categorizing Inharmonicity",
+  "target": "Compressor Design",
+  "type": "connects-to",
+  "label": "all-pass-origin",
+  "lane": "C1a-bare-links.json",
+  "rationale": "Under display text: the all-pass inharmonicity insight was found during compressor work, which Hyperdimensional Prism.md:99 confirms. Compressor Design itself no longer says it, so the label matches the Prism's all-pass-origin."
+ },
+ {
+  "op": "retype",
+  "source": "Preset Oracle",
+  "target": "Symbiotic Skills",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "asks-better-questions",
+  "lane": "C1a-bare-links.json",
+  "rationale": "Read aloud: Preset Oracle exemplifies Symbiotic Skills; the body calls it an instance, under its own heading § Connection to Symbiotic Skills."
+ },
+ {
+  "op": "retype",
+  "source": "Compressor Design",
+  "target": "Boundary-Crossing Instruments",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "ratio-as-slope",
+  "lane": "C1a-bare-links.json",
+  "rationale": "Read aloud: Compressor Design exemplifies Boundary-Crossing Instruments; the source calls itself the pattern and the target tells the same case as its own."
+ },
+ {
+  "op": "remove",
+  "source": "Biomechanical Synthesis",
+  "target": "Granular Synthesis",
+  "type": "connects-to",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The only granular sentence is already carried by the page's labelled link to Neural Granular Synthesis (firing-rate-becomes-grain-rate); Granular Synthesis never names the page, so the parent link repeats the child."
+ },
+ {
+  "op": "label",
+  "source": "Biomechanical Synthesis",
+  "target": "Frequency-Time Duality",
+  "type": "connects-to",
+  "label": "firing-rate-crosses-into-tone",
+  "lane": "C1a-bare-links.json",
+  "rationale": "Neither page names the other, but the neural network section is a pulse train that is rhythm at low rates and tone at high ones, the Duality's crossing in a body."
+ },
+ {
+  "op": "retype",
+  "source": "D3.js",
+  "target": "Matplotlib",
+  "from_type": "connects-to",
+  "type": "contrasts-with",
+  "label": "interactive-vs-static",
+  "lane": "C1a-bare-links.json",
+  "rationale": "Two Specialists named as alternatives along one axis, interactive vs static; the Shop's other routing pairs already use contrasts-with (Matplotlib → Plotly, Mermaid → Graphviz)."
+ },
+ {
+  "op": "retype",
+  "source": "D3.js",
+  "target": "p5.js",
+  "from_type": "connects-to",
+  "type": "contrasts-with",
+  "label": "control-vs-expression",
+  "lane": "C1a-bare-links.json",
+  "rationale": "A routing boundary between alternatives: D3 for custom viz where control matters, p5 for generative expression."
+ },
+ {
+  "op": "label",
+  "source": "VCV Patch Generator",
+  "target": "Web Audio Worklet",
+  "type": "connects-to",
+  "label": "test-plan-exemplar",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The target says its test suite is modelled on this Specialist's; the source is silent. (Read aloud it is close to Web Audio Worklet emerged-from VCV, but the plan is still a TODO, so a label is the honest weight.)"
+ },
+ {
+  "op": "retype",
+  "source": "Observable Plot",
+  "target": "Matplotlib",
+  "from_type": "connects-to",
+  "type": "contrasts-with",
+  "label": "browser-vs-static",
+  "lane": "C1a-bare-links.json",
+  "rationale": "Both pages name the other as the alternative across the browser/static line."
+ },
+ {
+  "op": "label",
+  "source": "Palace Graffiti",
+  "target": "SCHEMA",
+  "type": "connects-to",
+  "label": "governed-by",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The body says SCHEMA governs the convention; governed-by is a label already in use (SCHEMA.md:26)."
+ },
+ {
+  "op": "remove",
+  "source": "Map Build Ceremony",
+  "target": "Harvest Ceremony",
+  "type": "connects-to",
+  "lane": "C1a-bare-links.json",
+  "rationale": "Neither page names the other. The link's one reason, a forward vector to build the map at Harvest close, was struck as answered at v2.6: the cadence is the morning and the weave (_ops/Map Build Ceremony/Map Build Ceremony — tuning.md:71)."
+ },
+ {
+  "op": "label",
+  "source": "Image Embedding Standard",
+  "target": "SUBSTRATE",
+  "type": "connects-to",
+  "label": "conserved-markings",
+  "lane": "C1a-bare-links.json",
+  "rationale": "SUBSTRATE's anatomy places the standard in the voice-and-look organ; the label is that organ's biological cast."
+ },
+ {
+  "op": "label",
+  "source": "Pages as Agents",
+  "target": "JEWEL",
+  "type": "connects-to",
+  "label": "jewel-at-every-node",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The Context companion carries it, and the Jewel says it from the other side: every page is a woken agent."
+ },
+ {
+  "op": "label",
+  "source": "Pages as Agents",
+  "target": "Lateral Access",
+  "type": "connects-to",
+  "label": "access-from-inside",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The Context companion names the resonance; Lateral Access is silent."
+ },
+ {
+  "op": "label",
+  "source": "Generative Compression",
+  "target": "BBS Blackboard",
+  "type": "connects-to",
+  "label": "compression-at-yellow",
+  "lane": "C1a-bare-links.json",
+  "rationale": "Neither names the other, but the Blackboard's yellow-health rule is Generative Compression's method word for word (its forward vector: \"with forward vector as the compression signal\")."
+ },
+ {
+  "op": "label",
+  "source": "Dialogue Moderator",
+  "target": "Enchanted Worker",
+  "type": "connects-to",
+  "label": "sees-both-sides",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The target's open question on page-agents meeting is answered by the source; the source never names it, so the label carries the reason."
+ },
+ {
+  "op": "label",
+  "source": "Dialogue Moderator",
+  "target": "Four Pillars of Enchanted Agency",
+  "type": "connects-to",
+  "label": "reads-the-agency-profile",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The Moderator's pre-flight reads the four-axis agency profile that Four Pillars of Enchanted Agency defines, and the target cites the Moderator in reply to its question about agents in discussion."
+ },
+ {
+  "op": "label",
+  "source": "Four Pillars of Enchanted Agency",
+  "target": "Swarm Weave",
+  "type": "connects-to",
+  "label": "four-axes-for-the-vector",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The page opens by taking the Swarm Weave's forward vector and giving it four axes. That is close to deepens, but the page already deepens Pages as Agents for the same move (page-drive-in-four-axes), so a label is enough."
+ },
+ {
+  "op": "remove",
+  "source": "Hero and Avatar Maker",
+  "target": "Loudon Live Design System",
+  "type": "connects-to",
+  "lane": "C1a-bare-links.json",
+  "rationale": "pair fold: The design system carries the sentence: \"A page wears its entry's avatar as its tab icon ([[Hero and Avatar Maker]])\" (Palace development/Loudon Live Design System.md:123), and the Maker's body points back at that rule (Shop/Hero and Avatar Maker.md:55). 'frame + cascade' dates from the Maker's deposit, names a cascade the Maker's page never discusses, and is not in label form."
+ },
+ {
+  "op": "label",
+  "source": "Loudon Live Design System",
+  "target": "Hero and Avatar Maker",
+  "type": "connects-to",
+  "label": "tab-icon-source",
+  "lane": "C1a-bare-links.json",
+  "rationale": "pair fold: label kept/set"
+ },
+ {
+  "op": "remove",
+  "source": "Hero and Avatar Maker",
+  "target": "Drafting Table Design System",
+  "type": "connects-to",
+  "lane": "C1a-bare-links.json",
+  "rationale": "pair fold: The two labels say the same thing; keep the design system's side, which carries the rule \"A page wears its entry's avatar as its tab icon ([[Hero and Avatar Maker]])\" (Palace development/Drafting Table Design System.md:85) and matches the Loudon Live pair, so both design systems hold one link each to the Maker under one label."
+ },
+ {
+  "op": "label",
+  "source": "Drafting Table Design System",
+  "target": "Hero and Avatar Maker",
+  "type": "connects-to",
+  "label": "tab-icon-source",
+  "lane": "C1a-bare-links.json",
+  "rationale": "pair fold: label kept/set"
+ },
+ {
+  "op": "remove",
+  "source": "Diversity of Thought in Many-Agent Systems",
+  "target": "The Shop",
+  "type": "emerged-from",
+  "lane": "C1a-bare-links.json",
+  "rationale": "pair fold: Both pages say the live relation is coupling: \"The Shop's singular-Maker design is provisional; if the Diversity question pulls back toward plurality, the Shop's architecture moves with it. The two entries are coupled.\" (The Shop.md:83) and \"I want to keep coupling tightly with [[The Shop]]\" (Diversity of Thought in Many-Agent Systems.md:80). The origin (\"The question opened during the design of [[The Shop]]\", :28) stays in the body and is not a direct spawned/emerged-from lineage that earns its own link."
+ },
+ {
+  "op": "label",
+  "source": "The Shop",
+  "target": "Diversity of Thought in Many-Agent Systems",
+  "type": "couples-with",
+  "label": "provisional",
+  "lane": "C1a-bare-links.json",
+  "rationale": "pair fold: label kept/set"
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "4 Pillars Framework - The Founding Conversation",
+  "type": "emerged-from",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Neither page names the other and the Founding Conversation's own 'What It Spawned' table leaves the hub out; the hub's ground is already carried by its deepens[worked-bridges] to FOUR PILLARS."
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "Dovetail Joint ↔ Counterpoint",
+  "type": "spawned",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links: this spawned and Dovetail Joint ↔ Counterpoint's member-of back to the hub. Fold to one — keep the member-of (the bridge lives in the hub's folder and belongs to its collection) and cut this side."
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "Cooking ↔ Mixing",
+  "type": "spawned",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links: this spawned and Cooking ↔ Mixing's member-of back to the hub. Fold to one — keep the member-of (the bridge lives in the hub's folder and belongs to its collection) and cut this side."
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "Frequency Domain ↔ Perspective Shift",
+  "type": "spawned",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links: this spawned and Frequency Domain ↔ Perspective Shift's member-of back to the hub. Fold to one — keep the member-of (the bridge lives in the hub's folder and belongs to its collection) and cut this side."
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "Kick Drum ↔ Foundation",
+  "type": "spawned",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links: this spawned and Kick Drum ↔ Foundation's member-of back to the hub. Fold to one — keep the member-of (the bridge lives in the hub's folder and belongs to its collection) and cut this side."
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "Quantization ↔ Precision vs Flow",
+  "type": "spawned",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links: this spawned and Quantization ↔ Precision vs Flow's member-of back to the hub. Fold to one — keep the member-of (the bridge lives in the hub's folder and belongs to its collection) and cut this side."
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "Saturation ↔ Richness",
+  "type": "spawned",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links: this spawned and Saturation ↔ Richness's member-of back to the hub. Fold to one — keep the member-of (the bridge lives in the hub's folder and belongs to its collection) and cut this side."
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "Compression ↔ Intimacy",
+  "type": "spawned",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links: this spawned and Compression ↔ Intimacy's member-of back to the hub. Fold to one — keep the member-of (the bridge lives in the hub's folder and belongs to its collection) and cut this side."
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "Synthesis ↔ Emergence",
+  "type": "spawned",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links: this spawned and Synthesis ↔ Emergence's member-of back to the hub. Fold to one — keep the member-of (the bridge lives in the hub's folder and belongs to its collection) and cut this side."
+ },
+ {
+  "op": "label",
+  "source": "Sidechain ↔ Conversation",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The page sits in the hub's own folder as one of its bridges; the label names what kind of member it is, since the bridge's body never names its hub. The hub's spawned to this page is said, not bare, so it is outside this lane; fold it at the coordinator so the pair keeps one link."
+ },
+ {
+  "op": "label",
+  "source": "Saturation ↔ Richness",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The page sits in the hub's own folder as one of its bridges; the label names what kind of member it is, since the bridge's body never names its hub. Its duplicate, the hub's spawned, is cut in this set."
+ },
+ {
+  "op": "label",
+  "source": "Synthesis ↔ Emergence",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The page sits in the hub's own folder as one of its bridges; the label names what kind of member it is, since the bridge's body never names its hub. Its duplicate, the hub's spawned, is cut in this set."
+ },
+ {
+  "op": "label",
+  "source": "Dovetail Joint ↔ Counterpoint",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The page sits in the hub's own folder as one of its bridges; the label names what kind of member it is, since the bridge's body never names its hub. Its duplicate, the hub's spawned, is cut in this set."
+ },
+ {
+  "op": "label",
+  "source": "Cooking ↔ Mixing",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The page sits in the hub's own folder as one of its bridges; the label names what kind of member it is, since the bridge's body never names its hub. Its duplicate, the hub's spawned, is cut in this set."
+ },
+ {
+  "op": "label",
+  "source": "Frequency Domain ↔ Perspective Shift",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The page sits in the hub's own folder as one of its bridges; the label names what kind of member it is, since the bridge's body never names its hub. Its duplicate, the hub's spawned, is cut in this set."
+ },
+ {
+  "op": "label",
+  "source": "Compression ↔ Intimacy",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The page sits in the hub's own folder as one of its bridges; the label names what kind of member it is, since the bridge's body never names its hub. Its duplicate, the hub's spawned, is cut in this set."
+ },
+ {
+  "op": "label",
+  "source": "Kick Drum ↔ Foundation",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The page sits in the hub's own folder as one of its bridges; the label names what kind of member it is, since the bridge's body never names its hub. Its duplicate, the hub's spawned, is cut in this set."
+ },
+ {
+  "op": "label",
+  "source": "Quantization ↔ Precision vs Flow",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The page sits in the hub's own folder as one of its bridges; the label names what kind of member it is, since the bridge's body never names its hub. Its duplicate, the hub's spawned, is cut in this set."
+ },
+ {
+  "op": "label",
+  "source": "Reverb ↔ Space-Time",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The page sits in the hub's own folder as one of its bridges; the label names what kind of member it is, since the bridge's body never names its hub. The hub's spawned to this page is said, not bare, so it is outside this lane; fold it at the coordinator so the pair keeps one link."
+ },
+ {
+  "op": "label",
+  "source": "Sidechain ↔ Conversation",
+  "target": "FOUR PILLARS",
+  "type": "exemplifies",
+  "label": "cross-domain-bridge",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Every sibling bridge carries this same link labelled cross-domain-bridge; these two are the only ones left bare."
+ },
+ {
+  "op": "label",
+  "source": "Saturation ↔ Richness",
+  "target": "FOUR PILLARS",
+  "type": "exemplifies",
+  "label": "cross-domain-bridge",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Every sibling bridge carries this same link labelled cross-domain-bridge; these two are the only ones left bare."
+ },
+ {
+  "op": "label",
+  "source": "Pages as Agents",
+  "target": "SUBSTRATE",
+  "type": "deepens",
+  "label": "pages-are-the-cells",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "SUBSTRATE's anatomy names this page as its cells; this page elaborates that one organ."
+ },
+ {
+  "op": "retype",
+  "source": "Pages as Agents",
+  "target": "Palace Enchantment",
+  "from_type": "spawned",
+  "type": "enables",
+  "label": "premise-of-waking",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Nothing records this page directly producing Palace Enchantment (it names its own origin as Swarm Weave); the true relation is premise: you can only wake a page that is already a sleeping agent."
+ },
+ {
+  "op": "label",
+  "source": "Donella Meadows",
+  "target": "Quality Manifesto",
+  "type": "enables",
+  "label": "paradigm-lever",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The Manifesto calls itself a Meadows leverage point at level #2; her ladder is what lets it name itself a paradigm."
+ },
+ {
+  "op": "label",
+  "source": "Crystal Synthesizer",
+  "target": "Quantum Synthesizer",
+  "type": "mirrors",
+  "label": "eigenmodes-as-partials",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Same move in two materials: a physical system's eigenmodes (lattice phonons; a potential well's eigenstates) become an instrument's partials; Differential Equations lists both side by side."
+ },
+ {
+  "op": "remove",
+  "source": "Crystal Synthesizer",
+  "target": "Boundary-Crossing Instruments",
+  "type": "enables",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "BCI names a wall inside one parameter that dissolves under a better coordinate system; Crystal Synthesizer dissolves no such wall, and neither page names the other. Signal-Rate CV Architecture casually files Crystal among BCI projects, but in a question, not a claim."
+ },
+ {
+  "op": "retype",
+  "source": "Crystal Synthesizer",
+  "target": "Harmonicity and Inharmonicity",
+  "from_type": "couples-with",
+  "type": "deepens",
+  "label": "symmetry-sets-the-spacing",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The page's seven lattice hypotheses are harmonicity predictions (symmetry sets partial spacing); it elaborates the foundational concept rather than always firing with it. Harmonicity's page never names crystals."
+ },
+ {
+  "op": "label",
+  "source": "Crystal Synthesizer",
+  "target": "Differential Equations",
+  "type": "deepens",
+  "label": "lattice-as-constraint",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Differential Equations names Crystal as its case of geometric constraint governing how a system evolves; the label says so."
+ },
+ {
+  "op": "remove",
+  "source": "Crystal Synthesizer",
+  "target": "Signal-Rate CV Architecture",
+  "type": "mirrors",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "No shared pattern is stated on either page; Signal-Rate only asks, as an open question, whether its principle could govern Crystal. A question is not a mirror."
+ },
+ {
+  "op": "label",
+  "source": "Endosymbiosis",
+  "target": "1 from 2",
+  "type": "mirrors",
+  "label": "implanted-symbiote",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The story's AI is an implanted symbiote whose cooperation with its host deepens until the two are hard to tell apart — the mitochondrion's story in fiction."
+ },
+ {
+  "op": "remove",
+  "source": "Endosymbiosis",
+  "target": "Deposit Ceremony",
+  "type": "mirrors",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Neither body supports it, and the page's own Context records that it arrived in an unrelated commit whose message never mentions it."
+ },
+ {
+  "op": "remove",
+  "source": "Endosymbiosis",
+  "target": "Swarm Weave",
+  "type": "mirrors",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Swarm Weave names Endosymbiosis only as an example of what a lens reaches for, not as sharing its pattern; a swarm of separate workers is not a merger."
+ },
+ {
+  "op": "remove",
+  "source": "Granular Synthesis",
+  "target": "Endosymbiosis",
+  "type": "mirrors",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Grains clustering by mutual coupling is Kuramoto (already the page's emerged-from), not a merger; neither body names the other, and the Context's claim that 'both partners state' this mirror does not hold in either body."
+ },
+ {
+  "op": "label",
+  "source": "Swarm Weave",
+  "target": "Metaphor as Coupling Medium",
+  "type": "spawned",
+  "label": "ant-hive-session",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The concept arrived in the Swarm Weave's own session, from the ant-hive question that shaped it; the target says so in its first line."
+ },
+ {
+  "op": "remove",
+  "source": "Swarm Weave",
+  "target": "Walk That Weaves",
+  "type": "spawned",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links; Walk That Weaves' emerged-from back to Swarm Weave is said in its body. Keep that one."
+ },
+ {
+  "op": "remove",
+  "source": "Swarm Weave",
+  "target": "Palace Map",
+  "type": "enables",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links; Palace Map's deepens back to Swarm Weave is said in its body. Keep that one."
+ },
+ {
+  "op": "label",
+  "source": "SUBSTRATE",
+  "target": "Meaning and the Link",
+  "type": "emerged-from",
+  "label": "intellectual-ancestor",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The paper is the palace's intellectual ancestor, a diffuse origin, so emerged-from is the honest type; the label carries it. The pair also carries Meaning and the Link → SUBSTRATE spawned (said, outside this lane), which overclaims a 2014 paper directly producing the palace: fold the pair to this one link."
+ },
+ {
+  "op": "remove",
+  "source": "Meaning and the Link",
+  "target": "Palace Ceremonies",
+  "type": "enables",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The paper grounds the typed-link system, not the ceremonies; neither page names the other."
+ },
+ {
+  "op": "remove",
+  "source": "Meaning and the Link",
+  "target": "Resonant Link Labels",
+  "type": "spawned",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links; Resonant Link Labels' deepens[operationalizes] back to the paper is labelled and said, and its Origin names Lossy Compression, not this paper, as its source."
+ },
+ {
+  "op": "label",
+  "source": "Trickster",
+  "target": "Lateral Access",
+  "type": "mirrors",
+  "label": "meaning-only-sideways",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The reason is already in the body, hidden behind display text: trickster knowledge arrives only sideways, which is Lateral Access's whole claim."
+ },
+ {
+  "op": "remove",
+  "source": "Trickster",
+  "target": "Threshold Conatus",
+  "type": "spawned",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links; Threshold Conatus's emerged-from back to Trickster is said in its first line. Keep that one."
+ },
+ {
+  "op": "remove",
+  "source": "Enchanted Conversation Archive",
+  "target": "Generative Compression",
+  "type": "deepens",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The archive keeps every enchantment whole (full head content, every tail message); Generative Compression keeps only what travels forward. Neither names the other and the archive does not elaborate compression."
+ },
+ {
+  "op": "remove",
+  "source": "Enchanted Conversation Archive",
+  "target": "Lateral Access",
+  "type": "emerged-from",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Neither body supports a lineage. The only trace is a To-Do line that the archive's first reconstructed record was Lateral Access's enchantment — a fact about content, already held by Palace Enchantment's connects-to[first-enchantment] to Lateral Access."
+ },
+ {
+  "op": "label",
+  "source": "BBS Blackboard",
+  "target": "Swarm Weave",
+  "type": "enables",
+  "label": "session-board",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The blackboard is the per-session board every swarm agent reads and appends to; the label says what it gives the swarm."
+ },
+ {
+  "op": "label",
+  "source": "BBS Blackboard",
+  "target": "Palace Enchantment",
+  "type": "enables",
+  "label": "where-the-woken-speak",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Palace Enchantment's rules for a woken agent addressing Loudon are written for the BBS surface; the board is where a woken page speaks."
+ },
+ {
+  "op": "remove",
+  "source": "BBS Design System",
+  "target": "Swarm Weave",
+  "type": "enables",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The page is being composted into STIGMERGY (its own Composting Note); the swarm reaches the look through STIGMERGY, where the visual-substrate link already goes."
+ },
+ {
+  "op": "remove",
+  "source": "Palace as Context Injection System",
+  "target": "Swarm Weave",
+  "type": "deepens",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The body never mentions the swarm; the pair is reached through Enchanted Worker, which this page spawned and which deepens Swarm Weave."
+ },
+ {
+  "op": "remove",
+  "source": "Dispersion",
+  "target": "Crystal Synthesizer",
+  "type": "enables",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links; Crystal Synthesizer's emerged-from back to Dispersion is said at length in its body (The Optical-Sonic Bridge). Keep that one; Dispersion's body never names Crystal."
+ },
+ {
+  "op": "remove",
+  "source": "Waveguide Synthesizer",
+  "target": "Dispersion Table",
+  "type": "enables",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links; Dispersion Table's emerged-from[loop-round-trip-condition] back to Waveguide is labelled and said. Keep that one."
+ },
+ {
+  "op": "label",
+  "source": "JEWEL",
+  "target": "Swarm Weave",
+  "type": "enables",
+  "label": "worker-birth-seed",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The Jewel came out of a conversation about agent spawning and is what every swarm worker is born with; the label carries that."
+ },
+ {
+  "op": "remove",
+  "source": "Quality Manifesto",
+  "target": "4 Pillars Framework - The Founding Conversation",
+  "type": "emerged-from",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links; the Founding Conversation's spawned[paradigm-statement] to this page is labelled and listed in its 'What It Spawned' table. Keep that one."
+ },
+ {
+  "op": "remove",
+  "source": "AI Partnership Philosophy",
+  "target": "4 Pillars Framework - The Founding Conversation",
+  "type": "emerged-from",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links; the Founding Conversation's spawned[collaboration-doctrine] to this page is labelled and listed in its 'What It Spawned' table. Keep that one."
+ },
+ {
+  "op": "remove",
+  "source": "Leverage Points Framework",
+  "target": "4 Pillars Framework - The Founding Conversation",
+  "type": "emerged-from",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links; the Founding Conversation's spawned[decision-lens] to this page is labelled and listed in its 'What It Spawned' table. Keep that one."
+ },
+ {
+  "op": "label",
+  "source": "Quality Manifesto",
+  "target": "Like Water",
+  "type": "mirrors",
+  "label": "content-with-its-nature",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Like Water states the mirror in its own section: water cannot be faulted because it is content with its nature, work cannot be faulted when measured against its own goals."
+ },
+ {
+  "op": "remove",
+  "source": "AI Partnership Philosophy",
+  "target": "Enchanted Worker",
+  "type": "deepens",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The page is a collaboration doctrine (use AI to become better); it never touches context-seeded workers, and Enchanted Worker never names it."
+ },
+ {
+  "op": "label",
+  "source": "Harvest Ceremony",
+  "target": "SUBSTRATE",
+  "type": "deepens",
+  "label": "finds-come-in",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "SUBSTRATE's anatomy names this ceremony as one of the rhythms by which finds enter the organism; the label carries that."
+ },
+ {
+  "op": "label",
+  "source": "Deposit Ceremony",
+  "target": "SUBSTRATE",
+  "type": "deepens",
+  "label": "finds-come-in",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "SUBSTRATE's anatomy names this ceremony as one of the rhythms by which finds enter the organism; the label carries that."
+ },
+ {
+  "op": "label",
+  "source": "Harvest Ceremony",
+  "target": "Oblique Portrait",
+  "type": "couples-with",
+  "label": "oblique-harvest",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The reason hides in the Context: the best harvest ran the Oblique Portrait over a conversation archive, and the body still prefers the oblique approach."
+ },
+ {
+  "op": "label",
+  "source": "Image Embedding Standard",
+  "target": "Deposit Ceremony",
+  "type": "enables",
+  "label": "figures-that-teach",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The Deposit Ceremony calls on this standard for the figure a draft carries."
+ },
+ {
+  "op": "label",
+  "source": "SCHEMA",
+  "target": "Weave Ceremony",
+  "type": "enables",
+  "label": "rules-it-keeps",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "SCHEMA reserves hub assignment and stage advance to the Weave, and the Weave hands its workers the SCHEMA card; the label names that."
+ },
+ {
+  "op": "remove",
+  "source": "SCHEMA",
+  "target": "Harvest Ceremony",
+  "type": "enables",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Every ceremony follows SCHEMA's conventions; nothing particular ties SCHEMA to the Harvest, and the Harvest cites only SCHEMA — Reference §6."
+ },
+ {
+  "op": "label",
+  "source": "Return Ceremony",
+  "target": "Palace Ceremonies",
+  "type": "member-of",
+  "label": "named-rite",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Palace Ceremonies lists this rite as a row of its table; the label names the membership the way Modes of Collaboration's members carry named-mode."
+ },
+ {
+  "op": "label",
+  "source": "Baton Ceremony",
+  "target": "Palace Ceremonies",
+  "type": "member-of",
+  "label": "named-rite",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Palace Ceremonies lists this rite as a row of its table; the label names the membership the way Modes of Collaboration's members carry named-mode."
+ },
+ {
+  "op": "remove",
+  "source": "Lateral Access",
+  "target": "Excellent Adventure",
+  "type": "couples-with",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Neither page names the other; the Adventure is direct dialogue with a figure, not an oblique route past a filter, and the two do not always fire together."
+ },
+ {
+  "op": "remove",
+  "source": "Oblique Portrait",
+  "target": "Lateral Access",
+  "type": "spawned",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links; Lateral Access's emerged-from back to Oblique Portrait is said in its body. Keep that one."
+ },
+ {
+  "op": "label",
+  "source": "Pheromone Trail",
+  "target": "Lateral Access",
+  "type": "mirrors",
+  "label": "worn-path-hides-the-terrain",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Both pages carry the worn path that hides the terrain around it: the trail too strong to leave, the songline sung so often the rest of the country goes dark."
+ },
+ {
+  "op": "remove",
+  "source": "Metaphor as Coupling Medium",
+  "target": "Excellent Adventure",
+  "type": "enables",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The Adventure (2024-10) predates this concept (2026-03), so it is not its precondition, and neither body names the other."
+ },
+ {
+  "op": "remove",
+  "source": "Striatum",
+  "target": "Excellent Adventure",
+  "type": "deepens",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The body's three threads are hilaritas, the practice pillar and beat timing; nothing touches dialogue with a figure, and the Adventure never names the striatum."
+ },
+ {
+  "op": "remove",
+  "source": "Semantic Delay",
+  "target": "Frequency-Time Duality",
+  "type": "mirrors",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The page's coupling is speech rhythm to meter (Kuramoto, already linked); nothing on either page states a shared pattern with the frequency–time axis."
+ },
+ {
+  "op": "remove",
+  "source": "Metric Modulation",
+  "target": "Semantic Delay",
+  "type": "emerged-from",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Neither body records a lineage; metric modulation is a tempo-ratio technique with no trace of the semantic delay in it."
+ },
+ {
+  "op": "remove",
+  "source": "The Fortress and the Threshold",
+  "target": "Frequency-Time Duality",
+  "type": "mirrors",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "No shared pattern is stated on either page; the only common ground is the word 'threshold', used in two unrelated senses."
+ },
+ {
+  "op": "label",
+  "source": "Shepard Tone Synthesizer",
+  "target": "Portamento and Physical Pitch Modeling",
+  "type": "deepens",
+  "label": "glide-the-whole-stack",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The body has a whole section on portamento across the octave stack; the label names the specific move."
+ },
+ {
+  "op": "label",
+  "source": "Wallpaper Groups",
+  "target": "Spinoza Conatus",
+  "type": "mirrors",
+  "label": "substance-and-modes",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The body has a section, 'The Spinoza Connection: Substance and Its Modes'; it names Spinoza but not this page's title. Spinoza Conatus carries the palace's substance-monism reading, so the target holds."
+ },
+ {
+  "op": "remove",
+  "source": "BLUELINE",
+  "target": "Boundary-Crossing Instruments",
+  "type": "exemplifies",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "BLUELINE dissolves no parameter wall; the link came in unlabelled from its deposit map and nothing on either page gives it a reason."
+ },
+ {
+  "op": "label",
+  "source": "2D Torus Wavetable Synthesizer",
+  "target": "Synthesis Topologies",
+  "type": "member-of",
+  "label": "two-loops-at-once",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Synthesis Topologies places the torus in its in-betweens as two loops at once; the label carries that, matching its other members' labels."
+ },
+ {
+  "op": "remove",
+  "source": "Generative Audio Devices",
+  "target": "Loudon Live",
+  "type": "enables",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Neither the body, the scroll nor Loudon Live names the other; nothing says the device pipeline feeds the public channel."
+ },
+ {
+  "op": "remove",
+  "source": "Generative Wavetable Libraries",
+  "target": "Generative Audio Devices",
+  "type": "couples-with",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "They look like sibling chat-to-artifact pipelines, but neither page says so, and the libraries name Generative Sample Libraries as their sister."
+ },
+ {
+  "op": "label",
+  "source": "Bessel Functions in Synthesis",
+  "target": "Boundary-Crossing Instruments",
+  "type": "mirrors",
+  "label": "right-coordinate-system",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The body states BCI's principle in its own terms: choose the basis that fits the geometry and the infinite series collapses."
+ },
+ {
+  "op": "retype",
+  "source": "Quantum Synthesizer",
+  "target": "Bessel Functions in Synthesis",
+  "from_type": "couples-with",
+  "type": "mirrors",
+  "label": "geometry-picks-the-basis",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Bessel names the quantum oscillator as one row of its geometry-picks-the-basis table, and Quantum names Bessel modes for the bell; two instances of one pattern, not two things always active together."
+ },
+ {
+  "op": "label",
+  "source": "Signal-Rate CV Architecture",
+  "target": "Action Potential Oscillator",
+  "type": "enables",
+  "label": "every-parameter-a-jack",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The oscillator's body says its architecture follows this one; the label names what it inherits."
+ },
+ {
+  "op": "remove",
+  "source": "FOUR PILLARS",
+  "target": "Symbiotic Skills",
+  "type": "spawned",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links; Symbiotic Skills' emerged-from back to FOUR PILLARS is said in its Origin. Keep that one."
+ },
+ {
+  "op": "label",
+  "source": "Symbiotic Skills",
+  "target": "1 from 2",
+  "type": "mirrors",
+  "label": "scaling-relationship",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "1 from 2 names this page as the palace's own try at scaling the intimate alignment its story says cannot scale."
+ },
+ {
+  "op": "remove",
+  "source": "Boundary-Crossing Instruments",
+  "target": "Symbiotic Skills",
+  "type": "enables",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Neither page names the other; Symbiotic Skills' origin and lineage nowhere touch the coordinate-reframing principle."
+ },
+ {
+  "op": "label",
+  "source": "Agent Wellbeing",
+  "target": "FOUR PILLARS",
+  "type": "deepens",
+  "label": "practice-pillar-widened",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The body opens by widening the Practice pillar's care for wellbeing to the agents; the label names that."
+ },
+ {
+  "op": "remove",
+  "source": "Identity Molting",
+  "target": "Progressive Staging",
+  "type": "mirrors",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "No shared pattern is stated on either page; Progressive Staging never mentions molting or identity."
+ },
+ {
+  "op": "label",
+  "source": "The Practice Rediscovers Its Philosophy",
+  "target": "FOUR PILLARS",
+  "type": "exemplifies",
+  "label": "tools-meet-philosophy",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The page is the Tools and Philosophy pillars found to be one shadow, which is FOUR PILLARS' founding claim; the label names which crossing."
+ },
+ {
+  "op": "label",
+  "source": "Christopher Alexander",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "systems-thinker",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The hub lists this person on a named shelf; the label names the shelf, so the membership carries its reason."
+ },
+ {
+  "op": "label",
+  "source": "Buckminster Fuller",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "systems-thinker",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The hub lists this person on a named shelf; the label names the shelf, so the membership carries its reason."
+ },
+ {
+  "op": "label",
+  "source": "Douglas Hofstadter",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "systems-thinker",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The hub lists this person on a named shelf; the label names the shelf, so the membership carries its reason."
+ },
+ {
+  "op": "label",
+  "source": "Epictetus",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "philosopher-of-practice",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The hub lists this person on a named shelf; the label names the shelf, so the membership carries its reason."
+ },
+ {
+  "op": "label",
+  "source": "Seneca",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "philosopher-of-practice",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The hub lists this person on a named shelf; the label names the shelf, so the membership carries its reason."
+ },
+ {
+  "op": "label",
+  "source": "John Cage",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "sound-thinker",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The hub lists this person on a named shelf; the label names the shelf, so the membership carries its reason."
+ },
+ {
+  "op": "label",
+  "source": "Pauline Oliveros",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "sound-thinker",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The hub lists this person on a named shelf; the label names the shelf, so the membership carries its reason."
+ },
+ {
+  "op": "label",
+  "source": "James Turrell",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "artist-and-maker",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The hub lists this person on a named shelf; the label names the shelf, so the membership carries its reason."
+ },
+ {
+  "op": "label",
+  "source": "Agnes Martin",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "artist-and-maker",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The hub lists this person on a named shelf; the label names the shelf, so the membership carries its reason."
+ },
+ {
+  "op": "label",
+  "source": "Andy Goldsworthy",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "artist-and-maker",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The hub lists this person on a named shelf; the label names the shelf, so the membership carries its reason."
+ },
+ {
+  "op": "label",
+  "source": "George Nakashima",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "artist-and-maker",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The hub lists this person on a named shelf; the label names the shelf, so the membership carries its reason."
+ },
+ {
+  "op": "label",
+  "source": "Julia Cameron",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "writer-on-craft",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The hub lists this person on a named shelf; the label names the shelf, so the membership carries its reason."
+ },
+ {
+  "op": "label",
+  "source": "Annie Dillard",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "writer-on-craft",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The hub lists this person on a named shelf; the label names the shelf, so the membership carries its reason."
+ },
+ {
+  "op": "label",
+  "source": "Rick Rubin",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "writer-on-craft",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The hub lists this person on a named shelf; the label names the shelf, so the membership carries its reason."
+ },
+ {
+  "op": "label",
+  "source": "Yasujirō Ozu",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "filmmaker",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The hub lists this person on a named shelf; the label names the shelf, so the membership carries its reason."
+ },
+ {
+  "op": "label",
+  "source": "Donella Meadows",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "core-five",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "One of the hub's Core Five. The pair also carries the hub's spawned to this page (said, outside this lane); the person pages were born alongside the library in one restructure, not from it (Source Library — Context), so fold the pair to this member-of and cut the hub's spawned."
+ },
+ {
+  "op": "label",
+  "source": "Shunryu Suzuki",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "core-five",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "One of the hub's Core Five. The pair also carries the hub's spawned to this page (said, outside this lane); the person pages were born alongside the library in one restructure, not from it (Source Library — Context), so fold the pair to this member-of and cut the hub's spawned."
+ },
+ {
+  "op": "label",
+  "source": "Marcus Aurelius",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "core-five",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "One of the hub's Core Five. The pair also carries the hub's spawned to this page (said, outside this lane); the person pages were born alongside the library in one restructure, not from it (Source Library — Context), so fold the pair to this member-of and cut the hub's spawned."
+ },
+ {
+  "op": "label",
+  "source": "Lao Tzu",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "core-five",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "One of the hub's Core Five. The pair also carries the hub's spawned to this page (said, outside this lane); the person pages were born alongside the library in one restructure, not from it (Source Library — Context), so fold the pair to this member-of and cut the hub's spawned."
+ },
+ {
+  "op": "label",
+  "source": "Brian Eno",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "core-five",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "One of the hub's Core Five. The pair also carries the hub's spawned to this page (said, outside this lane); the person pages were born alongside the library in one restructure, not from it (Source Library — Context), so fold the pair to this member-of and cut the hub's spawned."
+ },
+ {
+  "op": "label",
+  "source": "Floquet Time-Modulated Loops",
+  "target": "Bessel Functions in Synthesis",
+  "type": "connects-to",
+  "label": "bessel-shaped-sidebands",
+  "lane": "I-induction.json",
+  "rationale": "Not a newcomer's link, but it is the newcomer's missing inbound: the label fm-is-a-floquet-system names FM, which had no page when it was written. If the Floquet → FM link lands, relabel this one for what the Bessel page holds; if the coordinator prefers fewer links, retarget it to FM Synthesis instead and keep one."
+ },
+ {
+  "op": "add",
+  "source": "Substrate Skill",
+  "target": "Operator Memory",
+  "type": "connects-to",
+  "label": "harness-facts-kept-there",
+  "lane": "I-induction.json",
+  "rationale": "Substrate Skill's 'Operating this environment' section hands its one harness fact to memory by name, which is exactly the first kind of line Operator Memory says it holds; 'auto-memory' in that sentence can carry the link."
+ },
+ {
+  "op": "add",
+  "source": "Synthesis Topologies",
+  "target": "Splice Instrument Forge",
+  "type": "connects-to",
+  "label": "the-sampler-built-on-request",
+  "lane": "I-induction.json",
+  "rationale": "Synthesis Topologies already names the Forge as a case of its sampler topology in a body sentence but carries no typed link; the Forge's own 'fixed sampler, content varies' line is the same claim from its side."
+ },
+ {
+  "op": "add",
+  "source": "Three Kinds of Warp",
+  "target": "FM Synthesis",
+  "type": "connects-to",
+  "label": "ratio-picks-the-type",
+  "lane": "I-induction.json",
+  "rationale": "The two pages now state the same scoped claim about FM's ratio from opposite ends, and the warp page's FM sentence points only at the Bessel maths, not at the instrument page that settled the question."
+ },
+ {
+  "op": "add",
+  "source": "2D Torus Wavetable Synthesizer",
+  "target": "FM Synthesis",
+  "type": "emerged-from",
+  "label": "the-comb-it-escapes",
+  "lane": "I-induction.json",
+  "rationale": "The project names FM as its seed, and the instrument it grew out of now has a page; emerged-from points the project back at its origin."
+ },
+ {
+  "op": "add",
+  "source": "Exponential Decay Curvature",
+  "target": "FM Synthesis",
+  "type": "connects-to",
+  "label": "an-operator-with-a-bendable-carrier",
+  "lane": "I-induction.json",
+  "rationale": "The curvature page claims its engine is an FM operator and defines itself against FM's fixed sine carrier, which is the definition the FM page gives."
+ },
+ {
+  "op": "add",
+  "source": "Floquet Time-Modulated Loops",
+  "target": "FM Synthesis",
+  "type": "connects-to",
+  "label": "fm-is-a-floquet-system",
+  "lane": "I-induction.json",
+  "rationale": "Floquet already carries the label fm-is-a-floquet-system, but on its Bessel link, written before FM had a page; the claim is about the instrument, so it belongs on a link to FM (see the matching weak_links entry)."
+ },
+ {
+  "op": "add",
+  "source": "Image-to-3D Smith",
+  "target": "CAD Drafter",
+  "type": "contrasts-with",
+  "label": "plausible-vs-measured",
+  "lane": "I-induction.json",
+  "rationale": "The Shop's two makers of 3D geometry sit on opposite sides of one axis: one infers a plausible shape from a picture, the other refuses any number nobody measured. CAD Drafter's charter already names the Smith, so the link can be written on CAD Drafter's side; it is symmetric, so either side reaches both."
+ }
+]

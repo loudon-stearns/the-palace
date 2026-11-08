@@ -52,9 +52,9 @@ const PALACE_ROOT_DEFAULT = process.cwd();
 // exists for ("palace-weaving flags", SCHEMA §9), so lensing gets no new
 // board of its own.
 export const LENS_BOARD = 'WEAVE';
-// A strong-enough spark also asks Loudon directly whether to commit the
-// candidate — the honesty discipline holds: the candidate is proposed, not
-// written, until he says yes.
+// A strong-enough spark marks the WEAVE post as a weave flag, so it waits in
+// QUEUE for Loudon's grant — the honesty discipline holds: the candidate is
+// proposed, not written, until he says yes. Nothing goes to TRICKSTER.
 export const LENS_CONFIRM_THRESHOLD = 4;
 
 /**
@@ -172,7 +172,7 @@ const message = {
   ts: new Date().toISOString(),
   session_id: '<your session id>',
   from: '${glassTitle}',
-  to: 'TRICKSTER',
+  to: '*',
   type: 'BROADCAST',
   board: '${LENS_BOARD}',
   // The dispatch_mode below is REQUIRED, not decoration: without it the
@@ -197,6 +197,6 @@ if (!v.valid) throw new Error(JSON.stringify(v.errors));
 appendMessage('_ops/swarm/persistent/blackboard.jsonl', message);
 \`\`\`
 
-If your spark is **${LENS_CONFIRM_THRESHOLD} or higher**, ALSO post a \`RESOURCE_REQUEST\` to \`TRICKSTER\` (same append path, same \`health\` block including \`_orchestrator_metadata.dispatch_mode\`, \`type: 'RESOURCE_REQUEST'\`, \`board: 'TRICKSTER'\`, \`payload.blocking: true\`, \`payload.options\` naming a \`commit\` and a \`hold\` choice) asking Loudon whether to commit the candidate. Then wait — do not commit it yourself even if he seems likely to say yes.
+If your spark is **${LENS_CONFIRM_THRESHOLD} or higher**, make that same WEAVE post a weave flag so it reaches Loudon's QUEUE as a card: add \`payload.kind: 'weave_flag'\`, \`payload.flag_type: 'lens-spark'\`, \`payload.source_entries: ['${glassTitle}', '${subjectTitle}']\`, \`payload.target_entry: '${subjectTitle}'\` and \`payload.proposed_action\` (the candidate in one line). Post nothing to TRICKSTER; it is the stewardship lane's channel ([[STIGMERGY]] § The human node). Do not commit the candidate yourself.
 `;
 }

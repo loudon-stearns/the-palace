@@ -24,7 +24,7 @@ Until 2026-10-24 about half the page was wire: a full message JSON, the board-ro
 
 The Trickster Decision Inbox began as Loudon's own wish, an HTML comment under the open questions: questions for him should bubble up as multiple-choice answers he could click. A pointer to the infrastructure spec's §2.6 followed it. The comment was removed on 2026-04-21 (`76e60f3`). The inbox section it inspired was cut to the pointer on 2026-10-24. The options shape now lives in §9 and in [[Palace Orchestrator]].
 
-The Human-Readable View lost two paragraphs in the same pass: the claim that the BBS look "is not decoration", and the note that a Python `curses` build was deferred for a browser host (`a75350e`). The curses note had come in on 2026-04-27 with the [[BBS Design System]] paragraph (`e58548d`). It is kept in BBS Design System § The Curses Path. The same edit turned the FLAGS board from red to amber, matching the design system.
+The Human-Readable View lost two paragraphs in the same pass: the claim that the BBS look "is not decoration", and the note that a Python `curses` build was deferred for a browser host (`a75350e`). The curses note had come in on 2026-04-27 with the [[BBS Design System]] paragraph (`e58548d`). It was kept in BBS Design System § The Curses Path until that page was composted (folded into [[STIGMERGY]] § The look, 2026-11-02; deleted by the 2026-11-08 weave); git holds the paragraph. The same edit turned the FLAGS board from red to amber, matching the design system.
 
 ## The spec it pointed at
 

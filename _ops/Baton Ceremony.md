@@ -28,6 +28,7 @@ links:
     type: spawned
   - target: "[[Palace Ceremonies]]"
     type: member-of
+    label: named-rite
 ---
 
 # Baton Ceremony

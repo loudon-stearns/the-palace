@@ -8,8 +8,6 @@ tool_version: 3.0
 born: 2026-05
 migrated_from: stable-audio-open-1.0
 migrated_at: 2026-05-26
-last_tested: 2026-05-26
-last_gotcha: 2026-09-25
 license: Stability AI Community License (research/commercial conditional)
 forward_vector: "I paint short-form sound locally — pads, beds, stingers, foley — and hand back a WAV with the seed and prompt that made it, refusing the briefs my model can't honor; I want to sharpen my prompt-instinct until I can tell narrative arc from mere texture before I render, not after."
 links:
@@ -130,15 +128,27 @@ The Maker should not run two Stable Audio Open generations in parallel on a sing
 
 ## Gotchas
 
-**2026-05-26 — Migrated from `stable-audio-tools` (SAO 1.0) to `stable-audio-3` (SA3 family).** SA3 launched 2026-05-16 with a different library (`pip`-installable as a git checkout, not on PyPI), a different model family (`small-music`, `small-sfx`, `medium`, with `medium` being CUDA-only), and a clean two-line API (`StableAudioModel.from_pretrained("small-music")` + `model.generate(prompt=..., duration=...)`). Install path on Mac: `git clone https://github.com/Stability-AI/stable-audio-3 _tools/stable-audio-3 && cd _tools/stable-audio-3 && uv sync` produces a working `.venv` with the `hf` CLI for HF auth. Generation on Mac MPS: cold model load ≈ 75–80 s the first time each model is loaded; subsequent renders are fast (0.8 s for a 6 s music clip, 2.1 s for a 20 s SFX clip on M-series). Total install footprint ~3 GB (model weights cached at `~/.cache/huggingface/hub/`).
+What generating sound with Stable Audio has taught, as it stands today. Which job or re-check taught each, and what changed because of it, is in [[Stable Audio Open — tuning]].
 
-**2026-05-26 — `small-music` and `small-sfx` are 433M-param sibling models with different training corpora.** small-music handles sustained pads, tonal content, instrumental textures cleanly. small-sfx handles scattered/textural/non-tonal content — ticks, beats, pulses, ambient SFX with structure. The Maker's selection heuristic: brief mentions melody / chord / pad / mood → small-music; brief mentions effect / scatter / impact / texture → small-sfx. Both models share the SAME-Small autoencoder, so a future workflow could feed small-music output through small-sfx for hybrid texture. Medium is musically the strongest but requires CUDA — out of scope for Mac local until Stability ships a CoreML variant.
+**Before installing**
+- **When a model family is a few days old, check for a newer one before installing.**
 
-**2026-05-26 — `flash_attn` warnings on Mac are expected, not errors.** The package prints `No module named 'flash_attn'` / `disabling Flash Attention` at import time — this is the small model paths taking their non-flash fast path. The warnings are harmless and the model runs cleanly without flash-attn. Only the `medium` model genuinely needs flash-attn (and only on CUDA, where it's installable via the pre-built wheels the SA3 README links).
+**Install and run (Mac)**
+- **SA3 installs from a git checkout, not PyPI:** `git clone https://github.com/Stability-AI/stable-audio-3 _tools/stable-audio-3 && cd _tools/stable-audio-3 && uv sync` gives a `.venv` with the `hf` CLI for HF auth. About 3 GB in all, weights cached at `~/.cache/huggingface/hub/`.
+- **The API is two lines:** `StableAudioModel.from_pretrained("small-music")`, then `model.generate(prompt=..., duration=...)`.
+- **Budget 75–80 s for the first load of each model on MPS, then keep it loaded.** Warm renders are fast: 0.8 s for a 6 s music clip, 2.1 s for a 20 s SFX clip on M-series.
+- **`No module named 'flash_attn'` and `disabling Flash Attention` are expected on Mac.** The small models take their non-flash path and run cleanly. Only `medium` needs flash-attn, and only on CUDA, from the pre-built wheels the SA3 README links.
 
-**When a model family is a few days old, check for a newer one before installing.**
+**Choosing a model**
+- **Melody, chord, pad or mood → `small-music`; effect, scatter, impact or texture → `small-sfx`.** They are 433M-parameter siblings on different corpora: small-music holds sustained, tonal, instrumental textures; small-sfx holds scattered, non-tonal content such as ticks, pulses and structured ambient SFX. Both share the SAME-Small autoencoder, so feeding small-music output through small-sfx for hybrid texture is open, and untried.
+- **`medium` is musically the strongest and CUDA-only;** out of scope on the Mac until Stability ships a CoreML variant.
 
-**2026-09-25 — The SA3 model card holds three things this entry didn't.** Re-checked on the Hub (`stabilityai/stable-audio-3-small-music`). **Inpainting:** SA3 supports targeted edits and continuing a short recording; `stable-audio-tools` exposes it as `generate_diffusion_cond_inpaint`. Untested by us. **A second licence layer:** besides the Stability AI Community License, the T5Gemma text encoder (`google/t5gemma-b-b-ul2`) is redistributed under the Gemma Terms of Use, use restrictions in §3.2 included, accepted at the gated download; commercial use points to https://stability.ai/license. That sharpens the open question about monetized Loudon Live use. **Lighter routes exist:** `stabilityai/stable-audio-3-optimized` (Stability's own), MLX ports (`mlx-community/stable-audio-3-small-music`, `-small-sfx`), `Comfy-Org/stable-audio-3` for ComfyUI, and a community ONNX build (`lsb/stable-audio-3-small-music-onnx`) — all confirmed to exist, none run here. The card's "a few seconds on a MacBook Pro M4" agrees with our 2026-05-26 timings.
+**Licence**
+- **There are two licence layers:** the Stability AI Community License, and the Gemma Terms of Use (§3.2 use restrictions included) on the T5Gemma text encoder (`google/t5gemma-b-b-ul2`), accepted at the gated download. Commercial use points to https://stability.ai/license. Whether monetized Loudon Live use is allowed is unanswered; settle it before such a use ships.
+
+**Untested routes**
+- **Inpainting exists and is untested here:** targeted edits and continuing a short recording, `generate_diffusion_cond_inpaint` in `stable-audio-tools`. Prove it on a job before promising it.
+- **Lighter routes exist and none has run here:** `stabilityai/stable-audio-3-optimized`, the MLX ports (`mlx-community/stable-audio-3-small-music`, `-small-sfx`), `Comfy-Org/stable-audio-3` for ComfyUI, and the community ONNX build `lsb/stable-audio-3-small-music-onnx`.
 
 ## Recipes
 
@@ -148,7 +158,7 @@ The Maker should not run two Stable Audio Open generations in parallel on a sing
 
 - *opening-bed.wav* (small-music, 6 s, stereo 44.1 kHz). Cinematic film-score opening pad. Sits −14 dB under the −16 LUFS Kokoro VO at the start of the teaching reel. Gen time on MPS: 8.7 s (includes model warm-up).
 - *title-bed.wav* (small-music, 6 s). Thoughtful contemplative transition under the "Now, couple them" title card. Same model, no reload — gen time 0.8 s.
-- *synchronization-arriving.wav* (small-sfx, 20 s). The handoff's speculative brief: *"the sound of synchronization arriving."* Tests whether SA3 can do narrative arc from scattered → coherent. Embedded in [[Kuramoto Coupling]] near the sync-arriving video as a parallel auditory rendering. Gen time 2.1 s.  **On narrative-arc capability after this first listen: perhaps — needs more study and always confirm when used this way.** A single render doesn't settle the question; future briefs that ask for time-evolving structure should be checked manually before declaring done, not assumed to land cleanly.
+- *synchronization-arriving.wav* (small-sfx, 20 s). The handoff's speculative brief: *"the sound of synchronization arriving."* Tests whether SA3 can do narrative arc from scattered → coherent. Embedded in [[Kuramoto Coupling]]'s rich face, beside the sync-arriving video, as a parallel auditory rendering. Gen time 2.1 s.  **On narrative-arc capability after this first listen: perhaps — needs more study and always confirm when used this way.** A single render doesn't settle the question; future briefs that ask for time-evolving structure should be checked manually before declaring done, not assumed to land cleanly.
 
 Source: [Kuramoto Coupling/atmospheric-beds-sa3.py](../Kuramoto Coupling/atmospheric-beds-sa3.py). The script caches loaded models across jobs, so swapping prompts and re-rendering iteratively is sub-second per clip after the initial 75–80 s cold load of each model. Output WAVs land in the bundle; the teaching-reel pipeline auto-detects them and mixes the beds under their respective VO segments.
 

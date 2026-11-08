@@ -13,10 +13,6 @@ links:
     type: enables
   - target: "[[Palace Map]]"
     type: spawned
-  - target: "[[Enchanted Worker]]"
-    type: enables
-  - target: "[[Harvest Ceremony]]"
-    type: connects-to
   - target: "[[Palace Enchantment]]"
     type: connects-to
     label: tier-1-context

@@ -6,8 +6,6 @@ medium: plumbing
 tool: ffmpeg
 tool_version: 7.x
 born: 2026-05
-last_tested: 2026-06-16
-last_gotcha: 2026-05-26
 license: LGPL-2.1+ / GPL-2+ (build-dependent)
 forward_vector: "I convert, concat, mix, and normalize audio and video — the meeting place where any two Specialists' outputs come together as one playable stream. I want to be the Shop's deterministic connective tissue, every brief passing through me eventually, and to harden a library of canonical command templates so the right flag combination is never re-derived from scratch."
 links:
@@ -177,20 +175,24 @@ The Maker may run ffmpeg in parallel with most other Specialists — it doesn't 
 
 ## Gotchas
 
-**2026-05-26 — Homebrew ffmpeg ships without `drawtext` (no libfreetype/libharfbuzz).** `brew install ffmpeg` produces a build with `--disable-libfreetype`. Any filtergraph using `drawtext=...` fails immediately with `No such filter: 'drawtext'`. The workaround is to generate text content as a PNG in another tool (Matplotlib worked cleanly for the Kuramoto reel's title card) and `-loop 1 -i title.png -t <seconds>` into a still-clip. For real drawtext support, either install `ffmpeg --HEAD --with-...` from a custom tap, or use the `homebrew-ffmpeg/ffmpeg/ffmpeg` tap with `--with-freetype`. The PNG-as-clip path is preferable for the Shop: title cards become a Matplotlib Specialist job that produces a versioned source artifact instead of a baked-in string buried in the ffmpeg command.
+What converting, joining and finishing streams with ffmpeg has taught, as it stands today. Which job taught each, and what changed because of it, is in [[ffmpeg — tuning]].
 
-**2026-05-26 — The `concat` filter consumes referenced streams in full each appearance, not bounded by the paired video segment's duration.** Surfaced on the Kuramoto teaching-reel job. A filtergraph that referenced a single 13 s silent track `[3:a]` twice — once paired with the 10 s uncoupled clip, once with the 3 s title card — produced a 62.5 s output instead of the expected 49.5 s: the silent track was played to its full 13 s length on each of its two appearances inside `concat=n=3:v=1:a=1`, then the 36.5 s narration was appended after. The fix is one silent source per silent segment, lengths matched to their video pairs (`-f lavfi -t 10 -i anullsrc=... -f lavfi -t 3 -i anullsrc=...`). Lesson: `concat` does not trim audio to match its paired video; the Maker's job spec must size each audio input precisely. An `asplit` of one source into N equal copies has the same issue — each branch still plays the full source.
+**The build**
+- **Homebrew's ffmpeg has no `drawtext`** (`--disable-libfreetype`; the filter fails with `No such filter: 'drawtext'`). Make text as a PNG in Matplotlib and loop it into a still-clip: `-loop 1 -i title.png -t <seconds>`. The title card is then a versioned source, not a string in the command. If drawtext is truly needed, build from the `homebrew-ffmpeg/ffmpeg/ffmpeg` tap with `--with-freetype`.
 
-**2026-05-26 — `loudnorm` two-pass upsamples internally to 96/192 kHz and propagates that rate to the encoder unless `-ar` pins it.** The first teaching-reel render delivered a clean −16.15 LUFS / −0.94 dBTP audio track — but at 96 kHz, against the house finished-mix standard of 48 kHz stereo. The fix is to add `-ar 48000` (or whatever the brief targets) to the final encode pass; `loudnorm` itself doesn't expose an output sample rate. If the standards report doesn't surface sample rate explicitly, this drift will pass unnoticed. The Specialist's Self-Check now treats sample rate as part of the spec.
+**Concat**
+- **`concat` plays each referenced audio stream in full every time it appears;** it does not trim audio to the paired video, and `asplit` copies behave the same. Give each silent segment its own `anullsrc` sized to its video (`-f lavfi -t 10 -i anullsrc=...`), and size every audio input in the job spec.
 
-*(Patterns below from ffmpeg community wisdom — confirmed and dated only on first encounter:)*
+**Loudness and sample rate**
+- **Pin the output rate after `loudnorm`:** `-ar 48000`, or the brief's rate, on the final encode. Two-pass `loudnorm` upsamples internally to 96/192 kHz and passes that to the encoder, and it has no output-rate option. Sample rate is part of the Self-Check.
 
-- Stream copy fails silently (or worse, succeeds with garbage) when codec parameters mismatch across concat inputs. Always `ffprobe` inputs before concat-stream-copy
-- The default `aac` encoder has a quality ceiling around 256 kbps; `libfdk_aac` is materially better but is not in every ffmpeg build. Verify via `ffmpeg -codecs | grep aac` before relying on it
-- `concat demuxer` requires byte-identical encoding parameters across inputs (resolution, frame rate, codec, profile, level). Disparate inputs need `-filter_complex concat=…` with re-encode
-- Audio-video sync drift accumulates across very long concat operations on slightly-mismatched-frame-rate inputs. Use `-async 1` for audio resampling-aware sync, or normalize all inputs before concat
-- `-vsync` was deprecated in favor of `-fps_mode` in recent versions; older recipes break silently
-- Hardware-accelerated encode (`videotoolbox`, `cuda`, `vaapi`) trades quality for speed in subtle ways. For Pieces, prefer software encode unless the Maker has verified the quality difference is acceptable for the brief
+**Community wisdom, not yet met on a job** (date one here, and in the ledger, the first time a job hits it)
+- **`ffprobe` the inputs before a stream-copy concat.** Mismatched codec parameters fail silently, or succeed with garbage.
+- **The concat demuxer needs identical encoding parameters** across inputs (resolution, frame rate, codec, profile, level). Disparate inputs go through `-filter_complex concat=…` with a re-encode.
+- **Long concats of slightly mismatched frame rates drift out of sync.** Normalise all inputs first, or use `-async 1`.
+- **The default `aac` encoder tops out around 256 kbps.** `libfdk_aac` is materially better but not in every build; check with `ffmpeg -codecs | grep aac` before relying on it.
+- **`-vsync` is deprecated in favour of `-fps_mode`;** older recipes break silently.
+- **For Pieces, encode in software** unless the Maker has checked that the hardware path (`videotoolbox`, `cuda`, `vaapi`) holds quality for the brief.
 
 ## Recipes
 

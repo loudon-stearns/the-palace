@@ -80,13 +80,9 @@ Two behaviors look alike and must not be conflated inside the Weave worker. **Un
 
 ## Who the Workers Should Be (2026-09-24)
 
-Loudon asked whether the weave's errors came from running its workers as children rather than elders. It was tested the same day, with the rule fixed before any result came back: the same 10 rooms were rerun as children, as schema-only readers, and as grown elders, and blind elder judges checked every sampled proposal against the files.
+Loudon asked whether the weave's errors came from running its workers as children. The same day the same ten rooms ran three ways, as children, as schema-only readers and as grown elders, with blind judges checking samples against the files. Growing up did not help: 71% of sampled proposals were invalid in both arms, and elders cost about 16% more. Most errors were the harness's. The catch-up counted symmetric links one way, and workers never saw the links a pair already had; fixing both took duplicates from 13% to 2% and the judged invalid rate from 78% to 64%.
 
-**Growing up the workers didn't help.** The elder arm was no better than the children (71% of sampled proposals invalid in both) and cost about 16% more per worker. Schema-only leaned best but missed the fixed bar. What the judges' notes found instead was that most errors were the harness's. The catch-up counted symmetric links one way, so it sent walk workers after entries that were already joined. Workers were never shown the links a pair already had. Fixing that (counting *reach*, showing each member's existing links in both directions, "read both pages first", the fidelity test on every relation) took duplicates from 13% to 2% and the judged invalid rate from 78% to 64%.
-
-**What remained was judgment: forced or passing links**, about half of what even the fixed run proposed, and no change to what workers read touched it. Every correction that day came from a *second* reader: the Concierge's cold read, the blind judges, a rerun that re-found a link the coordinator had wrongly declined, and a skeptic pass that refuted 33 of 82 batch candidates. The first readers never caught their own. That is [[No Mind Checks Itself]] running in the weave itself.
-
-So the working shape, to be re-tested before it becomes a rule: workers stay children, with the fixed harness and the SCHEMA card; **an adversarial skeptic stage** sits between the fan-out and the synthesis, for anything that will be signed in a batch; and the Concierge reads the decision surface cold before Loudon does. The full record, with the numbers, is in `_ops/swarm/sessions/weave-2026-09-24/ab/RESULT.md`.
+What remained was judgment, forced or passing links, and only second readers caught it: the Concierge's cold read, the blind judges, a rerun, a skeptic that refuted 33 of 82 candidates ([[No Mind Checks Itself]]). So workers stay children with the fixed harness and the SCHEMA card, a skeptic stands between the fan-out and the synthesis, and the Concierge reads the decision surface before Loudon. The numbers are in `_ops/swarm/sessions/weave-2026-09-24/ab/RESULT.md`.
 
 **One link per pair.** The same weave settled a curation guideline: a pair of entries carries one typed link. Where a specific link already exists, a weaker one isn't added. Where a generic `connects-to` exists, it is retyped in place. Lineage reciprocals are the exception (`spawned` ↔ `emerged-from`, `enables`), and only where the lineage is direct: a *diffuse* origin (`emerged-from`) doesn't earn a `spawned` back.
 
@@ -259,6 +255,10 @@ The reflex is asymmetric — an agent reaches for memory by habit — so this st
 ### From Step 6.5: Lint link directions
 
 Three of them are the health scans behind Steps 2 and 5c: `lint-ghost-links.py` surfaces dead body wikilinks (flag-only — a ghost may be an invitation, so it never gates), `lint-bundle-hygiene.py` flags demotion candidates (an invalid `type:` is a hard error; canon-frontmatter-in-a-bundle is a judgment warning), and `face-audit.py` lists the canon entries missing a face, for the face batch. The first two *detect* and the mind rules each finding; the face list asks for no ruling, only prompts and Loudon's yes to the batch.
+
+## The Skeptic's Pass Rides the Batch (2026-11-08, v2.3)
+
+Step 3d called every pair carrying two specific links a judgment for Pile B. The November weave, a focused run on the open flags, folded about twenty such pairs — a hub's `spawned` beside the member's `member-of`, mostly — and they rode the sampled batch, because an Opus skeptic had read both pages and passed each one and the direction followed SCHEMA (membership is declared on the member side). The Concierge's cold read named the gap between the card and the practice. Rather than send twenty skeptic-passed folds to Loudon's eye, v2.3 says what the run did: a pair judgment the skeptic has passed rides the batch; one it refused goes to Pile B. The skeptic stage is what makes that honest (tuning item 63).
 
 ## Open Questions
 

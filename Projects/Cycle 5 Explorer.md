@@ -14,7 +14,7 @@ forward_vector: "I am a decoder ring for harmony, and I want to be the page Loud
 links:
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
-    label: one-structure-four-casts
+    label: one-structure-cast-many-ways
   - target: "[[Objects to Think With]]"
     type: exemplifies
     label: the-window-made-handleable
@@ -36,15 +36,14 @@ links:
   - target: "[[Inharmonic Wavetable Synthesis]]"
     type: contrasts-with
     label: scale-from-the-spectrum-vs-scale-from-the-line
-  - target: "[[Rational Hearing]]"
-    type: couples-with
-    label: the-fifth-heard-and-the-fifth-walked
   - target: "[[Cycle 5 Explorer — Context]]"
     type: spawned
     label: the-model-in-full
 ---
 
 # Cycle 5 Explorer
+
+![[Cycle 5 Explorer — hero.png]]
 
 A decoder ring for harmony. Turn the rings, hear the change.
 

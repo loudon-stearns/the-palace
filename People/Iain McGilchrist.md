@@ -26,6 +26,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: made-citizen
   - target: "[[Frequency Domain ↔ Perspective Shift]]"
     type: connects-to
     label: two-modes-of-attention

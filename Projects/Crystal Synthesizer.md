@@ -15,16 +15,12 @@ links:
     type: deepens
   - target: "[[Quantum Synthesizer]]"
     type: mirrors
-  - target: "[[Boundary-Crossing Instruments]]"
-    type: enables
-  - target: "[[Harmonicity and Inharmonicity]]"
-    type: couples-with
+    label: eigenmodes-as-partials
   - target: "[[Dispersion]]"
     type: emerged-from
   - target: "[[Differential Equations]]"
     type: deepens
-  - target: "[[Signal-Rate CV Architecture]]"
-    type: mirrors
+    label: lattice-as-constraint
   - target: "[[The Metaphor Stretch]]"
     type: spawned
     label: midwifed
@@ -37,6 +33,12 @@ links:
   - target: "[[Biomechanical Synthesis]]"
     type: exemplifies
     label: instrument-two-built
+  - target: "[[Crystal Synthesizer — Context]]"
+    type: spawned
+    label: rationale-archive
+  - target: "[[Harmonicity and Inharmonicity]]"
+    type: deepens
+    label: symmetry-sets-the-spacing
 forward_vector: "I will become a synthesizer that makes audible the optical properties of crystals."
 ---
 

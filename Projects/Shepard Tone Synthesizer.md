@@ -13,10 +13,15 @@ who_leads: loudon
 links:
   - target: "[[Portamento and Physical Pitch Modeling]]"
     type: deepens
+    label: glide-the-whole-stack
   - target: "[[Frequency-Time Duality]]"
     type: connects-to
+    label: time-domain-twin
   - target: "[[Hyperdimensional Prism]]"
     type: mirrors
+  - target: "[[Shepard Tone Synthesizer — Context]]"
+    type: spawned
+    label: rationale-archive
 forward_vector: "I want to become a fully staged teaching instrument — the psychoacoustic illusion as a progressive revelation, where Stage 1 is the simplest possible Shepard tone and each subsequent stage adds one layer of physical or perceptual complexity. My development alongside my own Theory — Octave Equivalence section is not optional: the theory and the instrument should grow together, each stage of the synthesizer paired with a corresponding theory section that explains what you're hearing and why."
 ---
 
@@ -159,6 +164,7 @@ It also reinforces an important psychoacoustic insight: the Shepard tone proves 
 5. **Microtuning**: The Shepard effect relies on octave equivalence, which is assumed in equal temperament. What happens in other tuning systems? Could this be extended to other interval cycles (fifths, thirds)?
 
 6. **An auditory illusions series?** The Shepard tone is an auditory barber pole, and it has siblings, each a visual illusion moved into sound: Risset's accelerating rhythm (the Shepard tone in the time domain), digital aliasing as the wagon wheel (frequencies above Nyquist folding back like undersampled spokes), the continuity illusion (a tone heard through the noise that covers it, like a Kanizsa edge), and auditory streaming (one tone sequence heard as one melody or two, Rubin's vase in sound). Each could be its own small build — does the family want its own entry, [[Auditory Illusions]]?
+   — progressed: the family has its entry, [[Auditory Illusions]] (2026-11-08), which places Risset's rhythm on the Frequency-Time Duality axis, sends the wagon wheel back to sampling, and pairs continuity and streaming with closer visual twins than this question did.
 
 ## Theory — Octave Equivalence
 

@@ -15,8 +15,6 @@ links:
   - target: "[[Registry Pattern]]"
     type: spawned
     label: "distilled-from"
-  - target: "[[Loudon Live]]"
-    type: enables
   - target: "[[VCV Patch Generator — spec — PDL generation prompt]]"
     type: spawned
     label: "left-to-right-half"

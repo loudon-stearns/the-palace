@@ -21,12 +21,8 @@ links:
   - target: "[[Loudon Live]]"
     type: connects-to
     label: weekly-cadence
-  - target: "[[4 Pillars Framework - The Founding Conversation]]"
-    type: emerged-from
   - target: "[[Cooperation Yields Agency]]"
     type: mirrors
-  - target: "[[Enchanted Worker]]"
-    type: deepens
   - target: "[[Quality Manifesto]]"
     type: couples-with
     label: born-in-the-same-conversation

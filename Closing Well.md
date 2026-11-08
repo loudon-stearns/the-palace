@@ -7,7 +7,7 @@ pillars:
   - tools
 born: 2026-05-26
 stage: mature
-version: "1.17"
+version: "1.19"
 trigger: ["close well", "let's close well", "close this session well"]
 links:
   - target: "[[Maker]]"
@@ -213,6 +213,21 @@ The four beats at session scale, with the moderator carrying the parts a spent r
 *This session is closed well.*
 
 It is the working Claude's, and nothing comes after it — no tool call, no landing, no question; in the desktop app it is the last line of the message that follows the wrap-up. It is said only in the turn that finishes the close: while an assented row still waits on his yes, the line waits too, and ends the turn that lands it. A movement close does not say it. A session can close and then carry on — often nobody knew it was the middle until there was more to do — so a later close counts: the second ends on *This session is closed well, for the second time.*, the third on *…for the third time.*, and so on. Count the closed-well lines already in the session.
+
+### Postconditions
+
+A session close has ended when all of this is true. Each line is said elsewhere on this page or on the card; here they stand in one place.
+
+1. A fresh moderator read the day: the resident [[Concierge]] resumed, or a cold dispatch given `--session <id>`. The working Claude did not grade its own arc, unless one of the card's two named exceptions held and the close says which.
+2. Loudon said the reckoning was true, or changed it. Nothing he left unanswered was answered for him.
+3. Every assented row went through its own rite and was checked where it landed: a keep through the [[Deposit Ceremony]], a hand-on through the [[Baton Ceremony]], a trace in its bundle. Every `prepared` branch landed on his yes or was set down by him. "Deposit: none" is a complete close.
+4. Every baton the session caught is closed on the board, in full or `--partial`.
+5. The punchlist named what could not be verified, and the [[Closing Well — tuning|tuning ledger]] has the close's run line. A lesson that changed the spec is a numbered item there.
+6. The session's last words are the closed-well line, counted, in the turn that finished the close.
+
+A movement close keeps 2, 5 and the honest punchlist. Its placing belongs to the ceremony that is finishing, and it says no line.
+
+**When it goes sideways:** a resident that has gone silent is summoned again, or the close takes Path B, and says which. An executor cut off mid-report has the tree checked before its last sentence is believed.
 
 ### Scope — the practice runs at two scales
 

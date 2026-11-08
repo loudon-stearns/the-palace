@@ -46,6 +46,8 @@ links:
 
 # Resonance and Damping
 
+![[Resonance and Damping — hero.png]]
+
 Push a child on a swing. Push at the swing's own rate and every push adds to the last; push at any other rate and half your pushes fight the swing. That is resonance: a thing that wants to move at one rate answers that rate far more than any other. Now stop pushing. The swing keeps going, a little lower each time, until it hangs still. That is damping: how fast a thing forgets.
 
 Every resonant filter, every plucked string, every bell and every vowel is these two facts together. A synthesizer's resonance knob, a waveguide's loss filter and a guitar's wooden body are three ways of setting the same two numbers.

@@ -6,8 +6,6 @@ medium: sound
 tool: kokoro
 tool_version: 0.9.4
 born: 2026-05
-last_tested: 2026-05-26
-last_gotcha: 2026-05-26
 license: Apache-2.0
 forward_vector: "I speak text into clean, loudness-correct WAV and report exactly what landed and what missed — and I want to grow an ear for prosody beyond punctuation so the Maker stops hand-tuning my phoneme overrides for every technical word."
 links:
@@ -161,23 +159,24 @@ Dispatch by calling the venv's Python directly: `~/.venvs/kokoro/bin/python <scr
 
 ## Gotchas
 
-**2026-05-10 — Python 3.13 install fails on `blis`/spaCy compile.** Kokoro's transitive deps reach `spacy → thinc → blis`. On Python 3.13 the blis wheel build fails (clang errors during native compile). Python 3.12 has prebuilt wheels for the entire dependency tree. Use 3.12.
+What narrating with Kokoro has taught, as it stands today. Which job taught each, and what changed because of it, is in [[Kokoro — tuning]].
 
-**2026-05-10 — Voice IDs.** `af_heart` (Sketch default, the README's warm default), `af_bella` (Study; in the catalog, not yet tested at that tier), `af_nicole`, and the rest of the published catalog as of `kokoro` 0.9.4. There is no `af_default`.
+**Install**
+- **Use Python 3.12.** On 3.13 the `blis` build under spaCy fails; 3.12 has prebuilt wheels for the whole tree.
 
-**2026-05-10 — Output sample rate is 24 kHz, not configurable below.** Kokoro 0.9.4 renders natively at 24 kHz mono. If 16 kHz is genuinely needed for a video-sync downstream, do it via `ffmpeg -ar 16000` in the Maker's delivery pipeline rather than inside Kokoro.
+**Calling it**
+- **Kokoro is a Python API, not a CLI.** `KPipeline(lang_code='a')(text, voice=..., speed=...)` yields `(graphemes, phonemes, audio)` per chunk. Dispatch a small script, and concatenate the chunks, with any inter-sentence silence, before writing the WAV.
+- **Convert the audio defensively.** Some versions yield numpy arrays, others torch tensors: `audio.detach().cpu().numpy() if hasattr(audio, 'detach') else np.asarray(audio)`.
+- **Name a real voice.** `af_heart` is the Sketch default; `af_bella`, `af_nicole` and the rest of the 0.9.4 catalog exist; there is no `af_default`. `af_bella` has not yet been heard at Study tier.
+- **Output is 24 kHz mono.** For 16 kHz, resample downstream with `ffmpeg -ar 16000`, not inside Kokoro.
 
-**2026-05-10 — API surface is `KPipeline`, not a CLI.** Kokoro 0.9.4 exposes a Python `KPipeline(lang_code='a')(text, voice=..., speed=...)` generator yielding `(graphemes, phonemes, audio)` per chunk, so the Maker dispatches a small Python script that imports `KPipeline`. Concatenate the per-chunk audio (with optional inter-sentence silence) before writing the WAV.
+**Pronunciation and prosody**
+- **Phoneme overrides are IPA, not ARPABET.** misaki reads `[word](/…/)` as IPA-like phonemes (`ə ɹ ʌ ɛ`, stress `ˈ ˌ`, `O` for /oʊ/, `A` for /eɪ/); ARPABET passes through literally and comes out garbled. Get the canonical phonemes with `from misaki import en; en.G2P()(word)[0]`. Kuramoto is `[Kuramoto](/kˌuɹəmˈOtO/)`. The `/HH AH/` example under Capabilities is ARPABET; don't copy it.
+- **Put commas around a bare variable letter.** "The coupling constant, K, is…" — without the breaks the letter runs into the next word. Fix it in the text, not with overrides.
 
-**2026-05-26 — misaki phoneme overrides use IPA, not ARPABET.** Kokoro 0.9.4 ships with the misaki G2P front-end. The Specialist entry's `[word](/HH AH/)` example reads as ARPABET but misaki's actual phoneme language is IPA-like (Unicode characters `ə`, `ɹ`, `ʌ`, `ɛ`, stress markers `ˈ` `ˌ`, plus shorthand `O` for /oʊ/ and `A` for the letter K-style /eɪ/). Passing ARPABET through `[word](/K UH R AH M OW T OW/)` causes misaki to leave the string in the phoneme stream literally — Kokoro then attempts to synthesize the spelled-out letters, producing garbled audio. Fix: pass real IPA. For "Kuramoto," the working override is `[Kuramoto](/kˌuɹəmˈOtO/)`. Probe misaki's dialect for any unfamiliar word with `from misaki import en; en.G2P()(word)[0]` — that returns the canonical phonemes the model expects.
-
-**2026-05-26 — Bare variable letters (K, R, ψ) in prose narration need punctuation breaks to sound like speech.** A sentence like *"The coupling constant K is phrasing density"* runs the letter K into "is" without breath, producing a clipped, unnatural read. Fix is plain punctuation: *"The coupling constant, K, is phrasing density"* — commas around the variable letter give misaki a prosody boundary on each side. Em-dashes work too (`-- K --`) but commas are more natural in narration prose. Loudon's note from the first sync-arriving review: *"whenever you have a voiceover that includes a variable like K, more pause is needed before the variable name for it to sound like natural speech."* The fix lives in the input text, not the phoneme overrides — no IPA work needed.
-
-**2026-05-26 — pyloudnorm alone cannot hit Study spec; a true-peak limiter is required.** Kokoro 0.9.4 output (af_heart, 24 kHz mono) at default speed lands at ≈−25.6 LUFS pre-normalization, with a crest factor high enough that simple gain-up to −16 LUFS pushes peaks above −1 dBTP. `pyloudnorm` only does gain-shift, so its true-peak ceiling clamp pulls the final integrated loudness back down to ≈−22 LUFS — a Self-Check `spec_miss`. The working pattern is **two-pass ffmpeg `loudnorm`**: pass 1 measures `input_i / input_tp / input_lra / input_thresh / target_offset`, pass 2 applies with `measured_*` filled in plus `linear=true`. Two-pass loudnorm has a built-in true-peak limiter and lands within ~0.1 LUFS of target while honoring TP ≤ −1 dBTP. See `Kuramoto Coupling/speech-rhythm-and-groove-narration-study.py` for the reference implementation.
-
-**2026-05-26 — Self-Check correctly fires `spec_miss` outside ±0.5 LUFS — verified.** The standing assertion from the Specialist entry that Kokoro's Self-Check would catch loudness misses was unverified before this job. The first Study-tier render landed at −22.36 LUFS (single-pass pyloudnorm hitting the TP clamp) and the script returned `status: spec_miss` correctly. The verification path: render → measure → compare to target ±0.5 LUFS → emit `spec_miss` if outside. The check also needs a small (~0.1 dB) rounding tolerance on the true-peak ceiling so that a delivered TP printed as exactly `-1.00 dBTP` isn't flagged spuriously when the underlying value is microscopically above the limit.
-
-**2026-05-10 — Audio is `numpy.ndarray | torch.Tensor` depending on version.** Some Kokoro versions yield numpy arrays directly; others yield torch tensors. Defensive: `audio.detach().cpu().numpy() if hasattr(audio, 'detach') else np.asarray(audio)`. See `speech-rhythm-and-groove-narration.py` for the working pattern.
+**Loudness**
+- **Normalize with two-pass ffmpeg `loudnorm`, not `pyloudnorm`.** Raw output sits near −25.6 LUFS with a high crest factor, so gain alone hits the −1 dBTP ceiling and stalls near −22 LUFS. Pass 1 measures; pass 2 applies the `measured_*` values with `linear=true` and lands within ~0.1 LUFS. Reference: `Kuramoto Coupling/speech-rhythm-and-groove-narration-study.py`.
+- **Trust the Self-Check's `spec_miss` outside ±0.5 LUFS,** and give the true-peak ceiling ~0.1 dB of rounding tolerance so a printed −1.00 dBTP isn't flagged.
 
 ## Recipes
 

@@ -115,7 +115,7 @@ This is not a bug — it defines the creative territory.
 
 ### Seven Methods to Introduce Inharmonicity
 
-All seven work by introducing aperiodicity into the signal path, modulation, or layering — never by escaping the harmonic substrate itself.
+Four of the seven leave the harmonic series, because something besides the one period sets the timing: a second oscillator (2, 6), a second clock (4) or random grain timing (5). Three keep one fixed period, so by [[Three Kinds of Warp]]'s one-period read they reshape the harmonics rather than leave them (1, 3, 7); method 3 leaves only when a non-integer LFO drives the distortion, which is a second clock.
 
 1. **Frozen spectral snapshots** — take a bell's attack transient, freeze a spectral moment, use additive synthesis to reconstruct only that frame as a single waveform. Looped, it sounds periodic but with a complex harmonic envelope that perceptually suggests the original. Works best at lower pitches, slower attacks.
 

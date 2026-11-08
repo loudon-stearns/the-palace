@@ -48,6 +48,8 @@ links:
 
 # The Gallery
 
+![[The Gallery — hero.png]]
+
 A complete, walkable line of Loudon's professional and creative life, which is also the archive of as much of what he made as can be found: records, pieces, courses, papers, instruments, patches, shows, tools, talks. Each work gets a page; each page links forward into the palace idea it seeded. The 2014 paper in [[Meaning and the Link]] is the intellectual ancestor of the whole house; the [[Synthesis Notes (Loudon)]] seeded [[Synth Templates]]. Read that way, the timeline is the root system under the palace, not a résumé.
 
 Loudon's order, 2026-11-03: *make the system, then fill it as much as possible, then move to interviews of me and collaborators.* Everything here is public-facing, the interviews included.

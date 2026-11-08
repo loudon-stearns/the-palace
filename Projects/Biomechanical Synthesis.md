@@ -16,12 +16,11 @@ links:
   - target: "[[Hilaritas Generator]]"
     type: connects-to
     label: delight-by-recognition
-  - target: "[[Granular Synthesis]]"
-    type: connects-to
   - target: "[[Kuramoto Coupling]]"
     type: couples-with
   - target: "[[Frequency-Time Duality]]"
     type: connects-to
+    label: firing-rate-crosses-into-tone
   - target: "[[Compressor Design]]"
     type: connects-to
     label: visceral-dsp

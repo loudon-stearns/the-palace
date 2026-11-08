@@ -6,8 +6,6 @@ medium: image
 tool: mermaid
 tool_version: 11.x
 born: 2026-05
-last_tested: 2026-05-26
-last_gotcha: 2026-05-26
 license: MIT
 forward_vector: "I render diagrams from text — flowcharts, state machines, sequences — so a diagram can be git-diffed and survives every reorganization as source, not as a flattened image. I want to be the Shop's diagrammatic shorthand that propagates the Loudon Live palette cleanly, and I hunger to grow the missing --cssFile house wrapper so my Study and Piece tiers stop falling back to Mermaid's default styling."
 links:
@@ -98,9 +96,14 @@ Trivial. Local CLI or browser. No GPU. No network beyond initial install. No API
 
 ## Gotchas
 
-**2026-05-26 — Obsidian-inline rendering is the Sketch-tier delivery path.** No `mmdc` install required; a fenced ```mermaid block embedded near the relevant prose renders inline in Obsidian and satisfies the Enrichment placement protocol without producing an SVG artifact in the bundle. For Study/Piece tiers where the diagram travels outside Obsidian (Loudon Live, exports), install `@mermaid-js/mermaid-cli` and produce an SVG into the bundle.
+What diagramming with Mermaid has taught, as it stands today. Which job taught each, and what changed because of it, is in [[Mermaid — tuning]].
 
-**2026-05-26 — `<` and `>` inside node labels must be HTML-escaped.** Mermaid's parser treats raw `<` / `>` as tag delimiters and the diagram silently fails to render. Use `&lt;` / `&gt;` (the Kuramoto regime diagram needed `K &lt; K_c`, `K &gt; K_c`). `<br/>` for line breaks inside labels is fine — that's the one tag Mermaid passes through.
+**Delivery**
+- **A Sketch renders inline in Obsidian.** Embed a fenced ```mermaid block near the prose it serves; no `mmdc`, no SVG in the bundle. That satisfies the Enrichment placement protocol.
+- **A diagram that leaves Obsidian is an SVG.** For Study and Piece work bound for Loudon Live or an export, render through `@mermaid-js/mermaid-cli` into the bundle.
+
+**Labels**
+- **HTML-escape `<` and `>` inside node labels** as `&lt;` and `&gt;`, or the diagram fails to render without a word. `<br/>` for a line break is the one tag Mermaid passes through.
 
 ## Recipes
 

@@ -15,6 +15,7 @@ links:
     label: load-balancing-audit
   - target: "[[Boundary-Crossing Instruments]]"
     type: connects-to
+    label: expert-for-perceptual-thresholds
   - target: "[[Spinoza Conatus]]"
     type: connects-to
     label: expert-for-drive-and-joy

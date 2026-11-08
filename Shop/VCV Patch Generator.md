@@ -6,8 +6,6 @@ medium: sound
 tool: vcv-patch-generator
 tool_version: registry v2.4 + archetypes v0.1 (2026-05-29)
 born: 2026-05
-last_tested: 2026-05-29
-last_gotcha: "kick needs two ADSRs declared (amp_env + pitch_env) or the copy constraint has nothing to bind — a one-ADSR kick loads but lands without the pitch-drop punch"
 license: VCV Rack 2 (free); plugins per their own terms
 forward_vector: "I emit Rack-loadable `.vcv` patches from a Patch Description Language, the registry pattern keeping every module reference real so nothing hallucinates. I want to grow the archetype library as the registry grows — noise unlocks the hat and the noise-hit I withheld from v1 — and I hold open my standing seam: I prove structure, never sound, so the audio audition stays the one human step I keep reaching toward closing."
 links:
@@ -28,6 +26,7 @@ links:
     label: generation-prompt
   - target: "[[Web Audio Worklet]]"
     type: connects-to
+    label: test-plan-exemplar
   - target: "[[Audition Gate]]"
     type: exemplifies
     label: proves-structure-not-feel
@@ -139,14 +138,21 @@ Two grains of control now sit above raw numbers: named regions (`* FILT: CUTOFF 
 
 ## Gotchas
 
-- **(2026-05-29, first job) `kick` needs two ADSRs declared.** The `kick` archetype's punch is a `copy` constraint binding `pitch_env.D` to `amp_env.D` — if the PDL declares only one envelope, the `pitch_env` role goes unfilled, the resolver warns, and the patch loads *without the pitch drop*. It still makes sound; it just isn't a kick. Declare `@AMP_ENV = ADSR` **and** `@PITCH_ENV = ADSR` (the names the convention map infers) and route the pitch envelope to `OSC:FM`. The kick recipe in the bundle shows the shape.
-- **(2026-05-29, audition) A correct patch with all modulation depths at zero doesn't move.** The v0.1 archetypes set destination knobs but left attenuverters (`VCF.FREQ_CV`, `VCO.FM_DEPTH`) at their zero defaults, so cabled modulation was silent. The audition fix raised `VCF.FREQ_CV` to ≈0.38 (pluck) / ≈0.03 (pad). T7c folds depth into the param clouds; until a brief is on v0.2, hand-set the attenuverter on any `*` line that has a modulation cable into it.
-- **(2026-05-29, audition) `FREQ = sub`/`low` fights the keyboard on a MIDI-tracked voice.** A static multi-octave FREQ offset stacks on incoming pitch and detunes the played note. For a played instrument keep base FREQ at keyboard-tracking (0) and get "sub" from register + envelope. (Tuning offsets are for drones/unplayed voices.)
-- **(2026-05-29, audition) Pads are polyphonic and the pipeline isn't yet.** `MIDIToCVInterface` emits one channel; VCV poly lives in the module `data` blob the emitter writes as `{}`. A pad/chord patch is monophonic until that's addressed — flagged as a roadmap axis, not yet built.
-- **(2026-05-29, T7d) Layout is now two-row by default.** Emitted patches place MIDI hard-left, the audio path left→right in signal order, and modulators (ADSR/LFO/SEQ3) on the row below — matching the hand-arrangement Loudon's audition produced. Rows are derived from registry shape + topological depth, so a newly-registered module lands sensibly without a layout rule. Bespoke layout still happens in Rack; this just makes the default workflow-ready.
-- Custom VCV plugins drift; a registry pinned to a specific plugin version may break when the plugin updates. Pin plugin versions when archiving Piece-tier work
-- Parameter values outside registry-declared ranges currently warn and fall back to default; this is conservative behavior worth keeping but the Maker should verify the warning was intended
-- The embedded `<script id="vcv-registry">` / `<script id="archetypes">` blocks in `PDL Renderer.html` mirror the on-disk JSON files — a data change has to land in *both* copies or the renderer and the Node harnesses disagree (this is how the v2.4 SEQ3 STEPS-index bug hid)
+What generating and auditioning patches has taught, as it stands today. Which job taught each, and what changed because of it, is in [[VCV Patch Generator — tuning]].
+
+**Archetypes and voices**
+- **A `kick` needs two ADSRs declared:** `@AMP_ENV = ADSR` and `@PITCH_ENV = ADSR` (the names the convention map infers), with the pitch envelope routed to `OSC:FM`. With one, the `copy` constraint has nothing to bind; the patch loads and sounds, without the pitch drop. The kick recipe in the bundle shows the shape.
+- **Set modulation depth, not just the destination.** Archetypes v0.2 (T7c) set attenuverters in their param clouds. On v0.1, or on any hand-written `*` line with a modulation cable into it, set the attenuverter (`VCF.FREQ_CV`, `VCO.FM_DEPTH`) yourself: at zero the cable moves nothing.
+- **On a played voice, keep base FREQ at keyboard-tracking (0).** A static `FREQ = sub` or `low` stacks on the incoming pitch and detunes the note; get "sub" from register and envelope. Tuning offsets are for drones and unplayed voices.
+- **Pads and chords come out monophonic.** `MIDIToCVInterface` emits one channel, and VCV keeps poly in the module `data` blob, which the emitter writes as `{}`. Polyphony is a roadmap axis, not built.
+
+**Layout**
+- **Emitted patches are two-row by default:** MIDI hard-left, the audio path left to right in signal order, modulators (ADSR, LFO, SEQ3) on the row below. Rows derive from registry shape and topological depth, so a newly registered module lands without a layout rule. Bespoke layout still happens in Rack.
+
+**Registry and data**
+- **Pin plugin versions when archiving Piece-tier work.** Custom VCV plugins drift, and a registry pinned to one plugin version can break when the plugin updates.
+- **An out-of-range parameter warns and falls back to the default.** Keep that conservative behaviour, and check the warning was intended.
+- **A registry or archetype change lands in both copies:** the on-disk JSON and the embedded `<script id="vcv-registry">` / `<script id="archetypes">` blocks in `PDL Renderer.html`. Change one and the renderer and the Node harnesses disagree; that is how the v2.4 SEQ3 STEPS-index bug hid.
 
 ## Recipes
 
@@ -180,4 +186,4 @@ The Determinism test is straightforward and load-bearing: same PDL + same regist
 
 First job ran 2026-05-29 — the T7b archetype audition, Piece-tier: kick / warm_pad / pluck at `#seed=1`, emitted through the real code path, structurally verified, staged in the bundle. The one piece it couldn't close itself is the audio audition; I keep that open as the standing reminder that I prove structure, not sound. **Next, in order:** (1) close the audition — load the three on a Mac, confirm they're distinct on first load, write the gotcha that surfaces. (2) Take a brief expressed in natural language through the upstream T6 prompt and feed me the PDL it produces, calibrating the prompt-to-PDL boundary and surfacing the first registry-coverage gaps. (3) Keep growing the archetype library as the registry grows — a noise module unlocks `noise_hit` and `hat`, which I deliberately withheld from v1 because Fundamental has no noise source. My standing question: the natural-language → PDL prompt now lives in my bundle — does the Maker keep running it and handing me PDL, or do I eventually run it myself?
 
-— progressed: step (1) happened — Loudon's first Rack audition on 2026-05-29; the three `(2026-05-29, audition)` gotchas above record what it found, and [[Generative Audio Devices]] built T7c from it. What stays open is the standing seam: I prove structure, not sound (2026-10-24)
+— progressed: step (1) happened — Loudon's first Rack audition on 2026-05-29; the three audition items in [[VCV Patch Generator — tuning]] record what it found, and [[Generative Audio Devices]] built T7c from it. What stays open is the standing seam: I prove structure, not sound (2026-10-24)

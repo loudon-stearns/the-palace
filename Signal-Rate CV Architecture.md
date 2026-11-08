@@ -13,6 +13,7 @@ forward_vector: "I want to become the principle that dissolves the boundary betw
 links:
   - target: "[[Action Potential Oscillator]]"
     type: enables
+    label: every-parameter-a-jack
   - target: "[[Boundary-Crossing Instruments]]"
     type: mirrors
   - target: "[[Biomechanical Synthesis]]"

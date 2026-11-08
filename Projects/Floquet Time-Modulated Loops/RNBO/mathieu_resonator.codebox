@@ -52,7 +52,7 @@
 // q_depth:        modulation depth, 0..1. Threshold for n=1 tongue
 //                 with the canonical 2:1 pumping is approximately
 //                 q_depth ≈ 4 * damping_zeta — for zeta = 0.025
-//                 (Q ≈ 33) threshold sits near 0.10.
+//                 (Q ≈ 20) threshold sits near 2ζ ≈ 0.05.
 // mod_rate_ratio: the modulation frequency divided by omega_0. The
 //                 canonical Mathieu form has mod_rate_ratio = 2.0
 //                 (pump at twice the natural frequency).  Other ratios
@@ -139,7 +139,7 @@ out2 = tanh(v) * gain;
 //    [noise~] at noise_level = 0.001. The output should be a clean
 //    band-passed ring at 220 Hz with the Q set by damping_zeta. Spec
 //    analyzer should show a single peak. With damping_zeta = 0.025,
-//    Q ≈ 33 — a slightly woody resonator.
+//    Q ≈ 20 — a slightly woody resonator.
 //
 // 2. Below-threshold modulation.  q_depth = 0.05, mod_rate_ratio = 2.0.
 //    Output should be a dim noise-driven ring. The system is in the

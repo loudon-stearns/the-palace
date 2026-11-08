@@ -26,8 +26,6 @@ links:
   - target: "[[Shepard Tone Synthesizer]]"
     type: deepens
     label: timbral-source
-  - target: "[[Generative Audio Devices]]"
-    type: couples-with
   - target: "[[Floquet Theory]]"
     type: connects-to
     label: time-periodic-modulation
