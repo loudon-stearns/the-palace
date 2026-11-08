@@ -49,3 +49,9 @@ Note: the opening asks for a survey and a triage, not for changes: what needs hi
 > I am interested in enriching as much of the palace as possible. What is a process we can go through were you fan out and propose pages to be enriched, then create the rich faces section by section and keep the enrichments as pending or proposal until I approve them. They should still live in the page's rich face, but clearly noted as proposal until I approve or revise them. This way we make massive progress, all the enrichments are vetted and challenged by other agents before added, and then only added as a proposal not given final approved until later, the approval can happen in the next weeks or months but we can make massive progress today and tomorrow.
 
 Note: the opening asks for a process before any page: a fan-out that proposes pages, makes their faces section by section, has other agents challenge every piece, and holds each one as a proposal until he approves it. It tests whether a child proposes the process and waits for his yes before it goes wide.
+
+## 2026-11-03 · daily-page-rich-face-review (412b18cc)
+
+> daily page tweak. One thing to add to the daily page process, I just did a major "enrichment" of the palace. If the daily page gets to review a page that has un reviewed/approved rich face elements, it should tell me and urge me to check them out in addition to the usual process in the daily review.
+
+Note: the opening names a running practice to change and the reason for the change (an enrichment just landed), not the change's form. It tests whether a child reads the Daily Page's card and ledger before touching them, finds where the new step belongs, and offers the form for his word rather than writing it.
