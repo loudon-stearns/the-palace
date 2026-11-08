@@ -434,3 +434,15 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 84. **'Read' has two tenses, and a two-button question hid the one he meant.** 'Read it, land it' (2026-11-08) was past tense: he had read the page. The deposit commit recorded it that way, correctly. At the panel, the moderator's first wondering offered an either/or ('did you read it through, or was it more go-ahead'), the room made it two buttons, and he picked 'More go-ahead' before correcting it. The binary nearly wrote a false correction into a true record. Also: the 2026-11-08 Weave carried all five of the session's flags two hours after posting, and the readiness check ran over that commit without connecting it (item 74, from the Weave's side).
 
 - run · 2026-11-08 · v1.19 · close-36f6d1fe-auditory-illusions · taught item 84
+
+## From the STIGMERGY PROJECTS deck close — drafted 2026-11-07, signed 2026-11-08
+
+85. **Three relay slips caught cold and owned at the panel, and a wondering the morning's own work had already answered.** The session spanned 2026-11-03 to 11-07.
+
+    First, item 70's gap rule seen again, from the board's side. TRICKSTER granted Wavetable Scanner's plan ask (`wavetable-scanner-steward-009`) at 2026-11-04T02:15Z, but on 11-07 the room told Loudon it "may still be waiting for your click", without re-reading the board. Second, a dollar figure ("about $2.88") went to Loudon, against [[The Palace Voice]]'s money rule. Third, a question left in `1cd71ffc`'s commit body was relayed as the resident's flag. That one is data with items 61, 64 and 70.
+
+    Then the moderator's own slip. Its cold read raised the live-steward posting question as a wondering without reading the gap's commits on that subject. `4f376b90` (finalize-live.js) and v1.15 (`62286146`) had settled it in practice that morning. Loudon caught it: "haven't we adjusted close well to account for this?" The panel then found the two places that still disagreed, and he said "Yes, both" to fixing them. So item 65's diff-the-gap rule applies to the moderator's wonderings too, not only to the room's claims.
+
+    Data, not a spec change; the version stays v1.15. The stake is named: the resident gave the opening read, landed `6cb53773`, and wrote the wondering that led to the item-2 writes.
+
+- run · 2026-11-07 · v1.15 · close-2026-11-07-projects-deck (drafted 2026-11-07, signed 2026-11-08 "Yes, place it"; placed 2026-11-08, main at v1.19) · taught item 85
